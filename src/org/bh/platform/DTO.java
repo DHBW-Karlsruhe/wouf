@@ -3,6 +3,7 @@ package org.bh.platform;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -30,7 +31,7 @@ public class DTO<T>{
 	/**
 	 * All children assigned to this DTO.
 	 */
-	protected List<DTO<T>> children;
+	protected List<DTO<T>> children = new ArrayList<DTO<T>>();
 	
 	/**
 	 * Prefix of the methods.
@@ -49,6 +50,7 @@ public class DTO<T>{
 	 * The actual map which contains all values.
 	 */
 	protected Map<String, T> values = new HashMap<String, T>();	
+	
 	
 	/**
 	 * Returns a value assigned to the passed key.
@@ -139,13 +141,18 @@ public class DTO<T>{
 	/**
 	 * Adds a child to this DTO
 	 * @param child
+	 * @throws DTOAccessException 
 	 */
-	public void addChild(DTO<T> child)
+	public DTO<T> addChild(DTO<T> child) throws DTOAccessException
 	{
 		if (!children.contains(child))
 		{
 			children.add(child);
+			return child;
 		}
+		else
+			throw new DTOAccessException("The child is already assigned to this DTO!");
+		
 	}
 	
 	
