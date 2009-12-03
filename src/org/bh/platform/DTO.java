@@ -66,7 +66,13 @@ public class DTO<T>{
 			if (result != null)
 				return result;
 			else
-				throw new DTOAccessException("There is no value assigned to the key: '" + key + "'");
+			{
+				if (availableMethods.contains(key))
+					return invokeMethod(key);
+				else
+					throw new DTOAccessException("There is no value assigned to the key: '" + key + "'");
+			}
+				
 		}
 		// If the key is the name of a method then invoke that method and
 		// return its value
