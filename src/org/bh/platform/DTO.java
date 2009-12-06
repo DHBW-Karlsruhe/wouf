@@ -223,6 +223,7 @@ public class DTO<T>{
 	 * @return
 	 * @throws DTOAccessException
 	 */
+	@SuppressWarnings("unchecked")
 	private T invokeMethod(String key) throws DTOAccessException
 	{
 		// Get all methods
@@ -240,7 +241,7 @@ public class DTO<T>{
 				try
 				{
 					// Invoke method and store result
-					result = (T) method.invoke(this, null);
+					result = (T) method.invoke(this, (Object[]) null);
 				}
 				catch (InvocationTargetException e)
 				{
