@@ -15,7 +15,7 @@ import java.util.Map;
  * @param <T> Type of the values.
  * @param <G>
  */
-public class DTO<T>{
+public class DTO<T> implements IDTO<T> {
 	
 	/**
 	 * Possible keys with which the user can access this DTO.
@@ -51,13 +51,7 @@ public class DTO<T>{
 	 */
 	protected Map<String, T> values = new HashMap<String, T>();	
 	
-	
-	/**
-	 * Returns a value assigned to the passed key.
-	 * @param key - The key of the value.
-	 * @return
-	 * @throws DTOAccessException
-	 */
+	@Override
 	public T get(String key) throws DTOAccessException {
 		// If the key is an actual key then return the corresponding value
 		if (availableKeys.contains(key.toLowerCase()))
@@ -85,12 +79,7 @@ public class DTO<T>{
 			throw new DTOAccessException("The key '" + key + "' is not part of this DTO!");		
 	}
 
-	/**
-	 * Returns a value by means of its position in the map.
-	 * @param pos
-	 * @return
-	 * @throws DTOAccessException
-	 */
+	@Override
 	public T get(Integer pos) throws DTOAccessException {
 		// The position has to be in the range of the availableKey List
 		try {
@@ -110,13 +99,7 @@ public class DTO<T>{
 		}	
 	}
 
-	
-	/**
-	 * Puts a value into the DTO and assigns it to a key.
-	 * @param key
-	 * @param value
-	 * @throws DTOAccessException
-	 */
+	@Override
 	public void put(String key, T value) throws DTOAccessException {
 		if (availableKeys.contains(key.toLowerCase()))
 		{
@@ -126,12 +109,7 @@ public class DTO<T>{
 			throw new DTOAccessException("The key '" + key + "' is not part of this DTO!");
 	}
 
-	/**
-	 * Puts a value to the specified position into the DTO 
-	 * @param pos
-	 * @param value
-	 * @throws DTOAccessException
-	 */
+	@Override
 	public void put(Integer pos, T value) throws DTOAccessException {
 		try {
 			String key = availableKeys.get(pos);
@@ -143,13 +121,8 @@ public class DTO<T>{
 		}		
 	}
 	
-	
-	/**
-	 * Adds a child to this DTO
-	 * @param child
-	 * @throws DTOAccessException 
-	 */
-	public DTO<T> addChild(DTO<T> child) throws DTOAccessException
+	@Override
+	public IDTO<T> addChild(DTO<T> child) throws DTOAccessException
 	{
 		if (!children.contains(child))
 		{
@@ -161,16 +134,10 @@ public class DTO<T>{
 		
 	}
 	
-	
-	/**
-	 * Returns the child at the given position. 
-	 * @param index
-	 * @return
-	 * @throws DTOAccessException
-	 */
-	public DTO<T> getChild(int index) throws DTOAccessException
+	@Override
+	public IDTO<T> getChild(int index) throws DTOAccessException
 	{
-		DTO<T> result = null;
+		IDTO<T> result = null;
 		try
 		{
 			result = children.get(index);
@@ -182,20 +149,13 @@ public class DTO<T>{
 		return result;
 	}
 	
-	/**
-	 * Returns all children assigned to this DTO.
-	 * @return
-	 */
+	@Override
 	public List<DTO<T>> getChildren()
 	{
 		return children;
 	}
 	
-	/**
-	 * Removes a child relation from this DTO.
-	 * @param index
-	 * @throws DTOAccessException
-	 */
+	@Override
 	public void removeChild(int index) throws DTOAccessException
 	{
 		try
@@ -208,10 +168,7 @@ public class DTO<T>{
 		}
 	}
 	
-	/**
-	 * Returns the number of children assigned to this DTO.
-	 * @return
-	 */
+	@Override
 	public int getChildrenSize()
 	{
 		return children.size();
@@ -273,5 +230,10 @@ public class DTO<T>{
 				result++;
 		}
 		return result;
+	}
+	
+	@Override
+	public String toString() {
+		return values.toString();
 	}
 }

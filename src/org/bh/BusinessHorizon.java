@@ -1,7 +1,10 @@
 package org.bh;
 
+import java.util.ServiceLoader;
+
 import org.apache.log4j.Logger;
-import org.bh.platform.DTO;
+import org.bh.platform.IPeriodicalValuesController;
+import org.bh.platform.IPeriodicalValuesDTO;
 import org.bh.platform.PluginManager;
 
 /**
@@ -25,8 +28,11 @@ public class BusinessHorizon {
 	public static void main(String[] args) {
 		log.info("Business Horizon is starting...");
 		
-		// @TODO remove test stuff
 		PluginManager pluginManager = PluginManager.getInstance();
-		pluginManager.getServices(DTO.class);
+		ServiceLoader<IPeriodicalValuesController> controllers = pluginManager.getServices(IPeriodicalValuesController.class);
+		for (IPeriodicalValuesController controller : controllers) {
+			IPeriodicalValuesDTO dto = controller.dummy();
+			log.debug(dto.toString());
+		}
 	}
 }

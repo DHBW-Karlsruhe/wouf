@@ -74,5 +74,26 @@ public class Value {
 	public void setText(String text) {
 		this.text = text;
 	}
+	
+	@Override
+	public String toString() {
+		StringBuilder sb = new StringBuilder();
+		sb.append("{expected=");
+		sb.append(expected);
+		if (min != null) {
+			sb.append(", min=");
+			sb.append(min);
+		}
+		if (max != null) {
+			sb.append(", max=");
+			sb.append(max);
+		}
+		if (text != null) {
+			sb.append(", text=");
+			sb.append(text);
+		}
+		sb.append("}");
+		return sb.toString();
+	}
 
 }
