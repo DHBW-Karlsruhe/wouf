@@ -8,13 +8,13 @@ import org.bh.platform.IPeriodicalValuesDTO;
 import org.bh.platform.Value;
 
 /**
- * HGBBalanceSheet DTO.
+ * GCCBalanceSheet DTO.
  * 
  * <p>
  * Data Transfer Object to handle GCCBalanceSheet09 values and methods
  * 
- * @author Michael Löckelt 
- * @version 0.2, 07.12.2009
+ * @author Michael L√∂ckelt 
+ * @version 0.3, 07.12.2009
  * 
  */
 
@@ -27,39 +27,39 @@ public class DTOGCCBalanceSheet09 extends DTO<Value> implements IPeriodicalValue
     private static final List<String> AVAILABLE_KEYS = Arrays.asList(
 	    
 	    //- AKTIVA
-	    //-- Anlagevermögen
-	    //--- Immaterielle Vermögensgegenstände
-	    "placeholder1", 		// 0 - Selbst geschaffene gewerbliche Schutzrechte und ähnliche Rechte und Werte
-	    "placeholder2",		// 1 - entgeltlich erworbene Konzessionen, gewerbliche Schutzrechte und ähnliche Rechte und Werte sowie Lizenzen an solchen Rechten und Werten
-	    "placeholder3",		// 2 - Geschäfts- oder Firmenwert
+	    //-- Anlageverm√∂gen
+	    //--- Immaterielle Verm√∂gensgegenst√§nde
+	    "placeholder1", 		// 0 - Selbst geschaffene gewerbliche Schutzrechte und √§hnliche Rechte und Werte
+	    "placeholder2",		// 1 - entgeltlich erworbene Konzessionen, gewerbliche Schutzrechte und √§hnliche Rechte und Werte sowie Lizenzen an solchen Rechten und Werten
+	    "placeholder3",		// 2 - Gesch√§fts- oder Firmenwert
 	    "placeholder4",		// 3 - geleistete Anzahlungen
 	    
 	    //--- Sachanlagen
-	    "placeholder5",		// 4 - Grundstücke, grundstücksgleiche Rechte und Bauten einschließlich der Bauten auf fremden Grundstücken
+	    "placeholder5",		// 4 - Grundst√ºcke, grundst√ºcksgleiche Rechte und Bauten einschlie√ülich der Bauten auf fremden Grundst√ºcken
 	    "placeholder6",		// 5 - technische Anlagen und Maschinen
-	    "placeholder7",		// 6 - andere Anlagen, Betriebs- und Geschäftsausstattung
+	    "placeholder7",		// 6 - andere Anlagen, Betriebs- und Gesch√§ftsausstattung
 	    "placeholder8",		// 7 - geleistete Anzahlungen und Anlagen im Bau
 	    
 	    //--- Finanzanlagen
 	    "placeholder9",		// 8 - Anteile an verbundenen Unternehmen
 	    "placeholder10",		// 9 - Ausleihungen an verbundene Unternehmen
 	    "placeholder11", 		// 10 - Beteiligungen
-	    "placeholder12",		// 11 - Ausleihungen an Unternehmen, mit denen ein Beteiligungsverhältnis besteht
-	    "placeholder13",		// 12 - Wertpapiere des Anlagevermögens
+	    "placeholder12",		// 11 - Ausleihungen an Unternehmen, mit denen ein Beteiligungsverh√§ltnis besteht
+	    "placeholder13",		// 12 - Wertpapiere des Anlageverm√∂gens
 	    "placeholder14",		// 13 - sonstige Ausleihungen
 	    
-	    //-- Umlaufvermögen
-	    //--- Vorräte
+	    //-- Umlaufverm√∂gen
+	    //--- Vorr√§te
 	    "placeholder15",		// 14 - Roh-, Hilfs- und Betriebsstoffe
 	    "placeholder16", 		// 15 - unfertige Erzeugnisse, unfertige Leistungen
 	    "placeholder17",		// 16 - fertige Erzeugnisse und Waren
 	    "placeholder18",		// 17 - geleistete Anzahlungen
 	    
-	    //--- Forderungen und sonstige Vermögensgegenstände
+	    //--- Forderungen und sonstige Verm√∂gensgegenst√§nde
 	    "placeholder19",		// 18 - Forderungen aus Lieferungen und Leistungen
 	    "placeholder20",		// 19 - Forderungen gegen verbundene Unternehmen
-	    "placeholder21",		// 20 - Forderungen gegen Unternehmen, mit denen ein Beteiligungsverhältnis besteht
-	    "placeholder22",		// 21 - sonstige Vermögensgegenstände
+	    "placeholder21",		// 20 - Forderungen gegen Unternehmen, mit denen ein Beteiligungsverh√§ltnis besteht
+	    "placeholder22",		// 21 - sonstige Verm√∂gensgegenst√§nde
 	    
 	    //--- Wertpapiere
 	    "placeholder23",		// 22 - Anteile an verbundenen Unternehmen
@@ -74,7 +74,7 @@ public class DTOGCCBalanceSheet09 extends DTO<Value> implements IPeriodicalValue
 	    //-- 26 Aktive latente Steuern
 	    "placeholder27",
 	    
-	    //-- 27 Aktiver Unterschiedsbetrag aus der Vermögensverrechnung.
+	    //-- 27 Aktiver Unterschiedsbetrag aus der Verm√∂gensverrechnung.
 	    "placeholder28",
 	    
 	    //- PASSIVA
@@ -82,34 +82,34 @@ public class DTOGCCBalanceSheet09 extends DTO<Value> implements IPeriodicalValue
 	    //--- 28 Gezeichnetes Kapital
 	    "placeholder29",
 	    
-	    //--- 29 Kapitalrücklage
+	    //--- 29 Kapitalr√ºcklage
 	    "placeholder30",
 	    
-	    //--- Gewinnrücklage
-	    "placeholder31",		// 30 - gesetzliche Rücklage
-	    "placeholder32",		// 31 - Rücklage für Anteile an einem herrschenden oder mehrheitlich beteiligten Unternehmen
-	    "placeholder33",		// 32 - satzungsmäßige Rücklagen
-	    "placeholder34",		// 33 - andere Gewinnrücklagen
+	    //--- Gewinnr√ºcklage
+	    "placeholder31",		// 30 - gesetzliche R√ºcklage
+	    "placeholder32",		// 31 - R√ºcklage f√ºr Anteile an einem herrschenden oder mehrheitlich beteiligten Unternehmen
+	    "placeholder33",		// 32 - satzungsm√§√üige R√ºcklagen
+	    "placeholder34",		// 33 - andere Gewinnr√ºcklagen
 	    
 	    //--- 34 Gewinnvortrag/Verlustvortrag
 	    "placeholder35",
 	    
-	    //--- 35 Jahresüberschuß/Jahresfehlbetrag
+	    //--- 35 Jahres√ºberschu√ü/Jahresfehlbetrag
 	    "placeholder36",
 	    
-	    //-- Rückstellungen
-	    "placeholder37",		// 36 - Rückstellungen für Pensionen und ähnliche Verpflichtungen
-	    "placeholder38",		// 37 - Steuerrückstellungen
-	    "placeholder39",		// 38 - sonstige Rückstellungen
+	    //-- R√ºckstellungen
+	    "placeholder37",		// 36 - R√ºckstellungen f√ºr Pensionen und √§hnliche Verpflichtungen
+	    "placeholder38",		// 37 - Steuerr√ºckstellungen
+	    "placeholder39",		// 38 - sonstige R√ºckstellungen
 	   
 	    //-- Verbindlichkeiten
 	    "placeholder40",		// 39 - Anleihen, davon konvertibel
-	    "placeholder41",		// 40 - Verbindlichkeiten gegenüber Kreditinstituten
+	    "placeholder41",		// 40 - Verbindlichkeiten gegen√ºber Kreditinstituten
 	    "placeholder42",		// 41 - erhaltene Anzahlungen auf Bestellungen
 	    "placeholder43",		// 42 - Verbindlichkeiten aus Lieferungen und Leistungen
 	    "placeholder44",		// 43 - Verbindlichkeiten aus der Annahme gezogener Wechsel und der Ausstellung eigener Wechsel
-	    "placeholder45",		// 44 - Verbindlichkeiten gegenüber verbundenen Unternehmen
-	    "placeholder46",		// 45 - Verbindlichkeiten gegenüber Unternehmen, mit denen ein Beteiligungsverhältnis besteht;
+	    "placeholder45",		// 44 - Verbindlichkeiten gegen√ºber verbundenen Unternehmen
+	    "placeholder46",		// 45 - Verbindlichkeiten gegen√ºber Unternehmen, mit denen ein Beteiligungsverh√§ltnis besteht;
 	    
 	    //--- Sonstige Verbindlichkeiten
 	    "placeholder47",		// 46 - Verbindlichkeiten aus Steuern
