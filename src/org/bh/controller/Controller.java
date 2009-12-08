@@ -13,7 +13,6 @@ import org.bh.platform.Value;
 
 /**
  *
- * @param <C>
  * @author Marco Hammel
  */
 public abstract class Controller implements IController, ActionListener{
