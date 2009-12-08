@@ -5,8 +5,6 @@
 
 package org.bh.controller;
 
-import java.awt.event.ActionEvent;
-import org.bh.gui.View;
 
 /**
  *

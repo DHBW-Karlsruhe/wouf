@@ -1,11 +1,11 @@
-package org.bh.platform;
+package org.bh.data;
 
 /**
  * Exception for DTO access
  * @author Marcus
  *
  */
-public class DTOAccessException extends Exception {
+public class DTOAccessException extends RuntimeException {
 
 	
 	private static final long serialVersionUID = 6655172989787669561L;

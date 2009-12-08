@@ -1,6 +1,4 @@
-package org.bh.platform;
-
-import java.util.List;
+package org.bh.data;
 
 public interface IDTO<T> {
 
@@ -35,39 +33,5 @@ public interface IDTO<T> {
 	 * @throws DTOAccessException
 	 */
 	void put(Integer pos, T value) throws DTOAccessException;
-
-	/**
-	 * Adds a child to this DTO
-	 * @param child
-	 * @throws DTOAccessException 
-	 */
-	IDTO<T> addChild(DTO<T> child) throws DTOAccessException;
-
-	/**
-	 * Returns the child at the given position. 
-	 * @param index
-	 * @return
-	 * @throws DTOAccessException
-	 */
-	IDTO<T> getChild(int index) throws DTOAccessException;
-
-	/**
-	 * Returns all children assigned to this DTO.
-	 * @return
-	 */
-	List<DTO<T>> getChildren();
-
-	/**
-	 * Removes a child relation from this DTO.
-	 * @param index
-	 * @throws DTOAccessException
-	 */
-	void removeChild(int index) throws DTOAccessException;
-
-	/**
-	 * Returns the number of children assigned to this DTO.
-	 * @return
-	 */
-	int getChildrenSize();
 
 }

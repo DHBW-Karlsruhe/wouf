@@ -1,9 +1,10 @@
-package org.bh.platform;
+package org.bh.data;
 
 import java.util.HashMap;
 import java.util.ServiceLoader;
 
 import org.apache.log4j.Logger;
+import org.bh.platform.PluginManager;
 
 /**
  * Factory to produce IPeriodicalValuesDTO objects.

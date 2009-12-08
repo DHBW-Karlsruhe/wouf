@@ -7,9 +7,9 @@ package org.bh.controller;
 
 import java.awt.event.ActionListener;
 import java.util.Map;
+
 import org.bh.gui.View;
-import org.bh.platform.IDTO;
-import org.bh.platform.Value;
+import org.bh.data.Value;
 
 /**
  *

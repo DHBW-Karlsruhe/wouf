@@ -1,4 +1,4 @@
-package org.bh.platform;
+package org.bh.data;
 import java.math.BigDecimal;
 
 /**

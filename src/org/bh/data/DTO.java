@@ -1,9 +1,7 @@
-package org.bh.platform;
+package org.bh.data;
 
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
-
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -27,11 +25,6 @@ public class DTO<T> implements IDTO<T> {
 	 * calculation.
 	 */
 	protected List<String> availableMethods;	
-	
-	/**
-	 * All children assigned to this DTO.
-	 */
-	protected List<DTO<T>> children = new ArrayList<DTO<T>>();
 	
 	/**
 	 * Prefix of the methods.
@@ -119,59 +112,6 @@ public class DTO<T> implements IDTO<T> {
 		} catch (IndexOutOfBoundsException e) {
 			throw new DTOAccessException("The given position '" + pos + "' has no equivalent key!");
 		}		
-	}
-	
-	@Override
-	public IDTO<T> addChild(DTO<T> child) throws DTOAccessException
-	{
-		if (!children.contains(child))
-		{
-			children.add(child);
-			return child;
-		}
-		else
-			throw new DTOAccessException("The child is already assigned to this DTO!");
-		
-	}
-	
-	@Override
-	public IDTO<T> getChild(int index) throws DTOAccessException
-	{
-		IDTO<T> result = null;
-		try
-		{
-			result = children.get(index);
-		}
-		catch (IndexOutOfBoundsException e)
-		{
-			throw new DTOAccessException("There is no child at the given position: " + index);
-		}
-		return result;
-	}
-	
-	@Override
-	public List<DTO<T>> getChildren()
-	{
-		return children;
-	}
-	
-	@Override
-	public void removeChild(int index) throws DTOAccessException
-	{
-		try
-		{
-			children.remove(index);
-		}
-		catch (IndexOutOfBoundsException e)
-		{
-			throw new DTOAccessException("There is no child at the given position: " + index);
-		}
-	}
-	
-	@Override
-	public int getChildrenSize()
-	{
-		return children.size();
 	}
 	
 	/**

@@ -3,9 +3,9 @@ package org.bh.plugin.directinput.data;
 import java.util.Arrays;
 import java.util.List;
 
-import org.bh.platform.DTO;
-import org.bh.platform.IPeriodicalValuesDTO;
-import org.bh.platform.Value;
+import org.bh.data.DTO;
+import org.bh.data.IPeriodicalValuesDTO;
+import org.bh.data.Value;
 
 /**
  * DTO for directly inputing
