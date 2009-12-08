@@ -5,10 +5,21 @@
 
 package org.bh.gui;
 
+import java.util.Map;
+import javax.swing.JPanel;
+import org.bh.platform.Value;
+
 /**
  *
  * @author Marco Hammel
  */
 public abstract class View {
+
+    JPanel viewPanel;
+    Map<String, Value> viewWrapper;
+
+    protected JPanel getPanel(){
+        return viewPanel;
+    }
 
 }
