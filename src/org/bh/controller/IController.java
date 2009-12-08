@@ -16,10 +16,10 @@ interface IController {
 
     String getPluginId();
 
-    View getView();
+    View getView() throws ControllerException;
 
     void setLanguage(String LANG);
 
-    void setPlattformEvent(Event e);
+    void handlePlattformEvent(Event e);
 
 }

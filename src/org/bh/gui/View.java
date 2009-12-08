@@ -18,6 +18,10 @@ public abstract class View {
     JPanel viewPanel;
     Map<String, Value> viewWrapper;
 
+    public View(){
+        
+    }
+
     protected JPanel getPanel(){
         return viewPanel;
     }

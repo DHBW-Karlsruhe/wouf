@@ -6,10 +6,9 @@
 package org.bh.controller;
 
 import java.awt.event.ActionListener;
-import java.util.Map;
-
+import org.bh.data.IDTO;
+import org.bh.data.DTOAccessException;
 import org.bh.gui.View;
-import org.bh.data.Value;
 
 /**
  *
@@ -18,27 +17,28 @@ import org.bh.data.Value;
 public abstract class Controller implements IController, ActionListener{
 
     private View view;
-    private Map<String, Value> modelEnities;
+    private IDTO model;
 
 
     protected Controller(){
-        this.view = this.createView();
-
-//        try{
-//            this.modelEnities = IDTO.getAllKeys();
-//        }catch(DTOException dtoE){
-//            this.throwExceptionToView(dtoE);
-//        }
-        
+        this.view = this.bindView();
+        try{
+            this.model = this.bindModel();
+        }catch(DTOAccessException e){
+            this.handleDTOException(e);
+        }
+   
     }
 
-    abstract void throwExceptionToView(Exception e);
+    abstract void handleDTOException(Exception e);
 
     public View getView(){
         return view;
     }
 
-    abstract View createView();
+    abstract View bindView();
+
+    abstract IDTO bindModel() throws DTOAccessException;
 
 
 }

@@ -8,18 +8,16 @@ package org.bh.controller;
 
 /**
  *
- * @param <C>
  * @author Marco Hammel
  */
-public class ControllerFactory<C extends Controller> {
+public class ControllerFactory{
 
     /**
      * 
-     * @param C
      * @return
      */
-    //public static Controller getController(){
-    //    return C;
+    //public static IController getController(){
+        
     //}
 
 }
