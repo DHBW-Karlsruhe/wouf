@@ -10,17 +10,18 @@ import org.bh.gui.View;
 
 /**
  *
+ * @param <C>
  * @author Marco Hammel
  */
-public class ControllerFactory {
+public class ControllerFactory<C extends Controller> {
 
     /**
      * 
      * @param C
      * @return
      */
-    //public static IController getController(String C){
-    
+    //public static Controller getController(){
+    //    return C;
     //}
 
 }
