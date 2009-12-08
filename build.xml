@@ -41,7 +41,7 @@
     </target>
     
     <target depends="compile" name="createjar">
-        <jar destfile="${jar.name}" filesetmanifest="mergewithoutmain">
+        <jar destfile="${jar.name}">
             <manifest>
                 <attribute name="Main-Class" value="${jar.mainclass}"/>
                 <attribute name="Class-Path" value="."/>
