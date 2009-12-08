@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<project basedir="." default="build" name="Business Horizon">
+    <property environment="env"/>
+    <property name="source.dir" value="src" />
+    <property name="build.dir" value="bin" />
+    <property name="lib.dir" value="lib" />
+    <property name="output.dir" value="output" />
+    <property name="jar.name" value="${output.dir}/BH.jar" />
+    <property name="jar.mainclass" value="org.bh.BusinessHorizon" />
+    
+    <path id="BH.classpath">
+        <pathelement location="${build.dir}" />
+        <fileset dir="${lib.dir}" includes="*.jar"/>
+    </path>
+    
+    <target name="init">
+        <mkdir dir="${build.dir}"/>
+        <copy includeemptydirs="false" todir="${build.dir}">
+            <fileset dir="${source.dir}">
+                <exclude name="**/*.launch"/>
+                <exclude name="**/*.java"/>
+                <exclude name="**/.svn/"/>
+            </fileset>
+        </copy>
+        <mkdir dir="${output.dir}"/>
+    </target>
+    
+    <target name="clean">
+        <delete dir="${build.dir}"/>
+        <delete dir="${output.dir}"/>
+    </target>
+    <target depends="clean" name="cleanall"/>
+
+    <target depends="init" name="compile">
+        <echo message="${ant.project.name}: ${ant.file}"/>
+        <echo message="${toString:BH.classpath}" />
+        <javac destdir="${build.dir}" srcdir="${source.dir}" debug="false" optimize="true">
+            <exclude name="**/.svn/"/>
+            <classpath refid="BH.classpath"/>
+        </javac>
+    </target>
+    
+    <target depends="compile" name="createjar">
+        <jar destfile="${jar.name}" filesetmanifest="mergewithoutmain">
+            <manifest>
+                <attribute name="Main-Class" value="${jar.mainclass}"/>
+                <attribute name="Class-Path" value="."/>
+            </manifest>
+            <fileset dir="${build.dir}"/>
+            <zipgroupfileset dir="${lib.dir}" includes="*.jar" />
+        </jar>
+    </target>
+    
+    <target depends="createjar" name="build" />
+</project>
