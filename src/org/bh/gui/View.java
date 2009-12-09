@@ -7,7 +7,9 @@ package org.bh.gui;
 
 import java.util.Map;
 import javax.swing.JPanel;
-import org.bh.data.Value;
+
+import org.bh.calculation.sebi.Value;
+
 
 /**
  *

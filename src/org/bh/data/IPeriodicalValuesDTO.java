@@ -14,7 +14,7 @@ package org.bh.data;
  *
  */
 
-public interface IPeriodicalValuesDTO extends IDTO<Value> {
+public interface IPeriodicalValuesDTO extends IDTO {
 	/**
 	 * Returns an ID for this DTO.
 	 * @return

@@ -5,7 +5,7 @@ import javax.swing.JPanel;
 import org.bh.controller.IPeriodicalValuesController;
 import org.bh.data.IPeriodicalValuesDTO;
 import org.bh.data.PeriodicalValuesDTOFactory;
-import org.bh.data.Value;
+
 
 public class RandomDirectInputController implements IPeriodicalValuesController {
 	static {
@@ -21,8 +21,9 @@ public class RandomDirectInputController implements IPeriodicalValuesController 
 		if (dto == null)
 			dto = PeriodicalValuesDTOFactory.getInstance().create("directinput");
 
+		/*
 		dto.put("fremdkapital", new Value(Math.random() * 200 + 1000));
-		dto.put("fcf", new Value(Math.random() * 20 + 100));
+		dto.put("fcf", new Value(Math.random() * 20 + 100));*/
 			
 		return dto;
 	}

@@ -90,4 +90,12 @@ public class Integer extends Calculable {
 	return "" + value;
     }
 
+	@Override
+	public Calculable clone() {
+		// TODO Auto-generated method stub
+		throw new UnsupportedOperationException("This method has not been implemented");
+	}
+
+	
+
 }

@@ -5,7 +5,7 @@ import java.util.List;
 
 import org.bh.data.DTO;
 import org.bh.data.IPeriodicalValuesDTO;
-import org.bh.data.Value;
+
 
 /**
  * DTO for directly inputing
@@ -18,7 +18,7 @@ import org.bh.data.Value;
  *
  */
 
-public class DTODirectInput extends DTO<Value> implements IPeriodicalValuesDTO {
+public class DTODirectInput extends DTO implements IPeriodicalValuesDTO {
 	private static final String UNIQUE_ID = "directinput";
 	// @TODO correct keys
 	private static final List<String> AVAILABLE_KEYS = Arrays.asList("fremdkapital", "fcf");
@@ -35,5 +35,11 @@ public class DTODirectInput extends DTO<Value> implements IPeriodicalValuesDTO {
 	@Override
 	public String getUniqueId() {
 		return UNIQUE_ID;
+	}
+
+	@Override
+	public Boolean validate() {
+		// TODO Auto-generated method stub
+		throw new UnsupportedOperationException("This method has not been implemented");
 	}
 }

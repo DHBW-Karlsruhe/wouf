@@ -2,8 +2,9 @@ package org.bh.calculation;
 
 import java.util.List;
 
+import org.bh.calculation.sebi.Value;
 import org.bh.data.DTOScenario;
-import org.bh.data.Value;
+
 
 /**
  * This interface is implemented by classes which provide calculation methods for

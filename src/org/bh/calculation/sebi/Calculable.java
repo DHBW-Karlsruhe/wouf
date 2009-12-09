@@ -1,7 +1,7 @@
 package org.bh.calculation.sebi;
 
 //TODO: Abstrakt + Werteparser (z.B. 5.0 als String = new Double(5.0)
-public abstract class Calculable {
+public abstract class Calculable implements Value{
 
     public abstract Calculable add(Calculable summand);
 
@@ -14,6 +14,11 @@ public abstract class Calculable {
     public abstract Calculable sqrt();
 
     public abstract Calculable pow(Calculable exponent);
+    
+    /**
+     * @author Marcus Katzor 
+     */    
+    public abstract Calculable clone();
 
     /**
      * @param nodeValue

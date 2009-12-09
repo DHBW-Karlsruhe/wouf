@@ -5,7 +5,6 @@ import java.util.List;
 
 import org.bh.data.DTO;
 import org.bh.data.IPeriodicalValuesDTO;
-import org.bh.data.Value;
 
 /**
  * GCCBalanceSheet DTO.
@@ -18,7 +17,7 @@ import org.bh.data.Value;
  * 
  */
 
-public class DTOGCCBalanceSheet09 extends DTO<Value> implements IPeriodicalValuesDTO {
+public class DTOGCCBalanceSheet09 extends DTO implements IPeriodicalValuesDTO {
     
     private static final String UNIQUE_ID = "gccbalancesheet09";
 
@@ -132,5 +131,11 @@ public class DTOGCCBalanceSheet09 extends DTO<Value> implements IPeriodicalValue
     public String getUniqueId() {
 	return UNIQUE_ID;
     }
+
+	@Override
+	public Boolean validate() {
+		// TODO Auto-generated method stub
+		throw new UnsupportedOperationException("This method has not been implemented");
+	}
 
 }

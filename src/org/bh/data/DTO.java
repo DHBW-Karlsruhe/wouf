@@ -1,19 +1,23 @@
 package org.bh.data;
 
+
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+
+import org.bh.calculation.sebi.Value;
 
 /**
  * General Data Transfer Object 
  * @author Marcus
  *
- * @param <T> Type of the values.
+ * @param <Value> Type of the values.
  * @param <G>
  */
-public class DTO<T> implements IDTO<T> {
+public abstract class DTO implements IDTO {	
 	
 	/**
 	 * Possible keys with which the user can access this DTO.
@@ -25,6 +29,12 @@ public class DTO<T> implements IDTO<T> {
 	 * calculation.
 	 */
 	protected List<String> availableMethods;	
+	
+	/**
+	 * All children assigned to this DTO.
+	 */
+	protected List<IDTO> children = new ArrayList<IDTO>();
+		
 	
 	/**
 	 * Prefix of the methods.
@@ -40,16 +50,28 @@ public class DTO<T> implements IDTO<T> {
 	protected String methodPlaceholder = "METHOD";
 	
 	/**
+	 * In the sandbox mode a valid copy of the DTO is made
+	 * and can be used as fallback data if a validation
+	 * check returns false.
+	 */
+	protected Boolean sandBoxMode = false;
+	
+	/**
 	 * The actual map which contains all values.
 	 */
-	protected Map<String, T> values = new HashMap<String, T>();	
+	protected Map<String, Value> values = new HashMap<String, Value>();	
+	
+	/**
+	 * Fallback data in order to provide a kind of undo functionality.
+	 */
+	protected Map<String, Value> fallBackValues = new HashMap<String, Value>();	
 	
 	@Override
-	public T get(String key) throws DTOAccessException {
+	public Value get(String key) throws DTOAccessException {
 		// If the key is an actual key then return the corresponding value
 		if (availableKeys.contains(key.toLowerCase()))
 		{
-			T result = values.get(key);
+			Value result = values.get(key);
 			if (result != null)
 				return result;
 			else
@@ -73,7 +95,7 @@ public class DTO<T> implements IDTO<T> {
 	}
 
 	@Override
-	public T get(Integer pos) throws DTOAccessException {
+	public Value get(Integer pos) throws DTOAccessException {
 		// The position has to be in the range of the availableKey List
 		try {
 			// Get the name of the key at the position pos
@@ -93,7 +115,7 @@ public class DTO<T> implements IDTO<T> {
 	}
 
 	@Override
-	public void put(String key, T value) throws DTOAccessException {
+	public void put(String key, Value value) throws DTOAccessException {
 		if (availableKeys.contains(key.toLowerCase()))
 		{
 			values.put(key, value);
@@ -103,7 +125,7 @@ public class DTO<T> implements IDTO<T> {
 	}
 
 	@Override
-	public void put(Integer pos, T value) throws DTOAccessException {
+	public void put(Integer pos, Value value) throws DTOAccessException {
 		try {
 			String key = availableKeys.get(pos);
 			if (key.equals(methodPlaceholder))
@@ -121,12 +143,12 @@ public class DTO<T> implements IDTO<T> {
 	 * @throws DTOAccessException
 	 */
 	@SuppressWarnings("unchecked")
-	private T invokeMethod(String key) throws DTOAccessException
+	private Value invokeMethod(String key) throws DTOAccessException
 	{
 		// Get all methods
 		Method[] methods = getClass().getDeclaredMethods();
 		// Result
-		T result = null;
+		Value result = null;
 		// Complete method name with a prefix
 		String methodName = methodPrefix + key;
 		// Go through each method and check if the wanted method
@@ -138,7 +160,7 @@ public class DTO<T> implements IDTO<T> {
 				try
 				{
 					// Invoke method and store result
-					result = (T) method.invoke(this, (Object[]) null);
+					result = (Value) method.invoke(this, (Object[]) null);
 				}
 				catch (InvocationTargetException e)
 				{
@@ -175,5 +197,122 @@ public class DTO<T> implements IDTO<T> {
 	@Override
 	public String toString() {
 		return values.toString();
+	}
+
+	/**
+	 * Adds a child to this DTO
+	 * @param child
+	 * @throws DTOAccessException 
+	 */
+	public IDTO addChild(IDTO child) throws DTOAccessException
+	{
+		if (!children.contains(child))
+		{
+			children.add(child);
+			return child;
+		}
+		else
+			throw new DTOAccessException("The child is already assigned to this DTO!");
+		
+	}
+	
+	
+	/**
+	 * Returns the child at the given position. 
+	 * @param index
+	 * @return
+	 * @throws DTOAccessException
+	 */
+	public IDTO getChild(int index) throws DTOAccessException
+	{
+		IDTO result = null;
+		try
+		{
+			result = children.get(index);
+		}
+		catch (IndexOutOfBoundsException e)
+		{
+			throw new DTOAccessException("There is no child at the given position: " + index);
+		}
+		return result;
+	}
+	
+	/**
+	 * Returns all children assigned to this DTO.
+	 * @return
+	 */
+	public List<IDTO> getChildren()
+	{
+		return children;
+	}
+	
+	/**
+	 * Removes a child relation from this DTO.
+	 * @param index
+	 * @throws DTOAccessException
+	 */
+	public void removeChild(int index) throws DTOAccessException
+	{
+		try
+		{
+			children.remove(index);
+		}
+		catch (IndexOutOfBoundsException e)
+		{
+			throw new DTOAccessException("There is no child at the given position: " + index);
+		}
+	}
+	
+	/**
+	 * Returns the number of children assigned to this DTO.
+	 * @return
+	 */
+	public int getChildrenSize()
+	{
+		return children.size();
+	}
+
+	@Override
+	public Boolean getSandBoxMode() {
+		return sandBoxMode;
+	}
+
+	@Override
+	public void setSandBoxMode(Boolean mode) {
+		if (mode)
+		{
+			fallBackValues.clear();
+			values.putAll(((DTO) clone()).values);		
+		}
+		sandBoxMode = mode;
+		
+	}
+
+	@Override
+	public abstract Boolean validate();
+
+	@Override
+	public DTO clone() throws DTOAccessException {
+		DTO result = null;
+		try {
+			// Try to instantiate a new instance of the class of this DTO
+			result = this.getClass().newInstance();
+			// Go through each value, copy it and put it into the new instance
+			for (Map.Entry<String, Value> entry: values.entrySet())
+			{
+				result.put(entry.getKey(), entry.getValue().clone());
+				// Copy and add children to the new instance
+				for (IDTO child : children)
+				{
+					result.addChild(child.clone());
+				}
+			}			
+		}
+		catch (Exception e) {
+			throw new DTOAccessException("An error occured during the cloning of a DTO. Class: " 
+					+ getClass().getName());
+		}
+		
+		return result;
 	}
 }

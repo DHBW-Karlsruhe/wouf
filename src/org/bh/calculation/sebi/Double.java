@@ -91,5 +91,11 @@ public class Double extends Calculable {
     public String toString() {
 	return "" + value;
     }
+
+	@Override
+	public Calculable clone() {
+		// TODO Auto-generated method stub
+		throw new UnsupportedOperationException("This method has not been implemented");
+	}
     
 }

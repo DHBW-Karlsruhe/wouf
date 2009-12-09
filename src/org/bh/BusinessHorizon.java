@@ -8,7 +8,9 @@ import org.bh.calculation.IShareholderValueCalculator;
 import org.bh.data.DTOScenario;
 import org.bh.data.IPeriodicalValuesDTO;
 import org.bh.data.PeriodicalValuesDTOFactory;
-import org.bh.data.Value;
+import org.bh.data.DTOScenario.DTOScenarioKeys;
+import org.bh.calculation.sebi.Double;
+
 import org.bh.platform.PluginManager;
 
 /**
@@ -52,16 +54,16 @@ public class BusinessHorizon {
 		double[] fk = {1000, 1100, 1200};
 		double[] fcf = {100, 110, 120};
 		
-		DTOScenario scenario = new DTOScenario();
-		scenario.put("rendite_ek", new Value(0.11));
-		scenario.put("rendite_fk", new Value(0.10));
-		scenario.put("sg", new Value(0.1694));
-		scenario.put("sks", new Value(0.26375));
+		DTOScenario scenario = new DTOScenario();		
+		scenario.put(DTOScenarioKeys.REK.toString() , new Double(0.11));
+		scenario.put("rendite_fk", new Double(0.10));
+		scenario.put("sg", new Double(0.1694));
+		scenario.put("sks", new Double(0.26375));
 		
 		for (int i = 0; i < fk.length; i++) {
 			IPeriodicalValuesDTO period = PeriodicalValuesDTOFactory.getInstance().create("directinput");
-			period.put("fcf", new Value(fcf[i]));
-			period.put("fremdkapital", new Value(fk[i]));
+			period.put("fcf", new Double(fcf[i]));
+			period.put("fremdkapital", new Double(fk[i]));
 			scenario.addChild(period);
 		}
 		
