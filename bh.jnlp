@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jnlp spec="1.0+" codebase="http://bh.dev20.de/builds/latest/">
+<information>
+  <title>Business Horizon</title>
+  <vendor>Business Horizon Project Team</vendor>
+  <description>{Description}</description>
+  <shortcut>
+      <desktop/>
+  </shortcut>
+  <offline-allowed/>
+</information>
+<security>
+  <all-permissions/>
+</security>
+<resources>
+  <j2se version="1.6+" />
+  <jar href="BH.jar"/>
+</resources>
+<application-desc main-class="org.bh.BusinessHorizon" />
+</jnlp>

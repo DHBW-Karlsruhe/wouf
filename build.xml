@@ -49,6 +49,8 @@
             <fileset dir="${build.dir}"/>
             <zipgroupfileset dir="${lib.dir}" includes="*.jar" />
         </jar>
+
+        <signjar jar="${jar.name}" keystore="jarsign.keystore" alias="bhjar" storepass="ZDpPydacPvJXJpY4SmqN" />
     </target>
     
     <target depends="createjar" name="build" />
