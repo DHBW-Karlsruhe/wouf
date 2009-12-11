@@ -6,13 +6,13 @@ import java.util.ServiceLoader;
 import org.apache.log4j.Logger;
 import org.bh.calculation.IShareholderValueCalculator;
 import org.bh.calculation.sebi.DoubleValue;
+import org.bh.calculation.sebi.GermanTax;
+import org.bh.calculation.sebi.Tax;
 import org.bh.data.DTOPeriod;
 import org.bh.data.DTOScenario;
 import org.bh.data.IPeriodicalValuesDTO;
 import org.bh.platform.PluginManager;
 import org.bh.plugin.directinput.DTODirectInput;
-import org.bh.plugin.gcc.DTOGCCBalanceSheet;
-import org.bh.plugin.gcc.DTOGCCProfitLossStatementCostOfSales;
 
 /**
  *
@@ -63,32 +63,31 @@ public class BusinessHorizon {
 		DTOScenario scenario = new DTOScenario();		
 		scenario.put(DTOScenario.Key.REK, new DoubleValue(0.11));
 		scenario.put(DTOScenario.Key.RFK, new DoubleValue(0.10));
-		scenario.put(DTOScenario.Key.SG, new DoubleValue(0.1694));
-		scenario.put(DTOScenario.Key.SKS, new DoubleValue(0.26375));
+		Tax tax = new GermanTax(new DoubleValue(0.1694), new DoubleValue(0.26375));
+		scenario.put(DTOScenario.Key.TAX, tax);
 		
 		for (int i = 0; i < fk.length; i++) {
 			DTOPeriod period = new DTOPeriod();
 			
-			if (i > 1) {
+			//if (i > 1) {
 				IPeriodicalValuesDTO direct = new DTODirectInput();
 				direct.put(DTODirectInput.Key.FCF, new DoubleValue(fcf[i]));
 				direct.put(DTODirectInput.Key.LIABILITIES, new DoubleValue(fk[i]));			
 				
 				period.addChild(direct);
-			} else {
-			    
+			/*} else {
 				DTOGCCBalanceSheet bs = new DTOGCCBalanceSheet();
-				bs.put(DTOGCCBalanceSheet09.DTOGCCBalanceSheet.LIABILITIES, new DoubleValue(fk[i]));
-				bs.put(DTOGCCBalanceSheet09.DTOGCCBalanceSheet.DUMMY, new DoubleValue(dummy[i]));
+				bs.put(DTOGCCBalanceSheet.Key.ABC, new DoubleValue(fk[i]));
+				bs.put(DTOGCCBalanceSheet.Key.XYZ, new DoubleValue(dummy[i]));
 				period.addChild(bs);
 				
 				if (i > 0) {
 					DTOGCCProfitLossStatementCostOfSales pls = new DTOGCCProfitLossStatementCostOfSales();
-					pls.put(DTOGCCProfitLossStatementCostOfSales.Key.VALUE1, new DoubleValue(value1[i]));
-					pls.put(DTOGCCProfitLossStatementCostOfSales.Key.VALUE2, new DoubleValue(value2[i]));
+					pls.put(DTOGCCProfitLossStatementCostOfSales.Key.ABC, new DoubleValue(value1[i]));
+					pls.put(DTOGCCProfitLossStatementCostOfSales.Key.XYZ, new DoubleValue(value2[i]));
 					period.addChild(pls);
 				}
-			}
+			}*/
 			
 			scenario.addChild(period);
 		} 

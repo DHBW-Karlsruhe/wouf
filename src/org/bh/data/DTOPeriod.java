@@ -4,6 +4,7 @@ import java.util.ServiceLoader;
 
 import org.bh.calculation.ICalculationPreparer;
 import org.bh.calculation.sebi.Calculable;
+import org.bh.calculation.sebi.Tax;
 import org.bh.platform.PluginManager;
 
 public class DTOPeriod extends DTO<IPeriodicalValuesDTO> {
@@ -14,6 +15,7 @@ public class DTOPeriod extends DTO<IPeriodicalValuesDTO> {
 	
 	DTOPeriod previous = null;
 	DTOPeriod next = null;
+	DTOScenario scenario = null;
 	
     /**
      * initialize key and method list
@@ -87,11 +89,19 @@ public class DTOPeriod extends DTO<IPeriodicalValuesDTO> {
 		throw new UnsupportedOperationException("This method has not been implemented");
 	}
 	
-	public synchronized DTOPeriod getPrevious() {
+	/**
+	 * Get the DTO for the previous period.
+	 * @return DTO for the previous period.
+	 */
+	public DTOPeriod getPrevious() {
 		return previous;
 	}
 
-	public synchronized DTOPeriod getNext() {
+	/**
+	 * Get the DTO for the following period.
+	 * @return DTO for the following period.
+	 */
+	public DTOPeriod getNext() {
 		return next;
 	}
 
@@ -106,5 +116,13 @@ public class DTOPeriod extends DTO<IPeriodicalValuesDTO> {
 				return child;
 		}
 		return null;
+	}
+	
+	/**
+	 * Get taxes for scenario.
+	 * @return Taxes for scenario.
+	 */
+	public Tax getTax() {
+		return scenario.getTax();
 	}
 }

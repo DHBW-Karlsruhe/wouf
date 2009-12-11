@@ -1,15 +1,16 @@
 package org.bh.data;
 
+import org.bh.calculation.sebi.Tax;
+
 public class DTOScenario extends DTO<DTOPeriod> {
 	
 	public enum Key {
-		/**
-		 * Rendite Eigenkapital
-		 */
+		/** Rendite Eigenkapital */
 		REK,
-		@Method RFK,
-		SG,
-		SKS,
+		/** Rendite Fremdkapital */
+		RFK,
+		/** Steuern */
+		TAX
 	}
 	
     /**
@@ -28,6 +29,7 @@ public class DTOScenario extends DTO<DTOPeriod> {
 	@Override
 	public DTOPeriod addChild(DTOPeriod child) throws DTOAccessException {
 		DTOPeriod result = super.addChild(child);
+		child.scenario = this;
 		refreshPeriodReferences();
 		return result;
 	}
@@ -36,6 +38,7 @@ public class DTOScenario extends DTO<DTOPeriod> {
 	public DTOPeriod removeChild(int index) throws DTOAccessException {
 		DTOPeriod removedPeriod = super.removeChild(index);
 		removedPeriod.next = removedPeriod.previous = null;
+		removedPeriod.scenario = null;
 		refreshPeriodReferences();
 		return removedPeriod;
 	}
@@ -50,5 +53,13 @@ public class DTOScenario extends DTO<DTOPeriod> {
 		}
 		if (previous != null)
 			previous.next = null;
+	}
+	
+	/**
+	 * Get taxes for scenario.
+	 * @return Taxes for scenario.
+	 */
+	public Tax getTax() {
+		return (Tax)get(Key.TAX);
 	}
 }

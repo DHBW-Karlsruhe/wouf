@@ -15,6 +15,7 @@ import org.bh.data.IPeriodicalValuesDTO;
  * 
  */
 
+@SuppressWarnings("unchecked")
 public class DTOGCCBalanceSheet extends DTO implements IPeriodicalValuesDTO {
     private static final String UNIQUE_ID = "gccbalancesheet";
 	

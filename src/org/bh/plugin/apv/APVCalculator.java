@@ -33,8 +33,7 @@ public class APVCalculator implements IShareholderValueCalculator {
 		input.put("FK", fk);
 		input.put("EKr", scenario.get(DTOScenario.Key.REK));
 		input.put("FKr", scenario.get(DTOScenario.Key.RFK));
-		input.put("sks", scenario.get(DTOScenario.Key.SKS));
-		input.put("sg", scenario.get(DTOScenario.Key.SG));
+		input.put("s", scenario.getTax());
 		
 		AdjustedPresentValue apv = new AdjustedPresentValue(input);
 		Calculable[] uws = apv.getUW();

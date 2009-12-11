@@ -38,7 +38,7 @@ public class AdjustedPresentValue {
 		Calculable[] FK = (Calculable[])input.get("FK");
 		Calculable EKr = (Calculable)input.get("EKr");
 		Calculable FKr = (Calculable)input.get("FKr");
-		s = new Tax((Calculable)input.get("sg"),(Calculable)input.get("sks"));
+		s = (Tax)input.get("s");
 		
 		// Instantiate the result arrays
 		UW = new Calculable[FCF.length];
