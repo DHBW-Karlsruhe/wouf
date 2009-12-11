@@ -11,8 +11,8 @@ import org.bh.data.DTOScenario;
 import org.bh.data.IPeriodicalValuesDTO;
 import org.bh.platform.PluginManager;
 import org.bh.plugin.DTOGCCProfitLossStatementCostOfSales;
-import org.bh.plugin.directinput.data.DTODirectInput;
-import org.bh.plugin.gccbalancesheet09.data.DTOGCCBalanceSheet09;
+import org.bh.plugin.directinput.DTODirectInput;
+import org.bh.plugin.gccbalancesheet09.DTOGCCBalanceSheet09;
 
 /**
  *

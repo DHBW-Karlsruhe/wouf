@@ -5,7 +5,8 @@ import java.util.List;
 import org.bh.calculation.sebi.Calculable;
 import org.bh.calculation.sebi.Value;
 
-public interface IDTO<ChildT extends Cloneable> extends Cloneable {
+@SuppressWarnings("unchecked")
+public interface IDTO<ChildT extends IDTO> extends Cloneable {
 
 	/**
 	 * Returns a value assigned to the passed key.

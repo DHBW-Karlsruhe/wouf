@@ -21,9 +21,10 @@ import org.bh.calculation.sebi.Value;
  * @author Robert
  *
  * @param <Value> Type of the values.
- * @param <G>
+ * @param <ChildT> Type of the children.
  */
-public abstract class DTO<ChildT extends Cloneable> implements IDTO<ChildT> {
+@SuppressWarnings("unchecked")
+public abstract class DTO<ChildT extends IDTO> implements IDTO<ChildT> {
 	@Retention(RetentionPolicy.RUNTIME)
 	@Target(ElementType.FIELD)
 	protected @interface Method {
@@ -75,7 +76,6 @@ public abstract class DTO<ChildT extends Cloneable> implements IDTO<ChildT> {
 	 */
 	protected Map<String, Value> fallBackValues = new HashMap<String, Value>();
 
-	@SuppressWarnings("unchecked")
 	public DTO(Enum[] enumeration) {
 		String className = getClass().getName();
 		if (KEYS_CACHE.containsKey(className) && METHODS_CACHE.containsKey(className)) {
@@ -244,7 +244,6 @@ public abstract class DTO<ChildT extends Cloneable> implements IDTO<ChildT> {
 	@Override
 	public abstract boolean validate();
 
-	@SuppressWarnings("unchecked")
 	@Override
 	public DTO<ChildT> clone() throws DTOAccessException {
 		DTO<ChildT> result = null;
@@ -256,7 +255,7 @@ public abstract class DTO<ChildT extends Cloneable> implements IDTO<ChildT> {
 				result.put(entry.getKey(), entry.getValue().clone());
 				// Copy and add children to the new instance
 				for (ChildT child : children) {
-					result.addChild(child.clone());
+					result.addChild((ChildT) child.clone());
 				}
 			}			
 		} catch (Exception e) {

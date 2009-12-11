@@ -1,4 +1,4 @@
-package org.bh.plugin.directinput.data;
+package org.bh.plugin.directinput;
 
 import org.bh.data.DTO;
 import org.bh.data.IPeriodicalValuesDTO;
@@ -15,6 +15,7 @@ import org.bh.data.IPeriodicalValuesDTO;
  *
  */
 
+@SuppressWarnings("unchecked")
 public class DTODirectInput extends DTO implements IPeriodicalValuesDTO {
 	private static final String UNIQUE_ID = "directinput";
 	

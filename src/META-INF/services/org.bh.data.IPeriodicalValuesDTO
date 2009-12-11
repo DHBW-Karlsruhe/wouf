@@ -1,1 +1,3 @@
-org.bh.plugin.directinput.data.DTODirectInput
+org.bh.plugin.directinput.DTODirectInput
+org.bh.plugin.gccbalancesheet09.DTOGCCBalanceSheet09
+org.bh.plugin.DTOGCCProfitLossStatementCostOfSales

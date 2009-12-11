@@ -5,7 +5,7 @@ import javax.swing.JPanel;
 import org.bh.calculation.sebi.DoubleValue;
 import org.bh.controller.IPeriodicalValuesController;
 import org.bh.data.IPeriodicalValuesDTO;
-import org.bh.plugin.directinput.data.DTODirectInput;
+import org.bh.plugin.directinput.DTODirectInput;
 
 
 public class RandomDirectInputController implements IPeriodicalValuesController {

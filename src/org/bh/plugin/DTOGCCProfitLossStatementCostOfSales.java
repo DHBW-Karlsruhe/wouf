@@ -3,6 +3,7 @@ package org.bh.plugin;
 import org.bh.data.DTO;
 import org.bh.data.IPeriodicalValuesDTO;
 
+@SuppressWarnings("unchecked")
 public class DTOGCCProfitLossStatementCostOfSales extends DTO implements IPeriodicalValuesDTO {
 	private static final String UNIQUE_ID = "gcc_pls_costofsales";
 	

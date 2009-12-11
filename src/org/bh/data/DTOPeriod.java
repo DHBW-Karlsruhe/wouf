@@ -6,7 +6,7 @@ import org.bh.calculation.ICalculationPreparer;
 import org.bh.calculation.sebi.Calculable;
 import org.bh.platform.PluginManager;
 
-public class DTOPeriod extends DTO {
+public class DTOPeriod extends DTO<IPeriodicalValuesDTO> {
 	public enum Key {
 		@Method LIABILITIES,
 		@Method FCF,
@@ -70,7 +70,7 @@ public class DTOPeriod extends DTO {
 	 * @return The value if it was found, otherwise null;
 	 */
 	protected Calculable getChildrenValue(Key key) {
-		for (IDTO child : children) {
+		for (IPeriodicalValuesDTO child : children) {
 			try {
 				Calculable result = child.getCalculable(key);
 				return result;
@@ -101,9 +101,9 @@ public class DTOPeriod extends DTO {
 	 * @return The DTO or null if none could be found.
 	 */
 	public IPeriodicalValuesDTO getPeriodicalValuesDTO(String uniqueId) {
-		for (IDTO child : children) {
-			if (((IPeriodicalValuesDTO) child).getUniqueId().equals(uniqueId))
-				return (IPeriodicalValuesDTO) child;
+		for (IPeriodicalValuesDTO child : children) {
+			if (child.getUniqueId().equals(uniqueId))
+				return child;
 		}
 		return null;
 	}

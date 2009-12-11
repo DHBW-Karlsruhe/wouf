@@ -1,6 +1,6 @@
 package org.bh.data;
 
-public class DTOScenario extends DTO {
+public class DTOScenario extends DTO<DTOPeriod> {
 	
 	public enum Key {
 		/**
@@ -26,15 +26,15 @@ public class DTOScenario extends DTO {
 	}
 	
 	@Override
-	public IDTO addChild(IDTO child) throws DTOAccessException {
-		IDTO result = super.addChild(child);
+	public DTOPeriod addChild(DTOPeriod child) throws DTOAccessException {
+		DTOPeriod result = super.addChild(child);
 		refreshPeriodReferences();
 		return result;
 	}
 	
 	@Override
-	public IDTO removeChild(int index) throws DTOAccessException {
-		DTOPeriod removedPeriod = (DTOPeriod) super.removeChild(index);
+	public DTOPeriod removeChild(int index) throws DTOAccessException {
+		DTOPeriod removedPeriod = super.removeChild(index);
 		removedPeriod.next = removedPeriod.previous = null;
 		refreshPeriodReferences();
 		return removedPeriod;
@@ -42,8 +42,7 @@ public class DTOScenario extends DTO {
 
 	private void refreshPeriodReferences() {
 		DTOPeriod previous = null;
-		for (IDTO child1 : children) {
-			DTOPeriod child = (DTOPeriod)child1;
+		for (DTOPeriod child : children) {
 			child.previous = previous;
 			if (previous != null)
 				previous.next = child;

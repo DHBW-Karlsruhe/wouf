@@ -10,7 +10,6 @@ import org.bh.calculation.sebi.Calculable;
 import org.bh.calculation.sebi.Value;
 import org.bh.data.DTOPeriod;
 import org.bh.data.DTOScenario;
-import org.bh.data.IDTO;
 
 
 public class APVCalculator implements IShareholderValueCalculator {
@@ -23,10 +22,10 @@ public class APVCalculator implements IShareholderValueCalculator {
 		Calculable[] fcf = new Calculable[scenario.getChildrenSize()];
 		Calculable[] fk = new Calculable[scenario.getChildrenSize()];
 		int i = 0;
-		for (IDTO period : scenario.getChildren()) {
+		for (DTOPeriod period : scenario.getChildren()) {
 			if (i > 0)
-				fcf[i] =  ((DTOPeriod) period).getFCF();
-			fk[i] = ((DTOPeriod) period).getLiabilities();
+				fcf[i] =  period.getFCF();
+			fk[i] = period.getLiabilities();
 			i++;
 		}
 		HashMap<String, Object> input = new HashMap<String, Object>();

@@ -5,7 +5,7 @@ import org.bh.calculation.sebi.Calculable;
 import org.bh.data.DTOPeriod;
 import org.bh.data.IPeriodicalValuesDTO;
 import org.bh.plugin.DTOGCCProfitLossStatementCostOfSales;
-import org.bh.plugin.gccbalancesheet09.data.DTOGCCBalanceSheet09;
+import org.bh.plugin.gccbalancesheet09.DTOGCCBalanceSheet09;
 
 /**
  * Calculates the FCF from the current profit&loss statement, the current balance sheet and the

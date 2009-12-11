@@ -1,4 +1,4 @@
-package org.bh.plugin.gccbalancesheet09.data;
+package org.bh.plugin.gccbalancesheet09;
 
 import org.bh.data.DTO;
 import org.bh.data.IPeriodicalValuesDTO;
@@ -14,6 +14,7 @@ import org.bh.data.IPeriodicalValuesDTO;
  * 
  */
 
+@SuppressWarnings("unchecked")
 public class DTOGCCBalanceSheet09 extends DTO implements IPeriodicalValuesDTO {
 	private static final String UNIQUE_ID = "gccbalancesheet09";
 	
