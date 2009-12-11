@@ -5,13 +5,14 @@ import java.util.ServiceLoader;
 
 import org.apache.log4j.Logger;
 import org.bh.calculation.IShareholderValueCalculator;
+import org.bh.calculation.sebi.DoubleValue;
+import org.bh.data.DTOPeriod;
 import org.bh.data.DTOScenario;
 import org.bh.data.IPeriodicalValuesDTO;
-import org.bh.data.PeriodicalValuesDTOFactory;
-import org.bh.data.DTOScenario.DTOScenarioKeys;
-import org.bh.calculation.sebi.Double;
-
 import org.bh.platform.PluginManager;
+import org.bh.plugin.DTOGCCProfitLossStatementCostOfSales;
+import org.bh.plugin.directinput.DTODirectInput;
+import org.bh.plugin.gccbalancesheet09.DTOGCCBalanceSheet09;
 
 /**
  *
@@ -50,20 +51,44 @@ public class BusinessHorizon {
 			log.debug(dto.toString());
 		}*/
 		
+		PluginManager.getInstance().loadAllServices(IPeriodicalValuesDTO.class);
+		
 		// usually, the controller would create the DTOs
 		double[] fk = {1000, 1100, 1200};
-		double[] fcf = {100, 110, 120};
+		double[] fcf = {555555, 110, 120};
+		double[] dummy = {500, 520, 540};
+		double[] value1 = {-1, 30, 35};
+		double[] value2 = {-1, 60, 65};
 		
 		DTOScenario scenario = new DTOScenario();		
-		scenario.put(DTOScenarioKeys.REK.toString() , new Double(0.11));
-		scenario.put("rendite_fk", new Double(0.10));
-		scenario.put("sg", new Double(0.1694));
-		scenario.put("sks", new Double(0.26375));
+		scenario.put(DTOScenario.Key.REK, new DoubleValue(0.11));
+		scenario.put(DTOScenario.Key.RFK, new DoubleValue(0.10));
+		scenario.put(DTOScenario.Key.SG, new DoubleValue(0.1694));
+		scenario.put(DTOScenario.Key.SKS, new DoubleValue(0.26375));
 		
 		for (int i = 0; i < fk.length; i++) {
-			IPeriodicalValuesDTO period = PeriodicalValuesDTOFactory.getInstance().create("directinput");
-			period.put("fcf", new Double(fcf[i]));
-			period.put("fremdkapital", new Double(fk[i]));
+			DTOPeriod period = new DTOPeriod();
+			
+			if (i > 1) {
+				IPeriodicalValuesDTO direct = new DTODirectInput();
+				direct.put(DTODirectInput.Key.FCF, new DoubleValue(fcf[i]));
+				direct.put(DTODirectInput.Key.LIABILITIES, new DoubleValue(fk[i]));			
+				
+				period.addChild(direct);
+			} else {
+				DTOGCCBalanceSheet09 bs = new DTOGCCBalanceSheet09();
+				bs.put(DTOGCCBalanceSheet09.Key.LIABILITIES, new DoubleValue(fk[i]));
+				bs.put(DTOGCCBalanceSheet09.Key.DUMMY, new DoubleValue(dummy[i]));
+				period.addChild(bs);
+				
+				if (i > 0) {
+					DTOGCCProfitLossStatementCostOfSales pls = new DTOGCCProfitLossStatementCostOfSales();
+					pls.put(DTOGCCProfitLossStatementCostOfSales.Key.VALUE1, new DoubleValue(value1[i]));
+					pls.put(DTOGCCProfitLossStatementCostOfSales.Key.VALUE2, new DoubleValue(value2[i]));
+					period.addChild(pls);
+				}
+			}
+			
 			scenario.addChild(period);
 		}
 		

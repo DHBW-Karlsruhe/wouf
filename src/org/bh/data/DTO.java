@@ -1,60 +1,70 @@
 package org.bh.data;
 
 
+import java.lang.annotation.ElementType;
+import java.lang.annotation.Retention;
+import java.lang.annotation.RetentionPolicy;
+import java.lang.annotation.Target;
+import java.lang.reflect.Field;
 import java.lang.reflect.InvocationTargetException;
-import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import org.bh.calculation.sebi.Calculable;
 import org.bh.calculation.sebi.Value;
 
 /**
  * General Data Transfer Object 
  * @author Marcus
+ * @author Robert
  *
  * @param <Value> Type of the values.
- * @param <G>
+ * @param <ChildT> Type of the children.
  */
-public abstract class DTO implements IDTO {	
-	
+@SuppressWarnings("unchecked")
+public abstract class DTO<ChildT extends IDTO> implements IDTO<ChildT> {
+	@Retention(RetentionPolicy.RUNTIME)
+	@Target(ElementType.FIELD)
+	protected @interface Method {
+		String value() default "";		
+	}
+
 	/**
 	 * Possible keys with which the user can access this DTO.
 	 */
-	protected List<String> availableKeys;
+	protected final List<String> availableKeys;
+	
+	private static Map<String, List<String>> KEYS_CACHE =
+		new HashMap<String, List<String>>();
+
+	/**
+	 * Prefix of the methods.
+	 * Method name: methodPrefix + key
+	 */
+	private static final String METHOD_PREFIX = "get";
 	
 	/**
 	 * Possible methods with which the user can call simple methods for
 	 * calculation.
 	 */
-	protected List<String> availableMethods;	
+	protected final Map<String, java.lang.reflect.Method> availableMethods;	
+	
+	private static Map<String, Map<String, java.lang.reflect.Method>> METHODS_CACHE =
+		new HashMap<String, Map<String, java.lang.reflect.Method>>();
 	
 	/**
 	 * All children assigned to this DTO.
 	 */
-	protected List<IDTO> children = new ArrayList<IDTO>();
-		
-	
-	/**
-	 * Prefix of the methods.
-	 * Method name: methodPrefix + key
-	 */
-	protected String methodPrefix = "get";
-	
-	/**
-	 * Placeholder which is used in the list of availableKeys in order to 
-	 * have the possibility to keep the order of the keys.
-	 * 
-	 */
-	protected String methodPlaceholder = "METHOD";
+	protected List<ChildT> children = new ArrayList<ChildT>();
 	
 	/**
 	 * In the sandbox mode a valid copy of the DTO is made
 	 * and can be used as fallback data if a validation
 	 * check returns false.
 	 */
-	protected Boolean sandBoxMode = false;
+	protected boolean sandBoxMode = false;
 	
 	/**
 	 * The actual map which contains all values.
@@ -64,133 +74,110 @@ public abstract class DTO implements IDTO {
 	/**
 	 * Fallback data in order to provide a kind of undo functionality.
 	 */
-	protected Map<String, Value> fallBackValues = new HashMap<String, Value>();	
+	protected Map<String, Value> fallBackValues = new HashMap<String, Value>();
+
+	public DTO(Enum[] enumeration) {
+		String className = getClass().getName();
+		if (KEYS_CACHE.containsKey(className) && METHODS_CACHE.containsKey(className)) {
+			availableKeys = KEYS_CACHE.get(className);
+			availableMethods = METHODS_CACHE.get(className);
+			
+		} else {
+			availableKeys = new ArrayList<String>();
+			availableMethods = new HashMap<String, java.lang.reflect.Method>();
+			
+			for (Enum element : enumeration) {
+				String key = element.toString().toLowerCase();
+				availableKeys.add(key);
+				try {
+					Field field = element.getClass().getDeclaredField(element.name());
+					Method method = field.getAnnotation(Method.class);
+					if (method != null) {
+						String methodName = (method.value().isEmpty()) ? (METHOD_PREFIX + key) : (method.value()); 
+						availableMethods.put(key, getMethod(methodName));
+					}
+				} catch (Throwable e) {
+					continue;
+				}
+			}
+			
+			KEYS_CACHE.put(className, availableKeys);
+			METHODS_CACHE.put(className, availableMethods);
+		}
+	}
 	
 	@Override
-	public Value get(String key) throws DTOAccessException {
+	public Value get(Object key1) throws DTOAccessException {
+		String key = key1.toString().toLowerCase();
+		// Check whether the key is part of the DTO
+		if (!availableKeys.contains(key))
+			throw new DTOAccessException("This DTO does not have a key '" + key + "'");
+		
 		// If the key is an actual key then return the corresponding value
-		if (availableKeys.contains(key.toLowerCase()))
-		{
-			Value result = values.get(key);
-			if (result != null)
-				return result;
-			else
-			{
-				if (availableMethods.contains(key))
-					return invokeMethod(key);
-				else
-					throw new DTOAccessException("There is no value assigned to the key: '" + key + "'");
-			}
-				
-		}
-		// If the key is the name of a method then invoke that method and
-		// return its value
-		else if (availableMethods.contains(key))
-		{			
-			return invokeMethod(key);			
-		}
-		// The key is neither part of the key list nor of the method list
+		Value result = values.get(key);
+		if (result != null)
+			return result;
+		// If no value is assigned to this key, but a method exists
+		else if (availableMethods.containsKey(key))
+			return invokeMethod(availableMethods.get(key));
 		else
-			throw new DTOAccessException("The key '" + key + "' is not part of this DTO!");		
+			throw new DTOAccessException("There is no value assigned to the key: '" + key + "'");
+	}
+	
+	@Override
+	public Calculable getCalculable(Object key) throws DTOAccessException {
+		return (Calculable) get(key);
 	}
 
 	@Override
-	public Value get(Integer pos) throws DTOAccessException {
-		// The position has to be in the range of the availableKey List
-		try {
-			// Get the name of the key at the position pos
-			String key = availableKeys.get(pos);
-			// If that key is a placeholder for a method then
-			// get the name of the key of the acutal method
-			if (key.equals(methodPlaceholder))
-			{
-				int methIdx = getMethodIndex(pos);
-				key = availableMethods.get(methIdx);
-			}
-			// Call the get method with the key
-			return get(key);
-		} catch (IndexOutOfBoundsException e) {
-			throw new DTOAccessException("The given position '" + pos + "' has no equivalent key!");
-		}	
-	}
-
-	@Override
-	public void put(String key, Value value) throws DTOAccessException {
-		if (availableKeys.contains(key.toLowerCase()))
-		{
+	public void put(Object key1, Value value) throws DTOAccessException {
+		String key = key1.toString().toLowerCase();
+		if (availableKeys.contains(key))
 			values.put(key, value);
-		}
 		else
 			throw new DTOAccessException("The key '" + key + "' is not part of this DTO!");
 	}
-
-	@Override
-	public void put(Integer pos, Value value) throws DTOAccessException {
-		try {
-			String key = availableKeys.get(pos);
-			if (key.equals(methodPlaceholder))
-				throw new DTOAccessException("A value cannot be assigned to a method.");
-			put(key, value);
-		} catch (IndexOutOfBoundsException e) {
-			throw new DTOAccessException("The given position '" + pos + "' has no equivalent key!");
-		}		
+	
+	/**
+	 * Get a reference to a method with the specified name.
+	 * @param methodName
+	 * @return
+	 * @throws NoSuchMethodError
+	 */
+	private java.lang.reflect.Method getMethod(String methodName) {
+		// Get all methods
+		java.lang.reflect.Method[] methods = getClass().getDeclaredMethods();
+		// Go through each method and check if the wanted method
+		// is available
+		for (java.lang.reflect.Method method : methods) {
+			if (method.getName().equalsIgnoreCase(methodName)) {
+				return method;
+			}
+		}
+		throw new NoSuchMethodError(methodName);
 	}
 	
 	/**
 	 * Invokes a method via reflection of this object.
-	 * @param key
+	 * @param method
 	 * @return
 	 * @throws DTOAccessException
 	 */
-	@SuppressWarnings("unchecked")
-	private Value invokeMethod(String key) throws DTOAccessException
-	{
-		// Get all methods
-		Method[] methods = getClass().getDeclaredMethods();
-		// Result
+	private Value invokeMethod(java.lang.reflect.Method method) throws DTOAccessException {
 		Value result = null;
-		// Complete method name with a prefix
-		String methodName = methodPrefix + key;
-		// Go through each method and check if the wanted method
-		// is available
-		for (Method method : methods)
-		{
-			if (method.getName().equalsIgnoreCase(methodName))
-			{
-				try
-				{
-					// Invoke method and store result
-					result = (Value) method.invoke(this, (Object[]) null);
-				}
-				catch (InvocationTargetException e)
-				{
-					throw new DTOAccessException(e.getTargetException());
-				} catch (Exception e) {
-					throw new DTOAccessException("The specified method '" + key + "' could not be invoked.");
-				}
-				break;
-			}
+		try {
+			// Invoke method and store result
+			result = (Value) method.invoke(this);
+		} catch (InvocationTargetException e) {
+			throw new DTOAccessException(e.getTargetException());
+		} catch (Exception e) {
+			throw new DTOAccessException("The specified method '" + method.getName() + "' could not be invoked.");
 		}
+		
 		if (result == null)
-			throw new DTOAccessException("The method '" + key + "' returned no proper result.");
+			throw new DTOAccessException("The method '" + method.getName() + "' returned no proper result.");
+		
 		// Return result
-		return result;
-	}
-	
-	/**
-	 * Returns the equivalent index of the availableMethod list to the index of the
-	 * availableKey list.
-	 * @param overallPos
-	 * @return
-	 */
-	private Integer getMethodIndex(Integer overallPos)
-	{
-		int result = 0;
-		for (int i = 0; i < overallPos; i++)
-		{
-			if (availableKeys.get(i).equals(methodPlaceholder))
-				result++;
-		}
 		return result;
 	}
 	
@@ -199,116 +186,79 @@ public abstract class DTO implements IDTO {
 		return values.toString();
 	}
 
-	/**
-	 * Adds a child to this DTO
-	 * @param child
-	 * @throws DTOAccessException 
-	 */
-	public IDTO addChild(IDTO child) throws DTOAccessException
-	{
-		if (!children.contains(child))
-		{
+	@Override
+	public ChildT addChild(ChildT child) throws DTOAccessException {
+		if (!children.contains(child)) {
 			children.add(child);
 			return child;
-		}
-		else
+		} else {
 			throw new DTOAccessException("The child is already assigned to this DTO!");
-		
+		}
 	}
 	
-	
-	/**
-	 * Returns the child at the given position. 
-	 * @param index
-	 * @return
-	 * @throws DTOAccessException
-	 */
-	public IDTO getChild(int index) throws DTOAccessException
-	{
-		IDTO result = null;
-		try
-		{
+	@Override
+	public ChildT getChild(int index) throws DTOAccessException {
+		ChildT result = null;
+		try {
 			result = children.get(index);
-		}
-		catch (IndexOutOfBoundsException e)
-		{
+		} catch (IndexOutOfBoundsException e) {
 			throw new DTOAccessException("There is no child at the given position: " + index);
 		}
 		return result;
 	}
 	
-	/**
-	 * Returns all children assigned to this DTO.
-	 * @return
-	 */
-	public List<IDTO> getChildren()
-	{
+	@Override
+	public List<ChildT> getChildren() {
 		return children;
 	}
 	
-	/**
-	 * Removes a child relation from this DTO.
-	 * @param index
-	 * @throws DTOAccessException
-	 */
-	public void removeChild(int index) throws DTOAccessException
-	{
-		try
-		{
-			children.remove(index);
-		}
-		catch (IndexOutOfBoundsException e)
-		{
+	@Override
+	public ChildT removeChild(int index) throws DTOAccessException {
+		try {
+			return children.remove(index);
+		} catch (IndexOutOfBoundsException e) {
 			throw new DTOAccessException("There is no child at the given position: " + index);
 		}
 	}
 	
-	/**
-	 * Returns the number of children assigned to this DTO.
-	 * @return
-	 */
-	public int getChildrenSize()
-	{
+	@Override
+	public int getChildrenSize() {
 		return children.size();
 	}
 
 	@Override
-	public Boolean getSandBoxMode() {
+	public boolean getSandBoxMode() {
 		return sandBoxMode;
 	}
 
 	@Override
 	public void setSandBoxMode(Boolean mode) {
-		if (mode)
-		{
+		if (mode) {
 			fallBackValues.clear();
-			values.putAll(((DTO) clone()).values);		
+			values.putAll(((DTO<ChildT>) clone()).values);		
 		}
 		sandBoxMode = mode;
 		
 	}
 
 	@Override
-	public abstract Boolean validate();
+	public abstract boolean validate();
 
 	@Override
-	public DTO clone() throws DTOAccessException {
-		DTO result = null;
+	public DTO<ChildT> clone() throws DTOAccessException {
+		DTO<ChildT> result = null;
 		try {
 			// Try to instantiate a new instance of the class of this DTO
 			result = this.getClass().newInstance();
 			// Go through each value, copy it and put it into the new instance
-			for (Map.Entry<String, Value> entry: values.entrySet())
-			{
+			for (Map.Entry<String, Value> entry: values.entrySet()) {
 				result.put(entry.getKey(), entry.getValue().clone());
 				// Copy and add children to the new instance
-				for (IDTO child : children)
-				{
-					result.addChild(child.clone());
+				for (ChildT child : children) {
+					result.addChild((ChildT) child.clone());
 				}
 			}			
-		}
-		catch (Exception e) {
+		} catch (Exception e) {
 			throw new DTOAccessException("An error occured during the cloning of a DTO. Class: " 
 					+ getClass().getName());
 		}

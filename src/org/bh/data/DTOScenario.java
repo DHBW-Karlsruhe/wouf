@@ -1,60 +1,54 @@
 package org.bh.data;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-
-public class DTOScenario extends DTO {
+public class DTOScenario extends DTO<DTOPeriod> {
 	
-	public enum DTOScenarioKeys 
-	{
+	public enum Key {
 		/**
 		 * Rendite Eigenkapital
 		 */
-		REK("rendite_ek"),
-		RFK("rendite_fk"),
-		SG("sg"),
-		SKS("sks");
-		
-		private String key;
-		
-		private DTOScenarioKeys(String key)
-		{
-			this.key = key;		
-		}	
-
-		
-		public static List<String> getKeys()
-		{
-			List<String> result = new ArrayList<String>();
-			for (DTOScenarioKeys key : values())
-			{
-				result.add(key.key);
-			}
-			return result;
-		}
-		
+		REK,
+		@Method RFK,
+		SG,
+		SKS,
 	}
-	
-	//private static final List<String> AVAILABLE_KEYS = Arrays.asList("rendite_ek", "rendite_fk", "sg", "sks");
-	private static final List<String> AVAILABLE_METHODS = Arrays.asList();
 	
     /**
      * initialize key and method list
      */
 	public DTOScenario() {
-		
-		availableKeys = DTOScenarioKeys.getKeys();
-		availableMethods = AVAILABLE_METHODS;
-		
-		
+		super(Key.values());
 	}
 
 	@Override
-	public Boolean validate() {
+	public boolean validate() {
 		// TODO Auto-generated method stub
 		throw new UnsupportedOperationException("This method has not been implemented");
 	}
-
 	
+	@Override
+	public DTOPeriod addChild(DTOPeriod child) throws DTOAccessException {
+		DTOPeriod result = super.addChild(child);
+		refreshPeriodReferences();
+		return result;
+	}
+	
+	@Override
+	public DTOPeriod removeChild(int index) throws DTOAccessException {
+		DTOPeriod removedPeriod = super.removeChild(index);
+		removedPeriod.next = removedPeriod.previous = null;
+		refreshPeriodReferences();
+		return removedPeriod;
+	}
+
+	private void refreshPeriodReferences() {
+		DTOPeriod previous = null;
+		for (DTOPeriod child : children) {
+			child.previous = previous;
+			if (previous != null)
+				previous.next = child;
+			previous = child;
+		}
+		if (previous != null)
+			previous.next = null;
+	}
 }

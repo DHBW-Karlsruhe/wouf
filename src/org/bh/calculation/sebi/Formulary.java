@@ -19,7 +19,7 @@ public class Formulary {
 	// PresentValueTaxShield[t] = (PresentValueTaxShield[t + 1] + (s * FKr * FK[t])) / (FKr + 1)
 	private static Calculable[] calcPresentValueTaxShieldFinite(Tax s, Calculable FKr, Calculable[] FK, Calculable[] PVTS){
 		for (int i = PVTS.length - 2; i >= 0; i--) {
-			PVTS[i] = (PVTS[i + 1].add(s.getGermanTax().mul(FKr).mul(FK[i + 1 - 1]))).div(FKr.add(new Double(1)));
+			PVTS[i] = (PVTS[i + 1].add(s.getGermanTax().mul(FKr).mul(FK[i + 1 - 1]))).div(FKr.add(new DoubleValue(1)));
 		}
 		return PVTS;
 	}
@@ -46,7 +46,7 @@ public class Formulary {
 	 * @return Variable equity return rate for the endless period
 	 */
 	public static Calculable calcVariableEquityReturnRateEndless(Tax s, Calculable FKr, Calculable FK, Calculable EKr, Calculable UW){
-		return EKr.add(((EKr.sub(FKr)).mul(s.getGermanTax().mul(new Double(-1)).add(new Double(1))).mul(FK.div(UW))));
+		return EKr.add(((EKr.sub(FKr)).mul(s.getGermanTax().mul(new DoubleValue(-1)).add(new DoubleValue(1))).mul(FK.div(UW))));
 	}
 	/**
 	 * Calculates the variable equity return rate for the finite periods. Used in FCF and FTE method.</br>
@@ -145,7 +145,7 @@ public class Formulary {
 	public static Calculable[] calcWACCDebts(Calculable[] FK, Calculable FKr, Calculable[] UW, Tax s){
 		Calculable[] waccDebts = new Calculable[UW.length];
 		for (int i = 1; i < UW.length; i++) {			
-			waccDebts[i] = FKr.mul((s.getGermanTax().mul(new Double(-1)).add(new Double(1)))
+			waccDebts[i] = FKr.mul((s.getGermanTax().mul(new DoubleValue(-1)).add(new DoubleValue(1)))
 					.mul((FK[i - 1].div((UW[i - 1].add(FK[i - 1]))))));
 		}
 		return waccDebts; 

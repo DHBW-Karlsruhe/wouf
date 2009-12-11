@@ -17,7 +17,7 @@ import org.bh.gui.View;
 public abstract class Controller implements IController, ActionListener{
 
     private View view;
-    private IDTO model;
+	private IDTO model;
 
 
     protected Controller(){

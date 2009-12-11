@@ -5,6 +5,7 @@
     <property name="build.dir" value="bin" />
     <property name="lib.dir" value="lib" />
     <property name="output.dir" value="output" />
+    <property name="javadoc.dir" value="${output.dir}/javadoc" />
     <property name="jar.name" value="${output.dir}/BH.jar" />
     <property name="jar.mainclass" value="org.bh.BusinessHorizon" />
     
@@ -52,6 +53,23 @@
 
         <signjar jar="${jar.name}" keystore="jarsign.keystore" alias="bhjar" storepass="ZDpPydacPvJXJpY4SmqN" />
     </target>
-    
-    <target depends="createjar" name="build" />
+	
+	<target name="javadoc">
+		<javadoc
+				sourcepath="${source.dir}"
+				destdir="${javadoc.dir}"
+				author="true"
+				version="true"
+				use="true"
+				charset="UTF-8"
+				classpathref="BH.classpath"
+				windowtitle="Business Horizon">
+
+			<doctitle><![CDATA[<h1>Business Horizon</h1>]]></doctitle>
+			<bottom><![CDATA[<i>Copyright &#169; 2009-2010 Business Horizon Project Team. All Rights Reserved.</i>]]></bottom>
+			<tag name="todo" scope="all" description="To do:"/>
+		</javadoc>
+	</target>
+	
+	<target depends="createjar, javadoc" name="build" />
 </project>

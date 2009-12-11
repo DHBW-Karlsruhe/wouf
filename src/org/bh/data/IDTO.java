@@ -2,9 +2,11 @@ package org.bh.data;
 
 import java.util.List;
 
+import org.bh.calculation.sebi.Calculable;
 import org.bh.calculation.sebi.Value;
 
-public interface IDTO {
+@SuppressWarnings("unchecked")
+public interface IDTO<ChildT extends IDTO> extends Cloneable {
 
 	/**
 	 * Returns a value assigned to the passed key.
@@ -12,32 +14,23 @@ public interface IDTO {
 	 * @return
 	 * @throws DTOAccessException
 	 */
-	Value get(String key) throws DTOAccessException;
-
+	Value get(Object key) throws DTOAccessException;
+	
 	/**
-	 * Returns a value by means of its position in the map.
-	 * @param pos
+	 * Returns a value assigned to the passed key as {@link Calculable}.
+	 * @param key - The key of the value.
 	 * @return
 	 * @throws DTOAccessException
 	 */
-	Value get(Integer pos) throws DTOAccessException;
-
+	Calculable getCalculable(Object key) throws DTOAccessException;
+	
 	/**
 	 * Puts a value into the DTO and assigns it to a key.
 	 * @param key
 	 * @param value
 	 * @throws DTOAccessException
 	 */
-	void put(String key, Value value) throws DTOAccessException;
-
-	/**
-	 * Puts a value to the specified position into the DTO 
-	 * @param pos
-	 * @param value
-	 * @throws DTOAccessException
-	 */
-	void put(Integer pos, Value value) throws DTOAccessException;
-
+	void put(Object key, Value value) throws DTOAccessException;
 	
 	/**
 	 * In the sandbox mode a valid copy of the DTO is made
@@ -52,27 +45,27 @@ public interface IDTO {
 	 * Returns the sandboxmode.
 	 * @return
 	 */
-	Boolean getSandBoxMode();
+	boolean getSandBoxMode();
 	
 	/**
 	 * Validates the data of the DTO.
 	 * @return	True - Data is valid.
 	 * 			False - Data is invalid.
 	 */
-	Boolean validate();
+	boolean validate();
 	
 	/**
 	 * Returns a copy of the DTO.
 	 * @return
 	 */
-	IDTO clone();
+	IDTO<ChildT> clone();
 	
 	/**
 	 * Adds a child to this DTO
 	 * @param child
 	 * @throws DTOAccessException 
 	 */
-	public IDTO addChild(IDTO child) throws DTOAccessException;
+	public ChildT addChild(ChildT child) throws DTOAccessException;
 	
 	/**
 	 * Returns the child at the given position. 
@@ -80,20 +73,20 @@ public interface IDTO {
 	 * @return
 	 * @throws DTOAccessException
 	 */
-	public IDTO getChild(int index) throws DTOAccessException;
+	public ChildT getChild(int index) throws DTOAccessException;
 	
 	/**
 	 * Returns all children assigned to this DTO.
 	 * @return
 	 */
-	public List<IDTO> getChildren();
+	public List<ChildT> getChildren();
 	
 	/**
 	 * Removes a child relation from this DTO.
 	 * @param index
 	 * @throws DTOAccessException
 	 */
-	public void removeChild(int index) throws DTOAccessException;
+	public ChildT removeChild(int index) throws DTOAccessException;
 	
 	/**
 	 * Returns the number of children assigned to this DTO.

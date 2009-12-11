@@ -69,7 +69,7 @@ public class AdjustedPresentValue {
 	// Calculate PresentValue for finite period
 	// PresentValueFCF[t] = (FCF[t] + PresentValueFCF[t + 1]) / (EKr + 1)
 	private Calculable calcPresentValueFCFen(Calculable presentValueFCF ,Calculable FCF, Calculable EKr){
-		return (Calculable) (FCF.add(presentValueFCF)).div(EKr.add(new Double(1)));
+		return (Calculable) (FCF.add(presentValueFCF)).div(EKr.add(new DoubleValue(1)));
 	}
 	
 	// UW[t] = presentValueFCF[t] + presentValueTaxShield[t] - FK[t]
