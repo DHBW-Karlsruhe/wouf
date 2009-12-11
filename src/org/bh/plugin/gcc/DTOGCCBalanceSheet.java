@@ -8,16 +8,15 @@ import org.bh.data.IPeriodicalValuesDTO;
  * GCCBalanceSheet DTO.
  * 
  * <p>
- * Data Transfer Object to handle GCCBalanceSheet09 values and methods
+ * Data Transfer Object to handle GCCBalanceSheet values and methods
  * 
  * @author Michael Löckelt 
  * @version 0.3, 07.12.2009
  * 
  */
 
-@SuppressWarnings("unchecked")
 public class DTOGCCBalanceSheet extends DTO implements IPeriodicalValuesDTO {
-	private static final String UNIQUE_ID = "gccbalancesheet";
+    private static final String UNIQUE_ID = "gccbalancesheet";
 	
     public enum Key {
 
@@ -26,346 +25,391 @@ public class DTOGCCBalanceSheet extends DTO implements IPeriodicalValuesDTO {
 	 * all positions will be named in german
 	 */
 	    
-	
 	/**
 	 * - AKTIVA
 	 */
-	    
-	    /**
-	* -- Anlagevermögen 
-	     */
 	@Method
-	    AV,
+	AKTIVA,
 	    
+	/**
+	 * -- Anlagevermögen 
+	 */
+	@Method
+	AV,
 	    
-	    /**
-	* --- Immaterielle Vermögensgegenstände
-	     */
+	/**
+	 * --- Immaterielle Vermögensgegenstände
+	 */
 
-	    /**
-	* ---- selbst geschaffene gewerbliche Schutzrechte und ähnliche Rechte und Werte
-	     */
-	    SGGS,
+	/**
+	 * ---- selbst geschaffene gewerbliche Schutzrechte und ähnliche Rechte und Werte
+	 */
+	SGGS,
 	    
-	    /**
-	* ---- entgeltlich erworbene Konzessionen, gewerbliche Schutzrechte und ähnliche Rechte und Werte sowie Lizenzen an solchen Rechten und Werten
-	     */
-	    EKGS,
+	/**
+	 * ---- entgeltlich erworbene Konzessionen, gewerbliche Schutzrechte und ähnliche Rechte und Werte sowie Lizenzen an solchen Rechten und Werten
+	 */
+	EKGS,
 	    
-	    /**
-	* ---- Geschäfts- oder Firmenwert
-	     */
-	    GFW,
+	/**
+ 	 * ---- Geschäfts- oder Firmenwert
+	 */
+	GFW,
 	    
-	    /**
-	* ---- geleistete Anzahlungen Anlagevermögen
-	     */
-	    AVGA,
+	/**
+	 * ---- geleistete Anzahlungen Anlagevermögen
+	 */
+	AVGA,
 	    
-	    /**
-	* --- Sachanlagen
-	     */
+	/**
+	 * --- Sachanlagen
+	 */
 	    
-	    /**
-	* ---- Grundstücke, grundstücksgleiche Rechte und Bauten einschließlich der Bauten auf fremden Grundstücken
-	     */
-	    GRB,
+	/**
+	 * ---- Grundstücke, grundstücksgleiche Rechte und Bauten einschließlich der Bauten auf fremden Grundstücken
+	*/
+	GRB,
 	    
-	    /**
-	* ---- technische Anlagen und Maschinen
-	     */
-	    TAM,
+	/**
+	 * ---- technische Anlagen und Maschinen
+	 */
+	TAM,
 	    
-	    /**
-	* ---- andere Anlagen, Betriebs- und Geschäftsausstattung
-	     */
-	    BGA,
+	/**
+	 * ---- andere Anlagen, Betriebs- und Geschäftsausstattung
+	 */
+	BGA,
 	    
-	    /**
-	* ---- geleistete Anzahlungen und Anlagen im Bau
-	     */
-	    GAAB,
+	/**
+	 * ---- geleistete Anzahlungen und Anlagen im Bau
+	 */
+	GAAB,
 	    
-	    /**
-	* --- Finanzanlagen
-	     */
+	/**
+	 * --- Finanzanlagen
+	 */
 	    
-	    /**
-	* ---- Anteile an verbundenen Unternehmen
-	     */
-	    ANVU,
+	/**
+	 * ---- Anteile an verbundenen Unternehmen
+	 */
+	ANVU,
 	    
-	    /**
-	* ---- Ausleihungen an verbundene Unternehmen
-	     */
-	    AUVU,
+        /**
+	 * ---- Ausleihungen an verbundene Unternehmen
+	 */
+	AUVU,
 	    
-	    /**
-	* ---- Beteiligungen
-	     */
-	    BET,
+	/**
+	 * ---- Beteiligungen
+	 */
+	BET,
 	    
-	    /**
-	* ---- Ausleihungen an Unternehmen, mit denen ein Beteiligungsverhältnis besteht
-	     */
-	    ABET,
+	/**
+	 * ---- Ausleihungen an Unternehmen, mit denen ein Beteiligungsverhältnis besteht
+	 */
+	ABET,
 	    
-	    /**
-	* ---- Wertpapiere des Anlagevermögens
-	     */
-	    WAV,
+	/**
+	 * ---- Wertpapiere des Anlagevermögens
+	 */
+	WAV,
 	    
-	    /**
-	* ---- sonstige Ausleihungen
-	     */
-	    SA,
+	/**
+	 * ---- sonstige Ausleihungen
+	 */
+	SOA,
 	    
-	    /**
-	* -- Umlaufvermögen
-	     */
-	    UV,
+	/**
+	 * -- Umlaufvermögen
+	 */
+	@Method
+	UV,
 	    
-	    /**
-	* --- Vorräte
-	     */
+	/**
+	 * --- Vorräte
+	 */
 	    
-	    /**
-	* ---- Roh-, Hilfs- und Betriebsstoffe
-	     */
-	    RHB,
+	/**
+	 * ---- Roh-, Hilfs- und Betriebsstoffe
+	 */
+	RHB,
 	    
-	    /**
-	* ---- unfertige Erzeugnisse, unfertige Leistungen
-	     */
-	    UEL,
+	/**
+	 * ---- unfertige Erzeugnisse, unfertige Leistungen
+	 */
+	UEL,
 	    
-	    /**
-	* ---- fertige Erzeugnisse und Waren
-	     */
-	    FEW,
+	/**
+	 * ---- fertige Erzeugnisse und Waren
+	 */
+	FEW,
 	    
-	    /**
-	* ---- geleistete Anzahlungen Umlaufvermögen
-	     */
-	    UVGA,
+	/**
+	 * ---- geleistete Anzahlungen Umlaufvermögen
+	 */
+	UVGA,
 	    
-	    /**
-	* --- Forderungen und sonstige Vermögensgegenstände
-	     */
+	/**
+	 * --- Forderungen und sonstige Vermögensgegenstände
+	 */
 	    
-	    /**
-	* ---- Forderungen aus Lieferungen und Leistungen
-	     */
-	    FLL,
+	/**
+	 * ---- Forderungen aus Lieferungen und Leistungen
+	 */
+	FLL,
 	    
-	    /**
-	* ---- Forderungen gegen verbundene Unternehmen
-	     */
-	    FVU,
+	/**
+	 * ---- Forderungen gegen verbundene Unternehmen
+	 */
+	FVU,
 	    
-	    /**
-	* ---- Forderungen gegen Unternehmen, mit denen ein Beteiligungsverhältnis besteht
-	     */
-	    FUBET,
+	/**
+	 * ---- Forderungen gegen Unternehmen, mit denen ein Beteiligungsverhältnis besteht
+	 */
+	FUBET,
 	    
-	    /**
-	* ---- sonstige Vermögensgegenstände
-	     */
-	    SVG,
+	/**
+	 * ---- sonstige Vermögensgegenstände
+	 */
+	SVG,
 	    
-	    /**
-	* --- Wertpapiere
-	     */
+	/**
+	 * --- Wertpapiere
+	 */
 	    
-	    /**
-	* ---- Anteile an verbundenen Unternehmen
-	     */
-	    AVU,
+	/**
+	 * ---- Anteile an verbundenen Unternehmen
+	 */
+	AVU,
 	    
-	    /**
-	* ---- sonstige Wertpapiere
-	     */
-	    SW,
+	/**
+	 * ---- sonstige Wertpapiere
+	 */
+	SW,
 	    
-	    /**
-	* -- Kassenbestand, Bundesbankguthaben, Guthaben bei Kreditinstituten und Schecks
-	     */
-	    KBGGKS,
+	/**
+	 * --- Kassenbestand, Bundesbankguthaben, Guthaben bei Kreditinstituten und Schecks (liquide Mittel)
+	 */
+	KBGGKS,
 	    
-	    /**
-	* -- Rechnungsabgrenzungsposten (AKTIVA)
-	     */
-	    ARA,
+	/**
+	 * -- (Aktive) Rechnungsabgrenzungsposten
+	 */
+	ARA,
 	    
-	    /**
-	* -- Aktive latente Steuern
-	     */
-	    ALS,
+	/**
+	 * -- Aktive latente Steuern
+	 */
+	ALS,
 	    
-	    /**
-	* -- Aktiver Unterschiedsbetrag aus der Vermögensverrechnung
-	     */
-	    AUBV,
+	/**
+	 * -- Aktiver Unterschiedsbetrag aus der Vermögensverrechnung
+	 */
+	AUBV,
 	    
-	    /**
-	* - PASSIVA
-	     */
+	/**
+	 * - PASSIVA
+	 */
+	@Method
+	PASSIVA,
 	    
-	    /**
-	* -- Eigenkapital
-	     */
-	    EK,
+	/**
+	 * -- Eigenkapital
+	 */
+	@Method
+	EK,
 	    
-	    /**
-	* --- Gezeichnetes Kapital
-	     */
-	    GEZK,
+	/**
+	 * --- Gezeichnetes Kapital
+	 */
+	GEZK,
 	    
-	    /**
-	* --- Kapitalrücklage
-	     */
-	    KR,
+	/**
+	 * --- Kapitalrücklage
+	 */
+	KR,
 	    
-	    /**
-	* --- Gewinnrücklage
-	     */
+	/**
+	 * --- Gewinnrücklagen
+	 */
 	    
-	    /**
-	* ---- gesetzliche Rücklage
-	     */
-	    GESR,
+	/**
+	 * ---- gesetzliche Rücklage
+	 */
+	GESR,
 	    
-	    /**
-	* ---- Rücklage für Anteile an einem herrschenden oder mehrheitlich beteiligten Unternehmen
-	     */
-	    RAHBETU,
+	/**
+	 * ---- Rücklage für Anteile an einem herrschenden oder mehrheitlich beteiligten Unternehmen
+	 */
+	RAHBETU,
 	    
-	    /**
-	* ---- satzungsmäßige Rücklagen
-	     */
-	    SMR,
+	/**
+	 * ---- satzungsmäßige Rücklagen
+	 */
+	SMR,
 	    
-	    /**
-	* ---- andere Gewinnrücklagen
-	     */
-	    AG,
+	/**
+	 * ---- andere Gewinnrücklagen
+	 */
+	AG,
 	    
-	    /**
-	* --- Gewinnvortrag/Verlustvortrag
-	     */
-	    G3V,
+	/**
+	 * --- Gewinnvortrag/Verlustvortrag
+	 */
+	G3V,
 	    
-	    /**
-	* --- Jahresüberschuß/Jahresfehlbetrag
-	     */
-	    JUJF,
+	/**
+	 * --- Jahresüberschuß/Jahresfehlbetrag
+	 */
+	JUJF,
 	    
-	    /**
-	* -- Rückstellungen
-	     */
+	/**
+	 * -- Rückstellungen
+	 */
+	@Method
+	RS,
 	    
-	    /**
-	* --- Rückstellungen für Pensionen und ähnliche Verpflichtungen
-	     */
-	    RPV,
+	/**
+	 * --- Rückstellungen für Pensionen und ähnliche Verpflichtungen
+	 */
+	RSPV,
 	    
-	    /**
-	* --- Steuerrückstellungen
-	     */
-	    STR,
+	/**
+	 * --- Steuerrückstellungen
+	 */	
+	RSSTR,
 	    
-	    /**
-	* --- sonstige Rückstellungen
-	     */
-	    SR,
+	/**
+	 * --- sonstige Rückstellungen
+	 */
+	RSSR,
 	    
-	    /**
-	* --- Verbindlichkeiten
-	     */
-	    VB,
+	/**
+	 * -- Verbindlichkeiten
+	 */
+	@Method
+	VB,
 	    
-	    /**
-	* ---- Anleihen
-	     */
-	    ANL,
+	/**
+	 * --- Anleihen
+	 */
+	ANL,
 	    
-	    /**
-	* ---- konvertible Anleihen
-	     */
-	    KANL,
+	/**
+	 * --- Verbindlichkeiten gegenüber Kreditinstituten
+	 */
+	VBK,
 	    
-	    /**
-	* ---- Verbindlichkeiten gegenüber Kreditinstituten
-	     */
-	    VBK,
+	/**
+	 * --- erhaltene Anzahlungen auf Bestellungen
+	 */
+	EAB,
 	    
-	    /**
-	* ---- erhaltene Anzahlungen auf Bestellungen
-	     */
-	    EAB,
+	/**
+	 * --- Verbindlichkeiten aus Lieferungen und Leistungen
+	 */
+	VBLL,
 	    
-	    /**
-	* ---- Verbindlichkeiten aus Lieferungen und Leistungen
-	     */
-	    VBLL,
+	/**
+	 * --- Verbindlichkeiten aus der Annahme gezogener Wechsel und der Ausstellung eigener Wechsel
+	 */
+	VBWE,
 	    
-	    /**
-	* ---- Verbindlichkeiten aus der Annahme gezogener Wechsel und der Ausstellung eigener Wechsel
-	     */
-	    VBWE,
+	/**
+	 * --- Verbindlichkeiten gegenüber verbundenen Unternehmen
+	 */
+	VBVU,
 	    
-	    /**
-	* ---- Verbindlichkeiten gegenüber verbundenen Unternehmen
-	     */
-	    VBVU,
+	/**
+	 * --- Verbindlichkeiten gegenüber Unternehmen, mit denen ein Beteiligungsverhältnis besteht
+	 */
+	VBBETU,
 	    
-	    /**
-	* ---- Verbindlichkeiten gegenüber Unternehmen, mit denen ein Beteiligungsverhältnis besteht
-	     */
-	    VBBETU,
+	/**
+	 * --- Sonstige Verbindlichkeiten
+	 */
+	SVB,
 	    
-	    /**
-	* --- Sonstige Verbindlichkeiten
-	     */
-	    SVB,
+	/**
+	 * -- (Passive) Rechnungsabgrenzungsposten
+	 */
+	PRA,
 	    
-	    /**
-	* ---- Verbindlichkeiten aus Steuern
-	     */
-	    VBST,
-	    
-	    /**
-	* ---- Verbindlichkeiten im Rahmen der sozialen Sicherheit
-	     */
-	    VBSS,
-	    
-	    /**
-	* -- (Passive) Rechnungsabgrenzungsposten
-	     */
-	    PRA,
-	    
-	    /**
-	* -- passive latente Steuern
-	     */
-	    PLS;
+	/**
+	 * -- passive latente Steuern
+	 */
+	PLS;
     }
 
     public DTOGCCBalanceSheet() {
     	super(Key.values());
-	}
+    }
 
-	@Override
-	public boolean validate() {
-		// TODO Auto-generated method stub
-		throw new UnsupportedOperationException("This method has not been implemented");
-	}
+    @Override
+    public boolean validate() {
+	// TODO Auto-generated method stub
+	throw new UnsupportedOperationException("This method has not been implemented");
+    }
+
+    @Override
+    public String getUniqueId() {
+	return UNIQUE_ID;
+    }
+
+    /**
+     * sums and returns asset values
+     * @return Calculable
+     */
+    protected Calculable getAKTIVA() {
+	return null;
+    }
+    
+    /**
+     * sums and returns fixed assets values
+     * @return Calculable
+     */
+    protected Calculable getAV() {
+	return null;
+    }
 	
-	@Override
-	public String getUniqueId() {
-		return UNIQUE_ID;
-	}
-	
-	protected Calculable getAV() {
-	    return null;
-	}
+    /**
+     * sums and returns current assets values
+     * @return Calculable
+     */
+    protected Calculable getUV() {
+	return null;
+    }
+
+    /**
+     * sums and returns equity and liabilities values
+     * @return Calculable
+     */
+    protected Calculable getPASSIVA() {
+	return null;
+    }
+    
+    /**
+     * sums and returns equity values
+     * @return Calculable
+     */
+    protected Calculable getEK() {
+	return null;
+    }
+    
+    /**
+     * sums and returns accruals values
+     * @return Calculable
+     */
+    protected Calculable getRS() {
+	return null;
+    }
+    
+    /**
+     * sums and returns liabilities values
+     * @return Calculable
+     */
+    protected Calculable getVB() {
+	return null;
+    }
+    
 }
