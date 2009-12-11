@@ -1,4 +1,4 @@
-package org.bh.plugin;
+package org.bh.plugin.gcc;
 
 import org.bh.data.DTO;
 import org.bh.data.IPeriodicalValuesDTO;

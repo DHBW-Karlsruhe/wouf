@@ -10,9 +10,9 @@ import org.bh.data.DTOPeriod;
 import org.bh.data.DTOScenario;
 import org.bh.data.IPeriodicalValuesDTO;
 import org.bh.platform.PluginManager;
-import org.bh.plugin.DTOGCCProfitLossStatementCostOfSales;
 import org.bh.plugin.directinput.DTODirectInput;
-import org.bh.plugin.gccbalancesheet09.DTOGCCBalanceSheet09;
+import org.bh.plugin.gcc.DTOGCCBalanceSheet;
+import org.bh.plugin.gcc.DTOGCCProfitLossStatementCostOfSales;
 
 /**
  *
@@ -76,9 +76,10 @@ public class BusinessHorizon {
 				
 				period.addChild(direct);
 			} else {
-				DTOGCCBalanceSheet09 bs = new DTOGCCBalanceSheet09();
-				bs.put(DTOGCCBalanceSheet09.Key.LIABILITIES, new DoubleValue(fk[i]));
-				bs.put(DTOGCCBalanceSheet09.Key.DUMMY, new DoubleValue(dummy[i]));
+			    
+				DTOGCCBalanceSheet bs = new DTOGCCBalanceSheet();
+				bs.put(DTOGCCBalanceSheet09.DTOGCCBalanceSheet.LIABILITIES, new DoubleValue(fk[i]));
+				bs.put(DTOGCCBalanceSheet09.DTOGCCBalanceSheet.DUMMY, new DoubleValue(dummy[i]));
 				period.addChild(bs);
 				
 				if (i > 0) {
@@ -90,7 +91,7 @@ public class BusinessHorizon {
 			}
 			
 			scenario.addChild(period);
-		}
+		} 
 		
 		ServiceLoader<IShareholderValueCalculator> calculators = PluginManager.getInstance().getServices(IShareholderValueCalculator.class);
 		for (IShareholderValueCalculator calculator : calculators) {
