@@ -20,7 +20,7 @@ public class Tax {
 	
 	private void calcGermanTax(Calculable sg, Calculable sks){
 		//this.gesamt = (0.5 * sg * (1 - sks) + sks); 
-		this.aggregatedTaxG = (Calculable) sg.mul(new Double(0.5)).mul(sks.mul(new Double(-1)).add(new Double(1)));
+		this.aggregatedTaxG = (Calculable) sg.mul(new DoubleValue(0.5)).mul(sks.mul(new DoubleValue(-1)).add(new DoubleValue(1)));
 		this.aggregatedTaxG = (Calculable) aggregatedTaxG.add(sks);
 	}
 	public Calculable getSg() {

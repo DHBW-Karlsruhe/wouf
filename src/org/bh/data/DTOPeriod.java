@@ -1,48 +1,57 @@
 package org.bh.data;
 
-import java.util.Arrays;
-import java.util.List;
 import java.util.ServiceLoader;
 
 import org.bh.calculation.ICalculationPreparer;
-import org.bh.calculation.sebi.Value;
+import org.bh.calculation.sebi.Calculable;
 import org.bh.platform.PluginManager;
 
-public class DTOPeriod extends DTO {		
-	private static final List<String> AVAILABLE_KEYS = Arrays.asList("METHOD", "METHOD");
-	private static final List<String> AVAILABLE_METHODS = Arrays.asList("fremdkapital", "fcf");  // @TODO translate
+public class DTOPeriod extends DTO {
+	public enum Key {
+		@Method LIABILITIES,
+		@Method FCF,
+	}
+	
+	DTOPeriod previous = null;
+	DTOPeriod next = null;
 	
     /**
      * initialize key and method list
      */
 	public DTOPeriod() {
-		
-		availableKeys = AVAILABLE_KEYS;
-		availableMethods = AVAILABLE_METHODS;
+		super(Key.values());
 	}
 	
-	public Value getFremdkapital() {  // @TODO translate
-		Value result = getChildrenValue("fremdkapital"); // @TODO translate
+	/**
+	 * Get or calculate the liabilities for this period.
+	 * @return
+	 */
+	public Calculable getLiabilities() {
+		Calculable result = getChildrenValue(Key.LIABILITIES);
 		if (result != null)
 			return result;
 		
 		ServiceLoader<ICalculationPreparer> preparers = PluginManager.getInstance().getServices(ICalculationPreparer.class);
 		for (ICalculationPreparer preparer : preparers) {
-			result = preparer.getFremdkapital(this);  // @TODO translate
+			result = preparer.getLiabilities(this);
 			if (result != null)
 				break;
 		}
 		if (result == null) {
-			throw new DTOAccessException("Cannot calculate FK"); // @TODO translate
+			throw new DTOAccessException("Cannot calculate liabilities");
 		}
 		return result;
 	}
 	
-	public Value getFCF() {
-		Value result = getChildrenValue("fcf");
+	/**
+	 * Get or calculate the FCF for this period.
+	 * @return
+	 */
+	public Calculable getFCF() {
+		Calculable result = getChildrenValue(Key.FCF);
 		if (result != null)
 			return result;
-		
+
 		ServiceLoader<ICalculationPreparer> preparers = PluginManager.getInstance().getServices(ICalculationPreparer.class);
 		for (ICalculationPreparer preparer : preparers) {
 			result = preparer.getFCF(this);
@@ -50,15 +59,20 @@ public class DTOPeriod extends DTO {
 				break;
 		}
 		if (result == null) {
-			throw new DTOAccessException("Cannot calculate FCF"); // @TODO translate
+			throw new DTOAccessException("Cannot calculate FCF");
 		}
 		return result;
 	}
 	
-	protected Value getChildrenValue(String key) {
+	/**
+	 * Find a value in one of the children of this period.
+	 * @param key
+	 * @return The value if it was found, otherwise null;
+	 */
+	protected Calculable getChildrenValue(Key key) {
 		for (IDTO child : children) {
 			try {
-				Value result = child.get(key);
+				Calculable result = child.getCalculable(key);
 				return result;
 			} catch (DTOAccessException e) {
 				continue;
@@ -68,8 +82,29 @@ public class DTOPeriod extends DTO {
 	}
 
 	@Override
-	public Boolean validate() {
+	public boolean validate() {
 		// TODO Auto-generated method stub
 		throw new UnsupportedOperationException("This method has not been implemented");
+	}
+	
+	public synchronized DTOPeriod getPrevious() {
+		return previous;
+	}
+
+	public synchronized DTOPeriod getNext() {
+		return next;
+	}
+
+	/**
+	 * Returns the first matching DTO with periodical values.
+	 * @param uniqueId Type of the DTO.
+	 * @return The DTO or null if none could be found.
+	 */
+	public IPeriodicalValuesDTO getPeriodicalValuesDTO(String uniqueId) {
+		for (IDTO child : children) {
+			if (((IPeriodicalValuesDTO) child).getUniqueId().equals(uniqueId))
+				return (IPeriodicalValuesDTO) child;
+		}
+		return null;
 	}
 }

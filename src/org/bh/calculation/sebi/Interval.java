@@ -12,16 +12,16 @@ public class Interval extends Calculable {
 
     @Override
     public Calculable add(Calculable summand) {
-	if (summand instanceof Integer) {
-	    double x = min + ((Integer) summand).getValue();
-	    double y = max + ((Integer) summand).getValue();
+	if (summand instanceof IntegerValue) {
+	    double x = min + ((IntegerValue) summand).getValue();
+	    double y = max + ((IntegerValue) summand).getValue();
 	    if (x < y) {
 		return new Interval(x, y);
 	    }
 	    return new Interval(y, x);
-	} else if (summand instanceof Double) {
-	    double x = min + ((Double) summand).getValue();
-	    double y = max + ((Double) summand).getValue();
+	} else if (summand instanceof DoubleValue) {
+	    double x = min + ((DoubleValue) summand).getValue();
+	    double y = max + ((DoubleValue) summand).getValue();
 	    if (x < y) {
 		return new Interval(x, y);
 	    }
@@ -34,16 +34,16 @@ public class Interval extends Calculable {
 
     @Override
     public Calculable div(Calculable divisor) {
-	if (divisor instanceof Integer) {
-	    double x = min / ((Integer) divisor).getValue();
-	    double y = max / ((Integer) divisor).getValue();
+	if (divisor instanceof IntegerValue) {
+	    double x = min / ((IntegerValue) divisor).getValue();
+	    double y = max / ((IntegerValue) divisor).getValue();
 	    if (x < y) {
 		return new Interval(x, y);
 	    }
 	    return new Interval(y, x);
-	} else if (divisor instanceof Double) {
-	    double x = min / ((Double) divisor).getValue();
-	    double y = max / ((Double) divisor).getValue();
+	} else if (divisor instanceof DoubleValue) {
+	    double x = min / ((DoubleValue) divisor).getValue();
+	    double y = max / ((DoubleValue) divisor).getValue();
 	    if (x < y) {
 		return new Interval(x, y);
 	    }
@@ -78,16 +78,16 @@ public class Interval extends Calculable {
 
     @Override
     public Calculable mul(Calculable multiplicand) {
-	if (multiplicand instanceof Integer) {
-	    double x = min * ((Integer) multiplicand).getValue();
-	    double y = max * ((Integer) multiplicand).getValue();
+	if (multiplicand instanceof IntegerValue) {
+	    double x = min * ((IntegerValue) multiplicand).getValue();
+	    double y = max * ((IntegerValue) multiplicand).getValue();
 	    if (x < y) {
 		return new Interval(x, y);
 	    }
 	    return new Interval(y, x);
-	} else if (multiplicand instanceof Double) {
-	    double x = min * ((Double) multiplicand).getValue();
-	    double y = max * ((Double) multiplicand).getValue();
+	} else if (multiplicand instanceof DoubleValue) {
+	    double x = min * ((DoubleValue) multiplicand).getValue();
+	    double y = max * ((DoubleValue) multiplicand).getValue();
 	    if (x < y) {
 		return new Interval(x, y);
 	    }
@@ -118,16 +118,16 @@ public class Interval extends Calculable {
 
     @Override
     public Calculable sub(Calculable subtrahend) {
-	if (subtrahend instanceof Integer) {
-	    double x = min - ((Integer) subtrahend).getValue();
-	    double y = max - ((Integer) subtrahend).getValue();
+	if (subtrahend instanceof IntegerValue) {
+	    double x = min - ((IntegerValue) subtrahend).getValue();
+	    double y = max - ((IntegerValue) subtrahend).getValue();
 	    if (x < y) {
 		return new Interval(x, y);
 	    }
 	    return new Interval(y, x);
-	} else if (subtrahend instanceof Double) {
-	    double x = min - ((Double) subtrahend).getValue();
-	    double y = max - ((Double) subtrahend).getValue();
+	} else if (subtrahend instanceof DoubleValue) {
+	    double x = min - ((DoubleValue) subtrahend).getValue();
+	    double y = max - ((DoubleValue) subtrahend).getValue();
 	    if (x < y) {
 		return new Interval(x, y);
 	    }

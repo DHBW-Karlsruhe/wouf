@@ -1,18 +1,18 @@
 package org.bh.calculation.sebi;
 
-public class Integer extends Calculable {
+public class IntegerValue extends Calculable {
     int value;
 
-    public Integer(int value) {
+    public IntegerValue(int value) {
 	this.value = value;
     }
 
     @Override
     public Calculable add(Calculable summand) {
-	if (summand instanceof Integer) {
-	    return new Integer(value + ((Integer) summand).getValue());
-	} else if (summand instanceof Double) {
-	    return new Double(value + ((Double) summand).getValue());
+	if (summand instanceof IntegerValue) {
+	    return new IntegerValue(value + ((IntegerValue) summand).getValue());
+	} else if (summand instanceof DoubleValue) {
+	    return new DoubleValue(value + ((DoubleValue) summand).getValue());
 	} else {
 	    double x = value + ((Interval) summand).getMin();
 	    double y = value + ((Interval) summand).getMax();
@@ -25,10 +25,10 @@ public class Integer extends Calculable {
 
     @Override
     public Calculable div(Calculable divisor) {
-	if (divisor instanceof Integer) {
-	    return new Double((double) value / ((Integer) divisor).getValue());
-	} else if (divisor instanceof Double) {
-	    return new Double(value / ((Double) divisor).getValue());
+	if (divisor instanceof IntegerValue) {
+	    return new DoubleValue((double) value / ((IntegerValue) divisor).getValue());
+	} else if (divisor instanceof DoubleValue) {
+	    return new DoubleValue(value / ((DoubleValue) divisor).getValue());
 	} else {
 	    double x = value / ((Interval) divisor).getMin();
 	    double y = value / ((Interval) divisor).getMax();
@@ -45,10 +45,10 @@ public class Integer extends Calculable {
 
     @Override
     public Calculable mul(Calculable multiplicand) {
-	if (multiplicand instanceof Integer) {
-	    return new Integer(value * ((Integer) multiplicand).getValue());
-	} else if (multiplicand instanceof Double) {
-	    return new Double(value * ((Double) multiplicand).getValue());
+	if (multiplicand instanceof IntegerValue) {
+	    return new IntegerValue(value * ((IntegerValue) multiplicand).getValue());
+	} else if (multiplicand instanceof DoubleValue) {
+	    return new DoubleValue(value * ((DoubleValue) multiplicand).getValue());
 	} else {
 	    double x = value * ((Interval) multiplicand).getMin();
 	    double y = value * ((Interval) multiplicand).getMax();
@@ -71,10 +71,10 @@ public class Integer extends Calculable {
 
     @Override
     public Calculable sub(Calculable subtrahend) {
-	if (subtrahend instanceof Integer) {
-	    return new Integer(value - ((Integer) subtrahend).getValue());
-	} else if (subtrahend instanceof Double) {
-	    return new Double(value - ((Double) subtrahend).getValue());
+	if (subtrahend instanceof IntegerValue) {
+	    return new IntegerValue(value - ((IntegerValue) subtrahend).getValue());
+	} else if (subtrahend instanceof DoubleValue) {
+	    return new DoubleValue(value - ((DoubleValue) subtrahend).getValue());
 	} else {
 	    double x = value - ((Interval) subtrahend).getMin();
 	    double y = value - ((Interval) subtrahend).getMax();

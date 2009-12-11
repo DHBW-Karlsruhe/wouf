@@ -26,9 +26,9 @@ public abstract class Calculable implements Value{
      */
     public static Calculable parseCalculable(String nodeValue) {
 	if (nodeValue.matches("[0-9]*\\.[0-]*")) {
-	    return new Double(java.lang.Double.parseDouble(nodeValue));
+	    return new DoubleValue(java.lang.Double.parseDouble(nodeValue));
 	} else if (nodeValue.matches("[0-9]*")) {
-	    return new Integer(java.lang.Integer.parseInt(nodeValue));
+	    return new IntegerValue(java.lang.Integer.parseInt(nodeValue));
 	} else if (nodeValue.matches("interval regex")) {
 	    throw new UnsupportedOperationException(
 		    "interval parser has not been implemented yet");

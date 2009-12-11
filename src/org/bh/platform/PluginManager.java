@@ -115,6 +115,18 @@ public final class PluginManager {
 	}
 	
 	/**
+	 * Initiate all services for a specific class so that they are known to the class loader.
+	 * @param serviceClass
+	 * @see #getServices(Class)
+	 */
+	public <T> void loadAllServices(Class<T> serviceClass) {
+		ServiceLoader<T> services = getServices(serviceClass);
+		for (@SuppressWarnings("unused") T service : services) {
+			// do nothing, class has been loaded
+		}
+	}
+	
+	/**
 	 * Load all plugins at a URL (e.g. folder or JAR file).
 	 * 
 	 * @param dir

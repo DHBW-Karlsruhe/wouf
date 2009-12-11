@@ -1,8 +1,5 @@
 package org.bh.plugin.directinput.data;
 
-import java.util.Arrays;
-import java.util.List;
-
 import org.bh.data.DTO;
 import org.bh.data.IPeriodicalValuesDTO;
 
@@ -20,26 +17,27 @@ import org.bh.data.IPeriodicalValuesDTO;
 
 public class DTODirectInput extends DTO implements IPeriodicalValuesDTO {
 	private static final String UNIQUE_ID = "directinput";
-	// @TODO correct keys
-	private static final List<String> AVAILABLE_KEYS = Arrays.asList("fremdkapital", "fcf");
-	private static final List<String> AVAILABLE_METHODS = Arrays.asList();
+	
+	public enum Key {
+		FCF,
+		LIABILITIES,
+	}
 	
     /**
      * initialize key and method list
      */
 	public DTODirectInput() {
-		availableKeys = AVAILABLE_KEYS;
-		availableMethods = AVAILABLE_METHODS;
+		super(Key.values());
+	}
+
+	@Override
+	public boolean validate() {
+		// TODO Auto-generated method stub
+		throw new UnsupportedOperationException("This method has not been implemented");
 	}
 	
 	@Override
 	public String getUniqueId() {
 		return UNIQUE_ID;
-	}
-
-	@Override
-	public Boolean validate() {
-		// TODO Auto-generated method stub
-		throw new UnsupportedOperationException("This method has not been implemented");
 	}
 }
