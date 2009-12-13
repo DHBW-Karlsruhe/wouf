@@ -1,8 +1,6 @@
 package org.bh.plugin.apv;
 
-import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
 
 import org.bh.calculation.IShareholderValueCalculator;
 import org.bh.calculation.sebi.AdjustedPresentValue;
@@ -16,7 +14,7 @@ public class APVCalculator implements IShareholderValueCalculator {
 	private static final String UNIQUE_ID = "apv";
 
 	@Override
-	public List<Value> calculate(DTOScenario scenario) {
+	public Value calculate(DTOScenario scenario) {
 		// note that this is just a hack to transform data from the new objects to the
 		// existing calculation method
 		Calculable[] fcf = new Calculable[scenario.getChildrenSize()];
@@ -36,12 +34,8 @@ public class APVCalculator implements IShareholderValueCalculator {
 		input.put("s", scenario.getTax());
 		
 		AdjustedPresentValue apv = new AdjustedPresentValue(input);
-		Calculable[] uws = apv.getUW();
-		List<Value> result = new ArrayList<Value>();
-		for (Calculable uw : uws) {
-			result.add(uw);
-		}
-		return result;
+		
+		return apv.getUW()[0];
 	}
 
 	@Override

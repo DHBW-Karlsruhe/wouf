@@ -2,7 +2,7 @@ package org.bh.data;
 
 /**
  * 
- * Marker interface for DTOs which provide all values for one period.
+ * Marker interface for DTOs which provide values for one period.
  *
  * @author Robert Vollmer
  * @version 1.0, 06.12.2009

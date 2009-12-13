@@ -8,6 +8,7 @@ import java.lang.annotation.Target;
 import java.lang.reflect.Field;
 import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -20,7 +21,6 @@ import org.bh.calculation.sebi.Value;
  * @author Marcus
  * @author Robert
  *
- * @param <Value> Type of the values.
  * @param <ChildT> Type of the children.
  */
 @SuppressWarnings("unchecked")
@@ -209,7 +209,7 @@ public abstract class DTO<ChildT extends IDTO> implements IDTO<ChildT> {
 	
 	@Override
 	public List<ChildT> getChildren() {
-		return children;
+		return Collections.unmodifiableList(children);
 	}
 	
 	@Override
