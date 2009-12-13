@@ -6,6 +6,9 @@ import java.util.ArrayList;
 import java.util.Locale;
 import java.util.ResourceBundle;
 
+import org.apache.log4j.Logger;
+import org.bh.platform.PluginManager;
+
 /**
  * Implements the <code>ITranslator</code> Interface for Translation of all i18n
  * relevant keys in Business Horizon.
@@ -16,6 +19,11 @@ import java.util.ResourceBundle;
  */
 public class BHTranslator implements ITranslator {
 
+    /**
+     * private Logging instance for log.
+     */
+    private static final Logger log = Logger.getLogger(PluginManager.class);
+    
     /**
      * Constant for used <code>ResourceBundle</code>.
      */
@@ -61,6 +69,7 @@ public class BHTranslator implements ITranslator {
 	this.bundle = ResourceBundle
 		.getBundle(BHTranslator.BUNDLE, this.locale);
 	this.listener = new ArrayList<PropertyChangeListener>();
+	log.debug("Translator initialized with Locale " + this.locale);
     }
 
     /**
@@ -85,7 +94,7 @@ public class BHTranslator implements ITranslator {
 	Locale l = this.locale;
 	this.locale = locale;
 	this.bundle = ResourceBundle.getBundle(BHTranslator.BUNDLE, locale);
-	this.firePropertyChange("Language", l, this.locale);
+	this.firePropertyChange("Locale", l, this.locale);
     }
 
     /**
@@ -140,6 +149,9 @@ public class BHTranslator implements ITranslator {
      *            new value
      */
     private void firePropertyChange(String key, Object oldValue, Object newValue) {
+	log.debug("BHTranslator: Property changed: " + key + ": " + newValue);
+
+	// for each listener call propertyChange with proper attributes
 	for (PropertyChangeListener l : this.listener) {
 	    l.propertyChange(new PropertyChangeEvent(this, key, oldValue,
 		    newValue));
