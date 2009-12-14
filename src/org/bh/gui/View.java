@@ -20,7 +20,7 @@ public abstract class View implements KeyListener, PropertyChangeListener{
 
     BHValidityEngine validator;
     JPanel viewPanel;
-    Map<String, IBHComponent> components;
+    Map<String, IBHComponent> bhcomponents;
 
     /**
      *
@@ -32,8 +32,8 @@ public abstract class View implements KeyListener, PropertyChangeListener{
         this.validator = validator;
     }
 
-    public JPanel getPanel(){
-        return viewPanel;
+    public Map<String, IBHComponent>  getBHcomponents(){
+        return bhcomponents;
     }
 
     private void addPropertyChangeListener(JComponent comp){

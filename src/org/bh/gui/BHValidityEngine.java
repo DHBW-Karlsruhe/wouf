@@ -5,6 +5,8 @@
 
 package org.bh.gui;
 
+import org.bh.gui.swing.IBHComponent;
+
 /**
  *
  * @author Marco Hammel
@@ -13,6 +15,7 @@ public abstract class BHValidityEngine {
 
     int[] validityRules;
 
+    abstract boolean validate(IBHComponent comp);
 
 
 }
