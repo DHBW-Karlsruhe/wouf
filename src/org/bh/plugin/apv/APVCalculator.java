@@ -5,16 +5,17 @@ import java.util.HashMap;
 import org.bh.calculation.IShareholderValueCalculator;
 import org.bh.calculation.sebi.AdjustedPresentValue;
 import org.bh.calculation.sebi.Calculable;
-import org.bh.calculation.sebi.Value;
 import org.bh.data.DTOPeriod;
 import org.bh.data.DTOScenario;
 
 
 public class APVCalculator implements IShareholderValueCalculator {
 	private static final String UNIQUE_ID = "apv";
+	private static final String GUI_KEY = "apv";
+	private Calculable shareholderValue = null;
 
 	@Override
-	public Value calculate(DTOScenario scenario) {
+	public void calculate(DTOScenario scenario) {
 		// note that this is just a hack to transform data from the new objects to the
 		// existing calculation method
 		Calculable[] fcf = new Calculable[scenario.getChildrenSize()];
@@ -34,12 +35,23 @@ public class APVCalculator implements IShareholderValueCalculator {
 		input.put("s", scenario.getTax());
 		
 		AdjustedPresentValue apv = new AdjustedPresentValue(input);
-		
-		return apv.getUW()[0];
+		shareholderValue = apv.getUW()[0];
+	}
+	
+	@Override
+	public Calculable getShareholderValue() {
+		return shareholderValue;
 	}
 
 	@Override
 	public String getUniqueId() {
 		return UNIQUE_ID;
 	}
+
+	@Override
+	public String getGuiKey() {
+		return GUI_KEY;
+	}
+
+
 }

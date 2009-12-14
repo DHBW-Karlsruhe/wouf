@@ -94,7 +94,8 @@ public class BusinessHorizon {
 		
 		ServiceLoader<IShareholderValueCalculator> calculators = PluginManager.getInstance().getServices(IShareholderValueCalculator.class);
 		for (IShareholderValueCalculator calculator : calculators) {
-			log.debug(calculator.calculate(scenario));
+			calculator.calculate(scenario);
+			log.debug(calculator.getShareholderValue());
 		}
 	}
 }
