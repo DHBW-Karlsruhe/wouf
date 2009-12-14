@@ -2,7 +2,7 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-
+// no build
 package org.bh.controller;
 
 import java.awt.Component;
@@ -38,12 +38,7 @@ public abstract class Controller implements IController, ActionListener{
     }
 
     private void bindData(View view){
-        Component[] comps = view.getPanel().);
-       for(Component comp : comps){
-             if(comp instanceof WrapComp){
-
-             }
-       }
+       
     }
     abstract View bindView();
 
