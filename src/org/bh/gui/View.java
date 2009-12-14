@@ -5,27 +5,39 @@
 
 package org.bh.gui;
 
+import java.awt.event.KeyListener;
+import java.beans.PropertyChangeListener;
 import java.util.Map;
+import javax.swing.JComponent;
 import javax.swing.JPanel;
-
-import org.bh.calculation.sebi.Value;
-
+import org.bh.gui.swing.IBHComponent;
 
 /**
  *
  * @author Marco Hammel
  */
-public abstract class View {
+public abstract class View implements KeyListener, PropertyChangeListener{
 
+    BHValidityEngine validator;
     JPanel viewPanel;
-    Map<String, Value> viewWrapper;
+    Map<String, IBHComponent> components;
 
-    public View(){
-        
+    /**
+     *
+     * @param viewPanel
+     * @param validator
+     */
+    protected View(JPanel viewPanel, BHValidityEngine validator){
+        this.viewPanel = viewPanel;
+        this.validator = validator;
     }
 
-    protected JPanel getPanel(){
+    public JPanel getPanel(){
         return viewPanel;
+    }
+
+    private void addPropertyChangeListener(JComponent comp){
+
     }
 
 }

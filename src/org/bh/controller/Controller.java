@@ -5,6 +5,7 @@
 
 package org.bh.controller;
 
+import java.awt.Component;
 import java.awt.event.ActionListener;
 import org.bh.data.IDTO;
 import org.bh.data.DTOAccessException;
@@ -36,6 +37,14 @@ public abstract class Controller implements IController, ActionListener{
         return view;
     }
 
+    private void bindData(View view){
+        Component[] comps = view.getPanel().);
+       for(Component comp : comps){
+             if(comp instanceof WrapComp){
+
+             }
+       }
+    }
     abstract View bindView();
 
     abstract IDTO bindModel() throws DTOAccessException;

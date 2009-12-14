@@ -1,20 +1,44 @@
+/*
+ * To change this template, choose Tools | Templates
+ * and open the template in the editor.
+ */
+
 package org.bh.gui.swing;
 
+import java.awt.Component;
+
 /**
- * Interface for all Business Horizon Swing components.
- * <p>
- * This Interface defines a Business Horizon Swing component. All Swing
- * components used in Business Horizon must implement this interface.
- * 
- * @author Thiele.Klaus
- * @version 0.1, 2009/12/13
- * 
+ * Every Swing element which shall use a defined DTO key must implement this interface
+ * @author Marco Hammel
  */
 public interface IBHComponent {
+
     /**
-     * Returns the ID of the component.
-     * 
-     * @return ID as <code>String</code>
+     * Constant can be use to check objects
      */
-    String getID();
+    Boolean ISBHCOMPONENT = true;
+
+    /**
+     * No check for the DTO constants USe the DTO Enums to be conform
+     * @return value of a DTO key
+     */
+    public String getKey();
+
+    /**
+     * Number of rules and the rules itself are platform indipendent But
+     * shall be consitent in every plugin by using one Validity Engine per plugin
+     * @return amount of rules defined in a subclass of BHValidity engine
+     * @see BHValidityEngine
+     */
+    public int[] getValidateRules();
+
+    /**
+     * you have to override the add method and implement a put into the map
+     * for
+     * @param comp
+     * @return
+     */
+    public Component add(Component comp);
+
+    public boolean isValid();
 }

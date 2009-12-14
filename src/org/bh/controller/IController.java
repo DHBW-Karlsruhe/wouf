@@ -14,12 +14,16 @@ import org.bh.gui.View;
  */
 interface IController {
 
-    String getPluginId();
+    String getUniqueId();//Zu welchem gehörst du??
+
+    //getAnzeigename
 
     View getView() throws ControllerException;
 
     void setLanguage(String LANG);
 
     void handlePlattformEvent(Event e);
+
+
 
 }
