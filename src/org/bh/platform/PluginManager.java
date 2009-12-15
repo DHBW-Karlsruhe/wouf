@@ -6,10 +6,9 @@ import java.net.JarURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.net.URLClassLoader;
-import java.util.ArrayList;
 import java.util.Enumeration;
 import java.util.HashMap;
-import java.util.List;
+import java.util.HashSet;
 import java.util.Map;
 import java.util.ServiceLoader;
 import java.util.jar.JarEntry;
@@ -49,7 +48,7 @@ public final class PluginManager {
 		log.debug("Initializing PluginManager...");
 		
 		// these are the paths to plugin folders and jars 
-		List<URL> pluginUrls = new ArrayList<URL>();
+		HashSet<URL> pluginUrls = new HashSet<URL>();
 		
 		// look for plugins in the "plugins" package of the application...
 		URL bundledPluginsDir = Thread.currentThread().getContextClassLoader().getResource("plugins");
@@ -133,7 +132,7 @@ public final class PluginManager {
 	 * @param pluginUrls
 	 */
 	
-	private void loadPlugins(URL dir, List<URL> pluginUrls) {
+	private void loadPlugins(URL dir, HashSet<URL> pluginUrls) {
 		if (dir == null)
 			return;
 
@@ -169,7 +168,7 @@ public final class PluginManager {
 	 * @param folder
 	 * @param pluginUrls
 	 */
-	private void loadPlugins(File folder, List<URL> pluginUrls) {
+	private void loadPlugins(File folder, HashSet<URL> pluginUrls) {
 		if (folder == null || !folder.isDirectory())
 			return;
 		
