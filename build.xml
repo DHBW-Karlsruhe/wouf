@@ -1,127 +1,136 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <project basedir="." default="build" name="Business Horizon">
-	<taskdef name="foreach" classname="net.sf.antcontrib.logic.ForEach" />
-	<property environment="env" />
-	<property name="source.dir" value="src" />
-	<property name="build.dir" value="bin" />
-	<property name="lib.dir" value="lib" />
-	<property name="output.dir" value="output" />
-	<property name="javadoc.dir" value="${output.dir}/javadoc" />
-	<property name="jar.name.core" value="${output.dir}/BH.jar" />
-	<property name="jar.name.bundled" value="${output.dir}/BH.bundled.jar" />
-	<property name="jar.mainclass" value="org.bh.BusinessHorizon" />
-	<property name="jar.store.pass" value="ZDpPydacPvJXJpY4SmqN" />
-	<property name="jar.store.file" value="jarsign.keystore" />
-	<property name="jar.store.alias" value="bhjar" />
-	<property name="plugins.source.dir" value="plugins-src" />
-	<property name="plugins.build.dir" value="plugins" />
-	<property name="plugins.jar.dir" value="${output.dir}/plugins" />
-	<property name="plugins.list" value="gcc" />
-
-	<path id="BH.classpath">
-		<pathelement location="${build.dir}" />
-		<dirset dir="${plugins.build.dir}" includes="*" />
-		<fileset dir="${lib.dir}" includes="*.jar" />
-	</path>
-
-	<target name="clean">
-		<delete dir="${build.dir}" />
-		<delete dir="${plugins.build.dir}" />
-		<delete dir="${output.dir}" />
-	</target>
-	<target depends="clean" name="cleanall" />
-
-	<target name="compile">
-		<mkdir dir="${build.dir}" />
-		<mkdir dir="${plugins.build.dir}" />
-		<copy includeemptydirs="false" todir="${build.dir}">
-			<fileset dir="${source.dir}">
-				<exclude name="**/*.launch" />
-				<exclude name="**/*.java" />
-			</fileset>
-		</copy>
-		<mkdir dir="${output.dir}" />
-
-		<javac destdir="${build.dir}" srcdir="${source.dir}" debug="false" optimize="true">
-			<exclude name="**/.svn/" />
-			<classpath refid="BH.classpath" />
-		</javac>
-
-		<foreach target="compileplugin" param="plugin" list="${plugins.list}" />
-	</target>
-
-	<target name="compileplugin">
-		<mkdir dir="${plugins.build.dir}/${plugin}" />
-		<copy includeemptydirs="false" todir="${plugins.build.dir}/${plugin}">
-			<fileset dir="${plugins.source.dir}/${plugin}">
-				<exclude name="**/*.launch" />
-				<exclude name="**/*.java" />
-			</fileset>
-		</copy>
-
-		<javac destdir="${plugins.build.dir}/${plugin}" srcdir="${plugins.source.dir}/${plugin}" debug="false" optimize="true">
-			<exclude name="**/.svn/" />
-			<classpath refid="BH.classpath" />
-		</javac>
-	</target>
-
-	<target depends="compile" name="createpluginsjars">
-		<mkdir dir="${plugins.jar.dir}" />
-		<foreach target="createpluginjar" param="plugin" list="${plugins.list}" />
-	</target>
-
-	<target depends="compile" name="createpluginjar">
-		<jar destfile="${plugins.jar.dir}/${plugin}.jar">
-			<fileset dir="${plugins.build.dir}/${plugin}" />
-		</jar>
-
-		<signjar jar="${plugins.jar.dir}/${plugin}.jar" keystore="${jar.store.file}" alias="${jar.store.alias}" storepass="${jar.store.pass}" />
-	</target>
-
-	<target depends="compile" name="createcorejar">
-		<jar destfile="${jar.name.core}">
-			<manifest>
-				<attribute name="Main-Class" value="${jar.mainclass}" />
-				<attribute name="Class-Path" value="." />
-			</manifest>
-			<fileset dir="${build.dir}" />
-			<zipgroupfileset dir="${lib.dir}" includes="*.jar" />
-		</jar>
-
-		<signjar jar="${jar.name.core}" keystore="${jar.store.file}" alias="${jar.store.alias}" storepass="${jar.store.pass}" />
-	</target>
-
-	<target depends="compile" name="createbundledjar">
-		<jar destfile="${jar.name.bundled}">
-			<manifest>
-				<attribute name="Main-Class" value="${jar.mainclass}" />
-				<attribute name="Class-Path" value="." />
-			</manifest>
-			<fileset dir="${build.dir}" />
-			<fileset dir="." includes="${plugins.build.dir}/**" />
-			<zipgroupfileset dir="${lib.dir}" includes="*.jar" />
-		</jar>
-
-		<signjar jar="${jar.name.bundled}" keystore="${jar.store.file}" alias="${jar.store.alias}" storepass="${jar.store.pass}" />
-	</target>
-
-	<target depends="compile" name="javadoc">
-		<javadoc destdir="${javadoc.dir}" author="true" version="true" use="true" charset="UTF-8" classpathref="BH.classpath" windowtitle="Business Horizon">
-
-			<sourcepath>
-				<path location="${source.dir}" />
-				<dirset dir="${plugins.source.dir}" includes="*" />
-			</sourcepath>
-
-			<doctitle>
-				<![CDATA[<h1>Business Horizon</h1>]]>
+    <!-- needs ant-contrib.jar -->
+    <taskdef name="foreach" classname="net.sf.antcontrib.logic.ForEach"/>
+    <property environment="env"/>
+    <property name="source.dir" value="src"/>
+    <property name="build.dir" value="bin"/>
+    <property name="lib.dir" value="lib"/>
+    <property name="output.dir" value="output"/>
+    <property name="javadoc.dir" value="${output.dir}/javadoc"/>
+    <property name="jar.name.core" value="${output.dir}/BH.jar"/>
+    <property name="jar.name.bundled" value="${output.dir}/BH.bundled.jar"/>
+    <property name="jar.mainclass" value="org.bh.BusinessHorizon"/>
+    <property name="jar.store.pass" value="ZDpPydacPvJXJpY4SmqN"/>
+    <property name="jar.store.file" value="jarsign.keystore"/>
+    <property name="jar.store.alias" value="bhjar"/>
+    <property name="plugins.source.dir" value="plugins-src"/>
+    <property name="plugins.build.dir" value="plugins"/>
+    <property name="plugins.jar.dir" value="${output.dir}/plugins"/>
+    <property name="plugins.list" value="gcc"/>
+    
+    <path id="BH.classpath">
+        <pathelement location="${build.dir}"/>
+        <dirset dir="${plugins.build.dir}" includes="*"/>
+        <fileset dir="${lib.dir}" includes="*.jar"/>
+    </path>
+    
+    <target name="clean">
+        <delete dir="${build.dir}"/>
+        <delete dir="${plugins.build.dir}"/>
+        <delete dir="${output.dir}"/>
+    </target>
+    <target depends="clean" name="cleanall"/>
+    
+    <target name="compile">
+        <mkdir dir="${build.dir}"/>
+        <mkdir dir="${plugins.build.dir}"/>
+        <mkdir dir="${output.dir}"/>
+        
+        <copy includeemptydirs="false" todir="${build.dir}">
+            <fileset dir="${source.dir}">
+                <exclude name="**/*.launch"/>
+                <exclude name="**/*.java"/>
+            </fileset>
+        </copy>
+        
+        <javac destdir="${build.dir}" srcdir="${source.dir}" debug="false" optimize="true">
+            <exclude name="**/.svn/"/>
+            <classpath refid="BH.classpath"/>
+        </javac>
+        
+        <foreach target="compileplugin" param="plugin" list="${plugins.list}"/>
+    </target>
+    
+    <target name="compileplugin">
+        <mkdir dir="${plugins.build.dir}/${plugin}"/>
+        <copy includeemptydirs="false" todir="${plugins.build.dir}/${plugin}">
+            <fileset dir="${plugins.source.dir}/${plugin}">
+                <exclude name="**/*.launch"/>
+                <exclude name="**/*.java"/>
+            </fileset>
+        </copy>
+        
+        <javac destdir="${plugins.build.dir}/${plugin}" srcdir="${plugins.source.dir}/${plugin}" debug="false" optimize="true">
+            <exclude name="**/.svn/"/>
+            <classpath refid="BH.classpath"/>
+        </javac>
+    </target>
+    
+    <target depends="compile" name="createpluginsjars">
+        <mkdir dir="${plugins.jar.dir}"/>
+        <foreach target="createpluginjar" param="plugin" list="${plugins.list}"/>
+    </target>
+    
+    <target depends="compile" name="createpluginjar">
+        <jar destfile="${plugins.jar.dir}/${plugin}.jar">
+            <fileset dir="${plugins.build.dir}/${plugin}"/>
+        </jar>
+        
+        <signjar jar="${plugins.jar.dir}/${plugin}.jar" keystore="${jar.store.file}" alias="${jar.store.alias}" storepass="${jar.store.pass}"/>
+    </target>
+    
+    <target depends="compile" name="createcorejar">
+        <jar destfile="${jar.name.core}">
+            <manifest>
+                <attribute name="Main-Class" value="${jar.mainclass}"/>
+                <attribute name="Class-Path" value="."/>
+            </manifest>
+            <fileset dir="${build.dir}"/>
+            <zipgroupfileset dir="${lib.dir}" includes="*.jar"/>
+        </jar>
+        
+        <signjar jar="${jar.name.core}" keystore="${jar.store.file}" alias="${jar.store.alias}" storepass="${jar.store.pass}"/>
+    </target>
+    
+    <target depends="compile" name="createbundledjar">
+        <jar destfile="${jar.name.bundled}">
+            <manifest>
+                <attribute name="Main-Class" value="${jar.mainclass}"/>
+                <attribute name="Class-Path" value="."/>
+            </manifest>
+            <fileset dir="${build.dir}"/>
+            <fileset dir="." includes="${plugins.build.dir}/**"/>
+            <zipgroupfileset dir="${lib.dir}" includes="*.jar"/>
+        </jar>
+        
+        <signjar jar="${jar.name.bundled}" keystore="${jar.store.file}" alias="${jar.store.alias}" storepass="${jar.store.pass}"/>
+    </target>
+    
+    <target depends="compile" name="javadoc">
+        <javadoc
+         destdir="${javadoc.dir}"
+         author="true"
+         version="true"
+         use="true"
+         charset="UTF-8"
+         classpathref="BH.classpath"
+         windowtitle="Business Horizon">
+         
+            <sourcepath>
+                <path location="${source.dir}" />
+                <dirset dir="${plugins.source.dir}" includes="*" />
+            </sourcepath>
+            
+            <doctitle>
+                <![CDATA[<h1>Business Horizon</h1>]]>
             </doctitle>
-		<bottom>
-			<![CDATA[<i>Copyright &#169; 2009-2010 Business Horizon Project Team. All Rights Reserved.</i>]]>
+            <bottom>
+                <![CDATA[<i>Copyright &#169; 2009-2010 Business Horizon Project Team. All Rights Reserved.</i>]]>
             </bottom>
-	<tag name="todo" scope="all" description="To do:" />
-</javadoc>
-</target>
-
-<target depends="createcorejar, createpluginsjars, createbundledjar" name="build" />
+            <tag name="todo" scope="all" description="To do:"/>
+        </javadoc>
+    </target>
+    
+    <target depends="createcorejar, createpluginsjars, createbundledjar" name="build"/>
 </project>
