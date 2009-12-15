@@ -17,7 +17,7 @@
     <property name="plugins.source.dir" value="plugins-src"/>
     <property name="plugins.build.dir" value="plugins"/>
     <property name="plugins.jar.dir" value="${output.dir}/plugins"/>
-    <property name="plugins.list" value="gcc"/>
+    <property name="plugins.list" value="gcc,apv"/>
     
     <path id="BH.classpath">
         <pathelement location="${build.dir}"/>
