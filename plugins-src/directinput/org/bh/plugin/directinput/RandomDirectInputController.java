@@ -1,7 +1,11 @@
 package org.bh.plugin.directinput;
 
+import java.awt.BorderLayout;
+
+import javax.swing.JLabel;
 import javax.swing.JPanel;
 
+import org.bh.calculation.sebi.Calculable;
 import org.bh.calculation.sebi.DoubleValue;
 import org.bh.controller.IPeriodGUIController;
 import org.bh.data.DTOPeriod;
@@ -17,9 +21,16 @@ public class RandomDirectInputController implements IPeriodGUIController {
 			period.removeChild(0);
 		
 		DTODirectInput dto = new DTODirectInput();
-		dto.put(DTODirectInput.Key.LIABILITIES, new DoubleValue(Math.random() * 200 + 1000));
-		dto.put(DTODirectInput.Key.FCF, new DoubleValue(Math.random() * 20 + 100));
+		Calculable liabilities = new DoubleValue(Math.random() * 200 + 1000);
+		dto.put(DTODirectInput.Key.LIABILITIES, liabilities);
+		Calculable fcf = new DoubleValue(Math.random() * 20 + 100);
+		dto.put(DTODirectInput.Key.FCF, fcf);
 		period.addChild(dto);
+		
+		panel.setLayout(new BorderLayout());
+		panel.add(new JLabel("FCF = " + fcf + ", liabilities = " + liabilities));
+		
+		panel.getRootPane().validate();
 	}
 
 	@Override
