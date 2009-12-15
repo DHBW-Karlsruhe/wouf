@@ -40,4 +40,16 @@ public class BHTextField extends JTextField implements IBHComponent {
     public String getID() {
 	return id;
     }
+
+	@Override
+	public String getKey() {
+		// TODO Auto-generated method stub
+		throw new UnsupportedOperationException("This method has not been implemented");
+	}
+
+	@Override
+	public int[] getValidateRules() {
+		// TODO Auto-generated method stub
+		throw new UnsupportedOperationException("This method has not been implemented");
+	}
 }
