@@ -3,6 +3,7 @@
 	<classpathentry excluding="**/.svn/" kind="src" path="src"/>
 	<classpathentry excluding="**/.svn/" kind="src" output="plugins/gcc" path="plugins-src/gcc"/>
 	<classpathentry excluding="**/.svn/" kind="src" output="plugins/apv" path="plugins-src/apv"/>
+	<classpathentry excluding="**/.svn/" kind="src" output="plugins/directinput" path="plugins-src/directinput"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER/org.eclipse.jdt.internal.debug.ui.launcher.StandardVMType/JavaSE-1.6"/>
 	<classpathentry kind="lib" path="lib/log4j-1.2.15.jar"/>
 	<classpathentry kind="output" path="bin"/>
