@@ -13,58 +13,58 @@ import java.util.Locale;
  */
 public interface ITranslator {
 
-    /**
-     * @return currently used <code>Locale</code>
-     */
-    Locale getLocale();
+	/**
+	 * @return currently used <code>Locale</code>
+	 */
+	Locale getLocale();
 
-    /**
-     * Sets a new locale to be used for further translations.
-     * 
-     * @param locale
-     *            locale to be set
-     */
-    void setLocale(Locale locale);
+	/**
+	 * Sets a new locale to be used for further translations.
+	 * 
+	 * @param locale
+	 *            locale to be set
+	 */
+	void setLocale(Locale locale);
 
-    /**
-     * Core method to translate key to domain-specific <code>String</code>.
-     * 
-     * @param key
-     *            key to be translated
-     * @return translated <code>String</code>
-     */
-    String translate(String key);
+	/**
+	 * Core method to translate key to domain-specific <code>String</code>.
+	 * 
+	 * @param key
+	 *            key to be translated
+	 * @return translated <code>String</code>
+	 */
+	String translate(String key);
 
-    /**
-     * Checks if key is available for translation.
-     * 
-     * @param key
-     *            key to be checked
-     * @return true if contains else false.
-     */
-    boolean containsKey(String key);
+	/**
+	 * Checks if key is available for translation.
+	 * 
+	 * @param key
+	 *            key to be checked
+	 * @return true if contains else false.
+	 */
+	boolean containsKey(String key);
 
-    /**
-     * Returns the available Languages as <code>Locale</code>.
-     * 
-     * @return available languages
-     */
+	/**
+	 * Returns the available Languages as <code>Locale</code>.
+	 * 
+	 * @return available languages
+	 */
 
-    Locale[] getAvaiableLocales();
+	Locale[] getAvaiableLocales();
 
-    /**
-     * Add a PropertyChangeListener.
-     * 
-     * @param l
-     *            listener to be added
-     */
-    void addPropertyChangeListener(PropertyChangeListener l);
+	/**
+	 * Add a PropertyChangeListener.
+	 * 
+	 * @param l
+	 *            listener to be added
+	 */
+	void addPropertyChangeListener(PropertyChangeListener l);
 
-    /**
-     * remove a PropertyChangeListener.
-     * 
-     * @param l
-     *            listener to be removed
-     */
-    void removePropertyChangeListener(PropertyChangeListener l);
+	/**
+	 * remove a PropertyChangeListener.
+	 * 
+	 * @param l
+	 *            listener to be removed
+	 */
+	void removePropertyChangeListener(PropertyChangeListener l);
 }
