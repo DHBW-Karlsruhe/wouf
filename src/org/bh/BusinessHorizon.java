@@ -1,18 +1,10 @@
 package org.bh;
 
 import java.lang.Thread.UncaughtExceptionHandler;
-import java.util.ServiceLoader;
 
 import org.apache.log4j.Logger;
-import org.bh.calculation.IShareholderValueCalculator;
-import org.bh.calculation.sebi.DoubleValue;
-import org.bh.calculation.sebi.GermanTax;
-import org.bh.calculation.sebi.Tax;
-import org.bh.data.DTOPeriod;
-import org.bh.data.DTOScenario;
 import org.bh.data.IPeriodicalValuesDTO;
 import org.bh.platform.PluginManager;
-import org.bh.plugin.directinput.DTODirectInput;
 import org.bh.test.Main;
 
 /**
