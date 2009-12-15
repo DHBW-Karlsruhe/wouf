@@ -19,11 +19,12 @@ import org.bh.platform.PluginManager;
  */
 public class BHTranslator implements ITranslator {
 
+    private static BHTranslator instance;
     /**
      * private Logging instance for log.
      */
     private static final Logger log = Logger.getLogger(PluginManager.class);
-    
+
     /**
      * Constant for used <code>ResourceBundle</code>.
      */
@@ -54,7 +55,7 @@ public class BHTranslator implements ITranslator {
      * Default Constructor which instantiates the <code>BHTranslator</code> with
      * the default locale.
      */
-    public BHTranslator() {
+    private BHTranslator() {
 	this(Locale.getDefault());
     }
 
@@ -64,12 +65,19 @@ public class BHTranslator implements ITranslator {
      * @param l
      *            locale to be used to instantiate the <code>BHTranslator</code>
      */
-    public BHTranslator(Locale l) {
+    private BHTranslator(Locale l) {
 	this.locale = l;
 	this.bundle = ResourceBundle
 		.getBundle(BHTranslator.BUNDLE, this.locale);
 	this.listener = new ArrayList<PropertyChangeListener>();
 	log.debug("Translator initialized with Locale " + this.locale);
+    }
+
+    public static BHTranslator getInstance() {
+        if (BHTranslator.instance == null) {
+            BHTranslator.instance = new BHTranslator();
+        }
+        return instance;
     }
 
     /**
@@ -81,7 +89,14 @@ public class BHTranslator implements ITranslator {
      * @return translated <code>String</code>
      */
     public String translate(String key) {
-	return this.bundle.getString(key);
+	String result = key;
+	try {
+	    result = this.bundle.getString(key);
+	} catch (Exception e) {
+	    log.debug(e.getMessage());
+	    e.printStackTrace();
+	}
+	return result;
     }
 
     /**
