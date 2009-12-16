@@ -22,7 +22,7 @@ public class BHMenuBar extends JMenuBar implements ActionListener{
     public BHMenuBar(){
         
     	/**
-         * create menu bar
+         * create the menu bar with all the items
          **/
 	
         //create menu --> File

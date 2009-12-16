@@ -18,18 +18,12 @@ import javax.swing.UIManager.LookAndFeelInfo;
  * This <code>JFrame</code> provides the main frame for Business Horizon
  * Application.
  * 
- * @author Thiele.Klaus
- * @version 0.1, 2009/12/13
+ * @author Tietze.Patrick
+ * @version 0.1, 2009/12/16
  * 
  */
 public class BHMainFrame extends JFrame {
 
-    /**
-     * Standard constructor for <code>BHMainFrame</code>.
-     * 
-     * @param title
-     *            title to be set for the <code>BHMainFrame</code>.
-     */
 	public JDesktopPane desktop;
 	
 	public BHToolBar toolBar;
@@ -41,6 +35,12 @@ public class BHMainFrame extends JFrame {
 	
 	JLabel test;
 	
+    /**
+     * Standard constructor for <code>BHMainFrame</code>.
+     * 
+     * @param title
+     *            title to be set for the <code>BHMainFrame</code>.
+     */
 	
     public BHMainFrame(String title) {
     	super(title);
