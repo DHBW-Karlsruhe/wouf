@@ -7,9 +7,12 @@ package org.bh.controller;
 
 import java.awt.Component;
 import java.awt.event.ActionListener;
+import java.util.List;
+import java.util.Map;
 import org.bh.data.IDTO;
 import org.bh.data.DTOAccessException;
 import org.bh.gui.View;
+import org.bh.gui.swing.IBHComponent;
 
 /**
  *
@@ -17,19 +20,9 @@ import org.bh.gui.View;
  */
 public abstract class Controller implements IController, ActionListener{
 
-    private View view;
-	private IDTO model;
-
-
-    protected Controller(){
-        this.view = this.bindView();
-        try{
-            this.model = this.bindModel();
-        }catch(DTOAccessException e){
-            this.handleDTOException(e);
-        }
-   
-    }
+    private View view = null;
+    private Map<String, IBHComponent> bhcomponents;
+    private List<IDTO> model;
 
     abstract void handleDTOException(Exception e);
 

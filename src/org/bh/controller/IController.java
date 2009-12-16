@@ -6,7 +6,11 @@
 package org.bh.controller;
 
 import java.awt.Event;
+import java.util.List;
+import org.bh.data.IDTO;
 import org.bh.gui.View;
+import org.bh.platform.i18n.ITranslator;
+import org.bh.data.Result;
 
 /**
  *
@@ -14,16 +18,40 @@ import org.bh.gui.View;
  */
 interface IController {
 
+    /**
+     * return value of the Plugin Interface
+     * @return
+     */
     String getUniqueId();//Zu welchem gehörst du??
 
     //getAnzeigename
 
-    View getView() throws ControllerException;
-
-    void setLanguage(String LANG);
-
-    void handlePlattformEvent(Event e);
-
-
-
+    /**
+     * return the view of the component if no view is defined the method return null
+     * @return
+     * @throws ControllerException
+     */
+    View getView();
+    /**
+     * define the access to the translator engine of the platform
+     * @param translator
+     */
+    void setTranslator(ITranslator translator);
+    /**
+     * platform can put events to the component. If the event can be handled by
+     * the component it returns true otherwise false
+     * @param e
+     */
+    boolean handlePlattformEvent(Event e);
+    /**
+     * platform can define the dto access of the component by this method
+     * @param model
+     */
+    void setModel(List<IDTO> model);
+    //TODO Result is not yet defined
+    /**
+     * platform can overhand the result(s) of an operation to a component by this method
+     * @param result
+     */
+    void setResult(Result result);
 }
