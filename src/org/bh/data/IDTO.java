@@ -2,8 +2,8 @@ package org.bh.data;
 
 import java.util.List;
 
-import org.bh.calculation.sebi.Calculable;
-import org.bh.calculation.sebi.Value;
+import org.bh.data.types.Calculable;
+import org.bh.data.types.Value;
 
 @SuppressWarnings("unchecked")
 public interface IDTO<ChildT extends IDTO> extends Cloneable {

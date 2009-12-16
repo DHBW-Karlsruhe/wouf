@@ -1,5 +1,10 @@
 package org.bh.calculation.sebi;
 
+import org.bh.data.types.Calculable;
+import org.bh.data.types.DoubleValue;
+import org.bh.data.types.Interval;
+import org.bh.data.types.Tax;
+
 
 /**
  * This class provides static functionality which is used in all methods of enterprise value calculation.

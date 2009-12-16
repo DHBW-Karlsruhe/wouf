@@ -1,7 +1,7 @@
 package org.bh.calculation;
 
-import org.bh.calculation.sebi.Calculable;
 import org.bh.data.DTOPeriod;
+import org.bh.data.types.Calculable;
 
 /**
  * This is an interface for plugins which can calculate the Free Cash Flow

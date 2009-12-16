@@ -13,8 +13,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import org.bh.calculation.sebi.Calculable;
-import org.bh.calculation.sebi.Value;
+import org.bh.data.types.Calculable;
+import org.bh.data.types.Value;
 
 /**
  * General Data Transfer Object 

@@ -1,12 +1,12 @@
 package org.bh.plugin.gcc;
 
 import org.bh.calculation.ICalculationPreparer;
-import org.bh.calculation.sebi.Calculable;
-import org.bh.calculation.sebi.DoubleValue;
-import org.bh.calculation.sebi.GermanTax;
-import org.bh.calculation.sebi.Tax;
 import org.bh.data.DTOPeriod;
 import org.bh.data.IPeriodicalValuesDTO;
+import org.bh.data.types.Calculable;
+import org.bh.data.types.DoubleValue;
+import org.bh.data.types.GermanTax;
+import org.bh.data.types.Tax;
 
 /**
  * Calculates the FCF from the current profit&loss statement, the current balance sheet and the

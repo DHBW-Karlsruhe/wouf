@@ -3,8 +3,8 @@ package org.bh.data;
 import java.util.ServiceLoader;
 
 import org.bh.calculation.ICalculationPreparer;
-import org.bh.calculation.sebi.Calculable;
-import org.bh.calculation.sebi.Tax;
+import org.bh.data.types.Calculable;
+import org.bh.data.types.Tax;
 import org.bh.platform.PluginManager;
 
 public class DTOPeriod extends DTO<IPeriodicalValuesDTO> {

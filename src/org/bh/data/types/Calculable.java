@@ -1,4 +1,4 @@
-package org.bh.calculation.sebi;
+package org.bh.data.types;
 
 import java.security.InvalidParameterException;
 

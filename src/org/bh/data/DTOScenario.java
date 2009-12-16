@@ -1,6 +1,6 @@
 package org.bh.data;
 
-import org.bh.calculation.sebi.Tax;
+import org.bh.data.types.Tax;
 
 public class DTOScenario extends DTO<DTOPeriod> {
 	

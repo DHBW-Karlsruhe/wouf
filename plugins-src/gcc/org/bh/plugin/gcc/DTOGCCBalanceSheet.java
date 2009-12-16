@@ -1,8 +1,8 @@
 package org.bh.plugin.gcc;
 
-import org.bh.calculation.sebi.Calculable;
 import org.bh.data.DTO;
 import org.bh.data.IPeriodicalValuesDTO;
+import org.bh.data.types.Calculable;
 
 /**
  * GCCBalanceSheet DTO.

@@ -1,4 +1,4 @@
-package org.bh.calculation.sebi;
+package org.bh.data.types;
 
 public class Interval extends Calculable {
 

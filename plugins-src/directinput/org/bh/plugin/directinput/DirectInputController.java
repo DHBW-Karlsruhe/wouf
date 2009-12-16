@@ -6,9 +6,9 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 
-import org.bh.calculation.sebi.DoubleValue;
 import org.bh.controller.IPeriodGUIController;
 import org.bh.data.DTOPeriod;
+import org.bh.data.types.DoubleValue;
 
 
 public class DirectInputController implements IPeriodGUIController {

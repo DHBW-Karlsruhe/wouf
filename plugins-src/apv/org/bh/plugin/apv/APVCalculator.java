@@ -4,9 +4,9 @@ import java.util.HashMap;
 
 import org.bh.calculation.IShareholderValueCalculator;
 import org.bh.calculation.sebi.AdjustedPresentValue;
-import org.bh.calculation.sebi.Calculable;
 import org.bh.data.DTOPeriod;
 import org.bh.data.DTOScenario;
+import org.bh.data.types.Calculable;
 
 
 public class APVCalculator implements IShareholderValueCalculator {

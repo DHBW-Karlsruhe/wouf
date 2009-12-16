@@ -5,10 +5,10 @@ import java.awt.BorderLayout;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
-import org.bh.calculation.sebi.Calculable;
-import org.bh.calculation.sebi.DoubleValue;
 import org.bh.controller.IPeriodGUIController;
 import org.bh.data.DTOPeriod;
+import org.bh.data.types.Calculable;
+import org.bh.data.types.DoubleValue;
 
 
 public class RandomDirectInputController implements IPeriodGUIController {

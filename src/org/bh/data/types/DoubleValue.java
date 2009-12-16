@@ -1,55 +1,53 @@
-package org.bh.calculation.sebi;
+package org.bh.data.types;
 
-public class IntegerValue extends Calculable {
-    int value;
+public class DoubleValue extends Calculable {
+    double value;
 
-    public IntegerValue(int value) {
+    public DoubleValue(double value) {
 	this.value = value;
+    }
+
+    public double getValue() {
+	return value;
     }
 
     @Override
     public Calculable add(Calculable summand) {
-	if (summand instanceof IntegerValue) {
-	    return new IntegerValue(value + ((IntegerValue) summand).getValue());
-	} else if (summand instanceof DoubleValue) {
+	if (summand instanceof IntegerValue)
+	    return new DoubleValue(value + ((IntegerValue) summand).getValue());
+	else if (summand instanceof DoubleValue)
 	    return new DoubleValue(value + ((DoubleValue) summand).getValue());
-	} else {
+	else {
 	    double x = value + ((Interval) summand).getMin();
 	    double y = value + ((Interval) summand).getMax();
-	    if (x < y) {
+	    if (x < y)
 		return new Interval(x, y);
-	    }
 	    return new Interval(y, x);
 	}
     }
 
     @Override
     public Calculable div(Calculable divisor) {
-	if (divisor instanceof IntegerValue) {
-	    return new DoubleValue((double) value / ((IntegerValue) divisor).getValue());
-	} else if (divisor instanceof DoubleValue) {
+	if (divisor instanceof IntegerValue)
+	    return new DoubleValue(value / ((IntegerValue) divisor).getValue());
+	else if (divisor instanceof DoubleValue)
 	    return new DoubleValue(value / ((DoubleValue) divisor).getValue());
-	} else {
+	else {
 	    double x = value / ((Interval) divisor).getMin();
 	    double y = value / ((Interval) divisor).getMax();
-	    if (x < y) {
+	    if (x < y)
 		return new Interval(x, y);
-	    }
 	    return new Interval(y, x);
 	}
     }
 
-    public int getValue() {
-	return value;
-    }
-
     @Override
     public Calculable mul(Calculable multiplicand) {
-	if (multiplicand instanceof IntegerValue) {
-	    return new IntegerValue(value * ((IntegerValue) multiplicand).getValue());
-	} else if (multiplicand instanceof DoubleValue) {
+	if (multiplicand instanceof IntegerValue)
+	    return new DoubleValue(value * ((IntegerValue) multiplicand).getValue());
+	else if (multiplicand instanceof DoubleValue)
 	    return new DoubleValue(value * ((DoubleValue) multiplicand).getValue());
-	} else {
+	else {
 	    double x = value * ((Interval) multiplicand).getMin();
 	    double y = value * ((Interval) multiplicand).getMax();
 	    if (x < y) {
@@ -60,22 +58,12 @@ public class IntegerValue extends Calculable {
     }
 
     @Override
-    public Calculable pow(Calculable exponent) {
-	return null;
-    }
-
-    @Override
-    public Calculable sqrt() {
-	return null;
-    }
-
-    @Override
     public Calculable sub(Calculable subtrahend) {
-	if (subtrahend instanceof IntegerValue) {
-	    return new IntegerValue(value - ((IntegerValue) subtrahend).getValue());
-	} else if (subtrahend instanceof DoubleValue) {
+	if (subtrahend instanceof IntegerValue)
+	    return new DoubleValue(value - ((IntegerValue) subtrahend).getValue());
+	else if (subtrahend instanceof DoubleValue)
 	    return new DoubleValue(value - ((DoubleValue) subtrahend).getValue());
-	} else {
+	else {
 	    double x = value - ((Interval) subtrahend).getMin();
 	    double y = value - ((Interval) subtrahend).getMax();
 	    if (x < y) {
@@ -83,6 +71,20 @@ public class IntegerValue extends Calculable {
 	    }
 	    return new Interval(y, x);
 	}
+    }
+
+    @Override
+    public Calculable pow(Calculable exponent) {
+	// TODO Auto-generated method stub
+	throw new UnsupportedOperationException(
+		"This method has not been implemented");
+    }
+
+    @Override
+    public Calculable sqrt() {
+	// TODO Auto-generated method stub
+	throw new UnsupportedOperationException(
+		"This method has not been implemented");
     }
 
     @Override
@@ -95,7 +97,5 @@ public class IntegerValue extends Calculable {
 		// TODO Auto-generated method stub
 		throw new UnsupportedOperationException("This method has not been implemented");
 	}
-
-	
-
+    
 }

@@ -1,7 +1,7 @@
 package org.bh.calculation;
 
-import org.bh.calculation.sebi.Calculable;
 import org.bh.data.DTOScenario;
+import org.bh.data.types.Calculable;
 
 /**
  * This interface is implemented by classes which provide calculation methods for
