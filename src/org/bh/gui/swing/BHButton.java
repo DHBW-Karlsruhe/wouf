@@ -45,4 +45,10 @@ public class BHButton extends JButton implements IBHComponent{
         return validateRules;
     }
 
+    public boolean isTypeValid() {
+        throw new UnsupportedOperationException("Not supported yet.");
+    }
+
+
+
 }

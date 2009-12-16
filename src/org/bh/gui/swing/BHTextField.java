@@ -45,4 +45,8 @@ public class BHTextField extends JTextField implements IBHComponent {
        this.validateRules = validateRules;
     }
 
+    public boolean isTypeValid() {
+        throw new UnsupportedOperationException("Not supported yet.");
+    }
+
 }

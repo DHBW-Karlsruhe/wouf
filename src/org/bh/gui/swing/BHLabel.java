@@ -47,11 +47,15 @@ public class BHLabel extends JLabel implements IBHComponent {
 		return validateRules;
 	}
 
-	@Override
 	public void setValidateRules(int[] validateRules) {
 		// TODO Auto-generated method stub
-		throw new UnsupportedOperationException(
-				"This method has not been implemented");
+		throw new UnsupportedOperationException("This method has not been implemented");
 	}
+
+        public boolean isTypeValid() {
+            throw new UnsupportedOperationException("Not supported yet.");
+        }
+
+
 
 }

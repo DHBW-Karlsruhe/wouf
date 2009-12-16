@@ -5,9 +5,10 @@
 
 package org.bh.controller;
 
-import java.awt.Event;
+import java.awt.event.ActionEvent;
 import java.util.List;
 import java.util.Map;
+import org.apache.log4j.Logger;
 import org.bh.data.IDTO;
 import org.bh.gui.View;
 import org.bh.platform.i18n.ITranslator;
@@ -42,16 +43,17 @@ interface IController {
      * the component it returns true otherwise false
      * @param e
      */
-    boolean handlePlattformEvent(Event e);
+    void handlePlattformEvent(ActionEvent e);
     /**
      * platform can define the dto access of the component by this method
      * @param model
      */
-    void setModel(List<IDTO> model);
-    //TODO Result is not yet defined
+    void setModel(IDTO model);
+    //@TODO datatyp result is not yet defined
     /**
      * platform can overhand the result(s) of an operation to a component by this method
      * @param result
      */
     void setResult(Map result);
+   
 }

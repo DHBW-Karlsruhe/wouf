@@ -48,5 +48,5 @@ public interface IBHComponent {
      * component information about its validity status
      * @return
      */
-    public boolean isValid();
+    public boolean isTypeValid();
 }

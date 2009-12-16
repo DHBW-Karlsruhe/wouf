@@ -5,14 +5,17 @@
 // no build
 package org.bh.controller;
 
-import java.awt.Component;
+import java.awt.Event;
+import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.List;
 import java.util.Map;
+import org.apache.log4j.Logger;
 import org.bh.data.IDTO;
 import org.bh.data.DTOAccessException;
 import org.bh.gui.View;
 import org.bh.gui.swing.IBHComponent;
+import org.bh.platform.i18n.ITranslator;
 
 /**
  *
@@ -20,22 +23,54 @@ import org.bh.gui.swing.IBHComponent;
  */
 public abstract class Controller implements IController, ActionListener{
 
-    private View view = null;
+    private static  Logger log = Logger.getLogger(Controller.class);
+    private View view;
     private Map<String, IBHComponent> bhcomponents;
-    private List<IDTO> model;
+    private IDTO model;
 
-    abstract void handleDTOException(Exception e);
+    public Controller(){
+            
+    }
+    public Controller(View view){
+        this.view = view;
+    }
+
+    private void handleException(Exception e){
+        log.error("Controller Exception " + this.getUniqueId(),e);
+    }
 
     public View getView(){
         return view;
     }
 
-    private void bindData(View view){
-       
-    }
-    abstract View bindView();
+    private boolean safeToModel() throws DTOAccessException{
 
-    abstract IDTO bindModel() throws DTOAccessException;
+        return true;
+    }
+
+    private boolean loadToView(){
+        return true;
+    }
+
+    public void handlePlattformEvent(ActionEvent e) {
+        actionPerformed(e);
+    }
+
+    public void setLogger(Logger log) {
+        this.log = log;
+    }
+
+    public void setModel(IDTO model) {
+        this.model = model;
+    }
+
+    public void setTranslator(ITranslator translator) {
+        view.setTranslator(translator);
+    }
+
+    public void actionPerformed(ActionEvent e) {
+        throw new UnsupportedOperationException("Not supported yet.");
+    }
 
 
 }
