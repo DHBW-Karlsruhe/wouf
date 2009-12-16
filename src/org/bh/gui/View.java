@@ -21,29 +21,32 @@ import org.bh.platform.i18n.ITranslator;
  */
 public abstract class View implements  KeyListener, PropertyChangeListener{
 
-    BHValidityEngine validator;
-    JPanel viewPanel;
-    Map<String, IBHComponent> bhcomponents = null;
-    ITranslator translator;
+    private BHValidityEngine validator;
+    private JPanel viewPanel;
+    private Map<String, IBHComponent> bhcomponents = null;
+    private ITranslator translator;
 
     /**
      *
      * @param viewPanel
      * @param validator
+     * @param translator 
      * @throws ViewException
      */
-    protected View(JPanel viewPanel, BHValidityEngine validator) throws ViewException{
+    protected View(JPanel viewPanel, BHValidityEngine validator, ITranslator translator) throws ViewException{
         this.viewPanel = viewPanel;
         this.validator = validator;
+        this.translator = translator;
         this.bhcomponents = mapBHcomponents(viewPanel.getComponents());
     }
 
     /**
-     *
-     * @param translator
+     * add View class as Key and PropertyChangeListener of all BHComponent
+     * @param comp
      */
-    public void setTranslator(ITranslator translator){
-        this.translator = translator;
+    private void addViewListener(Component comp){
+        comp.addKeyListener(this);
+        comp.addPropertyChangeListener(this);
     }
 
     /**
@@ -63,8 +66,7 @@ public abstract class View implements  KeyListener, PropertyChangeListener{
                 
             }
             if(comp instanceof IBHComponent){
-                comp.addKeyListener(this);
-                comp.addPropertyChangeListener(this);
+                addViewListener(comp);
                 if(comp instanceof JPanel){
                     try{
                         map.putAll(mapBHcomponents(((JPanel)comp).getComponents()));

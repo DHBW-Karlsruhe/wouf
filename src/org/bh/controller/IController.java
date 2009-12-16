@@ -37,7 +37,7 @@ interface IController {
      * define the access to the translator engine of the platform
      * @param translator
      */
-    void setTranslator(ITranslator translator);
+    ITranslator getTranslator();
     /**
      * platform can put events to the component. If the event can be handled by
      * the component it returns true otherwise false

@@ -15,6 +15,7 @@ import org.bh.data.IDTO;
 import org.bh.data.DTOAccessException;
 import org.bh.gui.View;
 import org.bh.gui.swing.IBHComponent;
+import org.bh.platform.Services;
 import org.bh.platform.i18n.ITranslator;
 
 /**
@@ -44,7 +45,8 @@ public abstract class Controller implements IController, ActionListener{
     }
 
     private boolean safeToModel() throws DTOAccessException{
-
+        model.setSandBoxMode(Boolean.TRUE);
+        
         return true;
     }
 
@@ -60,12 +62,8 @@ public abstract class Controller implements IController, ActionListener{
         this.log = log;
     }
 
-    public void setModel(IDTO model) {
-        this.model = model;
-    }
-
-    public void setTranslator(ITranslator translator) {
-        view.setTranslator(translator);
+    public ITranslator getTranslator() {
+        return Services.getTranslator();
     }
 
     public void actionPerformed(ActionEvent e) {
