@@ -12,7 +12,7 @@ package org.bh.data;
  */
 public class DTOProject extends DTO<DTOScenario> {
 
-	public enum Keys {
+	public enum Key {
 		/**
 		 * project name
 		 */
@@ -20,7 +20,7 @@ public class DTOProject extends DTO<DTOScenario> {
 	}
 
 	public DTOProject() {
-		super(Keys.values());
+		super(Key.values());
 	}
 
 	@Override
