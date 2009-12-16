@@ -19,6 +19,9 @@ import org.apache.log4j.Logger;
  */
 public class BHTranslator implements ITranslator {
 
+	/**
+	 * Singleton instance.
+	 */
 	private static BHTranslator instance;
 	/**
 	 * private Logging instance for log.
@@ -47,13 +50,13 @@ public class BHTranslator implements ITranslator {
 	private ResourceBundle bundle;
 
 	/**
-     * 
-     */
+	 * Registered <code>PropertyChangeListener</code>.
+	 */
 	private ArrayList<PropertyChangeListener> listener;
 
 	/**
 	 * Default Constructor which instantiates the <code>BHTranslator</code> with
-	 * the default locale.
+	 * the default <code>Locale</code>.
 	 */
 	private BHTranslator() {
 		this(Locale.getDefault());
@@ -73,6 +76,11 @@ public class BHTranslator implements ITranslator {
 		log.debug("Translator initialized with Locale " + this.locale);
 	}
 
+	/**
+	 * Returns the Singelton instance of <code>BHTranslator</code>.
+	 * 
+	 * @return the instance.
+	 */
 	public static BHTranslator getInstance() {
 		if (BHTranslator.instance == null) {
 			BHTranslator.instance = new BHTranslator();
@@ -88,12 +96,12 @@ public class BHTranslator implements ITranslator {
 	 *            key to be translated
 	 * @return translated <code>String</code>
 	 */
-	public String translate(String key) {
+	public String translate(Object key) {
 		try {
-			return this.bundle.getString(key);
+			return this.bundle.getString(key.toString());
 		} catch (MissingResourceException e) {
 			log.error("Could not translate key \"" + key + "\"", e);
-			return key;
+			return key.toString();
 		}
 	}
 
@@ -126,8 +134,8 @@ public class BHTranslator implements ITranslator {
 	 *            key to be checked
 	 * @return true if contains else false.
 	 */
-	public boolean containsKey(String key) {
-		return this.bundle.containsKey(key);
+	public boolean containsKey(Object key) {
+		return this.bundle.containsKey(key.toString());
 	}
 
 	/**
@@ -138,7 +146,7 @@ public class BHTranslator implements ITranslator {
 	}
 
 	/**
-	 * add a PropertyChangeListener.
+	 * Adds a PropertyChangeListener.
 	 */
 	public void addPropertyChangeListener(PropertyChangeListener l) {
 		this.listener.add(l);

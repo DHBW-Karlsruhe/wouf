@@ -33,7 +33,7 @@ public interface ITranslator {
 	 *            key to be translated
 	 * @return translated <code>String</code>
 	 */
-	String translate(String key);
+	String translate(Object key);
 
 	/**
 	 * Checks if key is available for translation.
@@ -42,7 +42,7 @@ public interface ITranslator {
 	 *            key to be checked
 	 * @return true if contains else false.
 	 */
-	boolean containsKey(String key);
+	boolean containsKey(Object key);
 
 	/**
 	 * Returns the available Languages as <code>Locale</code>.
