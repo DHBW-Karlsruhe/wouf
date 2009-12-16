@@ -14,34 +14,44 @@ import javax.swing.JLabel;
  * 
  */
 public class BHLabel extends JLabel implements IBHComponent {
-    /**
-     * unique key to identify Label.
-     */
-    private String key;
-    private int[] validateRules;
-    /**
-     * Constructor to create new <code>BHLabel</code>.
-     * @param key
-     *            default key
-     * @param value
-     *            default value
-     */
-    public BHLabel(String key, String value) {
-	super(value);
-	this.key = key;
-    }
+	/**
+	 * unique key to identify Label.
+	 */
+	private String key;
+	private int[] validateRules;
 
-    /**
-     * Returns the unique ID of the <code>BHLabel</code>.
-     * @return id unique identifier.
-     */
+	/**
+	 * Constructor to create new <code>BHLabel</code>.
+	 * 
+	 * @param key
+	 *            default key
+	 * @param value
+	 *            default value
+	 */
+	public BHLabel(String key, String value) {
+		super(value);
+		this.key = key;
+	}
 
-    public String getKey() {
-        return key;
-    }
+	/**
+	 * Returns the unique ID of the <code>BHLabel</code>.
+	 * 
+	 * @return id unique identifier.
+	 */
 
-    public int[] getValidateRules() {
-	return validateRules;
-    }
+	public String getKey() {
+		return key;
+	}
+
+	public int[] getValidateRules() {
+		return validateRules;
+	}
+
+	@Override
+	public void setValidateRules(int[] validateRules) {
+		// TODO Auto-generated method stub
+		throw new UnsupportedOperationException(
+				"This method has not been implemented");
+	}
 
 }
