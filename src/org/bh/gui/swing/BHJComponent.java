@@ -5,8 +5,6 @@
 
 package org.bh.gui.swing;
 
-import java.awt.Component;
-import java.util.Map;
 import javax.swing.JComponent;
 
 /**

@@ -5,6 +5,7 @@
 
 package org.bh.gui;
 
+import java.util.Map;
 import org.bh.gui.swing.IBHComponent;
 
 /**
@@ -12,10 +13,11 @@ import org.bh.gui.swing.IBHComponent;
  * @author Marco Hammel
  */
 public abstract class BHValidityEngine {
+    
+    public BHValidityEngine(Map<String, IBHComponent> bhcomponents){
 
-    int[] validityRules;
-
+    }
     abstract boolean validate(IBHComponent comp);
 
-
+    abstract void validateAll();
 }
