@@ -22,7 +22,8 @@ import org.bh.data.types.Calculable;
 public class DTOGCCProfitLossStatementTotalCost extends DTO implements
 		IPeriodicalValuesDTO {
 	private static final String UNIQUE_ID = "gcc_pls_totalcost";
-	private static final Logger log = Logger.getLogger(DTOGCCProfitLossStatementTotalCost.class);
+	private static final Logger log = Logger
+			.getLogger(DTOGCCProfitLossStatementTotalCost.class);
 
 	public enum Key {
 
@@ -150,6 +151,7 @@ public class DTOGCCProfitLossStatementTotalCost extends DTO implements
 
 	public DTOGCCProfitLossStatementTotalCost() {
 		super(Key.values());
+		log.debug("Object created!");
 	}
 
 	@Override

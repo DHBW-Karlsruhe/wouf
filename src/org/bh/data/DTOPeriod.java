@@ -8,12 +8,36 @@ import org.bh.data.types.Calculable;
 import org.bh.data.types.Tax;
 import org.bh.platform.PluginManager;
 
+/**
+ * Project DTO
+ * 
+ * <p>
+ * This DTO contains projectdata and acts as a root-element
+ * 
+ * @author Michael Löckelt
+ * @version 0.2, 16.12.2009
+ * 
+ */
+
 public class DTOPeriod extends DTO<IPeriodicalValuesDTO> {
 	
 	private static final Logger log = Logger.getLogger(DTOPeriod.class);
 	
 	public enum Key {
+		/**
+		 * identify the position of this period
+		 * for example a year or a quarter
+		 */
+		IDENTIFIER,
+		
+		/**
+		 * total liabilities
+		 */
 		@Method LIABILITIES,
+		
+		/**
+		 * FreeCashFlow
+		 */
 		@Method FCF,
 	}
 	

@@ -137,7 +137,7 @@ public class DTOGCCProfitLossStatementCostOfSales extends DTO implements
 
 	public DTOGCCProfitLossStatementCostOfSales() {
 		super(Key.values());
-		log.debug("Object created");
+		log.debug("Object created!");
 	}
 
 	@Override
