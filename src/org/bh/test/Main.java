@@ -40,6 +40,8 @@ public class Main extends JFrame {
 		scenario.put(DTOScenario.Key.RFK, new DoubleValue(0.10));
 		Tax tax = new GermanTax(new DoubleValue(0.1694), new DoubleValue(0.26375));
 		scenario.put(DTOScenario.Key.TAX, tax);
+		StringValue scenarioName = new StringValue("Testszenario 1");
+		scenario.put(DTOScenario.Key.NAME, scenarioName);
 		
 		project.addChild(scenario);
 		

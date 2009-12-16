@@ -1,7 +1,9 @@
 package org.bh.plugin.directinput;
 
+import org.apache.log4j.Logger;
 import org.bh.data.DTO;
 import org.bh.data.IPeriodicalValuesDTO;
+import org.bh.plugin.gcc.DTOGCCProfitLossStatementTotalCost;
 
 
 /**
@@ -11,16 +13,25 @@ import org.bh.data.IPeriodicalValuesDTO;
  * can directly be used for calculating the shareholder value. 
  *
  * @author Robert Vollmer
- * @version 0.1, 06.12.2009
+ * @author Michael Löckelt
+ * @version 0.3, 16.12.2009
  *
  */
 
 @SuppressWarnings("unchecked")
 public class DTODirectInput extends DTO implements IPeriodicalValuesDTO {
 	private static final String UNIQUE_ID = "directinput";
+	private static final Logger log = Logger.getLogger(DTODirectInput.class);
 	
 	public enum Key {
+		/**
+		 * FreeCashFlow
+		 */
 		FCF,
+		
+		/**
+		 * Liabilities
+		 */
 		LIABILITIES,
 	}
 	
@@ -29,6 +40,7 @@ public class DTODirectInput extends DTO implements IPeriodicalValuesDTO {
      */
 	public DTODirectInput() {
 		super(Key.values());
+		log.debug("Object created!");
 	}
 
 	@Override

@@ -2,12 +2,16 @@ package org.bh.data;
 
 import java.util.ServiceLoader;
 
+import org.apache.log4j.Logger;
 import org.bh.calculation.ICalculationPreparer;
 import org.bh.data.types.Calculable;
 import org.bh.data.types.Tax;
 import org.bh.platform.PluginManager;
 
 public class DTOPeriod extends DTO<IPeriodicalValuesDTO> {
+	
+	private static final Logger log = Logger.getLogger(DTOPeriod.class);
+	
 	public enum Key {
 		@Method LIABILITIES,
 		@Method FCF,
@@ -22,6 +26,7 @@ public class DTOPeriod extends DTO<IPeriodicalValuesDTO> {
      */
 	public DTOPeriod() {
 		super(Key.values());
+		log.debug("Object created!");
 	}
 	
 	/**

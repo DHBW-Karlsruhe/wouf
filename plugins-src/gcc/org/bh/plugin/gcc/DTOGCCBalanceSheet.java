@@ -1,6 +1,8 @@
 package org.bh.plugin.gcc;
 
+import org.apache.log4j.Logger;
 import org.bh.data.DTO;
+import org.bh.data.DTOScenario;
 import org.bh.data.IPeriodicalValuesDTO;
 import org.bh.data.types.Calculable;
 
@@ -11,13 +13,14 @@ import org.bh.data.types.Calculable;
  * Data Transfer Object to handle GCCBalanceSheet values and methods
  * 
  * @author Michael Löckelt
- * @version 0.3, 07.12.2009
+ * @version 0.4, 16.12.2009
  * 
  */
 
 @SuppressWarnings("unchecked")
 public class DTOGCCBalanceSheet extends DTO implements IPeriodicalValuesDTO {
 	private static final String UNIQUE_ID = "gccbalancesheet";
+	private static final Logger log = Logger.getLogger(DTOGCCBalanceSheet.class);
 
 	public enum Key {
 
@@ -353,6 +356,7 @@ public class DTOGCCBalanceSheet extends DTO implements IPeriodicalValuesDTO {
 
 	public DTOGCCBalanceSheet() {
 		super(Key.values());
+		log.debug("Object created!");
 	}
 
 	@Override

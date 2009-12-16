@@ -1,5 +1,6 @@
 package org.bh.plugin.gcc;
 
+import org.apache.log4j.Logger;
 import org.bh.data.DTO;
 
 import org.bh.data.IPeriodicalValuesDTO;
@@ -13,7 +14,7 @@ import org.bh.data.types.Calculable;
  * methods
  * 
  * @author Michael Löckelt
- * @version 0.1, 12.12.2009
+ * @version 0.2, 16.12.2009
  * 
  */
 
@@ -21,6 +22,7 @@ import org.bh.data.types.Calculable;
 public class DTOGCCProfitLossStatementTotalCost extends DTO implements
 		IPeriodicalValuesDTO {
 	private static final String UNIQUE_ID = "gcc_pls_totalcost";
+	private static final Logger log = Logger.getLogger(DTOGCCProfitLossStatementTotalCost.class);
 
 	public enum Key {
 

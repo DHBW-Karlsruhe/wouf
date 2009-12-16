@@ -1,16 +1,50 @@
 package org.bh.data;
 
+import org.apache.log4j.Logger;
+import org.bh.BusinessHorizon;
 import org.bh.data.types.Tax;
 
+/**
+ * Scenario DTO
+ * 
+ * <p>
+ * This DTO contains scenariodata, acts as a root-element for periods
+ * and as a child for project DTO
+ * 
+ * @author Michael Löckelt
+ * @version 0.2, 16.12.2009
+ * 
+ */
+
 public class DTOScenario extends DTO<DTOPeriod> {
+	private static final Logger log = Logger.getLogger(DTOScenario.class);
 	
 	public enum Key {
-		/** Rendite Eigenkapital */
+		/** 
+		 * equity yield 
+		 */
 		REK,
-		/** Rendite Fremdkapital */
+		
+		/** 
+		 * liability yield 
+		 */
 		RFK,
-		/** Steuern */
-		TAX
+		
+		/**
+		 * tax
+		 */
+		TAX,
+		
+		/**
+		 * name
+		 */
+		NAME,
+		
+		/**
+		 * comment
+		 */
+		COMMENT
+		
 	}
 	
     /**
@@ -18,6 +52,7 @@ public class DTOScenario extends DTO<DTOPeriod> {
      */
 	public DTOScenario() {
 		super(Key.values());
+		log.debug("Object created");
 	}
 
 	@Override
@@ -53,6 +88,8 @@ public class DTOScenario extends DTO<DTOPeriod> {
 		}
 		if (previous != null)
 			previous.next = null;
+		
+		log.debug("PeriodReferences refreshed!");
 	}
 	
 	/**

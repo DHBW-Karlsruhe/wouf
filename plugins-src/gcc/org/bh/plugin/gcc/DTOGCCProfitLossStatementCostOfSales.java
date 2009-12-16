@@ -1,5 +1,6 @@
 package org.bh.plugin.gcc;
 
+import org.apache.log4j.Logger;
 import org.bh.data.DTO;
 import org.bh.data.IPeriodicalValuesDTO;
 import org.bh.data.types.Calculable;
@@ -12,7 +13,7 @@ import org.bh.data.types.Calculable;
  * methods
  * 
  * @author Michael Löckelt
- * @version 0.1, 11.12.2009
+ * @version 0.2, 16.12.2009
  * 
  */
 
@@ -20,6 +21,7 @@ import org.bh.data.types.Calculable;
 public class DTOGCCProfitLossStatementCostOfSales extends DTO implements
 		IPeriodicalValuesDTO {
 	private static final String UNIQUE_ID = "gcc_pls_costofsales";
+	private static final Logger log = Logger.getLogger(DTOGCCProfitLossStatementCostOfSales.class);
 
 	public enum Key {
 
@@ -135,6 +137,7 @@ public class DTOGCCProfitLossStatementCostOfSales extends DTO implements
 
 	public DTOGCCProfitLossStatementCostOfSales() {
 		super(Key.values());
+		log.debug("Object created");
 	}
 
 	@Override
