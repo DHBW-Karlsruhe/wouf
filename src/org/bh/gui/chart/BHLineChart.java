@@ -7,7 +7,17 @@ import org.jfree.chart.*;
 import org.jfree.chart.plot.Plot;
 import org.jfree.chart.plot.PlotOrientation;
 import org.jfree.data.category.*;
-
+/**
+ * 
+ * BHLineChart to create the LineChart 
+ *
+ * <p>
+ * LineChart is created and modified
+ *
+ * @author Lars
+ * @version 0.1, 16.12.2009
+ *
+ */
 public class BHLineChart extends JFreeChart implements IBHComponent{
     
     String ID;
@@ -21,6 +31,12 @@ public class BHLineChart extends JFreeChart implements IBHComponent{
 	
     }
     
+    /**
+     * returns the created Chart of the <code>BHLineChart</code>
+     * 
+     * @return JFreeChart LineChart
+     */
+    
     public JFreeChart getChart(){
 	return chart;
     }
@@ -31,7 +47,11 @@ public class BHLineChart extends JFreeChart implements IBHComponent{
 		// TODO Auto-generated method stub
 		throw new UnsupportedOperationException("This method has not been implemented");
 	}
-
+	/**
+	 * Returns the unique ID of the <code>BHLineChart</code>.
+	 * 
+	 * @return id unique identifier.
+	 */
 	@Override
 	public String getKey() {
 		return ID;
