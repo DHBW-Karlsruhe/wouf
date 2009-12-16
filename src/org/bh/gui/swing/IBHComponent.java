@@ -31,7 +31,11 @@ public interface IBHComponent {
      * @see BHValidityEngine
      */
     public int[] getValidateRules();
-
+    /**
+     * can set the Rules for the validation by runtime;
+     * @param validateRules
+     */
+    public void setValidateRules(int[] validateRules);
     /**
      * you have to override the add method and implement a put into the map
      * for

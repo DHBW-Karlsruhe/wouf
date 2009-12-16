@@ -17,14 +17,9 @@ public class BHJComponent extends JComponent implements IBHComponent{
 
     String key;
     int[] validateRules;
-    Map<String, JComponent> bhComponents;
 
-    @Override
-    public Component add(Component comp){
-        if(comp instanceof IBHComponent){
-            bhComponents.put(key,(JComponent) comp);
-        }
-         return super.add(comp);
+    public void setValidateRules(int[] validateRules) {
+        this.validateRules = validateRules;
     }
 
     public String getKey() {

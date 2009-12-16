@@ -13,6 +13,36 @@ import javax.swing.JButton;
  * @version 0.1, 2009/12/13
  * 
  */
-public class BHButton extends JButton {
+public class BHButton extends JButton implements IBHComponent{
+
+    private String key;
+    private int[] validateRules;
+
+    public BHButton(String key){
+        super();
+        this.key = key;
+    }
+
+    /**
+     * set the rules for the JGoodies validation
+     * @param validateRules
+     */
+    public void setValidateRules(int[] validateRules){
+        this.validateRules = validateRules;
+    }
+    /**
+     * return the key for value mapping
+     * @return
+     */
+    public String getKey() {
+        return key;
+    }
+    /**
+     * return the rules for the validation engine
+     * @return
+     */
+    public int[] getValidateRules() {
+        return validateRules;
+    }
 
 }

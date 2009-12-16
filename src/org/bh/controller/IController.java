@@ -7,10 +7,10 @@ package org.bh.controller;
 
 import java.awt.Event;
 import java.util.List;
+import java.util.Map;
 import org.bh.data.IDTO;
 import org.bh.gui.View;
 import org.bh.platform.i18n.ITranslator;
-import org.bh.data.Result;
 
 /**
  *
@@ -53,5 +53,5 @@ interface IController {
      * platform can overhand the result(s) of an operation to a component by this method
      * @param result
      */
-    void setResult(Result result);
+    void setResult(Map result);
 }

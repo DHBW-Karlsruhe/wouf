@@ -15,41 +15,34 @@ import javax.swing.JTextField;
  */
 public class BHTextField extends JTextField implements IBHComponent {
     /**
-     * unique id to identify Label.
+     * unique key to identify Label.
      */
-    private String id;
+    private String key;
+    private int[] validateRules;
 
     /**
      * Constructor to create new <code>BHTextField</code>.
      * 
-     * @param identifier
-     *            unique id
+     * @param key
+     *            unique key
      * @param value
      *            default value
      */
-    public BHTextField(String identifier, String value) {
+    public BHTextField(String key, String value) {
 	super(value);
-	this.id = identifier;
+	this.key = key;
     }
 
-    /**
-     * Returns the unique ID of the <code>BHTextField</code>.
-     * 
-     * @return id unique identifier.
-     */
-    public String getID() {
-	return id;
+    public String getKey() {
+        return key;
     }
 
-	@Override
-	public String getKey() {
-		// TODO Auto-generated method stub
-		throw new UnsupportedOperationException("This method has not been implemented");
-	}
+    public int[] getValidateRules() {
+        return validateRules;
+    }
 
-	@Override
-	public int[] getValidateRules() {
-		// TODO Auto-generated method stub
-		throw new UnsupportedOperationException("This method has not been implemented");
-	}
+    public void setValidateRules(int[] validateRules) {
+       this.validateRules = validateRules;
+    }
+
 }

@@ -15,42 +15,33 @@ import javax.swing.JLabel;
  */
 public class BHLabel extends JLabel implements IBHComponent {
     /**
-     * unique id to identify Label.
+     * unique key to identify Label.
      */
-    private String id;
-
+    private String key;
+    private int[] validateRules;
     /**
      * Constructor to create new <code>BHLabel</code>.
-     * 
-     * @param identifier
-     *            unique id
+     * @param key
+     *            default key
      * @param value
      *            default value
      */
-    public BHLabel(String identifier, String value) {
+    public BHLabel(String key, String value) {
 	super(value);
-	this.id = identifier;
+	this.key = key;
     }
 
     /**
      * Returns the unique ID of the <code>BHLabel</code>.
-     * 
      * @return id unique identifier.
      */
-    public String getID() {
-	return id;
+
+    public String getKey() {
+        return key;
     }
 
-	@Override
-	public String getKey() {
-		// TODO Auto-generated method stub
-		throw new UnsupportedOperationException("This method has not been implemented");
-	}
-
-	@Override
-	public int[] getValidateRules() {
-		// TODO Auto-generated method stub
-		throw new UnsupportedOperationException("This method has not been implemented");
-	}
+    public int[] getValidateRules() {
+	return validateRules;
+    }
 
 }
