@@ -4,6 +4,7 @@ import java.lang.Thread.UncaughtExceptionHandler;
 
 import org.apache.log4j.Logger;
 import org.bh.data.IPeriodicalValuesDTO;
+import org.bh.gui.swing.BHMainFrame;
 import org.bh.platform.PluginManager;
 import org.bh.test.Main;
 
@@ -39,5 +40,6 @@ public class BusinessHorizon {
 		PluginManager.getInstance().loadAllServices(IPeriodicalValuesDTO.class);
 		
 		new Main();
+		new BHMainFrame("Business Horizon");
 	}
 }
