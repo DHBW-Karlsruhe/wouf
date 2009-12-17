@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <project basedir="." default="build" name="Business Horizon">
-    <!-- needs ant-contrib.jar -->
-    <taskdef name="foreach" classname="net.sf.antcontrib.logic.ForEach"/>
+    <taskdef resource="net/sf/antcontrib/antcontrib.properties" classpath="lib/ant/ant-contrib-1.0b3.jar" />
+	
     <property environment="env"/>
     <property name="source.dir" value="src"/>
     <property name="build.dir" value="bin"/>
