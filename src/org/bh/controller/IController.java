@@ -17,15 +17,7 @@ import org.bh.platform.i18n.ITranslator;
  *
  * @author Marco Hammel
  */
-interface IController {
-
-    /**
-     * return value of the Plugin Interface
-     * @return
-     */
-    String getUniqueId();//Zu welchem gehörst du??
-
-    //getAnzeigename
+public interface IController {
 
     /**
      * return the view of the component if no view is defined the method return null

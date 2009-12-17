@@ -37,7 +37,7 @@ public abstract class Controller implements IController, ActionListener{
     }
 
     private void handleException(Exception e){
-        log.error("Controller Exception " + this.getUniqueId(),e);
+        log.error("Controller Exception ");
     }
 
     public View getView(){
