@@ -10,6 +10,7 @@ import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 
@@ -18,8 +19,9 @@ import org.bh.data.types.Value;
 
 /**
  * General Data Transfer Object 
- * @author Marcus
- * @author Robert
+ * @author Marcus Katzor
+ * @author Robert Vollmer
+ * @author Michael Löckelt
  *
  * @param <ChildT> Type of the children.
  */
@@ -57,7 +59,7 @@ public abstract class DTO<ChildT extends IDTO> implements IDTO<ChildT> {
 	/**
 	 * All children assigned to this DTO.
 	 */
-	protected List<ChildT> children = new ArrayList<ChildT>();
+	protected LinkedList<ChildT> children = new LinkedList<ChildT>();
 	
 	/**
 	 * In the sandbox mode a valid copy of the DTO is made
@@ -105,7 +107,7 @@ public abstract class DTO<ChildT extends IDTO> implements IDTO<ChildT> {
 			METHODS_CACHE.put(className, availableMethods);
 		}
 	}
-	
+
 	@Override
 	public Value get(Object key1) throws DTOAccessException {
 		String key = key1.toString().toLowerCase();
@@ -196,6 +198,19 @@ public abstract class DTO<ChildT extends IDTO> implements IDTO<ChildT> {
 		}
 	}
 	
+	public ChildT addChild(ChildT child, boolean futureValues) throws DTOAccessException {
+		if (!children.contains(child)) {
+			if (futureValues) {
+				children.addLast(child);
+			} else {
+				children.addFirst(child);
+			}
+			return child;
+		} else {
+			throw new DTOAccessException("The child is already assigned to this DTO!");
+		}
+	}
+	
 	@Override
 	public ChildT getChild(int index) throws DTOAccessException {
 		ChildT result = null;
@@ -255,6 +270,7 @@ public abstract class DTO<ChildT extends IDTO> implements IDTO<ChildT> {
 				result.put(entry.getKey(), entry.getValue().clone());
 				// Copy and add children to the new instance
 				for (ChildT child : children) {
+					//TODO check mit Robert
 					result.addChild((ChildT) child.clone());
 				}
 			}			

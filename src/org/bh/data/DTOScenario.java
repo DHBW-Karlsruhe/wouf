@@ -12,12 +12,19 @@ import org.bh.data.types.Tax;
  * and as a child for project DTO
  * 
  * @author Michael Löckelt
- * @version 0.2, 16.12.2009
+ * @version 0.3, 17.12.2009
  * 
  */
 
 public class DTOScenario extends DTO<DTOPeriod> {
 	private static final Logger log = Logger.getLogger(DTOScenario.class);
+	
+	/**
+	 * Used to difference between values in the past and values in the future
+	 * if futureValues is true, new childs are appended at the end of the childlist,
+	 * if not, new childs are appended at the beginning
+	 */
+	protected boolean futureValues;
 	
 	public enum Key {
 		/** 
@@ -50,8 +57,9 @@ public class DTOScenario extends DTO<DTOPeriod> {
     /**
      * initialize key and method list
      */
-	public DTOScenario() {
+	public DTOScenario(boolean futureValues) {
 		super(Key.values());
+		this.futureValues = futureValues;
 		log.debug("Object created");
 	}
 
@@ -63,7 +71,7 @@ public class DTOScenario extends DTO<DTOPeriod> {
 	
 	@Override
 	public DTOPeriod addChild(DTOPeriod child) throws DTOAccessException {
-		DTOPeriod result = super.addChild(child);
+		DTOPeriod result = super.addChild(child,this.futureValues);
 		child.scenario = this;
 		refreshPeriodReferences();
 		return result;

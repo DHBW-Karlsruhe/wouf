@@ -35,7 +35,7 @@ public class Main extends JFrame {
 		StringValue projectName = new StringValue("Testprojekt 1");
 		project.put(DTOProject.Key.NAME,projectName);
 	
-		scenario = new DTOScenario();		
+		scenario = new DTOScenario(true);		
 		scenario.put(DTOScenario.Key.REK, new DoubleValue(0.11));
 		scenario.put(DTOScenario.Key.RFK, new DoubleValue(0.10));
 		Tax tax = new GermanTax(new DoubleValue(0.1694), new DoubleValue(0.26375));
@@ -43,7 +43,7 @@ public class Main extends JFrame {
 		StringValue scenarioName = new StringValue("Testszenario 1");
 		scenario.put(DTOScenario.Key.NAME, scenarioName);
 		
-		project.addChild(scenario);
+		project.addChild(scenario,false);
 		
 		final PeriodPanel[] periodPanels = new PeriodPanel[3];
 		for (int i = 0; i < periodPanels.length; i++) {
