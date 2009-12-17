@@ -44,6 +44,10 @@ public abstract class Controller implements IController, ActionListener{
         return view;
     }
 
+    public void setView(View view){
+        this.view = view;
+    }
+
     private boolean safeToModel() throws DTOAccessException{
         model.setSandBoxMode(Boolean.TRUE);
         
