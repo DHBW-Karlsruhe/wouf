@@ -77,11 +77,13 @@ public class BHChartFactory{
 	 * 			<code>HistogramDataset</code> to fill the <code>BHHistogramChart</code> with data
 	 * @param key
 	 * 			<code>String</code> key
+	 * @param plot
+	 * 			<code>Plot</code> plot to render the Chart
 	 * 
 	 */
-    public static JFreeChart getHistogramChart(String title, String xAxis, String yAxis, HistogramDataset dataset, String key){
+    public static JFreeChart getHistogramChart(String title, String xAxis, String yAxis, HistogramDataset dataset, String key, Plot plot){
     	
-    	BHHistogramChart chart = new BHHistogramChart(title, xAxis, yAxis, dataset, key);
+    	BHHistogramChart chart = new BHHistogramChart(title, xAxis, yAxis, dataset, key, plot);
     	return chart.getChart();
     }
 }

@@ -2,6 +2,7 @@ package org.bh.gui.chart;
 
 import java.awt.Component;
 
+import org.bh.gui.swing.IBHComponent;
 import org.jfree.chart.ChartFactory;
 import org.jfree.chart.JFreeChart;
 import org.jfree.chart.plot.Plot;
@@ -21,8 +22,9 @@ import org.jfree.data.statistics.*;
 public class BHHistogramChart extends JFreeChart implements IBHComponent{
 	private String key;
 	private JFreeChart chart;
+
 	
-	protected BHHistogramChart(String title, String xAxis, String yAxis, HistogramDataset dataset, String key) {
+	protected BHHistogramChart(String title, String xAxis, String yAxis, HistogramDataset dataset, String key, Plot plot) {
 		super(plot);
 		//BHTranslator translator = BHTranslator.getInstance();
 		
