@@ -39,7 +39,7 @@ public class BusinessHorizon {
 		
 		PluginManager.getInstance().loadAllServices(IPeriodicalValuesDTO.class);
 		
-		//new Main();
-		new BHMainFrame("Business Horizon");
+		new Main();
+		//new BHMainFrame("Business Horizon");
 	}
 }
