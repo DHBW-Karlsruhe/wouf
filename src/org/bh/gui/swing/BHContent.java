@@ -2,8 +2,17 @@ package org.bh.gui.swing;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
+import java.awt.Dimension;
 
 import javax.swing.*;
+
+import org.bh.gui.chart.BHChartFactory;
+import org.jfree.chart.ChartPanel;
+import org.jfree.chart.JFreeChart;
+import org.jfree.chart.plot.CategoryPlot;
+import org.jfree.chart.plot.Plot;
+import org.jfree.data.category.CategoryDataset;
+import org.jfree.data.category.DefaultCategoryDataset;
 
 /**
  * 
@@ -35,13 +44,35 @@ public class BHContent extends JPanel{
 		setLayout(new BorderLayout());
 		
 		//chart1 = new BHChart1("Comparison", "Which operating system are you using?");
-		   
-		chart = new JLabel();
-		chart.setText("TESTTESTTEST");
+		 
+		
+		/**
+		 * Test chart start
+		 */
+		String title = "Test";
+		String XAxis = "XAchse";
+		String YAxis = "YAchse";
+		Plot plot = new CategoryPlot();
+		String ID = "1";
+		
+		
+		JFreeChart chart = BHChartFactory.getLineChart(title, XAxis, YAxis, createDataset(), plot, ID);
+		
+		final ChartPanel chartPanel = new ChartPanel(chart);
+	    chartPanel.setPreferredSize(new Dimension(500, 270));
+	    JPanel neu = new JPanel();
+	    
+	    /**
+	     * Test chart end
+	     */
+		
+		
+//		chart = new JLabel();
+//		chart.setText("TESTTESTTEST");
 		forms = new JLabel();
 		forms.setText("FORMSFORMSFORMS");
 		
-		paneV = new JSplitPane(JSplitPane.VERTICAL_SPLIT, forms, chart);
+		paneV = new JSplitPane(JSplitPane.VERTICAL_SPLIT, forms, neu.add(chartPanel));
 		paneV.setOneTouchExpandable(true);
 		paneV.setDividerLocation(formPanelHeight);
 		       
@@ -49,4 +80,55 @@ public class BHContent extends JPanel{
 		setBackground(Color.white);
 		add(paneV, BorderLayout.CENTER);
 	}
+    
+    private static CategoryDataset createDataset() {
+        
+        // row keys...
+        final String series1 = "First";
+        final String series2 = "Second";
+        final String series3 = "Third";
+
+        // column keys...
+        final String type1 = "Type 1";
+        final String type2 = "Type 2";
+        final String type3 = "Type 3";
+        final String type4 = "Type 4";
+        final String type5 = "Type 5";
+        final String type6 = "Type 6";
+        final String type7 = "Type 7";
+        final String type8 = "Type 8";
+
+        // create the dataset...
+        final DefaultCategoryDataset dataset = new DefaultCategoryDataset();
+
+        dataset.addValue(1.0, series1, type1);
+        dataset.addValue(4.0, series1, type2);
+        dataset.addValue(3.0, series1, type3);
+        dataset.addValue(5.0, series1, type4);
+        dataset.addValue(5.0, series1, type5);
+        dataset.addValue(7.0, series1, type6);
+        dataset.addValue(7.0, series1, type7);
+        dataset.addValue(8.0, series1, type8);
+
+        dataset.addValue(5.0, series2, type1);
+        dataset.addValue(7.0, series2, type2);
+        dataset.addValue(6.0, series2, type3);
+        dataset.addValue(8.0, series2, type4);
+        dataset.addValue(4.0, series2, type5);
+        dataset.addValue(4.0, series2, type6);
+        dataset.addValue(2.0, series2, type7);
+        dataset.addValue(1.0, series2, type8);
+
+        dataset.addValue(4.0, series3, type1);
+        dataset.addValue(3.0, series3, type2);
+        dataset.addValue(2.0, series3, type3);
+        dataset.addValue(3.0, series3, type4);
+        dataset.addValue(6.0, series3, type5);
+        dataset.addValue(3.0, series3, type6);
+        dataset.addValue(4.0, series3, type7);
+        dataset.addValue(3.0, series3, type8);
+
+        return dataset;
+                
+    }
 }
