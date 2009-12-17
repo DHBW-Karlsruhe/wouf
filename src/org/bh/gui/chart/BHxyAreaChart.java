@@ -2,10 +2,12 @@ package org.bh.gui.chart;
 
 import java.awt.Component;
 
+import org.bh.gui.swing.IBHComponent;
 import org.jfree.chart.ChartFactory;
 import org.jfree.chart.JFreeChart;
 import org.jfree.chart.plot.Plot;
 import org.jfree.chart.plot.PlotOrientation;
+import org.jfree.chart.plot.XYPlot;
 import org.jfree.data.xy.XYDataset;
 
 /**
@@ -47,7 +49,7 @@ public class BHxyAreaChart extends JFreeChart implements IBHComponent{
 	 * 
 	 */
 	@Override
-	public String getID() {
+	public String getKey() {
 		return key;
 	}
 
@@ -78,5 +80,4 @@ public class BHxyAreaChart extends JFreeChart implements IBHComponent{
 		// TODO Auto-generated method stub
 		throw new UnsupportedOperationException("This method has not been implemented");
 	}
-
 }

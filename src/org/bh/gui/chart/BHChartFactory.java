@@ -3,6 +3,7 @@ package org.bh.gui.chart;
 import org.jfree.chart.*;
 import org.jfree.chart.plot.*;
 import org.jfree.data.category.CategoryDataset;
+import org.jfree.data.xy.XYDataset;
 
 /**
  * 
@@ -58,7 +59,7 @@ public class BHChartFactory{
 	 */
     public static JFreeChart getXYAreaChart(String title, String xAxis, String yAxis, XYDataset dataset, String key, XYPlot plot){
     	
-    	BHxyAreaChart chart = new BHxyAreaChart(title, xAxis, yAxis, XYDataset, key, plot);
+    	BHxyAreaChart chart = new BHxyAreaChart(title, xAxis, yAxis, dataset, key, plot);
     	return chart.getChart();
     }
 }
