@@ -3,6 +3,8 @@ package org.bh.gui.swing;
 import javax.swing.JMenuItem;
 import javax.swing.KeyStroke;
 
+import org.bh.platform.i18n.BHTranslator;
+
 /**
  * BHMenuItem to create and display new menu items in the menu bar.
  * 
@@ -19,6 +21,7 @@ public class BHMenuItem extends JMenuItem implements IBHComponent{
 
 	private String key;
     private int[] validateRules;
+    BHTranslator translator = BHTranslator.getInstance();
     
     /**
      * create the new menu item
@@ -31,7 +34,7 @@ public class BHMenuItem extends JMenuItem implements IBHComponent{
     public BHMenuItem(String key, int eventKey, int eventAction, String actionCommand){
     	super();
     	this.key = key;
-    	this.setText(key);
+    	this.setText(translator.translate(key));
     	this.setMnemonic(eventKey);
     	this.setAccelerator(KeyStroke.getKeyStroke(eventKey, eventAction));
     	this.setActionCommand(actionCommand);
