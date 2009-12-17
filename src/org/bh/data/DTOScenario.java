@@ -2,6 +2,8 @@ package org.bh.data;
 
 import org.apache.log4j.Logger;
 import org.bh.BusinessHorizon;
+import org.bh.data.types.DoubleValue;
+import org.bh.data.types.GermanTax;
 import org.bh.data.types.Tax;
 
 /**
@@ -38,9 +40,14 @@ public class DTOScenario extends DTO<DTOPeriod> {
 		RFK,
 		
 		/**
-		 * tax
+		 * 	corporate income tax 
 		 */
-		TAX,
+		CTAX,
+		
+		/**
+		 * business tax
+		 */
+		BTAX,
 		
 		/**
 		 * name
@@ -105,6 +112,8 @@ public class DTOScenario extends DTO<DTOPeriod> {
 	 * @return Taxes for scenario.
 	 */
 	public Tax getTax() {
-		return (Tax)get(Key.TAX);
+		Tax myTax = new GermanTax((DoubleValue) this.get(DTOScenario.Key.CTAX),(DoubleValue) this.get(DTOScenario.Key.BTAX));
+		return myTax;
+		
 	}
 }
