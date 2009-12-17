@@ -4,6 +4,7 @@ import org.jfree.chart.*;
 import org.jfree.chart.plot.*;
 import org.jfree.data.category.CategoryDataset;
 import org.jfree.data.xy.XYDataset;
+import org.jfree.data.statistics.*;
 
 /**
  * 
@@ -60,6 +61,27 @@ public class BHChartFactory{
     public static JFreeChart getXYAreaChart(String title, String xAxis, String yAxis, XYDataset dataset, String key, XYPlot plot){
     	
     	BHxyAreaChart chart = new BHxyAreaChart(title, xAxis, yAxis, dataset, key, plot);
+    	return chart.getChart();
+    }
+    
+    /**
+	 * method to create the <code>BHHistogramChart</code>
+	 * 
+	 * @param title
+	 * 			<code>String</code> title for the <code>BHHistogramChart</code>
+	 * @param xAxis
+	 * 			<code>String</code> xAxis for the xAxis Label of <code>BHHistogramChart</code>
+	 * @param yAxis
+	 * 			<code>String</code> yAxis for the yAxis Label of <code>BHHistogramChart</code>
+	 * @param dataset
+	 * 			<code>HistogramDataset</code> to fill the <code>BHHistogramChart</code> with data
+	 * @param key
+	 * 			<code>String</code> key
+	 * 
+	 */
+    public static JFreeChart getHistogramChart(String title, String xAxis, String yAxis, HistogramDataset dataset, String key){
+    	
+    	BHHistogramChart chart = new BHHistogramChart(title, xAxis, yAxis, dataset, key);
     	return chart.getChart();
     }
 }
