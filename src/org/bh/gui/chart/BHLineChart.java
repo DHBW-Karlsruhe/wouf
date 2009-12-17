@@ -22,10 +22,9 @@ import org.jfree.data.category.*;
 public class BHLineChart extends JFreeChart implements IBHComponent{
     BHTranslator translator = BHTranslator.getInstance();
     
-    String key;
-    JFreeChart chart;
-    Number value;
-    
+    private String key;
+    private JFreeChart chart;
+
     protected BHLineChart(String title, String XAxis, String YAxis, CategoryDataset dataset, Plot plot, String key){
 	super(plot);
 	this.key = key;
