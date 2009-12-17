@@ -5,11 +5,10 @@
 // no build
 package org.bh.controller;
 
-import java.awt.Event;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.util.List;
 import java.util.Map;
+import java.util.Observer;
 import org.apache.log4j.Logger;
 import org.bh.data.IDTO;
 import org.bh.data.DTOAccessException;
@@ -22,7 +21,7 @@ import org.bh.platform.i18n.ITranslator;
  *
  * @author Marco Hammel
  */
-public abstract class Controller implements IController, ActionListener{
+public abstract class Controller implements IController, ActionListener, Observer{
 
     private static  Logger log = Logger.getLogger(Controller.class);
     private View view;

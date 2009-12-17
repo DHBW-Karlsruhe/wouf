@@ -5,24 +5,39 @@
 
 package org.bh.platform;
 
-import java.awt.event.ActionEvent;
+import java.util.EventObject;
 import org.apache.log4j.Logger;
 
 /**
  *
  * @author Marco Hammel
  */
-public class PlatformEvent extends ActionEvent{
+public class PlatformEvent extends EventObject{
 
     private static Logger log = Logger.getLogger(PlatformEvent.class);
+    private Key eventKey;
+
+    public static enum Key{
+        /**
+         * plugin should call saveAll method
+         */
+        SAVEALL,
+        /**
+         * plugin should put the dto copy back to ui
+         */
+        GETCOPY
+
+    }
     
-    public PlatformEvent(Object source, int id, String command){
-        super(source, id, command);
-        log.debug("Platform Event " + command + " from " + source);
+    public PlatformEvent(Object source, Key key){
+        super(source);
+        eventKey = key;
+        log.debug("Platform Event from " + source);
     }
 
-    public PlatformEvent(Object source, int id, String command, int modifier){
-        super(source, id, command, modifier);
-        log.debug("Platform Event " + command + " from " + source);
+    public String getEventKey(){
+        return this.eventKey.toString();
     }
+    
+
 }

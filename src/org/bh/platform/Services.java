@@ -5,6 +5,7 @@
 
 package org.bh.platform;
 
+import java.util.Observer;
 import org.bh.platform.i18n.BHTranslator;
 import org.bh.platform.i18n.ITranslator;
 
@@ -14,8 +15,14 @@ import org.bh.platform.i18n.ITranslator;
  */
 public class Services {
 
+    private static PlatformEventObserverable observerable = PlatformEventObserverable.getInstance();
+
     public static ITranslator getTranslator(){
         return BHTranslator.getInstance();
+    }
+
+    public static void addObserver(Observer o){
+        observerable.addObserver(o);
     }
 
 }
