@@ -10,5 +10,7 @@
 	<classpathentry kind="lib" path="D:/Documents and Settings/ptietze/My Documents/DHBW Karlsruhe/Semester V/Projekt - Pohl+Ratz/jlfgr-1_0.jar"/>
 	<classpathentry kind="lib" path="lib/forms-1.2.0.jar"/>
 	<classpathentry kind="lib" path="lib/jlfgr-1_0.jar"/>
+	<classpathentry kind="lib" path="lib/jcommon-1.0.16.jar"/>
+	<classpathentry kind="lib" path="lib/jfreechart-1.0.13.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>
