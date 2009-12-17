@@ -30,32 +30,32 @@ public class BHMenuBar extends JMenuBar implements ActionListener{
          **/
 	
         //create menu --> File
-        JMenu menuFile = new JMenu("File");//translator.translate("Mfile"));
+        JMenu menuFile = new JMenu(translator.translate("Mfile"));
         //menuFile.setMnemonic(KeyEvent.VK_D);
         add(menuFile);
         
         //create menu --> Project
-        JMenu menuProject = new JMenu("Project");//;translator.translate("Mproject"));
+        JMenu menuProject = new JMenu(translator.translate("Mproject"));
         //menuProject.setMnemonic(KeyEvent.VK_P);
         add(menuProject);
     
         //create menu --> Scenario
-        JMenu menuScenario = new JMenu("Scenario");//;translator.translate("Mscenario"));
+        JMenu menuScenario = new JMenu(translator.translate("Mscenario"));
         //menuScenario.setMnemonic(KeyEvent.VK_S);
         add(menuScenario);
         
         //create menu --> Bilanz & GuV
-        JMenu menuBilanzGuV = new JMenu("Bilanz GuV");//translator.translate("MbalanceProfitLoss"));
+        JMenu menuBilanzGuV = new JMenu(translator.translate("MbalanceProfitLoss"));
         //menuBilanzGuV.setMnemonic(KeyEvent.VK_B);
         add(menuBilanzGuV);
         
         //create menu --> Options
-        JMenu menuOptions = new JMenu("Options");//translator.translate("Moptions"));
+        JMenu menuOptions = new JMenu(translator.translate("Moptions"));
         //menuOptions.setMnemonic(KeyEvent.VK_O);
         add(menuOptions);
         
         //create menu --> Help
-        JMenu menuHelp = new JMenu("Help");//translator.translate("Mhelp"));
+        JMenu menuHelp = new JMenu(translator.translate("Mhelp"));
         //menuHelp.setMnemonic(KeyEvent.VK_H);
         add(menuHelp);
         

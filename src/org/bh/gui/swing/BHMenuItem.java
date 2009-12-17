@@ -34,7 +34,7 @@ public class BHMenuItem extends JMenuItem implements IBHComponent{
     public BHMenuItem(String key, int eventKey, int eventAction, String actionCommand){
     	super();
     	this.key = key;
-    	this.setText(key);//translator.translate(key));
+    	this.setText(translator.translate(key));
     	this.setMnemonic(eventKey);
     	this.setAccelerator(KeyStroke.getKeyStroke(eventKey, eventAction));
     	this.setActionCommand(actionCommand);

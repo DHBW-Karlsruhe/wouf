@@ -46,7 +46,7 @@ public class BHMainFrame extends JFrame {
 	public BHMainFrame(String title) {
 		super(title);
 		this.setProperties();
-
+		
 		// create main frame
 		// 50 pixel from every corner depending on the resolution
 		int inset = 20;
@@ -91,6 +91,8 @@ public class BHMainFrame extends JFrame {
 		// desktop.add(content, BorderLayout.CENTER);
 
 		setContentPane(desktop);
+		
+	
 	}
 
 	/**
@@ -100,6 +102,8 @@ public class BHMainFrame extends JFrame {
 		this.setNimbusLookAndFeel();
 		this.setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
 		this.setLocationRelativeTo(null);
+		this.setJMenuBar(new BHMenuBar());
+		this.setVisible(true);
 		// this.pack();
 	}
 
