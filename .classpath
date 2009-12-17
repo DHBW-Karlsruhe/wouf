@@ -8,5 +8,7 @@
 	<classpathentry kind="lib" path="lib/log4j-1.2.15.jar"/>
 	<classpathentry kind="lib" path="D:/Documents and Settings/ptietze/My Documents/DHBW Karlsruhe/Semester V/Projekt - Pohl+Ratz/forms-1_2_0/forms-1.2.0/forms-1.2.0.jar"/>
 	<classpathentry kind="lib" path="D:/Documents and Settings/ptietze/My Documents/DHBW Karlsruhe/Semester V/Projekt - Pohl+Ratz/jlfgr-1_0.jar"/>
+	<classpathentry kind="lib" path="lib/forms-1.2.0.jar"/>
+	<classpathentry kind="lib" path="lib/jlfgr-1_0.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>
