@@ -86,4 +86,16 @@ public abstract class View implements  KeyListener, PropertyChangeListener{
     public Map<String, IBHComponent>  getBHcomponents(){
         return bhcomponents;
     }
+
+    /**
+     *
+     * @return
+     */
+    public JPanel getViewPanel(){
+        return this.viewPanel;
+    }
+
+    protected void setViewPanel(JPanel panel){
+        this.viewPanel = panel;
+    }
 }
