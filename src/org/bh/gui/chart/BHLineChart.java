@@ -26,10 +26,10 @@ public class BHLineChart extends JFreeChart implements IBHComponent{
     private JFreeChart chart;
 
     protected BHLineChart(String title, String XAxis, String YAxis, CategoryDataset dataset, Plot plot, String key){
-	super(plot);
-	this.key = key;
-	chart = ChartFactory.createLineChart(title, XAxis, YAxis, dataset, PlotOrientation.VERTICAL, true, true, false); 
-	plot.setNoDataMessage(translator.translate("noDataAvailable"));
+    	super(plot);
+    	this.key = key;
+    	chart = ChartFactory.createLineChart(title, XAxis, YAxis, dataset, PlotOrientation.VERTICAL, true, true, false); 
+    	plot.setNoDataMessage(translator.translate("noDataAvailable"));
 	
     }
     
@@ -40,7 +40,7 @@ public class BHLineChart extends JFreeChart implements IBHComponent{
      */
     
     public JFreeChart getChart(){
-	return chart;
+    	return chart;
     }
 
    

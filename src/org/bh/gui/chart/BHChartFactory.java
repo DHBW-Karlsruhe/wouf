@@ -35,8 +35,30 @@ public class BHChartFactory{
 	 */
     public static JFreeChart getLineChart(String title, String XAxis, String YAxis, CategoryDataset dataset, Plot plot, String key){
 	
-	BHLineChart chart = new BHLineChart(title, XAxis, YAxis, dataset, plot, key);
-	return chart.getChart();
+    	BHLineChart chart = new BHLineChart(title, XAxis, YAxis, dataset, plot, key);
+    	return chart.getChart();
 	
+    }
+    /**
+	 * method to create the <code>BHxyAreaChart</code>
+	 * 
+	 * @param title
+	 * 			<code>String</code> title for the <code>BHxyAreaChart</code>
+	 * @param xAxis
+	 * 			<code>String</code> xAxis for the xAxis Label of <code>BHxyAreaChart</code>
+	 * @param yAxis
+	 * 			<code>String</code> yAxis for the yAxis Label of <code>BHxyAreaChart</code>
+	 * @param dataset
+	 * 			<code>XYDataset</code> to fill the <code>BHxyAreaChart</code> with data
+	 * @param key
+	 * 			<code>String</code> key
+	 * @param plot
+	 * 			<code>Plot</code> plot to render the Chart
+	 * 
+	 */
+    public static JFreeChart getXYAreaChart(String title, String xAxis, String yAxis, XYDataset dataset, String key, XYPlot plot){
+    	
+    	BHxyAreaChart chart = new BHxyAreaChart(title, xAxis, yAxis, XYDataset, key, plot);
+    	return chart.getChart();
     }
 }
