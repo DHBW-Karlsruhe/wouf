@@ -3,6 +3,7 @@ package org.bh.gui.chart;
 import java.awt.Component;
 
 import org.bh.gui.swing.IBHComponent;
+import org.bh.platform.i18n.BHTranslator;
 import org.jfree.chart.*;
 import org.jfree.chart.plot.Plot;
 import org.jfree.chart.plot.PlotOrientation;
