@@ -49,7 +49,7 @@ interface IController {
      * @param model
      */
     void setModel(IDTO model);
-    //@TODO datatyp result is not yet defined
+    //TODO datatyp result is not yet defined
     /**
      * platform can overhand the result(s) of an operation to a component by this method
      * @param result

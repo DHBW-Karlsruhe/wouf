@@ -1,9 +1,12 @@
 package org.bh.gui.swing;
 
-import java.awt.event.*;
-import javax.swing.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+
+import javax.swing.JMenu;
+import javax.swing.JMenuBar;
+
 import org.bh.platform.i18n.BHTranslator;
-import org.bh.plugin.gcc.DTOGCCBalanceSheet;
 
 
 /**
