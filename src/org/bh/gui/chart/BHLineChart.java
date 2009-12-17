@@ -19,6 +19,7 @@ import org.jfree.data.category.*;
  *
  */
 public class BHLineChart extends JFreeChart implements IBHComponent{
+    BHTranslator translator = BHTranslator.getInstance();
     
     String ID;
     JFreeChart chart;
@@ -28,6 +29,7 @@ public class BHLineChart extends JFreeChart implements IBHComponent{
 	super(plot);
 	this.ID = ""+ID;
 	chart = ChartFactory.createLineChart(title, XAxis, YAxis, dataset, PlotOrientation.VERTICAL, true, true, false); 
+	plot.setNoDataMessage(translator.translate("noDataAvailable"));
 	
     }
     
