@@ -33,9 +33,9 @@ public class BHChartFactory{
 	 * 			default ID
 	 * @return created LineChart
 	 */
-    public static JFreeChart getLineChart(String title, String XAxis, String YAxis, CategoryDataset dataset, Plot plot, int ID){
+    public static JFreeChart getLineChart(String title, String XAxis, String YAxis, CategoryDataset dataset, Plot plot, String key){
 	
-	BHLineChart chart = new BHLineChart(title, XAxis, YAxis, dataset, plot, ID);
+	BHLineChart chart = new BHLineChart(title, XAxis, YAxis, dataset, plot, key);
 	return chart.getChart();
 	
     }
