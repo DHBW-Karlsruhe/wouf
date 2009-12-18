@@ -20,7 +20,7 @@ public class BHStatusBar extends JPanel{
     private static final long serialVersionUID = 1L;
     private static BHStatusBar instance = null;
     JLabel bh;
-    JLabel lToolTip;
+    static JLabel lToolTip;
     CellConstraints cons;
     
    
@@ -57,11 +57,15 @@ public class BHStatusBar extends JPanel{
      * create the status bar with the tooltip included
      * @param toolTip
      */
-    public void setToolTip(String toolTip){
+    public static void setToolTip(String toolTip){
 		lToolTip.setText(toolTip);
 		//test.repaint();
 		lToolTip.revalidate();
 
+    }
+    
+    public void setValidationToolTip(JLabel label){
+    	lToolTip = label;
     }
    
 }

@@ -1,11 +1,9 @@
 package org.bh.gui.swing;
 
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
-import java.net.URL;
 import javax.swing.*;
+
 
 /**
  * 
@@ -21,7 +19,7 @@ import javax.swing.*;
  */
 
 
-public class BHToolBar extends JToolBar{
+public class BHToolBar extends JToolBar implements MouseListener{
    
 
     private static final long serialVersionUID = 1L;
@@ -35,6 +33,7 @@ public class BHToolBar extends JToolBar{
         
     BHLabel lable;
     JComboBox comboBox;
+    String toolTip = "";
     
     BHToolButton bNew, bOpen, bSave, bAdd, bEdit, bFind;
     
@@ -49,6 +48,7 @@ public class BHToolBar extends JToolBar{
 	
 		//paint background
 		setOpaque(true);
+		
 		
 		//don't allow to relocate the bar
 		setFloatable(false);
@@ -71,6 +71,10 @@ public class BHToolBar extends JToolBar{
 			//fc = new JFileChooser();
 			//fc.setSize(300, 200);
 	  
+	   
+		addMouseListener(this);
+	      
+		
 		add(bNew);
 		add(bOpen);
 		add(bSave);
@@ -86,5 +90,38 @@ public class BHToolBar extends JToolBar{
 			//add(lable);
 			//add(comboBox);
     }
+    
+    public String getToolTip(){
+	    return toolTip;
+	}
+    
+    public void mouseEntered(MouseEvent e) {
+	    //System.out.println(getToolTip());
+	    BHStatusBar.setToolTip(getToolTip());
+	
+	}
+
+	@Override
+	public void mouseExited(MouseEvent e) {
+	    BHStatusBar.setToolTip("");
+	}
+
+	@Override
+	public void mouseClicked(MouseEvent e) {
+		// TODO Auto-generated method stub
+		throw new UnsupportedOperationException("This method has not been implemented");
+	}
+
+	@Override
+	public void mousePressed(MouseEvent e) {
+		// TODO Auto-generated method stub
+		throw new UnsupportedOperationException("This method has not been implemented");
+	}
+
+	@Override
+	public void mouseReleased(MouseEvent e) {
+		// TODO Auto-generated method stub
+		throw new UnsupportedOperationException("This method has not been implemented");
+	}
 }
 
