@@ -6,7 +6,7 @@ import javax.swing.JPanel;
 
 import org.bh.data.DTOScenario;
 import org.bh.data.types.DistributionMap;
-import org.bh.data.types.Value;
+import org.bh.data.types.IValue;
 
 /**
  * This interface is implemented by plugins which can execute stochastic
@@ -69,5 +69,5 @@ public interface IStochasticProcess {
 	 * 
 	 * @return The map with the parameters.
 	 */
-	Map<String, Value> getParametersForAnalysis();
+	Map<String, IValue> getParametersForAnalysis();
 }

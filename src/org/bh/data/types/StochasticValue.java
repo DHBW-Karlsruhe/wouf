@@ -6,7 +6,7 @@ package org.bh.data.types;
  * @author Robert Vollmer
  * @version 1.0, 18.12.2009
  */
-public class StochasticValue implements Value {
+public class StochasticValue implements IValue {
 	public static final StochasticValue INSTANCE = new StochasticValue();
 
 	private StochasticValue() {

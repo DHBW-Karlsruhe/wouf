@@ -17,7 +17,7 @@ import java.util.Map;
 import org.apache.log4j.Logger;
 import org.bh.data.types.Calculable;
 import org.bh.data.types.StochasticValue;
-import org.bh.data.types.Value;
+import org.bh.data.types.IValue;
 
 /**
  * General Data Transfer Object 
@@ -74,12 +74,12 @@ public abstract class DTO<ChildT extends IDTO> implements IDTO<ChildT> {
 	/**
 	 * The actual map which contains all values.
 	 */
-	protected Map<String, Value> values = new HashMap<String, Value>();	
+	protected Map<String, IValue> values = new HashMap<String, IValue>();	
 	
 	/**
 	 * Fallback data in order to provide a kind of undo functionality.
 	 */
-	protected Map<String, Value> fallBackValues = new HashMap<String, Value>();
+	protected Map<String, IValue> fallBackValues = new HashMap<String, IValue>();
 
 	public DTO(Enum[] enumeration) {
 		String className = getClass().getName();
@@ -112,14 +112,14 @@ public abstract class DTO<ChildT extends IDTO> implements IDTO<ChildT> {
 	}
 
 	@Override
-	public Value get(Object key1) throws DTOAccessException {
+	public IValue get(Object key1) throws DTOAccessException {
 		String key = key1.toString().toLowerCase();
 		// Check whether the key is part of the DTO
 		if (!availableKeys.contains(key))
 			throw new DTOAccessException("This DTO does not have a key '" + key + "'");
 		
 		// If the key is an actual key then return the corresponding value
-		Value result = values.get(key);
+		IValue result = values.get(key);
 		if (result != null)
 			return result;
 		// If no value is assigned to this key, but a method exists
@@ -135,7 +135,7 @@ public abstract class DTO<ChildT extends IDTO> implements IDTO<ChildT> {
 	}
 
 	@Override
-	public void put(Object key1, Value value) throws DTOAccessException {
+	public void put(Object key1, IValue value) throws DTOAccessException {
 		String key = key1.toString().toLowerCase();
 		if (availableKeys.contains(key))
 			values.put(key, value);
@@ -168,11 +168,11 @@ public abstract class DTO<ChildT extends IDTO> implements IDTO<ChildT> {
 	 * @return
 	 * @throws DTOAccessException
 	 */
-	private Value invokeMethod(java.lang.reflect.Method method) throws DTOAccessException {
-		Value result = null;
+	private IValue invokeMethod(java.lang.reflect.Method method) throws DTOAccessException {
+		IValue result = null;
 		try {
 			// Invoke method and store result
-			result = (Value) method.invoke(this);
+			result = (IValue) method.invoke(this);
 		} catch (InvocationTargetException e) {
 			throw new DTOAccessException(e.getTargetException());
 		} catch (Exception e) {
@@ -263,7 +263,7 @@ public abstract class DTO<ChildT extends IDTO> implements IDTO<ChildT> {
 			// Try to instantiate a new instance of the class of this DTO
 			result = this.getClass().newInstance();
 			// Go through each value, copy it and put it into the new instance
-			for (Map.Entry<String, Value> entry: values.entrySet()) {
+			for (Map.Entry<String, IValue> entry: values.entrySet()) {
 				result.put(entry.getKey(), entry.getValue().clone());
 				// Copy and add children to the new instance
 				for (ChildT child : children) {

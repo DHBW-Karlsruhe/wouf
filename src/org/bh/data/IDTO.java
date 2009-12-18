@@ -3,7 +3,7 @@ package org.bh.data;
 import java.util.List;
 
 import org.bh.data.types.Calculable;
-import org.bh.data.types.Value;
+import org.bh.data.types.IValue;
 
 @SuppressWarnings("unchecked")
 public interface IDTO<ChildT extends IDTO> extends Cloneable {
@@ -14,7 +14,7 @@ public interface IDTO<ChildT extends IDTO> extends Cloneable {
 	 * @return
 	 * @throws DTOAccessException
 	 */
-	Value get(Object key) throws DTOAccessException;
+	IValue get(Object key) throws DTOAccessException;
 	
 	/**
 	 * Returns a value assigned to the passed key as {@link Calculable}.
@@ -30,7 +30,7 @@ public interface IDTO<ChildT extends IDTO> extends Cloneable {
 	 * @param value
 	 * @throws DTOAccessException
 	 */
-	void put(Object key, Value value) throws DTOAccessException;
+	void put(Object key, IValue value) throws DTOAccessException;
 	
 	/**
 	 * In the sandbox mode a valid copy of the DTO is made

@@ -11,7 +11,7 @@ package org.bh.data.types;
  * 
  */
 
-public class StringValue implements Value {
+public class StringValue implements IValue {
 	
 	private String myString;
 	
@@ -24,7 +24,7 @@ public class StringValue implements Value {
 	}
 	
 	@Override
-	public Value clone() {
+	public IValue clone() {
 		return new StringValue(myString);
 	}
 	

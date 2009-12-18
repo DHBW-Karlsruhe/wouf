@@ -3,7 +3,7 @@ package org.bh.data.types;
 import java.security.InvalidParameterException;
 
 //TODO: Abstrakt + Werteparser (z.B. 5.0 als String = new Double(5.0)
-public abstract class Calculable implements Value{
+public abstract class Calculable implements IValue{
 
     public abstract Calculable add(Calculable summand);
 
