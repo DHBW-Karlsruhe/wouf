@@ -28,10 +28,12 @@ public abstract class Controller implements IController, ActionListener, Observe
     private Map<String, IBHComponent> bhcomponents;
     private IDTO model;
 
+
     public Controller(){
             
     }
     public Controller(View view){
+        log.debug("PLugincontroller instance");
         this.view = view;
     }
 
@@ -48,8 +50,9 @@ public abstract class Controller implements IController, ActionListener, Observe
     }
 
     private boolean safeToModel() throws DTOAccessException{
+        log.debug("Plugin save to dto");
         model.setSandBoxMode(Boolean.TRUE);
-        
+
         return true;
     }
 
@@ -59,10 +62,6 @@ public abstract class Controller implements IController, ActionListener, Observe
 
     public void handlePlattformEvent(ActionEvent e) {
         actionPerformed(e);
-    }
-
-    public void setLogger(Logger log) {
-        this.log = log;
     }
 
     public ITranslator getTranslator() {
