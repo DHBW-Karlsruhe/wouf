@@ -54,4 +54,7 @@ public class BHToolButton extends JButton{
         }
         
     }
+    public String getToolTip(){
+	    return toolTip;
+	}
 }

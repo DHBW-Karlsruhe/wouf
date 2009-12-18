@@ -33,7 +33,6 @@ public class BHToolBar extends JToolBar implements MouseListener{
         
     BHLabel lable;
     JComboBox comboBox;
-    String toolTip = "";
     
     BHToolButton bNew, bOpen, bSave, bAdd, bEdit, bFind;
     
@@ -91,13 +90,11 @@ public class BHToolBar extends JToolBar implements MouseListener{
 			//add(comboBox);
     }
     
-    public String getToolTip(){
-	    return toolTip;
-	}
+    
     
     public void mouseEntered(MouseEvent e) {
 	    //System.out.println(getToolTip());
-	    BHStatusBar.setToolTip(getToolTip());
+	    BHStatusBar.setToolTip(getToolTipText());
 	
 	}
 
