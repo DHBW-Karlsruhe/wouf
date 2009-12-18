@@ -11,6 +11,8 @@ import javax.swing.UIManager;
 import javax.swing.WindowConstants;
 import javax.swing.UIManager.LookAndFeelInfo;
 
+import org.bh.platform.Services;
+
 /**
  * Main Frame for Business Horizon Application.
  * 
@@ -69,7 +71,7 @@ public class BHMainFrame extends JFrame {
 		// screenSize.height-standardBarHeight);
 		//treeBar.setBounds(0,200,200,400);
 
-		statusBar = new BHStatusBar("");
+		statusBar = Services.getBHstatusBar();
 		content = new BHContent();
 
 		// Create the horizontal split pane and put the treeBar and the content
