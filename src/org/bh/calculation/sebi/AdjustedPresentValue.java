@@ -4,7 +4,6 @@ import java.util.HashMap;
 
 import org.bh.data.types.Calculable;
 import org.bh.data.types.DoubleValue;
-import org.bh.data.types.Tax;
 
 /**
  * This class provides the functionality to calculate an enterprise value with the
@@ -24,7 +23,6 @@ public class AdjustedPresentValue {
 	private Calculable[] UW;
 	private Calculable[] presentValueFCF;
 	private Calculable[] presentValueTaxShield;
-	private Tax s;
 	
 	/**
 	 * This method creates an Object which calculates the enterprise value according to
@@ -42,7 +40,7 @@ public class AdjustedPresentValue {
 		Calculable[] FK = (Calculable[])input.get("FK");
 		Calculable EKr = (Calculable)input.get("EKr");
 		Calculable FKr = (Calculable)input.get("FKr");
-		s = (Tax)input.get("s");
+		Calculable s = (Calculable)input.get("s");
 		
 		// Instantiate the result arrays
 		UW = new Calculable[FCF.length];

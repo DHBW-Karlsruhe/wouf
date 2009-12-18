@@ -8,8 +8,6 @@ import org.apache.log4j.Logger;
 import org.bh.calculation.IShareholderValueCalculator;
 import org.bh.data.types.Calculable;
 import org.bh.data.types.DoubleValue;
-import org.bh.data.types.GermanTax;
-import org.bh.data.types.Tax;
 
 /**
  * Scenario DTO
@@ -115,13 +113,18 @@ public class DTOScenario extends DTO<DTOPeriod> {
 	}
 	
 	/**
-	 * Get taxes for scenario.
-	 * @return Taxes for scenario.
+	 * Gets tax for scenario.
+	 * @return Tax for scenario.
 	 */
-	public Tax getTax() {
-		Tax myTax = new GermanTax((DoubleValue) this.get(DTOScenario.Key.CTAX),(DoubleValue) this.get(DTOScenario.Key.BTAX));
-		return myTax;
+	public Calculable getTax() {
 		
+		DoubleValue ctax = (DoubleValue) this.get(DTOScenario.Key.CTAX);
+		DoubleValue btax = (DoubleValue) this.get(DTOScenario.Key.BTAX);
+		
+		DoubleValue myTax = (DoubleValue) btax.mul(new DoubleValue(0.5)).mul(ctax.mul(new DoubleValue(-1)).add(new DoubleValue(1)));
+		myTax = (DoubleValue) myTax.add(ctax);
+		
+		return myTax;
 	}
 	
 	/**

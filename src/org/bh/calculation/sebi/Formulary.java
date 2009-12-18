@@ -3,7 +3,6 @@ package org.bh.calculation.sebi;
 import org.bh.data.types.Calculable;
 import org.bh.data.types.DoubleValue;
 import org.bh.data.types.Interval;
-import org.bh.data.types.Tax;
 
 
 /**
@@ -16,15 +15,15 @@ public class Formulary {
 	
 	// Calculate PresentValueTaxShield for endless period
 	// PresentValueTaxShield[T] = (s * FKr * FK[T]) / FKr
-	private static Calculable calcPresentValueTaxShieldEndless(Tax s, Calculable FKr, Calculable FK){
-		return s.getAggregated().mul(FKr).mul(FK).div(FKr);
+	private static Calculable calcPresentValueTaxShieldEndless(Calculable s, Calculable FKr, Calculable FK){
+		return s.mul(FKr).mul(FK).div(FKr);
 	}
 	
 	// Calculate PresentValueTaxShield for finite period
 	// PresentValueTaxShield[t] = (PresentValueTaxShield[t + 1] + (s * FKr * FK[t])) / (FKr + 1)
-	private static Calculable[] calcPresentValueTaxShieldFinite(Tax s, Calculable FKr, Calculable[] FK, Calculable[] PVTS){
+	private static Calculable[] calcPresentValueTaxShieldFinite(Calculable s, Calculable FKr, Calculable[] FK, Calculable[] PVTS){
 		for (int i = PVTS.length - 2; i >= 0; i--) {
-			PVTS[i] = (PVTS[i + 1].add(s.getAggregated().mul(FKr).mul(FK[i + 1 - 1]))).div(FKr.add(new DoubleValue(1)));
+			PVTS[i] = (PVTS[i + 1].add(s.mul(FKr).mul(FK[i + 1 - 1]))).div(FKr.add(new DoubleValue(1)));
 		}
 		return PVTS;
 	}
@@ -36,7 +35,7 @@ public class Formulary {
 	 * @param PVTS self reference
 	 * @return The value of the indebted enterprise for each year
 	 */
-	public static Calculable[] calcPresentValueTaxShield(Tax s, Calculable FKr, Calculable[] FK, Calculable[] PVTS){
+	public static Calculable[] calcPresentValueTaxShield(Calculable s, Calculable FKr, Calculable[] FK, Calculable[] PVTS){
 		PVTS[PVTS.length - 1] = calcPresentValueTaxShieldEndless(s, FKr, FK[FK.length - 1]);
 		return calcPresentValueTaxShieldFinite(s, FKr, FK, PVTS);
 	}
@@ -50,8 +49,8 @@ public class Formulary {
 	 * @param UW Enterprise value
 	 * @return Variable equity return rate for the endless period
 	 */
-	public static Calculable calcVariableEquityReturnRateEndless(Tax s, Calculable FKr, Calculable FK, Calculable EKr, Calculable UW){
-		return EKr.add(((EKr.sub(FKr)).mul(s.getAggregated().mul(new DoubleValue(-1)).add(new DoubleValue(1))).mul(FK.div(UW))));
+	public static Calculable calcVariableEquityReturnRateEndless(Calculable s, Calculable FKr, Calculable FK, Calculable EKr, Calculable UW){
+		return EKr.add(((EKr.sub(FKr)).mul(s.mul(new DoubleValue(-1)).add(new DoubleValue(1))).mul(FK.div(UW))));
 	}
 	/**
 	 * Calculates the variable equity return rate for the finite periods. Used in FCF and FTE method.</br>
@@ -65,7 +64,7 @@ public class Formulary {
 	 * @param PresentValueTaxShield Value of the indebted enterprise
 	 * @return Variable equity return rate for the finite periods
 	 */
-	public static Calculable[] calcVariableEquityReturnRateFinite(Tax s, Calculable FKr, Calculable[] FK, 
+	public static Calculable[] calcVariableEquityReturnRateFinite(Calculable s, Calculable FKr, Calculable[] FK, 
 																		Calculable EKr, Calculable UW[], Calculable[] EKrV,
 																		Calculable[] PresentValueTaxShield){
 		for (int t = 1; t < UW.length - 1; t++) {
@@ -84,7 +83,7 @@ public class Formulary {
 	 * @param PresentValueTaxShield Value of the indebted enterprise
 	 * @return Variable equity return rate
 	 */
-	public static Calculable[] calcVariableEquityReturnRate(Tax s, Calculable FKr, Calculable[] FK, 
+	public static Calculable[] calcVariableEquityReturnRate(Calculable s, Calculable FKr, Calculable[] FK, 
 																Calculable EKr, Calculable UW[], Calculable[] EKrV,
 																Calculable[] PresentValueTaxShield){
 		EKrV[EKrV.length - 1] = calcVariableEquityReturnRateEndless(s, FKr, FK[EKrV.length - 1], EKr, UW[EKrV.length - 1]);
@@ -147,10 +146,10 @@ public class Formulary {
 	 * @param s Taxes
 	 * @return Debt for Weighted Average Cost of Capital
 	 */
-	public static Calculable[] calcWACCDebts(Calculable[] FK, Calculable FKr, Calculable[] UW, Tax s){
+	public static Calculable[] calcWACCDebts(Calculable[] FK, Calculable FKr, Calculable[] UW, Calculable s){
 		Calculable[] waccDebts = new Calculable[UW.length];
 		for (int i = 1; i < UW.length; i++) {			
-			waccDebts[i] = FKr.mul((s.getAggregated().mul(new DoubleValue(-1)).add(new DoubleValue(1)))
+			waccDebts[i] = FKr.mul((s.mul(new DoubleValue(-1)).add(new DoubleValue(1)))
 					.mul((FK[i - 1].div((UW[i - 1].add(FK[i - 1]))))));
 		}
 		return waccDebts; 
@@ -176,10 +175,10 @@ public class Formulary {
 	 * @param s Tax
 	 * @return Free Cash Flow Tax Shield
 	 */
-	public static Calculable[] calcFCFTaxShield(Calculable[] FK, Calculable FKr, Tax s){
+	public static Calculable[] calcFCFTaxShield(Calculable[] FK, Calculable FKr, Calculable s){
 		Calculable[] FCFTaxShield = new Calculable[FK.length];
 		for (int i = 1; i < FK.length; i++) {			
-			FCFTaxShield[i] = (s.getAggregated().mul(FKr).mul(FK[i - 1]));
+			FCFTaxShield[i] = (s.mul(FKr).mul(FK[i - 1]));
 		}
 		return FCFTaxShield; 
 	}

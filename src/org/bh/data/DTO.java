@@ -14,6 +14,7 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 
+import org.apache.log4j.Logger;
 import org.bh.data.types.Calculable;
 import org.bh.data.types.StochasticValue;
 import org.bh.data.types.Value;
@@ -28,6 +29,7 @@ import org.bh.data.types.Value;
  */
 @SuppressWarnings("unchecked")
 public abstract class DTO<ChildT extends IDTO> implements IDTO<ChildT> {
+	private static final Logger log = Logger.getLogger(DTO.class);
 	@Retention(RetentionPolicy.RUNTIME)
 	@Target(ElementType.FIELD)
 	protected @interface Method {
@@ -248,7 +250,7 @@ public abstract class DTO<ChildT extends IDTO> implements IDTO<ChildT> {
 			values.putAll(((DTO<ChildT>) clone()).values);		
 		}
 		sandBoxMode = mode;
-		
+		log.debug("Sandboxmode changed to " + mode.toString());
 	}
 
 	@Override

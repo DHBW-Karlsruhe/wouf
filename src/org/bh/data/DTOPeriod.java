@@ -5,7 +5,6 @@ import java.util.ServiceLoader;
 import org.apache.log4j.Logger;
 import org.bh.calculation.ICalculationPreparer;
 import org.bh.data.types.Calculable;
-import org.bh.data.types.Tax;
 import org.bh.platform.PluginManager;
 
 /**
@@ -151,7 +150,11 @@ public class DTOPeriod extends DTO<IPeriodicalValuesDTO> {
 	 * Get taxes for scenario.
 	 * @return Taxes for scenario.
 	 */
-	public Tax getTax() {
+	public Calculable getTax() {
 		return scenario.getTax();
+	}
+	
+	public DTOScenario getScenario() {
+		return scenario;
 	}
 }

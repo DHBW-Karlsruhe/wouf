@@ -2,11 +2,10 @@ package org.bh.plugin.gcc;
 
 import org.bh.calculation.ICalculationPreparer;
 import org.bh.data.DTOPeriod;
+import org.bh.data.DTOScenario;
 import org.bh.data.IPeriodicalValuesDTO;
 import org.bh.data.types.Calculable;
 import org.bh.data.types.DoubleValue;
-import org.bh.data.types.GermanTax;
-import org.bh.data.types.Tax;
 
 /**
  * Calculates the FCF from the current profit&loss statement, the current balance sheet and the
@@ -21,10 +20,6 @@ public class GCCCostOfSales implements ICalculationPreparer {
 		if (period.getPrevious() == null)
 			return null;
 		
-		Tax tax = period.getTax();
-		if (!(tax instanceof GermanTax))
-			return null;
-		
 		IPeriodicalValuesDTO plsNow = period.getPeriodicalValuesDTO("gcc_pls_costofsales");
 		if (plsNow == null) {
 			plsNow = period.getPeriodicalValuesDTO("gcc_pls_totalcost");
@@ -36,7 +31,6 @@ public class GCCCostOfSales implements ICalculationPreparer {
 		    return null;
 		IPeriodicalValuesDTO bsPrev = period.getPrevious().getPeriodicalValuesDTO("gccbalancesheet");
 		if (bsPrev == null)
-		    if (bsPrev == null)
 			return null;
 		
 		Calculable ebit = Calculable.addAll(
@@ -45,8 +39,8 @@ public class GCCCostOfSales implements ICalculationPreparer {
 			plsNow.getCalculable(DTOGCCProfitLossStatementCostOfSales.Key.JUJF));
 		
 		Calculable nopat = ebit.sub(Calculable.mulAll(
-			((GermanTax)tax).getSg(),
-			new DoubleValue(1).sub(((GermanTax)tax).getSks()),
+			period.getScenario().getCalculable(DTOScenario.Key.CTAX),
+			new DoubleValue(1).sub(period.getScenario().getCalculable(DTOScenario.Key.BTAX)),
 			ebit));
 		
 		Calculable bsCorrections = Calculable.addAll(
