@@ -3,7 +3,6 @@ package org.bh.plugin.directinput;
 import org.apache.log4j.Logger;
 import org.bh.data.DTO;
 import org.bh.data.IPeriodicalValuesDTO;
-import org.bh.plugin.gcc.DTOGCCProfitLossStatementTotalCost;
 
 
 /**
@@ -14,7 +13,7 @@ import org.bh.plugin.gcc.DTOGCCProfitLossStatementTotalCost;
  *
  * @author Robert Vollmer
  * @author Michael Löckelt
- * @version 0.3, 16.12.2009
+ * @version 0.4, 16.12.2009
  *
  */
 

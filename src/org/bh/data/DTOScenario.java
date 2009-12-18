@@ -1,7 +1,6 @@
 package org.bh.data;
 
 import org.apache.log4j.Logger;
-import org.bh.BusinessHorizon;
 import org.bh.data.types.DoubleValue;
 import org.bh.data.types.GermanTax;
 import org.bh.data.types.Tax;

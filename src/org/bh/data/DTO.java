@@ -190,25 +190,19 @@ public abstract class DTO<ChildT extends IDTO> implements IDTO<ChildT> {
 
 	@Override
 	public ChildT addChild(ChildT child) throws DTOAccessException {
-		if (!children.contains(child)) {
-			children.add(child);
-			return child;
-		} else {
-			throw new DTOAccessException("The child is already assigned to this DTO!");
-		}
+		return addChild(child,true);
 	}
 	
-	public ChildT addChild(ChildT child, boolean futureValues) throws DTOAccessException {
+	public ChildT addChild(ChildT child, boolean addLast) throws DTOAccessException {
 		if (!children.contains(child)) {
-			if (futureValues) {
+			if (addLast) {
 				children.addLast(child);
 			} else {
 				children.addFirst(child);
 			}
 			return child;
-		} else {
-			throw new DTOAccessException("The child is already assigned to this DTO!");
 		}
+		throw new DTOAccessException("The child is already assigned to this DTO!");
 	}
 	
 	@Override
