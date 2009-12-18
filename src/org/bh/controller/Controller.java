@@ -30,10 +30,14 @@ public abstract class Controller implements IController, ActionListener, Observe
 
 
     public Controller(){
-            
+
     }
     public Controller(View view){
         log.debug("PLugincontroller instance");
+        this.view = view;
+    }
+    public Controller(View view, IDTO model){
+        this.model = model;
         this.view = view;
     }
 

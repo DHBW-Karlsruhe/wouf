@@ -16,9 +16,10 @@ import org.bh.platform.i18n.ITranslator;
 public class Services {
 
     private static PlatformEventObserverable observerable = PlatformEventObserverable.getInstance();
+    private static ITranslator translator = BHTranslator.getInstance();
 
     public static ITranslator getTranslator(){
-        return BHTranslator.getInstance();
+        return translator;
     }
 
     public static void addObserver(Observer o){
