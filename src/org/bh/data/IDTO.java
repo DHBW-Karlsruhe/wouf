@@ -84,13 +84,20 @@ public interface IDTO<ChildT extends IDTO> extends Cloneable {
 	/**
 	 * Removes a child relation from this DTO.
 	 * @param index
+	 * @return The child which has been removed.
 	 * @throws DTOAccessException
 	 */
 	public ChildT removeChild(int index) throws DTOAccessException;
 	
 	/**
 	 * Returns the number of children assigned to this DTO.
-	 * @return
+	 * @return Number of children.
 	 */
 	public int getChildrenSize();
+	
+	/**
+	 * Returns all keys whose values have to be determined stochastically.
+	 * @return List of keys.
+	 */
+	public List<String> getStochasticKeys();
 }

@@ -1,6 +1,12 @@
 package org.bh.data;
 
+import java.util.ArrayList;
+import java.util.List;
+import java.util.TreeMap;
+
 import org.apache.log4j.Logger;
+import org.bh.calculation.IShareholderValueCalculator;
+import org.bh.data.types.Calculable;
 import org.bh.data.types.DoubleValue;
 import org.bh.data.types.GermanTax;
 import org.bh.data.types.Tax;
@@ -26,6 +32,8 @@ public class DTOScenario extends DTO<DTOPeriod> {
 	 * if not, new childs are appended at the beginning
 	 */
 	protected boolean futureValues;
+	
+	protected IShareholderValueCalculator dcfMethod;
 	
 	public enum Key {
 		/** 
@@ -114,5 +122,108 @@ public class DTOScenario extends DTO<DTOPeriod> {
 		Tax myTax = new GermanTax((DoubleValue) this.get(DTOScenario.Key.CTAX),(DoubleValue) this.get(DTOScenario.Key.BTAX));
 		return myTax;
 		
+	}
+	
+	/**
+	 * Sets the DCF method.
+	 * @param dcfMethod
+	 */
+	public void setDcfMethod(IShareholderValueCalculator dcfMethod) {
+		this.dcfMethod = dcfMethod;
+	}
+
+	/**
+	 * Returns a reference to the DCF method.
+	 * @return Reference to the DCF method.
+	 */
+	public IShareholderValueCalculator getDCFMethod() {
+		return dcfMethod;
+	}
+	
+	/**
+	 * Returns all keys whose values have to be determined stochastically.
+	 * @return List of keys.
+	 */
+	public List<DTOKeyPair> getPeriodStochasticKeys() {
+		DTOPeriod lastPeriod = children.getLast();
+		ArrayList<DTOKeyPair> list = new ArrayList<DTOKeyPair>();
+		for (IPeriodicalValuesDTO dto : lastPeriod.getChildren()) {
+			@SuppressWarnings("unchecked")
+			List<String> stochasticKeys = dto.getStochasticKeys();
+			for (String key : stochasticKeys) {
+				list.add(new DTOKeyPair(dto.getUniqueId(), key));
+			}
+		}
+		return list;
+	}
+	
+	/**
+	 * This method returns the keys whose values are determined stochastically
+	 * together with their values in the past periods.
+	 * @see #getPeriodStochasticKeys()
+	 * @return Keys and past values.
+	 */
+	public TreeMap<DTOKeyPair, List<Calculable>> getPeriodStochasticKeysAndValues() {
+		List<DTOKeyPair> keys = getPeriodStochasticKeys();
+		TreeMap<DTOKeyPair, List<Calculable>> map = new TreeMap<DTOKeyPair, List<Calculable>>();
+		DTOPeriod lastPeriod = children.getLast();
+		for (DTOKeyPair key : keys) {
+			List<Calculable> pastValues = new ArrayList<Calculable>();
+			for (DTOPeriod period : children) {
+				if (period == lastPeriod)
+					break;
+				IPeriodicalValuesDTO periodValuesDto = period.getPeriodicalValuesDTO(key.getDtoId());
+				pastValues.add(periodValuesDto.getCalculable(key.getKey()));
+			}
+			map.put(key, pastValues);
+		}
+		return map;
+	}
+	
+	
+	public static class DTOKeyPair implements Comparable<DTOKeyPair> {
+		private final String dtoId;
+		private final String key;
+		
+		public DTOKeyPair(String dtoId, String key) {
+			this.dtoId = dtoId;
+			this.key = key;
+		}
+
+		public String getDtoId() {
+			return dtoId;
+		}
+
+		public String getKey() {
+			return key;
+		}
+
+		@Override
+		public int compareTo(DTOKeyPair o) {
+			int num = dtoId.compareTo(o.dtoId);
+			if (num != 0)
+				return num;
+			
+			return key.compareTo(o.key);
+		}
+
+		@Override
+		public int hashCode() {
+			final int prime = 31;
+			int result = 1;
+			result = prime * result + ((dtoId == null) ? 0 : dtoId.hashCode());
+			result = prime * result + ((key == null) ? 0 : key.hashCode());
+			return result;
+		}
+
+		@Override
+		public boolean equals(Object obj) {
+			if (this == obj)
+				return true;
+			if (obj == null || !(obj instanceof DTOKeyPair))
+				return false;
+			DTOKeyPair other = (DTOKeyPair) obj;
+			return dtoId.equals(other.dtoId) && key.equals(other.key);
+		}
 	}
 }

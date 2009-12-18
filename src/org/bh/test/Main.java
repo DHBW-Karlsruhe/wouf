@@ -14,8 +14,6 @@ import org.bh.data.DTOPeriod;
 import org.bh.data.DTOProject;
 import org.bh.data.DTOScenario;
 import org.bh.data.types.DoubleValue;
-import org.bh.data.types.GermanTax;
-import org.bh.data.types.Tax;
 import org.bh.data.types.StringValue;
 
 public class Main extends JFrame {
@@ -69,8 +67,7 @@ public class Main extends JFrame {
 				}
 				try {
 					IShareholderValueCalculator calculator = dcfCombo.getCalculator().getClass().newInstance();
-					calculator.calculate(scenario);
-					resultLabel.setText(calculator.getShareholderValue().toString());
+					resultLabel.setText(calculator.calculate(scenario).get(IShareholderValueCalculator.SHAREHOLDER_VALUE)[0].toString());
 					
 					Main.this.validate();
 				} catch (Exception e1) {

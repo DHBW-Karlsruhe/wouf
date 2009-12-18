@@ -15,6 +15,7 @@ import java.util.List;
 import java.util.Map;
 
 import org.bh.data.types.Calculable;
+import org.bh.data.types.StochasticValue;
 import org.bh.data.types.Value;
 
 /**
@@ -274,5 +275,15 @@ public abstract class DTO<ChildT extends IDTO> implements IDTO<ChildT> {
 		}
 		
 		return result;
+	}
+	
+	@Override
+	public List<String> getStochasticKeys() {
+		ArrayList<String> keys = new ArrayList<String>();
+		for (String key : availableKeys) {
+			if (values.get(key) instanceof StochasticValue)
+				keys.add(key);
+		}
+		return keys;
 	}
 }
