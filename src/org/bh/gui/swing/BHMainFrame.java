@@ -102,7 +102,7 @@ public class BHMainFrame extends JFrame {
 		// System.setProperty("com.apple.mrj.application.apple.menu.about.name",
 		// BHTranslator.getInstance().translate("title"));
 
-		// this.setNimbusLookAndFeel();
+		this.setNimbusLookAndFeel();
 		this.setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
 		this.setLocationRelativeTo(null);
 		this.setJMenuBar(new BHMenuBar());
