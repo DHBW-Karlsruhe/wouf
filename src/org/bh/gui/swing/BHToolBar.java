@@ -4,6 +4,8 @@ import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import javax.swing.*;
 
+import org.bh.platform.i18n.BHTranslator;
+
 
 /**
  * 
@@ -19,7 +21,7 @@ import javax.swing.*;
  */
 
 
-public class BHToolBar extends JToolBar implements MouseListener{
+public class BHToolBar extends JToolBar{
    
 
     private static final long serialVersionUID = 1L;
@@ -35,6 +37,9 @@ public class BHToolBar extends JToolBar implements MouseListener{
     JComboBox comboBox;
     
     BHToolButton bNew, bOpen, bSave, bAdd, bEdit, bFind;
+    
+    BHTranslator translator = BHTranslator.getInstance(); 
+
     
     //HelpSet and HelpBroker are necessary for user help
     //javax.help.HelpSet helpSet = null;
@@ -54,12 +59,12 @@ public class BHToolBar extends JToolBar implements MouseListener{
 		
 		setSize(width, height);
 		
-		bNew = new BHToolButton("New24", NEW, "Create a new project", "New");
-		bOpen = new BHToolButton("Open24", OPEN, "Open an excisting project","Open");
-		bSave = new BHToolButton("Save24", SAVE, "Save project", "Save");
-		bAdd = new BHToolButton("Add24", ADD, "Add a project", "Add");
-		bEdit = new BHToolButton("Edit24", EDIT, "Edit a project", "Edit");
-		bFind = new BHToolButton("Find24", FIND, "Find project", "Find");
+		bNew = new BHToolButton("New24", NEW, translator.translate("Tnew"), "New");
+		bOpen = new BHToolButton("Open24", OPEN, translator.translate("Topen"),"Open");
+		bSave = new BHToolButton("Save24", SAVE, translator.translate("Tsave"), "Save");
+		bAdd = new BHToolButton("Add24", ADD, translator.translate("TaddP"), "Add");
+		bEdit = new BHToolButton("Edit24", EDIT, translator.translate("TaddS"), "Edit");
+		bFind = new BHToolButton("Find24", FIND, translator.translate("Tfind"), "Find");
 		
 			//example of combo box in tool bar
 			//lable = new BHLabel("Methode: ", "value");
@@ -70,10 +75,6 @@ public class BHToolBar extends JToolBar implements MouseListener{
 			//fc = new JFileChooser();
 			//fc.setSize(300, 200);
 	  
-	   
-		addMouseListener(this);
-	      
-		
 		add(bNew);
 		add(bOpen);
 		add(bSave);
@@ -89,36 +90,5 @@ public class BHToolBar extends JToolBar implements MouseListener{
 			//add(lable);
 			//add(comboBox);
     }
-    
-    
-    
-    public void mouseEntered(MouseEvent e) {
-	    //System.out.println(getToolTip());
-	    BHStatusBar.setToolTip(getToolTipText());
-	
-	}
-
-	@Override
-	public void mouseExited(MouseEvent e) {
-	    BHStatusBar.setToolTip("");
-	}
-
-	@Override
-	public void mouseClicked(MouseEvent e) {
-		// TODO Auto-generated method stub
-		throw new UnsupportedOperationException("This method has not been implemented");
-	}
-
-	@Override
-	public void mousePressed(MouseEvent e) {
-		// TODO Auto-generated method stub
-		throw new UnsupportedOperationException("This method has not been implemented");
-	}
-
-	@Override
-	public void mouseReleased(MouseEvent e) {
-		// TODO Auto-generated method stub
-		throw new UnsupportedOperationException("This method has not been implemented");
-	}
 }
 

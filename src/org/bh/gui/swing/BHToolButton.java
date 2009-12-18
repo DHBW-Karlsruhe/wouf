@@ -1,5 +1,7 @@
 package org.bh.gui.swing;
 
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
 import java.net.URL;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
@@ -17,7 +19,7 @@ import javax.swing.JButton;
  *
  */
 
-public class BHToolButton extends JButton{
+public class BHToolButton extends JButton implements MouseListener{
     
     public String toolTip;
     public String buttonName;
@@ -39,7 +41,7 @@ public class BHToolButton extends JButton{
         	//this.toolTipText = toolTipText;
         
         //addActionListener(this);
-        //addMouseListener(this);
+        addMouseListener(this);
         
         	//setIcon(new ImageIcon(imgLocation));
         	//setPreferredSize(new Dimension(25, 25));
@@ -56,5 +58,30 @@ public class BHToolButton extends JButton{
     }
     public String getToolTip(){
 	    return toolTip;
+	}
+    
+    
+	@Override
+	public void mouseClicked(MouseEvent e) {
+		// TODO Auto-generated method stub
+		throw new UnsupportedOperationException("This method has not been implemented");
+	}
+	@Override
+	public void mouseEntered(MouseEvent e) {
+		 BHStatusBar.setToolTip(getToolTip());
+	}
+	@Override
+	public void mouseExited(MouseEvent e) {
+		BHStatusBar.setToolTip("");
+	}
+	@Override
+	public void mousePressed(MouseEvent e) {
+		// TODO Auto-generated method stub
+		throw new UnsupportedOperationException("This method has not been implemented");
+	}
+	@Override
+	public void mouseReleased(MouseEvent e) {
+		// TODO Auto-generated method stub
+		throw new UnsupportedOperationException("This method has not been implemented");
 	}
 }
