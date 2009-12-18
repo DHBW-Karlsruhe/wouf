@@ -55,6 +55,12 @@ public class DTOScenario extends DTO<DTOPeriod> {
 		BTAX,
 		
 		/**
+		 * summed tax
+		 */
+		@Method
+		TAX,
+		
+		/**
 		 * name
 		 */
 		NAME,
