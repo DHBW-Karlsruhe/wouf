@@ -5,6 +5,7 @@ import java.awt.event.MouseListener;
 import java.net.URL;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
+import javax.swing.JLabel;
 
 /**
  * 
@@ -68,7 +69,8 @@ public class BHToolButton extends JButton implements MouseListener{
 	}
 	@Override
 	public void mouseEntered(MouseEvent e) {
-		 BHStatusBar.setToolTip(getToolTip());
+		BHStatusBar.setToolTip(getToolTip());
+		//Test für Padde BHStatusBar.setValidationToolTip(new JLabel("Test"));
 	}
 	@Override
 	public void mouseExited(MouseEvent e) {

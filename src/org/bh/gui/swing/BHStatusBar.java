@@ -2,6 +2,7 @@ package org.bh.gui.swing;
 
 import java.awt.Color;
 import javax.swing.*;
+
 import com.jgoodies.forms.layout.CellConstraints;
 import com.jgoodies.forms.layout.FormLayout;
 
@@ -64,8 +65,10 @@ public class BHStatusBar extends JPanel{
 
     }
     
-    public void setValidationToolTip(JLabel label){
-    	lToolTip = label;
+    public static void setValidationToolTip(JLabel label){
+    	lToolTip.setText(label.getText());
+  
+    	lToolTip.revalidate();
     }
    
 }
