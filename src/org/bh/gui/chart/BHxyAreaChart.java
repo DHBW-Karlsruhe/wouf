@@ -2,10 +2,12 @@ package org.bh.gui.chart;
 
 import java.awt.Component;
 
+import javax.swing.UIManager;
+
 import org.bh.gui.swing.IBHComponent;
+import org.bh.platform.i18n.BHTranslator;
 import org.jfree.chart.ChartFactory;
 import org.jfree.chart.JFreeChart;
-import org.jfree.chart.plot.Plot;
 import org.jfree.chart.plot.PlotOrientation;
 import org.jfree.chart.plot.XYPlot;
 import org.jfree.data.xy.XYDataset;
@@ -21,6 +23,7 @@ import org.jfree.data.xy.XYDataset;
  *
  */
 public class BHxyAreaChart extends JFreeChart implements IBHComponent{
+	BHTranslator translator = BHTranslator.getInstance();
 	private String key;
 	private JFreeChart chart;
 	
@@ -28,11 +31,12 @@ public class BHxyAreaChart extends JFreeChart implements IBHComponent{
 	protected BHxyAreaChart(String title, String xAxis, String yAxis, XYDataset dataset, String key, XYPlot plot) {
 		super(plot);
 		this.key = key;
-		//BHTranslator translator = BHTranslator.getInstance();
 		
 		chart = ChartFactory.createXYAreaChart(title, xAxis, yAxis, dataset, PlotOrientation.VERTICAL, true, true, false);
-    	//plot.setNoDataMessage(translator.translate("noDataAvailable"));
-
+    	plot.setNoDataMessage(translator.translate("noDataAvailable"));
+    	if ("Nimbus".equals(UIManager.getLookAndFeel().getName())) {
+    		chart.setBackgroundPaint(UIManager.getColor("desktop"));   
+    	}
 	}
 	
 	/**

@@ -2,12 +2,15 @@ package org.bh.gui.chart;
 
 import java.awt.Component;
 
+import javax.swing.UIManager;
+
 import org.bh.gui.swing.IBHComponent;
+import org.bh.platform.i18n.BHTranslator;
 import org.jfree.chart.ChartFactory;
 import org.jfree.chart.JFreeChart;
 import org.jfree.chart.plot.Plot;
 import org.jfree.chart.plot.PlotOrientation;
-import org.jfree.data.statistics.*;
+import org.jfree.data.statistics.HistogramDataset;
 
 /**
  * BHHistogramChart to create a Histogramchart 
@@ -20,20 +23,22 @@ import org.jfree.data.statistics.*;
  *
  */
 public class BHHistogramChart extends JFreeChart implements IBHComponent{
+	BHTranslator translator = BHTranslator.getInstance();
+    
 	private String key;
 	private JFreeChart chart;
 
 	
 	protected BHHistogramChart(String title, String xAxis, String yAxis, HistogramDataset dataset, String key, Plot plot) {
 		super(plot);
-		//BHTranslator translator = BHTranslator.getInstance();
-		
 		this.key = key;
 		
 		chart = ChartFactory.createHistogram(title, xAxis, yAxis, dataset, PlotOrientation.VERTICAL, true, true, false);
-		//plot.setNoDataMessage(translator.translate("noDataAvailable"));
 		chart.getXYPlot().setForegroundAlpha(0.75f);
-        
+		plot.setNoDataMessage(translator.translate("noDataAvailable"));
+		if ("Nimbus".equals(UIManager.getLookAndFeel().getName())) {
+    		chart.setBackgroundPaint(UIManager.getColor("desktop"));   
+    	}
 	}
 	
 	/**
