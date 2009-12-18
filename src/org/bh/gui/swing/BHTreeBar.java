@@ -1,5 +1,7 @@
 package org.bh.gui.swing;
 
+import java.awt.Dimension;
+
 import javax.swing.*;
 import javax.swing.tree.*;
 
@@ -53,6 +55,7 @@ public class BHTreeBar extends JTree{
 		setEditable(true);
 		getSelectionModel().setSelectionMode(TreeSelectionModel.SINGLE_TREE_SELECTION);
 		setShowsRootHandles(true);
+		setMinimumSize(new Dimension(100, 100));
 		
 			//putClientProperty("JTree.lineStyle", "Angled");
 		

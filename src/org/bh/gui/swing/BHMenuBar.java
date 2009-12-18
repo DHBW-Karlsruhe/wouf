@@ -2,10 +2,8 @@ package org.bh.gui.swing;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
-
 import org.bh.platform.i18n.BHTranslator;
 
 
@@ -70,7 +68,7 @@ public class BHMenuBar extends JMenuBar implements ActionListener{
         menuFile.add(new BHMenuItem("Mopen", 1, 12, "open"));
         menuFile.add(new BHMenuItem("Mclose", 1, 12, "close"));
         menuFile.add(new BHMenuItem("Msave", 1, 12, "save"));
-        menuFile.add(new BHMenuItem("Msaveas", 1, 12, "saveAs"));
+        menuFile.add(new BHMenuItem("MsaveAs", 1, 12, "saveAs"));
         menuFile.add(new BHMenuItem("Mquit", 1, 12, "quit"));
            
        

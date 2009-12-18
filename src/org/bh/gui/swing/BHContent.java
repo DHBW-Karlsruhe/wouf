@@ -42,6 +42,7 @@ public class BHContent extends JPanel{
     
     public BHContent(){
 		setLayout(new BorderLayout());
+		setMinimumSize(new Dimension(100, 100));
 		
 		//chart1 = new BHChart1("Comparison", "Which operating system are you using?");
 		 

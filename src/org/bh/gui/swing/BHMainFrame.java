@@ -67,7 +67,7 @@ public class BHMainFrame extends JFrame {
 		treeBar = new BHTreeBar();
 		// treeBar.setBounds(0, standardBarHeight, treeBarWidth,
 		// screenSize.height-standardBarHeight);
-		// treeBar.setBounds(0,200,200,400);
+		//treeBar.setBounds(0,200,200,400);
 
 		statusBar = new BHStatusBar("");
 		content = new BHContent();
@@ -78,9 +78,6 @@ public class BHMainFrame extends JFrame {
 		paneH.setOneTouchExpandable(true);
 		paneH.setDividerLocation(treeBarWidth);
 
-		// Provide minimum sizes for the two components in the split pane
-		treeBar.setMinimumSize(new Dimension(100, 100));
-		content.setMinimumSize(new Dimension(100, 100));
 
 		// stop moving the divider
 		// pane.setEnabled(false);
@@ -104,7 +101,7 @@ public class BHMainFrame extends JFrame {
 		this.setLocationRelativeTo(null);
 		this.setJMenuBar(new BHMenuBar());
 		this.setVisible(true);
-		// this.pack();
+		this.pack();
 	}
 
 	/**
