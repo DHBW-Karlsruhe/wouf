@@ -3,6 +3,7 @@ package org.bh.gui.swing;
 import java.awt.BorderLayout;
 import java.awt.Dimension;
 import java.awt.Toolkit;
+
 import javax.swing.JDesktopPane;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
@@ -48,7 +49,7 @@ public class BHMainFrame extends JFrame {
 	public BHMainFrame(String title) {
 		super(title);
 		this.setProperties();
-		
+
 		// create main frame
 		// 50 pixel from every corner depending on the resolution
 		int inset = 20;
@@ -69,7 +70,7 @@ public class BHMainFrame extends JFrame {
 		treeBar = new BHTreeBar();
 		// treeBar.setBounds(0, standardBarHeight, treeBarWidth,
 		// screenSize.height-standardBarHeight);
-		//treeBar.setBounds(0,200,200,400);
+		// treeBar.setBounds(0,200,200,400);
 
 		statusBar = Services.getBHstatusBar();
 		content = new BHContent();
@@ -80,7 +81,6 @@ public class BHMainFrame extends JFrame {
 		paneH.setOneTouchExpandable(true);
 		paneH.setDividerLocation(treeBarWidth);
 
-
 		// stop moving the divider
 		// pane.setEnabled(false);
 
@@ -90,15 +90,19 @@ public class BHMainFrame extends JFrame {
 		// desktop.add(content, BorderLayout.CENTER);
 
 		setContentPane(desktop);
-		
-	
+
 	}
 
 	/**
 	 * Sets initial properties on <code>BHMainFrame</code>.
 	 */
 	private void setProperties() {
-		this.setNimbusLookAndFeel();
+		// Mac properties
+		// System.setProperty("apple.laf.useScreenMenuBar", "true");
+		// System.setProperty("com.apple.mrj.application.apple.menu.about.name",
+		// BHTranslator.getInstance().translate("title"));
+
+		// this.setNimbusLookAndFeel();
 		this.setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
 		this.setLocationRelativeTo(null);
 		this.setJMenuBar(new BHMenuBar());
