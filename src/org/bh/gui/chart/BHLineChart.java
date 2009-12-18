@@ -2,8 +2,6 @@ package org.bh.gui.chart;
 
 import java.awt.Component;
 
-import javax.swing.UIManager;
-
 import org.bh.gui.swing.IBHComponent;
 import org.bh.platform.i18n.BHTranslator;
 import org.jfree.chart.ChartFactory;
@@ -33,9 +31,9 @@ public class BHLineChart extends JFreeChart implements IBHComponent{
     	this.key = key;
     	chart = ChartFactory.createLineChart(title, XAxis, YAxis, dataset, PlotOrientation.VERTICAL, true, true, false); 
     	plot.setNoDataMessage(translator.translate("noDataAvailable"));
-    	if ("Nimbus".equals(UIManager.getLookAndFeel().getName())) {
-    		chart.setBackgroundPaint(UIManager.getColor("desktop"));   
-    	}
+//    	if ("Nimbus".equals(UIManager.getLookAndFeel().getName())) {
+//    		chart.setBackgroundPaint(UIManager.getColor("desktop"));   
+//    	}
     }
     
     /**
