@@ -28,12 +28,15 @@ public class BHTree extends JPanel {
         treeModel.addTreeModelListener(new MyTreeModelListener());
         tree = new JTree(treeModel);
         tree.setEditable(true);
+        tree.setRootVisible(false);
         tree.getSelectionModel().setSelectionMode(TreeSelectionModel.SINGLE_TREE_SELECTION);
         tree.setShowsRootHandles(true);
         //tree.setPreferredSize(new Dimension(250, 400));
+        
 
         JScrollPane scrollPane = new JScrollPane(tree);
         add(scrollPane);
+        
     }
 
     /** Remove all nodes except the root node. */
@@ -59,46 +62,67 @@ public class BHTree extends JPanel {
         toolkit.beep();
     }
 
-    /** Add child to the currently selected node. */
-    public static DefaultMutableTreeNode addObject(Object child) {
-        DefaultMutableTreeNode parentNode = null;
-        TreePath parentPath = tree.getSelectionPath();
-
-        if (parentPath == null) {
-            parentNode = rootNode;
-        } else {
-            parentNode = (DefaultMutableTreeNode)
-                         (parentPath.getLastPathComponent());
-        }
-
-        return addObject(parentNode, child, true);
-    }
-
-    public DefaultMutableTreeNode addObject(DefaultMutableTreeNode parent,
-                                            Object child) {
-        return addObject(parent, child, false);
-    }
-
-    public static DefaultMutableTreeNode addObject(DefaultMutableTreeNode parent,
-                                            Object child, 
-                                            boolean shouldBeVisible) {
-        DefaultMutableTreeNode childNode = 
-                new DefaultMutableTreeNode(child);
-
-        if (parent == null) {
-            parent = rootNode;
-        }
-	
-	//It is key to invoke this on the TreeModel, and NOT DefaultMutableTreeNode
-        treeModel.insertNodeInto(childNode, parent, 
-                                 parent.getChildCount());
+    /**
+     * add new project to root.
+     */
+    public static DefaultMutableTreeNode addProject(Object child) {
+    	
+        DefaultMutableTreeNode parentNode = rootNode;
+        
+        DefaultMutableTreeNode childNode = new DefaultMutableTreeNode(child);
+       
+        //It is key to invoke this on the TreeModel, and NOT DefaultMutableTreeNode
+        treeModel.insertNodeInto(childNode, parentNode, parentNode.getChildCount());
 
         //Make sure the user can see the lovely new node.
-        if (shouldBeVisible) {
-            tree.scrollPathToVisible(new TreePath(childNode.getPath()));
-        }
-        return childNode;
+        tree.scrollPathToVisible(new TreePath(childNode.getPath()));
+        
+        return childNode; 
     }
+    
+    /** 
+     * add scenario to the currently selected project. 
+     */
+    public static DefaultMutableTreeNode addScenario(Object child) {
+    	
+        TreePath parentPath = tree.getSelectionPath();        
+        System.out.println(parentPath);
+        
+        DefaultMutableTreeNode parentNode = (DefaultMutableTreeNode)(parentPath.getPathComponent(1));
+        
+        DefaultMutableTreeNode childNode = new DefaultMutableTreeNode(child);
+        
+        //It is key to invoke this on the TreeModel, and NOT DefaultMutableTreeNode
+        treeModel.insertNodeInto(childNode, parentNode, parentNode.getChildCount());
+
+        //Make sure the user can see the lovely new node.
+        tree.scrollPathToVisible(new TreePath(childNode.getPath()));
+        
+        return childNode; 
+    }
+    
+    
+
+//    public DefaultMutableTreeNode addObject(DefaultMutableTreeNode parent, Object child) {
+//        return addObject(parent, child, false);
+//    }
+//
+//    public static DefaultMutableTreeNode addObject(DefaultMutableTreeNode parent, Object child, boolean shouldBeVisible) {
+//        DefaultMutableTreeNode childNode = new DefaultMutableTreeNode(child);
+//
+//        if (parent == null) {
+//            parent = rootNode;
+//        }
+//	
+//        //It is key to invoke this on the TreeModel, and NOT DefaultMutableTreeNode
+//        treeModel.insertNodeInto(childNode, parent, parent.getChildCount());
+//
+//        //Make sure the user can see the lovely new node.
+//        if (shouldBeVisible) {
+//            tree.scrollPathToVisible(new TreePath(childNode.getPath()));
+//        }
+//        return childNode;
+//    }
 
     class MyTreeModelListener implements TreeModelListener {
         public void treeNodesChanged(TreeModelEvent e) {
