@@ -30,13 +30,15 @@ public class BHToolBar extends JToolBar{
     static final private String NEW = "new";
     static final private String SAVE = "save";
     static final private String ADDP = "addP";
-    static final private String EDIT = "edit";
+    static final private String ADDS = "addS";
+    static final private String DELETE = "delete";
+    static final private String REMOVE = "remove";
     static final private String FIND = "find";
         
     BHLabel lable;
     JComboBox comboBox;
     
-    BHToolButton bNew, bOpen, bSave, bAdd, bEdit, bFind;
+    BHToolButton bNew, bOpen, bSave, bAddP, bAddS, bRemove, bDelete, bFind;
     
     BHTranslator translator = BHTranslator.getInstance(); 
 
@@ -62,8 +64,10 @@ public class BHToolBar extends JToolBar{
 		bNew = new BHToolButton("New24", NEW, translator.translate("Tnew"), "New");
 		bOpen = new BHToolButton("Open24", OPEN, translator.translate("Topen"),"Open");
 		bSave = new BHToolButton("Save24", SAVE, translator.translate("Tsave"), "Save");
-		bAdd = new BHToolButton("Add24", ADDP, translator.translate("TaddP"), "Add");
-		bEdit = new BHToolButton("Edit24", EDIT, translator.translate("TaddS"), "Edit");
+		bAddP = new BHToolButton("Add24", ADDP, translator.translate("TaddP"), "AddP");
+		bAddS = new BHToolButton("Edit24", ADDS, translator.translate("TaddS"), "AddS");
+		bRemove = new BHToolButton("Remove24", REMOVE, translator.translate("Tremove"), "Remove");
+		bDelete = new BHToolButton("Delete24", DELETE, translator.translate("Tdelete"), "Delete");
 		bFind = new BHToolButton("Find24", FIND, translator.translate("Tfind"), "Find");
 		
 			//example of combo box in tool bar
@@ -81,15 +85,14 @@ public class BHToolBar extends JToolBar{
 		
 		addSeparator();
 		
-		add(bAdd);
-		add(bEdit);
-		add(bFind);
+		add(bAddP);
+		add(bAddS);
+		add(bRemove);
+		add(bDelete);
 		
-			//addSeparator();
-			//		
-			//add(lable);
-			//add(comboBox);
+		addSeparator();
+		
+		add(bFind);
     }
-    
 }
 

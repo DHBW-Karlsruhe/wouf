@@ -97,12 +97,12 @@ public class BHToolButton extends JButton implements MouseListener, ActionListen
 	    if (cmd.equals("addP")) { //add project button clicked
 	    	System.out.println("add project");
 	    	BHTree.addProject("New Project " + BHTreeBar.getNodeSuffix());
-	    } else if(cmd.equals("edit")){
+	    } else if(cmd.equals("addS")){
 	    	BHTree.addScenario("New Scenario");
-        } else if (cmd.equals("find")) {
+        } else if (cmd.equals("remove")) {
             //Remove button clicked
             BHTree.removeCurrentNode();
-        } else if (cmd.equals("open")) {
+        } else if (cmd.equals("delete")) {
             //Clear button clicked.
             BHTree.clear();
         }
