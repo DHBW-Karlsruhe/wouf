@@ -31,7 +31,7 @@ public class BHMainFrame extends JFrame {
 	public JDesktopPane desktop;
 
 	public BHToolBar toolBar;
-	public BHTreeBar treeBar;
+	public BHTree treeBar;
 	public BHStatusBar statusBar;
 	public BHContent content;
 
@@ -67,7 +67,7 @@ public class BHMainFrame extends JFrame {
 		toolBar = new BHToolBar(screenSize.width, standardBarHeight);
 		// toolBar.setBounds(0, 0, screenSize.width, standardBarHeight);
 
-		treeBar = new BHTreeBar();
+		treeBar = new BHTree();
 		// treeBar.setBounds(0, standardBarHeight, treeBarWidth,
 		// screenSize.height-standardBarHeight);
 		// treeBar.setBounds(0,200,200,400);

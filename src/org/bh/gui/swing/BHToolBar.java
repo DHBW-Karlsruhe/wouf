@@ -29,8 +29,8 @@ public class BHToolBar extends JToolBar{
     static final private String OPEN = "open";
     static final private String NEW = "new";
     static final private String SAVE = "save";
-    static final private String ADD = "Add";
-    static final private String EDIT = "Edit";
+    static final private String ADDP = "addP";
+    static final private String EDIT = "edit";
     static final private String FIND = "find";
         
     BHLabel lable;
@@ -62,7 +62,7 @@ public class BHToolBar extends JToolBar{
 		bNew = new BHToolButton("New24", NEW, translator.translate("Tnew"), "New");
 		bOpen = new BHToolButton("Open24", OPEN, translator.translate("Topen"),"Open");
 		bSave = new BHToolButton("Save24", SAVE, translator.translate("Tsave"), "Save");
-		bAdd = new BHToolButton("Add24", ADD, translator.translate("TaddP"), "Add");
+		bAdd = new BHToolButton("Add24", ADDP, translator.translate("TaddP"), "Add");
 		bEdit = new BHToolButton("Edit24", EDIT, translator.translate("TaddS"), "Edit");
 		bFind = new BHToolButton("Find24", FIND, translator.translate("Tfind"), "Find");
 		
@@ -90,5 +90,6 @@ public class BHToolBar extends JToolBar{
 			//add(lable);
 			//add(comboBox);
     }
+    
 }
 

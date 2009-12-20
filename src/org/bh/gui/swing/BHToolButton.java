@@ -1,5 +1,7 @@
 package org.bh.gui.swing;
 
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.net.URL;
@@ -20,13 +22,13 @@ import javax.swing.JLabel;
  *
  */
 
-public class BHToolButton extends JButton implements MouseListener{
+public class BHToolButton extends JButton implements MouseListener, ActionListener{
     
     public String toolTip;
     public String buttonName;
 	
     
-    public BHToolButton(String imageName,String previous,String toolTipText,String altText){
+    public BHToolButton(String imageName,String actionCommand,String toolTipText,String altText){
 	
 	//Look for the image.
         String imgLocation = "/toolbarButtonGraphics/general/" + imageName + ".gif";
@@ -37,11 +39,11 @@ public class BHToolButton extends JButton implements MouseListener{
         buttonName = altText;
         
         //Create and initialize the button.
-        setActionCommand(previous);
+        setActionCommand(actionCommand);
         	//setToolTipText(toolTipText);
         	//this.toolTipText = toolTipText;
         
-        //addActionListener(this);
+        addActionListener(this);
         addMouseListener(this);
         
         	//setIcon(new ImageIcon(imgLocation));
@@ -86,4 +88,22 @@ public class BHToolButton extends JButton implements MouseListener{
 		// TODO Auto-generated method stub
 		throw new UnsupportedOperationException("This method has not been implemented");
 	}
+	
+	@Override
+	public void actionPerformed(ActionEvent actionEvent) {
+		String cmd = actionEvent.getActionCommand();
+	        
+	    // Handle each button.
+	    if (cmd.equals("addP")) { //add project button clicked
+	    	System.out.println("add project");
+	    	BHTree.addObject("New Project " + BHTreeBar.getNodeSuffix());
+        } else if (cmd.equals("remove")) {
+            //Remove button clicked
+            BHTree.removeCurrentNode();
+        } else if (cmd.equals("clear")) {
+            //Clear button clicked.
+            BHTree.clear();
+        }
+	       
+	 }
 }
