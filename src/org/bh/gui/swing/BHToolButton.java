@@ -70,7 +70,7 @@ public class BHToolButton extends JButton implements MouseListener{
 	@Override
 	public void mouseEntered(MouseEvent e) {
 		BHStatusBar.setToolTip(getToolTip());
-		//Test für Padde BHStatusBar.setValidationToolTip(new JLabel("Test"));
+		//BHStatusBar.setValidationToolTip(new JLabel("Test"));
 	}
 	@Override
 	public void mouseExited(MouseEvent e) {

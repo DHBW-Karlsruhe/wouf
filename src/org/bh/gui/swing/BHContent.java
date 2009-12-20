@@ -35,6 +35,8 @@ public class BHContent extends JPanel{
     public JSplitPane paneV;
     int formPanelHeight = 500;
     
+    BHFormsPanel formsPanel;
+    
     /**
      * currently  only test contents are available in this class
      */
@@ -43,9 +45,6 @@ public class BHContent extends JPanel{
     public BHContent(){
 		setLayout(new BorderLayout());
 		setMinimumSize(new Dimension(100, 100));
-		
-		//chart1 = new BHChart1("Comparison", "Which operating system are you using?");
-		 
 		
 		/**
 		 * Test chart start
@@ -62,23 +61,19 @@ public class BHContent extends JPanel{
 		final ChartPanel chartPanel = new ChartPanel(chart);
 	    chartPanel.setPreferredSize(new Dimension(500, 270));
 	    JPanel neu = new JPanel();
-	    
 	    /**
 	     * Test chart end
 	     */
+
+	    
+	    //create the forms panel
+		formsPanel = new BHFormsPanel();
 		
-		
-//		chart = new JLabel();
-//		chart.setText("TESTTESTTEST");
-		forms = new JLabel();
-		forms.setText("FORMSFORMSFORMS");
-		
-		paneV = new JSplitPane(JSplitPane.VERTICAL_SPLIT, forms, neu.add(chartPanel));
+		//build the plit pane with forms panel and chart included
+		paneV = new JSplitPane(JSplitPane.VERTICAL_SPLIT, formsPanel, neu.add(chartPanel));
 		paneV.setOneTouchExpandable(true);
 		paneV.setDividerLocation(formPanelHeight);
-		       
-		
-		setBackground(Color.white);
+	
 		add(paneV, BorderLayout.CENTER);
 	}
     

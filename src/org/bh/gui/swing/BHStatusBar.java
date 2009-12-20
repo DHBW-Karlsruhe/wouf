@@ -67,8 +67,7 @@ public class BHStatusBar extends JPanel{
     
     public static void setValidationToolTip(JLabel label){
     	lToolTip.setText(label.getText());
-  
-    	lToolTip.revalidate();
+      	lToolTip.revalidate();
     }
    
 }
