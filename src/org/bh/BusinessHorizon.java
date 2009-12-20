@@ -1,5 +1,6 @@
 package org.bh;
 
+import java.awt.Window;
 import java.lang.Thread.UncaughtExceptionHandler;
 
 import javax.swing.SwingUtilities;
@@ -7,9 +8,9 @@ import javax.swing.SwingUtilities;
 import org.apache.log4j.Logger;
 import org.bh.data.IPeriodicalValuesDTO;
 import org.bh.gui.swing.BHMainFrame;
+import org.bh.gui.swing.BHSplashScreen;
 import org.bh.platform.PluginManager;
 import org.bh.platform.i18n.BHTranslator;
-import org.bh.test.Main;
 
 /**
  * 
@@ -19,6 +20,9 @@ import org.bh.test.Main;
  * 
  * @author Robert Vollmer
  * @version 0.1, 06.12.2009
+ * 
+ * @author Patrick Heinz
+ * added SplashScreen 20.12.2009
  * 
  */
 
@@ -31,6 +35,12 @@ public class BusinessHorizon {
 	 * @throws Exception
 	 */
 	public static void main(String[] args) throws Exception {
+		
+		Runnable splashScreenRunnable = new BHSplashScreen();
+		Thread splashScreenThread = new Thread(splashScreenRunnable);
+		splashScreenThread.start();
+		((Window) splashScreenRunnable).setAlwaysOnTop(true);
+		
 		log.info("Business Horizon is starting...");
 
 		Thread
@@ -54,6 +64,5 @@ public class BusinessHorizon {
 			}
 
 		});
-
 	}
 }
