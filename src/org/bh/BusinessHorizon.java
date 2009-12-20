@@ -1,9 +1,6 @@
 package org.bh;
 
-import java.awt.Window;
 import java.lang.Thread.UncaughtExceptionHandler;
-
-import javax.swing.SwingUtilities;
 
 import org.apache.log4j.Logger;
 import org.bh.data.IPeriodicalValuesDTO;
@@ -19,10 +16,9 @@ import org.bh.platform.i18n.BHTranslator;
  * The main method of this class will be called when Business Horizon starts.
  * 
  * @author Robert Vollmer
- * @version 0.1, 06.12.2009
- * 
  * @author Patrick Heinz
- * added SplashScreen 20.12.2009
+ * @version 0.2, 20.12.2009
+ * 
  * 
  */
 
@@ -35,12 +31,6 @@ public class BusinessHorizon {
 	 * @throws Exception
 	 */
 	public static void main(String[] args) throws Exception {
-		
-		Runnable splashScreenRunnable = new BHSplashScreen();
-		Thread splashScreenThread = new Thread(splashScreenRunnable);
-		splashScreenThread.start();
-		((Window) splashScreenRunnable).setAlwaysOnTop(true);
-		
 		log.info("Business Horizon is starting...");
 
 		Thread
@@ -51,18 +41,14 @@ public class BusinessHorizon {
 					}
 				});
 
+		// show splash screen
+		new Thread(new BHSplashScreen()).start();
+
 		PluginManager.getInstance().loadAllServices(IPeriodicalValuesDTO.class);
 
 		// new Main();
-		
+
 		// Invoke start of BHMainFrame
-		SwingUtilities.invokeLater(new Runnable() {
-
-			@Override
-			public void run() {
-				new BHMainFrame(BHTranslator.getInstance().translate("title"));
-			}
-
-		});
+		new BHMainFrame(BHTranslator.getInstance().translate("title"));
 	}
 }

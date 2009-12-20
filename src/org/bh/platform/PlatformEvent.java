@@ -27,7 +27,11 @@ public class PlatformEvent extends EventObject {
 		/**
 		 * plugin should put the dto copy back to ui
 		 */
-		GETCOPY
+		GETCOPY,
+		/**
+		 * Platform has been loaded completely		
+		 */
+		PLATFORM_LOADING_COMPLETED,
 	}
 
 	/**

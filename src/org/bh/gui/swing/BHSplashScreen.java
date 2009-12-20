@@ -1,115 +1,80 @@
 package org.bh.gui.swing;
 
 import java.awt.BorderLayout;
-import java.awt.Container;
-import java.awt.event.MouseEvent;
 
 import javax.swing.Icon;
 import javax.swing.ImageIcon;
 import javax.swing.JLabel;
 import javax.swing.JProgressBar;
 import javax.swing.JWindow;
-import javax.swing.UIManager;
-import javax.swing.UIManager.LookAndFeelInfo;
-import javax.swing.event.MouseInputListener;
+
+import org.bh.platform.PlatformEvent;
+import org.bh.platform.PlatformListener;
+import org.bh.platform.Services;
+import org.bh.platform.PlatformEvent.Type;
 
 /**
- * SplashScreen on startup of Business Horizon Application,
- * to block the mainframe while loading.
+ * SplashScreen on startup of Business Horizon Application, to block the
+ * mainframe while loading.
  * 
  * @author Heinz.Patrick
  * @version 0.1, 2009/12/20
  * 
  */
 
-public class BHSplashScreen extends JWindow implements Runnable, MouseInputListener {
-
-	private Container c;
-	private JLabel iconLabel;
-	private Icon splashScreenIcon;
-	private JProgressBar progressBar;
+public class BHSplashScreen extends JWindow implements Runnable,
+		PlatformListener {
+	private static final long serialVersionUID = -3834743030431316878L;
+	private static final int MIN_DISPLAY_TIME = 3000;
+	private boolean isLoaded = false;
 
 	public BHSplashScreen() {
-		c = getContentPane();
-		c.setLayout(new BorderLayout());
-		
-		// build GUI components
-		splashScreenIcon = new ImageIcon("images/SplashScreen.jpg");
-		iconLabel = new JLabel("", splashScreenIcon, JLabel.CENTER);
-		iconLabel.setSize(477, 229);
-
-		progressBar = new JProgressBar();
-		progressBar.setIndeterminate(true);
-		// progressBar.setBackground(new Color(0,0,50));
-
-		c.add(iconLabel, BorderLayout.CENTER);
-		c.add(progressBar, BorderLayout.SOUTH);
-		addMouseListener(this);
-		
-		this.setSize(477, 240);
-		this.setLocationRelativeTo(null);
-		this.setVisible(true);
+		Services.addPlatformListener(this);
 	}
 
 	public void run() {
-		for (int i = 0; i < 10; i++) {
-			// Show BHSplashScreen at least for 2 seconds
-			if (i <= 2) {
-				try {
-					Thread.sleep(1000);
-				}
-				catch (InterruptedException ie) {
-					ie.printStackTrace();
+		setLayout(new BorderLayout());
+
+		// build GUI components
+		Icon splashScreenIcon = new ImageIcon(BHSplashScreen.class
+				.getResource("/org/bh/images/SplashScreen.jpg"));
+		JLabel iconLabel = new JLabel("", splashScreenIcon, JLabel.CENTER);
+		iconLabel.setSize(477, 229);
+
+		JProgressBar progressBar = new JProgressBar();
+		progressBar.setIndeterminate(true);
+		// progressBar.setBackground(new Color(0,0,50));
+
+		add(iconLabel, BorderLayout.CENTER);
+		add(progressBar, BorderLayout.SOUTH);
+
+		setSize(477, 240);
+		// center the splash screen on the screen
+		setLocationRelativeTo(null);
+		setAlwaysOnTop(true);
+		setVisible(true);
+
+		try {
+			Thread.sleep(MIN_DISPLAY_TIME);
+			synchronized (this) {
+				while (!isLoaded) {
+					wait();
 				}
 			}
-			else {				
-				try {
-					// TODO Call method to check if all data is loaded
-					Thread.sleep(1000);
-//					JWindow setVisible(false), when all data is loaded
-//					this.setVisible(false); <-- sets progress bar invisible, not window...
-				}
-				catch (InterruptedException ie) {
-					ie.printStackTrace();
-				}
+		} catch (InterruptedException e) {
+			// should not happen
+		}
+
+		dispose();
+	}
+
+	@Override
+	public void platformEvent(PlatformEvent e) {
+		if (e.getEventType() == Type.PLATFORM_LOADING_COMPLETED) {
+			isLoaded = true;
+			synchronized (this) {
+				notify();
 			}
 		}
-	}
-	
-	/**
-	 * MouseListener interface methods to make BHSplashScreen disappear when clicked on it
-	 */
-	public void mouseClicked(MouseEvent e) {
-		this.setVisible(false);
-	}
-
-	@Override
-	public void mouseEntered(MouseEvent e) {
-		// TODO Auto-generated method stub
-	}
-
-	@Override
-	public void mouseExited(MouseEvent e) {
-		// TODO Auto-generated method stub
-	}
-
-	@Override
-	public void mousePressed(MouseEvent e) {
-		// TODO Auto-generated method stub
-	}
-
-	@Override
-	public void mouseReleased(MouseEvent e) {
-		// TODO Auto-generated method stub
-	}
-
-	@Override
-	public void mouseDragged(MouseEvent e) {
-		// TODO Auto-generated method stub
-	}
-
-	@Override
-	public void mouseMoved(MouseEvent e) {
-		// TODO Auto-generated method stub
 	}
 }

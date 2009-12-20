@@ -1,7 +1,10 @@
 package org.bh.gui.swing;
 
 import java.awt.Color;
-import javax.swing.*;
+
+import javax.swing.ImageIcon;
+import javax.swing.JLabel;
+import javax.swing.JPanel;
 
 import com.jgoodies.forms.layout.CellConstraints;
 import com.jgoodies.forms.layout.FormLayout;
@@ -39,7 +42,8 @@ public class BHStatusBar extends JPanel{
     		lToolTip.setToolTipText("");
     			
     		//create BH logo label
-    		bh = new JLabel(new ImageIcon("images/bh-logo.jpg"));
+    		bh = new JLabel(new ImageIcon(BHSplashScreen.class
+    				.getResource("/org/bh/images/bh-logo.jpg")));
     		
     		//add components to panel
     		add(lToolTip, cons.xywh(1,1,1,1));
