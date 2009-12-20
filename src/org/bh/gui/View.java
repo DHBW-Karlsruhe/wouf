@@ -35,7 +35,7 @@ public abstract class View implements  KeyListener, PropertyChangeListener{
      * @param translator 
      * @throws ViewException
      */
-    protected View(JPanel viewPanel, BHValidityEngine validator, ITranslator translator) throws ViewException{
+    public View(JPanel viewPanel, BHValidityEngine validator, ITranslator translator) throws ViewException{
         this.viewPanel = viewPanel;
         this.validator = validator;
         this.translator = translator;

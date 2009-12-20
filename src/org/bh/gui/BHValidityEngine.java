@@ -14,7 +14,7 @@ import org.bh.gui.swing.IBHComponent;
  */
 public abstract class BHValidityEngine {
     
-    public BHValidityEngine(Map<String, IBHComponent> bhcomponents){
+    public BHValidityEngine(){
 
     }
     abstract boolean validate(IBHComponent comp);
