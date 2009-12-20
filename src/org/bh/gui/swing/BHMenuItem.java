@@ -1,5 +1,8 @@
 package org.bh.gui.swing;
 
+import java.awt.event.ActionEvent;
+import java.awt.event.KeyEvent;
+
 import javax.swing.JMenuItem;
 import javax.swing.KeyStroke;
 
@@ -21,22 +24,23 @@ public class BHMenuItem extends JMenuItem implements IBHComponent{
 
 	private String key;
     private int[] validateRules;
-    BHTranslator translator = BHTranslator.getInstance();
+    static BHTranslator translator = BHTranslator.getInstance();
     
     /**
      * create the new menu item
      * @param key
-     * @param eventKey
+     * @param eventKey: Dec number ASCII
      * @param eventAction
      * @param actionCommand
      */
 
-    public BHMenuItem(String key, int eventKey, int eventAction, String actionCommand){
-    	super();
+    public BHMenuItem(String key, int eventKey, String actionCommand){
+    	super(translator.translate(key));
     	this.key = key;
-    	this.setText(translator.translate(key));
-    	this.setMnemonic(eventKey);
-    	this.setAccelerator(KeyStroke.getKeyStroke(eventKey, eventAction));
+    	if(eventKey != 0){
+    		this.setMnemonic(eventKey);
+    		this.setAccelerator(KeyStroke.getKeyStroke(eventKey, ActionEvent.ALT_MASK));
+    	}
     	this.setActionCommand(actionCommand);
     	//this.addActionListener(this);
     	

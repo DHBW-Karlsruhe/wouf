@@ -14,6 +14,10 @@ import org.bh.platform.i18n.BHTranslator;
  * This class extends the Swing <code>JMenuBar</code> to display a menu bar
  * on the screen.
  * 
+ * To use the shortcut keys, you should use the constant field values shown on 
+ * http://java.sun.com/j2se/1.4.2/docs/api/constant-values.html.
+ * If no shortcut is necessary use '0' as the key.
+ * 
  * @author Tietze.Patrick
  * @version 0.1, 2009/12/16
  * 
@@ -64,59 +68,58 @@ public class BHMenuBar extends JMenuBar implements ActionListener{
          * create menu items --> file
          **/
                 
-        menuFile.add(new BHMenuItem("Mnew", 1, 12, "new"));
-        menuFile.add(new BHMenuItem("Mopen", 1, 12, "open"));
-        menuFile.add(new BHMenuItem("Mclose", 1, 12, "close"));
-        menuFile.add(new BHMenuItem("Msave", 1, 12, "save"));
-        menuFile.add(new BHMenuItem("MsaveAs", 1, 12, "saveAs"));
-        menuFile.add(new BHMenuItem("Mquit", 1, 12, "quit"));
+        menuFile.add(new BHMenuItem("Mnew", 78, "new"));
+        menuFile.add(new BHMenuItem("Mopen", 79, "open"));
+        menuFile.add(new BHMenuItem("Mclose", 0, "close"));
+        menuFile.add(new BHMenuItem("Msave", 83, "save"));
+        menuFile.add(new BHMenuItem("MsaveAs", 0, "saveAs"));
+        menuFile.add(new BHMenuItem("Mquit", 88,  "quit"));
            
        
         /**
          * create menu items --> project
          **/
         
-        menuProject.add(new BHMenuItem("Mcreate", 1, 12, "create"));
-        menuProject.add(new BHMenuItem("Mrename", 1, 12, "rename"));
-        menuProject.add(new BHMenuItem("Mduplicate", 1, 12, "duplicate"));
-        menuProject.add(new BHMenuItem("Mcreate", 1, 12, "create"));
-        menuProject.add(new BHMenuItem("Mimport", 1, 12, "import"));
-        menuProject.add(new BHMenuItem("Mexport", 1, 12, "export"));
-        menuProject.add(new BHMenuItem("Mremove", 1, 12, "remove"));
+        menuProject.add(new BHMenuItem("Mcreate", 0,  "create"));
+        menuProject.add(new BHMenuItem("Mrename", 0,  "rename"));
+        menuProject.add(new BHMenuItem("Mduplicate", 0, "duplicate"));
+        menuProject.add(new BHMenuItem("Mimport", 0, "import"));
+        menuProject.add(new BHMenuItem("Mexport", 0, "export"));
+        menuProject.add(new BHMenuItem("Mremove", 0, "remove"));
           
         /**
          * create menu items --> scenario
          **/
         
-        menuScenario.add(new BHMenuItem("Mcreate", 1, 12, "create"));
-        menuScenario.add(new BHMenuItem("Mrename", 1, 12, "rename"));
-        menuScenario.add(new BHMenuItem("Mduplicate", 1, 12, "duplicate"));
-        menuScenario.add(new BHMenuItem("Mmove", 1, 12, "move"));
-        menuScenario.add(new BHMenuItem("Mremove", 1, 12, "remove"));
+        menuScenario.add(new BHMenuItem("Mcreate", 0, "create"));
+        menuScenario.add(new BHMenuItem("Mrename", 0, "rename"));
+        menuScenario.add(new BHMenuItem("Mduplicate", 0, "duplicate"));
+        menuScenario.add(new BHMenuItem("Mmove", 0, "move"));
+        menuScenario.add(new BHMenuItem("Mremove", 0, "remove"));
       
         /**
          * create menu items --> Bilanz & GuV
          **/
         
-        menuBilanzGuV.add(new BHMenuItem("Mshow", 1, 12, "show"));
-        menuBilanzGuV.add(new BHMenuItem("Mcreate", 1, 12, "create"));
-        menuBilanzGuV.add(new BHMenuItem("Mimport", 1, 12, "import"));
-        menuBilanzGuV.add(new BHMenuItem("Medit", 1, 12, "edit"));
-        menuBilanzGuV.add(new BHMenuItem("Mremove", 1, 12, "remove"));
+        menuBilanzGuV.add(new BHMenuItem("Mshow", 66, "show"));
+        menuBilanzGuV.add(new BHMenuItem("Mcreate", 0, "create"));
+        menuBilanzGuV.add(new BHMenuItem("Mimport", 0, "import"));
+        menuBilanzGuV.add(new BHMenuItem("Medit", 0, "edit"));
+        menuBilanzGuV.add(new BHMenuItem("Mremove", 0, "remove"));
               
         /**
          * create menu items --> options
          **/
       
-        menuOptions.add(new BHMenuItem("Mchange", 1, 12, "change"));
+        menuOptions.add(new BHMenuItem("Mchange", 80, "change"));
         
         /**
          * create menu items --> options
          **/
       
-        menuHelp.add(new BHMenuItem("MuserHelp", 1, 12, "userHelp"));
-        menuHelp.add(new BHMenuItem("MmathHelp", 1, 12, "mathHelp"));
-        menuHelp.add(new BHMenuItem("Minfo", 1, 12, "about"));
+        menuHelp.add(new BHMenuItem("MuserHelp", 72, "userHelp"));
+        menuHelp.add(new BHMenuItem("MmathHelp", 0, "mathHelp"));
+        menuHelp.add(new BHMenuItem("Minfo", 112, "about"));
         
       
     }
