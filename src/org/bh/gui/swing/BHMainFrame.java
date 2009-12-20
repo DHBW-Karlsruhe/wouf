@@ -2,8 +2,7 @@ package org.bh.gui.swing;
 
 import java.awt.BorderLayout;
 import java.awt.Component;
-import java.awt.Dimension;
-import java.awt.Toolkit;
+
 import javax.swing.JDesktopPane;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
@@ -11,7 +10,10 @@ import javax.swing.JSplitPane;
 import javax.swing.UIManager;
 import javax.swing.WindowConstants;
 import javax.swing.UIManager.LookAndFeelInfo;
+
+import org.bh.platform.PlatformEvent;
 import org.bh.platform.Services;
+import org.bh.platform.PlatformEvent.Type;
 
 
 /**
@@ -27,6 +29,7 @@ import org.bh.platform.Services;
  * 
  */
 public class BHMainFrame extends JFrame {
+	private static final long serialVersionUID = -8173399020286070131L;
 
 	public static JDesktopPane desktop;
 
@@ -41,7 +44,6 @@ public class BHMainFrame extends JFrame {
 
 	JLabel test;
 	
-	int inset = 20;
 	int standardBarHeight = 40;
 	static int treeBarWidth = 200;
 
@@ -57,18 +59,13 @@ public class BHMainFrame extends JFrame {
 		this.setProperties();
 
 		// create main frame
-		// 50 pixel from every corner depending on the resolution
-		
-
-		Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
-		setBounds(inset, inset, screenSize.width - inset * 2, screenSize.height
-				- inset * 2);
+		setExtendedState(MAXIMIZED_BOTH);
 
 		// build GUI components
 		desktop = new JDesktopPane();
 		desktop.setLayout(new BorderLayout());
 
-		toolBar = new BHToolBar(screenSize.width, standardBarHeight);
+		toolBar = new BHToolBar(getWidth(), standardBarHeight);
 		// toolBar.setBounds(0, 0, screenSize.width, standardBarHeight);
 
 		treeBar = new BHTree();
@@ -94,7 +91,14 @@ public class BHMainFrame extends JFrame {
 		// desktop.add(content, BorderLayout.CENTER);
 
 		setContentPane(desktop);
+		setSize(getPreferredSize());
+		setVisible(true);
+		
+		// work around a Java-or-whatever bug which causes the main window to hide behind Eclipse
+		this.setAlwaysOnTop(true);
+		this.setAlwaysOnTop(false);
 
+		Services.firePlatformEvent(new PlatformEvent(this, Type.PLATFORM_LOADING_COMPLETED));
 	}
 
 	/**
@@ -107,11 +111,9 @@ public class BHMainFrame extends JFrame {
 		// BHTranslator.getInstance().translate("title"));
 
 		this.setNimbusLookAndFeel();
-		this.setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
+		this.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
 		this.setLocationRelativeTo(null);
 		this.setJMenuBar(new BHMenuBar());
-		this.setVisible(true);
-		this.pack();
 	}
 	
 	public static void addContentForms(Component content){
