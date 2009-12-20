@@ -1,9 +1,9 @@
 package org.bh.gui.swing;
 
 import java.awt.BorderLayout;
+import java.awt.Component;
 import java.awt.Dimension;
 import java.awt.Toolkit;
-
 import javax.swing.JDesktopPane;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
@@ -11,8 +11,8 @@ import javax.swing.JSplitPane;
 import javax.swing.UIManager;
 import javax.swing.WindowConstants;
 import javax.swing.UIManager.LookAndFeelInfo;
-
 import org.bh.platform.Services;
+
 
 /**
  * Main Frame for Business Horizon Application.
@@ -28,16 +28,22 @@ import org.bh.platform.Services;
  */
 public class BHMainFrame extends JFrame {
 
-	public JDesktopPane desktop;
+	public static JDesktopPane desktop;
 
 	public BHToolBar toolBar;
-	public BHTree treeBar;
+	public static BHTree treeBar;
 	public BHStatusBar statusBar;
-	public BHContent content;
+	public static BHContent content;
 
-	JSplitPane paneH, paneV;
+	static JSplitPane paneH;
+
+	JSplitPane paneV;
 
 	JLabel test;
+	
+	int inset = 20;
+	int standardBarHeight = 40;
+	static int treeBarWidth = 200;
 
 	/**
 	 * Standard constructor for <code>BHMainFrame</code>.
@@ -52,9 +58,7 @@ public class BHMainFrame extends JFrame {
 
 		// create main frame
 		// 50 pixel from every corner depending on the resolution
-		int inset = 20;
-		int standardBarHeight = 40;
-		int treeBarWidth = 200;
+		
 
 		Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
 		setBounds(inset, inset, screenSize.width - inset * 2, screenSize.height
@@ -74,13 +78,13 @@ public class BHMainFrame extends JFrame {
 
 		statusBar = Services.getBHstatusBar();
 		content = new BHContent();
-
+	
 		// Create the horizontal split pane and put the treeBar and the content
 		// in it.
 		paneH = new JSplitPane(JSplitPane.HORIZONTAL_SPLIT, treeBar, content);
 		paneH.setOneTouchExpandable(true);
 		paneH.setDividerLocation(treeBarWidth);
-
+		
 		// stop moving the divider
 		// pane.setEnabled(false);
 
@@ -108,6 +112,17 @@ public class BHMainFrame extends JFrame {
 		this.setJMenuBar(new BHMenuBar());
 		this.setVisible(true);
 		this.pack();
+	}
+	
+	public static void addContentForms(Component content){
+		paneH.setRightComponent(content);
+			
+	}
+	public static void addContentFormsAndChart(Component forms, Component chart){
+		JSplitPane paneV = new JSplitPane(JSplitPane.VERTICAL_SPLIT, forms, chart);
+		paneV.setOneTouchExpandable(true);
+		
+		paneH.setRightComponent(paneV);
 	}
 
 	/**

@@ -5,7 +5,6 @@ import java.awt.Dimension;
 import javax.swing.*;
 import javax.swing.event.TreeModelEvent;
 import javax.swing.event.TreeModelListener;
-import javax.swing.text.Position;
 import javax.swing.tree.*;
 
 /**
@@ -61,7 +60,7 @@ public class BHTreeBar extends JTree implements TreeModelListener{
 		setEditable(true);
 		getSelectionModel().setSelectionMode(TreeSelectionModel.SINGLE_TREE_SELECTION);
 		setShowsRootHandles(true);
-		setPreferredSize(new Dimension(100, 100));
+		setPreferredSize(new Dimension(200, 400));
 		
 			//putClientProperty("JTree.lineStyle", "Angled");
 		
@@ -78,6 +77,8 @@ public class BHTreeBar extends JTree implements TreeModelListener{
     public static int getNodeSuffix(){
     	return newNodeSuffix++;
     }
+    
+
     
     //public static void addScenario(String parent, String scenario){
 //    	 int startRow = 0;

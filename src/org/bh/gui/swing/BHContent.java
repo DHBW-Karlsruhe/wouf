@@ -1,16 +1,8 @@
 package org.bh.gui.swing;
 
 import java.awt.BorderLayout;
-import java.awt.Color;
 import java.awt.Dimension;
-
 import javax.swing.*;
-
-import org.bh.gui.chart.BHChartFactory;
-import org.jfree.chart.ChartPanel;
-import org.jfree.chart.JFreeChart;
-import org.jfree.chart.plot.CategoryPlot;
-import org.jfree.chart.plot.Plot;
 import org.jfree.data.category.CategoryDataset;
 import org.jfree.data.category.DefaultCategoryDataset;
 
@@ -46,35 +38,37 @@ public class BHContent extends JPanel{
 		setLayout(new BorderLayout());
 		setMinimumSize(new Dimension(100, 100));
 		
-		/**
-		 * Test chart start
-		 */
-		String title = "Test";
-		String XAxis = "XAchse";
-		String YAxis = "YAchse";
-		Plot plot = new CategoryPlot();
-		String ID = "1";
+//		/**
+//		 * Test chart start
+//		 */
+//		String title = "Test";
+//		String XAxis = "XAchse";
+//		String YAxis = "YAchse";
+//		Plot plot = new CategoryPlot();
+//		String ID = "1";
+//		
+//		
+//		JFreeChart chart = BHChartFactory.getLineChart(title, XAxis, YAxis, createDataset(), plot, ID);
+//		
+//		final ChartPanel chartPanel = new ChartPanel(chart);
+//	    chartPanel.setPreferredSize(new Dimension(500, 270));
+//	    JPanel neu = new JPanel();
+//	    /**
+//	     * Test chart end
+//	     */
+//
+//	    
+//	    //create the forms panel
+//		formsPanel = new BHFormsPanel();
+//		
+//		//build the plit pane with forms panel and chart included
+//		paneV = new JSplitPane(JSplitPane.VERTICAL_SPLIT, formsPanel, neu.add(chartPanel));
+//		paneV.setOneTouchExpandable(true);
+//		paneV.setDividerLocation(formPanelHeight);
+//	
+//		add(paneV, BorderLayout.CENTER);
 		
 		
-		JFreeChart chart = BHChartFactory.getLineChart(title, XAxis, YAxis, createDataset(), plot, ID);
-		
-		final ChartPanel chartPanel = new ChartPanel(chart);
-	    chartPanel.setPreferredSize(new Dimension(500, 270));
-	    JPanel neu = new JPanel();
-	    /**
-	     * Test chart end
-	     */
-
-	    
-	    //create the forms panel
-		formsPanel = new BHFormsPanel();
-		
-		//build the plit pane with forms panel and chart included
-		paneV = new JSplitPane(JSplitPane.VERTICAL_SPLIT, formsPanel, neu.add(chartPanel));
-		paneV.setOneTouchExpandable(true);
-		paneV.setDividerLocation(formPanelHeight);
-	
-		add(paneV, BorderLayout.CENTER);
 	}
     
     private static CategoryDataset createDataset() {
@@ -124,7 +118,10 @@ public class BHContent extends JPanel{
         dataset.addValue(4.0, series3, type7);
         dataset.addValue(3.0, series3, type8);
 
-        return dataset;
-                
+        return dataset;               
+    }
+    
+    public static void setFormPanel(){
+    	
     }
 }

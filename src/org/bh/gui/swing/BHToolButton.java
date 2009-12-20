@@ -7,7 +7,7 @@ import java.awt.event.MouseListener;
 import java.net.URL;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
-import javax.swing.JLabel;
+import javax.swing.JPanel;
 
 /**
  * 
@@ -96,15 +96,20 @@ public class BHToolButton extends JButton implements MouseListener, ActionListen
 	    // Handle each button.
 	    if (cmd.equals("addP")) { //add project button clicked
 	    	System.out.println("add project");
-	    	BHTree.addProject("New Project " + BHTreeBar.getNodeSuffix());
+	    	BHTree.addProject("New Project " + BHTree.getNodeSuffix());
+	    	BHMainFrame.addContentForms(new BHFormsPanel());
+	    	
 	    } else if(cmd.equals("addS")){
 	    	BHTree.addScenario("New Scenario");
+	    	BHMainFrame.addContentFormsAndChart(new BHFormsPanel(), new JPanel());
         } else if (cmd.equals("remove")) {
             //Remove button clicked
             BHTree.removeCurrentNode();
+            
         } else if (cmd.equals("delete")) {
             //Clear button clicked.
             BHTree.clear();
+            BHTree.setNodeSuffix();
         }
 	       
 	 }

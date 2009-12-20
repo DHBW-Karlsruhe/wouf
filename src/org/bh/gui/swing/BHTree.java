@@ -19,6 +19,8 @@ public class BHTree extends JPanel {
     protected static DefaultTreeModel treeModel;
     protected static JTree tree;
     private static Toolkit toolkit = Toolkit.getDefaultToolkit();
+    
+    private static int newNodeSuffix = 1;
 
     public BHTree() {
         super(new GridLayout(1,0));
@@ -31,12 +33,20 @@ public class BHTree extends JPanel {
         tree.setRootVisible(false);
         tree.getSelectionModel().setSelectionMode(TreeSelectionModel.SINGLE_TREE_SELECTION);
         tree.setShowsRootHandles(true);
-        //tree.setPreferredSize(new Dimension(250, 400));
+        tree.setPreferredSize(new Dimension(200, 400));
         
 
         JScrollPane scrollPane = new JScrollPane(tree);
         add(scrollPane);
         
+    }
+    
+    public static int getNodeSuffix(){
+    	return newNodeSuffix++;
+    }
+    
+    public static void setNodeSuffix(){
+    	newNodeSuffix = 1;
     }
 
     /** Remove all nodes except the root node. */
