@@ -22,7 +22,7 @@
     <path id="BH.classpath">
         <pathelement location="${build.dir}"/>
         <dirset dir="${plugins.build.dir}" includes="*"/>
-        <fileset dir="${lib.dir}" includes="*.jar"/>
+        <fileset dir="${lib.dir}" includes="**/*.jar" excludes="ant/**"/>
     </path>
     
     <target name="clean">
@@ -81,27 +81,27 @@
     </target>
     
     <target depends="compile" name="createcorejar">
-        <jar destfile="${jar.name.core}">
+        <jar destfile="${jar.name.core}" duplicate="preserve">
             <manifest>
                 <attribute name="Main-Class" value="${jar.mainclass}"/>
                 <attribute name="Class-Path" value="."/>
             </manifest>
             <fileset dir="${build.dir}"/>
-            <zipgroupfileset dir="${lib.dir}" includes="*.jar"/>
+            <zipgroupfileset dir="${lib.dir}" includes="**/*.jar" excludes="ant/**"/>
         </jar>
         
         <signjar jar="${jar.name.core}" keystore="${jar.store.file}" alias="${jar.store.alias}" storepass="${jar.store.pass}"/>
     </target>
     
     <target depends="compile" name="createbundledjar">
-        <jar destfile="${jar.name.bundled}">
+        <jar destfile="${jar.name.bundled}" duplicate="preserve">
             <manifest>
                 <attribute name="Main-Class" value="${jar.mainclass}"/>
                 <attribute name="Class-Path" value="."/>
             </manifest>
             <fileset dir="${build.dir}"/>
             <fileset dir="." includes="${plugins.build.dir}/**"/>
-            <zipgroupfileset dir="${lib.dir}" includes="*.jar"/>
+            <zipgroupfileset dir="${lib.dir}" includes="**/*.jar" excludes="ant/**"/>
         </jar>
         
         <signjar jar="${jar.name.bundled}" keystore="${jar.store.file}" alias="${jar.store.alias}" storepass="${jar.store.pass}"/>
