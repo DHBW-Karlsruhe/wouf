@@ -3,18 +3,18 @@ package org.bh.gui.swing;
 import java.awt.BorderLayout;
 import java.awt.Component;
 
-import javax.swing.JDesktopPane;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JPanel;
 import javax.swing.JSplitPane;
 import javax.swing.UIManager;
 import javax.swing.WindowConstants;
 import javax.swing.UIManager.LookAndFeelInfo;
 
+import org.apache.log4j.Logger;
 import org.bh.platform.PlatformEvent;
 import org.bh.platform.Services;
 import org.bh.platform.PlatformEvent.Type;
-
 
 /**
  * Main Frame for Business Horizon Application.
@@ -29,22 +29,54 @@ import org.bh.platform.PlatformEvent.Type;
  * 
  */
 public class BHMainFrame extends JFrame {
-	private static final long serialVersionUID = -8173399020286070131L;
 
-	public static JDesktopPane desktop;
+	/**
+	 * main panel.
+	 */
+	public static JPanel desktop;
 
+	/**
+	 * ToolBar for desktop.
+	 */
 	public BHToolBar toolBar;
+
+	/**
+	 * Tree for File contents.
+	 */
 	public static BHTree treeBar;
+
+	/**
+	 * Status Bar.
+	 */
 	public BHStatusBar statusBar;
+
 	public static BHContent content;
 
+	/**
+	 * Horizontal Split pane.
+	 */
 	static JSplitPane paneH;
 
+	/**
+	 * Vertical Split pane.
+	 */
 	JSplitPane paneV;
 
 	JLabel test;
-	
+
+	/**
+	 * Open / Save dialog
+	 */
+	private BHFileChooser chooser;
+
+	/**
+	 * Standard Bar height.
+	 */
 	int standardBarHeight = 40;
+
+	/**
+	 * Tree Bar height.
+	 */
 	static int treeBarWidth = 200;
 
 	/**
@@ -62,7 +94,7 @@ public class BHMainFrame extends JFrame {
 		setExtendedState(MAXIMIZED_BOTH);
 
 		// build GUI components
-		desktop = new JDesktopPane();
+		desktop = new JPanel();
 		desktop.setLayout(new BorderLayout());
 
 		toolBar = new BHToolBar(getWidth(), standardBarHeight);
@@ -75,13 +107,13 @@ public class BHMainFrame extends JFrame {
 
 		statusBar = Services.getBHstatusBar();
 		content = new BHContent();
-	
+
 		// Create the horizontal split pane and put the treeBar and the content
 		// in it.
 		paneH = new JSplitPane(JSplitPane.HORIZONTAL_SPLIT, treeBar, content);
 		paneH.setOneTouchExpandable(true);
 		paneH.setDividerLocation(treeBarWidth);
-		
+
 		// stop moving the divider
 		// pane.setEnabled(false);
 
@@ -90,15 +122,16 @@ public class BHMainFrame extends JFrame {
 		desktop.add(statusBar, BorderLayout.PAGE_END);
 		// desktop.add(content, BorderLayout.CENTER);
 
-		setContentPane(desktop);
-		setSize(getPreferredSize());
+		this.setContentPane(desktop);
 		setVisible(true);
-		
-		// work around a Java-or-whatever bug which causes the main window to hide behind Eclipse
+
+		// work around a Java-or-whatever bug which causes the main window to
+		// hide behind Eclipse
 		this.setAlwaysOnTop(true);
 		this.setAlwaysOnTop(false);
 
-		Services.firePlatformEvent(new PlatformEvent(this, Type.PLATFORM_LOADING_COMPLETED));
+		Services.firePlatformEvent(new PlatformEvent(this,
+				Type.PLATFORM_LOADING_COMPLETED));
 	}
 
 	/**
@@ -108,22 +141,25 @@ public class BHMainFrame extends JFrame {
 		// Mac properties
 		// System.setProperty("apple.laf.useScreenMenuBar", "true");
 		// System.setProperty("com.apple.mrj.application.apple.menu.about.name",
-		// BHTranslator.getInstance().translate("title"));
+		// Services.getTranslator().translate("title"));
 
 		this.setNimbusLookAndFeel();
-		this.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
+		// EXIT is like app suicide
+		this.setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
 		this.setLocationRelativeTo(null);
 		this.setJMenuBar(new BHMenuBar());
 	}
-	
-	public static void addContentForms(Component content){
+
+	public static void addContentForms(Component content) {
 		paneH.setRightComponent(content);
-			
+
 	}
-	public static void addContentFormsAndChart(Component forms, Component chart){
-		JSplitPane paneV = new JSplitPane(JSplitPane.VERTICAL_SPLIT, forms, chart);
+
+	public static void addContentFormsAndChart(Component forms, Component chart) {
+		JSplitPane paneV = new JSplitPane(JSplitPane.VERTICAL_SPLIT, forms,
+				chart);
 		paneV.setOneTouchExpandable(true);
-		
+
 		paneH.setRightComponent(paneV);
 	}
 
@@ -147,7 +183,10 @@ public class BHMainFrame extends JFrame {
 				}
 			}
 		} catch (Exception e) {
-			// If Nimbus is not available - leave JRE default Look & Feel.
+			Logger
+					.getLogger(BHMainFrame.class)
+					.debug(
+							"Nimbus Look&Feel not found, fall back to default Look&Feel");
 		}
 	}
 }
