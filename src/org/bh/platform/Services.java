@@ -24,7 +24,7 @@ import org.bh.platform.i18n.ITranslator;
 public class Services {
 	private static EventListenerList platformListeners = new EventListenerList();
 	private static ITranslator translator = BHTranslator.getInstance();
-	private static BHStatusBar bhStatusBar = BHStatusBar.getInstance("");
+	private static BHStatusBar bhStatusBar = BHStatusBar.getInstance();
 	private static HashMap<String, DisplayablePluginWrapper<IShareholderValueCalculator>> dcfMethods;
 	private static HashMap<String, DisplayablePluginWrapper<IStochasticProcess>> stochasticProcesses;
 
