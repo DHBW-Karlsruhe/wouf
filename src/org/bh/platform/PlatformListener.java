@@ -12,6 +12,8 @@ import java.util.EventListener;
 public interface PlatformListener extends EventListener {
 	/**
 	 * Invoked when the platform fires an event.
-	 */
+         *
+         * @param e 
+         */
 	public void platformEvent(PlatformEvent e);
 }

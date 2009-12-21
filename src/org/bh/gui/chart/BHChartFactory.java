@@ -3,6 +3,7 @@ package org.bh.gui.chart;
 import org.jfree.chart.*;
 import org.jfree.chart.plot.*;
 import org.jfree.data.category.CategoryDataset;
+import org.jfree.data.general.Dataset;
 import org.jfree.data.xy.XYDataset;
 import org.jfree.data.statistics.*;
 
@@ -18,6 +19,7 @@ import org.jfree.data.statistics.*;
 
 public class BHChartFactory{
     
+    
 	/**
 	 * Method to create a LineChart
 	 * 
@@ -31,9 +33,8 @@ public class BHChartFactory{
 	 * 			CategoryDataset needed to create a Chart
 	 * @param plot
 	 * 			CategoryPlot of the Chart
-	 * @param ID
-	 * 			default ID
-	 * @return created LineChart
+         * @param key
+         * @return created LineChart
 	 */
     public static JFreeChart getLineChart(String title, String XAxis, String YAxis, CategoryDataset dataset, Plot plot, String key){
 	
@@ -55,7 +56,8 @@ public class BHChartFactory{
 	 * @param key
 	 * 			<code>String</code> key
 	 * @param plot
-	 * 			<code>Plot</code> plot to render the Chart
+     * 			<code>Plot</code> plot to render the Chart
+     * @return
 	 * 
 	 */
     public static JFreeChart getXYAreaChart(String title, String xAxis, String yAxis, XYDataset dataset, String key, XYPlot plot){
@@ -78,12 +80,17 @@ public class BHChartFactory{
 	 * @param key
 	 * 			<code>String</code> key
 	 * @param plot
-	 * 			<code>Plot</code> plot to render the Chart
+     * 			<code>Plot</code> plot to render the Chart
+     * @return
 	 * 
 	 */
     public static JFreeChart getHistogramChart(String title, String xAxis, String yAxis, HistogramDataset dataset, String key, Plot plot){
     	
     	BHHistogramChart chart = new BHHistogramChart(title, xAxis, yAxis, dataset, key, plot);
     	return chart.getChart();
+    }
+
+    private static Dataset dimDataset(Comparable column, Comparable row, class type){
+
     }
 }

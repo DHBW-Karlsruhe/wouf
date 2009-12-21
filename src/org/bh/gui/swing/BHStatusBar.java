@@ -62,14 +62,14 @@ public class BHStatusBar extends JPanel{
      * create the status bar with the tooltip included
      * @param toolTip
      */
-    public static void setToolTip(String toolTip){
+    public void setToolTip(String toolTip){
 		lToolTip.setText(toolTip);
 		//test.repaint();
 		lToolTip.revalidate();
 
     }
     
-    public static void setValidationToolTip(JLabel label){
+    public void setValidationToolTip(JLabel label){
     	lToolTip.setText(label.getText());
       	lToolTip.revalidate();
     }

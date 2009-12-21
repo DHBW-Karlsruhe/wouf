@@ -27,7 +27,7 @@ public interface IController {
     View getView();
     /**
      * define the access to the translator engine of the platform
-     * @param translator
+     * @return
      */
     ITranslator getTranslator();
     /**

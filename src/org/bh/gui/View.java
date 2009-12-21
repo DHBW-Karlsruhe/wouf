@@ -6,7 +6,10 @@
 package org.bh.gui;
 
 import java.awt.Component;
+import java.awt.Event;
+import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
+import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 import java.util.Collections;
 import java.util.HashMap;
@@ -40,6 +43,14 @@ public abstract class View implements  KeyListener, PropertyChangeListener{
         this.validator = validator;
         this.translator = translator;
         this.bhModelComponents = mapBHcomponents(viewPanel.getComponents());
+    }
+
+    /**
+     *
+     * @param viewPanel
+     */
+    public View(JPanel viewPanel){
+        this.viewPanel = viewPanel;
     }
 
     /**
@@ -92,8 +103,16 @@ public abstract class View implements  KeyListener, PropertyChangeListener{
         }
         return map;
     }
-    public ITranslator getTranslator(){
+    /**
+     *
+     * @return
+     */
+    protected ITranslator getTranslator(){
         return this.translator;
+    }
+
+    protected void setTranslator(ITranslator translator) {
+        this.translator = translator;
     }
     /**
      * deliver the Labels with translation key
@@ -127,4 +146,50 @@ public abstract class View implements  KeyListener, PropertyChangeListener{
         this.bhTextComponents = Collections.synchronizedMap(new HashMap<String, IBHComponent>());
         this.bhModelComponents = mapBHcomponents(viewPanel.getComponents());
     }
+    /**
+     *
+     * @return
+     */
+    public BHValidityEngine getValidator() {
+        return validator;
+    }
+
+    /**
+     *
+     * @param validator
+     */
+    protected void setValidator(BHValidityEngine validator) {
+        this.validator = validator;
+    }
+
+
+    private void handleValidateEvent(Object e){
+        validator.validate((IBHComponent) e);
+
+    }
+    public void keyPressed(KeyEvent e) {
+        if(e.getSource() instanceof IBHComponent) {
+            this.handleValidateEvent(e.getSource());
+        }
+    }
+
+    public void keyReleased(KeyEvent e) {
+        if(e.getSource() instanceof IBHComponent) {
+            this.handleValidateEvent(e.getSource());
+        }
+    }
+
+    public void keyTyped(KeyEvent e) {
+        if(e.getSource() instanceof IBHComponent) {
+            this.handleValidateEvent(e.getSource());
+        }
+    }
+
+    public void propertyChange(PropertyChangeEvent evt) {
+        if(evt.getSource() instanceof IBHComponent) {
+            this.handleValidateEvent(evt.getSource());
+        }
+    }
+
+
 }

@@ -8,6 +8,7 @@ import java.net.URL;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JPanel;
+import org.bh.platform.Services;
 
 /**
  * 
@@ -26,6 +27,7 @@ public class BHToolButton extends JButton implements MouseListener, ActionListen
     
     public String toolTip;
     public String buttonName;
+    private BHStatusBar bhStatusBar;
 	
     
     public BHToolButton(String imageName,String actionCommand,String toolTipText,String altText){
@@ -57,6 +59,7 @@ public class BHToolButton extends JButton implements MouseListener, ActionListen
             setText(altText);
             System.err.println("Resource not found: "+ imgLocation);
         }
+        this.bhStatusBar = Services.getBHstatusBar();
         
     }
     public String getToolTip(){
@@ -71,12 +74,12 @@ public class BHToolButton extends JButton implements MouseListener, ActionListen
 	}
 	@Override
 	public void mouseEntered(MouseEvent e) {
-		BHStatusBar.setToolTip(getToolTip());
+		this.bhStatusBar.setToolTip(getToolTip());
 		//BHStatusBar.setValidationToolTip(new JLabel("Test"));
 	}
 	@Override
 	public void mouseExited(MouseEvent e) {
-		BHStatusBar.setToolTip("");
+		this.bhStatusBar.setToolTip("");
 	}
 	@Override
 	public void mousePressed(MouseEvent e) {
