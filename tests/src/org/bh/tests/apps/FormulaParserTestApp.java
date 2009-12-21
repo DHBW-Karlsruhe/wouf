@@ -20,8 +20,8 @@ import javax.swing.SwingConstants;
 import net.sourceforge.jeuclid.swing.JMathComponent;
 
 import org.bh.data.types.Calculable;
-import org.bh.platform.formula.FormulaImpl;
-import org.bh.platform.formula.FormulaFactoryImpl;
+import org.bh.platform.formula.IFormula;
+import org.bh.platform.formula.IFormulaFactory;
 
 @SuppressWarnings("serial")
 public class FormulaParserTestApp extends JFrame {
@@ -78,7 +78,7 @@ public class FormulaParserTestApp extends JFrame {
 	    @Override
 	    public void actionPerformed(ActionEvent e) {
 		try {
-		    FormulaImpl test = FormulaFactoryImpl.getInstance().createFormula(
+		    IFormula test = IFormulaFactory.instance.createFormula(
 			    "test", txt.getText());
 
 		    Map<String, org.bh.data.types.Calculable> values = new HashMap<String, Calculable>();
@@ -95,7 +95,7 @@ public class FormulaParserTestApp extends JFrame {
 		    test.setInputValuesToJMathComponent(values, mathCompForValues);
 		  
 		    long start = System.nanoTime();
-		    Calculable erg = test.determineLeftHandSide(values);
+		    Calculable erg = test.determineLeftHandSideValue(values);
 		    long end = System.nanoTime();
 		 
 		    result.setText("Ergebnis: " + erg + " ; Berechnungsdauer: " + (end - start) / (double) 1000000 + "ms");

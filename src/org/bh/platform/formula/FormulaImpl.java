@@ -12,6 +12,7 @@ import net.sourceforge.jeuclid.context.LayoutContextImpl;
 import net.sourceforge.jeuclid.converter.Converter;
 import net.sourceforge.jeuclid.swing.JMathComponent;
 
+import org.apache.log4j.Logger;
 import org.bh.data.types.Calculable;
 import org.bh.platform.expression.Expression;
 import org.bh.platform.expression.ExpressionException;
@@ -39,7 +40,11 @@ import org.w3c.dom.NodeList;
  * @version 0.1, 01.12.2009
  * @version 0.2, 21.12.2009
  */
-public class Formula {
+public class FormulaImpl implements IFormula {
+
+	private static final int FONT_SIZE = 24;
+	
+	private static final Logger log = Logger.getLogger(FormulaImpl.class);
 
 	/** The formula. */
 	private Document formulaDoc;
@@ -60,16 +65,27 @@ public class Formula {
 	 * @throws FormulaException
 	 *             the formula exception
 	 */
-	protected Formula(String name, Document formula, String leftHandSide, Expression rightHandSide)
-			throws FormulaException {
+	protected FormulaImpl(String name, Document formula, String leftHandSide,
+			Expression rightHandSide) throws FormulaException {
 		this.name = name;
 		this.formulaDoc = formula;
 		this.leftHandSide = leftHandSide;
 		this.rightHandSide = rightHandSide;
 	}
 
+	@Override
 	public String getName() {
 		return name;
+	}
+
+	/**
+	 * Gets the left hand side.
+	 * 
+	 * @return the left hand side
+	 */
+	@Override
+	public String getLeftHandSideKey() {
+		return leftHandSide;
 	}
 
 	/**
@@ -79,17 +95,23 @@ public class Formula {
 	 *            the input values
 	 * 
 	 * @return the map< string, calculable>
-	 * @throws ExpressionException
 	 * 
 	 */
-	public synchronized Calculable determineLeftHandSide(
-			Map<String, Calculable> inputValues) throws ExpressionException {
-		return rightHandSide.evaluate(inputValues);
+	@Override
+	public Calculable determineLeftHandSideValue(
+			Map<String, Calculable> inputValues) {
+		try {
+			return rightHandSide.evaluate(inputValues);
+		} catch (ExpressionException e) {
+			log.fatal("Error while evaluating expression", e);
+			return null;
+		}
 	}
 
-	public synchronized void determineLeftHandSideToInpValues(
-			Map<String, Calculable> inputValues) throws ExpressionException {
-		inputValues.put(leftHandSide, rightHandSide.evaluate(inputValues));
+	@Override
+	public void determineLeftHandSideValueToInpValues(
+			Map<String, Calculable> inputValues) {
+		inputValues.put(leftHandSide, determineLeftHandSideValue(inputValues));
 		return;
 	}
 
@@ -98,6 +120,7 @@ public class Formula {
 	 * 
 	 * @return the icon
 	 */
+	@Override
 	public Icon getIcon() {
 		Converter c = Converter.getInstance();
 		LayoutContext lc = LayoutContextImpl.getDefaultLayoutContext();
@@ -110,6 +133,7 @@ public class Formula {
 		}
 	}
 
+	@Override
 	public Icon getIconForInputValues(Map<String, Calculable> inputValues) {
 		Converter c = Converter.getInstance();
 		LayoutContext lc = LayoutContextImpl.getDefaultLayoutContext();
@@ -127,37 +151,39 @@ public class Formula {
 	 * 
 	 * @return the formula rendering as component.
 	 */
+	@Override
 	public JMathComponent getMathComponent() {
 		JMathComponent mathComponent = new JMathComponent();
-		mathComponent.setFontSize(16);
+		mathComponent.setFontSize(FONT_SIZE);
 		mathComponent.setDocument(formulaDoc);
 		return mathComponent;
 	}
 
+	@Override
 	public JMathComponent getMathComponentForInputValues(
 			Map<String, Calculable> inputValues) {
 		JMathComponent mathComponent = new JMathComponent();
-		mathComponent.setFontSize(16);
+		mathComponent.setFontSize(FONT_SIZE);
 		mathComponent.setDocument(replaceCIwithCN(inputValues));
 		return mathComponent;
 	}
 
-	/**
-	 * Gets the left hand side.
-	 * 
-	 * @return the left hand side
-	 */
-	public String getLeftHandSide() {
-		return leftHandSide;
+	@Override
+	public void setFormulaToJMathComponent(JMathComponent mathCompExt) {
+		mathCompExt.setFontSize(FONT_SIZE);
+		mathCompExt.setDocument(formulaDoc);
+	}
+
+	
+	@Override
+	public void setInputValuesToJMathComponent(
+			Map<String, Calculable> inputValues, JMathComponent mathCompExt) {
+		mathCompExt.setFontSize(FONT_SIZE);
+		mathCompExt.setDocument(replaceCIwithCN(inputValues));
 	}
 
 	private Document replaceCIwithCN(Map<String, Calculable> inputValues) {
-		try {
-			determineLeftHandSideToInpValues(inputValues);
-		} catch (ExpressionException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+		determineLeftHandSideValueToInpValues(inputValues);
 		Document formulaDoc2 = (Document) formulaDoc.cloneNode(true);
 		NodeList variables = formulaDoc2.getElementsByTagName("ci");
 		while (variables.getLength() > 0) {
