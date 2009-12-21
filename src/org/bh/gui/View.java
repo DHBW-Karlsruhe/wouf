@@ -6,7 +6,6 @@
 package org.bh.gui;
 
 import java.awt.Component;
-import java.awt.Event;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.beans.PropertyChangeEvent;
@@ -14,7 +13,9 @@ import java.beans.PropertyChangeListener;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
+
 import javax.swing.JPanel;
+
 import org.bh.gui.chart.IBHAddValue;
 import org.bh.gui.swing.BHButton;
 import org.bh.gui.swing.BHLabel;
@@ -31,7 +32,7 @@ public abstract class View implements  KeyListener, PropertyChangeListener{
     private JPanel viewPanel;
     private Map<String, IBHAddValue> bhChartComponents;
     private Map<String, IBHComponent> bhModelComponents;
-    private Map<String, IBHComponent> bhTextComponents = Collections.synchronizedMap(new HashMap<String, IBHComponent>());
+    private Map<String, IBHComponent> bhTextComponents;
     private ITranslator translator;
 
     /**
@@ -42,15 +43,12 @@ public abstract class View implements  KeyListener, PropertyChangeListener{
      * @throws ViewException
      */
     public View(JPanel viewPanel, BHValidityEngine validator, ITranslator translator) throws ViewException{
-        this.viewPanel = viewPanel;
         this.validator = validator;
         this.translator = translator;
-        this.bhModelComponents = mapBHcomponents(viewPanel.getComponents());
+        setViewPanel(viewPanel);
     }
     public View(JPanel viewPanel, BHValidityEngine validator) throws ViewException{
-        this.viewPanel = viewPanel;
-        this.validator = validator;
-        this.bhModelComponents = mapBHcomponents(viewPanel.getComponents());
+    	this(viewPanel, validator, null);
     }
 
     /**

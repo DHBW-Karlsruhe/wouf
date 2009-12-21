@@ -5,20 +5,18 @@
 // no build
 package org.bh.controller;
 
-import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.Map;
-import java.util.Observer;
+
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+
 import org.apache.log4j.Logger;
-import org.bh.data.IDTO;
 import org.bh.data.DTOAccessException;
-import org.bh.gui.BHValidityEngine;
+import org.bh.data.IDTO;
 import org.bh.gui.View;
 import org.bh.gui.swing.BHStatusBar;
 import org.bh.gui.swing.IBHComponent;
-import org.bh.platform.PlatformEvent;
 import org.bh.platform.PlatformListener;
 import org.bh.platform.Services;
 import org.bh.platform.i18n.ITranslator;
@@ -31,55 +29,48 @@ public abstract class Controller implements IController, ActionListener, Platfor
 
     private static  Logger log = Logger.getLogger(Controller.class);
     /**
-     * Refernz to the activ view of the plugin
+     * Reference to the active view of the plugin
      * Can be null
      */
     private View view = null;
     /**
-     * Refernz to all model depending IBHcomponents on the UI
+     * Reference to all model depending IBHcomponents on the UI
      */
     private Map<String, IBHComponent> bhModelcomponents;
     /**
      * Referenz to the model
      * Can be null
      */
-    private IDTO model = null;;
+    private IDTO model = null;
     /**
-     * Refernz to the Pltform StatusBar. Must be used in every constructor
+     * Reference to the Platform StatusBar. Must be set in every constructor
      */
     private BHStatusBar bhStatusBar;
 
-
-    public Controller(){
-        log.debug("Plugincontroller instance");
-        this.bhStatusBar = Services.getBHstatusBar();
-        Services.addPlatformListener(this);
-    }
-    public Controller(View view){
-        log.debug("Plugincontroller instance");
-        this.view = view;
-        this.bhStatusBar = Services.getBHstatusBar();
-        this.bhModelcomponents = this.view.getBHmodelComponents();
-        Services.addPlatformListener(this);
-    }
     public Controller(View view, IDTO model){
         log.debug("Plugincontroller instance");
         this.model = model;
         this.view = view;
         this.bhStatusBar = Services.getBHstatusBar();
-        this.bhModelcomponents = this.view.getBHmodelComponents();
+        if (view != null) {
+        	this.bhModelcomponents = this.view.getBHmodelComponents();
+        }
         Services.addPlatformListener(this);
     }
+    
+    public Controller(){
+    	this(null, null);
+    }
+    public Controller(View view){
+        this(view, null);
+    }
     public Controller(IDTO model){
-        log.debug("Plugincontroller instance");
-        this.model = model;
-        this.bhStatusBar = Services.getBHstatusBar();
-        Services.addPlatformListener(this);
+    	this(null, model);
     }
     /**
      * central exception handler method. Should be called in every catch statement
-     * in each plugin. The Standard writes a message to the <code>BHstatuBar</code>
-     * of the Plat6form
+     * in each plugin. The Standard writes a message to the <code>BHstatusBar</code>
+     * of the Platform
      * @see BHstatusBar
      * @param e
      */
@@ -108,7 +99,7 @@ public abstract class Controller implements IController, ActionListener, Platfor
      * @return
      * @throws DTOAccessException
      */
-    private void safeAllToModel() throws DTOAccessException{
+    private void saveAllToModel() throws DTOAccessException{
         log.debug("Plugin save to dto");
         this.model.setSandBoxMode(Boolean.TRUE);
         for(String key : this.bhModelcomponents.keySet()){
