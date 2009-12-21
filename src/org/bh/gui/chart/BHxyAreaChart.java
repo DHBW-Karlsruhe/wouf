@@ -85,11 +85,11 @@ public class BHxyAreaChart extends JFreeChart implements IBHComponent{
 		// TODO Auto-generated method stub
 		throw new UnsupportedOperationException("This method has not been implemented");
 	}
-
+        @Override
         public IValue getValue() {
             throw new UnsupportedOperationException("Not supported yet.");
         }
-
+        @Override
         public  void setValue(IValue value){
             throw new UnsupportedOperationException("Not supported yet.");
         }

@@ -132,18 +132,12 @@ public abstract class Controller implements IController, ActionListener, Platfor
     private void loadAllToView()throws DTOAccessException{
         log.debug("Plugin load from dto in view");
         for(String key : this.bhModelcomponents.keySet()){
-
+            this.bhModelcomponents.get(key).setValue(this.model.get(key));
         }
-
-
     }
     private void loadToView(String key) throws DTOAccessException, ControllerException{
         log.debug("Plugin load from dto in view");
-
-    }
-
-    public void handlePlattformEvent(PlatformEvent e) {
-        
+        this.bhModelcomponents.get(key).setValue(this.model.get(key));
     }
 
     public void setModel(IDTO model) {

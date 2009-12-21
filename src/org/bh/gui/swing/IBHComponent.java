@@ -30,6 +30,11 @@ public interface IBHComponent {
      */
     public IValue getValue();
     /**
+     * set the modelspecific Value to the UI Element
+     * @param value
+     */
+    public void setValue(IValue value);
+    /**
      * Number of rules and the rules itself are platform indipendent But
      * shall be consitent in every plugin by using one Validity Engine per plugin
      * @return amount of rules defined in a subclass of BHValidity engine
