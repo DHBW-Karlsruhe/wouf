@@ -2,6 +2,8 @@ package org.bh;
 
 import java.lang.Thread.UncaughtExceptionHandler;
 
+import javax.swing.SwingUtilities;
+
 import org.apache.log4j.Logger;
 import org.bh.data.IPeriodicalValuesDTO;
 import org.bh.gui.swing.BHMainFrame;
@@ -33,6 +35,9 @@ public class BusinessHorizon {
 	public static void main(String[] args) throws Exception {
 		log.info("Business Horizon is starting...");
 
+		// show splash screen
+		new Thread(new BHSplashScreen()).start();
+
 		Thread
 				.setDefaultUncaughtExceptionHandler(new UncaughtExceptionHandler() {
 					@Override
@@ -41,14 +46,16 @@ public class BusinessHorizon {
 					}
 				});
 
-		// show splash screen
-		new Thread(new BHSplashScreen()).start();
-
 		PluginManager.getInstance().loadAllServices(IPeriodicalValuesDTO.class);
 
-		// new Main();
-
 		// Invoke start of BHMainFrame
-		new BHMainFrame(BHTranslator.getInstance().translate("title"));
+		SwingUtilities.invokeLater(new Runnable() {
+
+			@Override
+			public void run() {
+				new BHMainFrame(BHTranslator.getInstance().translate("title"));
+			}
+
+		});
 	}
 }
