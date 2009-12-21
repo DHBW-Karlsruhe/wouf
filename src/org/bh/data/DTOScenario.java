@@ -159,7 +159,6 @@ public class DTOScenario extends DTO<DTOPeriod> {
 	public IStochasticProcess getStochasticProcess() {
 		return Services.getStochasticProcess(get(Key.STOCHASTIC_PROCESS).toString());
 	}
-	STOCHASTIC_PROCESS
 	
 	/**
 	 * Returns all keys whose values have to be determined stochastically.
