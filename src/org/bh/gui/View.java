@@ -15,6 +15,8 @@ import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
 import javax.swing.JPanel;
+import org.bh.gui.chart.IBHAddValue;
+import org.bh.gui.swing.BHButton;
 import org.bh.gui.swing.BHLabel;
 import org.bh.gui.swing.IBHComponent;
 import org.bh.platform.i18n.ITranslator;
@@ -27,6 +29,7 @@ public abstract class View implements  KeyListener, PropertyChangeListener{
 
     private BHValidityEngine validator;
     private JPanel viewPanel;
+    private Map<String, IBHAddValue> bhChartComponents;
     private Map<String, IBHComponent> bhModelComponents;
     private Map<String, IBHComponent> bhTextComponents = Collections.synchronizedMap(new HashMap<String, IBHComponent>());
     private ITranslator translator;
@@ -44,9 +47,14 @@ public abstract class View implements  KeyListener, PropertyChangeListener{
         this.translator = translator;
         this.bhModelComponents = mapBHcomponents(viewPanel.getComponents());
     }
+    public View(JPanel viewPanel, BHValidityEngine validator) throws ViewException{
+        this.viewPanel = viewPanel;
+        this.validator = validator;
+        this.bhModelComponents = mapBHcomponents(viewPanel.getComponents());
+    }
 
     /**
-     *
+     * Return the panel instance of the current view
      * @param viewPanel
      */
     public View(JPanel viewPanel){
@@ -62,7 +70,7 @@ public abstract class View implements  KeyListener, PropertyChangeListener{
         comp.addPropertyChangeListener(this);
     }
     /**
-     * Map all components of IBHComponent in the model or text map and set
+     * Map all components of IBHComponent in the model, text or chart map and set
      * KeyListener and PropertyChangeListener <code>addViewListener</code>
      * @param components
      * @return
@@ -86,12 +94,14 @@ public abstract class View implements  KeyListener, PropertyChangeListener{
                         throw new ViewException(e.getCause());
                     }   
                 }
-                if(comp instanceof BHLabel){
+                if(comp instanceof BHLabel || comp instanceof BHButton){
                     try{
                         this.bhTextComponents.put(((IBHComponent)comp).getKey(), (IBHComponent) comp);
                     }catch(Exception e){
                         throw new ViewException(e.getCause());
                     }
+                }else if(comp instanceof IBHAddValue){
+                    this.bhChartComponents.put(((IBHComponent) comp).getKey(), (IBHAddValue) comp);
                 }else{
                     try{
                         map.put(((IBHComponent) comp).getKey(),(IBHComponent) comp);
@@ -164,8 +174,9 @@ public abstract class View implements  KeyListener, PropertyChangeListener{
 
 
     private void handleValidateEvent(Object e){
-        validator.validate((IBHComponent) e);
-
+        if(e instanceof IBHComponent){
+            validator.validate((IBHComponent) e);
+        }
     }
     public void keyPressed(KeyEvent e) {
         if(e.getSource() instanceof IBHComponent) {
