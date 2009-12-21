@@ -17,7 +17,8 @@ import org.bh.platform.PlatformEvent.Type;
  * SplashScreen on startup of Business Horizon Application, to block the
  * mainframe while loading.
  * 
- * @author Heinz.Patrick
+ * @author Patrick Heinz
+ * @author Robert Vollmer
  * @version 0.1, 2009/12/20
  * 
  */

@@ -7,6 +7,8 @@ package org.bh.gui;
 
 import com.jgoodies.validation.ValidationResult;
 import java.util.Map;
+
+import org.bh.gui.swing.BHTextField;
 import org.bh.gui.swing.IBHComponent;
 
 /**
@@ -18,7 +20,8 @@ public abstract class BHValidityEngine {
     public BHValidityEngine(){
 
     }
+    
     abstract ValidationResult validate(IBHComponent comp);
 
-    abstract void validateAll();
+    abstract ValidationResult validateAll(Map<String, BHTextField> toValidate);
 }
