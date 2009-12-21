@@ -129,7 +129,7 @@ public class BHMainFrame extends JFrame {
 		setVisible(true);
 
 		// work around a Java-or-whatever bug which causes the main window to
-		// hide behind Eclipse
+		// hide behind Eclipse TODO Remove
 		this.setAlwaysOnTop(true);
 		this.setAlwaysOnTop(false);
 
