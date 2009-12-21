@@ -2,6 +2,7 @@ package org.bh.gui.chart;
 
 import java.awt.Component;
 
+import org.bh.data.types.IValue;
 import org.bh.gui.swing.IBHComponent;
 import org.bh.platform.i18n.BHTranslator;
 import org.jfree.chart.ChartFactory;
@@ -79,5 +80,10 @@ public class BHLineChart extends JFreeChart implements IBHComponent{
 		// TODO Auto-generated method stub
 		throw new UnsupportedOperationException("This method has not been implemented");
 	}
+
+        public IValue getValue() {
+            throw new UnsupportedOperationException("Not supported yet.");
+        }
+        
  
 }

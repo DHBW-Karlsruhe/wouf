@@ -1,6 +1,7 @@
 package org.bh.gui.swing;
 
 import javax.swing.JButton;
+import org.bh.data.types.IValue;
 
 /**
  * BHButton to display buttons at screen.
@@ -49,6 +50,10 @@ public class BHButton extends JButton implements IBHComponent{
         throw new UnsupportedOperationException("Not supported yet.");
     }
 
+    public IValue getValue() {
+        throw new UnsupportedOperationException("Not supported yet.");
+    }
+    
 
 
 }

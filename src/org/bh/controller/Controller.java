@@ -10,6 +10,7 @@ import java.awt.event.ActionListener;
 import java.util.Map;
 import java.util.Observer;
 import javax.swing.JLabel;
+import javax.swing.JPanel;
 import org.apache.log4j.Logger;
 import org.bh.data.IDTO;
 import org.bh.data.DTOAccessException;
@@ -33,7 +34,7 @@ public abstract class Controller implements IController, ActionListener, Platfor
      * Refernz to the activ view of the plugin
      * Can be null
      */
-    private View view;
+    private View view = null;
     /**
      * Refernz to all model depending IBHcomponents on the UI
      */
@@ -42,7 +43,7 @@ public abstract class Controller implements IController, ActionListener, Platfor
      * Referenz to the model
      * Can be null
      */
-    private IDTO model;
+    private IDTO model = null;;
     /**
      * Refernz to the Pltform StatusBar. Must be used in every constructor
      */
@@ -52,12 +53,14 @@ public abstract class Controller implements IController, ActionListener, Platfor
     public Controller(){
         log.debug("Plugincontroller instance");
         this.bhStatusBar = Services.getBHstatusBar();
+        Services.addPlatformListener(this);
     }
     public Controller(View view){
         log.debug("Plugincontroller instance");
         this.view = view;
         this.bhStatusBar = Services.getBHstatusBar();
         this.bhModelcomponents = this.view.getBHmodelComponents();
+        Services.addPlatformListener(this);
     }
     public Controller(View view, IDTO model){
         log.debug("Plugincontroller instance");
@@ -65,11 +68,13 @@ public abstract class Controller implements IController, ActionListener, Platfor
         this.view = view;
         this.bhStatusBar = Services.getBHstatusBar();
         this.bhModelcomponents = this.view.getBHmodelComponents();
+        Services.addPlatformListener(this);
     }
     public Controller(IDTO model){
         log.debug("Plugincontroller instance");
         this.model = model;
         this.bhStatusBar = Services.getBHstatusBar();
+        Services.addPlatformListener(this);
     }
     /**
      * central exception handler method. Should be called in every catch statement
@@ -79,15 +84,19 @@ public abstract class Controller implements IController, ActionListener, Platfor
      * @param e
      */
     private void handleException(Exception e){
-        log.error("Controller Exception: " + e.getMessage());
+        log.error("Controller Exception ", e);
         this.bhStatusBar.setToolTip(e.getMessage());
     }
     /**
      * @see IController
      * @return
      */
-    public View getView(){
-        return view;
+    public JPanel getView(){
+        if(this.view != null) {
+            return view.getViewPanel();
+        }else{
+            return null;
+        }
     }
 
     public void setView(View view){
@@ -99,19 +108,29 @@ public abstract class Controller implements IController, ActionListener, Platfor
      * @return
      * @throws DTOAccessException
      */
-    private boolean safeAllToModel() throws DTOAccessException{
+    private void safeAllToModel() throws DTOAccessException{
         log.debug("Plugin save to dto");
         model.setSandBoxMode(Boolean.TRUE);
+        //for()
 
-        return true;
+    }
+    private void safeToModel(IBHComponent comp)throws DTOAccessException{
+        log.debug("Plugin save to dto");
+        this.model.put(comp.getKey(), comp.getValue());
     }
     /**
      * writes all dto values with a mathcing key in a IBHComponent to UI
      * @return
      * @throws DTOAccessException
      */
-    private boolean loadAllToView()throws DTOAccessException{
-        log.debug("Plugin load from dto");
+    private void loadAllToView()throws DTOAccessException{
+        log.debug("Plugin load from dto in view");
+
+
+    }
+    private boolean loadToView(String key) throws DTOAccessException{
+        log.debug("Plugin load from dto in view");
+
         return true;
     }
 
@@ -119,20 +138,17 @@ public abstract class Controller implements IController, ActionListener, Platfor
         
     }
 
+    public void setModel(IDTO model) {
+        this.model = model;
+    }
+
     /**
-     * get the <code>ITranslator</code> from the PLatform
+     * get the ITranslator from the Platform
      * @see Servicess
      * @return
      */
     public ITranslator getTranslator() {
         return Services.getTranslator();
-    }
-    /**
-     * handle Plugin Actions
-     * @param e
-     */
-    public void actionPerformed(ActionEvent e) {
-        throw new UnsupportedOperationException("Not supported yet.");
     }
     /**
      * concret BHValidityEngine can use this method to set Validation Tool Tip

@@ -1,6 +1,7 @@
 package org.bh.gui.swing;
 
 import javax.swing.JLabel;
+import org.bh.data.types.IValue;
 
 /**
  * BHLabel to display Labels at screen.
@@ -55,6 +56,11 @@ public class BHLabel extends JLabel implements IBHComponent {
         public boolean isTypeValid() {
             throw new UnsupportedOperationException("Not supported yet.");
         }
+
+        public IValue getValue() {
+            throw new UnsupportedOperationException("Not supported yet.");
+        }
+
 
 
 

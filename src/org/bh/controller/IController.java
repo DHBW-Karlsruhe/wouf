@@ -8,6 +8,7 @@ package org.bh.controller;
 import java.awt.event.ActionEvent;
 import java.util.List;
 import java.util.Map;
+import javax.swing.JPanel;
 import org.apache.log4j.Logger;
 import org.bh.data.IDTO;
 import org.bh.gui.View;
@@ -24,18 +25,7 @@ public interface IController {
      * @return
      * @throws ControllerException
      */
-    View getView();
-    /**
-     * define the access to the translator engine of the platform
-     * @return
-     */
-    ITranslator getTranslator();
-    /**
-     * platform can put events to the component. If the event can be handled by
-     * the component it returns true otherwise false
-     * @param e
-     */
-    void handlePlattformEvent(ActionEvent e);
+    JPanel getView();
     /**
      * platform can define the dto access of the component by this method
      * @param model

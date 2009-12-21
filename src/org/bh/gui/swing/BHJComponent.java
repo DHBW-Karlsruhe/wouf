@@ -6,6 +6,7 @@
 package org.bh.gui.swing;
 
 import javax.swing.JComponent;
+import org.bh.data.types.IValue;
 
 /**
  *
@@ -31,6 +32,11 @@ public class BHJComponent extends JComponent implements IBHComponent{
     public boolean isTypeValid() {
         throw new UnsupportedOperationException("Not supported yet.");
     }
+
+    public IValue getValue() {
+        throw new UnsupportedOperationException("Not supported yet.");
+    }
+
 
 
 }

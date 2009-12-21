@@ -6,6 +6,7 @@ import java.awt.event.KeyEvent;
 import javax.swing.JMenuItem;
 import javax.swing.KeyStroke;
 
+import org.bh.data.types.IValue;
 import org.bh.platform.i18n.BHTranslator;
 
 /**
@@ -70,5 +71,10 @@ public class BHMenuItem extends JMenuItem implements IBHComponent{
 		// TODO Auto-generated method stub
 		throw new UnsupportedOperationException("This method has not been implemented");
 	}
+
+        public IValue getValue() {
+            throw new UnsupportedOperationException("Not supported yet.");
+        }
+
 
 }

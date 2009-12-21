@@ -1,6 +1,7 @@
 package org.bh.gui.swing;
 
 import javax.swing.JTextField;
+import org.bh.data.types.IValue;
 
 /**
  * BHTextField to display simple input fields at screen.
@@ -59,5 +60,11 @@ public class BHTextField extends JTextField implements IBHComponent {
     public boolean isTypeValid() {
         throw new UnsupportedOperationException("Not supported yet.");
     }
+
+    public IValue getValue() {
+        throw new UnsupportedOperationException("Not supported yet.");
+    }
+
+
 
 }

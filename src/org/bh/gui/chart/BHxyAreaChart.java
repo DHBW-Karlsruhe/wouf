@@ -4,6 +4,7 @@ import java.awt.Component;
 
 import javax.swing.UIManager;
 
+import org.bh.data.types.IValue;
 import org.bh.gui.swing.IBHComponent;
 import org.bh.platform.i18n.BHTranslator;
 import org.jfree.chart.ChartFactory;
@@ -84,4 +85,10 @@ public class BHxyAreaChart extends JFreeChart implements IBHComponent{
 		// TODO Auto-generated method stub
 		throw new UnsupportedOperationException("This method has not been implemented");
 	}
+
+        public IValue getValue() {
+            throw new UnsupportedOperationException("Not supported yet.");
+        }
+
+
 }
