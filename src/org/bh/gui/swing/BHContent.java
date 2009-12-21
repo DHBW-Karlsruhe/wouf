@@ -1,8 +1,10 @@
 package org.bh.gui.swing;
 
 import java.awt.BorderLayout;
+import java.awt.Color;
 import java.awt.Dimension;
 import javax.swing.*;
+
 import org.jfree.data.category.CategoryDataset;
 import org.jfree.data.category.DefaultCategoryDataset;
 
@@ -23,7 +25,7 @@ public class BHContent extends JPanel{
 
     private static final long serialVersionUID = 1L;
   
-    public JLabel chart, forms;
+    public JLabel chart, forms, logo;
     public JSplitPane paneV;
     int formPanelHeight = 500;
     
@@ -37,6 +39,11 @@ public class BHContent extends JPanel{
     public BHContent(){
 		setLayout(new BorderLayout());
 		setMinimumSize(new Dimension(100, 100));
+		setBackground(Color.white);
+		
+		logo = new JLabel(new ImageIcon(BHSplashScreen.class.getResource("/org/bh/images/background.jpg")));
+		
+		add(logo, BorderLayout.CENTER);
 		
 //		/**
 //		 * Test chart start
