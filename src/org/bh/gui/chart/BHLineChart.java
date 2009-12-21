@@ -1,6 +1,7 @@
 package org.bh.gui.chart;
 
 import java.awt.Component;
+import java.util.List;
 
 import org.bh.data.types.IValue;
 import org.bh.gui.swing.IBHComponent;
@@ -9,7 +10,8 @@ import org.jfree.chart.ChartFactory;
 import org.jfree.chart.JFreeChart;
 import org.jfree.chart.plot.Plot;
 import org.jfree.chart.plot.PlotOrientation;
-import org.jfree.data.category.CategoryDataset;
+import org.jfree.data.category.DefaultCategoryDataset;
+import org.jfree.data.general.Dataset;
 /**
  * 
  * BHLineChart to create the LineChart 
@@ -21,16 +23,19 @@ import org.jfree.data.category.CategoryDataset;
  * @version 0.1, 16.12.2009
  *
  */
-public class BHLineChart extends JFreeChart implements IBHComponent{
+public class BHLineChart extends JFreeChart implements IBHComponent, IBHAddValue{
     BHTranslator translator = BHTranslator.getInstance();
     
     private String key;
     private JFreeChart chart;
+    private DefaultCategoryDataset dataset;
 
-    protected BHLineChart(String title, String XAxis, String YAxis, CategoryDataset dataset, Plot plot, String key){
+    protected BHLineChart(String title, String XAxis, String YAxis, Dataset dataset, Plot plot, String key){
     	super(plot);
     	this.key = key;
-    	chart = ChartFactory.createLineChart(title, XAxis, YAxis, dataset, PlotOrientation.VERTICAL, true, true, false); 
+    	this.dataset = (DefaultCategoryDataset) dataset;
+    	
+    	chart = ChartFactory.createLineChart(title, XAxis, YAxis, this.dataset, PlotOrientation.VERTICAL, true, true, false); 
     	plot.setNoDataMessage(translator.translate("noDataAvailable"));
 //    	if ("Nimbus".equals(UIManager.getLookAndFeel().getName())) {
 //    		chart.setBackgroundPaint(UIManager.getColor("desktop"));   
@@ -62,7 +67,23 @@ public class BHLineChart extends JFreeChart implements IBHComponent{
 	public String getKey() {
 		return key;
 	}
+	
+	@Override
+	public void addValue(Number value, int row, Comparable<String> columnKey) {
+		
+		this.dataset.addValue(value, dataset.getRowKey(row), columnKey);
+		fireChartChanged();
+	}
 
+	@Override
+	public void addValues(List<?> list, Comparable<String> columnKey) {
+		
+		for(int i=0; i<list.size()+1;i++){
+			this.dataset.addValue((Number)list.get(i), i, columnKey);
+			fireChartChanged();
+		}
+	}
+	
 	@Override
 	public int[] getValidateRules() {
 		// TODO Auto-generated method stub
@@ -80,11 +101,24 @@ public class BHLineChart extends JFreeChart implements IBHComponent{
 		// TODO Auto-generated method stub
 		throw new UnsupportedOperationException("This method has not been implemented");
 	}
-        @Override
+
+	@Override
+	public void addValue(Number value, Comparable<String> columnKey) {
+		// TODO Auto-generated method stub
+		throw new UnsupportedOperationException("This method has not been implemented");
+	}
+
+	@Override
+	public void addSeries(Comparable<String> key, double[] values, int bins,
+			double minimum, double maximum) {
+		// TODO Auto-generated method stub
+		throw new UnsupportedOperationException("This method has not been implemented");
+	} 
+
         public IValue getValue() {
             throw new UnsupportedOperationException("Not supported yet.");
         }
-        @Override
+
         public  void setValue(IValue value){
             throw new UnsupportedOperationException("Not supported yet.");
         }
