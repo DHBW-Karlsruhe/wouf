@@ -17,29 +17,36 @@ import org.w3c.dom.Node;
  * @version 0.2, 09/12/2009
  * @version 0.3, 21/12/2009
  */
-public class ExpressionFactory {
+public class ExpressionFactoryImpl implements IExpressionFactoy {
 
-	static ExpressionFactory instance = null;
-
-	public static ExpressionFactory getInstance() {
-		if (instance == null) {
-			instance = new ExpressionFactory();
-		}
-		return instance;
+	/**
+	 * Instantiates a new expression factory impl.
+	 */
+	protected ExpressionFactoryImpl() {
+		// noop
 	}
 
-	private ExpressionFactory() {
-
-	}
-
-	public Expression createExpression(Node exp) throws ExpressionException {
+	/* Specified by interface/super class. */
+	@Override
+	public final IExpression createExpression(final Node exp)
+			throws ExpressionException {
 
 		ArrayList<Object> instructions = fillInstructionList(exp);
 
-		return new Expression(instructions);
+		return new ExpressionImpl(instructions);
 	}
 
-	private ArrayList<Object> fillInstructionList(Node recExp)
+	/**
+	 * Fills instruction list.
+	 * Converts the MathMl content prefix notaion to a postfix notation
+	 * 
+	 * @param expNode the expression node
+	 * 
+	 * @return the array list< object> containing the evauation order
+	 * 
+	 * @throws ExpressionException the expression exception
+	 */
+	private ArrayList<Object> fillInstructionList(final Node expNode)
 			throws ExpressionException {
 		Node operatorNode = null;
 		Node operand1Node = null;
@@ -49,13 +56,13 @@ public class ExpressionFactory {
 		ArrayList<Object> instructions = new ArrayList<Object>();
 
 		// check whether Node recExp is of element <apply>
-		if (!isExpression(recExp)) {
+		if (!isExpression(expNode)) {
 			throw new ExpressionException(
 					"Node is not an expression. Expressions tag name is <apply>");
 		}
 
 		// check whether operator is valid
-		operatorNode = recExp.getFirstChild().getNextSibling();
+		operatorNode = expNode.getFirstChild().getNextSibling();
 		if ((operator = OperatorEnum.getOperator(operatorNode.getNodeName())) == null) {
 			throw new ExpressionException(
 					"First child of an content MathMl expression must be an operator.\n"
@@ -111,7 +118,14 @@ public class ExpressionFactory {
 		return instructions;
 	}
 
-	public boolean isExpression(Node n) {
+	/**
+	 * Checks if is the given node can be an expression.
+	 * 
+	 * @param n the expression node
+	 * 
+	 * @return true, if node n is expression
+	 */
+	private boolean isExpression(final Node n) {
 		return n.getNodeName().equals("apply");
 	}
 }
