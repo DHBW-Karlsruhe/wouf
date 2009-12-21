@@ -1,76 +1,148 @@
 package org.bh.data.types;
 
 import java.security.InvalidParameterException;
+import java.util.regex.Pattern;
 
-//TODO: Abstrakt + Werteparser (z.B. 5.0 als String = new Double(5.0)
-public abstract class Calculable implements IValue{
+/**
+ * Class for economic calculation wiht mixed types. Especially Interval
+ * arithmetic is relevant.
+ * 
+ * @author Sebastian
+ * @author Norman
+ * @author Robert Vollmer
+ * 
+ * @version 0.1, 21.11.2009, Sebastian
+ * @version 0.2, unknown, Robert
+ * @version 0.3, 21.12.2009, Norman
+ */
+public abstract class Calculable implements IValue {
 
-    public abstract Calculable add(Calculable summand);
+	/** The Constant DOUBLE_PATTERN. */
+	public static final Pattern DOUBLE_PATTERN = Pattern
+			.compile("[0-9]*\\.?[0-9]*");
+	
+	/** The Constant INTEGER_PATTERN. */
+	public static final Pattern INTEGER_PATTERN = Pattern.compile("[0-9]*");
+	
+	/** The Constant INTERVAL_PATTERN. */
+	public static final Pattern INTERVAL_PATTERN = Pattern
+			.compile("\\[\\s?[0-9]*\\.?[0-9]*\\s?;\\s?[0-9]*\\.?[0-9]*\\s?\\]");
 
-    public abstract Calculable sub(Calculable subtrahend);
+	/**
+	 * Adds summand to the current Calculable.
+	 * 
+	 * @param summand the summand
+	 * 
+	 * @return the result as a new calculable instance
+	 */
+	public abstract Calculable add(Calculable summand);
 
-    public abstract Calculable div(Calculable divisor);
+	/**
+	 * Subtracts the subtrahend from the current Calculable.
+	 * 
+	 * @param subtrahend the subtrahend
+	 * 
+	 * @return the result as a new calculable instance
+	 */
+	public abstract Calculable sub(Calculable subtrahend);
 
-    public abstract Calculable mul(Calculable multiplicand);
+	/**
+	 * Divides the current Calculable through the divisor.
+	 * 
+	 * @param divisor the divisor
+	 * 
+	 * @return the result as a new calculable instance
+	 */
+	public abstract Calculable div(Calculable divisor);
 
-    public abstract Calculable sqrt();
+	/**
+	 * Multiplies the current Calculable with the multiplicand.
+	 * 
+	 * @param multiplicand the multiplicand
+	 * 
+	 * @return the result as a new calculable instance
+	 */
+	public abstract Calculable mul(Calculable multiplicand);
 
-    public abstract Calculable pow(Calculable exponent);
+	/**
+	 * Returns the square root of the current Calculable.
+	 * 
+	 * @return the result as a new calculable instance
+	 */
+	public abstract Calculable sqrt();
 
-    public abstract Calculable clone();
+	/**
+	 * Returns the power of the exponent of the current Calculable.
+	 * 
+	 * @param exponent the exponent
+	 * 
+	 * @return the result as a new calculable instance
+	 */
+	public abstract Calculable pow(Calculable exponent);
 
-    /**
-     * @param nodeValue
-     * @return
-     */
-    public static Calculable parseCalculable(String nodeValue) {
-	if (nodeValue.matches("[0-9]*\\.[0-]*")) {
-	    return new DoubleValue(java.lang.Double.parseDouble(nodeValue));
-	} else if (nodeValue.matches("[0-9]*")) {
-	    return new IntegerValue(java.lang.Integer.parseInt(nodeValue));
-	} else if (nodeValue.matches("interval regex")) {
-	    throw new UnsupportedOperationException(
-		    "interval parser has not been implemented yet");
-	} else {
-	    throw new UnsupportedOperationException(
-		    "unknown type for calculable exception has not been implemented yet");
+	/* Specified by interface/super class. */
+	@Override
+	public abstract Calculable clone();
+
+	/**
+	 * Parses a calculable instance of a given string.
+	 * 
+	 * @param s the s
+	 * 
+	 * @return the calculable
+	 */
+	public static Calculable parseCalculable(String s) {
+		if (DOUBLE_PATTERN.matcher(s).matches()) {
+			return new DoubleValue(java.lang.Double.parseDouble(s));
+		} else if (INTEGER_PATTERN.matcher(s).matches()) {
+			return new IntegerValue(java.lang.Integer.parseInt(s));
+		} else if (INTERVAL_PATTERN.matcher(s).matches()) {
+			String[] parts =  s.split(";", 2);
+			return new IntervalValue(Double.parseDouble(parts[0].substring(1).trim()),
+								Double.parseDouble(parts[1].substring(1).trim()));
+		} else {
+			throw new UnsupportedOperationException(
+					"unknown type for calculable,  has not been implemented yet");
+		}
 	}
-    }
 
-    /* Specified by interface/super class. */
-    @Override
-    public abstract String toString();
-
-    /**
-     * Calculates the sum of all parameters.
-     * @param summands
-     * @return Sum of all parameters.
-     */
-	public static Calculable addAll(Calculable... summands) {
+	/**
+	 * Calculates the sum of all parameters.
+	 * 
+	 * @param summands the summands
+	 * 
+	 * @return Sum of all parameters.
+	 */
+	public Calculable add(Calculable... summands) {
 		if (summands.length == 0)
 			throw new InvalidParameterException("No summands have been passed");
 		
-		Calculable result = summands[0];
-		for (int i = 1; i < summands.length; i++) {
-			result = result.add(summands[i]);
-		}
-		return result;
-	}
-	
-	/**
-     * Calculates the product of all parameters.
-     * @param factors
-     * @return Product of all parameters.
-     */
-	public static Calculable mulAll(Calculable... factors) {
-		if (factors.length == 0)
-			throw new InvalidParameterException("No factors have been passed");
-		
-		Calculable result = factors[0];
-		for (int i = 1; i < factors.length; i++) {
-			result = result.mul(factors[i]);
+		Calculable result = null;
+		for (int i = 0; i < summands.length; i++) {
+			result = add(summands[i]);
 		}
 		return result;
 	}
 
+	/**
+	 * Calculates the product of all parameters.
+	 * 
+	 * @param factors the factors
+	 * 
+	 * @return Product of all parameters.
+	 */
+	public Calculable mul(Calculable... factors) {
+		if (factors.length == 0)
+			throw new InvalidParameterException("No factors have been passed");
+
+		Calculable result = null;
+		for (int i = 0; i < factors.length; i++) {
+			result = mul(factors[i]);
+		}
+		return result;
+	}
+
+	/* Specified by interface/super class. */
+	@Override
+	public abstract String toString();
 }

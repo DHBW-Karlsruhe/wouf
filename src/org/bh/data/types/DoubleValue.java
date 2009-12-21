@@ -1,101 +1,128 @@
 package org.bh.data.types;
 
+/**
+ * Calculable implementation for floating point values.
+ * 
+ * @author Sebastian
+ * @author Norman
+ * 
+ * @version 0.1, 21.11.2009, Sebastian
+ * @version 0.3, 21.12.2009, Norman
+ */
 public class DoubleValue extends Calculable {
-    double value;
 
-    public DoubleValue(double value) {
-	this.value = value;
-    }
+	/** The value. */
+	protected double value;
 
-    public double getValue() {
-	return value;
-    }
-
-    @Override
-    public Calculable add(Calculable summand) {
-	if (summand instanceof IntegerValue)
-	    return new DoubleValue(value + ((IntegerValue) summand).getValue());
-	else if (summand instanceof DoubleValue)
-	    return new DoubleValue(value + ((DoubleValue) summand).getValue());
-	else {
-	    double x = value + ((Interval) summand).getMin();
-	    double y = value + ((Interval) summand).getMax();
-	    if (x < y)
-		return new Interval(x, y);
-	    return new Interval(y, x);
+	/**
+	 * Instantiates a new double value.
+	 * 
+	 * @param value
+	 *            the value
+	 */
+	public DoubleValue(double value) {
+		this.value = value;
 	}
-    }
 
-    @Override
-    public Calculable div(Calculable divisor) {
-	if (divisor instanceof IntegerValue)
-	    return new DoubleValue(value / ((IntegerValue) divisor).getValue());
-	else if (divisor instanceof DoubleValue)
-	    return new DoubleValue(value / ((DoubleValue) divisor).getValue());
-	else {
-	    double x = value / ((Interval) divisor).getMin();
-	    double y = value / ((Interval) divisor).getMax();
-	    if (x < y)
-		return new Interval(x, y);
-	    return new Interval(y, x);
+	/**
+	 * Gets the value.
+	 * 
+	 * @return the value
+	 */
+	public double getValue() {
+		return value;
 	}
-    }
 
-    @Override
-    public Calculable mul(Calculable multiplicand) {
-	if (multiplicand instanceof IntegerValue)
-	    return new DoubleValue(value * ((IntegerValue) multiplicand).getValue());
-	else if (multiplicand instanceof DoubleValue)
-	    return new DoubleValue(value * ((DoubleValue) multiplicand).getValue());
-	else {
-	    double x = value * ((Interval) multiplicand).getMin();
-	    double y = value * ((Interval) multiplicand).getMax();
-	    if (x < y) {
-		return new Interval(x, y);
-	    }
-	    return new Interval(y, x);
-	}
-    }
-
-    @Override
-    public Calculable sub(Calculable subtrahend) {
-	if (subtrahend instanceof IntegerValue)
-	    return new DoubleValue(value - ((IntegerValue) subtrahend).getValue());
-	else if (subtrahend instanceof DoubleValue)
-	    return new DoubleValue(value - ((DoubleValue) subtrahend).getValue());
-	else {
-	    double x = value - ((Interval) subtrahend).getMin();
-	    double y = value - ((Interval) subtrahend).getMax();
-	    if (x < y) {
-		return new Interval(x, y);
-	    }
-	    return new Interval(y, x);
-	}
-    }
-
-    @Override
-    public Calculable pow(Calculable exponent) {
-	// TODO Auto-generated method stub
-	throw new UnsupportedOperationException(
-		"This method has not been implemented");
-    }
-
-    @Override
-    public Calculable sqrt() {
-	// TODO Auto-generated method stub
-	throw new UnsupportedOperationException(
-		"This method has not been implemented");
-    }
-
-    @Override
-    public String toString() {
-	return "" + value;
-    }
-
+	/* Specified by interface/super class. */
 	@Override
-	public Calculable clone() {
-		// TODO Auto-generated method stub
-		throw new UnsupportedOperationException("This method has not been implemented");
+	public final Calculable add(final Calculable summand) {
+		if (summand instanceof IntegerValue) {
+			return new DoubleValue(value + ((IntegerValue) summand).value);
+		} else if (summand instanceof DoubleValue) {
+			return new DoubleValue(value + ((DoubleValue) summand).value);
+		} else if (summand instanceof IntervalValue) {
+			return new IntervalValue(value, value).add(summand);
+		} else {
+			return null;
+		}
 	}
-    
+
+	/* Specified by interface/super class. */
+	@Override
+	public final Calculable sub(final Calculable subtrahend) {
+		if (subtrahend instanceof IntegerValue) {
+			return new DoubleValue(value
+					- ((IntegerValue) subtrahend).value);
+		} else if (subtrahend instanceof DoubleValue) {
+			return new DoubleValue(value
+					- ((DoubleValue) subtrahend).value);
+		} else if (subtrahend instanceof IntervalValue) {
+			return new IntervalValue(value, value).sub(subtrahend);
+		} else {
+			return null;
+		}
+	}
+
+	/* Specified by interface/super class. */
+	@Override
+	public final Calculable mul(final Calculable multiplicand) {
+		if (multiplicand instanceof IntegerValue) {
+			return new DoubleValue(value
+					* ((IntegerValue) multiplicand).value);
+		} else if (multiplicand instanceof DoubleValue) {
+			return new DoubleValue(value
+					* ((DoubleValue) multiplicand).value);
+		} else if (multiplicand instanceof IntervalValue) {
+			return new IntervalValue(value, value).mul(multiplicand);
+		} else {
+			return null;
+		}
+	}
+
+	/* Specified by interface/super class. */
+	@Override
+	public final Calculable div(final Calculable divisor) {
+		if (divisor instanceof IntegerValue) {
+			return new DoubleValue(value / ((IntegerValue) divisor).value);
+		} else if (divisor instanceof DoubleValue) {
+			return new DoubleValue(value / ((DoubleValue) divisor).value);
+		} else if (divisor instanceof IntervalValue) {
+			return new IntervalValue(value, value).div(divisor);
+		} else {
+			return null;
+		}
+	}
+
+	/* Specified by interface/super class. */
+	@Override
+	public final Calculable pow(final Calculable exponent) {
+		if (exponent instanceof IntegerValue) {
+			return new DoubleValue(Math.pow(value, ((IntegerValue) exponent).value));
+		} else if (exponent instanceof DoubleValue) {
+			return new DoubleValue(Math.pow(value, ((DoubleValue) exponent).value));
+		} else if (exponent instanceof IntervalValue) {
+			return new IntervalValue(value, value).pow(exponent);
+		} else {
+			return null;
+		}
+	}
+
+	/* Specified by interface/super class. */
+	@Override
+	public final Calculable sqrt() {
+		return new DoubleValue(Math.sqrt(value));
+	}
+
+	/* Specified by interface/super class. */
+	@Override
+	public final String toString() {
+		return "" + value;
+	}
+
+	/* Specified by interface/super class. */
+	@Override
+	public final Calculable clone() {
+		return new DoubleValue(value);
+	}
+
 }
