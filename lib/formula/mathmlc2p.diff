@@ -1,0 +1,54 @@
+--- mathmlc2p.xsl	Fr Okt  9 16:22:58 2009
++++ mathmlc2p.xsl	Di Dez 15 00:16:40 2009
+@@ -1199,7 +1199,7 @@
+                   <xsl:apply-templates select="."/>
+                 </mfenced>
+                 <mo>
+-                  <xsl:value-of select="$InvisibleTimes"/>
++                  <xsl:value-of select="$times"/>
+                 </mo>
+               </xsl:when>
+               <xsl:when test="m:minus">
+@@ -1208,7 +1208,7 @@
+                   <xsl:apply-templates select="."/>
+                 </mfenced>
+                 <mo>
+-                  <xsl:value-of select="$InvisibleTimes"/>
++                  <xsl:value-of select="$times"/>
+                 </mo>
+               </xsl:when>
+               <xsl:when test="(self::m:ci or self::m:cn) and contains(text(),'-')">
+@@ -1217,13 +1217,13 @@
+                   <xsl:apply-templates select="."/>
+                 </mfenced>
+                 <mo>
+-                  <xsl:value-of select="$InvisibleTimes"/>
++                  <xsl:value-of select="$times"/>
+                 </mo>
+               </xsl:when>
+               <xsl:otherwise>
+                 <xsl:apply-templates select="."/>
+                 <mo>
+-                  <xsl:value-of select="$InvisibleTimes"/>
++                  <xsl:value-of select="$times"/>
+                 </mo>
+               </xsl:otherwise>
+             </xsl:choose>
+@@ -1257,7 +1257,7 @@
+ <!-- unary -->
+         <mrow>
+           <mo>
+-            <xsl:value-of select="$InvisibleTimes"/>
++            <xsl:value-of select="$times"/>
+           </mo>
+           <xsl:choose>
+             <xsl:when test="m:plus">
+@@ -1284,7 +1284,7 @@
+       <xsl:otherwise>
+ <!-- no operand -->
+         <mo>
+-          <xsl:value-of select="$InvisibleTimes"/>
++          <xsl:value-of select="$times"/>
+         </mo>
+       </xsl:otherwise>
+     </xsl:choose>
