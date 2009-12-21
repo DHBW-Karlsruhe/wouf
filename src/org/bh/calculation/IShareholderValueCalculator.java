@@ -4,6 +4,7 @@ import java.util.Map;
 
 import org.bh.data.DTOScenario;
 import org.bh.data.types.Calculable;
+import org.bh.platform.IDisplayablePlugin;
 
 /**
  * This interface is implemented by classes which provide calculation methods
@@ -13,7 +14,7 @@ import org.bh.data.types.Calculable;
  * @version 1.2, 18.12.2009
  * 
  */
-public interface IShareholderValueCalculator {
+public interface IShareholderValueCalculator extends IDisplayablePlugin {
 	/**
 	 * Key for {@link #calculate(DTOScenario)} which identifies the shareholder
 	 * value.
@@ -35,14 +36,6 @@ public interface IShareholderValueCalculator {
 	 *         value are stored in an array with one element.
 	 */
 	Map<String, Calculable[]> calculate(DTOScenario scenario);
-
-	/**
-	 * Defines the description of the calculator which will be displayed at the
-	 * GUI.
-	 * 
-	 * @return Translation key for the description.
-	 */
-	String getGuiKey();
 
 	/**
 	 * Defines a unique string which identifies this calculation method.

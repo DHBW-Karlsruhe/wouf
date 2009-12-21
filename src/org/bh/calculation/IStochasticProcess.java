@@ -7,15 +7,16 @@ import javax.swing.JPanel;
 import org.bh.data.DTOScenario;
 import org.bh.data.types.DistributionMap;
 import org.bh.data.types.IValue;
+import org.bh.platform.IDisplayablePlugin;
 
 /**
  * This interface is implemented by plugins which can execute stochastic
  * processes.
  * 
  * @author Robert Vollmer
- * @version 1.0, 18.12.2009
+ * @version 1.1, 21.12.2009
  */
-public interface IStochasticProcess {
+public interface IStochasticProcess extends IDisplayablePlugin {
 	/**
 	 * Sets the scenario which is used in the process.
 	 * 
@@ -70,4 +71,18 @@ public interface IStochasticProcess {
 	 * @return The map with the parameters.
 	 */
 	Map<String, IValue> getParametersForAnalysis();
+
+	/**
+	 * Defines a unique string which identifies this stochastic process.
+	 * 
+	 * @return The unique ID.
+	 */
+	String getUniqueId();
+
+	/**
+	 * Creates a new instance of the same class.
+	 * 
+	 * @return A new instance of the same class.
+	 */
+	IStochasticProcess createNewInstance();
 }

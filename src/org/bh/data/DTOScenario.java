@@ -6,8 +6,10 @@ import java.util.TreeMap;
 
 import org.apache.log4j.Logger;
 import org.bh.calculation.IShareholderValueCalculator;
+import org.bh.calculation.IStochasticProcess;
 import org.bh.data.types.Calculable;
 import org.bh.data.types.DoubleValue;
+import org.bh.platform.Services;
 
 /**
  * Scenario DTO
@@ -68,8 +70,17 @@ public class DTOScenario extends DTO<DTOPeriod> {
 		/**
 		 * comment
 		 */
-		COMMENT
+		COMMENT,
 		
+		/**
+		 * DCF method
+		 */
+		DCF_METHOD,
+		
+		/**
+		 * Stochastic process
+		 */
+		STOCHASTIC_PROCESS,
 	}
 	
     /**
@@ -132,22 +143,23 @@ public class DTOScenario extends DTO<DTOPeriod> {
 		
 		return myTax;
 	}
-	
-	/**
-	 * Sets the DCF method.
-	 * @param dcfMethod
-	 */
-	public void setDcfMethod(IShareholderValueCalculator dcfMethod) {
-		this.dcfMethod = dcfMethod;
-	}
 
 	/**
 	 * Returns a reference to the DCF method.
 	 * @return Reference to the DCF method.
 	 */
 	public IShareholderValueCalculator getDCFMethod() {
-		return dcfMethod;
+		return Services.getDCFMethod(get(Key.DCF_METHOD).toString());
 	}
+	
+	/**
+	 * Returns a reference to the stochastic process.
+	 * @return Reference to the stochastic process.
+	 */
+	public IStochasticProcess getStochasticProcess() {
+		return Services.getStochasticProcess(get(Key.STOCHASTIC_PROCESS).toString());
+	}
+	STOCHASTIC_PROCESS
 	
 	/**
 	 * Returns all keys whose values have to be determined stochastically.
