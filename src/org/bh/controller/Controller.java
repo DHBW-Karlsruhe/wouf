@@ -110,10 +110,16 @@ public abstract class Controller implements IController, ActionListener, Platfor
      */
     private void safeAllToModel() throws DTOAccessException{
         log.debug("Plugin save to dto");
-        model.setSandBoxMode(Boolean.TRUE);
-        //for()
-
+        this.model.setSandBoxMode(Boolean.TRUE);
+        for(String key : this.bhModelcomponents.keySet()){
+            this.model.put(key, this.bhModelcomponents.get(key).getValue());
+        }
     }
+    /**
+     * save specific component to model
+     * @param comp
+     * @throws DTOAccessException
+     */
     private void safeToModel(IBHComponent comp)throws DTOAccessException{
         log.debug("Plugin save to dto");
         this.model.put(comp.getKey(), comp.getValue());
@@ -125,13 +131,15 @@ public abstract class Controller implements IController, ActionListener, Platfor
      */
     private void loadAllToView()throws DTOAccessException{
         log.debug("Plugin load from dto in view");
+        for(String key : this.bhModelcomponents.keySet()){
+
+        }
 
 
     }
-    private boolean loadToView(String key) throws DTOAccessException{
+    private void loadToView(String key) throws DTOAccessException, ControllerException{
         log.debug("Plugin load from dto in view");
 
-        return true;
     }
 
     public void handlePlattformEvent(PlatformEvent e) {

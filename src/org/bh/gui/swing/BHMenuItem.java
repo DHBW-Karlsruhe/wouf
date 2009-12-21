@@ -76,5 +76,8 @@ public class BHMenuItem extends JMenuItem implements IBHComponent{
             throw new UnsupportedOperationException("Not supported yet.");
         }
 
+        public  void setValue(IValue value){
+            throw new UnsupportedOperationException("Not supported yet.");
+        }
 
 }

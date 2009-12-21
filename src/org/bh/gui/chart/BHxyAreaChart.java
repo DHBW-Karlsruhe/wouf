@@ -90,5 +90,9 @@ public class BHxyAreaChart extends JFreeChart implements IBHComponent{
             throw new UnsupportedOperationException("Not supported yet.");
         }
 
+        public  void setValue(IValue value){
+            throw new UnsupportedOperationException("Not supported yet.");
+        }
+
 
 }

@@ -61,6 +61,9 @@ public class BHLabel extends JLabel implements IBHComponent {
             throw new UnsupportedOperationException("Not supported yet.");
         }
 
+        public  void setValue(IValue value){
+            throw new UnsupportedOperationException("Not supported yet.");
+        }
 
 
 

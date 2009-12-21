@@ -6,6 +6,7 @@
 package org.bh.gui.swing;
 
 import java.awt.Component;
+import org.bh.data.types.IValue;
 
 /**
  * Every Swing element which shall use a defined DTO key must implement this interface
@@ -23,10 +24,14 @@ public interface IBHComponent {
      * @return value of a DTO key
      */
     public String getKey();
-
     /**
-     * Number of rules and the rules itself are platform independent But
-     * shall be consistent in every plugin by using one Validity Engine per plugin
+     * returns the modelspecific value of a UI Component
+     * @return
+     */
+    public IValue getValue();
+    /**
+     * Number of rules and the rules itself are platform indipendent But
+     * shall be consitent in every plugin by using one Validity Engine per plugin
      * @return amount of rules defined in a subclass of BHValidity engine
      * @see BHValidityEngine
      */

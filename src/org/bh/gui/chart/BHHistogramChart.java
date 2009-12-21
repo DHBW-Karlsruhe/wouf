@@ -91,5 +91,9 @@ public class BHHistogramChart extends JFreeChart implements IBHComponent{
         public IValue getValue() {
             throw new UnsupportedOperationException("Not supported yet.");
         }
+
+        public  void setValue(IValue value){
+            throw new UnsupportedOperationException("Not supported yet.");
+        }
 	
 }
