@@ -11,7 +11,8 @@ import org.jfree.chart.ChartFactory;
 import org.jfree.chart.JFreeChart;
 import org.jfree.chart.plot.PlotOrientation;
 import org.jfree.chart.plot.XYPlot;
-import org.jfree.data.xy.XYDataset;
+import org.jfree.data.general.Dataset;
+import org.jfree.data.xy.DefaultXYDataset;
 
 /**
  * class to  create BHXYAreaChart 
@@ -29,11 +30,11 @@ public class BHxyAreaChart extends JFreeChart implements IBHComponent{
 	private JFreeChart chart;
 	
 	
-	protected BHxyAreaChart(String title, String xAxis, String yAxis, XYDataset dataset, String key, XYPlot plot) {
+	protected BHxyAreaChart(String title, String xAxis, String yAxis, Dataset dataset, String key, XYPlot plot) {
 		super(plot);
 		this.key = key;
 		
-		chart = ChartFactory.createXYAreaChart(title, xAxis, yAxis, dataset, PlotOrientation.VERTICAL, true, true, false);
+		chart = ChartFactory.createXYAreaChart(title, xAxis, yAxis, (DefaultXYDataset)dataset, PlotOrientation.VERTICAL, true, true, false);
     	plot.setNoDataMessage(translator.translate("noDataAvailable"));
     	if ("Nimbus".equals(UIManager.getLookAndFeel().getName())) {
     		chart.setBackgroundPaint(UIManager.getColor("desktop"));   

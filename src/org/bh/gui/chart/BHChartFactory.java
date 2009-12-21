@@ -3,12 +3,10 @@ package org.bh.gui.chart;
 import org.jfree.chart.JFreeChart;
 import org.jfree.chart.plot.Plot;
 import org.jfree.chart.plot.XYPlot;
-import org.jfree.data.category.CategoryDataset;
 import org.jfree.data.category.DefaultCategoryDataset;
 import org.jfree.data.general.Dataset;
 import org.jfree.data.statistics.HistogramDataset;
 import org.jfree.data.xy.DefaultXYDataset;
-import org.jfree.data.xy.XYDataset;
 
 /**
  * 
@@ -22,6 +20,9 @@ import org.jfree.data.xy.XYDataset;
 
 public class BHChartFactory{
     
+	public static enum Type{
+    	CHARTTYPE;
+    }
 	/**
 	 * Method to create a LineChart
 	 * 
@@ -38,9 +39,9 @@ public class BHChartFactory{
          * @param key
          * @return created LineChart
 	 */
-    public static JFreeChart getLineChart(String title, String XAxis, String YAxis, CategoryDataset dataset, Plot plot, String key){
+    public static JFreeChart getLineChart(String title, String XAxis, String YAxis, Class<?> type, Plot plot, String key){
 	
-    	BHLineChart chart = new BHLineChart(title, XAxis, YAxis, dataset, plot, key);
+    	BHLineChart chart = new BHLineChart(title, XAxis, YAxis, dimDataset(YAxis, XAxis, type), plot, key);
     	return chart.getChart();
 	
     }
@@ -62,9 +63,9 @@ public class BHChartFactory{
      * @return
 	 * 
 	 */
-    public static JFreeChart getXYAreaChart(String title, String xAxis, String yAxis, XYDataset dataset, String key, XYPlot plot){
+    public static JFreeChart getXYAreaChart(String title, String xAxis, String yAxis, String seriesKey, double[][] data, String key, XYPlot plot){
     	
-    	BHxyAreaChart chart = new BHxyAreaChart(title, xAxis, yAxis, dataset, key, plot);
+    	BHxyAreaChart chart = new BHxyAreaChart(title, xAxis, yAxis, dimDataset(seriesKey, data), key, plot);
     	return chart.getChart();
     }
     
@@ -86,23 +87,68 @@ public class BHChartFactory{
      * @return
 	 * 
 	 */
-    public static JFreeChart getHistogramChart(String title, String xAxis, String yAxis, HistogramDataset dataset, String key, Plot plot){
+    public static JFreeChart getHistogramChart(String title, String xAxis, String yAxis, String datasetKey, double[] values, int bins, double minimum, double maximum, String key, Plot plot){
     	
-    	BHHistogramChart chart = new BHHistogramChart(title, xAxis, yAxis, dataset, key, plot);
+    	BHHistogramChart chart = new BHHistogramChart(title, xAxis, yAxis, dimDataset(datasetKey, values, bins, minimum, maximum), key, plot);
     	return chart.getChart();
     }
-
+    
+    /**
+     * method to create a empty DefaultCategoryDataset
+     * 
+     * @param column
+     * 		String column
+     * @param row
+     * 		String row
+     * @param type
+     * 		Class type
+     * @return
+     * 		DefaultCategoryDataset dataset
+     */
     private static Dataset dimDataset(Comparable<String> column, Comparable<String> row, Class<?> type){
-    	if(type.getName() == "DefaultCategoryDataset"){
     		
-    		DefaultCategoryDataset dataset = new DefaultCategoryDataset();
-    		dataset.addValue(null, row, column);
-    		return dataset;
-    		
-    	}else if(type.getName() == "DefaultXYDataset"){
-    		DefaultXYDataset dataset = new DefaultXYDataset();
-    		
-    	}
-    	return null;
+    	DefaultCategoryDataset dataset = new DefaultCategoryDataset();
+    	dataset.addValue(null, row, column);
+    	return dataset;
+    }
+    
+    /**
+     * method to create a empty DefaultXYDataset
+     * 
+     * @param seriesKey
+     * 		String seriesKey
+     * @param data
+     * 		double[][] data
+     * @return
+     * 		DefaultXYDataset dataset
+     */
+    private static Dataset dimDataset(java.lang.Comparable<String> seriesKey, double[][] data){
+    	
+    	DefaultXYDataset dataset = new DefaultXYDataset();
+    	dataset.addSeries(seriesKey, data);
+    	return dataset;
+    }
+    
+    /**
+     * method to create a empty HistogramDataset
+     * 
+     * @param key
+     * 		String key
+     * @param values
+     * 		double[] values
+     * @param bins
+     * 		int bins
+     * @param minimum
+     * 		double minimum
+     * @param maximum
+     * 		double maximum
+     * @return
+     * 		HistogramDataset dataset
+     */
+    private static Dataset dimDataset(java.lang.Comparable<String> key, double[] values, int bins, double minimum, double maximum){
+    	
+    	HistogramDataset dataset = new HistogramDataset();
+    	dataset.addSeries(key, values, bins, minimum, maximum);
+    	return dataset;
     }
 }
