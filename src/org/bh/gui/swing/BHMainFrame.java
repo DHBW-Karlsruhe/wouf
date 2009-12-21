@@ -123,6 +123,9 @@ public class BHMainFrame extends JFrame {
 		// desktop.add(content, BorderLayout.CENTER);
 
 		this.setContentPane(desktop);
+
+		chooser = new BHFileChooser();
+
 		setVisible(true);
 
 		// work around a Java-or-whatever bug which causes the main window to
