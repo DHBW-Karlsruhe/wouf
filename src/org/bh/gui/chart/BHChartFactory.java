@@ -1,11 +1,14 @@
 package org.bh.gui.chart;
 
-import org.jfree.chart.*;
-import org.jfree.chart.plot.*;
+import org.jfree.chart.JFreeChart;
+import org.jfree.chart.plot.Plot;
+import org.jfree.chart.plot.XYPlot;
 import org.jfree.data.category.CategoryDataset;
+import org.jfree.data.category.DefaultCategoryDataset;
 import org.jfree.data.general.Dataset;
+import org.jfree.data.statistics.HistogramDataset;
+import org.jfree.data.xy.DefaultXYDataset;
 import org.jfree.data.xy.XYDataset;
-import org.jfree.data.statistics.*;
 
 /**
  * 
@@ -18,7 +21,6 @@ import org.jfree.data.statistics.*;
  */
 
 public class BHChartFactory{
-    
     
 	/**
 	 * Method to create a LineChart
@@ -90,7 +92,17 @@ public class BHChartFactory{
     	return chart.getChart();
     }
 
-    private static Dataset dimDataset(Comparable column, Comparable row, class type){
-
+    private static Dataset dimDataset(Comparable<String> column, Comparable<String> row, Class<?> type){
+    	if(type.getName() == "DefaultCategoryDataset"){
+    		
+    		DefaultCategoryDataset dataset = new DefaultCategoryDataset();
+    		dataset.addValue(null, row, column);
+    		return dataset;
+    		
+    	}else if(type.getName() == "DefaultXYDataset"){
+    		DefaultXYDataset dataset = new DefaultXYDataset();
+    		
+    	}
+    	return null;
     }
 }
