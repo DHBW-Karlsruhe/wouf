@@ -32,17 +32,17 @@ public class Services {
 		return translator;
 	}
 
-	public static void addPlatformListener(PlatformListener l) {
-		platformListeners.add(PlatformListener.class, l);
+	public static void addPlatformListener(IPlatformListener l) {
+		platformListeners.add(IPlatformListener.class, l);
 	}
 
-	public static void removePlatformListener(PlatformListener l) {
-		platformListeners.remove(PlatformListener.class, l);
+	public static void removePlatformListener(IPlatformListener l) {
+		platformListeners.remove(IPlatformListener.class, l);
 	}
 
 	public static void firePlatformEvent(PlatformEvent event) {
-		for (PlatformListener l : platformListeners
-				.getListeners(PlatformListener.class))
+		for (IPlatformListener l : platformListeners
+				.getListeners(IPlatformListener.class))
 			l.platformEvent(event);
 	}
 

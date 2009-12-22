@@ -9,7 +9,7 @@ import java.util.EventListener;
  * @version 1.0, 20.12.2009
  * 
  */
-public interface PlatformListener extends EventListener {
+public interface IPlatformListener extends EventListener {
 	/**
 	 * Invoked when the platform fires an event.
          *

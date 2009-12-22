@@ -1,8 +1,3 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
-// no build
 package org.bh.controller;
 
 import java.awt.event.ActionListener;
@@ -19,7 +14,7 @@ import org.bh.gui.View;
 import org.bh.gui.swing.BHButton;
 import org.bh.gui.swing.BHStatusBar;
 import org.bh.gui.swing.IBHComponent;
-import org.bh.platform.PlatformListener;
+import org.bh.platform.IPlatformListener;
 import org.bh.platform.Services;
 import org.bh.platform.i18n.ITranslator;
 
@@ -27,29 +22,33 @@ import org.bh.platform.i18n.ITranslator;
  *
  * @author Marco Hammel
  */
-public abstract class Controller implements IController, ActionListener, PlatformListener{
+public abstract class Controller implements IController, ActionListener, IPlatformListener{
 
     private static  Logger log = Logger.getLogger(Controller.class);
+    
     /**
      * Reference to the active view of the plugin
      * Can be null
      */
     private View view = null;
+    
     /**
      * Reference to all model depending IBHcomponents on the UI
      */
     private Map<String, IBHComponent> bhModelcomponents;
+    
     /**
      * Referenz to the model
      * Can be null
      */
-    private IDTO model = null;
+    private IDTO<?> model = null;
+    
     /**
      * Reference to the Platform StatusBar. Must be set in every constructor
      */
     private static BHStatusBar bhStatusBar;
 
-    public Controller(View view, IDTO model){
+    public Controller(View view, IDTO<?> model){
         log.debug("Plugincontroller instance");
         this.model = model;
         this.view = view;
@@ -67,9 +66,11 @@ public abstract class Controller implements IController, ActionListener, Platfor
     public Controller(View view){
         this(view, null);
     }
-    public Controller(IDTO model){
+    public Controller(IDTO<?> model){
     	this(null, model);
     }
+    
+    
     /**
      * central exception handler method. Should be called in every catch statement
      * in each plugin. The Standard writes a message to the <code>BHstatusBar</code>
@@ -81,6 +82,7 @@ public abstract class Controller implements IController, ActionListener, Platfor
         log.error("Controller Exception ", e);
         Controller.bhStatusBar.setToolTip(e.getMessage());
     }
+   
     /**
      * @see IController
      * @return
@@ -88,9 +90,9 @@ public abstract class Controller implements IController, ActionListener, Platfor
     public JPanel getView(){
         if(this.view != null) {
             return view.getViewPanel();
-        }else{
-            return null;
         }
+        
+        return null;
     }
 
     public void setView(View view){
@@ -102,7 +104,7 @@ public abstract class Controller implements IController, ActionListener, Platfor
     }
 
     /**
-     * writes all datas to its dto refernz
+     * writes all data to its dto reference
      * @return
      * @throws DTOAccessException
      */
@@ -139,7 +141,7 @@ public abstract class Controller implements IController, ActionListener, Platfor
         this.bhModelcomponents.get(key).setValue(this.model.get(key));
     }
 
-    public void setModel(IDTO model) {
+    public void setModel(IDTO<?> model) {
         this.model = model;
     }
 
@@ -182,9 +184,8 @@ public abstract class Controller implements IController, ActionListener, Platfor
     public List<String> getStochasticKeys() {
         if(model != null) {
             return this.model.getStochasticKeys();
-        }else{
-            return null;
         }
+        return null;
     }
 
 

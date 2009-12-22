@@ -1,7 +1,6 @@
 package org.bh.data;
 
 import java.util.List;
-
 import org.bh.data.types.Calculable;
 import org.bh.data.types.IValue;
 
