@@ -30,13 +30,14 @@ public class BHHistogramChart extends JFreeChart implements IBHComponent, IBHAdd
     
 	private String key;
 	private JFreeChart chart;
-
+	private HistogramDataset dataset;
 	
 	protected BHHistogramChart(String title, String xAxis, String yAxis, Dataset dataset, String key, Plot plot) {
 		super(plot);
 		this.key = key;
+		this.dataset = (HistogramDataset)dataset;
 		
-		chart = ChartFactory.createHistogram(title, xAxis, yAxis, (HistogramDataset)dataset, PlotOrientation.VERTICAL, true, true, false);
+		chart = ChartFactory.createHistogram(title, xAxis, yAxis, this.dataset, PlotOrientation.VERTICAL, true, true, false);
 		chart.getXYPlot().setForegroundAlpha(0.75f);
 		plot.setNoDataMessage(translator.translate("noDataAvailable"));
 		if ("Nimbus".equals(UIManager.getLookAndFeel().getName())) {
@@ -61,11 +62,13 @@ public class BHHistogramChart extends JFreeChart implements IBHComponent, IBHAdd
 	public String getKey() {
 		return key;
 	}
-	
+	/**
+	 * method to add a series into an empty HistogramDataset
+	 */
 	@Override
 	public void addSeries(Comparable<String> key, double[] values, int bins,
 			double minimum, double maximum) {
-	
+		this.dataset.addSeries(key, values, bins, minimum, maximum);
 	}
 	
 	/* Specified by interface/super class. */
@@ -121,5 +124,11 @@ public class BHHistogramChart extends JFreeChart implements IBHComponent, IBHAdd
     public  void setValue(IValue value){
         throw new UnsupportedOperationException("Not supported yet.");
     }
+
+	@Override
+	public void addSeries(Comparable<String> seriesKey, double[][] data) {
+		// TODO Auto-generated method stub
+		throw new UnsupportedOperationException("This method has not been implemented");
+	}
 	
 }

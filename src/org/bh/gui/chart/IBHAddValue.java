@@ -49,4 +49,14 @@ public interface IBHAddValue {
 	 */
 	public void addSeries(Comparable<String> key, double[] values, int bins, double minimum,
             double maximum);
+	/**
+	 * method to add a series into an empty dataset
+	 * 
+	 * @param seriesKey
+	 * 		String key to identify the series
+	 * @param data
+	 * 		double[][] Array with values to add
+	 */
+	public void addSeries(Comparable<String> seriesKey, double[][] data);
+	
 }

@@ -29,13 +29,15 @@ public class BHxyAreaChart extends JFreeChart implements IBHComponent, IBHAddVal
 	BHTranslator translator = BHTranslator.getInstance();
 	private String key;
 	private JFreeChart chart;
+	private DefaultXYDataset dataset;
 	
 	
 	protected BHxyAreaChart(String title, String xAxis, String yAxis, Dataset dataset, String key, XYPlot plot) {
 		super(plot);
 		this.key = key;
+		this.dataset = (DefaultXYDataset)dataset;
 		
-		chart = ChartFactory.createXYAreaChart(title, xAxis, yAxis, (DefaultXYDataset)dataset, PlotOrientation.VERTICAL, true, true, false);
+		chart = ChartFactory.createXYAreaChart(title, xAxis, yAxis, this.dataset, PlotOrientation.VERTICAL, true, true, false);
     	plot.setNoDataMessage(translator.translate("noDataAvailable"));
     	if ("Nimbus".equals(UIManager.getLookAndFeel().getName())) {
     		chart.setBackgroundPaint(UIManager.getColor("desktop"));   
@@ -59,7 +61,15 @@ public class BHxyAreaChart extends JFreeChart implements IBHComponent, IBHAddVal
 	public String getKey() {
 		return key;
 	}
-
+	/**
+	 * method to add a series into an empty dataset
+	 */
+	@Override
+	public void addSeries(Comparable<String> seriesKey, double[][] data) {
+		this.dataset.addSeries(seriesKey, data);
+		fireChartChanged();
+	}
+	
 	/* Specified by interface/super class. */
 	@Override
 	public Component add(Component comp) {
@@ -121,6 +131,8 @@ public class BHxyAreaChart extends JFreeChart implements IBHComponent, IBHAddVal
 			// TODO Auto-generated method stub
 			throw new UnsupportedOperationException("This method has not been implemented");
 		}
+
+		
 
 
 }

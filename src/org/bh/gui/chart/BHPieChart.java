@@ -113,6 +113,11 @@ public class BHPieChart extends JFreeChart implements IBHComponent, IBHAddValue 
 			// TODO Auto-generated method stub
 			throw new UnsupportedOperationException("This method has not been implemented");
 		}
+		@Override
+		public void addSeries(Comparable<String> seriesKey, double[][] data) {
+			// TODO Auto-generated method stub
+			throw new UnsupportedOperationException("This method has not been implemented");
+		}
 
 		
 

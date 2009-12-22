@@ -4,6 +4,8 @@ import java.awt.Component;
 import java.util.Iterator;
 import java.util.List;
 
+import javax.swing.UIManager;
+
 import org.bh.data.types.IValue;
 import org.bh.gui.swing.IBHComponent;
 import org.bh.platform.i18n.BHTranslator;
@@ -38,9 +40,9 @@ public class BHLineChart extends JFreeChart implements IBHComponent, IBHAddValue
     	
     	chart = ChartFactory.createLineChart(title, XAxis, YAxis, this.dataset, PlotOrientation.VERTICAL, true, true, false); 
     	plot.setNoDataMessage(translator.translate("noDataAvailable"));
-//    	if ("Nimbus".equals(UIManager.getLookAndFeel().getName())) {
-//    		chart.setBackgroundPaint(UIManager.getColor("desktop"));   
-//    	}
+    	if ("Nimbus".equals(UIManager.getLookAndFeel().getName())) {
+    		chart.setBackgroundPaint(UIManager.getColor("desktop"));   
+    	}
     }
     
     /**
@@ -128,6 +130,12 @@ public class BHLineChart extends JFreeChart implements IBHComponent, IBHAddValue
         public  void setValue(IValue value){
             throw new UnsupportedOperationException("Not supported yet.");
         }
+
+		@Override
+		public void addSeries(Comparable<String> seriesKey, double[][] data) {
+			// TODO Auto-generated method stub
+			throw new UnsupportedOperationException("This method has not been implemented");
+		}
         
  
 }
