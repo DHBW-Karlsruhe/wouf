@@ -3,34 +3,60 @@
     <taskdef resource="net/sf/antcontrib/antcontrib.properties" classpath="lib/ant/ant-contrib-1.0b3.jar" />
 	
     <property environment="env"/>
+	
+	<!-- source dirs -->
     <property name="source.dir" value="src"/>
-    <property name="build.dir" value="bin"/>
+	<property name="plugins.source.dir" value="plugins-src"/>
+	<property name="unittests.source.dir" value="tests/src/org/bh/tests/junit"/>
+
+	
+	<!-- build dirs -->
+	<property name="build.dir" value="bin"/>
     <property name="lib.dir" value="lib"/>
-    <property name="output.dir" value="output"/>
-    <property name="javadoc.dir" value="${output.dir}/javadoc"/>
-    <property name="jar.name.core" value="${output.dir}/BH.jar"/>
+	<property name="plugins.build.dir" value="plugins"/>
+	<property name="unittests.build.dir" value="tests/bin/org/bh/tests/junit"/>
+	
+	
+	<!-- build result dirs -->
+	<property name="output.dir" value="output"/>
+	<property name="plugins.jar.dir" value="${output.dir}/plugins"/>
+	<property name="javadoc.dir" value="${output.dir}/javadoc"/>
+	<property name="junit.dir" value="${output.dir}/junit"/>
+	
+	
+	<!-- miscellaneous -->
+	<property name="jar.name.core" value="${output.dir}/BH.jar"/>
     <property name="jar.name.bundled" value="${output.dir}/BH.bundled.jar"/>
     <property name="jar.mainclass" value="org.bh.BusinessHorizon"/>
     <property name="jar.store.pass" value="ZDpPydacPvJXJpY4SmqN"/>
     <property name="jar.store.file" value="jarsign.keystore"/>
     <property name="jar.store.alias" value="bhjar"/>
-    <property name="plugins.source.dir" value="plugins-src"/>
-    <property name="plugins.build.dir" value="plugins"/>
-    <property name="plugins.jar.dir" value="${output.dir}/plugins"/>
     <property name="plugins.list" value="gcc,apv,directinput"/>
     
-    <path id="BH.classpath">
+	
+	<!-- classpathes -->
+	<path id="BH.classpath">
         <pathelement location="${build.dir}"/>
         <dirset dir="${plugins.build.dir}" includes="*"/>
-        <fileset dir="${lib.dir}" includes="**/*.jar" excludes="ant/**"/>
+        <fileset dir="${lib.dir}" includes="**/*.jar" excludes="build_lib/**"/>
     </path>
-    
+	
+	<path id="junit.classpath">
+		<pathelement location="${build.dir}"/>
+        <pathelement location="${unittests.build.dir}"/>
+	    <dirset dir="${plugins.build.dir}" includes="*"/>
+	    <fileset dir="${lib.dir}" includes="**/*.jar"/>
+	</path>
+
+	
+	<!-- targets -->
+	
     <target name="clean">
         <delete dir="${build.dir}"/>
         <delete dir="${plugins.build.dir}"/>
         <delete dir="${output.dir}"/>
     </target>
-    <target depends="clean" name="cleanall"/>
+    <target depends="clean, cleanunittests" name="cleanall"/>
     
     <target name="compile">
         <mkdir dir="${build.dir}"/>
@@ -133,4 +159,35 @@
     </target>
     
     <target depends="createcorejar, createpluginsjars, createbundledjar" name="build"/>
+	
+	<!-- unittest targets -->	
+	<target depends="compile, compileunittests" name="unittests">
+	    <mkdir dir="${junit.dir}/results/raw"/>
+
+		<junit printsummary="true" failureproperty="junit.failure">
+	    	<classpath refid="junit.classpath"/>
+	    	<batchtest todir="${junit.dir}/results/raw">
+	        	<fileset dir="${unittests.build.dir}"/>
+	        	<formatter type="xml"/>
+	    	</batchtest>
+	    </junit>
+
+		<junitreport todir="${junit.dir}/results">
+	      <fileset dir="${junit.dir}/results/raw"/>
+	      <report todir="${junit.dir}/reports"/>
+	    </junitreport>
+	</target>
+	
+	<target name="compileunittests">
+	    <mkdir dir="${unittests.build.dir}"/>
+		<javac destdir="${unittests.build.dir}" srcdir="${unittests.source.dir}" debug="false" optimize="true">
+	            <exclude name="**/.svn/"/>
+	            <classpath refid="junit.classpath"/>
+	        </javac>
+	</target>
+	
+	<target name="cleanunittests">
+		  <delete dir="${unittests.build.dir}"/>
+	      <delete dir="${junit.dir}"/>
+	</target>
 </project>
