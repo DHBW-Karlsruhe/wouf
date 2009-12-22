@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <project basedir="." default="build" name="Business Horizon">
-    <taskdef resource="net/sf/antcontrib/antcontrib.properties" classpath="lib/ant/ant-contrib-1.0b3.jar" />
+    <taskdef resource="net/sf/antcontrib/antcontrib.properties" classpath="lib/build_lib/ant-contrib-1.0b3.jar" />
 	
     <property environment="env"/>
 	
