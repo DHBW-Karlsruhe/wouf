@@ -33,26 +33,26 @@ public class GCCCostOfSales implements ICalculationPreparer {
 		if (bsPrev == null)
 			return null;
 		
-		Calculable ebit = Calculable.addAll(
-			plsNow.getCalculable(DTOGCCProfitLossStatementCostOfSales.Key.ZA),
-			plsNow.getCalculable(DTOGCCProfitLossStatementCostOfSales.Key.SEE),
-			plsNow.getCalculable(DTOGCCProfitLossStatementCostOfSales.Key.JUJF));
+		Calculable ebit = new DoubleValue(0);
+			ebit.add(plsNow.getCalculable(DTOGCCProfitLossStatementCostOfSales.Key.ZA),
+					 plsNow.getCalculable(DTOGCCProfitLossStatementCostOfSales.Key.SEE),
+					 plsNow.getCalculable(DTOGCCProfitLossStatementCostOfSales.Key.JUJF));
 		
-		Calculable nopat = ebit.sub(Calculable.mulAll(
-			period.getScenario().getCalculable(DTOScenario.Key.CTAX),
+		Calculable nopat = ebit.sub(
+			period.getScenario().getCalculable(DTOScenario.Key.CTAX).mul(
 			new DoubleValue(1).sub(period.getScenario().getCalculable(DTOScenario.Key.BTAX)),
 			ebit));
 		
-		Calculable bsCorrections = Calculable.addAll(
+		Calculable bsCorrections = (
 			bsNow.getCalculable(DTOGCCBalanceSheet.Key.RS)
-			.sub(bsPrev.getCalculable(DTOGCCBalanceSheet.Key.RS)),
+			.sub(bsPrev.getCalculable(DTOGCCBalanceSheet.Key.RS)).add(
 
 			bsNow.getCalculable(DTOGCCBalanceSheet.Key.AV)
 			.sub(bsPrev.getCalculable(DTOGCCBalanceSheet.Key.AV)),
 	
 			(bsNow.getCalculable(DTOGCCBalanceSheet.Key.UV).sub(bsNow.getCalculable(DTOGCCBalanceSheet.Key.KBGGKS)))
 			.sub((bsPrev.getCalculable(DTOGCCBalanceSheet.Key.UV).sub(bsPrev.getCalculable(DTOGCCBalanceSheet.Key.KBGGKS))))
-			);
+			));
 		
 		return nopat.add(bsCorrections);
 	} 
@@ -63,11 +63,10 @@ public class GCCCostOfSales implements ICalculationPreparer {
 		if (bs == null)
 		    return null;
 		
-		return Calculable.addAll(
-			bs.getCalculable(DTOGCCBalanceSheet.Key.ANL),
-			bs.getCalculable(DTOGCCBalanceSheet.Key.SVB),
-			bs.getCalculable(DTOGCCBalanceSheet.Key.VBK),
-			bs.getCalculable(DTOGCCBalanceSheet.Key.RSPV)
-		);
+		return bs.getCalculable(DTOGCCBalanceSheet.Key.ANL).add(
+			   bs.getCalculable(DTOGCCBalanceSheet.Key.SVB),
+		       bs.getCalculable(DTOGCCBalanceSheet.Key.VBK),
+			   bs.getCalculable(DTOGCCBalanceSheet.Key.RSPV)
+			);
 	}
 }
