@@ -6,6 +6,7 @@
 package org.bh.controller;
 
 import java.awt.event.ActionListener;
+import java.util.List;
 import java.util.Map;
 
 import javax.swing.JLabel;
@@ -166,6 +167,10 @@ public abstract class Controller implements IController, ActionListener, Platfor
     public static void setBHstatusBarToolTip(String tooltip){
         Controller.bhStatusBar.setToolTip(tooltip);
     }
+    /**
+     *
+     * @param comps
+     */
     private void AddControllerAsListener(Map<String, IBHComponent> comps){
         for(IBHComponent comp : comps.values()){
             if(comp instanceof BHButton){
@@ -173,6 +178,16 @@ public abstract class Controller implements IController, ActionListener, Platfor
             }
         }
     }
+
+    public List<String> getStochasticKeys() {
+        if(model != null) {
+            return this.model.getStochasticKeys();
+        }else{
+            return null;
+        }
+    }
+
+
 
 
 }

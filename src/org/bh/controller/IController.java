@@ -5,14 +5,10 @@
 
 package org.bh.controller;
 
-import java.awt.event.ActionEvent;
 import java.util.List;
 import java.util.Map;
 import javax.swing.JPanel;
-import org.apache.log4j.Logger;
 import org.bh.data.IDTO;
-import org.bh.gui.View;
-import org.bh.platform.i18n.ITranslator;
 
 /**
  *
@@ -37,7 +33,11 @@ public interface IController {
      * @param result
      */
     void setResult(Map result);
-
+    /**
+     * deliver a List of keys representing values which are stochastical procedable
+     * Can return null if no model is connected
+     * @return
+     */
     List<String> getStochasticKeys();
    
 }
