@@ -2,7 +2,7 @@ package org.bh.calculation.sebi;
 
 import org.bh.data.types.Calculable;
 import org.bh.data.types.DoubleValue;
-import org.bh.data.types.Interval;
+import org.bh.data.types.IntervalValue;
 
 
 /**
@@ -100,8 +100,8 @@ public class Formulary {
 	 * <b>false</b> if input parameters differ less
 	 */
 	public static boolean checkAbs(Calculable firstValue, Calculable secondValue){
-		Interval uwI = (Interval) firstValue;
-		Interval uwLastI = (Interval) secondValue;
+		IntervalValue uwI = (IntervalValue) firstValue;
+		IntervalValue uwLastI = (IntervalValue) secondValue;
 		if(Math.abs(uwI.getMin() - uwLastI.getMin()) >= 0.0000000001){
 			return true;
 		}else{
