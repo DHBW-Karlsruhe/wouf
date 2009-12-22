@@ -24,6 +24,7 @@ public abstract class BHValidityEngine{
 
     private static boolean isValid = false;
     private static ValidationResultModel validationModel;
+    private static ValidationResult validationResult;
 
     /**
      * return wheater the last validationAll has an error or warning

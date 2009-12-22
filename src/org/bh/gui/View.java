@@ -32,8 +32,8 @@ public abstract class View implements  KeyListener, PropertyChangeListener{
     private BHValidityEngine validator;
     private JPanel viewPanel;
     private Map<String, IBHAddValue> bhChartComponents = Collections.synchronizedMap(new HashMap<String, IBHAddValue>());
-    private Map<String, IBHComponent> bhModelComponents = Collections.synchronizedMap(new HashMap<String, IBHComponent>());
-    private Map<String, IBHComponent> bhTextComponents;
+    private Map<String, IBHComponent> bhModelComponents;
+    private Map<String, IBHComponent> bhTextComponents = Collections.synchronizedMap(new HashMap<String, IBHComponent>());;
 
     public View(JPanel viewPanel, BHValidityEngine validator) throws ViewException{
     	this.viewPanel = viewPanel;
