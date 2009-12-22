@@ -31,9 +31,9 @@ public abstract class BHValidityEngine{
      */
     private static void setValidityStatus(ValidationResult validation){
         if (validation.hasErrors() || validation.hasWarnings()){
-            isValid = true;
-        }else{
             isValid = false;
+        }else{
+            isValid = true;
         }
     }
     public static boolean isValid(){
