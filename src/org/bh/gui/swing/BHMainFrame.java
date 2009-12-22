@@ -2,6 +2,7 @@ package org.bh.gui.swing;
 
 import java.awt.BorderLayout;
 import java.awt.Component;
+import java.awt.Dimension;
 
 import javax.swing.JFrame;
 import javax.swing.JLabel;
@@ -93,6 +94,8 @@ public class BHMainFrame extends JFrame {
 
 		// create main frame
 		setExtendedState(MAXIMIZED_BOTH);
+		setSize(1024, 768);
+		setLocationRelativeTo(null);
 
 		// build GUI components
 		desktop = new JPanel();
@@ -165,6 +168,7 @@ public class BHMainFrame extends JFrame {
 	public static void addContentFormsAndChart(Component forms, Component chart) {
 		JSplitPane paneV = new JSplitPane(JSplitPane.VERTICAL_SPLIT, forms,
 				chart);
+		
 		paneV.setOneTouchExpandable(true);
 
 		paneH.setRightComponent(paneV);

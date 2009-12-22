@@ -5,6 +5,7 @@ import java.awt.Color;
 import javax.swing.ImageIcon;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.UIManager;
 
 import com.jgoodies.forms.layout.CellConstraints;
 import com.jgoodies.forms.layout.FormLayout;
@@ -26,7 +27,7 @@ public class BHStatusBar extends JPanel {
 	CellConstraints cons;
 
 	private BHStatusBar() {
-		setBackground(Color.white);
+		setBackground(UIManager.getColor("desktop"));
 
 		// setLayout to the status bar
 		String rowDef = "p";
