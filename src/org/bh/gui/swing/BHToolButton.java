@@ -118,7 +118,7 @@ public class BHToolButton extends JButton implements MouseListener, ActionListen
             BHTree.setNodeSuffix();
         } else if(cmd.equals("open")){
         	fc = new JFileChooser();
-        	fc.setPreferredSize(new Dimension(300,200));
+        	fc.setPreferredSize(new Dimension(600,400));
         	fc.showOpenDialog(this);
         	
         }
