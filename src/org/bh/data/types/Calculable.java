@@ -40,6 +40,7 @@ public abstract class Calculable implements IValue {
 	 * <li>&nbsp;1.2&nbsp; (spaces before and/or after the value)
 	 * </ul>
 	 * 
+	 * <p>
 	 * However, these values do not match:
 	 * <ul>
 	 * <li>(empty string)
@@ -66,6 +67,7 @@ public abstract class Calculable implements IValue {
 	 * <li>&nbsp;1&nbsp; (spaces before and/or after the value)
 	 * </ul>
 	 * 
+	 * <p>
 	 * However, these values do not match:
 	 * <ul>
 	 * <li>(empty string)
@@ -100,6 +102,7 @@ public abstract class Calculable implements IValue {
 	 * <li>&nbsp;[ 1 ; 2 ]&nbsp; (spaces before and/or after the interval)
 	 * </ul>
 	 * 
+	 * <p>
 	 * However, these values do not match:
 	 * <ul>
 	 * <li>(empty string)
