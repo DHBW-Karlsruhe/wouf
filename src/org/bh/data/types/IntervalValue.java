@@ -70,19 +70,22 @@ public class IntervalValue extends Calculable {
 			double value = ((DoubleValue) multiplicand).value;
 			return mul(new IntervalValue(value, value));
 		} else {
+			
+			double x = min(
+					min * ((IntervalValue) multiplicand).min,
+					min * ((IntervalValue) multiplicand).max,
+					max * ((IntervalValue) multiplicand).min,
+					max * ((IntervalValue) multiplicand).max); 
+			
+			double y = max(
+					min * ((IntervalValue) multiplicand).min,
+					min * ((IntervalValue) multiplicand).max, 
+					max * ((IntervalValue) multiplicand).min, 
+					max * ((IntervalValue) multiplicand).max);
+			
 			return new IntervalValue(
-					Math.nextAfter(min(
-						min * ((IntervalValue) multiplicand).min,
-						min * ((IntervalValue) multiplicand).max,
-						max * ((IntervalValue) multiplicand).min,
-						max * ((IntervalValue) multiplicand).max), 
-					Double.NEGATIVE_INFINITY), 
-					Math.nextAfter(max(
-						min * ((IntervalValue) multiplicand).min,
-						min * ((IntervalValue) multiplicand).max, 
-						max * ((IntervalValue) multiplicand).min, 
-						max * ((IntervalValue) multiplicand).max),
-					Double.POSITIVE_INFINITY));
+					Math.nextAfter(x, Double.NEGATIVE_INFINITY),
+					Math.nextAfter(y, Double.POSITIVE_INFINITY));
 		}
 	}
 
@@ -97,13 +100,13 @@ public class IntervalValue extends Calculable {
 			return div(new IntervalValue(value, value));
 		} else {
 			IntervalValue div = (IntervalValue) divisor;
-			if ((div.min < 0 && div.max < 0) || (div.min > 0 && div.max > 0)) {
-				return mul(new IntervalValue(
-						Math.nextAfter((1 / div.max), Double.NEGATIVE_INFINITY),
-						Math.nextAfter((1 / div.min), Double.POSITIVE_INFINITY)));
+			if (!div.contains(0)) {
+				return mul(new IntervalValue(1 / div.max, 1 / div.min));
+// 						double rounding ? --> mul operation rounds as well
+//						Math.nextAfter((1 / div.max), Double.NEGATIVE_INFINITY),
+//						Math.nextAfter((1 / div.min), Double.POSITIVE_INFINITY)));
 			}
-			//TODO
-			throw new UnsupportedOperationException("Division for Intevals containing 0 not implemented");
+			return new IntervalValue(Double.NEGATIVE_INFINITY, Double.POSITIVE_INFINITY);
 		}
 	}
 
@@ -194,6 +197,59 @@ public class IntervalValue extends Calculable {
 		minVal = Math.min(a, b);
 		minVal = Math.min(minVal, c);
 		minVal = Math.min(minVal, d);
-		return min;
+		return minVal;
+	}
+	
+	/**
+	 * Checks whether, a given DoubleValue 
+	 * is part of the current interval
+	 * 
+	 * @param d DoubleValue to check 
+	 * @return true if the Interval contains the DoubleValue 
+	 */
+	public boolean contains(DoubleValue d){
+		return contains(d.value);
+	}
+	
+	
+	/**
+	 * Checks whether, a given double
+	 * is part of the current interval
+	 * 
+	 * @param d double to check 
+	 * @return true if the Interval contains the double value
+	 */	
+	public boolean contains(double d){
+		return (d >= min && d <= max);
+	}
+
+	/* Specified by interface/super class. */
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		long temp;
+		temp = Double.doubleToLongBits(max);
+		result = prime * result + (int) (temp ^ (temp >>> 32));
+		temp = Double.doubleToLongBits(min);
+		result = prime * result + (int) (temp ^ (temp >>> 32));
+		return result;
+	}
+
+	/* Specified by interface/super class. */
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		IntervalValue other = (IntervalValue) obj;
+		if (Double.doubleToLongBits(max) != Double.doubleToLongBits(other.max))
+			return false;
+		if (Double.doubleToLongBits(min) != Double.doubleToLongBits(other.min))
+			return false;
+		return true;
 	}
 }

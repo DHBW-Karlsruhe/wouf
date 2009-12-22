@@ -247,4 +247,5 @@ public abstract class Calculable implements IValue {
 	/* Specified by interface/super class. */
 	@Override
 	public abstract String toString();
+
 }
