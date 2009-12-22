@@ -42,6 +42,9 @@ public abstract class BHValidityEngine{
     private void setValidityReportLabel(ValidationResultModel validationModel){
          Controller.setBHstatusBarValidationToolTip(ValidationResultViewFactory.createReportIconAndTextLabel(validationModel));
     }
+    //private void setErrorBackground(IBHComponent comp){
+    //    ValidationComponentUtils.setErrorBackground(comp);
+    //}
     abstract ValidationResult validate(IBHComponent comp);
 
     abstract ValidationResult validateAll(Map<String, BHTextField> toValidate);

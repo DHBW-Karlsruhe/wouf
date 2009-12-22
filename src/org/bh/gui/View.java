@@ -37,6 +37,7 @@ public abstract class View implements  KeyListener, PropertyChangeListener{
 
     public View(JPanel viewPanel, BHValidityEngine validator) throws ViewException{
     	this.viewPanel = viewPanel;
+        this.bhModelComponents = mapBHcomponents(viewPanel.getComponents());
         this.validator = validator;
     }
     public View(JPanel viewPanel)throws ViewException{
