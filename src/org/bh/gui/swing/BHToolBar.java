@@ -23,9 +23,6 @@ import org.bh.platform.i18n.BHTranslator;
 
 public class BHToolBar extends JToolBar{
    
-
-    private static final long serialVersionUID = 1L;
-    
     static final private String OPEN = "open";
     static final private String NEW = "new";
     static final private String SAVE = "save";

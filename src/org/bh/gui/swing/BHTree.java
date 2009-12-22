@@ -7,6 +7,7 @@ import javax.swing.tree.DefaultTreeModel;
 import javax.swing.tree.TreeSelectionModel;
 
 public class BHTree extends JTree {
+
     protected DefaultMutableTreeNode rootNode;
     protected DefaultTreeModel treeModel;
     

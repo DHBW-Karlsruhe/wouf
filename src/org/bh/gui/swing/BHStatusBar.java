@@ -20,7 +20,6 @@ import com.jgoodies.forms.layout.FormLayout;
 
 public class BHStatusBar extends JPanel {
 
-	private static final long serialVersionUID = 1L;
 	private static BHStatusBar instance = null;
 	JLabel bh;
 	static JLabel lToolTip;

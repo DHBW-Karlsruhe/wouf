@@ -22,7 +22,6 @@ import javax.swing.tree.*;
 
 public class BHTreeBar extends JTree implements TreeModelListener{
     
-    private static final long serialVersionUID = 1L;
     DefaultMutableTreeNode root;
     static DefaultMutableTreeNode project1;
     static DefaultMutableTreeNode project2;

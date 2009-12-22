@@ -23,8 +23,6 @@ import org.jfree.data.category.DefaultCategoryDataset;
 
 public class BHContent extends JPanel{
 
-    private static final long serialVersionUID = 1L;
-  
     public JLabel chart, forms, logo;
     public JSplitPane paneV;
     int formPanelHeight = 500;

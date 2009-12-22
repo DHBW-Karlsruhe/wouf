@@ -28,7 +28,6 @@ import org.bh.platform.i18n.ITranslator;
 
 public class BHMenuBar extends JMenuBar{
 
-	private static final long serialVersionUID = 1L;
 	ITranslator translator = Services.getTranslator();
 
 	public BHMenuBar() {
