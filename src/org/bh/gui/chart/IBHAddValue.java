@@ -8,10 +8,8 @@ public interface IBHAddValue {
 	 * 
 	 * @param list
 	 * 		List<?> list of values
-	 * @param columnKey
-	 * 		Comparable<String> columnKey to identify the column
 	 */
-	public void addValues(List<?> list, Comparable<String> columnKey);
+	public void addValues(List<?> list);
 	
 	/**
 	 * method to add a single value into an empty dataset
