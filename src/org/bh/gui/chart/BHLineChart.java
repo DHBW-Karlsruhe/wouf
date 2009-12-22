@@ -1,6 +1,7 @@
 package org.bh.gui.chart;
 
 import java.awt.Component;
+import java.util.Iterator;
 import java.util.List;
 
 import org.bh.data.types.IValue;
@@ -76,11 +77,16 @@ public class BHLineChart extends JFreeChart implements IBHComponent, IBHAddValue
 	}
 
 	@Override
-	public void addValues(List<?> list, Comparable<String> columnKey) {
+	public void addValues(List<?> list) {
+		Iterator<?> it = list.iterator();
 		
-		for(int i=0; i<list.size()+1;i++){
-			this.dataset.addValue((Number)list.get(i), i, columnKey);
-			fireChartChanged();
+		for(int i=0; i<list.size();i++){
+			for(int j=0; j<=i;j++){
+				while(it.hasNext()){
+					this.dataset.addValue((Number)list.get(i), i, (String)list.get(j));
+					fireChartChanged();
+				}
+			}
 		}
 	}
 	

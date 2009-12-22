@@ -1,6 +1,7 @@
 package org.bh.gui.chart;
 
 import java.awt.Component;
+import java.util.Iterator;
 import java.util.List;
 
 import javax.swing.UIManager;
@@ -49,11 +50,21 @@ public class BHPieChart extends JFreeChart implements IBHComponent, IBHAddValue 
 		}
 
 		@Override
-		public void addValues(List<?> list, Comparable<String> columnKey) {
-			for(int i=0; i<list.size()+1; i++){
-				this.dataset.setValue(columnKey, (Number)list.get(i));
-				fireChartChanged();
+		public void addValues(List<?> list) {
+			Iterator<?> it = list.iterator();
+						
+			for(int i=0; i<list.size();i++){
+				for(int j=0; j<=i;j++){
+					while(it.hasNext()){
+						this.dataset.setValue((String)list.get(j),(Number)list.get(i));
+						fireChartChanged();
+					}
+				}
 			}
+//			for(int i=0; i<list.size()+1; i++){
+//				this.dataset.setValue(columnKey, (Number)list.get(i));
+//				fireChartChanged();
+//			}
 		}
 		
 		@Override
