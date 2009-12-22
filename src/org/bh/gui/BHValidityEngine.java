@@ -45,7 +45,7 @@ public abstract class BHValidityEngine{
     //private void setErrorBackground(IBHComponent comp){
     //    ValidationComponentUtils.setErrorBackground(comp);
     //}
-    abstract ValidationResult validate(IBHComponent comp);
+    abstract ValidationResult validate(BHTextField comp);
 
     abstract ValidationResult validateAll(Map<String, BHTextField> toValidate);
 }

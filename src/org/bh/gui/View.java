@@ -159,8 +159,8 @@ public abstract class View implements  KeyListener, PropertyChangeListener{
 
 
     private void handleValidateEvent(Object e){
-        if(e instanceof IBHComponent){
-            validator.validate((IBHComponent) e);
+        if(e instanceof BHTextField){
+            validator.validate((BHTextField) e);
         }
     }
     public void keyPressed(KeyEvent e) {
