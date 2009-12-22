@@ -33,7 +33,6 @@ public abstract class View implements  KeyListener, PropertyChangeListener{
     private Map<String, IBHAddValue> bhChartComponents;
     private Map<String, IBHComponent> bhModelComponents;
     private Map<String, IBHComponent> bhTextComponents;
-    private ITranslator translator;
 
     /**
      *
@@ -44,19 +43,14 @@ public abstract class View implements  KeyListener, PropertyChangeListener{
      */
     public View(JPanel viewPanel, BHValidityEngine validator, ITranslator translator) throws ViewException{
         this.validator = validator;
-        this.translator = translator;
         setViewPanel(viewPanel);
     }
     public View(JPanel viewPanel, BHValidityEngine validator) throws ViewException{
     	this(viewPanel, validator, null);
     }
-
-    /**
-     * Return the panel instance of the current view
-     * @param viewPanel
-     */
-    public View(JPanel viewPanel){
+    public View(JPanel viewPanel)throws ViewException{
         this.viewPanel = viewPanel;
+        this.bhModelComponents = mapBHcomponents(viewPanel.getComponents());
     }
 
     /**
@@ -110,17 +104,6 @@ public abstract class View implements  KeyListener, PropertyChangeListener{
             }
         }
         return map;
-    }
-    /**
-     *
-     * @return
-     */
-    protected ITranslator getTranslator(){
-        return this.translator;
-    }
-
-    protected void setTranslator(ITranslator translator) {
-        this.translator = translator;
     }
     /**
      * deliver the Labels with translation key

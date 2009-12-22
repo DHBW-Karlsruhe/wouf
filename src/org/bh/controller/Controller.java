@@ -45,13 +45,13 @@ public abstract class Controller implements IController, ActionListener, Platfor
     /**
      * Reference to the Platform StatusBar. Must be set in every constructor
      */
-    private BHStatusBar bhStatusBar;
+    private static BHStatusBar bhStatusBar;
 
     public Controller(View view, IDTO model){
         log.debug("Plugincontroller instance");
         this.model = model;
         this.view = view;
-        this.bhStatusBar = Services.getBHstatusBar();
+        Controller.bhStatusBar = Services.getBHstatusBar();
         if (view != null) {
         	this.bhModelcomponents = this.view.getBHmodelComponents();
         }
@@ -76,7 +76,7 @@ public abstract class Controller implements IController, ActionListener, Platfor
      */
     private void handleException(Exception e){
         log.error("Controller Exception ", e);
-        this.bhStatusBar.setToolTip(e.getMessage());
+        Controller.bhStatusBar.setToolTip(e.getMessage());
     }
     /**
      * @see IController
@@ -113,6 +113,7 @@ public abstract class Controller implements IController, ActionListener, Platfor
      */
     private void safeToModel(IBHComponent comp)throws DTOAccessException{
         log.debug("Plugin save to dto");
+        this.model.setSandBoxMode(Boolean.TRUE);
         this.model.put(comp.getKey(), comp.getValue());
     }
     /**
@@ -148,16 +149,16 @@ public abstract class Controller implements IController, ActionListener, Platfor
      * @BHStatusBar
      * @param label
      */
-    protected void setBHstatusBarValidationToolTip(JLabel label){
-        this.bhStatusBar.setValidationToolTip(label);
+    public static void setBHstatusBarValidationToolTip(JLabel label){
+        Controller.bhStatusBar.setValidationToolTip(label);
     }
      /**
      * concret BHValidityEngine can use this method to set Tool Tip
      * @BHStatusBar
       * @param tooltip
      */
-    protected void setBHstatusBarToolTip(String tooltip){
-        this.bhStatusBar.setToolTip(tooltip);
+    public static void setBHstatusBarToolTip(String tooltip){
+        Controller.bhStatusBar.setToolTip(tooltip);
     }
 
 
