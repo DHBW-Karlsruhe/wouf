@@ -37,5 +37,7 @@ public interface IController {
      * @param result
      */
     void setResult(Map result);
+
+    List<String> getStochasticKeys();
    
 }

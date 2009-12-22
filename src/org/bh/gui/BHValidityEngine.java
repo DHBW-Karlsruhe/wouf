@@ -29,14 +29,14 @@ public abstract class BHValidityEngine{
      * return wheater the last validationAll has an error or warning
      * @param validation
      */
-    private void setValidityStatus(ValidationResult validation){
+    private static void setValidityStatus(ValidationResult validation){
         if (validation.hasErrors() || validation.hasWarnings()){
             isValid = true;
         }else{
             isValid = false;
         }
     }
-    protected boolean isValid(){
+    public static boolean isValid(){
         return isValid;
     }
     private void setValidityReportLabel(ValidationResultModel validationModel){

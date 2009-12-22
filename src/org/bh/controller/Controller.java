@@ -15,6 +15,7 @@ import org.apache.log4j.Logger;
 import org.bh.data.DTOAccessException;
 import org.bh.data.IDTO;
 import org.bh.gui.View;
+import org.bh.gui.swing.BHButton;
 import org.bh.gui.swing.BHStatusBar;
 import org.bh.gui.swing.IBHComponent;
 import org.bh.platform.PlatformListener;
@@ -53,7 +54,8 @@ public abstract class Controller implements IController, ActionListener, Platfor
         this.view = view;
         Controller.bhStatusBar = Services.getBHstatusBar();
         if (view != null) {
-        	this.bhModelcomponents = this.view.getBHmodelComponents();
+            this.bhModelcomponents = this.view.getBHmodelComponents();
+            this.AddControllerAsListener(this.view.getBHtextComponents());
         }
         Services.addPlatformListener(this);
     }
@@ -92,6 +94,10 @@ public abstract class Controller implements IController, ActionListener, Platfor
 
     public void setView(View view){
         this.view = view;
+        if (view != null) {
+        	this.bhModelcomponents = this.view.getBHmodelComponents();
+                this.AddControllerAsListener(this.view.getBHtextComponents());
+        }
     }
 
     /**
@@ -159,6 +165,13 @@ public abstract class Controller implements IController, ActionListener, Platfor
      */
     public static void setBHstatusBarToolTip(String tooltip){
         Controller.bhStatusBar.setToolTip(tooltip);
+    }
+    private void AddControllerAsListener(Map<String, IBHComponent> comps){
+        for(IBHComponent comp : comps.values()){
+            if(comp instanceof BHButton){
+                ((BHButton) comp).addActionListener(this);
+            }
+        }
     }
 
 

@@ -19,6 +19,7 @@ import javax.swing.JPanel;
 import org.bh.gui.chart.IBHAddValue;
 import org.bh.gui.swing.BHButton;
 import org.bh.gui.swing.BHLabel;
+import org.bh.gui.swing.BHTextField;
 import org.bh.gui.swing.IBHComponent;
 import org.bh.platform.i18n.ITranslator;
 
@@ -30,23 +31,13 @@ public abstract class View implements  KeyListener, PropertyChangeListener{
 
     private BHValidityEngine validator;
     private JPanel viewPanel;
-    private Map<String, IBHAddValue> bhChartComponents;
-    private Map<String, IBHComponent> bhModelComponents;
+    private Map<String, IBHAddValue> bhChartComponents = Collections.synchronizedMap(new HashMap<String, IBHAddValue>());
+    private Map<String, IBHComponent> bhModelComponents = Collections.synchronizedMap(new HashMap<String, IBHComponent>());
     private Map<String, IBHComponent> bhTextComponents;
 
-    /**
-     *
-     * @param viewPanel
-     * @param validator
-     * @param translator 
-     * @throws ViewException
-     */
-    public View(JPanel viewPanel, BHValidityEngine validator, ITranslator translator) throws ViewException{
-        this.validator = validator;
-        setViewPanel(viewPanel);
-    }
     public View(JPanel viewPanel, BHValidityEngine validator) throws ViewException{
-    	this(viewPanel, validator, null);
+    	this.viewPanel = viewPanel;
+        this.validator = validator;
     }
     public View(JPanel viewPanel)throws ViewException{
         this.viewPanel = viewPanel;
@@ -54,12 +45,15 @@ public abstract class View implements  KeyListener, PropertyChangeListener{
     }
 
     /**
-     * add View class as Key and PropertyChangeListener of all BHComponent
+     * add View class as Key and PropertyChangeListener of all BHTextField
      * @param comp
      */
     private void addViewListener(Component comp){
-        comp.addKeyListener(this);
-        comp.addPropertyChangeListener(this);
+        if(comp instanceof BHTextField){
+            comp.addKeyListener(this);
+            comp.addPropertyChangeListener(this);
+        }
+      
     }
     /**
      * Map all components of IBHComponent in the model, text or chart map and set
@@ -119,6 +113,15 @@ public abstract class View implements  KeyListener, PropertyChangeListener{
     public Map<String, IBHComponent>  getBHmodelComponents(){
         return this.bhModelComponents;
     }
+
+    /**
+     * deliver the
+     * @return
+     */
+    public Map<String, IBHAddValue> getBHchartComponents() {
+        return bhChartComponents;
+    }
+
     /**
      * deliver the instance of the Plugin Panel
      * @return
@@ -132,7 +135,7 @@ public abstract class View implements  KeyListener, PropertyChangeListener{
      * @param panel
      * @throws ViewException
      */
-    protected void setViewPanel(JPanel panel) throws ViewException{
+    public void setViewPanel(JPanel panel) throws ViewException{
         this.viewPanel = panel;
         this.bhTextComponents = Collections.synchronizedMap(new HashMap<String, IBHComponent>());
         this.bhModelComponents = mapBHcomponents(viewPanel.getComponents());
@@ -149,7 +152,7 @@ public abstract class View implements  KeyListener, PropertyChangeListener{
      *
      * @param validator
      */
-    protected void setValidator(BHValidityEngine validator) {
+    public void setValidator(BHValidityEngine validator) {
         this.validator = validator;
     }
 
