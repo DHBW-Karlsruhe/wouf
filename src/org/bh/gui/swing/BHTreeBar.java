@@ -57,6 +57,7 @@ public class BHTreeBar extends JTree implements TreeModelListener{
 			//model.setRoot(project1);
 		
 		setModel(model);
+		
 		setEditable(true);
 		getSelectionModel().setSelectionMode(TreeSelectionModel.SINGLE_TREE_SELECTION);
 		setShowsRootHandles(true);

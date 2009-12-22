@@ -6,6 +6,7 @@ import java.awt.Component;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.JScrollPane;
 import javax.swing.JSplitPane;
 import javax.swing.UIManager;
 import javax.swing.WindowConstants;
@@ -154,7 +155,8 @@ public class BHMainFrame extends JFrame {
 	}
 
 	public static void addContentForms(Component content) {
-		paneH.setRightComponent(content);
+		JScrollPane formsScrollPane = new JScrollPane(content);
+		paneH.setRightComponent(formsScrollPane);
 
 	}
 
