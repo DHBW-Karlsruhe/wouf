@@ -22,8 +22,8 @@ public abstract class Calculable implements IValue {
 
 	/**
 	 * Pattern for a double value. It matches zero or one minus sign, followed
-	 * by zero or more digits (0-9), followed by a dot and one or more digits,
-	 * plus anything matched by the {@link #INTEGER_PATTERN}-
+	 * by zero or more digits (0-9), followed by a dot and one or more digits.
+	 * Leading or trailing spaces will be ignored.
 	 * 
 	 * <p>
 	 * Examples for values are:
@@ -32,30 +32,30 @@ public abstract class Calculable implements IValue {
 	 * <li>12.3
 	 * <li>12.34
 	 * <li>.1
-	 * <li>1
+	 * <li>1.
 	 * <li>12
 	 * <li>-1.2
 	 * <li>-.1
 	 * <li>-1
+	 * <li>&nbsp;1.2&nbsp; (spaces before and/or after the value)
 	 * </ul>
 	 * 
 	 * However, these values do not match:
 	 * <ul>
 	 * <li>(empty string)
 	 * <li>1,2
-	 * <li>1.
 	 * <li>- 1.2
+	 * <li>1
 	 * <li>abc
 	 * <li>a 1 b
-	 * <li>&nbsp;1&nbsp; (a space before or after the value)
 	 * </ul>
 	 */
-	public static final Pattern DOUBLE_PATTERN = Pattern.compile("^"
-			+ DoubleValue.REGEX + "$");
+	public static final Pattern DOUBLE_PATTERN = Pattern.compile("^\\s*"
+			+ DoubleValue.REGEX + "\\s*$");
 
 	/**
 	 * Pattern for an integer value. It matches zero or one minus sign, followed
-	 * by one or more digits.
+	 * by one or more digits. Leading or trailing spaces will be ignored.
 	 * 
 	 * <p>
 	 * Examples for values are:
@@ -63,6 +63,7 @@ public abstract class Calculable implements IValue {
 	 * <li>1
 	 * <li>12
 	 * <li>-1
+	 * <li>&nbsp;1&nbsp; (spaces before and/or after the value)
 	 * </ul>
 	 * 
 	 * However, these values do not match:
@@ -74,17 +75,16 @@ public abstract class Calculable implements IValue {
 	 * <li>1.2
 	 * <li>abc
 	 * <li>a 1 b
-	 * <li>&nbsp;1&nbsp; (a space before or after the value)
 	 * </ul>
 	 */
-	public static final Pattern INTEGER_PATTERN = Pattern.compile("^"
-			+ IntegerValue.REGEX + "$");
+	public static final Pattern INTEGER_PATTERN = Pattern.compile("^\\s*"
+			+ IntegerValue.REGEX + "\\s*$");
 
 	/**
-	 * Pattern for an interval. It matches two double values, divided by a
-	 * semicolon (;) and enclosed by squared brackets. One space is allowed, but
-	 * not necessary, between the brackets and the digits as well as between the
-	 * digits and the semicolon.
+	 * Pattern for an interval. It matches two double or integer values, divided
+	 * by a semicolon (;) and enclosed by squared brackets. Spaces are allowed,
+	 * but not necessary, between the brackets and the digits, between the
+	 * digits and the semicolon as well as before and after the interval.
 	 * 
 	 * <p>
 	 * Examples for values are:
@@ -96,6 +96,8 @@ public abstract class Calculable implements IValue {
 	 * <li>[ 1.2 ; 3.4 ]
 	 * <li>[ 1 ; 2 ]
 	 * <li>[ 1.2 ;3 ]
+	 * <li>[&nbsp;&nbsp;1.2;3.4] (two spaces between bracket and digits)
+	 * <li>&nbsp;[ 1 ; 2 ]&nbsp; (spaces before and/or after the interval)
 	 * </ul>
 	 * 
 	 * However, these values do not match:
@@ -103,20 +105,21 @@ public abstract class Calculable implements IValue {
 	 * <li>(empty string)
 	 * <li>1.
 	 * <li>.1
+	 * <li>1.
 	 * <li>1.2
 	 * <li>abc
 	 * <li>a 1 b
 	 * <li>[;]
 	 * <li>[1.2;]
-	 * <li>[&nbsp;&nbsp;1.2;3.4] (two spaces between bracket and digits)
-	 * <li>&nbsp;[ 1 ; 2 ]&nbsp; (a space before or after the value)
 	 * </ul>
 	 * 
 	 * @see DoubleValue#REGEX
+	 * @see IntegerValue#REGEX
 	 */
-	public static final Pattern INTERVAL_PATTERN = Pattern.compile("^\\[\\s?("
-			+ DoubleValue.REGEX + ")\\s?;\\s?(" + DoubleValue.REGEX
-			+ ")\\s?\\]$");
+	public static final Pattern INTERVAL_PATTERN = Pattern
+			.compile("^\\s*\\[\\s*(" + DoubleValue.REGEX + "|"
+					+ IntegerValue.REGEX + ")\\s*;\\s*(" + DoubleValue.REGEX
+					+ "|" + IntegerValue.REGEX + ")\\s*\\]\\s*$");
 
 	/**
 	 * Adds summand to the current Calculable.
