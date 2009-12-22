@@ -1,6 +1,7 @@
 package org.bh.gui.chart;
 
 import java.awt.Component;
+import java.util.List;
 
 import javax.swing.UIManager;
 
@@ -24,7 +25,7 @@ import org.jfree.data.xy.DefaultXYDataset;
  * @version 0.1, 17.12.2009
  *
  */
-public class BHxyAreaChart extends JFreeChart implements IBHComponent{
+public class BHxyAreaChart extends JFreeChart implements IBHComponent, IBHAddValue{
 	BHTranslator translator = BHTranslator.getInstance();
 	private String key;
 	private JFreeChart chart;
@@ -94,6 +95,32 @@ public class BHxyAreaChart extends JFreeChart implements IBHComponent{
         public  void setValue(IValue value){
             throw new UnsupportedOperationException("Not supported yet.");
         }
+
+		@Override
+		public void addSeries(Comparable<String> key, double[] values,
+				int bins, double minimum, double maximum) {
+			// TODO Auto-generated method stub
+			throw new UnsupportedOperationException("This method has not been implemented");
+		}
+
+		@Override
+		public void addValue(Number value, Comparable<String> columnKey) {
+			// TODO Auto-generated method stub
+			throw new UnsupportedOperationException("This method has not been implemented");
+		}
+
+		@Override
+		public void addValue(Number value, int rowKey,
+				Comparable<String> columnKey) {
+			// TODO Auto-generated method stub
+			throw new UnsupportedOperationException("This method has not been implemented");
+		}
+
+		@Override
+		public void addValues(List<?> list) {
+			// TODO Auto-generated method stub
+			throw new UnsupportedOperationException("This method has not been implemented");
+		}
 
 
 }

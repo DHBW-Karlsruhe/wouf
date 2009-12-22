@@ -109,7 +109,7 @@ public class BHHistogramChart extends JFreeChart implements IBHComponent, IBHAdd
 	}
 
 	@Override
-	public void addValues(List<?> list, Comparable<String> columnKey) {
+	public void addValues(List<?> list) {
 		// TODO Auto-generated method stub
 		throw new UnsupportedOperationException("This method has not been implemented");
 	}	
