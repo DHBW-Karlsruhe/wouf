@@ -10,12 +10,12 @@ package org.bh.data.types;
  * @version 0.3, 21.12.2009, Norman
  */
 public class IntervalValue extends Calculable {
-
+	
 	/** The min. */
-	protected double min;
+	protected final double min;
 	
 	/** The max. */
-	protected double max;
+	protected final double max;
 
 	/**
 	 * Instantiates a new interval value.
@@ -152,7 +152,7 @@ public class IntervalValue extends Calculable {
 	/* Specified by interface/super class. */
 	@Override
 	public final String toString() {
-		return "(" + min + "; " + max + ")";
+		return "[" + min + "; " + max + "]";
 	}
 
 	/* Specified by interface/super class. */

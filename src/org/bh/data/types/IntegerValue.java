@@ -11,8 +11,10 @@ package org.bh.data.types;
  */
 public class IntegerValue extends Calculable {
 	
+	public static final String REGEX = "-?[0-9]+";
+	
 	/** The value. */
-	protected int value;
+	protected final int value;
 
 	/**
 	 * Instantiates a new integer value.

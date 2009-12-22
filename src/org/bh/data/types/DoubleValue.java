@@ -10,9 +10,11 @@ package org.bh.data.types;
  * @version 0.3, 21.12.2009, Norman
  */
 public class DoubleValue extends Calculable {
+	
+	public static final String REGEX = "-?[0-9]*\\.?[0-9]+";
 
 	/** The value. */
-	protected double value;
+	protected final double value;
 
 	/**
 	 * Instantiates a new double value.

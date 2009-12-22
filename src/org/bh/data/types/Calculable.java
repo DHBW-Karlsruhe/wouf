@@ -1,6 +1,6 @@
 package org.bh.data.types;
 
-import java.security.InvalidParameterException;
+import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 /**
@@ -9,31 +9,120 @@ import java.util.regex.Pattern;
  * 
  * @author Sebastian
  * @author Norman
- * @author Robert Vollmer
+ * @author Robert
  * @author Alex
  * 
  * @version 0.1, 21.11.2009, Sebastian
  * @version 0.2, unknown, Robert
  * @version 0.3, 21.12.2009, Norman
  * @version 0.4, 22.12.2009, Alex
+ * @version 0.5, 22.12.2009, Robert
  */
 public abstract class Calculable implements IValue {
 
-	/** The Constant DOUBLE_PATTERN. */
-	public static final Pattern DOUBLE_PATTERN = Pattern
-			.compile("[0-9]*\\.?[0-9]*");
-	
-	/** The Constant INTEGER_PATTERN. */
-	public static final Pattern INTEGER_PATTERN = Pattern.compile("[0-9]*");
-	
-	/** The Constant INTERVAL_PATTERN. */
-	public static final Pattern INTERVAL_PATTERN = Pattern
-			.compile("\\[\\s?[0-9]*\\.?[0-9]*\\s?;\\s?[0-9]*\\.?[0-9]*\\s?\\]");
+	/**
+	 * Pattern for a double value. It matches zero or one minus sign, followed
+	 * by zero or more digits (0-9), followed by a dot and one or more digits,
+	 * plus anything matched by the {@link #INTEGER_PATTERN}-
+	 * 
+	 * <p>
+	 * Examples for values are:
+	 * <ul>
+	 * <li>1.2
+	 * <li>12.3
+	 * <li>12.34
+	 * <li>.1
+	 * <li>1
+	 * <li>12
+	 * <li>-1.2
+	 * <li>-.1
+	 * <li>-1
+	 * </ul>
+	 * 
+	 * However, these values do not match:
+	 * <ul>
+	 * <li>(empty string)
+	 * <li>1,2
+	 * <li>1.
+	 * <li>- 1.2
+	 * <li>abc
+	 * <li>a 1 b
+	 * <li>&nbsp;1&nbsp; (a space before or after the value)
+	 * </ul>
+	 */
+	public static final Pattern DOUBLE_PATTERN = Pattern.compile("^"
+			+ DoubleValue.REGEX + "$");
+
+	/**
+	 * Pattern for an integer value. It matches zero or one minus sign, followed
+	 * by one or more digits.
+	 * 
+	 * <p>
+	 * Examples for values are:
+	 * <ul>
+	 * <li>1
+	 * <li>12
+	 * <li>-1
+	 * </ul>
+	 * 
+	 * However, these values do not match:
+	 * <ul>
+	 * <li>(empty string)
+	 * <li>- 1
+	 * <li>1.
+	 * <li>.1
+	 * <li>1.2
+	 * <li>abc
+	 * <li>a 1 b
+	 * <li>&nbsp;1&nbsp; (a space before or after the value)
+	 * </ul>
+	 */
+	public static final Pattern INTEGER_PATTERN = Pattern.compile("^"
+			+ IntegerValue.REGEX + "$");
+
+	/**
+	 * Pattern for an interval. It matches two double values, divided by a
+	 * semicolon (;) and enclosed by squared brackets. One space is allowed, but
+	 * not necessary, between the brackets and the digits as well as between the
+	 * digits and the semicolon.
+	 * 
+	 * <p>
+	 * Examples for values are:
+	 * <ul>
+	 * <li>[1.2;3.4]
+	 * <li>[-1.2;3.4]
+	 * <li>[ 1.2;3.4]
+	 * <li>[1.2;3.4 ]
+	 * <li>[ 1.2 ; 3.4 ]
+	 * <li>[ 1 ; 2 ]
+	 * <li>[ 1.2 ;3 ]
+	 * </ul>
+	 * 
+	 * However, these values do not match:
+	 * <ul>
+	 * <li>(empty string)
+	 * <li>1.
+	 * <li>.1
+	 * <li>1.2
+	 * <li>abc
+	 * <li>a 1 b
+	 * <li>[;]
+	 * <li>[1.2;]
+	 * <li>[&nbsp;&nbsp;1.2;3.4] (two spaces between bracket and digits)
+	 * <li>&nbsp;[ 1 ; 2 ]&nbsp; (a space before or after the value)
+	 * </ul>
+	 * 
+	 * @see DoubleValue#REGEX
+	 */
+	public static final Pattern INTERVAL_PATTERN = Pattern.compile("^\\[\\s?("
+			+ DoubleValue.REGEX + ")\\s?;\\s?(" + DoubleValue.REGEX
+			+ ")\\s?\\]$");
 
 	/**
 	 * Adds summand to the current Calculable.
 	 * 
-	 * @param summand the summand
+	 * @param summand
+	 *            the summand
 	 * 
 	 * @return the result as a new calculable instance
 	 */
@@ -42,7 +131,8 @@ public abstract class Calculable implements IValue {
 	/**
 	 * Subtracts the subtrahend from the current Calculable.
 	 * 
-	 * @param subtrahend the subtrahend
+	 * @param subtrahend
+	 *            the subtrahend
 	 * 
 	 * @return the result as a new calculable instance
 	 */
@@ -51,7 +141,8 @@ public abstract class Calculable implements IValue {
 	/**
 	 * Divides the current Calculable through the divisor.
 	 * 
-	 * @param divisor the divisor
+	 * @param divisor
+	 *            the divisor
 	 * 
 	 * @return the result as a new Calculable instance
 	 */
@@ -60,7 +151,8 @@ public abstract class Calculable implements IValue {
 	/**
 	 * Multiplies the current Calculable with the multiplicand.
 	 * 
-	 * @param multiplicand the multiplicand
+	 * @param multiplicand
+	 *            the multiplicand
 	 * 
 	 * @return the result as a new Calculable instance
 	 */
@@ -76,7 +168,8 @@ public abstract class Calculable implements IValue {
 	/**
 	 * Returns the power of the exponent of the current Calculable.
 	 * 
-	 * @param exponent the exponent
+	 * @param exponent
+	 *            the exponent
 	 * 
 	 * @return the result as a new Calculable instance
 	 */
@@ -87,41 +180,44 @@ public abstract class Calculable implements IValue {
 	public abstract Calculable clone();
 
 	/**
-	 * Parses a given String to create a new Calculable instance 
+	 * Parses a given String to create a new Calculable instance
 	 * 
-	 * @param s the String
+	 * @param s
+	 *            the String
 	 * 
 	 * @return the Calculable
 	 */
 	public static Calculable parseCalculable(String s) {
-		if (DOUBLE_PATTERN.matcher(s).matches()) {
-			return new DoubleValue(java.lang.Double.parseDouble(s));
-		} else if (INTEGER_PATTERN.matcher(s).matches()) {
+		if (INTEGER_PATTERN.matcher(s).matches()) {
 			return new IntegerValue(java.lang.Integer.parseInt(s));
-		} else if (INTERVAL_PATTERN.matcher(s).matches()) {
-			String[] parts =  s.split(";", 2);
-			return new IntervalValue(Double.parseDouble(parts[0].substring(1).trim()),
-								Double.parseDouble(parts[1].substring(1).trim()));
+		} else if (DOUBLE_PATTERN.matcher(s).matches()) {
+			return new DoubleValue(java.lang.Double.parseDouble(s));
 		} else {
-			throw new UnsupportedOperationException(
-					"unknown type for calculable,  has not been implemented yet");
+			Matcher intervalMatcher = INTERVAL_PATTERN.matcher(s);
+			if (intervalMatcher.matches()) {
+				String min = intervalMatcher.group(1);
+				String max = intervalMatcher.group(2);
+				return new IntervalValue(Double.parseDouble(min), Double
+						.parseDouble(max));
+			}
 		}
+
+		throw new UnsupportedOperationException(
+				"unknown type for calculable,  has not been implemented yet");
 	}
 
 	/**
 	 * Calculates the sum of all parameters.
 	 * 
-	 * @param summands the summands
+	 * @param summands
+	 *            the summands
 	 * 
 	 * @return Sum of all parameters as new Calculable
 	 */
 	public Calculable add(Calculable... summands) {
-		if (summands.length == 0)
-			throw new InvalidParameterException("No summands have been passed");
-		
-		Calculable result = this.clone();
-		for (int i = 0; i < summands.length; i++) {
-			result = result.add(summands[i]);
+		Calculable result = this;
+		for (Calculable summand : summands) {
+			result = result.add(summand);
 		}
 		return result;
 	}
@@ -129,17 +225,15 @@ public abstract class Calculable implements IValue {
 	/**
 	 * Calculates the product of all parameters.
 	 * 
-	 * @param factors the factors
+	 * @param factors
+	 *            the factors
 	 * 
 	 * @return Product of all parameters as new Calculable
 	 */
 	public Calculable mul(Calculable... factors) {
-		if (factors.length == 0)
-			throw new InvalidParameterException("No factors have been passed");
-
-		Calculable result = this.clone();
-		for (int i = 0; i < factors.length; i++) {
-			result = result.mul(factors[i]);
+		Calculable result = this;
+		for (Calculable factor : factors) {
+			result = result.mul(factor);
 		}
 		return result;
 	}

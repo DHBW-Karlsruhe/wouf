@@ -13,7 +13,7 @@ package org.bh.data.types;
 
 public class StringValue implements IValue {
 	
-	private String myString;
+	private final String myString;
 	
 	/**
 	 * Constructor
