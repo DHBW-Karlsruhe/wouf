@@ -8,6 +8,7 @@ import org.apache.log4j.Logger;
 import org.bh.data.IPeriodicalValuesDTO;
 import org.bh.gui.swing.BHMainFrame;
 import org.bh.gui.swing.BHSplashScreen;
+import org.bh.platform.PlatformController;
 import org.bh.platform.PluginManager;
 import org.bh.platform.i18n.BHTranslator;
 
@@ -53,7 +54,9 @@ public class BusinessHorizon {
 
 			@Override
 			public void run() {
-				new BHMainFrame(BHTranslator.getInstance().translate("title"));
+				
+				PlatformController pc = new PlatformController();
+				
 			}
 
 		});

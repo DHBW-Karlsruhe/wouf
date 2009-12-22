@@ -1,5 +1,6 @@
 package org.bh.gui.swing;
 
+import java.awt.Component;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
@@ -25,7 +26,7 @@ import org.bh.platform.i18n.ITranslator;
  * 
  */
 
-public class BHMenuBar extends JMenuBar implements ActionListener {
+public class BHMenuBar extends JMenuBar{
 
 	private static final long serialVersionUID = 1L;
 	ITranslator translator = Services.getTranslator();
@@ -122,18 +123,12 @@ public class BHMenuBar extends JMenuBar implements ActionListener {
 		menuHelp.add(new BHMenuItem("MuserHelp", 72, "userHelp"));
 		menuHelp.add(new BHMenuItem("MmathHelp", 0, "mathHelp"));
 		menuHelp.add(new BHMenuItem("Minfo", 112, "about"));
-
+		
 	}
-
-	// ActionListener
-	public void actionPerformed(ActionEvent e) {
-		if ("new".equals(e.getActionCommand())) {
-
-		} else if ("open".equals(e.getActionCommand())) {
-
-		} else {
-
-		}
+	
+	public Component[] getBHComponents(){
+		//TODO ausprogrammieren: Muss alle Kinder, Kindeskinder, ... zurückgeben
+		return null;
 	}
 
 }

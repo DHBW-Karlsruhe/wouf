@@ -1,8 +1,3 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
-
 package org.bh.gui.swing;
 
 import java.awt.Component;
@@ -35,8 +30,8 @@ public interface IBHComponent {
      */
     public void setValue(IValue value);
     /**
-     * Number of rules and the rules itself are platform indipendent But
-     * shall be consitent in every plugin by using one Validity Engine per plugin
+     * Number of rules and the rules itself are platform independent But
+     * shall be consistent in every plugin by using one Validity Engine per plugin
      * @return amount of rules defined in a subclass of BHValidity engine
      * @see BHValidityEngine
      */

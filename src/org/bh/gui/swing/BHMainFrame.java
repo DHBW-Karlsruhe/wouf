@@ -44,7 +44,7 @@ public class BHMainFrame extends JFrame {
 	/**
 	 * Tree for File contents.
 	 */
-	public static BHTree treeBar;
+	public static BHTree BHTree;
 
 	/**
 	 * Status Bar.
@@ -101,7 +101,9 @@ public class BHMainFrame extends JFrame {
 		toolBar = new BHToolBar(getWidth(), standardBarHeight);
 		// toolBar.setBounds(0, 0, screenSize.width, standardBarHeight);
 
-		treeBar = new BHTree();
+		JPanel BHTreePanel =  new JPanel();
+		BHTreePanel.add(new JScrollPane(BHTree));
+
 		// treeBar.setBounds(0, standardBarHeight, treeBarWidth,
 		// screenSize.height-standardBarHeight);
 		// treeBar.setBounds(0,200,200,400);
@@ -111,7 +113,7 @@ public class BHMainFrame extends JFrame {
 
 		// Create the horizontal split pane and put the treeBar and the content
 		// in it.
-		paneH = new JSplitPane(JSplitPane.HORIZONTAL_SPLIT, treeBar, content);
+		paneH = new JSplitPane(JSplitPane.HORIZONTAL_SPLIT, BHTreePanel, content);
 		paneH.setOneTouchExpandable(true);
 		paneH.setDividerLocation(treeBarWidth);
 

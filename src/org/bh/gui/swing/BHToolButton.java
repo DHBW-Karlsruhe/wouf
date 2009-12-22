@@ -25,17 +25,20 @@ import org.bh.platform.Services;
  *
  */
 
-public class BHToolButton extends JButton implements MouseListener, ActionListener{
+public class BHToolButton extends BHButton{
     
     public String toolTip;
     public String buttonName;
-    private BHStatusBar bhStatusBar;
     JFileChooser fc;
 	
+   
     
     public BHToolButton(String imageName,String actionCommand,String toolTipText,String altText){
 	
-	//Look for the image.
+	
+    	super(actionCommand);
+    	
+    	//Look for the image.
         String imgLocation = "/toolbarButtonGraphics/general/" + imageName + ".gif";
 		//String imgLocation = "images/3D-blue/"+imageName+".png";
         
@@ -43,16 +46,9 @@ public class BHToolButton extends JButton implements MouseListener, ActionListen
         toolTip = toolTipText;
         buttonName = altText;
         
-        //Create and initialize the button.
-        setActionCommand(actionCommand);
-        	//setToolTipText(toolTipText);
-        	//this.toolTipText = toolTipText;
         
-        addActionListener(this);
-        addMouseListener(this);
-        
-        	//setIcon(new ImageIcon(imgLocation));
-        	//setPreferredSize(new Dimension(25, 25));
+        //setIcon(new ImageIcon(imgLocation));
+        //setPreferredSize(new Dimension(25, 25));
         
         if (imageURL != null) {                      
             //image found
@@ -61,67 +57,11 @@ public class BHToolButton extends JButton implements MouseListener, ActionListen
             //no image found
             setText(altText);
             System.err.println("Resource not found: "+ imgLocation);
-        }
-        this.bhStatusBar = Services.getBHstatusBar();
-        
+        }    
     }
+    
     public String getToolTip(){
 	    return toolTip;
 	}
-    
-    
-	@Override
-	public void mouseClicked(MouseEvent e) {
-		// TODO Auto-generated method stub
-		throw new UnsupportedOperationException("This method has not been implemented");
-	}
-	@Override
-	public void mouseEntered(MouseEvent e) {
-		this.bhStatusBar.setToolTip(getToolTip());
-		//BHStatusBar.setValidationToolTip(new JLabel("Test"));
-	}
-	@Override
-	public void mouseExited(MouseEvent e) {
-		this.bhStatusBar.setToolTip("");
-	}
-	@Override
-	public void mousePressed(MouseEvent e) {
-		// TODO Auto-generated method stub
-		throw new UnsupportedOperationException("This method has not been implemented");
-	}
-	@Override
-	public void mouseReleased(MouseEvent e) {
-		// TODO Auto-generated method stub
-		throw new UnsupportedOperationException("This method has not been implemented");
-	}
-	
-	@Override
-	public void actionPerformed(ActionEvent actionEvent) {
-		String cmd = actionEvent.getActionCommand();
-	        
-	    // Handle each button.
-	    if (cmd.equals("addP")) { //add project button clicked
-	    	System.out.println("add project");
-	    	BHTree.addProject("New Project " + BHTree.getNodeSuffix());
-	    	BHMainFrame.addContentForms(new BHFormsPanel());
-	    	
-	    } else if(cmd.equals("addS")){
-	    	BHTree.addScenario("New Scenario");
-	    	BHMainFrame.addContentFormsAndChart(new BHFormsPanel(), new JPanel());
-        } else if (cmd.equals("remove")) {
-            //Remove button clicked
-            BHTree.removeCurrentNode();
-            
-        } else if (cmd.equals("delete")) {
-            //Clear button clicked.
-            BHTree.clear();
-            BHTree.setNodeSuffix();
-        } else if(cmd.equals("open")){
-        	fc = new JFileChooser();
-        	fc.setPreferredSize(new Dimension(600,400));
-        	fc.showOpenDialog(this);
-        	
-        }
-	       
-	 }
+
 }
