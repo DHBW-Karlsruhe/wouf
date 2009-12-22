@@ -104,9 +104,10 @@ public class Formulary {
 		IntervalValue uwLastI = (IntervalValue) secondValue;
 		if(Math.abs(uwI.getMin() - uwLastI.getMin()) >= 0.0000000001){
 			return true;
-		}else{
-			return false;
 		}
+		
+		return false;
+
 	}
 	/**
 	 * Calculates the Debt to Equity ratio for each period.</br>

@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <classpath>
 	<classpathentry excluding="**/.svn/" kind="src" path="src"/>
+	<classpathentry excluding="**/.svn/" kind="src" output="plugins/resultAnalysis" path="plugins-src/resultAnalysis"/>
 	<classpathentry excluding="**/.svn/" kind="src" output="tests/bin" path="tests/src"/>
 	<classpathentry excluding="**/.svn/" kind="src" output="plugins/gcc" path="plugins-src/gcc"/>
 	<classpathentry excluding="**/.svn/" kind="src" output="plugins/apv" path="plugins-src/apv"/>

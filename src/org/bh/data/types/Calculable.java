@@ -4,16 +4,18 @@ import java.security.InvalidParameterException;
 import java.util.regex.Pattern;
 
 /**
- * Class for economic calculation wiht mixed types. Especially Interval
+ * Class for economic calculation with mixed types. Especially Interval
  * arithmetic is relevant.
  * 
  * @author Sebastian
  * @author Norman
  * @author Robert Vollmer
+ * @author Alex
  * 
  * @version 0.1, 21.11.2009, Sebastian
  * @version 0.2, unknown, Robert
  * @version 0.3, 21.12.2009, Norman
+ * @version 0.4, 22.12.2009, Alex
  */
 public abstract class Calculable implements IValue {
 
@@ -51,7 +53,7 @@ public abstract class Calculable implements IValue {
 	 * 
 	 * @param divisor the divisor
 	 * 
-	 * @return the result as a new calculable instance
+	 * @return the result as a new Calculable instance
 	 */
 	public abstract Calculable div(Calculable divisor);
 
@@ -60,14 +62,14 @@ public abstract class Calculable implements IValue {
 	 * 
 	 * @param multiplicand the multiplicand
 	 * 
-	 * @return the result as a new calculable instance
+	 * @return the result as a new Calculable instance
 	 */
 	public abstract Calculable mul(Calculable multiplicand);
 
 	/**
 	 * Returns the square root of the current Calculable.
 	 * 
-	 * @return the result as a new calculable instance
+	 * @return the result as a new Calculable instance
 	 */
 	public abstract Calculable sqrt();
 
@@ -76,7 +78,7 @@ public abstract class Calculable implements IValue {
 	 * 
 	 * @param exponent the exponent
 	 * 
-	 * @return the result as a new calculable instance
+	 * @return the result as a new Calculable instance
 	 */
 	public abstract Calculable pow(Calculable exponent);
 
@@ -85,11 +87,11 @@ public abstract class Calculable implements IValue {
 	public abstract Calculable clone();
 
 	/**
-	 * Parses a calculable instance of a given string.
+	 * Parses a given String to create a new Calculable instance 
 	 * 
-	 * @param s the s
+	 * @param s the String
 	 * 
-	 * @return the calculable
+	 * @return the Calculable
 	 */
 	public static Calculable parseCalculable(String s) {
 		if (DOUBLE_PATTERN.matcher(s).matches()) {
@@ -111,15 +113,15 @@ public abstract class Calculable implements IValue {
 	 * 
 	 * @param summands the summands
 	 * 
-	 * @return Sum of all parameters.
+	 * @return Sum of all parameters as new Calculable
 	 */
 	public Calculable add(Calculable... summands) {
 		if (summands.length == 0)
 			throw new InvalidParameterException("No summands have been passed");
 		
-		Calculable result = null;
+		Calculable result = this.clone();
 		for (int i = 0; i < summands.length; i++) {
-			result = add(summands[i]);
+			result = result.add(summands[i]);
 		}
 		return result;
 	}
@@ -129,15 +131,15 @@ public abstract class Calculable implements IValue {
 	 * 
 	 * @param factors the factors
 	 * 
-	 * @return Product of all parameters.
+	 * @return Product of all parameters as new Calculable
 	 */
 	public Calculable mul(Calculable... factors) {
 		if (factors.length == 0)
 			throw new InvalidParameterException("No factors have been passed");
 
-		Calculable result = null;
+		Calculable result = this.clone();
 		for (int i = 0; i < factors.length; i++) {
-			result = mul(factors[i]);
+			result = result.mul(factors[i]);
 		}
 		return result;
 	}
