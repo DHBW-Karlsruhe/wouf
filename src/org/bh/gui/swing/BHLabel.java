@@ -43,6 +43,19 @@ public class BHLabel extends JLabel implements IBHComponent {
 	 * 
 	 * @param key
 	 *            default key
+	 * @param value
+	 *            default value
+	 */
+	public BHLabel(String key, String value) {
+		super(value);
+		this.key = key;
+	}
+	
+	/**
+	 * Constructor to create new <code>BHLabel</code>.
+	 * 
+	 * @param key
+	 *            default key
 	 */
 	public BHLabel(String key) {
 		super();
