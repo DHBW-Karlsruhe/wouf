@@ -61,6 +61,9 @@ public class BHStatusBar extends JPanel {
 	 * @param toolTip
 	 */
 	public void setToolTip(String toolTip) {
+		//TODO Ausprogrammieren: Entweder "" oder Fehler anzeigen, falls vorhanden (evtl. mit "Link" zu 
+		//Popup mit allen Fehlermeldungen. Beispiel:
+		//Fremdkapital darf keine Buchstaben enthalten (hier klicken für alle Meldungen...)
 		lToolTip.setText(toolTip);
 		// test.repaint();
 		lToolTip.revalidate();

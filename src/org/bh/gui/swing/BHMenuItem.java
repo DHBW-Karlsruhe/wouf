@@ -1,6 +1,7 @@
 package org.bh.gui.swing;
 
 import java.awt.event.ActionEvent;
+import java.util.List;
 
 import javax.swing.JMenuItem;
 import javax.swing.KeyStroke;
@@ -24,6 +25,7 @@ public class BHMenuItem extends JMenuItem implements IBHComponent {
 
 	private String key;
 	private int[] validateRules;
+	private static List<BHMenuItem> platformMenuItems;
 
 	/**
 	 * create the new menu item
@@ -33,9 +35,9 @@ public class BHMenuItem extends JMenuItem implements IBHComponent {
 	 *            : Dec number ASCII
 	 * @param eventAction
 	 * @param actionCommand
+	 * @param forPlatform if set false MenuItem is not included in platformMenuItems-List
 	 */
-
-	public BHMenuItem(String key, int eventKey, String actionCommand) {
+	public BHMenuItem(String key, int eventKey, String actionCommand, Boolean forPlatform) {
 		super(Services.getTranslator().translate(key));
 		this.key = key;
 		if (eventKey != 0) {
@@ -49,15 +51,22 @@ public class BHMenuItem extends JMenuItem implements IBHComponent {
 			this.setAccelerator(KeyStroke.getKeyStroke(eventKey, metakey));
 		}
 		this.setActionCommand(actionCommand);
-		// this.addActionListener(this);
-
+		
+		if(forPlatform)
+			platformMenuItems.add(this);
+	}
+	/**
+	 * create the new menu item
+	 * -Constructor for regular use (w/o forPlatform parameter)
+	 * 
+	 */
+	public BHMenuItem(String key, int eventKey, String actionCommand) {
+		this(key, eventKey, actionCommand, true);
 	}
 
 	@Override
 	public String getKey() {
-		// TODO Auto-generated method stub
-		throw new UnsupportedOperationException(
-				"This method has not been implemented");
+		return key;
 	}
 
 	@Override
@@ -88,5 +97,13 @@ public class BHMenuItem extends JMenuItem implements IBHComponent {
 	public void setValue(IValue value) {
 		throw new UnsupportedOperationException("Not supported yet.");
 	}
-
+	
+	
+	/**
+	 * Method to get all MenuItems that are generated for platforms 
+	 * (i.e. that ones which have forPlatform = false not set)
+	 */
+	public static List<BHMenuItem> getPlatformMenuItems(){
+		return platformMenuItems;
+	}
 }

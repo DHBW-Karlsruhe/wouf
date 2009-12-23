@@ -27,7 +27,10 @@ import org.bh.platform.PlatformEvent.Type;
  * 
  * @author Tietze.Patrick
  * @author Thiele.Klaus
+ * @author Schmalzhaf.Alexander
+ * 
  * @version 0.1.1, 2009/12/16
+ * @version 0.2, 2009/12/22
  * 
  */
 public class BHMainFrame extends JFrame {
@@ -35,29 +38,35 @@ public class BHMainFrame extends JFrame {
 	/**
 	 * main panel.
 	 */
-	public static JPanel desktop;
-
+	public JPanel desktop;
+	
+	/**
+	 * Menu Bar for application
+	 */
+	public BHMenuBar menuBar;
+	
 	/**
 	 * ToolBar for desktop.
 	 */
 	public BHToolBar toolBar;
 
 	/**
-	 * Tree for File contents.
+	 * Tree for File contents (placed on a ScrollPane)
 	 */
-	public static BHTree BHTree;
+	public JScrollPane BHTreeScroller;
+	public BHTree BHTree;
 
 	/**
 	 * Status Bar.
 	 */
 	public BHStatusBar statusBar;
 
-	public static BHContent content;
+	public BHContent content;
 
 	/**
 	 * Horizontal Split pane.
 	 */
-	static JSplitPane paneH;
+	JSplitPane paneH;
 
 	/**
 	 * Vertical Split pane.
@@ -103,9 +112,10 @@ public class BHMainFrame extends JFrame {
 
 		toolBar = new BHToolBar(getWidth(), standardBarHeight);
 		// toolBar.setBounds(0, 0, screenSize.width, standardBarHeight);
+		
+		BHTree = new BHTree(null);
+		BHTreeScroller =  new JScrollPane(BHTree);
 
-		JPanel BHTreePanel =  new JPanel();
-		BHTreePanel.add(new JScrollPane(BHTree));
 
 		// treeBar.setBounds(0, standardBarHeight, treeBarWidth,
 		// screenSize.height-standardBarHeight);
@@ -116,7 +126,7 @@ public class BHMainFrame extends JFrame {
 
 		// Create the horizontal split pane and put the treeBar and the content
 		// in it.
-		paneH = new JSplitPane(JSplitPane.HORIZONTAL_SPLIT, BHTreePanel, content);
+		paneH = new JSplitPane(JSplitPane.HORIZONTAL_SPLIT, BHTreeScroller, content);
 		paneH.setOneTouchExpandable(true);
 		paneH.setDividerLocation(treeBarWidth);
 
@@ -156,16 +166,17 @@ public class BHMainFrame extends JFrame {
 		// EXIT is like app suicide
 		this.setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
 		this.setLocationRelativeTo(null);
-		this.setJMenuBar(new BHMenuBar());
+		menuBar = new BHMenuBar();
+		this.setJMenuBar(menuBar);
 	}
 
-	public static void addContentForms(Component content) {
+	public void addContentForms(Component content) {
 		JScrollPane formsScrollPane = new JScrollPane(content);
 		paneH.setRightComponent(formsScrollPane);
 
 	}
 
-	public static void addContentFormsAndChart(Component forms, Component chart) {
+	public void addContentFormsAndChart(Component forms, Component chart) {
 		JSplitPane paneV = new JSplitPane(JSplitPane.VERTICAL_SPLIT, forms,
 				chart);
 		

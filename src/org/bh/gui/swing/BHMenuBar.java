@@ -3,6 +3,8 @@ package org.bh.gui.swing;
 import java.awt.Component;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
@@ -29,7 +31,9 @@ import org.bh.platform.i18n.ITranslator;
 public class BHMenuBar extends JMenuBar{
 
 	ITranslator translator = Services.getTranslator();
-
+	List<BHMenuItem> menuItems = new ArrayList<BHMenuItem>();
+	
+	
 	public BHMenuBar() {
 
 		/**
@@ -70,64 +74,118 @@ public class BHMenuBar extends JMenuBar{
 		/**
 		 * create menu items --> file
 		 **/
+		
+		BHMenuItem tempItem; 
+		
+		tempItem = new BHMenuItem("Mnew", 78, "new");
+			menuItems.add(tempItem);
+			menuFile.add(tempItem);
+		tempItem = new BHMenuItem("Mopen", 79, "open");
+			menuItems.add(tempItem);
+			menuFile.add(tempItem);
+		tempItem = new BHMenuItem("Mclose", 0, "close");
+			menuItems.add(tempItem);
+			menuFile.add(tempItem);
+		tempItem = new BHMenuItem("Msave", 83, "save");
+			menuItems.add(tempItem);
+			menuFile.add(tempItem);
+		tempItem = new BHMenuItem("MsaveAs", 0, "saveAs");
+			menuItems.add(tempItem);
+			menuFile.add(tempItem);
+		tempItem = new BHMenuItem("Mquit", 88, "quit");
+			menuItems.add(tempItem);
+			menuFile.add(tempItem);
 
-		menuFile.add(new BHMenuItem("Mnew", 78, "new"));
-		menuFile.add(new BHMenuItem("Mopen", 79, "open"));
-		menuFile.add(new BHMenuItem("Mclose", 0, "close"));
-		menuFile.add(new BHMenuItem("Msave", 83, "save"));
-		menuFile.add(new BHMenuItem("MsaveAs", 0, "saveAs"));
-		menuFile.add(new BHMenuItem("Mquit", 88, "quit"));
 
 		/**
 		 * create menu items --> project
 		 **/
+		
+		tempItem = new BHMenuItem("Mcreate", 0, "create");
+			menuItems.add(tempItem);
+			menuProject.add(tempItem);
+		tempItem = new BHMenuItem("Mrename", 0, "rename");
+			menuItems.add(tempItem);
+			menuProject.add(tempItem);
+		tempItem = new BHMenuItem("Mduplicate", 0, "duplicate");
+			menuItems.add(tempItem);
+			menuProject.add(tempItem);
+		tempItem = new BHMenuItem("Mimport", 0, "import");
+			menuItems.add(tempItem);
+			menuProject.add(tempItem);
+		tempItem = new BHMenuItem("Mexport", 0, "export");
+			menuItems.add(tempItem);
+			menuProject.add(tempItem);
+		tempItem = new BHMenuItem("Mremove", 0, "remove");
+			menuItems.add(tempItem);
+			menuProject.add(tempItem);
 
-		menuProject.add(new BHMenuItem("Mcreate", 0, "create"));
-		menuProject.add(new BHMenuItem("Mrename", 0, "rename"));
-		menuProject.add(new BHMenuItem("Mduplicate", 0, "duplicate"));
-		menuProject.add(new BHMenuItem("Mimport", 0, "import"));
-		menuProject.add(new BHMenuItem("Mexport", 0, "export"));
-		menuProject.add(new BHMenuItem("Mremove", 0, "remove"));
 
 		/**
 		 * create menu items --> scenario
 		 **/
-
-		menuScenario.add(new BHMenuItem("Mcreate", 0, "create"));
-		menuScenario.add(new BHMenuItem("Mrename", 0, "rename"));
-		menuScenario.add(new BHMenuItem("Mduplicate", 0, "duplicate"));
-		menuScenario.add(new BHMenuItem("Mmove", 0, "move"));
-		menuScenario.add(new BHMenuItem("Mremove", 0, "remove"));
+		tempItem = new BHMenuItem("Mcreate", 0, "create");
+			menuItems.add(tempItem);
+			menuScenario.add(tempItem);
+		tempItem = new BHMenuItem("Mrename", 0, "rename");
+			menuItems.add(tempItem);
+			menuScenario.add(tempItem);
+		tempItem = new BHMenuItem("Mduplicate", 0, "duplicate");
+			menuItems.add(tempItem);
+			menuScenario.add(tempItem);
+		tempItem = new BHMenuItem("Mmove", 0, "move");
+			menuItems.add(tempItem);
+			menuScenario.add(tempItem);
+		tempItem = new BHMenuItem("Mremove", 0, "remove");
+			menuItems.add(tempItem);
+			menuScenario.add(tempItem);
 
 		/**
 		 * create menu items --> Bilanz & GuV
 		 **/
+		tempItem = new BHMenuItem("Mshow", 66, "show");
+			menuItems.add(tempItem);
+			menuBilanzGuV.add(tempItem);
+		tempItem = new BHMenuItem("Mcreate", 0, "create");
+			menuItems.add(tempItem);
+			menuBilanzGuV.add(tempItem);
+		tempItem = new BHMenuItem("Mimport", 0, "import");
+			menuItems.add(tempItem);
+			menuBilanzGuV.add(tempItem);
+		tempItem = new BHMenuItem("Medit", 0, "edit");
+			menuItems.add(tempItem);
+			menuBilanzGuV.add(tempItem);
+		tempItem = new BHMenuItem("Mremove", 0, "remove");
+			menuItems.add(tempItem);
+			menuBilanzGuV.add(tempItem);
 
-		menuBilanzGuV.add(new BHMenuItem("Mshow", 66, "show"));
-		menuBilanzGuV.add(new BHMenuItem("Mcreate", 0, "create"));
-		menuBilanzGuV.add(new BHMenuItem("Mimport", 0, "import"));
-		menuBilanzGuV.add(new BHMenuItem("Medit", 0, "edit"));
-		menuBilanzGuV.add(new BHMenuItem("Mremove", 0, "remove"));
 
 		/**
 		 * create menu items --> options
 		 **/
-
-		menuOptions.add(new BHMenuItem("Mchange", 80, "change"));
-
+		tempItem = new BHMenuItem("Mchange", 80, "change");
+			menuItems.add(tempItem);
+			menuOptions.add(tempItem);
+			
+			
 		/**
 		 * create menu items --> options
 		 **/
-
-		menuHelp.add(new BHMenuItem("MuserHelp", 72, "userHelp"));
-		menuHelp.add(new BHMenuItem("MmathHelp", 0, "mathHelp"));
-		menuHelp.add(new BHMenuItem("Minfo", 112, "about"));
-		
+			
+		tempItem = new BHMenuItem("MuserHelp", 72, "userHelp");
+			menuItems.add(tempItem);
+			menuHelp.add(tempItem);
+		tempItem = new BHMenuItem("MmathHelp", 0, "mathHelp");
+			menuItems.add(tempItem);
+			menuHelp.add(tempItem);
+		tempItem = new BHMenuItem("Minfo", 112, "about");
+			menuItems.add(tempItem);
+			menuHelp.add(tempItem);
 	}
 	
-	public Component[] getBHComponents(){
+	public List<BHMenuItem> getBHMenuItems(){
 		//TODO ausprogrammieren: Muss alle Kinder, Kindeskinder, ... zurückgeben
-		return null;
+		return menuItems;
 	}
 
 }

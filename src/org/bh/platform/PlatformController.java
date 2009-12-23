@@ -5,11 +5,27 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import org.bh.gui.swing.BHButton;
 import org.bh.gui.swing.BHMainFrame;
+import org.bh.gui.swing.BHMenuItem;
+import org.bh.gui.swing.IBHComponent;
 import org.bh.platform.i18n.BHTranslator;
+
+
+/**
+ * The Platform Controller handles 
+ * a) start up of the application 
+ * b) main application flow
+ * c) all events which are fired by platform controls (e.g. toolbar-button klicks or menu klicks)
+ * 
+ * 
+ * 
+ * @author Alexander Schmalzhaf
+ * @author Patrick Tietze
+ * 
+ * @version 0.1 2009/12/22 Alexander Schmalzhaf
+ */
 
 public class PlatformController {
 
-	
 	public PlatformController(){
 		
 		//start mainFrame
@@ -19,24 +35,36 @@ public class PlatformController {
 		
 		//handle events...
 		
+		PlatformActionListener PAL = new PlatformActionListener();
 		
-
-		class generalListener implements ActionListener{
-
-			@Override
-			public void actionPerformed(ActionEvent arg0) {
-				System.out.println("Action geht raus");
-			}
-			
+		//add ActionListener to...
+		//.. the toolbar
+		for(Component comp : bhmf.toolBar.getComponents() ){
+			if(comp instanceof IBHComponent)
+				((BHButton) comp).addActionListener(PAL);
 		}
 		
-		//toolbar
-		for(Component c : bhmf.toolBar.getComponents() ){
-			((BHButton) c).addActionListener(new generalListener());
+		//...the menu
+		for(BHMenuItem menuItem : BHMenuItem.getPlatformMenuItems()){
+			menuItem.addActionListener(PAL);
 		}
+		
 	}
 	
 	
+	
+	/**
+	 * The PlatformActionListener handles all actions that are fired by a button etc. of the 
+	 * platform.
+	 */
+	class PlatformActionListener implements ActionListener{
+
+		@Override
+		public void actionPerformed(ActionEvent aEvent) {
+			System.out.println(((IBHComponent)aEvent.getSource()).getKey());
+		}
+		
+	}
 	
 	
 	

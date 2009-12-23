@@ -1,7 +1,5 @@
 package org.bh.gui.swing;
 
-import java.awt.event.MouseEvent;
-import java.awt.event.MouseListener;
 import javax.swing.*;
 
 import org.bh.platform.i18n.BHTranslator;
@@ -31,9 +29,6 @@ public class BHToolBar extends JToolBar{
     static final private String DELETE = "delete";
     static final private String REMOVE = "remove";
     static final private String FIND = "find";
-        
-    BHLabel lable;
-    JComboBox comboBox;
     
     BHToolButton bNew, bOpen, bSave, bAddP, bAddS, bRemove, bDelete, bFind;
     
