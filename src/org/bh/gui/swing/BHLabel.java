@@ -29,11 +29,24 @@ public class BHLabel extends JLabel implements IBHComponent {
 	 *            default key
 	 * @param value
 	 *            default value
+	 * @param inputHint
+	 *            default inputHint
 	 */
 	public BHLabel(String key, String value, String inputHint) {
 		super(value);
 		this.key = key;
 		this.inputHint = inputHint;
+	}
+	
+	/**
+	 * Constructor to create new <code>BHLabel</code>.
+	 * 
+	 * @param key
+	 *            default key
+	 */
+	public BHLabel(String key) {
+		super();
+		this.key = key;
 	}
 
 	/**
