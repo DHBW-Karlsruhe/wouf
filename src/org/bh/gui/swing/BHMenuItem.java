@@ -52,8 +52,8 @@ public class BHMenuItem extends JMenuItem implements IBHComponent {
 		}
 		this.setActionCommand(actionCommand);
 		
-		if(forPlatform)
-			platformMenuItems.add(this);
+		//if(forPlatform)
+			//platformMenuItems.add(this);
 	}
 	/**
 	 * create the new menu item

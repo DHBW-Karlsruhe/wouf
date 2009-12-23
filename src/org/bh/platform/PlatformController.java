@@ -45,9 +45,9 @@ public class PlatformController {
 		}
 		
 		//...the menu
-		for(BHMenuItem menuItem : BHMenuItem.getPlatformMenuItems()){
-			menuItem.addActionListener(PAL);
-		}
+		//for(BHMenuItem menuItem : BHMenuItem.getPlatformMenuItems()){
+		//	menuItem.addActionListener(PAL);
+		//}
 		
 	}
 	
