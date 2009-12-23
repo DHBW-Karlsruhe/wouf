@@ -16,125 +16,131 @@ import org.jfree.data.general.Dataset;
 import org.jfree.data.statistics.HistogramDataset;
 
 /**
- * BHHistogramChart to create a Histogramchart 
- *
+ * BHHistogramChart to create a Histogramchart
+ * 
  * <p>
  * Histogramchart is created and modified
- *
+ * 
  * @author Lars
  * @version 0.1, 17.12.2009
- *
+ * 
  */
-public class BHHistogramChart extends JFreeChart implements IBHComponent, IBHAddValue{
+public class BHHistogramChart extends JFreeChart implements IBHComponent,
+		IBHAddValue {
 	BHTranslator translator = BHTranslator.getInstance();
-    
+
 	private String key;
 	private JFreeChart chart;
 	private HistogramDataset dataset;
-        private String inputHint;
-	
-	protected BHHistogramChart(String title, String xAxis, String yAxis, Dataset dataset, String key, Plot plot) {
+	private String inputHint;
+
+	protected BHHistogramChart(final String title, final String xAxis, final String yAxis,
+			final Dataset dataset, final String key, final Plot plot) {
 		super(plot);
 		this.key = key;
-		this.dataset = (HistogramDataset)dataset;
-		
-		chart = ChartFactory.createHistogram(title, xAxis, yAxis, this.dataset, PlotOrientation.VERTICAL, true, true, false);
+		this.dataset = (HistogramDataset) dataset;
+
+		chart = ChartFactory.createHistogram(title, xAxis, yAxis, this.dataset,
+				PlotOrientation.VERTICAL, true, true, false);
 		chart.getXYPlot().setForegroundAlpha(0.75f);
 		plot.setNoDataMessage(translator.translate("noDataAvailable"));
 		if ("Nimbus".equals(UIManager.getLookAndFeel().getName())) {
-    		chart.setBackgroundPaint(UIManager.getColor("desktop"));   
-    	}
+			chart.setBackgroundPaint(UIManager.getColor("desktop"));
+		}
 	}
-	
+
 	/**
 	 * method to get the <code>JFreeChart</code> BHHistogramChart
 	 * 
-	 * @return
-	 * 		<code>JFreeChart</code> chart
+	 * @return <code>JFreeChart</code> chart
 	 */
-	public JFreeChart getChart(){
+	public final JFreeChart getChart() {
 		return chart;
 	}
-	
+
 	/**
 	 * returns key of BHHistogramChart
 	 */
-	@Override
-	public String getKey() {
+
+	public final String getKey() {
 		return key;
 	}
+
 	/**
 	 * method to add a series into an empty HistogramDataset
 	 */
-	@Override
-	public void addSeries(Comparable<String> key, double[] values, int bins,
-			double minimum, double maximum) {
+
+	public final void addSeries(final Comparable<String> key, final double[] values, int bins,
+			final double minimum, final double maximum) {
 		this.dataset.addSeries(key, values, bins, minimum, maximum);
 	}
-	
+
 	/* Specified by interface/super class. */
-	@Override
-	public Component add(Component comp) {
+
+	public final Component add(final Component comp) {
 		// TODO Auto-generated method stub
-		throw new UnsupportedOperationException("This method has not been implemented");
+		throw new UnsupportedOperationException(
+				"This method has not been implemented");
 	}
 
 	/* Specified by interface/super class. */
-	@Override
-	public int[] getValidateRules() {
+
+	public final int[] getValidateRules() {
 		// TODO Auto-generated method stub
-		throw new UnsupportedOperationException("This method has not been implemented");
+		throw new UnsupportedOperationException(
+				"This method has not been implemented");
 	}
 
 	/* Specified by interface/super class. */
-	@Override
-	public boolean isTypeValid() {
+
+	public final boolean isTypeValid() {
 		// TODO Auto-generated method stub
-		throw new UnsupportedOperationException("This method has not been implemented");
+		throw new UnsupportedOperationException(
+				"This method has not been implemented");
 	}
 
 	/* Specified by interface/super class. */
-	@Override
+
 	public void setValidateRules(int[] validateRules) {
 		// TODO Auto-generated method stub
-		throw new UnsupportedOperationException("This method has not been implemented");
+		throw new UnsupportedOperationException(
+				"This method has not been implemented");
 	}
 
-	@Override
-	public void addValue(Number value, Comparable<String> columnKey) {
+	public void addValue(final Number value, Comparable<String> columnKey) {
 		// TODO Auto-generated method stub
-		throw new UnsupportedOperationException("This method has not been implemented");
+		throw new UnsupportedOperationException(
+				"This method has not been implemented");
 	}
 
-	@Override
-	public void addValue(Number value, int rowKey, Comparable<String> columnKey) {
+	public void addValue(final Number value, final int rowKey, Comparable<String> columnKey) {
 		// TODO Auto-generated method stub
-		throw new UnsupportedOperationException("This method has not been implemented");
+		throw new UnsupportedOperationException(
+				"This method has not been implemented");
 	}
 
-	@Override
 	public void addValues(List<?> list) {
 		// TODO Auto-generated method stub
-		throw new UnsupportedOperationException("This method has not been implemented");
-	}	
-
-    public IValue getValue() {
-        throw new UnsupportedOperationException("Not supported yet.");
-    }
-
-    public  void setValue(IValue value){
-        throw new UnsupportedOperationException("Not supported yet.");
-    }
-
-	@Override
-	public void addSeries(Comparable<String> seriesKey, double[][] data) {
-		// TODO Auto-generated method stub
-		throw new UnsupportedOperationException("This method has not been implemented");
+		throw new UnsupportedOperationException(
+				"This method has not been implemented");
 	}
 
-    public String getInputHint() {
-        return this.inputHint;
-    }
+	public IValue getValue() {
+		throw new UnsupportedOperationException("Not supported yet.");
+	}
 
+	public void setValue(IValue value) {
+		throw new UnsupportedOperationException("Not supported yet.");
+	}
+
+	public final void addSeries(final Comparable<String> seriesKey, final double[][] data) {
+		// TODO Auto-generated method stub
+		throw new UnsupportedOperationException(
+				"This method has not been implemented");
+	}
+
+	public String getInputHint() {
+		return this.inputHint;
+	}
 
 }

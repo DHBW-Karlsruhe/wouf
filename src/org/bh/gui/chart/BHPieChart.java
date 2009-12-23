@@ -16,116 +16,116 @@ import org.jfree.data.general.Dataset;
 import org.jfree.data.general.DefaultPieDataset;
 
 public class BHPieChart extends JFreeChart implements IBHComponent, IBHAddValue {
-	 	BHTranslator translator = BHTranslator.getInstance();
-	    
-	    private String key;
-	    private JFreeChart chart;
-	    private DefaultPieDataset dataset;
-            private String inputHint;
-	    
-	    protected BHPieChart(String title, Plot plot, Dataset dataset, String key){
-	    	super(plot);
-	    	this.key = key;
-	    	this.dataset = (DefaultPieDataset) dataset;
-	    	
-	    	chart = ChartFactory.createPieChart(title, this.dataset, true, true, false);
-	    	plot.setNoDataMessage(translator.translate("noDataAvailable"));
-	    	if ("Nimbus".equals(UIManager.getLookAndFeel().getName())) {
-	    		chart.setBackgroundPaint(UIManager.getColor("desktop"));   
-	    	}
-	    }
-	    /**
-	     * returns a unique Key
-	     * @return
-	     * 		String key
-	     */
-	    @Override
-		public String getKey() {
-			return this.key;
-		}
+	BHTranslator translator = BHTranslator.getInstance();
 
-		@Override
-		public void addValue(Number value, Comparable<String> columnKey) {
-			this.dataset.setValue(columnKey, value);
-			fireChartChanged();
-		}
+	private String key;
+	private JFreeChart chart;
+	private DefaultPieDataset dataset;
+	private String inputHint;
 
-		@Override
-		public void addValues(List<?> list) {
-			Iterator<?> it = list.iterator();
-						
-			for(int i=0; i<list.size();i++){
-				for(int j=0; j<=i;j++){
-					while(it.hasNext()){
-						this.dataset.setValue((String)list.get(j),(Number)list.get(i));
-						fireChartChanged();
-					}
+	protected BHPieChart(String title, Plot plot, final Dataset dataset, String key) {
+		super(plot);
+		this.key = key;
+		this.dataset = (DefaultPieDataset) dataset;
+
+		chart = ChartFactory.createPieChart(title, this.dataset, true, true,
+				false);
+		plot.setNoDataMessage(translator.translate("noDataAvailable"));
+		if ("Nimbus".equals(UIManager.getLookAndFeel().getName())) {
+			chart.setBackgroundPaint(UIManager.getColor("desktop"));
+		}
+	}
+
+	/**
+	 * returns a unique Key
+	 * 
+	 * @return String key
+	 */
+
+	public String getKey() {
+		return this.key;
+	}
+
+	public final void addValue(Number value, Comparable<String> columnKey) {
+		this.dataset.setValue(columnKey, value);
+		fireChartChanged();
+	}
+
+	public void addValues(List<?> list) {
+		Iterator<?> it = list.iterator();
+
+		for (int i = 0; i < list.size(); i++) {
+			for (int j = 0; j <= i; j++) {
+				while (it.hasNext()) {
+					this.dataset.setValue((String) list.get(j), (Number) list
+							.get(i));
+					fireChartChanged();
 				}
 			}
-//			for(int i=0; i<list.size()+1; i++){
-//				this.dataset.setValue(columnKey, (Number)list.get(i));
-//				fireChartChanged();
-//			}
 		}
-		
-		@Override
-		public Component add(Component comp) {
-			// TODO Auto-generated method stub
-			throw new UnsupportedOperationException("This method has not been implemented");
-		}
+		// for(int i=0; i<list.size()+1; i++){
+		// this.dataset.setValue(columnKey, (Number)list.get(i));
+		// fireChartChanged();
+		// }
+	}
 
-		@Override
-		public int[] getValidateRules() {
-			// TODO Auto-generated method stub
-			throw new UnsupportedOperationException("This method has not been implemented");
-		}
+	public Component add(Component comp) {
+		// TODO Auto-generated method stub
+		throw new UnsupportedOperationException(
+				"This method has not been implemented");
+	}
 
-		@Override
-		public boolean isTypeValid() {
-			// TODO Auto-generated method stub
-			throw new UnsupportedOperationException("This method has not been implemented");
-		}
+	public int[] getValidateRules() {
+		// TODO Auto-generated method stub
+		throw new UnsupportedOperationException(
+				"This method has not been implemented");
+	}
 
-		@Override
-		public void setValidateRules(int[] validateRules) {
-			// TODO Auto-generated method stub
-			throw new UnsupportedOperationException("This method has not been implemented");
-		}
+	public boolean isTypeValid() {
+		// TODO Auto-generated method stub
+		throw new UnsupportedOperationException(
+				"This method has not been implemented");
+	}
 
-		@Override
-		public void addValue(Number value, int rowKey,
-				Comparable<String> columnKey) {
-			// TODO Auto-generated method stub
-			throw new UnsupportedOperationException("This method has not been implemented");
-		}
-		@Override
-		public void addSeries(Comparable<String> key, double[] values,
-				int bins, double minimum, double maximum) {
-			// TODO Auto-generated method stub
-			throw new UnsupportedOperationException("This method has not been implemented");
-		}
-		@Override
-		public IValue getValue() {
-			// TODO Auto-generated method stub
-			throw new UnsupportedOperationException("This method has not been implemented");
-		}
-		@Override
-		public void setValue(IValue value) {
-			// TODO Auto-generated method stub
-			throw new UnsupportedOperationException("This method has not been implemented");
-		}
-		@Override
-		public void addSeries(Comparable<String> seriesKey, double[][] data) {
-			// TODO Auto-generated method stub
-			throw new UnsupportedOperationException("This method has not been implemented");
-		}
+	public void setValidateRules(int[] validateRules) {
+		// TODO Auto-generated method stub
+		throw new UnsupportedOperationException(
+				"This method has not been implemented");
+	}
 
-            public String getInputHint() {
-                return this.inputHint;
-            }
+	public void addValue(Number value, int rowKey, Comparable<String> columnKey) {
+		// TODO Auto-generated method stub
+		throw new UnsupportedOperationException(
+				"This method has not been implemented");
+	}
 
-		
+	public void addSeries(Comparable<String> key, double[] values, int bins,
+			double minimum, double maximum) {
+		// TODO Auto-generated method stub
+		throw new UnsupportedOperationException(
+				"This method has not been implemented");
+	}
 
+	public IValue getValue() {
+		// TODO Auto-generated method stub
+		throw new UnsupportedOperationException(
+				"This method has not been implemented");
+	}
 
-	    
+	public void setValue(IValue value) {
+		// TODO Auto-generated method stub
+		throw new UnsupportedOperationException(
+				"This method has not been implemented");
+	}
+
+	public void addSeries(Comparable<String> seriesKey, double[][] data) {
+		// TODO Auto-generated method stub
+		throw new UnsupportedOperationException(
+				"This method has not been implemented");
+	}
+
+	public String getInputHint() {
+		return this.inputHint;
+	}
+
 }
