@@ -25,6 +25,11 @@ public class BHButton extends JButton implements IBHComponent{
         this.key = key;
         this.inpuHint = inputHint;
     }
+    
+    public BHButton(String key){
+        super();
+        this.key = key;
+    }
 
     /**
      * set the rules for the JGoodies validation

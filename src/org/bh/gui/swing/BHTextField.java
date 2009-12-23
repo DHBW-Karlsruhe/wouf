@@ -41,6 +41,19 @@ public class BHTextField extends JTextField implements IBHComponent {
      * 
      * @param key
      *            unique key
+     * @param value
+     *            default value
+     */
+    public BHTextField(String key, String value) {
+    	super(value);
+    	this.key = key;
+    }
+    
+    /**
+     * Constructor to create new <code>BHTextField</code>.
+     * 
+     * @param key
+     *            unique key
      */
     public BHTextField(String key) {
 	super();

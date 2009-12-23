@@ -60,11 +60,49 @@ public class BHMenuItem extends JMenuItem implements IBHComponent {
 	}
 	/**
 	 * create the new menu item
+	 * 
+	 * @param key
+	 * @param eventKey
+	 *            : Dec number ASCII
+	 * @param eventAction
+	 * @param actionCommand
+	 * @param forPlatform if set false MenuItem is not included in platformMenuItems-List
+	 */
+	public BHMenuItem(String key, int eventKey, String actionCommand, Boolean forPlatform) {
+		super(Services.getTranslator().translate(key));
+		this.key = key;
+		if (eventKey != 0) {
+			this.setMnemonic(eventKey);
+			int metakey = 0;
+			if ("Mac OS X".equals(System.getProperty("os.name"))) {
+				metakey = ActionEvent.META_MASK;
+			} else {
+				metakey = ActionEvent.CTRL_MASK;
+			}
+			this.setAccelerator(KeyStroke.getKeyStroke(eventKey, metakey));
+		}
+		this.setActionCommand(actionCommand);
+		
+		this.inputHint = inputHint;
+		
+		//if(forPlatform)
+			//platformMenuItems.add(this);
+	}
+	/**
+	 * create the new menu item
 	 * -Constructor for regular use (w/o forPlatform parameter)
 	 * 
 	 */
 	public BHMenuItem(String key, int eventKey, String actionCommand, String inputHint) {
 		this(key, eventKey, actionCommand, true, inputHint);
+	}
+	/**
+	 * create the new menu item
+	 * -Constructor for regular use (w/o forPlatform parameter)
+	 * 
+	 */
+	public BHMenuItem(String key, int eventKey, String actionCommand) {
+		this(key, eventKey, actionCommand, true);
 	}
 
 	@Override
