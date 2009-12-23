@@ -220,7 +220,7 @@ public class BHFormsPanel extends JPanel {
     public JLabel getLDirectInput() {
 
 	if (this.lDirectInput == null) {
-	    this.lDirectInput = new BHLabel("", "");
+	    this.lDirectInput = new BHLabel("");
 	    this.lDirectInput.setText("Direkteingabe");
 	}
 
