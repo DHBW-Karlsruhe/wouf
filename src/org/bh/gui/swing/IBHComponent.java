@@ -54,4 +54,9 @@ public interface IBHComponent {
      * @return
      */
     public boolean isTypeValid();
+    /**
+     * Must return the Input Hint text of a component
+     * @return 
+     */
+    public String getInputHint();
 }

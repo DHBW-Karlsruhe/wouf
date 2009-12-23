@@ -21,6 +21,7 @@ public class BHPieChart extends JFreeChart implements IBHComponent, IBHAddValue 
 	    private String key;
 	    private JFreeChart chart;
 	    private DefaultPieDataset dataset;
+            private String inputHint;
 	    
 	    protected BHPieChart(String title, Plot plot, Dataset dataset, String key){
 	    	super(plot);
@@ -118,6 +119,10 @@ public class BHPieChart extends JFreeChart implements IBHComponent, IBHAddValue 
 			// TODO Auto-generated method stub
 			throw new UnsupportedOperationException("This method has not been implemented");
 		}
+
+            public String getInputHint() {
+                return this.inputHint;
+            }
 
 		
 

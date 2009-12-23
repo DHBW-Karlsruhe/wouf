@@ -18,6 +18,7 @@ public class BHButton extends JButton implements IBHComponent{
 
     private String key;
     private int[] validateRules;
+    private String inpuHint;
 
     public BHButton(String key){
         super();
@@ -56,6 +57,10 @@ public class BHButton extends JButton implements IBHComponent{
 
     public  void setValue(IValue value){
             throw new UnsupportedOperationException("Not supported yet.");
+    }
+
+    public String getInputHint() {
+        return this.inpuHint;
     }
     
 

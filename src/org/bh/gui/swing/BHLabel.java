@@ -20,6 +20,7 @@ public class BHLabel extends JLabel implements IBHComponent {
 	 */
 	private String key;
 	private int[] validateRules;
+        private String inputHint;
 
 	/**
 	 * Constructor to create new <code>BHLabel</code>.
@@ -63,6 +64,10 @@ public class BHLabel extends JLabel implements IBHComponent {
 
         public  void setValue(IValue value){
             throw new UnsupportedOperationException("Not supported yet.");
+        }
+
+        public String getInputHint() {
+            return this.inputHint;
         }
 
 

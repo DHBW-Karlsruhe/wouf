@@ -20,6 +20,7 @@ public class BHTextField extends JTextField implements IBHComponent {
      */
     private String key;
     private int[] validateRules;
+    private String inputHint;
 
     /**
      * Constructor to create new <code>BHTextField</code>.
@@ -67,6 +68,10 @@ public class BHTextField extends JTextField implements IBHComponent {
 
     public  void setValue(IValue value){
         throw new UnsupportedOperationException("Not supported yet.");
+    }
+
+    public String getInputHint() {
+        return this.inputHint;
     }
 
 

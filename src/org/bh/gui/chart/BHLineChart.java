@@ -32,6 +32,7 @@ public class BHLineChart extends JFreeChart implements IBHComponent, IBHAddValue
     private String key;
     private JFreeChart chart;
     private DefaultCategoryDataset dataset;
+    private String inputHint;
 
     protected BHLineChart(String title, String XAxis, String YAxis, Dataset dataset, Plot plot, String key){
     	super(plot);
@@ -136,6 +137,10 @@ public class BHLineChart extends JFreeChart implements IBHComponent, IBHAddValue
 			// TODO Auto-generated method stub
 			throw new UnsupportedOperationException("This method has not been implemented");
 		}
+
+        public String getInputHint() {
+            return this.inputHint;
+        }
         
  
 }

@@ -14,8 +14,9 @@ import org.bh.data.types.IValue;
  */
 public class BHJComponent extends JComponent implements IBHComponent{
 
-    String key;
-    int[] validateRules;
+    private String key;
+    private int[] validateRules;
+    private String inputHint;
 
     public void setValidateRules(int[] validateRules) {
         this.validateRules = validateRules;
@@ -39,6 +40,10 @@ public class BHJComponent extends JComponent implements IBHComponent{
 
     public  void setValue(IValue value){
         throw new UnsupportedOperationException("Not supported yet.");
+    }
+
+    public String getInputHint() {
+        return this.inputHint;
     }
 
 

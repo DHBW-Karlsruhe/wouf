@@ -40,13 +40,20 @@ public abstract class BHValidityEngine{
     public static boolean isValid(){
         return isValid;
     }
-    private void setValidityReportLabel(ValidationResultModel validationModel){
+    private static void setValidityReportLabel(ValidationResultModel validationModel){
          Controller.setBHstatusBarValidationToolTip(ValidationResultViewFactory.createReportIconAndTextLabel(validationModel));
     }
-    //private void setErrorBackground(IBHComponent comp){
-    //    ValidationComponentUtils.setErrorBackground(comp);
-    //}
+    /**
+     * Shell proof the constant based rules of a single component
+     * @param comp
+     * @return
+     */
     abstract ValidationResult validate(IBHComponent comp);
-
+    /**
+     * Shell proof the single components and can also proof related conditions between
+     * components
+     * @param toValidate
+     * @return
+     */
     abstract ValidationResult validateAll(Map<String, IBHComponent> toValidate);
 }

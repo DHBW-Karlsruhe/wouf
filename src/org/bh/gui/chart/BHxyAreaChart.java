@@ -30,6 +30,7 @@ public class BHxyAreaChart extends JFreeChart implements IBHComponent, IBHAddVal
 	private String key;
 	private JFreeChart chart;
 	private DefaultXYDataset dataset;
+        private String inputHint;
 	
 	
 	protected BHxyAreaChart(String title, String xAxis, String yAxis, Dataset dataset, String key, XYPlot plot) {
@@ -105,6 +106,11 @@ public class BHxyAreaChart extends JFreeChart implements IBHComponent, IBHAddVal
         public  void setValue(IValue value){
             throw new UnsupportedOperationException("Not supported yet.");
         }
+
+        public String getInputHint() {
+            return this.inputHint;
+        }
+
 
 		@Override
 		public void addSeries(Comparable<String> key, double[] values,

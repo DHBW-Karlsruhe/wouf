@@ -26,6 +26,7 @@ public class BHMenuItem extends JMenuItem implements IBHComponent {
 	private String key;
 	private int[] validateRules;
 	private static List<BHMenuItem> platformMenuItems;
+        private String inputHint;
 
 	/**
 	 * create the new menu item
@@ -97,6 +98,10 @@ public class BHMenuItem extends JMenuItem implements IBHComponent {
 	public void setValue(IValue value) {
 		throw new UnsupportedOperationException("Not supported yet.");
 	}
+
+        public String getInputHint() {
+            return this.inputHint;
+        }
 	
 	
 	/**

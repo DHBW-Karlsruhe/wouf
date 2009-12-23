@@ -31,6 +31,7 @@ public class BHHistogramChart extends JFreeChart implements IBHComponent, IBHAdd
 	private String key;
 	private JFreeChart chart;
 	private HistogramDataset dataset;
+        private String inputHint;
 	
 	protected BHHistogramChart(String title, String xAxis, String yAxis, Dataset dataset, String key, Plot plot) {
 		super(plot);
@@ -130,5 +131,10 @@ public class BHHistogramChart extends JFreeChart implements IBHComponent, IBHAdd
 		// TODO Auto-generated method stub
 		throw new UnsupportedOperationException("This method has not been implemented");
 	}
-	
+
+    public String getInputHint() {
+        return this.inputHint;
+    }
+
+
 }

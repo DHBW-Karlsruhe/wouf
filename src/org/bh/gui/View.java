@@ -36,13 +36,11 @@ public abstract class View implements  KeyListener, PropertyChangeListener{
     private Map<String, IBHComponent> bhTextComponents = Collections.synchronizedMap(new HashMap<String, IBHComponent>());;
 
     public View(JPanel viewPanel, BHValidityEngine validator) throws ViewException{
-    	this.viewPanel = viewPanel;
-        this.bhModelComponents = mapBHcomponents(viewPanel.getComponents());
+    	this.setViewPanel(viewPanel);
         this.validator = validator;
     }
     public View(JPanel viewPanel)throws ViewException{
-        this.viewPanel = viewPanel;
-        this.bhModelComponents = mapBHcomponents(viewPanel.getComponents());
+        this.setViewPanel(viewPanel);
     }
 
     /**
@@ -65,7 +63,8 @@ public abstract class View implements  KeyListener, PropertyChangeListener{
     private Map<String, IBHComponent> mapBHcomponents(Component[] components) throws ViewException{
         Map<String, IBHComponent> map = Collections.synchronizedMap(new HashMap<String, IBHComponent>());
         for(Component comp : components){
-            if(comp instanceof JPanel){
+            //TODO Have to be a motherclass which represents all possible containers
+            if(comp instanceof JPanel && !(comp instanceof IBHComponent)){
                 try{
                     map.putAll(mapBHcomponents(((JPanel)comp).getComponents()));
                 }catch(Exception e){
@@ -137,6 +136,9 @@ public abstract class View implements  KeyListener, PropertyChangeListener{
      * @throws ViewException
      */
     public void setViewPanel(JPanel panel) throws ViewException{
+        if(panel == null){
+            throw new ViewException("null panel is setted");
+        }
         this.viewPanel = panel;
         this.bhTextComponents = Collections.synchronizedMap(new HashMap<String, IBHComponent>());
         this.bhModelComponents = mapBHcomponents(viewPanel.getComponents());
@@ -153,7 +155,10 @@ public abstract class View implements  KeyListener, PropertyChangeListener{
      *
      * @param validator
      */
-    public void setValidator(BHValidityEngine validator) {
+    public void setValidator(BHValidityEngine validator) throws ViewException{
+        if(validator == null){
+            throw new ViewException("null validator is setted");
+        }
         this.validator = validator;
     }
 
