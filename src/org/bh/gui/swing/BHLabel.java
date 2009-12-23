@@ -20,7 +20,7 @@ public class BHLabel extends JLabel implements IBHComponent {
 	 */
 	private String key;
 	private int[] validateRules;
-        private String inputHint;
+    private String inputHint;
 
 	/**
 	 * Constructor to create new <code>BHLabel</code>.
@@ -30,9 +30,10 @@ public class BHLabel extends JLabel implements IBHComponent {
 	 * @param value
 	 *            default value
 	 */
-	public BHLabel(String key, String value) {
+	public BHLabel(String key, String value, String inputHint) {
 		super(value);
 		this.key = key;
+		this.inputHint = inputHint;
 	}
 
 	/**

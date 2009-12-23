@@ -26,7 +26,7 @@ public class BHMenuItem extends JMenuItem implements IBHComponent {
 	private String key;
 	private int[] validateRules;
 	private static List<BHMenuItem> platformMenuItems;
-        private String inputHint;
+    private String inputHint;
 
 	/**
 	 * create the new menu item
@@ -38,7 +38,7 @@ public class BHMenuItem extends JMenuItem implements IBHComponent {
 	 * @param actionCommand
 	 * @param forPlatform if set false MenuItem is not included in platformMenuItems-List
 	 */
-	public BHMenuItem(String key, int eventKey, String actionCommand, Boolean forPlatform) {
+	public BHMenuItem(String key, int eventKey, String actionCommand, Boolean forPlatform, String inputHint) {
 		super(Services.getTranslator().translate(key));
 		this.key = key;
 		if (eventKey != 0) {
@@ -53,6 +53,8 @@ public class BHMenuItem extends JMenuItem implements IBHComponent {
 		}
 		this.setActionCommand(actionCommand);
 		
+		this.inputHint = inputHint;
+		
 		//if(forPlatform)
 			//platformMenuItems.add(this);
 	}
@@ -61,8 +63,8 @@ public class BHMenuItem extends JMenuItem implements IBHComponent {
 	 * -Constructor for regular use (w/o forPlatform parameter)
 	 * 
 	 */
-	public BHMenuItem(String key, int eventKey, String actionCommand) {
-		this(key, eventKey, actionCommand, true);
+	public BHMenuItem(String key, int eventKey, String actionCommand, String inputHint) {
+		this(key, eventKey, actionCommand, true, inputHint);
 	}
 
 	@Override

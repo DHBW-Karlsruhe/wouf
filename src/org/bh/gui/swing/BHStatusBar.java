@@ -27,9 +27,9 @@ public class BHStatusBar extends JPanel {
 	CellConstraints cons;
 
 	private BHStatusBar() {
-		setBackground(UIManager.getColor("desktop"));
-
-		// setLayout to the status bar
+		setBackground((Color)UIManager.getColor("desktop"));
+				
+		//setLayout to the status bar
 		String rowDef = "p";
 		String colDef = "0:grow(0.4),0:grow(0.2),0:grow(0.4)";
 		setLayout(new FormLayout(colDef, rowDef));
@@ -72,6 +72,7 @@ public class BHStatusBar extends JPanel {
 
 	public void setValidationToolTip(JLabel label) {
 		lToolTip.setText(label.getText());
+		lToolTip.setIcon(label.getIcon());
 		lToolTip.revalidate();
 	}
 

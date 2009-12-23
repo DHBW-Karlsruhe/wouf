@@ -30,9 +30,10 @@ public class BHTextField extends JTextField implements IBHComponent {
      * @param value
      *            default value
      */
-    public BHTextField(String key, String value) {
-	super(value);
-	this.key = key;
+    public BHTextField(String key, String value, String inputHint) {
+    	super(value);
+    	this.key = key;
+    	this.inputHint = inputHint;
     }
     
     /**

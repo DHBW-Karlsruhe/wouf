@@ -20,9 +20,10 @@ public class BHButton extends JButton implements IBHComponent{
     private int[] validateRules;
     private String inpuHint;
 
-    public BHButton(String key){
+    public BHButton(String key, String inputHint){
         super();
         this.key = key;
+        this.inpuHint = inputHint;
     }
 
     /**
