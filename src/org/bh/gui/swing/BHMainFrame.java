@@ -2,7 +2,6 @@ package org.bh.gui.swing;
 
 import java.awt.BorderLayout;
 import java.awt.Component;
-import java.awt.Dimension;
 
 import javax.swing.JFrame;
 import javax.swing.JLabel;
@@ -39,12 +38,12 @@ public class BHMainFrame extends JFrame {
 	 * main panel.
 	 */
 	public JPanel desktop;
-	
+
 	/**
 	 * Menu Bar for application
 	 */
 	public BHMenuBar menuBar;
-	
+
 	/**
 	 * ToolBar for desktop.
 	 */
@@ -112,10 +111,9 @@ public class BHMainFrame extends JFrame {
 
 		toolBar = new BHToolBar(getWidth(), standardBarHeight);
 		// toolBar.setBounds(0, 0, screenSize.width, standardBarHeight);
-		
-		BHTree = new BHTree(null);
-		BHTreeScroller =  new JScrollPane(BHTree);
 
+		BHTree = new BHTree(null);
+		BHTreeScroller = new JScrollPane(BHTree);
 
 		// treeBar.setBounds(0, standardBarHeight, treeBarWidth,
 		// screenSize.height-standardBarHeight);
@@ -126,7 +124,8 @@ public class BHMainFrame extends JFrame {
 
 		// Create the horizontal split pane and put the treeBar and the content
 		// in it.
-		paneH = new JSplitPane(JSplitPane.HORIZONTAL_SPLIT, BHTreeScroller, content);
+		paneH = new JSplitPane(JSplitPane.HORIZONTAL_SPLIT, BHTreeScroller,
+				content);
 		paneH.setOneTouchExpandable(true);
 		paneH.setDividerLocation(treeBarWidth);
 
@@ -179,7 +178,7 @@ public class BHMainFrame extends JFrame {
 	public void addContentFormsAndChart(Component forms, Component chart) {
 		JSplitPane paneV = new JSplitPane(JSplitPane.VERTICAL_SPLIT, forms,
 				chart);
-		
+
 		paneV.setOneTouchExpandable(true);
 
 		paneH.setRightComponent(paneV);
@@ -210,5 +209,9 @@ public class BHMainFrame extends JFrame {
 					.debug(
 							"Nimbus Look&Feel not found, fall back to default Look&Feel");
 		}
+	}
+
+	public BHFileChooser getChooser() {
+		return chooser;
 	}
 }
