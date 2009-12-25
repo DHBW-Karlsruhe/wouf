@@ -99,4 +99,10 @@ public interface IDTO<ChildT extends IDTO> extends Cloneable {
 	 * @return List of keys.
 	 */
 	public List<String> getStochasticKeys();
+	
+	/**
+	 * Returns all available keys.
+	 * @return List of keys.
+	 */
+	public List<String> getKeys();
 }
