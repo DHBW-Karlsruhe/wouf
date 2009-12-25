@@ -36,7 +36,8 @@ public class BHToolButton extends BHButton{
     public BHToolButton(String imageName,String actionCommand,String toolTipText,String altText){
 	
 	
-    	super(actionCommand, toolTipText);
+    	super(actionCommand, BHButton.ISPLATFORMBUTTON,toolTipText);
+
     	
     	//Look for the image.
         String imgLocation = "/toolbarButtonGraphics/general/" + imageName + ".gif";

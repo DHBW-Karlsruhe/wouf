@@ -39,15 +39,14 @@ public class PlatformController {
 		
 		//add ActionListener to...
 		//.. the toolbar
-		for(Component comp : bhmf.toolBar.getComponents() ){
-			if(comp instanceof IBHComponent)
-				((BHButton) comp).addActionListener(PAL);
+		for(BHButton button : BHButton.getPlatformButtons() ){
+				button.addActionListener(PAL);
 		}
 		
 		//...the menu
-		//for(BHMenuItem menuItem : BHMenuItem.getPlatformMenuItems()){
-		//	menuItem.addActionListener(PAL);
-		//}
+		for(BHMenuItem menuItem : BHMenuItem.getPlatformMenuItems()){
+			menuItem.addActionListener(PAL);
+		}
 		
 	}
 	

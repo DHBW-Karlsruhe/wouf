@@ -1,6 +1,7 @@
 package org.bh.gui.swing;
 
 import java.awt.event.ActionEvent;
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.swing.JMenuItem;
@@ -25,9 +26,11 @@ public class BHMenuItem extends JMenuItem implements IBHComponent {
 
 	private String key;
 	private int[] validateRules;
-	private static List<BHMenuItem> platformMenuItems;
+	private static List<BHMenuItem> platformMenuItems = new ArrayList<BHMenuItem>();
     private String inputHint;
 
+	
+	
 	/**
 	 * create the new menu item
 	 * 
@@ -36,9 +39,9 @@ public class BHMenuItem extends JMenuItem implements IBHComponent {
 	 *            : Dec number ASCII
 	 * @param eventAction
 	 * @param actionCommand
-	 * @param forPlatform if set false MenuItem is not included in platformMenuItems-List
+	 * @param isPlatformItem if set false MenuItem is not included in platformMenuItems-List
 	 */
-	public BHMenuItem(String key, int eventKey, String actionCommand, Boolean forPlatform, String inputHint) {
+	public BHMenuItem(String key, int eventKey, String actionCommand, Boolean isPlatformItem, String inputHint) {
 		super(Services.getTranslator().translate(key));
 		this.key = key;
 		if (eventKey != 0) {
@@ -55,39 +58,11 @@ public class BHMenuItem extends JMenuItem implements IBHComponent {
 		
 		this.inputHint = inputHint;
 		
-		//if(forPlatform)
-			//platformMenuItems.add(this);
+		if(isPlatformItem)
+			platformMenuItems.add(this);
 	}
-	/**
-	 * create the new menu item
-	 * 
-	 * @param key
-	 * @param eventKey
-	 *            : Dec number ASCII
-	 * @param eventAction
-	 * @param actionCommand
-	 * @param forPlatform if set false MenuItem is not included in platformMenuItems-List
-	 */
-	public BHMenuItem(String key, int eventKey, String actionCommand, Boolean forPlatform) {
-		super(Services.getTranslator().translate(key));
-		this.key = key;
-		if (eventKey != 0) {
-			this.setMnemonic(eventKey);
-			int metakey = 0;
-			if ("Mac OS X".equals(System.getProperty("os.name"))) {
-				metakey = ActionEvent.META_MASK;
-			} else {
-				metakey = ActionEvent.CTRL_MASK;
-			}
-			this.setAccelerator(KeyStroke.getKeyStroke(eventKey, metakey));
-		}
-		this.setActionCommand(actionCommand);
-		
-		this.inputHint = inputHint;
-		
-		//if(forPlatform)
-			//platformMenuItems.add(this);
-	}
+	
+
 	/**
 	 * create the new menu item
 	 * -Constructor for regular use (w/o forPlatform parameter)
@@ -96,20 +71,14 @@ public class BHMenuItem extends JMenuItem implements IBHComponent {
 	public BHMenuItem(String key, int eventKey, String actionCommand, String inputHint) {
 		this(key, eventKey, actionCommand, true, inputHint);
 	}
-	/**
-	 * create the new menu item
-	 * -Constructor for regular use (w/o forPlatform parameter)
-	 * 
-	 */
-	public BHMenuItem(String key, int eventKey, String actionCommand) {
-		this(key, eventKey, actionCommand, true);
-	}
+	
 
 	@Override
 	public String getKey() {
 		return key;
 	}
 
+	
 	@Override
 	public int[] getValidateRules() {
 		// TODO Auto-generated method stub
@@ -117,6 +86,7 @@ public class BHMenuItem extends JMenuItem implements IBHComponent {
 				"This method has not been implemented");
 	}
 
+	
 	@Override
 	public boolean isTypeValid() {
 		// TODO Auto-generated method stub
@@ -152,3 +122,5 @@ public class BHMenuItem extends JMenuItem implements IBHComponent {
 		return platformMenuItems;
 	}
 }
+
+

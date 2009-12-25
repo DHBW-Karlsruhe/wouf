@@ -1,5 +1,8 @@
 package org.bh.gui.swing;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import javax.swing.JButton;
 import org.bh.data.types.IValue;
 
@@ -19,7 +22,18 @@ public class BHButton extends JButton implements IBHComponent{
     private String key;
     private int[] validateRules;
     private String inpuHint;
-
+    
+    private static List<BHButton> platformButtons = new ArrayList<BHButton>();
+    
+    public static final Boolean ISPLATFORMBUTTON = true;
+    
+    
+    
+    /**
+     * Standard constructor to create buttons NOT for platform
+     * 
+     * @param key
+     */
     public BHButton(String key, String inputHint){
         super();
         this.key = key;
@@ -30,7 +44,25 @@ public class BHButton extends JButton implements IBHComponent{
         super();
         this.key = key;
     }
-
+    
+   
+    /**
+     * Secondary constructor for platform buttons (are added to platformButtons-list)
+     * 
+     * @param key
+     * @param isPlatformButton adds button to platformbutton-list
+     */
+    public BHButton(String key, Boolean isPlatformButton, String inputHint){
+        super();
+        this.key = key;
+        this.inpuHint = inputHint;
+        
+        if(isPlatformButton)
+        	platformButtons.add(this); 
+    }
+    
+    
+    
     /**
      * set the rules for the JGoodies validation
      * @param validateRules
@@ -69,6 +101,9 @@ public class BHButton extends JButton implements IBHComponent{
         return this.inpuHint;
     }
     
+    public static List<BHButton> getPlatformButtons(){
+		return platformButtons;
+	}
 
 
 }
