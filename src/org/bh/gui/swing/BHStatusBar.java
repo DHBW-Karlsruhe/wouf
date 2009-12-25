@@ -9,6 +9,7 @@ import javax.swing.UIManager;
 
 import com.jgoodies.forms.layout.CellConstraints;
 import com.jgoodies.forms.layout.FormLayout;
+import javax.swing.JScrollPane;
 
 /**
  * 
@@ -60,20 +61,21 @@ public class BHStatusBar extends JPanel {
 	 * 
 	 * @param toolTip
 	 */
-	public void setToolTip(String toolTip) {
+	public void setToolTip(JLabel toolTip) {
 		//TODO Ausprogrammieren: Entweder "" oder Fehler anzeigen, falls vorhanden (evtl. mit "Link" zu 
 		//Popup mit allen Fehlermeldungen. Beispiel:
 		//Fremdkapital darf keine Buchstaben enthalten (hier klicken für alle Meldungen...)
-		lToolTip.setText(toolTip);
+		lToolTip = toolTip;
 		// test.repaint();
 		lToolTip.revalidate();
 
 	}
 
-	public void setValidationToolTip(JLabel label) {
-		lToolTip.setText(label.getText());
-		lToolTip.setIcon(label.getIcon());
-		lToolTip.revalidate();
+	public void setValidationToolTip(JScrollPane pane) {
+
+		//lToolTip.setText(label.getText());
+		//lToolTip.setIcon(label.getIcon());
+		//lToolTip.revalidate();
 	}
 
 }

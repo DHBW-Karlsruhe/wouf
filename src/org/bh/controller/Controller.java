@@ -7,6 +7,7 @@ import java.util.Map;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
+import javax.swing.JScrollPane;
 import org.apache.log4j.Logger;
 import org.bh.data.DTOAccessException;
 import org.bh.data.IDTO;
@@ -80,7 +81,7 @@ public abstract class Controller implements IController, ActionListener, IPlatfo
      */
     private void handleException(Exception e){
         log.error("Controller Exception ", e);
-        Controller.bhStatusBar.setToolTip(e.getMessage());
+//        Controller.bhStatusBar.setToolTip(e.getMessage());
     }
    
     /**
@@ -150,7 +151,7 @@ public abstract class Controller implements IController, ActionListener, IPlatfo
      * @see Servicess
      * @return
      */
-    public ITranslator getTranslator() {
+    public static ITranslator getTranslator() {
         return Services.getTranslator();
     }
     /**
@@ -158,15 +159,15 @@ public abstract class Controller implements IController, ActionListener, IPlatfo
      * @BHStatusBar
      * @param label
      */
-    public static void setBHstatusBarValidationToolTip(JLabel label){
-        Controller.bhStatusBar.setValidationToolTip(label);
+    public static void setBHstatusBarValidationToolTip(JScrollPane pane){
+        Controller.bhStatusBar.setValidationToolTip(pane);
     }
      /**
      * concret BHValidityEngine can use this method to set Tool Tip
      * @BHStatusBar
       * @param tooltip
      */
-    public static void setBHstatusBarToolTip(String tooltip){
+    public static void setBHstatusBarToolTip(JLabel tooltip){
         Controller.bhStatusBar.setToolTip(tooltip);
     }
     /**
