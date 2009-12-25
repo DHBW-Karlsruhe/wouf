@@ -1,12 +1,12 @@
 package org.bh.platform;
 
-import java.awt.Component;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import org.bh.gui.swing.BHButton;
 import org.bh.gui.swing.BHMainFrame;
 import org.bh.gui.swing.BHMenuItem;
 import org.bh.gui.swing.IBHComponent;
+import org.bh.platform.actionkeys.PlatformActionKey;
 import org.bh.platform.i18n.BHTranslator;
 
 
@@ -60,7 +60,28 @@ public class PlatformController {
 
 		@Override
 		public void actionPerformed(ActionEvent aEvent) {
+			
+			//get actionKey of fired action
+			PlatformActionKey actionKey = null;
+			if(((IBHComponent)aEvent.getSource())instanceof BHMenuItem)
+				actionKey = ((BHMenuItem)aEvent.getSource()).getActionKey();
+			
+			if(((IBHComponent)aEvent.getSource())instanceof BHButton)
+				//actionKey = ((BHButton)aEvent.getSource());
+			
 			System.out.println(((IBHComponent)aEvent.getSource()).getKey());
+			
+			switch(actionKey){
+			case FILENEW:
+				System.out.println("FILENEW gefeuert");
+				break;
+			case FILEOPEN:
+				System.out.println("FILEOPEN gefeuert");
+				break;
+			default:
+				System.out.println("Irgendwas gefeuert...");
+				break;
+			}
 		}
 		
 	}

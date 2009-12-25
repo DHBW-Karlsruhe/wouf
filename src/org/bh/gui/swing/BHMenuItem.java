@@ -9,6 +9,7 @@ import javax.swing.KeyStroke;
 
 import org.bh.data.types.IValue;
 import org.bh.platform.Services;
+import org.bh.platform.actionkeys.PlatformActionKey;
 
 /**
  * BHMenuItem to create and display new menu items in the menu bar.
@@ -25,6 +26,7 @@ import org.bh.platform.Services;
 public class BHMenuItem extends JMenuItem implements IBHComponent {
 
 	private String key;
+	private PlatformActionKey actionKey;
 	private int[] validateRules;
 	private static List<BHMenuItem> platformMenuItems = new ArrayList<BHMenuItem>();
     private String inputHint;
@@ -41,7 +43,7 @@ public class BHMenuItem extends JMenuItem implements IBHComponent {
 	 * @param actionCommand
 	 * @param isPlatformItem if set false MenuItem is not included in platformMenuItems-List
 	 */
-	public BHMenuItem(String key, int eventKey, String actionCommand, Boolean isPlatformItem, String inputHint) {
+	public BHMenuItem(String key, int eventKey, PlatformActionKey actionKey, Boolean isPlatformItem, String inputHint) {
 		super(Services.getTranslator().translate(key));
 		this.key = key;
 		if (eventKey != 0) {
@@ -54,7 +56,7 @@ public class BHMenuItem extends JMenuItem implements IBHComponent {
 			}
 			this.setAccelerator(KeyStroke.getKeyStroke(eventKey, metakey));
 		}
-		this.setActionCommand(actionCommand);
+		this.actionKey = actionKey;
 		
 		this.inputHint = inputHint;
 		
@@ -68,8 +70,8 @@ public class BHMenuItem extends JMenuItem implements IBHComponent {
 	 * -Constructor for regular use (w/o forPlatform parameter)
 	 * 
 	 */
-	public BHMenuItem(String key, int eventKey, String actionCommand, String inputHint) {
-		this(key, eventKey, actionCommand, true, inputHint);
+	public BHMenuItem(String key, int eventKey, PlatformActionKey actionKey, String inputHint) {
+		this(key, eventKey, actionKey, true, inputHint);
 	}
 	
 
@@ -101,11 +103,17 @@ public class BHMenuItem extends JMenuItem implements IBHComponent {
 		throw new UnsupportedOperationException("Not supported yet.");
 	}
 
-        public String getInputHint() {
-            return this.inputHint;
-        }
+    
+	public String getInputHint() {
+		return this.inputHint;
+	}
 	
+	public PlatformActionKey getActionKey(){
+		return this.actionKey;
+	}
 	
+        
+        
 	/**
 	 * Method to get all MenuItems that are generated for platforms 
 	 * (i.e. that ones which have forPlatform = false not set)
