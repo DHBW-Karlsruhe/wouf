@@ -1,6 +1,7 @@
 package org.bh.gui.swing;
 
 import javax.swing.JLabel;
+
 import org.bh.data.types.IValue;
 
 /**
@@ -20,7 +21,7 @@ public class BHLabel extends JLabel implements IBHComponent {
 	 */
 	private String key;
 	private int[] validateRules;
-    private String inputHint;
+	private String inputHint;
 
 	/**
 	 * Constructor to create new <code>BHLabel</code>.
@@ -34,10 +35,11 @@ public class BHLabel extends JLabel implements IBHComponent {
 	 */
 	public BHLabel(String key, String value, String inputHint) {
 		super(value);
+		this.setProperties();
 		this.key = key;
 		this.inputHint = inputHint;
 	}
-	
+
 	/**
 	 * Constructor to create new <code>BHLabel</code>.
 	 * 
@@ -48,9 +50,10 @@ public class BHLabel extends JLabel implements IBHComponent {
 	 */
 	public BHLabel(String key, String value) {
 		super(value);
+		this.setProperties();
 		this.key = key;
 	}
-	
+
 	/**
 	 * Constructor to create new <code>BHLabel</code>.
 	 * 
@@ -59,6 +62,7 @@ public class BHLabel extends JLabel implements IBHComponent {
 	 */
 	public BHLabel(String key) {
 		super();
+		this.setProperties();
 		this.key = key;
 	}
 
@@ -78,25 +82,31 @@ public class BHLabel extends JLabel implements IBHComponent {
 
 	public void setValidateRules(int[] validateRules) {
 		// TODO Auto-generated method stub
-		throw new UnsupportedOperationException("This method has not been implemented");
+		throw new UnsupportedOperationException(
+				"This method has not been implemented");
 	}
 
-        public boolean isTypeValid() {
-            throw new UnsupportedOperationException("Not supported yet.");
-        }
+	public boolean isTypeValid() {
+		throw new UnsupportedOperationException("Not supported yet.");
+	}
 
-        public IValue getValue() {
-            throw new UnsupportedOperationException("Not supported yet.");
-        }
+	public IValue getValue() {
+		throw new UnsupportedOperationException("Not supported yet.");
+	}
 
-        public  void setValue(IValue value){
-            throw new UnsupportedOperationException("Not supported yet.");
-        }
+	public void setValue(IValue value) {
+		throw new UnsupportedOperationException("Not supported yet.");
+	}
 
-        public String getInputHint() {
-            return this.inputHint;
-        }
+	public String getInputHint() {
+		return this.inputHint;
+	}
 
-
+	/**
+	 * set properties of instance.
+	 */
+	private void setProperties() {
+		this.putClientProperty("JComponent.sizeVariant", IBHComponent.MINI); // Minilabel
+	}
 
 }
