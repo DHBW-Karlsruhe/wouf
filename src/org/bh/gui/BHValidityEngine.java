@@ -43,6 +43,7 @@ public abstract class BHValidityEngine {
      */
     private void setValidityStatus(ValidationResult validation) {
         if (validation.hasErrors() || validation.hasWarnings()) {
+            log.debug("validation has errors or warnings");
             this.isValid = false;
         } else {
             this.isValid = true;
@@ -92,10 +93,11 @@ public abstract class BHValidityEngine {
      * run a validation and deliver the Result to the BHStatusBar
      *
      * @param toValidate IBHComponents which have to be validated as a Map
+     * @throws ViewException 
      * @see IBHComponent
      * @see BHStatusBar
      */
-    public void publishValidationAll(Map<String, IBHComponent> toValidate){
+    public void publishValidationAll(Map<String, IBHComponent> toValidate) throws ViewException{
         log.debug("Trigger validation process for All Components");
         validationResultAll = validateAll(toValidate);
         setValidityStatus(validationResultAll);
@@ -105,9 +107,10 @@ public abstract class BHValidityEngine {
      * set the messages of the validation of a single component to the BHStatusBar
      *
      * @param comp
+     * @throws ViewException
      * @see BHStatusBar
      */
-    protected void publishValidationComp(IBHComponent comp){
+    protected void publishValidationComp(IBHComponent comp) throws ViewException{
         log.debug("Trigger validation for a single component");
         ValidationResult valRes = validate(comp);
         Controller.setBHstatusBarValidationToolTip(createValidationResultList(valRes));
@@ -127,7 +130,7 @@ public abstract class BHValidityEngine {
      * @return the result of the Validation as ValidationResult
      * @see ValidationResult
      */
-    abstract ValidationResult validate(IBHComponent comp);
+    abstract ValidationResult validate(IBHComponent comp) throws ViewException;
 
     /**
      * Shell proof the single components and can also proof related conditions between
@@ -137,5 +140,5 @@ public abstract class BHValidityEngine {
      * @return the result of the Validation as ValidationResult
      * @see ValidationResult
      */
-    abstract ValidationResult validateAll(Map<String, IBHComponent> toValidate);
+    abstract ValidationResult validateAll(Map<String, IBHComponent> toValidate) throws ViewException;
 }

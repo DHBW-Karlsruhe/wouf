@@ -15,6 +15,7 @@ import java.beans.PropertyChangeListener;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.logging.Level;
 import javax.swing.JPanel;
 import org.apache.log4j.Logger;
 import org.bh.data.IDTO;
@@ -206,7 +207,8 @@ public abstract class View implements KeyListener, PropertyChangeListener, Mouse
     public void setViewPanel(JPanel panel) throws ViewException {
         log.debug("a new panel is setted");
         if (panel == null) {
-            throw new ViewException("null panel is setted");
+            log.error("null reference for view is ssetted");
+            throw new ViewException("null refernce panel is setted");
         }
         this.viewPanel = panel;
         this.bhModelComponents = mapBHcomponents(panel.getComponents());
@@ -232,6 +234,7 @@ public abstract class View implements KeyListener, PropertyChangeListener, Mouse
     public void setValidator(BHValidityEngine validator) throws ViewException {
         log.debug("a new validator is setted");
         if (validator == null) {
+            log.error("null reference for validator is ssetted");
             throw new ViewException("null reference validator");
         }
         this.validator = validator;
@@ -246,7 +249,11 @@ public abstract class View implements KeyListener, PropertyChangeListener, Mouse
      */
     private void handleValidateEvent(Object e) {
         if (e instanceof BHTextField && validator != null) {
-            validator.publishValidationComp((BHTextField) e);
+            try {
+                validator.publishValidationComp((BHTextField) e);
+            } catch (ViewException ex) {
+                log.error("validation thorws errors", ex);
+            }
         }
     }
 

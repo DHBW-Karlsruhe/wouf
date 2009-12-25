@@ -49,6 +49,13 @@ public abstract class Controller implements IController, ActionListener, IPlatfo
      */
     private static BHStatusBar bhStatusBar;
 
+    /**
+     * have to be used in case of a UI based and model driven mvc plugin
+     * and register the plugin at the platform
+     *
+     * @param view a instance of a View subclass
+     * @param model a instance of a dto 
+     */
     public Controller(View view, IDTO<?> model){
         log.debug("Plugincontroller instance");
         this.model = model;
@@ -74,20 +81,17 @@ public abstract class Controller implements IController, ActionListener, IPlatfo
     
     /**
      * central exception handler method. Should be called in every catch statement
-     * in each plugin. The Standard writes a message to the <code>BHstatusBar</code>
-     * of the Platform
+     * in each plugin.
+     *
      * @see BHstatusBar
      * @param e
      */
     private void handleException(Exception e){
         log.error("Controller Exception ", e);
+        //TODO how to show system erros to the user
 //        Controller.bhStatusBar.setToolTip(e.getMessage());
     }
    
-    /**
-     * @see IController
-     * @return
-     */
     public JPanel getView(){
         if(this.view != null) {
             return view.getViewPanel();
@@ -156,23 +160,29 @@ public abstract class Controller implements IController, ActionListener, IPlatfo
     }
     /**
      * concret BHValidityEngine can use this method to set Validation Tool Tip
-     * @BHStatusBar
-     * @param label
+     * 
+     * @param pane
+     * @see BHStatusBar
      */
     public static void setBHstatusBarValidationToolTip(JScrollPane pane){
         Controller.bhStatusBar.setValidationToolTip(pane);
     }
      /**
-     * concret BHValidityEngine can use this method to set Tool Tip
-     * @BHStatusBar
-      * @param tooltip
+      * concret BHValidityEngine can use this method to set Info Tool Tip
+      *
+      * @param tooltip   a JLabel representing the Info message
+      * @see JLabel
+      * @see BHStatusBar
      */
     public static void setBHstatusBarToolTip(JLabel tooltip){
         Controller.bhStatusBar.setToolTip(tooltip);
     }
     /**
+     * add the Controller for each BHButton on the UI as ActionListener
      *
      * @param comps
+     * @see ActionListener
+     * @see BHButton
      */
     private void AddControllerAsListener(Map<String, IBHComponent> comps){
         for(IBHComponent comp : comps.values()){
@@ -181,12 +191,12 @@ public abstract class Controller implements IController, ActionListener, IPlatfo
             }
         }
     }
-
-    public List<String> getStochasticKeys() {
+    
+    public List<String> getStochasticKeys() throws ControllerException{
         if(model != null) {
             return this.model.getStochasticKeys();
         }
-        return null;
+        throw new ControllerException("No referende to a valid model");
     }
 
 

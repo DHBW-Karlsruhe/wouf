@@ -15,27 +15,29 @@ public interface IController {
      * @return the view of the component; if no view is defined the method returns null
      * @throws ControllerException
      */
-    JPanel getView();
+    JPanel getView() throws ControllerException;
     
     /**
      * platform can define the dto access of the component by this method
      * @param model
+     * @throws ControllerException
      */
-    void setModel(IDTO<?> model);
+    void setModel(IDTO<?> model) throws ControllerException;
     
     //TODO datatyp result is not yet defined
     
     /**
      * platform can hand over the result of an operation to a component by this method
      * @param result
+     * @throws ControllerException 
      */
-    void setResult(Map result);
+    void setResult(Map result) throws ControllerException;
     
     /**
      * deliver a List of keys representing values which are stochastical procedable
-     * Can return null if no model is connected
      * @return
+     * @throws ControllerException 
      */
-    List<String> getStochasticKeys();
+    List<String> getStochasticKeys() throws ControllerException;
    
 }
