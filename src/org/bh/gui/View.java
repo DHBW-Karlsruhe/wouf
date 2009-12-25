@@ -16,9 +16,12 @@ import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
 import javax.swing.JPanel;
+import org.apache.log4j.Logger;
+import org.bh.data.IDTO;
 import org.bh.gui.chart.IBHAddValue;
 import org.bh.gui.swing.BHButton;
 import org.bh.gui.swing.BHLabel;
+import org.bh.gui.swing.BHStatusBar;
 import org.bh.gui.swing.BHTextField;
 import org.bh.gui.swing.IBHComponent;
 
@@ -28,32 +31,76 @@ import org.bh.gui.swing.IBHComponent;
  */
 public abstract class View implements KeyListener, PropertyChangeListener, MouseListener {
 
+    private static  Logger log = Logger.getLogger(View.class);
+
+    /**
+     * refernce to the instance of the UI validator
+     * @see BHValidityEngine
+     */
     private BHValidityEngine validator = null;
+    /**
+     * refernce to a subclass of JPanel keeping UI Components
+     */
     private JPanel viewPanel;
+    /**
+     * representign chart BH components
+     * @see IBHAddValue
+     */
     private Map<String, IBHAddValue> bhChartComponents = Collections.synchronizedMap(new HashMap<String, IBHAddValue>());
+    /**
+     * representing all components related to the model
+     * @see IDTO
+     */
     private Map<String, IBHComponent> bhModelComponents;
+    /**
+     * representing all BH labels and Buttons
+     * @see BHButton
+     * @see BHLabel
+     */
     private Map<String, IBHComponent> bhTextComponents = Collections.synchronizedMap(new HashMap<String, IBHComponent>());
     private static Map<String, IBHComponent> validationRegister = null;
-    ;
 
+    /**
+     * Should be used in case of a UI which have to be validated
+     *
+     * @param viewPanel instances of a subclass of JPanel
+     * @param validator instances of a subclass of IBHValidator
+     * @throws ViewException    in case of null or mapping issues
+     * @see JPanel
+     * @see BHValidityEngine
+     */
     public View(JPanel viewPanel, BHValidityEngine validator) throws ViewException {
         this.setViewPanel(viewPanel);
         this.setValidator(validator);
     }
-
+    /**
+     * Only should be uesed for UI´s without validation
+     *
+     * @param viewPanel instances of a subclass of JPanel
+     * @throws ViewException    in case of null or mapping issues
+     * @see JPanel
+     */
     public View(JPanel viewPanel) throws ViewException {
         this.setViewPanel(viewPanel);
     }
 
     /**
-     * add View class as Key and PropertyChangeListener of all BHTextField
+     * add View class as Key and PropertyChange to all BHTextFields an MouseListener to all IBHComponents
+     *
+     * @see IBHComponent
+     * @see BHTextField
+     * @see KeyListener
+     * @see PropertyChangeListener
+     * @see MouseListener
      * @param comp
      */
     private void addViewListener(Component comp) {
+        if (comp instanceof IBHComponent){
+            comp.addMouseListener(this);
+        }
         if (comp instanceof BHTextField) {
             comp.addKeyListener(this);
             comp.addPropertyChangeListener(this);
-            comp.addMouseListener(this);
         }
 
     }
@@ -61,10 +108,14 @@ public abstract class View implements KeyListener, PropertyChangeListener, Mouse
     /**
      * Map all components of IBHComponent in the model, text or chart map and set
      * KeyListener and PropertyChangeListener <code>addViewListener</code>
+     *
+     * @see KeyListener
+     * @see PropertyChangeListener
      * @param components
-     * @return
+     * @return Map of model related components
      */
     private Map<String, IBHComponent> mapBHcomponents(Component[] components) throws ViewException {
+        log.debug("UI Components are getting organized and registered in a View instance");
         Map<String, IBHComponent> map = Collections.synchronizedMap(new HashMap<String, IBHComponent>());
         for (Component comp : components) {
             //TODO Have to be a motherclass which represents all possible containers
@@ -72,6 +123,7 @@ public abstract class View implements KeyListener, PropertyChangeListener, Mouse
                 try {
                     map.putAll(mapBHcomponents(((JPanel) comp).getComponents()));
                 } catch (Exception e) {
+                    log.error("Mapping Error in the View", e.getCause());
                     throw new ViewException(e.getCause());
                 }
             }
@@ -81,6 +133,7 @@ public abstract class View implements KeyListener, PropertyChangeListener, Mouse
                     try {
                         map.putAll(mapBHcomponents(((JPanel) comp).getComponents()));
                     } catch (Exception e) {
+                        log.error("Mapping Error in the View", e.getCause());
                         throw new ViewException(e.getCause());
                     }
                 }
@@ -88,6 +141,7 @@ public abstract class View implements KeyListener, PropertyChangeListener, Mouse
                     try {
                         this.bhTextComponents.put(((IBHComponent) comp).getKey(), (IBHComponent) comp);
                     } catch (Exception e) {
+                        log.error("Mapping Error in the View", e.getCause());
                         throw new ViewException(e.getCause());
                     }
                 } else if (comp instanceof IBHAddValue) {
@@ -96,6 +150,7 @@ public abstract class View implements KeyListener, PropertyChangeListener, Mouse
                     try {
                         map.put(((IBHComponent) comp).getKey(), (IBHComponent) comp);
                     } catch (Exception e) {
+                        log.error("Mapping Error in the View", e.getCause());
                         throw new ViewException(e.getCause());
                     }
                 }
@@ -105,8 +160,9 @@ public abstract class View implements KeyListener, PropertyChangeListener, Mouse
     }
 
     /**
-     * deliver the Labels with translation key
-     * @return
+     * deliver the Labels an Buttones with translation key
+     *
+     * @return  Map of text related components
      */
     public Map<String, IBHComponent> getBHtextComponents() {
         return this.bhTextComponents;
@@ -114,23 +170,26 @@ public abstract class View implements KeyListener, PropertyChangeListener, Mouse
 
     /**
      * deliver the components which can bind their values to matching dto
-     * @return
+     * 
+     * @return  Map of model related componentes
      */
     public Map<String, IBHComponent> getBHmodelComponents() {
         return this.bhModelComponents;
     }
 
     /**
-     * deliver the
-     * @return
+     * deliver the BH charts
+     * @return Map of BHcharts
      */
     protected Map<String, IBHAddValue> getBHchartComponents() {
         return bhChartComponents;
     }
 
     /**
-     * deliver the instance of the Plugin Panel
-     * @return
+     * deliver the instance of the Plugin Panel for the Platform
+     *
+     * @return instance of a subclass of JPanel
+     * @see JPanel
      */
     public JPanel getViewPanel() {
         return this.viewPanel;
@@ -139,10 +198,13 @@ public abstract class View implements KeyListener, PropertyChangeListener, Mouse
     /**
      * Controller can set a new view
      * All maps will automatically be refactored
-     * @param panel
-     * @throws ViewException
+     * 
+     * @param panel instance of a JPanel subclass
+     * @throws ViewException    in case of null reference
+     * @see JPanel
      */
     public void setViewPanel(JPanel panel) throws ViewException {
+        log.debug("a new panel is setted");
         if (panel == null) {
             throw new ViewException("null panel is setted");
         }
@@ -152,18 +214,23 @@ public abstract class View implements KeyListener, PropertyChangeListener, Mouse
     }
 
     /**
-     *
-     * @return
+     * deliver the <code>BHValidityEngine</code> instance
+     * @return instance of a subclass of BHValidityEngine
+     * @see BHValidityEngine
      */
     public BHValidityEngine getValidator() {
         return validator;
     }
 
     /**
-     *
+     * set a new validator instance to the view
+     * <code>registerComponents</code> will be called
      * @param validator
+     * @throws ViewException    in case of null refernce
+     * @see View
      */
     public void setValidator(BHValidityEngine validator) throws ViewException {
+        log.debug("a new validator is setted");
         if (validator == null) {
             throw new ViewException("null reference validator");
         }
@@ -172,8 +239,10 @@ public abstract class View implements KeyListener, PropertyChangeListener, Mouse
     }
 
     /**
+     * call the <code>publishValidationComp</code> method of a evetn on a BHTextField occurs
      * 
-     * @param e
+     * @param e representes the source of the event
+     * @see BHTextField
      */
     private void handleValidateEvent(Object e) {
         if (e instanceof BHTextField && validator != null) {
@@ -182,8 +251,10 @@ public abstract class View implements KeyListener, PropertyChangeListener, Mouse
     }
 
     /**
+     * set the InputHint on the Platform in case of a IBHComponent
      *
-     * @param e
+     * @param e representes the source
+     * @see BHStatusBar
      */
     private void handleInputInfoEvent(Object e){
         if (e instanceof IBHComponent){
@@ -249,4 +320,5 @@ public abstract class View implements KeyListener, PropertyChangeListener, Mouse
             this.handleInputInfoEvent(e);
         }
     }
+    
 }

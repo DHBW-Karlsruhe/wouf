@@ -13,7 +13,9 @@ import java.util.Map;
 import javax.swing.JComponent;
 import javax.swing.JLabel;
 import javax.swing.JScrollPane;
+import org.apache.log4j.Logger;
 import org.bh.controller.Controller;
+import org.bh.gui.swing.BHStatusBar;
 import org.bh.gui.swing.IBHComponent;
 
 /**
@@ -22,12 +24,22 @@ import org.bh.gui.swing.IBHComponent;
  */
 public abstract class BHValidityEngine {
 
+    private static  Logger log = Logger.getLogger(BHValidityEngine.class);
+
+    /**
+     * flag for the validation of a complete UI instance
+     */
     private boolean isValid = false;
+    /**
+     * keep the result from validateAll
+     */
     private ValidationResult validationResultAll;
 
     /**
      * set boolean <code>isValid</code> wheater the last validationAll has an error or warning
-     * @param validation
+     * 
+     * @param validation    as Result of a Validation
+     * @see ValidationResult
      */
     private void setValidityStatus(ValidationResult validation) {
         if (validation.hasErrors() || validation.hasWarnings()) {
@@ -37,6 +49,11 @@ public abstract class BHValidityEngine {
         }
     }
 
+    /**
+     * deliver the flag wheather a UI is valid or not
+     *
+     * @return  boolean true is valid false --> isn´t proofed yet, is not valid
+     */
     public boolean isValid() {
         if(validationResultAll != null){
             setValidityStatus(validationResultAll);
@@ -46,42 +63,79 @@ public abstract class BHValidityEngine {
         }
         
     }
-
+    /**
+     * creates the JScroll Pane with validation messages
+     *
+     * @param validationResult
+     * @return  JScrollPane
+     * @see JScrollPane
+     */
     private JScrollPane createValidationResultList(ValidationResult validationResult) {
+        log.debug("JScrollPane is build");
         ValidationResultModel validationResultModel = new DefaultValidationResultModel();
         validationResultModel.setResult(validationResult);
 
         JScrollPane resultList = (JScrollPane) ValidationResultViewFactory.createReportList(validationResultModel);
         return resultList;
     }
-
+    /**
+     * set the Input hint to the BHStatusBar
+     *
+     * @param comp instances of IBHComponent
+     * @see BHStatusBar
+     */
     protected static void setInpuHintLabel(IBHComponent comp) {
+        log.debug("Input ToolTip is setted to Status Bar");
         Controller.setBHstatusBarToolTip((JLabel) ValidationComponentUtils.getInputHint((JComponent) comp));
     }
-
+    /**
+     * run a validation and deliver the Result to the BHStatusBar
+     *
+     * @param toValidate IBHComponents which have to be validated as a Map
+     * @see IBHComponent
+     * @see BHStatusBar
+     */
     public void publishValidationAll(Map<String, IBHComponent> toValidate){
+        log.debug("Trigger validation process for All Components");
         validationResultAll = validateAll(toValidate);
         setValidityStatus(validationResultAll);
         Controller.setBHstatusBarValidationToolTip(createValidationResultList(validationResultAll));
     }
+    /**
+     * set the messages of the validation of a single component to the BHStatusBar
+     *
+     * @param comp
+     * @see BHStatusBar
+     */
     protected void publishValidationComp(IBHComponent comp){
+        log.debug("Trigger validation for a single component");
         ValidationResult valRes = validate(comp);
         Controller.setBHstatusBarValidationToolTip(createValidationResultList(valRes));
     }
+    /**
+     * have to register the model related components and set the ValidationComponentUtils eintrys
+     *
+     * @param toValidate a Map of IBHComponents
+     * @see ValidationComponentUtils
+     */
     abstract void registerComponents(Map<String, IBHComponent> toValidate);
    
     /**
      * Shell proof the constant based rules of a single component
-     * @param comp
-     * @return
+     *
+     * @param comp single IBHComponent
+     * @return the result of the Validation as ValidationResult
+     * @see ValidationResult
      */
     abstract ValidationResult validate(IBHComponent comp);
 
     /**
      * Shell proof the single components and can also proof related conditions between
      * components
+     *
      * @param toValidate
-     * @return
+     * @return the result of the Validation as ValidationResult
+     * @see ValidationResult
      */
     abstract ValidationResult validateAll(Map<String, IBHComponent> toValidate);
 }
