@@ -3,6 +3,8 @@ package org.bh.platform;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
+import javax.swing.JFileChooser;
+
 import org.bh.gui.swing.BHButton;
 import org.bh.gui.swing.BHMainFrame;
 import org.bh.gui.swing.BHMenuItem;
@@ -75,7 +77,12 @@ public class PlatformController {
 				break;
 			case FILEOPEN:
 				System.out.println("FILEOPEN gefeuert");
-				bhmf.getChooser().showOpenDialog(bhmf);
+				int returnVal = bhmf.getChooser().showOpenDialog(bhmf);
+				if (returnVal == JFileChooser.APPROVE_OPTION) {
+					System.out.println("You chose to open this file: "
+							+ bhmf.getChooser().getSelectedFile().getName());
+					// TODO @Loeckelt.Michael: Tu es !
+				}
 				break;
 			default:
 				System.out.println("Irgendwas gefeuert...");
