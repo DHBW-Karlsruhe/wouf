@@ -19,7 +19,8 @@ import org.bh.platform.Services;
  * and as a child for project DTO
  * 
  * @author Michael Löckelt
- * @version 0.3, 17.12.2009
+ * @author Marcus Katzor
+ * @version 0.4, 25.12.2009
  * 
  */
 
@@ -198,6 +199,16 @@ public class DTOScenario extends DTO<DTOPeriod> {
 			map.put(key, pastValues);
 		}
 		return map;
+	}
+	
+	/**
+	 * Returns flag for differentiation between
+	 * past and future values.
+	 * @author Marcus Katzor
+	 * @return
+	 */
+	public boolean isFutureValues() {
+		return futureValues;
 	}
 	
 	
