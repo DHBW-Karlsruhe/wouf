@@ -86,14 +86,6 @@ public class BHMenuItem extends JMenuItem implements IBHComponent {
 				"This method has not been implemented");
 	}
 
-	
-	@Override
-	public boolean isTypeValid() {
-		// TODO Auto-generated method stub
-		throw new UnsupportedOperationException(
-				"This method has not been implemented");
-	}
-
 	@Override
 	public void setValidateRules(int[] validateRules) {
 		// TODO Auto-generated method stub

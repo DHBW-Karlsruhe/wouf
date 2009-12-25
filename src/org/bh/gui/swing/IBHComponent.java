@@ -48,12 +48,6 @@ public interface IBHComponent {
      * @return
      */
     public Component add(Component comp);
-
-    /**
-     * component information about its validity status
-     * @return
-     */
-    public boolean isTypeValid();
     /**
      * Must return the Input Hint text of a component
      * @return 
