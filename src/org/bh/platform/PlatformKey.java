@@ -1,6 +1,6 @@
-package org.bh.platform.actionkeys;
+package org.bh.platform;
 
-public enum PlatformActionKey{
+public enum PlatformKey{
 	
 	
 	
@@ -55,7 +55,7 @@ public enum PlatformActionKey{
 	/**
 	 * 
 	 */
-	PlatformActionKey(String translationKey, String actionKey){
+	PlatformKey(String translationKey, String actionKey){
 		this.translationKey = translationKey;
 		this.actionKey = actionKey;
 	}

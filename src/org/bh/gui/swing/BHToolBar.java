@@ -1,7 +1,8 @@
 package org.bh.gui.swing;
 
 import javax.swing.*;
-import org.bh.platform.actionkeys.PlatformActionKey;
+
+import org.bh.platform.PlatformKey;
 
 /**
  * 
@@ -40,14 +41,14 @@ public class BHToolBar extends JToolBar{
 		
 		setSize(width, height);
 		
-		bNew = new BHToolButton(PlatformActionKey.TOOLBARNEW, "New24");
-		bOpen = new BHToolButton(PlatformActionKey.TOOLBAROPEN, "Open24");
-		bSave = new BHToolButton(PlatformActionKey.TOOLBARSAVE, "Save24");
-		bAddP = new BHToolButton(PlatformActionKey.TOOLBARADDP, "Add24");
-		bAddS = new BHToolButton(PlatformActionKey.TOOLBARADDS, "Edit24");
-		bRemove = new BHToolButton(PlatformActionKey.TOOLBARREMOVE, "Remove24");
-		bDelete = new BHToolButton(PlatformActionKey.TOOLBARDELETE, "Delete24");
-		bFind = new BHToolButton(PlatformActionKey.TOOLBARFIND, "Find24");
+		bNew = new BHToolButton(PlatformKey.TOOLBARNEW, "New24");
+		bOpen = new BHToolButton(PlatformKey.TOOLBAROPEN, "Open24");
+		bSave = new BHToolButton(PlatformKey.TOOLBARSAVE, "Save24");
+		bAddP = new BHToolButton(PlatformKey.TOOLBARADDP, "Add24");
+		bAddS = new BHToolButton(PlatformKey.TOOLBARADDS, "Edit24");
+		bRemove = new BHToolButton(PlatformKey.TOOLBARREMOVE, "Remove24");
+		bDelete = new BHToolButton(PlatformKey.TOOLBARDELETE, "Delete24");
+		bFind = new BHToolButton(PlatformKey.TOOLBARFIND, "Find24");
 		
 			//example of combo box in tool bar
 			//lable = new BHLabel("Methode: ", "value");

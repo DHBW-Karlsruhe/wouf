@@ -6,8 +6,8 @@ import java.util.List;
 import javax.swing.JMenuItem;
 import javax.swing.KeyStroke;
 import org.bh.data.types.IValue;
+import org.bh.platform.PlatformKey;
 import org.bh.platform.Services;
-import org.bh.platform.actionkeys.PlatformActionKey;
 
 /**
  * BHMenuItem to create and display new menu items in the menu bar.
@@ -22,7 +22,7 @@ import org.bh.platform.actionkeys.PlatformActionKey;
  */
 public class BHMenuItem extends JMenuItem implements IBHComponent {
 
-	private PlatformActionKey key;
+	private PlatformKey key;
 	private int[] validateRules;
 	private static List<BHMenuItem> platformMenuItems = new ArrayList<BHMenuItem>();
     private String inputHint;
@@ -35,7 +35,7 @@ public class BHMenuItem extends JMenuItem implements IBHComponent {
 	 * @param eventKey shortcut button for keyboard-adicted users
 	 * @param isPlatformItem Menu Item will be placed in platform list if true
 	 */
-	public BHMenuItem(PlatformActionKey key, int eventKey, Boolean isPlatformItem) {
+	public BHMenuItem(PlatformKey key, int eventKey, Boolean isPlatformItem) {
 		super(Services.getTranslator().translate(key.toString()));
 		this.key = key;
 		if (eventKey != 0) {
@@ -60,7 +60,7 @@ public class BHMenuItem extends JMenuItem implements IBHComponent {
 	 * @param key key for action handling and texts
 	 * @param eventKey shortcut button for keyboard-adicted users
 	 */
-	public BHMenuItem(PlatformActionKey key, int eventKey) {
+	public BHMenuItem(PlatformKey key, int eventKey) {
 		this(key,eventKey,true);
 	}
 	
@@ -70,7 +70,7 @@ public class BHMenuItem extends JMenuItem implements IBHComponent {
 	 * 
 	 * @param key key for action handling and texts
 	 */
-	public BHMenuItem(PlatformActionKey key){
+	public BHMenuItem(PlatformKey key){
 		this(key,0,true);
 	}
 	
@@ -108,7 +108,7 @@ public class BHMenuItem extends JMenuItem implements IBHComponent {
 		return this.inputHint;
 	}
 	
-	public PlatformActionKey getPlatformKey(){
+	public PlatformKey getPlatformKey(){
 		return this.key;
 	}
 	

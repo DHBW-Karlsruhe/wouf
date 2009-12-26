@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 import javax.swing.JButton;
 import org.bh.data.types.IValue;
-import org.bh.platform.actionkeys.PlatformActionKey;
+import org.bh.platform.PlatformKey;
 
 /**
  * BHButton to display buttons at screen.
@@ -23,7 +23,7 @@ import org.bh.platform.actionkeys.PlatformActionKey;
 public class BHButton extends JButton implements IBHComponent {
 
 	private String key;
-	private PlatformActionKey platformKey;
+	private PlatformKey platformKey;
 	private int[] validateRules;
 
 	private static List<BHButton> platformButtons = new ArrayList<BHButton>();
@@ -51,7 +51,7 @@ public class BHButton extends JButton implements IBHComponent {
 	 * @param isPlatformButton
 	 *            adds button to platformbutton-list
 	 */
-	public BHButton(PlatformActionKey platformKey, Boolean isPlatformButton) {
+	public BHButton(PlatformKey platformKey, Boolean isPlatformButton) {
 		super();
 		this.setProperties();
 		this.platformKey = platformKey;
@@ -81,7 +81,7 @@ public class BHButton extends JButton implements IBHComponent {
 	}
 	
 	
-	public PlatformActionKey getPlatformKey(){
+	public PlatformKey getPlatformKey(){
 		
 		return this.platformKey;
 	}

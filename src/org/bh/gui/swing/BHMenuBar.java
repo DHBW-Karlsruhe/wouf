@@ -2,8 +2,9 @@ package org.bh.gui.swing;
 
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
+
+import org.bh.platform.PlatformKey;
 import org.bh.platform.Services;
-import org.bh.platform.actionkeys.PlatformActionKey;
 import org.bh.platform.i18n.ITranslator;
 
 /**
@@ -67,55 +68,55 @@ public class BHMenuBar extends JMenuBar{
 		/**
 		 * create menu items --> file
 		 **/
-		menuFile.add(new BHMenuItem(PlatformActionKey.FILENEW, 78));
-		menuFile.add(new BHMenuItem(PlatformActionKey.FILEOPEN, 79));
-		menuFile.add(new BHMenuItem(PlatformActionKey.FILECLOSE));
-		menuFile.add(new BHMenuItem(PlatformActionKey.FILESAVE, 83));
-		menuFile.add(new BHMenuItem(PlatformActionKey.FILESAVEAS));
-		menuFile.add(new BHMenuItem(PlatformActionKey.FILEQUIT, 88));
+		menuFile.add(new BHMenuItem(PlatformKey.FILENEW, 78));
+		menuFile.add(new BHMenuItem(PlatformKey.FILEOPEN, 79));
+		menuFile.add(new BHMenuItem(PlatformKey.FILECLOSE));
+		menuFile.add(new BHMenuItem(PlatformKey.FILESAVE, 83));
+		menuFile.add(new BHMenuItem(PlatformKey.FILESAVEAS));
+		menuFile.add(new BHMenuItem(PlatformKey.FILEQUIT, 88));
 
 
 		/**
 		 * create menu items --> project
 		 **/
-		menuProject.add(new BHMenuItem(PlatformActionKey.PROJECTCREATE));
-		menuProject.add(new BHMenuItem(PlatformActionKey.PROJECTRENAME ));
-		menuProject.add(new BHMenuItem(PlatformActionKey.PROJECTDUPLICATE));
-		menuProject.add(new BHMenuItem(PlatformActionKey.PROJECTIMPORT));
-		menuProject.add(new BHMenuItem(PlatformActionKey.PROJECTEXPORT));
-		menuProject.add(new BHMenuItem(PlatformActionKey.PROJECTREMOVE));
+		menuProject.add(new BHMenuItem(PlatformKey.PROJECTCREATE));
+		menuProject.add(new BHMenuItem(PlatformKey.PROJECTRENAME ));
+		menuProject.add(new BHMenuItem(PlatformKey.PROJECTDUPLICATE));
+		menuProject.add(new BHMenuItem(PlatformKey.PROJECTIMPORT));
+		menuProject.add(new BHMenuItem(PlatformKey.PROJECTEXPORT));
+		menuProject.add(new BHMenuItem(PlatformKey.PROJECTREMOVE));
 
 
 		/**
 		 * create menu items --> scenario
 		 **/
-		menuScenario.add(new BHMenuItem(PlatformActionKey.SCENARIOCREATE));
-		menuScenario.add(new BHMenuItem(PlatformActionKey.SCENARIORENAME));
-		menuScenario.add(new BHMenuItem(PlatformActionKey.SCENARIODUPLICATE));
-		menuScenario.add(new BHMenuItem(PlatformActionKey.SCENARIOMOVE));
-		menuScenario.add(new BHMenuItem(PlatformActionKey.SCENARIOREMOVE));
+		menuScenario.add(new BHMenuItem(PlatformKey.SCENARIOCREATE));
+		menuScenario.add(new BHMenuItem(PlatformKey.SCENARIORENAME));
+		menuScenario.add(new BHMenuItem(PlatformKey.SCENARIODUPLICATE));
+		menuScenario.add(new BHMenuItem(PlatformKey.SCENARIOMOVE));
+		menuScenario.add(new BHMenuItem(PlatformKey.SCENARIOREMOVE));
 
 		
 		/**
 		 * create menu items --> Bilanz & GuV
 		 **/
-		menuBilanzGuV.add(new BHMenuItem(PlatformActionKey.BILANZGUVSHOW, 66));
-		menuBilanzGuV.add(new BHMenuItem(PlatformActionKey.BILANZGUVCREATE));
-		menuBilanzGuV.add(new BHMenuItem(PlatformActionKey.BILANZGUVIMPORT));
-		menuBilanzGuV.add(new BHMenuItem(PlatformActionKey.BILANZGUVREMOVE));
+		menuBilanzGuV.add(new BHMenuItem(PlatformKey.BILANZGUVSHOW, 66));
+		menuBilanzGuV.add(new BHMenuItem(PlatformKey.BILANZGUVCREATE));
+		menuBilanzGuV.add(new BHMenuItem(PlatformKey.BILANZGUVIMPORT));
+		menuBilanzGuV.add(new BHMenuItem(PlatformKey.BILANZGUVREMOVE));
 
 		
 		/**
 		 * create menu items --> options
 		 **/
-		menuOptions.add(new BHMenuItem(PlatformActionKey.OPTIONSCHANGE, 80));
+		menuOptions.add(new BHMenuItem(PlatformKey.OPTIONSCHANGE, 80));
 		
 		
 		/**
 		 * create menu items --> options
 		 **/
-		menuHelp.add(new BHMenuItem(PlatformActionKey.HELPUSERHELP, 72));
-		menuHelp.add(new BHMenuItem(PlatformActionKey.HELPMATHHELP));
-		menuHelp.add(new BHMenuItem(PlatformActionKey.HELPINFO, 112));
+		menuHelp.add(new BHMenuItem(PlatformKey.HELPUSERHELP, 72));
+		menuHelp.add(new BHMenuItem(PlatformKey.HELPMATHHELP));
+		menuHelp.add(new BHMenuItem(PlatformKey.HELPINFO, 112));
 	}
 }

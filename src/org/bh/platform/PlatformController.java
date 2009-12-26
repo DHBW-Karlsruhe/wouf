@@ -9,7 +9,6 @@ import org.bh.gui.swing.BHButton;
 import org.bh.gui.swing.BHMainFrame;
 import org.bh.gui.swing.BHMenuItem;
 import org.bh.gui.swing.IBHComponent;
-import org.bh.platform.actionkeys.PlatformActionKey;
 import org.bh.platform.i18n.BHTranslator;
 
 /**
@@ -61,7 +60,7 @@ public class PlatformController {
 		public void actionPerformed(ActionEvent aEvent) {
 
 			// get actionKey of fired action
-			PlatformActionKey actionKey = null;
+			PlatformKey actionKey = null;
 			if (((IBHComponent) aEvent.getSource()) instanceof BHMenuItem)
 				actionKey = ((BHMenuItem) aEvent.getSource()).getPlatformKey();
 

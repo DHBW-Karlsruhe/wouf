@@ -3,7 +3,8 @@ package org.bh.gui.swing;
 import java.net.URL;
 import javax.swing.ImageIcon;
 import javax.swing.JFileChooser;
-import org.bh.platform.actionkeys.PlatformActionKey;
+
+import org.bh.platform.PlatformKey;
 import org.bh.platform.i18n.BHTranslator;
 
 /**
@@ -28,7 +29,7 @@ public class BHToolButton extends BHButton{
     JFileChooser fc;
     BHTranslator translator = BHTranslator.getInstance(); 
     
-    public BHToolButton(PlatformActionKey key, String imageName){
+    public BHToolButton(PlatformKey key, String imageName){
 	
 	
     	super(key, BHButton.ISPLATFORMBUTTON);
