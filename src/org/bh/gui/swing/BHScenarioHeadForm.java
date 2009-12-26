@@ -4,11 +4,13 @@ import java.awt.Dimension;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 
+import javax.swing.BorderFactory;
 import javax.swing.JComboBox;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
+import javax.swing.border.EtchedBorder;
 
 import org.bh.data.DTOScenario;
 import org.bh.gui.swing.BHButton;
@@ -49,6 +51,8 @@ public class BHScenarioHeadForm extends JPanel {
     private BHLabel lpercenttrade;
     private BHLabel lpercentcorporate;
     
+    private JPanel pprocess;
+    
     private JTable tperioddata;
     
     private BHButton bcalculate;
@@ -68,7 +72,7 @@ public class BHScenarioHeadForm extends JPanel {
      */
     private void initialize() {
 
-	String rowDef = "4px,p,4px,p,4px,p,4px,p,10dlu,p,4px,p,24px,max(80px;p),4px,p,4px";
+	String rowDef = "4px,p,4px,p,4px,p,4px,p,20px,p,4px,p,20px,p,20px,max(80px;p),4px,p,4px";
 	String colDef = "4px,4px,right:pref,4px,pref,max(80px;pref),4px,left:pref,24px:grow,pref,4px,pref,4px,right:pref,4px,pref,pref,4px,pref,4px,pref,4px";
 
 	FormLayout layout = new FormLayout(colDef, rowDef);
@@ -79,31 +83,43 @@ public class BHScenarioHeadForm extends JPanel {
 	CellConstraints cons = new CellConstraints();
 
 	this.add(this.getlscenName(), cons.xywh(3, 4, 1, 1));
-	this.add(this.getLprocess(), cons.xywh(14, 4, 1, 1));
-	this.add(this.getCbprocess(), cons.xywh(17, 4, 3, 1));
+//	this.add(this.getLprocess(), cons.xywh(14, 4, 1, 1));
+//	this.add(this.getCbprocess(), cons.xywh(17, 4, 3, 1));
+	this.add(this.getlbaseYear(), cons.xywh(14, 4, 1, 1));
+	this.add(this.gettfbaseYear(),cons.xywh(17, 4, 1, 1));
+	
 	this.add(this.getlscenDescript(), cons.xywh(3, 6, 1, 1));
 	this.add(this.getlequityYield(), cons.xywh(3, 10, 1, 1));
 	this.add(this.getldeptYield(), cons.xywh(3, 12, 1, 1));
 	this.add(this.getltradeTax(), cons.xywh(14, 10, 1, 1));
 	this.add(this.getlcorporateTax(), cons.xywh(14, 12, 1, 1));
-	this.add(this.getlbaseYear(), cons.xywh(3, 8, 1, 1));
+//	this.add(this.getlbaseYear(), cons.xywh(3, 8, 1, 1));
 	this.add(this.gettfscenName(), cons.xywh(6, 4, 4, 1));
-	this.add(this.gettfscenDescript(), cons.xywh(6, 6, 14, 1));
+	this.add(this.gettfscenDescript(), cons.xywh(6, 6, 12, 1));
 	this.add(this.gettfequityYeild(), cons.xywh(6, 10, 1, 1));
 	this.add(this.gettfdeptYield(), cons.xywh(6, 12, 1, 1));
 	this.add(this.gettftradeTax(), cons.xywh(17, 10, 1, 1));
 	this.add(this.gettfcorporateTax(), cons.xywh(17, 12, 1, 1));
-	this.add(this.gettfbaseYear(), cons.xywh(6, 8, 1, 1));
+//	this.add(this.gettfbaseYear(), cons.xywh(6, 8, 1, 1));
 	this.add(this.getlpercentEquity(), cons.xywh(8, 10, 1, 1));
 	this.add(this.getlpercentDept(), cons.xywh(8, 12, 1, 1));
 	this.add(this.getlpercentTrade(), cons.xywh(19, 10, 1, 1));
 	this.add(this.getlpercentCorporate(), cons.xywh(19, 12, 1, 1));
-	this.add(new JScrollPane(this.getTperioddata()), cons.xywh(3, 14, 17, 1));
-	this.add(this.getBcalculate(),cons.xywh(17, 16, 1, 1));
+	this.add(this.getPprocess(), cons.xywh(2, 14, 18, 1));
+	this.add(new JScrollPane(this.getTperioddata()), cons.xywh(3, 16, 17, 1));
+	this.add(this.getBcalculate(),cons.xywh(17, 18, 1, 1));
 
     }
     
     
+    public JPanel getPprocess() {
+	if( pprocess == null){
+	    pprocess = new BHProcessForm ();
+	    pprocess.setBorder(BorderFactory.createEtchedBorder(EtchedBorder.LOWERED));
+	}
+        return pprocess;
+    }
+
     public BHButton getBcalculate() {
 	if (this.bcalculate == null) {
 	    this.bcalculate = new BHButton("");
