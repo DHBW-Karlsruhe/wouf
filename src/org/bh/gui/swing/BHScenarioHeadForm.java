@@ -1,13 +1,17 @@
 package org.bh.gui.swing;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
+import java.awt.Color;
+import java.awt.Dimension;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 
+import javax.swing.JComboBox;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
+import javax.swing.JScrollPane;
+import javax.swing.JTable;
 
 import org.bh.data.DTOScenario;
+import org.bh.gui.swing.BHButton;
 import org.bh.gui.swing.BHLabel;
 import org.bh.gui.swing.BHTextField;
 import org.bh.platform.i18n.BHTranslator;
@@ -29,6 +33,10 @@ public class BHScenarioHeadForm extends JPanel {
     private BHLabel ltradetax;
     private BHLabel lcorporatetax;
     private BHLabel lbaseyear;
+    private BHLabel lprocess;
+    
+    private JComboBox cbprocess;
+    
     private BHTextField tfscenname;
     private BHTextField tfscendescript;
     private BHTextField tfequityyeild;
@@ -40,6 +48,12 @@ public class BHScenarioHeadForm extends JPanel {
     private BHLabel lpercentdept;
     private BHLabel lpercenttrade;
     private BHLabel lpercentcorporate;
+    
+    private JTable tperioddata;
+    
+    private BHButton bcalculate;
+    private BHLabel lcalculate;
+        
     final BHTranslator translator = BHTranslator.getInstance();
 
     /**
@@ -54,8 +68,8 @@ public class BHScenarioHeadForm extends JPanel {
      */
     private void initialize() {
 
-	String rowDef = "2dlu,p,2dlu,p,2dlu,p,2dlu,p,10dlu,p,2dlu,p,2dlu";
-	String colDef = "2dlu,2dlu,right:pref,2dlu,pref,max(40dlu;pref),2dlu,left:pref,12dlu:grow(0.7),pref,2dlu,pref,2dlu,right:pref,2dlu,pref,pref,2dlu,pref,2dlu,pref,2dlu:grow(0.3)";
+	String rowDef = "4px,p,4px,p,4px,p,4px,p,10dlu,p,4px,p,24px,max(80px;p),4px,p,4px";
+	String colDef = "4px,4px,right:pref,4px,pref,max(80px;pref),4px,left:pref,24px:grow,pref,4px,pref,4px,right:pref,4px,pref,pref,4px,pref,4px,pref,4px";
 
 	FormLayout layout = new FormLayout(colDef, rowDef);
 	this.setLayout(layout);
@@ -65,6 +79,8 @@ public class BHScenarioHeadForm extends JPanel {
 	CellConstraints cons = new CellConstraints();
 
 	this.add(this.getlscenName(), cons.xywh(3, 4, 1, 1));
+	this.add(this.getLprocess(), cons.xywh(14, 4, 1, 1));
+	this.add(this.getCbprocess(), cons.xywh(17, 4, 3, 1));
 	this.add(this.getlscenDescript(), cons.xywh(3, 6, 1, 1));
 	this.add(this.getlequityYield(), cons.xywh(3, 10, 1, 1));
 	this.add(this.getldeptYield(), cons.xywh(3, 12, 1, 1));
@@ -82,7 +98,47 @@ public class BHScenarioHeadForm extends JPanel {
 	this.add(this.getlpercentDept(), cons.xywh(8, 12, 1, 1));
 	this.add(this.getlpercentTrade(), cons.xywh(19, 10, 1, 1));
 	this.add(this.getlpercentCorporate(), cons.xywh(19, 12, 1, 1));
+	this.add(new JScrollPane(this.getTperioddata()), cons.xywh(3, 14, 17, 1));
+	this.add(this.getBcalculate(),cons.xywh(17, 16, 1, 1));
 
+    }
+    
+    
+    public BHButton getBcalculate() {
+	if (this.bcalculate == null) {
+	    this.bcalculate = new BHButton("");
+	    this.bcalculate.setText("UW berechnen");
+	}
+	return bcalculate;
+    }
+
+    public JTable getTperioddata() {
+	if (this.tperioddata==null) {
+		
+		String [] columnnames = {"Periode","Fremdkapital","FCF"};
+		Integer [][] data = {{2009,0,0}};
+		this.tperioddata=new JTable(data, columnnames);
+		this.tperioddata.setGridColor(new Color(0,0,0));
+		this.tperioddata.setPreferredScrollableViewportSize(new Dimension(30, 30));
+	
+		
+	}
+        return tperioddata;
+    }
+
+    public BHLabel getLprocess() {
+	if (this.lprocess == null) {
+	    this.lprocess = new BHLabel("",
+		    "Berechnungsart");
+	}
+        return lprocess;
+    }
+    
+    public JComboBox getCbprocess() {
+	if (this.cbprocess == null) {
+	    this.cbprocess = new JComboBox();
+	}
+        return cbprocess;
     }
 
     /**
@@ -184,7 +240,7 @@ public class BHScenarioHeadForm extends JPanel {
     public BHLabel getlbaseYear() {
 
 	if (this.lbaseyear == null) {
-	    this.lbaseyear = new BHLabel("baseyear","Basisjahr");
+	    this.lbaseyear = new BHLabel("baseyear", "Basisjahr");
 	}
 
 	return this.lbaseyear;
@@ -350,19 +406,20 @@ public class BHScenarioHeadForm extends JPanel {
 	return this.lpercentcorporate;
     }
 
-    // /**
-    // * Test main method.
-    // */
-    // public static void main(String args[]) {
-    //
-    // JFrame test=new JFrame("Test for ViewHeadData1");
-    // test.setContentPane(new BHScenarioHeadForm());
-    // test.addWindowListener(new WindowAdapter() {
-    // public void windowClosing(WindowEvent e) {
-    // System.exit(0);
-    // }
-    // });
-    // test.pack();
-    // test.show();
-    // }
+    /**
+     * Test main method.
+     */
+    public static void main(String args[]) {
+
+	JFrame test = new JFrame("Test for ViewHeadData1");
+	test.setContentPane(new BHScenarioHeadForm());
+	test.addWindowListener(new WindowAdapter() {
+	    @Override
+	    public void windowClosing(WindowEvent e) {
+		System.exit(0);
+	    }
+	});
+	test.pack();
+	test.show();
+    }
 }
