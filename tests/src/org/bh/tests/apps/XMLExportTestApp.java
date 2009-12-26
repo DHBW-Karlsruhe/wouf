@@ -18,6 +18,9 @@ import org.bh.data.types.IntegerValue;
 import org.bh.data.types.IntervalValue;
 import org.bh.data.types.StringValue;
 import org.bh.platform.PluginManager;
+import org.bh.plugin.directinput.DTODirectInput;
+import org.bh.plugin.gcc.DTOGCCBalanceSheet;
+import org.bh.plugin.gcc.DTOGCCProfitLossStatementCostOfSales;
 import org.bh.plugin.xmldataexchange.XMLDataExchangeController;
 
 public class XMLExportTestApp extends JFrame {
@@ -25,12 +28,15 @@ public class XMLExportTestApp extends JFrame {
 
 	public static void main(String[] args)
 	{
-		new XMLExportTestApp();
+		if (args.length != 1)
+			System.out.println("Programmaufruf: java XMLExportTestApp [import|export]");
+		else
+			new XMLExportTestApp(args[0]);
 	}
 	
 	
 	
-	public XMLExportTestApp()
+	public XMLExportTestApp(String para)
 	{
 		setSize(300, 200);
 		setDefaultCloseOperation(EXIT_ON_CLOSE);
@@ -55,7 +61,13 @@ public class XMLExportTestApp extends JFrame {
 		if (exportController == null)
 			return;
 		
+		if (para.equalsIgnoreCase("export"))	
+			exportController.setExportView();
+		else
+			exportController.setImportView();
+		
 		add(exportController.getView());
+			
 		
 	}
 	
@@ -73,8 +85,32 @@ public class XMLExportTestApp extends JFrame {
 				// 1. Period
 				DTOPeriod per1 = new DTOPeriod();
 				fillDTO(per1);
+					
+					// Balance Sheet
+					DTOGCCBalanceSheet bs = new DTOGCCBalanceSheet();
+					fillDTO(bs);
+					
+					// GuV
+					DTOGCCProfitLossStatementCostOfSales guv = new DTOGCCProfitLossStatementCostOfSales();
+					fillDTO(guv);
+					
+				per1.addChild(bs);
+				per1.addChild(guv);
+					
+								
+				// 2. Period
+				DTOPeriod per2 = new DTOPeriod();
+				fillDTO(per2);
+					
+					// Direct Input
+					DTODirectInput dinput = new DTODirectInput();
+					fillDTO(dinput);
+				
+				per2.addChild(dinput);
+				
 				
 			sec1.addChild(per1);
+			sec1.addChild(per2);
 		
 		result.addChild(sec1);
 		

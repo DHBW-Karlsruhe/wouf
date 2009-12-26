@@ -1,4 +1,4 @@
-package org.bh.plugin.xmldataexchange.export;
+package org.bh.plugin.xmldataexchange.xmlexport;
 
 import java.io.File;
 import java.io.FileWriter;
@@ -13,6 +13,8 @@ import org.bh.data.types.IValue;
 import org.jdom.Attribute;
 import org.jdom.Document;
 import org.jdom.Element;
+import org.jdom.Namespace;
+import org.jdom.output.Format;
 import org.jdom.output.XMLOutputter;
 
 
@@ -33,6 +35,8 @@ public class XMLExport {
 	 * be exported. 
 	 */
 	private DTOProject model = null;
+	
+	private Namespace bhDataNS = Namespace.getNamespace("http://www.bh.org/dataexchange");
 	
 	
 	/**
@@ -61,12 +65,20 @@ public class XMLExport {
 		// Convert the "DTO tree" into a "XML tree"
 		Element project = getDTOInXML(model);
 		
+		// Add XML Schema Definition
+		Namespace xsiNS = Namespace.getNamespace("xsi", "http://www.w3.org/2001/XMLSchema-instance");
+		Attribute xsd = new Attribute("schemaLocation",
+				"http://www.bh.org/dataexchange http://newsgymson.de/Marcus/BHDataExchange.xsd", xsiNS);
+		project.setAttribute(xsd);
+
+
 		// Append the project to a document
 		Document doc = new Document(project);
 		
+		
 		// Create an instance of XMLOutputter to write 
 		// the XML into the file
-		XMLOutputter out = new XMLOutputter();
+		XMLOutputter out = new XMLOutputter(Format.getPrettyFormat());
 				
 		try {
 			// Create FileWriter
@@ -107,13 +119,17 @@ public class XMLExport {
 	private Element getDTOInXML(IDTO dto)	
 	{		
 		// Create a JDOM Element with a corresponding name 
-		Element result = new Element(getNodeName(dto.getClass().getSimpleName()));
+		Element result = new Element(getNodeName(dto.getClass().getSimpleName()), bhDataNS);
+				
+		// Save class as attribute
+		Attribute attrClass = new Attribute("class", dto.getClass().getName());
+		result.setAttribute(attrClass);
 		
 		// Node for grouping all values
-		Element elValues = new Element("values");
+		Element elValues = new Element("values", bhDataNS);
 		
 		// Node for grouping all children
-		Element elChildren = new Element("children");
+		Element elChildren = new Element("children", bhDataNS);
 		
 		// Get keys in order to iterate through all values
 		List<String> keys = dto.getKeys();
@@ -123,12 +139,16 @@ public class XMLExport {
 		{
 			// Get value and convert it into a JDOM Element
 			IValue val = dto.get(key);
-			Element value = DataTypeConverter.getXMLRepresentation(key, val);
+			Element value = DataTypeConverter.getXMLRepresentation(key, val, bhDataNS);
 			values.add(value);
 		}
 		
 		// Add all values to the corresponding node
-		elValues.addContent(values);
+		if (values.size() > 0)
+		{
+			elValues.addContent(values);
+			result.addContent(elValues);
+		}
 		
 		
 		// Iterate through all children and convert them
@@ -142,10 +162,11 @@ public class XMLExport {
 		}
 		
 		// Add all children to the corresponding node
-		elChildren.addContent(children);
-		
-		result.addContent(elValues);
-		result.addContent(elChildren);
+		if (children.size() > 0)
+		{
+			elChildren.addContent(children);
+			result.addContent(elChildren);
+		}
 		
 		applyDTOSpecificData(dto, result);
 		

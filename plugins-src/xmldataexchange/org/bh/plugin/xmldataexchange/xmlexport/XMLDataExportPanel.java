@@ -1,4 +1,4 @@
-package org.bh.plugin.xmldataexchange;
+package org.bh.plugin.xmldataexchange.xmlexport;
 
 import java.awt.FlowLayout;
 
@@ -8,9 +8,9 @@ import org.bh.gui.swing.BHButton;
 import org.bh.gui.swing.BHLabel;
 import org.bh.gui.swing.BHTextField;
 
-public class XMLDataExchangePanel extends JPanel {
+public class XMLDataExportPanel extends JPanel {
 
-	public XMLDataExchangePanel() {
+	public XMLDataExportPanel() {
 		super();
 		
 		setLayout(new FlowLayout());
