@@ -32,7 +32,9 @@ public class DTOScenario extends DTO<DTOPeriod> {
 	 * if futureValues is true, new childs are appended at the end of the childlist,
 	 * if not, new childs are appended at the beginning
 	 */
-	protected boolean futureValues;
+	protected boolean futureValues = true;
+	
+	
 	
 	protected IShareholderValueCalculator dcfMethod;
 	
@@ -82,6 +84,16 @@ public class DTOScenario extends DTO<DTOPeriod> {
 		 * Stochastic process
 		 */
 		STOCHASTIC_PROCESS,
+	}
+	
+	/**
+	 * Standard constructor
+	 * @author Marcus Katzor
+	 */
+	public DTOScenario()
+	{
+		super(Key.values());
+		log.debug("Object created");
 	}
 	
     /**
@@ -211,7 +223,16 @@ public class DTOScenario extends DTO<DTOPeriod> {
 		return futureValues;
 	}
 	
-	
+	/**
+	 * Sets flag for differentiation between
+	 * past and future values.
+	 * @author Marcus Katzor	
+	 * @param futureValues
+	 */
+	public void setFutureValues(boolean futureValues) {
+		this.futureValues = futureValues;
+	}
+
 	public static class DTOKeyPair implements Comparable<DTOKeyPair> {
 		private final String dtoId;
 		private final String key;
