@@ -1,7 +1,10 @@
 package org.bh.platform.actionkeys;
 
 public enum PlatformActionKey{
-
+	
+	/**
+	 * ActionKeys of PlatformMenu
+	 */
 	FILENEW,
 	FILEOPEN,
 	FILECLOSE,
@@ -27,6 +30,12 @@ public enum PlatformActionKey{
 	HELPUSERHELP,
 	HELPMATHHELP,
 	HELPINFO;
+	
+	/**
+	 * ActionKeys of PlatformToolbar
+	 */
+	
+	
 	
 	
 }
