@@ -2,10 +2,9 @@ package org.bh.gui.swing;
 
 import java.util.ArrayList;
 import java.util.List;
-
 import javax.swing.JButton;
-
 import org.bh.data.types.IValue;
+import org.bh.platform.actionkeys.PlatformActionKey;
 
 /**
  * BHButton to display buttons at screen.
@@ -15,14 +14,17 @@ import org.bh.data.types.IValue;
  * in Business Horizon.
  * 
  * @author Thiele.Klaus
+ * @author Schmalzhaf.Alexander
+ * 
  * @version 0.1, 2009/12/13
+ * @version 0.1.1 2009/12/26
  * 
  */
 public class BHButton extends JButton implements IBHComponent {
 
 	private String key;
+	private PlatformActionKey platformKey;
 	private int[] validateRules;
-	private String inpuHint;
 
 	private static List<BHButton> platformButtons = new ArrayList<BHButton>();
 
@@ -33,33 +35,29 @@ public class BHButton extends JButton implements IBHComponent {
 	 * 
 	 * @param key
 	 */
-	public BHButton(String key, String inputHint) {
-		super();
-		this.setProperties();
-		this.key = key;
-		this.inpuHint = inputHint;
-	}
-
 	public BHButton(String key) {
 		super();
 		this.setProperties();
 		this.key = key;
+		//TODO get INPUT-HINT out of properties-File (querstions? Ask Alex)
 	}
+
 
 	/**
 	 * Secondary constructor for platform buttons (are added to
-	 * platformButtons-list)
+	 * platformButtons-list and uses ENUM Platform Key instead of String for key)
 	 * 
 	 * @param key
 	 * @param isPlatformButton
 	 *            adds button to platformbutton-list
 	 */
-	public BHButton(String key, Boolean isPlatformButton, String inputHint) {
+	public BHButton(PlatformActionKey platformKey, Boolean isPlatformButton) {
 		super();
 		this.setProperties();
-		this.key = key;
-		this.inpuHint = inputHint;
-
+		this.platformKey = platformKey;
+		this.key = platformKey.toString();
+		//TODO get INPUT-HINT out of properties-File (querstions? Ask Alex)
+		
 		if (isPlatformButton)
 			platformButtons.add(this);
 	}
@@ -81,7 +79,21 @@ public class BHButton extends JButton implements IBHComponent {
 	public String getKey() {
 		return key;
 	}
-
+	
+	
+	public PlatformActionKey getPlatformKey(){
+		
+		return this.platformKey;
+	}
+	
+	
+	public Boolean isPlatformButton(){
+		if(this.platformKey != null)
+			return true;
+		
+		return false;
+	}
+	
 	/**
 	 * return the rules for the validation engine
 	 * 
@@ -103,10 +115,6 @@ public class BHButton extends JButton implements IBHComponent {
 		throw new UnsupportedOperationException("Not supported yet.");
 	}
 
-	public String getInputHint() {
-		return this.inpuHint;
-	}
-
 	public static List<BHButton> getPlatformButtons() {
 		return platformButtons;
 	}
@@ -116,6 +124,13 @@ public class BHButton extends JButton implements IBHComponent {
 	 */
 	private void setProperties() {
 		this.putClientProperty("JComponent.sizeVariant", IBHComponent.MINI); // Minibutton
+	}
+
+
+	@Override
+	public String getInputHint() {
+		// TODO this method must be implemented well (Questions? Ask Alex)
+		return null;
 	}
 
 }

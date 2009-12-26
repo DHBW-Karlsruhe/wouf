@@ -22,26 +22,21 @@ import org.bh.platform.actionkeys.PlatformActionKey;
  */
 public class BHMenuItem extends JMenuItem implements IBHComponent {
 
-	private String key;
-	private PlatformActionKey actionKey;
+	private PlatformActionKey key;
 	private int[] validateRules;
 	private static List<BHMenuItem> platformMenuItems = new ArrayList<BHMenuItem>();
     private String inputHint;
 
 	
-	
 	/**
-	 * create the new menu item
+	 * Creates a new MenuItem (to be used in regular menus)
 	 * 
-	 * @param key
-	 * @param eventKey
-	 *            : Dec number ASCII
-	 * @param eventAction
-	 * @param actionCommand
-	 * @param isPlatformItem if set false MenuItem is not included in platformMenuItems-List
+	 * @param key key for action handling and texts
+	 * @param eventKey shortcut button for keyboard-adicted users
+	 * @param isPlatformItem Menu Item will be placed in platform list if true
 	 */
-	public BHMenuItem(String key, int eventKey, PlatformActionKey actionKey, Boolean isPlatformItem, String inputHint) {
-		super(Services.getTranslator().translate(key));
+	public BHMenuItem(PlatformActionKey key, int eventKey, Boolean isPlatformItem) {
+		super(Services.getTranslator().translate(key.toString()));
 		this.key = key;
 		if (eventKey != 0) {
 			this.setMnemonic(eventKey);
@@ -53,9 +48,6 @@ public class BHMenuItem extends JMenuItem implements IBHComponent {
 			}
 			this.setAccelerator(KeyStroke.getKeyStroke(eventKey, metakey));
 		}
-		this.actionKey = actionKey;
-		
-		this.inputHint = inputHint;
 		
 		if(isPlatformItem)
 			platformMenuItems.add(this);
@@ -63,18 +55,29 @@ public class BHMenuItem extends JMenuItem implements IBHComponent {
 	
 
 	/**
-	 * create the new menu item
-	 * -Constructor for regular use (w/o forPlatform parameter)
+	 * Creates a new Menu Item (item is automatically added to platform list)
 	 * 
+	 * @param key key for action handling and texts
+	 * @param eventKey shortcut button for keyboard-adicted users
 	 */
-	public BHMenuItem(String key, int eventKey, PlatformActionKey actionKey, String inputHint) {
-		this(key, eventKey, actionKey, true, inputHint);
+	public BHMenuItem(PlatformActionKey key, int eventKey) {
+		this(key,eventKey,true);
 	}
 	
-
+	/**
+	 * Creates a new Menu Item 
+	 * (item is automatically added to platform list and no eventKey for keyboard-shortcut is set)
+	 * 
+	 * @param key key for action handling and texts
+	 */
+	public BHMenuItem(PlatformActionKey key){
+		this(key,0,true);
+	}
+	
+	
 	@Override
 	public String getKey() {
-		return key;
+		return key.toString();
 	}
 
 	
@@ -105,8 +108,8 @@ public class BHMenuItem extends JMenuItem implements IBHComponent {
 		return this.inputHint;
 	}
 	
-	public PlatformActionKey getActionKey(){
-		return this.actionKey;
+	public PlatformActionKey getPlatformKey(){
+		return this.key;
 	}
 	
         

@@ -63,10 +63,10 @@ public class PlatformController {
 			// get actionKey of fired action
 			PlatformActionKey actionKey = null;
 			if (((IBHComponent) aEvent.getSource()) instanceof BHMenuItem)
-				actionKey = ((BHMenuItem) aEvent.getSource()).getActionKey();
+				actionKey = ((BHMenuItem) aEvent.getSource()).getPlatformKey();
 
 			if (((IBHComponent) aEvent.getSource()) instanceof BHButton)
-				// actionKey = ((BHButton)aEvent.getSource());
+				actionKey = ((BHButton)aEvent.getSource()).getPlatformKey();
 
 				System.out
 						.println(((IBHComponent) aEvent.getSource()).getKey());
@@ -85,7 +85,7 @@ public class PlatformController {
 				}
 				break;
 			default:
-				System.out.println("Irgendwas gefeuert...");
+				System.out.println("Was anderes, und zwar: "+actionKey.toString());
 				break;
 			}
 		}

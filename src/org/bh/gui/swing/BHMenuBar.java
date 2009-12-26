@@ -67,55 +67,55 @@ public class BHMenuBar extends JMenuBar{
 		/**
 		 * create menu items --> file
 		 **/
-		menuFile.add(new BHMenuItem("Mnew", 78, PlatformActionKey.FILENEW, "HINT"));
-		menuFile.add(new BHMenuItem("Mopen", 79, PlatformActionKey.FILEOPEN, "HINT"));
-		menuFile.add(new BHMenuItem("Mclose", 0, PlatformActionKey.FILECLOSE, "HINT"));
-		menuFile.add(new BHMenuItem("Msave", 83, PlatformActionKey.FILESAVE, "HINT"));
-		menuFile.add(new BHMenuItem("MsaveAs", 0, PlatformActionKey.FILESAVEAS, "HINT"));
-		menuFile.add(new BHMenuItem("Mquit", 88, PlatformActionKey.FILEQUIT, "HINT"));
+		menuFile.add(new BHMenuItem(PlatformActionKey.FILENEW, 78));
+		menuFile.add(new BHMenuItem(PlatformActionKey.FILEOPEN, 79));
+		menuFile.add(new BHMenuItem(PlatformActionKey.FILECLOSE));
+		menuFile.add(new BHMenuItem(PlatformActionKey.FILESAVE, 83));
+		menuFile.add(new BHMenuItem(PlatformActionKey.FILESAVEAS));
+		menuFile.add(new BHMenuItem(PlatformActionKey.FILEQUIT, 88));
 
 
 		/**
 		 * create menu items --> project
 		 **/
-		menuProject.add(new BHMenuItem("Mcreate", 0, PlatformActionKey.PROJECTCREATE, "HINT"));
-		menuProject.add(new BHMenuItem("Mrename", 0, PlatformActionKey.PROJECTRENAME, "HINT"));
-		menuProject.add(new BHMenuItem("Mduplicate", 0, PlatformActionKey.PROJECTDUPLICATE, "HINT"));
-		menuProject.add(new BHMenuItem("Mimport", 0, PlatformActionKey.PROJECTIMPORT, "HINT"));
-		menuProject.add(new BHMenuItem("Mexport", 0, PlatformActionKey.PROJECTEXPORT, "HINT"));
-		menuProject.add(new BHMenuItem("Mremove", 0, PlatformActionKey.PROJECTREMOVE, "HINT"));
+		menuProject.add(new BHMenuItem(PlatformActionKey.PROJECTCREATE));
+		menuProject.add(new BHMenuItem(PlatformActionKey.PROJECTRENAME ));
+		menuProject.add(new BHMenuItem(PlatformActionKey.PROJECTDUPLICATE));
+		menuProject.add(new BHMenuItem(PlatformActionKey.PROJECTIMPORT));
+		menuProject.add(new BHMenuItem(PlatformActionKey.PROJECTEXPORT));
+		menuProject.add(new BHMenuItem(PlatformActionKey.PROJECTREMOVE));
 
 
 		/**
 		 * create menu items --> scenario
 		 **/
-		menuScenario.add(new BHMenuItem("Mcreate", 0, PlatformActionKey.SCENARIOCREATE, "HINT"));
-		menuScenario.add(new BHMenuItem("Mrename", 0, PlatformActionKey.SCENARIORENAME, "HINT"));
-		menuScenario.add(new BHMenuItem("Mduplicate", 0, PlatformActionKey.SCENARIODUPLICATE, "HINT"));
-		menuScenario.add(new BHMenuItem("Mmove", 0, PlatformActionKey.SCENARIOMOVE, "HINT"));
-		menuScenario.add(new BHMenuItem("Mremove", 0, PlatformActionKey.SCENARIOREMOVE, "HINT"));
+		menuScenario.add(new BHMenuItem(PlatformActionKey.SCENARIOCREATE));
+		menuScenario.add(new BHMenuItem(PlatformActionKey.SCENARIORENAME));
+		menuScenario.add(new BHMenuItem(PlatformActionKey.SCENARIODUPLICATE));
+		menuScenario.add(new BHMenuItem(PlatformActionKey.SCENARIOMOVE));
+		menuScenario.add(new BHMenuItem(PlatformActionKey.SCENARIOREMOVE));
 
 		
 		/**
 		 * create menu items --> Bilanz & GuV
 		 **/
-		menuBilanzGuV.add(new BHMenuItem("Mshow", 66, PlatformActionKey.BILANZGUVSHOW, "HINT"));
-		menuBilanzGuV.add(new BHMenuItem("Mcreate", 0, PlatformActionKey.BILANZGUVCREATE, "HINT"));
-		menuBilanzGuV.add(new BHMenuItem("Mimport", 0, PlatformActionKey.BILANZGUVIMPORT, "HINT"));
-		menuBilanzGuV.add(new BHMenuItem("Mremove", 0, PlatformActionKey.BILANZGUVREMOVE, "HINT"));
+		menuBilanzGuV.add(new BHMenuItem(PlatformActionKey.BILANZGUVSHOW, 66));
+		menuBilanzGuV.add(new BHMenuItem(PlatformActionKey.BILANZGUVCREATE));
+		menuBilanzGuV.add(new BHMenuItem(PlatformActionKey.BILANZGUVIMPORT));
+		menuBilanzGuV.add(new BHMenuItem(PlatformActionKey.BILANZGUVREMOVE));
 
 		
 		/**
 		 * create menu items --> options
 		 **/
-		menuOptions.add(new BHMenuItem("Mchange", 80, PlatformActionKey.OPTIONSCHANGE, "HINT"));
+		menuOptions.add(new BHMenuItem(PlatformActionKey.OPTIONSCHANGE, 80));
 		
 		
 		/**
 		 * create menu items --> options
 		 **/
-		menuHelp.add(new BHMenuItem("MuserHelp", 72, PlatformActionKey.HELPUSERHELP, "HINT"));
-		menuHelp.add(new BHMenuItem("MmathHelp", 0, PlatformActionKey.HELPMATHHELP, "HINT"));
-		menuHelp.add(new BHMenuItem("Minfo", 112, PlatformActionKey.HELPINFO, "HINT"));
+		menuHelp.add(new BHMenuItem(PlatformActionKey.HELPUSERHELP, 72));
+		menuHelp.add(new BHMenuItem(PlatformActionKey.HELPMATHHELP));
+		menuHelp.add(new BHMenuItem(PlatformActionKey.HELPINFO, 112));
 	}
 }

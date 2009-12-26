@@ -1,16 +1,10 @@
 package org.bh.gui.swing;
 
-import java.awt.Dimension;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.awt.event.MouseEvent;
-import java.awt.event.MouseListener;
 import java.net.URL;
 import javax.swing.ImageIcon;
-import javax.swing.JButton;
 import javax.swing.JFileChooser;
-import javax.swing.JPanel;
-import org.bh.platform.Services;
+import org.bh.platform.actionkeys.PlatformActionKey;
+import org.bh.platform.i18n.BHTranslator;
 
 /**
  * 
@@ -21,22 +15,23 @@ import org.bh.platform.Services;
  * on screen.
  *
  * @author Tietze.Patrick
+ * @author Schmalzhaf.Alexander
+ * 
+ * 
  * @version 0.1, 2009/12/16
  *
  */
 
 public class BHToolButton extends BHButton{
     
-    public String toolTip;
     public String buttonName;
     JFileChooser fc;
-	
-   
+    BHTranslator translator = BHTranslator.getInstance(); 
     
-    public BHToolButton(String imageName,String actionCommand,String toolTipText,String altText){
+    public BHToolButton(PlatformActionKey key, String imageName){
 	
 	
-    	super(actionCommand, BHButton.ISPLATFORMBUTTON,toolTipText);
+    	super(key, BHButton.ISPLATFORMBUTTON);
 
     	
     	//Look for the image.
@@ -45,10 +40,11 @@ public class BHToolButton extends BHButton{
         
         URL imageURL = BHToolBar.class.getResource(imgLocation);
         
-        toolTip = toolTipText;
+        this.setToolTipText(translator.translate(key.toString()));
         
-        buttonName = altText;
-        
+        //TODO set buttonName with altText (?) - removed out of constructor. Use properties-File! (Alex)
+        //buttonName = altText;
+        String altText = "NEW TEXT MUST BE SET! UNSOLVED TODO!";
         
         //setIcon(new ImageIcon(imgLocation));
         //setPreferredSize(new Dimension(25, 25));
@@ -63,8 +59,4 @@ public class BHToolButton extends BHButton{
         }    
     }
     
-    public String getToolTip(){
-	    return toolTip;
-	}
-
 }

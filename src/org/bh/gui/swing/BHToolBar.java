@@ -1,9 +1,7 @@
 package org.bh.gui.swing;
 
 import javax.swing.*;
-
-import org.bh.platform.i18n.BHTranslator;
-
+import org.bh.platform.actionkeys.PlatformActionKey;
 
 /**
  * 
@@ -20,19 +18,8 @@ import org.bh.platform.i18n.BHTranslator;
 
 
 public class BHToolBar extends JToolBar{
-   
-    static final private String OPEN = "open";
-    static final private String NEW = "new";
-    static final private String SAVE = "save";
-    static final private String ADDP = "addP";
-    static final private String ADDS = "addS";
-    static final private String DELETE = "delete";
-    static final private String REMOVE = "remove";
-    static final private String FIND = "find";
     
     BHToolButton bNew, bOpen, bSave, bAddP, bAddS, bRemove, bDelete, bFind;
-    
-    BHTranslator translator = BHTranslator.getInstance(); 
 
     
     //HelpSet and HelpBroker are necessary for user help
@@ -53,14 +40,14 @@ public class BHToolBar extends JToolBar{
 		
 		setSize(width, height);
 		
-		bNew = new BHToolButton("New24", NEW, translator.translate("Tnew"), "New");
-		bOpen = new BHToolButton("Open24", OPEN, translator.translate("Topen"),"Open");
-		bSave = new BHToolButton("Save24", SAVE, translator.translate("Tsave"), "Save");
-		bAddP = new BHToolButton("Add24", ADDP, translator.translate("TaddP"), "AddP");
-		bAddS = new BHToolButton("Edit24", ADDS, translator.translate("TaddS"), "AddS");
-		bRemove = new BHToolButton("Remove24", REMOVE, translator.translate("Tremove"), "Remove");
-		bDelete = new BHToolButton("Delete24", DELETE, translator.translate("Tdelete"), "Delete");
-		bFind = new BHToolButton("Find24", FIND, translator.translate("Tfind"), "Find");
+		bNew = new BHToolButton(PlatformActionKey.TOOLBARNEW, "New24");
+		bOpen = new BHToolButton(PlatformActionKey.TOOLBAROPEN, "Open24");
+		bSave = new BHToolButton(PlatformActionKey.TOOLBARSAVE, "Save24");
+		bAddP = new BHToolButton(PlatformActionKey.TOOLBARADDP, "Add24");
+		bAddS = new BHToolButton(PlatformActionKey.TOOLBARADDS, "Edit24");
+		bRemove = new BHToolButton(PlatformActionKey.TOOLBARREMOVE, "Remove24");
+		bDelete = new BHToolButton(PlatformActionKey.TOOLBARDELETE, "Delete24");
+		bFind = new BHToolButton(PlatformActionKey.TOOLBARFIND, "Find24");
 		
 			//example of combo box in tool bar
 			//lable = new BHLabel("Methode: ", "value");
