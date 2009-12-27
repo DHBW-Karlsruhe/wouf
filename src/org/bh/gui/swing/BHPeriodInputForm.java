@@ -33,10 +33,10 @@ public class BHPeriodInputForm extends JPanel {
     
     private BHLabel lmax;
     private BHLabel lmin;
-    private BHLabel lpercent1;
-    private BHLabel lpercent2;
-    private BHLabel lpercent3;
-    private BHLabel lpercent4;
+    private BHLabel lcurrency3;
+    private BHLabel lcurrency4;
+    private BHLabel lcurrency5;
+    private BHLabel lcurrency6;
     private BHTextField tfmaxliabilities;
     private BHTextField tfminliabilities;
     private BHTextField tfmaxfcf;
@@ -53,12 +53,13 @@ public class BHPeriodInputForm extends JPanel {
 	this.year = year;
 	
 	String rowDef = "4px,p,4px,p,4px,p,4px";
-	String colDef = "4px,right:pref,4px,60px:grow(0.2),4px,pref,24px:grow(0.1),pref,4px,max(35px;pref),4px,pref,4px:grow(0.1),pref,4px,max(35px;pref),4px,pref,4px:grow";
+	String colDef = "4px,right:pref,4px,60px:grow,4px,pref,24px:grow,pref,4px,max(35px;pref):grow,4px,pref,4px:grow,pref,4px,max(35px;pref):grow,4px,pref,4px:grow";
 
 	FormLayout layout = new FormLayout(colDef, rowDef);
 	this.setLayout(layout);
 
 	CellConstraints cons = new CellConstraints();
+	layout.setColumnGroups(new int[][]{{4,10,16}});
 
 	this.add(this.getLfcf(), cons.xywh(2, 4, 1, 1));
 	this.add(this.getTffcf(), cons.xywh(4, 4, 1, 1));
@@ -73,14 +74,14 @@ public class BHPeriodInputForm extends JPanel {
 	this.add(this.getLmax(), cons.xywh(16, 2, 1, 1));
 	
 	this.add(this.getTfminfcf(), cons.xywh(10, 4, 1, 1));
-	this.add(this.getLpercent1(), cons.xywh(12, 4, 1, 1));
+	this.add(this.getLcurrency3(), cons.xywh(12, 4, 1, 1));
 	this.add(this.getTfmaxfcf(), cons.xywh(16, 4, 1, 1));
-	this.add(this.getLpercent2(), cons.xywh(18, 4, 1, 1));
+	this.add(this.getLcurrency4(), cons.xywh(18, 4, 1, 1));
 
 	this.add(this.getTfminliabilities(), cons.xywh(10, 6, 1, 1));
-	this.add(this.getLpercent3(), cons.xywh(12, 6, 1, 1));
+	this.add(this.getLcurrency5(), cons.xywh(12, 6, 1, 1));
 	this.add(this.getTfmaxliabilities(), cons.xywh(16, 6, 1, 1));
-	this.add(this.getLpercent4(), cons.xywh(18, 6, 1, 1));
+	this.add(this.getLcurrency6(), cons.xywh(18, 6, 1, 1));
 
 	this.setBorder(BorderFactory.createTitledBorder(BorderFactory
 		.createEtchedBorder(EtchedBorder.LOWERED), this.year));
@@ -106,32 +107,32 @@ public class BHPeriodInputForm extends JPanel {
 
 
 
-    public BHLabel getLpercent1() {
-	if (lpercent1 == null) {
-	    lpercent1 = new BHLabel("", "%");
+    public BHLabel getLcurrency3() {
+	if (lcurrency3 == null) {
+	    lcurrency3 = new BHLabel("", "€");
 	}
-	return lpercent1;
+	return lcurrency3;
     }
     
-    public BHLabel getLpercent2() {
-	if (lpercent2 == null) {
-	    lpercent2 = new BHLabel("", "%");
+    public BHLabel getLcurrency4() {
+	if (lcurrency4 == null) {
+	    lcurrency4 = new BHLabel("", "€");
 	}
-	return lpercent2;
+	return lcurrency4;
     }
     
-    public BHLabel getLpercent3() {
-	if (lpercent3 == null) {
-	    lpercent3 = new BHLabel("", "%");
+    public BHLabel getLcurrency5() {
+	if (lcurrency5 == null) {
+	    lcurrency5 = new BHLabel("", "€");
 	}
-	return lpercent3;
+	return lcurrency5;
     }
     
-    public BHLabel getLpercent4() {
-	if (lpercent4 == null) {
-	    lpercent4 = new BHLabel("", "%");
+    public BHLabel getLcurrency6() {
+	if (lcurrency6 == null) {
+	    lcurrency6 = new BHLabel("", "€");
 	}
-	return lpercent4;
+	return lcurrency6;
     }
 
 
