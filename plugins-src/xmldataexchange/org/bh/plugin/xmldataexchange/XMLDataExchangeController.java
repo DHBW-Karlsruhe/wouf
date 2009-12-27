@@ -19,7 +19,6 @@ import org.bh.plugin.xmldataexchange.xmlexport.XMLDataExportPanel;
 import org.bh.plugin.xmldataexchange.xmlexport.XMLExport;
 import org.bh.plugin.xmldataexchange.xmlimport.XMLDataImportPanel;
 import org.bh.plugin.xmldataexchange.xmlimport.XMLImport;
-import org.bh.plugin.xmldataexchange.xmlimport.XMLImportException;
 import org.bh.plugin.xmldataexchange.xmlimport.XMLNotValidException;
 
 public class XMLDataExchangeController extends Controller {
