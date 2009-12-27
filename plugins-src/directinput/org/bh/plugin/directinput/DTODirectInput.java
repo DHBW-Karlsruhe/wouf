@@ -52,4 +52,8 @@ public class DTODirectInput extends DTO implements IPeriodicalValuesDTO {
 	public String getUniqueId() {
 		return UNIQUE_ID;
 	}
+	
+	public void regenerateMethodsList() {
+		regenerateMethodsList(Key.values());
+	}
 }

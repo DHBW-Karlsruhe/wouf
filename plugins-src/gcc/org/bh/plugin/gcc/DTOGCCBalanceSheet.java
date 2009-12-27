@@ -432,5 +432,9 @@ public class DTOGCCBalanceSheet extends DTO implements IPeriodicalValuesDTO {
 	protected Calculable getVB() {
 		return null;
 	}
+	
+	public void regenerateMethodsList() {
+		regenerateMethodsList(Key.values());
+	}
 
 }

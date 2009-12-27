@@ -196,5 +196,9 @@ public class DTOGCCProfitLossStatementCostOfSales extends DTO implements
 	protected Calculable getJUJF() {
 		return null;
 	}
+	
+	public void regenerateMethodsList() {
+		regenerateMethodsList(Key.values());
+	}
 
 }

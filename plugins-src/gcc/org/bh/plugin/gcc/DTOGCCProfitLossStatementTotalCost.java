@@ -2,7 +2,6 @@ package org.bh.plugin.gcc;
 
 import org.apache.log4j.Logger;
 import org.bh.data.DTO;
-
 import org.bh.data.IPeriodicalValuesDTO;
 import org.bh.data.types.Calculable;
 
@@ -209,6 +208,10 @@ public class DTOGCCProfitLossStatementTotalCost extends DTO implements
 	 */
 	protected Calculable getJUJF() {
 		return null;
+	}
+	
+	public void regenerateMethodsList() {
+		regenerateMethodsList(Key.values());
 	}
 
 }
