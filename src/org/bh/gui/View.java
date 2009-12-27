@@ -265,7 +265,7 @@ public abstract class View implements KeyListener, PropertyChangeListener, Mouse
      */
     private void handleInputInfoEvent(Object e){
         if (e instanceof IBHComponent){
-            BHValidityEngine.setInpuHintLabel((IBHComponent) e);
+            BHValidityEngine.setInputHintLabel((IBHComponent) e);
         }
     }
 
