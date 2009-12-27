@@ -20,6 +20,16 @@ public interface IBHComponent {
 	 * Constant can be use to check objects.
 	 */
 	Boolean ISBHCOMPONENT = true;
+        /**
+         * Have to be used by instancing a BHComponent representing a minimum
+         * of a intervall
+         */
+        String MINVALUE = "MIN_";
+        /**
+         * Have to be used by instancing a BHComponent representing a maximum
+         * of a intervall
+         */
+        String MAXVALUE = "MAX_";
 
 	/**
 	 * Constant for Nimbus Look&Feel: Size for JComponent is large

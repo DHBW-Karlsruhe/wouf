@@ -199,7 +199,4 @@ public abstract class Controller implements IController, ActionListener, IPlatfo
         throw new ControllerException("No referende to a valid model");
     }
 
-
-
-
 }
