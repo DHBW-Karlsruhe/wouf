@@ -2,7 +2,16 @@ package org.bh.platform;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.List;
+
 import javax.swing.JFileChooser;
+import javax.swing.tree.DefaultMutableTreeNode;
+import javax.swing.tree.DefaultTreeModel;
+
+import org.bh.data.DTOPeriod;
+import org.bh.data.DTOProject;
+import org.bh.data.DTOScenario;
+import org.bh.data.types.StringValue;
 import org.bh.gui.swing.*;
 import org.bh.platform.i18n.BHTranslator;
 
@@ -22,12 +31,98 @@ import org.bh.platform.i18n.BHTranslator;
 public class PlatformController {
 
 	private BHMainFrame bhmf;
+	private ProjectRepositoryManager projectRepoManager = new ProjectRepositoryManager();
 
 	public PlatformController() {
-
+		
+		/*------------------------------------
+		 * Fill Repo (sample DTOs)
+		 * -----------------------------------
+		 */
+		
+		
+		DTOProject project1 = new DTOProject();
+		DTOScenario scenario1 = new DTOScenario(true);
+		DTOPeriod period1 = new DTOPeriod();
+		
+		
+		StringValue projectName = new StringValue("project1");
+		project1.put(DTOProject.Key.NAME, projectName);
+		
+		scenario1.addChild(period1);
+		StringValue periodIdent = new StringValue("Periode 1");
+		period1.put(DTOPeriod.Key.IDENTIFIER, periodIdent);
+		
+		project1.addChild(scenario1);
+		StringValue scenarioName = new StringValue("Scenario1");
+		scenario1.put(DTOScenario.Key.NAME, scenarioName);
+		
+		
+		
+		
+		
+		projectRepoManager.addProject(project1);
+		
 		// start mainFrame
 		bhmf = new BHMainFrame(BHTranslator.getInstance().translate("title"));
-
+		
+		
+		//fill Tree
+		DefaultMutableTreeNode rootNode = new DefaultMutableTreeNode("BusinessHorizon");
+		
+		List<DTOProject> repoList = projectRepoManager.getRepositoryList();
+		
+		for(DTOProject project : repoList){
+			
+			//create project...
+			DefaultMutableTreeNode projectNode = new DefaultMutableTreeNode(((StringValue)project.get(DTOProject.Key.NAME)).getString());
+			
+			//and add scenarios...
+			DefaultMutableTreeNode scenarioNode;
+			for(DTOScenario scenario : project.getChildren()){
+				scenarioNode = new DefaultMutableTreeNode(((StringValue)scenario.get(DTOScenario.Key.NAME)).getString());
+				projectNode.add(scenarioNode);
+				
+				//if periods are available - add them!
+				DefaultMutableTreeNode periodNode;
+				for(DTOPeriod period : scenario.getChildren()){
+					periodNode = new DefaultMutableTreeNode(((StringValue)period.get(DTOPeriod.Key.IDENTIFIER)).getString());
+				}
+				
+				
+			}
+			
+			
+			//in the end, add all to rootNode
+			rootNode.add(projectNode);
+			
+		}
+		
+//		DefaultMutableTreeNode project1;
+//	    DefaultMutableTreeNode project2;
+//		
+//	    
+//		
+//		project1 = new DefaultMutableTreeNode("Project 1");
+//		project2 = new DefaultMutableTreeNode("Project 2");
+//		
+//		project1.add(new DefaultMutableTreeNode("Dummy-Szenario1"));
+//		project1.add(new DefaultMutableTreeNode("Dummy-Szenario2"));
+//		project1.add(new DefaultMutableTreeNode("Dummy-Szenario3"));
+//		project1.add(new DefaultMutableTreeNode("Dummy-Szenario4"));
+//		
+//		project2.add(new DefaultMutableTreeNode("Dummy-Szenario1"));
+//		project2.add(new DefaultMutableTreeNode("Dummy-Szenario2"));
+//		project2.add(new DefaultMutableTreeNode("Dummy-Szenario3"));
+//		project2.add(new DefaultMutableTreeNode("Dummy-Szenario4"));
+//		
+//		rootNode.add(project1);
+//		rootNode.add(project2);
+		DefaultTreeModel treeModel = new DefaultTreeModel(rootNode);
+		
+		bhmf.BHTree.refresh(treeModel);
+		
+		
 		// handle events...
 
 		PlatformActionListener pal = new PlatformActionListener();
@@ -45,6 +140,11 @@ public class PlatformController {
 
 	}
 
+	
+	
+	/*
+	 * ----------------------------------------------------------------------------
+	 */
 	
 	/**
 	 * The PlatformActionListener handles all actions that are fired by a button

@@ -112,7 +112,7 @@ public class BHMainFrame extends JFrame {
 		toolBar = new BHToolBar(getWidth(), standardBarHeight);
 		// toolBar.setBounds(0, 0, screenSize.width, standardBarHeight);
 
-		BHTree = new BHTree(null);
+		BHTree = new BHTree();
 		BHTreeScroller = new JScrollPane(BHTree);
 
 		// treeBar.setBounds(0, standardBarHeight, treeBarWidth,
