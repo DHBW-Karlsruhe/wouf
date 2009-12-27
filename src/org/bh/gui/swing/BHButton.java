@@ -20,13 +20,13 @@ import org.bh.platform.PlatformKey;
  * @version 0.1.1 2009/12/26
  * 
  */
-public class BHButton extends JButton implements IBHComponent {
+public class BHButton extends JButton implements IBHComponent,IBHAction {
 
 	private String key;
 	private PlatformKey platformKey;
 	private int[] validateRules;
 
-	private static List<BHButton> platformButtons = new ArrayList<BHButton>();
+	private static List<IBHAction> platformItems = new ArrayList<IBHAction>();
 
 	public static final Boolean ISPLATFORMBUTTON = true;
 
@@ -41,7 +41,10 @@ public class BHButton extends JButton implements IBHComponent {
 		this.key = key;
 		//TODO get INPUT-HINT out of properties-File (querstions? Ask Alex)
 	}
-
+	
+	public BHButton(){
+		super();
+	}
 
 	/**
 	 * Secondary constructor for platform buttons (are added to
@@ -59,7 +62,7 @@ public class BHButton extends JButton implements IBHComponent {
 		//TODO get INPUT-HINT out of properties-File (querstions? Ask Alex)
 		
 		if (isPlatformButton)
-			platformButtons.add(this);
+			platformItems.add(this);
 	}
 
 	/**
@@ -87,13 +90,6 @@ public class BHButton extends JButton implements IBHComponent {
 	}
 	
 	
-	public Boolean isPlatformButton(){
-		if(this.platformKey != null)
-			return true;
-		
-		return false;
-	}
-	
 	/**
 	 * return the rules for the validation engine
 	 * 
@@ -115,10 +111,6 @@ public class BHButton extends JButton implements IBHComponent {
 		throw new UnsupportedOperationException("Not supported yet.");
 	}
 
-	public static List<BHButton> getPlatformButtons() {
-		return platformButtons;
-	}
-
 	/**
 	 * set properties of instance.
 	 */
@@ -132,5 +124,20 @@ public class BHButton extends JButton implements IBHComponent {
 		// TODO this method must be implemented well (Questions? Ask Alex)
 		return null;
 	}
+
+
+	@Override
+	public List<IBHAction> getPlatformItems() {
+		return this.platformItems;
+	}
+
+
+	@Override
+	public Boolean isPlatformItem() {
+		if(this.platformKey != null)
+			return true;
+		return false;
+	}
+
 
 }

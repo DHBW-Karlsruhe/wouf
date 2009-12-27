@@ -2,13 +2,8 @@ package org.bh.platform;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-
 import javax.swing.JFileChooser;
-
-import org.bh.gui.swing.BHButton;
-import org.bh.gui.swing.BHMainFrame;
-import org.bh.gui.swing.BHMenuItem;
-import org.bh.gui.swing.IBHComponent;
+import org.bh.gui.swing.*;
 import org.bh.platform.i18n.BHTranslator;
 
 /**
@@ -39,17 +34,18 @@ public class PlatformController {
 
 		// add ActionListener to...
 		// .. the toolbar
-		for (BHButton button : BHButton.getPlatformButtons()) {
-			button.addActionListener(pal);
+		for (IBHAction item : (new BHButton()).getPlatformItems()) {
+			item.addActionListener(pal);
 		}
 
 		// ...the menu
-		for (BHMenuItem menuItem : BHMenuItem.getPlatformMenuItems()) {
-			menuItem.addActionListener(pal);
+		for (IBHAction item : (new BHMenuItem()).getPlatformItems()) {
+			item.addActionListener(pal);
 		}
 
 	}
 
+	
 	/**
 	 * The PlatformActionListener handles all actions that are fired by a button
 	 * etc. of the platform.
@@ -67,8 +63,6 @@ public class PlatformController {
 			if (((IBHComponent) aEvent.getSource()) instanceof BHButton)
 				actionKey = ((BHButton)aEvent.getSource()).getPlatformKey();
 
-				System.out
-						.println(((IBHComponent) aEvent.getSource()).getKey());
 
 			switch (actionKey) {
 			case FILENEW:

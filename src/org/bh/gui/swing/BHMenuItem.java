@@ -20,11 +20,11 @@ import org.bh.platform.Services;
  * @version 0.1, 2009/12/16
  * 
  */
-public class BHMenuItem extends JMenuItem implements IBHComponent {
+public class BHMenuItem extends JMenuItem implements IBHComponent, IBHAction {
 
 	private PlatformKey key;
 	private int[] validateRules;
-	private static List<BHMenuItem> platformMenuItems = new ArrayList<BHMenuItem>();
+	private static List<IBHAction> platformMenuItems = new ArrayList<IBHAction>();
     private String inputHint;
 
 	
@@ -74,6 +74,10 @@ public class BHMenuItem extends JMenuItem implements IBHComponent {
 		this(key,0,true);
 	}
 	
+	public BHMenuItem(){
+		super();
+	}
+	
 	
 	@Override
 	public String getKey() {
@@ -112,13 +116,20 @@ public class BHMenuItem extends JMenuItem implements IBHComponent {
 		return this.key;
 	}
 	
-        
-        
+
+	@Override
+	public Boolean isPlatformItem() {
+		if(this.platformKey != null)
+			return true;
+		return false;
+	}
+
 	/**
 	 * Method to get all MenuItems that are generated for platforms 
 	 * (i.e. that ones which have forPlatform = false not set)
 	 */
-	public static List<BHMenuItem> getPlatformMenuItems(){
+	@Override
+	public List<IBHAction> getPlatformItems() {
 		return platformMenuItems;
 	}
 }
