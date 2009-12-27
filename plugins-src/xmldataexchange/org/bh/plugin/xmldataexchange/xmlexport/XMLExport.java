@@ -17,7 +17,14 @@ import org.jdom.Namespace;
 import org.jdom.output.Format;
 import org.jdom.output.XMLOutputter;
 
-
+/**
+ * This class provides the functionality to export a {@link DTOProject} to
+ * a XML document.
+ * <p>
+ * @author Familie Katzor
+ * @version 1.0, 27.12.2009
+ *
+ */
 public class XMLExport {
 	
 	/**
@@ -36,6 +43,9 @@ public class XMLExport {
 	 */
 	private DTOProject model = null;
 	
+	/**
+	 * Namespace for all Business Horizon elements in the XML document.
+	 */
 	private Namespace bhDataNS = Namespace.getNamespace("http://www.bh.org/dataexchange");
 	
 	
@@ -168,6 +178,7 @@ public class XMLExport {
 			result.addContent(elChildren);
 		}
 		
+
 		applyDTOSpecificData(dto, result);
 		
 		return result;
@@ -184,6 +195,11 @@ public class XMLExport {
 		return className.replace("DTO", "").toLowerCase();
 	}
 	
+	/**
+	 * Adds DTO specific data to the XML node.
+	 * @param dto - The DTO with specific data
+	 * @param elDTO - The XML representation of the DTO
+	 */
 	@SuppressWarnings("unchecked")
 	private void applyDTOSpecificData(IDTO dto, Element elDTO)
 	{
@@ -196,6 +212,4 @@ public class XMLExport {
 			elDTO.setAttribute(attrFlag);			
 		}
 	}
-	
-
 }

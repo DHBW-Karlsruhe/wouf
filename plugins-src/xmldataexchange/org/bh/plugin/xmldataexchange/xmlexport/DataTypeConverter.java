@@ -11,7 +11,7 @@ import org.jdom.Namespace;
 
 /**
  * DataTypeConverter provides static methods to convert BH data types
- * in a xml format.
+ * in a XML format.
  *
  * <p> 
  *

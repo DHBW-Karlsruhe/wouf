@@ -10,9 +10,12 @@ import javax.xml.transform.stream.StreamSource;
 import javax.xml.validation.SchemaFactory;
 import javax.xml.validation.Validator;
 
+import org.apache.log4j.Logger;
 import org.bh.data.DTOProject;
+import org.bh.data.DTOScenario;
 import org.bh.data.IDTO;
 import org.bh.data.types.IValue;
+import org.bh.platform.PluginManager;
 import org.jdom.Document;
 import org.jdom.Element;
 import org.jdom.JDOMException;
@@ -20,6 +23,14 @@ import org.jdom.Namespace;
 import org.jdom.input.SAXBuilder;
 import org.xml.sax.SAXException;
 
+/**
+ * This class provides the functionality to import a {@link DTOProject} from
+ * a XML document.
+ * <p> 
+ * @author Marcus Katzor
+ * @version 1.0, 27.12.2009
+ *
+ */
 public class XMLImport {
 	
 	/**
@@ -32,25 +43,46 @@ public class XMLImport {
 	 */
 	private File importFile = null;
 	
+	/**
+	 * Namespace for all Business Horizon elements in the XML document.
+	 */
 	private Namespace bhDataNS = Namespace.getNamespace("http://www.bh.org/dataexchange");
 	
+	/**
+	 * For logging.
+	 */
+	private static final Logger log = Logger.getLogger(PluginManager.class);
+	
 
+	/**
+	 * Creates an instance of {@link XMLImport}
+	 * @param importFilePath Path of the file which should be imported.
+	 */
 	public XMLImport(String importFilePath) {
 		super();
 		this.importFilePath = importFilePath;
 	}
 	
 	
-	public IDTO startImport()
-	{
+	/**
+	 * Starts the import process and returns a {@link DTOProject} object.
+	 * @return {@link DTOProject} or null if something went wrong.	 
+	 * @throws XMLNotValidException The XML document is not valid.
+	 * @throws XMLImportException An exception occurred while processing the XML document. 
+	 * @throws IOException The passed file path does not lead to an accessible file.
+	 */
+	public DTOProject startImport() throws XMLNotValidException, IOException
+	{		
 		// Check if the path is a valid input 
 		if (!checkFile())
 		{
-			// TODO import exception
+			throw new IOException("The chosen file could not be opened.");
 		}
 		
+		// Initialize result object
 		DTOProject project = null;
 		
+		// Validate the XML document
 		if (validateXMLInput())
 		{
 			// Parse XML Document
@@ -58,36 +90,34 @@ public class XMLImport {
 			// Create a SAX builder object to parse the xml document
 			SAXBuilder saxBuilder = new SAXBuilder();
 			try {
-				Document doc = saxBuilder.build(importFile);
-				
-				project = (DTOProject) getDTOFromXML(doc.getRootElement());
-				
-				
-			} catch (JDOMException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			} catch (IOException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-		}
-		else
-		{
-			
+				Document doc = saxBuilder.build(importFile);				
+				project = (DTOProject) getDTOFromXML(doc.getRootElement());				
+			} catch (JDOMException e) {				
+				log.error("Parsing exception while importing a XML documetn", e);
+			} 
 		}
 		
 		return project;		
 	}
 	
-	
+	/**
+	 * Converts a XML node into a DTO object.
+	 * Recursively called.
+	 * @param node - Represents a DTO
+	 * @return {@link IDTO} - An instance of a DTO
+	 */
+	@SuppressWarnings("unchecked")
 	private IDTO getDTOFromXML(Element node)
 	{
-		// Get class name
+		// Get class name of the DTO
 		String className = node.getAttributeValue("class");
 		
+		// Set result object
 		IDTO dto = null;
 		
 		try {
+			
+			// Try to initialize a DTO with the class name
 			dto = (IDTO) Class.forName(className).newInstance();
 			
 			// Get a list of all value nodes
@@ -113,41 +143,53 @@ public class XMLImport {
 			}
 			
 		} catch (InstantiationException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			log.error("A DTO could not be initialized. Maybe there is no standard constructor implemented", e);
 		} catch (IllegalAccessException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			log.error("A DTO could not be initialized. Maybe there is no standard constructor implemented", e);
 		} catch (ClassNotFoundException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+			log.error("A DTO could not be found, hence an import is not possible.", e);
+		}		
+		
+		applyDTOSpecificData(dto, node);
 		
 		return dto;
 	}
+	
+	private void applyDTOSpecificData(IDTO dto, Element elDTO)
+	{
+		if (dto instanceof DTOScenario)
+		{
+			DTOScenario sec = (DTOScenario) dto;
+			String futureValues = elDTO.getAttributeValue("containsValuesInFuture");
+			sec.setFutureValues(Boolean.parseBoolean(futureValues));			
+		}
+	}
 
 
-	private boolean validateXMLInput() {
+	/**
+	 * Validates the XML document against the Business Horizon 
+	 * XML schema.
+	 * @return	True - document is valid 			
+	 * @throws XMLNotValidException - The document is not valid
+	 * @throws IOException - The XML document could not be read
+	 */
+	private boolean validateXMLInput() throws XMLNotValidException, IOException 
+	{
 		try {
 			// Get XML Schema
 			URL schemaURL = getClass().getResource("BHDataExchange.xsd");
 			
-			// Create validator for validating the input against a xml schema
+			// Create validator for validating the input against a XML schema
 			Validator validator = SchemaFactory.newInstance(XMLConstants.W3C_XML_SCHEMA_NS_URI)
 									.newSchema(schemaURL).newValidator();		
 			// Validate
 			validator.validate(new StreamSource(importFile));
 			
 		} catch (SAXException e) {
-			return false;
-		} catch (IOException e) {
-			return false;
+			throw new XMLNotValidException("The provided XML document is not valid!", e);
 		}
 		return true;
-	}
-	
-	
-	
+	}	
 	
 	/**
 	 * Creates a File instance by using the given path and
@@ -159,13 +201,11 @@ public class XMLImport {
 	{
 		importFile = new File(importFilePath);
 		
-		if (!importFile.isFile() || !importFile.canRead() ||
+		if (importFile == null || !importFile.isFile() || !importFile.canRead() ||
 				!importFile.canWrite())
 			return false;
 		
 		return true;
-	}
-	
-	
+	}	
 	
 }

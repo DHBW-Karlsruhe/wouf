@@ -1,6 +1,7 @@
 package org.bh.plugin.xmldataexchange;
 
 import java.awt.event.ActionEvent;
+import java.io.IOException;
 import java.net.URL;
 import java.util.Map;
 
@@ -18,6 +19,8 @@ import org.bh.plugin.xmldataexchange.xmlexport.XMLDataExportPanel;
 import org.bh.plugin.xmldataexchange.xmlexport.XMLExport;
 import org.bh.plugin.xmldataexchange.xmlimport.XMLDataImportPanel;
 import org.bh.plugin.xmldataexchange.xmlimport.XMLImport;
+import org.bh.plugin.xmldataexchange.xmlimport.XMLImportException;
+import org.bh.plugin.xmldataexchange.xmlimport.XMLNotValidException;
 
 public class XMLDataExchangeController extends Controller {
 	
@@ -108,9 +111,16 @@ public class XMLDataExchangeController extends Controller {
 		}
 		else if (comp.getKey().equals("btnImport"))
 		{
-			if (!txtImportPath.getText().equals(""))		
-				new XMLImport(txtImportPath.getText()).startImport();
-			
+			if (!txtImportPath.getText().equals(""))
+				try {
+					new XMLImport(txtImportPath.getText()).startImport();
+				} catch (XMLNotValidException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				} catch (IOException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
 		}
 		
 	}		
