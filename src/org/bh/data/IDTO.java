@@ -1,11 +1,13 @@
 package org.bh.data;
 
+import java.io.Serializable;
 import java.util.List;
+
 import org.bh.data.types.Calculable;
 import org.bh.data.types.IValue;
 
 @SuppressWarnings("unchecked")
-public interface IDTO<ChildT extends IDTO> extends Cloneable {
+public interface IDTO<ChildT extends IDTO> extends Cloneable, Serializable {
 
 	/**
 	 * Returns a value assigned to the passed key.
@@ -105,4 +107,9 @@ public interface IDTO<ChildT extends IDTO> extends Cloneable {
 	 * @return List of keys.
 	 */
 	public List<String> getKeys();
+	
+	/**
+	 * starts the regeneration of methods list
+	 */
+	public void regenerateMethodsList();
 }

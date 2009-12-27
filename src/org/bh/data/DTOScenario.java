@@ -278,4 +278,8 @@ public class DTOScenario extends DTO<DTOPeriod> {
 			return dtoId.equals(other.dtoId) && key.equals(other.key);
 		}
 	}
+	
+	public void regenerateMethodsList() {
+		regenerateMethodsList(Key.values());
+	}
 }

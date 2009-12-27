@@ -34,4 +34,9 @@ public class DTOProject extends DTO<DTOScenario> {
 				"This method has not been implemented");
 	}
 
+	@Override
+	public void regenerateMethodsList() {
+		regenerateMethodsList(Key.values());
+	}
+
 }

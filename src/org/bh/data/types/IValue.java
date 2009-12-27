@@ -1,5 +1,7 @@
 package org.bh.data.types;
 
-public interface IValue {
+import java.io.Serializable;
+
+public interface IValue extends Serializable {
 	IValue clone();
 }

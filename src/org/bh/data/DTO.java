@@ -10,16 +10,14 @@ import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
-import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
-import java.util.NoSuchElementException;
 
 import org.apache.log4j.Logger;
 import org.bh.data.types.Calculable;
-import org.bh.data.types.StochasticValue;
 import org.bh.data.types.IValue;
+import org.bh.data.types.StochasticValue;
 
 /**
  * General Data Transfer Object 
@@ -56,9 +54,9 @@ public abstract class DTO<ChildT extends IDTO> implements IDTO<ChildT> {
 	 * Possible methods with which the user can call simple methods for
 	 * calculation.
 	 */
-	protected final Map<String, java.lang.reflect.Method> availableMethods;	
+	transient protected Map<String, java.lang.reflect.Method> availableMethods;	
 	
-	private static Map<String, Map<String, java.lang.reflect.Method>> METHODS_CACHE =
+	transient private static Map<String, Map<String, java.lang.reflect.Method>> METHODS_CACHE =
 		new HashMap<String, Map<String, java.lang.reflect.Method>>();
 	
 	/**
@@ -297,5 +295,34 @@ public abstract class DTO<ChildT extends IDTO> implements IDTO<ChildT> {
 	public List<String> getKeys() {
 		return availableKeys;
 	}
+	
+	/**
+	 * regenerate methods list after opening from file
+	 *
+	 */
+	
+	// TODO: Marcus check
 
+	  public void regenerateMethodsList(Enum[] enumeration) {
+		  
+		String className = getClass().getName();
+		
+		availableMethods = new HashMap<String, java.lang.reflect.Method>();
+		  
+		for (Enum element : enumeration) {
+			String key = element.toString().toLowerCase();
+			try {
+				Field field = element.getClass().getDeclaredField(element.name());
+				Method method = field.getAnnotation(Method.class);
+				if (method != null) {
+					String methodName = (method.value().isEmpty()) ? (METHOD_PREFIX + key) : (method.value()); 
+					availableMethods.put(key, getMethod(methodName));
+				}
+			} catch (Throwable e) {
+				continue;
+			}
+		}
+		
+		METHODS_CACHE.put(className, availableMethods);
+	} 
 }

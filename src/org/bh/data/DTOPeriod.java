@@ -157,4 +157,10 @@ public class DTOPeriod extends DTO<IPeriodicalValuesDTO> {
 	public DTOScenario getScenario() {
 		return scenario;
 	}
+
+	@Override
+	public void regenerateMethodsList() {
+		regenerateMethodsList(Key.values());
+	}
+	
 }
