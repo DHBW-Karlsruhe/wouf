@@ -234,7 +234,7 @@ public abstract class View implements KeyListener, PropertyChangeListener, Mouse
     public void setValidator(BHValidityEngine validator) throws ViewException {
         log.debug("a new validator is setted");
         if (validator == null) {
-            log.error("null reference for validator is ssetted");
+            log.error("null reference for validator is setted");
             throw new ViewException("null reference validator");
         }
         this.validator = validator;
@@ -242,7 +242,7 @@ public abstract class View implements KeyListener, PropertyChangeListener, Mouse
     }
 
     /**
-     * call the <code>publishValidationComp</code> method of a evetn on a BHTextField occurs
+     * call the <code>publishValidationComp</code> method of a event on a BHTextField occurs
      * 
      * @param e representes the source of the event
      * @see BHTextField

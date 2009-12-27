@@ -85,7 +85,7 @@ public abstract class BHValidityEngine {
      * @param comp instances of IBHComponent
      * @see BHStatusBar
      */
-    protected static void setInpuHintLabel(IBHComponent comp) {
+    protected static void setInputHintLabel(IBHComponent comp) {
         log.debug("Input ToolTip is setted to Status Bar");
         Controller.setBHstatusBarToolTip((JLabel) ValidationComponentUtils.getInputHint((JComponent) comp));
     }
@@ -116,7 +116,7 @@ public abstract class BHValidityEngine {
         Controller.setBHstatusBarValidationToolTip(createValidationResultList(valRes));
     }
     /**
-     * have to register the model related components and set the ValidationComponentUtils eintrys
+     * have to register the model related components and set the ValidationComponentUtils entries
      *
      * @param toValidate a Map of IBHComponents
      * @see ValidationComponentUtils

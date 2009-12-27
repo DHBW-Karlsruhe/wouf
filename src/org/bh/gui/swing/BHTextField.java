@@ -20,6 +20,8 @@ public class BHTextField extends JTextField implements IBHComponent {
 	 * unique key to identify Label.
 	 */
 	private String key;
+
+
 	private int[] validateRules;
 	private String inputHint;
 
@@ -87,7 +89,11 @@ public class BHTextField extends JTextField implements IBHComponent {
 	public void setValue(IValue value) {
 		throw new UnsupportedOperationException("Not supported yet.");
 	}
-
+	
+	public void setInputHint(String inputHint) {
+		this.inputHint = inputHint;
+	}
+	
 	public String getInputHint() {
 		return this.inputHint;
 	}
