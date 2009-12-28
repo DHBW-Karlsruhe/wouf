@@ -8,8 +8,8 @@ import javax.swing.JLabel;
 import javax.swing.JProgressBar;
 import javax.swing.JWindow;
 
-import org.bh.platform.PlatformEvent;
 import org.bh.platform.IPlatformListener;
+import org.bh.platform.PlatformEvent;
 import org.bh.platform.Services;
 import org.bh.platform.PlatformEvent.Type;
 
@@ -25,8 +25,7 @@ import org.bh.platform.PlatformEvent.Type;
 
 public class BHSplashScreen extends JWindow implements Runnable,
 		IPlatformListener {
-	private static final long serialVersionUID = -3834743030431316878L;
-	private static final int MIN_DISPLAY_TIME = 3000;
+	private static final int MIN_DISPLAY_TIME = 2000;
 	private boolean isLoaded = false;
 
 	public BHSplashScreen() {
