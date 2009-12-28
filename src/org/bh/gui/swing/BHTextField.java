@@ -1,8 +1,8 @@
 package org.bh.gui.swing;
 
 import javax.swing.JTextField;
+import org.bh.platform.Services;
 
-import org.bh.data.types.IValue;
 
 /**
  * BHTextField to display simple input fields at screen.
@@ -34,37 +34,41 @@ public class BHTextField extends JTextField implements IBHComponent {
 	 *            default value
 	 */
 	public BHTextField(String key, String value, String inputHint) {
-		super(value);
+		this(key, value);
 		this.setProperties();
-		this.key = key;
 		this.inputHint = inputHint;
 	}
 
 	/**
-	 * Constructor to create new <code>BHTextField</code>.
+	 * Constructor to create new <code>BHTextField</code>. Defined for the use with unkeyed text
 	 * 
 	 * @param key
 	 *            unique key
 	 * @param value
 	 *            default value
 	 */
-	public BHTextField(String key, String value) {
-		super(value);
-		this.setProperties();
-		this.key = key;
-	}
+//	public BHTextField(String key, String value) {
+//		super(value);
+//		this.setProperties();
+//		this.key = key;
+//	}
 
 	/**
-	 * Constructor to create new <code>BHTextField</code>.
+	 * Constructor to create new <code>BHTextField</code>. with key based text
 	 * 
 	 * @param key
 	 *            unique key
 	 */
 	public BHTextField(String key) {
-		super();
+		super(Services.getTranslator().translate(key));
 		this.setProperties();
 		this.key = key;
 	}
+
+        public BHTextField(String key, String InputHint){
+            this(key);
+            this.inputHint = InputHint;
+        }
 
 	public String getKey() {
 		return key;
