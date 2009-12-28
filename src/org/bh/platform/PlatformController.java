@@ -10,7 +10,6 @@ import javax.swing.tree.DefaultMutableTreeNode;
 import javax.swing.tree.DefaultTreeModel;
 import javax.swing.tree.TreeNode;
 import javax.swing.tree.TreePath;
-
 import org.bh.data.*;
 import org.bh.data.types.StringValue;
 import org.bh.gui.swing.*;
@@ -98,7 +97,6 @@ public class PlatformController {
 	 * Methods for Tree-Handling
 	 * -----------------------------------
 	 */
-	
 	private void setupTree(BHMainFrame bhmf, ProjectRepositoryManager projectRepoManager){
 		
 		DefaultMutableTreeNode rootNode = new DefaultMutableTreeNode("BusinessHorizon");
@@ -239,8 +237,21 @@ public class PlatformController {
 				//and create a Node for tree on gui
 				BHNode newProjectNode = new BHNode(newProject);
 				((DefaultTreeModel)bhmf.BHTree.getModel()).insertNodeInto(newProjectNode, (DefaultMutableTreeNode)bhmf.BHTree.getModel().getRoot(), ((DefaultMutableTreeNode)bhmf.BHTree.getModel().getRoot()).getChildCount());
+				break;
+				
+			case TOOLBARADDS: 
+				//Create new scenario
+				DTOScenario newScenario = new DTOScenario();
+				//TODO hardgecodeder String raus! AS
+				newScenario.put(DTOScenario.Key.NAME, new StringValue("neues Scenario"));
+				//add it to DTO-Repository
+				//TODO "aktives" Projekt rausfischen, darunter Scenario einbinden
 				
 				break;
+				
+				
+				
+				
 				
 			default:
 				System.out.println("Was anderes, und zwar: "+actionKey.getActionKey());
