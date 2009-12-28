@@ -1,13 +1,17 @@
 package org.bh.platform;
 
+import java.awt.Color;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.ServiceLoader;
 
+import javax.swing.UIManager;
+import javax.swing.UIManager.LookAndFeelInfo;
 import javax.swing.event.EventListenerList;
 
+import org.apache.log4j.Logger;
 import org.bh.calculation.IShareholderValueCalculator;
 import org.bh.calculation.IStochasticProcess;
 import org.bh.gui.swing.BHStatusBar;
@@ -133,6 +137,33 @@ public class Services {
 		for (IStochasticProcess process : processes) {
 			stochasticProcesses.put(process.getUniqueId(),
 					new DisplayablePluginWrapper<IStochasticProcess>(process));
+		}
+	}
+
+	/**
+	 * Sets Nimbus from Sun Inc. as default Look & Feel. Java 6 Update 10
+	 * required. Don't change complex looking implementation of invokation,
+	 * there are valid reasons for it.<br />
+	 * 
+	 * <b>Remark</b> <br />
+	 * For further information on Nimbus see <a href=
+	 * "http://developers.sun.com/learning/javaoneonline/2008/pdf/TS-6096.pdf"
+	 * >JavaOne Slides</a>
+	 */
+	public static void setNimbusLookAndFeel() {
+		// set Nimbus if available
+		try {
+			for (LookAndFeelInfo info : UIManager.getInstalledLookAndFeels()) {
+				if ("Nimbus".equals(info.getName())) {
+					UIManager.setLookAndFeel(info.getClassName());
+					UIManager.put("Panel.background", Color.WHITE);
+					break;
+				}
+			}
+		} catch (Exception e) {
+			Logger.getLogger(Services.class).debug(
+					"Nimbus Look&Feel not found, fall back to default Look&Feel"
+			);
 		}
 	}
 }
