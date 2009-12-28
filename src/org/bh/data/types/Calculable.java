@@ -17,6 +17,7 @@ import java.util.regex.Pattern;
  * @version 0.3, 21.12.2009, Norman
  * @version 0.4, 22.12.2009, Alex
  * @version 0.5, 22.12.2009, Robert
+ * @version 0.6, 28.12.2009, Sebastian (added more needed functions)
  */
 public abstract class Calculable implements IValue {
 
@@ -153,6 +154,10 @@ public abstract class Calculable implements IValue {
 	 * @return the result as a new Calculable instance
 	 */
 	public abstract Calculable div(Calculable divisor);
+    
+    public abstract boolean lessThan(Calculable compare);
+    
+    public abstract boolean greaterThan(Calculable compare);
 
 	/**
 	 * Multiplies the current Calculable with the multiplicand.
@@ -163,6 +168,8 @@ public abstract class Calculable implements IValue {
 	 * @return the result as a new Calculable instance
 	 */
 	public abstract Calculable mul(Calculable multiplicand);
+    
+    public abstract Calculable abs();
 
 	/**
 	 * Returns the square root of the current Calculable.

@@ -1,5 +1,6 @@
 package org.bh.data.types;
 
+
 /**
  * Calculable implementation for interval values.
  * 
@@ -251,5 +252,56 @@ public class IntervalValue extends Calculable {
 		if (Double.doubleToLongBits(min) != Double.doubleToLongBits(other.min))
 			return false;
 		return true;
+	}
+
+	@Override
+	public boolean greaterThan(Calculable compare) {
+		if (compare instanceof IntegerValue){
+		    IntegerValue IntegerValue = (IntegerValue)compare;
+		    if(this.min > IntegerValue.getValue())
+		    	return true;
+		    else
+		    	return false;
+		}else if (compare instanceof DoubleValue){
+			DoubleValue doubleValue = (DoubleValue)compare;
+		    if(this.min > doubleValue.getValue())
+		    	return true;
+		    else
+		    	return false;
+		}else{
+			IntervalValue intervalValue = (IntervalValue)compare;
+			IntervalValue sub = (IntervalValue) this.sub(intervalValue);
+		    if(sub.getMin() > 0 && sub.getMax() > 0)
+		    	return true;
+		    else return false;
+		}
+	}
+
+	@Override
+	public boolean lessThan(Calculable compare) {
+		if (compare instanceof IntegerValue){
+		    IntegerValue IntegerValue = (IntegerValue)compare;
+		    if(this.max < IntegerValue.getValue())
+		    	return true;
+		    else
+		    	return false;
+		}else if (compare instanceof DoubleValue){
+			DoubleValue DoubleValueValue = (DoubleValue)compare;
+		    if(this.max < DoubleValueValue.getValue())
+		    	return true;
+		    else
+		    	return false;
+		}else{
+			IntervalValue intervalValue = (IntervalValue)compare;
+			IntervalValue sub = (IntervalValue) this.sub(intervalValue);
+		    if(sub.getMin() < 0 && sub.getMax() < 0)
+		    	return true;
+		    else return false;
+		}
+	}
+
+	//TODO: Stimmt noch nicht!!! --> Norman!?!?
+	public Calculable abs() {
+		return new IntervalValue(Math.abs(this.min), Math.abs(this.max));
 	}
 }

@@ -4,6 +4,8 @@
 	<classpathentry excluding="**/.svn/" kind="src" output="plugins/resultAnalysis" path="plugins-src/resultAnalysis"/>
 	<classpathentry excluding="**/.svn/" kind="src" output="tests/bin" path="tests/src"/>
 	<classpathentry excluding="**/.svn/" kind="src" output="plugins/gcc" path="plugins-src/gcc"/>
+	<classpathentry excluding="**/.svn/" kind="src" output="plugins/fcf" path="plugins-src/fcf"/>
+	<classpathentry excluding="**/.svn/" kind="src" output="plugins/fte" path="plugins-src/fte"/>
 	<classpathentry excluding="**/.svn/" kind="src" output="plugins/apv" path="plugins-src/apv"/>
 	<classpathentry excluding="**/.svn/" kind="src" output="plugins/directinput" path="plugins-src/directinput"/>
 	<classpathentry kind="src" output="plugins/xmldataexchange" path="plugins-src/xmldataexchange"/>

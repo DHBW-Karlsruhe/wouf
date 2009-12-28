@@ -114,15 +114,57 @@ public class DoubleValue extends Calculable {
 	public final Calculable sqrt() {
 		return new DoubleValue(Math.sqrt(value));
 	}
-
-	/* Specified by interface/super class. */
-	@Override
-	public final String toString() {
-		return "" + value;
+    
+    @Override
+	public boolean greaterThan(Calculable compare) {
+		if (compare instanceof IntegerValue){
+		    IntegerValue IntegerValue = (IntegerValue)compare;
+		    if(this.getValue() > IntegerValue.getValue())
+		    	return true;
+		    else
+		    	return false;
+		}else if (compare instanceof DoubleValue){
+			DoubleValue doubleValue = (DoubleValue)compare;
+		    if(this.getValue() > doubleValue.getValue())
+		    	return true;
+		    else
+		    	return false;
+		}else{
+			IntervalValue intervalValue = (IntervalValue)compare;
+			IntervalValue sub = (IntervalValue) this.sub(intervalValue);
+		    if(sub.getMin() > 0 && sub.getMax() > 0)
+		    	return true;
+		    else return false;
+		}
 	}
 
 	/* Specified by interface/super class. */
 	@Override
+	public boolean lessThan(Calculable compare) {
+		if (compare instanceof IntegerValue){
+		    IntegerValue IntegerValue = (IntegerValue)compare;
+		    if(this.getValue() < IntegerValue.getValue())
+		    	return true;
+		    else
+		    	return false;
+		}else if (compare instanceof DoubleValue){
+			DoubleValue DoubleValueValue = (DoubleValue)compare;
+		    if(this.getValue() < DoubleValueValue.getValue())
+		    	return true;
+		    else
+		    	return false;
+		}else{
+			IntervalValue intervalValue = (IntervalValue)compare;
+			IntervalValue sub = (IntervalValue) this.sub(intervalValue);
+		    if(sub.getMin() < 0 && sub.getMax() < 0)
+		    	return true;
+		    else return false;
+		}
+	}
+
+	public Calculable abs() {
+		return new DoubleValue(Math.abs(this.value));
+	}
 	public final Calculable clone() {
 		return new DoubleValue(value);
 	}
@@ -152,5 +194,10 @@ public class DoubleValue extends Calculable {
 				.doubleToLongBits(other.value))
 			return false;
 		return true;
+	}
+
+	@Override
+	public final String toString() {
+		return "" + this.value;
 	}
 }

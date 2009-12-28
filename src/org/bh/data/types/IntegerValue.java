@@ -122,16 +122,57 @@ public class IntegerValue extends Calculable {
 	public Calculable clone() {
 		return new IntegerValue(value);
 	}
-
-	/* Specified by interface/super class. */
+	
 	@Override
-	public int hashCode() {
-		final int prime = 31;
-		int result = 1;
-		result = prime * result + value;
-		return result;
+	public boolean greaterThan(Calculable compare) {
+		if (compare instanceof IntegerValue){
+		    IntegerValue IntegerValue = (IntegerValue)compare;
+		    if(this.getValue() > IntegerValue.getValue())
+		    	return true;
+		    else
+		    	return false;
+		}else if (compare instanceof DoubleValue){
+			DoubleValue DoubleValueValue = (DoubleValue)compare;
+		    if(this.getValue() > DoubleValueValue.getValue())
+		    	return true;
+		    else
+		    	return false;
+		}else{
+			IntervalValue intervalValue = (IntervalValue)compare;
+			IntervalValue sub = (IntervalValue) this.sub(intervalValue);
+		    if(sub.getMin() > 0 && sub.getMax() > 0)
+		    	return true;
+		    else return false;
+		}
 	}
 
+	@Override
+	public boolean lessThan(Calculable compare) {
+		if (compare instanceof IntegerValue){
+		    IntegerValue IntegerValue = (IntegerValue)compare;
+		    if(this.getValue() < IntegerValue.getValue())
+		    	return true;
+		    else
+		    	return false;
+		}else if (compare instanceof DoubleValue){
+			DoubleValue DoubleValueValue = (DoubleValue)compare;
+		    if(this.getValue() < DoubleValueValue.getValue())
+		    	return true;
+		    else
+		    	return false;
+		}else{
+			IntervalValue intervalValue = (IntervalValue)compare;
+			IntervalValue sub = (IntervalValue) this.sub(intervalValue);
+		    if(sub.getMin() < 0 && sub.getMax() < 0)
+		    	return true;
+		    else return false;
+		}
+	}
+	
+	@Override
+	public Calculable abs() {
+		return new IntegerValue(Math.abs(this.value));
+	}
 	/* Specified by interface/super class. */
 	@Override
 	public boolean equals(Object obj) {
@@ -145,5 +186,13 @@ public class IntegerValue extends Calculable {
 		if (value != other.value)
 			return false;
 		return true;
+	}
+/* Specified by interface/super class. */
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + value;
+		return result;
 	}
 }
