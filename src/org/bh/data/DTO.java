@@ -225,6 +225,10 @@ public abstract class DTO<ChildT extends IDTO> implements IDTO<ChildT> {
 	public List<ChildT> getChildren() {
 		return Collections.unmodifiableList(children);
 	}
+
+	public ChildT getLastChildren() {
+		return children.getLast();
+	}
 	
 	@Override
 	public ChildT removeChild(int index) throws DTOAccessException {
