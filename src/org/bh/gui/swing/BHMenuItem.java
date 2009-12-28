@@ -24,7 +24,7 @@ public class BHMenuItem extends JMenuItem implements IBHComponent, IBHAction {
 
 	private PlatformKey key;
 	private int[] validateRules;
-	private static List<IBHAction> platformMenuItems = new ArrayList<IBHAction>();
+	private List<IBHAction> platformItems = new ArrayList<IBHAction>();
     private String inputHint;
 
 	
@@ -32,7 +32,7 @@ public class BHMenuItem extends JMenuItem implements IBHComponent, IBHAction {
 	 * Creates a new MenuItem (to be used in regular menus)
 	 * 
 	 * @param key key for action handling and texts
-	 * @param eventKey shortcut button for keyboard-adicted users
+	 * @param eventKey shortcut button for keyboard-addicted users
 	 * @param isPlatformItem Menu Item will be placed in platform list if true
 	 */
 	public BHMenuItem(PlatformKey key, int eventKey, Boolean isPlatformItem) {
@@ -50,7 +50,7 @@ public class BHMenuItem extends JMenuItem implements IBHComponent, IBHAction {
 		}
 		
 		if(isPlatformItem)
-			platformMenuItems.add(this);
+			platformItems.add(this);
 	}
 	
 
@@ -121,7 +121,7 @@ public class BHMenuItem extends JMenuItem implements IBHComponent, IBHAction {
 	 */
 	@Override
 	public List<IBHAction> getPlatformItems() {
-		return platformMenuItems;
+		return platformItems;
 	}
 }
 
