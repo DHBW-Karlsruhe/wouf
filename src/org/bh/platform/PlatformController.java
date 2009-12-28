@@ -3,14 +3,15 @@ package org.bh.platform;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.List;
-
 import javax.swing.JFileChooser;
+import javax.swing.event.TreeModelEvent;
+import javax.swing.event.TreeModelListener;
 import javax.swing.tree.DefaultMutableTreeNode;
 import javax.swing.tree.DefaultTreeModel;
+import javax.swing.tree.TreeNode;
+import javax.swing.tree.TreePath;
 
-import org.bh.data.DTOPeriod;
-import org.bh.data.DTOProject;
-import org.bh.data.DTOScenario;
+import org.bh.data.*;
 import org.bh.data.types.StringValue;
 import org.bh.gui.swing.*;
 import org.bh.platform.i18n.BHTranslator;
@@ -51,23 +52,55 @@ public class PlatformController {
 		
 		scenario1.addChild(period1);
 		StringValue periodIdent = new StringValue("Periode 1");
-		period1.put(DTOPeriod.Key.IDENTIFIER, periodIdent);
+		period1.put(DTOPeriod.Key.NAME, periodIdent);
 		
 		project1.addChild(scenario1);
 		StringValue scenarioName = new StringValue("Scenario1");
 		scenario1.put(DTOScenario.Key.NAME, scenarioName);
 		
-		
-		
-		
-		
 		projectRepoManager.addProject(project1);
 		
-		// start mainFrame
+		
+		/*------------------------------------
+		 * start mainFrame
+		 * -----------------------------------
+		 */
 		bhmf = new BHMainFrame(BHTranslator.getInstance().translate("title"));
 		
 		
-		//fill Tree
+		/*------------------------------------
+		 * fill Project/Scenario/Period-Tree
+		 * -----------------------------------
+		 */
+		setupTree(bhmf, projectRepoManager);
+		
+		
+		
+		/*------------------------------------
+		 * Add EventHandler to Platform-Items
+		 * -----------------------------------
+		 */
+		PlatformActionListener pal = new PlatformActionListener();
+
+		//Add ActionListener to Toolbar-buttons
+		for (IBHAction item : (new BHButton()).getPlatformItems()) {
+			item.addActionListener(pal);
+		}
+
+		//Add ActionListener to the menu-items
+		for (IBHAction item : (new BHMenuItem()).getPlatformItems()) {
+			item.addActionListener(pal);
+		}
+	}
+	
+	
+	/*------------------------------------
+	 * Methods for Tree-Handling
+	 * -----------------------------------
+	 */
+	
+	private void setupTree(BHMainFrame bhmf, ProjectRepositoryManager projectRepoManager){
+		
 		DefaultMutableTreeNode rootNode = new DefaultMutableTreeNode("BusinessHorizon");
 		
 		List<DTOProject> repoList = projectRepoManager.getRepositoryList();
@@ -75,76 +108,98 @@ public class PlatformController {
 		for(DTOProject project : repoList){
 			
 			//create project...
-			DefaultMutableTreeNode projectNode = new DefaultMutableTreeNode(((StringValue)project.get(DTOProject.Key.NAME)).getString());
+			BHNode projectNode = new BHNode(project);
 			
-			//and add scenarios...
-			DefaultMutableTreeNode scenarioNode;
+			//...and add scenarios...
+			BHNode scenarioNode;
 			for(DTOScenario scenario : project.getChildren()){
-				scenarioNode = new DefaultMutableTreeNode(((StringValue)scenario.get(DTOScenario.Key.NAME)).getString());
+				scenarioNode = new BHNode(scenario);
 				projectNode.add(scenarioNode);
 				
 				//if periods are available - add them!
-				DefaultMutableTreeNode periodNode;
+				BHNode periodNode;
 				for(DTOPeriod period : scenario.getChildren()){
-					periodNode = new DefaultMutableTreeNode(((StringValue)period.get(DTOPeriod.Key.IDENTIFIER)).getString());
+					periodNode = new BHNode(period);
+					scenarioNode.add(periodNode);
 				}
-				
-				
 			}
 			
-			
 			//in the end, add all to rootNode
-			rootNode.add(projectNode);
-			
+			rootNode.add(projectNode);	
 		}
 		
-//		DefaultMutableTreeNode project1;
-//	    DefaultMutableTreeNode project2;
-//		
-//	    
-//		
-//		project1 = new DefaultMutableTreeNode("Project 1");
-//		project2 = new DefaultMutableTreeNode("Project 2");
-//		
-//		project1.add(new DefaultMutableTreeNode("Dummy-Szenario1"));
-//		project1.add(new DefaultMutableTreeNode("Dummy-Szenario2"));
-//		project1.add(new DefaultMutableTreeNode("Dummy-Szenario3"));
-//		project1.add(new DefaultMutableTreeNode("Dummy-Szenario4"));
-//		
-//		project2.add(new DefaultMutableTreeNode("Dummy-Szenario1"));
-//		project2.add(new DefaultMutableTreeNode("Dummy-Szenario2"));
-//		project2.add(new DefaultMutableTreeNode("Dummy-Szenario3"));
-//		project2.add(new DefaultMutableTreeNode("Dummy-Szenario4"));
-//		
-//		rootNode.add(project1);
-//		rootNode.add(project2);
-		DefaultTreeModel treeModel = new DefaultTreeModel(rootNode);
+		bhmf.BHTree.setTreeModel(new BHTreeModel(rootNode));
+		bhmf.BHTree.getModel().addTreeModelListener(new BHTreeModelListener());
 		
-		bhmf.BHTree.refresh(treeModel);
-		
-		
-		// handle events...
-
-		PlatformActionListener pal = new PlatformActionListener();
-
-		// add ActionListener to...
-		// .. the toolbar
-		for (IBHAction item : (new BHButton()).getPlatformItems()) {
-			item.addActionListener(pal);
-		}
-
-		// ...the menu
-		for (IBHAction item : (new BHMenuItem()).getPlatformItems()) {
-			item.addActionListener(pal);
-		}
-
 	}
+	
+	class BHTreeModel extends DefaultTreeModel{
+		
+		public BHTreeModel(TreeNode root) {
+			super(root);
+		}
 
+		public void nodeChanged(TreeNode node){
+			System.out.println("Node "+node.toString()+" hat sich geändert...");
+		}
+		
+		public void valueForPathChanged(TreePath path, Object newValue) {
+			((DTO)((BHNode)path.getLastPathComponent()).getUserObject()).put(DTOProject.Key.NAME, new StringValue(newValue.toString()));
+		}
+		
+	}
+	
+	
+	/**
+	 * 
+	 * Class which provides the toString-Method of Nodes wich appropriate information.
+	 *
+	 * <p>
+	 * -
+	 *
+	 * @author Alexander Schmalzhaf
+	 * @version 1.0, 28.12.2009
+	 *
+	 */
+	class BHNode extends DefaultMutableTreeNode{
+		BHNode(Object ob){
+			super(ob);
+		}
+		
+		public String toString(){
+			return ((StringValue)((DTO)userObject).get(DTOProject.Key.NAME)).getString();
+		}
+	}
 	
 	
 	/*
 	 * ----------------------------------------------------------------------------
 	 */
+	
+	class BHTreeModelListener implements TreeModelListener{
+		
+		@Override
+		public void treeNodesChanged(TreeModelEvent e) {
+			System.out.println("Text geändert");
+		}
+
+		@Override
+		public void treeNodesInserted(TreeModelEvent e) {
+			
+		}
+
+		@Override
+		public void treeNodesRemoved(TreeModelEvent e) {
+			
+		}
+
+		@Override
+		public void treeStructureChanged(TreeModelEvent e) {
+			
+		}
+		
+	}
+	
 	
 	/**
 	 * The PlatformActionListener handles all actions that are fired by a button
@@ -156,18 +211,14 @@ public class PlatformController {
 		public void actionPerformed(ActionEvent aEvent) {
 
 			// get actionKey of fired action
-			PlatformKey actionKey = null;
-			if (((IBHComponent) aEvent.getSource()) instanceof BHMenuItem)
-				actionKey = ((BHMenuItem) aEvent.getSource()).getPlatformKey();
+			PlatformKey actionKey = ((IBHAction) aEvent.getSource()).getPlatformKey();;
 
-			if (((IBHComponent) aEvent.getSource()) instanceof BHButton)
-				actionKey = ((BHButton)aEvent.getSource()).getPlatformKey();
-
-
+			//do right action...
 			switch (actionKey) {
 			case FILENEW:
 				System.out.println("FILENEW gefeuert");
 				break;
+				
 			case FILEOPEN:
 				System.out.println("FILEOPEN gefeuert");
 				int returnVal = bhmf.getChooser().showOpenDialog(bhmf);
@@ -177,13 +228,29 @@ public class PlatformController {
 					// TODO @Loeckelt.Michael: Tu es !
 				}
 				break;
+				
+			case TOOLBARADDP:
+				//Create new project
+				DTOProject newProject = new DTOProject();
+				//TODO hardgecodeder String raus! AS
+				newProject.put(DTOProject.Key.NAME, new StringValue("neues Projekt"));
+				//add it to DTO-Repository
+				projectRepoManager.addProject(newProject);
+				//and create a Node for tree on gui
+				BHNode newProjectNode = new BHNode(newProject);
+				((DefaultTreeModel)bhmf.BHTree.getModel()).insertNodeInto(newProjectNode, (DefaultMutableTreeNode)bhmf.BHTree.getModel().getRoot(), ((DefaultMutableTreeNode)bhmf.BHTree.getModel().getRoot()).getChildCount());
+				
+				break;
+				
 			default:
-				System.out.println("Was anderes, und zwar: "+actionKey.toString());
+				System.out.println("Was anderes, und zwar: "+actionKey.getActionKey());
 				break;
 			}
 		}
 
 	}
+	
+	
 
 	// @Override
 	// public void mouseEntered(MouseEvent e) {

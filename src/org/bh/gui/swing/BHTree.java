@@ -24,10 +24,9 @@ public class BHTree extends JTree {
 
     
     
-	public void refresh(DefaultTreeModel treeModel){
+	public void setTreeModel(DefaultTreeModel treeModel){
     	this.setModel(treeModel);
     	//TODO Find out, if reload is necessary...
-    	treeModel.reload();
     }
     
 }

@@ -27,7 +27,7 @@ public class DTOPeriod extends DTO<IPeriodicalValuesDTO> {
 		 * identify the position of this period
 		 * for example a year or a quarter
 		 */
-		IDENTIFIER,
+		NAME,
 		
 		/**
 		 * total liabilities
