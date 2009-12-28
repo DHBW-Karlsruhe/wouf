@@ -3,6 +3,7 @@ package org.bh.gui.swing;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Component;
+import java.awt.Dimension;
 
 import javax.swing.JFrame;
 import javax.swing.JPanel;
@@ -13,6 +14,7 @@ import javax.swing.WindowConstants;
 import javax.swing.UIManager.LookAndFeelInfo;
 
 import org.apache.log4j.Logger;
+import org.bh.platform.IPlatformListener;
 import org.bh.platform.PlatformEvent;
 import org.bh.platform.Services;
 import org.bh.platform.PlatformEvent.Type;
@@ -32,7 +34,7 @@ import org.bh.platform.PlatformEvent.Type;
  * @version 0.2, 2009/12/22
  * 
  */
-public class BHMainFrame extends JFrame {
+public class BHMainFrame extends JFrame implements IPlatformListener {
 
 	/**
 	 * Standard Bar height.
@@ -118,7 +120,6 @@ public class BHMainFrame extends JFrame {
 		// screenSize.height-standardBarHeight);
 		// treeBar.setBounds(0,200,200,400);
 		
-		System.err.println("Create statusbar");
 		statusBar = Services.getBHstatusBar();
 		content = new BHContent();
 
@@ -143,8 +144,8 @@ public class BHMainFrame extends JFrame {
 
 		// work around a Java-or-whatever bug which causes the main window to
 		// hide behind Eclipse TODO Remove
-		this.setAlwaysOnTop(true);
-		this.setAlwaysOnTop(false);
+		//this.setAlwaysOnTop(true);
+		//this.setAlwaysOnTop(false);
 
 		Services.firePlatformEvent(new PlatformEvent(this,
 				Type.PLATFORM_LOADING_COMPLETED));
@@ -156,10 +157,12 @@ public class BHMainFrame extends JFrame {
 	private synchronized void setProperties() {
 		this.setExtendedState(MAXIMIZED_BOTH);
 		this.setLocationRelativeTo(null);
+		this.setPreferredSize(new Dimension(1024, 768));
 		// EXIT is like app suicide
 		this.setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
 		this.setLocationRelativeTo(null);
-		this.setVisible(true);
+		//this.setVisible(true);
+		Services.addPlatformListener(this);
 	}
 
 	public void addContentForms(Component content) {
@@ -211,5 +214,12 @@ public class BHMainFrame extends JFrame {
 
 	public BHTree getBHTree() {
 		return BHTree;
+	}
+
+	@Override
+	public void platformEvent(PlatformEvent e) {
+		if (e.getEventType() == Type.PLATFORM_LOADING_COMPLETED) {
+			this.setVisible(true);
+		}
 	}
 }

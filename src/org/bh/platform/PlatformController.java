@@ -11,6 +11,7 @@ import javax.swing.tree.DefaultMutableTreeNode;
 import javax.swing.tree.DefaultTreeModel;
 import javax.swing.tree.TreeNode;
 import javax.swing.tree.TreePath;
+
 import org.bh.data.DTO;
 import org.bh.data.DTOPeriod;
 import org.bh.data.DTOProject;
@@ -20,7 +21,6 @@ import org.bh.gui.swing.BHButton;
 import org.bh.gui.swing.BHMainFrame;
 import org.bh.gui.swing.BHMenuItem;
 import org.bh.gui.swing.IBHAction;
-import org.bh.platform.i18n.BHTranslator;
 
 /**
  * The Platform Controller handles a) start up of the application b) main
@@ -71,7 +71,7 @@ public class PlatformController {
 		 * start mainFrame
 		 * -----------------------------------
 		 */
-		bhmf = new BHMainFrame(BHTranslator.getInstance().translate("title"));
+		bhmf = new BHMainFrame(Services.getTranslator().translate("title"));
 		
 		
 		/*------------------------------------
