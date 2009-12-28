@@ -3,6 +3,7 @@ package org.bh.platform;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.List;
+
 import javax.swing.JFileChooser;
 import javax.swing.event.TreeModelEvent;
 import javax.swing.event.TreeModelListener;
@@ -10,9 +11,15 @@ import javax.swing.tree.DefaultMutableTreeNode;
 import javax.swing.tree.DefaultTreeModel;
 import javax.swing.tree.TreeNode;
 import javax.swing.tree.TreePath;
-import org.bh.data.*;
+import org.bh.data.DTO;
+import org.bh.data.DTOPeriod;
+import org.bh.data.DTOProject;
+import org.bh.data.DTOScenario;
 import org.bh.data.types.StringValue;
-import org.bh.gui.swing.*;
+import org.bh.gui.swing.BHButton;
+import org.bh.gui.swing.BHMainFrame;
+import org.bh.gui.swing.BHMenuItem;
+import org.bh.gui.swing.IBHAction;
 import org.bh.platform.i18n.BHTranslator;
 
 /**
@@ -126,8 +133,8 @@ public class PlatformController {
 			rootNode.add(projectNode);	
 		}
 		
-		bhmf.BHTree.setTreeModel(new BHTreeModel(rootNode));
-		bhmf.BHTree.getModel().addTreeModelListener(new BHTreeModelListener());
+		bhmf.getBHTree().setTreeModel(new BHTreeModel(rootNode));
+		bhmf.getBHTree().getModel().addTreeModelListener(new BHTreeModelListener());
 		
 	}
 	
@@ -236,7 +243,7 @@ public class PlatformController {
 				projectRepoManager.addProject(newProject);
 				//and create a Node for tree on gui
 				BHNode newProjectNode = new BHNode(newProject);
-				((DefaultTreeModel)bhmf.BHTree.getModel()).insertNodeInto(newProjectNode, (DefaultMutableTreeNode)bhmf.BHTree.getModel().getRoot(), ((DefaultMutableTreeNode)bhmf.BHTree.getModel().getRoot()).getChildCount());
+				((DefaultTreeModel)bhmf.getBHTree().getModel()).insertNodeInto(newProjectNode, (DefaultMutableTreeNode)bhmf.getBHTree().getModel().getRoot(), ((DefaultMutableTreeNode)bhmf.getBHTree().getModel().getRoot()).getChildCount());
 				break;
 				
 			case TOOLBARADDS: 

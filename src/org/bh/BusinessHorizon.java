@@ -10,7 +10,6 @@ import org.bh.gui.swing.BHMainFrame;
 import org.bh.gui.swing.BHSplashScreen;
 import org.bh.platform.PlatformController;
 import org.bh.platform.PluginManager;
-import org.bh.platform.i18n.BHTranslator;
 
 /**
  * 
@@ -35,7 +34,8 @@ public class BusinessHorizon {
 	 */
 	public static void main(String[] args) throws Exception {
 		log.info("Business Horizon is starting...");
-
+		// set Look&Feel
+		BHMainFrame.setNimbusLookAndFeel();
 		// show splash screen
 		new Thread(new BHSplashScreen()).start();
 

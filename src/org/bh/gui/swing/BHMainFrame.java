@@ -1,10 +1,10 @@
 package org.bh.gui.swing;
 
 import java.awt.BorderLayout;
+import java.awt.Color;
 import java.awt.Component;
 
 import javax.swing.JFrame;
-import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JSplitPane;
@@ -35,44 +35,55 @@ import org.bh.platform.PlatformEvent.Type;
 public class BHMainFrame extends JFrame {
 
 	/**
+	 * Standard Bar height.
+	 */
+	public static final int STANDARDBARHEIGHT = 40;
+
+	/**
+	 * Tree Bar height.
+	 */
+	public static final int TREEBARWIDTH = 200;
+
+	/**
 	 * main panel.
 	 */
-	public JPanel desktop;
+	private JPanel desktop;
 
 	/**
 	 * Menu Bar for application
 	 */
-	public BHMenuBar menuBar;
+	private BHMenuBar menuBar;
 
 	/**
 	 * ToolBar for desktop.
 	 */
-	public BHToolBar toolBar;
+	private BHToolBar toolBar;
 
 	/**
 	 * Tree for File contents (placed on a ScrollPane)
 	 */
-	public JScrollPane BHTreeScroller;
-	public BHTree BHTree;
+	private JScrollPane BHTreeScroller;
+	private BHTree BHTree;
 
 	/**
 	 * Status Bar.
 	 */
-	public BHStatusBar statusBar;
+	private BHStatusBar statusBar;
 
-	public BHContent content;
+	/**
+	 * TODO: Javadoc
+	 */
+	private BHContent content;
 
 	/**
 	 * Horizontal Split pane.
 	 */
-	JSplitPane paneH;
+	private JSplitPane paneH;
 
 	/**
 	 * Vertical Split pane.
 	 */
-	JSplitPane paneV;
-
-	JLabel test;
+	private JSplitPane paneV;
 
 	/**
 	 * Open / Save dialog
@@ -80,36 +91,24 @@ public class BHMainFrame extends JFrame {
 	private BHFileChooser chooser;
 
 	/**
-	 * Standard Bar height.
-	 */
-	int standardBarHeight = 40;
-
-	/**
-	 * Tree Bar height.
-	 */
-	static int treeBarWidth = 200;
-
-	/**
 	 * Standard constructor for <code>BHMainFrame</code>.
 	 * 
 	 * @param title
 	 *            title to be set for the <code>BHMainFrame</code>.
 	 */
-
 	public BHMainFrame(String title) {
 		super(title);
 		this.setProperties();
 
-		// create main frame
-		setExtendedState(MAXIMIZED_BOTH);
-		setSize(1024, 768);
-		setLocationRelativeTo(null);
-
+		// Build MenuBar
+		menuBar = new BHMenuBar();
+		this.setJMenuBar(menuBar);
+		
 		// build GUI components
 		desktop = new JPanel();
 		desktop.setLayout(new BorderLayout());
 
-		toolBar = new BHToolBar(getWidth(), standardBarHeight);
+		toolBar = new BHToolBar(getWidth(), STANDARDBARHEIGHT);
 		// toolBar.setBounds(0, 0, screenSize.width, standardBarHeight);
 
 		BHTree = new BHTree();
@@ -118,7 +117,8 @@ public class BHMainFrame extends JFrame {
 		// treeBar.setBounds(0, standardBarHeight, treeBarWidth,
 		// screenSize.height-standardBarHeight);
 		// treeBar.setBounds(0,200,200,400);
-
+		
+		System.err.println("Create statusbar");
 		statusBar = Services.getBHstatusBar();
 		content = new BHContent();
 
@@ -127,7 +127,7 @@ public class BHMainFrame extends JFrame {
 		paneH = new JSplitPane(JSplitPane.HORIZONTAL_SPLIT, BHTreeScroller,
 				content);
 		paneH.setOneTouchExpandable(true);
-		paneH.setDividerLocation(treeBarWidth);
+		paneH.setDividerLocation(TREEBARWIDTH);
 
 		// stop moving the divider
 		// pane.setEnabled(false);
@@ -141,8 +141,6 @@ public class BHMainFrame extends JFrame {
 
 		chooser = new BHFileChooser();
 
-		setVisible(true);
-
 		// work around a Java-or-whatever bug which causes the main window to
 		// hide behind Eclipse TODO Remove
 		this.setAlwaysOnTop(true);
@@ -155,18 +153,13 @@ public class BHMainFrame extends JFrame {
 	/**
 	 * Sets initial properties on <code>BHMainFrame</code>.
 	 */
-	private void setProperties() {
-		// Mac properties
-		// System.setProperty("apple.laf.useScreenMenuBar", "true");
-		// System.setProperty("com.apple.mrj.application.apple.menu.about.name",
-		// Services.getTranslator().translate("title"));
-
-		this.setNimbusLookAndFeel();
+	private synchronized void setProperties() {
+		this.setExtendedState(MAXIMIZED_BOTH);
+		this.setLocationRelativeTo(null);
 		// EXIT is like app suicide
 		this.setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
 		this.setLocationRelativeTo(null);
-		menuBar = new BHMenuBar();
-		this.setJMenuBar(menuBar);
+		this.setVisible(true);
 	}
 
 	public void addContentForms(Component content) {
@@ -194,12 +187,13 @@ public class BHMainFrame extends JFrame {
 	 * "http://developers.sun.com/learning/javaoneonline/2008/pdf/TS-6096.pdf"
 	 * >JavaOne Slides</a>
 	 */
-	private void setNimbusLookAndFeel() {
+	public static void setNimbusLookAndFeel() {
 		// set Nimbus if available
 		try {
 			for (LookAndFeelInfo info : UIManager.getInstalledLookAndFeels()) {
 				if ("Nimbus".equals(info.getName())) {
 					UIManager.setLookAndFeel(info.getClassName());
+					UIManager.put("Panel.background", Color.WHITE);
 					break;
 				}
 			}
@@ -213,5 +207,9 @@ public class BHMainFrame extends JFrame {
 
 	public BHFileChooser getChooser() {
 		return chooser;
+	}
+
+	public BHTree getBHTree() {
+		return BHTree;
 	}
 }

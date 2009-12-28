@@ -1,15 +1,12 @@
 package org.bh.gui.swing;
 
-import java.awt.Color;
-
 import javax.swing.ImageIcon;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
-import javax.swing.UIManager;
+import javax.swing.JScrollPane;
 
 import com.jgoodies.forms.layout.CellConstraints;
 import com.jgoodies.forms.layout.FormLayout;
-import javax.swing.JScrollPane;
 
 /**
  * 
@@ -28,7 +25,6 @@ public class BHStatusBar extends JPanel {
 	CellConstraints cons;
 
 	private BHStatusBar() {
-		setBackground((Color)UIManager.getColor("desktop"));
 				
 		//setLayout to the status bar
 		String rowDef = "p";
