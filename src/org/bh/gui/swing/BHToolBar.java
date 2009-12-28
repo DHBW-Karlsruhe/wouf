@@ -48,7 +48,7 @@ public class BHToolBar extends JToolBar{
 		bAddS = new BHToolButton(PlatformKey.TOOLBARADDS, "Edit24");
 		bRemove = new BHToolButton(PlatformKey.TOOLBARREMOVE, "Remove24");
 		bDelete = new BHToolButton(PlatformKey.TOOLBARDELETE, "Delete24");
-		bFind = new BHToolButton(PlatformKey.TOOLBARFIND, "Find24");
+		
 		
 			//example of combo box in tool bar
 			//lable = new BHLabel("Methode: ", "value");
