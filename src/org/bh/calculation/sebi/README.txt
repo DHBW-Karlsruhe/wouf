@@ -1,1 +1,0 @@
-This folder contains classes which will probably not be used in the final version.
