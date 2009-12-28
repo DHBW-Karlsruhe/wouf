@@ -22,16 +22,14 @@ import com.jgoodies.validation.view.ValidationResultViewFactory;
 
 public class ViewTest extends View {
 
-	private static JPanel bhScenHF = new BHScenarioHeadForm();
-	private ValidationMethods valMeth = new ValidationMethods();
+	private static JPanel bhScenHF;
+	private ValidationMethods valMeth;
 	private ValidationResult validationResultAll;
 	private JScrollPane pane;
 	
 	public ViewTest(JPanel bhScenHF, ValidationMethods valMeth) throws ViewException {
 		super(bhScenHF, valMeth);
 	}
-
-	ViewTest view = new ViewTest(bhScenHF, valMeth);
 	
     public static void setInputHintLabel(IBHComponent comp) {
         JLabel infoLabel = ((JLabel) ValidationComponentUtils.getInputHint((JComponent) comp));
@@ -59,17 +57,17 @@ public class ViewTest extends View {
     
 	
     
-    public static void main(String args[]) {
-
-		JFrame test = new JFrame("Test for ViewHeadData1");
-		test.setContentPane(bhScenHF);
-		test.addWindowListener(new WindowAdapter() {
-			@Override
-			public void windowClosing(WindowEvent e) {
-				System.exit(0);
-			}
-		});
-		test.pack();
-		test.show();
-	}
+//    public static void main(String args[]) {
+//
+//		JFrame test = new JFrame("Test for ViewHeadData1");
+//		test.setContentPane(new BHScenarioHeadForm());
+//		test.addWindowListener(new WindowAdapter() {
+//			@Override
+//			public void windowClosing(WindowEvent e) {
+//				System.exit(0);
+//			}
+//		});
+//		test.pack();
+//		test.show();
+//	}
 }

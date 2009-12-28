@@ -14,8 +14,11 @@ import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.border.EtchedBorder;
 
+import org.bh.controller.Controller;
 import org.bh.data.DTOScenario;
 import org.bh.gui.ValidationMethods;
+import org.bh.gui.View;
+import org.bh.gui.ViewException;
 import org.bh.platform.i18n.BHTranslator;
 
 import com.jgoodies.forms.layout.CellConstraints;
@@ -59,12 +62,20 @@ public class BHScenarioHeadForm extends JPanel {
 	private BHLabel lcalculate;
 
 	final BHTranslator translator = BHTranslator.getInstance();
+	
+	private ValidationMethods valMeth = new ValidationMethods();
 
 	/**
 	 * Constructor.
 	 */
 	public BHScenarioHeadForm() {
 		this.initialize();
+		try {
+			ViewTest view = new ViewTest(this, valMeth);
+//			Controller controller = new Controller(view);
+		} catch (ViewException e) {
+			e.printStackTrace();
+		}
 	}
 
 	/**
