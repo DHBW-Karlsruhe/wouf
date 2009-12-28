@@ -20,7 +20,7 @@ import org.bh.platform.PlatformKey;
 
 public class BHToolBar extends JToolBar{
     
-    BHToolButton bNew, bOpen, bSave, bAddP, bAddS, bRemove, bDelete, bFind;
+    BHToolButton bNew, bOpen, bSave, bAddP, bAddS, bRemove, bDelete;
 
     
     //HelpSet and HelpBroker are necessary for user help
@@ -71,8 +71,7 @@ public class BHToolBar extends JToolBar{
 		add(bDelete);
 		
 		addSeparator();
-		
-		add(bFind);
+	
     }
 }
 
