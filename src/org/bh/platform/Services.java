@@ -155,15 +155,16 @@ public class Services {
 		try {
 			for (LookAndFeelInfo info : UIManager.getInstalledLookAndFeels()) {
 				if ("Nimbus".equals(info.getName())) {
-					UIManager.setLookAndFeel(info.getClassName());
-					UIManager.put("Panel.background", Color.WHITE);
+					//Put specific colors
+					UIManager.put("nimbusBase", new Color(56, 124, 171));
+					UIManager.put("control", new Color(235,240,255));
+					
+					UIManager.setLookAndFeel(info.getClassName());	
 					break;
 				}
 			}
 		} catch (Exception e) {
-			Logger.getLogger(Services.class).debug(
-					"Nimbus Look&Feel not found, fall back to default Look&Feel"
-			);
+			Logger.getLogger(Services.class).debug("Error while invoking Nimbus", e);
 		}
 	}
 }

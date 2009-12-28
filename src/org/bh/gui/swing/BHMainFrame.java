@@ -1,19 +1,15 @@
 package org.bh.gui.swing;
 
 import java.awt.BorderLayout;
-import java.awt.Color;
 import java.awt.Component;
-import java.awt.Dimension;
 
+import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JSplitPane;
-import javax.swing.UIManager;
 import javax.swing.WindowConstants;
-import javax.swing.UIManager.LookAndFeelInfo;
 
-import org.apache.log4j.Logger;
 import org.bh.platform.IPlatformListener;
 import org.bh.platform.PlatformEvent;
 import org.bh.platform.Services;
@@ -157,12 +153,13 @@ public class BHMainFrame extends JFrame implements IPlatformListener {
 	private synchronized void setProperties() {
 		this.setExtendedState(MAXIMIZED_BOTH);
 		this.setLocationRelativeTo(null);
-		this.setPreferredSize(new Dimension(1024, 768));
+		this.setSize(1024, 768);
 		// EXIT is like app suicide
 		this.setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
 		this.setLocationRelativeTo(null);
-		//this.setVisible(true);
 		Services.addPlatformListener(this);
+		this.setIconImage(new ImageIcon("/org/bh/images/bh-logo.jpg").getImage()); //TODO Test on windows
+		
 	}
 
 	public void addContentForms(Component content) {
@@ -178,34 +175,6 @@ public class BHMainFrame extends JFrame implements IPlatformListener {
 		paneV.setOneTouchExpandable(true);
 
 		paneH.setRightComponent(paneV);
-	}
-
-	/**
-	 * Sets Nimbus from Sun Inc. as default Look & Feel. Java 6 Update 10
-	 * required. Don't change complex looking implementation of invokation,
-	 * there are valid reasons for it.<br />
-	 * 
-	 * <b>Remark</b> <br />
-	 * For further information on Nimbus see <a href=
-	 * "http://developers.sun.com/learning/javaoneonline/2008/pdf/TS-6096.pdf"
-	 * >JavaOne Slides</a>
-	 */
-	public static void setNimbusLookAndFeel() {
-		// set Nimbus if available
-		try {
-			for (LookAndFeelInfo info : UIManager.getInstalledLookAndFeels()) {
-				if ("Nimbus".equals(info.getName())) {
-					UIManager.setLookAndFeel(info.getClassName());
-					UIManager.put("Panel.background", Color.WHITE);
-					break;
-				}
-			}
-		} catch (Exception e) {
-			Logger
-					.getLogger(BHMainFrame.class)
-					.debug(
-							"Nimbus Look&Feel not found, fall back to default Look&Feel");
-		}
 	}
 
 	public BHFileChooser getChooser() {
