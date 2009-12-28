@@ -121,7 +121,7 @@ public abstract class BHValidityEngine {
      * @param toValidate a Map of IBHComponents
      * @see ValidationComponentUtils
      */
-    abstract void registerComponents(Map<String, IBHComponent> toValidate);
+    abstract void registerComponents(Map<String, IBHComponent> toValidate) throws ViewException;
    
     /**
      * Shell proof the constant based rules of a single component
