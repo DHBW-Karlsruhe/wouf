@@ -36,7 +36,8 @@ public class BHToolButton extends BHButton{
 
     	
     	//Look for the image.
-        String imgLocation = "/toolbarButtonGraphics/general/" + imageName + ".gif";
+        //String imgLocation = "/toolbarButtonGraphics/general/" + imageName + ".gif";
+    	String imgLocation = "/org/bh/images/buttons/" + imageName + ".png";
 		//String imgLocation = "images/3D-blue/"+imageName+".png";
         
         URL imageURL = BHToolBar.class.getResource(imgLocation);

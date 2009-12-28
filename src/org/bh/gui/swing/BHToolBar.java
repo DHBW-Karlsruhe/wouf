@@ -20,7 +20,7 @@ import org.bh.platform.PlatformKey;
 
 public class BHToolBar extends JToolBar{
     
-    BHToolButton bNew, bOpen, bSave, bAddP, bAddS, bRemove, bDelete;
+    BHToolButton bOpen, bSave, bAddPro, bAddS, bAddPer, bRemoveS, bRemovePer;
 
     
     //HelpSet and HelpBroker are necessary for user help
@@ -41,15 +41,23 @@ public class BHToolBar extends JToolBar{
 		
 		setSize(width, height);
 		
-		bNew = new BHToolButton(PlatformKey.TOOLBARNEW, "New24");
-		bOpen = new BHToolButton(PlatformKey.TOOLBAROPEN, "Open24");
-		bSave = new BHToolButton(PlatformKey.TOOLBARSAVE, "Save24");
-		bAddP = new BHToolButton(PlatformKey.TOOLBARADDP, "Add24");
-		bAddS = new BHToolButton(PlatformKey.TOOLBARADDS, "Edit24");
-		bRemove = new BHToolButton(PlatformKey.TOOLBARREMOVE, "Remove24");
-		bDelete = new BHToolButton(PlatformKey.TOOLBARDELETE, "Delete24");
+		bOpen = new BHToolButton(PlatformKey.TOOLBAROPEN, "Bopen");
+		bSave = new BHToolButton(PlatformKey.TOOLBARSAVE, "Bsave");
+		bAddPro = new BHToolButton(PlatformKey.TOOLBARADDPRO, "BnewProject");
+		bAddS = new BHToolButton(PlatformKey.TOOLBARADDS, "BnewScenario2");
+		bAddPer = new BHToolButton(PlatformKey.TOOLBARADDPER, "BnewPeriod2");
+		bRemoveS = new BHToolButton(PlatformKey.TOOLBARREMOVES, "BdeleteScenario2");
+		bRemovePer = new BHToolButton(PlatformKey.TOOLBARREMOVEPER, "BdeletePeriod");
 		
-		
+		//old Buttons from library jlfgr-1_0.jar
+//		bNew = new BHToolButton(PlatformKey.TOOLBARNEW, "Bnew");
+//		bOpen = new BHToolButton(PlatformKey.TOOLBAROPEN, "Open24");
+//		bSave = new BHToolButton(PlatformKey.TOOLBARSAVE, "Save24");
+//		bAddP = new BHToolButton(PlatformKey.TOOLBARADDP, "Add24");
+//		bAddS = new BHToolButton(PlatformKey.TOOLBARADDS, "Edit24");
+//		bRemove = new BHToolButton(PlatformKey.TOOLBARREMOVE, "Remove24");
+//		bDelete = new BHToolButton(PlatformKey.TOOLBARDELETE, "Delete24");
+
 			//example of combo box in tool bar
 			//lable = new BHLabel("Methode: ", "value");
 			//String methods[] = {"Berechnungsmethode 1", "Berechnungsmethode 2", "Berechnungsmethode 3"};
@@ -59,18 +67,21 @@ public class BHToolBar extends JToolBar{
 			//fc = new JFileChooser();
 			//fc.setSize(300, 200);
 	  
-		add(bNew);
 		add(bOpen);
 		add(bSave);
 		
 		addSeparator();
 		
-		add(bAddP);
+		add(bAddPro);
 		add(bAddS);
-		add(bRemove);
-		add(bDelete);
+		add(bAddPer);
 		
 		addSeparator();
+		
+		add(bRemoveS);
+		add(bRemovePer);
+		
+		
 	
     }
 }

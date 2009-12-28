@@ -220,10 +220,10 @@ public class PlatformController {
 
 			//do right action...
 			switch (actionKey) {
-			case FILENEW:
-				System.out.println("FILENEW gefeuert");
-				break;
-				
+//			case FILENEW:
+//				System.out.println("FILENEW gefeuert");
+//				break;
+//				
 			case FILEOPEN:
 				System.out.println("FILEOPEN gefeuert");
 				int returnVal = bhmf.getChooser().showOpenDialog(bhmf);
@@ -234,7 +234,7 @@ public class PlatformController {
 				}
 				break;
 				
-			case TOOLBARADDP:
+			case TOOLBARADDPRO:
 				//Create new project
 				DTOProject newProject = new DTOProject();
 				//TODO hardgecodeder String raus! AS
