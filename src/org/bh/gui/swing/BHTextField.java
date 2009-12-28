@@ -82,14 +82,6 @@ public class BHTextField extends JTextField implements IBHComponent {
 		throw new UnsupportedOperationException("Not supported yet.");
 	}
 
-	public IValue getValue() {
-		throw new UnsupportedOperationException("Not supported yet.");
-	}
-
-	public void setValue(IValue value) {
-		throw new UnsupportedOperationException("Not supported yet.");
-	}
-	
 	public void setInputHint(String inputHint) {
 		this.inputHint = inputHint;
 	}

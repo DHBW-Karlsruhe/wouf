@@ -59,20 +59,6 @@ public interface IBHComponent {
 	public String getKey();
 
 	/**
-	 * returns the modelspecific value of a UI Component
-	 * 
-	 * @return
-	 */
-	public IValue getValue();
-
-	/**
-	 * set the modelspecific Value to the UI Element
-	 * 
-	 * @param value
-	 */
-	public void setValue(IValue value);
-
-	/**
 	 * Number of rules and the rules itself are platform independent But shall
 	 * be consistent in every plugin by using one Validity Engine per plugin
 	 * 

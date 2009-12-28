@@ -99,15 +99,6 @@ public class BHMenuItem extends JMenuItem implements IBHComponent, IBHAction {
 				"This method has not been implemented");
 	}
 
-	public IValue getValue() {
-		throw new UnsupportedOperationException("Not supported yet.");
-	}
-
-	public void setValue(IValue value) {
-		throw new UnsupportedOperationException("Not supported yet.");
-	}
-
-    
 	public String getInputHint() {
 		return this.inputHint;
 	}

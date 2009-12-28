@@ -117,7 +117,8 @@ public abstract class Controller implements IController, ActionListener, IPlatfo
         log.debug("Plugin save to dto");
         this.model.setSandBoxMode(Boolean.TRUE);
         for(String key : this.bhModelcomponents.keySet()){
-            this.model.put(key, this.bhModelcomponents.get(key).getValue());
+            //TODO define typeconverter
+            //this.model.put(key, this.bhModelcomponents.get(key).getValue());
         }
     }
     /**
@@ -128,7 +129,8 @@ public abstract class Controller implements IController, ActionListener, IPlatfo
     private void safeToModel(IBHComponent comp)throws DTOAccessException{
         log.debug("Plugin save to dto");
         this.model.setSandBoxMode(Boolean.TRUE);
-        this.model.put(comp.getKey(), comp.getValue());
+        //TODO define typeconverter
+        //this.model.put(comp.getKey(), comp.getValue());
     }
     /**
      * writes all dto values with a mathcing key in a IBHComponent to UI
@@ -138,12 +140,12 @@ public abstract class Controller implements IController, ActionListener, IPlatfo
     private void loadAllToView()throws DTOAccessException{
         log.debug("Plugin load from dto in view");
         for(String key : this.bhModelcomponents.keySet()){
-            this.bhModelcomponents.get(key).setValue(this.model.get(key));
+            //this.bhModelcomponents.get(key).setValue(this.model.get(key));
         }
     }
     private void loadToView(String key) throws DTOAccessException, ControllerException{
         log.debug("Plugin load from dto in view");
-        this.bhModelcomponents.get(key).setValue(this.model.get(key));
+        //this.bhModelcomponents.get(key).setValue(this.model.get(key));
     }
 
     public void setModel(IDTO<?> model) {
