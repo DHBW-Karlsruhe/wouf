@@ -9,6 +9,7 @@ import javax.swing.event.TreeModelEvent;
 import javax.swing.event.TreeModelListener;
 import javax.swing.tree.DefaultMutableTreeNode;
 import javax.swing.tree.DefaultTreeModel;
+import javax.swing.tree.MutableTreeNode;
 import javax.swing.tree.TreeNode;
 import javax.swing.tree.TreePath;
 
@@ -254,12 +255,29 @@ public class PlatformController {
 				//add it to DTO-Repository
 				//TODO "aktives" Projekt rausfischen, darunter Scenario einbinden
 				
+				BHNode newScenarioNode = new BHNode(newScenario);
+				((DefaultTreeModel)bhmf.getBHTree().getModel()).insertNodeInto(
+						newScenarioNode, 
+						(DefaultMutableTreeNode)(bhmf.getBHTree().getSelectionPath().getPathComponent(1)), 
+						((DefaultMutableTreeNode) bhmf.getBHTree().getSelectionPath().getPathComponent(1)).getChildCount());
+								
 				break;
+			
+			//case TOOLBARREMOVEPRO:
 				
+			case TOOLBARREMOVES:
 				
-				
-				
-				
+				TreePath currentSelection = bhmf.getBHTree().getSelectionPath();
+				if (currentSelection != null) {
+					 DefaultMutableTreeNode currentNode = (DefaultMutableTreeNode)bhmf.getBHTree().getSelectionPath().getLastPathComponent();
+					 MutableTreeNode parent = (MutableTreeNode)(currentNode.getParent());
+					 
+					 if (parent != null) {
+						 ((DefaultTreeModel) bhmf.getBHTree().getModel()).removeNodeFromParent(currentNode);
+					 }
+				}
+				break;
+	
 			default:
 				System.out.println("Was anderes, und zwar: "+actionKey.getActionKey());
 				break;
@@ -395,5 +413,5 @@ public class PlatformController {
 	//	    
 	//	    
 	// }
-
+	
 }
