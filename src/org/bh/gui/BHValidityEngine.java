@@ -41,7 +41,7 @@ public abstract class BHValidityEngine {
      * @param validation    as Result of a Validation
      * @see ValidationResult
      */
-    private void setValidityStatus(ValidationResult validation) {
+    public void setValidityStatus(ValidationResult validation) {
         if (validation.hasErrors() || validation.hasWarnings()) {
             log.debug("validation has errors or warnings");
             this.isValid = false;
@@ -51,7 +51,7 @@ public abstract class BHValidityEngine {
     }
 
     /**
-     * deliver the flag wheather a UI is valid or not
+     * deliver the flag whether a UI is valid or not
      *
      * @return  boolean true is valid false --> isn´t proofed yet, is not valid
      */
@@ -71,7 +71,7 @@ public abstract class BHValidityEngine {
      * @return  JScrollPane
      * @see JScrollPane
      */
-    private JScrollPane createValidationResultList(ValidationResult validationResult) {
+    public JScrollPane createValidationResultList(ValidationResult validationResult) {
         log.debug("JScrollPane is build");
         ValidationResultModel validationResultModel = new DefaultValidationResultModel();
         validationResultModel.setResult(validationResult);

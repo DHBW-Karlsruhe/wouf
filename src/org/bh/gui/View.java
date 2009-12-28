@@ -207,7 +207,7 @@ public abstract class View implements KeyListener, PropertyChangeListener, Mouse
     public void setViewPanel(JPanel panel) throws ViewException {
         log.debug("a new panel is setted");
         if (panel == null) {
-            log.error("null reference for view is ssetted");
+            log.error("null reference for view is setted");
             throw new ViewException("null refernce panel is setted");
         }
         this.viewPanel = panel;

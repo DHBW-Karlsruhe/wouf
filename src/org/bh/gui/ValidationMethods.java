@@ -13,8 +13,8 @@ import com.jgoodies.validation.util.ValidationUtils;
 import com.jgoodies.validation.view.ValidationComponentUtils;
 
 /**
- * This class contains the validation rules for a specific form panel
- * TODO change classname to xyFormValidation. Same in this comment.
+ * This class contains the validation rules for a specific form panel TODO
+ * change classname to xyFormValidation. Same in this comment.
  * 
  * @author Patrick Heinz
  * @version 0.2, 22.12.2009
@@ -33,7 +33,6 @@ public class ValidationMethods extends BHValidityEngine {
 	public static final int isNotZero = 6;
 	public static final int isBetween0and100 = 7;
 
-	
 	@SuppressWarnings("fallthrough")
 	@Override
 	public ValidationResult validate(IBHComponent comp) throws ViewException {
@@ -49,7 +48,6 @@ public class ValidationMethods extends BHValidityEngine {
 			// check and handle all validation rules a textfield has
 			for (int j = 0; j < allValidationRules.length; j++) {
 
-				boolean foundError = false;
 				validateRule = allValidationRules[j];
 
 				String valueString;
@@ -67,7 +65,6 @@ public class ValidationMethods extends BHValidityEngine {
 								+ translator.translate("EisMandatory"));
 						ValidationComponentUtils
 								.setErrorBackground(tf_toValidate);
-						foundError = true;
 						break;
 					}
 
@@ -84,7 +81,6 @@ public class ValidationMethods extends BHValidityEngine {
 								+ translator.translate("EisDouble"));
 						ValidationComponentUtils
 								.setErrorBackground(tf_toValidate);
-						foundError = true;
 						break;
 					}
 
@@ -97,7 +93,6 @@ public class ValidationMethods extends BHValidityEngine {
 								+ translator.translate("EisInteger"));
 						ValidationComponentUtils
 								.setErrorBackground(tf_toValidate);
-						foundError = true;
 						break;
 					}
 
@@ -112,7 +107,6 @@ public class ValidationMethods extends BHValidityEngine {
 								+ translator.translate("EisPositive"));
 						ValidationComponentUtils
 								.setErrorBackground(tf_toValidate);
-						foundError = true;
 						break;
 					}
 
@@ -127,7 +121,6 @@ public class ValidationMethods extends BHValidityEngine {
 								+ translator.translate("EisNegative"));
 						ValidationComponentUtils
 								.setErrorBackground(tf_toValidate);
-						foundError = true;
 						break;
 					}
 
@@ -142,7 +135,6 @@ public class ValidationMethods extends BHValidityEngine {
 								+ translator.translate("EisNotZero"));
 						ValidationComponentUtils
 								.setErrorBackground(tf_toValidate);
-						foundError = true;
 						break;
 					}
 
@@ -157,17 +149,12 @@ public class ValidationMethods extends BHValidityEngine {
 								+ translator.translate("EisBetween0and100"));
 						ValidationComponentUtils
 								.setErrorBackground(tf_toValidate);
-						foundError = true;
 						break;
 					}
 
 				default:
 					System.out.println(translator
 							.translate("EnoValidationRulesFound"));
-				}
-
-				if (foundError == true) {
-					break;
 				}
 			}
 			return validationResult;
@@ -177,10 +164,10 @@ public class ValidationMethods extends BHValidityEngine {
 		}
 	}
 
-	
 	@SuppressWarnings("unchecked")
 	@Override
-	ValidationResult validateAll(Map<String, IBHComponent> toValidate) throws ViewException {
+	public ValidationResult validateAll(Map<String, IBHComponent> toValidate)
+			throws ViewException {
 
 		ValidationResult validationResultAll = new ValidationResult();
 
@@ -190,8 +177,8 @@ public class ValidationMethods extends BHValidityEngine {
 		for (int i = 0; i < mapsize; i++) {
 
 			Map.Entry entry = (Map.Entry) iterator.next();
-			IBHComponent tf_toValidate = (IBHComponent)entry.getValue();
-			
+			IBHComponent tf_toValidate = (IBHComponent) entry.getValue();
+
 			ValidationResult validationResultSingle = validate(tf_toValidate);
 
 			validationResultAll.addAllFrom(validationResultSingle);
@@ -199,10 +186,9 @@ public class ValidationMethods extends BHValidityEngine {
 		return validationResultAll;
 	}
 
-	
 	@SuppressWarnings("unchecked")
 	@Override
-	void registerComponents(Map<String, IBHComponent> toValidate)
+	public void registerComponents(Map<String, IBHComponent> toValidate)
 			throws ViewException {
 		try {
 			int mapsize = toValidate.size();
@@ -227,12 +213,14 @@ public class ValidationMethods extends BHValidityEngine {
 					validateRule = allValidationRules[j];
 
 					if (validateRule == isMandatory) {
-						// set textfield mandatory and highlight it with a blue border
+						// set textfield mandatory and highlight it with a blue
+						// border
 						ValidationComponentUtils.setMandatory(tf_toValidate,
 								true);
 						ValidationComponentUtils
 								.setMandatoryBorder(tf_toValidate);
-						// TODO check if after "break" only the inner for-loop is left
+						// TODO check if after "break" only the inner for-loop
+						// is left
 						break;
 					}
 				}
