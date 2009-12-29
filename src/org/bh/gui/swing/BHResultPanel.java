@@ -4,10 +4,7 @@ import info.clearthought.layout.TableLayout;
 import info.clearthought.layout.TableLayoutConstants;
 
 import java.awt.BorderLayout;
-import java.awt.event.WindowAdapter;
-import java.awt.event.WindowEvent;
 
-import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.UIManager;
 
@@ -126,18 +123,18 @@ public class BHResultPanel extends JPanel{
 	/**
      * Test main method.
      */
-    public static void main(String args[]) {
-
-	JFrame test = new JFrame("Test for ResultPanel");
-	test.setContentPane(new BHResultPanel());
-	test.addWindowListener(new WindowAdapter() {
-	    
-	    @Override
-		public void windowClosing(WindowEvent e) {
-		System.exit(0);
-	    }
-	});
-	test.pack();
-	test.setVisible(true);
-   }
+//    public static void main(String args[]) {
+//
+//	JFrame test = new JFrame("Test for ResultPanel");
+//	test.setContentPane(new BHResultPanel());
+//	test.addWindowListener(new WindowAdapter() {
+//	    
+//	    @Override
+//		public void windowClosing(WindowEvent e) {
+//		System.exit(0);
+//	    }
+//	});
+//	test.pack();
+//	test.setVisible(true);
+//   }
 }
