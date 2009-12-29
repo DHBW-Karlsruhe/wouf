@@ -52,6 +52,20 @@ public class ProjectRepositoryManager {
     	}
     }
     
+    
+    /**
+     * Removes a project out of the actual repository if it exists. 
+     * Identifier for selection of the project which should be deleted is its reference.
+     * 
+     * @param project DTOProject which should be removed from repository
+     */
+    public void removeProject(DTOProject project){
+    		
+    	repositoryList.remove(project);
+
+    }
+    
+    
     /**
      * Allows the replacement of the complete repository.
      * Necessary e.g. while loading another repo-file.

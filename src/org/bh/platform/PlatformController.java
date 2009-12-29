@@ -6,23 +6,11 @@ import java.util.List;
 
 import javax.swing.JFileChooser;
 import javax.swing.JLabel;
-import javax.swing.event.TreeModelEvent;
-import javax.swing.event.TreeModelListener;
-import javax.swing.tree.DefaultMutableTreeNode;
-import javax.swing.tree.DefaultTreeModel;
-import javax.swing.tree.MutableTreeNode;
-import javax.swing.tree.TreeNode;
-import javax.swing.tree.TreePath;
-
-import org.bh.data.DTO;
-import org.bh.data.DTOPeriod;
-import org.bh.data.DTOProject;
-import org.bh.data.DTOScenario;
+import javax.swing.event.*;
+import javax.swing.tree.*;
+import org.bh.data.*;
 import org.bh.data.types.StringValue;
-import org.bh.gui.swing.BHButton;
-import org.bh.gui.swing.BHMainFrame;
-import org.bh.gui.swing.BHMenuItem;
-import org.bh.gui.swing.IBHAction;
+import org.bh.gui.swing.*;
 
 /**
  * The Platform Controller handles a) start up of the application b) main
@@ -137,17 +125,36 @@ public class PlatformController {
 		
 		bhmf.getBHTree().setTreeModel(new BHTreeModel(rootNode));
 		bhmf.getBHTree().getModel().addTreeModelListener(new BHTreeModelListener());
+		bhmf.getBHTree().addTreeSelectionListener(new BHTreeSelectionListener());
+	}
+	
+	
+	class BHTreeSelectionListener implements TreeSelectionListener{
+
+		@Override
+		public void valueChanged(TreeSelectionEvent tse) {
+			DTO selection = (DTO)((BHNode)tse.getPath().getLastPathComponent()).getUserObject();
+			if(selection instanceof DTOProject){
+				bhmf.addContentForms(new BHProjectInputForm());
+			
+			}else if(selection instanceof DTOScenario){
+				System.out.println("Scenario");
+				bhmf.addContentForms(new BHFormsPanel());
+				
+			}else if(selection instanceof DTOPeriod){
+				System.out.println("Periode");
+				
+			}
+			
+		}
 		
 	}
+	
 	
 	class BHTreeModel extends DefaultTreeModel{
 		
 		public BHTreeModel(TreeNode root) {
 			super(root);
-		}
-
-		public void nodeChanged(TreeNode node){
-			System.out.println("Node "+node.toString()+" hat sich geändert...");
 		}
 		
 		
@@ -412,14 +419,24 @@ public class PlatformController {
 			case TOOLBARREMOVE:
 				
 				TreePath currentSelection = bhmf.getBHTree().getSelectionPath();
+				//is a node selected?
 				if (currentSelection != null) {
-					 DefaultMutableTreeNode currentNode = (DefaultMutableTreeNode)bhmf.getBHTree().getSelectionPath().getLastPathComponent();
-					 MutableTreeNode parent = (MutableTreeNode)(currentNode.getParent());
+					//remove node from GUI...
+					 BHNode currentNode = (BHNode)bhmf.getBHTree().getSelectionPath().getLastPathComponent();
+					 ((BHTreeModel) bhmf.getBHTree().getModel()).removeNodeFromParent(currentNode);
 					 
-					 if (parent != null) {
-						 ((DefaultTreeModel) bhmf.getBHTree().getModel()).removeNodeFromParent(currentNode);
+					 //..and from data model
+					 if(currentNode.getUserObject() instanceof DTOProject){
+						 projectRepoManager.removeProject((DTOProject) currentNode.getUserObject());
+					 }else if(currentNode.getUserObject() instanceof DTOScenario){
+						 //((DTOScenario)currentNode.getUserObject())
+					 }else if(currentNode.getUserObject() instanceof DTOPeriod){
+						 
 					 }
 				}
+				
+				
+				
 				break;
 				
 			default:
@@ -429,133 +446,4 @@ public class PlatformController {
 		}
 
 	}
-	
-	
-
-	// @Override
-	// public void mouseEntered(MouseEvent e) {
-	// this.bhStatusBar.setToolTip(getToolTip());
-	// //BHStatusBar.setValidationToolTip(new JLabel("Test"));
-	// }
-	// @Override
-	// public void mouseExited(MouseEvent e) {
-	// this.bhStatusBar.setToolTip("");
-	// }
-	//	
-	//	
-	//	
-	// @Override
-	// public void actionPerformed(ActionEvent actionEvent) {
-	// String cmd = actionEvent.getActionCommand();
-	//	        
-	// // Handle each button.
-	// if (cmd.equals("addP")) { //add project button clicked
-	// System.out.println("add project");
-	// BHTree.addProject("New Project " + BHTree.getNodeSuffix());
-	// BHMainFrame.addContentForms(new BHFormsPanel());
-	//	    	
-	// } else if(cmd.equals("addS")){
-	// BHTree.addScenario("New Scenario");
-	// BHMainFrame.addContentFormsAndChart(new BHFormsPanel(), new JPanel());
-	// } else if (cmd.equals("remove")) {
-	// //Remove button clicked
-	// BHTree.removeCurrentNode();
-	//            
-	// } else if (cmd.equals("delete")) {
-	// //Clear button clicked.
-	// BHTree.clear();
-	// BHTree.setNodeSuffix();
-	// } else if(cmd.equals("open")){
-	// fc = new JFileChooser();
-	// fc.setPreferredSize(new Dimension(600,400));
-	// fc.showOpenDialog(this);
-	//        	
-	// }
-	//	       
-	// //Action of Tree
-	// public static DefaultMutableTreeNode addScenario(Object child) {
-	//	    	
-	// TreePath parentPath = tree.getSelectionPath();
-	// System.out.println(parentPath);
-	//	        
-	// DefaultMutableTreeNode parentNode =
-	// (DefaultMutableTreeNode)(parentPath.getPathComponent(1));
-	//	        
-	// DefaultMutableTreeNode childNode = new DefaultMutableTreeNode(child);
-	//	        
-	// //It is key to invoke this on the TreeModel, and NOT
-	// DefaultMutableTreeNode
-	// treeModel.insertNodeInto(childNode, parentNode,
-	// parentNode.getChildCount());
-	//
-	// //Make sure the user can see the lovely new node.
-	// tree.scrollPathToVisible(new TreePath(childNode.getPath()));
-	//	        
-	// return childNode;
-	// }
-	//	    
-	// public static DefaultMutableTreeNode addProject(Object child) {
-	//	    	
-	// DefaultMutableTreeNode parentNode = rootNode;
-	//	        
-	// DefaultMutableTreeNode childNode = new DefaultMutableTreeNode(child);
-	//	       
-	// //It is key to invoke this on the TreeModel, and NOT
-	// DefaultMutableTreeNode
-	// treeModel.insertNodeInto(childNode, parentNode,
-	// parentNode.getChildCount());
-	//
-	// //Make sure the user can see the lovely new node.
-	// tree.scrollPathToVisible(new TreePath(childNode.getPath()));
-	//	        
-	// return childNode;
-	// }
-	//	    
-	// /** Remove the currently selected node. */
-	// public static void removeCurrentNode() {
-	// TreePath currentSelection = tree.getSelectionPath();
-	// if (currentSelection != null) {
-	// DefaultMutableTreeNode currentNode = (DefaultMutableTreeNode)
-	// (currentSelection.getLastPathComponent());
-	// MutableTreeNode parent = (MutableTreeNode)(currentNode.getParent());
-	// if (parent != null) {
-	// treeModel.removeNodeFromParent(currentNode);
-	// return;
-	// }
-	// }
-	//
-	// // Either there was no selection, or the root was selected.
-	// toolkit.beep();
-	// }
-	//	    
-	// //TreeListener
-	// class MyTreeModelListener implements TreeModelListener {
-	// public void treeNodesChanged(TreeModelEvent e) {
-	// DefaultMutableTreeNode node;
-	// node = (DefaultMutableTreeNode)(e.getTreePath().getLastPathComponent());
-	//
-	// /*
-	// * If the event lists children, then the changed
-	// * node is the child of the node we've already
-	// * gotten. Otherwise, the changed node and the
-	// * specified node are the same.
-	// */
-	//
-	// int index = e.getChildIndices()[0];
-	// node = (DefaultMutableTreeNode)(node.getChildAt(index));
-	//
-	// System.out.println("The user has finished editing the node.");
-	// System.out.println("New value: " + node.getUserObject());
-	// }
-	// public void treeNodesInserted(TreeModelEvent e) {
-	// }
-	// public void treeNodesRemoved(TreeModelEvent e) {
-	// }
-	// public void treeStructureChanged(TreeModelEvent e) {
-	// }
-	// }
-	//	    
-	//	    
-	// }
-	
 }
