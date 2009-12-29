@@ -11,6 +11,7 @@ import org.bh.gui.swing.IBHComponent;
 import org.bh.platform.i18n.BHTranslator;
 import org.jfree.chart.ChartFactory;
 import org.jfree.chart.JFreeChart;
+import org.jfree.chart.plot.CategoryPlot;
 import org.jfree.chart.plot.Plot;
 import org.jfree.data.general.Dataset;
 import org.jfree.data.general.DefaultPieDataset;
@@ -22,8 +23,9 @@ public class BHPieChart extends JFreeChart implements IBHComponent, IBHAddValue 
 	private JFreeChart chart;
 	private DefaultPieDataset dataset;
 	private String inputHint;
+	private static Plot plot = new CategoryPlot();;
 
-	protected BHPieChart(String title, Plot plot, final Dataset dataset, String key) {
+	protected BHPieChart(String title, final Dataset dataset, String key) {
 		super(plot);
 		this.key = key;
 		this.dataset = (DefaultPieDataset) dataset;
@@ -35,7 +37,15 @@ public class BHPieChart extends JFreeChart implements IBHComponent, IBHAddValue 
 			chart.setBackgroundPaint(UIManager.getColor("desktop"));
 		}
 	}
+	/**
+	 * returns the created Chart of the <code>BHPieChart</code>
+	 * 
+	 * @return JFreeChart PieChart
+	 */
 
+	public JFreeChart getChart() {
+		return chart;
+	}
 	/**
 	 * returns a unique Key
 	 * 

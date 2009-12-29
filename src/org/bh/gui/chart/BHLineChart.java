@@ -11,6 +11,7 @@ import org.bh.gui.swing.IBHComponent;
 import org.bh.platform.i18n.BHTranslator;
 import org.jfree.chart.ChartFactory;
 import org.jfree.chart.JFreeChart;
+import org.jfree.chart.plot.CategoryPlot;
 import org.jfree.chart.plot.Plot;
 import org.jfree.chart.plot.PlotOrientation;
 import org.jfree.data.category.DefaultCategoryDataset;
@@ -35,9 +36,10 @@ public class BHLineChart extends JFreeChart implements IBHComponent,
 	private JFreeChart chart;
 	private DefaultCategoryDataset dataset;
 	private String inputHint;
+	private static Plot plot = new CategoryPlot();
 
 	protected BHLineChart(String title, final String XAxis, final String YAxis,
-			final Dataset dataset, Plot plot, final String key) {
+			final Dataset dataset, final String key) {
 		super(plot);
 		this.key = key;
 		this.dataset = (DefaultCategoryDataset) dataset;
