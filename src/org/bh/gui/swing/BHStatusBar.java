@@ -1,5 +1,7 @@
 package org.bh.gui.swing;
 
+import java.awt.Color;
+
 import javax.swing.ImageIcon;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
@@ -71,12 +73,33 @@ public class BHStatusBar extends JPanel {
 		add(lToolTip, cons.xywh(1, 1, 1, 1));
 		this.revalidate();
 	}
+	
+	public void setToolTip(String toolTip){
+		lToolTip.setText(toolTip);
+		add(lToolTip, cons.xywh(1, 1, 1, 1));
+		this.revalidate();
+	}
+	
+	public void setToolTip(String toolTip, boolean alert){
+		lToolTip.setText(toolTip);
+		if(alert)lToolTip.setForeground(Color.red);
+		add(lToolTip, cons.xywh(1, 1, 1, 1));
+		this.revalidate();
+	}
+	
+	public void removeToolTip(){
+		lToolTip.setText(" ");
+		add(lToolTip, cons.xywh(1, 1, 1, 1));
+		this.revalidate();
+	}
 
 	public void setValidationToolTip(JScrollPane pane) {
-
-		//lToolTip.setText(label.getText());
-		//lToolTip.setIcon(label.getIcon());
-		//lToolTip.revalidate();
+		//TODO InfoText festlegen: ob erster Fehler aus Liste oder allgemeiner Hinweis!?
+		//Key verwenden zwecks Übersetzbarkeit!
+		lToolTip.setText("mehrere Fehler liegen vor (klicken)");
+		//noch nicht fertig!
+		add(lToolTip, cons.xywh(1, 1, 1, 1));
+		this.revalidate();
 	}
 
 }
