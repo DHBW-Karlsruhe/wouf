@@ -239,6 +239,19 @@ public abstract class DTO<ChildT extends IDTO> implements IDTO<ChildT> {
 		}
 	}
 	
+	/**
+	 * Remove a single child 
+	 * @param child
+	 * @throws DTOAccessException
+	 */
+	public void removeChild(ChildT child) throws DTOAccessException {
+		try {
+			children.remove(child);
+		} catch (IndexOutOfBoundsException e) {
+			throw new DTOAccessException("This object is not a child in DTOs childlist!");
+		}
+	}
+	
 	@Override
 	public int getChildrenSize() {
 		return children.size();
