@@ -44,10 +44,6 @@ public class BHToolButton extends BHButton{
         
         URL imageURL = BHToolBar.class.getResource(imgLocation);
         
-        this.setToolTipText(translator.translate(key.toString()));
-        
-        
-        
         //setIcon(new ImageIcon(imgLocation));
         //setPreferredSize(new Dimension(25, 25));
         

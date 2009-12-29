@@ -4,10 +4,12 @@ import java.awt.event.MouseEvent;
 import java.util.ArrayList;
 import java.util.List;
 import javax.swing.JButton;
+import javax.swing.JLabel;
 import javax.swing.event.MouseInputAdapter;
 
 import org.bh.data.types.IValue;
 import org.bh.platform.PlatformKey;
+import org.bh.platform.Services;
 import org.bh.platform.i18n.BHTranslator;
 
 /**
@@ -29,7 +31,7 @@ public class BHButton extends JButton implements IBHComponent,IBHAction {
 	private String key;
 	private PlatformKey platformKey;
 	private int[] validateRules;
-
+	private String toolTip;
 	private static List<IBHAction> platformItems = new ArrayList<IBHAction>();
 	BHTranslator translator = BHTranslator.getInstance(); 
 	
@@ -54,7 +56,11 @@ public class BHButton extends JButton implements IBHComponent,IBHAction {
 		this.setText(translator.translate(key.toString()));
 		
 		//set ToolTip if available
-		this.setToolTipText((translator.translateToolTip(key.toString())));
+		this.toolTip = translator.translateToolTip(key.toString());
+		if(!toolTip.equalsIgnoreCase("")){
+			this.addMouseListener(new BHToolTipListener(toolTip));
+		}
+		
 		
 		if (isPlatformButton)
 			platformItems.add(this);
@@ -143,16 +149,31 @@ public class BHButton extends JButton implements IBHComponent,IBHAction {
 	
 	
 	
-	
+	/**
+	 * 
+	 * This MouseListener provides Buttons with the ability to show their texts 
+	 * in StatusBar
+	 *
+	 * @author Alexander Schmalzhaf
+	 * @version 1.0, 29.12.2009
+	 *
+	 */
 	class BHToolTipListener extends MouseInputAdapter{
     	
-    	public void mouseEntered(MouseEvent e){
-    		
+		private String listenerToolTip;
+		
+		public BHToolTipListener(String toolTip){
+			this.listenerToolTip = toolTip;
+		}
+		
+    	@Override
+		public void mouseEntered(MouseEvent e){
+    		Services.getBHstatusBar().setToolTipLabel(new JLabel(listenerToolTip));
     	}
     	
-    	public void mouseExited(MouseEvent e){
-    		
-    		
+    	@Override
+		public void mouseExited(MouseEvent e){
+    		Services.getBHstatusBar().setToolTipLabel(new JLabel(" "));
     	}
     	
     }
