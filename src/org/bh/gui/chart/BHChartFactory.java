@@ -5,6 +5,7 @@ import org.jfree.chart.plot.Plot;
 import org.jfree.chart.plot.XYPlot;
 import org.jfree.data.category.DefaultCategoryDataset;
 import org.jfree.data.general.Dataset;
+import org.jfree.data.general.DefaultPieDataset;
 import org.jfree.data.statistics.HistogramDataset;
 import org.jfree.data.xy.DefaultXYDataset;
 
@@ -41,14 +42,33 @@ public class BHChartFactory {
 	 * @return created LineChart
 	 */
 	public static JFreeChart getLineChart(final String title, final String XAxis,
-			final String YAxis, final Class<?> type, final Plot plot, final String key) {
+			final String YAxis, final String key) {
 
 		BHLineChart chart = new BHLineChart(title, XAxis, YAxis, dimDataset(
-				YAxis, XAxis, type), plot, key);
+				YAxis, XAxis), key);
 		return chart.getChart();
 
 	}
-
+	/**
+	 * method to create the <code>BHpieChart</code>
+	 * 
+	 * @param title
+	 * 		<code>String</code> title for the <code>BHPieChart</code>
+	 * @param XAxis
+	 * 		<code>String</code> xAxis for the xAxis Label of
+	 *      <code>BHPieChart</code>
+	 * @param YAxis
+	 * 		<code>String</code> yAxis for the yAxis Label of
+	 *      <code>BHPieChart</code>
+	 * @param key
+	 * 		<code>String</code> key
+	 * @return
+	 */
+	public static JFreeChart getPieChart(final String title, final String XAxis, final String YAxis, final String key){
+		BHPieChart chart = new BHPieChart(title, dimDataset(), key);
+		
+		return chart.getChart();
+	}
 	/**
 	 * method to create the <code>BHxyAreaChart</code>
 	 * 
@@ -123,7 +143,7 @@ public class BHChartFactory {
 	 * @return DefaultCategoryDataset dataset
 	 */
 	private static Dataset dimDataset(final Comparable<String> column,
-			final Comparable<String> row, final Class<?> type) {
+			final Comparable<String> row) {
 
 		DefaultCategoryDataset dataset = new DefaultCategoryDataset();
 		dataset.addValue(null, row, column);
@@ -167,6 +187,11 @@ public class BHChartFactory {
 
 		HistogramDataset dataset = new HistogramDataset();
 		dataset.addSeries(key, values, bins, minimum, maximum);
+		return dataset;
+	}
+	private static Dataset dimDataset(){
+		DefaultPieDataset dataset = new DefaultPieDataset();
+		
 		return dataset;
 	}
 }
