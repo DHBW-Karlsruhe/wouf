@@ -143,4 +143,10 @@ public class BHxyAreaChart extends JFreeChart implements IBHComponent,
 				"This method has not been implemented");
 	}
 
+	@Override
+	public String getBHToolTip() {
+		// TODO Auto-generated method stub
+		throw new UnsupportedOperationException("This method has not been implemented");
+	}
+
 }

@@ -177,7 +177,7 @@ public abstract class Controller implements IController, ActionListener, IPlatfo
       * @see BHStatusBar
      */
     public static void setBHstatusBarToolTip(JLabel tooltip){
-        Controller.bhStatusBar.setToolTip(tooltip);
+        Controller.bhStatusBar.setToolTipLabel(tooltip);
     }
     /**
      * add the Controller for each BHButton on the UI as ActionListener

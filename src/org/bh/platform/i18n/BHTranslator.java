@@ -104,6 +104,20 @@ public class BHTranslator implements ITranslator {
 			return key.toString();
 		}
 	}
+	
+	
+	public String translateToolTip(Object key) {
+		try {
+			return this.bundle.getString("TT-"+key.toString());
+		} catch (MissingResourceException e) {
+			try {
+				return this.bundle.getString(key.toString());
+			} catch (MissingResourceException e2) {
+				log.error("Could not translate key \"" + key + "\"", e2);
+				return key.toString();
+			}
+		}
+	}
 
 	/**
 	 * Sets a new <code>Locale</code> for further translation.

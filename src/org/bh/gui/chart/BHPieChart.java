@@ -128,4 +128,10 @@ public class BHPieChart extends JFreeChart implements IBHComponent, IBHAddValue 
 		return this.inputHint;
 	}
 
+	@Override
+	public String getBHToolTip() {
+		// TODO Auto-generated method stub
+		throw new UnsupportedOperationException("This method has not been implemented");
+	}
+
 }

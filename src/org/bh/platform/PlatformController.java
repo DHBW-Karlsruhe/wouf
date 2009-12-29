@@ -5,6 +5,7 @@ import java.awt.event.ActionListener;
 import java.util.List;
 
 import javax.swing.JFileChooser;
+import javax.swing.JLabel;
 import javax.swing.event.TreeModelEvent;
 import javax.swing.event.TreeModelListener;
 import javax.swing.tree.DefaultMutableTreeNode;
@@ -90,7 +91,7 @@ public class PlatformController {
 		PlatformActionListener pal = new PlatformActionListener();
 
 		//Add ActionListener to Toolbar-buttons
-		for (IBHAction item : (new BHButton()).getPlatformItems()) {
+		for (IBHAction item : (new BHButton(true)).getPlatformItems()) {
 			item.addActionListener(pal);
 		}
 
@@ -221,10 +222,11 @@ public class PlatformController {
 
 			//do right action...
 			switch (actionKey) {
-//			case FILENEW:
-//				System.out.println("FILENEW gefeuert");
-//				break;
-//				
+			
+			case FILENEW:
+				
+				break;
+			
 			case FILEOPEN:
 				System.out.println("FILEOPEN gefeuert");
 				int returnVal = bhmf.getChooser().showOpenDialog(bhmf);
@@ -234,6 +236,102 @@ public class PlatformController {
 					// TODO @Loeckelt.Michael: Tu es !
 				}
 				break;
+				
+			case FILESAVE:
+				//TODO Prüfen und ggf. implementieren!
+				break;
+				
+			case FILESAVEAS:
+				//TODO Prüfen und ggf. implementieren!
+				break;
+				
+			case FILEQUIT:
+				//TODO Prüfen und ggf. implementieren!
+				break;
+				
+			case PROJECTCREATE:
+				//TODO Prüfen und ggf. implementieren!
+				break;
+				
+			case PROJECTRENAME:
+				//TODO Prüfen und ggf. implementieren!
+				break;
+				
+			case PROJECTDUPLICATE:
+				//TODO Prüfen und ggf. implementieren!
+				break;
+				
+			case PROJECTIMPORT:
+				//TODO Prüfen und ggf. implementieren!
+				break;
+				
+			case PROJECTEXPORT:
+				//TODO Prüfen und ggf. implementieren!
+				break;
+				
+			case PROJECTREMOVE:
+				//TODO Prüfen und ggf. implementieren!
+				break;
+				
+			case SCENARIOCREATE:
+				//TODO Prüfen und ggf. implementieren!
+				break;
+				
+			case SCENARIORENAME:
+				//TODO Prüfen und ggf. implementieren!
+				break;
+				
+			case SCENARIODUPLICATE:
+				//TODO Prüfen und ggf. implementieren!
+				break;
+				
+			case SCENARIOMOVE:
+				//TODO Prüfen und ggf. implementieren!
+				break;
+				
+			case SCENARIOREMOVE:
+				//TODO Prüfen und ggf. implementieren!
+				break;
+				
+			case BILANZGUVSHOW:
+				//TODO Prüfen und ggf. implementieren!
+				break;
+				
+			case BILANZGUVCREATE:
+				//TODO Prüfen und ggf. implementieren!
+				break;
+				
+			case BILANZGUVIMPORT:
+				//TODO Prüfen und ggf. implementieren!
+				break;
+				
+			case BILANZGUVREMOVE:
+				//TODO Prüfen und ggf. implementieren!
+				break;
+				
+			case OPTIONSCHANGE:
+				//TODO Prüfen und ggf. implementieren!
+				break;
+				
+			case HELPUSERHELP:
+				//TODO Prüfen und ggf. implementieren!
+				break;
+				
+			case HELPMATHHELP:
+				//TODO Prüfen und ggf. implementieren!
+				break;
+				
+			case HELPINFO:
+				//TODO Prüfen und ggf. implementieren!
+				break;
+				
+			case TOOLBAROPEN: 
+				//TODO Prüfen und ggf. implementieren!
+				break;
+				
+			case TOOLBARSAVE: 
+				//TODO Prüfen und ggf. implementieren!
+				break; 
 				
 			case TOOLBARADDPRO:
 				//Create new project
@@ -248,24 +346,35 @@ public class PlatformController {
 				break;
 				
 			case TOOLBARADDS: 
-				//Create new scenario
-				DTOScenario newScenario = new DTOScenario();
-				//TODO hardgecodeder String raus! AS
-				newScenario.put(DTOScenario.Key.NAME, new StringValue("neues Scenario"));
-				//add it to DTO-Repository
-				//TODO "aktives" Projekt rausfischen, darunter Scenario einbinden
+				//If a path is selected...
+				if(bhmf.getBHTree().getSelectionPath() != null){
+					//...create new scenario
+					DTOScenario newScenario = new DTOScenario();
+					//TODO hardgecodeder String raus! AS
+					newScenario.put(DTOScenario.Key.NAME, new StringValue("neues Scenario"));
+					
+					//...add it to DTO-Repository
+					BHNode newScenarioNode = new BHNode(newScenario);
+					
+					//...and insert it into GUI-Tree
+					((DefaultTreeModel)bhmf.getBHTree().getModel()).insertNodeInto(
+							newScenarioNode, 
+							(DefaultMutableTreeNode)(bhmf.getBHTree().getSelectionPath().getPathComponent(1)), 
+							((DefaultMutableTreeNode) bhmf.getBHTree().getSelectionPath().getPathComponent(1)).getChildCount());
+				}
 				
-				BHNode newScenarioNode = new BHNode(newScenario);
-				((DefaultTreeModel)bhmf.getBHTree().getModel()).insertNodeInto(
-						newScenarioNode, 
-						(DefaultMutableTreeNode)(bhmf.getBHTree().getSelectionPath().getPathComponent(1)), 
-						((DefaultMutableTreeNode) bhmf.getBHTree().getSelectionPath().getPathComponent(1)).getChildCount());
 								
 				break;
 			
-			//case TOOLBARREMOVEPRO:
+			case TOOLBARADDPER:
+				System.out.println("Label setzen...");
+				JLabel l = new JLabel();
+				l.setText("Bla");
+				Services.getBHstatusBar().setToolTipLabel(l);
+				Services.getBHstatusBar().repaint();
+				break;
 				
-			case TOOLBARREMOVES:
+			case TOOLBARREMOVE:
 				
 				TreePath currentSelection = bhmf.getBHTree().getSelectionPath();
 				if (currentSelection != null) {
@@ -277,7 +386,7 @@ public class PlatformController {
 					 }
 				}
 				break;
-	
+				
 			default:
 				System.out.println("Was anderes, und zwar: "+actionKey.getActionKey());
 				break;

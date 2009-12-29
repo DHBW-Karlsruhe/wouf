@@ -70,7 +70,6 @@ public class BHMenuBar extends JMenuBar{
 		 **/
 		menuFile.add(new BHMenuItem(PlatformKey.FILENEW, 78));
 		menuFile.add(new BHMenuItem(PlatformKey.FILEOPEN, 79));
-		menuFile.add(new BHMenuItem(PlatformKey.FILECLOSE));
 		menuFile.add(new BHMenuItem(PlatformKey.FILESAVE, 83));
 		menuFile.add(new BHMenuItem(PlatformKey.FILESAVEAS));
 		menuFile.add(new BHMenuItem(PlatformKey.FILEQUIT, 88));

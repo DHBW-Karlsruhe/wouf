@@ -1,10 +1,14 @@
 package org.bh.gui.swing;
 
+import java.awt.event.MouseEvent;
 import java.util.ArrayList;
 import java.util.List;
 import javax.swing.JButton;
+import javax.swing.event.MouseInputAdapter;
+
 import org.bh.data.types.IValue;
 import org.bh.platform.PlatformKey;
+import org.bh.platform.i18n.BHTranslator;
 
 /**
  * BHButton to display buttons at screen.
@@ -27,24 +31,11 @@ public class BHButton extends JButton implements IBHComponent,IBHAction {
 	private int[] validateRules;
 
 	private static List<IBHAction> platformItems = new ArrayList<IBHAction>();
-
+	BHTranslator translator = BHTranslator.getInstance(); 
+	
 	public static final Boolean ISPLATFORMBUTTON = true;
 
-	/**
-	 * Standard constructor to create buttons NOT for platform
-	 * 
-	 * @param key
-	 */
-	public BHButton(String key) {
-		super();
-		this.setProperties();
-		this.key = key;
-		//TODO get INPUT-HINT out of properties-File (querstions? Ask Alex)
-	}
 	
-	public BHButton(){
-		super();
-	}
 
 	/**
 	 * Secondary constructor for platform buttons (are added to
@@ -59,12 +50,31 @@ public class BHButton extends JButton implements IBHComponent,IBHAction {
 		this.setProperties();
 		this.platformKey = platformKey;
 		this.key = platformKey.toString();
-		//TODO get INPUT-HINT out of properties-File (querstions? Ask Alex)
+		//set Text of Button
+		this.setText(translator.translate(key.toString()));
+		
+		//set ToolTip if available
+		this.setToolTipText((translator.translateToolTip(key.toString())));
 		
 		if (isPlatformButton)
 			platformItems.add(this);
 	}
-
+	
+	/**
+	 * Standard constructor to create buttons NOT for platform
+	 * 
+	 * @param key
+	 */
+	public BHButton(String key) {
+		super();
+		this.setProperties();
+		this.key = key;
+		//TODO get INPUT-HINT out of properties-File (querstions? Ask Alex)
+	}
+	
+	public BHButton(Boolean noUse){
+	}
+	
 	/**
 	 * set the rules for the JGoodies validation
 	 * 
@@ -112,13 +122,6 @@ public class BHButton extends JButton implements IBHComponent,IBHAction {
 
 
 	@Override
-	public String getInputHint() {
-		// TODO this method must be implemented well (Questions? Ask Alex)
-		return null;
-	}
-
-
-	@Override
 	public List<IBHAction> getPlatformItems() {
 		return this.platformItems;
 	}
@@ -130,6 +133,30 @@ public class BHButton extends JButton implements IBHComponent,IBHAction {
 			return true;
 		return false;
 	}
+	
+	@Override
+	public String getBHToolTip() {
+		// TODO Auto-generated method stub
+		throw new UnsupportedOperationException("This method has not been implemented");
+	}
+	
+	
+	
+	
+	
+	class BHToolTipListener extends MouseInputAdapter{
+    	
+    	public void mouseEntered(MouseEvent e){
+    		
+    	}
+    	
+    	public void mouseExited(MouseEvent e){
+    		
+    		
+    	}
+    	
+    }
+
 
 
 }

@@ -3,6 +3,7 @@ package org.bh.gui.swing;
 import java.net.URL;
 import javax.swing.ImageIcon;
 import javax.swing.JFileChooser;
+import javax.swing.event.MouseInputAdapter;
 
 import org.bh.platform.PlatformKey;
 import org.bh.platform.i18n.BHTranslator;
@@ -29,6 +30,7 @@ public class BHToolButton extends BHButton{
     JFileChooser fc;
     BHTranslator translator = BHTranslator.getInstance(); 
     
+    
     public BHToolButton(PlatformKey key, String imageName){
 	
 	
@@ -44,21 +46,19 @@ public class BHToolButton extends BHButton{
         
         this.setToolTipText(translator.translate(key.toString()));
         
-        //TODO set buttonName with altText (?) - removed out of constructor. Use properties-File! (Alex)
-        //buttonName = altText;
-        String altText = "NEW TEXT MUST BE SET! UNSOLVED TODO!";
+        
         
         //setIcon(new ImageIcon(imgLocation));
         //setPreferredSize(new Dimension(25, 25));
         
         if (imageURL != null) {                      
             //image found
-            setIcon(new ImageIcon(imageURL, altText));
+        	this.setText("");
+            setIcon(new ImageIcon(imageURL, ""));
         } else {                                     
             //no image found
-            setText(altText);
             System.err.println("Resource not found: "+ imgLocation);
         }    
     }
-    
+   
 }

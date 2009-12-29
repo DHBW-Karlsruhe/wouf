@@ -35,7 +35,7 @@ public class BHStatusBar extends JPanel {
 
 		// create tool tip label
 		lToolTip = new JLabel();
-		lToolTip.setToolTipText("");
+		lToolTip.setText("");
 
 		// create BH logo label
 		bh = new JLabel(new ImageIcon(BHSplashScreen.class
@@ -46,6 +46,7 @@ public class BHStatusBar extends JPanel {
 		add(bh, cons.xywh(2, 1, 1, 1));
 	}
 
+	
 	public static BHStatusBar getInstance() {
 		if (instance == null) {
 			instance = new BHStatusBar();
@@ -61,14 +62,14 @@ public class BHStatusBar extends JPanel {
 	 * 
 	 * @param toolTip
 	 */
-	public void setToolTip(JLabel toolTip) {
+	public void setToolTipLabel(JLabel toolTip) {
 		//TODO Ausprogrammieren: Entweder "" oder Fehler anzeigen, falls vorhanden (evtl. mit "Link" zu 
 		//Popup mit allen Fehlermeldungen. Beispiel:
 		//Fremdkapital darf keine Buchstaben enthalten (hier klicken für alle Meldungen...)
-		lToolTip = toolTip;
-		// test.repaint();
-		lToolTip.revalidate();
-
+		this.remove(lToolTip);
+		lToolTip=toolTip;
+		add(lToolTip, cons.xywh(1, 1, 1, 1));
+		this.revalidate();
 	}
 
 	public void setValidationToolTip(JScrollPane pane) {

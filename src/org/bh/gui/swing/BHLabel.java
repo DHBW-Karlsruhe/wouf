@@ -90,15 +90,18 @@ public class BHLabel extends JLabel implements IBHComponent {
 		throw new UnsupportedOperationException("Not supported yet.");
 	}
 
-	public String getInputHint() {
-		return this.inputHint;
-	}
 
 	/**
 	 * set properties of instance.
 	 */
 	private void setProperties() {
 		this.putClientProperty("JComponent.sizeVariant", IBHComponent.MINI); // Minilabel
+	}
+
+	@Override
+	public String getBHToolTip() {
+		// TODO Auto-generated method stub
+		throw new UnsupportedOperationException("This method has not been implemented");
 	}
 
 }

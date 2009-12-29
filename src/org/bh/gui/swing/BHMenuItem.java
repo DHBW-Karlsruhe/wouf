@@ -123,6 +123,13 @@ public class BHMenuItem extends JMenuItem implements IBHComponent, IBHAction {
 	public List<IBHAction> getPlatformItems() {
 		return platformItems;
 	}
+
+
+	@Override
+	public String getBHToolTip() {
+		// TODO Auto-generated method stub
+		throw new UnsupportedOperationException("This method has not been implemented");
+	}
 }
 
 

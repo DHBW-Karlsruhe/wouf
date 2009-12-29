@@ -20,9 +20,6 @@ import org.bh.platform.PlatformKey;
 
 public class BHToolBar extends JToolBar{
     
-    BHToolButton bOpen, bSave, bAddPro, bAddS, bAddPer, bRemoveS, bRemovePer;
-
-    
     //HelpSet and HelpBroker are necessary for user help
     //javax.help.HelpSet helpSet = null;
     //javax.help.HelpBroker helpBroker = null;
@@ -41,13 +38,21 @@ public class BHToolBar extends JToolBar{
 		
 		setSize(width, height);
 		
-		bOpen = new BHToolButton(PlatformKey.TOOLBAROPEN, "Bopen");
-		bSave = new BHToolButton(PlatformKey.TOOLBARSAVE, "Bsave");
-		bAddPro = new BHToolButton(PlatformKey.TOOLBARADDPRO, "BnewProject");
-		bAddS = new BHToolButton(PlatformKey.TOOLBARADDS, "BnewScenario2");
-		bAddPer = new BHToolButton(PlatformKey.TOOLBARADDPER, "BnewPeriod2");
-		bRemoveS = new BHToolButton(PlatformKey.TOOLBARREMOVES, "BdeleteScenario2");
-		bRemovePer = new BHToolButton(PlatformKey.TOOLBARREMOVEPER, "BdeletePeriod");
+		add( new BHToolButton(PlatformKey.TOOLBAROPEN, "Bopen"));
+		add( new BHToolButton(PlatformKey.TOOLBARSAVE, "Bsave"));
+		
+		addSeparator();
+		
+		add( new BHToolButton(PlatformKey.TOOLBARADDPRO, "BnewProject"));
+		add( new BHToolButton(PlatformKey.TOOLBARADDS, "BnewScenario2"));
+		add( new BHToolButton(PlatformKey.TOOLBARADDPER, "BnewPeriod2"));
+		
+		addSeparator();
+		
+		add( new BHToolButton(PlatformKey.TOOLBARREMOVE, "BdeleteScenario2"));
+		
+		add( new BHButton(PlatformKey.TOOLBARREMOVE, true) );
+		
 		
 		//old Buttons from library jlfgr-1_0.jar
 //		bNew = new BHToolButton(PlatformKey.TOOLBARNEW, "Bnew");
@@ -62,27 +67,7 @@ public class BHToolBar extends JToolBar{
 			//lable = new BHLabel("Methode: ", "value");
 			//String methods[] = {"Berechnungsmethode 1", "Berechnungsmethode 2", "Berechnungsmethode 3"};
 			//comboBox = new JComboBox(methods);
-		
-			//FilChooser
-			//fc = new JFileChooser();
-			//fc.setSize(300, 200);
-	  
-		add(bOpen);
-		add(bSave);
-		
-		addSeparator();
-		
-		add(bAddPro);
-		add(bAddS);
-		add(bAddPer);
-		
-		addSeparator();
-		
-		add(bRemoveS);
-		add(bRemovePer);
-		
-		
-	
+
     }
 }
 
