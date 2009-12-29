@@ -61,4 +61,10 @@ public class BHTextArea extends JTextArea implements IBHComponent {
 		this.putClientProperty("JComponent.sizeVariant", IBHComponent.MINI); // Minitextfield
 	}
 
+	@Override
+	public String getBHToolTip() {
+		// TODO Auto-generated method stub
+		throw new UnsupportedOperationException("This method has not been implemented");
+	}
+
 }
