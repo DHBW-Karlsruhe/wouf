@@ -1,12 +1,14 @@
 package org.bh.platform;
 
 import java.awt.Color;
+import java.net.URL;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.ServiceLoader;
 
+import javax.swing.ImageIcon;
 import javax.swing.UIManager;
 import javax.swing.UIManager.LookAndFeelInfo;
 import javax.swing.event.EventListenerList;
@@ -158,7 +160,6 @@ public class Services {
 					//Put specific colors
 					UIManager.put("nimbusBase", new Color(56, 124, 171));
 					UIManager.put("control", new Color(235,240,255));
-					
 					UIManager.setLookAndFeel(info.getClassName());	
 					break;
 				}
@@ -166,5 +167,18 @@ public class Services {
 		} catch (Exception e) {
 			Logger.getLogger(Services.class).debug("Error while invoking Nimbus", e);
 		}
+	}
+	
+	/** 
+	 * Returns an ImageIcon, or null if the path was invalid. 
+	 */
+	public static ImageIcon createImageIcon(String path, String description) {
+	    URL imgURL = Services.class.getResource(path);
+	    if (imgURL != null) {
+	        return new ImageIcon(imgURL, description);
+	    } else {
+	        Logger.getLogger(Services.class).debug("Could not find icon " + path);
+	        return null;
+	    }
 	}
 }

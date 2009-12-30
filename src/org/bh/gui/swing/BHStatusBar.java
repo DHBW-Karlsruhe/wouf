@@ -6,7 +6,6 @@ import javax.swing.ImageIcon;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
-import javax.swing.UIManager;
 
 import com.jgoodies.forms.layout.CellConstraints;
 import com.jgoodies.forms.layout.FormLayout;
@@ -52,9 +51,6 @@ public class BHStatusBar extends JPanel {
 	public static BHStatusBar getInstance() {
 		if (instance == null) {
 			instance = new BHStatusBar();
-			System.err.println("Panel.background: " + UIManager.get("Panel.background"));
-			System.err.println(instance.getBackground());
-			
 		}
 		return instance;
 	}
