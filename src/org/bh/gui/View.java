@@ -123,7 +123,11 @@ public abstract class View implements KeyListener, PropertyChangeListener, Mouse
             //TODO Have to be a motherclass which represents all possible containers
             if ((comp instanceof JPanel || comp instanceof JScrollPane) && !(comp instanceof IBHComponent)) {
                 try {
-                    map.putAll(mapBHcomponents(((JPanel) comp).getComponents()));
+                    if(comp instanceof JPanel){
+                        map.putAll(mapBHcomponents(((JPanel) comp).getComponents()));
+                    }if(comp instanceof JScrollPane){
+                        map.putAll(mapBHcomponents(((JScrollPane) comp).getComponents()));
+                    }
                 } catch (Exception e) {
                     log.error("Mapping Error in the View", e.getCause());
                     throw new ViewException(e.getCause());
