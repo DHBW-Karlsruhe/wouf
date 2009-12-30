@@ -1,15 +1,11 @@
 package org.bh.platform;
 
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.util.List;
-
-import javax.swing.JFileChooser;
-import javax.swing.JLabel;
 import javax.swing.event.*;
 import javax.swing.tree.*;
 import org.bh.data.*;
 import org.bh.data.types.StringValue;
+import org.bh.gui.ViewException;
 import org.bh.gui.swing.*;
 
 /**
@@ -124,7 +120,6 @@ public class PlatformController {
 		}
 		
 		bhmf.getBHTree().setTreeModel(new BHTreeModel(rootNode));
-		bhmf.getBHTree().getModel().addTreeModelListener(new BHTreeModelListener());
 		bhmf.getBHTree().addTreeSelectionListener(new BHTreeSelectionListener());
 	}
 	
@@ -133,19 +128,26 @@ public class PlatformController {
 
 		@Override
 		public void valueChanged(TreeSelectionEvent tse) {
-			DTO selection = (DTO)((BHTreeNode)tse.getPath().getLastPathComponent()).getUserObject();
+			DTO<?> selection = (DTO<?>)((BHTreeNode)tse.getPath().getLastPathComponent()).getUserObject();
 			if(selection instanceof DTOProject){
-				bhmf.addContentForms(new BHProjectInputForm());
+				try {
+					BHProjectView proView = new BHProjectView(new BHProjectInputForm());
+					bhmf.addContentForms(proView.getViewPanel());
+				} catch (ViewException e) {
+					e.printStackTrace();
+				}
 			
 			}else if(selection instanceof DTOScenario){
-				System.out.println("Scenario");
-				bhmf.addContentForms(new BHFormsPanel());
+				try {
+					BHScenarioView scenarioView = new BHScenarioView(new BHScenarioHeadForm());
+					bhmf.addContentForms(scenarioView.getViewPanel());
+				} catch (ViewException e) {
+					e.printStackTrace();
+				}
 				
 			}else if(selection instanceof DTOPeriod){
-				System.out.println("Periode");
 				
 			}
-			
 		}
 		
 	}
@@ -159,37 +161,8 @@ public class PlatformController {
 		
 		
 		public void valueForPathChanged(TreePath path, Object newValue) {
-			((DTO)((BHTreeNode)path.getLastPathComponent()).getUserObject()).put(DTOProject.Key.NAME, new StringValue(newValue.toString()));
+			((DTO<?>)((BHTreeNode)path.getLastPathComponent()).getUserObject()).put(DTOProject.Key.NAME, new StringValue(newValue.toString()));
 		}
-		
 	}
 	
-	
-	/*
-	 * ----------------------------------------------------------------------------
-	 */
-	
-	class BHTreeModelListener implements TreeModelListener{
-		
-		@Override
-		public void treeNodesChanged(TreeModelEvent e) {
-			System.out.println("Text geändert");
-		}
-
-		@Override
-		public void treeNodesInserted(TreeModelEvent e) {
-			
-		}
-
-		@Override
-		public void treeNodesRemoved(TreeModelEvent e) {
-			
-		}
-
-		@Override
-		public void treeStructureChanged(TreeModelEvent e) {
-			
-		}
-		
-	}
 }
