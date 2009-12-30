@@ -45,23 +45,27 @@ class PlatformActionListener implements ActionListener {
 			
 			break;
 		
+		// TODO Loeckelt.Michael  
+			
 		case FILEOPEN:
 			System.out.println("FILEOPEN gefeuert");
 			int returnVal = bhmf.getChooser().showOpenDialog(bhmf);
 			if (returnVal == JFileChooser.APPROVE_OPTION) {
 				System.out.println("You chose to open this file: "
 						+ bhmf.getChooser().getSelectedFile().getName());
-				// TODO @Loeckelt.Michael: Tu es !
+	
 			}
 			break;
 			
+		// TODO Loeckelt.Michael
+			
 		case FILESAVE:
-			//TODO Prüfen und ggf. implementieren!
 			System.out.println("bla");
 			break;
 			
+		// TODO Loeckelt.Michael
+			
 		case FILESAVEAS:
-			//TODO Prüfen und ggf. implementieren!
 			break;
 			
 		case FILEQUIT:
@@ -80,12 +84,14 @@ class PlatformActionListener implements ActionListener {
 			//TODO Prüfen und ggf. implementieren!
 			break;
 			
+		// TODO Katzor.Marcus
 		case PROJECTIMPORT:
-			//TODO Prüfen und ggf. implementieren!
+			
 			break;
+		
+		// TODO Katzor.Marcus
 			
 		case PROJECTEXPORT:
-			//TODO Prüfen und ggf. implementieren!
 			break;
 			
 		case PROJECTREMOVE:
