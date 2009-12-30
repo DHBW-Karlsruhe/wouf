@@ -19,7 +19,12 @@ public class DTOProject extends DTO<DTOScenario> {
 		/**
 		 * project name
 		 */
-		NAME;
+		NAME,
+		
+		/**
+		 * comment
+		 */
+		COMMENT;
 	}
 
 	public DTOProject() {
