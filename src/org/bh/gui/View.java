@@ -120,7 +120,7 @@ public abstract class View implements KeyListener, PropertyChangeListener, Mouse
         Map<String, IBHComponent> map = Collections.synchronizedMap(new HashMap<String, IBHComponent>());
         for (Component comp : components) {
             //TODO Have to be a motherclass which represents all possible containers
-            if (comp instanceof JComponent && !(comp instanceof IBHComponent)) {
+            if (comp instanceof JPanel && !(comp instanceof IBHComponent)) {
                 try {
                     map.putAll(mapBHcomponents(((JPanel) comp).getComponents()));
                 } catch (Exception e) {
