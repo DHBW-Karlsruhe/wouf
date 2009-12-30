@@ -111,7 +111,7 @@ public class BHStatusBar extends JPanel{
 	public void setToolTip(JScrollPane pane) {
 		//TODO InfoText festlegen: ob erster Fehler aus Liste oder allgemeiner Hinweis!?
 		
-		lErrorTip.setText(translator.translate("LtoolTip"));
+		lErrorTip.setText("   "+translator.translate("LtoolTip"));
 		popupPane = pane;
 		
 		factory = PopupFactory.getSharedInstance();
