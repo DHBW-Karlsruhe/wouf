@@ -17,6 +17,7 @@ import java.util.HashMap;
 import java.util.Map;
 import javax.swing.JComponent;
 import javax.swing.JPanel;
+import javax.swing.JScrollPane;
 import org.apache.log4j.Logger;
 import org.bh.data.IDTO;
 import org.bh.gui.chart.IBHAddValue;
@@ -120,7 +121,7 @@ public abstract class View implements KeyListener, PropertyChangeListener, Mouse
         Map<String, IBHComponent> map = Collections.synchronizedMap(new HashMap<String, IBHComponent>());
         for (Component comp : components) {
             //TODO Have to be a motherclass which represents all possible containers
-            if (comp instanceof JPanel && !(comp instanceof IBHComponent)) {
+            if ((comp instanceof JPanel || comp instanceof JScrollPane) && !(comp instanceof IBHComponent)) {
                 try {
                     map.putAll(mapBHcomponents(((JPanel) comp).getComponents()));
                 } catch (Exception e) {

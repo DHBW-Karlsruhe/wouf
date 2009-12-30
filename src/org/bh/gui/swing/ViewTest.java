@@ -29,7 +29,7 @@ public class ViewTest extends View {
 	
 	public ViewTest(JPanel bhScenHF, ValidationMethods valMeth) throws ViewException {
 		super(bhScenHF, valMeth);
-                
+
 	}
 	
     public static void setInputHintLabel(IBHComponent comp) {
