@@ -18,6 +18,8 @@ import org.apache.log4j.Logger;
 import org.bh.data.types.Calculable;
 import org.bh.data.types.IValue;
 import org.bh.data.types.StochasticValue;
+import org.bh.platform.PlatformEvent;
+import org.bh.platform.Services;
 
 /**
  * General Data Transfer Object 
@@ -139,8 +141,11 @@ public abstract class DTO<ChildT extends IDTO> implements IDTO<ChildT> {
 	@Override
 	public void put(Object key1, IValue value) throws DTOAccessException {
 		String key = key1.toString().toLowerCase();
-		if (availableKeys.contains(key))
+		if (availableKeys.contains(key)){
+			Services.firePlatformEvent(new PlatformEvent(this, PlatformEvent.Type.DATA_CHANGED));
 			values.put(key, value);
+		}
+			
 		else
 			throw new DTOAccessException("The key '" + key + "' is not part of this DTO!");
 	}

@@ -32,6 +32,11 @@ public class PlatformEvent extends EventObject {
 		 * Platform has been loaded completely		
 		 */
 		PLATFORM_LOADING_COMPLETED,
+		/**
+		 * 
+		 */
+		DATA_CHANGED,
+		
 	}
 
 	/**
