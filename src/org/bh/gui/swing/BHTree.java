@@ -16,9 +16,34 @@ import org.bh.data.DTOProject;
 import org.bh.data.DTOScenario;
 import org.bh.platform.Services;
 
+/**
+ * The Tree visualizing the file contents.
+ * 
+ * <p>
+ * 
+ * This class provides the Tree, that shows the contents of a file.
+ *
+ * @author unknown
+ * @author Thiele.Klaus
+ * 
+ * @version 0.2, 2009/12/30
+ *
+ */
 public class BHTree extends JTree {
+	
+	/**
+	 * icon for project nodes.
+	 */
 	public static ImageIcon PROJECT_ICON = Services.createImageIcon("/org/bh/images/tree/project.jpg", Services.getTranslator().translate("project"));
+	
+	/**
+	 * icon for scenario nodes.
+	 */
 	public static ImageIcon SCENARIO_ICON = Services.createImageIcon("/org/bh/images/tree/scenario.jpg", Services.getTranslator().translate("scenario"));
+	
+	/**
+	 * icon for period nodes.
+	 */
 	public static ImageIcon PERIOD_ICON = Services.createImageIcon("/org/bh/images/tree/period.jpg", Services.getTranslator().translate("period"));
 	
 	protected DefaultMutableTreeNode rootNode;
@@ -31,8 +56,7 @@ public class BHTree extends JTree {
 		// set settings
 		this.setEditable(true);
 		this.setRootVisible(false);
-		this.getSelectionModel().setSelectionMode(
-				TreeSelectionModel.SINGLE_TREE_SELECTION);
+		this.getSelectionModel().setSelectionMode(TreeSelectionModel.SINGLE_TREE_SELECTION);
 		this.setShowsRootHandles(true);
 		this.setCellRenderer(new BHTreeCellRenderer());
 	}
@@ -41,12 +65,13 @@ public class BHTree extends JTree {
 		this.setModel(treeModel);
 		// TODO Find out, if reload is necessary...
 	}
+	
 	/**
 	 * Provides a <code>TreeCellRenderer</code> for the BHTree.
 	 *
 	 *
-	 * @author klaus
-	 * @version 1.0, Dec 30, 2009
+	 * @author Thiele.Klaus
+	 * @version 1.0, 2009/12/29
 	 *
 	 */
 	public class BHTreeCellRenderer implements TreeCellRenderer {
@@ -56,7 +81,9 @@ public class BHTree extends JTree {
 				boolean selected, boolean expanded, boolean leaf, int row,
 				boolean hasFocus) {
 
+			//Downcast just for determination of the type.
 			DefaultMutableTreeNode node = (DefaultMutableTreeNode) value;
+			
 			//Determine icon
 			ImageIcon icon = null; 
 						
@@ -68,9 +95,6 @@ public class BHTree extends JTree {
 			}
 			else if (node.getUserObject() instanceof DTOPeriod) {
 				icon = BHTree.PERIOD_ICON;
-			}
-			else {
-				icon = null;
 			}
 			
 			// return TreeCell
