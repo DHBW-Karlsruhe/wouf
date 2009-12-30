@@ -24,7 +24,7 @@ public class BHMenuItem extends JMenuItem implements IBHComponent, IBHAction {
 
 	private PlatformKey key;
 	private int[] validateRules;
-	private List<IBHAction> platformItems = new ArrayList<IBHAction>();
+	private static List<IBHAction> platformItems = new ArrayList<IBHAction>();
     private String inputHint;
 
 	
@@ -49,8 +49,10 @@ public class BHMenuItem extends JMenuItem implements IBHComponent, IBHAction {
 			this.setAccelerator(KeyStroke.getKeyStroke(eventKey, metakey));
 		}
 		
-		if(isPlatformItem)
+		if(isPlatformItem){
 			platformItems.add(this);
+		}
+			
 	}
 	
 

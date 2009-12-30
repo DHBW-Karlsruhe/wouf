@@ -36,8 +36,8 @@ class PlatformActionListener implements ActionListener {
 	public void actionPerformed(ActionEvent aEvent) {
 
 		// get actionKey of fired action
-		PlatformKey actionKey = ((IBHAction) aEvent.getSource()).getPlatformKey();;
-
+		PlatformKey actionKey = ((IBHAction) aEvent.getSource()).getPlatformKey();
+		
 		//do right action...
 		switch (actionKey) {
 		
@@ -57,6 +57,7 @@ class PlatformActionListener implements ActionListener {
 			
 		case FILESAVE:
 			//TODO Prüfen und ggf. implementieren!
+			System.out.println("bla");
 			break;
 			
 		case FILESAVEAS:
