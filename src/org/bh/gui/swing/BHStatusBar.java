@@ -3,7 +3,9 @@ package org.bh.gui.swing;
 import java.awt.Color;
 import java.awt.event.MouseEvent;
 import javax.swing.ImageIcon;
+import javax.swing.JInternalFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.Popup;
@@ -39,6 +41,8 @@ public class BHStatusBar extends JPanel{
 	boolean open;
 	
 	BHTranslator translator = BHTranslator.getInstance(); 
+	
+	JOptionPane optionPane;
 
 	private BHStatusBar() {
 				
@@ -56,6 +60,8 @@ public class BHStatusBar extends JPanel{
 		lErrorTip = new JLabel("");
 		lErrorTip.addMouseListener(new BHLabelListener());
 		lErrorTip.setVisible(false);
+
+		
 		
 		//Test the Popup		
 //		popupPane = new JScrollPane(new JLabel("TEST"));
@@ -94,6 +100,11 @@ public class BHStatusBar extends JPanel{
 		lToolTip=toolTip;
 		add(lToolTip, cons.xywh(1, 1, 1, 1));
 		this.revalidate();
+		
+		//popup test
+//		optionPane = new JOptionPane(new JLabel("TEST"), JOptionPane.PLAIN_MESSAGE);
+//		optionPane.createDialog(null, "Errors").setVisible(true);
+		
 	}
 	
 	public void setToolTip(String toolTip){
@@ -105,6 +116,7 @@ public class BHStatusBar extends JPanel{
 		if(alert)lToolTip.setForeground(Color.red);
 		add(lToolTip, cons.xywh(1, 1, 1, 1));
 		this.revalidate();
+		//TEST
 		//setToolTip(new JScrollPane(new JLabel("TEST")));
 	}
 	
@@ -114,10 +126,13 @@ public class BHStatusBar extends JPanel{
 		lErrorTip.setText("   "+translator.translate("LtoolTip"));
 		popupPane = pane;
 		
-		factory = PopupFactory.getSharedInstance();
-		//TODO genaue Koordniaten für das Popup bestimmen -> abhängig von MainFrame-Größe und Bidlschirmauflösung
-	    popup = factory.getPopup(this, pane, 500, 500);
-	    
+//		factory = PopupFactory.getSharedInstance();
+//		//TODO genaue Koordniaten für das Popup bestimmen -> abhängig von MainFrame-Größe und Bidlschirmauflösung
+//	    popup = factory.getPopup(this, pane, 500, 500);
+
+		//creates the popup for the error information
+		optionPane = new JOptionPane(pane, JOptionPane.PLAIN_MESSAGE);
+    
 		add(lErrorTip, cons.xywh(1, 1, 1, 1));
 		this.revalidate();
 	}
@@ -157,13 +172,14 @@ public class BHStatusBar extends JPanel{
 			open = false;
 		}
 		public void mouseClicked(MouseEvent e){
-			if(!open){
-    			popup.show();
-    			open = true;
-			}else if(open){
-    			popup.hide();
-    			open = false;
-    		}
+//			if(!open){
+//    			popup.show();
+//    			open = true;
+//			}else if(open){
+//    			popup.hide();
+//    			open = false;
+//    		}
+			optionPane.createDialog(null, "Errors").setVisible(true);
 		}
 	
     }
