@@ -271,15 +271,15 @@ public abstract class View implements KeyListener, PropertyChangeListener, Mouse
     }
 
     public void keyPressed(KeyEvent e) {
-        if (e.getSource() instanceof IBHComponent) {
-            this.handleValidateEvent(e.getSource());
-        }
+//        if (e.getSource() instanceof IBHComponent) {
+//            this.handleValidateEvent(e.getSource());
+//        }
     }
 
     public void keyReleased(KeyEvent e) {
-        if (e.getSource() instanceof IBHComponent) {
-            this.handleValidateEvent(e.getSource());
-        }
+//        if (e.getSource() instanceof IBHComponent) {
+//            this.handleValidateEvent(e.getSource());
+//        }
     }
 
     public void keyTyped(KeyEvent e) {
@@ -289,32 +289,32 @@ public abstract class View implements KeyListener, PropertyChangeListener, Mouse
     }
 
     public void propertyChange(PropertyChangeEvent evt) {
-        if (evt.getSource() instanceof IBHComponent) {
-            if (!"permanentFocusOwner".equals(evt.getPropertyName())){
-                return;
-            }else{
-                Component focusOwner = KeyboardFocusManager.getCurrentKeyboardFocusManager().getFocusOwner();
-                this.handleInputInfoEvent(focusOwner);
-            }
-        }
+//        if (evt.getSource() instanceof IBHComponent) {
+//            if (!"permanentFocusOwner".equals(evt.getPropertyName())){
+//                return;
+//            }else{
+//                Component focusOwner = KeyboardFocusManager.getCurrentKeyboardFocusManager().getFocusOwner();
+//                //this.handleInputInfoEvent(focusOwner);
+//            }
+//        }
     }
 
     public void mouseClicked(MouseEvent e) {
         if (e.getSource() instanceof IBHComponent) {
-            this.handleInputInfoEvent(e);
+            //this.handleInputInfoEvent(e);
         }
     }
 
     public void mouseEntered(MouseEvent e) {
-        if (e.getSource() instanceof IBHComponent) {
-            this.handleInputInfoEvent(e);
-        }
+//        if (e.getSource() instanceof IBHComponent) {
+//            this.handleInputInfoEvent(e);
+//        }
     }
 
     public void mouseExited(MouseEvent e) {
-        if (e.getSource() instanceof IBHComponent) {
-            this.handleInputInfoEvent(e);
-        }
+//        if (e.getSource() instanceof IBHComponent) {
+//            this.handleInputInfoEvent(e);
+//        }
     }
 
     public void mousePressed(MouseEvent e) {
@@ -324,9 +324,9 @@ public abstract class View implements KeyListener, PropertyChangeListener, Mouse
     }
 
     public void mouseReleased(MouseEvent e) {
-        if (e.getSource() instanceof IBHComponent) {
-            this.handleInputInfoEvent(e);
-        }
+//        if (e.getSource() instanceof IBHComponent) {
+//            this.handleInputInfoEvent(e);
+//        }
     }
     
 }
