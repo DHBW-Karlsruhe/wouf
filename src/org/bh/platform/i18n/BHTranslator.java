@@ -34,10 +34,6 @@ public class BHTranslator implements ITranslator {
 	 */
 	public static final int LONG = 2;
 	
-	/**
-	 * Parameter for short text. 
-	 */
-	public static final int TOOLTIP = 3;
 	
 	/**
 	 * Singleton instance.
@@ -152,32 +148,12 @@ public class BHTranslator implements ITranslator {
 				return this.translate(key);
 			}
 
-		case TOOLTIP:
-			try {
-				return this.translate("TT-" + key);
-			} catch (MissingResourceException e) {
-				return this.translate(key);
-			}
-
 		default:
 			return this.translate(key);
 		}
 
 	}
 	
-	@Deprecated
-	public String translateToolTip(Object key) {
-		try {
-			return this.bundle.getString("TT-" + key.toString());
-		} catch (MissingResourceException e) {
-			try {
-				return this.bundle.getString(key.toString());
-			} catch (MissingResourceException e2) {
-				log.error("Could not translate key \"" + key + "\"", e2);
-				return "";
-			}
-		}
-	}
 
 	/**
 	 * Sets a new <code>Locale</code> for further translation.

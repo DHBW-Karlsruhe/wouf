@@ -56,7 +56,7 @@ public class BHButton extends JButton implements IBHComponent,IBHAction {
 		this.setText(translator.translate(key.toString()));
 		
 		//set ToolTip if available
-		this.toolTip = translator.translate(key, BHTranslator.TOOLTIP);
+		this.toolTip = translator.translate(key, BHTranslator.LONG);
 		if(!toolTip.equalsIgnoreCase("")){
 			this.addMouseListener(new BHToolTipListener(toolTip));
 		}
