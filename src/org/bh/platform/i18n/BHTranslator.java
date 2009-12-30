@@ -19,6 +19,9 @@ import org.apache.log4j.Logger;
  */
 public class BHTranslator implements ITranslator {
 
+	public static final int SHORT = 0;
+	public static final int REGULAR = 1;
+	public static final int LONG = 2;
 	/**
 	 * Singleton instance.
 	 */
@@ -104,11 +107,32 @@ public class BHTranslator implements ITranslator {
 			return key.toString();
 		}
 	}
-	
-	
+
+	/**
+	 * Special method for dedicated version of keys.
+	 * 
+	 * @param key
+	 *            key to be translated
+	 * @param texttype
+	 * @return translated <code>String</code>
+	 */
+	public String translate(Object key, int type) {
+		switch (type) {
+		case SHORT:
+			return this.translate(key + "_short");
+		case REGULAR:
+			return this.translate(key);
+		case LONG:
+			return this.translate(key + "_long");
+		default:
+			return this.translate(key);
+		}
+
+	}
+
 	public String translateToolTip(Object key) {
 		try {
-			return this.bundle.getString("TT-"+key.toString());
+			return this.bundle.getString("TT-" + key.toString());
 		} catch (MissingResourceException e) {
 			try {
 				return this.bundle.getString(key.toString());
