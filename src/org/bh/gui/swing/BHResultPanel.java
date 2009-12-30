@@ -93,7 +93,7 @@ public class BHResultPanel extends JPanel{
        		 * Creates the description and add it on a Label
        		 */
        		lineChartTextArea = new BHTextArea("lineChartTextArea", translator.translate("RlineChartText"), 5, 5);
-       		lineChartTextArea.setLineWrap(true);
+       		
        		
        		/**
        		 * creates the default PieChart
@@ -103,7 +103,6 @@ public class BHResultPanel extends JPanel{
        		
        		
        		pieChartTextArea = new BHTextArea("pieChartTextArea", translator.translate("RpieChartText"), 5, 5);
-       		pieChartTextArea.setLineWrap(true);
        		
        		/**
        		 * add the Content into centerPanel

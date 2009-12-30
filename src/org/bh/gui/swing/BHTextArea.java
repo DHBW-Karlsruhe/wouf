@@ -28,6 +28,8 @@ public class BHTextArea extends JTextArea implements IBHComponent {
 		this.setProperties();
 		this.key = key;
 		this.setEditable(false);
+		this.setWrapStyleWord(true);
+		this.setLineWrap(true);
 	}
 
 	public String getKey() {
