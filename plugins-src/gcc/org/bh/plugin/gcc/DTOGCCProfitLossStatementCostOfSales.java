@@ -131,7 +131,13 @@ public class DTOGCCProfitLossStatementCostOfSales extends DTO implements
 		 * (=) Jahresüberschuss / Jahresfehlbetrag
 		 */
 		@Method
-		JUJF;
+		JUJF,
+		
+		/**
+		 * Vertriebskosten + allg. Verwaltungskosten +sonstige betriebliche Aufwendungen
+		 * (von der BWL Gruppe als extra Feld gewünscht)
+		 */
+		VVSBA;
 
 	}
 
