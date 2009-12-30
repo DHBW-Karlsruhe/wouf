@@ -61,7 +61,7 @@ public class BHTextField extends JTextField implements IBHComponent {
 	 *            unique key
 	 */
 	public BHTextField(String key) {
-		super(Services.getTranslator().translate(key));
+		//super(Services.getTranslator().translate(key));
 		this.setProperties();
 		this.key = key;
 	}
@@ -73,6 +73,7 @@ public class BHTextField extends JTextField implements IBHComponent {
         public BHTextField(String key, String InputHint){
             this(key);
             this.inputHint = InputHint;
+            this.setProperties();
         }
 
 	public String getKey() {
