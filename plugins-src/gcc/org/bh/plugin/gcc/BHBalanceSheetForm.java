@@ -202,7 +202,7 @@ public class BHBalanceSheetForm extends JPanel {
 
 	public BHLabel getLIVG() {
 		if (lIVG == null) {
-			lIVG = new BHLabel(DTOGCCBalanceSheet.class.getName()
+			lIVG = new BHLabel(DTOGCCBalanceSheet.class.getName()+"_"
 					+ DTOGCCBalanceSheet.Key.IVG, "");
 		}
 		return lIVG;
@@ -210,7 +210,7 @@ public class BHBalanceSheetForm extends JPanel {
 
 	public BHLabel getLSA() {
 		if (lSA == null) {
-			lSA = new BHLabel(DTOGCCBalanceSheet.class.getName()
+			lSA = new BHLabel(DTOGCCBalanceSheet.class.getName()+"_"
 					+ DTOGCCBalanceSheet.Key.SA, "");
 		}
 		return lSA;
@@ -218,7 +218,7 @@ public class BHBalanceSheetForm extends JPanel {
 
 	public BHLabel getLFA() {
 		if (lFA == null) {
-			lFA = new BHLabel(DTOGCCBalanceSheet.class.getName()
+			lFA = new BHLabel(DTOGCCBalanceSheet.class.getName()+"_"
 					+ DTOGCCBalanceSheet.Key.FA, "");
 		}
 		return lFA;
@@ -226,7 +226,7 @@ public class BHBalanceSheetForm extends JPanel {
 
 	public BHLabel getLVOR() {
 		if (lVOR == null) {
-			lVOR = new BHLabel(DTOGCCBalanceSheet.class.getName()
+			lVOR = new BHLabel(DTOGCCBalanceSheet.class.getName()+"_"
 					+ DTOGCCBalanceSheet.Key.VOR, "");
 		}
 		return lVOR;
@@ -234,7 +234,7 @@ public class BHBalanceSheetForm extends JPanel {
 
 	public BHLabel getLFSVG() {
 		if (lFSVG == null) {
-			lFSVG = new BHLabel(DTOGCCBalanceSheet.class.getName()
+			lFSVG = new BHLabel(DTOGCCBalanceSheet.class.getName()+"_"
 					+ DTOGCCBalanceSheet.Key.FSVG, "");
 		}
 		return lFSVG;
@@ -242,7 +242,7 @@ public class BHBalanceSheetForm extends JPanel {
 
 	public BHLabel getLWP() {
 		if (lWP == null) {
-			lWP = new BHLabel(DTOGCCBalanceSheet.class.getName()
+			lWP = new BHLabel(DTOGCCBalanceSheet.class.getName()+"_"
 					+ DTOGCCBalanceSheet.Key.WP, "");
 		}
 		return lWP;
@@ -250,7 +250,7 @@ public class BHBalanceSheetForm extends JPanel {
 
 	public BHLabel getLKBGGKS() {
 		if (lKBGGKS == null) {
-			lKBGGKS = new BHLabel(DTOGCCBalanceSheet.class.getName()
+			lKBGGKS = new BHLabel(DTOGCCBalanceSheet.class.getName()+"_"
 					+ DTOGCCBalanceSheet.Key.KBGGKS, "");
 		}
 		return lKBGGKS;
@@ -258,7 +258,7 @@ public class BHBalanceSheetForm extends JPanel {
 
 	public BHLabel getLEK() {
 		if (lEK == null) {
-			lEK = new BHLabel(DTOGCCBalanceSheet.class.getName()
+			lEK = new BHLabel(DTOGCCBalanceSheet.class.getName()+"_"
 					+ DTOGCCBalanceSheet.Key.EK, "");
 		}
 		return lEK;
@@ -266,7 +266,7 @@ public class BHBalanceSheetForm extends JPanel {
 
 	public BHLabel getLRS() {
 		if (lRS == null) {
-			lRS = new BHLabel(DTOGCCBalanceSheet.class.getName()
+			lRS = new BHLabel(DTOGCCBalanceSheet.class.getName()+"_"
 					+ DTOGCCBalanceSheet.Key.RS, "");
 		}
 		return lRS;
@@ -274,7 +274,7 @@ public class BHBalanceSheetForm extends JPanel {
 
 	public BHLabel getLVB() {
 		if (lVB == null) {
-			lVB = new BHLabel(DTOGCCBalanceSheet.class.getName()
+			lVB = new BHLabel(DTOGCCBalanceSheet.class.getName()+"_"
 					+ DTOGCCBalanceSheet.Key.VB, "");
 		}
 		return lVB;
@@ -282,7 +282,7 @@ public class BHBalanceSheetForm extends JPanel {
 
 	public BHTextField getTfIVG() {
 		if (tfIVG == null) {
-			tfIVG = new BHTextField(DTOGCCBalanceSheet.class.getName()
+			tfIVG = new BHTextField(DTOGCCBalanceSheet.class.getName()+"_"
 					+ DTOGCCBalanceSheet.Key.IVG);
 		}
 		return tfIVG;
@@ -290,7 +290,7 @@ public class BHBalanceSheetForm extends JPanel {
 
 	public BHTextField getTfSA() {
 		if (tfSA == null) {
-			tfSA = new BHTextField(DTOGCCBalanceSheet.class.getName()
+			tfSA = new BHTextField(DTOGCCBalanceSheet.class.getName()+"_"
 					+ DTOGCCBalanceSheet.Key.SA);
 		}
 		return tfSA;
@@ -298,7 +298,7 @@ public class BHBalanceSheetForm extends JPanel {
 
 	public BHTextField getTfFA() {
 		if (tfFA == null) {
-			tfFA = new BHTextField(DTOGCCBalanceSheet.class.getName()
+			tfFA = new BHTextField(DTOGCCBalanceSheet.class.getName()+"_"
 					+ DTOGCCBalanceSheet.Key.FA);
 		}
 		return tfFA;
@@ -306,7 +306,7 @@ public class BHBalanceSheetForm extends JPanel {
 
 	public BHTextField getTfVOR() {
 		if (tfVOR == null) {
-			tfVOR = new BHTextField(DTOGCCBalanceSheet.class.getName()
+			tfVOR = new BHTextField(DTOGCCBalanceSheet.class.getName()+"_"
 					+ DTOGCCBalanceSheet.Key.VOR);
 		}
 		return tfVOR;
@@ -314,7 +314,7 @@ public class BHBalanceSheetForm extends JPanel {
 
 	public BHTextField getTfFSVG() {
 		if (tfFSVG == null) {
-			tfFSVG = new BHTextField(DTOGCCBalanceSheet.class.getName()
+			tfFSVG = new BHTextField(DTOGCCBalanceSheet.class.getName()+"_"
 					+ DTOGCCBalanceSheet.Key.FSVG);
 		}
 		return tfFSVG;
@@ -322,7 +322,7 @@ public class BHBalanceSheetForm extends JPanel {
 
 	public BHTextField getTfWP() {
 		if (tfWP == null) {
-			tfWP = new BHTextField(DTOGCCBalanceSheet.class.getName()
+			tfWP = new BHTextField(DTOGCCBalanceSheet.class.getName()+"_"
 					+ DTOGCCBalanceSheet.Key.WP);
 		}
 		return tfWP;
@@ -330,7 +330,7 @@ public class BHBalanceSheetForm extends JPanel {
 
 	public BHTextField getTfKBGGKS() {
 		if (tfKBGGKS == null) {
-			tfKBGGKS = new BHTextField(DTOGCCBalanceSheet.class.getName()
+			tfKBGGKS = new BHTextField(DTOGCCBalanceSheet.class.getName()+"_"
 					+ DTOGCCBalanceSheet.Key.KBGGKS);
 		}
 		return tfKBGGKS;
@@ -338,7 +338,7 @@ public class BHBalanceSheetForm extends JPanel {
 
 	public BHTextField getTfEK() {
 		if (tfEK == null) {
-			tfEK = new BHTextField(DTOGCCBalanceSheet.class.getName()
+			tfEK = new BHTextField(DTOGCCBalanceSheet.class.getName()+"_"
 					+ DTOGCCBalanceSheet.Key.EK);
 		}
 		return tfEK;
@@ -346,7 +346,7 @@ public class BHBalanceSheetForm extends JPanel {
 
 	public BHTextField getTfRS() {
 		if (tfRS == null) {
-			tfRS = new BHTextField(DTOGCCBalanceSheet.class.getName()
+			tfRS = new BHTextField(DTOGCCBalanceSheet.class.getName()+"_"
 					+ DTOGCCBalanceSheet.Key.RS);
 		}
 		return tfRS;
@@ -354,7 +354,7 @@ public class BHBalanceSheetForm extends JPanel {
 
 	public BHTextField getTfVB() {
 		if (tfVB == null) {
-			tfVB = new BHTextField(DTOGCCBalanceSheet.class.getName()
+			tfVB = new BHTextField(DTOGCCBalanceSheet.class.getName()+"_"
 					+ DTOGCCBalanceSheet.Key.VB);
 		}
 		return tfVB;
@@ -363,7 +363,7 @@ public class BHBalanceSheetForm extends JPanel {
 	public BHTextField getTfIVGmax() {
 		if (tfIVGmax == null) {
 			tfIVGmax = new BHTextField(IBHComponent.MAXVALUE
-					+ DTOGCCBalanceSheet.class.getName()
+					+ DTOGCCBalanceSheet.class.getName()+"_"
 					+ DTOGCCBalanceSheet.Key.IVG);
 		}
 		return tfIVGmax;
@@ -372,7 +372,7 @@ public class BHBalanceSheetForm extends JPanel {
 	public BHTextField getTfSAmax() {
 		if (tfSAmax == null) {
 			tfSAmax = new BHTextField(IBHComponent.MAXVALUE
-					+ DTOGCCBalanceSheet.class.getName()
+					+ DTOGCCBalanceSheet.class.getName()+"_"
 					+ DTOGCCBalanceSheet.Key.SA);
 		}
 		return tfSAmax;
@@ -381,7 +381,7 @@ public class BHBalanceSheetForm extends JPanel {
 	public BHTextField getTfFAmax() {
 		if (tfFAmax == null) {
 			tfFAmax = new BHTextField(IBHComponent.MAXVALUE
-					+ DTOGCCBalanceSheet.class.getName()
+					+ DTOGCCBalanceSheet.class.getName()+"_"
 					+ DTOGCCBalanceSheet.Key.FA);
 		}
 		return tfFAmax;
@@ -390,7 +390,7 @@ public class BHBalanceSheetForm extends JPanel {
 	public BHTextField getTfVORmax() {
 		if (tfVORmax == null) {
 			tfVORmax = new BHTextField(IBHComponent.MAXVALUE
-					+ DTOGCCBalanceSheet.class.getName()
+					+ DTOGCCBalanceSheet.class.getName()+"_"
 					+ DTOGCCBalanceSheet.Key.VOR);
 		}
 		return tfVORmax;
@@ -399,7 +399,7 @@ public class BHBalanceSheetForm extends JPanel {
 	public BHTextField getTfFSVGmax() {
 		if (tfFSVGmax == null) {
 			tfFSVGmax = new BHTextField(IBHComponent.MAXVALUE
-					+ DTOGCCBalanceSheet.class.getName()
+					+ DTOGCCBalanceSheet.class.getName()+"_"
 					+ DTOGCCBalanceSheet.Key.FSVG);
 		}
 		return tfFSVGmax;
@@ -408,7 +408,7 @@ public class BHBalanceSheetForm extends JPanel {
 	public BHTextField getTfWPmax() {
 		if (tfWPmax == null) {
 			tfWPmax = new BHTextField(IBHComponent.MAXVALUE
-					+ DTOGCCBalanceSheet.class.getName()
+					+ DTOGCCBalanceSheet.class.getName()+"_"
 					+ DTOGCCBalanceSheet.Key.WP);
 		}
 		return tfWPmax;
@@ -417,7 +417,7 @@ public class BHBalanceSheetForm extends JPanel {
 	public BHTextField getTfKBGGKSmax() {
 		if (tfKBGGKSmax == null) {
 			tfKBGGKSmax = new BHTextField(IBHComponent.MAXVALUE
-					+ DTOGCCBalanceSheet.class.getName()
+					+ DTOGCCBalanceSheet.class.getName()+"_"
 					+ DTOGCCBalanceSheet.Key.KBGGKS);
 		}
 		return tfKBGGKSmax;
@@ -426,7 +426,7 @@ public class BHBalanceSheetForm extends JPanel {
 	public BHTextField getTfEKmax() {
 		if (tfEKmax == null) {
 			tfEKmax = new BHTextField(IBHComponent.MAXVALUE
-					+ DTOGCCBalanceSheet.class.getName()
+					+ DTOGCCBalanceSheet.class.getName()+"_"
 					+ DTOGCCBalanceSheet.Key.EK);
 		}
 		return tfEKmax;
@@ -435,7 +435,7 @@ public class BHBalanceSheetForm extends JPanel {
 	public BHTextField getTfRSmax() {
 		if (tfRSmax == null) {
 			tfRSmax = new BHTextField(IBHComponent.MAXVALUE
-					+ DTOGCCBalanceSheet.class.getName()
+					+ DTOGCCBalanceSheet.class.getName()+"_"
 					+ DTOGCCBalanceSheet.Key.RS);
 		}
 		return tfRSmax;
@@ -444,7 +444,7 @@ public class BHBalanceSheetForm extends JPanel {
 	public BHTextField getTfVBmax() {
 		if (tfVBmax == null) {
 			tfVBmax = new BHTextField(IBHComponent.MAXVALUE
-					+ DTOGCCBalanceSheet.class.getName()
+					+ DTOGCCBalanceSheet.class.getName()+"_"
 					+ DTOGCCBalanceSheet.Key.VB);
 		}
 		return tfVBmax;
@@ -453,7 +453,7 @@ public class BHBalanceSheetForm extends JPanel {
 	public BHTextField getTfIVGmin() {
 		if (tfIVGmin == null) {
 			tfIVGmin = new BHTextField(IBHComponent.MINVALUE
-					+ DTOGCCBalanceSheet.class.getName()
+					+ DTOGCCBalanceSheet.class.getName()+"_"
 					+ DTOGCCBalanceSheet.Key.IVG);
 		}
 		return tfIVGmin;
@@ -462,7 +462,7 @@ public class BHBalanceSheetForm extends JPanel {
 	public BHTextField getTfSAmin() {
 		if (tfSAmin == null) {
 			tfSAmin = new BHTextField(IBHComponent.MINVALUE
-					+ DTOGCCBalanceSheet.class.getName()
+					+ DTOGCCBalanceSheet.class.getName()+"_"
 					+ DTOGCCBalanceSheet.Key.SA);
 		}
 		return tfSAmin;
@@ -471,7 +471,7 @@ public class BHBalanceSheetForm extends JPanel {
 	public BHTextField getTfFAmin() {
 		if (tfFAmin == null) {
 			tfFAmin = new BHTextField(IBHComponent.MINVALUE
-					+ DTOGCCBalanceSheet.class.getName()
+					+ DTOGCCBalanceSheet.class.getName()+"_"
 					+ DTOGCCBalanceSheet.Key.FA);
 		}
 		return tfFAmin;
@@ -480,7 +480,7 @@ public class BHBalanceSheetForm extends JPanel {
 	public BHTextField getTfVORmin() {
 		if (tfVORmin == null) {
 			tfVORmin = new BHTextField(IBHComponent.MINVALUE
-					+ DTOGCCBalanceSheet.class.getName()
+					+ DTOGCCBalanceSheet.class.getName()+"_"
 					+ DTOGCCBalanceSheet.Key.VOR);
 		}
 		return tfVORmin;
@@ -489,7 +489,7 @@ public class BHBalanceSheetForm extends JPanel {
 	public BHTextField getTfFSVGmin() {
 		if (tfFSVGmin == null) {
 			tfFSVGmin = new BHTextField(IBHComponent.MINVALUE
-					+ DTOGCCBalanceSheet.class.getName()
+					+ DTOGCCBalanceSheet.class.getName()+"_"
 					+ DTOGCCBalanceSheet.Key.FSVG);
 		}
 		return tfFSVGmin;
@@ -498,7 +498,7 @@ public class BHBalanceSheetForm extends JPanel {
 	public BHTextField getTfWPmin() {
 		if (tfWPmin == null) {
 			tfWPmin = new BHTextField(IBHComponent.MINVALUE
-					+ DTOGCCBalanceSheet.class.getName()
+					+ DTOGCCBalanceSheet.class.getName()+"_"
 					+ DTOGCCBalanceSheet.Key.WP);
 		}
 		return tfWPmin;
@@ -507,7 +507,7 @@ public class BHBalanceSheetForm extends JPanel {
 	public BHTextField getTfKBGGKSmin() {
 		if (tfKBGGKSmin == null) {
 			tfKBGGKSmin = new BHTextField(IBHComponent.MINVALUE
-					+ DTOGCCBalanceSheet.class.getName()
+					+ DTOGCCBalanceSheet.class.getName()+"_"
 					+ DTOGCCBalanceSheet.Key.KBGGKS);
 		}
 		return tfKBGGKSmin;
@@ -516,7 +516,7 @@ public class BHBalanceSheetForm extends JPanel {
 	public BHTextField getTfEKmin() {
 		if (tfEKmin == null) {
 			tfEKmin = new BHTextField(IBHComponent.MINVALUE
-					+ DTOGCCBalanceSheet.class.getName()
+					+ DTOGCCBalanceSheet.class.getName()+"_"
 					+ DTOGCCBalanceSheet.Key.EK);
 		}
 		return tfEKmin;
@@ -525,7 +525,7 @@ public class BHBalanceSheetForm extends JPanel {
 	public BHTextField getTfRSmin() {
 		if (tfRSmin == null) {
 			tfRSmin = new BHTextField(IBHComponent.MINVALUE
-					+ DTOGCCBalanceSheet.class.getName()
+					+ DTOGCCBalanceSheet.class.getName()+"_"
 					+ DTOGCCBalanceSheet.Key.RS);
 		}
 		return tfRSmin;
@@ -534,7 +534,7 @@ public class BHBalanceSheetForm extends JPanel {
 	public BHTextField getTfVBmin() {
 		if (tfVBmin == null) {
 			tfVBmin = new BHTextField(IBHComponent.MINVALUE
-					+ DTOGCCBalanceSheet.class.getName()
+					+ DTOGCCBalanceSheet.class.getName()+"_"
 					+ DTOGCCBalanceSheet.Key.VB);
 		}
 		return tfVBmin;
