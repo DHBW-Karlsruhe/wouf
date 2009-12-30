@@ -11,7 +11,18 @@ import javax.swing.UIManager;
 import org.bh.gui.chart.BHChartFactory;
 import org.bh.platform.i18n.BHTranslator;
 import org.jfree.chart.ChartPanel;
-
+/**
+ * 
+ * Class to create one ResultPanel with two different Charts and Descriptions 
+ *
+ * <p>
+ * This class creates a <code>JPanel</code> with the Results. There are two different
+ * charts and the descriptions. 
+ *
+ * @author Lars.Zuckschwerdt
+ * @version 1.0, 30.12.2009
+ *
+ */
 public class BHResultPanel extends JPanel{
 	
 	private JPanel northPanel;
@@ -25,6 +36,7 @@ public class BHResultPanel extends JPanel{
 	private ChartPanel pieChartLabel;
 	private BHTextArea lineChartTextArea;
 	private BHTextArea pieChartTextArea;
+	
 	
 	final BHTranslator translator = BHTranslator.getInstance();
 	/**
