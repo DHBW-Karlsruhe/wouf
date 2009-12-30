@@ -65,7 +65,7 @@ public class BHStatusBar extends JPanel{
 
 		// create BH logo label
 		bh = new JLabel(new ImageIcon(BHSplashScreen.class
-				.getResource("/org/bh/images/bh-logo.jpg")));
+				.getResource("/org/bh/images/bh-logo-2.png")));
 
 		// add components to panel
 		add(lToolTip, cons.xywh(1, 1, 1, 1));
