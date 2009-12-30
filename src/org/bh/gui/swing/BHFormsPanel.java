@@ -1,4 +1,5 @@
 package org.bh.gui.swing;
+
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 
@@ -6,9 +7,9 @@ import javax.swing.JCheckBox;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.JScrollPane;
 import javax.swing.JTabbedPane;
-
-import org.bh.gui.swing.BHLabel;
+import javax.swing.ScrollPaneConstants;
 
 import com.jgoodies.forms.layout.CellConstraints;
 import com.jgoodies.forms.layout.FormLayout;
@@ -20,226 +21,227 @@ import com.jgoodies.forms.layout.FormLayout;
  */
 public class BHFormsPanel extends JPanel {
 
-    private JTabbedPane view_tabedpane;
-    private JPanel view_tabprocessdata;
-    private JPanel view_tabperioddata;
-    private JPanel view_scenarioHeadData;
-    private JCheckBox chbDirectInput;
-    private BHLabel lDirectInput;
+	private JTabbedPane view_tabedpane;
+	private JPanel view_tabprocessdata;
+	private JPanel view_tabperioddata;
+	private JPanel view_scenarioHeadData;
+	private JCheckBox chbDirectInput;
+	private BHLabel lDirectInput;
 
-    /**
-     * Constructor.
-     */
-    public BHFormsPanel() {
-	this.initialize();
-    }
-    /**
-     * Constructor.
-     */
-    public BHFormsPanel(JPanel scenarioHeadData, JPanel processInputForm,
-	    JPanel periodInputFormSet) {
-	this.view_tabprocessdata = processInputForm;
-	this.view_tabperioddata = periodInputFormSet;
-	this.view_scenarioHeadData = scenarioHeadData;
-
-	String rowDef = "2dlu,p,10dlu,p,2dlu";
-	String colDef = "2dlu,60dlu:grow,2dlu";
-
-	FormLayout layout = new FormLayout(colDef, rowDef);
-	this.setLayout(layout);
-
-	CellConstraints cons = new CellConstraints();
-
-	this.add(this.view_scenarioHeadData, cons.xywh(2, 2, 1, 1));
-	this.add(this.getView_TabedPane(this.view_tabprocessdata,
-		this.view_tabperioddata), cons.xywh(2, 4, 1, 1));
-    }
-
-    /**
-     * Initialize method.
-     */
-    private void initialize() {
-
-	String rowDef = "2dlu,p,10dlu,p,2dlu";
-	String colDef = "2dlu,60dlu:grow,2dlu";
-
-	FormLayout layout = new FormLayout(colDef, rowDef);
-	this.setLayout(layout);
-
-	CellConstraints cons = new CellConstraints();
-
-	this.add(new BHScenarioHeadForm(), cons.xywh(2, 2, 1, 1));
-
-	this.add(this.getView_TabedPane(), cons.xywh(2, 4, 1, 1));
-
-    }
-
-    /**
-     * Getter method for component View_TabedPane.
-     * 
-     * @return the initialized component
-     */
-    public JTabbedPane getView_TabedPane() {
-
-	if (this.view_tabedpane == null) {
-	    this.view_tabedpane = new JTabbedPane();
-	    this.view_tabedpane.addTab("Prozessdaten", this
-		    .getView_Processdata());
-	    this.view_tabedpane
-		    .addTab("Perioden", this.getView_TabPerioddata());
-
-	    this.view_tabedpane.setName("View_TabedPane");
-	    this.view_tabedpane.setSelectedIndex(0);
-	    // this.view_tabedpane
-	    // .addChangeListener(new javax.swing.event.ChangeListener() {
-	    // public void stateChanged(javax.swing.event.ChangeEvent e) {
-	    // handleView_TabedPaneStateChanged();
-	    // }
-	    // });
+	/**
+	 * Constructor.
+	 */
+	public BHFormsPanel() {
+		this.initialize();
 	}
 
-	return this.view_tabedpane;
-    }
+	/**
+	 * Constructor.
+	 */
+	public BHFormsPanel(JPanel scenarioHeadData, JPanel processInputForm,
+			JPanel periodInputFormSet) {
+		this.view_tabprocessdata = processInputForm;
+		this.view_tabperioddata = periodInputFormSet;
+		this.view_scenarioHeadData = scenarioHeadData;
 
-    /**
-     * Getter method for component View_TabedPane.
-     * 
-     * @return the initialized component
-     */
-    public JTabbedPane getView_TabedPane(JPanel processInputForm,
-	    JPanel periodInputFormSet) {
+		String rowDef = "4px,p,20px,p,4px";
+		String colDef = "4px,pref:grow,4px";
 
-	if (this.view_tabedpane == null) {
-	    this.view_tabedpane = new JTabbedPane();
-	    if (this.view_tabprocessdata != null) {
-		this.view_tabedpane.addTab("Prozessdaten", processInputForm);
-	    }
-	    if (this.view_tabperioddata != null) {
-		this.view_tabedpane.addTab("Perioden", periodInputFormSet);
-	    }
+		FormLayout layout = new FormLayout(colDef, rowDef);
+		this.setLayout(layout);
 
-	    this.view_tabedpane.setName("View_TabedPane");
-	    this.view_tabedpane.setSelectedIndex(0);
+		CellConstraints cons = new CellConstraints();
+
+		this.add(this.view_scenarioHeadData, cons.xywh(2, 2, 1, 1));
+		// this.add(this.getView_TabedPane(this.view_tabprocessdata,
+		// this.view_tabperioddata), cons.xywh(2, 4, 1, 1));
 	}
 
-	return this.view_tabedpane;
-    }
+	/**
+	 * Initialize method.
+	 */
+	private void initialize() {
+		JPanel panel = new BHScenarioHeadForm();
 
-    /**
-     * Getter method for component View_TabHeaddata.
-     * 
-     * @return the initialized component
-     */
-    public JPanel getView_Processdata() {
+		String rowDef = "4px,p,20px,p,4px";
+		String colDef = "4px,pref:grow,4px";
 
-	if (this.view_tabprocessdata == null) {
-	    this.view_tabprocessdata = new JPanel();
+		FormLayout layout = new FormLayout(colDef, rowDef);
+		this.setLayout(layout);
 
-	    String rowDef = "2dlu,p,2dlu";
-	    String colDef = "2dlu,60dlu:grow,2dlu";
+		CellConstraints cons = new CellConstraints();
 
-	    FormLayout layout = new FormLayout(colDef, rowDef);
-	    this.view_tabprocessdata.setLayout(layout);
-
-	    CellConstraints cons = new CellConstraints();
-
-	    this.view_tabprocessdata.setName("View_TabHeaddata");
-
-	    this.view_tabprocessdata.add(new BHStochasticInputForm(), cons.xywh(
-		    2, 2, 1, 1));
-	}
-
-	return this.view_tabprocessdata;
-    }
-
-    /**
-     * Getter method for component View_TabPerioddata.
-     * 
-     * @return the initialized component
-     */
-    public JPanel getView_TabPerioddata() {
-
-	if (this.view_tabperioddata == null) {
-	    this.view_tabperioddata = new JPanel();
-
-	    String rowDef = "2dlu,p,2dlu,p,2dlu";
-	    String colDef = "2dlu,p,2dlu,60dlu:grow,2dlu";
-
-	    FormLayout layout = new FormLayout(colDef, rowDef);
-	    this.view_tabperioddata.setLayout(layout);
-
-	    CellConstraints cons = new CellConstraints();
-
-	    this.view_tabperioddata.setName("View_TabPerioddata");
-	    this.view_tabperioddata.setVisible(false);
-
-	    this.view_tabperioddata.add(getLDirectInput(), cons
-		    .xywh(2, 2, 1, 1));
-	    this.view_tabperioddata.add(getChbDirectInput(), cons.xywh(4, 2, 1,
-		    1));
-	    this.view_tabperioddata.add(new BHPeriodInputForm("2009"), cons
-		    .xywh(2, 4, 3, 1));
+		this.add(panel, cons.xywh(2, 2, 1, 1));
+		// this.add(this.getView_TabedPane(), cons.xywh(2, 4, 1, 1));
 
 	}
 
-	return this.view_tabperioddata;
-    }
+	/**
+	 * Getter method for component View_TabedPane.
+	 * 
+	 * @return the initialized component
+	 */
+	public JTabbedPane getView_TabedPane() {
 
-    /**
-     * Getter method for component chbcalculateQuest.
-     * 
-     * @return the initialized component
-     */
-    public JCheckBox getChbDirectInput() {
+		if (this.view_tabedpane == null) {
+			this.view_tabedpane = new JTabbedPane();
+			this.view_tabedpane.addTab("Prozessdaten", this
+					.getView_Processdata());
+			this.view_tabedpane
+					.addTab("Perioden", this.getView_TabPerioddata());
 
-	if (this.chbDirectInput == null) {
-	    this.chbDirectInput = new JCheckBox();
-	    this.chbDirectInput.setName("chbcalculateQuest");
-	    this.chbDirectInput.setSelected(true);
-	    // this.chbDirectInput.addActionListener(new ActionListener() {
-	    // public void actionPerformed(ActionEvent e) {
-	    // handlechbcalculateQuestActionPerformed(e.getActionCommand());
-	    // }
-	    // });
-	    // this.chbDirectInput.addChangeListener(new
-	    // javax.swing.event.ChangeListener() {
-	    // public void stateChanged(javax.swing.event.ChangeEvent e) {
-	    // handlechbcalculateQuestStateChanged();
-	    // }
-	    // });
+			this.view_tabedpane.setName("View_TabedPane");
+			this.view_tabedpane.setSelectedIndex(0);
+			// this.view_tabedpane
+			// .addChangeListener(new javax.swing.event.ChangeListener() {
+			// public void stateChanged(javax.swing.event.ChangeEvent e) {
+			// handleView_TabedPaneStateChanged();
+			// }
+			// });
+		}
+
+		return this.view_tabedpane;
 	}
 
-	return this.chbDirectInput;
-    }
+	/**
+	 * Getter method for component View_TabedPane.
+	 * 
+	 * @return the initialized component
+	 */
+	public JTabbedPane getView_TabedPane(JPanel processInputForm,
+			JPanel periodInputFormSet) {
 
-    /**
-     * Getter method for component Component_61.
-     * 
-     * @return the initialized component
-     */
-    public JLabel getLDirectInput() {
+		if (this.view_tabedpane == null) {
+			this.view_tabedpane = new JTabbedPane();
+			if (this.view_tabprocessdata != null) {
+				this.view_tabedpane.addTab("Prozessdaten", processInputForm);
+			}
+			if (this.view_tabperioddata != null) {
+				this.view_tabedpane.addTab("Perioden", periodInputFormSet);
+			}
 
-	if (this.lDirectInput == null) {
-	    this.lDirectInput = new BHLabel("");
-	    this.lDirectInput.setText("Direkteingabe");
+			this.view_tabedpane.setName("View_TabedPane");
+			this.view_tabedpane.setSelectedIndex(0);
+		}
+
+		return this.view_tabedpane;
 	}
 
-	return this.lDirectInput;
-    }
+	/**
+	 * Getter method for component View_TabHeaddata.
+	 * 
+	 * @return the initialized component
+	 */
+	public JPanel getView_Processdata() {
 
-    /**
-     * Test main method.
-     */
-    public static void main(String args[]) {
+		if (this.view_tabprocessdata == null) {
+			this.view_tabprocessdata = new JPanel();
 
-	JFrame test = new JFrame("Test for ViewTabedPane3");
-	test.setContentPane(new BHFormsPanel());
-	test.addWindowListener(new WindowAdapter() {
-	    public void windowClosing(WindowEvent e) {
-		System.exit(0);
-	    }
-	});
-	test.pack();
-	test.show();
-    }
+			String rowDef = "4px,p,4px";
+			String colDef = "4px,pref:grow,4px";
+
+			FormLayout layout = new FormLayout(colDef, rowDef);
+			this.view_tabprocessdata.setLayout(layout);
+
+			CellConstraints cons = new CellConstraints();
+
+			this.view_tabprocessdata.setName("View_TabHeaddata");
+
+			this.view_tabprocessdata.add(new BHStochasticInputForm(), cons
+					.xywh(2, 2, 1, 1));
+		}
+
+		return this.view_tabprocessdata;
+	}
+
+	/**
+	 * Getter method for component View_TabPerioddata.
+	 * 
+	 * @return the initialized component
+	 */
+	public JPanel getView_TabPerioddata() {
+
+		if (this.view_tabperioddata == null) {
+			this.view_tabperioddata = new JPanel();
+
+			String rowDef = "4px,p,4px,p,4px";
+			String colDef = "4px,p,4px,pref:grow,4px";
+
+			FormLayout layout = new FormLayout(colDef, rowDef);
+			this.view_tabperioddata.setLayout(layout);
+
+			CellConstraints cons = new CellConstraints();
+
+			this.view_tabperioddata.setName("View_TabPerioddata");
+			this.view_tabperioddata.setVisible(false);
+
+			this.view_tabperioddata.add(getLDirectInput(), cons
+					.xywh(2, 2, 1, 1));
+			this.view_tabperioddata.add(getChbDirectInput(), cons.xywh(4, 2, 1,
+					1));
+			this.view_tabperioddata.add(new BHPeriodInputForm("2009"), cons
+					.xywh(2, 4, 3, 1));
+
+		}
+
+		return this.view_tabperioddata;
+	}
+
+	/**
+	 * Getter method for component chbcalculateQuest.
+	 * 
+	 * @return the initialized component
+	 */
+	public JCheckBox getChbDirectInput() {
+
+		if (this.chbDirectInput == null) {
+			this.chbDirectInput = new JCheckBox();
+			this.chbDirectInput.setName("chbcalculateQuest");
+			this.chbDirectInput.setSelected(true);
+			// this.chbDirectInput.addActionListener(new ActionListener() {
+			// public void actionPerformed(ActionEvent e) {
+			// handlechbcalculateQuestActionPerformed(e.getActionCommand());
+			// }
+			// });
+			// this.chbDirectInput.addChangeListener(new
+			// javax.swing.event.ChangeListener() {
+			// public void stateChanged(javax.swing.event.ChangeEvent e) {
+			// handlechbcalculateQuestStateChanged();
+			// }
+			// });
+		}
+
+		return this.chbDirectInput;
+	}
+
+	/**
+	 * Getter method for component Component_61.
+	 * 
+	 * @return the initialized component
+	 */
+	public JLabel getLDirectInput() {
+
+		if (this.lDirectInput == null) {
+			this.lDirectInput = new BHLabel("");
+			this.lDirectInput.setText("Direkteingabe");
+		}
+
+		return this.lDirectInput;
+	}
+
+	/**
+	 * Test main method.
+	 */
+	public static void main(String args[]) {
+
+		JFrame test = new JFrame("Test for ViewTabedPane3");
+		test.setContentPane(new BHFormsPanel());
+		test.addWindowListener(new WindowAdapter() {
+			public void windowClosing(WindowEvent e) {
+				System.exit(0);
+			}
+		});
+		test.pack();
+		test.show();
+	}
 }
