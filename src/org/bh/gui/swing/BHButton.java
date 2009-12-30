@@ -3,11 +3,11 @@ package org.bh.gui.swing;
 import java.awt.event.MouseEvent;
 import java.util.ArrayList;
 import java.util.List;
+
 import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.event.MouseInputAdapter;
 
-import org.bh.data.types.IValue;
 import org.bh.platform.PlatformKey;
 import org.bh.platform.Services;
 import org.bh.platform.i18n.BHTranslator;
@@ -56,7 +56,7 @@ public class BHButton extends JButton implements IBHComponent,IBHAction {
 		this.setText(translator.translate(key.toString()));
 		
 		//set ToolTip if available
-		this.toolTip = translator.translateToolTip(key.toString());
+		this.toolTip = translator.translate(key, BHTranslator.TOOLTIP);
 		if(!toolTip.equalsIgnoreCase("")){
 			this.addMouseListener(new BHToolTipListener(toolTip));
 		}

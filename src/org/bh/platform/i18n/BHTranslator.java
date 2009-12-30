@@ -18,10 +18,27 @@ import org.apache.log4j.Logger;
  * 
  */
 public class BHTranslator implements ITranslator {
-
+	
+	/**
+	 * Parameter for short text. 
+	 */
 	public static final int SHORT = 0;
+	
+	/**
+	 * Parameter for regular text. 
+	 */
 	public static final int REGULAR = 1;
+	
+	/**
+	 * Parameter for long text. 
+	 */
 	public static final int LONG = 2;
+	
+	/**
+	 * Parameter for short text. 
+	 */
+	public static final int TOOLTIP = 3;
+	
 	/**
 	 * Singleton instance.
 	 */
@@ -40,7 +57,7 @@ public class BHTranslator implements ITranslator {
 	 * Available <code>Locale</code>s. Only provided if corresponding properties
 	 * file is provided.
 	 */
-	private static final Locale[] locales = { Locale.US, Locale.GERMANY };
+	private static final Locale[] locales = {}; //{ Locale.US, Locale.GERMANY };
 
 	/**
 	 * Currently used <code>Locale</code>.
@@ -73,8 +90,7 @@ public class BHTranslator implements ITranslator {
 	 */
 	private BHTranslator(Locale l) {
 		this.locale = l;
-		this.bundle = ResourceBundle
-				.getBundle(BHTranslator.BUNDLE, this.locale);
+		this.bundle = ResourceBundle.getBundle(BHTranslator.BUNDLE, this.locale);
 		this.listener = new ArrayList<PropertyChangeListener>();
 		log.debug("Translator initialized with Locale " + this.locale);
 	}
@@ -118,18 +134,38 @@ public class BHTranslator implements ITranslator {
 	 */
 	public String translate(Object key, int type) {
 		switch (type) {
+		
 		case SHORT:
-			return this.translate(key + "_short");
+			try {
+				return this.translate(key + "_short");
+			} catch (MissingResourceException e) {
+				return this.translate(key);
+			}
+
 		case REGULAR:
 			return this.translate(key);
+
 		case LONG:
-			return this.translate(key + "_long");
+			try {
+				return this.translate(key + "_long");
+			} catch (MissingResourceException e) {
+				return this.translate(key);
+			}
+
+		case TOOLTIP:
+			try {
+				return this.translate("TT-" + key);
+			} catch (MissingResourceException e) {
+				return this.translate(key);
+			}
+
 		default:
 			return this.translate(key);
 		}
 
 	}
-
+	
+	@Deprecated
 	public String translateToolTip(Object key) {
 		try {
 			return this.bundle.getString("TT-" + key.toString());
@@ -212,8 +248,7 @@ public class BHTranslator implements ITranslator {
 
 		// for each listener call propertyChange with proper attributes
 		for (PropertyChangeListener l : this.listener) {
-			l.propertyChange(new PropertyChangeEvent(this, key, oldValue,
-					newValue));
+			l.propertyChange(new PropertyChangeEvent(this, key, oldValue,newValue));
 		}
 	}
 }

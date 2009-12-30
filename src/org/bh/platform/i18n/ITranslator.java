@@ -36,6 +36,17 @@ public interface ITranslator {
 	String translate(Object key);
 
 	/**
+	 * Alternate method for specific keys.
+	 * 
+	 * @param key
+	 *            key to be translated.
+	 * @param type
+	 *            specific type of key.
+	 * @return translated <code>String</code>
+	 */
+	String translate(Object key, int type);
+
+	/**
 	 * Checks if key is available for translation.
 	 * 
 	 * @param key
