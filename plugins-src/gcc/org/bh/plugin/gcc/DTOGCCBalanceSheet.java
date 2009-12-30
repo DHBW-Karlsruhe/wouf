@@ -42,6 +42,7 @@ public class DTOGCCBalanceSheet extends DTO implements IPeriodicalValuesDTO {
 		/**
 		 * --- Immaterielle Vermögensgegenstände
 		 */
+		IVG,
 
 		/**
 		 * ---- selbst geschaffene gewerbliche Schutzrechte und ähnliche Rechte
@@ -69,6 +70,7 @@ public class DTOGCCBalanceSheet extends DTO implements IPeriodicalValuesDTO {
 		/**
 		 * --- Sachanlagen
 		 */
+		SA,
 
 		/**
 		 * ---- Grundstücke, grundstücksgleiche Rechte und Bauten einschließlich
@@ -94,6 +96,7 @@ public class DTOGCCBalanceSheet extends DTO implements IPeriodicalValuesDTO {
 		/**
 		 * --- Finanzanlagen
 		 */
+		FA,
 
 		/**
 		 * ---- Anteile an verbundenen Unternehmen
@@ -135,6 +138,7 @@ public class DTOGCCBalanceSheet extends DTO implements IPeriodicalValuesDTO {
 		/**
 		 * --- Vorräte
 		 */
+		VOR,
 
 		/**
 		 * ---- Roh-, Hilfs- und Betriebsstoffe
@@ -159,6 +163,7 @@ public class DTOGCCBalanceSheet extends DTO implements IPeriodicalValuesDTO {
 		/**
 		 * --- Forderungen und sonstige Vermögensgegenstände
 		 */
+		FSVG,
 
 		/**
 		 * ---- Forderungen aus Lieferungen und Leistungen
@@ -184,6 +189,7 @@ public class DTOGCCBalanceSheet extends DTO implements IPeriodicalValuesDTO {
 		/**
 		 * --- Wertpapiere
 		 */
+		WP,
 
 		/**
 		 * ---- Anteile an verbundenen Unternehmen
@@ -241,6 +247,7 @@ public class DTOGCCBalanceSheet extends DTO implements IPeriodicalValuesDTO {
 		/**
 		 * --- Gewinnrücklagen
 		 */
+		GER,
 
 		/**
 		 * ---- gesetzliche Rücklage
