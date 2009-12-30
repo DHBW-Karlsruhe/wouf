@@ -43,8 +43,7 @@ public enum PlatformKey{
 	TOOLBARADDS("TaddS","TOOLBARADDS"),
 	TOOLBARADDPER("TaddPer","TOOLBARADDPER"),
 	TOOLBARREMOVE("Tremove","TOOLBARREMOVE");
-	
-	
+
 	
 	String translationKey;
 	String actionKey;

@@ -168,12 +168,15 @@ public class BHButton extends JButton implements IBHComponent,IBHAction {
 		
     	@Override
 		public void mouseEntered(MouseEvent e){
-    		Services.getBHstatusBar().setToolTipLabel(new JLabel(listenerToolTip));
+    		Services.getBHstatusBar().setToolTipLabel(new BHLabel(listenerToolTip));
+    		//Services.getBHstatusBar().setToolTip("SchriftfarbenTEST", true);
+    		Services.getBHstatusBar().lErrorTip.setVisible(false);
     	}
     	
     	@Override
 		public void mouseExited(MouseEvent e){
     		Services.getBHstatusBar().removeToolTip();
+    		Services.getBHstatusBar().lErrorTip.setVisible(true);
     	}
     	
     }

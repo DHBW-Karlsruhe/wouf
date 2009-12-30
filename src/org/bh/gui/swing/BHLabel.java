@@ -1,8 +1,11 @@
 package org.bh.gui.swing;
 
+import java.awt.event.MouseEvent;
+
 import javax.swing.JLabel;
 
 import org.bh.data.types.IValue;
+import org.bh.platform.Services;
 
 /**
  * BHLabel to display Labels at screen.
@@ -102,6 +105,10 @@ public class BHLabel extends JLabel implements IBHComponent {
 	public String getBHToolTip() {
 		// TODO Auto-generated method stub
 		throw new UnsupportedOperationException("This method has not been implemented");
+	}
+	
+	public void mouseClicked(MouseEvent e){
+		Services.getBHstatusBar().openToolTipPopup();
 	}
 
 }
