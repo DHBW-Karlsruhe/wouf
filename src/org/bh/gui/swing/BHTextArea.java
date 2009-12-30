@@ -27,6 +27,7 @@ public class BHTextArea extends JTextArea implements IBHComponent {
 		super(wert, row, column);
 		this.setProperties();
 		this.key = key;
+		this.setEditable(false);
 	}
 
 	public String getKey() {
