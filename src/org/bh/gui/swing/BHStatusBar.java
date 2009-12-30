@@ -28,8 +28,8 @@ public class BHStatusBar extends JPanel{
 
 	private static BHStatusBar instance = null;
 	JLabel bh;
-	static BHLabel lToolTip;
-	static BHLabel lErrorTip;
+	static JLabel lToolTip;
+	static JLabel lErrorTip;
 	CellConstraints cons;
 	
 	PopupFactory factory;
@@ -49,11 +49,11 @@ public class BHStatusBar extends JPanel{
 		cons = new CellConstraints();
 
 		// create tool tip label
-		lToolTip = new BHLabel("");
+		lToolTip = new JLabel("");
 		lToolTip.setText("");
 		
 		//create a second label for the errors
-		lErrorTip = new BHLabel("");
+		lErrorTip = new JLabel("");
 		lErrorTip.addMouseListener(new BHLabelListener());
 		lErrorTip.setVisible(false);
 		
@@ -86,7 +86,7 @@ public class BHStatusBar extends JPanel{
 	 * 
 	 * @param toolTip
 	 */
-	public void setToolTipLabel(BHLabel toolTip) {
+	public void setToolTipLabel(JLabel toolTip) {
 		//TODO Ausprogrammieren: Entweder "" oder Fehler anzeigen, falls vorhanden (evtl. mit "Link" zu 
 		//Popup mit allen Fehlermeldungen. Beispiel:
 		//Fremdkapital darf keine Buchstaben enthalten (hier klicken für alle Meldungen...)
