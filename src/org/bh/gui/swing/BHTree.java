@@ -1,11 +1,13 @@
 package org.bh.gui.swing;
 
 import java.awt.Component;
+import java.awt.Dimension;
 
 import javax.swing.ImageIcon;
 import javax.swing.JLabel;
 import javax.swing.JTree;
 import javax.swing.SwingConstants;
+import javax.swing.UIManager;
 import javax.swing.tree.DefaultMutableTreeNode;
 import javax.swing.tree.DefaultTreeModel;
 import javax.swing.tree.TreeCellRenderer;
@@ -75,7 +77,7 @@ public class BHTree extends JTree {
 	 *
 	 */
 	public class BHTreeCellRenderer implements TreeCellRenderer {
-		
+		 
 		/**
 		 * provides a <code>Component</code> for each node in the tree. Is called by Swing internally.
 		 */
@@ -101,7 +103,9 @@ public class BHTree extends JTree {
 			}
 			
 			// return TreeCell
-			return new JLabel(value.toString(), icon, SwingConstants.LEFT);
+			JLabel treeCell = new JLabel(value.toString(), icon, SwingConstants.LEFT);
+			treeCell.setPreferredSize(new Dimension((int) treeCell.getPreferredSize().getWidth(), UIManager.getInt("BHTree.nodeheight"))); 
+			return treeCell;
 		}
 	}
 

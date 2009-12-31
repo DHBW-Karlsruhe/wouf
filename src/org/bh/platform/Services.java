@@ -218,9 +218,11 @@ public class Services {
 		try {
 			for (LookAndFeelInfo info : UIManager.getInstalledLookAndFeels()) {
 				if ("Nimbus".equals(info.getName())) {
-					//Put specific colors
+					//Put specific look&feel attributes.
 					UIManager.put("nimbusBase", new Color(56, 124, 171));
 					UIManager.put("control", new Color(235,240,255));
+					UIManager.put("nimbusSelectionBackground", UIManager.get("control"));
+					UIManager.put("BHTree.nodeheight", 20);
 					UIManager.setLookAndFeel(info.getClassName());	
 					break;
 				}

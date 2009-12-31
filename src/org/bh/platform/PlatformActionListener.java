@@ -5,6 +5,7 @@ import java.awt.event.ActionListener;
 
 import javax.swing.JFileChooser;
 import javax.swing.JFrame;
+import javax.swing.JOptionPane;
 import javax.swing.WindowConstants;
 import javax.swing.tree.DefaultMutableTreeNode;
 import javax.swing.tree.DefaultTreeModel;
@@ -72,6 +73,11 @@ class PlatformActionListener implements ActionListener {
 			
 		case FILEQUIT:
 			//TODO Prüfen und ggf. implementieren!
+			int i = JOptionPane.showConfirmDialog(bhmf, Services.getTranslator().translate("Pquit"));
+			if (i == JOptionPane.YES_OPTION) {
+				// TODO finalize application.
+				System.exit(0);
+			}
 			break;
 			
 		case PROJECTCREATE:
