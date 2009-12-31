@@ -30,6 +30,7 @@ import org.bh.platform.PlatformEvent.Type;
  * 
  * @version 0.1.1, 2009/12/16
  * @version 0.2, 2009/12/22
+ * @version 0.3, 2009/12/31
  * 
  */
 public class BHMainFrame extends JFrame implements IPlatformListener {
@@ -45,7 +46,7 @@ public class BHMainFrame extends JFrame implements IPlatformListener {
 	private JPanel desktop;
 
 	/**
-	 * Menu Bar for application
+	 * Menu Bar for application.
 	 */
 	private BHMenuBar menuBar;
 
@@ -55,9 +56,13 @@ public class BHMainFrame extends JFrame implements IPlatformListener {
 	private BHToolBar toolBar;
 
 	/**
-	 * Tree for File contents (placed on a ScrollPane)
+	 * Tree for File contents (placed on a ScrollPane).
 	 */
 	private JScrollPane bhTreeScroller;
+	
+	/**
+	 * Tree displaying the file contents.
+	 */
 	private BHTree bhTree;
 
 	/**
@@ -81,7 +86,7 @@ public class BHMainFrame extends JFrame implements IPlatformListener {
 	private JSplitPane paneV;
 
 	/**
-	 * Open / Save dialog
+	 * Open / Save dialog.
 	 */
 	private BHFileChooser chooser;
 
@@ -135,13 +140,7 @@ public class BHMainFrame extends JFrame implements IPlatformListener {
 
 		chooser = new BHFileChooser();
 
-		// work around a Java-or-whatever bug which causes the main window to
-		// hide behind Eclipse TODO Remove
-		//this.setAlwaysOnTop(true);
-		//this.setAlwaysOnTop(false);
-
-		Services.firePlatformEvent(new PlatformEvent(this,
-				Type.PLATFORM_LOADING_COMPLETED));
+		Services.firePlatformEvent(new PlatformEvent(this, Type.PLATFORM_LOADING_COMPLETED));
 	}
 
 	/**
@@ -174,18 +173,31 @@ public class BHMainFrame extends JFrame implements IPlatformListener {
 		paneH.setRightComponent(paneV);
 	}
 
+	/**
+	 * Returns the <code>FileChooser</code> of the <code>BHMainFrame</code>.
+	 * @return the current <code>BHFileChooser</code>.
+	 */
 	public BHFileChooser getChooser() {
 		return chooser;
 	}
-
+	
+	/**
+	 * Returns the BHTree.
+	 * @return the BHTree.
+	 */
 	public BHTree getBHTree() {
 		return bhTree;
 	}
 
+	/**
+	 * Brings <code>BHMainFrame</code> to front when 
+	 * <code>PLATFORM_LOADING_COMPLETED</code>.
+	 */
 	@Override
 	public void platformEvent(PlatformEvent e) {
 		if (e.getEventType() == Type.PLATFORM_LOADING_COMPLETED) {
 			this.setVisible(true);
+			this.toFront();
 		}
 	}
 }

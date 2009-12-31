@@ -76,7 +76,7 @@ class PlatformActionListener implements ActionListener {
 			int i = JOptionPane.showConfirmDialog(bhmf, Services.getTranslator().translate("Pquit"));
 			if (i == JOptionPane.YES_OPTION) {
 				// TODO finalize application.
-				System.exit(0);
+				bhmf.dispose();
 			}
 			break;
 			

@@ -37,7 +37,7 @@ public class BusinessHorizon {
 		// set Look&Feel
 		Services.setNimbusLookAndFeel();
 		
-		// show splash screen
+		// show splash screen TODO Thiele.Klaus Replace with java.awt.Splashscreen
 		new Thread(new BHSplashScreen()).start();
 
 		Thread
