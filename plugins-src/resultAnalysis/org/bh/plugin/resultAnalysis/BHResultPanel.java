@@ -1,4 +1,4 @@
-package org.bh.gui.swing;
+package org.bh.plugin.resultAnalysis;
 
 import info.clearthought.layout.TableLayout;
 import info.clearthought.layout.TableLayoutConstants;
@@ -12,6 +12,8 @@ import javax.swing.JPanel;
 import javax.swing.UIManager;
 
 import org.bh.gui.chart.BHChartFactory;
+import org.bh.gui.swing.BHLabel;
+import org.bh.gui.swing.BHTextArea;
 import org.bh.platform.i18n.BHTranslator;
 import org.jfree.chart.ChartPanel;
 /**
