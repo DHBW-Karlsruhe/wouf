@@ -141,7 +141,7 @@ class PlatformActionListener implements ActionListener {
 			break;
 			
 		case HELPUSERHELP:
-			//TODO Prüfen und ggf. implementieren!
+			
 			System.out.println("HELPUSERHELP gefeuert");
 			JFrame frame = new JFrame();
 			frame.setTitle("Business Horizon Help");

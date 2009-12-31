@@ -5,7 +5,17 @@ import java.net.URL;
 import javax.help.HelpSet;
 import javax.help.JHelp;
 import javax.swing.JPanel;
-
+/**
+ * 
+ * method to create the helpSystem
+ *
+ * <p>
+ * the Helpsystem is built.
+ *
+ * @author Lars.Zuckschwerdt
+ * @version 1.0, 31.12.2009
+ *
+ */
 public class BHHelpSystem extends JPanel{
 	JHelp helpViewer = null;
 	
