@@ -10,6 +10,7 @@ import org.bh.data.DTOPeriod;
 import org.bh.data.types.Calculable;
 import org.bh.data.types.DoubleValue;
 
+//TODO Javadoc fehlt!
 
 public class RandomDirectInputController implements IPeriodGUIController {
 	private static final String GUI_KEY = "Random values";

@@ -16,6 +16,7 @@ import javax.swing.event.EventListenerList;
 import org.apache.log4j.Logger;
 import org.bh.calculation.IShareholderValueCalculator;
 import org.bh.calculation.IStochasticProcess;
+import org.bh.controller.IPeriodGUIController;
 import org.bh.gui.swing.BHStatusBar;
 import org.bh.platform.i18n.BHTranslator;
 import org.bh.platform.i18n.ITranslator;
@@ -31,7 +32,16 @@ public class Services {
 	private static EventListenerList platformListeners = new EventListenerList();
 	private static HashMap<String, DisplayablePluginWrapper<IShareholderValueCalculator>> dcfMethods;
 	private static HashMap<String, DisplayablePluginWrapper<IStochasticProcess>> stochasticProcesses;
+	private static HashMap<String, DisplayablePluginWrapper<IPeriodGUIController>> periodControllers;
+	
 
+	
+	
+	/* ---------------------------------------
+	 * Platform Event Handling
+	 * ---------------------------------------
+	 */
+	
 	public static ITranslator getTranslator() {
 		return BHTranslator.getInstance();
 	}
@@ -53,7 +63,16 @@ public class Services {
 	public static BHStatusBar getBHstatusBar() {
 		return BHStatusBar.getInstance();
 	}
-
+	
+	
+	
+	
+	
+	/* ---------------------------------------
+	 * Service Loader / PlugIn Management
+	 * ---------------------------------------
+	 */
+	
 	/**
 	 * Returns a reference to a DCF method with a specific id.
 	 * 
@@ -141,7 +160,49 @@ public class Services {
 					new DisplayablePluginWrapper<IStochasticProcess>(process));
 		}
 	}
+	
+	
+	//TODO Schmalzhaf.Alexander Testen!!!
+	public static IPeriodGUIController getPeriodController(String id) {
+		if (periodControllers == null)
+			loadStochasticProcesses();
 
+		DisplayablePluginWrapper<IPeriodGUIController> wrapper = periodControllers
+				.get(id);
+		if (wrapper == null)
+			return null;
+		return wrapper.getPlugin();
+	}
+	
+	public static List<DisplayablePluginWrapper<IPeriodGUIController>> getPeriodControllers(){
+		if(periodControllers == null)
+			loadPeriodControllers();
+		
+		List<DisplayablePluginWrapper<IPeriodGUIController>> result = new ArrayList<DisplayablePluginWrapper<IPeriodGUIController>>(
+				periodControllers.values());
+		Collections.sort(result);
+		return result;
+	}
+	
+	private static void loadPeriodControllers(){
+		// load all PeriodGUIControllers and put them into the map
+		periodControllers = new HashMap<String, DisplayablePluginWrapper<IPeriodGUIController>>(); 
+		ServiceLoader<IPeriodGUIController> controllers = PluginManager
+				.getInstance().getServices(IPeriodGUIController.class);
+		for(IPeriodGUIController controller : controllers){
+			periodControllers.put(controller.getGuiKey(),
+					new DisplayablePluginWrapper<IPeriodGUIController>(controller));
+		}
+		
+	}
+	
+	
+	
+	/* ---------------------------------------
+	 * GUI
+	 * ---------------------------------------
+	 */
+	
 	/**
 	 * Sets Nimbus from Sun Inc. as default Look & Feel. Java 6 Update 10
 	 * required. Don't change complex looking implementation of invokation,
@@ -176,9 +237,10 @@ public class Services {
 	    URL imgURL = Services.class.getResource(path);
 	    if (imgURL != null) {
 	        return new ImageIcon(imgURL, description);
-	    } else {
-	        Logger.getLogger(Services.class).debug("Could not find icon " + path);
-	        return null;
 	    }
+	    
+	    Logger.getLogger(Services.class).debug("Could not find icon " + path);
+	    return null;
+
 	}
 }
