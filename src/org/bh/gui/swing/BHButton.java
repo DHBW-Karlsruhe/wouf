@@ -141,7 +141,7 @@ public class BHButton extends JButton implements IBHComponent,IBHAction {
 	}
 	
 	@Override
-	public String getBHToolTip() {
+	public String getBHHint() {
 		// TODO Auto-generated method stub
 		throw new UnsupportedOperationException("This method has not been implemented");
 	}
@@ -168,15 +168,12 @@ public class BHButton extends JButton implements IBHComponent,IBHAction {
 		
     	@Override
 		public void mouseEntered(MouseEvent e){
-    		Services.getBHstatusBar().setToolTipLabel(new JLabel("   "+listenerToolTip));
-    		//Services.getBHstatusBar().setToolTip("SchriftfarbenTEST", true);
-    		Services.getBHstatusBar().lErrorTip.setVisible(false);
+    		Services.getBHstatusBar().setHint(new JLabel("   "+listenerToolTip));
     	}
     	
     	@Override
 		public void mouseExited(MouseEvent e){
-    		Services.getBHstatusBar().removeToolTip();
-    		Services.getBHstatusBar().lErrorTip.setVisible(true);
+    		Services.getBHstatusBar().removeHint();
     	}
     	
     }

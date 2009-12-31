@@ -30,8 +30,8 @@ public class BHStatusBar extends JPanel{
 
 	private static BHStatusBar instance = null;
 	JLabel bh;
-	static JLabel lToolTip;
-	static JLabel lErrorTip;
+	JLabel hint;
+	JLabel errorHint;
 	CellConstraints cons;
 	
 	PopupFactory factory;
@@ -53,13 +53,13 @@ public class BHStatusBar extends JPanel{
 		cons = new CellConstraints();
 
 		// create tool tip label
-		lToolTip = new JLabel("");
-		lToolTip.setText("");
+		hint = new JLabel("");
+		hint.setText("");
 		
 		//create a second label for the errors
-		lErrorTip = new JLabel("");
-		lErrorTip.addMouseListener(new BHLabelListener());
-		lErrorTip.setVisible(false);
+		errorHint = new JLabel("");
+		errorHint.addMouseListener(new BHLabelListener());
+		errorHint.setVisible(false);
 
 		
 		
@@ -74,8 +74,8 @@ public class BHStatusBar extends JPanel{
 				.getResource("/org/bh/images/bh-logo-2.png")));
 
 		// add components to panel
-		add(lToolTip, cons.xywh(1, 1, 1, 1));
-		add(lErrorTip, cons.xywh(1, 1, 1, 1));
+		add(hint, cons.xywh(1, 1, 1, 1));
+		add(errorHint, cons.xywh(1, 1, 1, 1));
 		add(bh, cons.xywh(2, 1, 1, 1));
 	}
 
@@ -92,13 +92,11 @@ public class BHStatusBar extends JPanel{
 	 * 
 	 * @param toolTip
 	 */
-	public void setToolTipLabel(JLabel toolTip) {
-		//TODO Ausprogrammieren: Entweder "" oder Fehler anzeigen, falls vorhanden (evtl. mit "Link" zu 
-		//Popup mit allen Fehlermeldungen. Beispiel:
-		//Fremdkapital darf keine Buchstaben enthalten (hier klicken für alle Meldungen...)
-		//this.remove(lToolTip);
-		lToolTip=toolTip;
-		add(lToolTip, cons.xywh(1, 1, 1, 1));
+	public void setHint(JLabel hintLabel) {
+		if(hint != null)
+			this.removeHint();
+		hint=hintLabel;
+		add(hint, cons.xywh(1, 1, 1, 1));
 		this.revalidate();
 		
 		//popup test
@@ -107,23 +105,27 @@ public class BHStatusBar extends JPanel{
 		
 	}
 	
-	public void setToolTip(String toolTip){
-		setToolTip(toolTip, false);
+	public void setHint(String toolTip){
+		setHint(toolTip, false);
 	}
 	
-	public void setToolTip(String toolTip, boolean alert){
-		lToolTip.setText(toolTip);
-		if(alert)lToolTip.setForeground(Color.red);
-		add(lToolTip, cons.xywh(1, 1, 1, 1));
+	public void setHint(String hintText, boolean alert){
+		hint.setText(hintText);
+		if(alert){
+			hint.setForeground(Color.red);
+		}else{
+			hint.setForeground(Color.black);
+		}
+		add(hint, cons.xywh(1, 1, 1, 1));
 		this.revalidate();
 		//TEST
 		//setToolTip(new JScrollPane(new JLabel("TEST")));
 	}
 	
-	public void setToolTip(JScrollPane pane) {
+	public void setErrorHint(JScrollPane pane) {
 		//TODO InfoText festlegen: ob erster Fehler aus Liste oder allgemeiner Hinweis!?
 		
-		lErrorTip.setText("   "+translator.translate("LtoolTip"));
+		errorHint.setText("   "+translator.translate("LtoolTip"));
 		popupPane = pane;
 		
 //		factory = PopupFactory.getSharedInstance();
@@ -133,19 +135,19 @@ public class BHStatusBar extends JPanel{
 		//creates the popup for the error information
 		optionPane = new JOptionPane(pane, JOptionPane.PLAIN_MESSAGE);
     
-		add(lErrorTip, cons.xywh(1, 1, 1, 1));
+		add(errorHint, cons.xywh(1, 1, 1, 1));
 		this.revalidate();
 	}
 	
-	public void removeToolTip(){
-		lToolTip.setText(" ");
-		add(lToolTip, cons.xywh(1, 1, 1, 1));
+	public void removeHint(){
+		hint.setText(" ");
+		add(hint, cons.xywh(1, 1, 1, 1));
 		this.revalidate();
 	}
 	
-	public void removeErrorTip(){
-		lErrorTip.setText(" ");
-		lErrorTip.setVisible(false);
+	public void removeErrorHint(){
+		errorHint.setText(" ");
+		errorHint.setVisible(false);
 //		add(lToolTip, cons.xywh(1, 1, 1, 1));
 //		this.revalidate();
 	}

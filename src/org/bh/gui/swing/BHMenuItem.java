@@ -128,7 +128,7 @@ public class BHMenuItem extends JMenuItem implements IBHComponent, IBHAction {
 
 
 	@Override
-	public String getBHToolTip() {
+	public String getBHHint() {
 		// TODO Auto-generated method stub
 		throw new UnsupportedOperationException("This method has not been implemented");
 	}

@@ -144,7 +144,7 @@ public class BHHistogramChart extends JFreeChart implements IBHComponent,
 	}
 
 	@Override
-	public String getBHToolTip() {
+	public String getBHHint() {
 		// TODO Auto-generated method stub
 		throw new UnsupportedOperationException("This method has not been implemented");
 	}

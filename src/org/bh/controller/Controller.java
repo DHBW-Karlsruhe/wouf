@@ -166,8 +166,8 @@ public abstract class Controller implements IController, ActionListener, IPlatfo
      * @param pane
      * @see BHStatusBar
      */
-    public static void setBHstatusBarValidationToolTip(JScrollPane pane){
-        Controller.bhStatusBar.setToolTip(pane);
+    public static void setBHstatusBarValidationHint(JScrollPane pane){
+        Controller.bhStatusBar.setErrorHint(pane);
     }
      /**
       * concret BHValidityEngine can use this method to set Info Tool Tip
@@ -176,8 +176,8 @@ public abstract class Controller implements IController, ActionListener, IPlatfo
       * @see JLabel
       * @see BHStatusBar
      */
-    public static void setBHstatusBarToolTip(JLabel tooltip){
-        Controller.bhStatusBar.setToolTipLabel(tooltip);
+    public static void setBHstatusBarHint(JLabel hintLabel){
+        Controller.bhStatusBar.setHint(hintLabel);
     }
     /**
      * add the Controller for each BHButton on the UI as ActionListener

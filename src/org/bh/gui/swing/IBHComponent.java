@@ -87,5 +87,5 @@ public interface IBHComponent {
 	 * 
 	 * @return
 	 */
-	public String getBHToolTip();
+	public String getBHHint();
 }

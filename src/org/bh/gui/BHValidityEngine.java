@@ -87,7 +87,7 @@ public abstract class BHValidityEngine {
      */
     protected static void setInputHintLabel(IBHComponent comp) {
         log.debug("Input ToolTip is setted to Status Bar");
-        Controller.setBHstatusBarToolTip((JLabel) ValidationComponentUtils.getInputHint((JComponent) comp));
+        Controller.setBHstatusBarHint((JLabel) ValidationComponentUtils.getInputHint((JComponent) comp));
     }
     /**
      * run a validation and deliver the Result to the BHStatusBar
@@ -101,7 +101,7 @@ public abstract class BHValidityEngine {
         log.debug("Trigger validation process for All Components");
         validationResultAll = validateAll(toValidate);
         setValidityStatus(validationResultAll);
-        Controller.setBHstatusBarValidationToolTip(createValidationResultList(validationResultAll));
+        Controller.setBHstatusBarValidationHint(createValidationResultList(validationResultAll));
     }
     /**
      * set the messages of the validation of a single component to the BHStatusBar
@@ -113,7 +113,7 @@ public abstract class BHValidityEngine {
     protected void publishValidationComp(IBHComponent comp) throws ViewException{
         log.debug("Trigger validation for a single component");
         ValidationResult valRes = validate(comp);
-        Controller.setBHstatusBarValidationToolTip(createValidationResultList(valRes));
+        Controller.setBHstatusBarValidationHint(createValidationResultList(valRes));
     }
     /**
      * have to register the model related components and set the ValidationComponentUtils entries
