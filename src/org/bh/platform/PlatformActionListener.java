@@ -4,6 +4,8 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 import javax.swing.JFileChooser;
+import javax.swing.JFrame;
+import javax.swing.WindowConstants;
 import javax.swing.tree.DefaultMutableTreeNode;
 import javax.swing.tree.DefaultTreeModel;
 import javax.swing.tree.TreePath;
@@ -140,6 +142,13 @@ class PlatformActionListener implements ActionListener {
 			
 		case HELPUSERHELP:
 			//TODO Prüfen und ggf. implementieren!
+			System.out.println("HELPUSERHELP gefeuert");
+			JFrame frame = new JFrame();
+			frame.setTitle("Business Horizon Help");
+			frame.setSize(610,600);
+			frame.getContentPane().add(new BHHelpSystem());
+			frame.setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
+			frame.setVisible(true);
 			break;
 			
 		case HELPMATHHELP:
