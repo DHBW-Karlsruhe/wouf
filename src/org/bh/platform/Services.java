@@ -223,6 +223,8 @@ public class Services {
 					UIManager.put("control", new Color(235,240,255));
 					UIManager.put("nimbusSelectionBackground", UIManager.get("control"));
 					UIManager.put("BHTree.nodeheight", 20);
+					UIManager.put("BHTree.minimumWidth", 150);
+					
 					UIManager.setLookAndFeel(info.getClassName());	
 					break;
 				}

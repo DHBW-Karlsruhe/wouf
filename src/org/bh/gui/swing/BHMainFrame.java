@@ -2,12 +2,16 @@ package org.bh.gui.swing;
 
 import java.awt.BorderLayout;
 import java.awt.Component;
+import java.awt.Dimension;
+
 import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JSplitPane;
+import javax.swing.UIManager;
 import javax.swing.WindowConstants;
+
 import org.bh.platform.IPlatformListener;
 import org.bh.platform.PlatformEvent;
 import org.bh.platform.Services;
@@ -34,11 +38,6 @@ public class BHMainFrame extends JFrame implements IPlatformListener {
 	 * Standard Bar height.
 	 */
 	public static final int STANDARDBARHEIGHT = 40;
-
-	/**
-	 * Tree Bar height.
-	 */
-	public static final int TREEBARWIDTH = 200;
 
 	/**
 	 * main panel.
@@ -122,8 +121,8 @@ public class BHMainFrame extends JFrame implements IPlatformListener {
 		paneH = new JSplitPane(JSplitPane.HORIZONTAL_SPLIT, bhTreeScroller,
 				content);
 		paneH.setOneTouchExpandable(true);
-		paneH.setDividerLocation(TREEBARWIDTH);
-
+		
+		bhTreeScroller.setMinimumSize(new Dimension(UIManager.getInt("BHTree.minimumWidth"), bhTreeScroller.getMinimumSize().height));
 		// stop moving the divider
 		// pane.setEnabled(false);
 

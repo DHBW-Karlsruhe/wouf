@@ -63,6 +63,14 @@ public class BHTree extends JTree {
 		this.setCellRenderer(new BHTreeCellRenderer());
 	}
 
+	/**
+	 * fixed minimum width.
+	 */
+	@Override
+	public Dimension getMinimumSize() {
+		return new Dimension(UIManager.getInt("BHTree.minimumWidth"), super.getMinimumSize().height);
+	}
+
 	public void setTreeModel(DefaultTreeModel treeModel) {
 		this.setModel(treeModel);
 		// TODO Find out, if reload is necessary...
