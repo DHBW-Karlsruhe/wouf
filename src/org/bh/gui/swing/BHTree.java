@@ -76,6 +76,9 @@ public class BHTree extends JTree {
 	 */
 	public class BHTreeCellRenderer implements TreeCellRenderer {
 		
+		/**
+		 * provides a <code>Component</code> for each node in the tree. Is called by Swing internally.
+		 */
 		@Override
 		public Component getTreeCellRendererComponent(JTree tree, Object value,
 				boolean selected, boolean expanded, boolean leaf, int row,
