@@ -7,11 +7,7 @@ import javax.swing.JCheckBox;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
-import javax.swing.JScrollPane;
 import javax.swing.JTabbedPane;
-import javax.swing.ScrollPaneConstants;
-
-import org.bh.plugin.directinput.BHPeriodInputForm;
 
 import com.jgoodies.forms.layout.CellConstraints;
 import com.jgoodies.forms.layout.FormLayout;
@@ -181,6 +177,9 @@ public class BHFormsPanel extends JPanel {
 					.xywh(2, 2, 1, 1));
 			this.view_tabperioddata.add(getChbDirectInput(), cons.xywh(4, 2, 1,
 					1));
+			
+			//TODO Kharitonov.Anthon Abhängigkeit zum PluginUI...?
+			//ggf. Klasse im gui.swing-Paket löschen
 			this.view_tabperioddata.add(new BHPeriodInputForm("2009"), cons
 					.xywh(2, 4, 3, 1));
 
