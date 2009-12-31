@@ -31,5 +31,8 @@
 	<classpathentry kind="lib" path="lib/jdom.jar"/>
 	<classpathentry kind="lib" path="lib/build_lib/ia_math.jar"/>
 	<classpathentry kind="lib" path="lib/TableLayout-bin-jdk1.5-2009-08-26.jar"/>
+	<classpathentry kind="lib" path="lib/BusinessHorizonHelp.jar"/>
+	<classpathentry kind="lib" path="lib/hsviewer.jar"/>
+	<classpathentry kind="lib" path="lib/jh.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>
