@@ -58,8 +58,8 @@ public class BHMainFrame extends JFrame implements IPlatformListener {
 	/**
 	 * Tree for File contents (placed on a ScrollPane)
 	 */
-	private JScrollPane BHTreeScroller;
-	private BHTree BHTree;
+	private JScrollPane bhTreeScroller;
+	private BHTree bhTree;
 
 	/**
 	 * Status Bar.
@@ -107,8 +107,8 @@ public class BHMainFrame extends JFrame implements IPlatformListener {
 		toolBar = new BHToolBar(getWidth(), STANDARDBARHEIGHT);
 		// toolBar.setBounds(0, 0, screenSize.width, standardBarHeight);
 
-		BHTree = new BHTree();
-		BHTreeScroller = new JScrollPane(BHTree);
+		bhTree = new BHTree();
+		bhTreeScroller = new JScrollPane(bhTree);
 
 		// treeBar.setBounds(0, standardBarHeight, treeBarWidth,
 		// screenSize.height-standardBarHeight);
@@ -119,7 +119,7 @@ public class BHMainFrame extends JFrame implements IPlatformListener {
 
 		// Create the horizontal split pane and put the treeBar and the content
 		// in it.
-		paneH = new JSplitPane(JSplitPane.HORIZONTAL_SPLIT, BHTreeScroller,
+		paneH = new JSplitPane(JSplitPane.HORIZONTAL_SPLIT, bhTreeScroller,
 				content);
 		paneH.setOneTouchExpandable(true);
 		paneH.setDividerLocation(TREEBARWIDTH);
@@ -180,7 +180,7 @@ public class BHMainFrame extends JFrame implements IPlatformListener {
 	}
 
 	public BHTree getBHTree() {
-		return BHTree;
+		return bhTree;
 	}
 
 	@Override
