@@ -165,7 +165,7 @@ public class Services {
 	//TODO Schmalzhaf.Alexander Testen!!!
 	public static IPeriodGUIController getPeriodController(String id) {
 		if (periodControllers == null)
-			loadStochasticProcesses();
+			loadPeriodControllers();
 
 		DisplayablePluginWrapper<IPeriodGUIController> wrapper = periodControllers
 				.get(id);
