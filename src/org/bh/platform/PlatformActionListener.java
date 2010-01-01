@@ -81,7 +81,7 @@ class PlatformActionListener implements ActionListener {
 			break;
 			
 		case PROJECTCREATE:
-			//TODO Prüfen und ggf. implementieren!
+			this.createProject();
 			break;
 			
 		case PROJECTRENAME:
@@ -107,7 +107,7 @@ class PlatformActionListener implements ActionListener {
 			break;
 			
 		case SCENARIOCREATE:
-			//TODO Prüfen und ggf. implementieren!
+			this.createScenario();
 			break;
 			
 		case SCENARIORENAME:
@@ -175,78 +175,15 @@ class PlatformActionListener implements ActionListener {
 			break; 
 			
 		case TOOLBARADDPRO:
-			//Create new project
-			DTOProject newProject = new DTOProject();
-			//TODO hardgecodeder String raus! AS
-			newProject.put(DTOProject.Key.NAME, new StringValue("neues Projekt"));
-			//add it to DTO-Repository
-			projectRepoManager.addProject(newProject);
-			//and create a Node for tree on gui
-			BHTreeNode newProjectNode = new BHTreeNode(newProject);
-			((DefaultTreeModel)bhmf.getBHTree().getModel()).insertNodeInto(
-					newProjectNode, 
-					(DefaultMutableTreeNode)bhmf.getBHTree().getModel().getRoot(), 
-					((DefaultMutableTreeNode)bhmf.getBHTree().getModel().getRoot()).getChildCount()
-			);
-			
-			//last steps: unfold tree to new element, set focus and start editing
-			bhmf.getBHTree().scrollPathToVisible(new TreePath(newProjectNode.getPath()));
-			bhmf.getBHTree().startEditingAtPath(new TreePath(newProjectNode.getPath()));
-			
+			this.createProject();
 			break;
 			
 		case TOOLBARADDS: 
-			//If a path is selected...
-			if(bhmf.getBHTree().getSelectionPath() != null){
-				//...create new scenario
-				DTOScenario newScenario = new DTOScenario();
-				//TODO hardgecodeder String raus! AS
-				newScenario.put(DTOScenario.Key.NAME, new StringValue("neues Scenario"));
-				
-				//...add it to DTO-Repository
-				((DTOProject)((BHTreeNode)bhmf.getBHTree().getSelectionPath().getPathComponent(1)).getUserObject()).addChild(newScenario);
-				
-				//...and insert it into GUI-Tree
-				BHTreeNode newScenarioNode = new BHTreeNode(newScenario);
-				((BHTreeModel)bhmf.getBHTree().getModel()).insertNodeInto(
-						newScenarioNode, 
-						(BHTreeNode)(bhmf.getBHTree().getSelectionPath().getPathComponent(1)), 
-						((BHTreeNode) bhmf.getBHTree().getSelectionPath().getPathComponent(1)).getChildCount()
-				);
-				
-				//last steps: unfold tree to new element, set focus and start editing
-				bhmf.getBHTree().scrollPathToVisible(new TreePath(newScenarioNode.getPath()));
-				bhmf.getBHTree().startEditingAtPath(new TreePath(newScenarioNode.getPath()));
-			}
-			
-							
+			this.createScenario();							
 			break;
 		
 		case TOOLBARADDPER:
-			//If a scenario or a period is selected...
-			if(bhmf.getBHTree().getSelectionPath()!=null && bhmf.getBHTree().getSelectionPath().getPathCount()>2){
-				//...create new period
-				DTOPeriod newPeriod = new DTOPeriod();
-				//TODO hardgecodeder String raus! AS
-				newPeriod.put(DTOPeriod.Key.NAME, new StringValue("neue Periode"));
-				
-				//...add it to DTO-Repository
-				((DTOScenario)((BHTreeNode)bhmf.getBHTree().getSelectionPath().getPathComponent(2)).getUserObject()).addChild(newPeriod);
-				
-				//...and insert it into GUI-Tree
-				BHTreeNode newPeriodNode = new BHTreeNode(newPeriod);
-				((BHTreeModel)bhmf.getBHTree().getModel()).insertNodeInto(
-						newPeriodNode,
-						(BHTreeNode)(bhmf.getBHTree().getSelectionPath().getPathComponent(2)), 
-						((BHTreeNode) bhmf.getBHTree().getSelectionPath().getPathComponent(2)).getChildCount()
-				);
-				
-				//last steps: unfold tree to new element, set focus and start editing
-				bhmf.getBHTree().scrollPathToVisible(new TreePath(newPeriodNode.getPath()));
-				bhmf.getBHTree().startEditingAtPath(new TreePath(newPeriodNode.getPath()));
-			}
-			
-			
+			this.createPeriod();
 			break;
 			
 		case TOOLBARREMOVE:
@@ -278,6 +215,76 @@ class PlatformActionListener implements ActionListener {
 		default:
 			System.out.println("Was anderes, und zwar: "+actionKey.getActionKey());
 			break;
+		}
+	}
+	
+	public void createProject(){
+		//Create new project
+		DTOProject newProject = new DTOProject();
+		//TODO hardgecodeder String raus! AS
+		newProject.put(DTOProject.Key.NAME, new StringValue("neues Projekt"));
+		//add it to DTO-Repository
+		projectRepoManager.addProject(newProject);
+		//and create a Node for tree on gui
+		BHTreeNode newProjectNode = new BHTreeNode(newProject);
+		((DefaultTreeModel)bhmf.getBHTree().getModel()).insertNodeInto(
+				newProjectNode, 
+				(DefaultMutableTreeNode)bhmf.getBHTree().getModel().getRoot(), 
+				((DefaultMutableTreeNode)bhmf.getBHTree().getModel().getRoot()).getChildCount()
+		);
+		
+		//last steps: unfold tree to new element, set focus and start editing
+		bhmf.getBHTree().scrollPathToVisible(new TreePath(newProjectNode.getPath()));
+		bhmf.getBHTree().startEditingAtPath(new TreePath(newProjectNode.getPath()));
+		
+	}
+	public void createScenario(){
+		//If a path is selected...
+		if(bhmf.getBHTree().getSelectionPath() != null){
+			//...create new scenario
+			DTOScenario newScenario = new DTOScenario();
+			//TODO hardgecodeder String raus! AS
+			newScenario.put(DTOScenario.Key.NAME, new StringValue("neues Scenario"));
+			
+			//...add it to DTO-Repository
+			((DTOProject)((BHTreeNode)bhmf.getBHTree().getSelectionPath().getPathComponent(1)).getUserObject()).addChild(newScenario);
+			
+			//...and insert it into GUI-Tree
+			BHTreeNode newScenarioNode = new BHTreeNode(newScenario);
+			((BHTreeModel)bhmf.getBHTree().getModel()).insertNodeInto(
+					newScenarioNode, 
+					(BHTreeNode)(bhmf.getBHTree().getSelectionPath().getPathComponent(1)), 
+					((BHTreeNode) bhmf.getBHTree().getSelectionPath().getPathComponent(1)).getChildCount()
+			);
+			
+			//last steps: unfold tree to new element, set focus and start editing
+			bhmf.getBHTree().scrollPathToVisible(new TreePath(newScenarioNode.getPath()));
+			bhmf.getBHTree().startEditingAtPath(new TreePath(newScenarioNode.getPath()));
+		}
+		
+	}
+	public void createPeriod(){
+		//If a scenario or a period is selected...
+		if(bhmf.getBHTree().getSelectionPath()!=null && bhmf.getBHTree().getSelectionPath().getPathCount()>2){
+			//...create new period
+			DTOPeriod newPeriod = new DTOPeriod();
+			//TODO hardgecodeder String raus! AS
+			newPeriod.put(DTOPeriod.Key.NAME, new StringValue("neue Periode"));
+			
+			//...add it to DTO-Repository
+			((DTOScenario)((BHTreeNode)bhmf.getBHTree().getSelectionPath().getPathComponent(2)).getUserObject()).addChild(newPeriod);
+			
+			//...and insert it into GUI-Tree
+			BHTreeNode newPeriodNode = new BHTreeNode(newPeriod);
+			((BHTreeModel)bhmf.getBHTree().getModel()).insertNodeInto(
+					newPeriodNode,
+					(BHTreeNode)(bhmf.getBHTree().getSelectionPath().getPathComponent(2)), 
+					((BHTreeNode) bhmf.getBHTree().getSelectionPath().getPathComponent(2)).getChildCount()
+			);
+			
+			//last steps: unfold tree to new element, set focus and start editing
+			bhmf.getBHTree().scrollPathToVisible(new TreePath(newPeriodNode.getPath()));
+			bhmf.getBHTree().startEditingAtPath(new TreePath(newPeriodNode.getPath()));
 		}
 	}
 
