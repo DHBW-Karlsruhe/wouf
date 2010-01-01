@@ -84,10 +84,6 @@ class PlatformActionListener implements ActionListener {
 			this.createProject();
 			break;
 			
-		case PROJECTRENAME:
-			//TODO Prüfen und ggf. implementieren!
-			break;
-			
 		case PROJECTDUPLICATE:
 			//TODO Zuckschwerdt.Lars
 			break;
@@ -108,10 +104,6 @@ class PlatformActionListener implements ActionListener {
 			
 		case SCENARIOCREATE:
 			this.createScenario();
-			break;
-			
-		case SCENARIORENAME:
-			//TODO Prüfen und ggf. implementieren!
 			break;
 			
 		case SCENARIODUPLICATE:
