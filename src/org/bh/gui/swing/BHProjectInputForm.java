@@ -6,12 +6,21 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 
 import org.bh.data.DTOProject;
+import org.bh.gui.ValidationMethods;
 import org.bh.gui.swing.BHLabel;
 import org.bh.gui.swing.BHTextField;
 
 import com.jgoodies.forms.layout.CellConstraints;
 import com.jgoodies.forms.layout.FormLayout;
 
+/**
+ * This class contains the form with the project data
+ * 
+ * @author Anton Kharitonov
+ * @author Patrick Heinz
+ * @version 0.1, 01.01.2010
+ * 
+ */
 
 public class BHProjectInputForm extends JPanel {
 
@@ -52,6 +61,9 @@ public class BHProjectInputForm extends JPanel {
     public BHTextField getTfprojectname() {
 	if (tfprojectname == null){
             tfprojectname = new BHTextField (DTOProject.Key.NAME.toString());
+			// TODO add InputHints
+			int[] rules = { ValidationMethods.isMandatory };
+			tfprojectname.setValidateRules(rules);
         }
 	return tfprojectname;
     }

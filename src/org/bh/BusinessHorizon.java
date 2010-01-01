@@ -18,7 +18,6 @@ import org.bh.platform.Services;
  * The main method of this class will be called when Business Horizon starts.
  * 
  * @author Robert Vollmer
- * @author Patrick Heinz
  * @version 0.2, 20.12.2009
  * 
  * 

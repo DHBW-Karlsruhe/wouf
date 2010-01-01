@@ -19,8 +19,8 @@ import org.bh.data.types.IntervalValue;
 import org.bh.data.types.StringValue;
 import org.bh.platform.PluginManager;
 import org.bh.plugin.directinput.DTODirectInput;
-import org.bh.plugin.gcc.DTOGCCBalanceSheet;
-import org.bh.plugin.gcc.DTOGCCProfitLossStatementCostOfSales;
+import org.bh.plugin.gcc.data.DTOGCCBalanceSheet;
+import org.bh.plugin.gcc.data.DTOGCCProfitLossStatementCostOfSales;
 import org.bh.plugin.xmldataexchange.XMLDataExchangeController;
 
 public class XMLExportTestApp extends JFrame {

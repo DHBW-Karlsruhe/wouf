@@ -18,25 +18,18 @@ import com.jgoodies.validation.util.ValidationUtils;
 import com.jgoodies.validation.view.ValidationComponentUtils;
 
 /**
- * This class contains the validation rules for a specific form panel
- * TODO change classname to xyFormValidation. Same in this comment.
+ * This class contains the validation rules for the BHProjectInputForm
  * 
  * @author Patrick Heinz
- * @version 0.3, 30.12.2009
+ * @version 0.1, 01.01.2010
  * 
  */
 
-public class ValidationMethods extends BHValidityEngine {
+public class ValidationBHProjectInputForm extends BHValidityEngine {
 
 	ITranslator translator = Controller.getTranslator();
 
 	public static final int isMandatory = 1;
-	public static final int isDouble = 2;
-	public static final int isInteger = 3;
-	public static final int isPositive = 4;
-	public static final int isNegative = 5;
-	public static final int isNotZero = 6;
-	public static final int isBetween0and100 = 7;
 
 	@SuppressWarnings("fallthrough")
 	@Override
@@ -72,82 +65,6 @@ public class ValidationMethods extends BHValidityEngine {
 						ValidationComponentUtils.setErrorBackground(tf_toValidate);
 						break;
 					}
-
-				// checks if a textfield requires a double value
-				case isDouble:
-					valueString = tf_toValidate.getText();
-					valueString.replace(',', '.');
-					try {
-						value = Double.valueOf(Double.parseDouble(valueString));
-					} catch (NumberFormatException nfe) {
-						validationResult.addError(translator.translate("Efield")
-								+ translator.translate(tf_toValidate.getKey())
-								+ translator.translate("EisDouble"));
-						ValidationComponentUtils.setErrorBackground(tf_toValidate);
-						break;
-					}
-
-				// checks if a textfield requires an integer value
-				case isInteger:
-					if (ValidationUtils.isNumeric(tf_toValidate.getText()) == false) {
-						validationResult.addError(translator.translate("Efield")
-								+ translator.translate(tf_toValidate.getKey())
-								+ translator.translate("EisInteger"));
-						ValidationComponentUtils.setErrorBackground(tf_toValidate);
-						break;
-					}
-
-				// checks if a textfield requires only positive values
-				case isPositive:
-					valueString = tf_toValidate.getText();
-					value = Double.parseDouble(valueString);
-					if (value <= 0) {
-						validationResult.addError(translator.translate("Efield")
-								+ translator.translate(tf_toValidate.getKey())
-								+ translator.translate("EisPositive"));
-						ValidationComponentUtils.setErrorBackground(tf_toValidate);
-						break;
-					}
-
-				// checks if a textfield requires only negative values
-				case isNegative:
-					valueString = tf_toValidate.getText();
-					value = Double.parseDouble(valueString);
-					if (value >= 0) {
-						validationResult.addError(translator.translate("Efield")
-								+ translator.translate(tf_toValidate.getKey())
-								+ translator.translate("EisNegative"));
-						ValidationComponentUtils.setErrorBackground(tf_toValidate);
-						break;
-					}
-
-				// checks if a textfield mustn't be zero
-				case isNotZero:
-					valueString = tf_toValidate.getText();
-					value = Double.parseDouble(valueString);
-					if (value == 0) {
-						validationResult.addError(translator.translate("Efield")
-								+ translator.translate(tf_toValidate.getKey())
-								+ translator.translate("EisNotZero"));
-						ValidationComponentUtils.setErrorBackground(tf_toValidate);
-						break;
-					}
-
-				// checks if a textfield's value is between 0 and 100
-				case isBetween0and100:
-					valueString = tf_toValidate.getText();
-					value = Double.parseDouble(valueString);
-					if (value < 0 || value > 100) {
-						validationResult.addError(translator.translate("Efield")
-								+ translator.translate(tf_toValidate.getKey())
-								+ translator.translate("EisBetween0and100"));
-						ValidationComponentUtils.setErrorBackground(tf_toValidate);
-						break;
-					}
-				
-				// The textfield does not have one of the rules above
-				default:
-					System.out.println(translator.translate("EnoValidationRulesFound"));
 				}
 			}
 		}

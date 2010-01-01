@@ -1,4 +1,4 @@
-package org.bh.plugin.gcc;
+package org.bh.plugin.gcc.data;
 
 import org.bh.calculation.ICalculationPreparer;
 import org.bh.data.DTOPeriod;

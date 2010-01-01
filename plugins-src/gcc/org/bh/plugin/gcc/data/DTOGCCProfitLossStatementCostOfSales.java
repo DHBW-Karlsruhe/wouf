@@ -1,4 +1,4 @@
-package org.bh.plugin.gcc;
+package org.bh.plugin.gcc.data;
 
 import org.apache.log4j.Logger;
 import org.bh.data.DTO;

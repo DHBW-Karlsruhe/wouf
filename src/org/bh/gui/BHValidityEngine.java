@@ -121,7 +121,7 @@ public abstract class BHValidityEngine {
      * @param toValidate a Map of IBHComponents
      * @see ValidationComponentUtils
      */
-    abstract void registerComponents(Map<String, IBHComponent> toValidate) throws ViewException;
+    public abstract void registerComponents(Map<String, IBHComponent> toValidate) throws ViewException;
    
     /**
      * Shell proof the constant based rules of a single component
@@ -130,7 +130,7 @@ public abstract class BHValidityEngine {
      * @return the result of the Validation as ValidationResult
      * @see ValidationResult
      */
-    abstract ValidationResult validate(IBHComponent comp) throws ViewException;
+    public abstract ValidationResult validate(IBHComponent comp) throws ViewException;
 
     /**
      * Shell proof the single components and can also proof related conditions between
@@ -140,5 +140,5 @@ public abstract class BHValidityEngine {
      * @return the result of the Validation as ValidationResult
      * @see ValidationResult
      */
-    abstract ValidationResult validateAll(Map<String, IBHComponent> toValidate) throws ViewException;
+    public abstract ValidationResult validateAll(Map<String, IBHComponent> toValidate) throws ViewException;
 }

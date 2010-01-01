@@ -1,4 +1,4 @@
-package org.bh.gui;
+package org.bh.plugin.ggc.swing;
 
 import java.util.Iterator;
 import java.util.Map;
@@ -9,6 +9,8 @@ import javax.swing.JScrollPane;
 import javax.swing.JTextField;
 
 import org.bh.controller.Controller;
+import org.bh.gui.BHValidityEngine;
+import org.bh.gui.ViewException;
 import org.bh.gui.swing.BHTextField;
 import org.bh.gui.swing.IBHComponent;
 import org.bh.platform.i18n.ITranslator;
@@ -18,15 +20,14 @@ import com.jgoodies.validation.util.ValidationUtils;
 import com.jgoodies.validation.view.ValidationComponentUtils;
 
 /**
- * This class contains the validation rules for a specific form panel
- * TODO change classname to xyFormValidation. Same in this comment.
+ * This class contains the validation rules for the BHBalanceSheetForm
  * 
  * @author Patrick Heinz
- * @version 0.3, 30.12.2009
+ * @version 0.1, 01.01.2010
  * 
  */
 
-public class ValidationMethods extends BHValidityEngine {
+public class ValidationBHBalanceSheetForm extends BHValidityEngine {
 
 	ITranslator translator = Controller.getTranslator();
 
@@ -220,6 +221,7 @@ public class ValidationMethods extends BHValidityEngine {
 						break;
 					}
 				}
+				// TODO implement relations between textfields (min <= max etc)
 //			}
 		}
 	}

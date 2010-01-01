@@ -8,26 +8,25 @@ import java.awt.event.WindowEvent;
 import javax.swing.BorderFactory;
 import javax.swing.JComboBox;
 import javax.swing.JFrame;
-import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.border.EtchedBorder;
 
-import org.bh.controller.Controller;
 import org.bh.data.DTOScenario;
 import org.bh.gui.ValidationMethods;
-import org.bh.gui.View;
-import org.bh.gui.ViewException;
 import org.bh.platform.i18n.BHTranslator;
 
 import com.jgoodies.forms.layout.CellConstraints;
 import com.jgoodies.forms.layout.FormLayout;
 
 /**
- * Visual class ViewHeadData1.
+ * This class contains the form for head-data
  * 
- * Created with Mogwai FormMaker 0.6.
+ * @author Anton Kharitonov
+ * @author Patrick Heinz
+ * @version 0.3, 01.01.2010
+ * 
  */
 public class BHScenarioHeadForm extends JPanel {
 
@@ -113,21 +112,7 @@ public class BHScenarioHeadForm extends JPanel {
 		this.add(new JScrollPane(this.getTperioddata()), cons
 				.xywh(3, 16, 17, 1));
 		this.add(this.getBcalculate(), cons.xywh(17, 18, 1, 1));
-		this.add(this.getResultLabel(), cons.xywh(12, 18, 1, 1));
-		this.add(this.getInfoLabel(), cons.xywh(3, 18, 1, 1));
 	}
-
-	
-	public static JLabel getInfoLabel() { // added
-		JLabel infoLabel = new JLabel();
-		return infoLabel; // added
-	} // added
-
-	public static JLabel getResultLabel() { // added
-		JLabel resultLabel = new JLabel();
-		return resultLabel; // added
-	} // added
-
 	
 	public JPanel getPprocess() {
 		if (pprocess == null) {
@@ -278,7 +263,7 @@ public class BHScenarioHeadForm extends JPanel {
 		return this.lbaseyear;
 	}
 
-	// Here are the getters for the textfields beginning
+	// Here do the getters for the textfields begin
 
 	/**
 	 * Getter method for component tfscenName.
@@ -290,6 +275,7 @@ public class BHScenarioHeadForm extends JPanel {
 		if (this.tfscenname == null) {
 			this.tfscenname = new BHTextField(DTOScenario.Key.NAME.toString(),
 					"Scenario Name");
+			// TODO add inputhint texts
 			int[] rules = { ValidationMethods.isMandatory };
 			tfscenname.setValidateRules(rules);
 		}
@@ -464,9 +450,12 @@ public class BHScenarioHeadForm extends JPanel {
 		return this.lpercentcorporate;
 	}
 
+	
+	// TODO remove main later
 	/**
 	 * Test main method.
 	 */
+	@SuppressWarnings("deprecation")
 	public static void main(String args[]) {
 
 		JFrame test = new JFrame("Test for ViewHeadData1");
