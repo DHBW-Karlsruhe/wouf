@@ -89,7 +89,7 @@ class PlatformActionListener implements ActionListener {
 			break;
 			
 		case PROJECTDUPLICATE:
-			//TODO Prüfen und ggf. implementieren!
+			//TODO Zuckschwerdt.Lars
 			break;
 			
 		// TODO Katzor.Marcus
@@ -115,7 +115,7 @@ class PlatformActionListener implements ActionListener {
 			break;
 			
 		case SCENARIODUPLICATE:
-			//TODO Prüfen und ggf. implementieren!
+			//TODO Zuckschwerdt.Lars
 			break;
 			
 		case SCENARIOMOVE:
