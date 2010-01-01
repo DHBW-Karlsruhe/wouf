@@ -7,6 +7,7 @@ import javax.swing.ImageIcon;
 import javax.swing.JLabel;
 import javax.swing.JProgressBar;
 import javax.swing.JWindow;
+import javax.swing.UIManager;
 
 import org.bh.platform.IPlatformListener;
 import org.bh.platform.PlatformEvent;
@@ -41,9 +42,10 @@ public class BHSplashScreen extends JWindow implements Runnable,
 		JLabel iconLabel = new JLabel("", splashScreenIcon, JLabel.CENTER);
 		iconLabel.setSize(477, 229);
 
+
 		JProgressBar progressBar = new JProgressBar();
+		progressBar.putClientProperty("JComponent.sizeVariant", "small");
 		progressBar.setIndeterminate(true);
-		// progressBar.setBackground(new Color(0,0,50));
 
 		add(iconLabel, BorderLayout.CENTER);
 		add(progressBar, BorderLayout.SOUTH);

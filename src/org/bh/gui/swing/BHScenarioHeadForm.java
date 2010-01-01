@@ -62,20 +62,13 @@ public class BHScenarioHeadForm extends JPanel {
 	private BHLabel lcalculate;
 
 	final BHTranslator translator = BHTranslator.getInstance();
-	
-	private ValidationMethods valMeth = new ValidationMethods();
+
 
 	/**
 	 * Constructor.
 	 */
 	public BHScenarioHeadForm() {
 		this.initialize();
-		try {
-			ViewTest view = new ViewTest(this, valMeth);
-//			Controller controller = new Controller(view);
-		} catch (ViewException e) {
-			e.printStackTrace();
-		}
 	}
 
 	/**

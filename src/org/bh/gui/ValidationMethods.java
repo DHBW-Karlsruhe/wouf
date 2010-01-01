@@ -3,6 +3,11 @@ package org.bh.gui;
 import java.util.Iterator;
 import java.util.Map;
 
+import javax.swing.JComponent;
+import javax.swing.JLabel;
+import javax.swing.JScrollPane;
+import javax.swing.JTextField;
+
 import org.bh.controller.Controller;
 import org.bh.gui.swing.BHTextField;
 import org.bh.gui.swing.IBHComponent;
@@ -13,11 +18,11 @@ import com.jgoodies.validation.util.ValidationUtils;
 import com.jgoodies.validation.view.ValidationComponentUtils;
 
 /**
- * This class contains the validation rules for a specific form panel TODO
- * change classname to xyFormValidation. Same in this comment.
+ * This class contains the validation rules for a specific form panel
+ * TODO change classname to xyFormValidation. Same in this comment.
  * 
  * @author Patrick Heinz
- * @version 0.2, 22.12.2009
+ * @version 0.3, 30.12.2009
  * 
  */
 
@@ -36,10 +41,13 @@ public class ValidationMethods extends BHValidityEngine {
 	@SuppressWarnings("fallthrough")
 	@Override
 	public ValidationResult validate(IBHComponent comp) throws ViewException {
-		try {
+		
+		ValidationResult validationResult = null;
+
+		if (comp instanceof JTextField || comp instanceof BHTextField) {
 			BHTextField tf_toValidate = (BHTextField) comp;
 
-			ValidationResult validationResult = new ValidationResult();
+			validationResult = new ValidationResult();
 
 			int[] allValidationRules = tf_toValidate.getValidateRules();
 
@@ -57,111 +65,100 @@ public class ValidationMethods extends BHValidityEngine {
 
 				// checks if a textfield is mandatory and not filled
 				case isMandatory:
-					if (ValidationComponentUtils
-							.isMandatoryAndBlank(tf_toValidate)) {
-						validationResult.addError(translator
-								.translate("Efield")
+					if (ValidationComponentUtils.isMandatoryAndBlank(tf_toValidate)) {
+						validationResult.addError(translator.translate("Efield")
 								+ translator.translate(tf_toValidate.getKey())
 								+ translator.translate("EisMandatory"));
-						ValidationComponentUtils
-								.setErrorBackground(tf_toValidate);
+						ValidationComponentUtils.setErrorBackground(tf_toValidate);
 						break;
 					}
 
-					// checks if a textfield requires a double value
+				// checks if a textfield requires a double value
 				case isDouble:
 					valueString = tf_toValidate.getText();
 					valueString.replace(',', '.');
 					try {
 						value = Double.valueOf(Double.parseDouble(valueString));
 					} catch (NumberFormatException nfe) {
-						validationResult.addError(translator
-								.translate("Efield")
+						validationResult.addError(translator.translate("Efield")
 								+ translator.translate(tf_toValidate.getKey())
 								+ translator.translate("EisDouble"));
-						ValidationComponentUtils
-								.setErrorBackground(tf_toValidate);
+						ValidationComponentUtils.setErrorBackground(tf_toValidate);
 						break;
 					}
 
-					// checks if a textfield requires an integer value
+				// checks if a textfield requires an integer value
 				case isInteger:
 					if (ValidationUtils.isNumeric(tf_toValidate.getText()) == false) {
-						validationResult.addError(translator
-								.translate("Efield")
+						validationResult.addError(translator.translate("Efield")
 								+ translator.translate(tf_toValidate.getKey())
 								+ translator.translate("EisInteger"));
-						ValidationComponentUtils
-								.setErrorBackground(tf_toValidate);
+						ValidationComponentUtils.setErrorBackground(tf_toValidate);
 						break;
 					}
 
-					// checks if a textfield requires only positive values
+				// checks if a textfield requires only positive values
 				case isPositive:
 					valueString = tf_toValidate.getText();
 					value = Double.parseDouble(valueString);
 					if (value <= 0) {
-						validationResult.addError(translator
-								.translate("Efield")
+						validationResult.addError(translator.translate("Efield")
 								+ translator.translate(tf_toValidate.getKey())
 								+ translator.translate("EisPositive"));
-						ValidationComponentUtils
-								.setErrorBackground(tf_toValidate);
+						ValidationComponentUtils.setErrorBackground(tf_toValidate);
 						break;
 					}
 
-					// checks if a textfield requires only negative values
+				// checks if a textfield requires only negative values
 				case isNegative:
 					valueString = tf_toValidate.getText();
 					value = Double.parseDouble(valueString);
 					if (value >= 0) {
-						validationResult.addError(translator
-								.translate("Efield")
+						validationResult.addError(translator.translate("Efield")
 								+ translator.translate(tf_toValidate.getKey())
 								+ translator.translate("EisNegative"));
-						ValidationComponentUtils
-								.setErrorBackground(tf_toValidate);
+						ValidationComponentUtils.setErrorBackground(tf_toValidate);
 						break;
 					}
 
-					// checks if a textfield mustn't be zero
+				// checks if a textfield mustn't be zero
 				case isNotZero:
 					valueString = tf_toValidate.getText();
 					value = Double.parseDouble(valueString);
 					if (value == 0) {
-						validationResult.addError(translator
-								.translate("Efield")
+						validationResult.addError(translator.translate("Efield")
 								+ translator.translate(tf_toValidate.getKey())
 								+ translator.translate("EisNotZero"));
-						ValidationComponentUtils
-								.setErrorBackground(tf_toValidate);
+						ValidationComponentUtils.setErrorBackground(tf_toValidate);
 						break;
 					}
 
-					// checks if a textfield's value is between 0 and 100
+				// checks if a textfield's value is between 0 and 100
 				case isBetween0and100:
 					valueString = tf_toValidate.getText();
 					value = Double.parseDouble(valueString);
 					if (value < 0 || value > 100) {
-						validationResult.addError(translator
-								.translate("Efield")
+						validationResult.addError(translator.translate("Efield")
 								+ translator.translate(tf_toValidate.getKey())
 								+ translator.translate("EisBetween0and100"));
-						ValidationComponentUtils
-								.setErrorBackground(tf_toValidate);
+						ValidationComponentUtils.setErrorBackground(tf_toValidate);
 						break;
 					}
-
+				
+				// The textfield does not have one of the rules above
 				default:
-					System.out.println(translator
-							.translate("EnoValidationRulesFound"));
+					System.out.println(translator.translate("EnoValidationRulesFound"));
 				}
 			}
-			return validationResult;
-		} catch (Exception e) {
-			throw new ViewException(translator
-					.translate("ExtypecastBHTextfieldFailed"));
 		}
+		else { // (!(comp instanceof JTextField) || (comp instanceof BHTextField))
+			try {
+				validationResult = new ValidationResult();
+			} catch (Exception e) {
+				throw new ViewException(translator.translate("ExtypecastBHTextfieldFailed"));
+			}
+		}
+		return validationResult;
 	}
 
 	@SuppressWarnings("unchecked")
@@ -190,13 +187,15 @@ public class ValidationMethods extends BHValidityEngine {
 	@Override
 	public void registerComponents(Map<String, IBHComponent> toValidate)
 			throws ViewException {
-		try {
-			int mapsize = toValidate.size();
-			Iterator<?> iterator = toValidate.entrySet().iterator();
 
-			for (int i = 0; i < mapsize; i++) {
+		int mapsize = toValidate.size();
+		Iterator<?> iterator = toValidate.entrySet().iterator();
 
-				Map.Entry entry = (Map.Entry) iterator.next();
+		for (int i = 0; i < mapsize; i++) {
+
+			Map.Entry entry = (Map.Entry) iterator.next();
+			
+//			if (entry instanceof JTextField || entry instanceof BHTextField) {
 				BHTextField tf_toValidate = (BHTextField) entry.getValue();
 
 				// add some kind of tooltipp to textfield
@@ -213,21 +212,48 @@ public class ValidationMethods extends BHValidityEngine {
 					validateRule = allValidationRules[j];
 
 					if (validateRule == isMandatory) {
-						// set textfield mandatory and highlight it with a blue
-						// border
-						ValidationComponentUtils.setMandatory(tf_toValidate,
-								true);
-						ValidationComponentUtils
-								.setMandatoryBorder(tf_toValidate);
-						// TODO check if after "break" only the inner for-loop
-						// is left
+						// set textfield mandatory and highlight it with a blue border
+						ValidationComponentUtils.setMandatory(tf_toValidate, true);
+						ValidationComponentUtils.setMandatoryBorder(tf_toValidate);
+						// TODO check if after "break" only the inner for-loop is left
 						break;
 					}
 				}
-			}
-		} catch (Exception e) {
-			throw new ViewException(translator
-					.translate("ExtypecastBHTextfieldFailed"));
+//			}
+		}
+	}
+
+	
+	// TODO Remove methods below, when everything is working
+	
+	public static void setInputHintLabel(IBHComponent comp) {
+		JLabel infoLabel = ((JLabel) ValidationComponentUtils
+				.getInputHint((JComponent) comp));
+		System.out.println(infoLabel.toString());
+	}
+
+	@SuppressWarnings("deprecation")
+	@Override
+	public void publishValidationAll(Map<String, IBHComponent> toValidate)
+			throws ViewException {
+		ValidationResult validationResultAll = validateAll(toValidate);
+		setValidityStatus(validationResultAll);
+		JScrollPane pane = createValidationResultList(validationResultAll);
+		int counter = pane.countComponents();
+		for (int i = 0; i < counter; i++) {
+			System.out.println(pane.getNextFocusableComponent().toString());
+		}
+	}
+
+	@SuppressWarnings("deprecation")
+	@Override
+	protected void publishValidationComp(IBHComponent comp)
+			throws ViewException {
+		ValidationResult valRes = validate(comp);
+		JScrollPane pane = createValidationResultList(valRes);
+		int counter = pane.countComponents();
+		for (int i = 0; i < counter; i++) {
+			System.out.println(pane.getNextFocusableComponent().toString());
 		}
 	}
 }
