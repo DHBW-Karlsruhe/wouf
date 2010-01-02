@@ -102,8 +102,10 @@ class PlatformActionListener implements ActionListener {
 			TreePath currentRemoveProjectSelection = bhmf.getBHTree().getSelectionPath();
 			if(currentRemoveProjectSelection != null){
 				BHTreeNode removeProjectNode = (BHTreeNode)bhmf.getBHTree().getSelectionPath().getLastPathComponent();
-				((BHTreeModel) bhmf.getBHTree().getModel()).removeNodeFromParent(removeProjectNode);
-				projectRepoManager.removeProject((DTOProject) removeProjectNode.getUserObject());
+				if(removeProjectNode.getUserObject() instanceof DTOProject){
+					((BHTreeModel) bhmf.getBHTree().getModel()).removeNodeFromParent(removeProjectNode);
+					projectRepoManager.removeProject((DTOProject) removeProjectNode.getUserObject());
+				}
 			}
 			break;
 			
@@ -120,11 +122,14 @@ class PlatformActionListener implements ActionListener {
 			break;
 			
 		case SCENARIOREMOVE:
-			//TODO Prüfen und ggf. implementieren!
-			BHTreeNode removeScenarioNode = (BHTreeNode)bhmf.getBHTree().getSelectionPath().getLastPathComponent();
-			removeScenarioNode = (BHTreeNode) removeScenarioNode.getRoot().getChildAt(2);
-			System.out.println(removeScenarioNode.toString());
-			((BHTreeModel) bhmf.getBHTree().getModel()).removeNodeFromParent(removeScenarioNode);
+			TreePath currentRemoveScenarioSelection = bhmf.getBHTree().getSelectionPath();
+			if(currentRemoveScenarioSelection != null){
+				BHTreeNode removeScenarioNode = (BHTreeNode)bhmf.getBHTree().getSelectionPath().getLastPathComponent();
+				if(removeScenarioNode.getUserObject() instanceof DTOScenario){
+					((BHTreeModel) bhmf.getBHTree().getModel()).removeNodeFromParent(removeScenarioNode);
+					((DTOScenario)((BHTreeNode)removeScenarioNode.getParent()).getUserObject()).removeChild((DTOPeriod) removeScenarioNode.getUserObject());
+				}
+			}
 			break;
 			
 		case BILANZGUVSHOW:
