@@ -28,7 +28,7 @@ public class BHHelpSystem extends JPanel{
 		      	ClassLoader cl = BHHelpSystem.class.getClassLoader();
 		      	URL url = HelpSet.findHelpSet(cl, "jhelpset.hs");
 		      	helpViewer = new JHelp(new HelpSet(cl, url));
-		      	//helpViewer.setCurrentID("Simple.Introduction");
+		      	helpViewer.setCurrentID("userhelp");
 			} catch (Exception e) {
 				System.err.println("API Help Set not found");
 			}
