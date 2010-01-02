@@ -19,16 +19,16 @@ import javax.swing.JPanel;
 public class BHHelpSystem extends JPanel{
 	JHelp helpViewer = null;
 	
-	protected BHHelpSystem(){
-		this.initialise();
+	protected BHHelpSystem(String ID){
+		this.initialise(ID);
 	}
-	public void initialise(){
+	public void initialise(String ID){
 		
 			try {
 		      	ClassLoader cl = BHHelpSystem.class.getClassLoader();
 		      	URL url = HelpSet.findHelpSet(cl, "jhelpset.hs");
 		      	helpViewer = new JHelp(new HelpSet(cl, url));
-		      	helpViewer.setCurrentID("userhelp");
+		      	helpViewer.setCurrentID(ID);
 			} catch (Exception e) {
 				System.err.println("API Help Set not found");
 			}

@@ -162,14 +162,21 @@ class PlatformActionListener implements ActionListener {
 			JFrame frame = new JFrame();
 			frame.setTitle("Business Horizon Help");
 			frame.setSize(610,600);
-			frame.getContentPane().add(new BHHelpSystem());
+			frame.getContentPane().add(new BHHelpSystem("userhelp"));
 			frame.setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
 			frame.setResizable(false);
 			frame.setVisible(true);
 			break;
 			
 		case HELPMATHHELP:
-			//TODO Prüfen und ggf. implementieren!
+			System.out.println("HELPMATHHELP gefeuert");
+			JFrame mathframe = new JFrame();
+			mathframe.setTitle("Business Horizon Mathematische Erläuterungen");
+			mathframe.setSize(610,600);
+			mathframe.getContentPane().add(new BHHelpSystem("mathhelp"));
+			mathframe.setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
+			mathframe.setResizable(false);
+			mathframe.setVisible(true);
 			break;
 			
 		case HELPINFO:
