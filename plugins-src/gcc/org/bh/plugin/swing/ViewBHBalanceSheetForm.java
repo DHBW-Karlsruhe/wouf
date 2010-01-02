@@ -14,9 +14,9 @@ import org.bh.plugin.swing.BHBalanceSheetForm;
  *
  * @author Marco Hammel
  */
-public class ViewBHBalandeSheetForm extends View{
+public class ViewBHBalanceSheetForm extends View{
 
-    public ViewBHBalandeSheetForm() throws ViewException{
+    public ViewBHBalanceSheetForm() throws ViewException{
         super(new BHBalanceSheetForm(), new ValidationMethods());
     }
 

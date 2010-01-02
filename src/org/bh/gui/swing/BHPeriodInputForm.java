@@ -10,9 +10,9 @@ import javax.swing.SwingConstants;
 import javax.swing.border.EtchedBorder;
 
 import org.bh.data.DTOPeriod;
-import org.bh.gui.swing.BHLabel;
-import org.bh.gui.swing.BHTextField;
+import org.bh.platform.Services;
 import org.bh.platform.i18n.BHTranslator;
+import org.bh.platform.i18n.ITranslator;
 
 import com.jgoodies.forms.layout.CellConstraints;
 import com.jgoodies.forms.layout.FormLayout;
@@ -43,7 +43,7 @@ public class BHPeriodInputForm extends JPanel {
     private BHTextField tfminfcf;
     
     private String year;
-    final BHTranslator translator = BHTranslator.getInstance();
+    ITranslator translator = Services.getTranslator();
 
     /**
      * Constructor.

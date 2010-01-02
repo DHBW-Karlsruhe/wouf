@@ -7,8 +7,8 @@ import javax.swing.JPanel;
 
 import org.bh.data.DTOProject;
 import org.bh.gui.ValidationMethods;
-import org.bh.gui.swing.BHLabel;
-import org.bh.gui.swing.BHTextField;
+import org.bh.platform.Services;
+import org.bh.platform.i18n.ITranslator;
 
 import com.jgoodies.forms.layout.CellConstraints;
 import com.jgoodies.forms.layout.FormLayout;
@@ -27,6 +27,8 @@ public class BHProjectInputForm extends JPanel {
     private BHLabel lproject;
     private BHLabel lprojectname;
     private BHTextField tfprojectname;
+    
+    ITranslator translator = Services.getTranslator();
     
     public BHProjectInputForm (){
 	

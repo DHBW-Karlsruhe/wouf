@@ -11,6 +11,7 @@ import javax.swing.JTextField;
 import org.bh.controller.Controller;
 import org.bh.gui.swing.BHTextField;
 import org.bh.gui.swing.IBHComponent;
+import org.bh.platform.Services;
 import org.bh.platform.i18n.ITranslator;
 
 import com.jgoodies.validation.ValidationResult;
@@ -28,7 +29,7 @@ import com.jgoodies.validation.view.ValidationComponentUtils;
 
 public class ValidationMethods extends BHValidityEngine {
 
-	ITranslator translator = Controller.getTranslator();
+	ITranslator translator = Services.getTranslator();
 
 	public static final int isMandatory = 1;
 	public static final int isDouble = 2;

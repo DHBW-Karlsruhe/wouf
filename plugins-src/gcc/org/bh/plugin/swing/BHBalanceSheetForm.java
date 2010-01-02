@@ -11,18 +11,20 @@ import javax.swing.SwingConstants;
 import javax.swing.border.EtchedBorder;
 import javax.swing.border.TitledBorder;
 
-import org.bh.gui.ValidationMethods;
+import org.bh.controller.Controller;
 import org.bh.gui.swing.BHLabel;
 import org.bh.gui.swing.BHTextField;
 import org.bh.gui.swing.IBHComponent;
+import org.bh.platform.Services;
 import org.bh.platform.i18n.BHTranslator;
+import org.bh.platform.i18n.ITranslator;
 import org.bh.plugin.gcc.data.DTOGCCBalanceSheet;
 
 import com.jgoodies.forms.layout.CellConstraints;
 import com.jgoodies.forms.layout.FormLayout;
 
 /**
- * This class contains the balance sheet form for the ggc plugin
+ * This class contains the balance sheet form for the plugin
  * 
  * @author Anton Kharitonov
  * @author Patrick Heinz
@@ -83,7 +85,7 @@ public class BHBalanceSheetForm extends JPanel {
 	private BHLabel lmaxpas;
 	private BHLabel lminpas;
 
-	final BHTranslator translator = BHTranslator.getInstance();
+	ITranslator translator = Controller.getTranslator();
 
 	/**
 	 * Constructor.
@@ -297,9 +299,9 @@ public class BHBalanceSheetForm extends JPanel {
 	public BHTextField getTfIVG() {
 		if (tfIVG == null) {
 			tfIVG = new BHTextField(DTOGCCBalanceSheet.class.getName()+"_"
-					+ DTOGCCBalanceSheet.Key.IVG);
-			// TODO add more rules, add InputHints
-			int[] rules = { ValidationMethods.isMandatory };
+					+ DTOGCCBalanceSheet.Key.IVG, translator.translate(""));
+			// TODO add InputHint
+			int[] rules = { ValidationBHBalanceSheetForm.isMandatory, ValidationBHBalanceSheetForm.isDouble };
 			tfIVG.setValidateRules(rules);
 		}
 		return tfIVG;
@@ -308,9 +310,9 @@ public class BHBalanceSheetForm extends JPanel {
 	public BHTextField getTfSA() {
 		if (tfSA == null) {
 			tfSA = new BHTextField(DTOGCCBalanceSheet.class.getName()+"_"
-					+ DTOGCCBalanceSheet.Key.SA);
-			// TODO add more rules, add InputHints
-			int[] rules = { ValidationMethods.isMandatory };
+					+ DTOGCCBalanceSheet.Key.SA, translator.translate(""));
+			// TODO add InputHint
+			int[] rules = { ValidationBHBalanceSheetForm.isMandatory, ValidationBHBalanceSheetForm.isDouble };
 			tfSA.setValidateRules(rules);
 		}
 		return tfSA;
@@ -319,9 +321,9 @@ public class BHBalanceSheetForm extends JPanel {
 	public BHTextField getTfFA() {
 		if (tfFA == null) {
 			tfFA = new BHTextField(DTOGCCBalanceSheet.class.getName()+"_"
-					+ DTOGCCBalanceSheet.Key.FA);
-			// TODO add more rules, add InputHints
-			int[] rules = { ValidationMethods.isMandatory };
+					+ DTOGCCBalanceSheet.Key.FA, translator.translate(""));
+			// TODO add InputHint
+			int[] rules = { ValidationBHBalanceSheetForm.isMandatory, ValidationBHBalanceSheetForm.isDouble };
 			tfFA.setValidateRules(rules);
 		}
 		return tfFA;
@@ -330,9 +332,9 @@ public class BHBalanceSheetForm extends JPanel {
 	public BHTextField getTfVOR() {
 		if (tfVOR == null) {
 			tfVOR = new BHTextField(DTOGCCBalanceSheet.class.getName()+"_"
-					+ DTOGCCBalanceSheet.Key.VOR);
-			// TODO add more rules, add InputHints
-			int[] rules = { ValidationMethods.isMandatory };
+					+ DTOGCCBalanceSheet.Key.VOR, translator.translate(""));
+			// TODO add InputHint
+			int[] rules = { ValidationBHBalanceSheetForm.isMandatory, ValidationBHBalanceSheetForm.isDouble };
 			tfVOR.setValidateRules(rules);
 		}
 		return tfVOR;
@@ -341,9 +343,9 @@ public class BHBalanceSheetForm extends JPanel {
 	public BHTextField getTfFSVG() {
 		if (tfFSVG == null) {
 			tfFSVG = new BHTextField(DTOGCCBalanceSheet.class.getName()+"_"
-					+ DTOGCCBalanceSheet.Key.FSVG);
-			// TODO add more rules, add InputHints
-			int[] rules = { ValidationMethods.isMandatory };
+					+ DTOGCCBalanceSheet.Key.FSVG, translator.translate(""));
+			// TODO add InputHint
+			int[] rules = { ValidationBHBalanceSheetForm.isMandatory, ValidationBHBalanceSheetForm.isDouble };
 			tfFSVG.setValidateRules(rules);
 		}
 		return tfFSVG;
@@ -352,9 +354,9 @@ public class BHBalanceSheetForm extends JPanel {
 	public BHTextField getTfWP() {
 		if (tfWP == null) {
 			tfWP = new BHTextField(DTOGCCBalanceSheet.class.getName()+"_"
-					+ DTOGCCBalanceSheet.Key.WP);
-			// TODO add more rules, add InputHints
-			int[] rules = { ValidationMethods.isMandatory };
+					+ DTOGCCBalanceSheet.Key.WP, translator.translate(""));
+			// TODO add InputHint
+			int[] rules = { ValidationBHBalanceSheetForm.isMandatory, ValidationBHBalanceSheetForm.isDouble };
 			tfWP.setValidateRules(rules);
 		}
 		return tfWP;
@@ -363,9 +365,9 @@ public class BHBalanceSheetForm extends JPanel {
 	public BHTextField getTfKBGGKS() {
 		if (tfKBGGKS == null) {
 			tfKBGGKS = new BHTextField(DTOGCCBalanceSheet.class.getName()+"_"
-					+ DTOGCCBalanceSheet.Key.KBGGKS);
-			// TODO add more rules, add InputHints
-			int[] rules = { ValidationMethods.isMandatory };
+					+ DTOGCCBalanceSheet.Key.KBGGKS, translator.translate(""));
+			// TODO add InputHint
+			int[] rules = { ValidationBHBalanceSheetForm.isMandatory, ValidationBHBalanceSheetForm.isDouble };
 			tfKBGGKS.setValidateRules(rules);
 		}
 		return tfKBGGKS;
@@ -374,9 +376,9 @@ public class BHBalanceSheetForm extends JPanel {
 	public BHTextField getTfEK() {
 		if (tfEK == null) {
 			tfEK = new BHTextField(DTOGCCBalanceSheet.class.getName()+"_"
-					+ DTOGCCBalanceSheet.Key.EK);
-			// TODO add more rules, add InputHints
-			int[] rules = { ValidationMethods.isMandatory };
+					+ DTOGCCBalanceSheet.Key.EK, translator.translate(""));
+			// TODO add InputHint
+			int[] rules = { ValidationBHBalanceSheetForm.isMandatory, ValidationBHBalanceSheetForm.isDouble };
 			tfEK.setValidateRules(rules);
 		}
 		return tfEK;
@@ -385,9 +387,9 @@ public class BHBalanceSheetForm extends JPanel {
 	public BHTextField getTfRS() {
 		if (tfRS == null) {
 			tfRS = new BHTextField(DTOGCCBalanceSheet.class.getName()+"_"
-					+ DTOGCCBalanceSheet.Key.RS);
-			// TODO add more rules, add InputHints
-			int[] rules = { ValidationMethods.isMandatory };
+					+ DTOGCCBalanceSheet.Key.RS, translator.translate(""));
+			// TODO add InputHint
+			int[] rules = { ValidationBHBalanceSheetForm.isMandatory, ValidationBHBalanceSheetForm.isDouble };
 			tfRS.setValidateRules(rules);
 		}
 		return tfRS;
@@ -396,9 +398,9 @@ public class BHBalanceSheetForm extends JPanel {
 	public BHTextField getTfVB() {
 		if (tfVB == null) {
 			tfVB = new BHTextField(DTOGCCBalanceSheet.class.getName()+"_"
-					+ DTOGCCBalanceSheet.Key.VB);
-			// TODO add more rules, add InputHints
-			int[] rules = { ValidationMethods.isMandatory };
+					+ DTOGCCBalanceSheet.Key.VB, translator.translate(""));
+			// TODO add InputHint
+			int[] rules = { ValidationBHBalanceSheetForm.isMandatory, ValidationBHBalanceSheetForm.isDouble };
 			tfVB.setValidateRules(rules);
 		}
 		return tfVB;
@@ -410,9 +412,8 @@ public class BHBalanceSheetForm extends JPanel {
 		if (tfIVGmax == null) {
 			tfIVGmax = new BHTextField(IBHComponent.MAXVALUE
 					+ DTOGCCBalanceSheet.class.getName()+"_"
-					+ DTOGCCBalanceSheet.Key.IVG);
-			// TODO add more rules, add InputHints
-			int[] rules = { ValidationMethods.isMandatory };
+					+ DTOGCCBalanceSheet.Key.IVG, translator.translate("IIVGmax"));
+			int[] rules = { ValidationBHBalanceSheetForm.isMandatory, ValidationBHBalanceSheetForm.isDouble };
 			tfIVGmax.setValidateRules(rules);
 		}
 		return tfIVGmax;
@@ -422,9 +423,8 @@ public class BHBalanceSheetForm extends JPanel {
 		if (tfSAmax == null) {
 			tfSAmax = new BHTextField(IBHComponent.MAXVALUE
 					+ DTOGCCBalanceSheet.class.getName()+"_"
-					+ DTOGCCBalanceSheet.Key.SA);
-			// TODO add more rules, add InputHints
-			int[] rules = { ValidationMethods.isMandatory };
+					+ DTOGCCBalanceSheet.Key.SA, translator.translate("ISAmax"));
+			int[] rules = { ValidationBHBalanceSheetForm.isMandatory, ValidationBHBalanceSheetForm.isDouble };
 			tfSAmax.setValidateRules(rules);
 		}
 		return tfSAmax;
@@ -434,9 +434,8 @@ public class BHBalanceSheetForm extends JPanel {
 		if (tfFAmax == null) {
 			tfFAmax = new BHTextField(IBHComponent.MAXVALUE
 					+ DTOGCCBalanceSheet.class.getName()+"_"
-					+ DTOGCCBalanceSheet.Key.FA);
-			// TODO add more rules, add InputHints
-			int[] rules = { ValidationMethods.isMandatory };
+					+ DTOGCCBalanceSheet.Key.FA, translator.translate("IFAmax"));
+			int[] rules = { ValidationBHBalanceSheetForm.isMandatory, ValidationBHBalanceSheetForm.isDouble };
 			tfFAmax.setValidateRules(rules);
 		}
 		return tfFAmax;
@@ -446,9 +445,8 @@ public class BHBalanceSheetForm extends JPanel {
 		if (tfVORmax == null) {
 			tfVORmax = new BHTextField(IBHComponent.MAXVALUE
 					+ DTOGCCBalanceSheet.class.getName()+"_"
-					+ DTOGCCBalanceSheet.Key.VOR);
-			// TODO add more rules, add InputHints
-			int[] rules = { ValidationMethods.isMandatory };
+					+ DTOGCCBalanceSheet.Key.VOR, translator.translate("IVORmax"));
+			int[] rules = { ValidationBHBalanceSheetForm.isMandatory, ValidationBHBalanceSheetForm.isDouble };
 			tfVORmax.setValidateRules(rules);
 		}
 		return tfVORmax;
@@ -458,9 +456,8 @@ public class BHBalanceSheetForm extends JPanel {
 		if (tfFSVGmax == null) {
 			tfFSVGmax = new BHTextField(IBHComponent.MAXVALUE
 					+ DTOGCCBalanceSheet.class.getName()+"_"
-					+ DTOGCCBalanceSheet.Key.FSVG);
-			// TODO add more rules, add InputHints
-			int[] rules = { ValidationMethods.isMandatory };
+					+ DTOGCCBalanceSheet.Key.FSVG, translator.translate("IFSVGmax"));
+			int[] rules = { ValidationBHBalanceSheetForm.isMandatory, ValidationBHBalanceSheetForm.isDouble };
 			tfFSVGmax.setValidateRules(rules);
 		}
 		return tfFSVGmax;
@@ -470,9 +467,8 @@ public class BHBalanceSheetForm extends JPanel {
 		if (tfWPmax == null) {
 			tfWPmax = new BHTextField(IBHComponent.MAXVALUE
 					+ DTOGCCBalanceSheet.class.getName()+"_"
-					+ DTOGCCBalanceSheet.Key.WP);
-			// TODO add more rules, add InputHints
-			int[] rules = { ValidationMethods.isMandatory };
+					+ DTOGCCBalanceSheet.Key.WP, translator.translate("IWPmax"));
+			int[] rules = { ValidationBHBalanceSheetForm.isMandatory, ValidationBHBalanceSheetForm.isDouble };
 			tfWPmax.setValidateRules(rules);
 		}
 		return tfWPmax;
@@ -482,9 +478,8 @@ public class BHBalanceSheetForm extends JPanel {
 		if (tfKBGGKSmax == null) {
 			tfKBGGKSmax = new BHTextField(IBHComponent.MAXVALUE
 					+ DTOGCCBalanceSheet.class.getName()+"_"
-					+ DTOGCCBalanceSheet.Key.KBGGKS);
-			// TODO add more rules, add InputHints
-			int[] rules = { ValidationMethods.isMandatory };
+					+ DTOGCCBalanceSheet.Key.KBGGKS, translator.translate("IKBGGKSmax"));
+			int[] rules = { ValidationBHBalanceSheetForm.isMandatory, ValidationBHBalanceSheetForm.isDouble };
 			tfKBGGKSmax.setValidateRules(rules);
 		}
 		return tfKBGGKSmax;
@@ -494,9 +489,8 @@ public class BHBalanceSheetForm extends JPanel {
 		if (tfEKmax == null) {
 			tfEKmax = new BHTextField(IBHComponent.MAXVALUE
 					+ DTOGCCBalanceSheet.class.getName()+"_"
-					+ DTOGCCBalanceSheet.Key.EK);
-			// TODO add more rules, add InputHints
-			int[] rules = { ValidationMethods.isMandatory };
+					+ DTOGCCBalanceSheet.Key.EK, translator.translate("IEKmax"));
+			int[] rules = { ValidationBHBalanceSheetForm.isMandatory, ValidationBHBalanceSheetForm.isDouble };
 			tfEKmax.setValidateRules(rules);
 		}
 		return tfEKmax;
@@ -506,9 +500,8 @@ public class BHBalanceSheetForm extends JPanel {
 		if (tfRSmax == null) {
 			tfRSmax = new BHTextField(IBHComponent.MAXVALUE
 					+ DTOGCCBalanceSheet.class.getName()+"_"
-					+ DTOGCCBalanceSheet.Key.RS);
-			// TODO add more rules, add InputHints
-			int[] rules = { ValidationMethods.isMandatory };
+					+ DTOGCCBalanceSheet.Key.RS, translator.translate("IRSmax"));
+			int[] rules = { ValidationBHBalanceSheetForm.isMandatory, ValidationBHBalanceSheetForm.isDouble };
 			tfRSmax.setValidateRules(rules);
 		}
 		return tfRSmax;
@@ -518,9 +511,8 @@ public class BHBalanceSheetForm extends JPanel {
 		if (tfVBmax == null) {
 			tfVBmax = new BHTextField(IBHComponent.MAXVALUE
 					+ DTOGCCBalanceSheet.class.getName()+"_"
-					+ DTOGCCBalanceSheet.Key.VB);
-			// TODO add more rules, add InputHints
-			int[] rules = { ValidationMethods.isMandatory };
+					+ DTOGCCBalanceSheet.Key.VB, translator.translate("IVBmax"));
+			int[] rules = { ValidationBHBalanceSheetForm.isMandatory, ValidationBHBalanceSheetForm.isDouble };
 			tfVBmax.setValidateRules(rules);
 		}
 		return tfVBmax;
@@ -532,9 +524,8 @@ public class BHBalanceSheetForm extends JPanel {
 		if (tfIVGmin == null) {
 			tfIVGmin = new BHTextField(IBHComponent.MINVALUE
 					+ DTOGCCBalanceSheet.class.getName()+"_"
-					+ DTOGCCBalanceSheet.Key.IVG);
-			// TODO add more rules, add InputHints
-			int[] rules = { ValidationMethods.isMandatory };
+					+ DTOGCCBalanceSheet.Key.IVG, translator.translate("IIVGmin"));
+			int[] rules = { ValidationBHBalanceSheetForm.isMandatory, ValidationBHBalanceSheetForm.isDouble };
 			tfIVGmin.setValidateRules(rules);
 		}
 		return tfIVGmin;
@@ -544,9 +535,8 @@ public class BHBalanceSheetForm extends JPanel {
 		if (tfSAmin == null) {
 			tfSAmin = new BHTextField(IBHComponent.MINVALUE
 					+ DTOGCCBalanceSheet.class.getName()+"_"
-					+ DTOGCCBalanceSheet.Key.SA);
-			// TODO add more rules, add InputHints
-			int[] rules = { ValidationMethods.isMandatory };
+					+ DTOGCCBalanceSheet.Key.SA, translator.translate("ISAmin"));
+			int[] rules = { ValidationBHBalanceSheetForm.isMandatory, ValidationBHBalanceSheetForm.isDouble };
 			tfSAmin.setValidateRules(rules);
 		}
 		return tfSAmin;
@@ -556,9 +546,8 @@ public class BHBalanceSheetForm extends JPanel {
 		if (tfFAmin == null) {
 			tfFAmin = new BHTextField(IBHComponent.MINVALUE
 					+ DTOGCCBalanceSheet.class.getName()+"_"
-					+ DTOGCCBalanceSheet.Key.FA);
-			// TODO add more rules, add InputHints
-			int[] rules = { ValidationMethods.isMandatory };
+					+ DTOGCCBalanceSheet.Key.FA, translator.translate("IFAmin"));
+			int[] rules = { ValidationBHBalanceSheetForm.isMandatory, ValidationBHBalanceSheetForm.isDouble };
 			tfFAmin.setValidateRules(rules);
 		}
 		return tfFAmin;
@@ -568,9 +557,8 @@ public class BHBalanceSheetForm extends JPanel {
 		if (tfVORmin == null) {
 			tfVORmin = new BHTextField(IBHComponent.MINVALUE
 					+ DTOGCCBalanceSheet.class.getName()+"_"
-					+ DTOGCCBalanceSheet.Key.VOR);
-			// TODO add more rules, add InputHints
-			int[] rules = { ValidationMethods.isMandatory };
+					+ DTOGCCBalanceSheet.Key.VOR, translator.translate("IVORmin"));
+			int[] rules = { ValidationBHBalanceSheetForm.isMandatory, ValidationBHBalanceSheetForm.isDouble };
 			tfVORmin.setValidateRules(rules);
 		}
 		return tfVORmin;
@@ -580,9 +568,8 @@ public class BHBalanceSheetForm extends JPanel {
 		if (tfFSVGmin == null) {
 			tfFSVGmin = new BHTextField(IBHComponent.MINVALUE
 					+ DTOGCCBalanceSheet.class.getName()+"_"
-					+ DTOGCCBalanceSheet.Key.FSVG);
-			// TODO add more rules, add InputHints
-			int[] rules = { ValidationMethods.isMandatory };
+					+ DTOGCCBalanceSheet.Key.FSVG, translator.translate("IFSVGmin"));
+			int[] rules = { ValidationBHBalanceSheetForm.isMandatory, ValidationBHBalanceSheetForm.isDouble };
 			tfFSVGmin.setValidateRules(rules);
 		}
 		return tfFSVGmin;
@@ -592,9 +579,8 @@ public class BHBalanceSheetForm extends JPanel {
 		if (tfWPmin == null) {
 			tfWPmin = new BHTextField(IBHComponent.MINVALUE
 					+ DTOGCCBalanceSheet.class.getName()+"_"
-					+ DTOGCCBalanceSheet.Key.WP);
-			// TODO add more rules, add InputHints
-			int[] rules = { ValidationMethods.isMandatory };
+					+ DTOGCCBalanceSheet.Key.WP, translator.translate("IWPmin"));
+			int[] rules = { ValidationBHBalanceSheetForm.isMandatory, ValidationBHBalanceSheetForm.isDouble };
 			tfWPmin.setValidateRules(rules);
 		}
 		return tfWPmin;
@@ -604,9 +590,8 @@ public class BHBalanceSheetForm extends JPanel {
 		if (tfKBGGKSmin == null) {
 			tfKBGGKSmin = new BHTextField(IBHComponent.MINVALUE
 					+ DTOGCCBalanceSheet.class.getName()+"_"
-					+ DTOGCCBalanceSheet.Key.KBGGKS);
-			// TODO add more rules, add InputHints
-			int[] rules = { ValidationMethods.isMandatory };
+					+ DTOGCCBalanceSheet.Key.KBGGKS, translator.translate("IKBGGKSmin"));
+			int[] rules = { ValidationBHBalanceSheetForm.isMandatory, ValidationBHBalanceSheetForm.isDouble };
 			tfKBGGKSmin.setValidateRules(rules);
 		}
 		return tfKBGGKSmin;
@@ -616,9 +601,8 @@ public class BHBalanceSheetForm extends JPanel {
 		if (tfEKmin == null) {
 			tfEKmin = new BHTextField(IBHComponent.MINVALUE
 					+ DTOGCCBalanceSheet.class.getName()+"_"
-					+ DTOGCCBalanceSheet.Key.EK);
-			// TODO add more rules, add InputHints
-			int[] rules = { ValidationMethods.isMandatory };
+					+ DTOGCCBalanceSheet.Key.EK, translator.translate("IEKmin"));
+			int[] rules = { ValidationBHBalanceSheetForm.isMandatory, ValidationBHBalanceSheetForm.isDouble };
 			tfEKmin.setValidateRules(rules);
 		}
 		return tfEKmin;
@@ -628,9 +612,8 @@ public class BHBalanceSheetForm extends JPanel {
 		if (tfRSmin == null) {
 			tfRSmin = new BHTextField(IBHComponent.MINVALUE
 					+ DTOGCCBalanceSheet.class.getName()+"_"
-					+ DTOGCCBalanceSheet.Key.RS);
-			// TODO add more rules, add InputHints
-			int[] rules = { ValidationMethods.isMandatory };
+					+ DTOGCCBalanceSheet.Key.RS, translator.translate("IRSmin"));
+			int[] rules = { ValidationBHBalanceSheetForm.isMandatory, ValidationBHBalanceSheetForm.isDouble };
 			tfRSmin.setValidateRules(rules);
 		}
 		return tfRSmin;
@@ -640,9 +623,8 @@ public class BHBalanceSheetForm extends JPanel {
 		if (tfVBmin == null) {
 			tfVBmin = new BHTextField(IBHComponent.MINVALUE
 					+ DTOGCCBalanceSheet.class.getName()+"_"
-					+ DTOGCCBalanceSheet.Key.VB);
-			// TODO add more rules, add InputHints
-			int[] rules = { ValidationMethods.isMandatory };
+					+ DTOGCCBalanceSheet.Key.VB, translator.translate("IVBmin"));
+			int[] rules = { ValidationBHBalanceSheetForm.isMandatory, ValidationBHBalanceSheetForm.isDouble };
 			tfVBmin.setValidateRules(rules);
 		}
 		return tfVBmin;

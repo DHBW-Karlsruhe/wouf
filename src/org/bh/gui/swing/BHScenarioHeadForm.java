@@ -13,9 +13,12 @@ import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.border.EtchedBorder;
 
+import org.bh.controller.Controller;
 import org.bh.data.DTOScenario;
 import org.bh.gui.ValidationMethods;
+import org.bh.platform.Services;
 import org.bh.platform.i18n.BHTranslator;
+import org.bh.platform.i18n.ITranslator;
 
 import com.jgoodies.forms.layout.CellConstraints;
 import com.jgoodies.forms.layout.FormLayout;
@@ -60,7 +63,7 @@ public class BHScenarioHeadForm extends JPanel {
 	private BHButton bcalculate;
 	private BHLabel lcalculate;
 
-	final BHTranslator translator = BHTranslator.getInstance();
+	ITranslator translator = Services.getTranslator();
 
 	/**
 	 * Constructor.
