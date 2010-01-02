@@ -99,7 +99,6 @@ class PlatformActionListener implements ActionListener {
 			break;
 			
 		case PROJECTREMOVE:
-
 			TreePath currentRemoveProjectSelection = bhmf.getBHTree().getSelectionPath();
 			if(currentRemoveProjectSelection != null){
 				BHTreeNode removeProjectNode = (BHTreeNode)bhmf.getBHTree().getSelectionPath().getLastPathComponent();
@@ -122,6 +121,10 @@ class PlatformActionListener implements ActionListener {
 			
 		case SCENARIOREMOVE:
 			//TODO Prüfen und ggf. implementieren!
+			BHTreeNode removeScenarioNode = (BHTreeNode)bhmf.getBHTree().getSelectionPath().getLastPathComponent();
+			removeScenarioNode = (BHTreeNode) removeScenarioNode.getRoot().getChildAt(2);
+			System.out.println(removeScenarioNode.toString());
+			((BHTreeModel) bhmf.getBHTree().getModel()).removeNodeFromParent(removeScenarioNode);
 			break;
 			
 		case BILANZGUVSHOW:
