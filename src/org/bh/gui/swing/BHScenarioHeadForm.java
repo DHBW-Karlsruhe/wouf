@@ -62,7 +62,6 @@ public class BHScenarioHeadForm extends JPanel {
 
 	final BHTranslator translator = BHTranslator.getInstance();
 
-
 	/**
 	 * Constructor.
 	 */
@@ -113,7 +112,7 @@ public class BHScenarioHeadForm extends JPanel {
 				.xywh(3, 16, 17, 1));
 		this.add(this.getBcalculate(), cons.xywh(17, 18, 1, 1));
 	}
-	
+
 	public JPanel getPprocess() {
 		if (pprocess == null) {
 			pprocess = new BHProcessForm();
@@ -274,12 +273,10 @@ public class BHScenarioHeadForm extends JPanel {
 
 		if (this.tfscenname == null) {
 			this.tfscenname = new BHTextField(DTOScenario.Key.NAME.toString(),
-					"Scenario Name");
-			// TODO add inputhint texts
+					translator.translate("IscenarioName"));
 			int[] rules = { ValidationMethods.isMandatory };
 			tfscenname.setValidateRules(rules);
 		}
-
 		return this.tfscenname;
 	}
 
@@ -292,11 +289,8 @@ public class BHScenarioHeadForm extends JPanel {
 
 		if (this.tfscendescript == null) {
 			this.tfscendescript = new BHTextField(DTOScenario.Key.COMMENT
-					.toString(), "");
-			int[] rules = { ValidationMethods.isMandatory };
-			tfscendescript.setValidateRules(rules);
+					.toString(), translator.translate("IscenDescript"));
 		}
-
 		return this.tfscendescript;
 	}
 
@@ -309,13 +303,11 @@ public class BHScenarioHeadForm extends JPanel {
 
 		if (this.tfequityyield == null) {
 			this.tfequityyield = new BHTextField(
-					DTOScenario.Key.REK.toString(), "");
+					DTOScenario.Key.REK.toString(), translator.translate("IequityYield"));
 			int[] rules = { ValidationMethods.isMandatory,
-					ValidationMethods.isDouble, ValidationMethods.isPositive,
-					ValidationMethods.isBetween0and100 };
+					ValidationMethods.isDouble, ValidationMethods.isPositive };
 			tfequityyield.setValidateRules(rules);
 		}
-
 		return this.tfequityyield;
 	}
 
@@ -328,14 +320,11 @@ public class BHScenarioHeadForm extends JPanel {
 
 		if (this.tfdeptyield == null) {
 			this.tfdeptyield = new BHTextField(DTOScenario.Key.RFK.toString(),
-					"");
+					translator.translate("IdeptYield"));
+			int[] rules = { ValidationMethods.isMandatory,
+					ValidationMethods.isDouble, ValidationMethods.isPositive };
+			tfdeptyield.setValidateRules(rules);
 		}
-
-		int[] rules = { ValidationMethods.isMandatory,
-				ValidationMethods.isDouble, ValidationMethods.isPositive,
-				ValidationMethods.isBetween0and100 };
-		tfdeptyield.setValidateRules(rules);
-
 		return this.tfdeptyield;
 	}
 
@@ -348,13 +337,12 @@ public class BHScenarioHeadForm extends JPanel {
 
 		if (this.tftradetax == null) {
 			this.tftradetax = new BHTextField(DTOScenario.Key.BTAX.toString(),
-					"");
+					translator.translate("ItradeTax"));
 			int[] rules = { ValidationMethods.isMandatory,
 					ValidationMethods.isDouble, ValidationMethods.isPositive,
 					ValidationMethods.isBetween0and100 };
 			tftradetax.setValidateRules(rules);
 		}
-
 		return this.tftradetax;
 	}
 
@@ -367,13 +355,12 @@ public class BHScenarioHeadForm extends JPanel {
 
 		if (this.tfcorporatetax == null) {
 			this.tfcorporatetax = new BHTextField(DTOScenario.Key.CTAX
-					.toString(), "");
+					.toString(), translator.translate("IcorporateTax"));
 			int[] rules = { ValidationMethods.isMandatory,
 					ValidationMethods.isDouble, ValidationMethods.isPositive,
 					ValidationMethods.isBetween0and100 };
 			tfcorporatetax.setValidateRules(rules);
 		}
-
 		return this.tfcorporatetax;
 	}
 
@@ -386,11 +373,11 @@ public class BHScenarioHeadForm extends JPanel {
 
 		if (this.tfbaseyear == null) {
 			this.tfbaseyear = new BHTextField("", "");
+			// TODO insert key and inputhint
+			int[] rules = { ValidationMethods.isMandatory,
+					ValidationMethods.isInteger, ValidationMethods.isPositive };
+			tfbaseyear.setValidateRules(rules);
 		}
-		int[] rules = { ValidationMethods.isMandatory,
-				ValidationMethods.isInteger, ValidationMethods.isPositive };
-		tfbaseyear.setValidateRules(rules);
-
 		return this.tfbaseyear;
 	}
 
@@ -404,7 +391,6 @@ public class BHScenarioHeadForm extends JPanel {
 		if (this.lpercentequity == null) {
 			this.lpercentequity = new BHLabel("", "%");
 		}
-
 		return this.lpercentequity;
 	}
 
@@ -418,7 +404,6 @@ public class BHScenarioHeadForm extends JPanel {
 		if (this.lpercentdept == null) {
 			this.lpercentdept = new BHLabel("", "%");
 		}
-
 		return this.lpercentdept;
 	}
 
@@ -432,7 +417,6 @@ public class BHScenarioHeadForm extends JPanel {
 		if (this.lpercenttrade == null) {
 			this.lpercenttrade = new BHLabel("", "%");
 		}
-
 		return this.lpercenttrade;
 	}
 
@@ -446,11 +430,9 @@ public class BHScenarioHeadForm extends JPanel {
 		if (this.lpercentcorporate == null) {
 			this.lpercentcorporate = new BHLabel("", "%");
 		}
-
 		return this.lpercentcorporate;
 	}
 
-	
 	// TODO remove main later
 	/**
 	 * Test main method.

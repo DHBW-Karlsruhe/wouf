@@ -1,4 +1,4 @@
-package org.bh.plugin.ggc.swing;
+package org.bh.plugin.swing;
 
 import java.util.Iterator;
 import java.util.Map;

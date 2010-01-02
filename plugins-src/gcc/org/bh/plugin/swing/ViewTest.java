@@ -1,4 +1,4 @@
-package org.bh.plugin.ggc.swing;
+package org.bh.plugin.swing;
 
 import org.bh.gui.ValidationMethods;
 import org.bh.gui.View;

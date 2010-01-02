@@ -3,12 +3,12 @@
  * and open the template in the editor.
  */
 
-package gcc.org.bh.plugin.ggc.swing;
+package org.bh.plugin.swing;
 
 import org.bh.gui.ValidationMethods;
 import org.bh.gui.View;
 import org.bh.gui.ViewException;
-import org.bh.plugin.ggc.swing.BHBalanceSheetForm;
+import org.bh.plugin.swing.BHBalanceSheetForm;
 
 /**
  *

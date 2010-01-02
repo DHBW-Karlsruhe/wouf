@@ -3,7 +3,7 @@
  * and open the template in the editor.
  */
 
-package gcc.org.bh.plugin.ggc.swing;
+package org.bh.plugin.swing;
 
 /**
  *
