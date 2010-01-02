@@ -1,4 +1,5 @@
 package org.bh.gui.swing;
+
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 
@@ -24,66 +25,66 @@ import com.jgoodies.forms.layout.FormLayout;
 
 public class BHProjectInputForm extends JPanel {
 
-    private BHLabel lproject;
-    private BHLabel lprojectname;
-    private BHTextField tfprojectname;
-    
-    ITranslator translator = Services.getTranslator();
-    
-    public BHProjectInputForm (){
-	
-	String rowDef = "4px:grow,p,4px,p,4px:grow";
-	String colDef = "4px:grow,right:pref,4px,min(150px;pref):grow,4px:grow";
+	private BHLabel lproject;
+	private BHLabel lprojectname;
+	private BHTextField tfprojectname;
 
-	FormLayout layout = new FormLayout(colDef, rowDef);
-	this.setLayout(layout);
+	ITranslator translator = Services.getTranslator();
 
-	CellConstraints cons = new CellConstraints();
-	
-	this.add(this.getLproject (), cons.xywh(4, 2, 1, 1, "center, center"));
-	this.add(this.getLprojectname (), cons.xywh(2, 4, 1, 1));
-	this.add(this.getTfprojectname (), cons.xywh(4, 4, 1, 1));
-    }
+	public BHProjectInputForm() {
 
-    public BHLabel getLproject() {
-        if (lproject == null){
-            lproject = new BHLabel ("","Projekt");
-        }
-	return lproject;
-    }
+		String rowDef = "4px:grow,p,4px,p,4px:grow";
+		String colDef = "4px:grow,right:pref,4px,min(150px;pref):grow,4px:grow";
 
-    public BHLabel getLprojectname() {
-	if (lprojectname == null){
-            lprojectname = new BHLabel (DTOProject.Key.NAME.toString(),"Name");
-            lprojectname.setVisible(false);
-        }
-	return lprojectname;
-    }
+		FormLayout layout = new FormLayout(colDef, rowDef);
+		this.setLayout(layout);
 
-    public BHTextField getTfprojectname() {
-	if (tfprojectname == null){
-            tfprojectname = new BHTextField (DTOProject.Key.NAME.toString());
-			// TODO add InputHints
+		CellConstraints cons = new CellConstraints();
+
+		this.add(this.getLproject(), cons.xywh(4, 2, 1, 1, "center, center"));
+		this.add(this.getLprojectname(), cons.xywh(2, 4, 1, 1));
+		this.add(this.getTfprojectname(), cons.xywh(4, 4, 1, 1));
+	}
+
+	public BHLabel getLproject() {
+		if (lproject == null) {
+			lproject = new BHLabel("", "Projekt");
+		}
+		return lproject;
+	}
+
+	public BHLabel getLprojectname() {
+		if (lprojectname == null) {
+			lprojectname = new BHLabel(DTOProject.Key.NAME.toString(), "Name");
+			lprojectname.setVisible(false);
+		}
+		return lprojectname;
+	}
+
+	public BHTextField getTfprojectname() {
+		if (tfprojectname == null) {
+			tfprojectname = new BHTextField(DTOProject.Key.NAME.toString(),
+					translator.translate("IprojectName"));
 			int[] rules = { ValidationMethods.isMandatory };
 			tfprojectname.setValidateRules(rules);
-        }
-	return tfprojectname;
-    }
-    
-    /**
-     * Test main method.
-     */
-    public static void main(String args[]) {
+		}
+		return tfprojectname;
+	}
 
-	JFrame test = new JFrame("Test for ViewPeriodData1");
-	test.setContentPane(new BHProjectInputForm ());
-	test.addWindowListener(new WindowAdapter() {
-	    public void windowClosing(WindowEvent e) {
-		System.exit(0);
-	    }
-	});
-	test.pack();
-	test.show();
-    }
-    
+	/**
+	 * Test main method.
+	 */
+	public static void main(String args[]) {
+
+		JFrame test = new JFrame("Test for ViewPeriodData1");
+		test.setContentPane(new BHProjectInputForm());
+		test.addWindowListener(new WindowAdapter() {
+			public void windowClosing(WindowEvent e) {
+				System.exit(0);
+			}
+		});
+		test.pack();
+		test.show();
+	}
+
 }

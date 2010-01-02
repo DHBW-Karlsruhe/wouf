@@ -5,14 +5,13 @@ import java.awt.Container;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 
-import org.bh.gui.ValidationMethods;
 import org.bh.gui.ViewException;
 
 public class ValidationTest extends JFrame {
 	
 	Container c;
 	JPanel viewtestpanel;
-	ValidationMethods valMeth;
+	ValidationBHBalanceSheetForm valMeth;
 	
 	public ValidationTest() throws ViewException {
 		c = getContentPane();

@@ -189,19 +189,19 @@ public class BHStochasticInputForm extends JPanel {
 	return this.cbstochprocess;
     }
 
-//    /**
-//     * Test main method.
-//     */
-//    public static void main(String args[]) {
-//
-//	JFrame test = new JFrame("Test for ViewStochasticData3");
-//	test.setContentPane(new BHStochasticInputForm());
-//	test.addWindowListener(new WindowAdapter() {
-//	    public void windowClosing(WindowEvent e) {
-//		System.exit(0);
-//	    }
-//	});
-//	test.pack();
-//	test.show();
-//    }
+    /**
+     * Test main method.
+     */
+    public static void main(String args[]) {
+
+	JFrame test = new JFrame("Test for ViewStochasticData3");
+	test.setContentPane(new BHStochasticInputForm());
+	test.addWindowListener(new WindowAdapter() {
+	    public void windowClosing(WindowEvent e) {
+		System.exit(0);
+	    }
+	});
+	test.pack();
+	test.show();
+    }
 }

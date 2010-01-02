@@ -7,7 +7,7 @@ import org.bh.gui.ViewException;
 public class ViewTest extends View {
 
 	public ViewTest() throws ViewException {
-		super(new BHBalanceSheetForm(), new ValidationMethods());
+		super(new BHBalanceSheetForm(), new ValidationBHBalanceSheetForm());
 	}
 }
 

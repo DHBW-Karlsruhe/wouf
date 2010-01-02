@@ -5,10 +5,8 @@
 
 package org.bh.plugin.swing;
 
-import org.bh.gui.ValidationMethods;
 import org.bh.gui.View;
 import org.bh.gui.ViewException;
-import org.bh.plugin.swing.BHBalanceSheetForm;
 
 /**
  *
@@ -17,7 +15,7 @@ import org.bh.plugin.swing.BHBalanceSheetForm;
 public class ViewBHBalanceSheetForm extends View{
 
     public ViewBHBalanceSheetForm() throws ViewException{
-        super(new BHBalanceSheetForm(), new ValidationMethods());
+        super(new BHBalanceSheetForm(), new ValidationBHBalanceSheetForm());
     }
 
 }
