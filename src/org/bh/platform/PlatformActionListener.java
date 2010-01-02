@@ -105,6 +105,8 @@ class PlatformActionListener implements ActionListener {
 				if(removeProjectNode.getUserObject() instanceof DTOProject){
 					((BHTreeModel) bhmf.getBHTree().getModel()).removeNodeFromParent(removeProjectNode);
 					projectRepoManager.removeProject((DTOProject) removeProjectNode.getUserObject());
+				} else {
+					System.out.println("ERROR");					
 				}
 			}
 			break;
@@ -128,6 +130,8 @@ class PlatformActionListener implements ActionListener {
 				if(removeScenarioNode.getUserObject() instanceof DTOScenario){
 					((BHTreeModel) bhmf.getBHTree().getModel()).removeNodeFromParent(removeScenarioNode);
 					((DTOScenario)((BHTreeNode)removeScenarioNode.getParent()).getUserObject()).removeChild((DTOPeriod) removeScenarioNode.getUserObject());
+				} else {
+					System.out.println("ERROR");					
 				}
 			}
 			break;
