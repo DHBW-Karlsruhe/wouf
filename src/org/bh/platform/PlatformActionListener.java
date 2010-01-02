@@ -160,6 +160,7 @@ class PlatformActionListener implements ActionListener {
 			
 			System.out.println("HELPUSERHELP gefeuert");
 			JFrame frame = new JFrame();
+			//TODO Hartgecodeder String raus!! LZ
 			frame.setTitle("Business Horizon Help");
 			frame.setSize(610,600);
 			frame.getContentPane().add(new BHHelpSystem("userhelp"));
@@ -171,6 +172,7 @@ class PlatformActionListener implements ActionListener {
 		case HELPMATHHELP:
 			System.out.println("HELPMATHHELP gefeuert");
 			JFrame mathframe = new JFrame();
+			//TODO Hartgecodeder String raus!! LZ
 			mathframe.setTitle("Business Horizon Mathematische Erläuterungen");
 			mathframe.setSize(610,600);
 			mathframe.getContentPane().add(new BHHelpSystem("mathhelp"));
