@@ -15,6 +15,7 @@ import org.apache.log4j.Logger;
  * 
  * @author Thiele.Klaus
  * @version 0.1, 2009/12/12
+ * @version 0.2, 2010/01/02
  * 
  */
 public class BHTranslator implements ITranslator {
@@ -34,15 +35,10 @@ public class BHTranslator implements ITranslator {
 	 */
 	public static final int LONG = 2;
 	
-	
-	/**
-	 * Singleton instance.
-	 */
-	private static BHTranslator instance;
 	/**
 	 * private Logging instance for log.
 	 */
-	private static final Logger log = Logger.getLogger(BHTranslator.class);
+	private static final Logger LOG = Logger.getLogger(BHTranslator.class);
 
 	/**
 	 * Constant for used <code>ResourceBundle</code>.
@@ -53,12 +49,12 @@ public class BHTranslator implements ITranslator {
 	 * Available <code>Locale</code>s. Only provided if corresponding properties
 	 * file is provided.
 	 */
-	private static final Locale[] locales = {}; //{ Locale.US, Locale.GERMANY };
+	private static final Locale[] availableLocales = {}; //{ Locale.US, Locale.GERMANY };
 
 	/**
-	 * Currently used <code>Locale</code>.
+	 * Singleton instance.
 	 */
-	private Locale locale;
+	private static BHTranslator instance;
 
 	/**
 	 * <code>ResourceBundle</code> for access to the properties file.
@@ -76,7 +72,7 @@ public class BHTranslator implements ITranslator {
 	 */
 	private BHTranslator() {
 		this(Locale.getDefault());
-	}
+ 	}
 
 	/**
 	 * Alternative Constructor.
@@ -85,10 +81,10 @@ public class BHTranslator implements ITranslator {
 	 *            locale to be used to instantiate the <code>BHTranslator</code>
 	 */
 	private BHTranslator(Locale l) {
-		this.locale = l;
-		this.bundle = ResourceBundle.getBundle(BHTranslator.BUNDLE, this.locale);
+		Locale.setDefault(l);
+		this.bundle = ResourceBundle.getBundle(BHTranslator.BUNDLE);
 		this.listener = new ArrayList<PropertyChangeListener>();
-		log.debug("Translator initialized with Locale " + this.locale);
+		LOG.debug("Translator initialized with Locale " + Locale.getDefault());
 	}
 
 	/**
@@ -115,7 +111,7 @@ public class BHTranslator implements ITranslator {
 		try {
 			return this.bundle.getString(key.toString());
 		} catch (MissingResourceException e) {
-			log.error("Could not translate key \"" + key + "\"", e);
+			LOG.error("Could not translate key \"" + key + "\"", e);
 			return key.toString();
 		}
 	}
@@ -162,10 +158,10 @@ public class BHTranslator implements ITranslator {
 	 *            locale to be set
 	 */
 	public void setLocale(Locale locale) {
-		Locale l = this.locale;
-		this.locale = locale;
-		this.bundle = ResourceBundle.getBundle(BHTranslator.BUNDLE, locale);
-		this.firePropertyChange("Locale", l, this.locale);
+		Locale l = Locale.getDefault();
+		Locale.setDefault(locale);
+		this.bundle = ResourceBundle.getBundle(BHTranslator.BUNDLE);
+		this.firePropertyChange("Locale", l, Locale.getDefault());
 	}
 
 	/**
@@ -174,7 +170,7 @@ public class BHTranslator implements ITranslator {
 	 * @return the currently used <code>Locale</code>
 	 */
 	public Locale getLocale() {
-		return this.locale;
+		return Locale.getDefault();
 	}
 
 	/**
@@ -192,7 +188,7 @@ public class BHTranslator implements ITranslator {
 	 * Provides all available languages.
 	 */
 	public Locale[] getAvaiableLocales() {
-		return BHTranslator.locales;
+		return BHTranslator.availableLocales;
 	}
 
 	/**
@@ -220,7 +216,7 @@ public class BHTranslator implements ITranslator {
 	 *            new value
 	 */
 	private void firePropertyChange(String key, Object oldValue, Object newValue) {
-		log.debug("BHTranslator: Property changed: " + key + ": " + newValue);
+		LOG.debug("BHTranslator: Property changed: " + key + ": " + newValue);
 
 		// for each listener call propertyChange with proper attributes
 		for (PropertyChangeListener l : this.listener) {
