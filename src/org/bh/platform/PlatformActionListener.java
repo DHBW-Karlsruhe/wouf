@@ -99,7 +99,13 @@ class PlatformActionListener implements ActionListener {
 			break;
 			
 		case PROJECTREMOVE:
-			//TODO Prüfen und ggf. implementieren!
+
+			TreePath currentRemoveProjectSelection = bhmf.getBHTree().getSelectionPath();
+			if(currentRemoveProjectSelection != null){
+				BHTreeNode removeProjectNode = (BHTreeNode)bhmf.getBHTree().getSelectionPath().getLastPathComponent();
+				((BHTreeModel) bhmf.getBHTree().getModel()).removeNodeFromParent(removeProjectNode);
+				projectRepoManager.removeProject((DTOProject) removeProjectNode.getUserObject());
+			}
 			break;
 			
 		case SCENARIOCREATE:
