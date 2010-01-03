@@ -15,11 +15,10 @@ import com.jgoodies.forms.layout.CellConstraints;
 import com.jgoodies.forms.layout.FormLayout;
 
 /**
- * This class contains the form with the project data
+ * This class contains the form for stochastic processes
  * 
  * @author Anton Kharitonov
- * @author Patrick Heinz
- * @version 0.1, 01.01.2010
+ * @version 0.2, 03.01.2010
  * 
  */
 
@@ -45,7 +44,9 @@ public class BHProjectInputForm extends JPanel {
 		this.add(this.getLprojectname(), cons.xywh(2, 4, 1, 1));
 		this.add(this.getTfprojectname(), cons.xywh(4, 4, 1, 1));
 	}
-
+	
+	// TODO add missing label keys and translations, change hard coded values to keys
+	
 	public BHLabel getLproject() {
 		if (lproject == null) {
 			lproject = new BHLabel("", "Projekt");
@@ -71,6 +72,8 @@ public class BHProjectInputForm extends JPanel {
 		return tfprojectname;
 	}
 
+	
+	// TODO remove main later
 	/**
 	 * Test main method.
 	 */

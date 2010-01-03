@@ -221,7 +221,8 @@ public class Services {
 					//Put specific look&feel attributes.
 					UIManager.put("nimbusBase", new Color(56, 124, 171));
 					UIManager.put("control", new Color(235,240,255));
-					UIManager.put("nimbusOrange", UIManager.get("nimbusBase"));
+					UIManager.put("progressBar", new Color(255, 165, 0));
+					UIManager.put("nimbusOrange", UIManager.get("progressBar"));
 					
 					UIManager.put("nimbusSelectionBackground", UIManager.get("control"));
 					UIManager.put("BHTree.nodeheight", 20);

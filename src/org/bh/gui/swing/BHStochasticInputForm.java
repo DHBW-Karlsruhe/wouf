@@ -6,16 +6,20 @@ import javax.swing.JComboBox;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 
-import org.bh.gui.swing.BHLabel;
-import org.bh.gui.swing.BHTextField;
+import org.bh.gui.ValidationMethods;
+import org.bh.platform.Services;
+import org.bh.platform.i18n.ITranslator;
 
 import com.jgoodies.forms.layout.CellConstraints;
 import com.jgoodies.forms.layout.FormLayout;
 
 /**
- * Visual class ViewStochasticData3.
+ * This class contains the form for stochastic processes
  * 
- * Created with Mogwai FormMaker 0.6.
+ * @author Anton Kharitonov
+ * @author Patrick Heinz
+ * @version 0.2, 03.01.2010
+ * 
  */
 public class BHStochasticInputForm extends JPanel {
 
@@ -29,6 +33,8 @@ public class BHStochasticInputForm extends JPanel {
     private BHLabel lpercentprobab;
 
     private JComboBox cbstochprocess;
+    
+    ITranslator translator = Services.getTranslator();
 
     /**
      * Constructor.
@@ -61,6 +67,8 @@ public class BHStochasticInputForm extends JPanel {
 	this.add(this.getcbstochProcess(), cons.xywh(6, 6, 3, 1));
 
     }
+    
+	// TODO add missing label keys and translations, change hard coded values to keys
 
     /**
      * Getter method for component lDCFchoise.
@@ -126,7 +134,10 @@ public class BHStochasticInputForm extends JPanel {
     public BHTextField gettfrange() {
 
 	if (this.tfrange == null) {
-	    this.tfrange = new BHTextField("","");
+	    this.tfrange = new BHTextField("", translator.translate(""));
+		// TODO add key, input hint and check rules; ValidationMethods.isNotZero???
+		int[] rules = { ValidationMethods.isMandatory, ValidationMethods.isInteger, ValidationMethods.isPositive };
+		tfrange.setValidateRules(rules);
 	}
 
 	return this.tfrange;
@@ -154,7 +165,10 @@ public class BHStochasticInputForm extends JPanel {
     public BHTextField gettfprobab() {
 
 	if (this.tfprobab == null) {
-	    this.tfprobab = new BHTextField("","");
+	    this.tfprobab = new BHTextField("", translator.translate(""));
+		// TODO add key, input hint and check rules
+		int[] rules = { ValidationMethods.isMandatory, ValidationMethods.isInteger, ValidationMethods.isBetween0and100 };
+		tfprobab.setValidateRules(rules);
 	}
 
 	return this.tfprobab;

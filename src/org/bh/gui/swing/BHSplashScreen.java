@@ -7,7 +7,6 @@ import javax.swing.ImageIcon;
 import javax.swing.JLabel;
 import javax.swing.JProgressBar;
 import javax.swing.JWindow;
-import javax.swing.UIManager;
 
 import org.bh.platform.IPlatformListener;
 import org.bh.platform.PlatformEvent;
@@ -26,13 +25,14 @@ import org.bh.platform.PlatformEvent.Type;
 
 public class BHSplashScreen extends JWindow implements Runnable,
 		IPlatformListener {
-	private static final int MIN_DISPLAY_TIME = 2000;
+	private static final int MIN_DISPLAY_TIME = 3000;
 	private boolean isLoaded = false;
 
 	public BHSplashScreen() {
 		Services.addPlatformListener(this);
 	}
 
+	@SuppressWarnings("static-access")
 	public void run() {
 		setLayout(new BorderLayout());
 
@@ -40,7 +40,7 @@ public class BHSplashScreen extends JWindow implements Runnable,
 		Icon splashScreenIcon = new ImageIcon(BHSplashScreen.class
 				.getResource("/org/bh/images/SplashScreen.jpg"));
 		JLabel iconLabel = new JLabel("", splashScreenIcon, JLabel.CENTER);
-		iconLabel.setSize(477, 229);
+		iconLabel.setSize(477, 225);
 
 
 		JProgressBar progressBar = new JProgressBar();

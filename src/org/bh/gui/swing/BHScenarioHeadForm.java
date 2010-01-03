@@ -116,6 +116,8 @@ public class BHScenarioHeadForm extends JPanel {
 		this.add(this.getBcalculate(), cons.xywh(17, 18, 1, 1));
 	}
 
+	// TODO add missing label keys etc. and translations, change hard coded values to keys
+	
 	public JPanel getPprocess() {
 		if (pprocess == null) {
 			pprocess = new BHProcessForm();

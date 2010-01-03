@@ -15,6 +15,14 @@ import org.bh.gui.swing.BHLabel;
 import com.jgoodies.forms.layout.CellConstraints;
 import com.jgoodies.forms.layout.FormLayout;
 
+/**
+ * This class contains the form for stochastic processes
+ * 
+ * @author Anton Kharitonov
+ * @author Patrick Heinz
+ * @version 0.2, 03.01.2010
+ * 
+ */
 public class BHProcessForm extends JPanel {
 
 	private BHLabel ldcfchoise;
@@ -65,6 +73,8 @@ public class BHProcessForm extends JPanel {
 		this.add(this.getSpintermstep(), cons.xywh(4, 8, 1, 1));
 	}
 
+	// TODO add missing label keys and translations, change hard coded values to keys
+	
 	public BHLabel getLdirect() {
 		if (ldirect == null) {
 			ldirect = new BHLabel("", "Direkteingabe");
@@ -102,7 +112,9 @@ public class BHProcessForm extends JPanel {
 
 	public JSpinner getSpperiodcount() {
 		if (spperiodcount == null) {
-			spperiodcount = new JSpinner(new SpinnerNumberModel());
+			// new SpinnerNumberModel(value, minimum, maximum, stepSize)
+			// TODO find a good value for maximum
+			spperiodcount = new JSpinner(new SpinnerNumberModel(1, 1, 100, 1));
 		}
 		return spperiodcount;
 	}
@@ -116,7 +128,9 @@ public class BHProcessForm extends JPanel {
 
 	public JSpinner getSpintermstep() {
 		if (spintermstep == null) {
-			spintermstep = new JSpinner(new SpinnerNumberModel());
+			// new SpinnerNumberModel(value, minimum, maximum, stepSize)
+			// TODO find good values for minimum (should be = value), maximum and stepSize
+			spintermstep = new JSpinner(new SpinnerNumberModel(100, 100, 10000, 100));
 		}
 		return spintermstep;
 	}

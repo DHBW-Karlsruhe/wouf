@@ -11,16 +11,19 @@ import javax.swing.SwingConstants;
 import javax.swing.border.EtchedBorder;
 
 import org.bh.data.DTOPeriod;
+import org.bh.gui.ValidationMethods;
 import org.bh.platform.Services;
-import org.bh.platform.i18n.BHTranslator;
 import org.bh.platform.i18n.ITranslator;
 
 import com.jgoodies.forms.layout.CellConstraints;
 import com.jgoodies.forms.layout.FormLayout;
 
 /**
- * Visual class ViewPeriodData1.
+ * This class contains the form for stochastic processes
  * 
+ * @author Anton Kharitonov
+ * @author Patrick Heinz
+ * @version 0.2, 03.01.2010
  * 
  */
 public class BHPeriodInputForm extends JPanel {
@@ -44,6 +47,7 @@ public class BHPeriodInputForm extends JPanel {
 	private BHTextField tfminfcf;
 
 	private String year;
+	
 	ITranslator translator = Services.getTranslator();
 
 	/**
@@ -90,7 +94,9 @@ public class BHPeriodInputForm extends JPanel {
 		this.setBorder(BorderFactory.createTitledBorder(BorderFactory
 				.createEtchedBorder(EtchedBorder.LOWERED), this.year));
 	}
-
+	
+	// TODO add missing label keys and translations, change hard coded values to keys
+	
 	public BHLabel getLmax() {
 		if (lmax == null) {
 			lmax = new BHLabel("", "Max");
@@ -133,30 +139,44 @@ public class BHPeriodInputForm extends JPanel {
 		return lcurrency6;
 	}
 
+	// Here do the getters for the textfields begin
+	
 	public BHTextField getTfmaxliabilities() {
 		if (tfmaxliabilities == null) {
-			tfmaxliabilities = new BHTextField("");
+			tfmaxliabilities = new BHTextField("", translator.translate(""));
+			// TODO add key, input hint and more rules
+			int[] rules = { ValidationMethods.isMandatory };
+			tfmaxliabilities.setValidateRules(rules);
 		}
 		return tfmaxliabilities;
 	}
 
 	public BHTextField getTfminliabilities() {
 		if (tfminliabilities == null) {
-			tfminliabilities = new BHTextField("");
+			tfminliabilities = new BHTextField("", translator.translate(""));
+			// TODO add key, input hint and more rules
+			int[] rules = { ValidationMethods.isMandatory };
+			tfminliabilities.setValidateRules(rules);
 		}
 		return tfminliabilities;
 	}
 
 	public BHTextField getTfmaxfcf() {
 		if (tfmaxfcf == null) {
-			tfmaxfcf = new BHTextField("");
+			tfmaxfcf = new BHTextField("", translator.translate(""));
+			// TODO add key, input hint and more rules
+			int[] rules = { ValidationMethods.isMandatory };
+			tfmaxfcf.setValidateRules(rules);
 		}
 		return tfmaxfcf;
 	}
 
 	public BHTextField getTfminfcf() {
 		if (tfminfcf == null) {
-			tfminfcf = new BHTextField("");
+			tfminfcf = new BHTextField("", translator.translate(""));
+			// TODO add key, input hint and more rules
+			int[] rules = { ValidationMethods.isMandatory };
+			tfminfcf.setValidateRules(rules);
 		}
 		return tfminfcf;
 	}
@@ -170,7 +190,10 @@ public class BHPeriodInputForm extends JPanel {
 
 	public BHTextField getTffcf() {
 		if (tffcf == null) {
-			tffcf = new BHTextField(DTOPeriod.Key.FCF.toString());
+			tffcf = new BHTextField(DTOPeriod.Key.FCF.toString(), translator.translate(""));
+			// TODO add input hint and more rules
+			int[] rules = { ValidationMethods.isMandatory };
+			tffcf.setValidateRules(rules);
 		}
 		return tffcf;
 	}
@@ -186,8 +209,10 @@ public class BHPeriodInputForm extends JPanel {
 	public BHTextField getTfliabilities() {
 		if (tfliabilities == null) {
 			tfliabilities = new BHTextField(DTOPeriod.Key.LIABILITIES
-					.toString());
-			// tfliabilities.setText("bla");
+					.toString(), translator.translate(""));
+			// TODO input hint and more rules
+			int[] rules = { ValidationMethods.isMandatory };
+			tfliabilities.setValidateRules(rules);
 		}
 		return tfliabilities;
 	}

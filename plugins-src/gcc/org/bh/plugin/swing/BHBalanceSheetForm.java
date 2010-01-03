@@ -213,6 +213,8 @@ public class BHBalanceSheetForm extends JPanel {
 		return ppassiva;
 	}
 
+	// TODO add missing label keys and translations, change hard coded values to keys
+	
 	public BHLabel getLIVG() {
 		if (lIVG == null) {
 			lIVG = new BHLabel(DTOGCCBalanceSheet.class.getName()+"_"
