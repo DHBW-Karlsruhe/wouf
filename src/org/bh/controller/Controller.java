@@ -11,6 +11,7 @@ import javax.swing.JScrollPane;
 import org.apache.log4j.Logger;
 import org.bh.data.DTOAccessException;
 import org.bh.data.IDTO;
+import org.bh.gui.BHValidityEngine;
 import org.bh.gui.View;
 import org.bh.gui.swing.BHButton;
 import org.bh.gui.swing.BHStatusBar;
@@ -92,7 +93,7 @@ public abstract class Controller implements IController, ActionListener, IPlatfo
 //        Controller.bhStatusBar.setToolTip(e.getMessage());
     }
    
-    public JPanel getView(){
+    public JPanel getViewPanel(){
         if(this.view != null) {
             return view.getViewPanel();
         }
@@ -100,7 +101,11 @@ public abstract class Controller implements IController, ActionListener, IPlatfo
         return null;
     }
 
-    public void setView(View view){
+    /**
+     *
+     * @param view
+     */
+    protected void setView(View view){
         this.view = view;
         if (view != null) {
         	this.bhModelcomponents = this.view.getBHmodelComponents();
@@ -110,10 +115,9 @@ public abstract class Controller implements IController, ActionListener, IPlatfo
 
     /**
      * writes all data to its dto reference
-     * @return
      * @throws DTOAccessException
      */
-    private void saveAllToModel() throws DTOAccessException{
+    protected void saveAllToModel() throws DTOAccessException{
         log.debug("Plugin save to dto");
         this.model.setSandBoxMode(Boolean.TRUE);
         for(String key : this.bhModelcomponents.keySet()){
@@ -126,7 +130,7 @@ public abstract class Controller implements IController, ActionListener, IPlatfo
      * @param comp
      * @throws DTOAccessException
      */
-    private void safeToModel(IBHComponent comp)throws DTOAccessException{
+    protected void safeToModel(IBHComponent comp)throws DTOAccessException{
         log.debug("Plugin save to dto");
         this.model.setSandBoxMode(Boolean.TRUE);
         //TODO define typeconverter
@@ -134,16 +138,21 @@ public abstract class Controller implements IController, ActionListener, IPlatfo
     }
     /**
      * writes all dto values with a mathcing key in a IBHComponent to UI
-     * @return
      * @throws DTOAccessException
      */
-    private void loadAllToView()throws DTOAccessException{
+    protected void loadAllToView()throws DTOAccessException{
         log.debug("Plugin load from dto in view");
         for(String key : this.bhModelcomponents.keySet()){
             //this.bhModelcomponents.get(key).setValue(this.model.get(key));
         }
     }
-    private void loadToView(String key) throws DTOAccessException, ControllerException{
+    /**
+     *
+     * @param key
+     * @throws DTOAccessException
+     * @throws ControllerException
+     */
+    protected void loadToView(String key) throws DTOAccessException, ControllerException{
         log.debug("Plugin load from dto in view");
         //this.bhModelcomponents.get(key).setValue(this.model.get(key));
     }
@@ -151,6 +160,11 @@ public abstract class Controller implements IController, ActionListener, IPlatfo
     public void setModel(IDTO<?> model) {
         this.model = model;
     }
+
+    public IDTO<?> getModel() {
+        return model;
+    }
+
 
     /**
      * get the ITranslator from the Platform
@@ -172,7 +186,7 @@ public abstract class Controller implements IController, ActionListener, IPlatfo
      /**
       * concret BHValidityEngine can use this method to set Info Tool Tip
       *
-      * @param tooltip   a JLabel representing the Info message
+      * @param hintLabel
       * @see JLabel
       * @see BHStatusBar
      */
@@ -199,6 +213,10 @@ public abstract class Controller implements IController, ActionListener, IPlatfo
             return this.model.getStochasticKeys();
         }
         throw new ControllerException("No referende to a valid model");
+    }
+
+    protected BHValidityEngine getValidator(){
+        return this.view.getValidator();
     }
 
 }

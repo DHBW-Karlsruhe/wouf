@@ -83,7 +83,7 @@ public class XMLDataExchangeController extends Controller {
 		if (comp.getKey().equals("btnExportChooseFile"))
 		{
 			JFileChooser fileChooser = new JFileChooser();
-			int returnVal = fileChooser.showSaveDialog(getView());
+			int returnVal = fileChooser.showSaveDialog(getViewPanel());
 			
 			if (returnVal == JFileChooser.APPROVE_OPTION)
 			{
@@ -100,7 +100,7 @@ public class XMLDataExchangeController extends Controller {
 		if (comp.getKey().equals("btnImportChooseFile"))
 		{
 			JFileChooser fileChooser = new JFileChooser();
-			int returnVal = fileChooser.showSaveDialog(getView());
+			int returnVal = fileChooser.showSaveDialog(getViewPanel());
 			
 			if (returnVal == JFileChooser.APPROVE_OPTION)
 			{

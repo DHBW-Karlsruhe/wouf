@@ -66,7 +66,7 @@ public class XMLExportTestApp extends JFrame {
 		else
 			exportController.setImportView();
 		
-		add(exportController.getView());
+		add(exportController.getViewPanel());
 			
 		
 	}
