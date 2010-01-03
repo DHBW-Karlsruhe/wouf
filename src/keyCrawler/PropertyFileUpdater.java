@@ -1,9 +1,9 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
+
 
 package keyCrawler;
+
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
@@ -12,7 +12,10 @@ package keyCrawler;
 public class PropertyFileUpdater {
 
     public static void main(String[] args) {
-
+            KeyWriter kw = new KeyWriter(args[0]);
+            for (Class<?> clazz : ClassCrawler.getClasses(args[1], null)) {
+                KeyWriter.catchEnumConstsFromClass(clazz);
+            }
     }
 
 }
