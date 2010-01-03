@@ -25,7 +25,7 @@ import org.bh.platform.Services;
  * 
  * This class provides the Tree, that shows the contents of a file.
  *
- * @author unknown
+ * @author Tietze.Patrick
  * @author Thiele.Klaus
  * 
  * @version 0.2, 2009/12/30
@@ -36,17 +36,17 @@ public class BHTree extends JTree {
 	/**
 	 * icon for project nodes.
 	 */
-	public static ImageIcon PROJECT_ICON = Services.createImageIcon("/org/bh/images/tree/project.jpg", Services.getTranslator().translate("project"));
+	public static ImageIcon PROJECT_ICON = Services.createImageIcon("/org/bh/images/tree/project.png", Services.getTranslator().translate("project"));
 	
 	/**
 	 * icon for scenario nodes.
 	 */
-	public static ImageIcon SCENARIO_ICON = Services.createImageIcon("/org/bh/images/tree/scenario.jpg", Services.getTranslator().translate("scenario"));
+	public static ImageIcon SCENARIO_ICON = Services.createImageIcon("/org/bh/images/tree/scenario.png", Services.getTranslator().translate("scenario"));
 	
 	/**
 	 * icon for period nodes.
 	 */
-	public static ImageIcon PERIOD_ICON = Services.createImageIcon("/org/bh/images/tree/period.jpg", Services.getTranslator().translate("period"));
+	public static ImageIcon PERIOD_ICON = Services.createImageIcon("/org/bh/images/tree/period.png", Services.getTranslator().translate("period"));
 	
 	protected DefaultMutableTreeNode rootNode;
 	protected DefaultTreeModel treeModel;
