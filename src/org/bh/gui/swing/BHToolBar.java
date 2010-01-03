@@ -44,12 +44,12 @@ public class BHToolBar extends JToolBar{
 		addSeparator();
 		
 		add( new BHToolButton(PlatformKey.TOOLBARADDPRO, "BnewProject"));
-		add( new BHToolButton(PlatformKey.TOOLBARADDS, "BnewScenario2"));
-		add( new BHToolButton(PlatformKey.TOOLBARADDPER, "BnewPeriod2"));
+		add( new BHToolButton(PlatformKey.TOOLBARADDS, "BnewScenario"));
+		add( new BHToolButton(PlatformKey.TOOLBARADDPER, "BnewPeriod"));
 		
 		addSeparator();
 		
-		add( new BHToolButton(PlatformKey.TOOLBARREMOVE, "BdeleteScenario2"));
+		add( new BHToolButton(PlatformKey.TOOLBARREMOVE, "Bdelete"));
 		
 		add( new BHButton(PlatformKey.TOOLBARREMOVE, true) );
 		
