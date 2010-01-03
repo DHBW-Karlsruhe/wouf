@@ -165,8 +165,7 @@ public class BHMainFrame extends JFrame implements IPlatformListener {
 	}
 
 	public void addContentFormsAndChart(Component forms, Component chart) {
-		JSplitPane paneV = new JSplitPane(JSplitPane.VERTICAL_SPLIT, forms,
-				chart);
+		JSplitPane paneV = new JSplitPane(JSplitPane.VERTICAL_SPLIT, forms, chart);
 
 		paneV.setOneTouchExpandable(true);
 
@@ -198,6 +197,7 @@ public class BHMainFrame extends JFrame implements IPlatformListener {
 		if (e.getEventType() == Type.PLATFORM_LOADING_COMPLETED) {
 			this.setVisible(true);
 			this.toFront();
+			this.requestFocus();
 		}
 	}
 }
