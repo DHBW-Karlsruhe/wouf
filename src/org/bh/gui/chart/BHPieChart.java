@@ -116,7 +116,7 @@ public class BHPieChart extends JFreeChart implements IBHComponent, IBHAddValue 
 				"This method has not been implemented");
 	}
 
-	public IValue getValue() {
+	public String getValue() {
 		// TODO Auto-generated method stub
 		throw new UnsupportedOperationException(
 				"This method has not been implemented");

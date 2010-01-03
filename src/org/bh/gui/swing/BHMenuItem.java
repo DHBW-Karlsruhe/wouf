@@ -17,6 +17,7 @@ import org.bh.platform.Services;
  * the menu bar
  * 
  * @author Tietze.Patrick
+ * @author Marco.Hammel
  * @version 0.1, 2009/12/16
  * 
  */
@@ -125,6 +126,10 @@ public class BHMenuItem extends JMenuItem implements IBHComponent, IBHAction {
 	public List<IBHAction> getPlatformItems() {
 		return platformItems;
 	}
+
+        public String getValue() {
+            throw new UnsupportedOperationException("Not supported yet.");
+        }
 
 
 	@Override

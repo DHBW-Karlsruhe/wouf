@@ -9,28 +9,47 @@ import java.awt.event.ActionEvent;
 import java.util.Map;
 import org.bh.controller.Controller;
 import org.bh.controller.ControllerException;
+import org.bh.data.types.Calculable;
+import org.bh.data.types.IValue;
+import org.bh.gui.ViewException;
 import org.bh.platform.PlatformEvent;
 
 /**
  *
  * @author Marco Hammel
  */
-public class ControllerBHBalanceSheetForm extends Controller{
+public final class ControllerBHBalanceSheetForm extends Controller{
+
+    public ControllerBHBalanceSheetForm() throws ViewException{
+        super(new ViewBHBalanceSheetForm());
+    }
 
     public void setResult(Map result) throws ControllerException {
-        throw new UnsupportedOperationException("Not supported yet.");
+        throw new ControllerException("Is not a result plugin");
     }
 
     public String getGuiKey() {
-        throw new UnsupportedOperationException("Not supported yet.");
+        return "BHBalanceSheet";
     }
 
     public void actionPerformed(ActionEvent e) {
-        throw new UnsupportedOperationException("Not supported yet.");
+        
     }
 
     public void platformEvent(PlatformEvent e) {
-        throw new UnsupportedOperationException("Not supported yet.");
+        switch(e.getEventType()){
+            case SAVEALL:
+                this.saveAllToModel();
+                break;
+            case DATA_CHANGED:
+                break;
+        }
+    }
+
+    @Override
+    IValue typeConverter(String value) throws ControllerException {
+        //TODO define conversion Rules for the fields
+        return Calculable.parseCalculable(value);
     }
 
 }

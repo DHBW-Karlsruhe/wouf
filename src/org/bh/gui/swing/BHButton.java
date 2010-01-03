@@ -145,6 +145,10 @@ public class BHButton extends JButton implements IBHComponent,IBHAction {
 		// TODO Auto-generated method stub
 		throw new UnsupportedOperationException("This method has not been implemented");
 	}
+
+        public String getValue() {
+            throw new UnsupportedOperationException("Not supported yet.");
+        }
 	
 	
 	

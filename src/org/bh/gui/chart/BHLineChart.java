@@ -129,7 +129,7 @@ public class BHLineChart extends JFreeChart implements IBHComponent,
 				"This method has not been implemented");
 	}
 
-	public IValue getValue() {
+	public String getValue() {
 		throw new UnsupportedOperationException("Not supported yet.");
 	}
 

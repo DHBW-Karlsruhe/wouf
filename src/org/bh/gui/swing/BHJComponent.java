@@ -34,7 +34,7 @@ public class BHJComponent extends JComponent implements IBHComponent{
         throw new UnsupportedOperationException("Not supported yet.");
     }
 
-    public IValue getValue() {
+    public String getValue() {
         throw new UnsupportedOperationException("Not supported yet.");
     }
 

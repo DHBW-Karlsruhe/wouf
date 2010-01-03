@@ -11,6 +11,8 @@ import javax.swing.JScrollPane;
 import org.apache.log4j.Logger;
 import org.bh.data.DTOAccessException;
 import org.bh.data.IDTO;
+import org.bh.data.types.Calculable;
+import org.bh.data.types.IValue;
 import org.bh.gui.BHValidityEngine;
 import org.bh.gui.View;
 import org.bh.gui.swing.BHButton;
@@ -26,7 +28,7 @@ import org.bh.platform.i18n.ITranslator;
  */
 public abstract class Controller implements IController, ActionListener, IPlatformListener{
 
-    private static  Logger log = Logger.getLogger(Controller.class);
+    protected static  Logger log = Logger.getLogger(Controller.class);
     
     /**
      * Reference to the active view of the plugin
@@ -121,10 +123,17 @@ public abstract class Controller implements IController, ActionListener, IPlatfo
         log.debug("Plugin save to dto");
         this.model.setSandBoxMode(Boolean.TRUE);
         for(String key : this.bhModelcomponents.keySet()){
-            //TODO define typeconverter
-            //this.model.put(key, this.bhModelcomponents.get(key).getValue());
+            this.model.put(key, this.typeConverter(this.bhModelcomponents.get(key).getValue()));
         }
     }
+    /**
+     * Method for Typconversion can be used with <code>Calculable.parseCalculable(String s)</code> 
+     * method
+     * @param value
+     * @return
+     */
+    abstract IValue typeConverter(String value) throws ControllerException;
+
     /**
      * save specific component to model
      * @param comp

@@ -15,6 +15,7 @@ import org.bh.platform.Services;
  * Business Horizon.
  * 
  * @author Thiele.Klaus
+ * @author Marco Hammel
  * @version 0.1, 2009/12/13
  * 
  */
@@ -106,6 +107,15 @@ public class BHLabel extends JLabel implements IBHComponent {
 		// TODO Auto-generated method stub
 		throw new UnsupportedOperationException("This method has not been implemented");
 	}
+
+        public String getValue() {
+            if(this.getText() == null){
+                return "";
+            }
+            return this.getText();
+        }
+
+
 	
 	public void mouseClicked(MouseEvent e){
 		Services.getBHstatusBar().openToolTipPopup();

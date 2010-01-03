@@ -57,6 +57,11 @@ public class BHTextArea extends JTextArea implements IBHComponent {
 		return this.inputHint;
 	}
 
+        public String getValue() {
+            return this.getText();
+        }
+
+
 	/**
 	 * set properties of instance.
 	 */

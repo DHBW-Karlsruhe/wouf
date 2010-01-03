@@ -87,4 +87,10 @@ public interface IBHComponent {
 	 * @return BHHint
 	 */
 	public String getBHHint();
+
+        /**
+         * Should be implemented in components which comtaining a model relevant value
+         * @return relevant value
+         */
+        public String getValue();
 }

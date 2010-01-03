@@ -12,6 +12,7 @@ import org.bh.platform.Services;
  * fields in Business Horizon.
  * 
  * @author Thiele.Klaus
+ * @author Marco Hammel
  * @version 0.1, 2009/12/13
  * 
  */
@@ -99,6 +100,13 @@ public class BHTextField extends JTextField implements IBHComponent {
 	public String getInputHint() {
 		return this.inputHint;
 	}
+
+        public String getValue() {
+            if(this.getText() == null){
+                return "";
+            }
+            return this.getText();
+        }
 
 	/**
 	 * set properties of instance.
