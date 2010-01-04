@@ -169,7 +169,7 @@ public class BHMainFrame extends JFrame implements IPlatformListener {
 		
 		//this.setIconImage(new ImageIcon("/org/bh/images/bh-logo.jpg").getImage()); //TODO Test on windows	
 		try {
-			this.setIconImage(ImageIO.read(getClass().getResourceAsStream("/org/bh/images/bh-logo-ImageIcon.png")));
+			this.setIconImage(ImageIO.read(getClass().getResourceAsStream("/org/bh/images/bh-logo-imageIcon.png")));
 		} catch (IOException e) {
 			log.error("Failed to load IconImage", e);
 		}
