@@ -217,7 +217,7 @@ public class FCFCalculator implements IShareholderValueCalculator {
 //		}else{
 //			return false;
 //		}
-		return firstValue.diffToLess(secondValue, 0.0000000001);
+		return !firstValue.diffToLess(secondValue, 0.0000000001);
 	}
 	/**
 	 * Calculates the Weighted Average Cost of Equity for the WACC.

@@ -9,6 +9,13 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
+/**
+ * Unit tests for IntegerValues
+ * 
+ * @author Norman
+ * 
+ * @version 0.3, 04.01.2010
+ */
 public class IntegerValueUnitTests {
 
 	public static final int MAX = 100000;

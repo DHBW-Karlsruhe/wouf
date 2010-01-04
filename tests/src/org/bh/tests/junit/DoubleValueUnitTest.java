@@ -8,6 +8,13 @@ import org.bh.data.types.IntegerValue;
 import org.junit.Before;
 import org.junit.Test;
 
+/**
+ * Unit tests for DoubleValues
+ * 
+ * @author Norman
+ * 
+ * @version 0.3, 04.01.2010
+ */
 public class DoubleValueUnitTest {
 	public static final int MAX = 100000;
 

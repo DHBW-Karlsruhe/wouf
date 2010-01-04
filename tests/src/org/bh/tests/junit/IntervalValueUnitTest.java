@@ -9,6 +9,13 @@ import org.bh.data.types.IntervalValue;
 import org.junit.Before;
 import org.junit.Test;
 
+/**
+ * Unit tests for IntervalValues
+ * 
+ * @author Norman
+ * 
+ * @version 0.3, 04.01.2010
+ */
 public class IntervalValueUnitTest {
 	public static final int MAX = 100000;
 

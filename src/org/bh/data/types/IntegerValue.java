@@ -201,7 +201,7 @@ public class IntegerValue extends Calculable {
 	@Override
 	public boolean diffToLess(Calculable c, double limit) {
 		if(c instanceof IntegerValue) {
-			return Math.abs(value - ((IntegerValue) c).value) < limit;
+			return Math.abs((double)value - ((IntegerValue) c).value) < limit;
 		}else if(c instanceof DoubleValue) {
 			return Math.abs(value - ((DoubleValue) c).value) < limit;
 		}else if (c instanceof IntervalValue) {
