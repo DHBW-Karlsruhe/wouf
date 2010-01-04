@@ -103,34 +103,27 @@ class PlatformActionListener implements ActionListener {
 			
 		case PROJECTDUPLICATE:
 			//TODO Zuckschwerdt.Lars
-//			TreePath currentDuplicateProjectSelection = bhmf.getBHTree().getSelectionPath();
-//			if(currentDuplicateProjectSelection != null){
-//				//Zugriff auf markiertes Projekt
-//				BHTreeNode duplicateProjectNode = (BHTreeNode)bhmf.getBHTree().getSelectionPath().getLastPathComponent();
-//				
-//				//zu kopierendes Project in eigene Variable
-//				DTOProject duplicateProject = (DTOProject)duplicateProjectNode.getUserObject();
-//				
-//				//neues DTOProject mit Referenz auf den Klon
-//				DTOProject newProject = (DTOProject)duplicateProject.clone();
-//				
-//				BHTreeNode newProjectNode = new BHTreeNode(newProject);
-//				((DefaultTreeModel)bhmf.getBHTree().getModel()).insertNodeInto(
-//						newProjectNode, 
-//						(DefaultMutableTreeNode)bhmf.getBHTree().getModel().getRoot(), 
-//						((DefaultMutableTreeNode)bhmf.getBHTree().getModel().getRoot()).getChildCount()
-//				);
-//				for(int x = 0; x <= newProject.getChildren().size(); x++){
-//					System.out.println(x);
-//				}
-//				
-//				
-//				//last steps: unfold tree to new element, set focus and start editing
-//				bhmf.getBHTree().scrollPathToVisible(new TreePath(newProjectNode.getPath()));
-//				bhmf.getBHTree().startEditingAtPath(new TreePath(newProjectNode.getPath()));
-//				
-//				
-//			}
+			TreePath currentDuplicateProjectSelection = bhmf.getBHTree().getSelectionPath();
+			if(currentDuplicateProjectSelection != null){
+				//Zugriff auf markiertes Projekt
+				BHTreeNode duplicateProjectNode = (BHTreeNode)bhmf.getBHTree().getSelectionPath().getLastPathComponent();
+				
+				//zu kopierendes Project in eigene Variable
+				DTOProject duplicateProject = (DTOProject)duplicateProjectNode.getUserObject();
+				
+				//neues DTOProject mit Referenz auf den Klon
+				DTOProject newProject = (DTOProject)duplicateProject.clone();
+				
+				BHTreeNode newProjectNode = bhmf.getBHTree().addProjectNode(newProject, bhmf);
+				
+				for(int x = 0; x < newProject.getChildren().size(); x++){
+					DTOScenario newScenario = duplicateProject.getChild(x);
+					System.out.println(newScenario.toString());
+					newProjectNode.add(bhmf.getBHTree().duplicateScenarioNode(newScenario, bhmf, newProjectNode));
+					
+				}
+				
+			}
 			break;
 			
 		// TODO Katzor.Marcus

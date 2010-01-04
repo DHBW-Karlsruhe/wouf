@@ -154,5 +154,10 @@ public class BHTree extends JTree {
 		);
 		return newScenarioNode;
 	}
+	public BHTreeNode duplicateScenarioNode(DTOScenario newScenario, BHMainFrame bhmf, BHTreeNode parentNode){
+		BHTreeNode newScenarioNode = new BHTreeNode(newScenario);
+		((DefaultTreeModel)bhmf.getBHTree().getModel()).insertNodeInto(newScenarioNode, parentNode, parentNode.getChildCount());
+		return newScenarioNode;
+	}
 
 }
