@@ -1,11 +1,6 @@
 package org.bh.controller;
 
-import java.util.Map;
-
 import javax.swing.JPanel;
-
-import org.bh.data.IDTO;
-import org.bh.data.types.Calculable;
 
 /**
  *

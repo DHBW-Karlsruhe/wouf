@@ -219,6 +219,7 @@ public class BHStochasticInputForm extends JPanel {
 		JFrame test = new JFrame("Test for ViewStochasticData3");
 		test.setContentPane(new BHStochasticInputForm());
 		test.addWindowListener(new WindowAdapter() {
+			@Override
 			public void windowClosing(WindowEvent e) {
 				System.exit(0);
 			}

@@ -6,8 +6,6 @@
 package org.bh.plugin.swing;
 
 import java.awt.event.ActionEvent;
-import java.util.Map;
-import org.bh.controller.Controller;
 import org.bh.controller.ControllerException;
 import org.bh.controller.InputController;
 import org.bh.data.DTOPeriod;

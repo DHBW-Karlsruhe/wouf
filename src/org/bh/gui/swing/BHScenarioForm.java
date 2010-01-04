@@ -9,7 +9,6 @@ import javax.swing.JPanel;
 
 import org.bh.data.DTOScenario;
 import org.bh.gui.ValidationMethods;
-import org.bh.gui.swing.BHButton;
 import org.bh.gui.swing.BHLabel;
 import org.bh.gui.swing.BHTextField;
 import org.bh.platform.Services;

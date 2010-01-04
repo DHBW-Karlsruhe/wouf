@@ -238,6 +238,7 @@ public class BHFormsPanel extends JPanel {
 		JFrame test = new JFrame("Test for ViewTabedPane3");
 		test.setContentPane(new BHFormsPanel());
 		test.addWindowListener(new WindowAdapter() {
+			@Override
 			public void windowClosing(WindowEvent e) {
 				System.exit(0);
 			}

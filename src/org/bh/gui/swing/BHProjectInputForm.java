@@ -108,6 +108,7 @@ public class BHProjectInputForm extends JPanel {
 		JFrame test = new JFrame("Test for ViewPeriodData1");
 		test.setContentPane(new BHProjectInputForm());
 		test.addWindowListener(new WindowAdapter() {
+			@Override
 			public void windowClosing(WindowEvent e) {
 				System.exit(0);
 			}

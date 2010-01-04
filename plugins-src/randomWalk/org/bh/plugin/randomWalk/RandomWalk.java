@@ -15,6 +15,7 @@ import javax.swing.JPanel;
 import org.apache.log4j.Logger;
 import org.bh.calculation.IShareholderValueCalculator;
 import org.bh.calculation.IStochasticProcess;
+import org.bh.controller.Controller;
 import org.bh.data.DTOKeyPair;
 import org.bh.data.DTOPeriod;
 import org.bh.data.DTOScenario;
@@ -113,7 +114,7 @@ public class RandomWalk implements IStochasticProcess {
 
 	@Override
 	public JPanel calculateParameters() {
-		ITranslator translator = Services.getTranslator();
+		ITranslator translator = Controller.getTranslator();
 		internalMap = new HashMap<String, IValue>();
 		map = new HashMap<String, Integer>();
 

@@ -8,7 +8,6 @@ import javax.swing.JLabel;
 import javax.swing.JScrollPane;
 import javax.swing.JTextField;
 
-import org.bh.controller.Controller;
 import org.bh.gui.swing.BHTextField;
 import org.bh.gui.swing.IBHComponent;
 import org.bh.platform.Services;
@@ -19,8 +18,7 @@ import com.jgoodies.validation.util.ValidationUtils;
 import com.jgoodies.validation.view.ValidationComponentUtils;
 
 /**
- * This class contains the validation rules for a specific form panel
- * TODO change classname to xyFormValidation. Same in this comment.
+ * This class contains the validation rules for all platform panels
  * 
  * @author Patrick Heinz
  * @version 0.3, 30.12.2009

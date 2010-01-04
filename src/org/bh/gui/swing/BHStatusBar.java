@@ -3,7 +3,6 @@ package org.bh.gui.swing;
 import java.awt.Color;
 import java.awt.event.MouseEvent;
 import javax.swing.ImageIcon;
-import javax.swing.JInternalFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
@@ -173,6 +172,7 @@ public class BHStatusBar extends JPanel{
 		public BHLabelListener(){
 			open = false;
 		}
+		@Override
 		public void mouseClicked(MouseEvent e){
 //			if(!open){
 //    			popup.show();

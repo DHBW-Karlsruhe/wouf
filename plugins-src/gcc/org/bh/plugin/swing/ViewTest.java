@@ -1,6 +1,5 @@
 package org.bh.plugin.swing;
 
-import org.bh.gui.ValidationMethods;
 import org.bh.gui.View;
 import org.bh.gui.ViewException;
 

@@ -3,8 +3,6 @@ package org.bh.gui.swing;
 import java.net.URL;
 import javax.swing.ImageIcon;
 import javax.swing.JFileChooser;
-import javax.swing.event.MouseInputAdapter;
-
 import org.bh.platform.PlatformKey;
 import org.bh.platform.i18n.BHTranslator;
 

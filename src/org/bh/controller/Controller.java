@@ -9,7 +9,6 @@ import javax.swing.JScrollPane;
 
 import org.apache.log4j.Logger;
 import org.bh.data.DTOAccessException;
-import org.bh.data.IDTO;
 import org.bh.data.types.IValue;
 import org.bh.gui.BHValidityEngine;
 import org.bh.gui.View;
