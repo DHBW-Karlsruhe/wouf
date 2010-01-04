@@ -80,6 +80,18 @@ public class BHButton extends JButton implements IBHComponent,IBHAction {
 		//TODO get INPUT-HINT out of properties-File (querstions? Ask Alex)
 	}
 	
+	/**
+	 * Standard constructor to create buttons NOT for platform
+	 * 
+	 * @param key
+	 */
+	public BHButton(Object key) {
+		super();
+		this.setProperties();
+		this.key = key.toString();
+		//TODO get INPUT-HINT out of properties-File (querstions? Ask Alex)
+	}
+	
 	public BHButton(Boolean noUse){
 	}
 	
