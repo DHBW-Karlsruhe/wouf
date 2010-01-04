@@ -137,6 +137,14 @@ public class DCFProceduresIntegerValues {
 		uw0_2 = ((DoubleValue)res2.get(IShareholderValueCalculator.SHAREHOLDER_VALUE)[0]).getValue();
 		uw0_3 = ((DoubleValue)res3.get(IShareholderValueCalculator.SHAREHOLDER_VALUE)[0]).getValue();
 		
+		// round
+		int decimalPlaces = 2;
+		double factor = Math.pow(10, decimalPlaces);
+		
+		uw0 = Math.round(uw0 * factor)/factor;
+		uw0_2 = Math.round(uw0_2 * factor)/factor;
+		uw0_3 = Math.round(uw0_3 * factor)/factor;
+		
 		assertTrue("Equal results for APV, FTE, FCF procedure expected. Results were " + uw0 + ", " + uw0_2 + ", " + uw0_3 + " instead.", uw0 == uw0_2 && uw0 == uw0_3);
 	}
 }
