@@ -68,6 +68,18 @@ public class BHTextField extends JTextField implements IBHComponent {
 		this.setProperties();
 		this.key = key;
 	}
+	
+	/**
+	 * Constructor to create new <code>BHTextField</code>. with key based text
+	 * 
+	 * @param key
+	 *            unique key
+	 */
+	public BHTextField(Object key) {
+		//super(Services.getTranslator().translate(key));
+		this.setProperties();
+		this.key = key.toString();
+	}
         /**
          *
          * @param key
