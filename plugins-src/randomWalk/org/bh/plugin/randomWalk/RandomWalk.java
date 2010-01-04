@@ -172,11 +172,10 @@ public class RandomWalk implements IStochasticProcess {
 
 				center.add(new BHLabel(translator.translate(key)));
 				center.add(new BHLabel(translator.translate(CHANCE)));
-				center.add(new BHTextField(key + CHANCE, "" + chance, ""));
+				center.add(new BHTextField(key + CHANCE, "" + chance));
 				center.add(new BHLabel(translator.translate(INCREMENT)));
 				center
-						.add(new BHTextField(key + INCREMENT, "" + increment,
-								""));
+						.add(new BHTextField(key + INCREMENT, "" + increment));
 
 				internalMap.put(key + CHANCE, chance);
 				internalMap.put(key + INCREMENT, increment);

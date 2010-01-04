@@ -169,11 +169,10 @@ public class WienerProcess implements IStochasticProcess {
 
 				center.add(new BHLabel(translator.translate(key)));
 				center.add(new BHLabel(translator.translate(SLOPE)));
-				center.add(new BHTextField(key + SLOPE, "" + slope, ""));
+				center.add(new BHTextField(key + SLOPE, "" + slope));
 				center.add(new BHLabel(translator.translate(STANDARD_DEVIATION)));
 				center
-						.add(new BHTextField(key + STANDARD_DEVIATION, "" + standardDeviation,
-								""));
+						.add(new BHTextField(key + STANDARD_DEVIATION, "" + standardDeviation));
 
 				internalMap.put(key + SLOPE, slope);
 				internalMap.put(key + STANDARD_DEVIATION, standardDeviation);
