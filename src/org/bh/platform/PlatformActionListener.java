@@ -166,7 +166,7 @@ class PlatformActionListener implements ActionListener {
 			break;
 			
 		case SCENARIOMOVE:
-			//TODO Prüfen und ggf. implementieren!
+			//TODO Tietze.Patrick Drag&Drop
 			break;
 			
 		case SCENARIOREMOVE:
@@ -200,6 +200,9 @@ class PlatformActionListener implements ActionListener {
 			
 		case OPTIONSCHANGE:
 			//TODO Tietze.Patrick
+			
+			
+			
 			break;
 			
 		case HELPUSERHELP:
