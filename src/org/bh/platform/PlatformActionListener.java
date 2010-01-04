@@ -56,6 +56,7 @@ class PlatformActionListener implements ActionListener {
 		 * @author Michael Löckelt
 		 */
 		case FILENEW:
+			log.debug("handling FILENEW event");
 			this.fileNew();
 			break;
 		
@@ -65,7 +66,8 @@ class PlatformActionListener implements ActionListener {
 		 * @author Michael Löckelt
 		 */
 		case FILEOPEN:
-			// this.fileOpen();
+			log.debug("handling FILEOPEN event");
+			this.fileOpen();
 			break;
 			
 		/*
@@ -75,7 +77,8 @@ class PlatformActionListener implements ActionListener {
 		 */
 			
 		case FILESAVE:
-			// this.fileSave();
+			log.debug("handling FILESAVE event");
+			this.fileSave();
 			break;
 			
 		/*
@@ -85,7 +88,8 @@ class PlatformActionListener implements ActionListener {
 		 */
 			
 		case FILESAVEAS:
-			// this.fileSaveAs();
+			log.debug("handling FILESAVEAS event");
+			this.fileSaveAs();
 			break;
 			
 		case FILEQUIT:
@@ -227,12 +231,14 @@ class PlatformActionListener implements ActionListener {
 			//TODO Prüfen und ggf. implementieren!
 			break;
 			
-		case TOOLBAROPEN: 
-			//TODO Prüfen und ggf. implementieren!
+		case TOOLBAROPEN:
+			log.debug("handling TOOLBAROPEN event");
+			this.fileOpen();
 			break;
 			
 		case TOOLBARSAVE: 
-			//TODO Prüfen und ggf. implementieren!
+			log.debug("handling FILESAVE event");
+			this.fileSave();
 			break; 
 			
 		case TOOLBARADDPRO:
@@ -280,21 +286,16 @@ class PlatformActionListener implements ActionListener {
 	}
 	
 	private void fileNew() {
-		log.debug("handling FILENEW event");
-		
 		projectRepoManager.clearProjectList();
 		pC.setupTree(bhmf, projectRepoManager);
 	}
 	
 	private void fileOpen() {
-		log.debug("handling FILEOPEN event");
-		
 		// create a open-dialog
 		int returnVal = bhmf.getChooser().showOpenDialog(bhmf);
 		if (returnVal == JFileChooser.APPROVE_OPTION) {
-			System.out.println("You chose to open this file: "
+			log.debug("You chose to open this file: "
 					+ bhmf.getChooser().getSelectedFile().getName());
-
 		}
 		
 		// create a PlatformPersistence instance incl. filepath
@@ -313,16 +314,14 @@ class PlatformActionListener implements ActionListener {
 	}
 	
 	private void fileSave() {
-		log.debug("handling FILESAVE event");
+
 	}
 	
 	private void fileSaveAs() {
-		log.debug("handling FILESAVEAS event");
-		
 		// create save dialog
 		int returnSave = bhmf.getChooser().showSaveDialog(bhmf);
 		if (returnSave == JFileChooser.APPROVE_OPTION) {
-			System.out.println("You chose to save this file: "
+			log.debug("You chose to save this file: "
 					+ bhmf.getChooser().getSelectedFile().getName());
 
 		}

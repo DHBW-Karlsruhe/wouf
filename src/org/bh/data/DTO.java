@@ -56,9 +56,9 @@ public abstract class DTO<ChildT extends IDTO> implements IDTO<ChildT> {
 	 * Possible methods with which the user can call simple methods for
 	 * calculation.
 	 */
-	transient protected Map<String, String> availableMethods;	
+	protected Map<String, String> availableMethods;	
 	
-	transient private static Map<String, Map<String, String>> METHODS_CACHE =
+	private static Map<String, Map<String, String>> METHODS_CACHE =
 		new HashMap<String, Map<String, String>>();
 	
 	/**

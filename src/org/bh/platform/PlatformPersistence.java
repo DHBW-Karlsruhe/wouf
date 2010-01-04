@@ -1,5 +1,6 @@
 package org.bh.platform;
 
+import java.io.EOFException;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
@@ -50,9 +51,15 @@ public class PlatformPersistence {
 				if (whileObj instanceof DTOProject)
 					returnRepository.add((DTOProject) whileObj);
 			}
+		
+		} catch (FileNotFoundException e) {
+			log.error("File "+ path + "not found!");
+		} catch (EOFException e) {
+			return returnRepository;
 		} catch (Exception e) {
+			log.error("Exception while opening file");
 			e.printStackTrace();
-		}
+		} 
 		
 		return null;
 	}
@@ -78,84 +85,13 @@ public class PlatformPersistence {
 			return true;
 			
 		} catch (FileNotFoundException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			log.error("File " + path + "not found!");
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
+			log.error("IO Error occured wihle saving" + path);
 			e.printStackTrace();
 		}
 		
 		return false;
 		
 	}
-/*
-	public static void main (String args[]) {
-		DTOProject project1 = new DTOProject();
-		DTOScenario scenario1 = new DTOScenario(true);
-		
-		project1.addChild(scenario1);
-		
-		StringValue scenarioName = new StringValue("Scenario1");
-		scenario1.put(DTOScenario.Key.NAME, scenarioName);
-		
-		DTOPeriod period1 = new DTOPeriod();
-		StringValue p1 = new StringValue("p1");
-		period1.put(DTOPeriod.Key.NAME, p1);
-		
-		DTOGCCBalanceSheet mysheet = new DTOGCCBalanceSheet();
-		mysheet.put(DTOGCCBalanceSheet.Key.ABET, new IntegerValue(10));
-		
-		period1.addChild(mysheet);
-		
-		DTOPeriod period2 = period1.clone();
-		
-		
-		try {
-			FileOutputStream fileWriter = new FileOutputStream("/Users/michael/Documents/Studium/test.dat");
-			ObjectOutputStream objectWriter = new ObjectOutputStream(fileWriter);
-			
-			objectWriter.writeObject(project1);
-			System.out.println("Datei geschrieben");
-			
-		} catch (FileNotFoundException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		
-		try {
-			FileInputStream fileLoader = new FileInputStream("/Users/michael/Documents/Studium/test.dat");
-			ObjectInputStream objectLoader = new ObjectInputStream(fileLoader);
-			
-			DTOProject loadedProject;
-			
-			loadedProject = (DTOProject) objectLoader.readObject();
-			
-			System.out.println("Datei geladen");
-			
-			loadedProject.regenerateMethodsList();
-			
-			DTOScenario loadedScenario = loadedProject.getChild(0);
-			
-			loadedScenario.regenerateMethodsList();
-			
-			StringValue loadedScenarioName = (StringValue) loadedScenario.get(DTOScenario.Key.NAME);
-			System.out.println(loadedScenarioName.getString());
-			
-			
-		} catch (FileNotFoundException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (ClassNotFoundException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		
-		
-	} */
 }
