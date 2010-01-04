@@ -275,7 +275,7 @@ class PlatformActionListener implements ActionListener {
 					+ bhmf.getChooser().getSelectedFile().getName());
 			
 			// create a PlatformPersistence instance incl. filepath
-			PlatformPersistence myOpener = new PlatformPersistence(bhmf.getChooser().getSelectedFile(),projectRepoManager,bhmf);
+			PlatformPersistence myOpener = new PlatformPersistence(bhmf.getChooser().getSelectedFile(),projectRepoManager);
 			
 			// open already provided file
 			ArrayList<DTOProject> projectList = myOpener.openFile();
@@ -289,6 +289,12 @@ class PlatformActionListener implements ActionListener {
 			// Save path to preferences
 			PlatformController.preferences.put("path", bhmf.getChooser().getSelectedFile().toString());
 			
+			// Refresh title
+			bhmf.resetTitle();
+			
+			// Set isChanged
+			ProjectRepositoryManager.setChanged(false);
+			
 			log.debug("file " + bhmf.getChooser().getSelectedFile() + " successfully opened");
 		}
 	}
@@ -300,10 +306,16 @@ class PlatformActionListener implements ActionListener {
 			File path = new File( PlatformController.preferences.get("path","") );
 			
 			// create a PlatformPersistence instance incl. filepath
-			PlatformPersistence mySaver = new PlatformPersistence(path,projectRepoManager,bhmf);
+			PlatformPersistence mySaver = new PlatformPersistence(path,projectRepoManager);
 			
 			// perform save
 			mySaver.saveFile(projectRepoManager.getRepositoryList());
+			
+			// Set isChanged
+			ProjectRepositoryManager.setChanged(false);
+			
+			// Refresh title
+			bhmf.resetTitle();
 			
 			log.debug("ProjectRepository saved to " + path);
 		}
@@ -317,13 +329,19 @@ class PlatformActionListener implements ActionListener {
 					+ bhmf.getChooser().getSelectedFile().getName());
 			
 			// create a PlatformPersistence instance incl. filepath
-			PlatformPersistence mySaver = new PlatformPersistence(bhmf.getChooser().getSelectedFile(),projectRepoManager,bhmf);
+			PlatformPersistence mySaver = new PlatformPersistence(bhmf.getChooser().getSelectedFile(),projectRepoManager);
 			
 			// perform save
 			mySaver.saveFile(projectRepoManager.getRepositoryList());
 			
 			// Save path to preferences
 			PlatformController.preferences.put("path", bhmf.getChooser().getSelectedFile().toString());
+		
+			// Set isChanged
+			ProjectRepositoryManager.setChanged(false);
+			
+			// Refresh title
+			bhmf.resetTitle();
 			
 			log.debug("ProjectRepository saved to " + bhmf.getChooser().getSelectedFile());
 
