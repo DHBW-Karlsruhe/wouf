@@ -110,6 +110,7 @@ public class BHTranslator implements ITranslator {
 	 *            key to be translated
 	 * @return translated <code>String</code>
 	 */
+	@Override
 	public String translate(Object key) {
 		try {
 			return this.bundle.getString(key.toString());
@@ -160,6 +161,7 @@ public class BHTranslator implements ITranslator {
 	 * @param locale
 	 *            locale to be set
 	 */
+	@Override
 	public void setLocale(Locale locale) {
 		Locale l = Locale.getDefault();
 		Locale.setDefault(locale);
@@ -173,6 +175,7 @@ public class BHTranslator implements ITranslator {
 	 * 
 	 * @return the currently used <code>Locale</code>
 	 */
+	@Override
 	public Locale getLocale() {
 		return Locale.getDefault();
 	}
@@ -184,6 +187,7 @@ public class BHTranslator implements ITranslator {
 	 *            key to be checked
 	 * @return true if contains else false.
 	 */
+	@Override
 	public boolean containsKey(Object key) {
 		return this.bundle.containsKey(key.toString());
 	}
@@ -191,6 +195,7 @@ public class BHTranslator implements ITranslator {
 	/**
 	 * Provides all available languages.
 	 */
+	@Override
 	public Locale[] getAvaiableLocales() {
 		return BHTranslator.availableLocales;
 	}
@@ -198,13 +203,17 @@ public class BHTranslator implements ITranslator {
 	/**
 	 * Adds a PropertyChangeListener.
 	 */
+	@Override
 	public void addPropertyChangeListener(PropertyChangeListener l) {
 		this.listener.add(l);
 	}
 
 	/**
 	 * Remove a PropertyChangeListener.
+	 * 
+	 * @param l Listener to be added.
 	 */
+	@Override
 	public void removePropertyChangeListener(PropertyChangeListener l) {
 		this.listener.remove(l);
 	}
