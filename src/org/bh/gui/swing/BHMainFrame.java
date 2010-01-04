@@ -100,8 +100,8 @@ public class BHMainFrame extends JFrame implements IPlatformListener {
 	 * @param title
 	 *            title to be set for the <code>BHMainFrame</code>.
 	 */
-	public BHMainFrame(String title) {
-		super(title);
+	public BHMainFrame() {
+		super();
 		this.setProperties();
 
 		// Build MenuBar
@@ -151,6 +151,7 @@ public class BHMainFrame extends JFrame implements IPlatformListener {
 	 * Sets initial properties on <code>BHMainFrame</code>.
 	 */
 	private synchronized void setProperties() {
+		this.resetTitle();
 		this.setExtendedState(MAXIMIZED_BOTH);
 		this.setLocationRelativeTo(null);
 		this.setSize(1024, 768);
@@ -158,11 +159,16 @@ public class BHMainFrame extends JFrame implements IPlatformListener {
 		this.setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
 		this.setLocationRelativeTo(null);
 		Services.addPlatformListener(this);
-		this.setIconImage(new ImageIcon("/org/bh/images/bh-logo.jpg").getImage()); //TODO Test on windows
-		
+		this.setIconImage(new ImageIcon("/org/bh/images/bh-logo.jpg").getImage()); //TODO Test on windows	
 	}
 	
+	private void resetTitle() {
+		this.setTitle(Services.getTranslator().translate("title"));
+	}
 	
+	/**
+	 * Disposes the Frame.
+	 */
 	@Override
 	public void dispose() {
 		int i = JOptionPane.showConfirmDialog(this, Services.getTranslator().translate("Psave"));
@@ -231,10 +237,15 @@ public class BHMainFrame extends JFrame implements IPlatformListener {
 		
 		// Data changed. Add changed suffix to title.
 		if (e.getEventType() == Type.DATA_CHANGED) {
-			String changedSuffix = "(" + Services.getTranslator().translate("changed") + ")";
+			String changedSuffix = " (" + Services.getTranslator().translate("changed") + ")";
 			if (! this.getTitle().endsWith(changedSuffix)) {
 				this.setTitle(this.getTitle() + changedSuffix);
 			}
+		}
+		
+		// Locale changed
+		if (e.getEventType() == Type.LOCALE_CHANGED) {
+			this.resetTitle();
 		}
 	}
 	

@@ -110,7 +110,7 @@ public class PlatformController {
 		 * start mainFrame
 		 * -----------------------------------
 		 */
-		bhmf = new BHMainFrame(Services.getTranslator().translate("title"));
+		bhmf = new BHMainFrame();
 		
 		
 		/*------------------------------------
