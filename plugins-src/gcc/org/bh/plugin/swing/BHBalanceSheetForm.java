@@ -15,8 +15,6 @@ import org.bh.controller.Controller;
 import org.bh.gui.swing.BHLabel;
 import org.bh.gui.swing.BHTextField;
 import org.bh.gui.swing.IBHComponent;
-import org.bh.platform.Services;
-import org.bh.platform.i18n.BHTranslator;
 import org.bh.platform.i18n.ITranslator;
 import org.bh.plugin.gcc.data.DTOGCCBalanceSheet;
 
@@ -298,110 +296,140 @@ public class BHBalanceSheetForm extends JPanel {
 	
 	// Here do the getters for the textfields begin
 	
+	/**
+	 * Getter method for component tfIVG.
+	 * 
+	 * @return the initialized component
+	 */
 	public BHTextField getTfIVG() {
 		if (tfIVG == null) {
-			tfIVG = new BHTextField(DTOGCCBalanceSheet.class.getName()+"_"
-					+ DTOGCCBalanceSheet.Key.IVG, translator.translate(""));
-			// TODO add InputHint
+			tfIVG = new BHTextField(DTOGCCBalanceSheet.Key.IVG);
 			int[] rules = { ValidationBHBalanceSheetForm.isMandatory, ValidationBHBalanceSheetForm.isDouble };
 			tfIVG.setValidateRules(rules);
 		}
 		return tfIVG;
 	}
-
+	
+	/**
+	 * Getter method for component tfSA.
+	 * 
+	 * @return the initialized component
+	 */
 	public BHTextField getTfSA() {
 		if (tfSA == null) {
-			tfSA = new BHTextField(DTOGCCBalanceSheet.class.getName()+"_"
-					+ DTOGCCBalanceSheet.Key.SA, translator.translate(""));
-			// TODO add InputHint
+			tfSA = new BHTextField(DTOGCCBalanceSheet.Key.SA);
 			int[] rules = { ValidationBHBalanceSheetForm.isMandatory, ValidationBHBalanceSheetForm.isDouble };
 			tfSA.setValidateRules(rules);
 		}
 		return tfSA;
 	}
 
+	/**
+	 * Getter method for component tfFA.
+	 * 
+	 * @return the initialized component
+	 */
 	public BHTextField getTfFA() {
 		if (tfFA == null) {
-			tfFA = new BHTextField(DTOGCCBalanceSheet.class.getName()+"_"
-					+ DTOGCCBalanceSheet.Key.FA, translator.translate(""));
-			// TODO add InputHint
+			tfFA = new BHTextField(DTOGCCBalanceSheet.Key.FA);
 			int[] rules = { ValidationBHBalanceSheetForm.isMandatory, ValidationBHBalanceSheetForm.isDouble };
 			tfFA.setValidateRules(rules);
 		}
 		return tfFA;
 	}
 
+	/**
+	 * Getter method for component tfVOR.
+	 * 
+	 * @return the initialized component
+	 */
 	public BHTextField getTfVOR() {
 		if (tfVOR == null) {
-			tfVOR = new BHTextField(DTOGCCBalanceSheet.class.getName()+"_"
-					+ DTOGCCBalanceSheet.Key.VOR, translator.translate(""));
-			// TODO add InputHint
+			tfVOR = new BHTextField(DTOGCCBalanceSheet.Key.VOR);
 			int[] rules = { ValidationBHBalanceSheetForm.isMandatory, ValidationBHBalanceSheetForm.isDouble };
 			tfVOR.setValidateRules(rules);
 		}
 		return tfVOR;
 	}
 
+	/**
+	 * Getter method for component tfFSVG.
+	 * 
+	 * @return the initialized component
+	 */
 	public BHTextField getTfFSVG() {
 		if (tfFSVG == null) {
-			tfFSVG = new BHTextField(DTOGCCBalanceSheet.class.getName()+"_"
-					+ DTOGCCBalanceSheet.Key.FSVG, translator.translate(""));
-			// TODO add InputHint
+			tfFSVG = new BHTextField(DTOGCCBalanceSheet.Key.FSVG);
 			int[] rules = { ValidationBHBalanceSheetForm.isMandatory, ValidationBHBalanceSheetForm.isDouble };
 			tfFSVG.setValidateRules(rules);
 		}
 		return tfFSVG;
 	}
 
+	/**
+	 * Getter method for component tfWP.
+	 * 
+	 * @return the initialized component
+	 */
 	public BHTextField getTfWP() {
 		if (tfWP == null) {
-			tfWP = new BHTextField(DTOGCCBalanceSheet.class.getName()+"_"
-					+ DTOGCCBalanceSheet.Key.WP, translator.translate(""));
-			// TODO add InputHint
+			tfWP = new BHTextField(DTOGCCBalanceSheet.Key.WP);
 			int[] rules = { ValidationBHBalanceSheetForm.isMandatory, ValidationBHBalanceSheetForm.isDouble };
 			tfWP.setValidateRules(rules);
 		}
 		return tfWP;
 	}
 
+	/**
+	 * Getter method for component tfKBGGKS.
+	 * 
+	 * @return the initialized component
+	 */
 	public BHTextField getTfKBGGKS() {
 		if (tfKBGGKS == null) {
-			tfKBGGKS = new BHTextField(DTOGCCBalanceSheet.class.getName()+"_"
-					+ DTOGCCBalanceSheet.Key.KBGGKS, translator.translate(""));
-			// TODO add InputHint
+			tfKBGGKS = new BHTextField(DTOGCCBalanceSheet.Key.KBGGKS);
 			int[] rules = { ValidationBHBalanceSheetForm.isMandatory, ValidationBHBalanceSheetForm.isDouble };
 			tfKBGGKS.setValidateRules(rules);
 		}
 		return tfKBGGKS;
 	}
 
+	/**
+	 * Getter method for component tfEK.
+	 * 
+	 * @return the initialized component
+	 */
 	public BHTextField getTfEK() {
 		if (tfEK == null) {
-			tfEK = new BHTextField(DTOGCCBalanceSheet.class.getName()+"_"
-					+ DTOGCCBalanceSheet.Key.EK, translator.translate(""));
-			// TODO add InputHint
+			tfEK = new BHTextField(DTOGCCBalanceSheet.Key.EK);
 			int[] rules = { ValidationBHBalanceSheetForm.isMandatory, ValidationBHBalanceSheetForm.isDouble };
 			tfEK.setValidateRules(rules);
 		}
 		return tfEK;
 	}
 
+	/**
+	 * Getter method for component tfRS.
+	 * 
+	 * @return the initialized component
+	 */
 	public BHTextField getTfRS() {
 		if (tfRS == null) {
-			tfRS = new BHTextField(DTOGCCBalanceSheet.class.getName()+"_"
-					+ DTOGCCBalanceSheet.Key.RS, translator.translate(""));
-			// TODO add InputHint
+			tfRS = new BHTextField(DTOGCCBalanceSheet.Key.RS);
 			int[] rules = { ValidationBHBalanceSheetForm.isMandatory, ValidationBHBalanceSheetForm.isDouble };
 			tfRS.setValidateRules(rules);
 		}
 		return tfRS;
 	}
 
+	/**
+	 * Getter method for component tfIVB.
+	 * 
+	 * @return the initialized component
+	 */
 	public BHTextField getTfVB() {
 		if (tfVB == null) {
-			tfVB = new BHTextField(DTOGCCBalanceSheet.class.getName()+"_"
-					+ DTOGCCBalanceSheet.Key.VB, translator.translate(""));
-			// TODO add InputHint
+			tfVB = new BHTextField(DTOGCCBalanceSheet.Key.VB);
 			int[] rules = { ValidationBHBalanceSheetForm.isMandatory, ValidationBHBalanceSheetForm.isDouble };
 			tfVB.setValidateRules(rules);
 		}
@@ -410,110 +438,150 @@ public class BHBalanceSheetForm extends JPanel {
 
 	// Maximum TextFields
 	
+	/**
+	 * Getter method for component tfIVGmax.
+	 * 
+	 * @return the initialized component
+	 */
 	public BHTextField getTfIVGmax() {
 		if (tfIVGmax == null) {
 			tfIVGmax = new BHTextField(IBHComponent.MAXVALUE
-					+ DTOGCCBalanceSheet.class.getName()+"_"
-					+ DTOGCCBalanceSheet.Key.IVG, translator.translate("IIVGmax"));
+					+ DTOGCCBalanceSheet.Key.IVG);
 			int[] rules = { ValidationBHBalanceSheetForm.isMandatory, ValidationBHBalanceSheetForm.isDouble };
 			tfIVGmax.setValidateRules(rules);
 		}
 		return tfIVGmax;
 	}
 
+	/**
+	 * Getter method for component tfSAmax.
+	 * 
+	 * @return the initialized component
+	 */
 	public BHTextField getTfSAmax() {
 		if (tfSAmax == null) {
 			tfSAmax = new BHTextField(IBHComponent.MAXVALUE
-					+ DTOGCCBalanceSheet.class.getName()+"_"
-					+ DTOGCCBalanceSheet.Key.SA, translator.translate("ISAmax"));
+					+ DTOGCCBalanceSheet.Key.SA);
 			int[] rules = { ValidationBHBalanceSheetForm.isMandatory, ValidationBHBalanceSheetForm.isDouble };
 			tfSAmax.setValidateRules(rules);
 		}
 		return tfSAmax;
 	}
 
+	/**
+	 * Getter method for component tfFAmax.
+	 * 
+	 * @return the initialized component
+	 */
 	public BHTextField getTfFAmax() {
 		if (tfFAmax == null) {
 			tfFAmax = new BHTextField(IBHComponent.MAXVALUE
-					+ DTOGCCBalanceSheet.class.getName()+"_"
-					+ DTOGCCBalanceSheet.Key.FA, translator.translate("IFAmax"));
+					+ DTOGCCBalanceSheet.Key.FA);
 			int[] rules = { ValidationBHBalanceSheetForm.isMandatory, ValidationBHBalanceSheetForm.isDouble };
 			tfFAmax.setValidateRules(rules);
 		}
 		return tfFAmax;
 	}
 
+	/**
+	 * Getter method for component tfVORmax.
+	 * 
+	 * @return the initialized component
+	 */
 	public BHTextField getTfVORmax() {
 		if (tfVORmax == null) {
 			tfVORmax = new BHTextField(IBHComponent.MAXVALUE
-					+ DTOGCCBalanceSheet.class.getName()+"_"
-					+ DTOGCCBalanceSheet.Key.VOR, translator.translate("IVORmax"));
+					+ DTOGCCBalanceSheet.Key.VOR);
 			int[] rules = { ValidationBHBalanceSheetForm.isMandatory, ValidationBHBalanceSheetForm.isDouble };
 			tfVORmax.setValidateRules(rules);
 		}
 		return tfVORmax;
 	}
 
+	/**
+	 * Getter method for component tfFSVGmax.
+	 * 
+	 * @return the initialized component
+	 */
 	public BHTextField getTfFSVGmax() {
 		if (tfFSVGmax == null) {
 			tfFSVGmax = new BHTextField(IBHComponent.MAXVALUE
-					+ DTOGCCBalanceSheet.class.getName()+"_"
-					+ DTOGCCBalanceSheet.Key.FSVG, translator.translate("IFSVGmax"));
+					+ DTOGCCBalanceSheet.Key.FSVG);
 			int[] rules = { ValidationBHBalanceSheetForm.isMandatory, ValidationBHBalanceSheetForm.isDouble };
 			tfFSVGmax.setValidateRules(rules);
 		}
 		return tfFSVGmax;
 	}
 
+	/**
+	 * Getter method for component tfWPmax.
+	 * 
+	 * @return the initialized component
+	 */
 	public BHTextField getTfWPmax() {
 		if (tfWPmax == null) {
 			tfWPmax = new BHTextField(IBHComponent.MAXVALUE
-					+ DTOGCCBalanceSheet.class.getName()+"_"
-					+ DTOGCCBalanceSheet.Key.WP, translator.translate("IWPmax"));
+					+ DTOGCCBalanceSheet.Key.WP);
 			int[] rules = { ValidationBHBalanceSheetForm.isMandatory, ValidationBHBalanceSheetForm.isDouble };
 			tfWPmax.setValidateRules(rules);
 		}
 		return tfWPmax;
 	}
 
+	/**
+	 * Getter method for component tfKBGGKSmax.
+	 * 
+	 * @return the initialized component
+	 */
 	public BHTextField getTfKBGGKSmax() {
 		if (tfKBGGKSmax == null) {
 			tfKBGGKSmax = new BHTextField(IBHComponent.MAXVALUE
-					+ DTOGCCBalanceSheet.class.getName()+"_"
-					+ DTOGCCBalanceSheet.Key.KBGGKS, translator.translate("IKBGGKSmax"));
+					+ DTOGCCBalanceSheet.Key.KBGGKS);
 			int[] rules = { ValidationBHBalanceSheetForm.isMandatory, ValidationBHBalanceSheetForm.isDouble };
 			tfKBGGKSmax.setValidateRules(rules);
 		}
 		return tfKBGGKSmax;
 	}
 
+	/**
+	 * Getter method for component tfEKmax.
+	 * 
+	 * @return the initialized component
+	 */
 	public BHTextField getTfEKmax() {
 		if (tfEKmax == null) {
 			tfEKmax = new BHTextField(IBHComponent.MAXVALUE
-					+ DTOGCCBalanceSheet.class.getName()+"_"
-					+ DTOGCCBalanceSheet.Key.EK, translator.translate("IEKmax"));
+					+ DTOGCCBalanceSheet.Key.EK);
 			int[] rules = { ValidationBHBalanceSheetForm.isMandatory, ValidationBHBalanceSheetForm.isDouble };
 			tfEKmax.setValidateRules(rules);
 		}
 		return tfEKmax;
 	}
 
+	/**
+	 * Getter method for component tfRSmax.
+	 * 
+	 * @return the initialized component
+	 */
 	public BHTextField getTfRSmax() {
 		if (tfRSmax == null) {
 			tfRSmax = new BHTextField(IBHComponent.MAXVALUE
-					+ DTOGCCBalanceSheet.class.getName()+"_"
-					+ DTOGCCBalanceSheet.Key.RS, translator.translate("IRSmax"));
+					+ DTOGCCBalanceSheet.Key.RS);
 			int[] rules = { ValidationBHBalanceSheetForm.isMandatory, ValidationBHBalanceSheetForm.isDouble };
 			tfRSmax.setValidateRules(rules);
 		}
 		return tfRSmax;
 	}
 
+	/**
+	 * Getter method for component tfVBmax.
+	 * 
+	 * @return the initialized component
+	 */
 	public BHTextField getTfVBmax() {
 		if (tfVBmax == null) {
 			tfVBmax = new BHTextField(IBHComponent.MAXVALUE
-					+ DTOGCCBalanceSheet.class.getName()+"_"
-					+ DTOGCCBalanceSheet.Key.VB, translator.translate("IVBmax"));
+					+ DTOGCCBalanceSheet.Key.VB);
 			int[] rules = { ValidationBHBalanceSheetForm.isMandatory, ValidationBHBalanceSheetForm.isDouble };
 			tfVBmax.setValidateRules(rules);
 		}
@@ -522,110 +590,150 @@ public class BHBalanceSheetForm extends JPanel {
 	
 	// Minimum TextFields
 	
+	/**
+	 * Getter method for component tfIVGmin.
+	 * 
+	 * @return the initialized component
+	 */
 	public BHTextField getTfIVGmin() {
 		if (tfIVGmin == null) {
 			tfIVGmin = new BHTextField(IBHComponent.MINVALUE
-					+ DTOGCCBalanceSheet.class.getName()+"_"
-					+ DTOGCCBalanceSheet.Key.IVG, translator.translate("IIVGmin"));
+					+ DTOGCCBalanceSheet.Key.IVG);
 			int[] rules = { ValidationBHBalanceSheetForm.isMandatory, ValidationBHBalanceSheetForm.isDouble };
 			tfIVGmin.setValidateRules(rules);
 		}
 		return tfIVGmin;
 	}
 
+	/**
+	 * Getter method for component tfSAmin.
+	 * 
+	 * @return the initialized component
+	 */
 	public BHTextField getTfSAmin() {
 		if (tfSAmin == null) {
 			tfSAmin = new BHTextField(IBHComponent.MINVALUE
-					+ DTOGCCBalanceSheet.class.getName()+"_"
-					+ DTOGCCBalanceSheet.Key.SA, translator.translate("ISAmin"));
+					+ DTOGCCBalanceSheet.Key.SA);
 			int[] rules = { ValidationBHBalanceSheetForm.isMandatory, ValidationBHBalanceSheetForm.isDouble };
 			tfSAmin.setValidateRules(rules);
 		}
 		return tfSAmin;
 	}
 
+	/**
+	 * Getter method for component tfFAmin.
+	 * 
+	 * @return the initialized component
+	 */
 	public BHTextField getTfFAmin() {
 		if (tfFAmin == null) {
 			tfFAmin = new BHTextField(IBHComponent.MINVALUE
-					+ DTOGCCBalanceSheet.class.getName()+"_"
-					+ DTOGCCBalanceSheet.Key.FA, translator.translate("IFAmin"));
+					+ DTOGCCBalanceSheet.Key.FA);
 			int[] rules = { ValidationBHBalanceSheetForm.isMandatory, ValidationBHBalanceSheetForm.isDouble };
 			tfFAmin.setValidateRules(rules);
 		}
 		return tfFAmin;
 	}
 
+	/**
+	 * Getter method for component tfVORmin.
+	 * 
+	 * @return the initialized component
+	 */
 	public BHTextField getTfVORmin() {
 		if (tfVORmin == null) {
 			tfVORmin = new BHTextField(IBHComponent.MINVALUE
-					+ DTOGCCBalanceSheet.class.getName()+"_"
-					+ DTOGCCBalanceSheet.Key.VOR, translator.translate("IVORmin"));
+					+ DTOGCCBalanceSheet.Key.VOR);
 			int[] rules = { ValidationBHBalanceSheetForm.isMandatory, ValidationBHBalanceSheetForm.isDouble };
 			tfVORmin.setValidateRules(rules);
 		}
 		return tfVORmin;
 	}
 
+	/**
+	 * Getter method for component tfFSVGmin.
+	 * 
+	 * @return the initialized component
+	 */
 	public BHTextField getTfFSVGmin() {
 		if (tfFSVGmin == null) {
 			tfFSVGmin = new BHTextField(IBHComponent.MINVALUE
-					+ DTOGCCBalanceSheet.class.getName()+"_"
-					+ DTOGCCBalanceSheet.Key.FSVG, translator.translate("IFSVGmin"));
+					+ DTOGCCBalanceSheet.Key.FSVG);
 			int[] rules = { ValidationBHBalanceSheetForm.isMandatory, ValidationBHBalanceSheetForm.isDouble };
 			tfFSVGmin.setValidateRules(rules);
 		}
 		return tfFSVGmin;
 	}
 
+	/**
+	 * Getter method for component tfWPmin.
+	 * 
+	 * @return the initialized component
+	 */
 	public BHTextField getTfWPmin() {
 		if (tfWPmin == null) {
 			tfWPmin = new BHTextField(IBHComponent.MINVALUE
-					+ DTOGCCBalanceSheet.class.getName()+"_"
-					+ DTOGCCBalanceSheet.Key.WP, translator.translate("IWPmin"));
+					+ DTOGCCBalanceSheet.Key.WP);
 			int[] rules = { ValidationBHBalanceSheetForm.isMandatory, ValidationBHBalanceSheetForm.isDouble };
 			tfWPmin.setValidateRules(rules);
 		}
 		return tfWPmin;
 	}
 
+	/**
+	 * Getter method for component tfKBGGKSmin.
+	 * 
+	 * @return the initialized component
+	 */
 	public BHTextField getTfKBGGKSmin() {
 		if (tfKBGGKSmin == null) {
 			tfKBGGKSmin = new BHTextField(IBHComponent.MINVALUE
-					+ DTOGCCBalanceSheet.class.getName()+"_"
-					+ DTOGCCBalanceSheet.Key.KBGGKS, translator.translate("IKBGGKSmin"));
+					+ DTOGCCBalanceSheet.Key.KBGGKS);
 			int[] rules = { ValidationBHBalanceSheetForm.isMandatory, ValidationBHBalanceSheetForm.isDouble };
 			tfKBGGKSmin.setValidateRules(rules);
 		}
 		return tfKBGGKSmin;
 	}
 
+	/**
+	 * Getter method for component tfEKmin.
+	 * 
+	 * @return the initialized component
+	 */
 	public BHTextField getTfEKmin() {
 		if (tfEKmin == null) {
 			tfEKmin = new BHTextField(IBHComponent.MINVALUE
-					+ DTOGCCBalanceSheet.class.getName()+"_"
-					+ DTOGCCBalanceSheet.Key.EK, translator.translate("IEKmin"));
+					+ DTOGCCBalanceSheet.Key.EK);
 			int[] rules = { ValidationBHBalanceSheetForm.isMandatory, ValidationBHBalanceSheetForm.isDouble };
 			tfEKmin.setValidateRules(rules);
 		}
 		return tfEKmin;
 	}
 
+	/**
+	 * Getter method for component tfRSmin.
+	 * 
+	 * @return the initialized component
+	 */
 	public BHTextField getTfRSmin() {
 		if (tfRSmin == null) {
 			tfRSmin = new BHTextField(IBHComponent.MINVALUE
-					+ DTOGCCBalanceSheet.class.getName()+"_"
-					+ DTOGCCBalanceSheet.Key.RS, translator.translate("IRSmin"));
+					+ DTOGCCBalanceSheet.Key.RS);
 			int[] rules = { ValidationBHBalanceSheetForm.isMandatory, ValidationBHBalanceSheetForm.isDouble };
 			tfRSmin.setValidateRules(rules);
 		}
 		return tfRSmin;
 	}
 
+	/**
+	 * Getter method for component tfVBmin.
+	 * 
+	 * @return the initialized component
+	 */
 	public BHTextField getTfVBmin() {
 		if (tfVBmin == null) {
 			tfVBmin = new BHTextField(IBHComponent.MINVALUE
-					+ DTOGCCBalanceSheet.class.getName()+"_"
-					+ DTOGCCBalanceSheet.Key.VB, translator.translate("IVBmin"));
+					+ DTOGCCBalanceSheet.Key.VB);
 			int[] rules = { ValidationBHBalanceSheetForm.isMandatory, ValidationBHBalanceSheetForm.isDouble };
 			tfVBmin.setValidateRules(rules);
 		}

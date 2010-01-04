@@ -1,4 +1,5 @@
 package org.bh.gui.swing;
+
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 
@@ -27,413 +28,413 @@ import com.jgoodies.forms.layout.FormLayout;
  */
 public class BHScenarioForm extends JPanel {
 
-    private BHLabel lscenname;
-    private BHLabel lscendescript;
-    private BHLabel lequityyield;
-    private BHLabel ldeptyield;
-    private BHLabel ltradetax;
-    private BHLabel lcorporatetax;
-    private BHLabel lbaseyear;
+	private BHLabel lscenname;
+	private BHLabel lscendescript;
+	private BHLabel lequityyield;
+	private BHLabel ldeptyield;
+	private BHLabel ltradetax;
+	private BHLabel lcorporatetax;
+	private BHLabel lbaseyear;
 
-    private BHTextField tfscenname;
-    private BHTextField tfscendescript;
-    private BHTextField tfequityyield;
-    private BHTextField tfdeptyield;
-    private BHTextField tftradetax;
-    private BHTextField tfcorporatetax;
-    private BHTextField tfbaseyear;
-    private BHLabel lpercentequity;
-    private BHLabel lpercentdept;
-    private BHLabel lpercenttrade;
-    private BHLabel lpercentcorporate;
+	private BHTextField tfscenname;
+	private BHTextField tfscendescript;
+	private BHTextField tfequityyield;
+	private BHTextField tfdeptyield;
+	private BHTextField tftradetax;
+	private BHTextField tfcorporatetax;
+	private BHTextField tfbaseyear;
+	private BHLabel lpercentequity;
+	private BHLabel lpercentdept;
+	private BHLabel lpercenttrade;
+	private BHLabel lpercentcorporate;
 
-    private BHLabel ldcfchoise;
-    private JComboBox cbdcfchoise;
-    private BHLabel lprocess;
-    private JComboBox cbprocess;
-    private BHLabel ldirect;
-    private JComboBox cbdirect;
+	private BHLabel ldcfchoise;
+	private JComboBox cbdcfchoise;
+	private BHLabel lprocess;
+	private JComboBox cbprocess;
+	private BHLabel ldirect;
+	private JComboBox cbdirect;
 
-    ITranslator translator = Services.getTranslator();
+	ITranslator translator = Services.getTranslator();
 
-    /**
-     * Constructor.
-     */
-    public BHScenarioForm() {
-	this.initialize();
-    }
-
-    /**
-     * Initialize method.
-     */
-    private void initialize() {
-
-	String rowDef = "4px,p,4px,p,4px,p,4px,p,20px,p,4px,p,20px,p,4px,p,4px";
-	String colDef = "4px,4px,right:pref,4px,pref,max(80px;pref),4px,left:pref,24px:grow,pref,4px,pref,4px,right:pref,4px,pref,pref,4px,pref,4px,pref,4px";
-
-	FormLayout layout = new FormLayout(colDef, rowDef);
-	this.setLayout(layout);
-
-	layout.setColumnGroups(new int[][] { { 6, 17 } });
-
-	CellConstraints cons = new CellConstraints();
-
-	this.add(this.getlscenName(), cons.xywh(3, 4, 1, 1));
-	this.add(this.getlbaseYear(), cons.xywh(14, 4, 1, 1));
-	this.add(this.gettfbaseYear(), cons.xywh(17, 4, 1, 1));
-
-	this.add(this.getlscenDescript(), cons.xywh(3, 6, 1, 1));
-	this.add(this.getlequityYield(), cons.xywh(3, 10, 1, 1));
-	this.add(this.getldeptYield(), cons.xywh(3, 12, 1, 1));
-	this.add(this.getltradeTax(), cons.xywh(14, 10, 1, 1));
-	this.add(this.getlcorporateTax(), cons.xywh(14, 12, 1, 1));
-	this.add(this.gettfscenName(), cons.xywh(6, 4, 4, 1));
-	this.add(this.gettfscenDescript(), cons.xywh(6, 6, 12, 1));
-	this.add(this.gettfequityYeild(), cons.xywh(6, 10, 1, 1));
-	this.add(this.gettfdeptYield(), cons.xywh(6, 12, 1, 1));
-	this.add(this.gettftradeTax(), cons.xywh(17, 10, 1, 1));
-	this.add(this.gettfcorporateTax(), cons.xywh(17, 12, 1, 1));
-	this.add(this.getlpercentEquity(), cons.xywh(8, 10, 1, 1));
-	this.add(this.getlpercentDept(), cons.xywh(8, 12, 1, 1));
-	this.add(this.getlpercentTrade(), cons.xywh(19, 10, 1, 1));
-	this.add(this.getlpercentCorporate(), cons.xywh(19, 12, 1, 1));
-	this.add(this.getLprocess(), cons.xywh(3, 14, 1, 1));
-	this.add(this.getCbprocess(), cons.xywh(6, 14, 3, 1));
-	this.add(this.getLdcfchoise(), cons.xywh(3, 16, 1, 1));
-	this.add(this.getCbdcfchoise(), cons.xywh(6, 16, 3, 1));
-	this.add(this.getLdirect(), cons.xywh(14, 14, 1, 1));
-	this.add(this.getCbdirect(), cons.xywh(17, 14, 3, 1));
-    }
-
-    // TODO add missing label keys etc. and translations, change hard coded
-    // values to keys
-
-    public BHLabel getLprocess() {
-	if (this.lprocess == null) {
-	    this.lprocess = new BHLabel("", "Berechnungsart");
-	}
-	return lprocess;
-    }
-
-    public JComboBox getCbprocess() {
-	if (this.cbprocess == null) {
-	    this.cbprocess = new JComboBox();
-	}
-	return cbprocess;
-    }
-
-    public BHLabel getLdcfchoise() {
-	if (this.ldcfchoise == null) {
-	    this.ldcfchoise = new BHLabel("DCFChoise");
-	}
-	return ldcfchoise;
-    }
-
-    public JComboBox getCbdcfchoise() {
-	if (this.cbdcfchoise == null) {
-	    this.cbdcfchoise = new JComboBox();
-	}
-	return cbdcfchoise;
-    }
-
-    public BHLabel getLdirect() {
-	if (this.ldirect == null) {
-	    this.ldirect = new BHLabel("directInput");
-	}
-	return ldirect;
-    }
-
-    public JComboBox getCbdirect() {
-	if (this.cbdirect == null) {
-	    this.cbdirect = new JComboBox();
-	}
-	return cbdirect;
-    }
-
-    /**
-     * Getter method for component lscenName.
-     * 
-     * @return the initialized component
-     */
-    public BHLabel getlscenName() {
-
-	if (this.lscenname == null) {
-	    this.lscenname = new BHLabel(DTOScenario.Key.NAME.toString(),
-		    "Szenarioname");
+	/**
+	 * Constructor.
+	 */
+	public BHScenarioForm() {
+		this.initialize();
 	}
 
-	return this.lscenname;
-    }
+	/**
+	 * Initialize method.
+	 */
+	private void initialize() {
 
-    /**
-     * Getter method for component lscenDescript.
-     * 
-     * @return the initialized component
-     */
-    public BHLabel getlscenDescript() {
+		String rowDef = "4px,p,4px,p,4px,p,4px,p,20px,p,4px,p,20px,p,4px,p,4px";
+		String colDef = "4px,4px,right:pref,4px,pref,max(80px;pref),4px,left:pref,24px:grow,pref,4px,pref,4px,right:pref,4px,pref,pref,4px,pref,4px,pref,4px";
 
-	if (this.lscendescript == null) {
-	    this.lscendescript = new BHLabel(
-		    DTOScenario.Key.COMMENT.toString(), "Beschreibung");
+		FormLayout layout = new FormLayout(colDef, rowDef);
+		this.setLayout(layout);
+
+		layout.setColumnGroups(new int[][] { { 6, 17 } });
+
+		CellConstraints cons = new CellConstraints();
+
+		this.add(this.getlscenName(), cons.xywh(3, 4, 1, 1));
+		this.add(this.getlbaseYear(), cons.xywh(14, 4, 1, 1));
+		this.add(this.gettfbaseYear(), cons.xywh(17, 4, 1, 1));
+
+		this.add(this.getlscenDescript(), cons.xywh(3, 6, 1, 1));
+		this.add(this.getlequityYield(), cons.xywh(3, 10, 1, 1));
+		this.add(this.getldeptYield(), cons.xywh(3, 12, 1, 1));
+		this.add(this.getltradeTax(), cons.xywh(14, 10, 1, 1));
+		this.add(this.getlcorporateTax(), cons.xywh(14, 12, 1, 1));
+		this.add(this.gettfscenName(), cons.xywh(6, 4, 4, 1));
+		this.add(this.gettfscenDescript(), cons.xywh(6, 6, 12, 1));
+		this.add(this.gettfequityYeild(), cons.xywh(6, 10, 1, 1));
+		this.add(this.gettfdeptYield(), cons.xywh(6, 12, 1, 1));
+		this.add(this.gettftradeTax(), cons.xywh(17, 10, 1, 1));
+		this.add(this.gettfcorporateTax(), cons.xywh(17, 12, 1, 1));
+		this.add(this.getlpercentEquity(), cons.xywh(8, 10, 1, 1));
+		this.add(this.getlpercentDept(), cons.xywh(8, 12, 1, 1));
+		this.add(this.getlpercentTrade(), cons.xywh(19, 10, 1, 1));
+		this.add(this.getlpercentCorporate(), cons.xywh(19, 12, 1, 1));
+		this.add(this.getLprocess(), cons.xywh(3, 14, 1, 1));
+		this.add(this.getCbprocess(), cons.xywh(6, 14, 3, 1));
+		this.add(this.getLdcfchoise(), cons.xywh(3, 16, 1, 1));
+		this.add(this.getCbdcfchoise(), cons.xywh(6, 16, 3, 1));
+		this.add(this.getLdirect(), cons.xywh(14, 14, 1, 1));
+		this.add(this.getCbdirect(), cons.xywh(17, 14, 3, 1));
 	}
 
-	return this.lscendescript;
-    }
+	// TODO add missing label keys etc. and translations, change hard coded
+	// values to keys
 
-    /**
-     * Getter method for component lequityYield.
-     * 
-     * @return the initialized component
-     */
-    public BHLabel getlequityYield() {
-
-	if (this.lequityyield == null) {
-	    this.lequityyield = new BHLabel(DTOScenario.Key.REK.toString(),
-		    "Renditeforderung Eigenkapital");
+	public BHLabel getLprocess() {
+		if (this.lprocess == null) {
+			this.lprocess = new BHLabel("", "Berechnungsart");
+		}
+		return lprocess;
 	}
 
-	return this.lequityyield;
-    }
-
-    /**
-     * Getter method for component ldeptYield.
-     * 
-     * @return the initialized component
-     */
-    public BHLabel getldeptYield() {
-
-	if (this.ldeptyield == null) {
-	    this.ldeptyield = new BHLabel(DTOScenario.Key.RFK.toString(),
-		    "Renditeforderung Fremdkapital");
+	public JComboBox getCbprocess() {
+		if (this.cbprocess == null) {
+			this.cbprocess = new JComboBox();
+		}
+		return cbprocess;
 	}
 
-	return this.ldeptyield;
-    }
-
-    /**
-     * Getter method for component ltradeTax.
-     * 
-     * @return the initialized component
-     */
-    public BHLabel getltradeTax() {
-
-	if (this.ltradetax == null) {
-	    this.ltradetax = new BHLabel(DTOScenario.Key.BTAX.toString(),
-		    "Gewerbesteuersatz");
+	public BHLabel getLdcfchoise() {
+		if (this.ldcfchoise == null) {
+			this.ldcfchoise = new BHLabel("DCFChoise");
+		}
+		return ldcfchoise;
 	}
 
-	return this.ltradetax;
-    }
-
-    /**
-     * Getter method for component lcorporateTax.
-     * 
-     * @return the initialized component
-     */
-    public BHLabel getlcorporateTax() {
-
-	if (this.lcorporatetax == null) {
-	    this.lcorporatetax = new BHLabel(DTOScenario.Key.CTAX.toString(),
-		    "Körperschaftssteuer und Solidaritätszuschlag");
+	public JComboBox getCbdcfchoise() {
+		if (this.cbdcfchoise == null) {
+			this.cbdcfchoise = new JComboBox();
+		}
+		return cbdcfchoise;
 	}
 
-	return this.lcorporatetax;
-    }
-
-    /**
-     * Getter method for component lbaseYear.
-     * 
-     * @return the initialized component
-     */
-    public BHLabel getlbaseYear() {
-
-	if (this.lbaseyear == null) {
-	    this.lbaseyear = new BHLabel("baseyear", "Basisjahr");
+	public BHLabel getLdirect() {
+		if (this.ldirect == null) {
+			this.ldirect = new BHLabel("directInput");
+		}
+		return ldirect;
 	}
 
-	return this.lbaseyear;
-    }
-
-    // Here do the getters for the textfields begin
-
-    /**
-     * Getter method for component tfscenName.
-     * 
-     * @return the initialized component
-     */
-    public BHTextField gettfscenName() {
-
-	if (this.tfscenname == null) {
-	    this.tfscenname = new BHTextField(DTOScenario.Key.NAME);
-	    int[] rules = { ValidationMethods.isMandatory };
-	    tfscenname.setValidateRules(rules);
+	public JComboBox getCbdirect() {
+		if (this.cbdirect == null) {
+			this.cbdirect = new JComboBox();
+		}
+		return cbdirect;
 	}
-	return this.tfscenname;
-    }
 
-    /**
-     * Getter method for component tfscenDescript.
-     * 
-     * @return the initialized component
-     */
-    public BHTextField gettfscenDescript() {
+	/**
+	 * Getter method for component lscenName.
+	 * 
+	 * @return the initialized component
+	 */
+	public BHLabel getlscenName() {
 
-	if (this.tfscendescript == null) {
-	    this.tfscendescript = new BHTextField(DTOScenario.Key.COMMENT);
+		if (this.lscenname == null) {
+			this.lscenname = new BHLabel(DTOScenario.Key.NAME.toString(),
+					"Szenarioname");
+		}
+
+		return this.lscenname;
 	}
-	return this.tfscendescript;
-    }
 
-    /**
-     * Getter method for component tfequityYeild.
-     * 
-     * @return the initialized component
-     */
-    public BHTextField gettfequityYeild() {
+	/**
+	 * Getter method for component lscenDescript.
+	 * 
+	 * @return the initialized component
+	 */
+	public BHLabel getlscenDescript() {
 
-	if (this.tfequityyield == null) {
-	    this.tfequityyield = new BHTextField(DTOScenario.Key.REK);
-	    int[] rules = { ValidationMethods.isMandatory,
-		    ValidationMethods.isDouble, ValidationMethods.isPositive };
-	    tfequityyield.setValidateRules(rules);
+		if (this.lscendescript == null) {
+			this.lscendescript = new BHLabel(
+					DTOScenario.Key.COMMENT.toString(), "Beschreibung");
+		}
+
+		return this.lscendescript;
 	}
-	return this.tfequityyield;
-    }
 
-    /**
-     * Getter method for component tfdeptYield.
-     * 
-     * @return the initialized component
-     */
-    public BHTextField gettfdeptYield() {
+	/**
+	 * Getter method for component lequityYield.
+	 * 
+	 * @return the initialized component
+	 */
+	public BHLabel getlequityYield() {
 
-	if (this.tfdeptyield == null) {
-	    this.tfdeptyield = new BHTextField(DTOScenario.Key.RFK);
-	    int[] rules = { ValidationMethods.isMandatory,
-		    ValidationMethods.isDouble, ValidationMethods.isPositive };
-	    tfdeptyield.setValidateRules(rules);
+		if (this.lequityyield == null) {
+			this.lequityyield = new BHLabel(DTOScenario.Key.REK.toString(),
+					"Renditeforderung Eigenkapital");
+		}
+
+		return this.lequityyield;
 	}
-	return this.tfdeptyield;
-    }
 
-    /**
-     * Getter method for component tftradeTax.
-     * 
-     * @return the initialized component
-     */
-    public BHTextField gettftradeTax() {
+	/**
+	 * Getter method for component ldeptYield.
+	 * 
+	 * @return the initialized component
+	 */
+	public BHLabel getldeptYield() {
 
-	if (this.tftradetax == null) {
-	    this.tftradetax = new BHTextField(DTOScenario.Key.BTAX);
-	    int[] rules = { ValidationMethods.isMandatory,
-		    ValidationMethods.isDouble, ValidationMethods.isPositive,
-		    ValidationMethods.isBetween0and100 };
-	    tftradetax.setValidateRules(rules);
+		if (this.ldeptyield == null) {
+			this.ldeptyield = new BHLabel(DTOScenario.Key.RFK.toString(),
+					"Renditeforderung Fremdkapital");
+		}
+
+		return this.ldeptyield;
 	}
-	return this.tftradetax;
-    }
 
-    /**
-     * Getter method for component tfcorporateTax.
-     * 
-     * @return the initialized component
-     */
-    public BHTextField gettfcorporateTax() {
+	/**
+	 * Getter method for component ltradeTax.
+	 * 
+	 * @return the initialized component
+	 */
+	public BHLabel getltradeTax() {
 
-	if (this.tfcorporatetax == null) {
-	    this.tfcorporatetax = new BHTextField(DTOScenario.Key.CTAX);
-	    int[] rules = { ValidationMethods.isMandatory,
-		    ValidationMethods.isDouble, ValidationMethods.isPositive,
-		    ValidationMethods.isBetween0and100 };
-	    tfcorporatetax.setValidateRules(rules);
+		if (this.ltradetax == null) {
+			this.ltradetax = new BHLabel(DTOScenario.Key.BTAX.toString(),
+					"Gewerbesteuersatz");
+		}
+
+		return this.ltradetax;
 	}
-	return this.tfcorporatetax;
-    }
 
-    /**
-     * Getter method for component tfbaseYear.
-     * 
-     * @return the initialized component
-     */
-    public BHTextField gettfbaseYear() {
+	/**
+	 * Getter method for component lcorporateTax.
+	 * 
+	 * @return the initialized component
+	 */
+	public BHLabel getlcorporateTax() {
 
-	if (this.tfbaseyear == null) {
-	    this.tfbaseyear = new BHTextField(DTOScenario.Key.IDENTIFIER);
-	    int[] rules = { ValidationMethods.isMandatory,
-		    ValidationMethods.isInteger, ValidationMethods.isPositive };
-	    tfbaseyear.setValidateRules(rules);
+		if (this.lcorporatetax == null) {
+			this.lcorporatetax = new BHLabel(DTOScenario.Key.CTAX.toString(),
+					"Körperschaftssteuer und Solidaritätszuschlag");
+		}
+
+		return this.lcorporatetax;
 	}
-	return this.tfbaseyear;
-    }
 
-    /**
-     * Getter method for component lpercentEquity.
-     * 
-     * @return the initialized component
-     */
-    public BHLabel getlpercentEquity() {
+	/**
+	 * Getter method for component lbaseYear.
+	 * 
+	 * @return the initialized component
+	 */
+	public BHLabel getlbaseYear() {
 
-	if (this.lpercentequity == null) {
-	    this.lpercentequity = new BHLabel("", "%");
+		if (this.lbaseyear == null) {
+			this.lbaseyear = new BHLabel("baseyear", "Basisjahr");
+		}
+
+		return this.lbaseyear;
 	}
-	return this.lpercentequity;
-    }
 
-    /**
-     * Getter method for component lpercentDept.
-     * 
-     * @return the initialized component
-     */
-    public BHLabel getlpercentDept() {
+	// Here do the getters for the textfields begin
 
-	if (this.lpercentdept == null) {
-	    this.lpercentdept = new BHLabel("", "%");
+	/**
+	 * Getter method for component tfscenName.
+	 * 
+	 * @return the initialized component
+	 */
+	public BHTextField gettfscenName() {
+
+		if (this.tfscenname == null) {
+			this.tfscenname = new BHTextField(DTOScenario.Key.NAME);
+			int[] rules = { ValidationMethods.isMandatory };
+			tfscenname.setValidateRules(rules);
+		}
+		return this.tfscenname;
 	}
-	return this.lpercentdept;
-    }
 
-    /**
-     * Getter method for component lpercentTrade.
-     * 
-     * @return the initialized component
-     */
-    public BHLabel getlpercentTrade() {
+	/**
+	 * Getter method for component tfscenDescript.
+	 * 
+	 * @return the initialized component
+	 */
+	public BHTextField gettfscenDescript() {
 
-	if (this.lpercenttrade == null) {
-	    this.lpercenttrade = new BHLabel("", "%");
+		if (this.tfscendescript == null) {
+			this.tfscendescript = new BHTextField(DTOScenario.Key.COMMENT);
+		}
+		return this.tfscendescript;
 	}
-	return this.lpercenttrade;
-    }
 
-    /**
-     * Getter method for component lpercentCorporate.
-     * 
-     * @return the initialized component
-     */
-    public BHLabel getlpercentCorporate() {
+	/**
+	 * Getter method for component tfequityYeild.
+	 * 
+	 * @return the initialized component
+	 */
+	public BHTextField gettfequityYeild() {
 
-	if (this.lpercentcorporate == null) {
-	    this.lpercentcorporate = new BHLabel("", "%");
+		if (this.tfequityyield == null) {
+			this.tfequityyield = new BHTextField(DTOScenario.Key.REK);
+			int[] rules = { ValidationMethods.isMandatory,
+					ValidationMethods.isDouble, ValidationMethods.isPositive };
+			tfequityyield.setValidateRules(rules);
+		}
+		return this.tfequityyield;
 	}
-	return this.lpercentcorporate;
-    }
 
-    // TODO remove main later
-    /**
-     * Test main method.
-     */
-    @SuppressWarnings("deprecation")
-    public static void main(String args[]) {
+	/**
+	 * Getter method for component tfdeptYield.
+	 * 
+	 * @return the initialized component
+	 */
+	public BHTextField gettfdeptYield() {
 
-	JFrame test = new JFrame("Test for ViewHeadData1");
-	test.setContentPane(new BHScenarioForm());
-	test.addWindowListener(new WindowAdapter() {
-	    @Override
-	    public void windowClosing(WindowEvent e) {
-		System.exit(0);
-	    }
-	});
-	test.pack();
-	test.show();
-    }
+		if (this.tfdeptyield == null) {
+			this.tfdeptyield = new BHTextField(DTOScenario.Key.RFK);
+			int[] rules = { ValidationMethods.isMandatory,
+					ValidationMethods.isDouble, ValidationMethods.isPositive };
+			tfdeptyield.setValidateRules(rules);
+		}
+		return this.tfdeptyield;
+	}
+
+	/**
+	 * Getter method for component tftradeTax.
+	 * 
+	 * @return the initialized component
+	 */
+	public BHTextField gettftradeTax() {
+
+		if (this.tftradetax == null) {
+			this.tftradetax = new BHTextField(DTOScenario.Key.BTAX);
+			int[] rules = { ValidationMethods.isMandatory,
+					ValidationMethods.isDouble, ValidationMethods.isPositive,
+					ValidationMethods.isBetween0and100 };
+			tftradetax.setValidateRules(rules);
+		}
+		return this.tftradetax;
+	}
+
+	/**
+	 * Getter method for component tfcorporateTax.
+	 * 
+	 * @return the initialized component
+	 */
+	public BHTextField gettfcorporateTax() {
+
+		if (this.tfcorporatetax == null) {
+			this.tfcorporatetax = new BHTextField(DTOScenario.Key.CTAX);
+			int[] rules = { ValidationMethods.isMandatory,
+					ValidationMethods.isDouble, ValidationMethods.isPositive,
+					ValidationMethods.isBetween0and100 };
+			tfcorporatetax.setValidateRules(rules);
+		}
+		return this.tfcorporatetax;
+	}
+
+	/**
+	 * Getter method for component tfbaseYear.
+	 * 
+	 * @return the initialized component
+	 */
+	public BHTextField gettfbaseYear() {
+
+		if (this.tfbaseyear == null) {
+			this.tfbaseyear = new BHTextField(DTOScenario.Key.IDENTIFIER);
+			int[] rules = { ValidationMethods.isMandatory,
+					ValidationMethods.isInteger, ValidationMethods.isPositive };
+			tfbaseyear.setValidateRules(rules);
+		}
+		return this.tfbaseyear;
+	}
+
+	/**
+	 * Getter method for component lpercentEquity.
+	 * 
+	 * @return the initialized component
+	 */
+	public BHLabel getlpercentEquity() {
+
+		if (this.lpercentequity == null) {
+			this.lpercentequity = new BHLabel("", "%");
+		}
+		return this.lpercentequity;
+	}
+
+	/**
+	 * Getter method for component lpercentDept.
+	 * 
+	 * @return the initialized component
+	 */
+	public BHLabel getlpercentDept() {
+
+		if (this.lpercentdept == null) {
+			this.lpercentdept = new BHLabel("", "%");
+		}
+		return this.lpercentdept;
+	}
+
+	/**
+	 * Getter method for component lpercentTrade.
+	 * 
+	 * @return the initialized component
+	 */
+	public BHLabel getlpercentTrade() {
+
+		if (this.lpercenttrade == null) {
+			this.lpercenttrade = new BHLabel("", "%");
+		}
+		return this.lpercenttrade;
+	}
+
+	/**
+	 * Getter method for component lpercentCorporate.
+	 * 
+	 * @return the initialized component
+	 */
+	public BHLabel getlpercentCorporate() {
+
+		if (this.lpercentcorporate == null) {
+			this.lpercentcorporate = new BHLabel("", "%");
+		}
+		return this.lpercentcorporate;
+	}
+
+	// TODO remove main later
+	/**
+	 * Test main method.
+	 */
+	@SuppressWarnings("deprecation")
+	public static void main(String args[]) {
+
+		JFrame test = new JFrame("Test for ViewHeadData1");
+		test.setContentPane(new BHScenarioForm());
+		test.addWindowListener(new WindowAdapter() {
+			@Override
+			public void windowClosing(WindowEvent e) {
+				System.exit(0);
+			}
+		});
+		test.pack();
+		test.show();
+	}
 }

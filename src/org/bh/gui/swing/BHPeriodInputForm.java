@@ -47,7 +47,7 @@ public class BHPeriodInputForm extends JPanel {
 	private BHTextField tfminfcf;
 
 	private String year;
-	
+
 	ITranslator translator = Services.getTranslator();
 
 	/**
@@ -94,9 +94,10 @@ public class BHPeriodInputForm extends JPanel {
 		this.setBorder(BorderFactory.createTitledBorder(BorderFactory
 				.createEtchedBorder(EtchedBorder.LOWERED), this.year));
 	}
-	
-	// TODO add missing label keys and translations, change hard coded values to keys
-	
+
+	// TODO add missing label keys and translations, change hard coded values to
+	// keys
+
 	public BHLabel getLmax() {
 		if (lmax == null) {
 			lmax = new BHLabel("", "Max");
@@ -140,41 +141,65 @@ public class BHPeriodInputForm extends JPanel {
 	}
 
 	// Here do the getters for the textfields begin
-	
+
+	/**
+	 * Getter method for component tfmaxliabilities.
+	 * 
+	 * @return the initialized component
+	 */
 	public BHTextField getTfmaxliabilities() {
 		if (tfmaxliabilities == null) {
-			tfmaxliabilities = new BHTextField("", translator.translate(""));
-			// TODO add key, input hint and more rules
+			tfmaxliabilities = new BHTextField(IBHComponent.MAXVALUE
+					+ DTOPeriod.Key.LIABILITIES);
+			// TODO add input hint and more rules
 			int[] rules = { ValidationMethods.isMandatory };
 			tfmaxliabilities.setValidateRules(rules);
 		}
 		return tfmaxliabilities;
 	}
 
+	/**
+	 * Getter method for component tfminliabilities.
+	 * 
+	 * @return the initialized component
+	 */
 	public BHTextField getTfminliabilities() {
 		if (tfminliabilities == null) {
-			tfminliabilities = new BHTextField("", translator.translate(""));
-			// TODO add key, input hint and more rules
+			tfminliabilities = new BHTextField(IBHComponent.MINVALUE
+					+ DTOPeriod.Key.LIABILITIES);
+			// TODO add input hint and more rules
 			int[] rules = { ValidationMethods.isMandatory };
 			tfminliabilities.setValidateRules(rules);
 		}
 		return tfminliabilities;
 	}
 
+	/**
+	 * Getter method for component tfmaxfcf.
+	 * 
+	 * @return the initialized component
+	 */
 	public BHTextField getTfmaxfcf() {
 		if (tfmaxfcf == null) {
-			tfmaxfcf = new BHTextField("", translator.translate(""));
-			// TODO add key, input hint and more rules
+			tfmaxfcf = new BHTextField(IBHComponent.MAXVALUE
+					+ DTOPeriod.Key.FCF);
+			// TODO add input hint and more rules
 			int[] rules = { ValidationMethods.isMandatory };
 			tfmaxfcf.setValidateRules(rules);
 		}
 		return tfmaxfcf;
 	}
 
+	/**
+	 * Getter method for component tfminfcf.
+	 * 
+	 * @return the initialized component
+	 */
 	public BHTextField getTfminfcf() {
 		if (tfminfcf == null) {
-			tfminfcf = new BHTextField("", translator.translate(""));
-			// TODO add key, input hint and more rules
+			tfminfcf = new BHTextField(IBHComponent.MINVALUE
+					+ DTOPeriod.Key.FCF);
+			// TODO add input hint and more rules
 			int[] rules = { ValidationMethods.isMandatory };
 			tfminfcf.setValidateRules(rules);
 		}
@@ -188,9 +213,14 @@ public class BHPeriodInputForm extends JPanel {
 		return lfcf;
 	}
 
+	/**
+	 * Getter method for component tffcf.
+	 * 
+	 * @return the initialized component
+	 */
 	public BHTextField getTffcf() {
 		if (tffcf == null) {
-			tffcf = new BHTextField(DTOPeriod.Key.FCF.toString(), translator.translate(""));
+			tffcf = new BHTextField(DTOPeriod.Key.FCF);
 			// TODO add input hint and more rules
 			int[] rules = { ValidationMethods.isMandatory };
 			tffcf.setValidateRules(rules);
@@ -206,10 +236,14 @@ public class BHPeriodInputForm extends JPanel {
 		return lliabilities;
 	}
 
+	/**
+	 * Getter method for component tfliabilities.
+	 * 
+	 * @return the initialized component
+	 */
 	public BHTextField getTfliabilities() {
 		if (tfliabilities == null) {
-			tfliabilities = new BHTextField(DTOPeriod.Key.LIABILITIES
-					.toString(), translator.translate(""));
+			tfliabilities = new BHTextField(DTOPeriod.Key.LIABILITIES);
 			// TODO input hint and more rules
 			int[] rules = { ValidationMethods.isMandatory };
 			tfliabilities.setValidateRules(rules);
