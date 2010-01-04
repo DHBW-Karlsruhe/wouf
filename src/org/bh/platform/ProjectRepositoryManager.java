@@ -3,6 +3,7 @@ package org.bh.platform;
 import java.util.ArrayList;
 import java.util.Iterator;
 
+import org.apache.log4j.Logger;
 import org.bh.data.DTOProject;
 
 /**
@@ -23,6 +24,8 @@ public class ProjectRepositoryManager {
 	
     private ArrayList<DTOProject> repositoryList = new ArrayList<DTOProject>();
     
+	private static final Logger log = Logger.getLogger(PlatformPersistence.class);
+	
     private static boolean isChanged;
 
 	/**
@@ -107,6 +110,7 @@ public class ProjectRepositoryManager {
 
 	public static void setChanged(boolean isChanged) {
 		ProjectRepositoryManager.isChanged = isChanged;
+		log.debug("Flag setChanged set to" + isChanged);
 	}
     
 	class ChangedListener implements IPlatformListener {
