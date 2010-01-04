@@ -153,6 +153,9 @@ public class BHTree extends JTree {
 		);
 		return newScenarioNode;
 	}
+	
+	
+	
 	/**
 	 * method to add a new PeriodNode
 	 * 

@@ -1,5 +1,7 @@
 package org.bh.platform;
 
+import java.awt.event.FocusEvent;
+import java.awt.event.FocusListener;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
@@ -175,13 +177,23 @@ public class PlatformController {
 		bhmf.getBHTree().setTreeModel(new BHTreeModel(rootNode));
 		bhmf.getBHTree().addTreeSelectionListener(new BHTreeSelectionListener());
 		
-		//register PlatformListener
 		Services.addPlatformListener(new DataChangedListener());
 		
 	}
 	
 	
-	
+	//TODO Schmalzhaf.Alexander Javadoc schreiben
+	/**
+	 * 
+	 * <short_description>
+	 *
+	 * <p>
+	 * <detailed_description>
+	 *
+	 * @author 001
+	 * @version 1.0, 04.01.2010
+	 *
+	 */
 	class BHTreeSelectionListener implements TreeSelectionListener{
 
 		@Override
@@ -192,13 +204,16 @@ public class PlatformController {
 					projectView = new BHProjectView(new BHProjectInputForm());
 					bhmf.addContentForms(projectView.getViewPanel());
 					//fill fields
-					Map<String,IBHComponent> componentMap= projectView.getBHmodelComponents();
+					Map<String,IBHComponent> componentMap = projectView.getBHmodelComponents();
 					Set<String> componentKeys = projectView.getBHmodelComponents().keySet();
 					
 					for(String componentKey : componentKeys){
 						try{
 							IBHComponent comp = componentMap.get(componentKey);
-							if(componentMap.get(componentKey) instanceof BHTextField){	
+							if(componentMap.get(componentKey) instanceof BHTextField){
+								//add Focus Listener for saving changed Data to DTO
+								((BHTextField)comp).addFocusListener(new SaveListener());
+								//set Text to Field
 								((BHTextField)comp).setText(((StringValue)selection.get(componentKey)).getString());
 							}
 						}catch(Exception e){
@@ -240,10 +255,23 @@ public class PlatformController {
 		}
 	}
 	
-	
+	//TODO Schmalzhaf.Alexander Javadoc schreiben
+	/**
+	 * 
+	 * <short_description>
+	 *
+	 * <p>
+	 * <detailed_description>
+	 *
+	 * @author 001
+	 * @version 1.0, 04.01.2010
+	 *
+	 */
 	class DataChangedListener implements IPlatformListener{
 
 		public void platformEvent(PlatformEvent e) {
+			
+			//change 
 			if(bhmf.getBHTree().getSelectionPath() != null){
 				selection = (DTO<?>)((BHTreeNode)bhmf.getBHTree().getSelectionPath().getLastPathComponent()).getUserObject();
 				if(e.getEventType() == PlatformEvent.Type.DATA_CHANGED){
@@ -282,6 +310,19 @@ public class PlatformController {
 		}
 	}
 	
+	
+	//TODO Schmalzhaf.Alexander Javadoc schreiben
+	/**
+	 * 
+	 * <short_description>
+	 *
+	 * <p>
+	 * <detailed_description>
+	 *
+	 * @author 001
+	 * @version 1.0, 04.01.2010
+	 *
+	 */
 	class BHTreeModel extends DefaultTreeModel{
 		
 		public BHTreeModel(TreeNode root) {
@@ -298,6 +339,26 @@ public class PlatformController {
 				tempDTO.put(DTOScenario.Key.NAME, new StringValue(newValue.toString()));
 			}
 		}
+	}
+	
+	class SaveListener implements FocusListener{
+
+		@Override
+		public void focusGained(FocusEvent arg0) {
+			//do nothing!
+		}
+
+		@Override
+		public void focusLost(FocusEvent fEvent) {
+			if(fEvent.getSource() instanceof BHTextField){
+				//update DTO
+				((DTO<?>)((BHTreeNode)bhmf.getBHTree().getSelectionPath().getLastPathComponent()).getUserObject())
+					.put(((IBHComponent)fEvent.getSource()).getKey(), new StringValue(((BHTextField)fEvent.getSource()).getText()));
+				//update tree
+				bhmf.getBHTree().updateUI();
+			}
+		}
+		
 	}
 	
 }

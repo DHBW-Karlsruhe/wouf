@@ -5,6 +5,7 @@ import org.bh.data.DTO;
 import org.bh.data.DTOProject;
 import org.bh.data.DTOScenario;
 import org.bh.data.types.StringValue;
+import org.bh.gui.View;
 /**
  * 
  * Special TreeNode for use in Business Horizon.
@@ -16,6 +17,9 @@ import org.bh.data.types.StringValue;
  *
  */
 public class BHTreeNode extends DefaultMutableTreeNode{
+	
+	private View view;
+	
 	public BHTreeNode(Object ob){
 		super(ob);
 	}
@@ -28,6 +32,8 @@ public class BHTreeNode extends DefaultMutableTreeNode{
 			return ((StringValue)((DTO<?>)userObject).get(DTOScenario.Key.NAME)).getString();
 		}
 		return "";
-		
 	}
+	
+	
+	
 }
