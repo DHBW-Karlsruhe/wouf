@@ -3,9 +3,10 @@ package org.bh.gui.swing;
 import java.awt.BorderLayout;
 import java.awt.Component;
 import java.awt.Dimension;
-import java.awt.dnd.DnDConstants;
+import java.io.IOException;
 import java.util.prefs.BackingStoreException;
-import javax.swing.ImageIcon;
+
+import javax.imageio.ImageIO;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
@@ -13,6 +14,7 @@ import javax.swing.JScrollPane;
 import javax.swing.JSplitPane;
 import javax.swing.UIManager;
 import javax.swing.WindowConstants;
+
 import org.apache.log4j.Logger;
 import org.bh.platform.IPlatformListener;
 import org.bh.platform.PlatformController;
@@ -38,6 +40,11 @@ import org.bh.platform.PlatformEvent.Type;
  */
 public class BHMainFrame extends JFrame implements IPlatformListener {
 
+	/**
+	 * logger
+	 */
+	private static Logger log = Logger.getLogger(BHMainFrame.class);
+	
 	/**
 	 * Standard Bar height.
 	 */
@@ -158,7 +165,13 @@ public class BHMainFrame extends JFrame implements IPlatformListener {
 		this.setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
 		this.setLocationRelativeTo(null);
 		Services.addPlatformListener(this);
-		this.setIconImage(new ImageIcon("/org/bh/images/bh-logo.jpg").getImage()); //TODO Test on windows	
+		
+		//this.setIconImage(new ImageIcon("/org/bh/images/bh-logo.jpg").getImage()); //TODO Test on windows	
+		try {
+			this.setIconImage(ImageIO.read(getClass().getResourceAsStream("/org/bh/images/bh-logo-ImageIcon.png")));
+		} catch (IOException e) {
+			log.error("Failed to load IconImage", e);
+		}
 	}
 	
 	/**
