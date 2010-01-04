@@ -3,8 +3,8 @@ package org.bh.gui.swing;
 import java.awt.BorderLayout;
 import java.awt.Component;
 import java.awt.Dimension;
+import java.awt.dnd.DnDConstants;
 import java.util.prefs.BackingStoreException;
-
 import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
@@ -13,7 +13,6 @@ import javax.swing.JScrollPane;
 import javax.swing.JSplitPane;
 import javax.swing.UIManager;
 import javax.swing.WindowConstants;
-
 import org.apache.log4j.Logger;
 import org.bh.platform.IPlatformListener;
 import org.bh.platform.PlatformController;
@@ -117,7 +116,7 @@ public class BHMainFrame extends JFrame implements IPlatformListener {
 
 		bhTree = new BHTree();
 		bhTreeScroller = new JScrollPane(bhTree);
-
+	
 		// treeBar.setBounds(0, standardBarHeight, treeBarWidth,
 		// screenSize.height-standardBarHeight);
 		// treeBar.setBounds(0,200,200,400);

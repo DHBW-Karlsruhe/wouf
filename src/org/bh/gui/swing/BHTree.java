@@ -2,7 +2,6 @@ package org.bh.gui.swing;
 
 import java.awt.Component;
 import java.awt.Dimension;
-
 import javax.swing.ImageIcon;
 import javax.swing.JLabel;
 import javax.swing.JTree;
@@ -12,7 +11,6 @@ import javax.swing.tree.DefaultMutableTreeNode;
 import javax.swing.tree.DefaultTreeModel;
 import javax.swing.tree.TreeCellRenderer;
 import javax.swing.tree.TreeSelectionModel;
-
 import org.bh.data.DTOPeriod;
 import org.bh.data.DTOProject;
 import org.bh.data.DTOScenario;
@@ -57,6 +55,7 @@ public class BHTree extends JTree {
 
 		// set settings
 		this.setEditable(true);
+		this.setDragEnabled(true);
 		this.setRootVisible(false);
 		this.getSelectionModel().setSelectionMode(TreeSelectionModel.SINGLE_TREE_SELECTION);
 		this.setShowsRootHandles(true);
@@ -208,4 +207,9 @@ public class BHTree extends JTree {
 		((DefaultTreeModel)bhmf.getBHTree().getModel()).insertNodeInto(newPeriodNode, parentNode, parentNode.getChildCount());
 		return newPeriodNode;
 	}
+	
+	public static void moveNode(){
+
+	}
+	
 }

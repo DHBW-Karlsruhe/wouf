@@ -1,15 +1,18 @@
 package org.bh.platform;
 
+import java.awt.BorderLayout;
+import java.awt.Dimension;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
 import java.util.ArrayList;
 
+import javax.swing.JDialog;
 import javax.swing.JFileChooser;
 import javax.swing.JFrame;
+import javax.swing.UIManager;
 import javax.swing.WindowConstants;
 import javax.swing.tree.TreePath;
-
 import org.apache.log4j.Logger;
 import org.bh.data.DTOPeriod;
 import org.bh.data.DTOProject;
@@ -18,6 +21,7 @@ import org.bh.data.types.StringValue;
 import org.bh.gui.swing.BHMainFrame;
 import org.bh.gui.swing.BHOptionDialog;
 import org.bh.gui.swing.BHStatusBar;
+import org.bh.gui.swing.BHTree;
 import org.bh.gui.swing.BHTreeNode;
 import org.bh.gui.swing.IBHAction;
 import org.bh.platform.PlatformController.BHTreeModel;
@@ -139,7 +143,8 @@ class PlatformActionListener implements ActionListener {
 			break;
 			
 		case SCENARIOMOVE:
-			//TODO Tietze.Patrick Drag&Drop
+			//TODO Drag&Drop
+			
 			break;
 			
 		case SCENARIOREMOVE:

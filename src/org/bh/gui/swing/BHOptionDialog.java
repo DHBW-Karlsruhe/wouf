@@ -1,11 +1,9 @@
 package org.bh.gui.swing;
 
 import java.util.Locale;
-
 import javax.swing.JComboBox;
-import javax.swing.JFrame;
+import javax.swing.JDialog;
 import javax.swing.WindowConstants;
-
 import org.bh.platform.IPlatformListener;
 import org.bh.platform.PlatformEvent;
 import org.bh.platform.Services;
@@ -15,7 +13,7 @@ import org.bh.platform.i18n.BHTranslator;
 import com.jgoodies.forms.layout.CellConstraints;
 import com.jgoodies.forms.layout.FormLayout;
 
-public class BHOptionDialog extends JFrame {
+public class BHOptionDialog extends JDialog{
 
 	CellConstraints cons;
 
