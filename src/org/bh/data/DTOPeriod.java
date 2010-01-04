@@ -2,7 +2,6 @@ package org.bh.data;
 
 import java.util.Map;
 import java.util.ServiceLoader;
-import java.util.Map.Entry;
 
 import org.apache.log4j.Logger;
 import org.bh.calculation.ICalculationPreparer;
@@ -65,10 +64,7 @@ public class DTOPeriod extends DTO<IPeriodicalValuesDTO> {
 	 * @return
 	 */
 	public Calculable getLiabilities() {
-		Calculable result = getChildrenValue(Key.LIABILITIES);
-		if (result != null)
-			return result;
-		
+		Calculable result = null;
 		ServiceLoader<ICalculationPreparer> preparers = PluginManager.getInstance().getServices(ICalculationPreparer.class);
 		for (ICalculationPreparer preparer : preparers) {
 			result = preparer.getLiabilities(this);
@@ -86,10 +82,7 @@ public class DTOPeriod extends DTO<IPeriodicalValuesDTO> {
 	 * @return
 	 */
 	public Calculable getFCF() {
-		Calculable result = getChildrenValue(Key.FCF);
-		if (result != null)
-			return result;
-
+		Calculable result = null;
 		ServiceLoader<ICalculationPreparer> preparers = PluginManager.getInstance().getServices(ICalculationPreparer.class);
 		for (ICalculationPreparer preparer : preparers) {
 			result = preparer.getFCF(this);
@@ -100,23 +93,6 @@ public class DTOPeriod extends DTO<IPeriodicalValuesDTO> {
 			throw new DTOAccessException("Cannot calculate FCF");
 		}
 		return result;
-	}
-	
-	/**
-	 * Find a value in one of the children of this period.
-	 * @param key
-	 * @return The value if it was found, otherwise null;
-	 */
-	protected Calculable getChildrenValue(Key key) {
-		for (IPeriodicalValuesDTO child : children) {
-			try {
-				Calculable result = child.getCalculable(key);
-				return result;
-			} catch (DTOAccessException e) {
-				continue;
-			}
-		}
-		return null;
 	}
 
 	@Override

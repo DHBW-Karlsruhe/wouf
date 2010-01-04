@@ -1,8 +1,11 @@
 package org.bh.plugin.directinput;
 
 import org.apache.log4j.Logger;
+import org.bh.calculation.ICalculationPreparer;
 import org.bh.data.DTO;
+import org.bh.data.DTOPeriod;
 import org.bh.data.IPeriodicalValuesDTO;
+import org.bh.data.types.Calculable;
 
 
 /**
@@ -18,7 +21,7 @@ import org.bh.data.IPeriodicalValuesDTO;
  */
 
 @SuppressWarnings("unchecked")
-public class DTODirectInput extends DTO implements IPeriodicalValuesDTO {
+public class DTODirectInput extends DTO implements IPeriodicalValuesDTO, ICalculationPreparer {
 	private static final String UNIQUE_ID = "directinput";
 	private static final Logger log = Logger.getLogger(DTODirectInput.class);
 	
@@ -33,7 +36,12 @@ public class DTODirectInput extends DTO implements IPeriodicalValuesDTO {
 		 * Liabilities
 		 */
 		@Stochastic
-		LIABILITIES,
+		LIABILITIES;
+		
+		@Override
+		public String toString() {
+			return getClass().getName() + "." + super.toString();
+		}	
 	}
 	
     /**
@@ -61,5 +69,21 @@ public class DTODirectInput extends DTO implements IPeriodicalValuesDTO {
 	
 	public void regenerateMethodsList() {
 		regenerateMethodsList(Key.values());
+	}
+
+	@Override
+	public Calculable getFCF(DTOPeriod period) {
+		IPeriodicalValuesDTO dto = period.getPeriodicalValuesDTO("directinput");
+		if (dto == null)
+		    return null;
+		return dto.getCalculable(Key.FCF);
+	}
+
+	@Override
+	public Calculable getLiabilities(DTOPeriod period) {
+		IPeriodicalValuesDTO dto = period.getPeriodicalValuesDTO("directinput");
+		if (dto == null)
+		    return null;
+		return dto.getCalculable(Key.LIABILITIES);
 	}
 }

@@ -121,7 +121,7 @@ public class XMLDataExchangeController extends InputController {
 	@Override
 	public void platformEvent(PlatformEvent e) {
 		// TODO Auto-generated method stub
-		throw new UnsupportedOperationException("This method has not been implemented");
+		
 	}
 
 	@Override

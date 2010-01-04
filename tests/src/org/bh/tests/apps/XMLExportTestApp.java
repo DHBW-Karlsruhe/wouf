@@ -76,6 +76,7 @@ public class XMLExportTestApp extends JFrame {
 	{
 		// One project
 		DTOProject result = new DTOProject();
+		result.put(DTOProject.Key.COMMENT, new StringValue("This is a comment."));
 		result.put(DTOProject.Key.NAME, new StringValue("My first project"));
 		
 			// 1. Scenario
