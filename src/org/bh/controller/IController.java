@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Map;
 import javax.swing.JPanel;
 import org.bh.data.IDTO;
+import org.bh.data.types.Calculable;
 
 /**
  *
@@ -31,7 +32,7 @@ public interface IController {
      * @param result
      * @throws ControllerException 
      */
-    void setResult(Map result) throws ControllerException;
+    void setResult(Map<String, Calculable[]> result) throws ControllerException;
     
     /**
      * deliver a List of keys representing values which are stochastical procedable

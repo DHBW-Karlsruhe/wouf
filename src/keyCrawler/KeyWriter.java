@@ -22,17 +22,8 @@ public class KeyWriter {
 
     static List<Object> enumConst;
     static Set<String> keys;
-    String path;
-    Properties keyFile = new Properties();
-
-    public KeyWriter(String path){
-        try {
-            this.path = path;
-            this.keyFile.load(new FileInputStream(path));
-        } catch (IOException ex) {
-            System.out.println("Propertie File not found");
-        }
-    }
+    static String path;
+    static Properties keyFile = new Properties();
 
     public static void catchEnumConstsFromClass(Class<?> clazz){
         if(clazz.isEnum()){
@@ -48,7 +39,7 @@ public class KeyWriter {
         }
     }
 
-    public void updatePropertyFile(){
+    public static void updatePropertyFile(){
         KeyWriter.catchKeysFromFile(keyFile);
         String enumKey;
         Properties outputProp = new Properties();
@@ -59,7 +50,7 @@ public class KeyWriter {
             }
         }
         try {
-            outputProp.store(new FileOutputStream(this.path), null);
+            outputProp.store(new FileOutputStream(KeyWriter.path), null);
         } catch (IOException ex) {
             System.out.println("could not store propertyFile");
         }

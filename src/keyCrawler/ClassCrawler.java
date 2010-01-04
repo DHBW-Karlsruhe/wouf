@@ -17,13 +17,12 @@ import java.util.zip.*;
  */
 public class ClassCrawler {
 
-     // Die main()-Methode ist hauptsächlich für Tests:
    public static void main( String[] args ) throws Exception
    {
       String packageName       = ( args.length > 0 ) ? args[0] : null;
       String classNameSearched = ( args.length > 1 ) ? args[1] : null;
-      System.out.println( "\n---- Gefundene Klassen:" );
-      List<Class<?>> classes = getClassesSimple( packageName, classNameSearched );
+      System.out.println( "\n---- Gefundene Klassen in " + packageName + ":" );
+      List<Class<?>> classes = getClasses( packageName, classNameSearched );
       for( Class<?> clazz : classes )
          System.out.println( clazz );
       System.out.println( "\n---- Instanziierte Objekte:" );

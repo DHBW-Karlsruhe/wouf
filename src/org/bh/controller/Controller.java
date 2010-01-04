@@ -92,7 +92,7 @@ public abstract class Controller implements IController, ActionListener, IPlatfo
     private void handleException(Exception e){
         log.error("Controller Exception ", e);
         //TODO how to show system erros to the user
-//        Controller.bhStatusBar.setToolTip(e.getMessage());
+        Services.getBHstatusBar().setHint(e.getMessage(), true);
     }
    
     public JPanel getViewPanel(){
@@ -189,7 +189,7 @@ public abstract class Controller implements IController, ActionListener, IPlatfo
      * @param pane
      * @see BHStatusBar
      */
-    public static void setBHstatusBarValidationHint(JScrollPane pane){
+    public static void setBHstatusBarErrorHint(JScrollPane pane){
         Controller.bhStatusBar.setErrorHint(pane);
     }
      /**

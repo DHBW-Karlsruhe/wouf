@@ -101,7 +101,7 @@ public abstract class BHValidityEngine {
         log.debug("Trigger validation process for All Components");
         validationResultAll = validateAll(toValidate);
         setValidityStatus(validationResultAll);
-        Controller.setBHstatusBarValidationHint(createValidationResultList(validationResultAll));
+        Controller.setBHstatusBarErrorHint(createValidationResultList(validationResultAll));
     }
     /**
      * set the messages of the validation of a single component to the BHStatusBar
@@ -113,7 +113,7 @@ public abstract class BHValidityEngine {
     protected void publishValidationComp(IBHComponent comp) throws ViewException{
         log.debug("Trigger validation for a single component");
         ValidationResult valRes = validate(comp);
-        Controller.setBHstatusBarValidationHint(createValidationResultList(valRes));
+        Controller.setBHstatusBarErrorHint(createValidationResultList(valRes));
     }
     /**
      * have to register the model related components and set the ValidationComponentUtils entries
