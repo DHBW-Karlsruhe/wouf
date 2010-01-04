@@ -264,8 +264,7 @@ public class BHScenarioForm extends JPanel {
     public BHTextField gettfscenName() {
 
 	if (this.tfscenname == null) {
-	    this.tfscenname = new BHTextField(DTOScenario.Key.NAME.toString(),
-		    translator.translate("IscenarioName"));
+	    this.tfscenname = new BHTextField(DTOScenario.Key.NAME);
 	    int[] rules = { ValidationMethods.isMandatory };
 	    tfscenname.setValidateRules(rules);
 	}
@@ -280,8 +279,7 @@ public class BHScenarioForm extends JPanel {
     public BHTextField gettfscenDescript() {
 
 	if (this.tfscendescript == null) {
-	    this.tfscendescript = new BHTextField(DTOScenario.Key.COMMENT
-		    .toString(), translator.translate("IscenDescript"));
+	    this.tfscendescript = new BHTextField(DTOScenario.Key.COMMENT);
 	}
 	return this.tfscendescript;
     }
@@ -294,9 +292,7 @@ public class BHScenarioForm extends JPanel {
     public BHTextField gettfequityYeild() {
 
 	if (this.tfequityyield == null) {
-	    this.tfequityyield = new BHTextField(
-		    DTOScenario.Key.REK.toString(), translator
-			    .translate("IequityYield"));
+	    this.tfequityyield = new BHTextField(DTOScenario.Key.REK);
 	    int[] rules = { ValidationMethods.isMandatory,
 		    ValidationMethods.isDouble, ValidationMethods.isPositive };
 	    tfequityyield.setValidateRules(rules);
@@ -312,8 +308,7 @@ public class BHScenarioForm extends JPanel {
     public BHTextField gettfdeptYield() {
 
 	if (this.tfdeptyield == null) {
-	    this.tfdeptyield = new BHTextField(DTOScenario.Key.RFK.toString(),
-		    translator.translate("IdeptYield"));
+	    this.tfdeptyield = new BHTextField(DTOScenario.Key.RFK);
 	    int[] rules = { ValidationMethods.isMandatory,
 		    ValidationMethods.isDouble, ValidationMethods.isPositive };
 	    tfdeptyield.setValidateRules(rules);
@@ -329,8 +324,7 @@ public class BHScenarioForm extends JPanel {
     public BHTextField gettftradeTax() {
 
 	if (this.tftradetax == null) {
-	    this.tftradetax = new BHTextField(DTOScenario.Key.BTAX.toString(),
-		    translator.translate("ItradeTax"));
+	    this.tftradetax = new BHTextField(DTOScenario.Key.BTAX);
 	    int[] rules = { ValidationMethods.isMandatory,
 		    ValidationMethods.isDouble, ValidationMethods.isPositive,
 		    ValidationMethods.isBetween0and100 };
@@ -347,8 +341,7 @@ public class BHScenarioForm extends JPanel {
     public BHTextField gettfcorporateTax() {
 
 	if (this.tfcorporatetax == null) {
-	    this.tfcorporatetax = new BHTextField(DTOScenario.Key.CTAX
-		    .toString(), translator.translate("IcorporateTax"));
+	    this.tfcorporatetax = new BHTextField(DTOScenario.Key.CTAX);
 	    int[] rules = { ValidationMethods.isMandatory,
 		    ValidationMethods.isDouble, ValidationMethods.isPositive,
 		    ValidationMethods.isBetween0and100 };
@@ -365,8 +358,7 @@ public class BHScenarioForm extends JPanel {
     public BHTextField gettfbaseYear() {
 
 	if (this.tfbaseyear == null) {
-	    this.tfbaseyear = new BHTextField("", "");
-	    // TODO insert key and inputhint
+	    this.tfbaseyear = new BHTextField(DTOScenario.Key.IDENTIFIER);
 	    int[] rules = { ValidationMethods.isMandatory,
 		    ValidationMethods.isInteger, ValidationMethods.isPositive };
 	    tfbaseyear.setValidateRules(rules);
