@@ -176,7 +176,7 @@ public class PlatformController {
 		bhmf.getBHTree().addTreeSelectionListener(new BHTreeSelectionListener());
 		
 		//register PlatformListener
-		//Services.addPlatformListener(new DataChangedListener());
+		Services.addPlatformListener(new DataChangedListener());
 		
 	}
 	
@@ -248,28 +248,31 @@ public class PlatformController {
 				selection = (DTO<?>)((BHTreeNode)bhmf.getBHTree().getSelectionPath().getLastPathComponent()).getUserObject();
 				if(e.getEventType() == PlatformEvent.Type.DATA_CHANGED){
 					
-					if(e.getSource() instanceof DTOProject){
+					if(e.getSource() instanceof DTOProject && projectView != null){
 						Logger.getLogger(PlatformController.class).debug("Project changed");
 						Map<String,IBHComponent> componentMap= projectView.getBHmodelComponents();
 						Set<String> componentKeys = projectView.getBHmodelComponents().keySet();
 						for(String componentKey : componentKeys){
-							IBHComponent comp = componentMap.get(componentKey);
-							if(componentMap.get(componentKey) instanceof BHTextField){
-								((BHTextField)comp).setText(((StringValue)selection.get(componentKey)).getString());
+							try{
+								IBHComponent comp = componentMap.get(componentKey);
+								if(componentMap.get(componentKey) instanceof BHTextField){	
+									((BHTextField)comp).setText(((StringValue)selection.get(componentKey)).getString());
+								}
+							}catch(Exception e1){
 							}
-						}
-					}else if(e.getSource() instanceof DTOScenario){
+						}	
+					}else if(e.getSource() instanceof DTOScenario && scenarioView != null){
 						Logger.getLogger(PlatformController.class).debug("Scenario changed");
 						//fill fields
 						Map<String,IBHComponent> componentMap= scenarioView.getBHmodelComponents();
 						Set<String> componentKeys = scenarioView.getBHmodelComponents().keySet();
 						for(String componentKey : componentKeys){
-							
-							IBHComponent comp = componentMap.get(componentKey);
-							
-							if(componentMap.get(componentKey) instanceof BHTextField){
-								//TODO Schmalzhaf.Alexander mehr als Textfelder notwendig?
-								((BHTextField)comp).setText(((StringValue)selection.get(componentKey)).getString());
+							try{
+								IBHComponent comp = componentMap.get(componentKey);
+								if(componentMap.get(componentKey) instanceof BHTextField){	
+									((BHTextField)comp).setText(((StringValue)selection.get(componentKey)).getString());
+								}
+							}catch(Exception e1){
 							}
 						}
 					}
@@ -286,8 +289,14 @@ public class PlatformController {
 		}
 		
 		
+		@Override
 		public void valueForPathChanged(TreePath path, Object newValue) {
-			((DTO<?>)((BHTreeNode)path.getLastPathComponent()).getUserObject()).put(DTOProject.Key.NAME, new StringValue(newValue.toString()));
+			DTO<?> tempDTO = (DTO<?>)((BHTreeNode)path.getLastPathComponent()).getUserObject();
+			if(tempDTO instanceof DTOProject){
+				tempDTO.put(DTOProject.Key.NAME, new StringValue(newValue.toString()));
+			}else if(tempDTO  instanceof DTOScenario){
+				tempDTO.put(DTOScenario.Key.NAME, new StringValue(newValue.toString()));
+			}
 		}
 	}
 	
