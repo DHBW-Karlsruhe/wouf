@@ -21,9 +21,11 @@ import org.bh.data.DTOProject;
 
 public class ProjectRepositoryManager {
 	
-    private ArrayList<DTOProject> repositoryList = new ArrayList<DTOProject>() ;
+    private ArrayList<DTOProject> repositoryList = new ArrayList<DTOProject>();
     
-    /**
+    private static boolean isChanged;
+
+	/**
      * Adds a new project to the actual repository.
      * 
      * @param newProject
@@ -94,9 +96,26 @@ public class ProjectRepositoryManager {
      * 
      * @return repository List
      */
-    protected ArrayList<DTOProject> getRepositoryList(){
+    public ArrayList<DTOProject> getRepositoryList(){
     	
     	return this.repositoryList;
     }
     
+    public static boolean isChanged() {
+		return isChanged;
+	}
+
+	public static void setChanged(boolean isChanged) {
+		ProjectRepositoryManager.isChanged = isChanged;
+	}
+    
+	class ChangedListener implements IPlatformListener {
+
+		@Override
+		public void platformEvent(PlatformEvent e) {
+			if (PlatformEvent.Type.DATA_CHANGED == e.getEventType())
+				setChanged(true);
+		}
+		
+	}
 }

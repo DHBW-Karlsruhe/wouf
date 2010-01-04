@@ -31,11 +31,17 @@ public class PlatformPersistence {
 	 */
 	File path;
 	
+	/**
+	 * 
+	 */
+	ProjectRepositoryManager projectRepositoryManager;
+	
 	private static final Logger log = Logger.getLogger(PlatformPersistence.class);
 	
 	
-	public PlatformPersistence (File path) {
+	public PlatformPersistence (File path, ProjectRepositoryManager projectRepo) {
 		this.path = path;
+		this.projectRepositoryManager = projectRepo;
 	}
 	
 	public ArrayList<DTOProject> openFile () {
@@ -55,6 +61,7 @@ public class PlatformPersistence {
 		} catch (FileNotFoundException e) {
 			log.error("File "+ path + "not found!");
 		} catch (EOFException e) {
+			ProjectRepositoryManager.setChanged(false);
 			return returnRepository;
 		} catch (Exception e) {
 			log.error("Exception while opening file");
@@ -88,6 +95,7 @@ public class PlatformPersistence {
 			objectWriter.close();
 			fileWriter.close();
 			
+			ProjectRepositoryManager.setChanged(false);
 			return true;
 			
 		} catch (FileNotFoundException e) {

@@ -217,6 +217,7 @@ public abstract class DTO<ChildT extends IDTO> implements IDTO<ChildT> {
 			} else {
 				children.addFirst(child);
 			}
+			Services.firePlatformEvent(new PlatformEvent(this, PlatformEvent.Type.DATA_CHANGED));
 			return child;
 		}
 		throw new DTOAccessException("The child is already assigned to this DTO!");
@@ -245,6 +246,7 @@ public abstract class DTO<ChildT extends IDTO> implements IDTO<ChildT> {
 	@Override
 	public ChildT removeChild(int index) throws DTOAccessException {
 		try {
+			Services.firePlatformEvent(new PlatformEvent(this, PlatformEvent.Type.DATA_CHANGED));
 			return children.remove(index);
 		} catch (IndexOutOfBoundsException e) {
 			throw new DTOAccessException("There is no child at the given position: " + index);
@@ -258,6 +260,7 @@ public abstract class DTO<ChildT extends IDTO> implements IDTO<ChildT> {
 	 */
 	public void removeChild(ChildT child) throws DTOAccessException {
 		try {
+			Services.firePlatformEvent(new PlatformEvent(this, PlatformEvent.Type.DATA_CHANGED));
 			children.remove(child);
 		} catch (IndexOutOfBoundsException e) {
 			throw new DTOAccessException("This object is not a child in DTOs childlist!");

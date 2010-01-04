@@ -10,7 +10,6 @@ import javax.swing.WindowConstants;
 import javax.swing.tree.TreePath;
 
 import org.apache.log4j.Logger;
-import org.bh.data.DTO;
 import org.bh.data.DTOPeriod;
 import org.bh.data.DTOProject;
 import org.bh.data.DTOScenario;
@@ -272,7 +271,7 @@ class PlatformActionListener implements ActionListener {
 					+ bhmf.getChooser().getSelectedFile().getName());
 			
 			// create a PlatformPersistence instance incl. filepath
-			PlatformPersistence myOpener = new PlatformPersistence(bhmf.getChooser().getSelectedFile());
+			PlatformPersistence myOpener = new PlatformPersistence(bhmf.getChooser().getSelectedFile(),projectRepoManager);
 			
 			// open already provided file
 			ArrayList<DTOProject> projectList = myOpener.openFile();
@@ -299,7 +298,7 @@ class PlatformActionListener implements ActionListener {
 					+ bhmf.getChooser().getSelectedFile().getName());
 			
 			// create a PlatformPersistence instance incl. filepath
-			PlatformPersistence mySaver = new PlatformPersistence(bhmf.getChooser().getSelectedFile());
+			PlatformPersistence mySaver = new PlatformPersistence(bhmf.getChooser().getSelectedFile(),projectRepoManager);
 			
 			// perform save
 			mySaver.saveFile(projectRepoManager.getRepositoryList());
