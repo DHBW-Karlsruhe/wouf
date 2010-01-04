@@ -67,6 +67,12 @@ public class PlatformPersistence {
 	public boolean saveFile(ArrayList<DTOProject> projectRepository) {
 		try {
 			
+			// force .bh data extension
+			if (!path.toString().endsWith(".bh")) {
+				File newPath = new File(path + ".bh");
+				this.path = newPath;
+			}
+			
 			DTOProject iteratorObject;
 			FileOutputStream fileWriter = new FileOutputStream(path);
 			ObjectOutputStream objectWriter = new ObjectOutputStream(fileWriter);
