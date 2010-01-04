@@ -1,6 +1,7 @@
 package org.bh.data;
 
 import org.apache.log4j.Logger;
+import org.bh.platform.ProjectRepositoryManager;
 
 /**
  * Project DTO
@@ -34,6 +35,7 @@ public class DTOProject extends DTO<DTOScenario> {
 
 	public DTOProject() {
 		super(Key.values());
+		ProjectRepositoryManager.setChanged(true);
 		log.debug("Object created!");
 	}
 

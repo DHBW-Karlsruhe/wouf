@@ -263,6 +263,7 @@ class PlatformActionListener implements ActionListener {
 		projectRepoManager.clearProjectList();
 		pC.setupTree(bhmf, projectRepoManager);
 		PlatformController.preferences.remove("path");
+		ProjectRepositoryManager.setChanged(false);
 	}
 	
 	private void fileOpen() {
@@ -293,6 +294,7 @@ class PlatformActionListener implements ActionListener {
 	
 	private void fileSave() {
 		if (PlatformController.preferences.get("path","").equals("")) {
+			log.debug("ProjectRepository not saved - Reason: No path available");
 			
 		} else {
 			File path = new File( PlatformController.preferences.get("path","") );
