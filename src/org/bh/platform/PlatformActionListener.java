@@ -399,12 +399,10 @@ class PlatformActionListener implements ActionListener {
 			BHTreeNode newProjectNode = bhmf.getBHTree().addProjectNode(newProject, bhmf);
 			
 			for(int x = 0; x < newProject.getChildren().size(); x++){
-				DTOScenario newScenario = duplicateProject.getChild(x);
-				BHTreeNode newScenarioNode = bhmf.getBHTree().duplicateScenarioNode(newScenario, bhmf, newProjectNode);
+				BHTreeNode newScenarioNode = bhmf.getBHTree().duplicateScenarioNode(newProject.getChildren().get(x), bhmf, newProjectNode);
 				
-				for(int y = 0; y < newScenario.getChildren().size(); y++){
-					DTOPeriod newPeriod = newScenario.getChild(y);
-					newScenarioNode.add(bhmf.getBHTree().duplicatePeriodNode(newPeriod, bhmf, newScenarioNode));
+				for(int y = 0; y < newProject.getChildren().get(x).getChildren().size(); y++){
+					newScenarioNode.add(bhmf.getBHTree().duplicatePeriodNode(newProject.getChildren().get(x).getChildren().get(y), bhmf, newScenarioNode));
 				}
 			}
 		} else {
@@ -426,8 +424,7 @@ class PlatformActionListener implements ActionListener {
 			BHTreeNode newScenarioNode = bhmf.getBHTree().addScenarioNode(newScenario, bhmf);
 			
 				for(int y = 0; y < newScenario.getChildren().size(); y++){
-					DTOPeriod newPeriod = newScenario.getChild(y);
-					newScenarioNode.add(bhmf.getBHTree().duplicatePeriodNode(newPeriod, bhmf, newScenarioNode));
+					newScenarioNode.add(bhmf.getBHTree().duplicatePeriodNode(newScenario.getChildren().get(y), bhmf, newScenarioNode));
 				}
 		} else {
 			BHStatusBar.getInstance().setHint(BHTranslator.getInstance().translate("EisSelectScenario"), true);
