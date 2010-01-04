@@ -3,6 +3,7 @@ package org.bh.gui.swing;
 import javax.swing.tree.DefaultMutableTreeNode;
 import org.bh.data.DTO;
 import org.bh.data.DTOProject;
+import org.bh.data.DTOScenario;
 import org.bh.data.types.StringValue;
 /**
  * 
@@ -21,6 +22,12 @@ public class BHTreeNode extends DefaultMutableTreeNode{
 	
 	@Override
 	public String toString(){
-		return ((StringValue)((DTO<?>)userObject).get(DTOProject.Key.NAME)).getString();
+		if(this.getUserObject() instanceof DTOProject){
+			return ((StringValue)((DTO<?>)userObject).get(DTOProject.Key.NAME)).getString();
+		}else if(this.getUserObject() instanceof DTOScenario){
+			return ((StringValue)((DTO<?>)userObject).get(DTOScenario.Key.NAME)).getString();
+		}
+		return "";
+		
 	}
 }

@@ -194,12 +194,16 @@ public class PlatformController {
 					//fill fields
 					Map<String,IBHComponent> componentMap= projectView.getBHmodelComponents();
 					Set<String> componentKeys = projectView.getBHmodelComponents().keySet();
+					
 					for(String componentKey : componentKeys){
-						IBHComponent comp = componentMap.get(componentKey);
-						if(componentMap.get(componentKey) instanceof BHTextField){
-							//((BHTextField)comp).setText(((StringValue)selection.get(componentKey)).getString());
+						try{
+							IBHComponent comp = componentMap.get(componentKey);
+							if(componentMap.get(componentKey) instanceof BHTextField){	
+								((BHTextField)comp).setText(((StringValue)selection.get(componentKey)).getString());
+							}
+						}catch(Exception e){
 						}
-					}
+					}	
 					
 					
 				} catch (ViewException e) {
@@ -215,14 +219,16 @@ public class PlatformController {
 					Map<String,IBHComponent> componentMap= scenarioView.getBHmodelComponents();
 					Set<String> componentKeys = scenarioView.getBHmodelComponents().keySet();
 					for(String componentKey : componentKeys){
-						Logger.getLogger(PlatformController.class).debug("Key "+componentKey);
-						IBHComponent comp = componentMap.get(componentKey);
-						if(componentMap.get(componentKey) instanceof BHTextField){
+						try{
+							IBHComponent comp = componentMap.get(componentKey);
 							//TODO Schmalzhaf.Alexander mehr als Textfelder notwendig?
-							System.out.println("CompKey "+componentKey);
-							((BHTextField)comp).setText(((StringValue)selection.get(componentKey)).getString());
+							if(componentMap.get(componentKey) instanceof BHTextField){	
+								((BHTextField)comp).setText(((StringValue)selection.get(componentKey)).getString());
+							}
+						}catch(Exception e){
 						}
-					}
+					}	
+					
 					
 				} catch (ViewException e) {
 					e.printStackTrace();
@@ -238,35 +244,38 @@ public class PlatformController {
 	class DataChangedListener implements IPlatformListener{
 
 		public void platformEvent(PlatformEvent e) {
-			if(e.getEventType() == PlatformEvent.Type.DATA_CHANGED){
+			if(bhmf.getBHTree().getSelectionPath() != null){
 				selection = (DTO<?>)((BHTreeNode)bhmf.getBHTree().getSelectionPath().getLastPathComponent()).getUserObject();
-				if(e.getSource() instanceof DTOProject){
-					Logger.getLogger(PlatformController.class).debug("Project changed");
-					Map<String,IBHComponent> componentMap= projectView.getBHmodelComponents();
-					Set<String> componentKeys = projectView.getBHmodelComponents().keySet();
-					for(String componentKey : componentKeys){
-						IBHComponent comp = componentMap.get(componentKey);
-						if(componentMap.get(componentKey) instanceof BHTextField){
-							//((BHTextField)comp).setText(((StringValue)selection.get(componentKey)).getString());
+				if(e.getEventType() == PlatformEvent.Type.DATA_CHANGED){
+					
+					if(e.getSource() instanceof DTOProject){
+						Logger.getLogger(PlatformController.class).debug("Project changed");
+						Map<String,IBHComponent> componentMap= projectView.getBHmodelComponents();
+						Set<String> componentKeys = projectView.getBHmodelComponents().keySet();
+						for(String componentKey : componentKeys){
+							IBHComponent comp = componentMap.get(componentKey);
+							if(componentMap.get(componentKey) instanceof BHTextField){
+								((BHTextField)comp).setText(((StringValue)selection.get(componentKey)).getString());
+							}
+						}
+					}else if(e.getSource() instanceof DTOScenario){
+						Logger.getLogger(PlatformController.class).debug("Scenario changed");
+						//fill fields
+						Map<String,IBHComponent> componentMap= scenarioView.getBHmodelComponents();
+						Set<String> componentKeys = scenarioView.getBHmodelComponents().keySet();
+						for(String componentKey : componentKeys){
+							
+							IBHComponent comp = componentMap.get(componentKey);
+							
+							if(componentMap.get(componentKey) instanceof BHTextField){
+								//TODO Schmalzhaf.Alexander mehr als Textfelder notwendig?
+								((BHTextField)comp).setText(((StringValue)selection.get(componentKey)).getString());
+							}
 						}
 					}
-				}else if(e.getSource() instanceof DTOScenario){
-					Logger.getLogger(PlatformController.class).debug("Scenario changed");
-					//fill fields
-					Map<String,IBHComponent> componentMap= scenarioView.getBHmodelComponents();
-					Set<String> componentKeys = scenarioView.getBHmodelComponents().keySet();
-					for(String componentKey : componentKeys){
-						
-						IBHComponent comp = componentMap.get(componentKey);
-						
-						if(componentMap.get(componentKey) instanceof BHTextField){
-							//TODO Schmalzhaf.Alexander mehr als Textfelder notwendig?
-							((BHTextField)comp).setText(((StringValue)selection.get(componentKey)).getString());
-						}
-					}
-				}
-				
-			}	
+				}	
+			}
+			
 		}
 	}
 	
