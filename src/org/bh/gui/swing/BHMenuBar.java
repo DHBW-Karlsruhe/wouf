@@ -72,6 +72,7 @@ public class BHMenuBar extends JMenuBar{
 		menuFile.add(new BHMenuItem(PlatformKey.FILEOPEN, 79)); // O
 		menuFile.add(new BHMenuItem(PlatformKey.FILESAVE, 83)); // S
 		menuFile.add(new BHMenuItem(PlatformKey.FILESAVEAS, 83)); // S
+		menuFile.addSeparator();
 		menuFile.add(new BHMenuItem(PlatformKey.FILEQUIT, 81));  // Q
 
 
@@ -81,8 +82,10 @@ public class BHMenuBar extends JMenuBar{
 		menuProject.add(new BHMenuItem(PlatformKey.PROJECTCREATE));
 		menuProject.add(new BHMenuItem(PlatformKey.PROJECTRENAME));
 		menuProject.add(new BHMenuItem(PlatformKey.PROJECTDUPLICATE));
+		menuProject.addSeparator();
 		menuProject.add(new BHMenuItem(PlatformKey.PROJECTIMPORT));
 		menuProject.add(new BHMenuItem(PlatformKey.PROJECTEXPORT));
+		menuProject.addSeparator();
 		menuProject.add(new BHMenuItem(PlatformKey.PROJECTREMOVE));
 
 
@@ -92,6 +95,7 @@ public class BHMenuBar extends JMenuBar{
 		menuScenario.add(new BHMenuItem(PlatformKey.SCENARIOCREATE));
 		menuScenario.add(new BHMenuItem(PlatformKey.SCENARIORENAME));
 		menuScenario.add(new BHMenuItem(PlatformKey.SCENARIODUPLICATE));
+		menuScenario.addSeparator();
 		menuScenario.add(new BHMenuItem(PlatformKey.SCENARIOMOVE));
 		menuScenario.add(new BHMenuItem(PlatformKey.SCENARIOREMOVE));
 
@@ -116,6 +120,7 @@ public class BHMenuBar extends JMenuBar{
 		 **/
 		menuHelp.add(new BHMenuItem(PlatformKey.HELPUSERHELP, 72));
 		menuHelp.add(new BHMenuItem(PlatformKey.HELPMATHHELP));
+		menuHelp.addSeparator();
 		menuHelp.add(new BHMenuItem(PlatformKey.HELPINFO, 112));
 	}
 }
