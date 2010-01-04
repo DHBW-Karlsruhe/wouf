@@ -296,21 +296,21 @@ class PlatformActionListener implements ActionListener {
 		if (returnVal == JFileChooser.APPROVE_OPTION) {
 			log.debug("You chose to open this file: "
 					+ bhmf.getChooser().getSelectedFile().getName());
+			
+			// create a PlatformPersistence instance incl. filepath
+			PlatformPersistence myOpener = new PlatformPersistence(bhmf.getChooser().getSelectedFile());
+			
+			// open already provided file
+			ArrayList<DTOProject> projectList = myOpener.openFile();
+			
+			// replace ProjectRepository
+			projectRepoManager.replaceProjectList(projectList);
+			
+			// TODO rebuild Tree
+			pC.setupTree(bhmf, projectRepoManager);
+			
+			log.debug("file " + bhmf.getChooser().getSelectedFile() + " successfully opened");
 		}
-		
-		// create a PlatformPersistence instance incl. filepath
-		PlatformPersistence myOpener = new PlatformPersistence(bhmf.getChooser().getSelectedFile());
-		
-		// open already provided file
-		ArrayList<DTOProject> projectList = myOpener.openFile();
-		
-		// replace ProjectRepository
-		projectRepoManager.replaceProjectList(projectList);
-		
-		// TODO rebuild Tree
-		pC.setupTree(bhmf, projectRepoManager);
-		
-		log.debug("file " + bhmf.getChooser().getSelectedFile() + " successfully opened");
 	}
 	
 	private void fileSave() {
@@ -323,15 +323,16 @@ class PlatformActionListener implements ActionListener {
 		if (returnSave == JFileChooser.APPROVE_OPTION) {
 			log.debug("You chose to save this file: "
 					+ bhmf.getChooser().getSelectedFile().getName());
+			
+			// create a PlatformPersistence instance incl. filepath
+			PlatformPersistence mySaver = new PlatformPersistence(bhmf.getChooser().getSelectedFile());
+			
+			// perform save
+			mySaver.saveFile(projectRepoManager.getRepositoryList());
+			
+			log.debug("ProjectRepository saved to " + bhmf.getChooser().getSelectedFile());
 
 		}
-		// create a PlatformPersistence instance incl. filepath
-		PlatformPersistence mySaver = new PlatformPersistence(bhmf.getChooser().getSelectedFile());
-		
-		// perform save
-		mySaver.saveFile(projectRepoManager.getRepositoryList());
-		
-		log.debug("ProjectRepository saved to " + bhmf.getChooser().getSelectedFile());
 	}
 	
 	private void createProject(){
