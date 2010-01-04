@@ -7,6 +7,8 @@ import java.util.Locale;
 import java.util.MissingResourceException;
 import java.util.ResourceBundle;
 
+import javax.swing.JComponent;
+
 import org.apache.log4j.Logger;
 
 /**
@@ -77,11 +79,12 @@ public class BHTranslator implements ITranslator {
 	/**
 	 * Alternative Constructor.
 	 * 
-	 * @param l
+	 * @param locale
 	 *            locale to be used to instantiate the <code>BHTranslator</code>
 	 */
-	private BHTranslator(Locale l) {
-		Locale.setDefault(l);
+	private BHTranslator(Locale locale) {
+		Locale.setDefault(locale);
+		JComponent.setDefaultLocale(locale);
 		this.bundle = ResourceBundle.getBundle(BHTranslator.BUNDLE);
 		this.listener = new ArrayList<PropertyChangeListener>();
 		LOG.debug("Translator initialized with Locale " + Locale.getDefault());
@@ -160,6 +163,7 @@ public class BHTranslator implements ITranslator {
 	public void setLocale(Locale locale) {
 		Locale l = Locale.getDefault();
 		Locale.setDefault(locale);
+		JComponent.setDefaultLocale(locale);
 		this.bundle = ResourceBundle.getBundle(BHTranslator.BUNDLE);
 		this.firePropertyChange("Locale", l, Locale.getDefault());
 	}
