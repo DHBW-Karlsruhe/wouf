@@ -201,11 +201,12 @@ public class FCFCalculator implements IShareholderValueCalculator {
 	 * <b>false</b> if input parameters differ less
 	 */
 	private boolean checkAbs(Calculable firstValue, Calculable secondValue){
-		if(firstValue. sub(secondValue).abs().greaterThan(new DoubleValue(0.0000000001))){
-			return true;
-		}else{
-			return false;
-		}
+//		if(firstValue. sub(secondValue).abs().greaterThan(new DoubleValue(0.0000000001))){
+//			return true;
+//		}else{
+//			return false;
+//		}
+		return firstValue.diffToLess(secondValue, 0.0000000001);
 	}
 	/**
 	 * Calculates the Weighted Average Cost of Equity for the WACC.
