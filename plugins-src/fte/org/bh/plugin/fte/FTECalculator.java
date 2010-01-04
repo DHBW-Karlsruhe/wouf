@@ -25,12 +25,40 @@ public class FTECalculator implements IShareholderValueCalculator {
 	private static final String GUI_KEY = "fte";
 	
 	public enum Result {
+		/**
+		 * The Shareholder Value Calculated with APV Method
+		 * </br><b>Array</b> but only first value [0] interesting
+		 */
 		SHAREHOLDER_VALUE,
+		/**
+		 * The advantage for the present value when having debts.
+		 * </br><b>Array</b> but only first value [0] interesting
+		 */
 		PRESENT_VALUE_TAX_SHIELD,
+		/**
+		 * FK * FKr
+		 * </br><b>Array</b>
+		 */
 		FLOW_TO_EQUITY_INTEREST,
+		/**
+		 * Advantage for FTE when having debts
+		 * </br><b>Array</b>
+		 */
 		FLOW_TO_EQUITY_TAX_SHIELD,
+		/**
+		 * FCF + FTE_Tax_Shield - FTE_Interest
+		 * </br><b>Array</b>
+		 */
 		FLOW_TO_EQUITY,
+		/**
+		 * FK[t+1] - FK[t]
+		 * </br><b>Array</b>
+		 */
 		DEBT_AMORTISATION,
+		/**
+		 * Variable equity return rate
+		 * </br><b>Array</b>
+		 */
 		EQUITY_RETURN_RATE_FTE;
 	}
 

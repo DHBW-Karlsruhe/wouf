@@ -24,12 +24,40 @@ public class FCFCalculator implements IShareholderValueCalculator {
 	private static final String GUI_KEY = "fcf";
 	
 	public enum Result {
+		/**
+		 * The Shareholder Value Calculated with APV Method
+		 * </br><b>Array</b> but only first value [0] interesting
+		 */
 		SHAREHOLDER_VALUE,
+		/**
+		 * Present Value of the not debted enterprise.
+		 * </br><b>Array</b> but only first value [0] interesting
+		 */
 		PRESENT_VALUE_FCF,
+		/**
+		 * Variable equity return rate
+		 * </br><b>Array</b>
+		 */
 		EQUITY_RETURN_RATE_FCF,
+		/**
+		 * FK / UW
+		 * </br><b>Array</b>
+		 */
 		DEBT_TO_EQUITY_RATIO,
+		/**
+		 * Weighted Average Cost of Equity
+		 * </br><b>Array</b>
+		 */
 		WACC_EQUITY,
+		/**
+		 * Weighted Average Cost of Debts
+		 * </br><b>Array</b>
+		 */
 		WACC_DEBTS,
+		/**
+		 * Weighted Average Cost of Capital = WACC_Equity + WACC_Debts
+		 * </br><b>Array</b>
+		 */
 		WACC;
 	}	
 	
@@ -178,7 +206,7 @@ public class FCFCalculator implements IShareholderValueCalculator {
 	private Calculable[] calcDebtToEquityRatio(Calculable[] UW, Calculable[] FK){
 		Calculable[] DebtToEquityRatio = new Calculable[UW.length];
 		for (int i = 0; i < UW.length; i++) {			
-			DebtToEquityRatio[i] = UW[i].div(FK[i]);
+			DebtToEquityRatio[i] = FK[i].div(UW[i]);
 		}
 		return DebtToEquityRatio; 
 	}

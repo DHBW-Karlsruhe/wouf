@@ -27,8 +27,20 @@ public class APVCalculator implements IShareholderValueCalculator {
 	private static final String GUI_KEY = "apv";
 	
 	public enum Result {
+		/**
+		 * The Shareholder Value Calculated with APV Method
+		 * </br><b>Array</b> but only first value [0] interesting
+		 */
 		SHAREHOLDER_VALUE,
+		/**
+		 * Present Value of the not debted enterprise.
+		 * </br><b>Array</b> but only first value [0] interesting
+		 */
 		PRESENT_VALUE_FCF,
+		/**
+		 * The advantage for the present value when having debts.
+		 * </br><b>Array</b> but only first value [0] interesting
+		 */
 		PRESENT_VALUE_TAX_SHIELD;
 	}
 	
