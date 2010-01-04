@@ -3,10 +3,7 @@ package org.bh.platform;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
-
 import java.util.prefs.Preferences;
-
-import org.apache.log4j.Logger;
 
 import javax.swing.event.TreeSelectionEvent;
 import javax.swing.event.TreeSelectionListener;
@@ -15,10 +12,24 @@ import javax.swing.tree.DefaultTreeModel;
 import javax.swing.tree.TreeNode;
 import javax.swing.tree.TreePath;
 
-import org.bh.data.*;
+import org.apache.log4j.Logger;
+import org.bh.data.DTO;
+import org.bh.data.DTOPeriod;
+import org.bh.data.DTOProject;
+import org.bh.data.DTOScenario;
 import org.bh.data.types.StringValue;
 import org.bh.gui.ViewException;
-import org.bh.gui.swing.*;
+import org.bh.gui.swing.BHButton;
+import org.bh.gui.swing.BHMainFrame;
+import org.bh.gui.swing.BHMenuItem;
+import org.bh.gui.swing.BHProjectInputForm;
+import org.bh.gui.swing.BHProjectView;
+import org.bh.gui.swing.BHScenarioHeadForm;
+import org.bh.gui.swing.BHScenarioView;
+import org.bh.gui.swing.BHTextField;
+import org.bh.gui.swing.BHTreeNode;
+import org.bh.gui.swing.IBHAction;
+import org.bh.gui.swing.IBHComponent;
 
 /**
  * The Platform Controller handles a) start up of the application b) main
@@ -75,7 +86,7 @@ public class PlatformController {
 		 * -----------------------------------
 		 */
 		
-		
+		/*
 		DTOProject project1 = new DTOProject();
 		DTOScenario scenario1 = new DTOScenario(true);
 		DTOPeriod period1 = new DTOPeriod();
@@ -93,7 +104,7 @@ public class PlatformController {
 		scenario1.put(DTOScenario.Key.NAME, scenarioName);
 		
 		projectRepoManager.addProject(project1);
-		
+		*/
 		
 		/*------------------------------------
 		 * start mainFrame

@@ -292,15 +292,19 @@ class PlatformActionListener implements ActionListener {
 	}
 	
 	private void fileSave() {
-		File path = new File( PlatformController.preferences.get("path","") );
-		
-		// create a PlatformPersistence instance incl. filepath
-		PlatformPersistence mySaver = new PlatformPersistence(path,projectRepoManager);
-		
-		// perform save
-		mySaver.saveFile(projectRepoManager.getRepositoryList());
-		
-		log.debug("ProjectRepository saved to " + path);
+		if (PlatformController.preferences.get("path","").equals("")) {
+			
+		} else {
+			File path = new File( PlatformController.preferences.get("path","") );
+			
+			// create a PlatformPersistence instance incl. filepath
+			PlatformPersistence mySaver = new PlatformPersistence(path,projectRepoManager);
+			
+			// perform save
+			mySaver.saveFile(projectRepoManager.getRepositoryList());
+			
+			log.debug("ProjectRepository saved to " + path);
+		}
 	}
 	
 	private void fileSaveAs() {
