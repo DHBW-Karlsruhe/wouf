@@ -1,29 +1,17 @@
 package org.bh.platform;
 
+import java.beans.PropertyChangeEvent;
+import java.beans.PropertyChangeListener;
 import java.util.List;
+import javax.swing.event.*;
+import javax.swing.tree.*;
 
-import javax.swing.event.TreeSelectionEvent;
-import javax.swing.event.TreeSelectionListener;
-import javax.swing.tree.DefaultMutableTreeNode;
-import javax.swing.tree.DefaultTreeModel;
-import javax.swing.tree.TreeNode;
-import javax.swing.tree.TreePath;
-
-import org.bh.data.DTO;
-import org.bh.data.DTOPeriod;
-import org.bh.data.DTOProject;
-import org.bh.data.DTOScenario;
+import org.apache.log4j.Logger;
+import org.bh.BusinessHorizon;
+import org.bh.data.*;
 import org.bh.data.types.StringValue;
 import org.bh.gui.ViewException;
-import org.bh.gui.swing.BHButton;
-import org.bh.gui.swing.BHMainFrame;
-import org.bh.gui.swing.BHMenuItem;
-import org.bh.gui.swing.BHProjectInputForm;
-import org.bh.gui.swing.BHProjectView;
-import org.bh.gui.swing.BHScenarioHeadForm;
-import org.bh.gui.swing.BHScenarioView;
-import org.bh.gui.swing.BHTreeNode;
-import org.bh.gui.swing.IBHAction;
+import org.bh.gui.swing.*;
 
 /**
  * The Platform Controller handles a) start up of the application b) main
@@ -139,6 +127,7 @@ public class PlatformController {
 		bhmf.getBHTree().setTreeModel(new BHTreeModel(rootNode));
 		bhmf.getBHTree().addTreeSelectionListener(new BHTreeSelectionListener());
 	}
+	
 	
 	
 	class BHTreeSelectionListener implements TreeSelectionListener{
