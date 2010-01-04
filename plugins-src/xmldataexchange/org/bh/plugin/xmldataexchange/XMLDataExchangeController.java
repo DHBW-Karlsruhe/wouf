@@ -2,14 +2,15 @@ package org.bh.plugin.xmldataexchange;
 
 import java.awt.event.ActionEvent;
 import java.io.IOException;
-import java.net.URL;
 import java.util.Map;
 
 import javax.swing.JFileChooser;
 
 import org.bh.controller.Controller;
+import org.bh.controller.ControllerException;
 import org.bh.data.DTOProject;
 import org.bh.data.IDTO;
+import org.bh.data.types.IValue;
 import org.bh.gui.View;
 import org.bh.gui.ViewException;
 import org.bh.gui.swing.BHTextField;
@@ -125,6 +126,18 @@ public class XMLDataExchangeController extends Controller {
 	}		
 	@Override
 	public void platformEvent(PlatformEvent e) {
+		// TODO Auto-generated method stub
+		throw new UnsupportedOperationException("This method has not been implemented");
+	}
+
+	@Override
+	protected IValue typeConverter(String value) throws ControllerException {
+		// TODO Auto-generated method stub
+		throw new UnsupportedOperationException("This method has not been implemented");
+	}
+
+	@Override
+	public String getGuiKey() {
 		// TODO Auto-generated method stub
 		throw new UnsupportedOperationException("This method has not been implemented");
 	}
