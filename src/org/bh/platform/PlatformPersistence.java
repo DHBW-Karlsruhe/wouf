@@ -101,7 +101,7 @@ public class PlatformPersistence {
 		} catch (FileNotFoundException e) {
 			log.error("File " + path + "not found!");
 		} catch (IOException e) {
-			log.error("IO Error occured wihle saving" + path);
+			log.error("IO Error occured while saving" + path);
 			e.printStackTrace();
 		}
 		

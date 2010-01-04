@@ -294,8 +294,7 @@ class PlatformActionListener implements ActionListener {
 	
 	private void fileSave() {
 		if (PlatformController.preferences.get("path","").equals("")) {
-			log.debug("ProjectRepository not saved - Reason: No path available");
-			
+			this.fileSaveAs();
 		} else {
 			File path = new File( PlatformController.preferences.get("path","") );
 			
