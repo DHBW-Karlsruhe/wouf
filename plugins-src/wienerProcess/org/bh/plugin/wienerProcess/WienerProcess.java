@@ -83,8 +83,8 @@ public class WienerProcess implements IStochasticProcess {
 						.getDtoId());
 				pvdto.put(key.getKey(), this.doOneWienerProcess(previous
 						.getCalculable(key.getKey()), map.get(STEPS_PER_PERIOD),
-						(Calculable) this.internalMap.get(key.getKey() + "1"),
-						(Calculable) this.internalMap.get(key.getKey() + "2")));
+						(Calculable) this.internalMap.get(key.getKey() + STANDARD_DEVIATION),
+						(Calculable) this.internalMap.get(key.getKey() + SLOPE)));
 			}
 			temp.addChild(clone);
 
@@ -97,8 +97,8 @@ public class WienerProcess implements IStochasticProcess {
 					pvdto.put(key.getKey(), this.doOneWienerProcess(previous
 							.getCalculable(key.getKey()), map.get(STEPS_PER_PERIOD),
 							(Calculable) this.internalMap.get(key.getKey()
-									+ "1"), (Calculable) this.internalMap
-									.get(key.getKey() + "2")));
+									+ STANDARD_DEVIATION), (Calculable) this.internalMap
+									.get(key.getKey() + SLOPE)));
 				}
 				temp.addChild(clone);
 			}
@@ -116,7 +116,7 @@ public class WienerProcess implements IStochasticProcess {
 	public JPanel calculateParameters() {
 		ITranslator translator = Services.getTranslator();
 		internalMap = new HashMap<String, IValue>();
-
+		map = new HashMap<String, Integer>();
 		TreeMap<DTOKeyPair, List<Calculable>> toBeDetermined = scenario
 				.getPeriodStochasticKeysAndValues();
 
@@ -144,7 +144,7 @@ public class WienerProcess implements IStochasticProcess {
 					ValidationWienerProcess.isPositive };
 			tf1.setValidateRules(rule1);
 			north.add(tf1);
-			map.put(STEPS_PER_PERIOD, new Integer(250 / 5));
+			map.put(STEPS_PER_PERIOD, new Integer(1));
 
 			north.add(new BHLabel(translator.translate(REPETITIONS)));
 			BHTextField tf2 = new BHTextField(REPETITIONS);
@@ -202,7 +202,10 @@ public class WienerProcess implements IStochasticProcess {
 				BHTextField c = (BHTextField) components[i];
 				String key = c.getKey();
 				String text = c.getText();
-				internalMap.put(key, Calculable.parseCalculable(text));
+				if (internalMap.containsKey(key))
+					internalMap.put(key, Calculable.parseCalculable(text));
+				else
+					map.put(key, Integer.parseInt(text));
 			}
 		}
 	}
