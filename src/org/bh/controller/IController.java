@@ -19,21 +19,7 @@ public interface IController {
      */
     JPanel getViewPanel() throws ControllerException;
     
-    /**
-     * platform can define the dto access of the component by this method
-     * @param model
-     * @throws ControllerException
-     */
-    void setModel(IDTO<?> model) throws ControllerException;
-    
     //TODO datatyp result is not yet defined
-    
-    /**
-     * platform can hand over the result of an operation to a component by this method
-     * @param result
-     * @throws ControllerException 
-     */
-    void setResult(Map<String, Calculable[]> result) throws ControllerException;
 
     /**
 	 * Defines the description of the plugin which will be displayed on the GUI.
@@ -41,5 +27,6 @@ public interface IController {
 	 * @return Translation key for the description.
     */
     String getGuiKey();
+
    
 }

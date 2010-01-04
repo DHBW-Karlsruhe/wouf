@@ -101,13 +101,6 @@ public abstract class InputController extends Controller implements IInputContro
         return model;
     }
 
-    public List<String> getStochasticKeys() throws ControllerException{
-        if(model != null) {
-            return this.model.getStochasticKeys();
-        }
-        throw new ControllerException("No referende to a valid model");
-    }
-
     protected BHValidityEngine getValidator(){
         return this.view.getValidator();
     }

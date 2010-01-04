@@ -20,12 +20,4 @@ public interface IInputController extends IController{
      * @throws ControllerException
      */
     void setModel(IDTO<?> model) throws ControllerException;
-
-     /**
-     * deliver a List of keys representing values which are stochastical procedable
-     * @return
-     * @throws ControllerException
-     */
-    List<String> getStochasticKeys() throws ControllerException;
-
 }

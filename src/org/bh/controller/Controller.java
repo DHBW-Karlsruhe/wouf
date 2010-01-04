@@ -32,53 +32,31 @@ public abstract class Controller implements IController, ActionListener, IPlatfo
      * Reference to the active view of the plugin
      * Can be null
      */
-    private View view = null;
+    protected View view = null;
     
     /**
      * Reference to all model depending IBHcomponents on the UI
      */
-    private Map<String, IBHComponent> bhModelcomponents;
-    
-    /**
-     * Referenz to the model
-     * Can be null
-     */
-    private IDTO<?> model = null;
+    protected Map<String, IBHComponent> bhMappingComponents;
     
     /**
      * Reference to the Platform StatusBar. Must be set in every constructor
      */
     private static BHStatusBar bhStatusBar;
-
-    /**
-     * have to be used in case of a UI based and model driven mvc plugin
-     * and register the plugin at the platform
-     *
-     * @param view a instance of a View subclass
-     * @param model a instance of a dto 
-     */
-    public Controller(View view, IDTO<?> model){
+    
+    public Controller(){
+        this(null);
+    }
+    public Controller(View view){
         log.debug("Plugincontroller instance");
-        this.model = model;
         this.view = view;
         Controller.bhStatusBar = Services.getBHstatusBar();
         if (view != null) {
-            this.bhModelcomponents = this.view.getBHmodelComponents();
+            this.bhMappingComponents = this.view.getBHmodelComponents();
             this.AddControllerAsListener(this.view.getBHtextComponents());
         }
         Services.addPlatformListener(this);
     }
-    
-    public Controller(){
-    	this(null, null);
-    }
-    public Controller(View view){
-        this(view, null);
-    }
-    public Controller(IDTO<?> model){
-    	this(null, model);
-    }
-    
     
     /**
      * central exception handler method. Should be called in every catch statement
@@ -108,22 +86,11 @@ public abstract class Controller implements IController, ActionListener, IPlatfo
     protected void setView(View view){
         this.view = view;
         if (view != null) {
-        	this.bhModelcomponents = this.view.getBHmodelComponents();
+        	this.bhMappingComponents = this.view.getBHmodelComponents();
                 this.AddControllerAsListener(this.view.getBHtextComponents());
         }
     }
 
-    /**
-     * writes all data to its dto reference
-     * @throws DTOAccessException
-     */
-    protected void saveAllToModel() throws DTOAccessException{
-        log.debug("Plugin save to dto");
-        this.model.setSandBoxMode(Boolean.TRUE);
-        for(String key : this.bhModelcomponents.keySet()){
-            this.model.put(key, this.typeConverter(this.bhModelcomponents.get(key).getValue()));
-        }
-    }
     /**
      * Method for Typconversion can be used with <code>Calculable.parseCalculable(String s)</code> 
      * method
@@ -133,24 +100,13 @@ public abstract class Controller implements IController, ActionListener, IPlatfo
     protected abstract IValue typeConverter(String value) throws ControllerException;
 
     /**
-     * save specific component to model
-     * @param comp
-     * @throws DTOAccessException
-     */
-    protected void safeToModel(IBHComponent comp)throws DTOAccessException{
-        log.debug("Plugin save to dto");
-        this.model.setSandBoxMode(Boolean.TRUE);
-        //TODO define typeconverter
-        //this.model.put(comp.getKey(), comp.getValue());
-    }
-    /**
-     * writes all dto values with a mathcing key in a IBHComponent to UI
+     * writes all dto values with a matching key in a IBHComponent to UI
      * @throws DTOAccessException
      */
     protected void loadAllToView()throws DTOAccessException{
         log.debug("Plugin load from dto in view");
-        for(String key : this.bhModelcomponents.keySet()){
-            //this.bhModelcomponents.get(key).setValue(this.model.get(key));
+        for(String key : this.bhMappingComponents.keySet()){
+            //this.bhMappinglcomponents.get(key).setValue(this.model.get(key));
         }
     }
     /**
@@ -161,17 +117,8 @@ public abstract class Controller implements IController, ActionListener, IPlatfo
      */
     protected void loadToView(String key) throws DTOAccessException, ControllerException{
         log.debug("Plugin load from dto in view");
-        //this.bhModelcomponents.get(key).setValue(this.model.get(key));
+        //this.bhMappinglcomponents.get(key).setValue(this.model.get(key));
     }
-
-    public void setModel(IDTO<?> model) {
-        this.model = model;
-    }
-
-    public IDTO<?> getModel() {
-        return model;
-    }
-
 
     /**
      * get the ITranslator from the Platform
