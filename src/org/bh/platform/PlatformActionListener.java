@@ -6,7 +6,6 @@ import java.util.ArrayList;
 
 import javax.swing.JFileChooser;
 import javax.swing.JFrame;
-import javax.swing.JOptionPane;
 import javax.swing.WindowConstants;
 import javax.swing.tree.TreePath;
 
@@ -342,7 +341,10 @@ class PlatformActionListener implements ActionListener {
 			//last steps: unfold tree to new element, set focus and start editing
 			bhmf.getBHTree().scrollPathToVisible(new TreePath(newScenarioNode.getPath()));
 			bhmf.getBHTree().startEditingAtPath(new TreePath(newScenarioNode.getPath()));
+		}else {
+			BHStatusBar.getInstance().setHint(BHTranslator.getInstance().translate("EisSelectPeriod"), true);
 		}
+			
 		
 	}
 	private void createPeriod(){
@@ -388,7 +390,8 @@ class PlatformActionListener implements ActionListener {
 					newScenarioNode.add(bhmf.getBHTree().duplicatePeriodNode(newPeriod, bhmf, newScenarioNode));
 				}
 			}
-			
+		} else {
+			BHStatusBar.getInstance().setHint(BHTranslator.getInstance().translate("EisSelectProject"), true);
 		}
 	}
 	private void duplicateScenario(){
@@ -409,8 +412,8 @@ class PlatformActionListener implements ActionListener {
 					DTOPeriod newPeriod = newScenario.getChild(y);
 					newScenarioNode.add(bhmf.getBHTree().duplicatePeriodNode(newPeriod, bhmf, newScenarioNode));
 				}
-			
+		} else {
+			BHStatusBar.getInstance().setHint(BHTranslator.getInstance().translate("EisSelectScenario"), true);
 		}
 	}
-
 }
