@@ -9,6 +9,7 @@ import javax.swing.UIManager;
 import org.bh.data.types.IValue;
 import org.bh.gui.swing.IBHComponent;
 import org.bh.platform.PlatformEvent;
+import org.bh.platform.Services;
 import org.bh.platform.i18n.BHTranslator;
 import org.jfree.chart.ChartFactory;
 import org.jfree.chart.JFreeChart;
@@ -28,6 +29,7 @@ public class BHPieChart extends JFreeChart implements IBHComponent, IBHAddValue 
 
 	protected BHPieChart(String title, final Dataset dataset, String key) {
 		super(plot);
+		Services.addPlatformListener(this);
 		this.key = key;
 		this.dataset = (DefaultPieDataset) dataset;
 

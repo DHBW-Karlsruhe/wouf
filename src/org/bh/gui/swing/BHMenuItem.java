@@ -41,6 +41,7 @@ public class BHMenuItem extends JMenuItem implements IBHComponent, IBHAction {
 	 */
 	public BHMenuItem(PlatformKey key, int eventKey, Boolean isPlatformItem) {
 		super(Services.getTranslator().translate(key.toString()));
+		Services.addPlatformListener(this);
 		this.key = key;
 		if (eventKey != 0) {
 			this.setMnemonic(eventKey);

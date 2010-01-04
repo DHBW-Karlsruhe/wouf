@@ -3,6 +3,7 @@ package org.bh.gui.swing;
 import javax.swing.JTextArea;
 
 import org.bh.platform.PlatformEvent;
+import org.bh.platform.Services;
 
 /**
  * BHTextArea to display simple text fields at screen.
@@ -68,6 +69,7 @@ public class BHTextArea extends JTextArea implements IBHComponent {
 	 * set properties of instance.
 	 */
 	private void setProperties() {
+		Services.addPlatformListener(this);
 		this.putClientProperty("JComponent.sizeVariant", IBHComponent.MINI); // Minitextfield
 	}
 

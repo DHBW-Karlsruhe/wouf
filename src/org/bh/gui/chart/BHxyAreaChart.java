@@ -8,6 +8,7 @@ import javax.swing.UIManager;
 import org.bh.data.types.IValue;
 import org.bh.gui.swing.IBHComponent;
 import org.bh.platform.PlatformEvent;
+import org.bh.platform.Services;
 import org.bh.platform.i18n.BHTranslator;
 import org.jfree.chart.ChartFactory;
 import org.jfree.chart.JFreeChart;
@@ -37,6 +38,7 @@ public class BHxyAreaChart extends JFreeChart implements IBHComponent,
 	protected BHxyAreaChart(final String title, final String xAxis, final String yAxis,
 			final Dataset dataset, final String key, final XYPlot plot) {
 		super(plot);
+		Services.addPlatformListener(this);
 		this.key = key;
 		this.dataset = (DefaultXYDataset) dataset;
 

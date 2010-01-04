@@ -95,33 +95,32 @@ public class BHLabel extends JLabel implements IBHComponent {
 		throw new UnsupportedOperationException("Not supported yet.");
 	}
 
-
 	/**
 	 * set properties of instance.
 	 */
 	private void setProperties() {
+		Services.addPlatformListener(this);
 		this.putClientProperty("JComponent.sizeVariant", IBHComponent.MINI); // Minilabel
 	}
 
 	@Override
 	public String getBHHint() {
 		// TODO Auto-generated method stub
-		throw new UnsupportedOperationException("This method has not been implemented");
+		throw new UnsupportedOperationException(
+				"This method has not been implemented");
 	}
 
-        public String getValue() {
-            if(this.getText() == null){
-                return "";
-            }
-            return this.getText();
-        }
+	public String getValue() {
+		if (this.getText() == null) {
+			return "";
+		}
+		return this.getText();
+	}
 
-
-	
-	public void mouseClicked(MouseEvent e){
+	public void mouseClicked(MouseEvent e) {
 		Services.getBHstatusBar().openToolTipPopup();
 	}
-	
+
 	/**
 	 * Handle PlatformEvents
 	 */
@@ -131,7 +130,7 @@ public class BHLabel extends JLabel implements IBHComponent {
 			this.resetText();
 		}
 	}
-	
+
 	/**
 	 * Reset Text if necessary.
 	 */

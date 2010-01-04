@@ -51,7 +51,6 @@ public class BHButton extends JButton implements IBHComponent,IBHAction {
 	 */
 	public BHButton(PlatformKey platformKey, Boolean isPlatformButton) {
 		super();
-		Services.addPlatformListener(this);
 		this.setProperties();
 		this.platformKey = platformKey;
 		this.key = platformKey.toString();
@@ -126,6 +125,7 @@ public class BHButton extends JButton implements IBHComponent,IBHAction {
 	 * set properties of instance.
 	 */
 	private void setProperties() {
+		Services.addPlatformListener(this);
 		this.putClientProperty("JComponent.sizeVariant", IBHComponent.MINI); // Minibutton
 	}
 

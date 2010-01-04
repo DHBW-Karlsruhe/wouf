@@ -3,6 +3,7 @@ package org.bh.gui.swing;
 import javax.swing.JTextField;
 
 import org.bh.platform.PlatformEvent;
+import org.bh.platform.Services;
 
 
 /**
@@ -113,6 +114,7 @@ public class BHTextField extends JTextField implements IBHComponent {
 	 * set properties of instance.
 	 */
 	private void setProperties() {
+		Services.addPlatformListener(this);
 		this.putClientProperty("JComponent.sizeVariant", IBHComponent.MINI); // Minitextfield
 	}
 
