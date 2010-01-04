@@ -231,9 +231,9 @@ public class BHMainFrame extends JFrame implements IPlatformListener {
 		
 		// Data changed. Add changed suffix to title.
 		if (e.getEventType() == Type.DATA_CHANGED) {
-			String changedSuffix = Services.getTranslator().translate("changed");
+			String changedSuffix = "(" + Services.getTranslator().translate("changed") + ")";
 			if (! this.getTitle().endsWith(changedSuffix)) {
-				this.setTitle(this.getTitle() + " (" + changedSuffix + ")");
+				this.setTitle(this.getTitle() + changedSuffix);
 			}
 		}
 	}
