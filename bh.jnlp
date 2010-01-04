@@ -13,7 +13,7 @@
   <all-permissions/>
 </security>
 <resources>
-  <j2se version="1.6.0_10+" />
+  <java version="1.6.0_10+" href="http://java.sun.com/products/autodl/j2se" />
   <jar href="BH.jar"/>
 </resources>
 <application-desc main-class="org.bh.BusinessHorizon" />
