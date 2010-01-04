@@ -1,25 +1,31 @@
 package org.bh.gui.swing;
 
+import java.awt.Component;
+import java.awt.Dimension;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.util.Locale;
+
 import javax.swing.JComboBox;
 import javax.swing.JDialog;
+import javax.swing.JLabel;
+import javax.swing.JList;
+import javax.swing.ListCellRenderer;
 import javax.swing.WindowConstants;
-import org.bh.platform.IPlatformListener;
-import org.bh.platform.PlatformEvent;
+
 import org.bh.platform.Services;
-import org.bh.platform.PlatformEvent.Type;
 import org.bh.platform.i18n.BHTranslator;
 
 import com.jgoodies.forms.layout.CellConstraints;
 import com.jgoodies.forms.layout.FormLayout;
 
-public class BHOptionDialog extends JDialog{
+public class BHOptionDialog extends JDialog implements ActionListener {
 
-	CellConstraints cons;
+	private CellConstraints cons;
 
-	BHLabel language;
+	private BHLabel language;
 	JComboBox combo;
-	BHButton changeLanguage;
+	private BHButton apply;
 
 	public BHOptionDialog() {
 		this.setProperties();
@@ -31,17 +37,21 @@ public class BHOptionDialog extends JDialog{
 		cons = new CellConstraints();
 
 		// create select language components
-		language = new BHLabel("", BHTranslator.getInstance().translate("MoptionsLanguage"));
+		language = new BHLabel("", BHTranslator.getInstance().translate(
+				"MoptionsLanguage"));
 
-		combo = new JComboBox();
+		combo = new JComboBox(Services.getTranslator().getAvaiableLocales());
+		combo.setRenderer(new BHLanguageRenderer());
+		
 
-		changeLanguage = new BHButton("");
-		changeLanguage.setText(BHTranslator.getInstance().translate("Bapply"));
+		apply = new BHButton("");
+		apply.setText(BHTranslator.getInstance().translate("Bapply"));
+		apply.addActionListener(this);
 
 		// add components
 		add(language, cons.xywh(2, 1, 1, 1, "right,center"));
 		add(combo, cons.xywh(3, 1, 1, 1));
-		add(changeLanguage, cons.xywh(4, 1, 1, 1));
+		add(apply, cons.xywh(4, 1, 1, 1));
 
 	}
 
@@ -49,34 +59,31 @@ public class BHOptionDialog extends JDialog{
 		this.setTitle(BHTranslator.getInstance().translate("MoptionsDialog"));
 		this.setSize(400, 200);
 		this.setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
+		this.setLocationRelativeTo(null);
 		this.setResizable(false);
 		this.setVisible(true);
 	}
 
-	public class BHLanguageComboBox extends JComboBox implements IPlatformListener {
-
-		/**
-		 * Default Constructor
-		 */
-		public BHLanguageComboBox() {
-			super();
-			Services.addPlatformListener(this);
-			this.resetTexts();
+	@Override
+	public void actionPerformed(ActionEvent e) {
+		Services.getTranslator().setLocale((Locale) combo.getSelectedItem());
+	}
+	
+	public class BHLanguageRenderer implements ListCellRenderer {
+		private JLabel l = null;
+		
+		public BHLanguageRenderer() {
+			l = new JLabel();
+			l.setPreferredSize(new Dimension(l.getPreferredSize().width, 30));
 		}
-
-		public void resetTexts() {
-			combo.removeAllItems();
-			Locale current = Services.getTranslator().getLocale();
-			for (Locale l : Services.getTranslator().getAvaiableLocales()) {
-				combo.addItem(l.getDisplayLanguage(current));
-			}
-		}
-
 		@Override
-		public void platformEvent(PlatformEvent e) {
-			if (e.getEventType() == Type.LOCALE_CHANGED) {
-				this.resetTexts();
-			}
+		public Component getListCellRendererComponent(JList list, Object value,
+				int index, boolean isSelected, boolean cellHasFocus) {
+			
+			l.setText(((Locale) value).getDisplayLanguage(Services.getTranslator().getLocale()));
+			return l;
+			
 		}
+			
 	}
 }
