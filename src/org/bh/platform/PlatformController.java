@@ -176,7 +176,7 @@ public class PlatformController {
 		bhmf.getBHTree().addTreeSelectionListener(new BHTreeSelectionListener());
 		
 		//register PlatformListener
-		Services.addPlatformListener(new DataChangedListener());
+		//Services.addPlatformListener(new DataChangedListener());
 		
 	}
 	
@@ -197,7 +197,7 @@ public class PlatformController {
 					for(String componentKey : componentKeys){
 						IBHComponent comp = componentMap.get(componentKey);
 						if(componentMap.get(componentKey) instanceof BHTextField){
-							((BHTextField)comp).setText(((StringValue)selection.get(componentKey)).getString());
+							//((BHTextField)comp).setText(((StringValue)selection.get(componentKey)).getString());
 						}
 					}
 					
@@ -247,7 +247,7 @@ public class PlatformController {
 					for(String componentKey : componentKeys){
 						IBHComponent comp = componentMap.get(componentKey);
 						if(componentMap.get(componentKey) instanceof BHTextField){
-							((BHTextField)comp).setText(((StringValue)selection.get(componentKey)).getString());
+							//((BHTextField)comp).setText(((StringValue)selection.get(componentKey)).getString());
 						}
 					}
 				}else if(e.getSource() instanceof DTOScenario){
