@@ -9,10 +9,13 @@ import java.awt.event.ActionEvent;
 import java.util.Map;
 import org.bh.controller.Controller;
 import org.bh.controller.ControllerException;
+import org.bh.data.DTOPeriod;
+import org.bh.data.IDTO;
 import org.bh.data.types.Calculable;
 import org.bh.data.types.IValue;
 import org.bh.gui.ViewException;
 import org.bh.platform.PlatformEvent;
+import org.bh.plugin.gcc.data.DTOGCCBalanceSheet;
 
 /**
  *
@@ -39,7 +42,18 @@ public final class ControllerBHBalanceSheetForm extends Controller{
     public void platformEvent(PlatformEvent e) {
         switch(e.getEventType()){
             case SAVEALL:
-                this.saveAllToModel();
+                IDTO<?> model = this.getModel();
+                if(model != null){
+                    if(model instanceof DTOPeriod){
+                        DTOGCCBalanceSheet bs = new DTOGCCBalanceSheet();
+                        ((DTOPeriod)this.getModel()).addChild(bs);
+                        this.setModel(bs);
+                        this.saveAllToModel();
+                    }else if(model instanceof DTOGCCBalanceSheet){
+                        this.saveAllToModel();
+                    }
+                }
+                
                 break;
             case DATA_CHANGED:
                 break;
