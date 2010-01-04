@@ -6,7 +6,6 @@ import javax.swing.SwingUtilities;
 
 import org.apache.log4j.Logger;
 import org.bh.data.IPeriodicalValuesDTO;
-import org.bh.gui.swing.BHSplashScreen;
 import org.bh.platform.PlatformController;
 import org.bh.platform.PluginManager;
 import org.bh.platform.Services;
@@ -36,8 +35,8 @@ public class BusinessHorizon {
 		// set Look&Feel
 		Services.setNimbusLookAndFeel();
 		
-		// show splash screen TODO Thiele.Klaus Replace with java.awt.Splashscreen
-		new Thread(new BHSplashScreen()).start();
+		// TODO Thiele.Klaus Replace with java.awt.Splashscreen
+		// new Thread(new BHSplashScreen()).start();
 
 		Thread
 				.setDefaultUncaughtExceptionHandler(new UncaughtExceptionHandler() {
