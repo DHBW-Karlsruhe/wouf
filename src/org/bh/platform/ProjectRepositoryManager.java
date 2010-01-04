@@ -27,6 +27,8 @@ public class ProjectRepositoryManager {
 	private static final Logger log = Logger.getLogger(PlatformPersistence.class);
 	
     private static boolean isChanged;
+    
+    public static ChangedListener cL = new ChangedListener();
 
 	/**
      * Adds a new project to the actual repository.
@@ -110,16 +112,21 @@ public class ProjectRepositoryManager {
 
 	public static void setChanged(boolean isChanged) {
 		ProjectRepositoryManager.isChanged = isChanged;
-		log.debug("Flag setChanged set to" + isChanged);
+		log.debug("Flag isChanged set to " + isChanged);
 	}
-    
-	class ChangedListener implements IPlatformListener {
+  
+}
 
-		@Override
-		public void platformEvent(PlatformEvent e) {
-			if (PlatformEvent.Type.DATA_CHANGED == e.getEventType())
-				setChanged(true);
-		}
-		
+class ChangedListener implements IPlatformListener {
+	
+	public ChangedListener () {
+		Services.addPlatformListener(this);
 	}
+
+	@Override
+	public void platformEvent(PlatformEvent e) {
+		if (PlatformEvent.Type.DATA_CHANGED == e.getEventType())
+			ProjectRepositoryManager.setChanged(true);
+	}
+	
 }
