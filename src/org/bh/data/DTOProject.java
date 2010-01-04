@@ -25,6 +25,11 @@ public class DTOProject extends DTO<DTOScenario> {
 		 * comment
 		 */
 		COMMENT;
+		
+		@Override
+		public String toString() {
+			return getClass().getName() + "." + super.toString();
+		}	
 	}
 
 	public DTOProject() {

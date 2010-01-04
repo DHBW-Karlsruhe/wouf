@@ -40,7 +40,12 @@ public class DTOPeriod extends DTO<IPeriodicalValuesDTO> {
 		/**
 		 * FreeCashFlow
 		 */
-		@Method FCF,
+		@Method FCF;
+		
+		@Override
+		public String toString() {
+			return getClass().getName() + "." + super.toString();
+		}	
 	}
 	
 	DTOPeriod previous = null;

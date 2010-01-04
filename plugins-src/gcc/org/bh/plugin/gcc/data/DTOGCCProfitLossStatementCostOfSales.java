@@ -138,6 +138,11 @@ public class DTOGCCProfitLossStatementCostOfSales extends DTO implements
 		 * (von der BWL Gruppe als extra Feld gewünscht)
 		 */
 		VVSBA;
+		
+		@Override
+		public String toString() {
+			return getClass().getName() + "." + super.toString();
+		}	
 
 	}
 

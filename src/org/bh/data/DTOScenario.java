@@ -88,7 +88,12 @@ public class DTOScenario extends DTO<DTOPeriod> {
 		/**
 		 * Stochastic process
 		 */
-		STOCHASTIC_PROCESS,
+		STOCHASTIC_PROCESS;
+
+		@Override
+		public String toString() {
+			return getClass().getName() + "." + super.toString();
+		}	
 	}
 	
 	/**

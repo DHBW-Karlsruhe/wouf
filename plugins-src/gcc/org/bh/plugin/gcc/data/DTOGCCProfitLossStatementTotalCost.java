@@ -145,6 +145,11 @@ public class DTOGCCProfitLossStatementTotalCost extends DTO implements
 		 */
 		@Method
 		JUJF;
+		
+		@Override
+		public String toString() {
+			return getClass().getName() + "." + super.toString();
+		}	
 
 	}
 

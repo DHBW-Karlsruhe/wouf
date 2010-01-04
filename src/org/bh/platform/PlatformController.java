@@ -68,8 +68,7 @@ public class PlatformController {
 		 */		
 		log.debug("Loading properties");		
 		preferences = Preferences.userNodeForPackage(PlatformController.class);		
-		
-		
+				
 		
 		/*------------------------------------
 		 * Fill Repo (sample DTOs)

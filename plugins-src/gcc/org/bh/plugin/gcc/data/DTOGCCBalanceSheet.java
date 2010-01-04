@@ -358,6 +358,11 @@ public class DTOGCCBalanceSheet extends DTO implements IPeriodicalValuesDTO {
 		 * -- passive latente Steuern
 		 */
 		PLS;
+		
+		@Override
+		public String toString() {
+			return getClass().getName() + "." + super.toString();
+		}	
 	}
 
 	public DTOGCCBalanceSheet() {
