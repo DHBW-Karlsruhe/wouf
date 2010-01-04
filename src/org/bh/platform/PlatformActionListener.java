@@ -18,9 +18,11 @@ import org.bh.data.DTOProject;
 import org.bh.data.DTOScenario;
 import org.bh.data.types.StringValue;
 import org.bh.gui.swing.BHMainFrame;
+import org.bh.gui.swing.BHStatusBar;
 import org.bh.gui.swing.BHTreeNode;
 import org.bh.gui.swing.IBHAction;
 import org.bh.platform.PlatformController.BHTreeModel;
+import org.bh.platform.i18n.BHTranslator;
 
 /**
  * The PlatformActionListener handles all actions that are fired by a button
@@ -103,6 +105,34 @@ class PlatformActionListener implements ActionListener {
 			
 		case PROJECTDUPLICATE:
 			//TODO Zuckschwerdt.Lars
+//			TreePath currentDuplicateProjectSelection = bhmf.getBHTree().getSelectionPath();
+//			if(currentDuplicateProjectSelection != null){
+//				//Zugriff auf markiertes Projekt
+//				BHTreeNode duplicateProjectNode = (BHTreeNode)bhmf.getBHTree().getSelectionPath().getLastPathComponent();
+//				
+//				//zu kopierendes Project in eigene Variable
+//				DTOProject duplicateProject = (DTOProject)duplicateProjectNode.getUserObject();
+//				
+//				//neues DTOProject mit Referenz auf den Klon
+//				DTOProject newProject = (DTOProject)duplicateProject.clone();
+//				
+//				BHTreeNode newProjectNode = new BHTreeNode(newProject);
+//				((DefaultTreeModel)bhmf.getBHTree().getModel()).insertNodeInto(
+//						newProjectNode, 
+//						(DefaultMutableTreeNode)bhmf.getBHTree().getModel().getRoot(), 
+//						((DefaultMutableTreeNode)bhmf.getBHTree().getModel().getRoot()).getChildCount()
+//				);
+//				for(int x = 0; x <= newProject.getChildren().size(); x++){
+//					System.out.println(x);
+//				}
+//				
+//				
+//				//last steps: unfold tree to new element, set focus and start editing
+//				bhmf.getBHTree().scrollPathToVisible(new TreePath(newProjectNode.getPath()));
+//				bhmf.getBHTree().startEditingAtPath(new TreePath(newProjectNode.getPath()));
+//				
+//				
+//			}
 			break;
 			
 		// TODO Katzor.Marcus
@@ -124,7 +154,7 @@ class PlatformActionListener implements ActionListener {
 					((BHTreeModel) bhmf.getBHTree().getModel()).removeNodeFromParent(removeProjectNode);
 					projectRepoManager.removeProject((DTOProject) removeProjectNode.getUserObject());
 				} else {
-					System.out.println("ERROR");					
+					BHStatusBar.getInstance().setHint(BHTranslator.getInstance().translate("EisSelectProject"), true);										
 				}
 			}
 			break;
@@ -149,7 +179,7 @@ class PlatformActionListener implements ActionListener {
 					((BHTreeModel) bhmf.getBHTree().getModel()).removeNodeFromParent(removeScenarioNode);
 					((DTOScenario)((BHTreeNode)removeScenarioNode.getParent()).getUserObject()).removeChild((DTOPeriod) removeScenarioNode.getUserObject());
 				} else {
-					System.out.println("ERROR");					
+					BHStatusBar.getInstance().setHint(BHTranslator.getInstance().translate("EisSelectScenario"), true);					
 				}
 			}
 			break;
