@@ -22,7 +22,7 @@ public class ClassCrawler {
       String packageName       = ( args.length > 0 ) ? args[0] : null;
       String classNameSearched = ( args.length > 1 ) ? args[1] : null;
       System.out.println( "\n---- Gefundene Klassen in " + packageName + ":" );
-      List<Class<?>> classes = getClasses( packageName, classNameSearched );
+      List<Class<?>> classes = getClassesSimple( packageName, classNameSearched );
       for( Class<?> clazz : classes )
          System.out.println( clazz );
       System.out.println( "\n---- Instanziierte Objekte:" );
