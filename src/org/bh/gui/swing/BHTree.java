@@ -154,6 +154,16 @@ public class BHTree extends JTree {
 		);
 		return newScenarioNode;
 	}
+	/**
+	 * method to add a new PeriodNode
+	 * 
+	 * @param newPeriod
+	 * 		DTOPeriod
+	 * @param bhmf
+	 * 		BusinessHorizon MainFrame
+	 * @return
+	 * 		BHTreeNode
+	 */
 	public BHTreeNode addPeriodNode(DTOPeriod newPeriod, BHMainFrame bhmf){
 		BHTreeNode newPeriodNode = new BHTreeNode(newPeriod);
 		((DefaultTreeModel)bhmf.getBHTree().getModel()).insertNodeInto(
@@ -163,12 +173,36 @@ public class BHTree extends JTree {
 		);
 		return newPeriodNode;
 	}
+	/**
+	 * method to duplicate a ScenarioNode
+	 * 
+	 * @param newScenario
+	 * 		DTOScenario
+	 * @param bhmf
+	 * 		BusinessHorizon MainFrame
+	 * @param parentNode
+	 * 		BHTreeNode
+	 * @return
+	 * 		newScenarioNode
+	 */
 	public BHTreeNode duplicateScenarioNode(DTOScenario newScenario, BHMainFrame bhmf, BHTreeNode parentNode){
 		BHTreeNode newScenarioNode = new BHTreeNode(newScenario);
 		((DefaultTreeModel)bhmf.getBHTree().getModel()).insertNodeInto(newScenarioNode, parentNode, parentNode.getChildCount());
 		parentNode.add(newScenarioNode);
 		return newScenarioNode;
 	}
+	/**
+	 * method to duplicate a PeriodNode
+	 * 
+	 * @param newPeriod
+	 * 		DTOPeriod
+	 * @param bhmf
+	 * 		BusinessHorizon MainFrame
+	 * @param parentNode
+	 * 		BHTreeNode
+	 * @return
+	 * 		newPeriodNode
+	 */
 	public BHTreeNode duplicatePeriodNode(DTOPeriod newPeriod, BHMainFrame bhmf, BHTreeNode parentNode){
 		BHTreeNode newPeriodNode = new BHTreeNode(newPeriod);
 		((DefaultTreeModel)bhmf.getBHTree().getModel()).insertNodeInto(newPeriodNode, parentNode, parentNode.getChildCount());

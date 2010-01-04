@@ -1,11 +1,9 @@
 package org.bh.platform;
 
-import java.awt.BorderLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
 
-import javax.swing.JComboBox;
 import javax.swing.JFileChooser;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
@@ -105,32 +103,7 @@ class PlatformActionListener implements ActionListener {
 			break;
 			
 		case PROJECTDUPLICATE:
-			//TODO Zuckschwerdt.Lars
-			TreePath currentDuplicateProjectSelection = bhmf.getBHTree().getSelectionPath();
-			if(currentDuplicateProjectSelection != null){
-				//Zugriff auf markiertes Projekt
-				BHTreeNode duplicateProjectNode = (BHTreeNode)bhmf.getBHTree().getSelectionPath().getLastPathComponent();
-				
-				//zu kopierendes Project in eigene Variable
-				DTOProject duplicateProject = (DTOProject)duplicateProjectNode.getUserObject();
-				
-				//neues DTOProject mit Referenz auf den Klon
-				DTOProject newProject = (DTOProject)duplicateProject.clone();
-				
-				BHTreeNode newProjectNode = bhmf.getBHTree().addProjectNode(newProject, bhmf);
-				
-				for(int x = 0; x < newProject.getChildren().size(); x++){
-					DTOScenario newScenario = duplicateProject.getChild(x);
-					System.out.println(newScenario.toString());
-					BHTreeNode newScenarioNode = bhmf.getBHTree().duplicateScenarioNode(newScenario, bhmf, newProjectNode);
-					
-					for(int y = 0; y < newScenario.getChildren().size(); y++){
-						DTOPeriod newPeriod = newScenario.getChild(y);
-						newScenarioNode.add(bhmf.getBHTree().duplicatePeriodNode(newPeriod, bhmf, newScenarioNode));
-					}
-				}
-				
-			}
+			this.duplicateProject();
 			break;
 			
 		// TODO Katzor.Marcus
@@ -162,7 +135,7 @@ class PlatformActionListener implements ActionListener {
 			break;
 			
 		case SCENARIODUPLICATE:
-			//TODO Zuckschwerdt.Lars
+			this.duplicateScenario();
 			break;
 			
 		case SCENARIOMOVE:
@@ -390,6 +363,53 @@ class PlatformActionListener implements ActionListener {
 			//last steps: unfold tree to new element, set focus and start editing
 			bhmf.getBHTree().scrollPathToVisible(new TreePath(newPeriodNode.getPath()));
 			bhmf.getBHTree().startEditingAtPath(new TreePath(newPeriodNode.getPath()));
+		}
+	}
+	private void duplicateProject(){
+		TreePath currentDuplicateProjectSelection = bhmf.getBHTree().getSelectionPath();
+		if(currentDuplicateProjectSelection != null){
+			//Zugriff auf markiertes Projekt
+			BHTreeNode duplicateProjectNode = (BHTreeNode)bhmf.getBHTree().getSelectionPath().getLastPathComponent();
+			
+			//zu kopierendes Project in eigene Variable
+			DTOProject duplicateProject = (DTOProject)duplicateProjectNode.getUserObject();
+			
+			//neues DTOProject mit Referenz auf den Klon
+			DTOProject newProject = (DTOProject)duplicateProject.clone();
+			
+			BHTreeNode newProjectNode = bhmf.getBHTree().addProjectNode(newProject, bhmf);
+			
+			for(int x = 0; x < newProject.getChildren().size(); x++){
+				DTOScenario newScenario = duplicateProject.getChild(x);
+				BHTreeNode newScenarioNode = bhmf.getBHTree().duplicateScenarioNode(newScenario, bhmf, newProjectNode);
+				
+				for(int y = 0; y < newScenario.getChildren().size(); y++){
+					DTOPeriod newPeriod = newScenario.getChild(y);
+					newScenarioNode.add(bhmf.getBHTree().duplicatePeriodNode(newPeriod, bhmf, newScenarioNode));
+				}
+			}
+			
+		}
+	}
+	private void duplicateScenario(){
+		TreePath currentDuplicateProjectSelection = bhmf.getBHTree().getSelectionPath();
+		if(currentDuplicateProjectSelection != null){
+			//Zugriff auf markiertes Projekt
+			BHTreeNode duplicateScenarioNode = (BHTreeNode)bhmf.getBHTree().getSelectionPath().getLastPathComponent();
+			
+			//zu kopierendes Project in eigene Variable
+			DTOScenario duplicateScenario = (DTOScenario)duplicateScenarioNode.getUserObject();
+			
+			//neues DTOProject mit Referenz auf den Klon
+			DTOScenario newScenario = (DTOScenario)duplicateScenario.clone();
+			
+			BHTreeNode newScenarioNode = bhmf.getBHTree().addScenarioNode(newScenario, bhmf);
+			
+				for(int y = 0; y < newScenario.getChildren().size(); y++){
+					DTOPeriod newPeriod = newScenario.getChild(y);
+					newScenarioNode.add(bhmf.getBHTree().duplicatePeriodNode(newPeriod, bhmf, newScenarioNode));
+				}
+			
 		}
 	}
 
