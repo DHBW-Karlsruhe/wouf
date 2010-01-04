@@ -8,8 +8,6 @@ import javax.swing.JFileChooser;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.WindowConstants;
-import javax.swing.tree.DefaultMutableTreeNode;
-import javax.swing.tree.DefaultTreeModel;
 import javax.swing.tree.TreePath;
 
 import org.apache.log4j.Logger;
@@ -348,13 +346,9 @@ class PlatformActionListener implements ActionListener {
 		newProject.put(DTOProject.Key.NAME, new StringValue("neues Projekt"));
 		//add it to DTO-Repository
 		projectRepoManager.addProject(newProject);
+		
 		//and create a Node for tree on gui
-		BHTreeNode newProjectNode = new BHTreeNode(newProject);
-		((DefaultTreeModel)bhmf.getBHTree().getModel()).insertNodeInto(
-				newProjectNode, 
-				(DefaultMutableTreeNode)bhmf.getBHTree().getModel().getRoot(), 
-				((DefaultMutableTreeNode)bhmf.getBHTree().getModel().getRoot()).getChildCount()
-		);
+		BHTreeNode newProjectNode = bhmf.getBHTree().addProjectNode(newProject, bhmf);
 		
 		//last steps: unfold tree to new element, set focus and start editing
 		bhmf.getBHTree().scrollPathToVisible(new TreePath(newProjectNode.getPath()));
@@ -373,12 +367,7 @@ class PlatformActionListener implements ActionListener {
 			((DTOProject)((BHTreeNode)bhmf.getBHTree().getSelectionPath().getPathComponent(1)).getUserObject()).addChild(newScenario);
 			
 			//...and insert it into GUI-Tree
-			BHTreeNode newScenarioNode = new BHTreeNode(newScenario);
-			((BHTreeModel)bhmf.getBHTree().getModel()).insertNodeInto(
-					newScenarioNode, 
-					(BHTreeNode)(bhmf.getBHTree().getSelectionPath().getPathComponent(1)), 
-					((BHTreeNode) bhmf.getBHTree().getSelectionPath().getPathComponent(1)).getChildCount()
-			);
+			BHTreeNode newScenarioNode = bhmf.getBHTree().addScenarioNode(newScenario, bhmf);
 			
 			//last steps: unfold tree to new element, set focus and start editing
 			bhmf.getBHTree().scrollPathToVisible(new TreePath(newScenarioNode.getPath()));

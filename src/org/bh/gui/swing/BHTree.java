@@ -116,5 +116,43 @@ public class BHTree extends JTree {
 			return treeCell;
 		}
 	}
+	/**
+	 * method to create a new ProjectNode
+	 * 
+	 * @param newProject
+	 * 		DTOProject
+	 * @param bhmf
+	 * 		BusinessHoriozon MainFrame
+	 * @return
+	 * 		BHTreeNode
+	 */
+	public BHTreeNode addProjectNode(DTOProject newProject, BHMainFrame bhmf){
+		BHTreeNode newProjectNode = new BHTreeNode(newProject);
+		((DefaultTreeModel)bhmf.getBHTree().getModel()).insertNodeInto(
+				newProjectNode, 
+				(DefaultMutableTreeNode)bhmf.getBHTree().getModel().getRoot(), 
+				((DefaultMutableTreeNode)bhmf.getBHTree().getModel().getRoot()).getChildCount()
+		);
+		return newProjectNode;
+	}
+	/**
+	 * method to create a new ScenarioNode
+	 * 
+	 * @param newScenario
+	 * 		DTOScenario
+	 * @param bhmf
+	 * 		BusinessHoriozon MainFrame
+	 * @return
+	 * 		BHTreeNode
+	 */
+	public BHTreeNode addScenarioNode(DTOScenario newScenario, BHMainFrame bhmf){
+		BHTreeNode newScenarioNode = new BHTreeNode(newScenario);
+		((DefaultTreeModel)bhmf.getBHTree().getModel()).insertNodeInto(
+				newScenarioNode, 
+				(BHTreeNode)(bhmf.getBHTree().getSelectionPath().getPathComponent(1)), 
+				((BHTreeNode) bhmf.getBHTree().getSelectionPath().getPathComponent(1)).getChildCount()
+		);
+		return newScenarioNode;
+	}
 
 }
