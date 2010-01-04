@@ -1,16 +1,20 @@
 package org.bh.platform;
 
-import java.beans.PropertyChangeEvent;
-import java.beans.PropertyChangeListener;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
-import javax.swing.event.*;
-import javax.swing.tree.*;
+import java.util.prefs.Preferences;
 
 import org.apache.log4j.Logger;
-import org.bh.BusinessHorizon;
+
+import javax.swing.event.TreeSelectionEvent;
+import javax.swing.event.TreeSelectionListener;
+import javax.swing.tree.DefaultMutableTreeNode;
+import javax.swing.tree.DefaultTreeModel;
+import javax.swing.tree.TreeNode;
+import javax.swing.tree.TreePath;
+
 import org.bh.data.*;
 import org.bh.data.types.StringValue;
 import org.bh.gui.ViewException;
@@ -38,7 +42,34 @@ public class PlatformController {
 	BHProjectView projectView;
 	BHScenarioView scenarioView;
 	
+	/**
+	 * Reference to a preference object which allows 
+	 * platform independent 
+	 * @author Marcus Katzor
+	 */
+	public static Preferences preferences;
+	
+	/**
+	 * Path to the properties file
+	 * @author Marcus Katzor
+	 */
+	private static final String propertiesFilePath = "";
+	
+	/**
+	 * Logging
+	 */
+	private static final Logger log = Logger.getLogger(PluginManager.class);
+	
 	public PlatformController() {
+		
+		/**
+		 * Try to load properties
+		 * @author Marcus Katzor 
+		 */		
+		log.debug("Loading properties");		
+		preferences = Preferences.userNodeForPackage(PlatformController.class);		
+		
+		
 		
 		/*------------------------------------
 		 * Fill Repo (sample DTOs)

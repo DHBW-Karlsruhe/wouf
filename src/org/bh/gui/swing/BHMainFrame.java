@@ -3,16 +3,20 @@ package org.bh.gui.swing;
 import java.awt.BorderLayout;
 import java.awt.Component;
 import java.awt.Dimension;
+import java.util.prefs.BackingStoreException;
 
 import javax.swing.ImageIcon;
 import javax.swing.JFrame;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JSplitPane;
 import javax.swing.UIManager;
 import javax.swing.WindowConstants;
 
+import org.apache.log4j.Logger;
 import org.bh.platform.IPlatformListener;
+import org.bh.platform.PlatformController;
 import org.bh.platform.PlatformEvent;
 import org.bh.platform.Services;
 import org.bh.platform.PlatformEvent.Type;
@@ -157,6 +161,29 @@ public class BHMainFrame extends JFrame implements IPlatformListener {
 		this.setIconImage(new ImageIcon("/org/bh/images/bh-logo.jpg").getImage()); //TODO Test on windows
 		
 	}
+	
+	
+	@Override
+	public void dispose() {
+		int i = JOptionPane.showConfirmDialog(this, Services.getTranslator().translate("Pquit"));
+		if (i == JOptionPane.YES_OPTION) {
+			// TODO finalize application.
+		
+			/**
+			 * Try to save all preferences
+			 * @author Marcus Katzor
+			 */
+			try {
+				Logger.getLogger(getClass()).debug("Save application preferences");
+				PlatformController.preferences.flush();
+			} catch (BackingStoreException e) {
+				Logger.getLogger(getClass()).error("Error while saving application preferences", e);
+			}
+			
+			super.dispose();
+		}
+		
+	}
 
 	public void addContentForms(Component content) {
 		JScrollPane formsScrollPane = new JScrollPane(content);
@@ -200,4 +227,6 @@ public class BHMainFrame extends JFrame implements IPlatformListener {
 			this.requestFocus();
 		}
 	}
+	
+	
 }

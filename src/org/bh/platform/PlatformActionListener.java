@@ -97,11 +97,7 @@ class PlatformActionListener implements ActionListener {
 			
 		case FILEQUIT:
 			//TODO Prüfen und ggf. implementieren!
-			int i = JOptionPane.showConfirmDialog(bhmf, Services.getTranslator().translate("Pquit"));
-			if (i == JOptionPane.YES_OPTION) {
-				// TODO finalize application.
-				bhmf.dispose();
-			}
+			bhmf.dispose();
 			break;
 			
 		case PROJECTCREATE:
