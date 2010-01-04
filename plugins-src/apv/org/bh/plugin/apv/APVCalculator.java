@@ -26,6 +26,12 @@ public class APVCalculator implements IShareholderValueCalculator {
 	private static final String UNIQUE_ID = "apv";
 	private static final String GUI_KEY = "apv";
 	
+	public enum Result {
+		SHAREHOLDER_VALUE,
+		PRESENT_VALUE_FCF,
+		PRESENT_VALUE_TAX_SHIELD;
+	}
+	
 	public Map<String, Calculable[]> calculate(DTOScenario scenario) {
 		Calculable[] fcf = new Calculable[scenario.getChildrenSize()];
 		Calculable[] fk = new Calculable[scenario.getChildrenSize()];
@@ -58,8 +64,8 @@ public class APVCalculator implements IShareholderValueCalculator {
 		}
 		Map<String, Calculable[]> result = new HashMap<String, Calculable[]>();
 		result.put(SHAREHOLDER_VALUE, uw);
-		result.put("PRESENT_VALUE_FCF", presentValueFCF);
-		result.put("PRESENT_VALUE_TAX_SHIELD", presentValueTaxShield);
+		result.put(Result.PRESENT_VALUE_FCF.name(), presentValueFCF);
+		result.put(Result.PRESENT_VALUE_TAX_SHIELD.name(), presentValueTaxShield);
 		return result;
 	}
 

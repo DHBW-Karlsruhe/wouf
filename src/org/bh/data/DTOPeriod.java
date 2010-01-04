@@ -2,6 +2,7 @@ package org.bh.data;
 
 import java.util.Map;
 import java.util.ServiceLoader;
+import java.util.Map.Entry;
 
 import org.apache.log4j.Logger;
 import org.bh.calculation.ICalculationPreparer;
@@ -51,7 +52,7 @@ public class DTOPeriod extends DTO<IPeriodicalValuesDTO> {
      */
 	public DTOPeriod() {
 		super(Key.values());
-		log.debug("Object created!");
+		//log.debug("Object created!");
 	}
 	
 	/**
@@ -164,7 +165,7 @@ public class DTOPeriod extends DTO<IPeriodicalValuesDTO> {
 	public void regenerateMethodsList() {
 		regenerateMethodsList(Key.values());
 	}
-	
+
 	/**
 	 * return a period clone (used in stochastic process)
 	 * @author Michael Löckelt
@@ -177,11 +178,11 @@ public class DTOPeriod extends DTO<IPeriodicalValuesDTO> {
 			for (Map.Entry<String, IValue> entry: values.entrySet()) {
 				result.put(entry.getKey(), entry.getValue().clone());
 				// Copy and add children to the new instance
-				for (IPeriodicalValuesDTO child : children) {
-					//TODO check mit Robert
-					result.addChild((IPeriodicalValuesDTO) child.clone());
-				}
-			}			
+			}
+			for (IPeriodicalValuesDTO child : children) {
+				//TODO check mit Robert
+				result.addChild((IPeriodicalValuesDTO) child.clone());
+			}
 		} catch (Exception e) {
 			throw new DTOAccessException("An error occured during the cloning of a DTO. Class: " 
 					+ getClass().getName());

@@ -7,6 +7,8 @@
 	<classpathentry excluding="**/.svn/" kind="src" output="plugins/fcf" path="plugins-src/fcf"/>
 	<classpathentry excluding="**/.svn/" kind="src" output="plugins/fte" path="plugins-src/fte"/>
 	<classpathentry excluding="**/.svn/" kind="src" output="plugins/apv" path="plugins-src/apv"/>
+	<classpathentry excluding="**/.svn/" kind="src" output="plugins/randomWalk" path="plugins-src/randomWalk"/>
+	<classpathentry excluding="**/.svn/" kind="src" output="plugins/wienerProcess" path="plugins-src/wienerProcess"/>
 	<classpathentry excluding="**/.svn/" kind="src" output="plugins/directinput" path="plugins-src/directinput"/>
 	<classpathentry kind="src" output="plugins/xmldataexchange" path="plugins-src/xmldataexchange"/>
 	<classpathentry kind="src" path="lib"/>

@@ -22,6 +22,17 @@ import org.bh.data.types.DoubleValue;
 public class FCFCalculator implements IShareholderValueCalculator {
 	private static final String UNIQUE_ID = "fcf";
 	private static final String GUI_KEY = "fcf";
+	
+	public enum Result {
+		SHAREHOLDER_VALUE,
+		PRESENT_VALUE_FCF,
+		EQUITY_RETURN_RATE_FCF,
+		DEBT_TO_EQUITY_RATIO,
+		WACC_EQUITY,
+		WACC_DEBTS,
+		WACC;
+	}	
+	
 	@Override
 	public Map<String, Calculable[]> calculate(DTOScenario scenario) {
 		Calculable[] fcf = new Calculable[scenario.getChildrenSize()];
@@ -106,12 +117,12 @@ public class FCFCalculator implements IShareholderValueCalculator {
 		
 		Map<String, Calculable[]> result = new HashMap<String, Calculable[]>();
 		result.put(SHAREHOLDER_VALUE, uw);
-		result.put("PRESENT_VALUE_FCF", FCFPresentValueTaxShield);
-		result.put("EQUITY_RETURN_RATE_FCF", EKrFCF);
-		result.put("DEBT_TO_EQUITY_RATIO", calcDebtToEquityRatio(uw, fk));
-		result.put("WACC_EQUITY", waccEquity);
-		result.put("WACC_DEBTS", waccDebts);
-		result.put("WACC", calcWACC(waccEquity, waccDebts));
+		result.put(Result.PRESENT_VALUE_FCF.name(), FCFPresentValueTaxShield);
+		result.put(Result.EQUITY_RETURN_RATE_FCF.name(), EKrFCF);
+		result.put(Result.DEBT_TO_EQUITY_RATIO.name(), calcDebtToEquityRatio(uw, fk));
+		result.put(Result.WACC_EQUITY.name(), waccEquity);
+		result.put(Result.WACC_DEBTS.name(), waccDebts);
+		result.put(Result.WACC.name(), calcWACC(waccEquity, waccDebts));
 		
 		return result;
 	}

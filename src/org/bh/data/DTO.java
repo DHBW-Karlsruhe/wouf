@@ -293,11 +293,11 @@ public abstract class DTO<ChildT extends IDTO> implements IDTO<ChildT> {
 			for (Map.Entry<String, IValue> entry: values.entrySet()) {
 				result.put(entry.getKey(), entry.getValue().clone());
 				// Copy and add children to the new instance
-				for (ChildT child : children) {
-					//TODO check mit Robert
-					result.addChild((ChildT) child.clone());
-				}
-			}			
+			}	
+			for (ChildT child : children) {
+				//TODO check mit Robert
+				result.addChild((ChildT) child.clone());
+			}
 		} catch (Exception e) {
 			throw new DTOAccessException("An error occured during the cloning of a DTO. Class: " 
 					+ getClass().getName());

@@ -23,6 +23,16 @@ import org.bh.data.types.DoubleValue;
 public class FTECalculator implements IShareholderValueCalculator {
 	private static final String UNIQUE_ID = "fte";
 	private static final String GUI_KEY = "fte";
+	
+	public enum Result {
+		SHAREHOLDER_VALUE,
+		PRESENT_VALUE_TAX_SHIELD,
+		FLOW_TO_EQUITY_INTEREST,
+		FLOW_TO_EQUITY_TAX_SHIELD,
+		FLOW_TO_EQUITY,
+		DEBT_AMORTISATION,
+		EQUITY_RETURN_RATE_FTE;
+	}
 
 	@Override
 	public Map<String, Calculable[]> calculate(DTOScenario scenario) {
@@ -115,12 +125,12 @@ public class FTECalculator implements IShareholderValueCalculator {
 			
 		Map<String, Calculable[]> result = new HashMap<String, Calculable[]>();
 		result.put(SHAREHOLDER_VALUE, uw);
-		result.put("PRESENT_VALUE_TAX_SHIELD", PresentValueTaxShield);
-		result.put("FLOW_TO_EQUITY_INTEREST", FTEInterest);
-		result.put("FLOW_TO_EQUITY_TAX_SHIELD", FTETaxShield);
-		result.put("FLOW_TO_EQUITY", FTE);
-		result.put("DEBT_AMORTISATION", FTEDebtAmort);
-		result.put("EQUITY_RETURN_RATE_FTE", EKrFTE);
+		result.put(Result.PRESENT_VALUE_TAX_SHIELD.name(), PresentValueTaxShield);
+		result.put(Result.FLOW_TO_EQUITY_INTEREST.name(), FTEInterest);
+		result.put(Result.FLOW_TO_EQUITY_TAX_SHIELD.name(), FTETaxShield);
+		result.put(Result.FLOW_TO_EQUITY.name(), FTE);
+		result.put(Result.DEBT_AMORTISATION.name(), FTEDebtAmort);
+		result.put(Result.EQUITY_RETURN_RATE_FTE.name(), EKrFTE);
 		return result;
 	}
 
