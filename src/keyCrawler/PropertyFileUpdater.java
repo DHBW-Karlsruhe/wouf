@@ -12,10 +12,19 @@ import java.util.logging.Logger;
 public class PropertyFileUpdater {
 
     public static void main(String[] args) {
+        if(args.length >= 3){
+            args[0] = args[0] + args[1];
+            args[1] = args[1] + args[2];
+        }
+            // args[0] represent path to PropertyFile
             KeyWriter kw = new KeyWriter(args[0]);
-            for (Class<?> clazz : ClassCrawler.getClasses(args[1], null)) {
+        try {
+            for (Class<?> clazz : ClassCrawler.getClassesSimple(args[1], null)) {
                 KeyWriter.catchEnumConstsFromClass(clazz);
             }
+        } catch (ClassNotFoundException ex) {
+            System.out.println("NCF");
+        }
     }
 
 }

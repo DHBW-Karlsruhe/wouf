@@ -47,7 +47,7 @@ public final class ControllerBHBalanceSheetForm extends Controller{
     }
 
     @Override
-    IValue typeConverter(String value) throws ControllerException {
+    protected IValue typeConverter(String value) throws ControllerException {
         //TODO define conversion Rules for the fields
         return Calculable.parseCalculable(value);
     }

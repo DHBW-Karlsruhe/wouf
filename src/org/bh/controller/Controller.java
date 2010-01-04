@@ -132,7 +132,7 @@ public abstract class Controller implements IController, ActionListener, IPlatfo
      * @param value
      * @return
      */
-    abstract IValue typeConverter(String value) throws ControllerException;
+    protected abstract IValue typeConverter(String value) throws ControllerException;
 
     /**
      * save specific component to model
