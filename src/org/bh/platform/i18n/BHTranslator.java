@@ -53,7 +53,7 @@ public class BHTranslator implements ITranslator {
 	 * Available <code>Locale</code>s. Only provided if corresponding properties
 	 * file is provided.
 	 */
-	private static final Locale[] availableLocales = {}; //{ Locale.US, Locale.GERMANY };
+	private static final Locale[] availableLocales = {Locale.US, Locale.GERMANY };
 
 	/**
 	 * Singleton instance.
