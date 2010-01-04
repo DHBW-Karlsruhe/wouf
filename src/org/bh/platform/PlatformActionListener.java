@@ -2,6 +2,7 @@ package org.bh.platform;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
 
 import javax.swing.JFileChooser;
 import javax.swing.JFrame;
@@ -11,6 +12,7 @@ import javax.swing.tree.DefaultMutableTreeNode;
 import javax.swing.tree.DefaultTreeModel;
 import javax.swing.tree.TreePath;
 
+import org.apache.log4j.Logger;
 import org.bh.data.DTOPeriod;
 import org.bh.data.DTOProject;
 import org.bh.data.DTOScenario;
@@ -25,13 +27,17 @@ import org.bh.platform.PlatformController.BHTreeModel;
  * etc. of the platform.
  */
 class PlatformActionListener implements ActionListener {
+	
+	private static final Logger log = Logger.getLogger(PlatformActionListener.class);
 
 	BHMainFrame bhmf;
 	ProjectRepositoryManager projectRepoManager;
+	PlatformController pC;
 	
-	public PlatformActionListener(BHMainFrame bhmf, ProjectRepositoryManager projectRepoManager){
+	public PlatformActionListener(BHMainFrame bhmf, ProjectRepositoryManager projectRepoManager, PlatformController platformController){
 		this.bhmf = bhmf;
 		this.projectRepoManager = projectRepoManager;
+		this.pC = platformController;
 	}
 	
 	
@@ -44,31 +50,42 @@ class PlatformActionListener implements ActionListener {
 		//do right action...
 		switch (actionKey) {
 		
+		/*
+		 * Clear current workspace
+		 * 
+		 * @author Michael Löckelt
+		 */
 		case FILENEW:
-			
+			this.fileNew();
 			break;
 		
-		// TODO Loeckelt.Michael  
-			
+		/*
+		 * Open a workspace 
+		 * 
+		 * @author Michael Löckelt
+		 */
 		case FILEOPEN:
-			System.out.println("FILEOPEN gefeuert");
-			int returnVal = bhmf.getChooser().showOpenDialog(bhmf);
-			if (returnVal == JFileChooser.APPROVE_OPTION) {
-				System.out.println("You chose to open this file: "
-						+ bhmf.getChooser().getSelectedFile().getName());
-	
-			}
+			// this.fileOpen();
 			break;
 			
-		// TODO Loeckelt.Michael
+		/*
+		 * Save the whole workspace using the already defined filepath
+		 * 
+		 * @author Michael Löckelt
+		 */
 			
 		case FILESAVE:
-			System.out.println("bla");
+			// this.fileSave();
 			break;
 			
-		// TODO Loeckelt.Michael
+		/*
+		 * Save the whole workspace - incl. filepath save dialog
+		 * 
+		 * @author Michael Löckelt
+		 */
 			
 		case FILESAVEAS:
+			// this.fileSaveAs();
 			break;
 			
 		case FILEQUIT:
@@ -238,7 +255,63 @@ class PlatformActionListener implements ActionListener {
 		}
 	}
 	
-	public void createProject(){
+	private void fileNew() {
+		log.debug("handling FILENEW event");
+		
+		projectRepoManager.clearProjectList();
+		pC.setupTree(bhmf, projectRepoManager);
+	}
+	
+	private void fileOpen() {
+		log.debug("handling FILEOPEN event");
+		
+		// create a open-dialog
+		int returnVal = bhmf.getChooser().showOpenDialog(bhmf);
+		if (returnVal == JFileChooser.APPROVE_OPTION) {
+			System.out.println("You chose to open this file: "
+					+ bhmf.getChooser().getSelectedFile().getName());
+
+		}
+		
+		// create a PlatformPersistence instance incl. filepath
+		PlatformPersistence myOpener = new PlatformPersistence(bhmf.getChooser().getSelectedFile());
+		
+		// open already provided file
+		ArrayList<DTOProject> projectList = myOpener.openFile();
+		
+		// replace ProjectRepository
+		projectRepoManager.replaceProjectList(projectList);
+		
+		// TODO rebuild Tree
+		pC.setupTree(bhmf, projectRepoManager);
+		
+		log.debug("file" + bhmf.getChooser().getSelectedFile() + "successfully opened");
+	}
+	
+	private void fileSave() {
+		log.debug("handling FILESAVE event");
+	}
+	
+	private void fileSaveAs() {
+		log.debug("handling FILESAVEAS event");
+		
+		// create save dialog
+		int returnSave = bhmf.getChooser().showSaveDialog(bhmf);
+		if (returnSave == JFileChooser.APPROVE_OPTION) {
+			System.out.println("You chose to save this file: "
+					+ bhmf.getChooser().getSelectedFile().getName());
+
+		}
+		// create a PlatformPersistence instance incl. filepath
+		PlatformPersistence mySaver = new PlatformPersistence(bhmf.getChooser().getSelectedFile());
+		
+		// perform save
+		mySaver.saveFile(projectRepoManager.getRepositoryList());
+		
+		log.debug("ProjectRepository saved to " + bhmf.getChooser().getSelectedFile());
+	}
+	
+	private void createProject(){
 		//Create new project
 		DTOProject newProject = new DTOProject();
 		//TODO hardgecodeder String raus! AS
@@ -258,7 +331,7 @@ class PlatformActionListener implements ActionListener {
 		bhmf.getBHTree().startEditingAtPath(new TreePath(newProjectNode.getPath()));
 		
 	}
-	public void createScenario(){
+	private void createScenario(){
 		//If a path is selected...
 		if(bhmf.getBHTree().getSelectionPath() != null){
 			//...create new scenario
@@ -283,7 +356,7 @@ class PlatformActionListener implements ActionListener {
 		}
 		
 	}
-	public void createPeriod(){
+	private void createPeriod(){
 		//If a scenario or a period is selected...
 		if(bhmf.getBHTree().getSelectionPath()!=null && bhmf.getBHTree().getSelectionPath().getPathCount()>2){
 			//...create new period

@@ -1,12 +1,29 @@
 package org.bh.platform;
 
 import java.util.List;
-import javax.swing.event.*;
-import javax.swing.tree.*;
-import org.bh.data.*;
+
+import javax.swing.event.TreeSelectionEvent;
+import javax.swing.event.TreeSelectionListener;
+import javax.swing.tree.DefaultMutableTreeNode;
+import javax.swing.tree.DefaultTreeModel;
+import javax.swing.tree.TreeNode;
+import javax.swing.tree.TreePath;
+
+import org.bh.data.DTO;
+import org.bh.data.DTOPeriod;
+import org.bh.data.DTOProject;
+import org.bh.data.DTOScenario;
 import org.bh.data.types.StringValue;
 import org.bh.gui.ViewException;
-import org.bh.gui.swing.*;
+import org.bh.gui.swing.BHButton;
+import org.bh.gui.swing.BHMainFrame;
+import org.bh.gui.swing.BHMenuItem;
+import org.bh.gui.swing.BHProjectInputForm;
+import org.bh.gui.swing.BHProjectView;
+import org.bh.gui.swing.BHScenarioHeadForm;
+import org.bh.gui.swing.BHScenarioView;
+import org.bh.gui.swing.BHTreeNode;
+import org.bh.gui.swing.IBHAction;
 
 /**
  * The Platform Controller handles a) start up of the application b) main
@@ -72,7 +89,7 @@ public class PlatformController {
 		 * Add EventHandler to Platform-Items
 		 * -----------------------------------
 		 */
-		PlatformActionListener pal = new PlatformActionListener(bhmf, projectRepoManager);
+		PlatformActionListener pal = new PlatformActionListener(bhmf, projectRepoManager, this);
 
 		//Add ActionListener to Toolbar-buttons
 		for (IBHAction item : (new BHButton(true)).getPlatformItems()) {
@@ -90,7 +107,7 @@ public class PlatformController {
 	 * Methods for Tree-Handling
 	 * -----------------------------------
 	 */
-	private void setupTree(BHMainFrame bhmf, ProjectRepositoryManager projectRepoManager){
+	protected void setupTree(BHMainFrame bhmf, ProjectRepositoryManager projectRepoManager){
 		
 		DefaultMutableTreeNode rootNode = new DefaultMutableTreeNode("BusinessHorizon");
 		

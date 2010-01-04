@@ -2,8 +2,8 @@ package org.bh.platform;
 
 import java.util.ArrayList;
 import java.util.Iterator;
-import java.util.List;
-import org.bh.data.*;
+
+import org.bh.data.DTOProject;
 
 /**
  *This manager provides necessary classes for global project repository management.
@@ -13,13 +13,15 @@ import org.bh.data.*;
  *
  * @author Marco Hammel
  * @author Alexander Schmalzhaf
+ * @author Michael Löckelt
  * 
  * @version 0.1 2009/12/26 Alexander Schmalzhaf
+ * @version 0.2 2010/01/04 Michael Löckelt
  */
 
 public class ProjectRepositoryManager {
 	
-    private List<DTOProject> repositoryList = new ArrayList<DTOProject>() ;
+    private ArrayList<DTOProject> repositoryList = new ArrayList<DTOProject>() ;
     
     /**
      * Adds a new project to the actual repository.
@@ -92,7 +94,7 @@ public class ProjectRepositoryManager {
      * 
      * @return repository List
      */
-    protected List<DTOProject> getRepositoryList(){
+    protected ArrayList<DTOProject> getRepositoryList(){
     	
     	return this.repositoryList;
     }
