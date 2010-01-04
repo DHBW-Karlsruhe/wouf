@@ -76,6 +76,11 @@ public class DTOScenario extends DTO<DTOPeriod> {
 		COMMENT,
 		
 		/**
+		 * Identifier
+		 */
+		IDENTIFIER,
+		
+		/**
 		 * DCF method
 		 */
 		DCF_METHOD,
