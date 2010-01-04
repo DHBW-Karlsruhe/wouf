@@ -22,21 +22,21 @@ public class BHOptionDialog extends JFrame{
 		
 		//setLayout to the status bar
 		String rowDef = "p";
-		String colDef = "0:grow(0.15),0:grow(0.2),0:grow(0.3),0:grow(0.2),0:grow(0.15)";
+		String colDef = "0:grow(0.05),0:grow(0.3),0:grow(0.3),0:grow(0.3),0:grow(0.05)";
 		setLayout(new FormLayout(colDef, rowDef));
 		cons = new CellConstraints();
 		
 		//create select language components
 		language = new BHLabel("", BHTranslator.getInstance().translate("MoptionsLanguage"));
 				
-		String[] languages = { "Deutsch", "Englisch" };
-		combo = new JComboBox(languages);//BHTranslator.getInstance().getAvaiableLocales());
+		//String[] languages = { "Deutsch", "Englisch" };
+		combo = new JComboBox(BHTranslator.getInstance().getAvaiableLocales());
 		
 		changeLanguage = new BHButton("");
 		changeLanguage.setText(BHTranslator.getInstance().translate("Bapply"));
 		
 		//add components
-		add(language, cons.xywh(2, 1, 1, 1));
+		add(language, cons.xywh(2, 1, 1, 1,"right,center"));
 		add(combo, cons.xywh(3, 1, 1, 1));
 		add(changeLanguage,cons.xywh(4, 1, 1, 1));
 		
