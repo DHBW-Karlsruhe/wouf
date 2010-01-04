@@ -104,10 +104,10 @@ public abstract class Controller implements IController, ActionListener, IPlatfo
      * @throws DTOAccessException
      */
     protected void loadAllToView()throws DTOAccessException{
-        log.debug("Plugin load from dto in view");
-        for(String key : this.bhMappingComponents.keySet()){
-            //this.bhMappinglcomponents.get(key).setValue(this.model.get(key));
-        }
+//        log.debug("Plugin load from dto in view");
+//        for(String key : this.bhMappingComponents.keySet()){
+//            this.bhMappingComponents.get(key).setValue(this.model.get(key));
+//        }
     }
     /**
      *

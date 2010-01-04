@@ -8,6 +8,7 @@ import javax.swing.JFileChooser;
 
 import org.bh.controller.Controller;
 import org.bh.controller.ControllerException;
+import org.bh.controller.InputController;
 import org.bh.data.DTOProject;
 import org.bh.data.IDTO;
 import org.bh.data.types.IValue;
@@ -22,7 +23,7 @@ import org.bh.plugin.xmldataexchange.xmlimport.XMLDataImportPanel;
 import org.bh.plugin.xmldataexchange.xmlimport.XMLImport;
 import org.bh.plugin.xmldataexchange.xmlimport.XMLNotValidException;
 
-public class XMLDataExchangeController extends Controller {
+public class XMLDataExchangeController extends InputController {
 	
 	private XMLDataExchangeView view = null;
 	
@@ -66,13 +67,6 @@ public class XMLDataExchangeController extends Controller {
 	@Override
 	public void setModel(IDTO model) {
 		this.model = model;		
-	}
-
-	@Override
-	public void setResult(Map result) {
-		// TODO Auto-generated method stub
-		throw new UnsupportedOperationException(
-				"This method has not been implemented");
 	}
 
 	@Override
