@@ -199,7 +199,7 @@ class PlatformActionListener implements ActionListener {
 			break;
 			
 		case OPTIONSCHANGE:
-			//TODO Prüfen und ggf. implementieren!
+			//TODO Tietze.Patrick
 			break;
 			
 		case HELPUSERHELP:
