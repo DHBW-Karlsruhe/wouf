@@ -70,6 +70,19 @@ public class BHLabel extends JLabel implements IBHComponent {
 		this.setProperties();
 		this.key = key;
 	}
+	
+	/**
+	 * Constructor to create new <code>BHLabel</code>.
+	 * 
+	 * @param key
+	 *            default key
+	 */
+	public BHLabel(Object key) {
+		super();
+		this.setProperties();
+		this.key = key.toString();
+	}
+
 
 	/**
 	 * Returns the unique ID of the <code>BHLabel</code>.
