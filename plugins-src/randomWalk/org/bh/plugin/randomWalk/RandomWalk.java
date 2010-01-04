@@ -5,7 +5,6 @@ import java.awt.Component;
 import java.awt.FlowLayout;
 import java.awt.GridLayout;
 import java.util.HashMap;
-import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import java.util.TreeMap;
@@ -16,22 +15,19 @@ import javax.swing.JPanel;
 import org.apache.log4j.Logger;
 import org.bh.calculation.IShareholderValueCalculator;
 import org.bh.calculation.IStochasticProcess;
+import org.bh.data.DTOKeyPair;
 import org.bh.data.DTOPeriod;
 import org.bh.data.DTOScenario;
 import org.bh.data.IPeriodicalValuesDTO;
-import org.bh.data.DTOScenario.DTOKeyPair;
 import org.bh.data.types.Calculable;
 import org.bh.data.types.DistributionMap;
 import org.bh.data.types.DoubleValue;
 import org.bh.data.types.IValue;
 import org.bh.data.types.IntegerValue;
-import org.bh.data.types.StochasticValue;
-import org.bh.data.types.StringValue;
 import org.bh.gui.swing.BHLabel;
 import org.bh.gui.swing.BHTextField;
 import org.bh.platform.Services;
 import org.bh.platform.i18n.ITranslator;
-import org.bh.plugin.directinput.DTODirectInput;
 
 /**
  * This class provides the functionality to process the Random Walk on every value which
@@ -273,7 +269,7 @@ public class RandomWalk implements IStochasticProcess {
 
 		return value;
 	}
-
+/*
 	public static void main(String[] args) {
 		DTOScenario scenario = new DTOScenario(false);
 		scenario.put(DTOScenario.Key.REK, new DoubleValue(0.11));
@@ -316,7 +312,6 @@ public class RandomWalk implements IStochasticProcess {
 		DTOPeriod period4 = new DTOPeriod();
 		period4.addChild(di4);
 		scenario.addChild(period4);
-		scenario.getPeriodStochasticKeysAndValues();
 
 		RandomWalk rw = new RandomWalk();
 		rw.setScenario(scenario);
@@ -338,5 +333,5 @@ public class RandomWalk implements IStochasticProcess {
 			System.out.println(entry.getValue());
 		}
 	}
-
+*/
 }
