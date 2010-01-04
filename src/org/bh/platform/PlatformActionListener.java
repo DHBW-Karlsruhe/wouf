@@ -2,6 +2,7 @@ package org.bh.platform;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.File;
 import java.util.ArrayList;
 
 import javax.swing.JFileChooser;
@@ -261,6 +262,7 @@ class PlatformActionListener implements ActionListener {
 	private void fileNew() {
 		projectRepoManager.clearProjectList();
 		pC.setupTree(bhmf, projectRepoManager);
+		PlatformController.preferences.remove("path");
 	}
 	
 	private void fileOpen() {
@@ -282,12 +284,23 @@ class PlatformActionListener implements ActionListener {
 			// TODO rebuild Tree
 			pC.setupTree(bhmf, projectRepoManager);
 			
+			// Save path to preferences
+			PlatformController.preferences.put("path", bhmf.getChooser().getSelectedFile().toString());
+			
 			log.debug("file " + bhmf.getChooser().getSelectedFile() + " successfully opened");
 		}
 	}
 	
 	private void fileSave() {
-
+		File path = new File( PlatformController.preferences.get("path","") );
+		
+		// create a PlatformPersistence instance incl. filepath
+		PlatformPersistence mySaver = new PlatformPersistence(path,projectRepoManager);
+		
+		// perform save
+		mySaver.saveFile(projectRepoManager.getRepositoryList());
+		
+		log.debug("ProjectRepository saved to " + path);
 	}
 	
 	private void fileSaveAs() {
@@ -302,6 +315,9 @@ class PlatformActionListener implements ActionListener {
 			
 			// perform save
 			mySaver.saveFile(projectRepoManager.getRepositoryList());
+			
+			// Save path to preferences
+			PlatformController.preferences.put("path", bhmf.getChooser().getSelectedFile().toString());
 			
 			log.debug("ProjectRepository saved to " + bhmf.getChooser().getSelectedFile());
 
