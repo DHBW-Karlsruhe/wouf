@@ -19,6 +19,7 @@ import org.apache.log4j.Logger;
 import org.bh.platform.IPlatformListener;
 import org.bh.platform.PlatformController;
 import org.bh.platform.PlatformEvent;
+import org.bh.platform.ProjectRepositoryManager;
 import org.bh.platform.Services;
 import org.bh.platform.PlatformEvent.Type;
 
@@ -190,21 +191,33 @@ public class BHMainFrame extends JFrame implements IPlatformListener {
 	 */
 	@Override
 	public void dispose() {
-		int i = JOptionPane.showConfirmDialog(this, Services.getTranslator().translate("Psave"));
-		if (i == JOptionPane.YES_OPTION) {
-			// TODO finalize application.
-		
-			/**
-			 * Try to save all preferences
-			 * @author Marcus Katzor
-			 */
-			try {
-				Logger.getLogger(getClass()).debug("Save application preferences");
-				PlatformController.preferences.flush();
-			} catch (BackingStoreException e) {
-				Logger.getLogger(getClass()).error("Error while saving application preferences", e);
+		// TODO Michael Löckelt: Kommentieren, Save Dialog
+		if (ProjectRepositoryManager.isChanged()) {
+			
+			int i = JOptionPane.showConfirmDialog(this, Services.getTranslator().translate("Psave"));
+			if (i == JOptionPane.YES_OPTION) {
+			
+				/**
+				 * Try to save all preferences
+				 * @author Marcus Katzor
+				 */
+				try {
+					Logger.getLogger(getClass()).debug("Save application preferences");
+					PlatformController.preferences.flush();
+					Logger.getLogger(getClass()).debug("Save not implemented yet");
+				} catch (BackingStoreException e) {
+					Logger.getLogger(getClass()).error("Error while saving application preferences", e);
+				}
+				
+				super.dispose();
+				
+			} else if (i == JOptionPane.NO_OPTION) {
+				Logger.getLogger(getClass()).debug("Existing changes but no save wish - exiting app");
+				super.dispose();
 			}
 			
+		} else { 
+			Logger.getLogger(getClass()).debug("No changes - exiting app");
 			super.dispose();
 		}
 		
