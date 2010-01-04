@@ -56,10 +56,10 @@ public abstract class DTO<ChildT extends IDTO> implements IDTO<ChildT> {
 	 * Possible methods with which the user can call simple methods for
 	 * calculation.
 	 */
-	transient protected Map<String, java.lang.reflect.Method> availableMethods;	
+	transient protected Map<String, String> availableMethods;	
 	
-	transient private static Map<String, Map<String, java.lang.reflect.Method>> METHODS_CACHE =
-		new HashMap<String, Map<String, java.lang.reflect.Method>>();
+	transient private static Map<String, Map<String, String>> METHODS_CACHE =
+		new HashMap<String, Map<String, String>>();
 	
 	/**
 	 * All children assigned to this DTO.
@@ -93,7 +93,7 @@ public abstract class DTO<ChildT extends IDTO> implements IDTO<ChildT> {
 			
 		} else {
 			availableKeys = new ArrayList<String>();
-			availableMethods = new HashMap<String, java.lang.reflect.Method>();
+			availableMethods = new HashMap<String, String>();
 			
 			for (Enum element : enumeration) {
 				String key = element.toString().toLowerCase();
@@ -103,7 +103,7 @@ public abstract class DTO<ChildT extends IDTO> implements IDTO<ChildT> {
 					Method method = field.getAnnotation(Method.class);
 					if (method != null) {
 						String methodName = (method.value().isEmpty()) ? (METHOD_PREFIX + key) : (method.value()); 
-						availableMethods.put(key, getMethod(methodName));
+						availableMethods.put(key, methodName);
 					}
 				} catch (Throwable e) {
 					continue;
@@ -156,7 +156,7 @@ public abstract class DTO<ChildT extends IDTO> implements IDTO<ChildT> {
 	 * @return
 	 * @throws NoSuchMethodError
 	 */
-	private java.lang.reflect.Method getMethod(String methodName) {
+	private java.lang.reflect.Method getMethod(String methodName) throws NoSuchMethodException{
 		// Get all methods
 		java.lang.reflect.Method[] methods = getClass().getDeclaredMethods();
 		// Go through each method and check if the wanted method
@@ -175,19 +175,22 @@ public abstract class DTO<ChildT extends IDTO> implements IDTO<ChildT> {
 	 * @return
 	 * @throws DTOAccessException
 	 */
-	private IValue invokeMethod(java.lang.reflect.Method method) throws DTOAccessException {
+	private IValue invokeMethod(String methodName) throws DTOAccessException {
 		IValue result = null;
 		try {
 			// Invoke method and store result
-			result = (IValue) method.invoke(this);
-		} catch (InvocationTargetException e) {
+			result = (IValue) getMethod(methodName).invoke(this);
+		} catch (NoSuchMethodException e) {
+			throw new DTOAccessException("The specified method '" + methodName + "' could not be found.");
+		}		
+		catch (InvocationTargetException e) {
 			throw new DTOAccessException(e.getTargetException());
 		} catch (Exception e) {
-			throw new DTOAccessException("The specified method '" + method.getName() + "' could not be invoked.");
+			throw new DTOAccessException("The specified method '" + methodName + "' could not be invoked.");
 		}
 		
 		if (result == null)
-			throw new DTOAccessException("The method '" + method.getName() + "' returned no proper result.");
+			throw new DTOAccessException("The method '" + methodName + "' returned no proper result.");
 		
 		// Return result
 		return result;
@@ -326,7 +329,7 @@ public abstract class DTO<ChildT extends IDTO> implements IDTO<ChildT> {
 	// TODO: Marcus check
 
 	  public void regenerateMethodsList(Enum[] enumeration) {
-		  
+	/* 
 		String className = getClass().getName();
 		
 		availableMethods = new HashMap<String, java.lang.reflect.Method>();
@@ -345,6 +348,6 @@ public abstract class DTO<ChildT extends IDTO> implements IDTO<ChildT> {
 			}
 		}
 		
-		METHODS_CACHE.put(className, availableMethods);
+		METHODS_CACHE.put(className, availableMethods);*/
 	} 
 }
