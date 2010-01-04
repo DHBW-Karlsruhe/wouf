@@ -154,10 +154,24 @@ public class BHTree extends JTree {
 		);
 		return newScenarioNode;
 	}
+	public BHTreeNode addPeriodNode(DTOPeriod newPeriod, BHMainFrame bhmf){
+		BHTreeNode newPeriodNode = new BHTreeNode(newPeriod);
+		((DefaultTreeModel)bhmf.getBHTree().getModel()).insertNodeInto(
+				newPeriodNode,
+				(BHTreeNode)(bhmf.getBHTree().getSelectionPath().getPathComponent(2)), 
+				((BHTreeNode) bhmf.getBHTree().getSelectionPath().getPathComponent(2)).getChildCount()
+		);
+		return newPeriodNode;
+	}
 	public BHTreeNode duplicateScenarioNode(DTOScenario newScenario, BHMainFrame bhmf, BHTreeNode parentNode){
 		BHTreeNode newScenarioNode = new BHTreeNode(newScenario);
 		((DefaultTreeModel)bhmf.getBHTree().getModel()).insertNodeInto(newScenarioNode, parentNode, parentNode.getChildCount());
+		parentNode.add(newScenarioNode);
 		return newScenarioNode;
 	}
-
+	public BHTreeNode duplicatePeriodNode(DTOPeriod newPeriod, BHMainFrame bhmf, BHTreeNode parentNode){
+		BHTreeNode newPeriodNode = new BHTreeNode(newPeriod);
+		((DefaultTreeModel)bhmf.getBHTree().getModel()).insertNodeInto(newPeriodNode, parentNode, parentNode.getChildCount());
+		return newPeriodNode;
+	}
 }

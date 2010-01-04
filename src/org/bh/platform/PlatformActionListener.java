@@ -126,8 +126,12 @@ class PlatformActionListener implements ActionListener {
 				for(int x = 0; x < newProject.getChildren().size(); x++){
 					DTOScenario newScenario = duplicateProject.getChild(x);
 					System.out.println(newScenario.toString());
-					newProjectNode.add(bhmf.getBHTree().duplicateScenarioNode(newScenario, bhmf, newProjectNode));
+					BHTreeNode newScenarioNode = bhmf.getBHTree().duplicateScenarioNode(newScenario, bhmf, newProjectNode);
 					
+					for(int y = 0; y < newScenario.getChildren().size(); y++){
+						DTOPeriod newPeriod = newScenario.getChild(y);
+						newScenarioNode.add(bhmf.getBHTree().duplicatePeriodNode(newPeriod, bhmf, newScenarioNode));
+					}
 				}
 				
 			}
@@ -384,12 +388,8 @@ class PlatformActionListener implements ActionListener {
 			((DTOScenario)((BHTreeNode)bhmf.getBHTree().getSelectionPath().getPathComponent(2)).getUserObject()).addChild(newPeriod);
 			
 			//...and insert it into GUI-Tree
-			BHTreeNode newPeriodNode = new BHTreeNode(newPeriod);
-			((BHTreeModel)bhmf.getBHTree().getModel()).insertNodeInto(
-					newPeriodNode,
-					(BHTreeNode)(bhmf.getBHTree().getSelectionPath().getPathComponent(2)), 
-					((BHTreeNode) bhmf.getBHTree().getSelectionPath().getPathComponent(2)).getChildCount()
-			);
+			BHTreeNode newPeriodNode = bhmf.getBHTree().addPeriodNode(newPeriod, bhmf);
+			
 			
 			//last steps: unfold tree to new element, set focus and start editing
 			bhmf.getBHTree().scrollPathToVisible(new TreePath(newPeriodNode.getPath()));
