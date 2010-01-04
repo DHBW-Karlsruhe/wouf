@@ -68,18 +68,18 @@ public class BHMenuBar extends JMenuBar{
 		/**
 		 * create menu items --> file
 		 **/
-		menuFile.add(new BHMenuItem(PlatformKey.FILENEW, 78));
-		menuFile.add(new BHMenuItem(PlatformKey.FILEOPEN, 79));
-		menuFile.add(new BHMenuItem(PlatformKey.FILESAVE, 83));
-		menuFile.add(new BHMenuItem(PlatformKey.FILESAVEAS));
-		menuFile.add(new BHMenuItem(PlatformKey.FILEQUIT, 81));
+		menuFile.add(new BHMenuItem(PlatformKey.FILENEW, 78)); // N
+		menuFile.add(new BHMenuItem(PlatformKey.FILEOPEN, 79)); // O
+		menuFile.add(new BHMenuItem(PlatformKey.FILESAVE, 83)); // S
+		menuFile.add(new BHMenuItem(PlatformKey.FILESAVEAS, 83)); // S
+		menuFile.add(new BHMenuItem(PlatformKey.FILEQUIT, 81));  // Q
 
 
 		/**
 		 * create menu items --> project
 		 **/
 		menuProject.add(new BHMenuItem(PlatformKey.PROJECTCREATE));
-		menuProject.add(new BHMenuItem(PlatformKey.PROJECTRENAME ));
+		menuProject.add(new BHMenuItem(PlatformKey.PROJECTRENAME));
 		menuProject.add(new BHMenuItem(PlatformKey.PROJECTDUPLICATE));
 		menuProject.add(new BHMenuItem(PlatformKey.PROJECTIMPORT));
 		menuProject.add(new BHMenuItem(PlatformKey.PROJECTEXPORT));
