@@ -142,8 +142,8 @@ public abstract class DTO<ChildT extends IDTO> implements IDTO<ChildT> {
 	public void put(Object key1, IValue value) throws DTOAccessException {
 		String key = key1.toString().toLowerCase();
 		if (availableKeys.contains(key)){
-			Services.firePlatformEvent(new PlatformEvent(this, PlatformEvent.Type.DATA_CHANGED));
 			values.put(key, value);
+			Services.firePlatformEvent(new PlatformEvent(this, PlatformEvent.Type.DATA_CHANGED));
 		}
 			
 		else
