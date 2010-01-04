@@ -1,9 +1,11 @@
 package org.bh.platform;
 
+import java.awt.BorderLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
 
+import javax.swing.JComboBox;
 import javax.swing.JFileChooser;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
@@ -16,6 +18,7 @@ import org.bh.data.DTOProject;
 import org.bh.data.DTOScenario;
 import org.bh.data.types.StringValue;
 import org.bh.gui.swing.BHMainFrame;
+import org.bh.gui.swing.BHOptionDialog;
 import org.bh.gui.swing.BHStatusBar;
 import org.bh.gui.swing.BHTreeNode;
 import org.bh.gui.swing.IBHAction;
@@ -197,17 +200,15 @@ class PlatformActionListener implements ActionListener {
 			
 		case OPTIONSCHANGE:
 			//TODO Tietze.Patrick
-			
-			
-			
+			new BHOptionDialog();
+		
 			break;
 			
 		case HELPUSERHELP:
 			
-			System.out.println("HELPUSERHELP gefeuert");
+			log.debug("HELPUSERHELP gefeuert");
 			JFrame frame = new JFrame();
-			//TODO Hartgecodeder String raus!! LZ
-			frame.setTitle("Business Horizon Help");
+			frame.setTitle(BHTranslator.getInstance().translate("MuserHelpDialog"));
 			frame.setSize(610,600);
 			frame.getContentPane().add(new BHHelpSystem("userhelp"));
 			frame.setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
