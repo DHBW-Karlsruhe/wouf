@@ -264,6 +264,7 @@ class PlatformActionListener implements ActionListener {
 		pC.setupTree(bhmf, projectRepoManager);
 		PlatformController.preferences.remove("path");
 		ProjectRepositoryManager.setChanged(false);
+		bhmf.resetTitle();
 	}
 	
 	private void fileOpen() {
@@ -274,7 +275,7 @@ class PlatformActionListener implements ActionListener {
 					+ bhmf.getChooser().getSelectedFile().getName());
 			
 			// create a PlatformPersistence instance incl. filepath
-			PlatformPersistence myOpener = new PlatformPersistence(bhmf.getChooser().getSelectedFile(),projectRepoManager);
+			PlatformPersistence myOpener = new PlatformPersistence(bhmf.getChooser().getSelectedFile(),projectRepoManager,bhmf);
 			
 			// open already provided file
 			ArrayList<DTOProject> projectList = myOpener.openFile();
@@ -299,7 +300,7 @@ class PlatformActionListener implements ActionListener {
 			File path = new File( PlatformController.preferences.get("path","") );
 			
 			// create a PlatformPersistence instance incl. filepath
-			PlatformPersistence mySaver = new PlatformPersistence(path,projectRepoManager);
+			PlatformPersistence mySaver = new PlatformPersistence(path,projectRepoManager,bhmf);
 			
 			// perform save
 			mySaver.saveFile(projectRepoManager.getRepositoryList());
@@ -316,7 +317,7 @@ class PlatformActionListener implements ActionListener {
 					+ bhmf.getChooser().getSelectedFile().getName());
 			
 			// create a PlatformPersistence instance incl. filepath
-			PlatformPersistence mySaver = new PlatformPersistence(bhmf.getChooser().getSelectedFile(),projectRepoManager);
+			PlatformPersistence mySaver = new PlatformPersistence(bhmf.getChooser().getSelectedFile(),projectRepoManager,bhmf);
 			
 			// perform save
 			mySaver.saveFile(projectRepoManager.getRepositoryList());

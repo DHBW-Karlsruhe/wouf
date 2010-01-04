@@ -13,6 +13,7 @@ import java.util.Iterator;
 
 import org.apache.log4j.Logger;
 import org.bh.data.DTOProject;
+import org.bh.gui.swing.BHMainFrame;
 
 /**
  * Platform Persistence
@@ -36,12 +37,15 @@ public class PlatformPersistence {
 	 */
 	ProjectRepositoryManager projectRepositoryManager;
 	
+	BHMainFrame bhmf;
+	
 	private static final Logger log = Logger.getLogger(PlatformPersistence.class);
 	
 	
-	public PlatformPersistence (File path, ProjectRepositoryManager projectRepo) {
+	public PlatformPersistence (File path, ProjectRepositoryManager projectRepo, BHMainFrame bhmf) {
 		this.path = path;
 		this.projectRepositoryManager = projectRepo;
+		this.bhmf = bhmf;
 	}
 	
 	public ArrayList<DTOProject> openFile () {
@@ -62,6 +66,7 @@ public class PlatformPersistence {
 			log.error("File "+ path + "not found!");
 		} catch (EOFException e) {
 			ProjectRepositoryManager.setChanged(false);
+			bhmf.resetTitle();
 			return returnRepository;
 		} catch (Exception e) {
 			log.error("Exception while opening file");
@@ -96,6 +101,8 @@ public class PlatformPersistence {
 			fileWriter.close();
 			
 			ProjectRepositoryManager.setChanged(false);
+			bhmf.resetTitle();
+			
 			return true;
 			
 		} catch (FileNotFoundException e) {
