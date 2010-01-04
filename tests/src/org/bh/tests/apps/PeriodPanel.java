@@ -1,4 +1,4 @@
-package org.bh.test;
+package org.bh.tests.apps;
 
 import java.awt.Dimension;
 import java.awt.GridLayout;
