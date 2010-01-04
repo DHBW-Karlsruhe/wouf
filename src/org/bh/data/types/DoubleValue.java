@@ -1,5 +1,7 @@
 package org.bh.data.types;
 
+import javax.help.UnsupportedOperationException;
+
 /**
  * Calculable implementation for floating point values.
  * 
@@ -199,5 +201,18 @@ public class DoubleValue extends Calculable {
 	@Override
 	public final String toString() {
 		return "" + this.value;
+	}
+
+	@Override
+	public boolean diffToLess(Calculable c, double limit) {
+		if(c instanceof IntegerValue) {
+			return Math.abs(value - ((IntegerValue) c).value) < limit;
+		}else if(c instanceof DoubleValue) {
+			return Math.abs(value - ((DoubleValue) c).value) < limit;
+		}else if (c instanceof IntervalValue) {
+			return new IntervalValue(value,value).diffToLess(c, limit);
+		}else {
+			throw new UnsupportedOperationException("Unsupported");
+		}
 	}
 }

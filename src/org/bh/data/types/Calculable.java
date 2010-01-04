@@ -250,6 +250,16 @@ public abstract class Calculable implements IValue {
 		}
 		return result;
 	}
+	
+	/**
+	 * Checks whether the (value) difference of the given calculable objects is less than the limit
+	 * 
+	 * @param c calculable to compare
+	 * @param limit the limit of difference
+	 * 
+	 * @return true if the difference is less than the limit
+	 */
+	public abstract boolean diffToLess(Calculable c, double limit );
 
 	/* Specified by interface/super class. */
 	@Override

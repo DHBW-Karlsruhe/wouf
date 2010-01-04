@@ -337,24 +337,21 @@ public class IntervalValue extends Calculable {
 	public boolean greaterThan(Calculable compare) {
 		if (compare instanceof IntegerValue) {
 			IntegerValue IntegerValue = (IntegerValue) compare;
-			if (this.min > IntegerValue.getValue())
+			if (min > IntegerValue.getValue())
 				return true;
-			else
-				return false;
+			return false;
 		} else if (compare instanceof DoubleValue) {
 			DoubleValue doubleValue = (DoubleValue) compare;
-			if (this.min > doubleValue.getValue())
+			if (min > doubleValue.getValue())
 				return true;
-			else
-				return false;
+			return false;
 		} else {
 			// TODO Ask Sebastian
 			IntervalValue intervalValue = (IntervalValue) compare;
 			IntervalValue sub = (IntervalValue) this.sub(intervalValue);
-			if (sub.getMin() > 0 && sub.getMax() > 0)
+			if (getMin() > 0 && sub.getMax() > 0)
 				return true;
-			else
-				return false;
+			return false;
 		}
 	}
 
@@ -362,27 +359,25 @@ public class IntervalValue extends Calculable {
 	public boolean lessThan(Calculable compare) {
 		if (compare instanceof IntegerValue) {
 			IntegerValue IntegerValue = (IntegerValue) compare;
-			if (this.max < IntegerValue.getValue())
+			if (max < IntegerValue.getValue())
 				return true;
-			else
-				return false;
+			return false;
 		} else if (compare instanceof DoubleValue) {
 			DoubleValue DoubleValueValue = (DoubleValue) compare;
-			if (this.max < DoubleValueValue.getValue())
+			if (max < DoubleValueValue.getValue())
 				return true;
-			else
-				return false;
+			return false;
 		} else {
 			// TODO Ask Sebastian
 			IntervalValue intervalValue = (IntervalValue) compare;
 			IntervalValue sub = (IntervalValue) this.sub(intervalValue);
 			if (sub.getMin() < 0 && sub.getMax() < 0)
 				return true;
-			else
-				return false;
+			return false;
 		}
 	}
 
+	@Override
 	public Calculable abs() {
 		double minAbs = Math.abs(min);
 		double maxAbs = Math.abs(max);
@@ -391,5 +386,30 @@ public class IntervalValue extends Calculable {
 			return new IntervalValue(minAbs, maxAbs);
 		}
 		return new IntervalValue(maxAbs, minAbs);
+	}
+
+	@Override
+	public boolean diffToLess(Calculable c, double limit) {
+		if(c instanceof IntegerValue) {
+			int value = ((IntegerValue) c).getValue();
+			return diffToLess(new IntervalValue(value,value),limit);
+		}else if(c instanceof DoubleValue) {
+			double value = ((IntegerValue) c).getValue();
+			return diffToLess(new IntervalValue(value,value),limit);
+		}else if (c instanceof IntervalValue) {
+			IntervalValue c2 = (IntervalValue) c;
+			double diffMin;
+			double diffMax;
+			
+			diffMin = Math.abs(min - c2.min);
+			diffMax = Math.abs(max - c2.max);
+			
+			if(diffMin < limit && diffMax < limit) {
+				return true;
+			}
+			return false;
+		}else {
+			throw new UnsupportedOperationException("Unsupported");
+		}
 	}
 }
