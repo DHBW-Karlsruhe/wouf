@@ -10,6 +10,7 @@ import javax.swing.WindowConstants;
 import javax.swing.tree.TreePath;
 
 import org.apache.log4j.Logger;
+import org.bh.data.DTO;
 import org.bh.data.DTOPeriod;
 import org.bh.data.DTOProject;
 import org.bh.data.DTOScenario;
@@ -377,6 +378,7 @@ class PlatformActionListener implements ActionListener {
 			DTOProject duplicateProject = (DTOProject)duplicateProjectNode.getUserObject();
 			
 			//neues DTOProject mit Referenz auf den Klon
+
 			DTOProject newProject = (DTOProject)duplicateProject.clone();
 			
 			BHTreeNode newProjectNode = bhmf.getBHTree().addProjectNode(newProject, bhmf);

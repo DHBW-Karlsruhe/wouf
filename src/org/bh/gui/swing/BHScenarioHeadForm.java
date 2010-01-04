@@ -91,7 +91,7 @@ public class BHScenarioHeadForm extends JPanel {
 		// this.add(this.getLprocess(), cons.xywh(14, 4, 1, 1));
 		// this.add(this.getCbprocess(), cons.xywh(17, 4, 3, 1));
 		this.add(this.getlbaseYear(), cons.xywh(14, 4, 1, 1));
-		this.add(this.gettfbaseYear(), cons.xywh(17, 4, 1, 1));
+		//this.add(this.gettfbaseYear(), cons.xywh(17, 4, 1, 1));
 
 		this.add(this.getlscenDescript(), cons.xywh(3, 6, 1, 1));
 		this.add(this.getlequityYield(), cons.xywh(3, 10, 1, 1));
@@ -324,7 +324,7 @@ public class BHScenarioHeadForm extends JPanel {
 	public BHTextField gettfdeptYield() {
 
 		if (this.tfdeptyield == null) {
-			this.tfdeptyield = new BHTextField(DTOScenario.Key.RFK.toString(),
+			this.tfdeptyield = new BHTextField(DTOScenario.Key.RFK,
 					translator.translate("IdeptYield"));
 			int[] rules = { ValidationMethods.isMandatory,
 					ValidationMethods.isDouble, ValidationMethods.isPositive };
@@ -374,17 +374,20 @@ public class BHScenarioHeadForm extends JPanel {
 	 * 
 	 * @return the initialized component
 	 */
-	public BHTextField gettfbaseYear() {
-
-		if (this.tfbaseyear == null) {
-			this.tfbaseyear = new BHTextField("", "");
-			// TODO insert key and inputhint
-			int[] rules = { ValidationMethods.isMandatory,
-					ValidationMethods.isInteger, ValidationMethods.isPositive };
-			tfbaseyear.setValidateRules(rules);
-		}
-		return this.tfbaseyear;
-	}
+	//FIXME Wenn Textfeld keinen Key hat, gibts Exceptions
+	//this.add Methode muss ebenfalls wieder "einkommentiert" werden (s.o.)
+	//Fragen? -> Alex
+//	public BHTextField gettfbaseYear() {
+//
+//		if (this.tfbaseyear == null) {
+//			this.tfbaseyear = new BHTextField("", "");
+//			// TODO insert key and inputhint
+//			int[] rules = { ValidationMethods.isMandatory,
+//					ValidationMethods.isInteger, ValidationMethods.isPositive };
+//			tfbaseyear.setValidateRules(rules);
+//		}
+//		return this.tfbaseyear;
+//	}
 
 	/**
 	 * Getter method for component lpercentEquity.

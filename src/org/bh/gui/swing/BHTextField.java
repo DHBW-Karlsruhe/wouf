@@ -2,6 +2,8 @@ package org.bh.gui.swing;
 
 import javax.swing.JTextField;
 
+import org.apache.log4j.Logger;
+import org.bh.platform.PlatformController;
 import org.bh.platform.PlatformEvent;
 import org.bh.platform.Services;
 
@@ -18,30 +20,18 @@ import org.bh.platform.Services;
  * @version 0.1, 2009/12/13
  * 
  */
+
+//TODO Hints setzen!!! Noch werden für Textfields keine Hints erzeugt
 public class BHTextField extends JTextField implements IBHComponent {
 	/**
 	 * unique key to identify Label.
 	 */
-	private String key;
+	Object key;
 
 
 	private int[] validateRules;
 	private String inputHint;
 
-	/**
-	 * Constructor to create new <code>BHTextField</code>.
-	 * 
-	 * @param key
-	 *            unique key
-	 * @param value
-	 *            default value
-	 */
-	public BHTextField(String key, String value, String inputHint) {
-                super(value);
-		this.key = key;
-		this.setProperties();
-		this.inputHint = inputHint;
-	}
 
 	/**
 	 * Constructor to create new <code>BHTextField</code>. Defined for the use with unkeyed text
@@ -51,11 +41,29 @@ public class BHTextField extends JTextField implements IBHComponent {
 	 * @param value
 	 *            default value
 	 */
-//	public BHTextField(String key, String value) {
-//		super(value);
-//		this.setProperties();
-//		this.key = key;
-//	}
+	public BHTextField(String key, String value) {
+		super(value);
+		this.setProperties();
+		Logger.getLogger(PlatformController.class).debug("Textfield-Key: "+key);
+		this.key = key;
+	}
+	
+	//TODO Konsoliedieren der Konstruktoren (nicht alle notwendig)
+	/**
+	 * Constructor to create new <code>BHTextField</code>. Defined for the use with unkeyed text
+	 * 
+	 * @param key
+	 *            unique key
+	 * @param value
+	 *            default value
+	 */
+	public BHTextField(Object key, String value) {
+		super(value);
+		this.setProperties();
+		Logger.getLogger(PlatformController.class).debug("Textfield-Key: "+key);
+		this.key = key;
+	}
+	
 
 	/**
 	 * Constructor to create new <code>BHTextField</code>. with key based text
@@ -80,19 +88,9 @@ public class BHTextField extends JTextField implements IBHComponent {
 		this.setProperties();
 		this.key = key.toString();
 	}
-        /**
-         *
-         * @param key
-         * @param InputHint
-         */
-        public BHTextField(String key, String InputHint){
-            this(key);
-            this.inputHint = InputHint;
-            this.setProperties();
-        }
 
 	public String getKey() {
-		return key;
+		return key.toString();
 	}
 
 	public int[] getValidateRules() {

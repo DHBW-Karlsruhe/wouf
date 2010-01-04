@@ -200,6 +200,20 @@ public class PlatformController {
 				try {
 					scenarioView = new BHScenarioView(new BHScenarioHeadForm());
 					bhmf.addContentForms(scenarioView.getViewPanel());
+					
+					//fill fields
+					Map<String,IBHComponent> componentMap= scenarioView.getBHmodelComponents();
+					Set<String> componentKeys = scenarioView.getBHmodelComponents().keySet();
+					for(String componentKey : componentKeys){
+						Logger.getLogger(PlatformController.class).debug("Key "+componentKey);
+						IBHComponent comp = componentMap.get(componentKey);
+						if(componentMap.get(componentKey) instanceof BHTextField){
+							//TODO Schmalzhaf.Alexander mehr als Textfelder notwendig?
+							System.out.println("CompKey "+componentKey);
+							((BHTextField)comp).setText(((StringValue)selection.get(componentKey)).getString());
+						}
+					}
+					
 				} catch (ViewException e) {
 					e.printStackTrace();
 				}
@@ -228,6 +242,18 @@ public class PlatformController {
 					}
 				}else if(e.getSource() instanceof DTOScenario){
 					Logger.getLogger(PlatformController.class).debug("Scenario changed");
+					//fill fields
+					Map<String,IBHComponent> componentMap= scenarioView.getBHmodelComponents();
+					Set<String> componentKeys = scenarioView.getBHmodelComponents().keySet();
+					for(String componentKey : componentKeys){
+						
+						IBHComponent comp = componentMap.get(componentKey);
+						
+						if(componentMap.get(componentKey) instanceof BHTextField){
+							//TODO Schmalzhaf.Alexander mehr als Textfelder notwendig?
+							((BHTextField)comp).setText(((StringValue)selection.get(componentKey)).getString());
+						}
+					}
 				}
 				
 			}	
