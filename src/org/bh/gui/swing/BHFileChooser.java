@@ -18,9 +18,9 @@ public class BHFileChooser extends JFileChooser {
 
 	public BHFileChooser() {
 		super();
-		filter = new FileNameExtensionFilter(Services.getTranslator()
-				.translate("Cfiletypes"), Services.getTranslator().translate(
-				"fileExtension"));
+		String description = Services.getTranslator().translate("Cfiletypes");
+		String extension = Services.getTranslator().translate("fileExtension");
+		filter = new FileNameExtensionFilter(description, extension);
 		this.setFileFilter(filter);
 	}
 }

@@ -235,5 +235,6 @@ public class BHTranslator implements ITranslator {
 		for (PropertyChangeListener l : this.listener) {
 			l.propertyChange(new PropertyChangeEvent(this, key, oldValue,newValue));
 		}
+		//Services.firePlatformEvent(new PlatformEvent(BHTranslator.class, PlatformEvent.Type.))
 	}
 }
