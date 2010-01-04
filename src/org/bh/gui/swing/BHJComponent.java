@@ -6,7 +6,9 @@
 package org.bh.gui.swing;
 
 import javax.swing.JComponent;
+
 import org.bh.data.types.IValue;
+import org.bh.platform.PlatformEvent;
 
 /**
  *
@@ -48,5 +50,17 @@ public class BHJComponent extends JComponent implements IBHComponent{
 		throw new UnsupportedOperationException("This method has not been implemented");
 	}
 
-
+	/**
+	 * Handle PlatformEvents - Do nothing.
+	 */
+	@Override
+	public void platformEvent(PlatformEvent e) {
+	}
+	
+	/**
+	 * Unnecessary. Do nothing.
+	 */
+	@Override
+	public void resetText() {
+	}
 }

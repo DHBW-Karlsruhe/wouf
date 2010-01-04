@@ -2,6 +2,8 @@ package org.bh.gui.swing;
 
 import javax.swing.JTextArea;
 
+import org.bh.platform.PlatformEvent;
+
 /**
  * BHTextArea to display simple text fields at screen.
  * 
@@ -73,6 +75,20 @@ public class BHTextArea extends JTextArea implements IBHComponent {
 	public String getBHHint() {
 		// TODO Auto-generated method stub
 		throw new UnsupportedOperationException("This method has not been implemented");
+	}
+	
+	/**
+	 * Handle PlatformEvents
+	 */
+	@Override
+	public void platformEvent(PlatformEvent e) {
+	}
+	
+	/**
+	 * Reset Text if necessary.
+	 */
+	@Override
+	public void resetText() {
 	}
 
 }

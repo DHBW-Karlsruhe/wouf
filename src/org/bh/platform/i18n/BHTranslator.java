@@ -10,6 +10,8 @@ import java.util.ResourceBundle;
 import javax.swing.JComponent;
 
 import org.apache.log4j.Logger;
+import org.bh.platform.PlatformEvent;
+import org.bh.platform.Services;
 
 /**
  * Implements the <code>ITranslator</code> Interface for Translation of all i18n
@@ -235,6 +237,6 @@ public class BHTranslator implements ITranslator {
 		for (PropertyChangeListener l : this.listener) {
 			l.propertyChange(new PropertyChangeEvent(this, key, oldValue,newValue));
 		}
-		//Services.firePlatformEvent(new PlatformEvent(BHTranslator.class, PlatformEvent.Type.))
+		Services.firePlatformEvent(new PlatformEvent(BHTranslator.class, PlatformEvent.Type.LOCALE_CHANGED));
 	}
 }

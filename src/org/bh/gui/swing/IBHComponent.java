@@ -3,6 +3,7 @@ package org.bh.gui.swing;
 import java.awt.Component;
 
 import org.bh.gui.BHValidityEngine;
+import org.bh.platform.IPlatformListener;
 
 /**
  * Every Swing element which shall use a defined DTO key must implement this
@@ -13,7 +14,7 @@ import org.bh.gui.BHValidityEngine;
  * 
  * @version 0.2, 2009/12/25
  */
-public interface IBHComponent {
+public interface IBHComponent extends IPlatformListener {
 
 	/**
 	 * Constant can be use to check objects.
@@ -88,9 +89,16 @@ public interface IBHComponent {
 	 */
 	public String getBHHint();
 
-        /**
-         * Should be implemented in components which comtaining a model relevant value
-         * @return relevant value
-         */
-        public String getValue();
+	/**
+	 * Should be implemented in components which comtaining a model relevant
+	 * value
+	 * 
+	 * @return relevant value
+	 */
+	public String getValue();
+	
+	/**
+	 * Reset the text if necessary.
+	 */
+	public void resetText();
 }

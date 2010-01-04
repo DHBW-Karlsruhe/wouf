@@ -4,8 +4,9 @@ import java.awt.event.MouseEvent;
 
 import javax.swing.JLabel;
 
-import org.bh.data.types.IValue;
+import org.bh.platform.PlatformEvent;
 import org.bh.platform.Services;
+import org.bh.platform.PlatformEvent.Type;
 
 /**
  * BHLabel to display Labels at screen.
@@ -120,5 +121,22 @@ public class BHLabel extends JLabel implements IBHComponent {
 	public void mouseClicked(MouseEvent e){
 		Services.getBHstatusBar().openToolTipPopup();
 	}
-
+	
+	/**
+	 * Handle PlatformEvents
+	 */
+	@Override
+	public void platformEvent(PlatformEvent e) {
+		if (e.getEventType() == Type.LOCALE_CHANGED) {
+			this.resetText();
+		}
+	}
+	
+	/**
+	 * Reset Text if necessary.
+	 */
+	@Override
+	public void resetText() {
+		this.setText(Services.getTranslator().translate(key.toString()));
+	}
 }

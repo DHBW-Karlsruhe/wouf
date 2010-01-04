@@ -8,8 +8,10 @@ import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.event.MouseInputAdapter;
 
+import org.bh.platform.PlatformEvent;
 import org.bh.platform.PlatformKey;
 import org.bh.platform.Services;
+import org.bh.platform.PlatformEvent.Type;
 import org.bh.platform.i18n.BHTranslator;
 
 /**
@@ -49,6 +51,7 @@ public class BHButton extends JButton implements IBHComponent,IBHAction {
 	 */
 	public BHButton(PlatformKey platformKey, Boolean isPlatformButton) {
 		super();
+		Services.addPlatformListener(this);
 		this.setProperties();
 		this.platformKey = platformKey;
 		this.key = platformKey.toString();
@@ -182,6 +185,21 @@ public class BHButton extends JButton implements IBHComponent,IBHAction {
     	
     }
 
-
-
+	/**
+	 * Handle PlatformEvents
+	 */
+	@Override
+	public void platformEvent(PlatformEvent e) {
+		if (e.getEventType() == Type.LOCALE_CHANGED) {
+			this.resetText();
+		}
+	}
+	
+	/**
+	 * Reset Text if necessary.
+	 */
+	@Override
+	public void resetText() {
+		this.setText(translator.translate(key.toString()));
+	}
 }

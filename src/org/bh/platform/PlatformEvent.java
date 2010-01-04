@@ -36,6 +36,10 @@ public class PlatformEvent extends EventObject {
 		 * 
 		 */
 		DATA_CHANGED,
+		/**
+		 * The Locale has changed
+		 */
+		LOCALE_CHANGED
 		
 	}
 

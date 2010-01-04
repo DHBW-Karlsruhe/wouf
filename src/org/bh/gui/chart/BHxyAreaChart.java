@@ -7,6 +7,7 @@ import javax.swing.UIManager;
 
 import org.bh.data.types.IValue;
 import org.bh.gui.swing.IBHComponent;
+import org.bh.platform.PlatformEvent;
 import org.bh.platform.i18n.BHTranslator;
 import org.jfree.chart.ChartFactory;
 import org.jfree.chart.JFreeChart;
@@ -147,6 +148,22 @@ public class BHxyAreaChart extends JFreeChart implements IBHComponent,
 	public String getBHHint() {
 		// TODO Auto-generated method stub
 		throw new UnsupportedOperationException("This method has not been implemented");
+	}
+	
+	/**
+	 * Handle PlatformEvents
+	 */
+	@Override
+	public void platformEvent(PlatformEvent e) {
+		// TODO Zuckschwert.Lars
+	}
+	
+	/**
+	 * Reset Text if necessary.
+	 */
+	@Override
+	public void resetText() {
+		// TODO Zuckschwert.Lars
 	}
 
 }

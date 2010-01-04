@@ -1,7 +1,8 @@
 package org.bh.gui.swing;
 
 import javax.swing.JTextField;
-import org.bh.platform.Services;
+
+import org.bh.platform.PlatformEvent;
 
 
 /**
@@ -119,6 +120,20 @@ public class BHTextField extends JTextField implements IBHComponent {
 	public String getBHHint() {
 		// TODO Auto-generated method stub
 		throw new UnsupportedOperationException("This method has not been implemented");
+	}
+	
+	/**
+	 * Handle PlatformEvents
+	 */
+	@Override
+	public void platformEvent(PlatformEvent e) {
+	}
+	
+	/**
+	 * Reset Text if necessary.
+	 */
+	@Override
+	public void resetText() {
 	}
 
 }
