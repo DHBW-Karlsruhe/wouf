@@ -26,13 +26,15 @@ public class BHProjectInputForm extends JPanel {
 
 	private BHLabel lproject;
 	private BHLabel lprojectname;
+	private BHLabel lcomment;
 	private BHTextField tfprojectname;
+	private BHTextField tfcomment;
 
 	ITranslator translator = Services.getTranslator();
 
 	public BHProjectInputForm() {
 
-		String rowDef = "4px:grow,p,4px,p,4px:grow";
+		String rowDef = "4px:grow,p,4px,p,4px,p,4px:grow";
 		String colDef = "4px:grow,right:pref,4px,min(150px;pref):grow,4px:grow";
 
 		FormLayout layout = new FormLayout(colDef, rowDef);
@@ -43,6 +45,8 @@ public class BHProjectInputForm extends JPanel {
 		this.add(this.getLproject(), cons.xywh(4, 2, 1, 1, "center, center"));
 		this.add(this.getLprojectname(), cons.xywh(2, 4, 1, 1));
 		this.add(this.getTfprojectname(), cons.xywh(4, 4, 1, 1));
+		this.add(this.getLcomment(), cons.xywh(2, 6, 1, 1));
+		this.add(this.getTfcomment(), cons.xywh(4, 6, 1, 1));
 	}
 	
 	// TODO add missing label keys and translations, change hard coded values to keys
@@ -54,24 +58,46 @@ public class BHProjectInputForm extends JPanel {
 		return lproject;
 	}
 
+	public BHLabel getLcomment() {
+		if (lcomment == null) {
+			lcomment = new BHLabel("", "Beschreibung");
+		}
+		return lcomment;
+	}
+	
 	public BHLabel getLprojectname() {
 		if (lprojectname == null) {
 			lprojectname = new BHLabel(DTOProject.Key.NAME.toString(), "Name");
-			lprojectname.setVisible(false);
+			lprojectname.setVisible(true);
 		}
 		return lprojectname;
 	}
 
+	/**
+	 * Getter method for component tfprojectname.
+	 * 
+	 * @return the initialized component
+	 */
 	public BHTextField getTfprojectname() {
 		if (tfprojectname == null) {
-			tfprojectname = new BHTextField(DTOProject.Key.NAME.toString(),
-					translator.translate("IprojectName"));
+			tfprojectname = new BHTextField(DTOProject.Key.NAME);
 			int[] rules = { ValidationMethods.isMandatory };
 			tfprojectname.setValidateRules(rules);
 		}
 		return tfprojectname;
 	}
 
+	/**
+	 * Getter method for component tfcomment.
+	 * 
+	 * @return the initialized component
+	 */
+	public BHTextField getTfcomment() {
+		if (tfcomment == null) {
+			tfcomment = new BHTextField(DTOProject.Key.COMMENT);
+		}
+		return tfcomment;
+	}
 	
 	// TODO remove main later
 	/**

@@ -113,7 +113,6 @@ public class BHProcessForm extends JPanel {
 	public JSpinner getSpperiodcount() {
 		if (spperiodcount == null) {
 			// new SpinnerNumberModel(value, minimum, maximum, stepSize)
-			// TODO find a good value for maximum
 			spperiodcount = new JSpinner(new SpinnerNumberModel(1, 1, 100, 1));
 		}
 		return spperiodcount;
@@ -129,8 +128,7 @@ public class BHProcessForm extends JPanel {
 	public JSpinner getSpintermstep() {
 		if (spintermstep == null) {
 			// new SpinnerNumberModel(value, minimum, maximum, stepSize)
-			// TODO find good values for minimum (should be = value), maximum and stepSize
-			spintermstep = new JSpinner(new SpinnerNumberModel(100, 100, 10000, 100));
+			spintermstep = new JSpinner(new SpinnerNumberModel(10, 1, 10000, 10));
 		}
 		return spintermstep;
 	}
