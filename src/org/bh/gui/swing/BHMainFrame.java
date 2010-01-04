@@ -162,7 +162,10 @@ public class BHMainFrame extends JFrame implements IPlatformListener {
 		this.setIconImage(new ImageIcon("/org/bh/images/bh-logo.jpg").getImage()); //TODO Test on windows	
 	}
 	
-	private void resetTitle() {
+	/**
+	 * resets the title of the <code>BHMainFrame</code>.
+	 */
+	public void resetTitle() {
 		this.setTitle(Services.getTranslator().translate("title"));
 	}
 	
