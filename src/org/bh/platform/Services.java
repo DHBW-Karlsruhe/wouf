@@ -1,6 +1,7 @@
 package org.bh.platform;
 
 import java.awt.Color;
+import java.lang.reflect.Field;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.Collections;
@@ -17,6 +18,8 @@ import org.apache.log4j.Logger;
 import org.bh.calculation.IShareholderValueCalculator;
 import org.bh.calculation.IStochasticProcess;
 import org.bh.controller.IPeriodController;
+import org.bh.data.DTOKeyPair;
+import org.bh.data.DTO.Stochastic;
 import org.bh.gui.swing.BHStatusBar;
 import org.bh.platform.i18n.BHTranslator;
 import org.bh.platform.i18n.ITranslator;
@@ -194,6 +197,21 @@ public class Services {
 					new DisplayablePluginWrapper<IPeriodController>(controller));
 		}
 		
+	}
+	
+	@SuppressWarnings("unchecked")
+	public static List<DTOKeyPair> getStochasticKeysFromEnum(String dtoId, Enum[] keyEnumeration) {
+		ArrayList<DTOKeyPair> keys = new ArrayList<DTOKeyPair>();
+		for (Enum element : keyEnumeration) {
+			try {
+				Field field = element.getClass().getDeclaredField(element.name());
+				if (field.isAnnotationPresent(Stochastic.class))
+					keys.add(new DTOKeyPair(dtoId, element.toString()));
+			} catch (Throwable e) {
+				continue;
+			}
+		}
+		return keys;
 	}
 	
 	

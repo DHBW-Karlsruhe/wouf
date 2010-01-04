@@ -1,17 +1,15 @@
 package org.bh.controller;
 
 import java.awt.event.ActionListener;
-import java.util.List;
 import java.util.Map;
 
 import javax.swing.JLabel;
 import javax.swing.JPanel;
-
 import javax.swing.JScrollPane;
+
 import org.apache.log4j.Logger;
 import org.bh.data.DTOAccessException;
 import org.bh.data.IDTO;
-import org.bh.data.types.Calculable;
 import org.bh.data.types.IValue;
 import org.bh.gui.BHValidityEngine;
 import org.bh.gui.View;
@@ -215,13 +213,6 @@ public abstract class Controller implements IController, ActionListener, IPlatfo
                 ((BHButton) comp).addActionListener(this);
             }
         }
-    }
-    
-    public List<String> getStochasticKeys() throws ControllerException{
-        if(model != null) {
-            return this.model.getStochasticKeys();
-        }
-        throw new ControllerException("No referende to a valid model");
     }
 
     protected BHValidityEngine getValidator(){

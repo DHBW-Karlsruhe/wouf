@@ -1,7 +1,10 @@
 package org.bh.controller;
 
+import java.util.List;
+
 import javax.swing.JPanel;
 
+import org.bh.data.DTOKeyPair;
 import org.bh.data.DTOPeriod;
 import org.bh.platform.IDisplayablePlugin;
 
@@ -52,4 +55,13 @@ public interface IPeriodController extends IDisplayablePlugin {
 	 * @return The priority of the controller.
 	 */
 	int getGuiPriority();
+
+	/**
+	 * Returns a list with the keys of all values which can be determined
+	 * stochastically.
+	 * 
+	 * @return a list with the keys of all values which can be determined
+	 *         stochastically.
+	 */
+	List<DTOKeyPair> getStochasticKeys();
 }

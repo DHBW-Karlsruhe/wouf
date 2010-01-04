@@ -26,11 +26,13 @@ public class DTODirectInput extends DTO implements IPeriodicalValuesDTO {
 		/**
 		 * FreeCashFlow
 		 */
+		@Stochastic
 		FCF,
 		
 		/**
 		 * Liabilities
 		 */
+		@Stochastic
 		LIABILITIES,
 	}
 	
@@ -50,6 +52,10 @@ public class DTODirectInput extends DTO implements IPeriodicalValuesDTO {
 	
 	@Override
 	public String getUniqueId() {
+		return UNIQUE_ID;
+	}
+	
+	public static String getUniqueIdStatic() {
 		return UNIQUE_ID;
 	}
 	

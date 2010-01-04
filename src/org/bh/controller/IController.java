@@ -1,8 +1,9 @@
 package org.bh.controller;
 
-import java.util.List;
 import java.util.Map;
+
 import javax.swing.JPanel;
+
 import org.bh.data.IDTO;
 import org.bh.data.types.Calculable;
 
@@ -33,13 +34,6 @@ public interface IController {
      * @throws ControllerException 
      */
     void setResult(Map<String, Calculable[]> result) throws ControllerException;
-    
-    /**
-     * deliver a List of keys representing values which are stochastical procedable
-     * @return
-     * @throws ControllerException 
-     */
-    List<String> getStochasticKeys() throws ControllerException;
 
     /**
 	 * Defines the description of the plugin which will be displayed on the GUI.

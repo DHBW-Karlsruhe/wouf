@@ -17,7 +17,6 @@ import java.util.Map;
 import org.apache.log4j.Logger;
 import org.bh.data.types.Calculable;
 import org.bh.data.types.IValue;
-import org.bh.data.types.StochasticValue;
 import org.bh.platform.PlatformEvent;
 import org.bh.platform.Services;
 
@@ -32,11 +31,16 @@ import org.bh.platform.Services;
 @SuppressWarnings("unchecked")
 public abstract class DTO<ChildT extends IDTO> implements IDTO<ChildT> {
 	private static final Logger log = Logger.getLogger(DTO.class);
+	
 	@Retention(RetentionPolicy.RUNTIME)
 	@Target(ElementType.FIELD)
 	protected @interface Method {
 		String value() default "";		
 	}
+	
+	@Retention(RetentionPolicy.RUNTIME)
+	@Target(ElementType.FIELD)
+	public @interface Stochastic {}
 
 	/**
 	 * Possible keys with which the user can access this DTO.
@@ -304,16 +308,6 @@ public abstract class DTO<ChildT extends IDTO> implements IDTO<ChildT> {
 		}
 		
 		return result;
-	}
-	
-	@Override
-	public List<String> getStochasticKeys() {
-		ArrayList<String> keys = new ArrayList<String>();
-		for (String key : availableKeys) {
-			if (values.get(key) instanceof StochasticValue)
-				keys.add(key);
-		}
-		return keys;
 	}
 
 	@Override

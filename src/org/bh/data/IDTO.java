@@ -97,12 +97,6 @@ public interface IDTO<ChildT extends IDTO> extends Cloneable, Serializable {
 	public int getChildrenSize();
 	
 	/**
-	 * Returns all keys whose values have to be determined stochastically.
-	 * @return List of keys.
-	 */
-	public List<String> getStochasticKeys();
-	
-	/**
 	 * Returns all available keys.
 	 * @return List of keys.
 	 */
