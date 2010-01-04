@@ -214,9 +214,7 @@ public abstract class Calculable implements IValue {
 						.parseDouble(max));
 			}
 		}
-
-		throw new UnsupportedOperationException(
-				"unknown type for calculable,  has not been implemented yet");
+		return null;
 	}
 
 	/**
