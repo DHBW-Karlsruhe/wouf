@@ -9,6 +9,7 @@ import java.awt.event.ActionEvent;
 import java.util.Map;
 import org.bh.controller.Controller;
 import org.bh.controller.ControllerException;
+import org.bh.controller.InputController;
 import org.bh.data.DTOPeriod;
 import org.bh.data.IDTO;
 import org.bh.data.types.Calculable;
@@ -21,14 +22,14 @@ import org.bh.plugin.gcc.data.DTOGCCBalanceSheet;
  *
  * @author Marco Hammel
  */
-public final class ControllerBHBalanceSheetForm extends Controller{
+public final class ControllerBHBalanceSheetForm extends InputController{
 
     public ControllerBHBalanceSheetForm() throws ViewException{
         super(new ViewBHBalanceSheetForm());
     }
 
-    public void setResult(Map result) throws ControllerException {
-        throw new ControllerException("Is not a result plugin");
+    public ControllerBHBalanceSheetForm(IDTO<?> model) throws ViewException{
+        super(new ViewBHBalanceSheetForm(), model);
     }
 
     public String getGuiKey() {
