@@ -96,6 +96,7 @@ class PlatformActionListener implements ActionListener {
 		// TODO Katzor.Marcus
 			
 		case PROJECTEXPORT:
+			DTOProject t = new DTOProject();
 			break;
 			
 		case PROJECTREMOVE:

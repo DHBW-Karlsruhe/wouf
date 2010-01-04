@@ -13,7 +13,7 @@ import org.bh.platform.IDisplayablePlugin;
  * @version 1.1, 08.12.2009
  * 
  */
-public interface IPeriodGUIController extends IDisplayablePlugin {
+public interface IPeriodController extends IDisplayablePlugin {
 	/**
 	 * This method is called by the platform whenever it needs DTOs for a
 	 * specific period.

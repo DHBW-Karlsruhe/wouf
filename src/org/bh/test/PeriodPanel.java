@@ -12,7 +12,7 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JRadioButton;
 
-import org.bh.controller.IPeriodGUIController;
+import org.bh.controller.IPeriodController;
 import org.bh.data.DTOPeriod;
 import org.bh.platform.PluginManager;
 import org.bh.platform.i18n.BHTranslator;
@@ -25,7 +25,7 @@ public class PeriodPanel extends JPanel implements ActionListener {
 	private DTOPeriod dto;
 	JPanel pluginView;
 	JRadioButton lastSelection = null;
-	IPeriodGUIController lastController = null;
+	IPeriodController lastController = null;
 	TreeSet<PeriodRadioButton> radioButtonWrappers = new TreeSet<PeriodRadioButton>();
 
 	public PeriodPanel(String year, DTOPeriod dto) {
@@ -33,8 +33,8 @@ public class PeriodPanel extends JPanel implements ActionListener {
 		this.setLayout(new GridLayout(0, 1));		
 		
 		PluginManager pluginManager = PluginManager.getInstance();
-		ServiceLoader<IPeriodGUIController> periodControllers = pluginManager.getServices(IPeriodGUIController.class);
-		for (IPeriodGUIController periodController : periodControllers) {
+		ServiceLoader<IPeriodController> periodControllers = pluginManager.getServices(IPeriodController.class);
+		for (IPeriodController periodController : periodControllers) {
 			radioButtonWrappers.add(new PeriodRadioButton(periodController));
 		}
 		
@@ -50,9 +50,9 @@ public class PeriodPanel extends JPanel implements ActionListener {
 	
 	private class PeriodRadioButton implements Comparable<PeriodRadioButton> {
 		private JRadioButton radioButton;
-		private IPeriodGUIController guiController;
+		private IPeriodController guiController;
 		
-		PeriodRadioButton(IPeriodGUIController guiController) {
+		PeriodRadioButton(IPeriodController guiController) {
 			this.guiController = guiController;
 			this.radioButton = new JRadioButton(t.translate(guiController.getGuiKey()));
 			buttonGroup.add(this.radioButton);
@@ -68,7 +68,7 @@ public class PeriodPanel extends JPanel implements ActionListener {
 			return radioButton;
 		}
 
-		public IPeriodGUIController getGuiController() {
+		public IPeriodController getGuiController() {
 			return guiController;
 		}
 	}
@@ -79,7 +79,7 @@ public class PeriodPanel extends JPanel implements ActionListener {
 			return;
 		lastSelection = (JRadioButton) e.getSource();
 		
-		IPeriodGUIController guiController = null;
+		IPeriodController guiController = null;
 		for (PeriodRadioButton rb : radioButtonWrappers) {
 			if (rb.getRadioButton() == lastSelection) {
 				guiController = rb.getGuiController();

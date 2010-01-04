@@ -6,12 +6,12 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 
-import org.bh.controller.IPeriodGUIController;
+import org.bh.controller.IPeriodController;
 import org.bh.data.DTOPeriod;
 import org.bh.data.types.DoubleValue;
 
 
-public class DirectInputController implements IPeriodGUIController {
+public class DirectInputController implements IPeriodController {
 	private static final String GUI_KEY = "Direct Input";
 	private static final int PRIORITY = 100;
 	DTODirectInput dto;

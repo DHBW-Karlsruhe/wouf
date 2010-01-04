@@ -5,14 +5,14 @@ import java.awt.BorderLayout;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
-import org.bh.controller.IPeriodGUIController;
+import org.bh.controller.IPeriodController;
 import org.bh.data.DTOPeriod;
 import org.bh.data.types.Calculable;
 import org.bh.data.types.DoubleValue;
 
 //TODO Javadoc fehlt!
 
-public class RandomDirectInputController implements IPeriodGUIController {
+public class RandomDirectInputController implements IPeriodController {
 	private static final String GUI_KEY = "Random values";
 	private static final int PRIORITY = 0;
 

@@ -16,7 +16,7 @@ import javax.swing.event.EventListenerList;
 import org.apache.log4j.Logger;
 import org.bh.calculation.IShareholderValueCalculator;
 import org.bh.calculation.IStochasticProcess;
-import org.bh.controller.IPeriodGUIController;
+import org.bh.controller.IPeriodController;
 import org.bh.gui.swing.BHStatusBar;
 import org.bh.platform.i18n.BHTranslator;
 import org.bh.platform.i18n.ITranslator;
@@ -32,7 +32,7 @@ public class Services {
 	private static EventListenerList platformListeners = new EventListenerList();
 	private static HashMap<String, DisplayablePluginWrapper<IShareholderValueCalculator>> dcfMethods;
 	private static HashMap<String, DisplayablePluginWrapper<IStochasticProcess>> stochasticProcesses;
-	private static HashMap<String, DisplayablePluginWrapper<IPeriodGUIController>> periodControllers;
+	private static HashMap<String, DisplayablePluginWrapper<IPeriodController>> periodControllers;
 	
 
 	
@@ -163,22 +163,22 @@ public class Services {
 	
 	
 	//TODO Schmalzhaf.Alexander Testen!!!
-	public static IPeriodGUIController getPeriodController(String id) {
+	public static IPeriodController getPeriodController(String id) {
 		if (periodControllers == null)
 			loadPeriodControllers();
 
-		DisplayablePluginWrapper<IPeriodGUIController> wrapper = periodControllers
+		DisplayablePluginWrapper<IPeriodController> wrapper = periodControllers
 				.get(id);
 		if (wrapper == null)
 			return null;
 		return wrapper.getPlugin();
 	}
 	
-	public static List<DisplayablePluginWrapper<IPeriodGUIController>> getPeriodControllers(){
+	public static List<DisplayablePluginWrapper<IPeriodController>> getPeriodControllers(){
 		if(periodControllers == null)
 			loadPeriodControllers();
 		
-		List<DisplayablePluginWrapper<IPeriodGUIController>> result = new ArrayList<DisplayablePluginWrapper<IPeriodGUIController>>(
+		List<DisplayablePluginWrapper<IPeriodController>> result = new ArrayList<DisplayablePluginWrapper<IPeriodController>>(
 				periodControllers.values());
 		Collections.sort(result);
 		return result;
@@ -186,12 +186,12 @@ public class Services {
 	
 	private static void loadPeriodControllers(){
 		// load all PeriodGUIControllers and put them into the map
-		periodControllers = new HashMap<String, DisplayablePluginWrapper<IPeriodGUIController>>(); 
-		ServiceLoader<IPeriodGUIController> controllers = PluginManager
-				.getInstance().getServices(IPeriodGUIController.class);
-		for(IPeriodGUIController controller : controllers){
+		periodControllers = new HashMap<String, DisplayablePluginWrapper<IPeriodController>>(); 
+		ServiceLoader<IPeriodController> controllers = PluginManager
+				.getInstance().getServices(IPeriodController.class);
+		for(IPeriodController controller : controllers){
 			periodControllers.put(controller.getGuiKey(),
-					new DisplayablePluginWrapper<IPeriodGUIController>(controller));
+					new DisplayablePluginWrapper<IPeriodController>(controller));
 		}
 		
 	}
