@@ -15,6 +15,7 @@
     <property name="lib.dir" value="lib"/>
 	<property name="plugins.build.dir" value="plugins"/>
 	<property name="unittests.build.dir" value="tests/bin/org/bh/tests/junit"/>
+	<property name="jar.dir" value="jar"/>
 	
 	
 	<!-- build result dirs -->
@@ -54,6 +55,7 @@
     <target name="clean">
         <delete dir="${build.dir}"/>
         <delete dir="${plugins.build.dir}"/>
+        <delete dir="${jar.dir}"/>
         <delete dir="${output.dir}"/>
     </target>
     <target depends="clean, cleanunittests" name="cleanall"/>
@@ -105,29 +107,49 @@
         
         <signjar jar="${plugins.jar.dir}/${plugin}.jar" keystore="${jar.store.file}" alias="${jar.store.alias}" storepass="${jar.store.pass}"/>
     </target>
-    
-    <target depends="compile" name="createcorejar">
-        <jar destfile="${jar.name.core}" duplicate="preserve">
+
+    <target depends="compile" name="preparejar">
+        <mkdir dir="${jar.dir}"/>
+
+        <unzip dest="${jar.dir}">
+            <fileset dir="${lib.dir}" includes="**/*.jar" excludes="build_lib/**"/>
+        </unzip>
+
+        <delete>
+            <fileset dir="${jar.dir}" defaultexcludes="false">
+                <include name="META-INF/*.RSA"/>
+                <include name="META-INF/*.SF"/>
+                <include name="META-INF/MANIFEST.MF"/>
+                <include name="META-INF/LICENSE*"/>
+                <include name="META-INF/NOTICE*"/>
+            </fileset>
+        </delete>
+
+        <copy todir="${jar.dir}">
+            <fileset dir="${build.dir}"/>
+        </copy>
+    </target>
+
+    <target depends="preparejar" name="createcorejar">
+        <jar destfile="${jar.name.core}">
             <manifest>
                 <attribute name="Main-Class" value="${jar.mainclass}"/>
                 <attribute name="Class-Path" value="."/>
             </manifest>
-            <fileset dir="${build.dir}"/>
-            <zipgroupfileset dir="${lib.dir}" includes="**/*.jar" excludes="ant/**"/>
+            <fileset dir="${jar.dir}"/>
         </jar>
         
         <signjar jar="${jar.name.core}" keystore="${jar.store.file}" alias="${jar.store.alias}" storepass="${jar.store.pass}"/>
     </target>
     
-    <target depends="compile" name="createbundledjar">
+    <target depends="preparejar" name="createbundledjar">
         <jar destfile="${jar.name.bundled}" duplicate="preserve">
             <manifest>
                 <attribute name="Main-Class" value="${jar.mainclass}"/>
                 <attribute name="Class-Path" value="."/>
             </manifest>
-            <fileset dir="${build.dir}"/>
+            <fileset dir="${jar.dir}"/>
             <fileset dir="." includes="${plugins.build.dir}/**"/>
-            <zipgroupfileset dir="${lib.dir}" includes="**/*.jar" excludes="ant/**"/>
         </jar>
         
         <signjar jar="${jar.name.bundled}" keystore="${jar.store.file}" alias="${jar.store.alias}" storepass="${jar.store.pass}"/>
