@@ -165,7 +165,7 @@ public class BHMainFrame extends JFrame implements IPlatformListener {
 	
 	@Override
 	public void dispose() {
-		int i = JOptionPane.showConfirmDialog(this, Services.getTranslator().translate("Pquit"));
+		int i = JOptionPane.showConfirmDialog(this, Services.getTranslator().translate("Psave"));
 		if (i == JOptionPane.YES_OPTION) {
 			// TODO finalize application.
 		
