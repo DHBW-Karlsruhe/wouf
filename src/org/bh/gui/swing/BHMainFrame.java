@@ -167,6 +167,10 @@ public class BHMainFrame extends JFrame implements IPlatformListener {
 	 */
 	public void resetTitle() {
 		this.setTitle(Services.getTranslator().translate("title"));
+		String path = PlatformController.preferences.get("path", null);
+		if (path != null) {
+			this.setTitle(this.getTitle() + " - " + path);
+		}
 	}
 	
 	/**
