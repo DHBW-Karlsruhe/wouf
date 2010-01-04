@@ -310,7 +310,7 @@ class PlatformActionListener implements ActionListener {
 		// TODO rebuild Tree
 		pC.setupTree(bhmf, projectRepoManager);
 		
-		log.debug("file" + bhmf.getChooser().getSelectedFile() + "successfully opened");
+		log.debug("file " + bhmf.getChooser().getSelectedFile() + " successfully opened");
 	}
 	
 	private void fileSave() {
