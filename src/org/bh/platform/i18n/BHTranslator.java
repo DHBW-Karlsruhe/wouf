@@ -22,7 +22,7 @@ import org.bh.platform.Services;
  * @version 0.2, 2010/01/02
  * 
  */
-public class BHTranslator implements ITranslator {
+public final class BHTranslator implements ITranslator {
 	
 	/**
 	 * Parameter for short text. 
@@ -47,7 +47,7 @@ public class BHTranslator implements ITranslator {
 	/**
 	 * Constant for used <code>ResourceBundle</code>.
 	 */
-	private static final String BUNDLE = "BHGUIKeys";
+	private static final String BHGUIKEYS = "BHGUIKeys";
 
 	/**
 	 * Available <code>Locale</code>s. Only provided if corresponding properties
@@ -87,9 +87,9 @@ public class BHTranslator implements ITranslator {
 	private BHTranslator(Locale locale) {
 		Locale.setDefault(locale);
 		JComponent.setDefaultLocale(locale);
-		this.bundle = ResourceBundle.getBundle(BHTranslator.BUNDLE);
+		this.bundle = ResourceBundle.getBundle(BHTranslator.BHGUIKEYS);
 		this.listener = new ArrayList<PropertyChangeListener>();
-		LOG.debug("Translator initialized with Locale " + Locale.getDefault());
+		LOG.debug("Translator initialized with Locale " + this.bundle.getLocale());
 	}
 
 	/**
@@ -160,16 +160,20 @@ public class BHTranslator implements ITranslator {
 	/**
 	 * Sets a new <code>Locale</code> for further translation.
 	 * 
-	 * @param locale
+	 * @param newLocale
 	 *            locale to be set
 	 */
 	@Override
-	public void setLocale(Locale locale) {
-		Locale l = Locale.getDefault();
-		Locale.setDefault(locale);
-		JComponent.setDefaultLocale(locale);
-		this.bundle = ResourceBundle.getBundle(BHTranslator.BUNDLE);
-		this.firePropertyChange("Locale", l, Locale.getDefault());
+	public void setLocale(Locale newLocale) {
+		Locale current = Locale.getDefault();
+		
+		Locale.setDefault(newLocale);
+		JComponent.setDefaultLocale(newLocale);
+
+		this.bundle = null;
+		this.bundle = ResourceBundle.getBundle(BHTranslator.BHGUIKEYS);
+		
+		this.firePropertyChange("Locale", current, this.bundle.getLocale());
 	}
 
 	/**
@@ -179,7 +183,7 @@ public class BHTranslator implements ITranslator {
 	 */
 	@Override
 	public Locale getLocale() {
-		return Locale.getDefault();
+		return this.bundle.getLocale();
 	}
 
 	/**

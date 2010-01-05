@@ -34,6 +34,8 @@ public class BHScenarioHeadForm extends JPanel {
 	private JTable tperioddata;
 
 	private BHButton bcalculate;
+	
+	public int processChoise;
 
 
 
@@ -71,11 +73,19 @@ public class BHScenarioHeadForm extends JPanel {
 	// values to keys
 	
 	public JPanel getPprocess() {
-		if (pprocess == null) {
-			pprocess = new BHProcessForm();
-			pprocess.setBorder(BorderFactory
-					.createTitledBorder(BorderFactory.createEtchedBorder(EtchedBorder.LOWERED),""));
+		processChoise = 1; // TODO @Anton remove this row
+		// TODO Die Prüflogik diskutieren und anpassen
+		switch (processChoise){
+		case 1:
+			pprocess = new BHDeterministicProcessForm();
+			break;
+		default:
+			pprocess = new BHDeterministicProcessForm();
 		}
+		
+		pprocess.setBorder(BorderFactory
+				.createTitledBorder(BorderFactory.createEtchedBorder(EtchedBorder.LOWERED),""));
+		
 		return pprocess;
 	}
 

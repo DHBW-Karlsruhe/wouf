@@ -7,8 +7,8 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Comparator;
 
+import javax.swing.JDialog;
 import javax.swing.JFileChooser;
-import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.WindowConstants;
@@ -209,25 +209,27 @@ class PlatformActionListener implements ActionListener {
 		case HELPUSERHELP:
 
 			log.debug("HELPUSERHELP gefeuert");
-			JFrame frame = new JFrame();
+			JDialog frame = new JDialog();
 			frame.setTitle(BHTranslator.getInstance().translate(
 					"MuserHelpDialog"));
 			frame.setSize(610, 600);
 			frame.getContentPane().add(new BHHelpSystem("userhelp"));
 			frame.setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
 			frame.setResizable(false);
+			frame.setLocationRelativeTo(null);
 			frame.setVisible(true);
 			break;
 
 		case HELPMATHHELP:
 			System.out.println("HELPMATHHELP gefeuert");
-			JFrame mathframe = new JFrame();
+			JDialog mathframe = new JDialog();
 			// TODO Hartgecodeder String raus!! LZ
 			mathframe.setTitle("Business Horizon Mathematische Erläuterungen");
 			mathframe.setSize(610, 600);
 			mathframe.getContentPane().add(new BHHelpSystem("mathhelp"));
 			mathframe
 					.setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
+			mathframe.setLocationRelativeTo(null);
 			mathframe.setResizable(false);
 			mathframe.setVisible(true);
 			break;
@@ -545,6 +547,9 @@ class PlatformActionListener implements ActionListener {
 			// add DTOProject to repository
 			projectRepoManager.addProject(newProject);
 
+			// add DTOProject to repository
+			projectRepoManager.addProject(newProject);
+
 		} else {
 			BHStatusBar.getInstance().setHint(
 					BHTranslator.getInstance().translate("EisSelectProject"),
@@ -556,7 +561,7 @@ class PlatformActionListener implements ActionListener {
 		TreePath currentDuplicateProjectSelection = bhmf.getBHTree()
 				.getSelectionPath();
 		if (currentDuplicateProjectSelection != null) {
-			// Zugriff auf markiertes Projekt
+			// Access to selected project
 			BHTreeNode duplicateScenarioNode = (BHTreeNode) bhmf.getBHTree()
 					.getSelectionPath().getLastPathComponent();
 
