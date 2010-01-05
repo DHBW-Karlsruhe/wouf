@@ -1,18 +1,14 @@
 package org.bh.platform;
 
-import java.awt.Panel;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
 import java.util.ArrayList;
 
+import javax.swing.JDialog;
 import javax.swing.JFileChooser;
-import javax.swing.JFrame;
-import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
-import javax.swing.Popup;
-import javax.swing.PopupFactory;
 import javax.swing.WindowConstants;
 import javax.swing.tree.TreePath;
 
@@ -21,7 +17,6 @@ import org.bh.controller.IPeriodController;
 import org.bh.data.DTOPeriod;
 import org.bh.data.DTOProject;
 import org.bh.data.DTOScenario;
-import org.bh.data.IPeriodicalValuesDTO;
 import org.bh.data.types.StringValue;
 import org.bh.gui.swing.BHMainFrame;
 import org.bh.gui.swing.BHOptionDialog;
@@ -193,23 +188,25 @@ class PlatformActionListener implements ActionListener {
 		case HELPUSERHELP:
 			
 			log.debug("HELPUSERHELP gefeuert");
-			JFrame frame = new JFrame();
+			JDialog frame = new JDialog();
 			frame.setTitle(BHTranslator.getInstance().translate("MuserHelpDialog"));
 			frame.setSize(610,600);
 			frame.getContentPane().add(new BHHelpSystem("userhelp"));
 			frame.setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
 			frame.setResizable(false);
+			frame.setLocationRelativeTo(null);
 			frame.setVisible(true);
 			break;
 			
 		case HELPMATHHELP:
 			System.out.println("HELPMATHHELP gefeuert");
-			JFrame mathframe = new JFrame();
+			JDialog mathframe = new JDialog();
 			//TODO Hartgecodeder String raus!! LZ
 			mathframe.setTitle("Business Horizon Mathematische Erläuterungen");
 			mathframe.setSize(610,600);
 			mathframe.getContentPane().add(new BHHelpSystem("mathhelp"));
 			mathframe.setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
+			mathframe.setLocationRelativeTo(null);
 			mathframe.setResizable(false);
 			mathframe.setVisible(true);
 			break;
