@@ -62,7 +62,7 @@ public abstract class InputController extends Controller implements IInputContro
      * @param comp
      * @throws DTOAccessException
      */
-    protected void safeToModel(IBHComponent comp)throws DTOAccessException{
+    protected void saveToModel(IBHComponent comp)throws DTOAccessException{
         log.debug("Plugin save to dto");
         this.model.setSandBoxMode(Boolean.TRUE);
         //TODO define typeconverter
@@ -74,7 +74,6 @@ public abstract class InputController extends Controller implements IInputContro
      * writes all dto values with a mathcing key in a IBHComponent to UI
      * @throws DTOAccessException
      */
-    @Override
 	protected void loadAllToView()throws DTOAccessException{
         log.debug("Plugin load from dto in view");
         for(String key : this.bhMappingComponents.keySet()){
@@ -87,7 +86,6 @@ public abstract class InputController extends Controller implements IInputContro
      * @throws DTOAccessException
      * @throws ControllerException
      */
-    @Override
 	protected void loadToView(String key) throws DTOAccessException, ControllerException{
         log.debug("Plugin load from dto in view");
         //this.bhMappingComponents.get(key).setValue(this.model.get(key));
