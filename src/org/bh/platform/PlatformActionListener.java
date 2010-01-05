@@ -1,5 +1,6 @@
 package org.bh.platform;
 
+import java.awt.Panel;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
@@ -7,6 +8,11 @@ import java.util.ArrayList;
 
 import javax.swing.JFileChooser;
 import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JOptionPane;
+import javax.swing.JPanel;
+import javax.swing.Popup;
+import javax.swing.PopupFactory;
 import javax.swing.WindowConstants;
 import javax.swing.tree.TreePath;
 
@@ -392,9 +398,30 @@ class PlatformActionListener implements ActionListener {
 			
 		
 	}
+	
+	
 	private void createPeriod(){
 		//If a scenario or a period is selected...
 		if(bhmf.getBHTree().getSelectionPath()!=null && bhmf.getBHTree().getSelectionPath().getPathCount()>2){
+			//TODO Schmalzhaf.Alexander at first: show selection screen for sort of Period
+			Object[] periodTypes = Services.getPeriodControllers().toArray();
+			
+			//TODO Thiele.Klaus dürfen "wir" die OptionPane benutzen?
+			
+			//TODO Schmalzhaf.Alexander hartgecodete Strings raus!
+			Object res = JOptionPane.showInputDialog(
+                    bhmf,
+                    "Bitte gewünschten Periodentyp auswählen:",
+                    "Periodentyp auswählen",
+                    JOptionPane.QUESTION_MESSAGE,
+                    null,
+                    periodTypes,
+                    null);
+			
+			if(res == null){
+				return;
+			}
+			
 			//...create new period
 			DTOPeriod newPeriod = new DTOPeriod();
 			//TODO hardgecodeder String raus! AS
@@ -410,8 +437,11 @@ class PlatformActionListener implements ActionListener {
 			//last steps: unfold tree to new element, set focus and start editing
 			bhmf.getBHTree().scrollPathToVisible(new TreePath(newPeriodNode.getPath()));
 			bhmf.getBHTree().startEditingAtPath(new TreePath(newPeriodNode.getPath()));
+			
 		}
 	}
+	
+	
 	private void duplicateProject(){
 		TreePath currentDuplicateProjectSelection = bhmf.getBHTree().getSelectionPath();
 		if(currentDuplicateProjectSelection != null){

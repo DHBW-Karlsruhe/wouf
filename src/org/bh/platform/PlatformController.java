@@ -358,7 +358,6 @@ public class PlatformController {
 				bhmf.getBHTree().updateUI();
 			}
 		}
-		
 	}
 	
 }
