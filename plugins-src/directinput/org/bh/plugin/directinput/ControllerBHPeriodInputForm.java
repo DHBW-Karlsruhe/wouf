@@ -7,17 +7,13 @@ package org.bh.plugin.directinput;
 
 import java.awt.event.ActionEvent;
 import java.util.List;
-import java.util.Map;
 
 import javax.swing.JPanel;
 
 import org.bh.controller.Controller;
-import org.bh.controller.ControllerException;
 import org.bh.controller.IPeriodController;
 import org.bh.data.DTOKeyPair;
 import org.bh.data.DTOPeriod;
-import org.bh.data.types.Calculable;
-import org.bh.data.types.IValue;
 import org.bh.platform.PlatformEvent;
 
 /**
@@ -25,24 +21,17 @@ import org.bh.platform.PlatformEvent;
  * @author Marco Hammel
  */
 public class ControllerBHPeriodInputForm extends Controller implements IPeriodController{
-
-    @Override
-    protected IValue typeConverter(String value) throws ControllerException {
-        throw new UnsupportedOperationException("Not supported yet.");
-    }
-
-    public void setResult(Map<String, Calculable[]> result) throws ControllerException {
-        throw new UnsupportedOperationException("Not supported yet.");
-    }
-
+	@Override
     public String getGuiKey() {
         throw new UnsupportedOperationException("Not supported yet.");
     }
 
+	@Override
     public void actionPerformed(ActionEvent e) {
         throw new UnsupportedOperationException("Not supported yet.");
     }
 
+	@Override
     public void platformEvent(PlatformEvent e) {
         throw new UnsupportedOperationException("Not supported yet.");
     }

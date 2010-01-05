@@ -35,5 +35,9 @@ public class StringValue implements IValue {
 	public String getString() {
 		return this.myString;
 	}
-
+	
+	@Override
+	public String toString() {
+		return myString;
+	}
 }

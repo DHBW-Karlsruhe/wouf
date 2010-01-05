@@ -22,6 +22,7 @@ public class ViewBHBalanceSheetForm extends View{
     }
 
     public ViewBHBalanceSheetForm() throws ViewException{
-        super(new BHBalanceSheetForm(), new ValidationBHBalanceSheetForm());
+    	// FIXME add validation engine
+        super(new BHBalanceSheetForm(), null);
     }
 }

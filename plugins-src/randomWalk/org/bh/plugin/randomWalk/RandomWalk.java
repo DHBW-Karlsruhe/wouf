@@ -25,6 +25,7 @@ import org.bh.data.types.DistributionMap;
 import org.bh.data.types.DoubleValue;
 import org.bh.data.types.IValue;
 import org.bh.data.types.IntegerValue;
+import org.bh.gui.ValidationMethods;
 import org.bh.gui.swing.BHLabel;
 import org.bh.gui.swing.BHTextField;
 import org.bh.platform.Services;
@@ -131,27 +132,27 @@ public class RandomWalk implements IStochasticProcess {
 			north.setLayout(new FlowLayout());
 			north.add(new BHLabel(translator.translate(AMOUNT_OF_PERIODS)));
 			BHTextField tf = new BHTextField(AMOUNT_OF_PERIODS);
-			int[] rule = { ValidationRandomWalk.isMandatory,
-					ValidationRandomWalk.isInteger,
-					ValidationRandomWalk.isPositive };
+			int[] rule = { ValidationMethods.isMandatory,
+					ValidationMethods.isInteger,
+					ValidationMethods.isPositive };
 			tf.setValidateRules(rule);
 			north.add(tf);
 			map.put(AMOUNT_OF_PERIODS, new Integer(5));
 
 			north.add(new BHLabel(translator.translate(STEPS_PER_PERIOD)));
 			BHTextField tf1 = new BHTextField(STEPS_PER_PERIOD);
-			int[] rule1 = { ValidationRandomWalk.isMandatory,
-					ValidationRandomWalk.isInteger,
-					ValidationRandomWalk.isPositive };
+			int[] rule1 = { ValidationMethods.isMandatory,
+					ValidationMethods.isInteger,
+					ValidationMethods.isPositive };
 			tf1.setValidateRules(rule1);
 			north.add(tf1);
 			map.put(STEPS_PER_PERIOD, new Integer(250 / 5));
 
 			north.add(new BHLabel(translator.translate(REPETITIONS)));
 			BHTextField tf2 = new BHTextField(REPETITIONS);
-			int[] rule2 = { ValidationRandomWalk.isMandatory,
-					ValidationRandomWalk.isInteger,
-					ValidationRandomWalk.isPositive };
+			int[] rule2 = { ValidationMethods.isMandatory,
+					ValidationMethods.isInteger,
+					ValidationMethods.isPositive };
 			tf2.setValidateRules(rule2);
 			north.add(tf2);
 			map.put(REPETITIONS, new Integer(100000));

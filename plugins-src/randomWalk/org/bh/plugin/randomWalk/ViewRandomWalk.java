@@ -10,6 +10,7 @@ import org.bh.gui.ViewException;
 public class ViewRandomWalk extends View {
 
     public ViewRandomWalk() throws ViewException{
-        super(new RandomWalk().calculateParameters(), new ValidationRandomWalk());
+    	// FIXME add validation engine
+        super(new RandomWalk().calculateParameters(), null);
     }
 }

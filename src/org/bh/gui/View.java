@@ -26,10 +26,12 @@ import org.bh.gui.swing.BHLabel;
 import org.bh.gui.swing.BHStatusBar;
 import org.bh.gui.swing.BHTextField;
 import org.bh.gui.swing.IBHComponent;
+import org.bh.gui.swing.IBHModelComponent;
 
 /**
  *
  * @author Marco Hammel
+ * @author Robert
  */
 public abstract class View implements KeyListener, PropertyChangeListener, MouseListener {
 
@@ -53,7 +55,7 @@ public abstract class View implements KeyListener, PropertyChangeListener, Mouse
      * representing all components related to the model
      * @see IDTO
      */
-    private Map<String, IBHComponent> bhModelComponents;
+    private Map<String, IBHModelComponent> bhModelComponents;
     /**
      * representing all BH labels and Buttons
      * @see BHButton
@@ -61,7 +63,7 @@ public abstract class View implements KeyListener, PropertyChangeListener, Mouse
      */
     private Map<String, IBHComponent> bhTextComponents;
     
-    private static Map<String, IBHComponent> validationRegister = null;
+    private static Map<String, IBHModelComponent> validationRegister = null;
 
     /**
      * Should be used in case of a UI which have to be validated
@@ -117,9 +119,9 @@ public abstract class View implements KeyListener, PropertyChangeListener, Mouse
      * @param components
      * @return Map of model related components
      */
-    private Map<String, IBHComponent> mapBHcomponents(Component[] components) throws ViewException {
+    private Map<String, IBHModelComponent> mapBHcomponents(Component[] components) throws ViewException {
         log.debug("UI Components are getting organized and registered in a View instance");
-        Map<String, IBHComponent> map = Collections.synchronizedMap(new HashMap<String, IBHComponent>());
+        Map<String, IBHModelComponent> map = Collections.synchronizedMap(new HashMap<String, IBHModelComponent>());
         for (Component comp : components) {
             if (comp instanceof IBHComponent) {
             	IBHComponent bhcomp = (IBHComponent)comp;
@@ -128,8 +130,8 @@ public abstract class View implements KeyListener, PropertyChangeListener, Mouse
                 	this.bhTextComponents.put(bhcomp.getKey(), bhcomp);
                 } else if (comp instanceof IBHAddValue) {
                     this.bhChartComponents.put(bhcomp.getKey(), (IBHAddValue) comp);
-                } else {
-            		map.put(bhcomp.getKey(), bhcomp);
+                } else if (comp instanceof IBHModelComponent) {
+            		map.put(bhcomp.getKey(), (IBHModelComponent) comp);
                 }
             }
             // map all subcomponents
@@ -154,8 +156,12 @@ public abstract class View implements KeyListener, PropertyChangeListener, Mouse
      * 
      * @return  Map of model related componentes
      */
-    public Map<String, IBHComponent> getBHmodelComponents() {
+    public Map<String, IBHModelComponent> getBHModelComponents() {
         return this.bhModelComponents;
+    }
+    
+    public IBHModelComponent getBHModelComponent(Object key) {
+    	return this.bhModelComponents.get(key.toString());
     }
 
     /**

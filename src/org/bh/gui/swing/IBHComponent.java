@@ -2,8 +2,6 @@ package org.bh.gui.swing;
 
 import java.awt.Component;
 
-import org.bh.data.types.IValue;
-import org.bh.gui.BHValidityEngine;
 import org.bh.platform.IPlatformListener;
 
 /**
@@ -60,22 +58,6 @@ public interface IBHComponent extends IPlatformListener {
 	String getKey();
 
 	/**
-	 * Number of rules and the rules itself are platform independent but shall
-	 * be consistent in every plugin by using one Validity Engine per plugin.
-	 * 
-	 * @return amount of rules defined in a subclass of BHValidity engine
-	 * @see BHValidityEngine
-	 */
-	public int[] getValidateRules();
-
-	/**
-	 * can set the Rules for the validation by runtime;
-	 * 
-	 * @param validateRules
-	 */
-	public void setValidateRules(int[] validateRules);
-
-	/**
 	 * you have to override the add method and implement a put into the map for
 	 * 
 	 * @param comp
@@ -91,23 +73,7 @@ public interface IBHComponent extends IPlatformListener {
 	public String getBHHint();
 
 	/**
-	 * Should be implemented in components which comtaining a model relevant
-	 * value
-	 * 
-	 * @return relevant value
+	 * Reloads the text if necessary.
 	 */
-	public IValue getValue();
-
-	/**
-	 * Set the value of the component.
-	 * 
-	 * @param value
-	 *            The value to be set.
-	 */
-	public void setValue(IValue value);
-
-	/**
-	 * Reset the text if necessary.
-	 */
-	public void resetText();
+	public void reloadText();
 }

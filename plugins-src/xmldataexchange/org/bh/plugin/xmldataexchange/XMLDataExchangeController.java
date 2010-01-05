@@ -2,16 +2,12 @@ package org.bh.plugin.xmldataexchange;
 
 import java.awt.event.ActionEvent;
 import java.io.IOException;
-import java.util.Map;
 
 import javax.swing.JFileChooser;
 
-import org.bh.controller.Controller;
-import org.bh.controller.ControllerException;
 import org.bh.controller.InputController;
 import org.bh.data.DTOProject;
 import org.bh.data.IDTO;
-import org.bh.data.types.IValue;
 import org.bh.gui.View;
 import org.bh.gui.ViewException;
 import org.bh.gui.swing.BHTextField;
@@ -72,8 +68,8 @@ public class XMLDataExchangeController extends InputController {
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		IBHComponent comp =  (IBHComponent) e.getSource();
-		BHTextField txtExportPath = (BHTextField) view.getBHmodelComponents().get("txtExportPath");
-		BHTextField txtImportPath = (BHTextField) view.getBHmodelComponents().get("txtImportPath");
+		BHTextField txtExportPath = (BHTextField) view.getBHModelComponents().get("txtExportPath");
+		BHTextField txtImportPath = (BHTextField) view.getBHModelComponents().get("txtImportPath");
 		
 		if (comp.getKey().equals("btnExportChooseFile"))
 		{
@@ -122,12 +118,6 @@ public class XMLDataExchangeController extends InputController {
 	public void platformEvent(PlatformEvent e) {
 		// TODO Auto-generated method stub
 		
-	}
-
-	@Override
-	protected IValue typeConverter(String value) throws ControllerException {
-		// TODO Auto-generated method stub
-		throw new UnsupportedOperationException("This method has not been implemented");
 	}
 
 	@Override

@@ -6,7 +6,6 @@ import java.util.List;
 
 import javax.swing.UIManager;
 
-import org.bh.data.types.IValue;
 import org.bh.gui.swing.IBHComponent;
 import org.bh.platform.PlatformEvent;
 import org.bh.platform.Services;
@@ -54,16 +53,18 @@ public class BHPieChart extends JFreeChart implements IBHComponent, IBHAddValue 
 	 * 
 	 * @return String key
 	 */
-
+	@Override
 	public String getKey() {
 		return this.key;
 	}
 
+	@Override
 	public final void addValue(Number value, Comparable<String> columnKey) {
 		this.dataset.setValue(columnKey, value);
 		fireChartChanged();
 	}
 
+	@Override
 	public void addValues(List<?> list) {
 		Iterator<?> it = list.iterator();
 
@@ -82,13 +83,8 @@ public class BHPieChart extends JFreeChart implements IBHComponent, IBHAddValue 
 		// }
 	}
 
+	@Override
 	public Component add(Component comp) {
-		// TODO Auto-generated method stub
-		throw new UnsupportedOperationException(
-				"This method has not been implemented");
-	}
-
-	public int[] getValidateRules() {
 		// TODO Auto-generated method stub
 		throw new UnsupportedOperationException(
 				"This method has not been implemented");
@@ -100,18 +96,14 @@ public class BHPieChart extends JFreeChart implements IBHComponent, IBHAddValue 
 				"This method has not been implemented");
 	}
 
-	public void setValidateRules(int[] validateRules) {
-		// TODO Auto-generated method stub
-		throw new UnsupportedOperationException(
-				"This method has not been implemented");
-	}
-
+	@Override
 	public void addValue(Number value, int rowKey, Comparable<String> columnKey) {
 		// TODO Auto-generated method stub
 		throw new UnsupportedOperationException(
 				"This method has not been implemented");
 	}
 
+	@Override
 	public void addSeries(Comparable<String> key, double[] values, int bins,
 			double minimum, double maximum) {
 		// TODO Auto-generated method stub
@@ -119,18 +111,7 @@ public class BHPieChart extends JFreeChart implements IBHComponent, IBHAddValue 
 				"This method has not been implemented");
 	}
 
-	public String getValue() {
-		// TODO Auto-generated method stub
-		throw new UnsupportedOperationException(
-				"This method has not been implemented");
-	}
-
-	public void setValue(IValue value) {
-		// TODO Auto-generated method stub
-		throw new UnsupportedOperationException(
-				"This method has not been implemented");
-	}
-
+	@Override
 	public void addSeries(Comparable<String> seriesKey, double[][] data) {
 		// TODO Auto-generated method stub
 		throw new UnsupportedOperationException(
@@ -159,7 +140,7 @@ public class BHPieChart extends JFreeChart implements IBHComponent, IBHAddValue 
 	 * Reset Text if necessary.
 	 */
 	@Override
-	public void resetText() {
+	public void reloadText() {
 		// TODO Zuckschwert.Lars
 	}
 

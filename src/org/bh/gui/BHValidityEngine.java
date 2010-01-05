@@ -4,19 +4,23 @@
  */
 package org.bh.gui;
 
+import java.util.Map;
+
+import javax.swing.JComponent;
+import javax.swing.JLabel;
+import javax.swing.JScrollPane;
+
+import org.apache.log4j.Logger;
+import org.bh.controller.Controller;
+import org.bh.gui.swing.BHStatusBar;
+import org.bh.gui.swing.IBHComponent;
+import org.bh.gui.swing.IBHModelComponent;
+
 import com.jgoodies.validation.ValidationResult;
 import com.jgoodies.validation.ValidationResultModel;
 import com.jgoodies.validation.util.DefaultValidationResultModel;
 import com.jgoodies.validation.view.ValidationComponentUtils;
 import com.jgoodies.validation.view.ValidationResultViewFactory;
-import java.util.Map;
-import javax.swing.JComponent;
-import javax.swing.JLabel;
-import javax.swing.JScrollPane;
-import org.apache.log4j.Logger;
-import org.bh.controller.Controller;
-import org.bh.gui.swing.BHStatusBar;
-import org.bh.gui.swing.IBHComponent;
 
 /**
  *
@@ -24,7 +28,7 @@ import org.bh.gui.swing.IBHComponent;
  */
 public abstract class BHValidityEngine {
 
-    private static  Logger log = Logger.getLogger(BHValidityEngine.class);
+    private static Logger log = Logger.getLogger(BHValidityEngine.class);
 
     /**
      * flag for the validation of a complete UI instance
@@ -86,7 +90,7 @@ public abstract class BHValidityEngine {
      * @see BHStatusBar
      */
     protected static void setInputHintLabel(IBHComponent comp) {
-        log.debug("Input ToolTip is setted to Status Bar");
+        log.debug("Input ToolTip has been set to Status Bar");
         Controller.setBHstatusBarHint((JLabel) ValidationComponentUtils.getInputHint((JComponent) comp));
     }
     /**
@@ -97,7 +101,7 @@ public abstract class BHValidityEngine {
      * @see IBHComponent
      * @see BHStatusBar
      */
-    public void publishValidationAll(Map<String, IBHComponent> toValidate) throws ViewException{
+    public void publishValidationAll(Map<String, IBHModelComponent> toValidate) throws ViewException{
         log.debug("Trigger validation process for All Components");
         validationResultAll = validateAll(toValidate);
         setValidityStatus(validationResultAll);
@@ -110,7 +114,7 @@ public abstract class BHValidityEngine {
      * @throws ViewException
      * @see BHStatusBar
      */
-    protected void publishValidationComp(IBHComponent comp) throws ViewException{
+    protected void publishValidationComp(IBHModelComponent comp) throws ViewException{
         log.debug("Trigger validation for a single component");
         ValidationResult valRes = validate(comp);
         Controller.setBHstatusBarErrorHint(createValidationResultList(valRes));
@@ -121,7 +125,7 @@ public abstract class BHValidityEngine {
      * @param toValidate a Map of IBHComponents
      * @see ValidationComponentUtils
      */
-    public abstract void registerComponents(Map<String, IBHComponent> toValidate) throws ViewException;
+    public abstract void registerComponents(Map<String, IBHModelComponent> toValidate) throws ViewException;
    
     /**
      * Shell proof the constant based rules of a single component
@@ -130,7 +134,7 @@ public abstract class BHValidityEngine {
      * @return the result of the Validation as ValidationResult
      * @see ValidationResult
      */
-    public abstract ValidationResult validate(IBHComponent comp) throws ViewException;
+    public abstract ValidationResult validate(IBHModelComponent comp) throws ViewException;
 
     /**
      * Shell proof the single components and can also proof related conditions between
@@ -140,5 +144,5 @@ public abstract class BHValidityEngine {
      * @return the result of the Validation as ValidationResult
      * @see ValidationResult
      */
-    public abstract ValidationResult validateAll(Map<String, IBHComponent> toValidate) throws ViewException;
+    public abstract ValidationResult validateAll(Map<String, IBHModelComponent> toValidate) throws ViewException;
 }

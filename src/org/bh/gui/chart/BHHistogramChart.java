@@ -5,7 +5,6 @@ import java.util.List;
 
 import javax.swing.UIManager;
 
-import org.bh.data.types.IValue;
 import org.bh.gui.swing.IBHComponent;
 import org.bh.platform.PlatformEvent;
 import org.bh.platform.Services;
@@ -79,22 +78,12 @@ public class BHHistogramChart extends JFreeChart implements IBHComponent,
 	}
 
 	/* Specified by interface/super class. */
-
+	@Override
 	public final Component add(final Component comp) {
 		// TODO Auto-generated method stub
 		throw new UnsupportedOperationException(
 				"This method has not been implemented");
 	}
-
-	/* Specified by interface/super class. */
-
-	public final int[] getValidateRules() {
-		// TODO Auto-generated method stub
-		throw new UnsupportedOperationException(
-				"This method has not been implemented");
-	}
-
-	/* Specified by interface/super class. */
 
 	public final boolean isTypeValid() {
 		// TODO Auto-generated method stub
@@ -102,38 +91,25 @@ public class BHHistogramChart extends JFreeChart implements IBHComponent,
 				"This method has not been implemented");
 	}
 
-	/* Specified by interface/super class. */
-
-	public void setValidateRules(int[] validateRules) {
-		// TODO Auto-generated method stub
-		throw new UnsupportedOperationException(
-				"This method has not been implemented");
-	}
-
+	@Override
 	public void addValue(final Number value, Comparable<String> columnKey) {
 		// TODO Auto-generated method stub
 		throw new UnsupportedOperationException(
 				"This method has not been implemented");
 	}
 
+	@Override
 	public void addValue(final Number value, final int rowKey, Comparable<String> columnKey) {
 		// TODO Auto-generated method stub
 		throw new UnsupportedOperationException(
 				"This method has not been implemented");
 	}
 
+	@Override
 	public void addValues(List<?> list) {
 		// TODO Auto-generated method stub
 		throw new UnsupportedOperationException(
 				"This method has not been implemented");
-	}
-
-	public String getValue() {
-		throw new UnsupportedOperationException("Not supported yet.");
-	}
-
-	public void setValue(IValue value) {
-		throw new UnsupportedOperationException("Not supported yet.");
 	}
 
 	public final void addSeries(final Comparable<String> seriesKey, final double[][] data) {
@@ -164,7 +140,7 @@ public class BHHistogramChart extends JFreeChart implements IBHComponent,
 	 * Reset Text if necessary.
 	 */
 	@Override
-	public void resetText() {
+	public void reloadText() {
 		// TODO Zuckschwert.Lars
 	}
 

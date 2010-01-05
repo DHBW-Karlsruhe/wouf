@@ -146,7 +146,7 @@ public class BHLabel extends JLabel implements IBHComponent {
 	@Override
 	public void platformEvent(PlatformEvent e) {
 		if (e.getEventType() == Type.LOCALE_CHANGED) {
-			this.resetText();
+			this.reloadText();
 		}
 	}
 
@@ -154,7 +154,7 @@ public class BHLabel extends JLabel implements IBHComponent {
 	 * Reset Text if necessary.
 	 */
 	@Override
-	public void resetText() {
+	public void reloadText() {
 		this.setText(Services.getTranslator().translate(key.toString()));
 	}
 }

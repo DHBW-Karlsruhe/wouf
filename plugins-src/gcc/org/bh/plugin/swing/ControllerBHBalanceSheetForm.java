@@ -6,12 +6,10 @@
 package org.bh.plugin.swing;
 
 import java.awt.event.ActionEvent;
-import org.bh.controller.ControllerException;
+
 import org.bh.controller.InputController;
 import org.bh.data.DTOPeriod;
 import org.bh.data.IDTO;
-import org.bh.data.types.Calculable;
-import org.bh.data.types.IValue;
 import org.bh.gui.ViewException;
 import org.bh.platform.PlatformEvent;
 import org.bh.plugin.gcc.data.DTOGCCBalanceSheet;
@@ -58,11 +56,4 @@ public final class ControllerBHBalanceSheetForm extends InputController{
                 break;
         }
     }
-
-    @Override
-    protected IValue typeConverter(String value) throws ControllerException {
-        //TODO define conversion Rules for the fields
-        return Calculable.parseCalculable(value);
-    }
-
 }

@@ -61,6 +61,6 @@ public class BHJComponent extends JComponent implements IBHComponent{
 	 * Unnecessary. Do nothing.
 	 */
 	@Override
-	public void resetText() {
+	public void reloadText() {
 	}
 }

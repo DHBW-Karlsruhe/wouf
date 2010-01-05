@@ -13,6 +13,7 @@ import org.bh.gui.View;
 import org.bh.gui.swing.BHButton;
 import org.bh.gui.swing.BHStatusBar;
 import org.bh.gui.swing.IBHComponent;
+import org.bh.gui.swing.IBHModelComponent;
 import org.bh.platform.IPlatformListener;
 import org.bh.platform.Services;
 import org.bh.platform.i18n.ITranslator;
@@ -34,7 +35,7 @@ public abstract class Controller implements IController, ActionListener, IPlatfo
     /**
      * Reference to all model depending IBHcomponents on the UI
      */
-    protected Map<String, IBHComponent> bhMappingComponents;
+    protected Map<String, IBHModelComponent> bhMappingComponents;
     
     /**
      * Reference to the Platform StatusBar. Must be set in every constructor
@@ -49,7 +50,7 @@ public abstract class Controller implements IController, ActionListener, IPlatfo
         this.view = view;
         Controller.bhStatusBar = Services.getBHstatusBar();
         if (view != null) {
-            this.bhMappingComponents = this.view.getBHmodelComponents();
+            this.bhMappingComponents = this.view.getBHModelComponents();
             this.addControllerAsListener(this.view.getBHtextComponents());
         }
         Services.addPlatformListener(this);
@@ -83,7 +84,7 @@ public abstract class Controller implements IController, ActionListener, IPlatfo
     protected void setView(View view){
         this.view = view;
         if (view != null) {
-        	this.bhMappingComponents = this.view.getBHmodelComponents();
+        	this.bhMappingComponents = this.view.getBHModelComponents();
                 this.addControllerAsListener(this.view.getBHtextComponents());
         }
     }

@@ -9,11 +9,12 @@ import org.bh.data.DTOAccessException;
 import org.bh.data.IDTO;
 import org.bh.gui.BHValidityEngine;
 import org.bh.gui.View;
-import org.bh.gui.swing.IBHComponent;
+import org.bh.gui.swing.IBHModelComponent;
 
 /**
  * 
  * @author Marco Hammel
+ * @author Robert
  */
 public abstract class InputController extends Controller implements
 		IInputController {
@@ -34,7 +35,7 @@ public abstract class InputController extends Controller implements
 	 */
 	public InputController(View view, IDTO<?> model) {
 		super(view);
-		this.model = model;
+		setModel(model);
 	}
 
 	public InputController() {
@@ -47,49 +48,6 @@ public abstract class InputController extends Controller implements
 
 	public InputController(IDTO<?> model) {
 		this(null, model);
-	}
-
-	/**
-	 * writes all data to its dto reference
-	 * 
-	 * @throws DTOAccessException
-	 */
-	protected void saveAllToModel() throws DTOAccessException {
-		saveToModel(this.view, this.model);
-	}
-
-	/**
-	 * save specific component to model
-	 * 
-	 * @param comp
-	 * @throws DTOAccessException
-	 */
-	protected void saveToModel(IBHComponent comp) throws DTOAccessException {
-		saveToModel(comp, this.model);
-	}
-
-	/**
-	 * writes all dto values with a mathcing key in a IBHComponent to UI
-	 * 
-	 * @throws DTOAccessException
-	 */
-	protected void loadAllToView() throws DTOAccessException {
-		log.debug("Plugin load from dto in view");
-		for (String key : this.bhMappingComponents.keySet()) {
-			// this.bhMappingComponents.get(key).setValue(this.model.get(key));
-		}
-	}
-
-	/**
-	 * 
-	 * @param key
-	 * @throws DTOAccessException
-	 * @throws ControllerException
-	 */
-	protected void loadToView(String key) throws DTOAccessException,
-			ControllerException {
-		log.debug("Plugin load from dto in view");
-		// this.bhMappingComponents.get(key).setValue(this.model.get(key));
 	}
 
 	public void setModel(IDTO<?> model) {
@@ -105,29 +63,97 @@ public abstract class InputController extends Controller implements
 		return this.view.getValidator();
 	}
 
-	public static void saveToModel(View view, IDTO<?> model) {
+	// TODO Javadoc, exception handling
+	/*
+	 * Static methods for data transfer between model and view
+	 */
+	public static void saveAllToModel(View view, IDTO<?> model)
+			throws DTOAccessException {
 		log.debug("Saving values from view to model");
 		model.setSandBoxMode(true);
-		for (IBHComponent comp : view.getBHmodelComponents().values()) {
+		for (IBHModelComponent comp : view.getBHModelComponents().values()) {
 			model.put(comp.getKey(), comp.getValue());
 		}
 	}
 
-	public static void saveToModel(IBHComponent comp, IDTO<?> model) {
+	public static void saveToModel(IBHModelComponent comp, IDTO<?> model)
+			throws DTOAccessException {
 		log.debug("Saving value from component to model");
 		model.setSandBoxMode(true);
 		model.put(comp.getKey(), comp.getValue());
 	}
 
-	public static void loadToView(IDTO<?> model, View view) {
-		log.debug("Loading values from model to view");
-		for (IBHComponent comp : view.getBHmodelComponents().values()) {
-			comp.setValue(model.get(comp.getKey()));
+	public static void saveToModel(View view, IDTO<?> model, Object key)
+			throws DTOAccessException {
+		log.debug("Saving value from view to model");
+		model.setSandBoxMode(true);
+		IBHModelComponent comp = view.getBHModelComponents()
+				.get(key.toString());
+		if (comp != null) {
+			model.put(key.toString(), comp.getValue());
 		}
 	}
 
-	public static void loadToView(IDTO<?> model, IBHComponent comp) {
+	public static void loadAllToView(IDTO<?> model, View view) {
+		log.debug("Loading values from model to view");
+		for (IBHModelComponent comp : view.getBHModelComponents().values()) {
+			try {
+				comp.setValue(model.get(comp.getKey()));
+			} catch (DTOAccessException e) {
+				comp.setValue(null);
+			}
+		}
+	}
+
+	public static void loadToView(IDTO<?> model, IBHModelComponent comp)
+			throws DTOAccessException {
 		log.debug("Loading value from model to component");
-		comp.setValue(model.get(comp.getKey()));
+		try {
+			comp.setValue(model.get(comp.getKey()));
+		} catch (DTOAccessException e) {
+			comp.setValue(null);
+		}
+	}
+
+	public static void loadToView(IDTO<?> model, View view, Object key)
+			throws DTOAccessException {
+		log.debug("Loading value from model to component");
+		IBHModelComponent comp = view.getBHModelComponents()
+				.get(key.toString());
+		if (comp != null) {
+			try {
+				comp.setValue(model.get(key.toString()));
+			} catch (DTOAccessException e) {
+				comp.setValue(null);
+			}
+		}
+	}
+
+	/*
+	 * Wrappers for the static data transfer classes
+	 */
+	protected void saveAllToModel() throws DTOAccessException {
+		saveAllToModel(this.view, this.model);
+	}
+
+	protected void saveToModel(IBHModelComponent comp)
+			throws DTOAccessException {
+		saveToModel(comp, this.model);
+	}
+
+	protected void saveToModel(Object key) throws DTOAccessException {
+		saveToModel(this.view, this.model, key);
+	}
+
+	protected void loadAllToView() throws DTOAccessException {
+		loadAllToView(this.model, this.view);
+	}
+
+	protected void loadToView(IBHModelComponent comp) throws DTOAccessException {
+		loadToView(this.model, comp);
+	}
+
+	protected void loadToView(Object key) {
+		loadToView(this.model, this.view, key);
 	}
 }

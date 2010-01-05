@@ -90,7 +90,7 @@ public class BHTextArea extends JTextArea implements IBHComponent {
 	 * Reset Text if necessary.
 	 */
 	@Override
-	public void resetText() {
+	public void reloadText() {
 	}
 
 }

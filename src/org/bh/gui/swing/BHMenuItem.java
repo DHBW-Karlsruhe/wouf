@@ -27,7 +27,6 @@ import org.bh.platform.PlatformEvent.Type;
 public class BHMenuItem extends JMenuItem implements IBHComponent, IBHAction {
 
 	private PlatformKey key;
-	private int[] validateRules;
 	private static List<IBHAction> platformItems = new ArrayList<IBHAction>();
 	private String inputHint;
 
@@ -41,10 +40,13 @@ public class BHMenuItem extends JMenuItem implements IBHComponent, IBHAction {
 	 * @param isPlatformItem
 	 *            Menu Item will be placed in platform list if true
 	 */
-	public BHMenuItem(PlatformKey key, int eventKey, Boolean isPlatformItem) {
-		super(Services.getTranslator().translate(key.toString()));
-		Services.addPlatformListener(this);
+	public BHMenuItem(PlatformKey key, int eventKey, boolean isPlatformItem) {
+		super();
+
 		this.key = key;
+		reloadText();
+		
+		Services.addPlatformListener(this);
 		if (eventKey != 0) {
 			this.setMnemonic(eventKey);
 
@@ -100,46 +102,26 @@ public class BHMenuItem extends JMenuItem implements IBHComponent, IBHAction {
 		return key.toString();
 	}
 
-	@Override
-	public int[] getValidateRules() {
-		// TODO Auto-generated method stub
-		throw new UnsupportedOperationException(
-				"This method has not been implemented");
-	}
-
-	@Override
-	public void setValidateRules(int[] validateRules) {
-		// TODO Auto-generated method stub
-		throw new UnsupportedOperationException(
-				"This method has not been implemented");
-	}
-
 	public String getInputHint() {
 		return this.inputHint;
 	}
 
+	@Override
 	public PlatformKey getPlatformKey() {
 		return this.key;
 	}
 
 	@Override
-	public Boolean isPlatformItem() {
-		if (this.platformKey != null)
-			return true;
-		return false;
+	public boolean isPlatformItem() {
+		return (this.key != null);
 	}
 
 	/**
 	 * Method to get all MenuItems that are generated for platforms (i.e. that
 	 * ones which have forPlatform = false not set)
 	 */
-	@Override
-	public List<IBHAction> getPlatformItems() {
+	public static List<IBHAction> getPlatformItems() {
 		return platformItems;
-	}
-
-	public String getValue() {
-		throw new UnsupportedOperationException("Not supported yet.");
 	}
 
 	@Override
@@ -149,13 +131,10 @@ public class BHMenuItem extends JMenuItem implements IBHComponent, IBHAction {
 				"This method has not been implemented");
 	}
 
-	/**
-	 * Handle PlatformEvents
-	 */
 	@Override
 	public void platformEvent(PlatformEvent e) {
 		if (e.getEventType() == Type.LOCALE_CHANGED) {
-			this.resetText();
+			this.reloadText();
 		}
 	}
 
@@ -163,7 +142,7 @@ public class BHMenuItem extends JMenuItem implements IBHComponent, IBHAction {
 	 * Reset Text if necessary.
 	 */
 	@Override
-	public void resetText() {
+	public void reloadText() {
 		this.setText(Services.getTranslator().translate(key.toString()));
 	}
 }

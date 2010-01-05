@@ -7,10 +7,10 @@ package org.bh.plugin.resultAnalysis;
 
 import java.awt.event.ActionEvent;
 import java.util.Map;
+
 import org.bh.controller.ControllerException;
 import org.bh.controller.OutputController;
 import org.bh.data.types.Calculable;
-import org.bh.data.types.IValue;
 import org.bh.gui.ViewException;
 import org.bh.platform.PlatformEvent;
 
@@ -26,11 +26,6 @@ public class ControllerBHResultPanel extends OutputController{
 
     public ControllerBHResultPanel(Map<String, Calculable[]> result) throws ViewException{
         super(new ViewBHResultPanel(), result);
-    }
-
-    @Override
-    protected IValue typeConverter(String value) throws ControllerException {
-        throw new UnsupportedOperationException("Not supported yet.");
     }
 
     public String getGuiKey() {
