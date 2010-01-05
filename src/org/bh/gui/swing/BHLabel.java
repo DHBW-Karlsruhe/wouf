@@ -66,7 +66,7 @@ public class BHLabel extends JLabel implements IBHComponent {
 	 *            default key
 	 */
 	public BHLabel(String key) {
-		super();
+		super(Services.getTranslator().translate(key));
 		this.setProperties();
 		this.key = key;
 	}
@@ -78,7 +78,7 @@ public class BHLabel extends JLabel implements IBHComponent {
 	 *            default key
 	 */
 	public BHLabel(Object key) {
-		super();
+		super(Services.getTranslator().translate(key));
 		this.setProperties();
 		this.key = key.toString();
 	}

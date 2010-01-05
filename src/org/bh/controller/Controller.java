@@ -102,23 +102,7 @@ public abstract class Controller implements IController, ActionListener, IPlatfo
      * writes all dto values with a matching key in a IBHComponent to UI
      * @throws DTOAccessException
      */
-    protected void loadAllToView()throws DTOAccessException{
-//        log.debug("Plugin load from dto in view");
-//        for(String key : this.bhMappingComponents.keySet()){
-//            this.bhMappingComponents.get(key).setValue(this.model.get(key));
-//        }
-    }
-    /**
-     *
-     * @param key
-     * @throws DTOAccessException
-     * @throws ControllerException
-     */
-    protected void loadToView(String key) throws DTOAccessException, ControllerException{
-        log.debug("Plugin load from dto in view");
-        //this.bhMappinglcomponents.get(key).setValue(this.model.get(key));
-    }
-
+    
     /**
      * get the ITranslator from the Platform
      * @see Servicess

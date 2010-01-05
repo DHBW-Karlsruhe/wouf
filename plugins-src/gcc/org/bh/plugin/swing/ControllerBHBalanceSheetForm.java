@@ -31,7 +31,7 @@ public final class ControllerBHBalanceSheetForm extends InputController{
     }
 
     public String getGuiKey() {
-        return "BHBalanceSheet";
+        return ViewBHBalanceSheetForm.Key.GUIKEY.toString();
     }
 
     public void actionPerformed(ActionEvent e) {

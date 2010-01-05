@@ -3,12 +3,13 @@
  * and open the template in the editor.
  */
 
-package keyCrawler;
+package org.bh.tests.apps.keyCrawler;
 
 import java.io.File;
 import java.lang.reflect.Modifier;
 import java.util.*;
 import java.util.zip.*;
+import Prog1Tools.IOTools;
 
 
 /**
@@ -19,8 +20,11 @@ public class ClassCrawler {
 
    public static void main( String[] args ) throws Exception
    {
-      String packageName       = ( args.length > 0 ) ? args[0] : null;
-      String classNameSearched = ( args.length > 1 ) ? args[1] : null;
+      String packageName = IOTools.readLine("absolute Paket Pfad: ");
+      String classNameSearched = IOTools.readLine("gesuchte Klasse");
+      if(classNameSearched == ""){
+          classNameSearched = null;
+      }
       System.out.println( "\n---- Gefundene Klassen in " + packageName + ":" );
       List<Class<?>> classes = getClassesSimple( packageName, classNameSearched );
       for( Class<?> clazz : classes )

@@ -6,8 +6,12 @@
 package org.bh.controller;
 
 import java.util.Map;
+import javax.swing.text.JTextComponent;
 import org.bh.data.types.Calculable;
 import org.bh.gui.View;
+import org.bh.gui.chart.IBHAddValue;
+import org.bh.gui.swing.BHLabel;
+import org.bh.gui.swing.BHTextField;
 
 /**
  *
@@ -29,4 +33,29 @@ public abstract class OutputController extends Controller implements IOutputCont
     public OutputController(Map<String, Calculable[]> result){
         this(null, result);
     }
+
+    protected void loadAllToView()throws ControllerException{
+        log.debug("Plugin load from dto in view");
+        for(String key : this.bhMappingComponents.keySet()){
+            if(this.result.containsKey(key)){
+                if(this.bhMappingComponents.get(key) instanceof BHTextField || this.bhMappingComponents.get(key) instanceof BHLabel){
+                    String value = this.result.get(key)[0].toString();
+                    ((JTextComponent) this.bhMappingComponents.get(key)).setText(value);
+                }else if(this.bhMappingComponents.get(key) instanceof IBHAddValue){
+
+                }
+            }
+        }
+    }
+    /**
+     *
+     * @param key
+     * @throws DTOAccessException
+     * @throws ControllerException
+     */
+    protected void loadToView(String key) throws ControllerException{
+        log.debug("Plugin load from dto in view");
+        //this.bhMappinglcomponents.get(key).setValue(this.model.get(key));
+    }
+
 }

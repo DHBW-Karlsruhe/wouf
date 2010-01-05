@@ -3,7 +3,7 @@
  * and open the template in the editor.
  */
 
-package keyCrawler;
+package org.bh.tests.apps.keyCrawler;
 
 import java.io.FileOutputStream;
 import java.io.IOException;

@@ -15,7 +15,7 @@ public class XMLDataExportPanel extends JPanel {
 		
 		setLayout(new FlowLayout());
 				
-		BHLabel lblPath = new BHLabel("exportPath", "");
+		BHLabel lblPath = new BHLabel("exportPath");
 		BHTextField txtPath = new BHTextField("txtExportPath", "                              ");
 		txtPath.setEnabled(false);
 		

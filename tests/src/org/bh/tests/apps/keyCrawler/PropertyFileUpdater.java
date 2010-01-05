@@ -1,6 +1,6 @@
 
 
-package keyCrawler;
+package org.bh.tests.apps.keyCrawler;
 
 /**
  *

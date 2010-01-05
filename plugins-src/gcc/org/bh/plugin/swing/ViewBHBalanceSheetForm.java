@@ -14,8 +14,14 @@ import org.bh.gui.ViewException;
  */
 public class ViewBHBalanceSheetForm extends View{
 
+    public static enum Key{
+        GUIKEY,
+        IIVGMAX,
+
+
+    }
+
     public ViewBHBalanceSheetForm() throws ViewException{
         super(new BHBalanceSheetForm(), new ValidationBHBalanceSheetForm());
     }
-
 }
