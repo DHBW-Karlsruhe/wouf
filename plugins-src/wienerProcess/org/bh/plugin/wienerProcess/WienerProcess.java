@@ -12,6 +12,7 @@ import java.util.TreeMap;
 import java.util.Map.Entry;
 
 import javax.swing.JPanel;
+import javax.swing.JSeparator;
 
 import org.apache.log4j.Logger;
 import org.bh.calculation.IShareholderValueCalculator;
@@ -29,6 +30,11 @@ import org.bh.gui.swing.BHLabel;
 import org.bh.gui.swing.BHTextField;
 import org.bh.platform.Services;
 import org.bh.platform.i18n.ITranslator;
+import org.bh.plugin.randomWalk.ValidationRandomWalk;
+
+import com.jgoodies.forms.layout.CellConstraints;
+import com.jgoodies.forms.layout.FormLayout;
+import com.jgoodies.forms.layout.RowSpec;
 /**
  * This class provides the functionality to process the Wiener Process on every value which
  * should be determined stochastically.
@@ -120,41 +126,42 @@ public class WienerProcess implements IStochasticProcess {
 			return null;
 		else {
 			JPanel result = new JPanel();
-			result.setLayout(new BorderLayout());
 
-			JPanel north = new JPanel();
-			north.setLayout(new FlowLayout());
-			north.add(new BHLabel(translator.translate(AMOUNT_OF_PERIODS)));
+			String rowDef = "4px,p,4px,p,4px,p,4px,p,4px";
+			String colDef = "4px,right:pref,4px,60px:grow,8px:grow,right:pref,4px,max(35px;pref):grow,4px:grow";
+			FormLayout layout = new FormLayout(colDef, rowDef);
+			result.setLayout(layout);
+			layout.setColumnGroups(new int[][] {{4,8}});
+			CellConstraints cons = new CellConstraints();
+			
+			result.add(new BHLabel(translator.translate(AMOUNT_OF_PERIODS)), cons.xywh(2, 2, 1, 1));
 			BHTextField tf = new BHTextField(AMOUNT_OF_PERIODS);
 			int[] rule = { ValidationWienerProcess.isMandatory,
 					ValidationWienerProcess.isInteger,
 					ValidationWienerProcess.isPositive };
 			tf.setValidateRules(rule);
-			north.add(tf);
+			result.add(tf, cons.xywh(4, 2, 1, 1));
 			map.put(AMOUNT_OF_PERIODS, new Integer(5));
 
-			north.add(new BHLabel(translator.translate(STEPS_PER_PERIOD)));
+			result.add(new BHLabel(translator.translate(STEPS_PER_PERIOD)), cons.xywh(2, 4, 1, 1));
 			BHTextField tf1 = new BHTextField(STEPS_PER_PERIOD);
 			int[] rule1 = { ValidationWienerProcess.isMandatory,
 					ValidationWienerProcess.isInteger,
 					ValidationWienerProcess.isPositive };
 			tf1.setValidateRules(rule1);
-			north.add(tf1);
+			result.add(tf1, cons.xywh(4, 4, 1, 1));
 			map.put(STEPS_PER_PERIOD, new Integer(1));
 
-			north.add(new BHLabel(translator.translate(REPETITIONS)));
+			result.add(new BHLabel(translator.translate(REPETITIONS)), cons.xywh(6, 2, 1, 1));
 			BHTextField tf2 = new BHTextField(REPETITIONS);
 			int[] rule2 = { ValidationWienerProcess.isMandatory,
 					ValidationWienerProcess.isInteger,
 					ValidationWienerProcess.isPositive };
 			tf2.setValidateRules(rule2);
-			north.add(tf2);
+			result.add(tf2, cons.xywh(8, 2, 1, 1));
 			map.put(REPETITIONS, new Integer(100000));
-
-			result.add(north, BorderLayout.NORTH);
-
-			JPanel center = new JPanel();
-			center.setLayout(new GridLayout(0, 5));
+			
+			result.add(new JSeparator(), cons.xywh(2, 8, 7, 1));
 
 			for (Entry<DTOKeyPair, List<Calculable>> e : toBeDetermined
 					.entrySet()) {
@@ -162,18 +169,22 @@ public class WienerProcess implements IStochasticProcess {
 				Calculable standardDeviation = calcStandardDeviation(e
 						.getValue());
 				Calculable slope = calcSlope(e.getValue());
+				
+				layout.appendRow(RowSpec.decode("p"));
+				layout.appendRow(RowSpec.decode("4px"));
 
-				center.add(new BHLabel(translator.translate(key)));
-				center.add(new BHLabel(translator.translate(SLOPE)));
-				center.add(new BHTextField(key + SLOPE, "" + slope));
-				center.add(new BHLabel(translator.translate(STANDARD_DEVIATION)));
-				center
-						.add(new BHTextField(key + STANDARD_DEVIATION, "" + standardDeviation));
+				result.add(new BHLabel(translator.translate(key)), cons.xywh(2, layout.getRowCount()-1, 1, 1));
 
-				internalMap.put(key + SLOPE, slope);
-				internalMap.put(key + STANDARD_DEVIATION, standardDeviation);
+				layout.appendRow(RowSpec.decode("p"));
+				layout.appendRow(RowSpec.decode("14px"));
+				
+				result.add(new BHLabel(translator.translate(SLOPE)), cons.xywh(2, layout.getRowCount()-1, 1, 1));
+				result.add(new BHTextField(key + SLOPE, "" + slope), cons.xywh(4, layout.getRowCount()-1, 1, 1));
+				result.add(new BHLabel(translator.translate(STANDARD_DEVIATION)), cons.xywh(6, layout.getRowCount()-1, 1, 1));
+				result
+						.add(new BHTextField(key + STANDARD_DEVIATION, "" + standardDeviation), cons.xywh(8, layout.getRowCount()-1, 1, 1));
+
 			}
-			result.add(center, BorderLayout.CENTER);
 			this.panel = result;
 			return result;
 		}
