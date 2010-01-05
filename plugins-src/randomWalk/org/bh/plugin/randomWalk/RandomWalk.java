@@ -1,9 +1,6 @@
 package org.bh.plugin.randomWalk;
 
-import java.awt.BorderLayout;
 import java.awt.Component;
-import java.awt.FlowLayout;
-import java.awt.GridLayout;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -11,6 +8,7 @@ import java.util.TreeMap;
 import java.util.Map.Entry;
 
 import javax.swing.JPanel;
+import javax.swing.JSeparator;
 
 import org.apache.log4j.Logger;
 import org.bh.calculation.IShareholderValueCalculator;
@@ -30,6 +28,10 @@ import org.bh.gui.swing.BHLabel;
 import org.bh.gui.swing.BHTextField;
 import org.bh.platform.Services;
 import org.bh.platform.i18n.ITranslator;
+
+import com.jgoodies.forms.layout.CellConstraints;
+import com.jgoodies.forms.layout.FormLayout;
+import com.jgoodies.forms.layout.RowSpec;
 
 /**
  * This class provides the functionality to process the Random Walk on every value which
@@ -126,59 +128,66 @@ public class RandomWalk implements IStochasticProcess {
 			return null;
 		else {
 			JPanel result = new JPanel();
-			result.setLayout(new BorderLayout());
 
-			JPanel north = new JPanel();
-			north.setLayout(new FlowLayout());
-			north.add(new BHLabel(translator.translate(AMOUNT_OF_PERIODS)));
+			String rowDef = "4px,p,4px,p,4px,p,4px,p,4px";
+			String colDef = "4px,right:pref,4px,60px:grow,8px:grow,right:pref,4px,max(35px;pref):grow,4px:grow";
+			FormLayout layout = new FormLayout(colDef, rowDef);
+			result.setLayout(layout);
+			layout.setColumnGroups(new int[][] {{4,8}});
+			CellConstraints cons = new CellConstraints();
+			
+			result.add(new BHLabel(translator.translate(AMOUNT_OF_PERIODS)), cons.xywh(2, 2, 1, 1));
 			BHTextField tf = new BHTextField(AMOUNT_OF_PERIODS);
 			int[] rule = { ValidationMethods.isMandatory,
 					ValidationMethods.isInteger,
 					ValidationMethods.isPositive };
 			tf.setValidateRules(rule);
-			north.add(tf);
+			result.add(tf, cons.xywh(4, 2, 1, 1));
 			map.put(AMOUNT_OF_PERIODS, new Integer(5));
 
-			north.add(new BHLabel(translator.translate(STEPS_PER_PERIOD)));
+			result.add(new BHLabel(translator.translate(STEPS_PER_PERIOD)), cons.xywh(2, 4, 1, 1));
 			BHTextField tf1 = new BHTextField(STEPS_PER_PERIOD);
 			int[] rule1 = { ValidationMethods.isMandatory,
 					ValidationMethods.isInteger,
 					ValidationMethods.isPositive };
 			tf1.setValidateRules(rule1);
-			north.add(tf1);
+			result.add(tf1, cons.xywh(4, 4, 1, 1));
 			map.put(STEPS_PER_PERIOD, new Integer(250 / 5));
 
-			north.add(new BHLabel(translator.translate(REPETITIONS)));
+			result.add(new BHLabel(translator.translate(REPETITIONS)), cons.xywh(6, 2, 1, 1));
 			BHTextField tf2 = new BHTextField(REPETITIONS);
 			int[] rule2 = { ValidationMethods.isMandatory,
 					ValidationMethods.isInteger,
 					ValidationMethods.isPositive };
 			tf2.setValidateRules(rule2);
-			north.add(tf2);
+			result.add(tf2, cons.xywh(8, 2, 1, 1));
 			map.put(REPETITIONS, new Integer(100000));
-
-			result.add(north, BorderLayout.NORTH);
-
-			JPanel center = new JPanel();
-			center.setLayout(new GridLayout(0, 5));
+			
+			result.add(new JSeparator(), cons.xywh(2, 8, 7, 1));
 
 			for (Entry<DTOKeyPair, List<Calculable>> e : toBeDetermined
 					.entrySet()) {
 				String key = e.getKey().getKey();
 				Calculable chance = calcChance(e.getValue());
 				Calculable increment = calcIncrement(e.getValue());
+				
+				layout.appendRow(RowSpec.decode("p"));
+				layout.appendRow(RowSpec.decode("4px"));
 
-				center.add(new BHLabel(translator.translate(key)));
-				center.add(new BHLabel(translator.translate(CHANCE)));
-				center.add(new BHTextField(key + CHANCE, "" + chance));
-				center.add(new BHLabel(translator.translate(INCREMENT)));
-				center
-						.add(new BHTextField(key + INCREMENT, "" + increment));
+				result.add(new BHLabel(translator.translate(key)), cons.xywh(2, layout.getRowCount()-1, 1, 1));
+
+				layout.appendRow(RowSpec.decode("p"));
+				layout.appendRow(RowSpec.decode("14px"));
+				
+				result.add(new BHLabel(translator.translate(CHANCE)), cons.xywh(2, layout.getRowCount()-1, 1, 1));
+				result.add(new BHTextField(key + CHANCE, "" + chance), cons.xywh(4, layout.getRowCount()-1, 1, 1));
+				result.add(new BHLabel(translator.translate(INCREMENT)), cons.xywh(6, layout.getRowCount()-1, 1, 1));
+				result
+						.add(new BHTextField(key + INCREMENT, "" + increment), cons.xywh(8, layout.getRowCount()-1, 1, 1));
 
 				internalMap.put(key + CHANCE, chance);
 				internalMap.put(key + INCREMENT, increment);
 			}
-			result.add(center, BorderLayout.CENTER);
 			this.panel = result;
 			return result;
 		}
@@ -281,8 +290,6 @@ public class RandomWalk implements IStochasticProcess {
 		scenario.put(DTOScenario.Key.DCF_METHOD, new StringValue("apv"));
 
 		DTODirectInput di0 = new DTODirectInput();
-		di0.put(DTODirectInput.Key.FCF, StochasticValue.INSTANCE);
-		di0.put(DTODirectInput.Key.LIABILITIES, StochasticValue.INSTANCE);
 		DTOPeriod period0 = new DTOPeriod();
 		period0.addChild(di0);
 		scenario.addChild(period0);
@@ -317,8 +324,15 @@ public class RandomWalk implements IStochasticProcess {
 
 		RandomWalk rw = new RandomWalk();
 		rw.setScenario(scenario);
-		rw.calculateParameters();
+		
+		JFrame test = new JFrame();
+		test.setContentPane(rw.calculateParameters());
+		test.pack();
+		test.show();
+		
 		DistributionMap dm = rw.calculate();
+		
+		
 
 		Iterator<Entry<java.lang.Double, Integer>> iter = dm.iterator();
 		System.out.println("Key 0");
