@@ -5,7 +5,6 @@ import java.util.List;
 
 import javax.swing.UIManager;
 
-import org.bh.data.types.IValue;
 import org.bh.gui.swing.IBHComponent;
 import org.bh.platform.PlatformEvent;
 import org.bh.platform.Services;
@@ -63,7 +62,7 @@ public class BHxyAreaChart extends JFreeChart implements IBHComponent,
 	 * returns unique ID
 	 * 
 	 */
-
+	@Override
 	public final String getKey() {
 		return key;
 	}
@@ -71,29 +70,18 @@ public class BHxyAreaChart extends JFreeChart implements IBHComponent,
 	/**
 	 * method to add a series into an empty dataset
 	 */
-
+	@Override
 	public final void addSeries(final Comparable<String> seriesKey, final double[][] data) {
 		this.dataset.addSeries(seriesKey, data);
 		fireChartChanged();
 	}
 
-	/* Specified by interface/super class. */
-
+	@Override
 	public final Component add(final Component comp) {
 		// TODO Auto-generated method stub
 		throw new UnsupportedOperationException(
 				"This method has not been implemented");
 	}
-
-	/* Specified by interface/super class. */
-
-	public final int[] getValidateRules() {
-		// TODO Auto-generated method stub
-		throw new UnsupportedOperationException(
-				"This method has not been implemented");
-	}
-
-	/* Specified by interface/super class. */
 
 	public final boolean isTypeValid() {
 		// TODO Auto-generated method stub
@@ -101,26 +89,11 @@ public class BHxyAreaChart extends JFreeChart implements IBHComponent,
 				"This method has not been implemented");
 	}
 
-	/* Specified by interface/super class. */
-
-	public void setValidateRules(int[] validateRules) {
-		// TODO Auto-generated method stub
-		throw new UnsupportedOperationException(
-				"This method has not been implemented");
-	}
-
-	public String getValue() {
-		throw new UnsupportedOperationException("Not supported yet.");
-	}
-
-	public final void setValue(IValue value) {
-		throw new UnsupportedOperationException("Not supported yet.");
-	}
-
 	public String getInputHint() {
 		return this.inputHint;
 	}
 
+	@Override
 	public final void addSeries(Comparable<String> key, double[] values, int bins,
 			final double minimum, double maximum) {
 		// TODO Auto-generated method stub
@@ -128,18 +101,21 @@ public class BHxyAreaChart extends JFreeChart implements IBHComponent,
 				"This method has not been implemented");
 	}
 
+	@Override
 	public void addValue(Number value, Comparable<String> columnKey) {
 		// TODO Auto-generated method stub
 		throw new UnsupportedOperationException(
 				"This method has not been implemented");
 	}
 
+	@Override
 	public final void addValue(Number value, int rowKey, Comparable<String> columnKey) {
 		// TODO Auto-generated method stub
 		throw new UnsupportedOperationException(
 				"This method has not been implemented");
 	}
 
+	@Override
 	public void addValues(List<?> list) {
 		// TODO Auto-generated method stub
 		throw new UnsupportedOperationException(
@@ -164,7 +140,7 @@ public class BHxyAreaChart extends JFreeChart implements IBHComponent,
 	 * Reset Text if necessary.
 	 */
 	@Override
-	public void resetText() {
+	public void reloadText() {
 		// TODO Zuckschwert.Lars
 	}
 

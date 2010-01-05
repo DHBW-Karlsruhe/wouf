@@ -1,8 +1,10 @@
 package org.bh.gui.swing;
 
 import java.net.URL;
+
 import javax.swing.ImageIcon;
 import javax.swing.JFileChooser;
+
 import org.bh.platform.PlatformKey;
 import org.bh.platform.i18n.BHTranslator;
 
@@ -32,7 +34,7 @@ public class BHToolButton extends BHButton{
     public BHToolButton(PlatformKey key, String imageName){
 	
 	
-    	super(key, BHButton.ISPLATFORMBUTTON);
+    	super(key, true);
 
     	
     	//Look for the image.

@@ -40,7 +40,7 @@ public interface IDTO<ChildT extends IDTO> extends Cloneable, Serializable {
 	 * @param mode	True - Turns the sandbox mode on
 	 * 				False - Turns the sandbox mode off
 	 */
-	void setSandBoxMode(Boolean mode);
+	void setSandBoxMode(boolean mode);
 	
 	/**
 	 * Returns the sandboxmode.

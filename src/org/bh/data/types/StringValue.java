@@ -35,5 +35,23 @@ public class StringValue implements IValue {
 	public String getString() {
 		return this.myString;
 	}
+	
+	@Override
+	public String toString() {
+		return myString;
+	}
 
+	@Override
+	public int hashCode() {
+		return myString.hashCode();
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null || !(obj instanceof StringValue))
+			return false;
+		return myString.equals(((StringValue)obj).myString); 
+	}
 }

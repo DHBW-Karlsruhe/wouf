@@ -278,13 +278,13 @@ public abstract class DTO<ChildT extends IDTO> implements IDTO<ChildT> {
 	}
 
 	@Override
-	public void setSandBoxMode(Boolean mode) {
+	public void setSandBoxMode(boolean mode) {
 		if (mode) {
 			fallBackValues.clear();
 			values.putAll(((DTO<ChildT>) clone()).values);		
 		}
 		sandBoxMode = mode;
-		log.debug("Sandboxmode changed to " + mode.toString());
+		log.debug("Sandboxmode changed to " + mode);
 	}
 
 	@Override

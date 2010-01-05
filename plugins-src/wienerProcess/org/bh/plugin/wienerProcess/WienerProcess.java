@@ -1,9 +1,6 @@
 package org.bh.plugin.wienerProcess;
 
-import java.awt.BorderLayout;
 import java.awt.Component;
-import java.awt.FlowLayout;
-import java.awt.GridLayout;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -30,7 +27,6 @@ import org.bh.gui.swing.BHLabel;
 import org.bh.gui.swing.BHTextField;
 import org.bh.platform.Services;
 import org.bh.platform.i18n.ITranslator;
-import org.bh.plugin.randomWalk.ValidationRandomWalk;
 
 import com.jgoodies.forms.layout.CellConstraints;
 import com.jgoodies.forms.layout.FormLayout;

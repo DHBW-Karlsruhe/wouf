@@ -10,6 +10,7 @@ import javax.swing.JTextField;
 
 import org.bh.gui.swing.BHTextField;
 import org.bh.gui.swing.IBHComponent;
+import org.bh.gui.swing.IBHModelComponent;
 import org.bh.platform.Services;
 import org.bh.platform.i18n.ITranslator;
 
@@ -37,9 +38,8 @@ public class ValidationMethods extends BHValidityEngine {
 	public static final int isNotZero = 6;
 	public static final int isBetween0and100 = 7;
 
-	@SuppressWarnings("fallthrough")
 	@Override
-	public ValidationResult validate(IBHComponent comp) throws ViewException {
+	public ValidationResult validate(IBHModelComponent comp) throws ViewException {
 		
 		ValidationResult validationResult = null;
 
@@ -69,8 +69,8 @@ public class ValidationMethods extends BHValidityEngine {
 								+ translator.translate(tf_toValidate.getKey())
 								+ translator.translate("EisMandatory"));
 						ValidationComponentUtils.setErrorBackground(tf_toValidate);
-						break;
 					}
+					break;
 
 				// checks if a textfield requires a double value
 				case isDouble:
@@ -83,8 +83,8 @@ public class ValidationMethods extends BHValidityEngine {
 								+ translator.translate(tf_toValidate.getKey())
 								+ translator.translate("EisDouble"));
 						ValidationComponentUtils.setErrorBackground(tf_toValidate);
-						break;
 					}
+					break;
 
 				// checks if a textfield requires an integer value
 				case isInteger:
@@ -93,8 +93,8 @@ public class ValidationMethods extends BHValidityEngine {
 								+ translator.translate(tf_toValidate.getKey())
 								+ translator.translate("EisInteger"));
 						ValidationComponentUtils.setErrorBackground(tf_toValidate);
-						break;
 					}
+					break;
 
 				// checks if a textfield requires only positive values
 				case isPositive:
@@ -105,8 +105,8 @@ public class ValidationMethods extends BHValidityEngine {
 								+ translator.translate(tf_toValidate.getKey())
 								+ translator.translate("EisPositive"));
 						ValidationComponentUtils.setErrorBackground(tf_toValidate);
-						break;
 					}
+					break;
 
 				// checks if a textfield requires only negative values
 				case isNegative:
@@ -117,8 +117,8 @@ public class ValidationMethods extends BHValidityEngine {
 								+ translator.translate(tf_toValidate.getKey())
 								+ translator.translate("EisNegative"));
 						ValidationComponentUtils.setErrorBackground(tf_toValidate);
-						break;
 					}
+					break;
 
 				// checks if a textfield mustn't be zero
 				case isNotZero:
@@ -129,8 +129,8 @@ public class ValidationMethods extends BHValidityEngine {
 								+ translator.translate(tf_toValidate.getKey())
 								+ translator.translate("EisNotZero"));
 						ValidationComponentUtils.setErrorBackground(tf_toValidate);
-						break;
 					}
+					break;
 
 				// checks if a textfield's value is between 0 and 100
 				case isBetween0and100:
@@ -141,8 +141,8 @@ public class ValidationMethods extends BHValidityEngine {
 								+ translator.translate(tf_toValidate.getKey())
 								+ translator.translate("EisBetween0and100"));
 						ValidationComponentUtils.setErrorBackground(tf_toValidate);
-						break;
 					}
+					break;
 				
 				// The textfield does not have one of the rules above
 				default:
@@ -162,7 +162,7 @@ public class ValidationMethods extends BHValidityEngine {
 
 	@SuppressWarnings("unchecked")
 	@Override
-	public ValidationResult validateAll(Map<String, IBHComponent> toValidate)
+	public ValidationResult validateAll(Map<String, IBHModelComponent> toValidate)
 			throws ViewException {
 
 		ValidationResult validationResultAll = new ValidationResult();
@@ -173,7 +173,7 @@ public class ValidationMethods extends BHValidityEngine {
 		for (int i = 0; i < mapsize; i++) {
 
 			Map.Entry entry = (Map.Entry) iterator.next();
-			IBHComponent tf_toValidate = (IBHComponent) entry.getValue();
+			IBHModelComponent tf_toValidate = (IBHModelComponent) entry.getValue();
 
 			ValidationResult validationResultSingle = validate(tf_toValidate);
 
@@ -184,7 +184,7 @@ public class ValidationMethods extends BHValidityEngine {
 
 	@SuppressWarnings("unchecked")
 	@Override
-	public void registerComponents(Map<String, IBHComponent> toValidate)
+	public void registerComponents(Map<String, IBHModelComponent> toValidate)
 			throws ViewException {
 
 		int mapsize = toValidate.size();
@@ -234,7 +234,7 @@ public class ValidationMethods extends BHValidityEngine {
 
 	@SuppressWarnings("deprecation")
 	@Override
-	public void publishValidationAll(Map<String, IBHComponent> toValidate)
+	public void publishValidationAll(Map<String, IBHModelComponent> toValidate)
 			throws ViewException {
 		ValidationResult validationResultAll = validateAll(toValidate);
 		setValidityStatus(validationResultAll);
@@ -247,7 +247,7 @@ public class ValidationMethods extends BHValidityEngine {
 
 	@SuppressWarnings("deprecation")
 	@Override
-	protected void publishValidationComp(IBHComponent comp)
+	protected void publishValidationComp(IBHModelComponent comp)
 			throws ViewException {
 		ValidationResult valRes = validate(comp);
 		JScrollPane pane = createValidationResultList(valRes);
