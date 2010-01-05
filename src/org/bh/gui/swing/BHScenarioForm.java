@@ -3,14 +3,13 @@ package org.bh.gui.swing;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 
+import javax.swing.JCheckBox;
 import javax.swing.JComboBox;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 
 import org.bh.data.DTOScenario;
 import org.bh.gui.ValidationMethods;
-import org.bh.gui.swing.BHLabel;
-import org.bh.gui.swing.BHTextField;
 import org.bh.platform.Services;
 import org.bh.platform.i18n.ITranslator;
 
@@ -47,12 +46,14 @@ public class BHScenarioForm extends JPanel {
 	private BHLabel lpercenttrade;
 	private BHLabel lpercentcorporate;
 
-	private BHLabel ldcfchoise;
-	private JComboBox cbdcfchoise;
+	private BHLabel ldcfMethod;
+	private JComboBox cbdcfMethod;
 	private BHLabel lprocess;
 	private JComboBox cbprocess;
 	private BHLabel ldirect;
 	private JComboBox cbdirect;
+	
+	private JCheckBox chkStochastic;
 
 	ITranslator translator = Services.getTranslator();
 
@@ -97,12 +98,13 @@ public class BHScenarioForm extends JPanel {
 		this.add(this.getlpercentDept(), cons.xywh(8, 12, 1, 1));
 		this.add(this.getlpercentTrade(), cons.xywh(19, 10, 1, 1));
 		this.add(this.getlpercentCorporate(), cons.xywh(19, 12, 1, 1));
-		this.add(this.getLprocess(), cons.xywh(3, 14, 1, 1));
-		this.add(this.getCbprocess(), cons.xywh(6, 14, 3, 1));
-		this.add(this.getLdcfchoise(), cons.xywh(3, 16, 1, 1));
-		this.add(this.getCbdcfchoise(), cons.xywh(6, 16, 3, 1));
-		this.add(this.getLdirect(), cons.xywh(14, 14, 1, 1));
-		this.add(this.getCbdirect(), cons.xywh(17, 14, 3, 1));
+		//this.add(this.getLprocess(), cons.xywh(3, 16, 1, 1));
+		//this.add(this.getCbprocess(), cons.xywh(6, 16, 3, 1));
+		this.add(this.getlDCFmethod(), cons.xywh(3, 14, 1, 1));
+		this.add(this.getcbDCFmethod(), cons.xywh(6, 14, 3, 1));
+		//this.add(this.getLdirect(), cons.xywh(14, 14, 1, 1));
+		//this.add(this.getCbdirect(), cons.xywh(17, 14, 3, 1));
+		this.add(this.getchkStochastic(), cons.xywh(14, 14, 6, 1));
 	}
 
 	// TODO add missing label keys etc. and translations, change hard coded
@@ -122,23 +124,23 @@ public class BHScenarioForm extends JPanel {
 		return cbprocess;
 	}
 
-	public BHLabel getLdcfchoise() {
-		if (this.ldcfchoise == null) {
-			this.ldcfchoise = new BHLabel("DCFChoise");
-		}
-		return ldcfchoise;
+	public BHLabel getlDCFmethod() {
+		if (this.ldcfMethod == null)
+			this.ldcfMethod = new BHLabel(DTOScenario.Key.DCF_METHOD,
+					"Discounted Cashflow Verfahren");
+		return this.ldcfMethod;
 	}
 
-	public JComboBox getCbdcfchoise() {
-		if (this.cbdcfchoise == null) {
-			this.cbdcfchoise = new JComboBox();
+	public JComboBox getcbDCFmethod() {
+		if (this.cbdcfMethod == null) {
+			this.cbdcfMethod = new JComboBox();
 		}
-		return cbdcfchoise;
+		return this.cbdcfMethod;
 	}
 
 	public BHLabel getLdirect() {
 		if (this.ldirect == null) {
-			this.ldirect = new BHLabel("directInput");
+			this.ldirect = new BHLabel("", "direct");
 		}
 		return ldirect;
 	}
@@ -416,6 +418,12 @@ public class BHScenarioForm extends JPanel {
 			this.lpercentcorporate = new BHLabel("", "%");
 		}
 		return this.lpercentcorporate;
+	}
+	
+	public JCheckBox getchkStochastic() {
+		if (chkStochastic == null)
+			chkStochastic = new JCheckBox("Stochastische Berechnung");
+		return chkStochastic;
 	}
 
 	// TODO remove main later

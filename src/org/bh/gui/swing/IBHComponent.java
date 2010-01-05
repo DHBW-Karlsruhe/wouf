@@ -2,6 +2,7 @@ package org.bh.gui.swing;
 
 import java.awt.Component;
 
+import org.bh.data.types.IValue;
 import org.bh.gui.BHValidityEngine;
 import org.bh.platform.IPlatformListener;
 
@@ -19,7 +20,7 @@ public interface IBHComponent extends IPlatformListener {
 	/**
 	 * Constant can be use to check objects.
 	 */
-	Boolean ISBHCOMPONENT = true;
+	boolean ISBHCOMPONENT = true;
 	/**
 	 * Have to be used by instancing a BHComponent representing a minimum of a
 	 * intervall.
@@ -95,8 +96,16 @@ public interface IBHComponent extends IPlatformListener {
 	 * 
 	 * @return relevant value
 	 */
-	public String getValue();
-	
+	public IValue getValue();
+
+	/**
+	 * Set the value of the component.
+	 * 
+	 * @param value
+	 *            The value to be set.
+	 */
+	public void setValue(IValue value);
+
 	/**
 	 * Reset the text if necessary.
 	 */

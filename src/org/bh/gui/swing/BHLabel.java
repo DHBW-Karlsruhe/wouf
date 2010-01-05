@@ -39,9 +39,7 @@ public class BHLabel extends JLabel implements IBHComponent {
 	 *            default inputHint
 	 */
 	public BHLabel(String key, String value, String inputHint) {
-		super(value);
-		this.setProperties();
-		this.key = key;
+		this(key, value);
 		this.inputHint = inputHint;
 	}
 
@@ -66,9 +64,7 @@ public class BHLabel extends JLabel implements IBHComponent {
 	 *            default key
 	 */
 	public BHLabel(String key) {
-		super(Services.getTranslator().translate(key));
-		this.setProperties();
-		this.key = key;
+		this(key, Services.getTranslator().translate(key));
 	}
 	
 	/**
@@ -78,9 +74,19 @@ public class BHLabel extends JLabel implements IBHComponent {
 	 *            default key
 	 */
 	public BHLabel(Object key) {
-		super(Services.getTranslator().translate(key));
-		this.setProperties();
-		this.key = key.toString();
+		this(key.toString());
+	}
+	
+	/**
+	 * Constructor to create new <code>BHLabel</code>.
+	 * 
+	 * @param key
+	 *            default key
+	 * @param value
+	 *            default value
+	 */
+	public BHLabel(Object key, Object value) {
+		this(key.toString(), value.toString());
 	}
 
 

@@ -5,6 +5,7 @@
 package org.bh.gui;
 
 import java.awt.Component;
+import java.awt.Container;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.awt.event.MouseEvent;
@@ -14,8 +15,9 @@ import java.beans.PropertyChangeListener;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
+
 import javax.swing.JPanel;
-import javax.swing.JScrollPane;
+
 import org.apache.log4j.Logger;
 import org.bh.data.IDTO;
 import org.bh.gui.chart.IBHAddValue;
@@ -46,7 +48,7 @@ public abstract class View implements KeyListener, PropertyChangeListener, Mouse
      * representign chart BH components
      * @see IBHAddValue
      */
-    private Map<String, IBHAddValue> bhChartComponents = Collections.synchronizedMap(new HashMap<String, IBHAddValue>());
+    private Map<String, IBHAddValue> bhChartComponents;
     /**
      * representing all components related to the model
      * @see IDTO
@@ -57,7 +59,8 @@ public abstract class View implements KeyListener, PropertyChangeListener, Mouse
      * @see BHButton
      * @see BHLabel
      */
-    private Map<String, IBHComponent> bhTextComponents = Collections.synchronizedMap(new HashMap<String, IBHComponent>());
+    private Map<String, IBHComponent> bhTextComponents;
+    
     private static Map<String, IBHComponent> validationRegister = null;
 
     /**
@@ -118,46 +121,20 @@ public abstract class View implements KeyListener, PropertyChangeListener, Mouse
         log.debug("UI Components are getting organized and registered in a View instance");
         Map<String, IBHComponent> map = Collections.synchronizedMap(new HashMap<String, IBHComponent>());
         for (Component comp : components) {
-            //TODO Have to be a motherclass which represents all possible containers
-            if ((comp instanceof JPanel || comp instanceof JScrollPane) && !(comp instanceof IBHComponent)) {
-                try {
-                    if(comp instanceof JPanel){
-                        map.putAll(mapBHcomponents(((JPanel) comp).getComponents()));
-                    }if(comp instanceof JScrollPane){
-                        map.putAll(mapBHcomponents(((JScrollPane) comp).getComponents()));
-                    }
-                } catch (Exception e) {
-                    log.error("Mapping Error in the View", e.getCause());
-                    throw new ViewException(e.getCause());
+            if (comp instanceof IBHComponent) {
+            	IBHComponent bhcomp = (IBHComponent)comp;
+                addViewListener(comp);
+                if (comp instanceof BHLabel || comp instanceof BHButton) {
+                	this.bhTextComponents.put(bhcomp.getKey(), bhcomp);
+                } else if (comp instanceof IBHAddValue) {
+                    this.bhChartComponents.put(bhcomp.getKey(), (IBHAddValue) comp);
+                } else {
+            		map.put(bhcomp.getKey(), bhcomp);
                 }
             }
-            if (comp instanceof IBHComponent) {
-                addViewListener(comp);
-                if (comp instanceof JPanel) {
-                    try {
-                        map.putAll(mapBHcomponents(((JPanel) comp).getComponents()));
-                    } catch (Exception e) {
-                        log.error("Mapping Error in the View", e.getCause());
-                        throw new ViewException(e.getCause());
-                    }
-                }
-                if (comp instanceof BHLabel || comp instanceof BHButton) {
-                    try {
-                        this.bhTextComponents.put(((IBHComponent) comp).getKey(), (IBHComponent) comp);
-                    } catch (Exception e) {
-                        log.error("Mapping Error in the View", e.getCause());
-                        throw new ViewException(e.getCause());
-                    }
-                } else if (comp instanceof IBHAddValue) {
-                    this.bhChartComponents.put(((IBHComponent) comp).getKey(), (IBHAddValue) comp);
-                } else {
-                    try {
-                        map.put(((IBHComponent) comp).getKey(), (IBHComponent) comp);
-                    } catch (Exception e) {
-                        log.error("Mapping Error in the View", e.getCause());
-                        throw new ViewException(e.getCause());
-                    }
-                }
+            // map all subcomponents
+            if (comp instanceof Container) {
+            	map.putAll(mapBHcomponents(((Container)comp).getComponents()));
             }
         }
         return map;
@@ -214,6 +191,8 @@ public abstract class View implements KeyListener, PropertyChangeListener, Mouse
             throw new ViewException("null refernce panel is setted");
         }
         this.viewPanel = panel;
+        this.bhChartComponents = Collections.synchronizedMap(new HashMap<String, IBHAddValue>());
+        this.bhTextComponents = Collections.synchronizedMap(new HashMap<String, IBHComponent>());
         this.bhModelComponents = mapBHcomponents(panel.getComponents());
         View.validationRegister = this.bhModelComponents;
     }
@@ -235,7 +214,7 @@ public abstract class View implements KeyListener, PropertyChangeListener, Mouse
      * @see View
      */
     public void setValidator(BHValidityEngine validator) throws ViewException {
-        log.debug("a new validator is setted");
+        log.debug("a new validator has been set");
         if (validator == null) {
             log.error("null reference for validator is setted");
             throw new ViewException("null reference validator");
@@ -255,7 +234,7 @@ public abstract class View implements KeyListener, PropertyChangeListener, Mouse
             try {
                 validator.publishValidationComp((BHTextField) e);
             } catch (ViewException ex) {
-                log.error("validation thorws errors", ex);
+                log.error("validation throws errors", ex);
             }
         }
     }

@@ -3,14 +3,11 @@ package org.bh.gui.swing;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 
-import javax.swing.JCheckBox;
 import javax.swing.JComboBox;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
-import javax.swing.JSpinner;
-import javax.swing.SpinnerNumberModel;
 
-import org.bh.gui.swing.BHLabel;
+import org.bh.data.DTOScenario;
 
 import com.jgoodies.forms.layout.CellConstraints;
 import com.jgoodies.forms.layout.FormLayout;
@@ -24,19 +21,10 @@ import com.jgoodies.forms.layout.FormLayout;
  * 
  */
 public class BHProcessForm extends JPanel {
-
-	private BHLabel ldcfchoise;
-	private JComboBox cbdcfchoise;
-	private BHLabel lprocess;
-	private JComboBox cbprocess;
-	private BHLabel ldirect;
-	private JCheckBox chbdierect;
-	private BHLabel linterval;
-	private JCheckBox chbinterval;
-	private BHLabel lperiodcount;
-	private JSpinner spperiodcount;
-	private BHLabel lintermstep;
-	private JSpinner spintermstep;
+	private BHLabel lProcess;
+	private JComboBox cbProcess;
+	private BHLabel lInputType;
+	private JComboBox cbInputType;
 
 	/**
 	 * Constructor.
@@ -51,143 +39,59 @@ public class BHProcessForm extends JPanel {
 	private void initialize() {
 		FormLayout layout;
 
-		String rowDef = "4px,p,4px,p,14px,p,4px,p,4px";
-		String colDef = "4px,right:pref,4px,max(80px;pref),24px:grow(0.2),pref,4px,pref,4px:grow";
+		String rowDef = "p,4px,p";
+		String colDef = "4px,p,4px,max(150px;p),4px";
 
 		layout = new FormLayout(colDef, rowDef);
 		this.setLayout(layout);
 
 		CellConstraints cons = new CellConstraints();
 
-		this.add(this.getlProcess(), cons.xywh(2, 2, 1, 1));
-		this.add(this.getcbProcess(), cons.xywh(4, 2, 1, 1));
-		this.add(this.getlDCFchoise(), cons.xywh(2, 4, 1, 1));
-		this.add(this.getcbDCFchoise(), cons.xywh(4, 4, 1, 1));
-		this.add(this.getLdirect(), cons.xywh(6, 2, 1, 1));
-		this.add(this.getChbdierect(), cons.xywh(8, 2, 1, 1));
-		this.add(this.getLinterval(), cons.xywh(6, 4, 1, 1));
-		this.add(this.getChbinterval(), cons.xywh(8, 4, 1, 1));
-		this.add(this.getLperiodcount(), cons.xywh(2, 6, 1, 1));
-		this.add(this.getSpperiodcount(), cons.xywh(4, 6, 1, 1));
-		this.add(this.getLintermstep(), cons.xywh(2, 8, 1, 1));
-		this.add(this.getSpintermstep(), cons.xywh(4, 8, 1, 1));
+		this.add(this.getlStochasticProcess(), cons.xy(2, 1));
+		this.add(this.getcbStochasticProcess(), cons.xy(4, 1));
+		this.add(this.getlInputType(), cons.xy(2, 3));
+		this.add(this.getcbInputType(), cons.xy(4, 3));
 	}
 
-	// TODO add missing label keys and translations, change hard coded values to keys
+	// TODO add missing label keys and translations, change hard coded values to
+	// keys
+	/*
+	 * public JSpinner getSpperiodcount() { if (spperiodcount == null) { // new
+	 * SpinnerNumberModel(value, minimum, maximum, stepSize) spperiodcount = new
+	 * JSpinner(new SpinnerNumberModel(1, 1, 100, 1)); } return spperiodcount; }
+	 * 
+	 * public JSpinner getSpintermstep() { if (spintermstep == null) { // new
+	 * SpinnerNumberModel(value, minimum, maximum, stepSize) spintermstep = new
+	 * JSpinner(new SpinnerNumberModel(10, 1, 10000, 10)); } return
+	 * spintermstep; }
+	 */
+
+	public BHLabel getlStochasticProcess() {
+		if (this.lProcess == null)
+			this.lProcess = new BHLabel(DTOScenario.Key.STOCHASTIC_PROCESS,
+					"Stochastischer Prozess");
+		return this.lProcess;
+	}
+
+	public JComboBox getcbStochasticProcess() {
+		if (this.cbProcess == null) {
+			this.cbProcess = new JComboBox();
+		}
+		return this.cbProcess;
+	}
 	
-	public BHLabel getLdirect() {
-		if (ldirect == null) {
-			ldirect = new BHLabel("", "Direkteingabe");
-		}
-		return ldirect;
+	public BHLabel getlInputType() {
+		if (this.lInputType == null)
+			this.lInputType = new BHLabel(DTOScenario.Key.STOCHASTIC_PROCESS,
+					"Eingabeart");
+		return this.lInputType;
 	}
 
-	public JCheckBox getChbdierect() {
-		if (chbdierect == null) {
-			chbdierect = new JCheckBox();
+	public JComboBox getcbInputType() {
+		if (this.cbInputType == null) {
+			this.cbInputType = new JComboBox();
 		}
-		return chbdierect;
-	}
-
-	public BHLabel getLinterval() {
-		if (linterval == null) {
-			linterval = new BHLabel("", "Intervallrechnung");
-		}
-		return linterval;
-	}
-
-	public JCheckBox getChbinterval() {
-		if (chbinterval == null) {
-			chbinterval = new JCheckBox();
-		}
-		return chbinterval;
-	}
-
-	public BHLabel getLperiodcount() {
-		if (lperiodcount == null) {
-			lperiodcount = new BHLabel("", "Anzahl Perioden");
-		}
-		return lperiodcount;
-	}
-
-	public JSpinner getSpperiodcount() {
-		if (spperiodcount == null) {
-			// new SpinnerNumberModel(value, minimum, maximum, stepSize)
-			spperiodcount = new JSpinner(new SpinnerNumberModel(1, 1, 100, 1));
-		}
-		return spperiodcount;
-	}
-
-	public BHLabel getLintermstep() {
-		if (lintermstep == null) {
-			lintermstep = new BHLabel("", "Anzahl Schritte pro Periode");
-		}
-		return lintermstep;
-	}
-
-	public JSpinner getSpintermstep() {
-		if (spintermstep == null) {
-			// new SpinnerNumberModel(value, minimum, maximum, stepSize)
-			spintermstep = new JSpinner(new SpinnerNumberModel(10, 1, 10000, 10));
-		}
-		return spintermstep;
-	}
-
-	/**
-	 * Getter method for component lDCFchoise.
-	 * 
-	 * @return the initialized component
-	 */
-	public BHLabel getlDCFchoise() {
-
-		if (this.ldcfchoise == null) {
-			this.ldcfchoise = new BHLabel("", "Discounted Cashflow Verfahren");
-		}
-
-		return this.ldcfchoise;
-	}
-
-	/**
-	 * Getter method for component cbDCFchoise.
-	 * 
-	 * @return the initialized component
-	 */
-	public JComboBox getcbDCFchoise() {
-
-		if (this.cbdcfchoise == null) {
-			this.cbdcfchoise = new JComboBox();
-		}
-
-		return this.cbdcfchoise;
-	}
-
-	/**
-	 * Getter method for component lstochProcess.
-	 * 
-	 * @return the initialized component
-	 */
-	public BHLabel getlProcess() {
-
-		if (this.lprocess == null) {
-			this.lprocess = new BHLabel("", "Berechnungsart");
-		}
-
-		return this.lprocess;
-	}
-
-	/**
-	 * Getter method for component cbstochProcess.
-	 * 
-	 * @return the initialized component
-	 */
-	public JComboBox getcbProcess() {
-
-		if (this.cbprocess == null) {
-			this.cbprocess = new JComboBox();
-			this.cbprocess.setName("cbstochProcess");
-		}
-
-		return this.cbprocess;
+		return this.cbInputType;
 	}
 
 	/**

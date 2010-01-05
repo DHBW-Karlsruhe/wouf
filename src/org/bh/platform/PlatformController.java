@@ -242,7 +242,9 @@ public class PlatformController {
 							}
 						}catch(Exception e){
 						}
-					}	
+					}
+					
+					//componentMap.get(key)
 					
 					
 				} catch (ViewException e) {

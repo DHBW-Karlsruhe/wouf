@@ -8,8 +8,6 @@ import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 
 import org.apache.log4j.Logger;
-import org.bh.data.DTOAccessException;
-import org.bh.data.types.IValue;
 import org.bh.gui.BHValidityEngine;
 import org.bh.gui.View;
 import org.bh.gui.swing.BHButton;
@@ -52,7 +50,7 @@ public abstract class Controller implements IController, ActionListener, IPlatfo
         Controller.bhStatusBar = Services.getBHstatusBar();
         if (view != null) {
             this.bhMappingComponents = this.view.getBHmodelComponents();
-            this.AddControllerAsListener(this.view.getBHtextComponents());
+            this.addControllerAsListener(this.view.getBHtextComponents());
         }
         Services.addPlatformListener(this);
     }
@@ -86,17 +84,9 @@ public abstract class Controller implements IController, ActionListener, IPlatfo
         this.view = view;
         if (view != null) {
         	this.bhMappingComponents = this.view.getBHmodelComponents();
-                this.AddControllerAsListener(this.view.getBHtextComponents());
+                this.addControllerAsListener(this.view.getBHtextComponents());
         }
     }
-
-    /**
-     * Method for Typconversion can be used with <code>Calculable.parseCalculable(String s)</code> 
-     * method
-     * @param value
-     * @return
-     */
-    protected abstract IValue typeConverter(String value) throws ControllerException;
 
     /**
      * writes all dto values with a matching key in a IBHComponent to UI
@@ -137,7 +127,7 @@ public abstract class Controller implements IController, ActionListener, IPlatfo
      * @see ActionListener
      * @see BHButton
      */
-    private void AddControllerAsListener(Map<String, IBHComponent> comps){
+    private void addControllerAsListener(Map<String, IBHComponent> comps){
         for(IBHComponent comp : comps.values()){
             if(comp instanceof BHButton){
                 ((BHButton) comp).addActionListener(this);
