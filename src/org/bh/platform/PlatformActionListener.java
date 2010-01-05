@@ -457,7 +457,7 @@ class PlatformActionListener implements ActionListener {
 	private void duplicateProject(){
 		TreePath currentDuplicateProjectSelection = bhmf.getBHTree().getSelectionPath();
 		if(currentDuplicateProjectSelection != null){
-			//Zugriff auf markiertes Projekt
+			//Access to selected project
 			BHTreeNode duplicateProjectNode = (BHTreeNode)bhmf.getBHTree().getSelectionPath().getLastPathComponent();
 			
 			//zu kopierendes Project in eigene Variable
@@ -476,10 +476,16 @@ class PlatformActionListener implements ActionListener {
 					newScenarioNode.add(bhmf.getBHTree().duplicatePeriodNode(newProject.getChildren().get(x).getChildren().get(y), bhmf, newScenarioNode));
 				}
 			}
+			
+			//add DTOProject to repository
+			projectRepoManager.addProject(newProject);
+			
 		} else {
 			BHStatusBar.getInstance().setHint(BHTranslator.getInstance().translate("EisSelectProject"), true);
 		}
 	}
+	
+	
 	private void duplicateScenario(){
 		TreePath currentDuplicateProjectSelection = bhmf.getBHTree().getSelectionPath();
 		if(currentDuplicateProjectSelection != null){
@@ -494,9 +500,14 @@ class PlatformActionListener implements ActionListener {
 			
 			BHTreeNode newScenarioNode = bhmf.getBHTree().addScenarioNode(newScenario, bhmf);
 			
-				for(int y = 0; y < newScenario.getChildren().size(); y++){
-					newScenarioNode.add(bhmf.getBHTree().duplicatePeriodNode(newScenario.getChildren().get(y), bhmf, newScenarioNode));
-				}
+			for(int y = 0; y < newScenario.getChildren().size(); y++){
+				newScenarioNode.add(bhmf.getBHTree().duplicatePeriodNode(newScenario.getChildren().get(y), bhmf, newScenarioNode));
+			}
+			
+			//add DTOScenario to parent DTOProject
+			((DTOProject)((BHTreeNode)bhmf.getBHTree().getSelectionPath().getPathComponent(1)).getUserObject()).addChild(newScenario);
+		
+		
 		} else {
 			BHStatusBar.getInstance().setHint(BHTranslator.getInstance().translate("EisSelectScenario"), true);
 		}
