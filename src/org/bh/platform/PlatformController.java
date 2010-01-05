@@ -2,6 +2,8 @@ package org.bh.platform;
 
 import java.awt.event.FocusEvent;
 import java.awt.event.FocusListener;
+import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 import java.util.prefs.Preferences;
 
@@ -13,6 +15,7 @@ import javax.swing.tree.TreeNode;
 import javax.swing.tree.TreePath;
 
 import org.apache.log4j.Logger;
+import org.bh.calculation.IShareholderValueCalculator;
 import org.bh.controller.InputController;
 import org.bh.data.DTO;
 import org.bh.data.DTOPeriod;
@@ -21,6 +24,7 @@ import org.bh.data.DTOScenario;
 import org.bh.data.types.StringValue;
 import org.bh.gui.ViewException;
 import org.bh.gui.swing.BHButton;
+import org.bh.gui.swing.BHComboBox;
 import org.bh.gui.swing.BHMainFrame;
 import org.bh.gui.swing.BHMenuItem;
 import org.bh.gui.swing.BHProjectInputForm;
@@ -223,6 +227,18 @@ public class PlatformController {
 					((BHTextField) scenarioView
 							.getBHModelComponent(DTOScenario.Key.NAME))
 							.addFocusListener(new SaveListener(scenarioModel));
+					BHComboBox cbDcfMethod = (BHComboBox) scenarioView
+							.getBHModelComponent(DTOScenario.Key.DCF_METHOD);
+					Collection<IShareholderValueCalculator> dcfMethods = Services
+							.getDCFMethods().values();
+					ArrayList<BHComboBox.Item> items = new ArrayList<BHComboBox.Item>();
+					for (IShareholderValueCalculator dcfMethod : dcfMethods) {
+						items.add(new BHComboBox.Item(dcfMethod.getGuiKey(),
+								new StringValue(dcfMethod.getUniqueId())));
+					}
+					cbDcfMethod.setSorted(true);
+					cbDcfMethod.setValueList(items
+							.toArray(new BHComboBox.Item[0]));
 
 					InputController.loadAllToView(scenarioModel, scenarioView);
 

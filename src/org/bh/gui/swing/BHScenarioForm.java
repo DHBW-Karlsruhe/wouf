@@ -47,7 +47,7 @@ public class BHScenarioForm extends JPanel {
 	private BHLabel lpercentcorporate;
 
 	private BHLabel ldcfMethod;
-	private JComboBox cbdcfMethod;
+	private BHComboBox cbdcfMethod;
 	private BHLabel lprocess;
 	private JComboBox cbprocess;
 	private BHLabel ldirect;
@@ -131,9 +131,9 @@ public class BHScenarioForm extends JPanel {
 		return this.ldcfMethod;
 	}
 
-	public JComboBox getcbDCFmethod() {
+	public BHComboBox getcbDCFmethod() {
 		if (this.cbdcfMethod == null) {
-			this.cbdcfMethod = new JComboBox();
+			this.cbdcfMethod = new BHComboBox(DTOScenario.Key.DCF_METHOD);
 		}
 		return this.cbdcfMethod;
 	}

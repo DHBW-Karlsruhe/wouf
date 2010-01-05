@@ -136,7 +136,9 @@ public abstract class View implements KeyListener, PropertyChangeListener, Mouse
             }
             // map all subcomponents
             if (comp instanceof Container) {
-            	map.putAll(mapBHcomponents(((Container)comp).getComponents()));
+            	Container container = (Container) comp;
+            	if (container.getComponentCount() > 0)
+            		map.putAll(mapBHcomponents(container.getComponents()));
             }
         }
         return map;

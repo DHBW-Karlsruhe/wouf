@@ -4,9 +4,9 @@ import java.awt.Color;
 import java.lang.reflect.Field;
 import java.net.URL;
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.ServiceLoader;
 
 import javax.swing.ImageIcon;
@@ -33,18 +33,15 @@ import org.bh.platform.i18n.ITranslator;
  */
 public class Services {
 	private static EventListenerList platformListeners = new EventListenerList();
-	private static HashMap<String, DisplayablePluginWrapper<IShareholderValueCalculator>> dcfMethods;
-	private static HashMap<String, DisplayablePluginWrapper<IStochasticProcess>> stochasticProcesses;
-	private static HashMap<String, DisplayablePluginWrapper<IPeriodController>> periodControllers;
-	
+	private static HashMap<String, IShareholderValueCalculator> dcfMethods;
+	private static HashMap<String, IStochasticProcess> stochasticProcesses;
+	private static HashMap<String, IPeriodController> periodControllers;
 
-	
-	
-	/* ---------------------------------------
-	 * Platform Event Handling
+	/*
+	 * --------------------------------------- Platform Event Handling
 	 * ---------------------------------------
 	 */
-	
+
 	public static ITranslator getTranslator() {
 		return BHTranslator.getInstance();
 	}
@@ -66,16 +63,12 @@ public class Services {
 	public static BHStatusBar getBHstatusBar() {
 		return BHStatusBar.getInstance();
 	}
-	
-	
-	
-	
-	
-	/* ---------------------------------------
-	 * Service Loader / PlugIn Management
-	 * ---------------------------------------
+
+	/*
+	 * --------------------------------------- Service Loader / PlugIn
+	 * Management ---------------------------------------
 	 */
-	
+
 	/**
 	 * Returns a reference to a DCF method with a specific id.
 	 * 
@@ -84,14 +77,7 @@ public class Services {
 	 * @return The reference to the DCF method, or null if not found.
 	 */
 	public static IShareholderValueCalculator getDCFMethod(String id) {
-		if (dcfMethods == null)
-			loadDCFMethods();
-		DisplayablePluginWrapper<IShareholderValueCalculator> wrapper = dcfMethods
-				.get(id);
-
-		if (wrapper == null)
-			return null;
-		return wrapper.getPlugin();
+		return getDCFMethods().get(id);
 	}
 
 	/**
@@ -99,24 +85,19 @@ public class Services {
 	 * 
 	 * @return References to all loaded DCF methods.
 	 */
-	public static List<DisplayablePluginWrapper<IShareholderValueCalculator>> getDCFMethods() {
+	public static Map<String, IShareholderValueCalculator> getDCFMethods() {
 		if (dcfMethods == null)
 			loadDCFMethods();
-		List<DisplayablePluginWrapper<IShareholderValueCalculator>> result = new ArrayList<DisplayablePluginWrapper<IShareholderValueCalculator>>(
-				dcfMethods.values());
-		Collections.sort(result);
-		return result;
+		return dcfMethods;
 	}
 
 	private static void loadDCFMethods() {
 		// load all DCF methods and put them into the map
-		dcfMethods = new HashMap<String, DisplayablePluginWrapper<IShareholderValueCalculator>>();
+		dcfMethods = new HashMap<String, IShareholderValueCalculator>();
 		ServiceLoader<IShareholderValueCalculator> calculators = PluginManager
 				.getInstance().getServices(IShareholderValueCalculator.class);
 		for (IShareholderValueCalculator calculator : calculators) {
-			dcfMethods.put(calculator.getUniqueId(),
-					new DisplayablePluginWrapper<IShareholderValueCalculator>(
-							calculator));
+			dcfMethods.put(calculator.getUniqueId(), calculator);
 		}
 	}
 
@@ -128,14 +109,7 @@ public class Services {
 	 * @return The reference to the stochastic process, or null if not found.
 	 */
 	public static IStochasticProcess getStochasticProcess(String id) {
-		if (stochasticProcesses == null)
-			loadStochasticProcesses();
-
-		DisplayablePluginWrapper<IStochasticProcess> wrapper = stochasticProcesses
-				.get(id);
-		if (wrapper == null)
-			return null;
-		return wrapper.getPlugin();
+		return getStochasticProcesses().get(id);
 	}
 
 	/**
@@ -143,68 +117,52 @@ public class Services {
 	 * 
 	 * @return References to all loaded stochastic processes.
 	 */
-	public static List<DisplayablePluginWrapper<IStochasticProcess>> getStochasticProcesses() {
+	public static Map<String, IStochasticProcess> getStochasticProcesses() {
 		if (stochasticProcesses == null)
 			loadStochasticProcesses();
-
-		List<DisplayablePluginWrapper<IStochasticProcess>> result = new ArrayList<DisplayablePluginWrapper<IStochasticProcess>>(
-				stochasticProcesses.values());
-		Collections.sort(result);
-		return result;
+		return stochasticProcesses;
 	}
 
 	private static void loadStochasticProcesses() {
 		// load all stochastic processes and put them into the map
-		stochasticProcesses = new HashMap<String, DisplayablePluginWrapper<IStochasticProcess>>();
+		stochasticProcesses = new HashMap<String, IStochasticProcess>();
 		ServiceLoader<IStochasticProcess> processes = PluginManager
 				.getInstance().getServices(IStochasticProcess.class);
 		for (IStochasticProcess process : processes) {
-			stochasticProcesses.put(process.getUniqueId(),
-					new DisplayablePluginWrapper<IStochasticProcess>(process));
+			stochasticProcesses.put(process.getUniqueId(), process);
 		}
 	}
-	
-	
-	//TODO Schmalzhaf.Alexander Testen!!!
+
+	// TODO Schmalzhaf.Alexander Testen!!!
 	public static IPeriodController getPeriodController(String id) {
+		return getPeriodControllers().get(id);
+	}
+
+	public static Map<String, IPeriodController> getPeriodControllers() {
 		if (periodControllers == null)
 			loadPeriodControllers();
+		return periodControllers;
+	}
 
-		DisplayablePluginWrapper<IPeriodController> wrapper = periodControllers
-				.get(id);
-		if (wrapper == null)
-			return null;
-		return wrapper.getPlugin();
-	}
-	
-	public static List<DisplayablePluginWrapper<IPeriodController>> getPeriodControllers(){
-		if(periodControllers == null)
-			loadPeriodControllers();
-		
-		List<DisplayablePluginWrapper<IPeriodController>> result = new ArrayList<DisplayablePluginWrapper<IPeriodController>>(
-				periodControllers.values());
-		Collections.sort(result);
-		return result;
-	}
-	
-	private static void loadPeriodControllers(){
+	private static void loadPeriodControllers() {
 		// load all PeriodGUIControllers and put them into the map
-		periodControllers = new HashMap<String, DisplayablePluginWrapper<IPeriodController>>(); 
+		periodControllers = new HashMap<String, IPeriodController>();
 		ServiceLoader<IPeriodController> controllers = PluginManager
 				.getInstance().getServices(IPeriodController.class);
-		for(IPeriodController controller : controllers){
-			periodControllers.put(controller.getGuiKey(),
-					new DisplayablePluginWrapper<IPeriodController>(controller));
+		for (IPeriodController controller : controllers) {
+			periodControllers.put(controller.getGuiKey(), controller);
 		}
-		
+
 	}
-	
+
 	@SuppressWarnings("unchecked")
-	public static List<DTOKeyPair> getStochasticKeysFromEnum(String dtoId, Enum[] keyEnumeration) {
+	public static List<DTOKeyPair> getStochasticKeysFromEnum(String dtoId,
+			Enum[] keyEnumeration) {
 		ArrayList<DTOKeyPair> keys = new ArrayList<DTOKeyPair>();
 		for (Enum element : keyEnumeration) {
 			try {
-				Field field = element.getClass().getDeclaredField(element.name());
+				Field field = element.getClass().getDeclaredField(
+						element.name());
 				if (field.isAnnotationPresent(Stochastic.class))
 					keys.add(new DTOKeyPair(dtoId, element.toString()));
 			} catch (Throwable e) {
@@ -213,14 +171,12 @@ public class Services {
 		}
 		return keys;
 	}
-	
-	
-	
-	/* ---------------------------------------
-	 * GUI
+
+	/*
+	 * --------------------------------------- GUI
 	 * ---------------------------------------
 	 */
-	
+
 	/**
 	 * Sets Nimbus from Sun Inc. as default Look & Feel. Java 6 Update 10
 	 * required. Don't change complex looking implementation of invokation,
@@ -238,35 +194,37 @@ public class Services {
 				if ("Nimbus".equals(info.getName())) {
 					// Put specific look&feel attributes.
 					UIManager.put("nimbusBase", new Color(55, 125, 170));
-					UIManager.put("control", new Color(235,240,255));
+					UIManager.put("control", new Color(235, 240, 255));
 					UIManager.put("progressBar", new Color(255, 165, 0));
 					UIManager.put("nimbusOrange", UIManager.get("progressBar"));
-					UIManager.put("nimbusSelectionBackground", new Color(80, 160, 190));
-					
+					UIManager.put("nimbusSelectionBackground", new Color(80,
+							160, 190));
+
 					// BH specific attributes.
 					UIManager.put("BHTree.nodeheight", 20);
 					UIManager.put("BHTree.minimumWidth", 150);
-					
-					UIManager.setLookAndFeel(info.getClassName());	
+
+					UIManager.setLookAndFeel(info.getClassName());
 					break;
 				}
 			}
 		} catch (Exception e) {
-			Logger.getLogger(Services.class).debug("Error while invoking Nimbus", e);
+			Logger.getLogger(Services.class).debug(
+					"Error while invoking Nimbus", e);
 		}
 	}
-	
-	/** 
-	 * Returns an ImageIcon, or null if the path was invalid. 
+
+	/**
+	 * Returns an ImageIcon, or null if the path was invalid.
 	 */
 	public static ImageIcon createImageIcon(String path, String description) {
-	    URL imgURL = Services.class.getResource(path);
-	    if (imgURL != null) {
-	        return new ImageIcon(imgURL, description);
-	    }
-	    
-	    Logger.getLogger(Services.class).debug("Could not find icon " + path);
-	    return null;
+		URL imgURL = Services.class.getResource(path);
+		if (imgURL != null) {
+			return new ImageIcon(imgURL, description);
+		}
+
+		Logger.getLogger(Services.class).debug("Could not find icon " + path);
+		return null;
 
 	}
 }
