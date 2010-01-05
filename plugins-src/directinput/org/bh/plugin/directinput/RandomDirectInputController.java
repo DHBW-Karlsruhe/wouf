@@ -17,7 +17,7 @@ import org.bh.data.types.DoubleValue;
 //Testklasse, wird später entfernt
 
 public class RandomDirectInputController implements IPeriodController {
-	private static final String GUI_KEY = "Random values";
+	private static final String GUI_KEY = "Random_Values";
 	private static final int PRIORITY = 0;
 	private static final List<DTOKeyPair> STOCHASTIC_KEYS = new ArrayList<DTOKeyPair>();
 

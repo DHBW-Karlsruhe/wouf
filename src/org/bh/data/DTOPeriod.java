@@ -8,6 +8,7 @@ import org.bh.calculation.ICalculationPreparer;
 import org.bh.data.types.Calculable;
 import org.bh.data.types.IValue;
 import org.bh.platform.PluginManager;
+import org.bh.platform.ProjectRepositoryManager;
 
 /**
  * Project DTO
@@ -56,7 +57,8 @@ public class DTOPeriod extends DTO<IPeriodicalValuesDTO> {
      */
 	public DTOPeriod() {
 		super(Key.values());
-		//log.debug("Object created!");
+		ProjectRepositoryManager.setChanged(true);
+		log.debug("Object created!");
 	}
 	
 	/**

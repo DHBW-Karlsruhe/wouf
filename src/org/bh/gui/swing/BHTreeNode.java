@@ -2,6 +2,7 @@ package org.bh.gui.swing;
 
 import javax.swing.tree.DefaultMutableTreeNode;
 import org.bh.data.DTO;
+import org.bh.data.DTOPeriod;
 import org.bh.data.DTOProject;
 import org.bh.data.DTOScenario;
 import org.bh.data.types.StringValue;
@@ -30,8 +31,11 @@ public class BHTreeNode extends DefaultMutableTreeNode{
 			return ((StringValue)((DTO<?>)userObject).get(DTOProject.Key.NAME)).getString();
 		}else if(this.getUserObject() instanceof DTOScenario){
 			return ((StringValue)((DTO<?>)userObject).get(DTOScenario.Key.NAME)).getString();
+		}else if(this.getUserObject() instanceof DTOPeriod){
+			return ((StringValue)((DTO<?>)userObject).get(DTOPeriod.Key.NAME)).getString();
 		}
-		return "";
+		
+		return "Type not known - must be implemented in BHTreeNode";
 	}
 	
 	

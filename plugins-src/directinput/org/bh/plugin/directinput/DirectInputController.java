@@ -14,11 +14,11 @@ import org.bh.data.types.DoubleValue;
 import org.bh.platform.Services;
 
 public class DirectInputController implements IPeriodController {
-	private static final String GUI_KEY = "Direct Input";
+	private static final String GUI_KEY = "Direct_Input";
 	private static final int PRIORITY = 100;
 	private static final List<DTOKeyPair> STOCHASTIC_KEYS = Services
 			.getStochasticKeysFromEnum(DTODirectInput.getUniqueIdStatic(),
-					DTODirectInput.Key.values());;
+					DTODirectInput.Key.values());
 
 	DTODirectInput dto;
 	JTextField fcf;

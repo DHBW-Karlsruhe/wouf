@@ -148,7 +148,7 @@ public class BHTree extends JTree {
 		BHTreeNode newScenarioNode = new BHTreeNode(newScenario);
 		((DefaultTreeModel)bhmf.getBHTree().getModel()).insertNodeInto(
 				newScenarioNode, 
-				(BHTreeNode)(bhmf.getBHTree().getSelectionPath().getPathComponent(1)), 
+				(BHTreeNode)(this.getSelectionPath().getPathComponent(1)), 
 				((BHTreeNode) bhmf.getBHTree().getSelectionPath().getPathComponent(1)).getChildCount()
 		);
 		return newScenarioNode;

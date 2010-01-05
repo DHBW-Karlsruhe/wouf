@@ -250,7 +250,7 @@ public class PlatformController {
 				}
 				
 			}else if(selection instanceof DTOPeriod){
-				
+				//TODO Schmalzhaf.Alexander muss noch implementiert werden
 			}
 		}
 	}
@@ -337,6 +337,8 @@ public class PlatformController {
 				tempDTO.put(DTOProject.Key.NAME, new StringValue(newValue.toString()));
 			}else if(tempDTO  instanceof DTOScenario){
 				tempDTO.put(DTOScenario.Key.NAME, new StringValue(newValue.toString()));
+			}else if(tempDTO instanceof DTOPeriod){
+				tempDTO.put(DTOPeriod.Key.NAME, new StringValue(newValue.toString()));
 			}
 		}
 	}

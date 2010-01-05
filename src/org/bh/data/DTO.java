@@ -298,7 +298,6 @@ public abstract class DTO<ChildT extends IDTO> implements IDTO<ChildT> {
 			result = this.getClass().newInstance();
 			// Go through each value, copy it and put it into the new instance
 			for (Map.Entry<String, IValue> entry: values.entrySet()) {
-				System.out.println("Kopiere: "+ entry.getKey());
 				result.put(entry.getKey(), entry.getValue().clone());
 				// Copy and add children to the new instance
 			}

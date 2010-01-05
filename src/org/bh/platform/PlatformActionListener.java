@@ -17,9 +17,11 @@ import javax.swing.WindowConstants;
 import javax.swing.tree.TreePath;
 
 import org.apache.log4j.Logger;
+import org.bh.controller.IPeriodController;
 import org.bh.data.DTOPeriod;
 import org.bh.data.DTOProject;
 import org.bh.data.DTOScenario;
+import org.bh.data.IPeriodicalValuesDTO;
 import org.bh.data.types.StringValue;
 import org.bh.gui.swing.BHMainFrame;
 import org.bh.gui.swing.BHOptionDialog;
@@ -243,10 +245,9 @@ class PlatformActionListener implements ActionListener {
 			TreePath currentSelection = bhmf.getBHTree().getSelectionPath();
 			//is a node selected?
 			if (currentSelection != null) {
-				//remove node from GUI...
-				 BHTreeNode currentNode = (BHTreeNode)bhmf.getBHTree().getSelectionPath().getLastPathComponent();
-				 ((BHTreeModel) bhmf.getBHTree().getModel()).removeNodeFromParent(currentNode);
-				 
+				//find out current selected node 
+				BHTreeNode currentNode = (BHTreeNode)bhmf.getBHTree().getSelectionPath().getLastPathComponent();
+				
 				 //..and from data model
 				 if(currentNode.getUserObject() instanceof DTOProject){
 					 projectRepoManager.removeProject((DTOProject) currentNode.getUserObject());
@@ -256,8 +257,10 @@ class PlatformActionListener implements ActionListener {
 				
 				 }else if(currentNode.getUserObject() instanceof DTOPeriod){
 					 ((DTOScenario)((BHTreeNode)currentNode.getParent()).getUserObject()).removeChild((DTOPeriod) currentNode.getUserObject());
-					 
 				 }
+				 
+				//remove node from GUI...
+				 ((BHTreeModel) bhmf.getBHTree().getModel()).removeNodeFromParent(currentNode);
 			}
 			
 			
@@ -404,12 +407,14 @@ class PlatformActionListener implements ActionListener {
 		//If a scenario or a period is selected...
 		if(bhmf.getBHTree().getSelectionPath()!=null && bhmf.getBHTree().getSelectionPath().getPathCount()>2){
 			//TODO Schmalzhaf.Alexander at first: show selection screen for sort of Period
+			PluginManager.getInstance().loadAllServices(IPeriodController.class);
 			Object[] periodTypes = Services.getPeriodControllers().toArray();
 			
 			//TODO Thiele.Klaus dürfen "wir" die OptionPane benutzen?
 			
 			//TODO Schmalzhaf.Alexander hartgecodete Strings raus!
-			Object res = JOptionPane.showInputDialog(
+			DisplayablePluginWrapper<IPeriodController>  res = (DisplayablePluginWrapper<IPeriodController> )
+			JOptionPane.showInputDialog(
                     bhmf,
                     "Bitte gewünschten Periodentyp auswählen:",
                     "Periodentyp auswählen",
@@ -422,6 +427,8 @@ class PlatformActionListener implements ActionListener {
 				return;
 			}
 			
+			
+			
 			//...create new period
 			DTOPeriod newPeriod = new DTOPeriod();
 			//TODO hardgecodeder String raus! AS
@@ -433,11 +440,16 @@ class PlatformActionListener implements ActionListener {
 			//...and insert it into GUI-Tree
 			BHTreeNode newPeriodNode = bhmf.getBHTree().addPeriodNode(newPeriod, bhmf);
 			
-			
 			//last steps: unfold tree to new element, set focus and start editing
 			bhmf.getBHTree().scrollPathToVisible(new TreePath(newPeriodNode.getPath()));
 			bhmf.getBHTree().startEditingAtPath(new TreePath(newPeriodNode.getPath()));
 			
+			
+			//create concrete Period
+			//TODO Schmalzhaf.Alexander es gibt kein Panel, das ich greifen kann vom bhmf -> muss eigenes erzeugen
+			JPanel panel = new JPanel();
+			bhmf.addContentForms(panel);
+			res.getPlugin().editDTO(newPeriod,panel );
 		}
 	}
 	
