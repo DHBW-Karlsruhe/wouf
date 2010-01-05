@@ -39,7 +39,11 @@
 	<path id="BH.classpath">
         <pathelement location="${build.dir}"/>
         <dirset dir="${plugins.build.dir}" includes="*"/>
-        <fileset dir="${lib.dir}" includes="**/*.jar" excludes="build_lib/**"/>
+        <fileset dir="${lib.dir}">
+			<include name="**/*.jar" />
+			<exclude name="build_lib/**" />
+			<exclude name="tests/**" />
+		</fileset>
     </path>
 	
 	<path id="junit.classpath">
@@ -112,7 +116,11 @@
         <mkdir dir="${jar.dir}"/>
 
         <unzip dest="${jar.dir}">
-            <fileset dir="${lib.dir}" includes="**/*.jar" excludes="build_lib/**"/>
+            <fileset dir="${lib.dir}">
+				<include name="**/*.jar" />
+				<exclude name="build_lib/**" />
+				<exclude name="tests/**" />
+			</fileset>
         </unzip>
 
         <delete>
