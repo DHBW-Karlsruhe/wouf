@@ -117,8 +117,7 @@ public final class BHTranslator implements ITranslator {
 		try {
 			return this.bundle.getString(key.toString());
 		} catch (MissingResourceException e) {
-			//LOG.error("Could not translate key \"" + key + "\"", e);
-			System.err.println("Fehlgeschlagen: " + key + " " + this.bundle.getLocale());
+			LOG.error("Could not translate key \"" + key + "\"", e);
 			return key.toString();
 		}
 	}
