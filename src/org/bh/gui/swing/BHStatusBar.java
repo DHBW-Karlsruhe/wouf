@@ -47,7 +47,7 @@ public class BHStatusBar extends JPanel{
 				
 		//setLayout to the status bar
 		String rowDef = "p";
-		String colDef = "0:grow(0.4),0:grow(0.2),0:grow(0.4)";
+		String colDef = "0:grow(0.01),0:grow(0.39),0:grow(0.2),0:grow(0.4)";
 		setLayout(new FormLayout(colDef, rowDef));
 		cons = new CellConstraints();
 
@@ -73,9 +73,9 @@ public class BHStatusBar extends JPanel{
 				.getResource("/org/bh/images/bh-logo-2.png")));
 
 		// add components to panel
-		add(hint, cons.xywh(1, 1, 1, 1));
-		add(errorHint, cons.xywh(1, 1, 1, 1));
-		add(bh, cons.xywh(2, 1, 1, 1));
+		add(hint, cons.xywh(2, 1, 1, 1));
+		add(errorHint, cons.xywh(2, 1, 1, 1));
+		add(bh, cons.xywh(3, 1, 1, 1));
 	}
 
 	
@@ -95,7 +95,7 @@ public class BHStatusBar extends JPanel{
 		if(hint != null)
 			this.removeHint();
 		hint=hintLabel;
-		add(hint, cons.xywh(1, 1, 1, 1));
+		add(hint, cons.xywh(2, 1, 1, 1));
 		this.revalidate();
 		
 		//popup test
@@ -115,7 +115,7 @@ public class BHStatusBar extends JPanel{
 		}else{
 			hint.setForeground(Color.black);
 		}
-		add(hint, cons.xywh(1, 1, 1, 1));
+		add(hint, cons.xywh(2, 1, 1, 1));
 		this.revalidate();
 		//TEST
 		//setToolTip(new JScrollPane(new JLabel("TEST")));
@@ -134,20 +134,20 @@ public class BHStatusBar extends JPanel{
 		//creates the popup for the error information
 		optionPane = new JOptionPane(pane, JOptionPane.PLAIN_MESSAGE);
     
-		add(errorHint, cons.xywh(1, 1, 1, 1));
+		add(errorHint, cons.xywh(2, 1, 1, 1));
 		this.revalidate();
 	}
 	
 	public void removeHint(){
 		hint.setText(" ");
-		add(hint, cons.xywh(1, 1, 1, 1));
+		add(hint, cons.xywh(2, 1, 1, 1));
 		this.revalidate();
 	}
 	
 	public void removeErrorHint(){
 		errorHint.setText(" ");
 		errorHint.setVisible(false);
-//		add(lToolTip, cons.xywh(1, 1, 1, 1));
+//		add(lToolTip, cons.xywh(2, 1, 1, 1));
 //		this.revalidate();
 	}
 

@@ -143,7 +143,7 @@ public class BHButton extends JButton implements IBHComponent, IBHAction {
 		@Override
 		public void mouseEntered(MouseEvent e) {
 			Services.getBHstatusBar().setHint(
-					new JLabel("   " + listenerToolTip));
+					new JLabel(listenerToolTip));
 		}
 
 		@Override
