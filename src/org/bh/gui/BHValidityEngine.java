@@ -112,7 +112,7 @@ public abstract class BHValidityEngine {
         if (validationResultAll.hasMessages())
         	Services.getBHstatusBar().setErrorHint(createValidationResultList(validationResultAll));
         else
-        	Services.getBHstatusBar().removeHint();
+        	Services.getBHstatusBar().removeErrorHint();
         return validationResultAll;
     }
     /**
@@ -128,7 +128,7 @@ public abstract class BHValidityEngine {
         if (valRes.hasMessages())
         	Services.getBHstatusBar().setErrorHint(createValidationResultList(valRes));
         else
-        	Services.getBHstatusBar().removeHint();
+        	Services.getBHstatusBar().removeErrorHint();
         return valRes;
     }
     /**

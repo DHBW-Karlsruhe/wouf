@@ -6,7 +6,6 @@ import java.util.Map;
 
 import javax.swing.JLabel;
 import javax.swing.JPanel;
-import javax.swing.JScrollPane;
 
 import org.apache.log4j.Logger;
 import org.bh.gui.BHValidityEngine;
@@ -101,16 +100,6 @@ public abstract class Controller implements IController, ActionListener,
 	 */
 	public static ITranslator getTranslator() {
 		return Services.getTranslator();
-	}
-
-	/**
-	 * concret BHValidityEngine can use this method to set Validation Tool Tip
-	 * 
-	 * @param pane
-	 * @see BHStatusBar
-	 */
-	public static void setBHstatusBarErrorHint(JScrollPane pane) {
-		Services.getBHstatusBar().setErrorHint(pane);
 	}
 
 	/**

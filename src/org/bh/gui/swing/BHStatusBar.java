@@ -51,7 +51,7 @@ public class BHStatusBar extends JPanel{
 				
 		//setLayout to the status bar
 		String rowDef = "p";
-		String colDef = "0:grow(0.4),0:grow(0.2),0:grow(0.4)";
+		String colDef = "6px,0:grow(0.4),0:grow(0.2),0:grow(0.4)";
 		setLayout(new FormLayout(colDef, rowDef));
 		cons = new CellConstraints();
 
@@ -59,10 +59,6 @@ public class BHStatusBar extends JPanel{
 		hint = new JLabel("");
 		hint.setText("");
 		
-		//create a second label for the errors
-		errorHint = new JLabel("");
-		errorHint.addMouseListener(new BHLabelListener());
-
 		hintContainer = new JPanel();
 		hintContainer.setLayout(new FormLayout("0:grow(0.4)", "p"));
 		
@@ -77,8 +73,8 @@ public class BHStatusBar extends JPanel{
 				.getResource("/org/bh/images/bh-logo-2.png")));
 
 		// add components to panel
-		add(hintContainer, cons.xywh(1, 1, 1, 1));
-		add(bh, cons.xywh(2, 1, 1, 1));
+		add(hintContainer, cons.xywh(2, 1, 1, 1));
+		add(bh, cons.xywh(3, 1, 1, 1));
 	}
 
 	
@@ -99,6 +95,7 @@ public class BHStatusBar extends JPanel{
 		if (hintLabel != null)
 			hintContainer.add(hintLabel, new CellConstraints().xy(1, 1));
 		this.revalidate();
+		this.repaint();
 		
 		//popup test
 //		optionPane = new JOptionPane(new JLabel("TEST"), JOptionPane.PLAIN_MESSAGE);
@@ -118,7 +115,6 @@ public class BHStatusBar extends JPanel{
 			hint.setForeground(Color.black);
 		}
 		setHint(hint);
-		this.revalidate();
 		//TEST
 		//setToolTip(new JScrollPane(new JLabel("TEST")));
 	}
@@ -126,7 +122,9 @@ public class BHStatusBar extends JPanel{
 	public void setErrorHint(JScrollPane pane) {
 		//TODO InfoText festlegen: ob erster Fehler aus Liste oder allgemeiner Hinweis!?
 		
-		errorHint.setText("   "+translator.translate("LtoolTip"));
+		errorHint = new JLabel(translator.translate("LtoolTip"));
+		errorHint.addMouseListener(new BHLabelListener());
+		
 		popupPane = pane;
 		
 //		factory = PopupFactory.getSharedInstance();
@@ -137,11 +135,15 @@ public class BHStatusBar extends JPanel{
 		optionPane = new JOptionPane(pane, JOptionPane.PLAIN_MESSAGE);
     
 		setHint(errorHint);
-		this.revalidate();
 	}
 	
 	public void removeHint(){
-		setHint((JLabel)null);
+		setHint(errorHint);
+	}
+	
+	public void removeErrorHint() {
+		errorHint = null;
+		removeHint();
 	}
 
 	public void openToolTipPopup(){
@@ -177,5 +179,4 @@ public class BHStatusBar extends JPanel{
 		}
 	
     }
-
 }

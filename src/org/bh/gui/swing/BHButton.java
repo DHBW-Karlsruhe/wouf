@@ -5,7 +5,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import javax.swing.JButton;
-import javax.swing.JLabel;
 import javax.swing.event.MouseInputAdapter;
 
 import org.bh.platform.PlatformEvent;
@@ -33,7 +32,7 @@ import org.bh.platform.i18n.ITranslator;
 public class BHButton extends JButton implements IBHComponent, IBHAction {
 	private static List<IBHAction> platformItems = new ArrayList<IBHAction>();
 	private static ITranslator translator = Services.getTranslator();
-	
+
 	private String key;
 	private PlatformKey platformKey;
 	private String toolTip;
@@ -142,8 +141,7 @@ public class BHButton extends JButton implements IBHComponent, IBHAction {
 
 		@Override
 		public void mouseEntered(MouseEvent e) {
-			Services.getBHstatusBar().setHint(
-					new JLabel(listenerToolTip));
+			Services.getBHstatusBar().setHint(listenerToolTip);
 		}
 
 		@Override
