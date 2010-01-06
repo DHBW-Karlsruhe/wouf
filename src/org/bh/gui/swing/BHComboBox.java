@@ -10,6 +10,8 @@ import org.bh.data.types.IValue;
 import org.bh.platform.PlatformEvent;
 import org.bh.platform.Services;
 import org.bh.platform.i18n.ITranslator;
+import org.bh.validation.ValidationRule;
+
 
 public class BHComboBox extends JComboBox implements IBHModelComponent {
 	private static final ITranslator translator = Services.getTranslator();
@@ -71,12 +73,12 @@ public class BHComboBox extends JComboBox implements IBHModelComponent {
 	}
 
 	@Override
-	public int[] getValidateRules() {
-		return new int[0];
+	public ValidationRule[] getValidationRules() {
+		return new ValidationRule[0];
 	}
 
 	@Override
-	public void setValidateRules(int[] validateRules) {
+	public void setValidationRules(ValidationRule[] validationRules) {
 		// nothing to do
 	}
 

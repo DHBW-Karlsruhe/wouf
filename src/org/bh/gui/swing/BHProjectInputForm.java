@@ -7,9 +7,11 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 
 import org.bh.data.DTOProject;
-import org.bh.gui.ValidationMethods;
 import org.bh.platform.Services;
 import org.bh.platform.i18n.ITranslator;
+import org.bh.validation.VRMandatory;
+import org.bh.validation.ValidationRule;
+
 
 import com.jgoodies.forms.layout.CellConstraints;
 import com.jgoodies.forms.layout.FormLayout;
@@ -81,8 +83,8 @@ public class BHProjectInputForm extends JPanel {
 	public BHTextField getTfprojectname() {
 		if (tfprojectname == null) {
 			tfprojectname = new BHTextField(DTOProject.Key.NAME);
-			int[] rules = { ValidationMethods.isMandatory };
-			tfprojectname.setValidateRules(rules);
+			ValidationRule[] rules = { VRMandatory.INSTANCE };
+			tfprojectname.setValidationRules(rules);
 		}
 		return tfprojectname;
 	}

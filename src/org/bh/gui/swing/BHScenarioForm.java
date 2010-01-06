@@ -9,9 +9,15 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 
 import org.bh.data.DTOScenario;
-import org.bh.gui.ValidationMethods;
 import org.bh.platform.Services;
 import org.bh.platform.i18n.ITranslator;
+import org.bh.validation.VRIsBetween0and100;
+import org.bh.validation.VRIsDouble;
+import org.bh.validation.VRIsInteger;
+import org.bh.validation.VRIsPositive;
+import org.bh.validation.VRMandatory;
+import org.bh.validation.ValidationRule;
+
 
 import com.jgoodies.forms.layout.CellConstraints;
 import com.jgoodies.forms.layout.FormLayout;
@@ -267,8 +273,8 @@ public class BHScenarioForm extends JPanel {
 
 		if (this.tfscenname == null) {
 			this.tfscenname = new BHTextField(DTOScenario.Key.NAME);
-			int[] rules = { ValidationMethods.isMandatory };
-			tfscenname.setValidateRules(rules);
+			ValidationRule[] rules = { VRMandatory.INSTANCE };
+			tfscenname.setValidationRules(rules);
 		}
 		return this.tfscenname;
 	}
@@ -295,9 +301,9 @@ public class BHScenarioForm extends JPanel {
 
 		if (this.tfequityyield == null) {
 			this.tfequityyield = new BHTextField(DTOScenario.Key.REK);
-			int[] rules = { ValidationMethods.isMandatory,
-					ValidationMethods.isDouble, ValidationMethods.isPositive };
-			tfequityyield.setValidateRules(rules);
+			ValidationRule[] rules = { VRMandatory.INSTANCE,
+					VRIsDouble.INSTANCE, VRIsPositive.INSTANCE };
+			tfequityyield.setValidationRules(rules);
 		}
 		return this.tfequityyield;
 	}
@@ -311,9 +317,9 @@ public class BHScenarioForm extends JPanel {
 
 		if (this.tfdeptyield == null) {
 			this.tfdeptyield = new BHTextField(DTOScenario.Key.RFK);
-			int[] rules = { ValidationMethods.isMandatory,
-					ValidationMethods.isDouble, ValidationMethods.isPositive };
-			tfdeptyield.setValidateRules(rules);
+			ValidationRule[] rules = { VRMandatory.INSTANCE,
+					VRIsDouble.INSTANCE, VRIsPositive.INSTANCE };
+			tfdeptyield.setValidationRules(rules);
 		}
 		return this.tfdeptyield;
 	}
@@ -327,10 +333,10 @@ public class BHScenarioForm extends JPanel {
 
 		if (this.tftradetax == null) {
 			this.tftradetax = new BHTextField(DTOScenario.Key.BTAX);
-			int[] rules = { ValidationMethods.isMandatory,
-					ValidationMethods.isDouble, ValidationMethods.isPositive,
-					ValidationMethods.isBetween0and100 };
-			tftradetax.setValidateRules(rules);
+			ValidationRule[] rules = { VRMandatory.INSTANCE,
+					VRIsDouble.INSTANCE, VRIsPositive.INSTANCE,
+					VRIsBetween0and100.INSTANCE };
+			tftradetax.setValidationRules(rules);
 		}
 		return this.tftradetax;
 	}
@@ -344,10 +350,10 @@ public class BHScenarioForm extends JPanel {
 
 		if (this.tfcorporatetax == null) {
 			this.tfcorporatetax = new BHTextField(DTOScenario.Key.CTAX);
-			int[] rules = { ValidationMethods.isMandatory,
-					ValidationMethods.isDouble, ValidationMethods.isPositive,
-					ValidationMethods.isBetween0and100 };
-			tfcorporatetax.setValidateRules(rules);
+			ValidationRule[] rules = { VRMandatory.INSTANCE,
+					VRIsDouble.INSTANCE, VRIsPositive.INSTANCE,
+					VRIsBetween0and100.INSTANCE };
+			tfcorporatetax.setValidationRules(rules);
 		}
 		return this.tfcorporatetax;
 	}
@@ -361,9 +367,9 @@ public class BHScenarioForm extends JPanel {
 
 		if (this.tfbaseyear == null) {
 			this.tfbaseyear = new BHTextField(DTOScenario.Key.IDENTIFIER);
-			int[] rules = { ValidationMethods.isMandatory,
-					ValidationMethods.isInteger, ValidationMethods.isPositive };
-			tfbaseyear.setValidateRules(rules);
+			ValidationRule[] rules = { VRMandatory.INSTANCE,
+					VRIsInteger.INSTANCE, VRIsPositive.INSTANCE };
+			tfbaseyear.setValidationRules(rules);
 		}
 		return this.tfbaseyear;
 	}

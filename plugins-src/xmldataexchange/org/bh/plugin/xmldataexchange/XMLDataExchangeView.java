@@ -1,8 +1,5 @@
 package org.bh.plugin.xmldataexchange;
 
-import java.awt.event.KeyEvent;
-import java.beans.PropertyChangeEvent;
-
 import javax.swing.JPanel;
 
 import org.bh.gui.BHValidityEngine;
@@ -17,33 +14,4 @@ public class XMLDataExchangeView extends View {
 		super(viewPanel);
 		
 	}
-
-	@Override
-	public void keyPressed(KeyEvent arg0) {
-		// TODO Auto-generated method stub
-		throw new UnsupportedOperationException(
-				"This method has not been implemented");
-	}
-
-	@Override
-	public void keyReleased(KeyEvent arg0) {
-		// TODO Auto-generated method stub
-		throw new UnsupportedOperationException(
-				"This method has not been implemented");
-	}
-
-	@Override
-	public void keyTyped(KeyEvent arg0) {
-		// TODO Auto-generated method stub
-		throw new UnsupportedOperationException(
-				"This method has not been implemented");
-	}
-
-	@Override
-	public void propertyChange(PropertyChangeEvent arg0) {
-		// TODO Auto-generated method stub
-		/*throw new UnsupportedOperationException(
-				"This method has not been implemented");*/
-	}
-
 }

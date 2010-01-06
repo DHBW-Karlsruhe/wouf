@@ -15,6 +15,9 @@ import org.bh.controller.Controller;
 import org.bh.gui.swing.BHStatusBar;
 import org.bh.gui.swing.IBHComponent;
 import org.bh.gui.swing.IBHModelComponent;
+import org.bh.platform.Services;
+import org.bh.validation.ValidationRule;
+
 
 import com.jgoodies.validation.ValidationResult;
 import com.jgoodies.validation.ValidationResultModel;
@@ -46,7 +49,7 @@ public abstract class BHValidityEngine {
      * @see ValidationResult
      */
     public void setValidityStatus(ValidationResult validation) {
-        if (validation.hasErrors() || validation.hasWarnings()) {
+        if (validation.hasMessages()) {
             log.debug("validation has errors or warnings");
             this.isValid = false;
         } else {
@@ -101,11 +104,15 @@ public abstract class BHValidityEngine {
      * @see IBHComponent
      * @see BHStatusBar
      */
-    public void publishValidationAll(Map<String, IBHModelComponent> toValidate) throws ViewException{
+    public ValidationResult publishValidationAll(Map<String, IBHModelComponent> toValidate) throws ViewException{
         log.debug("Trigger validation process for All Components");
         validationResultAll = validateAll(toValidate);
         setValidityStatus(validationResultAll);
-        Controller.setBHstatusBarErrorHint(createValidationResultList(validationResultAll));
+        if (validationResultAll.hasMessages())
+        	Services.getBHstatusBar().setErrorHint(createValidationResultList(validationResultAll));
+        else
+        	Services.getBHstatusBar().removeHint();
+        return validationResultAll;
     }
     /**
      * set the messages of the validation of a single component to the BHStatusBar
@@ -114,10 +121,14 @@ public abstract class BHValidityEngine {
      * @throws ViewException
      * @see BHStatusBar
      */
-    protected void publishValidationComp(IBHModelComponent comp) throws ViewException{
+    protected ValidationResult publishValidationComp(IBHModelComponent comp) throws ViewException{
         log.debug("Trigger validation for a single component");
         ValidationResult valRes = validate(comp);
-        Controller.setBHstatusBarErrorHint(createValidationResultList(valRes));
+        if (valRes.hasMessages())
+        	Services.getBHstatusBar().setErrorHint(createValidationResultList(valRes));
+        else
+        	Services.getBHstatusBar().removeHint();
+        return valRes;
     }
     /**
      * have to register the model related components and set the ValidationComponentUtils entries
@@ -134,15 +145,30 @@ public abstract class BHValidityEngine {
      * @return the result of the Validation as ValidationResult
      * @see ValidationResult
      */
-    public abstract ValidationResult validate(IBHModelComponent comp) throws ViewException;
+	public ValidationResult validate(IBHModelComponent comp) throws ViewException {
+		ValidationResult validationResult = new ValidationResult();
+		for (ValidationRule validationRule : comp.getValidationRules()) {
+			validationResult.addAllFrom(validationRule.validate(comp));
+		}
+		return validationResult;
+	}
 
     /**
-     * Shell proof the single components and can also proof related conditions between
+     * Shell proof the components and can also proof related conditions between
      * components
      *
      * @param toValidate
      * @return the result of the Validation as ValidationResult
      * @see ValidationResult
      */
-    public abstract ValidationResult validateAll(Map<String, IBHModelComponent> toValidate) throws ViewException;
+	public ValidationResult validateAll(Map<String, IBHModelComponent> toValidate)
+			throws ViewException {
+
+		ValidationResult validationResultAll = new ValidationResult();
+		for (Map.Entry<String, IBHModelComponent> entry : toValidate.entrySet()) {
+			ValidationResult validationResultSingle = validate(entry.getValue());
+			validationResultAll.addAllFrom(validationResultSingle);
+		}
+		return validationResultAll;
+	}
 }

@@ -12,9 +12,11 @@ import javax.swing.SwingConstants;
 import javax.swing.border.EtchedBorder;
 
 import org.bh.data.DTOPeriod;
-import org.bh.gui.ValidationMethods;
 import org.bh.platform.Services;
 import org.bh.platform.i18n.ITranslator;
+import org.bh.validation.VRMandatory;
+import org.bh.validation.ValidationRule;
+
 
 import com.jgoodies.forms.layout.CellConstraints;
 import com.jgoodies.forms.layout.FormLayout;
@@ -167,8 +169,8 @@ public class BHPeriodInputForm extends JPanel {
 			tfmaxliabilities = new BHTextField(IBHComponent.MAXVALUE
 					+ DTOPeriod.Key.LIABILITIES);
 			// TODO add input hint and more rules
-			int[] rules = { ValidationMethods.isMandatory };
-			tfmaxliabilities.setValidateRules(rules);
+			ValidationRule[] rules = { VRMandatory.INSTANCE };
+			tfmaxliabilities.setValidationRules(rules);
 		}
 		return tfmaxliabilities;
 	}
@@ -183,8 +185,8 @@ public class BHPeriodInputForm extends JPanel {
 			tfminliabilities = new BHTextField(IBHComponent.MINVALUE
 					+ DTOPeriod.Key.LIABILITIES);
 			// TODO add input hint and more rules
-			int[] rules = { ValidationMethods.isMandatory };
-			tfminliabilities.setValidateRules(rules);
+			ValidationRule[] rules = { VRMandatory.INSTANCE };
+			tfminliabilities.setValidationRules(rules);
 		}
 		return tfminliabilities;
 	}
@@ -199,8 +201,8 @@ public class BHPeriodInputForm extends JPanel {
 			tfmaxfcf = new BHTextField(IBHComponent.MAXVALUE
 					+ DTOPeriod.Key.FCF);
 			// TODO add input hint and more rules
-			int[] rules = { ValidationMethods.isMandatory };
-			tfmaxfcf.setValidateRules(rules);
+			ValidationRule[] rules = { VRMandatory.INSTANCE };
+			tfmaxfcf.setValidationRules(rules);
 		}
 		return tfmaxfcf;
 	}
@@ -215,8 +217,8 @@ public class BHPeriodInputForm extends JPanel {
 			tfminfcf = new BHTextField(IBHComponent.MINVALUE
 					+ DTOPeriod.Key.FCF);
 			// TODO add input hint and more rules
-			int[] rules = { ValidationMethods.isMandatory };
-			tfminfcf.setValidateRules(rules);
+			ValidationRule[] rules = { VRMandatory.INSTANCE };
+			tfminfcf.setValidationRules(rules);
 		}
 		return tfminfcf;
 	}
@@ -237,8 +239,8 @@ public class BHPeriodInputForm extends JPanel {
 		if (tffcf == null) {
 			tffcf = new BHTextField(DTOPeriod.Key.FCF);
 			// TODO add input hint and more rules
-			int[] rules = { ValidationMethods.isMandatory };
-			tffcf.setValidateRules(rules);
+			ValidationRule[] rules = { VRMandatory.INSTANCE };
+			tffcf.setValidationRules(rules);
 		}
 		return tffcf;
 	}
@@ -259,8 +261,8 @@ public class BHPeriodInputForm extends JPanel {
 		if (tfliabilities == null) {
 			tfliabilities = new BHTextField(DTOPeriod.Key.LIABILITIES);
 			// TODO input hint and more rules
-			int[] rules = { ValidationMethods.isMandatory };
-			tfliabilities.setValidateRules(rules);
+			ValidationRule[] rules = { VRMandatory.INSTANCE };
+			tfliabilities.setValidationRules(rules);
 		}
 		return tfliabilities;
 	}

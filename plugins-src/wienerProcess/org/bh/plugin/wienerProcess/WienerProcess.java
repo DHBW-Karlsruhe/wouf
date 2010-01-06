@@ -27,6 +27,11 @@ import org.bh.gui.swing.BHLabel;
 import org.bh.gui.swing.BHTextField;
 import org.bh.platform.Services;
 import org.bh.platform.i18n.ITranslator;
+import org.bh.validation.VRIsInteger;
+import org.bh.validation.VRIsPositive;
+import org.bh.validation.VRMandatory;
+import org.bh.validation.ValidationRule;
+
 
 import com.jgoodies.forms.layout.CellConstraints;
 import com.jgoodies.forms.layout.FormLayout;
@@ -132,28 +137,28 @@ public class WienerProcess implements IStochasticProcess {
 			
 			result.add(new BHLabel(translator.translate(AMOUNT_OF_PERIODS)), cons.xywh(2, 2, 1, 1));
 			BHTextField tf = new BHTextField(AMOUNT_OF_PERIODS);
-			int[] rule = { ValidationWienerProcess.isMandatory,
-					ValidationWienerProcess.isInteger,
-					ValidationWienerProcess.isPositive };
-			tf.setValidateRules(rule);
+			ValidationRule[] rules = { VRMandatory.INSTANCE,
+					VRIsInteger.INSTANCE,
+					VRIsPositive.INSTANCE };
+			tf.setValidationRules(rules);
 			result.add(tf, cons.xywh(4, 2, 1, 1));
 			map.put(AMOUNT_OF_PERIODS, new Integer(5));
 
 			result.add(new BHLabel(translator.translate(STEPS_PER_PERIOD)), cons.xywh(2, 4, 1, 1));
 			BHTextField tf1 = new BHTextField(STEPS_PER_PERIOD);
-			int[] rule1 = { ValidationWienerProcess.isMandatory,
-					ValidationWienerProcess.isInteger,
-					ValidationWienerProcess.isPositive };
-			tf1.setValidateRules(rule1);
+			ValidationRule[] rules1 = { VRMandatory.INSTANCE,
+					VRIsInteger.INSTANCE,
+					VRIsPositive.INSTANCE };
+			tf1.setValidationRules(rules1);
 			result.add(tf1, cons.xywh(4, 4, 1, 1));
 			map.put(STEPS_PER_PERIOD, new Integer(1));
 
 			result.add(new BHLabel(translator.translate(REPETITIONS)), cons.xywh(6, 2, 1, 1));
 			BHTextField tf2 = new BHTextField(REPETITIONS);
-			int[] rule2 = { ValidationWienerProcess.isMandatory,
-					ValidationWienerProcess.isInteger,
-					ValidationWienerProcess.isPositive };
-			tf2.setValidateRules(rule2);
+			ValidationRule[] rules2 = { VRMandatory.INSTANCE,
+					VRIsInteger.INSTANCE,
+					VRIsPositive.INSTANCE };
+			tf2.setValidationRules(rules2);
 			result.add(tf2, cons.xywh(8, 2, 1, 1));
 			map.put(REPETITIONS, new Integer(100000));
 			

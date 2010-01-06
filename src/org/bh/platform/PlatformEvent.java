@@ -8,6 +8,7 @@ package org.bh.platform;
 import java.util.EventObject;
 
 import org.apache.log4j.Logger;
+import org.bh.gui.swing.IBHModelComponent;
 
 /**
  * 
@@ -39,8 +40,11 @@ public class PlatformEvent extends EventObject {
 		/**
 		 * The Locale has changed
 		 */
-		LOCALE_CHANGED
-		
+		LOCALE_CHANGED,
+		/**
+		 * The value of an {@link IBHModelComponent} has changed.
+		 */
+		COMPONENT_VALUE_CHANGED,
 	}
 
 	/**

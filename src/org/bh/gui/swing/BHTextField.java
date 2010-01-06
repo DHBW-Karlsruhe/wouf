@@ -1,11 +1,17 @@
 package org.bh.gui.swing;
 
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
+
 import javax.swing.JTextField;
 
 import org.bh.data.types.IValue;
 import org.bh.data.types.StringValue;
 import org.bh.platform.PlatformEvent;
 import org.bh.platform.Services;
+import org.bh.platform.PlatformEvent.Type;
+import org.bh.validation.ValidationRule;
+
 
 /**
  * BHTextField to display simple input fields at screen.
@@ -21,13 +27,13 @@ import org.bh.platform.Services;
  */
 
 // TODO Hints setzen!!! Noch werden für Textfields keine Hints erzeugt
-public class BHTextField extends JTextField implements IBHModelComponent {
+public class BHTextField extends JTextField implements IBHModelComponent, KeyListener {
 	/**
 	 * unique key to identify Label.
 	 */
 	Object key;
 
-	private int[] validateRules;
+	private ValidationRule[] validationRules = new ValidationRule[0];
 	private String inputHint;
 
 	/**
@@ -43,6 +49,7 @@ public class BHTextField extends JTextField implements IBHModelComponent {
 		super(value);
 		this.setProperties();
 		this.key = key;
+		addKeyListener(this);
 	}
 
 	// TODO Konsoliedieren der Konstruktoren (nicht alle notwendig)
@@ -85,13 +92,13 @@ public class BHTextField extends JTextField implements IBHModelComponent {
 	}
 
 	@Override
-	public int[] getValidateRules() {
-		return validateRules;
+	public ValidationRule[] getValidationRules() {
+		return validationRules;
 	}
 
 	@Override
-	public void setValidateRules(int[] validateRules) {
-		this.validateRules = validateRules;
+	public void setValidationRules(ValidationRule[] validationRules) {
+		this.validationRules = validationRules;
 	}
 
 	public boolean isTypeValid() {
@@ -102,6 +109,7 @@ public class BHTextField extends JTextField implements IBHModelComponent {
 		this.inputHint = inputHint;
 	}
 
+	// TODO ins Interface aufnehmen?
 	public String getInputHint() {
 		return this.inputHint;
 	}
@@ -141,6 +149,19 @@ public class BHTextField extends JTextField implements IBHModelComponent {
 			this.setText(value.toString());
 		else
 			this.setText("");
+	}
+
+	@Override
+	public void keyPressed(KeyEvent e) {
+	}
+
+	@Override
+	public void keyReleased(KeyEvent e) {
+		Services.firePlatformEvent(new PlatformEvent(this, Type.COMPONENT_VALUE_CHANGED));
+	}
+
+	@Override
+	public void keyTyped(KeyEvent e) {
 	}
 
 }

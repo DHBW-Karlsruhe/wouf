@@ -7,9 +7,14 @@ import javax.swing.JComboBox;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 
-import org.bh.gui.ValidationMethods;
 import org.bh.platform.Services;
 import org.bh.platform.i18n.ITranslator;
+import org.bh.validation.VRIsBetween0and100;
+import org.bh.validation.VRIsInteger;
+import org.bh.validation.VRIsPositive;
+import org.bh.validation.VRMandatory;
+import org.bh.validation.ValidationRule;
+
 
 import com.jgoodies.forms.layout.CellConstraints;
 import com.jgoodies.forms.layout.FormLayout;
@@ -141,9 +146,9 @@ public class BHStochasticInputForm extends JPanel {
 			this.tfrange = new BHTextField("", translator.translate(""));
 			// TODO add key, input hint and check rules;
 			// ValidationMethods.isNotZero???
-			int[] rules = { ValidationMethods.isMandatory,
-					ValidationMethods.isInteger, ValidationMethods.isPositive };
-			tfrange.setValidateRules(rules);
+			ValidationRule[] rules = { VRMandatory.INSTANCE,
+					VRIsInteger.INSTANCE, VRIsPositive.INSTANCE };
+			tfrange.setValidationRules(rules);
 		}
 
 		return this.tfrange;
@@ -173,10 +178,10 @@ public class BHStochasticInputForm extends JPanel {
 		if (this.tfprobab == null) {
 			this.tfprobab = new BHTextField("", translator.translate(""));
 			// TODO add key, input hint and check rules
-			int[] rules = { ValidationMethods.isMandatory,
-					ValidationMethods.isInteger,
-					ValidationMethods.isBetween0and100 };
-			tfprobab.setValidateRules(rules);
+			ValidationRule[] rules = { VRMandatory.INSTANCE,
+					VRIsInteger.INSTANCE,
+					VRIsBetween0and100.INSTANCE };
+			tfprobab.setValidationRules(rules);
 		}
 
 		return this.tfprobab;

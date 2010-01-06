@@ -2,6 +2,8 @@ package org.bh.gui.swing;
 
 import org.bh.data.types.IValue;
 import org.bh.gui.BHValidityEngine;
+import org.bh.validation.ValidationRule;
+
 
 /**
  * Interface for components for displaying and optionally editing values.
@@ -34,12 +36,12 @@ public interface IBHModelComponent extends IBHComponent {
 	 * @return amount of rules defined in a subclass of BHValidity engine
 	 * @see BHValidityEngine
 	 */
-	public int[] getValidateRules();
+	public ValidationRule[] getValidationRules();
 
 	/**
 	 * can set the Rules for the validation by runtime;
 	 * 
-	 * @param validateRules
+	 * @param validationRules
 	 */
-	public void setValidateRules(int[] validateRules);
+	public void setValidationRules(ValidationRule[] validationRules);
 }

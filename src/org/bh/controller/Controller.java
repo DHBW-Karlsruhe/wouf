@@ -37,22 +37,11 @@ public abstract class Controller implements IController, ActionListener, IPlatfo
      */
     protected Map<String, IBHModelComponent> bhMappingComponents;
     
-    /**
-     * Reference to the Platform StatusBar. Must be set in every constructor
-     */
-    private static BHStatusBar bhStatusBar;
-    
     public Controller(){
         this(null);
     }
     public Controller(View view){
-        log.debug("Plugincontroller instance");
-        this.view = view;
-        Controller.bhStatusBar = Services.getBHstatusBar();
-        if (view != null) {
-            this.bhMappingComponents = this.view.getBHModelComponents();
-            this.addControllerAsListener(this.view.getBHtextComponents());
-        }
+        setView(view);
         Services.addPlatformListener(this);
     }
     
@@ -85,7 +74,7 @@ public abstract class Controller implements IController, ActionListener, IPlatfo
         this.view = view;
         if (view != null) {
         	this.bhMappingComponents = this.view.getBHModelComponents();
-                this.addControllerAsListener(this.view.getBHtextComponents());
+            this.addControllerAsListener(this.view.getBHtextComponents());
         }
     }
 
@@ -109,7 +98,7 @@ public abstract class Controller implements IController, ActionListener, IPlatfo
      * @see BHStatusBar
      */
     public static void setBHstatusBarErrorHint(JScrollPane pane){
-        Controller.bhStatusBar.setErrorHint(pane);
+    	Services.getBHstatusBar().setErrorHint(pane);
     }
      /**
       * concret BHValidityEngine can use this method to set Info Tool Tip
@@ -119,7 +108,7 @@ public abstract class Controller implements IController, ActionListener, IPlatfo
       * @see BHStatusBar
      */
     public static void setBHstatusBarHint(JLabel hintLabel){
-        Controller.bhStatusBar.setHint(hintLabel);
+    	Services.getBHstatusBar().setHint(hintLabel);
     }
     /**
      * add the Controller for each BHButton on the UI as ActionListener

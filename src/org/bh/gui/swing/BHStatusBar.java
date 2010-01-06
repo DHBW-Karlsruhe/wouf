@@ -2,6 +2,7 @@ package org.bh.gui.swing;
 
 import java.awt.Color;
 import java.awt.event.MouseEvent;
+
 import javax.swing.ImageIcon;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
@@ -10,6 +11,7 @@ import javax.swing.JScrollPane;
 import javax.swing.Popup;
 import javax.swing.PopupFactory;
 import javax.swing.event.MouseInputAdapter;
+
 import org.bh.platform.i18n.BHTranslator;
 
 import com.jgoodies.forms.layout.CellConstraints;
@@ -42,12 +44,14 @@ public class BHStatusBar extends JPanel{
 	BHTranslator translator = BHTranslator.getInstance(); 
 	
 	JOptionPane optionPane;
+	
+	private JPanel hintContainer;
 
 	private BHStatusBar() {
 				
 		//setLayout to the status bar
 		String rowDef = "p";
-		String colDef = "0:grow(0.01),0:grow(0.39),0:grow(0.2),0:grow(0.4)";
+		String colDef = "0:grow(0.4),0:grow(0.2),0:grow(0.4)";
 		setLayout(new FormLayout(colDef, rowDef));
 		cons = new CellConstraints();
 
@@ -58,9 +62,9 @@ public class BHStatusBar extends JPanel{
 		//create a second label for the errors
 		errorHint = new JLabel("");
 		errorHint.addMouseListener(new BHLabelListener());
-		errorHint.setVisible(false);
 
-		
+		hintContainer = new JPanel();
+		hintContainer.setLayout(new FormLayout("0:grow(0.4)", "p"));
 		
 		//Test the Popup		
 //		popupPane = new JScrollPane(new JLabel("TEST"));
@@ -73,9 +77,8 @@ public class BHStatusBar extends JPanel{
 				.getResource("/org/bh/images/bh-logo-2.png")));
 
 		// add components to panel
-		add(hint, cons.xywh(2, 1, 1, 1));
-		add(errorHint, cons.xywh(2, 1, 1, 1));
-		add(bh, cons.xywh(3, 1, 1, 1));
+		add(hintContainer, cons.xywh(1, 1, 1, 1));
+		add(bh, cons.xywh(2, 1, 1, 1));
 	}
 
 	
@@ -92,10 +95,9 @@ public class BHStatusBar extends JPanel{
 	 * @param toolTip
 	 */
 	public void setHint(JLabel hintLabel) {
-		if(hint != null)
-			this.removeHint();
-		hint=hintLabel;
-		add(hint, cons.xywh(2, 1, 1, 1));
+		hintContainer.removeAll();
+		if (hintLabel != null)
+			hintContainer.add(hintLabel, new CellConstraints().xy(1, 1));
 		this.revalidate();
 		
 		//popup test
@@ -115,7 +117,7 @@ public class BHStatusBar extends JPanel{
 		}else{
 			hint.setForeground(Color.black);
 		}
-		add(hint, cons.xywh(2, 1, 1, 1));
+		setHint(hint);
 		this.revalidate();
 		//TEST
 		//setToolTip(new JScrollPane(new JLabel("TEST")));
@@ -134,23 +136,13 @@ public class BHStatusBar extends JPanel{
 		//creates the popup for the error information
 		optionPane = new JOptionPane(pane, JOptionPane.PLAIN_MESSAGE);
     
-		add(errorHint, cons.xywh(2, 1, 1, 1));
+		setHint(errorHint);
 		this.revalidate();
 	}
 	
 	public void removeHint(){
-		hint.setText(" ");
-		add(hint, cons.xywh(2, 1, 1, 1));
-		this.revalidate();
+		setHint((JLabel)null);
 	}
-	
-	public void removeErrorHint(){
-		errorHint.setText(" ");
-		errorHint.setVisible(false);
-//		add(lToolTip, cons.xywh(2, 1, 1, 1));
-//		this.revalidate();
-	}
-
 
 	public void openToolTipPopup(){
 		factory = PopupFactory.getSharedInstance();

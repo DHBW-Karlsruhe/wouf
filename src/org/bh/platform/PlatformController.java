@@ -7,6 +7,7 @@ import java.util.Collection;
 import java.util.List;
 import java.util.prefs.Preferences;
 
+import javax.swing.SwingUtilities;
 import javax.swing.event.TreeSelectionEvent;
 import javax.swing.event.TreeSelectionListener;
 import javax.swing.tree.DefaultMutableTreeNode;
@@ -22,6 +23,7 @@ import org.bh.data.DTOPeriod;
 import org.bh.data.DTOProject;
 import org.bh.data.DTOScenario;
 import org.bh.data.types.StringValue;
+import org.bh.gui.View;
 import org.bh.gui.ViewException;
 import org.bh.gui.swing.BHButton;
 import org.bh.gui.swing.BHComboBox;
@@ -54,10 +56,8 @@ public class PlatformController {
 	private BHMainFrame bhmf;
 	private ProjectRepositoryManager projectRepoManager = new ProjectRepositoryManager();
 
-	DTO<?> projectModel;
-	DTO<?> scenarioModel;
-	BHProjectView projectView;
-	BHScenarioView scenarioView;
+	DTO<?> model;
+	View view;
 
 	/**
 	 * Reference to a preference object which allows platform independent
@@ -201,54 +201,59 @@ public class PlatformController {
 	class BHTreeSelectionListener implements TreeSelectionListener {
 
 		@Override
-		public void valueChanged(TreeSelectionEvent tse) {
-			DTO<?> selection = (DTO<?>) ((BHTreeNode) tse.getPath()
-					.getLastPathComponent()).getUserObject();
-			if (selection instanceof DTOProject) {
-				try {
-					projectView = new BHProjectView(new BHProjectInputForm());
-					projectModel = selection;
-					bhmf.addContentForms(projectView.getViewPanel());
-					((BHTextField) projectView
-							.getBHModelComponent(DTOProject.Key.NAME))
-							.addFocusListener(new SaveListener(projectModel));
+		public void valueChanged(final TreeSelectionEvent tse) {
+			SwingUtilities.invokeLater(new Runnable() {
+				@Override
+				public void run() {
+					DTO<?> selection = (DTO<?>) ((BHTreeNode) tse.getPath()
+							.getLastPathComponent()).getUserObject();
+					if (selection instanceof DTOProject) {
+						try {
+							view = new BHProjectView(new BHProjectInputForm());
+							model = selection;
+							bhmf.addContentForms(view.getViewPanel());
+							((BHTextField) view
+									.getBHComponent(DTOProject.Key.NAME))
+									.addFocusListener(new SaveListener(model));
 
-					InputController.loadAllToView(projectModel, projectView);
+							InputController.loadAllToView(model, view);
 
-				} catch (ViewException e) {
-					e.printStackTrace();
-				}
+						} catch (ViewException e) {
+							e.printStackTrace();
+						}
 
-			} else if (selection instanceof DTOScenario) {
-				try {
-					scenarioView = new BHScenarioView(new BHScenarioHeadForm());
-					scenarioModel = selection;
-					bhmf.addContentForms(scenarioView.getViewPanel());
-					((BHTextField) scenarioView
-							.getBHModelComponent(DTOScenario.Key.NAME))
-							.addFocusListener(new SaveListener(scenarioModel));
-					BHComboBox cbDcfMethod = (BHComboBox) scenarioView
-							.getBHModelComponent(DTOScenario.Key.DCF_METHOD);
-					Collection<IShareholderValueCalculator> dcfMethods = Services
-							.getDCFMethods().values();
-					ArrayList<BHComboBox.Item> items = new ArrayList<BHComboBox.Item>();
-					for (IShareholderValueCalculator dcfMethod : dcfMethods) {
-						items.add(new BHComboBox.Item(dcfMethod.getGuiKey(),
-								new StringValue(dcfMethod.getUniqueId())));
+					} else if (selection instanceof DTOScenario) {
+						try {
+							view = new BHScenarioView(new BHScenarioHeadForm());
+							model = selection;
+							bhmf.addContentForms(view.getViewPanel());
+							((BHTextField) view
+									.getBHComponent(DTOScenario.Key.NAME))
+									.addFocusListener(new SaveListener(model));
+							BHComboBox cbDcfMethod = (BHComboBox) view
+									.getBHComponent(DTOScenario.Key.DCF_METHOD);
+							Collection<IShareholderValueCalculator> dcfMethods = Services
+									.getDCFMethods().values();
+							ArrayList<BHComboBox.Item> items = new ArrayList<BHComboBox.Item>();
+							for (IShareholderValueCalculator dcfMethod : dcfMethods) {
+								items.add(new BHComboBox.Item(dcfMethod.getGuiKey(),
+										new StringValue(dcfMethod.getUniqueId())));
+							}
+							cbDcfMethod.setSorted(true);
+							cbDcfMethod.setValueList(items
+									.toArray(new BHComboBox.Item[0]));
+
+							InputController.loadAllToView(model, view);
+
+						} catch (ViewException e) {
+							e.printStackTrace();
+						}
+
+					} else if (selection instanceof DTOPeriod) {
+						// TODO Schmalzhaf.Alexander muss noch implementiert werden
 					}
-					cbDcfMethod.setSorted(true);
-					cbDcfMethod.setValueList(items
-							.toArray(new BHComboBox.Item[0]));
-
-					InputController.loadAllToView(scenarioModel, scenarioView);
-
-				} catch (ViewException e) {
-					e.printStackTrace();
 				}
-
-			} else if (selection instanceof DTOPeriod) {
-				// TODO Schmalzhaf.Alexander muss noch implementiert werden
-			}
+			});
 		}
 	}
 
@@ -270,10 +275,8 @@ public class PlatformController {
 			if (e.getEventType() != PlatformEvent.Type.DATA_CHANGED)
 				return;
 
-			if (e.getSource() == projectModel) {
-				InputController.loadAllToView(projectModel, projectView);
-			} else if (e.getSource() == scenarioModel) {
-				InputController.loadAllToView(scenarioModel, scenarioView);
+			if (e.getSource() == model) {
+				InputController.loadAllToView(model, view);
 			}
 
 			if (e.getSource() instanceof DTOProject

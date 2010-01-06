@@ -1,5 +1,6 @@
 package org.bh.plugin.randomWalk;
 
+import org.bh.gui.ValidationMethods;
 import org.bh.gui.View;
 import org.bh.gui.ViewException;
 
@@ -10,7 +11,6 @@ import org.bh.gui.ViewException;
 public class ViewRandomWalk extends View {
 
     public ViewRandomWalk() throws ViewException{
-    	// FIXME add validation engine
-        super(new RandomWalk().calculateParameters(), null);
+        super(new RandomWalk().calculateParameters(), new ValidationMethods());
     }
 }

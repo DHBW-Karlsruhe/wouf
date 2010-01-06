@@ -5,6 +5,7 @@
 
 package org.bh.plugin.swing;
 
+import org.bh.gui.ValidationMethods;
 import org.bh.gui.View;
 import org.bh.gui.ViewException;
 
@@ -22,7 +23,6 @@ public class ViewBHBalanceSheetForm extends View{
     }
 
     public ViewBHBalanceSheetForm() throws ViewException{
-    	// FIXME add validation engine
-        super(new BHBalanceSheetForm(), null);
+        super(new BHBalanceSheetForm(), new ValidationMethods());
     }
 }
