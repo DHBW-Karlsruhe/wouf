@@ -2,18 +2,25 @@ package org.bh.gui.swing;
 
 import java.awt.Component;
 import java.awt.Dimension;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
+
 import javax.swing.ImageIcon;
 import javax.swing.JLabel;
+import javax.swing.JPopupMenu;
 import javax.swing.JTree;
 import javax.swing.SwingConstants;
 import javax.swing.UIManager;
 import javax.swing.tree.DefaultMutableTreeNode;
 import javax.swing.tree.DefaultTreeModel;
 import javax.swing.tree.TreeCellRenderer;
+import javax.swing.tree.TreePath;
 import javax.swing.tree.TreeSelectionModel;
+
 import org.bh.data.DTOPeriod;
 import org.bh.data.DTOProject;
 import org.bh.data.DTOScenario;
+import org.bh.platform.PlatformKey;
 import org.bh.platform.Services;
 
 /**
@@ -60,6 +67,16 @@ public class BHTree extends JTree {
 		this.getSelectionModel().setSelectionMode(TreeSelectionModel.SINGLE_TREE_SELECTION);
 		this.setShowsRootHandles(true);
 		this.setCellRenderer(new BHTreeCellRenderer());
+		this.addMouseListener(new MouseAdapter(){
+			@Override
+            public void mouseReleased(MouseEvent e) {
+                showPopup(e);
+            }
+			@Override
+			public void mouseClicked(MouseEvent e){
+				showPopup(e);
+			}
+        });
 	}
 
 	/**
@@ -74,7 +91,21 @@ public class BHTree extends JTree {
 		this.setModel(treeModel);
 		// TODO Find out, if reload is necessary...
 	}
-	
+	void showPopup(MouseEvent e) {
+        if (e.isPopupTrigger()) {
+            JPopupMenu neu = new JPopupMenu();
+            neu.add(new BHMenuItem(PlatformKey.TOOLBARREMOVE));
+            neu.add(new BHMenuItem(PlatformKey.TOOLBARADDPER));
+            
+            neu.show(e.getComponent(), e.getX(), e.getY());
+            
+            int selRow = BHTree.this.getRowForLocation(e.getX(), e.getY());
+            TreePath selPath = BHTree.this.getPathForLocation(e.getX(), e.getY());   
+            if( selPath != null )
+                        BHTree.this.setSelectionPath(selPath);
+        }
+        
+    }
 	/**
 	 * Provides a <code>TreeCellRenderer</code> for the BHTree.
 	 *
