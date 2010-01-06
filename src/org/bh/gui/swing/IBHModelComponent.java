@@ -2,6 +2,7 @@ package org.bh.gui.swing;
 
 import org.bh.data.types.IValue;
 import org.bh.gui.BHValidityEngine;
+import org.bh.gui.CompValueChangeManager;
 import org.bh.validation.ValidationRule;
 
 
@@ -44,4 +45,10 @@ public interface IBHModelComponent extends IBHComponent {
 	 * @param validationRules
 	 */
 	public void setValidationRules(ValidationRule[] validationRules);
+	
+	/**
+	 * Returns the object which manages the value change listeners.
+	 * @return
+	 */
+	public CompValueChangeManager getValueChangeManager();
 }

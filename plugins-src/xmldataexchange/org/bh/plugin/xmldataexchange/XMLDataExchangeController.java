@@ -119,10 +119,4 @@ public class XMLDataExchangeController extends InputController {
 		// TODO Auto-generated method stub
 		
 	}
-
-	@Override
-	public String getGuiKey() {
-		// TODO Auto-generated method stub
-		throw new UnsupportedOperationException("This method has not been implemented");
-	}
 }

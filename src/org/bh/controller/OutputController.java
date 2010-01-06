@@ -6,7 +6,10 @@
 package org.bh.controller;
 
 import java.util.Map;
+
 import javax.swing.text.JTextComponent;
+
+import org.bh.data.DTOAccessException;
 import org.bh.data.types.Calculable;
 import org.bh.gui.View;
 import org.bh.gui.chart.IBHAddValue;
@@ -17,7 +20,7 @@ import org.bh.gui.swing.BHTextField;
  *
  * @author Marco Hammel
  */
-public abstract class OutputController extends Controller implements IOutputController{
+public class OutputController extends Controller implements IOutputController{
 
     protected Map<String, Calculable[]> result;
 
@@ -57,5 +60,11 @@ public abstract class OutputController extends Controller implements IOutputCont
         log.debug("Plugin load from dto in view");
         //this.bhMappinglcomponents.get(key).setValue(this.model.get(key));
     }
+
+	@Override
+	public void setResult(Map<String, Calculable[]> result)
+			throws ControllerException {
+		this.result = result;
+	}
 
 }

@@ -9,6 +9,7 @@ import org.bh.data.DTOAccessException;
 import org.bh.data.IDTO;
 import org.bh.gui.BHValidityEngine;
 import org.bh.gui.View;
+import org.bh.gui.ViewEvent;
 import org.bh.gui.swing.IBHModelComponent;
 
 /**
@@ -16,7 +17,7 @@ import org.bh.gui.swing.IBHModelComponent;
  * @author Marco Hammel
  * @author Robert
  */
-public abstract class InputController extends Controller implements
+public class InputController extends Controller implements
 		IInputController {
 
 	/**
@@ -63,6 +64,26 @@ public abstract class InputController extends Controller implements
 		return this.view.getValidator();
 	}
 
+	@Override
+	public void viewEvent(ViewEvent e) {
+		switch (e.getEventType()) {
+		case VALUE_CHANGED:
+			// the value of the component has been validated, so save it to the
+			// model
+			saveToModel((IBHModelComponent) e.getSource());
+			break;
+		}
+	}
+
+	@Override
+	protected void setView(View view) {
+		if (this.view != null) {
+			this.view.removeViewListener(this);
+		}
+		super.setView(view);
+		view.addViewListener(this);
+	}
+
 	// TODO Javadoc, exception handling
 	/*
 	 * Static methods for data transfer between model and view
@@ -70,7 +91,7 @@ public abstract class InputController extends Controller implements
 	public static void saveAllToModel(View view, IDTO<?> model)
 			throws DTOAccessException {
 		log.debug("Saving values from view to model");
-		model.setSandBoxMode(true);
+		//model.setSandBoxMode(true);
 		for (IBHModelComponent comp : view.getBHModelComponents().values()) {
 			model.put(comp.getKey(), comp.getValue());
 		}
@@ -79,14 +100,14 @@ public abstract class InputController extends Controller implements
 	public static void saveToModel(IBHModelComponent comp, IDTO<?> model)
 			throws DTOAccessException {
 		log.debug("Saving value from component to model");
-		model.setSandBoxMode(true);
+		//model.setSandBoxMode(true);
 		model.put(comp.getKey(), comp.getValue());
 	}
 
 	public static void saveToModel(View view, IDTO<?> model, Object key)
 			throws DTOAccessException {
 		log.debug("Saving value from view to model");
-		model.setSandBoxMode(true);
+		//model.setSandBoxMode(true);
 		IBHModelComponent comp = view.getBHModelComponents()
 				.get(key.toString());
 		if (comp != null) {
@@ -103,6 +124,7 @@ public abstract class InputController extends Controller implements
 				comp.setValue(null);
 			}
 		}
+		view.revalidate();
 	}
 
 	public static void loadToView(IDTO<?> model, IBHModelComponent comp)
@@ -113,6 +135,7 @@ public abstract class InputController extends Controller implements
 		} catch (DTOAccessException e) {
 			comp.setValue(null);
 		}
+		// TODO check if there is any way to revalidate this component  
 	}
 
 	public static void loadToView(IDTO<?> model, View view, Object key)
@@ -126,34 +149,34 @@ public abstract class InputController extends Controller implements
 			} catch (DTOAccessException e) {
 				comp.setValue(null);
 			}
+			view.revalidate(comp);
 		}
 	}
 
 	/*
 	 * Wrappers for the static data transfer classes
 	 */
-	protected void saveAllToModel() throws DTOAccessException {
+	public void saveAllToModel() throws DTOAccessException {
 		saveAllToModel(this.view, this.model);
 	}
 
-	protected void saveToModel(IBHModelComponent comp)
-			throws DTOAccessException {
+	public void saveToModel(IBHModelComponent comp) throws DTOAccessException {
 		saveToModel(comp, this.model);
 	}
 
-	protected void saveToModel(Object key) throws DTOAccessException {
+	public void saveToModel(Object key) throws DTOAccessException {
 		saveToModel(this.view, this.model, key);
 	}
 
-	protected void loadAllToView() throws DTOAccessException {
+	public void loadAllToView() throws DTOAccessException {
 		loadAllToView(this.model, this.view);
 	}
 
-	protected void loadToView(IBHModelComponent comp) throws DTOAccessException {
+	public void loadToView(IBHModelComponent comp) throws DTOAccessException {
 		loadToView(this.model, comp);
 	}
 
-	protected void loadToView(Object key) {
+	public void loadToView(Object key) {
 		loadToView(this.model, this.view, key);
 	}
 }

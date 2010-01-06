@@ -6,6 +6,8 @@ package org.bh.gui;
 
 import java.awt.Component;
 import java.awt.Container;
+import java.awt.event.FocusEvent;
+import java.awt.event.FocusListener;
 import java.awt.event.KeyListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
@@ -15,6 +17,8 @@ import java.util.HashMap;
 import java.util.Map;
 
 import javax.swing.JPanel;
+import javax.swing.SwingUtilities;
+import javax.swing.event.EventListenerList;
 
 import org.apache.log4j.Logger;
 import org.bh.data.IDTO;
@@ -25,17 +29,14 @@ import org.bh.gui.swing.BHStatusBar;
 import org.bh.gui.swing.BHTextField;
 import org.bh.gui.swing.IBHComponent;
 import org.bh.gui.swing.IBHModelComponent;
-import org.bh.platform.IPlatformListener;
-import org.bh.platform.PlatformEvent;
-import org.bh.platform.Services;
-import org.bh.platform.PlatformEvent.Type;
 
 /**
  * 
  * @author Marco Hammel
  * @author Robert
  */
-public abstract class View implements IPlatformListener, MouseListener {
+public abstract class View implements MouseListener, FocusListener,
+		ICompValueChangeListener {
 
 	private static Logger log = Logger.getLogger(View.class);
 
@@ -76,6 +77,11 @@ public abstract class View implements IPlatformListener, MouseListener {
 	private Map<String, IBHComponent> bhTextComponents;
 
 	/**
+	 * Listeners for this view.
+	 */
+	private final EventListenerList viewListeners = new EventListenerList();
+
+	/**
 	 * Should be used in case of a UI which have to be validated
 	 * 
 	 * @param viewPanel
@@ -91,7 +97,6 @@ public abstract class View implements IPlatformListener, MouseListener {
 			throws ViewException {
 		this.setViewPanel(viewPanel);
 		this.setValidator(validator);
-		Services.addPlatformListener(this);
 	}
 
 	/**
@@ -118,20 +123,30 @@ public abstract class View implements IPlatformListener, MouseListener {
 	 * @see MouseListener
 	 * @param comp
 	 */
-	private void addViewListeners(IBHComponent comp) {
+	private void addListeners(IBHComponent comp) {
 		if (comp instanceof Component) {
 			((Component) comp).addMouseListener(this);
+			((Component) comp).addFocusListener(this);
+		}
+		if (comp instanceof IBHModelComponent) {
+			((IBHModelComponent) comp).getValueChangeManager()
+					.addCompValueChangeListener(this);
 		}
 	}
 
 	/**
-	 * Removes all listeners added by {@link #addViewListeners(IBHComponent)}.
+	 * Removes all listeners added by {@link #addListeners(IBHComponent)}.
 	 * 
 	 * @param comp
 	 */
 	private void removeViewListeners(IBHComponent comp) {
 		if (comp instanceof Component) {
 			((Component) comp).removeMouseListener(this);
+			((Component) comp).removeFocusListener(this);
+		}
+		if (comp instanceof IBHModelComponent) {
+			((IBHModelComponent) comp).getValueChangeManager()
+					.removeCompValueChangeListener(this);
 		}
 	}
 
@@ -261,7 +276,7 @@ public abstract class View implements IPlatformListener, MouseListener {
 
 		// add listeners
 		for (IBHComponent comp : bhComponents.values()) {
-			addViewListeners(comp);
+			addListeners(comp);
 		}
 	}
 
@@ -287,35 +302,27 @@ public abstract class View implements IPlatformListener, MouseListener {
 	public void setValidator(BHValidityEngine validator) throws ViewException {
 		log.debug("a new validator has been set");
 		this.validator = validator;
-		if (validator != null)
-			this.validator.registerComponents(bhModelComponents);
-	}
-
-	/**
-	 * call the <code>publishValidationComp</code> method of a event on a
-	 * BHTextField occurs
-	 * 
-	 * @param e
-	 *            representes the source of the event
-	 * @see BHTextField
-	 */
-	private void handleValidateEvent(Object c) {
-		if (validator == null || !(c instanceof IBHModelComponent))
-			return;
-		IBHModelComponent comp = (IBHModelComponent) c;
-		try {
-			validator.publishValidationComp(comp);
-		} catch (ViewException ex) {
-			log.error("validation throws errors", ex);
+		if (validator != null) {
+			this.validator.registerComponents(bhModelComponents.values());
+			revalidate();
 		}
 	}
-	
+
+	public void revalidate() {
+		if (validator != null)
+			this.validator.publishValidationAll(bhModelComponents);
+	}
+
+	public void revalidate(IBHModelComponent comp) {
+		if (validator != null)
+			this.validator.publishValidationComp(comp);
+	}
+
 	@Override
-	public void platformEvent(PlatformEvent e) {
-		if (e.getEventType() != Type.COMPONENT_VALUE_CHANGED)
-			return;
-		
-		handleValidateEvent(e.getSource());
+	public void compValueChanged(IBHModelComponent comp) {
+		if (validator == null
+				|| !validator.publishValidationComp(comp).hasErrors())
+			fireViewEvent(new ViewEvent(comp, ViewEvent.Type.VALUE_CHANGED));
 	}
 
 	/**
@@ -330,7 +337,7 @@ public abstract class View implements IPlatformListener, MouseListener {
 			BHValidityEngine.setInputHintLabel((IBHComponent) e);
 		}
 	}
-	
+
 	public void mouseClicked(MouseEvent e) {
 		// this.handleInputInfoEvent(e.getSource());
 	}
@@ -349,6 +356,35 @@ public abstract class View implements IPlatformListener, MouseListener {
 
 	public void mouseReleased(MouseEvent e) {
 		// this.handleInputInfoEvent(e.getSource());
+	}
+
+	public void addViewListener(IViewListener l) {
+		viewListeners.add(IViewListener.class, l);
+	}
+
+	public void removeViewListener(IViewListener l) {
+		viewListeners.remove(IViewListener.class, l);
+	}
+
+	protected void fireViewEvent(ViewEvent event) {
+		for (IViewListener l : viewListeners.getListeners(IViewListener.class))
+			l.viewEvent(event);
+	}
+
+	@Override
+	public void focusGained(final FocusEvent e) {
+		if (e.getSource() instanceof IBHModelComponent)
+			SwingUtilities.invokeLater(new Runnable() {
+				@Override
+				public void run() {
+					revalidate((IBHModelComponent) e.getSource());
+				}
+			});
+
+	}
+
+	@Override
+	public void focusLost(FocusEvent e) {
 	}
 
 }

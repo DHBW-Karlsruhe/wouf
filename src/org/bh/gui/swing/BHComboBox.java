@@ -1,5 +1,7 @@
 package org.bh.gui.swing;
 
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.util.Arrays;
 import java.util.Comparator;
 
@@ -7,20 +9,28 @@ import javax.swing.DefaultComboBoxModel;
 import javax.swing.JComboBox;
 
 import org.bh.data.types.IValue;
+import org.bh.gui.CompValueChangeManager;
 import org.bh.platform.PlatformEvent;
 import org.bh.platform.Services;
 import org.bh.platform.i18n.ITranslator;
 import org.bh.validation.ValidationRule;
 
 
-public class BHComboBox extends JComboBox implements IBHModelComponent {
+public class BHComboBox extends JComboBox implements IBHModelComponent, ActionListener {
 	private static final ITranslator translator = Services.getTranslator();
 	private String key;
 	private boolean sorted = false;
 	private Item[] items = new Item[0];
+	private final CompValueChangeManager valueChangeManager = new CompValueChangeManager();
 
 	public BHComboBox(Object key) {
 		this.key = key.toString();
+		addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				valueChangeManager.fireCompValueChangeEvent(BHComboBox.this);
+			}
+		});
 	}
 
 	public void setValueList(Item[] items) {
@@ -123,5 +133,10 @@ public class BHComboBox extends JComboBox implements IBHModelComponent {
 		public IValue getValue() {
 			return value;
 		}
+	}
+
+	@Override
+	public CompValueChangeManager getValueChangeManager() {
+		return valueChangeManager;
 	}
 }

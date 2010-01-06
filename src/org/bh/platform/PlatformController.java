@@ -1,7 +1,5 @@
 package org.bh.platform;
 
-import java.awt.event.FocusEvent;
-import java.awt.event.FocusListener;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
@@ -23,6 +21,7 @@ import org.bh.data.DTOAccessException;
 import org.bh.data.DTOPeriod;
 import org.bh.data.DTOProject;
 import org.bh.data.DTOScenario;
+import org.bh.data.IDTO;
 import org.bh.data.types.StringValue;
 import org.bh.gui.View;
 import org.bh.gui.ViewException;
@@ -34,10 +33,8 @@ import org.bh.gui.swing.BHProjectInputForm;
 import org.bh.gui.swing.BHProjectView;
 import org.bh.gui.swing.BHScenarioForm;
 import org.bh.gui.swing.BHScenarioView;
-import org.bh.gui.swing.BHTextField;
 import org.bh.gui.swing.BHTreeNode;
 import org.bh.gui.swing.IBHAction;
-import org.bh.gui.swing.IBHModelComponent;
 
 /**
  * The Platform Controller handles a) start up of the application b) main
@@ -57,8 +54,7 @@ public class PlatformController {
 	private BHMainFrame bhmf;
 	private ProjectRepositoryManager projectRepoManager = new ProjectRepositoryManager();
 
-	DTO<?> model;
-	View view;
+	InputController controller = null;
 
 	/**
 	 * Reference to a preference object which allows platform independent
@@ -210,14 +206,12 @@ public class PlatformController {
 							.getLastPathComponent()).getUserObject();
 					if (selection instanceof DTOProject) {
 						try {
-							view = new BHProjectView(new BHProjectInputForm());
-							model = selection;
+							View view = new BHProjectView(new BHProjectInputForm());
+							IDTO<?> model = selection;
+							controller = new InputController(
+									view, model);
 							bhmf.addContentForms(view.getViewPanel());
-							((BHTextField) view
-									.getBHComponent(DTOProject.Key.NAME))
-									.addFocusListener(new SaveListener(model));
-
-							InputController.loadAllToView(model, view);
+							controller.loadAllToView();
 
 						} catch (ViewException e) {
 							e.printStackTrace();
@@ -225,7 +219,9 @@ public class PlatformController {
 
 					} else if (selection instanceof DTOScenario) {
 						try {
-			
+							View view = null;
+							IDTO<?> model = selection;
+
 							//find out if stochastic process was chosen at init of strategy
 							try{
 								selection.get(DTOScenario.Key.STOCHASTIC_PROCESS);
@@ -235,33 +231,34 @@ public class PlatformController {
 								//Answer: no
 								view = new BHScenarioView(new BHScenarioForm(BHScenarioForm.Type.DETERMINISTIC));
 							}
-								
-							model = selection;
+							
 							bhmf.addContentForms(view.getViewPanel());
-							((BHTextField) view
-									.getBHComponent(DTOScenario.Key.NAME))
-									.addFocusListener(new SaveListener(model));
+							controller = new InputController(
+									view, model);
+
 							BHComboBox cbDcfMethod = (BHComboBox) view
 									.getBHComponent(DTOScenario.Key.DCF_METHOD);
 							Collection<IShareholderValueCalculator> dcfMethods = Services
 									.getDCFMethods().values();
 							ArrayList<BHComboBox.Item> items = new ArrayList<BHComboBox.Item>();
 							for (IShareholderValueCalculator dcfMethod : dcfMethods) {
-								items.add(new BHComboBox.Item(dcfMethod.getGuiKey(),
-										new StringValue(dcfMethod.getUniqueId())));
+								items.add(new BHComboBox.Item(dcfMethod
+										.getGuiKey(), new StringValue(dcfMethod
+										.getUniqueId())));
 							}
 							cbDcfMethod.setSorted(true);
 							cbDcfMethod.setValueList(items
 									.toArray(new BHComboBox.Item[0]));
 
-							InputController.loadAllToView(model, view);
+							controller.loadAllToView();
 
 						} catch (ViewException e) {
 							e.printStackTrace();
 						}
 
 					} else if (selection instanceof DTOPeriod) {
-						// TODO Schmalzhaf.Alexander muss noch implementiert werden
+						// TODO Schmalzhaf.Alexander muss noch implementiert
+						// werden
 					}
 				}
 			});
@@ -285,10 +282,6 @@ public class PlatformController {
 		public void platformEvent(PlatformEvent e) {
 			if (e.getEventType() != PlatformEvent.Type.DATA_CHANGED)
 				return;
-
-			if (e.getSource() == model) {
-				InputController.loadAllToView(model, view);
-			}
 
 			if (e.getSource() instanceof DTOProject
 					|| e.getSource() instanceof DTOScenario
@@ -320,36 +313,22 @@ public class PlatformController {
 		public void valueForPathChanged(TreePath path, Object newValue) {
 			DTO<?> tempDTO = (DTO<?>) ((BHTreeNode) path.getLastPathComponent())
 					.getUserObject();
+
+			Object key = null;
 			if (tempDTO instanceof DTOProject) {
-				tempDTO.put(DTOProject.Key.NAME, new StringValue(newValue
-						.toString()));
+				key = DTOProject.Key.NAME;
 			} else if (tempDTO instanceof DTOScenario) {
-				tempDTO.put(DTOScenario.Key.NAME, new StringValue(newValue
-						.toString()));
+				key = DTOScenario.Key.NAME;
 			} else if (tempDTO instanceof DTOPeriod) {
-				tempDTO.put(DTOPeriod.Key.NAME, new StringValue(newValue
-						.toString()));
+				key = DTOPeriod.Key.NAME;
 			}
-		}
-	}
 
-	class SaveListener implements FocusListener {
-		private DTO<?> model;
-
-		public SaveListener(DTO<?> model) {
-			this.model = model;
-		}
-
-		@Override
-		public void focusGained(FocusEvent fEvent) {
-			// do nothing!
-		}
-
-		@Override
-		public void focusLost(FocusEvent fEvent) {
-			// update DTO
-			InputController.saveToModel((IBHModelComponent) fEvent.getSource(),
-					model);
+			if (key != null) {
+				tempDTO.put(key, new StringValue(newValue.toString()));
+				if (controller != null && tempDTO == controller.getModel()) {
+					controller.loadToView(key);
+				}
+			}
 		}
 	}
 }

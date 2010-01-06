@@ -4,11 +4,13 @@
  */
 package org.bh.gui;
 
+import java.util.Collection;
 import java.util.Map;
 
 import javax.swing.JComponent;
 import javax.swing.JLabel;
 import javax.swing.JScrollPane;
+import javax.swing.text.JTextComponent;
 
 import org.apache.log4j.Logger;
 import org.bh.controller.Controller;
@@ -17,7 +19,6 @@ import org.bh.gui.swing.IBHComponent;
 import org.bh.gui.swing.IBHModelComponent;
 import org.bh.platform.Services;
 import org.bh.validation.ValidationRule;
-
 
 import com.jgoodies.validation.ValidationResult;
 import com.jgoodies.validation.ValidationResultModel;
@@ -104,7 +105,7 @@ public abstract class BHValidityEngine {
      * @see IBHComponent
      * @see BHStatusBar
      */
-    public ValidationResult publishValidationAll(Map<String, IBHModelComponent> toValidate) throws ViewException{
+    public ValidationResult publishValidationAll(Map<String, IBHModelComponent> toValidate) {
         log.debug("Trigger validation process for All Components");
         validationResultAll = validateAll(toValidate);
         setValidityStatus(validationResultAll);
@@ -121,7 +122,7 @@ public abstract class BHValidityEngine {
      * @throws ViewException
      * @see BHStatusBar
      */
-    protected ValidationResult publishValidationComp(IBHModelComponent comp) throws ViewException{
+    protected ValidationResult publishValidationComp(IBHModelComponent comp) {
         log.debug("Trigger validation for a single component");
         ValidationResult valRes = validate(comp);
         if (valRes.hasMessages())
@@ -133,10 +134,10 @@ public abstract class BHValidityEngine {
     /**
      * have to register the model related components and set the ValidationComponentUtils entries
      *
-     * @param toValidate a Map of IBHComponents
+     * @param toValidate a Collection of IBHComponents
      * @see ValidationComponentUtils
      */
-    public abstract void registerComponents(Map<String, IBHModelComponent> toValidate) throws ViewException;
+    public abstract void registerComponents(Collection<IBHModelComponent> toValidate) throws ViewException;
    
     /**
      * Shell proof the constant based rules of a single component
@@ -145,10 +146,16 @@ public abstract class BHValidityEngine {
      * @return the result of the Validation as ValidationResult
      * @see ValidationResult
      */
-	public ValidationResult validate(IBHModelComponent comp) throws ViewException {
+	public ValidationResult validate(IBHModelComponent comp) {
 		ValidationResult validationResult = new ValidationResult();
 		for (ValidationRule validationRule : comp.getValidationRules()) {
 			validationResult.addAllFrom(validationRule.validate(comp));
+		}
+		if (comp instanceof JTextComponent) {
+			if (validationResult.hasMessages())
+				ValidationComponentUtils.setErrorBackground((JTextComponent)comp);
+			else
+				((JTextComponent)comp).setBackground(null);
 		}
 		return validationResult;
 	}
@@ -161,9 +168,7 @@ public abstract class BHValidityEngine {
      * @return the result of the Validation as ValidationResult
      * @see ValidationResult
      */
-	public ValidationResult validateAll(Map<String, IBHModelComponent> toValidate)
-			throws ViewException {
-
+	public ValidationResult validateAll(Map<String, IBHModelComponent> toValidate) {
 		ValidationResult validationResultAll = new ValidationResult();
 		for (Map.Entry<String, IBHModelComponent> entry : toValidate.entrySet()) {
 			ValidationResult validationResultSingle = validate(entry.getValue());

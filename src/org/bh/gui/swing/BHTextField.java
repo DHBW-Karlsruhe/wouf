@@ -1,17 +1,17 @@
 package org.bh.gui.swing;
 
-import java.awt.event.KeyEvent;
-import java.awt.event.KeyListener;
-
 import javax.swing.JTextField;
+import javax.swing.text.AbstractDocument;
+import javax.swing.text.AttributeSet;
+import javax.swing.text.BadLocationException;
+import javax.swing.text.DocumentFilter;
 
 import org.bh.data.types.IValue;
 import org.bh.data.types.StringValue;
+import org.bh.gui.CompValueChangeManager;
 import org.bh.platform.PlatformEvent;
 import org.bh.platform.Services;
-import org.bh.platform.PlatformEvent.Type;
 import org.bh.validation.ValidationRule;
-
 
 /**
  * BHTextField to display simple input fields at screen.
@@ -27,7 +27,7 @@ import org.bh.validation.ValidationRule;
  */
 
 // TODO Hints setzen!!! Noch werden für Textfields keine Hints erzeugt
-public class BHTextField extends JTextField implements IBHModelComponent, KeyListener {
+public class BHTextField extends JTextField implements IBHModelComponent {
 	/**
 	 * unique key to identify Label.
 	 */
@@ -35,6 +35,8 @@ public class BHTextField extends JTextField implements IBHModelComponent, KeyLis
 
 	private ValidationRule[] validationRules = new ValidationRule[0];
 	private String inputHint;
+	private boolean changeListenerEnabled = true;
+	private final CompValueChangeManager valueChangeManager = new CompValueChangeManager();
 
 	/**
 	 * Constructor to create new <code>BHTextField</code>. Defined for the use
@@ -49,7 +51,8 @@ public class BHTextField extends JTextField implements IBHModelComponent, KeyLis
 		super(value);
 		this.setProperties();
 		this.key = key;
-		addKeyListener(this);
+		((AbstractDocument) getDocument())
+				.setDocumentFilter(new ChangeListener());
 	}
 
 	// TODO Konsoliedieren der Konstruktoren (nicht alle notwendig)
@@ -152,16 +155,44 @@ public class BHTextField extends JTextField implements IBHModelComponent, KeyLis
 	}
 
 	@Override
-	public void keyPressed(KeyEvent e) {
+	public CompValueChangeManager getValueChangeManager() {
+		return valueChangeManager;
 	}
 
 	@Override
-	public void keyReleased(KeyEvent e) {
-		Services.firePlatformEvent(new PlatformEvent(this, Type.COMPONENT_VALUE_CHANGED));
+	public void setText(String t) {
+		changeListenerEnabled = false;
+		super.setText(t);
+		changeListenerEnabled = true;
 	}
 
-	@Override
-	public void keyTyped(KeyEvent e) {
-	}
+	protected class ChangeListener extends DocumentFilter {
+		boolean enabled = true;
 
+		@Override
+		public void insertString(FilterBypass fb, int offset, String string,
+				AttributeSet attr) throws BadLocationException {
+			super.insertString(fb, offset, string, attr);
+			fireChangeEvent();
+		}
+
+		@Override
+		public void remove(FilterBypass fb, int offset, int length)
+				throws BadLocationException {
+			super.remove(fb, offset, length);
+			fireChangeEvent();
+		}
+
+		@Override
+		public void replace(FilterBypass fb, int offset, int length,
+				String text, AttributeSet attrs) throws BadLocationException {
+			super.replace(fb, offset, length, text, attrs);
+			fireChangeEvent();
+		}
+
+		private void fireChangeEvent() {
+			if (changeListenerEnabled)
+				valueChangeManager.fireCompValueChangeEvent(BHTextField.this);
+		}
+	}
 }
