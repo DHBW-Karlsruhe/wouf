@@ -43,6 +43,7 @@
 			<include name="**/*.jar" />
 			<exclude name="build_lib/**" />
 			<exclude name="tests/**" />
+			<exclude name="src/**" />
 		</fileset>
     </path>
 	
@@ -120,6 +121,7 @@
 				<include name="**/*.jar" />
 				<exclude name="build_lib/**" />
 				<exclude name="tests/**" />
+				<exclude name="src/**" />
 			</fileset>
         </unzip>
 

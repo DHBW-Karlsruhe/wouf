@@ -11,7 +11,7 @@
 	<classpathentry excluding="**/.svn/" kind="src" output="plugins/wienerProcess" path="plugins-src/wienerProcess"/>
 	<classpathentry excluding="**/.svn/" kind="src" output="plugins/directinput" path="plugins-src/directinput"/>
 	<classpathentry kind="src" output="plugins/xmldataexchange" path="plugins-src/xmldataexchange"/>
-	<classpathentry kind="src" path="lib"/>
+	<classpathentry excluding="src/" kind="src" path="lib"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER/org.eclipse.jdt.internal.debug.ui.launcher.StandardVMType/JavaSE-1.6"/>
 	<classpathentry kind="lib" path="lib/log4j-1.2.15.jar"/>
 	<classpathentry kind="lib" path="lib/forms-1.2.0.jar"/>
@@ -19,7 +19,7 @@
 	<classpathentry kind="lib" path="lib/jcommon-1.0.16.jar"/>
 	<classpathentry kind="lib" path="lib/jfreechart-1.0.13.jar"/>
 	<classpathentry kind="lib" path="lib/binding-2.0.3.jar"/>
-	<classpathentry kind="lib" path="lib/validation-2.0.1.jar"/>
+	<classpathentry kind="lib" path="lib/validation-2.0.1.jar" sourcepath="lib/src/validation"/>
 	<classpathentry kind="lib" path="lib/formula/batik-dom-1.7.jar"/>
 	<classpathentry kind="lib" path="lib/formula/batik-ext-1.7.jar"/>
 	<classpathentry kind="lib" path="lib/formula/batik-util-1.7.jar"/>
