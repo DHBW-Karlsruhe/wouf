@@ -21,6 +21,7 @@ import org.jfree.data.category.DefaultCategoryDataset;
  *
  */
 
+//TODO Tietze.Patrick: Müll rausnehmen!
 public class BHContent extends JPanel{
 
     public JLabel chart, forms, logo;

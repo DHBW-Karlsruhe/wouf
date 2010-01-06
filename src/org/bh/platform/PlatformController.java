@@ -202,64 +202,67 @@ public class PlatformController {
 			SwingUtilities.invokeLater(new Runnable() {
 				@Override
 				public void run() {
-					DTO<?> selection = (DTO<?>) ((BHTreeNode) tse.getPath()
-							.getLastPathComponent()).getUserObject();
-					if (selection instanceof DTOProject) {
-						try {
-							View view = new BHProjectView(new BHProjectInputForm());
-							IDTO<?> model = selection;
-							controller = new InputController(
-									view, model);
-							bhmf.addContentForms(view.getViewPanel());
-							controller.loadAllToView();
+					if(tse.getPath().getLastPathComponent() instanceof BHTreeNode){
+						DTO<?> selection = (DTO<?>) ((BHTreeNode) tse.getPath()
+								.getLastPathComponent()).getUserObject();
+						if (selection instanceof DTOProject) {
+							try {
+								View view = new BHProjectView(new BHProjectInputForm());
+								IDTO<?> model = selection;
+								controller = new InputController(
+										view, model);
+								bhmf.addContentForms(view.getViewPanel());
+								controller.loadAllToView();
 
-						} catch (ViewException e) {
-							e.printStackTrace();
-						}
-
-					} else if (selection instanceof DTOScenario) {
-						try {
-							View view = null;
-							IDTO<?> model = selection;
-
-							//find out if stochastic process was chosen at init of strategy
-							try{
-								selection.get(DTOScenario.Key.STOCHASTIC_PROCESS);
-								//when value is set -> next command will be processed (else: not, but Exception)
-								view = new BHScenarioView(new BHScenarioForm(BHScenarioForm.Type.STOCHASTIC));
-							}catch(DTOAccessException e){
-								//Answer: no
-								view = new BHScenarioView(new BHScenarioForm(BHScenarioForm.Type.DETERMINISTIC));
+							} catch (ViewException e) {
+								e.printStackTrace();
 							}
-							
-							bhmf.addContentForms(view.getViewPanel());
-							controller = new InputController(
-									view, model);
 
-							BHComboBox cbDcfMethod = (BHComboBox) view
-									.getBHComponent(DTOScenario.Key.DCF_METHOD);
-							Collection<IShareholderValueCalculator> dcfMethods = Services
-									.getDCFMethods().values();
-							ArrayList<BHComboBox.Item> items = new ArrayList<BHComboBox.Item>();
-							for (IShareholderValueCalculator dcfMethod : dcfMethods) {
-								items.add(new BHComboBox.Item(dcfMethod
-										.getGuiKey(), new StringValue(dcfMethod
-										.getUniqueId())));
+						} else if (selection instanceof DTOScenario) {
+							try {
+								View view = null;
+								IDTO<?> model = selection;
+
+								//find out if stochastic process was chosen at init of strategy
+								try{
+									selection.get(DTOScenario.Key.STOCHASTIC_PROCESS);
+									//when value is set -> next command will be processed (else: not, but Exception)
+									view = new BHScenarioView(new BHScenarioForm(BHScenarioForm.Type.STOCHASTIC));
+								}catch(DTOAccessException e){
+									//Answer: no
+									view = new BHScenarioView(new BHScenarioForm(BHScenarioForm.Type.DETERMINISTIC));
+								}
+								
+								bhmf.addContentForms(view.getViewPanel());
+								controller = new InputController(
+										view, model);
+
+								BHComboBox cbDcfMethod = (BHComboBox) view
+										.getBHComponent(DTOScenario.Key.DCF_METHOD);
+								Collection<IShareholderValueCalculator> dcfMethods = Services
+										.getDCFMethods().values();
+								ArrayList<BHComboBox.Item> items = new ArrayList<BHComboBox.Item>();
+								for (IShareholderValueCalculator dcfMethod : dcfMethods) {
+									items.add(new BHComboBox.Item(dcfMethod
+											.getGuiKey(), new StringValue(dcfMethod
+											.getUniqueId())));
+								}
+								cbDcfMethod.setSorted(true);
+								cbDcfMethod.setValueList(items
+										.toArray(new BHComboBox.Item[0]));
+
+								controller.loadAllToView();
+
+							} catch (ViewException e) {
+								e.printStackTrace();
 							}
-							cbDcfMethod.setSorted(true);
-							cbDcfMethod.setValueList(items
-									.toArray(new BHComboBox.Item[0]));
 
-							controller.loadAllToView();
-
-						} catch (ViewException e) {
-							e.printStackTrace();
+						} else if (selection instanceof DTOPeriod) {
+							// TODO Schmalzhaf.Alexander muss noch implementiert
+							// werden
 						}
-
-					} else if (selection instanceof DTOPeriod) {
-						// TODO Schmalzhaf.Alexander muss noch implementiert
-						// werden
 					}
+					
 				}
 			});
 		}

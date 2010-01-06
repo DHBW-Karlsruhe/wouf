@@ -51,6 +51,7 @@ public class BHTextField extends JTextField implements IBHModelComponent {
 		super(value);
 		this.setProperties();
 		this.key = key;
+		if(key.toString().equals(""))
 		((AbstractDocument) getDocument())
 				.setDocumentFilter(new ChangeListener());
 	}

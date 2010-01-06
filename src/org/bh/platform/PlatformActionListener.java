@@ -21,6 +21,7 @@ import org.bh.data.DTOProject;
 import org.bh.data.DTOScenario;
 import org.bh.data.types.StringValue;
 import org.bh.gui.swing.BHComboBox;
+import org.bh.gui.swing.BHContent;
 import org.bh.gui.swing.BHMainFrame;
 import org.bh.gui.swing.BHOptionDialog;
 import org.bh.gui.swing.BHStatusBar;
@@ -287,10 +288,14 @@ class PlatformActionListener implements ActionListener {
 									.getUserObject());
 				}
 
-				// ... and from GUI
+				// ... and from GUI and select other node or empty screen
+				TreePath tp = new TreePath(currentNode.getPreviousNode().getPath());
+				bhmf.getBHTree().setSelectionPath(tp);
+				if(bhmf.getBHTree().getSelectionPath().getPathCount() == 1)
+					bhmf.addContentForms(new BHContent());
+				
 				((BHTreeModel) bhmf.getBHTree().getModel())
 						.removeNodeFromParent(currentNode);
-				//select other node or show empty view
 				
 				
 			}

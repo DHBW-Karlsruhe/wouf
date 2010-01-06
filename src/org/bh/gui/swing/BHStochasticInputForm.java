@@ -144,7 +144,7 @@ public class BHStochasticInputForm extends JPanel {
 
 		if (this.tfrange == null) {
 			//TODO remove dummy
-			this.tfrange = new BHTextField("", translator.translate("dummy"));
+			this.tfrange = new BHTextField("dummy");
 			// TODO add key, input hint and check rules;
 			// ValidationMethods.isNotZero???
 			ValidationRule[] rules = { VRMandatory.INSTANCE,

@@ -125,6 +125,7 @@ public abstract class BHValidityEngine {
     protected ValidationResult publishValidationComp(IBHModelComponent comp) {
         log.debug("Trigger validation for a single component");
         ValidationResult valRes = validate(comp);
+        System.out.println("key:" +comp.getKey());
         if (valRes.hasMessages())
         	Services.getBHstatusBar().setErrorHint(createValidationResultList(valRes));
         else
