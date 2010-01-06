@@ -32,6 +32,7 @@ import org.bh.platform.i18n.ITranslator;
  * @author Robert Vollmer
  */
 public class Services {
+	private static final Logger log = Logger.getLogger(Services.class);
 	private static EventListenerList platformListeners = new EventListenerList();
 	private static HashMap<String, IShareholderValueCalculator> dcfMethods;
 	private static HashMap<String, IStochasticProcess> stochasticProcesses;
@@ -55,6 +56,7 @@ public class Services {
 	}
 
 	public static void firePlatformEvent(PlatformEvent event) {
+		log.debug("Firing " + event);
 		for (IPlatformListener l : platformListeners
 				.getListeners(IPlatformListener.class))
 			l.platformEvent(event);

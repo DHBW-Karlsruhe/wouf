@@ -7,14 +7,15 @@
 	<!-- source dirs -->
     <property name="source.dir" value="src"/>
 	<property name="plugins.source.dir" value="plugins-src"/>
-	<property name="unittests.source.dir" value="tests/src/org/bh/tests/junit"/>
+	<property name="unittests.source.dir" value="tests/src"/>
+	<property name="unittests.includes" value="org/bh/tests/junit/**"/>
 
 	
 	<!-- build dirs -->
 	<property name="build.dir" value="bin"/>
     <property name="lib.dir" value="lib"/>
 	<property name="plugins.build.dir" value="plugins"/>
-	<property name="unittests.build.dir" value="tests/bin/org/bh/tests/junit"/>
+	<property name="unittests.build.dir" value="tests/bin"/>
 	<property name="jar.dir" value="jar"/>
 	
 	
@@ -33,6 +34,7 @@
     <property name="jar.store.file" value="jarsign.keystore"/>
     <property name="jar.store.alias" value="bhjar"/>
     <property name="plugins.list" value="gcc,apv,directinput,fcf,fte,resultAnalysis,xmldataexchange,randomWalk,wienerProcess"/>
+	<property name="debug" value="true"/>
     
 	
 	<!-- classpathes -->
@@ -77,7 +79,7 @@
             </fileset>
         </copy>
         
-        <javac destdir="${build.dir}" srcdir="${source.dir}" debug="false" optimize="true">
+        <javac destdir="${build.dir}" srcdir="${source.dir}" debug="${debug}" debuglevel="lines,vars,source">
             <exclude name="**/.svn/"/>
             <classpath refid="BH.classpath"/>
         </javac>
@@ -94,7 +96,7 @@
             </fileset>
         </copy>
         
-        <javac destdir="${plugins.build.dir}/${plugin}" srcdir="${plugins.source.dir}/${plugin}" debug="false" optimize="true">
+        <javac destdir="${plugins.build.dir}/${plugin}" srcdir="${plugins.source.dir}/${plugin}" debug="${debug}" debuglevel="lines,vars,source">
             <exclude name="**/.svn/"/>
             <classpath refid="BH.classpath"/>
         </javac>
@@ -212,7 +214,8 @@
 	
 	<target name="compileunittests">
 	    <mkdir dir="${unittests.build.dir}"/>
-		<javac destdir="${unittests.build.dir}" srcdir="${unittests.source.dir}" debug="false" optimize="true">
+		<javac destdir="${unittests.build.dir}" srcdir="${unittests.source.dir}" debug="${debug}" debuglevel="lines,vars,source">
+				<include name="${unittests.includes}"/>
 	            <exclude name="**/.svn/"/>
 	            <classpath refid="junit.classpath"/>
 	        </javac>
