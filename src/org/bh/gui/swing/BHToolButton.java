@@ -56,5 +56,13 @@ public class BHToolButton extends BHButton{
             System.err.println("Resource not found: "+ imgLocation);
         }    
     }
+
+
+	@Override
+	public void reloadText() {
+		super.reloadText();
+		// never text on toolbar button. TODO Correct?
+		this.setText("");
+	}
    
 }
