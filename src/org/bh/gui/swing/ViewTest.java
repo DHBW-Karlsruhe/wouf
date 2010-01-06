@@ -7,6 +7,6 @@ import org.bh.gui.ViewException;
 public class ViewTest extends View {
 
 	public ViewTest() throws ViewException {
-		super(new BHScenarioHeadForm(BHScenarioHeadForm.Type.DETERMINISTIC), new ValidationMethods());
+		super(new BHScenarioForm(BHScenarioForm.Type.DETERMINISTIC), new ValidationMethods());
 	}
 }

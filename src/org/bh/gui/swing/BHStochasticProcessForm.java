@@ -1,6 +1,7 @@
 package org.bh.gui.swing;
 import java.awt.Color;
 import java.awt.Dimension;
+import java.awt.ScrollPane;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 
@@ -42,16 +43,16 @@ public class BHStochasticProcessForm extends JPanel {
 	 */
 	private void initialize() {
 		FormLayout layout;
-		//TODO rowDef überarbeiten
-		String rowDef = "50px";
-		String colDef = "4px,right:pref,4px,max(80px;pref),4px:grow";
+		//TODO Kharitonov.Anton rowDef/colDef überarbeiten
+		String rowDef = "100px";
+		String colDef = "4px,pref:grow,4px";
 
 		layout = new FormLayout(colDef, rowDef);
 		this.setLayout(layout);
 
 		CellConstraints cons = new CellConstraints();
 		
-		this.add(this.getStochasticInputForm(), cons.xywh(1, 1, 1, 4));
+		this.add(new JScrollPane(this.getStochasticInputForm()), cons.xywh(2, 1, 2, 1));
 	}
 
 	// TODO add missing label keys and translations, change hard coded values to keys

@@ -269,7 +269,7 @@ class PlatformActionListener implements ActionListener {
 				BHTreeNode currentNode = (BHTreeNode) bhmf.getBHTree()
 						.getSelectionPath().getLastPathComponent();
 
-				// ..and from data model
+				// remove node from data model...
 				if (currentNode.getUserObject() instanceof DTOProject) {
 					projectRepoManager.removeProject((DTOProject) currentNode
 							.getUserObject());
@@ -287,9 +287,12 @@ class PlatformActionListener implements ActionListener {
 									.getUserObject());
 				}
 
-				// remove node from GUI...
+				// ... and from GUI
 				((BHTreeModel) bhmf.getBHTree().getModel())
 						.removeNodeFromParent(currentNode);
+				//select other node or show empty view
+				
+				
 			}
 
 			break;

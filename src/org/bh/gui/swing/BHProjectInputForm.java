@@ -55,7 +55,7 @@ public class BHProjectInputForm extends JPanel {
 	
 	public BHLabel getLproject() {
 		if (lproject == null) {
-			lproject = new BHLabel(translator.translate("project"));
+			lproject = new BHLabel("project");
 		}
 		return lproject;
 	}

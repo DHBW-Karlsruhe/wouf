@@ -32,7 +32,7 @@ import org.bh.gui.swing.BHMainFrame;
 import org.bh.gui.swing.BHMenuItem;
 import org.bh.gui.swing.BHProjectInputForm;
 import org.bh.gui.swing.BHProjectView;
-import org.bh.gui.swing.BHScenarioHeadForm;
+import org.bh.gui.swing.BHScenarioForm;
 import org.bh.gui.swing.BHScenarioView;
 import org.bh.gui.swing.BHTextField;
 import org.bh.gui.swing.BHTreeNode;
@@ -230,10 +230,10 @@ public class PlatformController {
 							try{
 								selection.get(DTOScenario.Key.STOCHASTIC_PROCESS);
 								//when value is set -> next command will be processed (else: not, but Exception)
-								view = new BHScenarioView(new BHScenarioHeadForm(BHScenarioHeadForm.Type.STOCHASTIC));
+								view = new BHScenarioView(new BHScenarioForm(BHScenarioForm.Type.STOCHASTIC));
 							}catch(DTOAccessException e){
 								//Answer: no
-								view = new BHScenarioView(new BHScenarioHeadForm(BHScenarioHeadForm.Type.DETERMINISTIC));
+								view = new BHScenarioView(new BHScenarioForm(BHScenarioForm.Type.DETERMINISTIC));
 							}
 								
 							model = selection;

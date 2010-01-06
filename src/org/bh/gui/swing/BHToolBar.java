@@ -51,8 +51,6 @@ public class BHToolBar extends JToolBar{
 		
 		add( new BHToolButton(PlatformKey.TOOLBARREMOVE, "Bdelete"));
 		
-		add( new BHButton(PlatformKey.TOOLBARREMOVE, true) );
-		
 		
 		//old Buttons from library jlfgr-1_0.jar
 //		bNew = new BHToolButton(PlatformKey.TOOLBARNEW, "Bnew");

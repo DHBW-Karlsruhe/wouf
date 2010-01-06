@@ -243,10 +243,10 @@ public abstract class View implements IPlatformListener, MouseListener {
 	 * @see JPanel
 	 */
 	public void setViewPanel(JPanel panel) throws ViewException {
-		log.debug("a new panel is setted");
+		log.debug("a new panel is set");
 		if (panel == null) {
-			log.error("null reference for view is setted");
-			throw new ViewException("null refernce panel is setted");
+			log.error("null reference for view is set");
+			throw new ViewException("null refernce panel is set");
 		}
 		this.viewPanel = panel;
 
