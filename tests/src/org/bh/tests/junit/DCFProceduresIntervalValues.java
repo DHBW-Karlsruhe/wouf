@@ -133,9 +133,9 @@ public class DCFProceduresIntervalValues {
 		//res2 = svCalc2.calculate(scenario);
 		//res3 = svCalc3.calculate(scenario);
 		
-		uw0 = ((IntervalValue)res.get(IShareholderValueCalculator.SHAREHOLDER_VALUE)[0]);
-		uw0_2 = ((IntervalValue)res2.get(IShareholderValueCalculator.SHAREHOLDER_VALUE)[0]);
-		uw0_3 = ((IntervalValue)res3.get(IShareholderValueCalculator.SHAREHOLDER_VALUE)[0]);
+		//uw0 = ((IntervalValue)res.get(IShareholderValueCalculator.SHAREHOLDER_VALUE)[0]);
+		//uw0_2 = ((IntervalValue)res2.get(IShareholderValueCalculator.SHAREHOLDER_VALUE)[0]);
+		//uw0_3 = ((IntervalValue)res3.get(IShareholderValueCalculator.SHAREHOLDER_VALUE)[0]);
 		
 		//TODO ask Mr. Ratz whether different results are okay
 		//assertTrue("Equal results for APV, FTE, FCF procedure expected. Results were " + uw0 + ", " + uw0_2 + ", " + uw0_3 + " instead.", uw0.equals(uw0_2) && uw0.equals(uw0_3));
