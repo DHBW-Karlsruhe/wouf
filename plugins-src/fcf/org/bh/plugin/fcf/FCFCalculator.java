@@ -3,6 +3,7 @@ package org.bh.plugin.fcf;
 import java.util.HashMap;
 import java.util.Map;
 
+import org.apache.log4j.Logger;
 import org.bh.calculation.IShareholderValueCalculator;
 import org.bh.data.DTOPeriod;
 import org.bh.data.DTOScenario;
@@ -17,9 +18,13 @@ import org.bh.data.types.DoubleValue;
  * with:</br>
  * <li> GK[t + 1] = UW[t + 1] + FK[t + 1] </li>
  * @author Sebastian
+ * @author Norman
  * @version 1.0, 25.12.2009
+ * @version 1.1, 06.01.2010
  */
 public class FCFCalculator implements IShareholderValueCalculator {
+	private static Logger log = Logger.getLogger(FCFCalculator.class);
+	
 	private static final String UNIQUE_ID = "fcf";
 	private static final String GUI_KEY = "fcf";
 	
@@ -63,13 +68,19 @@ public class FCFCalculator implements IShareholderValueCalculator {
 	
 	@Override
 	public Map<String, Calculable[]> calculate(DTOScenario scenario) {
+		
+		log.info("----- FCF procedure started -----");
+		
 		Calculable[] fcf = new Calculable[scenario.getChildrenSize()];
 		Calculable[] fk = new Calculable[scenario.getChildrenSize()];
 		int i = 0;
+		log.debug("Input Values: FCF ; Liablities(FK):");
 		for (DTOPeriod period : scenario.getChildren()) {
 			if (i > 0)
 				fcf[i] = period.getFCF();
 			fk[i] = period.getLiabilities();
+			log.debug("\t" + period.get(DTOPeriod.Key.NAME) + ": " + fcf[i]
+				                                         					+ " ; " + fk[i]);
 			i++;
 		}	
 		// Get all needed input parameters for the calculation
@@ -94,12 +105,15 @@ public class FCFCalculator implements IShareholderValueCalculator {
 		
 		//### Step 1
 		// Calculate enterprise value and dynamic equity rate of return for endless period
+		log.debug(" Calculate enterprise value and dynamic equity rate of return for endless period");
 		do {
 			uwFCFlastCalc[T] = uw[T];
 			// Calculate UW[T] = (FCF[T] - (FKr * FK[T] * (1 - s)))/ EKrFCF[T] 
 			uw[T] = (fcf[T].sub(fkr.mul(fk[T]).mul(s.mul(new DoubleValue(-1)).add(new DoubleValue(1))))).div(EKrFCF[T]);
+			log.debug("uw[T]: " + uw[T]);
 			// With this enterprise value the new dynamic equity rate of return
 			EKrFCF[T] = calcVariableEquityReturnRateEndless(s, fkr, fk[T], ekr, uw[T]);
+			log.debug("EKrFCF[T]: " + EKrFCF[T]);
 			// re-calculate the enterprise value until the calculation doesn't differs from the former one 			
 		} while (uwFCFlastCalc[T] == null || checkAbs(uw[T], uwFCFlastCalc[T]));
 		
@@ -109,6 +123,7 @@ public class FCFCalculator implements IShareholderValueCalculator {
 		
 		//### Step 4
 		// Calculation of enterprise value for finite periods
+		log.debug("Calculation of enterprise value for finite periods");
 		int repetitions = 0;
 		boolean isIdentical;
 		do {
@@ -122,10 +137,12 @@ public class FCFCalculator implements IShareholderValueCalculator {
 			for (int t = uw.length - 2; t >= 0; t--) {
 				uw[t] = (uw[t + 1].add(fk[t + 1]).add(fcf[t + 1]).sub(fk[t]).sub(fkr.mul(fk[t]).mul(s.mul(new DoubleValue(-1)).add(new DoubleValue(1)))))
 				.div(EKrFCF[t + 1].add(new DoubleValue(1)));
+				log.debug("UW[" + t + "]: " + uw[t]);
 			}
 			
 			// Calculate EKrFCF[t] with the new enterprise values
 			EKrFCF = calcVariableEquityReturnRateFinite(s, fkr, fk, ekr, uw, EKrFCF, FCFPresentValueTaxShield);
+			log.debug("EkrFCF: " + EKrFCF);
 			
 			// re-calculate the enterprise value until the calculation doesn't differs from the former one
 			isIdentical = false;
@@ -134,6 +151,7 @@ public class FCFCalculator implements IShareholderValueCalculator {
 			} else {
 				isIdentical = true;
 			}
+			log.debug("No. of repititions: " + repetitions);
 			repetitions++;
 			if (repetitions > 25000) {
 				isIdentical = true;
@@ -152,6 +170,8 @@ public class FCFCalculator implements IShareholderValueCalculator {
 		result.put(Result.WACC_DEBTS.name(), waccDebts);
 		result.put(Result.WACC.name(), calcWACC(waccEquity, waccDebts));
 		
+		log.info("----- FTE procedure finished -----");
+		
 		return result;
 	}
 
@@ -167,6 +187,8 @@ public class FCFCalculator implements IShareholderValueCalculator {
 	// Calculate PresentValueTaxShield for endless period
 	// PresentValueTaxShield[T] = (s * FKr * FK[T]) / FKr
 	private Calculable calcPresentValueTaxShieldEndless(Calculable s, Calculable FKr, Calculable FK){
+		log.debug("PVTSEndless (s * FKr * FK[T]) / FKr): "
+				+ s.mul(FKr).mul(FK).div(FKr));
 		return s.mul(FKr).mul(FK).div(FKr);
 	}
 	
@@ -175,6 +197,10 @@ public class FCFCalculator implements IShareholderValueCalculator {
 	private Calculable[] calcPresentValueTaxShieldFinite(Calculable s, Calculable FKr, Calculable[] FK, Calculable[] PVTS){
 		for (int i = PVTS.length - 2; i >= 0; i--) {
 			PVTS[i] = (PVTS[i + 1].add(s.mul(FKr).mul(FK[i + 1 - 1]))).div(FKr.add(new DoubleValue(1)));
+			log.debug("PVTS["
+					+ i
+					+ "] (PresentValueTaxShield[t + 1] + (s * FKr * FK[t])) / (FKr + 1): "
+					+ PVTS[i]);
 		}
 		return PVTS;
 	}

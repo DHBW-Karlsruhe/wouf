@@ -3,6 +3,7 @@ package org.bh.plugin.fte;
 import java.util.HashMap;
 import java.util.Map;
 
+import org.apache.log4j.Logger;
 import org.bh.calculation.IShareholderValueCalculator;
 import org.bh.data.DTOPeriod;
 import org.bh.data.DTOScenario;
@@ -18,9 +19,13 @@ import org.bh.data.types.DoubleValue;
  * <li> Z = Interest payment on debt and DA = Debt amortization </li>
  * <li> UW[T] = FTE[T] / EKrFTE[T] </li>
  * @author Sebastian
+ * @author Norman
  * @version 1.0, 25.12.2009
+ * @version 1.1, 06.01.2010 added Logger
  */
 public class FTECalculator implements IShareholderValueCalculator {
+	private static Logger log = Logger.getLogger(FTECalculator.class);
+	
 	private static final String UNIQUE_ID = "fte";
 	private static final String GUI_KEY = "fte";
 	
@@ -64,13 +69,19 @@ public class FTECalculator implements IShareholderValueCalculator {
 
 	@Override
 	public Map<String, Calculable[]> calculate(DTOScenario scenario) {
+		
+		log.info("----- FTE procedure started -----");
+		
 		Calculable[] fcf = new Calculable[scenario.getChildrenSize()];
 		Calculable[] fk = new Calculable[scenario.getChildrenSize()];
 		int i = 0;
+		log.debug("Input Values: FCF ; Liablities(FK):");
 		for (DTOPeriod period : scenario.getChildren()) {
 			if (i > 0)
 				fcf[i] = period.getFCF();
 			fk[i] = period.getLiabilities();
+			log.debug("\t" + period.get(DTOPeriod.Key.NAME) + ": " + fcf[i]
+			                                         					+ " ; " + fk[i]);
 			i++;
 		}	
 		// Get all needed input parameters for the calculation
@@ -99,14 +110,21 @@ public class FTECalculator implements IShareholderValueCalculator {
 		// FTE = FCF + TaxShield - Z + DA
 		// with Z = Interest payment on debt and DA = Debt amortization
 		FTEInterest[T] = fkr.mul(fk[T]);
+		log.debug("FTEInterest[T] (FKR * FK[T]): " + FTEInterest[T]);
 		FTETaxShield[T] = s.mul(fkr).mul(fk[T]);
+		log.debug("FTETaxShield[T](s * FK[T]): " + FTETaxShield[T]);
 		FTE[T] = fcf[T].add(FTETaxShield[T]).sub(FTEInterest[T]);
+		log.debug("FTE[T]: (fcf[T] + FTETaxShield[T] - FTEInterest[T]): " + FTETaxShield[T]);
 		
 		for (int t = T - 1; t >= 1; t--) {
 			FTEDebtAmort[t] = fk[t].sub(fk[t - 1]);
+			log.debug("FTEDebtAmort[" + t + "] (FK[t] - FK[t-1]): " + FTEDebtAmort[t]);
 			FTEInterest[t] = fkr.mul(fk[t-1]);
+			log.debug("FTEInterest[" + t + "] (FKR * FK[t-1]): " + FTEInterest[t]);
 			FTETaxShield[t] = s.mul(fkr).mul(fk[t-1]);
+			log.debug("FTETaxShield[" + t + "] ( s * FKR * FK[t-1]): " + FTETaxShield[t]);
 			FTE[t] = fcf[t].add(FTETaxShield[t]).sub(FTEInterest[t]).add(FTEDebtAmort[t]);
+			log.debug("FTE[" + t + "] (FCF[t] + FTETaxShield[t] - FTEInterest[t] + FTEDebtAmort[t]): " + FTE[t]);
 		}
 		
 		//### Step 2
@@ -120,8 +138,10 @@ public class FTECalculator implements IShareholderValueCalculator {
 		// One value is needed to start
 		for (int j = 0; j < EKrFTE.length; j++) {
 			EKrFTE[j] = ekr;
+			log.debug("EKrFTE[j]: " + EKrFTE[j]);
 		}
 		// Calculation of UW and rEKv with FTE
+		log.debug("Calculation of UW and rEKv with FTE");
 		boolean isIdentical = false;
 		int iterations = 0;
 		do {
@@ -134,6 +154,7 @@ public class FTECalculator implements IShareholderValueCalculator {
 			for (int t = T -1; t >= 0; t--) {
 				// UW[t] = (UW[t+1] + FTE[t+1]) / (EKrFTE[t+1] + 1)
 				uw[t] = (uw[t + 1].add(FTE[t + 1])).div(EKrFTE[t + 1].add(new DoubleValue(1)));
+				log.debug("UW[" + t + "] (UW[t+1] + FTE[t+1]) / (EKrFTE[t+1] + 1): " + uw[t] );
 			}
 
 			EKrFTE = calcVariableEquityReturnRate(s, fkr, fk, ekr, uw, EKrFTE, PresentValueTaxShield);
@@ -145,6 +166,7 @@ public class FTECalculator implements IShareholderValueCalculator {
 			} else {
 				isIdentical = true;
 			}
+			log.debug("No. of iterateions: " + iterations);
 			iterations++;
 			if (iterations > 25000) {
 				isIdentical = true;
@@ -159,6 +181,9 @@ public class FTECalculator implements IShareholderValueCalculator {
 		result.put(Result.FLOW_TO_EQUITY.name(), FTE);
 		result.put(Result.DEBT_AMORTISATION.name(), FTEDebtAmort);
 		result.put(Result.EQUITY_RETURN_RATE_FTE.name(), EKrFTE);
+		
+		log.info("----- FTE procedure finished -----");
+		
 		return result;
 	}
 
@@ -175,6 +200,8 @@ public class FTECalculator implements IShareholderValueCalculator {
 	// Calculate PresentValueTaxShield for endless period
 	// PresentValueTaxShield[T] = (s * FKr * FK[T]) / FKr
 	private Calculable calcPresentValueTaxShieldEndless(Calculable s, Calculable FKr, Calculable FK){
+		log.debug("PVTSEndless (s * FKr * FK[T]) / FKr): "
+				+ s.mul(FKr).mul(FK).div(FKr));
 		return s.mul(FKr).mul(FK).div(FKr);
 	}
 	
@@ -183,6 +210,11 @@ public class FTECalculator implements IShareholderValueCalculator {
 	private Calculable[] calcPresentValueTaxShieldFinite(Calculable s, Calculable FKr, Calculable[] FK, Calculable[] PVTS){
 		for (int i = PVTS.length - 2; i >= 0; i--) {
 			PVTS[i] = (PVTS[i + 1].add(s.mul(FKr).mul(FK[i + 1 - 1]))).div(FKr.add(new DoubleValue(1)));
+			log
+			.debug("PVTS["
+					+ i
+					+ "] (PresentValueTaxShield[t + 1] + (s * FKr * FK[t])) / (FKr + 1): "
+					+ PVTS[i]);
 		}
 		return PVTS;
 	}
@@ -210,6 +242,7 @@ public class FTECalculator implements IShareholderValueCalculator {
 	 * @return Variable equity return rate for the endless period
 	 */
 	private Calculable calcVariableEquityReturnRateEndless(Calculable s, Calculable FKr, Calculable FK, Calculable EKr, Calculable UW){
+		log.debug("EKrFCFEndless: " + EKr.add(((EKr.sub(FKr)).mul(s.mul(new DoubleValue(-1)).add(new DoubleValue(1))).mul(FK.div(UW)))));
 		return EKr.add(((EKr.sub(FKr)).mul(s.mul(new DoubleValue(-1)).add(new DoubleValue(1))).mul(FK.div(UW))));
 	}
 	/**
@@ -229,6 +262,7 @@ public class FTECalculator implements IShareholderValueCalculator {
 																		Calculable[] PresentValueTaxShield){
 		for (int t = 1; t < UW.length - 1; t++) {
 			EKrV[t] = EKr.add(((EKr.sub(FKr)).mul((FK[t - 1].sub(PresentValueTaxShield[t - 1])).div(UW[t - 1]))));
+			log.debug("EKrV[" + t + "] (EKr + ((EKr - FKr) * ((FK[t -1] - PVTS[t-1]) / UW[t - 1])) :" + EKrV[t]);
 		}
 		return EKrV;
 	}
