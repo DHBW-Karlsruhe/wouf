@@ -143,7 +143,8 @@ public class BHStochasticInputForm extends JPanel {
 	public BHTextField gettfrange() {
 
 		if (this.tfrange == null) {
-			this.tfrange = new BHTextField("", translator.translate(""));
+			//TODO Schmalzhaf.Alexander falscher TranslatorKey
+			this.tfrange = new BHTextField("", translator.translate("stochastic"));
 			// TODO add key, input hint and check rules;
 			// ValidationMethods.isNotZero???
 			ValidationRule[] rules = { VRMandatory.INSTANCE,

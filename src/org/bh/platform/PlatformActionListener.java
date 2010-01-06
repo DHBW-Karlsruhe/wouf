@@ -419,17 +419,34 @@ class PlatformActionListener implements ActionListener {
 	private void createScenario() {
 		// If a path is selected...
 		if (bhmf.getBHTree().getSelectionPath() != null) {
+			
 			// ...create new scenario
 			DTOScenario newScenario = new DTOScenario();
 			// TODO hardgecodeder String raus! AS
 			newScenario.put(DTOScenario.Key.NAME, new StringValue(
 					"neues Scenario"));
-
+			
 			// ...add it to DTO-Repository
 			((DTOProject) ((BHTreeNode) bhmf.getBHTree().getSelectionPath()
 					.getPathComponent(1)).getUserObject())
 					.addChild(newScenario);
 
+			//ceck kind of scenario: deterministic or stochastic?
+			//TODO Schmalzhaf.Alexander: String raus!
+			
+			ArrayList<BHComboBox.Item> itemsList = new ArrayList<BHComboBox.Item>();
+			itemsList.add(new BHComboBox.Item("stochastic", new StringValue("stochastisch")));
+			itemsList.add(new BHComboBox.Item("deterministic", new StringValue("deterministisch")));
+			BHComboBox.Item res = (BHComboBox.Item) JOptionPane
+			.showInputDialog(bhmf,
+					"Bitte gewünschten Szenariotyp auswählen:",
+					"Periodentyp auswählen",
+					JOptionPane.QUESTION_MESSAGE, null, itemsList
+							.toArray(), null);
+			
+			if(res.getKey().equalsIgnoreCase("STOCHASTIC"))
+					newScenario.put(DTOScenario.Key.STOCHASTIC_PROCESS, new StringValue("true"));
+			
 			// ...and insert it into GUI-Tree
 			BHTreeNode newScenarioNode = bhmf.getBHTree().addScenarioNode(
 					newScenario, bhmf);

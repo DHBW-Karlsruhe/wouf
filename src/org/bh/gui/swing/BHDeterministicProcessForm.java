@@ -1,4 +1,6 @@
 package org.bh.gui.swing;
+import java.awt.Color;
+import java.awt.Dimension;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 
@@ -6,7 +8,9 @@ import javax.swing.JCheckBox;
 import javax.swing.JComboBox;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
+import javax.swing.JScrollPane;
 import javax.swing.JSpinner;
+import javax.swing.JTable;
 import javax.swing.SpinnerNumberModel;
 
 import org.bh.gui.swing.BHLabel;
@@ -25,6 +29,7 @@ public class BHDeterministicProcessForm extends JPanel {
 
 	private BHLabel linterval;
 	private JCheckBox chbinterval;
+	private JTable tperioddata;
 
 
 	/**
@@ -39,8 +44,8 @@ public class BHDeterministicProcessForm extends JPanel {
 	 */
 	private void initialize() {
 		FormLayout layout;
-
-		String rowDef = "4px,p,4px";
+		//TODO rowDef überarbeiten
+		String rowDef = "4px,p,4px,50px";
 		String colDef = "4px,right:pref,4px,max(80px;pref),4px:grow";
 
 		layout = new FormLayout(colDef, rowDef);
@@ -50,6 +55,8 @@ public class BHDeterministicProcessForm extends JPanel {
 
 		this.add(this.getLinterval(), cons.xywh(2, 2, 1, 1));
 		this.add(this.getChbinterval(), cons.xywh(4, 2, 1, 1));
+		this.add(new JScrollPane(this.getTperioddata()), cons
+				.xywh(1, 3, 5, 2));
 	}
 
 	// TODO add missing label keys and translations, change hard coded values to keys
@@ -68,6 +75,24 @@ public class BHDeterministicProcessForm extends JPanel {
 		return chbinterval;
 	}
 
+	public JTable getTperioddata() {
+		if (this.tperioddata == null) {
+
+			String[] columnnames = { "Periode", "Fremdkapital", "FCF" };
+			Integer[][] data = { { 2009, 0, 0 } };
+			this.tperioddata = new JTable(data, columnnames);
+			this.tperioddata.setGridColor(new Color(0, 0, 0));
+			this.tperioddata.setPreferredScrollableViewportSize(new Dimension(
+					30, 30));
+
+		}
+		return tperioddata;
+	}
+	
+	
+	
+	
+	
 	/**
 	 * Test main method.
 	 */

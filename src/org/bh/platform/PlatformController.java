@@ -19,6 +19,7 @@ import org.apache.log4j.Logger;
 import org.bh.calculation.IShareholderValueCalculator;
 import org.bh.controller.InputController;
 import org.bh.data.DTO;
+import org.bh.data.DTOAccessException;
 import org.bh.data.DTOPeriod;
 import org.bh.data.DTOProject;
 import org.bh.data.DTOScenario;
@@ -224,7 +225,17 @@ public class PlatformController {
 
 					} else if (selection instanceof DTOScenario) {
 						try {
-							view = new BHScenarioView(new BHScenarioHeadForm());
+			
+							//find out if stochastic process was chosen at init of strategy
+							try{
+								selection.get(DTOScenario.Key.STOCHASTIC_PROCESS);
+								//when value is set -> next command will be processed (else: not, but Exception)
+								view = new BHScenarioView(new BHScenarioHeadForm(BHScenarioHeadForm.Type.STOCHASTIC));
+							}catch(DTOAccessException e){
+								//Answer: no
+								view = new BHScenarioView(new BHScenarioHeadForm(BHScenarioHeadForm.Type.DETERMINISTIC));
+							}
+								
 							model = selection;
 							bhmf.addContentForms(view.getViewPanel());
 							((BHTextField) view

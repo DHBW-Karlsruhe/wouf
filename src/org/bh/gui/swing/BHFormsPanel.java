@@ -59,7 +59,7 @@ public class BHFormsPanel extends JPanel {
 	 * Initialize method.
 	 */
 	private void initialize() {
-		JPanel panel = new BHScenarioHeadForm();
+		JPanel panel = new BHScenarioHeadForm(BHScenarioHeadForm.Type.DETERMINISTIC);
 
 		String rowDef = "4px,p,20px,p,4px";
 		String colDef = "4px,pref:grow,4px";

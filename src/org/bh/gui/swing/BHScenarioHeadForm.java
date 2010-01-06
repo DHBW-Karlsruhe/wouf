@@ -27,15 +27,24 @@ import com.jgoodies.forms.layout.FormLayout;
  * 
  */
 public class BHScenarioHeadForm extends JPanel {
-
+	
+	public enum Type{
+		/**
+		 * 
+		 */
+		STOCHASTIC,
+		
+		/**
+		 * 
+		 */
+		DETERMINISTIC;
+	}
+	
+	
 	private JPanel pscenario;
 	private JPanel pprocess;
-
-	private JTable tperioddata;
-
 	private BHButton bcalculate;
-	
-	public int processChoise;
+	public int processChoice;
 
 
 
@@ -43,16 +52,16 @@ public class BHScenarioHeadForm extends JPanel {
 	ITranslator translator = Services.getTranslator();
 
 	/**
-	 * Constructor.
+	 * Constructor
 	 */
-	public BHScenarioHeadForm() {
-		this.initialize();
+	public BHScenarioHeadForm(BHScenarioHeadForm.Type type) {
+		this.initialize(type);
 	}
 
 	/**
 	 * Initialize method.
 	 */
-	private void initialize() {
+	private void initialize(BHScenarioHeadForm.Type type) {
 
 		String rowDef = "4px,p,14px,p,14px,p,14px,p,4px";
 		String colDef = "4px,pref:grow,4px";
@@ -63,9 +72,7 @@ public class BHScenarioHeadForm extends JPanel {
 		CellConstraints cons = new CellConstraints();
 		
 		this.add(this.getPscenario(), cons.xywh(2, 2, 1, 1));
-		this.add(this.getPprocess(), cons.xywh(2, 4, 1, 1));
-		this.add(new JScrollPane(this.getTperioddata()), cons
-				.xywh(2, 6, 1, 1));
+		this.add(this.getPprocess(type), cons.xywh(2, 4, 1, 1));
 		this.add(this.getBcalculate(), cons.xywh(2, 8, 1, 1, "right, bottom"));
 	}
 
@@ -73,19 +80,19 @@ public class BHScenarioHeadForm extends JPanel {
 	// values to keys
 	// TODO Check after "OK" if there is a DCF method chosen
 	
-	public JPanel getPprocess() {
-		processChoise = 1; // TODO @Anton remove this row
-		// TODO Die Prüflogik diskutieren und anpassen
-		switch (processChoise){
-		case 1:
+	public JPanel getPprocess(BHScenarioHeadForm.Type type) {
+		switch (type){
+		case STOCHASTIC:
+			pprocess = new BHStochasticProcessForm();
+			break;
+			
+		case DETERMINISTIC:
 			pprocess = new BHDeterministicProcessForm();
 			break;
+			
 		default:
 			pprocess = new BHDeterministicProcessForm();
 		}
-		
-		pprocess.setBorder(BorderFactory
-				.createTitledBorder(BorderFactory.createEtchedBorder(EtchedBorder.LOWERED),""));
 		
 		return pprocess;
 	}
@@ -94,50 +101,37 @@ public class BHScenarioHeadForm extends JPanel {
 		if (pscenario == null) {
 			pscenario = new BHScenarioForm();
 			pscenario.setBorder(BorderFactory
-					.createTitledBorder(BorderFactory.createEtchedBorder(EtchedBorder.LOWERED),""));
+					.createTitledBorder(BorderFactory.createEtchedBorder(EtchedBorder.LOWERED),"Szenariokopfdaten"));
 		}
 		return pscenario;
 	}
 
 	public BHButton getBcalculate() {
 		if (this.bcalculate == null) {
-			this.bcalculate = new BHButton("");
-			this.bcalculate.setText("UW berechnen");
+			this.bcalculate = new BHButton("TempCalcUw");
 		}
 		return bcalculate;
 	}
 
-	public JTable getTperioddata() {
-		if (this.tperioddata == null) {
-
-			String[] columnnames = { "Periode", "Fremdkapital", "FCF" };
-			Integer[][] data = { { 2009, 0, 0 } };
-			this.tperioddata = new JTable(data, columnnames);
-			this.tperioddata.setGridColor(new Color(0, 0, 0));
-			this.tperioddata.setPreferredScrollableViewportSize(new Dimension(
-					30, 30));
-
-		}
-		return tperioddata;
-	}
+	
 
 	
-	// TODO remove main later
-	/**
-	 * Test main method.
-	 */
-	@SuppressWarnings("deprecation")
-	public static void main(String args[]) {
-
-		JFrame test = new JFrame("Test for ViewHeadData1");
-		test.setContentPane(new BHScenarioHeadForm());
-		test.addWindowListener(new WindowAdapter() {
-			@Override
-			public void windowClosing(WindowEvent e) {
-				System.exit(0);
-			}
-		});
-		test.pack();
-		test.show();
-	}
+//	// TODO remove main later
+//	/**
+//	 * Test main method.
+//	 */
+//	@SuppressWarnings("deprecation")
+//	public static void main(String args[]) {
+//
+//		JFrame test = new JFrame("Test for ViewHeadData1");
+//		test.setContentPane(new BHScenarioHeadForm());
+//		test.addWindowListener(new WindowAdapter() {
+//			@Override
+//			public void windowClosing(WindowEvent e) {
+//				System.exit(0);
+//			}
+//		});
+//		test.pack();
+//		test.show();
+//	}
 }

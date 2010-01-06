@@ -135,7 +135,7 @@ public final class BHTranslator implements ITranslator {
 		
 		case SHORT:
 			try {
-				return this.translate(key + "_short");
+				return this.bundle.getString(key.toString()+ "_short");
 			} catch (MissingResourceException e) {
 				return this.translate(key);
 			}
@@ -145,7 +145,7 @@ public final class BHTranslator implements ITranslator {
 
 		case LONG:
 			try {
-				return this.translate(key + "_long");
+				return this.bundle.getString(key.toString()+ "_long");
 			} catch (MissingResourceException e) {
 				return this.translate(key);
 			}

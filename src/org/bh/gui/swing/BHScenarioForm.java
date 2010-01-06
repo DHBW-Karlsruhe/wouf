@@ -59,7 +59,7 @@ public class BHScenarioForm extends JPanel {
 	private BHLabel ldirect;
 	private JComboBox cbdirect;
 	
-	private JCheckBox chkStochastic;
+	
 
 	ITranslator translator = Services.getTranslator();
 
@@ -110,7 +110,7 @@ public class BHScenarioForm extends JPanel {
 		this.add(this.getcbDCFmethod(), cons.xywh(6, 14, 3, 1));
 		//this.add(this.getLdirect(), cons.xywh(14, 14, 1, 1));
 		//this.add(this.getCbdirect(), cons.xywh(17, 14, 3, 1));
-		this.add(this.getchkStochastic(), cons.xywh(14, 14, 6, 1));
+		
 	}
 
 	// TODO add missing label keys etc. and translations, change hard coded
@@ -426,11 +426,7 @@ public class BHScenarioForm extends JPanel {
 		return this.lpercentcorporate;
 	}
 	
-	public JCheckBox getchkStochastic() {
-		if (chkStochastic == null)
-			chkStochastic = new JCheckBox("Stochastische Berechnung");
-		return chkStochastic;
-	}
+	
 
 	// TODO remove main later
 	/**
