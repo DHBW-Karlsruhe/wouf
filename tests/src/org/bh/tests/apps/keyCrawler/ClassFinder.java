@@ -16,17 +16,14 @@ import Prog1Tools.IOTools;
  *
  * @author Marco Hammel
  */
-public class ClassCrawler {
+public class ClassFinder {
 
-   public static void main( String[] args ) throws Exception
-   {
-      String packageName = IOTools.readLine("absolute Paket Pfad: ");
-      String classNameSearched = IOTools.readLine("gesuchte Klasse");
-      if(classNameSearched == ""){
-          classNameSearched = null;
-      }
-      System.out.println( "\n---- Gefundene Klassen in " + packageName + ":" );
-      List<Class<?>> classes = getClassesSimple( packageName, classNameSearched );
+  // Die main()-Methode ist hauptsächlich für Tests:
+   public static void main( String[] args ) throws Exception{
+      String packageName       = ( args.length > 0 ) ? args[0] : null;
+      String classNameSearched = ( args.length > 1 ) ? args[1] : null;
+      System.out.println( "\n---- Gefundene Klassen:" );
+      List<Class<?>> classes = getClasses( packageName, classNameSearched );
       for( Class<?> clazz : classes )
          System.out.println( clazz );
       System.out.println( "\n---- Instanziierte Objekte:" );
@@ -36,9 +33,8 @@ public class ClassCrawler {
    }
 
    // Finde Klassen und instanziiere sie:
-   public static List<Object> getInstances( String packageName, String classNameSearched ) throws ClassNotFoundException
-   {
-      List<Class<?>> classes = ClassCrawler.getClassesSimple( packageName, classNameSearched );
+   public static List<Object> getInstances( String packageName, String classNameSearched ) throws ClassNotFoundException{
+      List<Class<?>> classes = ClassFinder.getClasses( packageName, classNameSearched );
       List<Object>   objects = new ArrayList<Object>();
       for( Class<?> clazz : classes ) {
          if( !clazz.isInterface() && (clazz.getModifiers() & Modifier.ABSTRACT) == 0 ) {
@@ -52,16 +48,14 @@ public class ClassCrawler {
       return objects;
    }
 
-//   // Finde Klassen (über Interface- oder Klassennamen bzw. Package-Namen):
-   public static List<Class<?>> getClassesSimple( String packageName, String classNameSearched ) throws ClassNotFoundException
-   {
+   // Finde Klassen (über Interface- oder Klassennamen bzw. Package-Namen):
+   public static List<Class<?>> getClasses( String packageName, String classNameSearched ) throws ClassNotFoundException{
       Class<?> classSearched = ( classNameSearched != null ) ? Class.forName( classNameSearched ) : null;
       return getClasses( packageName, classSearched );
    }
 
    // Finde Klassen (über Interface oder Klasse bzw. Package-Namen):
-   public static List<Class<?>> getClasses( String packageName, Class<?> classSearched )
-   {
+   public static List<Class<?>> getClasses( String packageName, Class<?> classSearched ){
       List<Class<?>> classes = new ArrayList<Class<?>>();
       for( String path : getPathesFromClasspath() ) {
          File fileOrDir = new File( path );
@@ -74,8 +68,7 @@ public class ClassCrawler {
       return Collections.unmodifiableList( classes );
    }
 
-   public static List<String> getPathesFromClasspath()
-   {
+   public static List<String> getPathesFromClasspath(){
       String          classpath     = System.getProperty( "java.class.path" );
       String          pathseparator = System.getProperty( "path.separator" );
       StringTokenizer tokenizer     = new StringTokenizer( classpath, pathseparator );
@@ -85,8 +78,7 @@ public class ClassCrawler {
       return Collections.unmodifiableList( pathes );
    }
 
-   public static List<Class<?>> getClassesFromJar( File file, String packageName, Class<?> classSearched )
-   {
+   public static List<Class<?>> getClassesFromJar( File file, String packageName, Class<?> classSearched ){
       if( packageName == null ) packageName = "";
       List<Class<?>> classes = new ArrayList<Class<?>>();
       String         dirSearched = packageName.replace( ".", "/" );
@@ -116,8 +108,7 @@ public class ClassCrawler {
       return Collections.unmodifiableList( classes );
    }
 
-   public static List<Class<?>> getClassesFromDir( File dir, String packageName, Class<?> classSearched )
-   {
+   public static List<Class<?>> getClassesFromDir( File dir, String packageName, Class<?> classSearched ){
       if( packageName == null ) packageName = "";
       List<Class<?>> classes = new ArrayList<Class<?>>();
       File dirSearched = new File( dir.getPath() + File.separator + packageName.replace( ".", "/" ) );
@@ -127,8 +118,7 @@ public class ClassCrawler {
    }
 
    private static void getClassesFromFileOrDirIntern( boolean first, File fileOrDir, String packageName,
-                                                      Class<?> classSearched, List<Class<?>> classes )
-   {
+                                                      Class<?> classSearched, List<Class<?>> classes ){
       if( fileOrDir.isDirectory() )
       {
          if( !first )
@@ -153,5 +143,4 @@ public class ClassCrawler {
          }
       }
    }
-
 }
