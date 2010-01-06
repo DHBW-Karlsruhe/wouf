@@ -195,7 +195,11 @@ public class RandomWalk implements IStochasticProcess {
 
 	@Override
 	public Map<String, IValue> getParametersForAnalysis() {
-		return internalMap;
+		Map<String, IValue> returnMap = new HashMap<String, IValue>();
+		returnMap.putAll(internalMap);
+		for(Entry<String, Integer> e : map.entrySet())
+			returnMap.put(e.getKey(), new IntegerValue(e.getValue()));
+		return returnMap;
 	}
 
 	@Override
