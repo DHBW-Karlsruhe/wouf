@@ -53,21 +53,21 @@ public class BHProjectInputForm extends JPanel {
 	
 	public BHLabel getLproject() {
 		if (lproject == null) {
-			lproject = new BHLabel("", "Projekt");
+			lproject = new BHLabel(translator.translate("project"));
 		}
 		return lproject;
 	}
 
 	public BHLabel getLcomment() {
 		if (lcomment == null) {
-			lcomment = new BHLabel("", "Beschreibung");
+			lcomment = new BHLabel(DTOProject.Key.COMMENT);
 		}
 		return lcomment;
 	}
 	
 	public BHLabel getLprojectname() {
 		if (lprojectname == null) {
-			lprojectname = new BHLabel(DTOProject.Key.NAME.toString(), "Name");
+			lprojectname = new BHLabel(DTOProject.Key.NAME);
 			lprojectname.setVisible(true);
 		}
 		return lprojectname;

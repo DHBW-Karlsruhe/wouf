@@ -71,6 +71,7 @@ public class BHScenarioHeadForm extends JPanel {
 
 	// TODO @Anton add missing keys etc. and translations, change hard coded
 	// values to keys
+	// TODO Check after "OK" if there is a DCF method chosen
 	
 	public JPanel getPprocess() {
 		processChoise = 1; // TODO @Anton remove this row

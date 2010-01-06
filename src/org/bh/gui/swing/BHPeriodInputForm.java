@@ -5,6 +5,7 @@ import java.awt.event.WindowEvent;
 
 import javax.swing.BorderFactory;
 import javax.swing.JFrame;
+import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JSeparator;
 import javax.swing.SwingConstants;
@@ -32,15 +33,15 @@ public class BHPeriodInputForm extends JPanel {
 	private BHTextField tffcf;
 	private BHLabel lliabilities;
 	private BHTextField tfliabilities;
-	private BHLabel lcurrency1;
-	private BHLabel lcurrency2;
+	private JLabel lcurrency1;
+	private JLabel lcurrency2;
 
-	private BHLabel lmax;
-	private BHLabel lmin;
-	private BHLabel lcurrency3;
-	private BHLabel lcurrency4;
-	private BHLabel lcurrency5;
-	private BHLabel lcurrency6;
+	private JLabel lmax;
+	private JLabel lmin;
+	private JLabel lcurrency3;
+	private JLabel lcurrency4;
+	private JLabel lcurrency5;
+	private JLabel lcurrency6;
 	private BHTextField tfmaxliabilities;
 	private BHTextField tfminliabilities;
 	private BHTextField tfmaxfcf;
@@ -98,44 +99,58 @@ public class BHPeriodInputForm extends JPanel {
 	// TODO add missing label keys and translations, change hard coded values to
 	// keys
 
-	public BHLabel getLmax() {
+	public JLabel getLmax() {
 		if (lmax == null) {
-			lmax = new BHLabel("", "Max");
+			lmax = new JLabel(translator.translate("max"));
 		}
 		return lmax;
 	}
 
-	public BHLabel getLmin() {
+	public JLabel getLmin() {
 		if (lmin == null) {
-			lmin = new BHLabel("", "Min");
+			lmin = new JLabel(translator.translate("min"));
 		}
 		return lmin;
 	}
 
-	public BHLabel getLcurrency3() {
+	public JLabel getLcurrency1() {
+		if (lcurrency1 == null) {
+			lcurrency1 = new JLabel(translator.translate("currency"));
+		}
+		return lcurrency1;
+	}
+
+	public JLabel getLcurrency2() {
+		if (lcurrency2 == null) {
+			lcurrency2 = new JLabel(translator.translate("currency"));
+		}
+		return lcurrency2;
+	}
+	
+	public JLabel getLcurrency3() {
 		if (lcurrency3 == null) {
-			lcurrency3 = new BHLabel("", "€");
+			lcurrency3 = new JLabel(translator.translate("currency"));
 		}
 		return lcurrency3;
 	}
 
-	public BHLabel getLcurrency4() {
+	public JLabel getLcurrency4() {
 		if (lcurrency4 == null) {
-			lcurrency4 = new BHLabel("", "€");
+			lcurrency4 = new JLabel(translator.translate("currency"));
 		}
 		return lcurrency4;
 	}
 
-	public BHLabel getLcurrency5() {
+	public JLabel getLcurrency5() {
 		if (lcurrency5 == null) {
-			lcurrency5 = new BHLabel("", "€");
+			lcurrency5 = new JLabel(translator.translate("currency"));
 		}
 		return lcurrency5;
 	}
 
-	public BHLabel getLcurrency6() {
+	public JLabel getLcurrency6() {
 		if (lcurrency6 == null) {
-			lcurrency6 = new BHLabel("", "€");
+			lcurrency6 = new JLabel(translator.translate("currency"));
 		}
 		return lcurrency6;
 	}
@@ -208,7 +223,7 @@ public class BHPeriodInputForm extends JPanel {
 
 	public BHLabel getLfcf() {
 		if (lfcf == null) {
-			lfcf = new BHLabel(DTOPeriod.Key.FCF.toString(), "Free Cashflow");
+			lfcf = new BHLabel(DTOPeriod.Key.FCF);
 		}
 		return lfcf;
 	}
@@ -230,8 +245,7 @@ public class BHPeriodInputForm extends JPanel {
 
 	public BHLabel getLliabilities() {
 		if (lliabilities == null) {
-			lliabilities = new BHLabel(DTOPeriod.Key.LIABILITIES.toString(),
-					"Bilanzwert Fremdkapital");
+			lliabilities = new BHLabel(DTOPeriod.Key.LIABILITIES);
 		}
 		return lliabilities;
 	}
@@ -249,20 +263,6 @@ public class BHPeriodInputForm extends JPanel {
 			tfliabilities.setValidateRules(rules);
 		}
 		return tfliabilities;
-	}
-
-	public BHLabel getLcurrency1() {
-		if (lcurrency1 == null) {
-			lcurrency1 = new BHLabel("", "€");
-		}
-		return lcurrency1;
-	}
-
-	public BHLabel getLcurrency2() {
-		if (lcurrency2 == null) {
-			lcurrency2 = new BHLabel("", "€");
-		}
-		return lcurrency2;
 	}
 
 	/**

@@ -100,7 +100,7 @@ public class ValidationMethods extends BHValidityEngine {
 				case isPositive:
 					valueString = tf_toValidate.getText();
 					value = Double.parseDouble(valueString);
-					if (value <= 0) {
+					if (value < 0) {
 						validationResult.addError(translator.translate("Efield")
 								+ translator.translate(tf_toValidate.getKey())
 								+ translator.translate("EisPositive"));
@@ -112,7 +112,7 @@ public class ValidationMethods extends BHValidityEngine {
 				case isNegative:
 					valueString = tf_toValidate.getText();
 					value = Double.parseDouble(valueString);
-					if (value >= 0) {
+					if (value > 0) {
 						validationResult.addError(translator.translate("Efield")
 								+ translator.translate(tf_toValidate.getKey())
 								+ translator.translate("EisNegative"));

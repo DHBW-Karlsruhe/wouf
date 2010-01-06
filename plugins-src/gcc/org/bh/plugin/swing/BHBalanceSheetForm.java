@@ -217,14 +217,14 @@ public class BHBalanceSheetForm extends JPanel {
 
 	public BHLabel getLIVG() {
 		if (lIVG == null) {
-			lIVG = new BHLabel(DTOGCCBalanceSheet.Key.IVG);
+			lIVG = new BHLabel(translator.translate("DTOGCCBalanceSheet.Key.IVG"));
 		}
 		return lIVG;
 	}
 
 	public BHLabel getLSA() {
 		if (lSA == null) {
-			lSA = new BHLabel(DTOGCCBalanceSheet.Key.SA);
+			lSA = new BHLabel(DTOGCCBalanceSheet.Key.SA.toString());
 		}
 		return lSA;
 	}
