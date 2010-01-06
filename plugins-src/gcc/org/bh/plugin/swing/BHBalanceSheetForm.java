@@ -88,6 +88,23 @@ public class BHBalanceSheetForm extends JPanel {
 	private BHLabel lminpas;
 
 	ITranslator translator = Controller.getTranslator();
+	
+	public enum Key {
+		/**
+		 * 
+		 */
+		AKTIVA,
+		
+		/**
+		 * 
+		 */
+		PASSIVA;
+
+		public String toString() {
+		    return getClass().getName() + "." + super.toString();
+		}
+
+	    }
 
 	/**
 	 * Constructor.
@@ -165,7 +182,7 @@ public class BHBalanceSheetForm extends JPanel {
 
 		paktiva.setBorder(BorderFactory.createTitledBorder(BorderFactory
 				.createEtchedBorder(EtchedBorder.LOWERED), translator
-				.translate("AKTIVA"), TitledBorder.CENTER,
+				.translate(BHBalanceSheetForm.Key.AKTIVA), TitledBorder.CENTER,
 				TitledBorder.DEFAULT_JUSTIFICATION));
 
 		return paktiva;
@@ -209,7 +226,7 @@ public class BHBalanceSheetForm extends JPanel {
 
 		ppassiva.setBorder(BorderFactory.createTitledBorder(BorderFactory
 				.createEtchedBorder(EtchedBorder.LOWERED), translator
-				.translate("PASSIVA"), TitledBorder.CENTER,
+				.translate(BHBalanceSheetForm.Key.PASSIVA), TitledBorder.CENTER,
 				TitledBorder.DEFAULT_JUSTIFICATION));
 
 		return ppassiva;
