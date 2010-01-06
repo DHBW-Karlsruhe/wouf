@@ -2,14 +2,19 @@ package org.bh.gui.swing;
 
 import java.awt.Component;
 import java.awt.Dimension;
+import java.awt.dnd.DnDConstants;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.util.Enumeration;
+import javax.swing.DropMode;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
-
 import javax.swing.ImageIcon;
 import javax.swing.JLabel;
 import javax.swing.JPopupMenu;
 import javax.swing.JTree;
 import javax.swing.SwingConstants;
+import javax.swing.TransferHandler;
 import javax.swing.UIManager;
 import javax.swing.tree.DefaultMutableTreeNode;
 import javax.swing.tree.DefaultTreeModel;
@@ -36,7 +41,7 @@ import org.bh.platform.Services;
  * @version 0.2, 2009/12/30
  *
  */
-public class BHTree extends JTree {
+public class BHTree extends JTree{
 	
 	/**
 	 * icon for project nodes.
@@ -67,6 +72,9 @@ public class BHTree extends JTree {
 		this.getSelectionModel().setSelectionMode(TreeSelectionModel.SINGLE_TREE_SELECTION);
 		this.setShowsRootHandles(true);
 		this.setCellRenderer(new BHTreeCellRenderer());
+
+		new DefaultTreeTransferHandler(this, DnDConstants.ACTION_COPY_OR_MOVE);
+
 		this.addMouseListener(new MouseAdapter(){
 			@Override
             public void mouseReleased(MouseEvent e) {
@@ -77,6 +85,7 @@ public class BHTree extends JTree {
 				showPopup(e);
 			}
         });
+
 	}
 
 	/**
@@ -146,6 +155,7 @@ public class BHTree extends JTree {
 			return treeCell;
 		}
 	}
+	
 	/**
 	 * method to create a new ProjectNode
 	 * 
@@ -242,8 +252,14 @@ public class BHTree extends JTree {
 		return newPeriodNode;
 	}
 	
-	public static void moveNode(){
-
+	public static DefaultMutableTreeNode makeDeepCopy(DefaultMutableTreeNode node) {
+		DefaultMutableTreeNode copy = new DefaultMutableTreeNode(node.getUserObject());
+		for (Enumeration e = node.children(); e.hasMoreElements();) {	
+			copy.add(makeDeepCopy((DefaultMutableTreeNode)e.nextElement()));
+		}
+		return(copy);
 	}
-	
 }
+
+	
+
