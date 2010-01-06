@@ -29,6 +29,7 @@ import org.bh.gui.swing.BHStatusBar;
 import org.bh.gui.swing.BHTextField;
 import org.bh.gui.swing.IBHComponent;
 import org.bh.gui.swing.IBHModelComponent;
+import org.bh.platform.Services;
 
 /**
  * 
@@ -385,6 +386,7 @@ public abstract class View implements MouseListener, FocusListener,
 
 	@Override
 	public void focusLost(FocusEvent e) {
+		Services.getBHstatusBar().removeErrorHint();
 	}
 
 }

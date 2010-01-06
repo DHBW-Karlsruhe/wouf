@@ -24,7 +24,7 @@ public class ProjectRepositoryManager {
 	
     private ArrayList<DTOProject> repositoryList = new ArrayList<DTOProject>();
     
-	private static final Logger log = Logger.getLogger(PlatformPersistence.class);
+	private static final Logger log = Logger.getLogger(ProjectRepositoryManager.class);
 	
     private static boolean isChanged;
     
@@ -111,6 +111,8 @@ public class ProjectRepositoryManager {
 	}
 
 	public static void setChanged(boolean isChanged) {
+		if (ProjectRepositoryManager.isChanged == isChanged)
+			return;
 		ProjectRepositoryManager.isChanged = isChanged;
 		log.debug("Flag isChanged set to " + isChanged);
 	}
