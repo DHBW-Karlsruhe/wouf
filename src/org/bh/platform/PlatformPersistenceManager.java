@@ -75,7 +75,7 @@ public class PlatformPersistenceManager {
 			}
 
 		} catch (FileNotFoundException e) {
-			log.error("File " + path + "not found!");
+			log.error("File " + path + " not found!");
 		} catch (EOFException e) {
 
 			// replace ProjectRepository
@@ -84,12 +84,11 @@ public class PlatformPersistenceManager {
 			// Save path to preferences
 			PlatformController.preferences.put("path", path.toString());
 
-			// Refresh title
-			bhmf.resetTitle();
-
 			// Set isChanged
 			ProjectRepositoryManager.setChanged(false);
 			
+			// Refresh title
+			bhmf.resetTitle();
 
 			log.debug("file " + path.toString()
 					+ " successfully opened");

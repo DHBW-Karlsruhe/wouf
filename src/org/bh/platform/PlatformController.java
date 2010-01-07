@@ -1,5 +1,6 @@
 package org.bh.platform;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
@@ -124,7 +125,7 @@ public class PlatformController {
 		 * -----------------------------------
 		 */
 		bhmf = new BHMainFrame();
-
+		
 		/*------------------------------------
 		 * fill Project/Scenario/Period-Tree
 		 * -----------------------------------
@@ -148,12 +149,38 @@ public class PlatformController {
 			item.addActionListener(pal);
 		}
 		
-		/**
+		/*
 		 * Create a new Persistence instance
 		 * 
 		 * @author Loeckelt.Michael
 		 */
 		platformPersistenceManager = new PlatformPersistenceManager(bhmf,projectRepoManager);
+		
+		// Fire event.
+		Services.firePlatformEvent(new PlatformEvent(this, Type.PLATFORM_LOADING_COMPLETED));
+		
+		/*
+		 * last edited file dialog
+		 * 
+		 * @author Thiele.Klaus
+		 * @author Loeckelt.Michael
+		 */
+		String lastFile = PlatformController.preferences.get("path", "");
+		if (!lastFile.equals("")) {
+			int action = JOptionPane.showConfirmDialog(bhmf, Services.getTranslator().translate("PlastFile"),"" , JOptionPane.YES_NO_OPTION);
+			
+			if (action == JOptionPane.YES_OPTION) {
+				File tmpFile = new File(lastFile);
+				PlatformController.platformPersistenceManager.openFile(tmpFile);
+				
+				// rebuild Tree
+				setupTree(bhmf, projectRepoManager);
+			}
+			else if (action == JOptionPane.NO_OPTION) {
+				PlatformController.preferences.remove("path");
+				bhmf.resetTitle();
+			}
+		}
 
 	}
 
@@ -197,21 +224,6 @@ public class PlatformController {
 				.addTreeSelectionListener(new BHTreeSelectionListener());
 
 		Services.addPlatformListener(new DataChangedListener());
-		
-		// Fire event.
-		Services.firePlatformEvent(new PlatformEvent(this, Type.PLATFORM_LOADING_COMPLETED));
-		
-		String lastFile = PlatformController.preferences.get("path", "");
-		if (!lastFile.equals("")) {
-			int action = JOptionPane.showConfirmDialog(bhmf, Services.getTranslator().translate("PlastFile"),"" , JOptionPane.YES_NO_OPTION);
-			
-			if (action == JOptionPane.YES_OPTION) {
-				
-			}
-			else if (action == JOptionPane.NO_OPTION) {
-				
-			}
-		}
 
 	}
 

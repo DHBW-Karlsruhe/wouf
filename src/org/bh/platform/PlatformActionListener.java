@@ -364,12 +364,16 @@ class PlatformActionListener implements ActionListener {
 				projectRepoManager.clearProjectList();
 				pC.setupTree(bhmf, projectRepoManager);
 				PlatformController.preferences.remove("path");
+				
+				ProjectRepositoryManager.setChanged(false);
 				bhmf.resetTitle();
 			} else if (i == JOptionPane.NO_OPTION) {
 				Logger.getLogger(getClass()).debug("Existing changes but no save wish - clear project list");
 				projectRepoManager.clearProjectList();
 				pC.setupTree(bhmf, projectRepoManager);
 				PlatformController.preferences.remove("path");
+				
+				ProjectRepositoryManager.setChanged(false);
 				bhmf.resetTitle();
 			} else if (i == JOptionPane.CANCEL_OPTION) {
 				
@@ -380,6 +384,8 @@ class PlatformActionListener implements ActionListener {
 			projectRepoManager.clearProjectList();
 			pC.setupTree(bhmf, projectRepoManager);
 			PlatformController.preferences.remove("path");
+			
+			ProjectRepositoryManager.setChanged(false);
 			bhmf.resetTitle();
 		}
 	}
