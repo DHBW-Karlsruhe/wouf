@@ -57,7 +57,7 @@ public class DistributionMap{
 				map.put(value, 1);
 			}
 		}else{
-			double bucket = ((int)(value / tolerance)) * tolerance;
+			double bucket = (Math.round(value / tolerance)) * tolerance;
 			if(map.containsKey(bucket)){
 				int number = map.get(bucket);
 				map.put(bucket, ++number);
