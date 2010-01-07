@@ -32,7 +32,22 @@ public class BHTextArea extends JTextArea implements IBHComponent {
 		this.key = key;
 		this.setEditable(false);
 		this.setWrapStyleWord(true);
+		this.setLineWrap(true);		
+	}
+	
+	public BHTextArea(String key, String value)
+	{
+		super(value);
+		this.setProperties();
+		this.key = key;
+		this.setEditable(false);
+		this.setWrapStyleWord(true);
 		this.setLineWrap(true);
+	}
+	
+	public BHTextArea(String key)
+	{
+		this(key, Services.getTranslator().translate(key));		
 	}
 
 	public String getKey() {

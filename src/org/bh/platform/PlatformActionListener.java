@@ -161,7 +161,9 @@ class PlatformActionListener implements ActionListener {
 					exportController.setExportView();
 					
 					BHExportDialog exportDialog = new BHExportDialog();
-					exportDialog.add(exportController.getViewPanel());								
+					exportDialog.add(exportController.getViewPanel());
+					exportDialog.setVisible(true);
+					
 				}
 				else
 				{
