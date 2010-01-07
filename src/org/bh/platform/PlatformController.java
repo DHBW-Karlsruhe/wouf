@@ -5,6 +5,7 @@ import java.util.Collection;
 import java.util.List;
 import java.util.prefs.Preferences;
 
+import javax.swing.JOptionPane;
 import javax.swing.SwingUtilities;
 import javax.swing.event.TreeSelectionEvent;
 import javax.swing.event.TreeSelectionListener;
@@ -35,6 +36,7 @@ import org.bh.gui.swing.BHScenarioForm;
 import org.bh.gui.swing.BHScenarioView;
 import org.bh.gui.swing.BHTreeNode;
 import org.bh.gui.swing.IBHAction;
+import org.bh.platform.PlatformEvent.Type;
 
 /**
  * The Platform Controller handles a) start up of the application b) main
@@ -195,6 +197,22 @@ public class PlatformController {
 				.addTreeSelectionListener(new BHTreeSelectionListener());
 
 		Services.addPlatformListener(new DataChangedListener());
+		
+		// Fire event.
+		Services.firePlatformEvent(new PlatformEvent(this, Type.PLATFORM_LOADING_COMPLETED));
+		
+		String lastFile = PlatformController.preferences.get("path", "");
+		if (!lastFile.equals("")) {
+			int action = JOptionPane.showConfirmDialog(bhmf, Services.getTranslator().translate("PlastFile"),"" , JOptionPane.YES_NO_OPTION);
+			
+			if (action == JOptionPane.YES_OPTION) {
+				
+			}
+			else if (action == JOptionPane.NO_OPTION) {
+				
+			}
+		}
+
 	}
 
 	// TODO Schmalzhaf.Alexander Javadoc schreiben

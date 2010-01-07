@@ -152,8 +152,6 @@ public class BHMainFrame extends JFrame implements IPlatformListener {
 		this.setContentPane(desktop);
 
 		chooser = new BHFileChooser();
-
-		Services.firePlatformEvent(new PlatformEvent(this, Type.PLATFORM_LOADING_COMPLETED));
 	}
 
 	/**
