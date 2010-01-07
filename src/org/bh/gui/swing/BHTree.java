@@ -3,18 +3,15 @@ package org.bh.gui.swing;
 import java.awt.Component;
 import java.awt.Dimension;
 import java.awt.dnd.DnDConstants;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.util.Enumeration;
-import javax.swing.DropMode;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.util.Enumeration;
+
 import javax.swing.ImageIcon;
 import javax.swing.JLabel;
 import javax.swing.JPopupMenu;
 import javax.swing.JTree;
 import javax.swing.SwingConstants;
-import javax.swing.TransferHandler;
 import javax.swing.UIManager;
 import javax.swing.tree.DefaultMutableTreeNode;
 import javax.swing.tree.DefaultTreeModel;
@@ -103,12 +100,13 @@ public class BHTree extends JTree{
 	void showPopup(MouseEvent e) {
         if (e.isPopupTrigger()) {
             JPopupMenu neu = new JPopupMenu();
+            
             neu.add(new BHMenuItem(PlatformKey.TOOLBARREMOVE));
             neu.add(new BHMenuItem(PlatformKey.TOOLBARADDPER));
             
             neu.show(e.getComponent(), e.getX(), e.getY());
             
-            int selRow = BHTree.this.getRowForLocation(e.getX(), e.getY());
+            //int selRow = BHTree.this.getRowForLocation(e.getX(), e.getY());
             TreePath selPath = BHTree.this.getPathForLocation(e.getX(), e.getY());   
             if( selPath != null )
                         BHTree.this.setSelectionPath(selPath);
