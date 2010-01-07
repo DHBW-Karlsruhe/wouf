@@ -63,8 +63,10 @@ public class APVCalculator implements IShareholderValueCalculator {
 			if (i > 0)
 				fcf[i] = period.getFCF();
 			fk[i] = period.getLiabilities();
-			log.debug("\t" + period.get(DTOPeriod.Key.NAME) + ": " + fcf[i]
-					+ " ; " + fk[i]);
+			if (log.isDebugEnabled()) {
+				log.debug("\t" + period.get(DTOPeriod.Key.NAME) + ": " + fcf[i]
+						+ " ; " + fk[i]);
+			}
 			i++;
 		}
 		// Get all needed input parameters for the calculation
@@ -83,13 +85,16 @@ public class APVCalculator implements IShareholderValueCalculator {
 		// Calculate results for endless period
 		presentValueFCF[T] = calcPresentValueFCFun(fcf[T],
 				(Calculable) scenario.get(DTOScenario.Key.REK));
-		log
-		.debug("PresentValue[T] (BarwertFreeCashFlow = FreeCashFlow / Eigenkapitalrendite: " +
-				presentValueFCF[T]);
 		uw[T] = calcEnterpriseValue(presentValueFCF[T],
 				presentValueTaxShield[T], fk[T]);
-		log.debug("UW[T] (Unternehmenswert = WertUnverschuldetesUnternehmen WertVerschuldetesUnternehmen - Fremdkapital): "
-						+ uw[T]);
+		if (log.isDebugEnabled()) {
+			log
+					.debug("PresentValue[T] (BarwertFreeCashFlow = FreeCashFlow / Eigenkapitalrendite: "
+							+ presentValueFCF[T]);
+			log
+					.debug("UW[T] (Unternehmenswert = WertUnverschuldetesUnternehmen WertVerschuldetesUnternehmen - Fremdkapital): "
+							+ uw[T]);
+		}
 
 		// Calculate results for finite periods
 		for (int t = T - 1; t >= 0; t--) {
@@ -97,23 +102,28 @@ public class APVCalculator implements IShareholderValueCalculator {
 					fcf[t + 1], (Calculable) scenario.get(DTOScenario.Key.REK));
 			uw[t] = calcEnterpriseValue(presentValueFCF[t],
 					presentValueTaxShield[t], fk[t]);
-			
-			log
-			.debug("PresentValue["+ t +"] (BarwertFreeCashFlow = FreeCashFlow / Eigenkapitalrendite: " +
-					presentValueFCF[t]);
-			
-			log.debug("UW[" + t + "] (Unternehmenswert = WertUnverschuldetesUnternehmen WertVerschuldetesUnternehmen - Fremdkapital): "
-					+ uw[t]);
-			
+			if (log.isDebugEnabled()) {
+				log
+						.debug("PresentValue["
+								+ t
+								+ "] (BarwertFreeCashFlow = FreeCashFlow / Eigenkapitalrendite: "
+								+ presentValueFCF[t]);
+
+				log
+						.debug("UW["
+								+ t
+								+ "] (Unternehmenswert = WertUnverschuldetesUnternehmen WertVerschuldetesUnternehmen - Fremdkapital): "
+								+ uw[t]);
+			}
 		}
 		Map<String, Calculable[]> result = new HashMap<String, Calculable[]>();
 		result.put(SHAREHOLDER_VALUE, uw);
 		result.put(Result.PRESENT_VALUE_FCF.name(), presentValueFCF);
 		result.put(Result.PRESENT_VALUE_TAX_SHIELD.name(),
 				presentValueTaxShield);
-		
+
 		log.info("----- APV procedure finished -----");
-		
+
 		return result;
 	}
 
@@ -153,8 +163,10 @@ public class APVCalculator implements IShareholderValueCalculator {
 	// PresentValueTaxShield[T] = (s * FKr * FK[T]) / FKr
 	private Calculable calcPresentValueTaxShieldEndless(Calculable s,
 			Calculable FKr, Calculable FK) {
-		log.debug("PVTSEndless (s * FKr * FK[T]) / FKr): "
-				+ s.mul(FKr).mul(FK).div(FKr));
+		if (log.isDebugEnabled()) {
+			log.debug("PVTSEndless (s * FKr * FK[T]) / FKr): "
+					+ s.mul(FKr).mul(FK).div(FKr));
+		}
 		return s.mul(FKr).mul(FK).div(FKr);
 	}
 
@@ -166,11 +178,13 @@ public class APVCalculator implements IShareholderValueCalculator {
 		for (int i = PVTS.length - 2; i >= 0; i--) {
 			PVTS[i] = (PVTS[i + 1].add(s.mul(FKr).mul(FK[i + 1 - 1]))).div(FKr
 					.add(new DoubleValue(1)));
-			log
-					.debug("PVTS["
-							+ i
-							+ "] (PresentValueTaxShield[t + 1] + (s * FKr * FK[t])) / (FKr + 1): "
-							+ PVTS[i]);
+			if (log.isDebugEnabled()) {
+				log
+						.debug("PVTS["
+								+ i
+								+ "] (PresentValueTaxShield[t + 1] + (s * FKr * FK[t])) / (FKr + 1): "
+								+ PVTS[i]);
+			}
 		}
 		return PVTS;
 	}
