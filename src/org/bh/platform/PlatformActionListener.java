@@ -5,7 +5,6 @@ import java.awt.event.ActionListener;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Comparator;
-import java.util.ServiceLoader;
 
 import javax.swing.JDialog;
 import javax.swing.JFileChooser;
@@ -15,7 +14,6 @@ import javax.swing.WindowConstants;
 import javax.swing.tree.TreePath;
 
 import org.apache.log4j.Logger;
-import org.bh.controller.IController;
 import org.bh.controller.IPeriodController;
 import org.bh.data.DTOPeriod;
 import org.bh.data.DTOProject;
@@ -23,7 +21,6 @@ import org.bh.data.DTOScenario;
 import org.bh.data.types.StringValue;
 import org.bh.gui.swing.BHComboBox;
 import org.bh.gui.swing.BHContent;
-import org.bh.gui.swing.BHExportDialog;
 import org.bh.gui.swing.BHMainFrame;
 import org.bh.gui.swing.BHOptionDialog;
 import org.bh.gui.swing.BHStatusBar;
@@ -31,7 +28,6 @@ import org.bh.gui.swing.BHTreeNode;
 import org.bh.gui.swing.IBHAction;
 import org.bh.platform.PlatformController.BHTreeModel;
 import org.bh.platform.i18n.BHTranslator;
-import org.bh.plugin.xmldataexchange.XMLDataExchangeController;
 
 /**
  * The PlatformActionListener handles all actions that are fired by a button
@@ -135,6 +131,7 @@ class PlatformActionListener implements ActionListener {
 		// TODO Katzor.Marcus
 
 		case PROJECTEXPORT:
+			/*
 			if (bhmf.getBHTree().getSelectionPath() != null)
 			{
 				BHTreeNode selectedNode = (BHTreeNode)bhmf.getBHTree().getSelectionPath().getLastPathComponent();
@@ -174,6 +171,7 @@ class PlatformActionListener implements ActionListener {
 			{
 				// TODO Katzor.Marcus Show Message
 			}
+			*/
 			break;
 
 		case PROJECTREMOVE:
