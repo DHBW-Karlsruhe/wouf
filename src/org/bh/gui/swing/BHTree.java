@@ -257,6 +257,28 @@ public class BHTree extends JTree{
 		}
 		return(copy);
 	}
+	
+	/*
+	 * expand all nodes
+	 * 
+	 * @author Loeckelt.Michael
+	 */
+	public void expandAll () {
+		for (int i = 0; i < this.getRowCount(); i++)  {
+	         this.expandRow(i);
+		}
+	}
+		
+	/*
+	 * collapse all nodes
+	 * 
+	 * @author Loeckelt.Michael
+	 */
+	public void collapseAll () {
+		for (int i = this.getRowCount() - 1; i >= 0; i--) {
+	         this.collapseRow(i);
+		}
+	}
 }
 
 	

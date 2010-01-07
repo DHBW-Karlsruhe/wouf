@@ -402,7 +402,8 @@ class PlatformActionListener implements ActionListener {
 
 			// rebuild Tree
 			pC.setupTree(bhmf, projectRepoManager);
-
+			
+			bhmf.getBHTree().expandAll();
 		}
 	}
 

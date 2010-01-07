@@ -175,6 +175,7 @@ public class PlatformController {
 				
 				// rebuild Tree
 				setupTree(bhmf, projectRepoManager);
+				bhmf.getBHTree().expandAll();
 			}
 			else if (action == JOptionPane.NO_OPTION) {
 				PlatformController.preferences.remove("path");
