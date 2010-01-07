@@ -33,10 +33,12 @@ import org.bh.platform.PlatformEvent.Type;
  * @author Tietze.Patrick
  * @author Thiele.Klaus
  * @author Schmalzhaf.Alexander
+ * @author Loeckelt.Michael
  * 
  * @version 0.1.1, 2009/12/16
  * @version 0.2, 2009/12/22
  * @version 0.3, 2009/12/31
+ * @version 0.4, 2010/01/07
  * 
  */
 public class BHMainFrame extends JFrame implements IPlatformListener {
@@ -204,7 +206,7 @@ public class BHMainFrame extends JFrame implements IPlatformListener {
 				try {
 					Logger.getLogger(getClass()).debug("Save application preferences");
 					PlatformController.preferences.flush();
-					Logger.getLogger(getClass()).debug("Save not implemented yet");
+					Services.firePlatformEvent(new PlatformEvent(BHMainFrame.class, PlatformEvent.Type.SAVE));
 				} catch (BackingStoreException e) {
 					Logger.getLogger(getClass()).error("Error while saving application preferences", e);
 				}

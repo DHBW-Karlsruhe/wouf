@@ -69,6 +69,13 @@ public class PlatformController {
 	 * @author Marcus Katzor
 	 */
 	private static final String propertiesFilePath = "";
+	
+	/**
+	 * PlatformPersistenceManager Instance
+	 * 
+	 * @author Loeckelt.Michael
+	 */
+	public static PlatformPersistenceManager platformPersistenceManager;
 
 	/**
 	 * Logging
@@ -138,6 +145,13 @@ public class PlatformController {
 		for (IBHAction item : BHMenuItem.getPlatformItems()) {
 			item.addActionListener(pal);
 		}
+		
+		/**
+		 * Create a new Persistence instance
+		 * 
+		 * @author Loeckelt.Michael
+		 */
+		platformPersistenceManager = new PlatformPersistenceManager(bhmf,projectRepoManager);
 
 	}
 

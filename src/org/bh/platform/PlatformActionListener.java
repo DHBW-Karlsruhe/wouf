@@ -2,29 +2,21 @@ package org.bh.platform;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.io.File;
 import java.util.ArrayList;
-
-import java.util.ServiceLoader;
-
 import java.util.Arrays;
 import java.util.Comparator;
-
+import java.util.ServiceLoader;
 
 import javax.swing.JDialog;
 import javax.swing.JFileChooser;
-import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.WindowConstants;
 import javax.swing.tree.TreePath;
 
 import org.apache.log4j.Logger;
-
 import org.bh.controller.IController;
-import org.bh.data.DTO;
 import org.bh.controller.IPeriodController;
-
 import org.bh.data.DTOPeriod;
 import org.bh.data.DTOProject;
 import org.bh.data.DTOScenario;
@@ -100,7 +92,7 @@ class PlatformActionListener implements ActionListener {
 
 		case FILESAVE:
 			log.debug("handling FILESAVE event");
-			this.fileSave();
+			Services.firePlatformEvent(new PlatformEvent(PlatformActionListener.class, PlatformEvent.Type.SAVE));
 			break;
 
 		/*
@@ -111,7 +103,7 @@ class PlatformActionListener implements ActionListener {
 
 		case FILESAVEAS:
 			log.debug("handling FILESAVEAS event");
-			this.fileSaveAs();
+			Services.firePlatformEvent(new PlatformEvent(PlatformActionListener.class, PlatformEvent.Type.SAVEAS));
 			break;
 
 		case FILECLOSE:
@@ -292,8 +284,8 @@ class PlatformActionListener implements ActionListener {
 			break;
 
 		case TOOLBARSAVE:
-			log.debug("handling FILESAVE event");
-			this.fileSave();
+			log.debug("handling TOOLBARSAVE event");
+			Services.firePlatformEvent(new PlatformEvent(PlatformActionListener.class, PlatformEvent.Type.SAVE));
 			break;
 
 		case TOOLBARADDPRO:
@@ -359,7 +351,6 @@ class PlatformActionListener implements ActionListener {
 		projectRepoManager.clearProjectList();
 		pC.setupTree(bhmf, projectRepoManager);
 		PlatformController.preferences.remove("path");
-		ProjectRepositoryManager.setChanged(false);
 		bhmf.resetTitle();
 	}
 
@@ -370,84 +361,14 @@ class PlatformActionListener implements ActionListener {
 			log.debug("You chose to open this file: "
 					+ bhmf.getChooser().getSelectedFile().getName());
 
-			// create a PlatformPersistence instance incl. filepath
-			PlatformPersistence myOpener = new PlatformPersistence(bhmf
-					.getChooser().getSelectedFile(), projectRepoManager);
-
 			// open already provided file
-			ArrayList<DTOProject> projectList = myOpener.openFile();
+			PlatformController.platformPersistenceManager.openFile(bhmf.getChooser().getSelectedFile());
 
-			// replace ProjectRepository
-			projectRepoManager.replaceProjectList(projectList);
-
-			// TODO rebuild Tree
+			// rebuild Tree
 			pC.setupTree(bhmf, projectRepoManager);
-
-			// Save path to preferences
-			PlatformController.preferences.put("path", bhmf.getChooser()
-					.getSelectedFile().toString());
-
-			// Refresh title
-			bhmf.resetTitle();
-
-			// Set isChanged
-			ProjectRepositoryManager.setChanged(false);
 
 			log.debug("file " + bhmf.getChooser().getSelectedFile()
 					+ " successfully opened");
-		}
-	}
-
-	private void fileSave() {
-		if (PlatformController.preferences.get("path", "").equals("")) {
-			this.fileSaveAs();
-		} else {
-			File path = new File(PlatformController.preferences.get("path", ""));
-
-			// create a PlatformPersistence instance incl. filepath
-			PlatformPersistence mySaver = new PlatformPersistence(path,
-					projectRepoManager);
-
-			// perform save
-			mySaver.saveFile(projectRepoManager.getRepositoryList());
-
-			// Set isChanged
-			ProjectRepositoryManager.setChanged(false);
-
-			// Refresh title
-			bhmf.resetTitle();
-
-			log.debug("ProjectRepository saved to " + path);
-		}
-	}
-
-	private void fileSaveAs() {
-		// create save dialog
-		int returnSave = bhmf.getChooser().showSaveDialog(bhmf);
-		if (returnSave == JFileChooser.APPROVE_OPTION) {
-			log.debug("You chose to save this file: "
-					+ bhmf.getChooser().getSelectedFile().getName());
-
-			// create a PlatformPersistence instance incl. filepath
-			PlatformPersistence mySaver = new PlatformPersistence(bhmf
-					.getChooser().getSelectedFile(), projectRepoManager);
-
-			// perform save
-			mySaver.saveFile(projectRepoManager.getRepositoryList());
-
-			// Save path to preferences
-			PlatformController.preferences.put("path", bhmf.getChooser()
-					.getSelectedFile().toString());
-
-			// Set isChanged
-			ProjectRepositoryManager.setChanged(false);
-
-			// Refresh title
-			bhmf.resetTitle();
-
-			log.debug("ProjectRepository saved to "
-					+ bhmf.getChooser().getSelectedFile());
-
 		}
 	}
 

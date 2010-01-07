@@ -18,10 +18,6 @@ public class PlatformEvent extends EventObject {
 
 	public static enum Type {
 		/**
-		 * plugin should call saveAll method
-		 */
-		SAVEALL,
-		/**
 		 * plugin should put the dto copy back to ui
 		 */
 		GETCOPY,
@@ -37,6 +33,15 @@ public class PlatformEvent extends EventObject {
 		 * The Locale has changed
 		 */
 		LOCALE_CHANGED,
+		/**
+		 * save
+		 */
+		SAVE,
+		
+		/**
+		 * save as
+		 */
+		SAVEAS,
 	}
 
 	/**

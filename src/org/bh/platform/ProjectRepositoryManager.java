@@ -36,8 +36,8 @@ public class ProjectRepositoryManager {
      * @param newProject
      */
     public void addProject(DTOProject newProject){
-    	
     	repositoryList.add(newProject);
+    	Services.firePlatformEvent(new PlatformEvent(ProjectRepositoryManager.class,PlatformEvent.Type.DATA_CHANGED));
     }
     
     /**
@@ -56,6 +56,7 @@ public class ProjectRepositoryManager {
     		tempProject = rLIterator.next();
     		if(tempProject.get("NAME").toString().equalsIgnoreCase(name)){
     			repositoryList.remove(tempProject);
+    			Services.firePlatformEvent(new PlatformEvent(ProjectRepositoryManager.class,PlatformEvent.Type.DATA_CHANGED));
     			break;
     		}
     	}
@@ -71,6 +72,7 @@ public class ProjectRepositoryManager {
     public void removeProject(DTOProject project){
     		
     	repositoryList.remove(project);
+    	Services.firePlatformEvent(new PlatformEvent(ProjectRepositoryManager.class,PlatformEvent.Type.DATA_CHANGED));
 
     }
     
@@ -93,6 +95,7 @@ public class ProjectRepositoryManager {
     protected void clearProjectList(){
     	
     	this.repositoryList = new ArrayList<DTOProject>();
+    	Services.firePlatformEvent(new PlatformEvent(ProjectRepositoryManager.class,PlatformEvent.Type.DATA_CHANGED));
     }
     
     /**
