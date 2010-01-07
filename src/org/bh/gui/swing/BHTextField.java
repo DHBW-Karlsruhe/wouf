@@ -6,6 +6,7 @@ import javax.swing.text.AttributeSet;
 import javax.swing.text.BadLocationException;
 import javax.swing.text.DocumentFilter;
 
+import org.apache.log4j.Logger;
 import org.bh.data.types.IValue;
 import org.bh.data.types.StringValue;
 import org.bh.gui.CompValueChangeManager;
@@ -37,6 +38,7 @@ public class BHTextField extends JTextField implements IBHModelComponent {
 	private String inputHint;
 	private boolean changeListenerEnabled = true;
 	private final CompValueChangeManager valueChangeManager = new CompValueChangeManager();
+	private static final Logger log = Logger.getLogger(BHTextField.class);
 
 	/**
 	 * Constructor to create new <code>BHTextField</code>. Defined for the use
@@ -51,7 +53,8 @@ public class BHTextField extends JTextField implements IBHModelComponent {
 		super(value);
 		this.setProperties();
 		this.key = key;
-		if(key.toString().equals(""))
+		if (key.isEmpty())
+			log.debug("Empty key", new IllegalArgumentException());
 		((AbstractDocument) getDocument())
 				.setDocumentFilter(new ChangeListener());
 	}
