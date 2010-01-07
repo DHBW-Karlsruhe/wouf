@@ -42,6 +42,11 @@ public class PlatformEvent extends EventObject {
 		 * save as
 		 */
 		SAVEAS,
+		
+		/**
+		 * save all
+		 */
+		SAVEALL,
 	}
 
 	/**
