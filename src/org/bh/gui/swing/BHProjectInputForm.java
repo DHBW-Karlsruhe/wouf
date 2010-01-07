@@ -37,7 +37,7 @@ public class BHProjectInputForm extends JPanel {
 	public BHProjectInputForm() {
 
 		String rowDef = "4px:grow,p,4px,p,4px,p,4px:grow";
-		String colDef = "4px:grow,right:pref,4px,min(150px;pref):grow,4px:grow";
+		String colDef = "4px:grow,right:pref,4px,150px:grow,4px:grow";
 
 		FormLayout layout = new FormLayout(colDef, rowDef);
 		this.setLayout(layout);
