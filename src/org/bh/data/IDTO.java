@@ -7,7 +7,7 @@ import org.bh.data.types.Calculable;
 import org.bh.data.types.IValue;
 
 @SuppressWarnings("unchecked")
-public interface IDTO<ChildT extends IDTO> extends Cloneable, Serializable {
+public interface IDTO<ChildT extends IDTO> extends Cloneable, Serializable, Iterable {
 
 	/**
 	 * Returns a value assigned to the passed key.
