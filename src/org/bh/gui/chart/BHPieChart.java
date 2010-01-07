@@ -1,14 +1,13 @@
 package org.bh.gui.chart;
 
-import java.awt.Component;
 import java.util.Iterator;
 import java.util.List;
 
 import javax.swing.UIManager;
 
 import org.bh.gui.swing.IBHComponent;
+import org.bh.platform.IPlatformListener;
 import org.bh.platform.PlatformEvent;
-import org.bh.platform.Services;
 import org.bh.platform.PlatformEvent.Type;
 import org.bh.platform.i18n.BHTranslator;
 import org.jfree.chart.ChartFactory;
@@ -18,18 +17,17 @@ import org.jfree.chart.plot.Plot;
 import org.jfree.data.general.Dataset;
 import org.jfree.data.general.DefaultPieDataset;
 
-public class BHPieChart extends JFreeChart implements IBHComponent, IBHAddValue {
+public class BHPieChart extends JFreeChart implements IBHComponent,
+	IBHAddValue, IPlatformListener {
 	BHTranslator translator = BHTranslator.getInstance();
 
 	private String key;
 	private JFreeChart chart;
 	private DefaultPieDataset dataset;
-	private String inputHint;
 	private static Plot plot = new CategoryPlot();;
 
 	protected BHPieChart(String title, final Dataset dataset, String key) {
 		super(plot);
-		Services.addPlatformListener(this);
 		this.key = key;
 		this.dataset = (DefaultPieDataset) dataset;
 
@@ -85,19 +83,6 @@ public class BHPieChart extends JFreeChart implements IBHComponent, IBHAddValue 
 	}
 
 	@Override
-	public Component add(Component comp) {
-		// TODO Auto-generated method stub
-		throw new UnsupportedOperationException(
-				"This method has not been implemented");
-	}
-
-	public boolean isTypeValid() {
-		// TODO Auto-generated method stub
-		throw new UnsupportedOperationException(
-				"This method has not been implemented");
-	}
-
-	@Override
 	public void addValue(Number value, int rowKey, Comparable<String> columnKey) {
 		// TODO Auto-generated method stub
 		throw new UnsupportedOperationException(
@@ -119,10 +104,6 @@ public class BHPieChart extends JFreeChart implements IBHComponent, IBHAddValue 
 				"This method has not been implemented");
 	}
 
-	public String getInputHint() {
-		return this.inputHint;
-	}
-
 	@Override
 	public String getBHHint() {
 		// TODO Auto-generated method stub
@@ -134,17 +115,15 @@ public class BHPieChart extends JFreeChart implements IBHComponent, IBHAddValue 
 	 */
 	@Override
 	public void platformEvent(PlatformEvent e) {
-		if(e.getEventType()==Type.LOCALE_CHANGED){
+		if(e.getEventType()== Type.LOCALE_CHANGED){
 			this.reloadText();
 		}
 	}
 	
 	/**
-	 * Reset Text if necessary.
+	 * Reloads Text if necessary.
 	 */
-	@Override
-	public void reloadText() {
+	protected void reloadText() {
 		this.chart.getPlot().setNoDataMessage(translator.translate("noDataAvailable"));
 	}
-
 }

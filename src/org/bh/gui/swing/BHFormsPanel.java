@@ -24,7 +24,7 @@ public class BHFormsPanel extends JPanel {
 	private JPanel view_tabperioddata;
 	private JPanel view_scenarioHeadData;
 	private JCheckBox chbDirectInput;
-	private BHLabel lDirectInput;
+	private BHDescriptionLabel lDirectInput;
 
 	/**
 	 * Constructor.
@@ -223,8 +223,7 @@ public class BHFormsPanel extends JPanel {
 	public JLabel getLDirectInput() {
 
 		if (this.lDirectInput == null) {
-			this.lDirectInput = new BHLabel("");
-			this.lDirectInput.setText("Direkteingabe");
+			this.lDirectInput = new BHDescriptionLabel("Direkteingabe");
 		}
 
 		return this.lDirectInput;

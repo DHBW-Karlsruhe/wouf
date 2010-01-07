@@ -10,13 +10,16 @@ import javax.swing.JComboBox;
 
 import org.bh.data.types.IValue;
 import org.bh.gui.CompValueChangeManager;
+import org.bh.platform.IPlatformListener;
 import org.bh.platform.PlatformEvent;
 import org.bh.platform.Services;
+import org.bh.platform.PlatformEvent.Type;
 import org.bh.platform.i18n.ITranslator;
 import org.bh.validation.ValidationRule;
 
 
-public class BHComboBox extends JComboBox implements IBHModelComponent, ActionListener {
+public class BHComboBox extends JComboBox implements IBHModelComponent, ActionListener, IPlatformListener {
+	private static final long serialVersionUID = 3609724364063209645L;
 	private static final ITranslator translator = Services.getTranslator();
 	private String key;
 	private boolean sorted = false;
@@ -73,13 +76,15 @@ public class BHComboBox extends JComboBox implements IBHModelComponent, ActionLi
 		return key;
 	}
 
-	@Override
-	public void reloadText() {
+	protected void reloadText() {
 		this.updateUI();
 	}
 
 	@Override
 	public void platformEvent(PlatformEvent e) {
+		if (e.getEventType() == Type.LOCALE_CHANGED) {
+			reloadText();
+		}
 	}
 
 	@Override

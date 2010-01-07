@@ -13,7 +13,7 @@ import org.bh.data.DTOAccessException;
 import org.bh.data.types.Calculable;
 import org.bh.gui.View;
 import org.bh.gui.chart.IBHAddValue;
-import org.bh.gui.swing.BHLabel;
+import org.bh.gui.swing.BHDescriptionLabel;
 import org.bh.gui.swing.BHTextField;
 
 /**
@@ -41,7 +41,7 @@ public class OutputController extends Controller implements IOutputController{
         log.debug("Plugin load from dto in view");
         for(String key : this.bhMappingComponents.keySet()){
             if(this.result.containsKey(key)){
-                if(this.bhMappingComponents.get(key) instanceof BHTextField || this.bhMappingComponents.get(key) instanceof BHLabel){
+                if(this.bhMappingComponents.get(key) instanceof BHTextField || this.bhMappingComponents.get(key) instanceof BHDescriptionLabel){
                     String value = this.result.get(key)[0].toString();
                     ((JTextComponent) this.bhMappingComponents.get(key)).setText(value);
                 }else if(this.bhMappingComponents.get(key) instanceof IBHAddValue){

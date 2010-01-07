@@ -9,8 +9,7 @@ import javax.swing.JSeparator;
 import javax.swing.SwingConstants;
 import javax.swing.border.EtchedBorder;
 
-import org.bh.data.DTOPeriod;
-import org.bh.gui.swing.BHLabel;
+import org.bh.gui.swing.BHDescriptionLabel;
 import org.bh.gui.swing.BHTextField;
 import org.bh.platform.i18n.BHTranslator;
 
@@ -22,21 +21,21 @@ import com.jgoodies.forms.layout.FormLayout;
  * 
  * 
  */
-public class BHPeriodInputForm extends JPanel {
+public class DirectInputForm extends JPanel {
 
-    private BHLabel lfcf;
+    private BHDescriptionLabel lfcf;
     private BHTextField tffcf;
-    private BHLabel lliabilities;
+    private BHDescriptionLabel lliabilities;
     private BHTextField tfliabilities;
-    private BHLabel lcurrency1;
-    private BHLabel lcurrency2;
+    private BHDescriptionLabel lcurrency1;
+    private BHDescriptionLabel lcurrency2;
     
-    private BHLabel lmax;
-    private BHLabel lmin;
-    private BHLabel lcurrency3;
-    private BHLabel lcurrency4;
-    private BHLabel lcurrency5;
-    private BHLabel lcurrency6;
+    private BHDescriptionLabel lmax;
+    private BHDescriptionLabel lmin;
+    private BHDescriptionLabel lcurrency3;
+    private BHDescriptionLabel lcurrency4;
+    private BHDescriptionLabel lcurrency5;
+    private BHDescriptionLabel lcurrency6;
     private BHTextField tfmaxliabilities;
     private BHTextField tfminliabilities;
     private BHTextField tfmaxfcf;
@@ -48,7 +47,7 @@ public class BHPeriodInputForm extends JPanel {
     /**
      * Constructor.
      */
-    public BHPeriodInputForm(String year) {
+    public DirectInputForm(String year) {
 	
 	this.year = year;
 	
@@ -67,12 +66,12 @@ public class BHPeriodInputForm extends JPanel {
 	this.add(this.getLliabilities(), cons.xywh(2, 6, 1, 1));
 	this.add(this.getTfliabilities(), cons.xywh(4, 6, 1, 1));
 	this.add(this.getLcurrency2(), cons.xywh(6, 6, 1, 1));
-	
+
 	this.add(new JSeparator(SwingConstants.VERTICAL), cons.xywh(8, 2, 1, 6));
 	this.add(this.getLmin(), cons.xywh(10, 2, 1, 1));
 	this.add(new JSeparator(SwingConstants.VERTICAL), cons.xywh(14, 2, 1, 6));
 	this.add(this.getLmax(), cons.xywh(16, 2, 1, 1));
-	
+
 	this.add(this.getTfminfcf(), cons.xywh(10, 4, 1, 1));
 	this.add(this.getLcurrency3(), cons.xywh(12, 4, 1, 1));
 	this.add(this.getTfmaxfcf(), cons.xywh(16, 4, 1, 1));
@@ -89,48 +88,48 @@ public class BHPeriodInputForm extends JPanel {
     
     
 
-    public BHLabel getLmax() {
+    public BHDescriptionLabel getLmax() {
 	if (lmax == null) {
-	    lmax = new BHLabel("", "Max");
+	    lmax = new BHDescriptionLabel("max");
 	}
         return lmax;
     }
 
 
 
-    public BHLabel getLmin() {
+    public BHDescriptionLabel getLmin() {
 	if (lmin == null) {
-	    lmin = new BHLabel("", "Min");
+	    lmin = new BHDescriptionLabel("min");
 	}
 	return lmin;
     }
 
 
 
-    public BHLabel getLcurrency3() {
+    public BHDescriptionLabel getLcurrency3() {
 	if (lcurrency3 == null) {
-	    lcurrency3 = new BHLabel("", "€");
+	    lcurrency3 = new BHDescriptionLabel("currency");
 	}
 	return lcurrency3;
     }
     
-    public BHLabel getLcurrency4() {
+    public BHDescriptionLabel getLcurrency4() {
 	if (lcurrency4 == null) {
-	    lcurrency4 = new BHLabel("", "€");
+	    lcurrency4 = new BHDescriptionLabel("currency");
 	}
 	return lcurrency4;
     }
     
-    public BHLabel getLcurrency5() {
+    public BHDescriptionLabel getLcurrency5() {
 	if (lcurrency5 == null) {
-	    lcurrency5 = new BHLabel("", "€");
+	    lcurrency5 = new BHDescriptionLabel("currency");
 	}
 	return lcurrency5;
     }
     
-    public BHLabel getLcurrency6() {
+    public BHDescriptionLabel getLcurrency6() {
 	if (lcurrency6 == null) {
-	    lcurrency6 = new BHLabel("", "€");
+	    lcurrency6 = new BHDescriptionLabel("currency");
 	}
 	return lcurrency6;
     }
@@ -173,46 +172,45 @@ public class BHPeriodInputForm extends JPanel {
 
 
 
-    public BHLabel getLfcf() {
+    public BHDescriptionLabel getLfcf() {
 	if (lfcf == null) {
-	    lfcf = new BHLabel(DTOPeriod.Key.FCF.toString(), "Free Cashflow");
+	    lfcf = new BHDescriptionLabel(DTODirectInput.Key.FCF.toString());
 	}
 	return lfcf;
     }
 
     public BHTextField getTffcf() {
 	if (tffcf == null) {
-	    tffcf = new BHTextField(DTOPeriod.Key.FCF.toString());
+	    tffcf = new BHTextField(DTODirectInput.Key.FCF);
 	}
 	return tffcf;
     }
 
-    public BHLabel getLliabilities() {
+    public BHDescriptionLabel getLliabilities() {
 	if (lliabilities == null) {
-	    lliabilities = new BHLabel(DTOPeriod.Key.LIABILITIES.toString(),"Bilanzwert Fremdkapital");
+	    lliabilities = new BHDescriptionLabel(DTODirectInput.Key.LIABILITIES);
 	}
 	return lliabilities;
     }
 
     public BHTextField getTfliabilities() {
 	if (tfliabilities == null) {
-	    tfliabilities = new BHTextField(DTOPeriod.Key.LIABILITIES
-		    .toString());
+	    tfliabilities = new BHTextField(DTODirectInput.Key.LIABILITIES);
 //	    tfliabilities.setText("bla");
 	}
 	return tfliabilities;
     }
 
-    public BHLabel getLcurrency1() {
+    public BHDescriptionLabel getLcurrency1() {
 	if (lcurrency1 == null) {
-	    lcurrency1 = new BHLabel("","€");
+	    lcurrency1 = new BHDescriptionLabel("currency");
 	}
 	return lcurrency1;
     }
 
-    public BHLabel getLcurrency2() {
+    public BHDescriptionLabel getLcurrency2() {
 	if (lcurrency2 == null) {
-	    lcurrency2 = new BHLabel("","€");
+	    lcurrency2 = new BHDescriptionLabel("currency");
 	}
 	return lcurrency2;
     }
@@ -223,7 +221,7 @@ public class BHPeriodInputForm extends JPanel {
     public static void main(String args[]) {
 
 	JFrame test = new JFrame("Test for ViewPeriodData1");
-	test.setContentPane(new BHPeriodInputForm("2009"));
+	test.setContentPane(new DirectInputForm("2009"));
 	test.addWindowListener(new WindowAdapter() {
 	    @Override
 		public void windowClosing(WindowEvent e) {

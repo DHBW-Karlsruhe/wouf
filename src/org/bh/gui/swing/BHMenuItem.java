@@ -7,6 +7,7 @@ import java.util.List;
 import javax.swing.JMenuItem;
 import javax.swing.KeyStroke;
 
+import org.bh.platform.IPlatformListener;
 import org.bh.platform.PlatformEvent;
 import org.bh.platform.PlatformKey;
 import org.bh.platform.Services;
@@ -24,11 +25,10 @@ import org.bh.platform.PlatformEvent.Type;
  * @version 0.1, 2009/12/16
  * 
  */
-public class BHMenuItem extends JMenuItem implements IBHComponent, IBHAction {
-
+public class BHMenuItem extends JMenuItem implements IBHComponent, IBHAction, IPlatformListener {
+	private static final long serialVersionUID = 457483046895655665L;
 	private PlatformKey key;
 	private static List<IBHAction> platformItems = new ArrayList<IBHAction>();
-	private String inputHint;
 
 	/**
 	 * Creates a new MenuItem (to be used in regular menus)
@@ -102,10 +102,6 @@ public class BHMenuItem extends JMenuItem implements IBHComponent, IBHAction {
 		return key.toString();
 	}
 
-	public String getInputHint() {
-		return this.inputHint;
-	}
-
 	@Override
 	public PlatformKey getPlatformKey() {
 		return this.key;
@@ -141,8 +137,7 @@ public class BHMenuItem extends JMenuItem implements IBHComponent, IBHAction {
 	/**
 	 * Reset Text if necessary.
 	 */
-	@Override
-	public void reloadText() {
+	protected void reloadText() {
 		this.setText(Services.getTranslator().translate(key.toString()));
 	}
 }

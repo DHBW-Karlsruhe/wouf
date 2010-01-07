@@ -3,10 +3,9 @@ package org.bh.gui.swing;
 import java.net.URL;
 
 import javax.swing.ImageIcon;
-import javax.swing.JFileChooser;
 
+import org.apache.log4j.Logger;
 import org.bh.platform.PlatformKey;
-import org.bh.platform.i18n.BHTranslator;
 
 /**
  * 
@@ -25,17 +24,12 @@ import org.bh.platform.i18n.BHTranslator;
  */
 
 public class BHToolButton extends BHButton{
-    
+	private static final long serialVersionUID = 5224665479917197926L;
+	private static final Logger log = Logger.getLogger(BHToolButton.class);
     public String buttonName;
-    JFileChooser fc;
-    BHTranslator translator = BHTranslator.getInstance(); 
-    
     
     public BHToolButton(PlatformKey key, String imageName){
-	
-	
-    	super(key, true);
-
+    	super(key);
     	
     	//Look for the image.
         //String imgLocation = "/toolbarButtonGraphics/general/" + imageName + ".gif";
@@ -52,17 +46,13 @@ public class BHToolButton extends BHButton{
         	this.setText("");
             setIcon(new ImageIcon(imageURL, ""));
         } else {                                     
-            //no image found
-            System.err.println("Resource not found: "+ imgLocation);
+        	log.error("Resource not found: " + imgLocation);
         }    
     }
 
-
 	@Override
-	public void reloadText() {
-		super.reloadText();
-		// never text on toolbar button. TODO Correct?
-		this.setText("");
+	public void setText(String text) {
+		// do not allow setting a text for this button
 	}
    
 }

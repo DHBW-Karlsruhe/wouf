@@ -3,9 +3,9 @@ package org.bh.gui.swing;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 
-import javax.swing.JCheckBox;
 import javax.swing.JComboBox;
 import javax.swing.JFrame;
+import javax.swing.JLabel;
 import javax.swing.JPanel;
 
 import org.bh.data.DTOScenario;
@@ -17,7 +17,6 @@ import org.bh.validation.VRIsInteger;
 import org.bh.validation.VRIsPositive;
 import org.bh.validation.VRMandatory;
 import org.bh.validation.ValidationRule;
-
 
 import com.jgoodies.forms.layout.CellConstraints;
 import com.jgoodies.forms.layout.FormLayout;
@@ -32,13 +31,13 @@ import com.jgoodies.forms.layout.FormLayout;
  */
 public class BHScenarioHeadForm extends JPanel {
 
-	private BHLabel lscenname;
-	private BHLabel lscendescript;
-	private BHLabel lequityyield;
-	private BHLabel ldeptyield;
-	private BHLabel ltradetax;
-	private BHLabel lcorporatetax;
-	private BHLabel lbaseyear;
+	private BHDescriptionLabel lscenname;
+	private BHDescriptionLabel lscendescript;
+	private BHDescriptionLabel lequityyield;
+	private BHDescriptionLabel ldeptyield;
+	private BHDescriptionLabel ltradetax;
+	private BHDescriptionLabel lcorporatetax;
+	private BHDescriptionLabel lbaseyear;
 
 	private BHTextField tfscenname;
 	private BHTextField tfscendescript;
@@ -47,16 +46,16 @@ public class BHScenarioHeadForm extends JPanel {
 	private BHTextField tftradetax;
 	private BHTextField tfcorporatetax;
 	private BHTextField tfbaseyear;
-	private BHLabel lpercentequity;
-	private BHLabel lpercentdept;
-	private BHLabel lpercenttrade;
-	private BHLabel lpercentcorporate;
+	private JLabel lpercentequity;
+	private JLabel lpercentdept;
+	private JLabel lpercenttrade;
+	private JLabel lpercentcorporate;
 
-	private BHLabel ldcfMethod;
+	private BHDescriptionLabel ldcfMethod;
 	private BHComboBox cbdcfMethod;
-	private BHLabel lprocess;
+	private BHDescriptionLabel lprocess;
 	private JComboBox cbprocess;
-	private BHLabel ldirect;
+	private BHDescriptionLabel ldirect;
 	private JComboBox cbdirect;
 	
 	
@@ -116,9 +115,9 @@ public class BHScenarioHeadForm extends JPanel {
 	// TODO add missing label keys etc. and translations, change hard coded
 	// values to keys
 
-	public BHLabel getLprocess() {
+	public BHDescriptionLabel getLprocess() {
 		if (this.lprocess == null) {
-			this.lprocess = new BHLabel("", "Berechnungsart");
+			this.lprocess = new BHDescriptionLabel("Berechnungsart");
 		}
 		return lprocess;
 	}
@@ -130,10 +129,9 @@ public class BHScenarioHeadForm extends JPanel {
 		return cbprocess;
 	}
 
-	public BHLabel getlDCFmethod() {
+	public BHDescriptionLabel getlDCFmethod() {
 		if (this.ldcfMethod == null)
-			this.ldcfMethod = new BHLabel(DTOScenario.Key.DCF_METHOD,
-					"Discounted Cashflow Verfahren");
+			this.ldcfMethod = new BHDescriptionLabel(DTOScenario.Key.DCF_METHOD);
 		return this.ldcfMethod;
 	}
 
@@ -144,9 +142,9 @@ public class BHScenarioHeadForm extends JPanel {
 		return this.cbdcfMethod;
 	}
 
-	public BHLabel getLdirect() {
+	public BHDescriptionLabel getLdirect() {
 		if (this.ldirect == null) {
-			this.ldirect = new BHLabel("", "direct");
+			this.ldirect = new BHDescriptionLabel("direct");
 		}
 		return ldirect;
 	}
@@ -163,11 +161,10 @@ public class BHScenarioHeadForm extends JPanel {
 	 * 
 	 * @return the initialized component
 	 */
-	public BHLabel getlscenName() {
+	public BHDescriptionLabel getlscenName() {
 
 		if (this.lscenname == null) {
-			this.lscenname = new BHLabel(DTOScenario.Key.NAME.toString(),
-					"Szenarioname");
+			this.lscenname = new BHDescriptionLabel(DTOScenario.Key.NAME);
 		}
 
 		return this.lscenname;
@@ -178,11 +175,10 @@ public class BHScenarioHeadForm extends JPanel {
 	 * 
 	 * @return the initialized component
 	 */
-	public BHLabel getlscenDescript() {
+	public BHDescriptionLabel getlscenDescript() {
 
 		if (this.lscendescript == null) {
-			this.lscendescript = new BHLabel(
-					DTOScenario.Key.COMMENT.toString(), "Beschreibung");
+			this.lscendescript = new BHDescriptionLabel(DTOScenario.Key.COMMENT);
 		}
 
 		return this.lscendescript;
@@ -193,11 +189,10 @@ public class BHScenarioHeadForm extends JPanel {
 	 * 
 	 * @return the initialized component
 	 */
-	public BHLabel getlequityYield() {
+	public BHDescriptionLabel getlequityYield() {
 
 		if (this.lequityyield == null) {
-			this.lequityyield = new BHLabel(DTOScenario.Key.REK.toString(),
-					"Renditeforderung Eigenkapital");
+			this.lequityyield = new BHDescriptionLabel(DTOScenario.Key.REK);
 		}
 
 		return this.lequityyield;
@@ -208,11 +203,10 @@ public class BHScenarioHeadForm extends JPanel {
 	 * 
 	 * @return the initialized component
 	 */
-	public BHLabel getldeptYield() {
+	public BHDescriptionLabel getldeptYield() {
 
 		if (this.ldeptyield == null) {
-			this.ldeptyield = new BHLabel(DTOScenario.Key.RFK.toString(),
-					"Renditeforderung Fremdkapital");
+			this.ldeptyield = new BHDescriptionLabel(DTOScenario.Key.RFK);
 		}
 
 		return this.ldeptyield;
@@ -223,11 +217,10 @@ public class BHScenarioHeadForm extends JPanel {
 	 * 
 	 * @return the initialized component
 	 */
-	public BHLabel getltradeTax() {
+	public BHDescriptionLabel getltradeTax() {
 
 		if (this.ltradetax == null) {
-			this.ltradetax = new BHLabel(DTOScenario.Key.BTAX.toString(),
-					"Gewerbesteuersatz");
+			this.ltradetax = new BHDescriptionLabel(DTOScenario.Key.BTAX);
 		}
 
 		return this.ltradetax;
@@ -238,11 +231,10 @@ public class BHScenarioHeadForm extends JPanel {
 	 * 
 	 * @return the initialized component
 	 */
-	public BHLabel getlcorporateTax() {
+	public BHDescriptionLabel getlcorporateTax() {
 
 		if (this.lcorporatetax == null) {
-			this.lcorporatetax = new BHLabel(DTOScenario.Key.CTAX.toString(),
-					"Körperschaftssteuer und Solidaritätszuschlag");
+			this.lcorporatetax = new BHDescriptionLabel(DTOScenario.Key.CTAX);
 		}
 
 		return this.lcorporatetax;
@@ -253,10 +245,10 @@ public class BHScenarioHeadForm extends JPanel {
 	 * 
 	 * @return the initialized component
 	 */
-	public BHLabel getlbaseYear() {
+	public BHDescriptionLabel getlbaseYear() {
 
 		if (this.lbaseyear == null) {
-			this.lbaseyear = new BHLabel("baseyear", "Basisjahr");
+			this.lbaseyear = new BHDescriptionLabel(DTOScenario.Key.IDENTIFIER);
 		}
 
 		return this.lbaseyear;
@@ -379,10 +371,10 @@ public class BHScenarioHeadForm extends JPanel {
 	 * 
 	 * @return the initialized component
 	 */
-	public BHLabel getlpercentEquity() {
+	public JLabel getlpercentEquity() {
 
 		if (this.lpercentequity == null) {
-			this.lpercentequity = new BHLabel("", "%");
+			this.lpercentequity = new JLabel("%");
 		}
 		return this.lpercentequity;
 	}
@@ -392,10 +384,10 @@ public class BHScenarioHeadForm extends JPanel {
 	 * 
 	 * @return the initialized component
 	 */
-	public BHLabel getlpercentDept() {
+	public JLabel getlpercentDept() {
 
 		if (this.lpercentdept == null) {
-			this.lpercentdept = new BHLabel("", "%");
+			this.lpercentdept = new JLabel("%");
 		}
 		return this.lpercentdept;
 	}
@@ -405,10 +397,10 @@ public class BHScenarioHeadForm extends JPanel {
 	 * 
 	 * @return the initialized component
 	 */
-	public BHLabel getlpercentTrade() {
+	public JLabel getlpercentTrade() {
 
 		if (this.lpercenttrade == null) {
-			this.lpercenttrade = new BHLabel("", "%");
+			this.lpercenttrade = new JLabel("%");
 		}
 		return this.lpercenttrade;
 	}
@@ -418,10 +410,10 @@ public class BHScenarioHeadForm extends JPanel {
 	 * 
 	 * @return the initialized component
 	 */
-	public BHLabel getlpercentCorporate() {
+	public JLabel getlpercentCorporate() {
 
 		if (this.lpercentcorporate == null) {
-			this.lpercentcorporate = new BHLabel("", "%");
+			this.lpercentcorporate = new JLabel("%");
 		}
 		return this.lpercentcorporate;
 	}

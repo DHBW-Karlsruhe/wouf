@@ -4,16 +4,16 @@ import info.clearthought.layout.TableLayout;
 import info.clearthought.layout.TableLayoutConstants;
 
 import java.awt.BorderLayout;
-
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
+
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.UIManager;
 
 import org.bh.gui.chart.BHChartFactory;
-import org.bh.gui.swing.BHLabel;
-import org.bh.gui.swing.BHTextArea;
+import org.bh.gui.swing.BHDescriptionLabel;
+import org.bh.gui.swing.BHDescriptionTextArea;
 import org.bh.platform.i18n.BHTranslator;
 import org.jfree.chart.ChartPanel;
 /**
@@ -35,12 +35,12 @@ public class BHResultPanel extends JPanel{
 	private JPanel centerPanel;
 	private JPanel eastPanel;
 	private JPanel southPanel;
-	private BHLabel headlineLabel;
-	private BHLabel descriptionLabel;
+	private BHDescriptionLabel headlineLabel;
+	private BHDescriptionLabel descriptionLabel;
 	private ChartPanel lineChartLabel;
 	private ChartPanel pieChartLabel;
-	private BHTextArea lineChartTextArea;
-	private BHTextArea pieChartTextArea;
+	private BHDescriptionTextArea lineChartTextArea;
+	private BHDescriptionTextArea pieChartTextArea;
 	
 	
 	final BHTranslator translator = BHTranslator.getInstance();
@@ -69,7 +69,7 @@ public class BHResultPanel extends JPanel{
 			/**
 			 * Headline Label
 			 */
-			headlineLabel = new BHLabel("headlineLabel");
+			headlineLabel = new BHDescriptionLabel("headlineLabel");
 			headlineLabel.setFont(UIManager.getFont("defaultFont"));
 			headlineLabel.setText(translator.translate("Rheadline"));
 			headlineLabel.setHorizontalAlignment(getWidth()/2);
@@ -77,7 +77,7 @@ public class BHResultPanel extends JPanel{
 			/**
 			 * Description under Headline Label
 			 */
-			descriptionLabel = new BHLabel("descriptionLabel");
+			descriptionLabel = new BHDescriptionLabel("descriptionLabel");
 			descriptionLabel.setFont(UIManager.getFont("defaultFont"));
 			descriptionLabel.setText(translator.translate("Rdescription"));
 			descriptionLabel.setHorizontalAlignment(getWidth()/2);
@@ -109,7 +109,7 @@ public class BHResultPanel extends JPanel{
        		/**
        		 * Creates the description and add it on a Label
        		 */
-       		lineChartTextArea = new BHTextArea("lineChartTextArea", translator.translate("RlineChartText"), 5, 5);
+       		lineChartTextArea = new BHDescriptionTextArea("RlineChartText", 5, 5);
        		
        		
        		/**
@@ -119,7 +119,7 @@ public class BHResultPanel extends JPanel{
        		pieChartLabel.setFont(UIManager.getFont("defaultFont"));
        		
        		
-       		pieChartTextArea = new BHTextArea("pieChartTextArea", translator.translate("RpieChartText"), 5, 5);
+       		pieChartTextArea = new BHDescriptionTextArea("RpieChartText", 5, 5);
        		
        		/**
        		 * add the Content into centerPanel

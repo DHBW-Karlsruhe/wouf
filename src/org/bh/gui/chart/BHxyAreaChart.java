@@ -1,13 +1,12 @@
 package org.bh.gui.chart;
 
-import java.awt.Component;
 import java.util.List;
 
 import javax.swing.UIManager;
 
 import org.bh.gui.swing.IBHComponent;
+import org.bh.platform.IPlatformListener;
 import org.bh.platform.PlatformEvent;
-import org.bh.platform.Services;
 import org.bh.platform.PlatformEvent.Type;
 import org.bh.platform.i18n.BHTranslator;
 import org.jfree.chart.ChartFactory;
@@ -28,17 +27,15 @@ import org.jfree.data.xy.DefaultXYDataset;
  * 
  */
 public class BHxyAreaChart extends JFreeChart implements IBHComponent,
-		IBHAddValue {
+		IBHAddValue, IPlatformListener {
 	BHTranslator translator = BHTranslator.getInstance();
 	private String key;
 	private JFreeChart chart;
 	private DefaultXYDataset dataset;
-	private String inputHint;
 
 	protected BHxyAreaChart(final String title, final String xAxis, final String yAxis,
 			final Dataset dataset, final String key, final XYPlot plot) {
 		super(plot);
-		Services.addPlatformListener(this);
 		this.key = key;
 		this.dataset = (DefaultXYDataset) dataset;
 
@@ -75,23 +72,6 @@ public class BHxyAreaChart extends JFreeChart implements IBHComponent,
 	public final void addSeries(final Comparable<String> seriesKey, final double[][] data) {
 		this.dataset.addSeries(seriesKey, data);
 		fireChartChanged();
-	}
-
-	@Override
-	public final Component add(final Component comp) {
-		// TODO Auto-generated method stub
-		throw new UnsupportedOperationException(
-				"This method has not been implemented");
-	}
-
-	public final boolean isTypeValid() {
-		// TODO Auto-generated method stub
-		throw new UnsupportedOperationException(
-				"This method has not been implemented");
-	}
-
-	public String getInputHint() {
-		return this.inputHint;
 	}
 
 	@Override
@@ -140,11 +120,9 @@ public class BHxyAreaChart extends JFreeChart implements IBHComponent,
 	}
 	
 	/**
-	 * Reset Text if necessary.
+	 * Reloads Text if necessary.
 	 */
-	@Override
-	public void reloadText() {
+	protected void reloadText() {
 		this.chart.getPlot().setNoDataMessage(translator.translate("noDataAvailable"));
 	}
-
 }

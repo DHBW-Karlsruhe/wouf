@@ -5,15 +5,10 @@ import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 
 import javax.swing.JCheckBox;
-import javax.swing.JComboBox;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
-import javax.swing.JSpinner;
 import javax.swing.JTable;
-import javax.swing.SpinnerNumberModel;
-
-import org.bh.gui.swing.BHLabel;
 
 import com.jgoodies.forms.layout.CellConstraints;
 import com.jgoodies.forms.layout.FormLayout;
@@ -27,7 +22,7 @@ import com.jgoodies.forms.layout.FormLayout;
  */
 public class BHDeterministicProcessForm extends JPanel {
 
-	private BHLabel linterval;
+	private BHDescriptionLabel linterval;
 	private JCheckBox chbinterval;
 	private JTable tperioddata;
 
@@ -61,9 +56,9 @@ public class BHDeterministicProcessForm extends JPanel {
 
 	// TODO add missing label keys and translations, change hard coded values to keys
 	
-	public BHLabel getLinterval() {
+	public BHDescriptionLabel getLinterval() {
 		if (linterval == null) {
-			linterval = new BHLabel("", "Intervallrechnung");
+			linterval = new BHDescriptionLabel("Intervallrechnung");
 		}
 		return linterval;
 	}

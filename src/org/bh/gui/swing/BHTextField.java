@@ -10,8 +10,6 @@ import org.apache.log4j.Logger;
 import org.bh.data.types.IValue;
 import org.bh.data.types.StringValue;
 import org.bh.gui.CompValueChangeManager;
-import org.bh.platform.PlatformEvent;
-import org.bh.platform.Services;
 import org.bh.validation.ValidationRule;
 
 /**
@@ -29,6 +27,8 @@ import org.bh.validation.ValidationRule;
 
 // TODO Hints setzen!!! Noch werden für Textfields keine Hints erzeugt
 public class BHTextField extends JTextField implements IBHModelComponent {
+	private static final long serialVersionUID = -5249789865255724932L;
+
 	/**
 	 * unique key to identify Label.
 	 */
@@ -51,7 +51,6 @@ public class BHTextField extends JTextField implements IBHModelComponent {
 	 */
 	public BHTextField(String key, String value) {
 		super(value);
-		this.setProperties();
 		this.key = key;
 		if (key.isEmpty())
 			log.debug("Empty key", new IllegalArgumentException());
@@ -126,27 +125,11 @@ public class BHTextField extends JTextField implements IBHModelComponent {
 		return new StringValue(this.getText());
 	}
 
-	/**
-	 * set properties of instance.
-	 */
-	private void setProperties() {
-		Services.addPlatformListener(this);
-	}
-
 	@Override
 	public String getBHHint() {
 		// TODO Auto-generated method stub
 		throw new UnsupportedOperationException(
 				"This method has not been implemented");
-	}
-
-	@Override
-	public void platformEvent(PlatformEvent e) {
-	}
-
-	@Override
-	public void reloadText() {
-		// nothing to do
 	}
 
 	@Override

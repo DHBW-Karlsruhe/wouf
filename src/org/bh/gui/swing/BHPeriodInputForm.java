@@ -31,9 +31,9 @@ import com.jgoodies.forms.layout.FormLayout;
  */
 public class BHPeriodInputForm extends JPanel {
 
-	private BHLabel lfcf;
+	private BHDescriptionLabel lfcf;
 	private BHTextField tffcf;
-	private BHLabel lliabilities;
+	private BHDescriptionLabel lliabilities;
 	private BHTextField tfliabilities;
 	private JLabel lcurrency1;
 	private JLabel lcurrency2;
@@ -223,9 +223,9 @@ public class BHPeriodInputForm extends JPanel {
 		return tfminfcf;
 	}
 
-	public BHLabel getLfcf() {
+	public BHDescriptionLabel getLfcf() {
 		if (lfcf == null) {
-			lfcf = new BHLabel(DTOPeriod.Key.FCF);
+			lfcf = new BHDescriptionLabel(DTOPeriod.Key.FCF);
 		}
 		return lfcf;
 	}
@@ -245,9 +245,9 @@ public class BHPeriodInputForm extends JPanel {
 		return tffcf;
 	}
 
-	public BHLabel getLliabilities() {
+	public BHDescriptionLabel getLliabilities() {
 		if (lliabilities == null) {
-			lliabilities = new BHLabel(DTOPeriod.Key.LIABILITIES);
+			lliabilities = new BHDescriptionLabel(DTOPeriod.Key.LIABILITIES);
 		}
 		return lliabilities;
 	}

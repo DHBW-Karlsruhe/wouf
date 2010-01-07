@@ -1,8 +1,5 @@
 package org.bh.gui.swing;
 
-import java.awt.Component;
-
-import org.bh.platform.IPlatformListener;
 
 /**
  * Every Swing element which shall use a defined DTO key must implement this
@@ -13,7 +10,7 @@ import org.bh.platform.IPlatformListener;
  * 
  * @version 0.2, 2009/12/25
  */
-public interface IBHComponent extends IPlatformListener {
+public interface IBHComponent {
 
 	/**
 	 * Constant can be use to check objects.
@@ -43,22 +40,9 @@ public interface IBHComponent extends IPlatformListener {
 	String getKey();
 
 	/**
-	 * you have to override the add method and implement a put into the map for
-	 * 
-	 * @param comp
-	 * @return
-	 */
-	public Component add(Component comp);
-
-	/**
 	 * Must return the Input Hint text of a component.
 	 * 
 	 * @return BHHint
 	 */
 	public String getBHHint();
-
-	/**
-	 * Reloads the text if necessary.
-	 */
-	public void reloadText();
 }

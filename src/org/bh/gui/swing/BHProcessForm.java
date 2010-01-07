@@ -21,9 +21,9 @@ import com.jgoodies.forms.layout.FormLayout;
  * 
  */
 public class BHProcessForm extends JPanel {
-	private BHLabel lProcess;
+	private BHDescriptionLabel lProcess;
 	private JComboBox cbProcess;
-	private BHLabel lInputType;
+	private BHDescriptionLabel lInputType;
 	private JComboBox cbInputType;
 
 	/**
@@ -66,10 +66,9 @@ public class BHProcessForm extends JPanel {
 	 * spintermstep; }
 	 */
 
-	public BHLabel getlStochasticProcess() {
+	public BHDescriptionLabel getlStochasticProcess() {
 		if (this.lProcess == null)
-			this.lProcess = new BHLabel(DTOScenario.Key.STOCHASTIC_PROCESS,
-					"Stochastischer Prozess");
+			this.lProcess = new BHDescriptionLabel(DTOScenario.Key.STOCHASTIC_PROCESS);
 		return this.lProcess;
 	}
 
@@ -80,10 +79,9 @@ public class BHProcessForm extends JPanel {
 		return this.cbProcess;
 	}
 	
-	public BHLabel getlInputType() {
+	public BHDescriptionLabel getlInputType() {
 		if (this.lInputType == null)
-			this.lInputType = new BHLabel(DTOScenario.Key.STOCHASTIC_PROCESS,
-					"Eingabeart");
+			this.lInputType = new BHDescriptionLabel("Eingabeart");
 		return this.lInputType;
 	}
 

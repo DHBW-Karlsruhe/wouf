@@ -2,8 +2,6 @@ package org.bh.plugin.xmldataexchange.xmlexport;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
-import java.awt.FlowLayout;
-import java.awt.Insets;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 
@@ -11,16 +9,11 @@ import javax.swing.BorderFactory;
 import javax.swing.JPanel;
 import javax.swing.JTree;
 import javax.swing.border.Border;
-import javax.swing.tree.DefaultMutableTreeNode;
 import javax.swing.tree.DefaultTreeModel;
 import javax.swing.tree.TreePath;
 import javax.swing.tree.TreeSelectionModel;
 
-import org.bh.gui.swing.BHButton;
-import org.bh.gui.swing.BHLabel;
-import org.bh.gui.swing.BHTextArea;
-import org.bh.gui.swing.BHTextField;
-import org.bh.plugin.xmldataexchange.XMLDataExchangeCheckBoxTree;
+import org.bh.gui.swing.BHDescriptionTextArea;
 import org.bh.plugin.xmldataexchange.XMLDataExchangeCheckNode;
 import org.bh.plugin.xmldataexchange.XMLDataExchangeCheckRenderer;
 
@@ -37,7 +30,7 @@ public class XMLDataExportPanel extends JPanel {
 		panDescr.setLayout(new BorderLayout());
 		
 				
-		BHTextArea	lblDescr = new BHTextArea("DXMLExportDescription");		
+		BHDescriptionTextArea lblDescr = new BHDescriptionTextArea("DXMLExportDescription");		
 		lblDescr.setFocusable(false);
 		
 		Border marginBorder = BorderFactory.createEmptyBorder(15, 5, 15, 5);
@@ -68,7 +61,7 @@ public class XMLDataExportPanel extends JPanel {
 		
 		
 		/*		
-		BHLabel lblPath = new BHLabel("exportPath");
+		BHLabel lblPath = new BHDescriptionLabel("exportPath");
 		BHTextField txtPath = new BHTextField("txtExportPath", "                              ");
 		txtPath.setEnabled(false);
 		

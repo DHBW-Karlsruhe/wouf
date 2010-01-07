@@ -15,7 +15,7 @@ import org.bh.gui.ViewException;
 public class ViewBHPeriodInputForm extends View{
 
     public ViewBHPeriodInputForm(String year) throws ViewException{
-        super(new BHPeriodInputForm(year));
+        super(new DirectInputForm(year));
     }
 
 }

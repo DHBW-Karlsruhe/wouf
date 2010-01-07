@@ -28,7 +28,7 @@ public class BHOptionDialog extends JDialog implements ActionListener,
 
 	private CellConstraints cons;
 
-	private BHLabel language;
+	private BHDescriptionLabel language;
 	private JComboBox combo;
 	private BHButton apply;
 
@@ -42,7 +42,7 @@ public class BHOptionDialog extends JDialog implements ActionListener,
 		cons = new CellConstraints();
 
 		// create select language components
-		language = new BHLabel("MoptionsLanguage", BHTranslator.getInstance().translate("MoptionsLanguage"));
+		language = new BHDescriptionLabel("MoptionsLanguage");
 
 		combo = new JComboBox(Services.getTranslator().getAvailableLocales());
 		combo.setRenderer(new BHLanguageRenderer());

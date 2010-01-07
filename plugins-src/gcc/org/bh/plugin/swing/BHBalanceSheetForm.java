@@ -12,7 +12,7 @@ import javax.swing.border.EtchedBorder;
 import javax.swing.border.TitledBorder;
 
 import org.bh.controller.Controller;
-import org.bh.gui.swing.BHLabel;
+import org.bh.gui.swing.BHDescriptionLabel;
 import org.bh.gui.swing.BHTextField;
 import org.bh.gui.swing.IBHComponent;
 import org.bh.platform.i18n.ITranslator;
@@ -20,7 +20,6 @@ import org.bh.plugin.gcc.data.DTOGCCBalanceSheet;
 import org.bh.validation.VRIsDouble;
 import org.bh.validation.VRMandatory;
 import org.bh.validation.ValidationRule;
-
 
 import com.jgoodies.forms.layout.CellConstraints;
 import com.jgoodies.forms.layout.FormLayout;
@@ -39,25 +38,25 @@ public class BHBalanceSheetForm extends JPanel {
 	private JPanel paktiva;
 	private JPanel ppassiva;
 
-	private BHLabel lIVG;
+	private BHDescriptionLabel lIVG;
 	private BHTextField tfIVG;
-	private BHLabel lSA;
+	private BHDescriptionLabel lSA;
 	private BHTextField tfSA;
-	private BHLabel lFA;
+	private BHDescriptionLabel lFA;
 	private BHTextField tfFA;
-	private BHLabel lVOR;
+	private BHDescriptionLabel lVOR;
 	private BHTextField tfVOR;
-	private BHLabel lFSVG;
+	private BHDescriptionLabel lFSVG;
 	private BHTextField tfFSVG;
-	private BHLabel lWP;
+	private BHDescriptionLabel lWP;
 	private BHTextField tfWP;
-	private BHLabel lKBGGKS;
+	private BHDescriptionLabel lKBGGKS;
 	private BHTextField tfKBGGKS;
-	private BHLabel lEK;
+	private BHDescriptionLabel lEK;
 	private BHTextField tfEK;
-	private BHLabel lRS;
+	private BHDescriptionLabel lRS;
 	private BHTextField tfRS;
-	private BHLabel lVB;
+	private BHDescriptionLabel lVB;
 	private BHTextField tfVB;
 
 	private BHTextField tfIVGmax;
@@ -82,10 +81,10 @@ public class BHBalanceSheetForm extends JPanel {
 	private BHTextField tfRSmin;
 	private BHTextField tfVBmin;
 
-	private BHLabel lmaxakt;
-	private BHLabel lminakt;
-	private BHLabel lmaxpas;
-	private BHLabel lminpas;
+	private BHDescriptionLabel lmaxakt;
+	private BHDescriptionLabel lminakt;
+	private BHDescriptionLabel lmaxpas;
+	private BHDescriptionLabel lminpas;
 
 	ITranslator translator = Controller.getTranslator();
 	
@@ -235,72 +234,72 @@ public class BHBalanceSheetForm extends JPanel {
 	// TODO add missing label keys and translations, change hard coded values to
 	// keys
 
-	public BHLabel getLIVG() {
+	public BHDescriptionLabel getLIVG() {
 		if (lIVG == null) {
-			lIVG = new BHLabel(DTOGCCBalanceSheet.Key.IVG);
+			lIVG = new BHDescriptionLabel(DTOGCCBalanceSheet.Key.IVG);
 		}
 		return lIVG;
 	}
 
-	public BHLabel getLSA() {
+	public BHDescriptionLabel getLSA() {
 		if (lSA == null) {
-			lSA = new BHLabel(DTOGCCBalanceSheet.Key.SA);
+			lSA = new BHDescriptionLabel(DTOGCCBalanceSheet.Key.SA);
 		}
 		return lSA;
 	}
 
-	public BHLabel getLFA() {
+	public BHDescriptionLabel getLFA() {
 		if (lFA == null) {
-			lFA = new BHLabel(DTOGCCBalanceSheet.Key.FA);
+			lFA = new BHDescriptionLabel(DTOGCCBalanceSheet.Key.FA);
 		}
 		return lFA;
 	}
 
-	public BHLabel getLVOR() {
+	public BHDescriptionLabel getLVOR() {
 		if (lVOR == null) {
-			lVOR = new BHLabel(DTOGCCBalanceSheet.Key.VOR);
+			lVOR = new BHDescriptionLabel(DTOGCCBalanceSheet.Key.VOR);
 		}
 		return lVOR;
 	}
 
-	public BHLabel getLFSVG() {
+	public BHDescriptionLabel getLFSVG() {
 		if (lFSVG == null) {
-			lFSVG = new BHLabel(DTOGCCBalanceSheet.Key.FSVG);
+			lFSVG = new BHDescriptionLabel(DTOGCCBalanceSheet.Key.FSVG);
 		}
 		return lFSVG;
 	}
 
-	public BHLabel getLWP() {
+	public BHDescriptionLabel getLWP() {
 		if (lWP == null) {
-			lWP = new BHLabel(DTOGCCBalanceSheet.Key.WP);
+			lWP = new BHDescriptionLabel(DTOGCCBalanceSheet.Key.WP);
 		}
 		return lWP;
 	}
 
-	public BHLabel getLKBGGKS() {
+	public BHDescriptionLabel getLKBGGKS() {
 		if (lKBGGKS == null) {
-			lKBGGKS = new BHLabel(DTOGCCBalanceSheet.Key.KBGGKS);
+			lKBGGKS = new BHDescriptionLabel(DTOGCCBalanceSheet.Key.KBGGKS);
 		}
 		return lKBGGKS;
 	}
 
-	public BHLabel getLEK() {
+	public BHDescriptionLabel getLEK() {
 		if (lEK == null) {
-			lEK = new BHLabel(DTOGCCBalanceSheet.Key.EK);
+			lEK = new BHDescriptionLabel(DTOGCCBalanceSheet.Key.EK);
 		}
 		return lEK;
 	}
 
-	public BHLabel getLRS() {
+	public BHDescriptionLabel getLRS() {
 		if (lRS == null) {
-			lRS = new BHLabel(DTOGCCBalanceSheet.Key.RS);
+			lRS = new BHDescriptionLabel(DTOGCCBalanceSheet.Key.RS);
 		}
 		return lRS;
 	}
 
-	public BHLabel getLVB() {
+	public BHDescriptionLabel getLVB() {
 		if (lVB == null) {
-			lVB = new BHLabel(DTOGCCBalanceSheet.Key.VB);
+			lVB = new BHDescriptionLabel(DTOGCCBalanceSheet.Key.VB);
 		}
 		return lVB;
 	}
@@ -781,30 +780,30 @@ public class BHBalanceSheetForm extends JPanel {
 		return tfVBmin;
 	}
 
-	public BHLabel getLmaxakt() {
+	public BHDescriptionLabel getLmaxakt() {
 		if (lmaxakt == null) {
-			lmaxakt = new BHLabel("", "Max");
+			lmaxakt = new BHDescriptionLabel("max");
 		}
 		return lmaxakt;
 	}
 
-	public BHLabel getLminakt() {
+	public BHDescriptionLabel getLminakt() {
 		if (lminakt == null) {
-			lminakt = new BHLabel("", "Min");
+			lminakt = new BHDescriptionLabel("min");
 		}
 		return lminakt;
 	}
 
-	public BHLabel getLmaxpas() {
+	public BHDescriptionLabel getLmaxpas() {
 		if (lmaxpas == null) {
-			lmaxpas = new BHLabel("", "Max");
+			lmaxpas = new BHDescriptionLabel("max");
 		}
 		return lmaxpas;
 	}
 
-	public BHLabel getLminpas() {
+	public BHDescriptionLabel getLminpas() {
 		if (lminpas == null) {
-			lminpas = new BHLabel("", "Min");
+			lminpas = new BHDescriptionLabel("min");
 		}
 		return lminpas;
 	}

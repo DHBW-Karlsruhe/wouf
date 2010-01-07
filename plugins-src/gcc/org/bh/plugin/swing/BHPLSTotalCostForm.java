@@ -10,7 +10,7 @@ import javax.swing.JSeparator;
 import javax.swing.SwingConstants;
 import javax.swing.border.EtchedBorder;
 
-import org.bh.gui.swing.BHLabel;
+import org.bh.gui.swing.BHDescriptionLabel;
 import org.bh.gui.swing.BHTextField;
 import org.bh.gui.swing.IBHComponent;
 import org.bh.platform.i18n.BHTranslator;
@@ -34,10 +34,10 @@ public class BHPLSTotalCostForm extends JPanel {
     private BHTextField tfSBAmin;
     private BHTextField tfAUERGmin;
 
-    private BHLabel lUE;
-    private BHLabel lABSCH;
-    private BHLabel lSBA;
-    private BHLabel lAUERG;
+    private BHDescriptionLabel lUE;
+    private BHDescriptionLabel lABSCH;
+    private BHDescriptionLabel lSBA;
+    private BHDescriptionLabel lAUERG;
 
     private JLabel lmin;
     private JLabel lmax;
@@ -197,30 +197,30 @@ public class BHPLSTotalCostForm extends JPanel {
 	return tfAUERGmin;
     }
 
-    public BHLabel getLUE() {
+    public BHDescriptionLabel getLUE() {
 	if (lUE == null) {
-	    lUE = new BHLabel(DTOGCCProfitLossStatementTotalCost.Key.UE);
+	    lUE = new BHDescriptionLabel(DTOGCCProfitLossStatementTotalCost.Key.UE);
 	}
 	return lUE;
     }
 
-    public BHLabel getLABSCH() {
+    public BHDescriptionLabel getLABSCH() {
 	if (lABSCH == null) {
-	    lABSCH = new BHLabel(DTOGCCProfitLossStatementTotalCost.Key.ABSCH);
+	    lABSCH = new BHDescriptionLabel(DTOGCCProfitLossStatementTotalCost.Key.ABSCH);
 	}
 	return lABSCH;
     }
 
-    public BHLabel getLSBA() {
+    public BHDescriptionLabel getLSBA() {
 	if (lSBA == null) {
-	    lSBA = new BHLabel(DTOGCCProfitLossStatementTotalCost.Key.SBA);
+	    lSBA = new BHDescriptionLabel(DTOGCCProfitLossStatementTotalCost.Key.SBA);
 	}
 	return lSBA;
     }
 
-    public BHLabel getLAUERG() {
+    public BHDescriptionLabel getLAUERG() {
 	if (lAUERG == null) {
-	    lAUERG = new BHLabel(DTOGCCProfitLossStatementTotalCost.Key.AUERG);
+	    lAUERG = new BHDescriptionLabel(DTOGCCProfitLossStatementTotalCost.Key.AUERG);
 	}
 	return lAUERG;
     }

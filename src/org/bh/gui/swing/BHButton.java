@@ -7,6 +7,7 @@ import java.util.List;
 import javax.swing.JButton;
 import javax.swing.event.MouseInputAdapter;
 
+import org.bh.platform.IPlatformListener;
 import org.bh.platform.PlatformEvent;
 import org.bh.platform.PlatformKey;
 import org.bh.platform.Services;
@@ -29,13 +30,14 @@ import org.bh.platform.i18n.ITranslator;
  * @version 0.1.1 2009/12/26
  * 
  */
-public class BHButton extends JButton implements IBHComponent, IBHAction {
+public class BHButton extends JButton implements IBHComponent, IBHAction, IPlatformListener {
+	private static final long serialVersionUID = -8018664370176080809L;
 	private static List<IBHAction> platformItems = new ArrayList<IBHAction>();
 	private static ITranslator translator = Services.getTranslator();
 
 	private String key;
 	private PlatformKey platformKey;
-	private String toolTip;
+	private String toolTip = "";
 
 	/**
 	 * Secondary constructor for platform buttons (are added to
@@ -43,18 +45,11 @@ public class BHButton extends JButton implements IBHComponent, IBHAction {
 	 * key)
 	 * 
 	 * @param key
-	 * @param isPlatformButton
-	 *            adds button to platformbutton-list
 	 */
-	public BHButton(PlatformKey platformKey, boolean isPlatformButton) {
-		super();
-		this.setProperties();
+	public BHButton(PlatformKey platformKey) {
+		this(platformKey.toString());
 		this.platformKey = platformKey;
-		this.key = platformKey.toString();
-		reloadText();
-
-		if (isPlatformButton)
-			platformItems.add(this);
+		platformItems.add(this);
 	}
 
 	/**
@@ -64,9 +59,10 @@ public class BHButton extends JButton implements IBHComponent, IBHAction {
 	 */
 	public BHButton(String key) {
 		super();
-		this.setProperties();
 		this.key = key;
 		reloadText();
+		Services.addPlatformListener(this);
+		this.addMouseListener(new BHToolTipListener());
 		// TODO get INPUT-HINT out of properties-File (querstions? Ask Alex)
 	}
 
@@ -94,17 +90,6 @@ public class BHButton extends JButton implements IBHComponent, IBHAction {
 		return this.platformKey;
 	}
 
-	public boolean isTypeValid() {
-		throw new UnsupportedOperationException("Not supported yet.");
-	}
-
-	/**
-	 * set properties of instance.
-	 */
-	private void setProperties() {
-		Services.addPlatformListener(this);
-	}
-
 	public static List<IBHAction> getPlatformItems() {
 		return platformItems;
 	}
@@ -120,6 +105,20 @@ public class BHButton extends JButton implements IBHComponent, IBHAction {
 		throw new UnsupportedOperationException(
 				"This method has not been implemented");
 	}
+	
+
+	@Override
+	public void platformEvent(PlatformEvent e) {
+		if (e.getEventType() == Type.LOCALE_CHANGED) {
+			this.reloadText();
+		}
+	}
+
+	protected void reloadText() {
+		this.setText(translator.translate(key));
+		// set ToolTip if available
+		this.toolTip = translator.translate(key, BHTranslator.LONG);
+	}
 
 	/**
 	 * 
@@ -131,39 +130,16 @@ public class BHButton extends JButton implements IBHComponent, IBHAction {
 	 * 
 	 */
 	class BHToolTipListener extends MouseInputAdapter {
-
-		private String listenerToolTip;
-
-		public BHToolTipListener(String toolTip) {
-			this.listenerToolTip = toolTip;
-		}
-
 		@Override
 		public void mouseEntered(MouseEvent e) {
-			Services.getBHstatusBar().setHint(listenerToolTip);
+			if (!toolTip.isEmpty())
+				Services.getBHstatusBar().setHint(toolTip);
 		}
 
 		@Override
 		public void mouseExited(MouseEvent e) {
-			Services.getBHstatusBar().removeHint();
-		}
-
-	}
-
-	@Override
-	public void platformEvent(PlatformEvent e) {
-		if (e.getEventType() == Type.LOCALE_CHANGED) {
-			this.reloadText();
-		}
-	}
-
-	@Override
-	public void reloadText() {
-		this.setText(translator.translate(key));
-		// set ToolTip if available
-		this.toolTip = translator.translate(key, BHTranslator.LONG);
-		if (!toolTip.isEmpty()) {
-			this.addMouseListener(new BHToolTipListener(toolTip));
+			if (!toolTip.isEmpty())
+				Services.getBHstatusBar().removeHint();
 		}
 	}
 }

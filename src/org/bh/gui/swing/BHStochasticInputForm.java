@@ -5,8 +5,10 @@ import java.awt.event.WindowEvent;
 
 import javax.swing.JComboBox;
 import javax.swing.JFrame;
+import javax.swing.JLabel;
 import javax.swing.JPanel;
 
+import org.bh.data.DTOScenario;
 import org.bh.platform.Services;
 import org.bh.platform.i18n.ITranslator;
 import org.bh.validation.VRIsBetween0and100;
@@ -14,7 +16,6 @@ import org.bh.validation.VRIsInteger;
 import org.bh.validation.VRIsPositive;
 import org.bh.validation.VRMandatory;
 import org.bh.validation.ValidationRule;
-
 
 import com.jgoodies.forms.layout.CellConstraints;
 import com.jgoodies.forms.layout.FormLayout;
@@ -29,14 +30,14 @@ import com.jgoodies.forms.layout.FormLayout;
  */
 public class BHStochasticInputForm extends JPanel {
 
-	private BHLabel ldcfchoise;
+	private BHDescriptionLabel ldcfchoise;
 	private JComboBox cbdcfchoise;
-	private BHLabel lstochprocess;
-	private BHLabel lrange;
+	private BHDescriptionLabel lstochprocess;
+	private BHDescriptionLabel lrange;
 	private BHTextField tfrange;
-	private BHLabel lprobab;
+	private BHDescriptionLabel lprobab;
 	private BHTextField tfprobab;
-	private BHLabel lpercentprobab;
+	private JLabel lpercentprobab;
 
 	private JComboBox cbstochprocess;
 
@@ -82,10 +83,10 @@ public class BHStochasticInputForm extends JPanel {
 	 * 
 	 * @return the initialized component
 	 */
-	public BHLabel getlDCFchoise() {
+	public BHDescriptionLabel getlDCFchoise() {
 
 		if (this.ldcfchoise == null) {
-			this.ldcfchoise = new BHLabel("", "Discounted Cashflow Verfahren");
+			this.ldcfchoise = new BHDescriptionLabel(DTOScenario.Key.DCF_METHOD);
 		}
 
 		return this.ldcfchoise;
@@ -110,10 +111,10 @@ public class BHStochasticInputForm extends JPanel {
 	 * 
 	 * @return the initialized component
 	 */
-	public BHLabel getlstochProcess() {
+	public BHDescriptionLabel getlstochProcess() {
 
 		if (this.lstochprocess == null) {
-			this.lstochprocess = new BHLabel("", "Sochastischer Prozess:");
+			this.lstochprocess = new BHDescriptionLabel(DTOScenario.Key.STOCHASTIC_PROCESS);
 		}
 
 		return this.lstochprocess;
@@ -124,10 +125,10 @@ public class BHStochasticInputForm extends JPanel {
 	 * 
 	 * @return the initialized component
 	 */
-	public BHLabel getlrange() {
+	public BHDescriptionLabel getlrange() {
 
 		if (this.lrange == null) {
-			this.lrange = new BHLabel("", "Schrittweite");
+			this.lrange = new BHDescriptionLabel("increment");
 		}
 
 		return this.lrange;
@@ -160,10 +161,10 @@ public class BHStochasticInputForm extends JPanel {
 	 * 
 	 * @return the initialized component
 	 */
-	public BHLabel getlprobab() {
+	public BHDescriptionLabel getlprobab() {
 
 		if (this.lprobab == null) {
-			this.lprobab = new BHLabel("", "Wahrscheinlichkeit");
+			this.lprobab = new BHDescriptionLabel("chance");
 		}
 
 		return this.lprobab;
@@ -194,10 +195,10 @@ public class BHStochasticInputForm extends JPanel {
 	 * 
 	 * @return the initialized component
 	 */
-	public BHLabel getlpercentProbab() {
+	public JLabel getlpercentProbab() {
 
 		if (this.lpercentprobab == null) {
-			this.lpercentprobab = new BHLabel("", "%");
+			this.lpercentprobab = new JLabel("%");
 		}
 
 		return this.lpercentprobab;

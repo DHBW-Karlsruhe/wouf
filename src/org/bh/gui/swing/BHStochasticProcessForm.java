@@ -14,7 +14,7 @@ import javax.swing.JSpinner;
 import javax.swing.JTable;
 import javax.swing.SpinnerNumberModel;
 
-import org.bh.gui.swing.BHLabel;
+import org.bh.gui.swing.BHDescriptionLabel;
 
 import com.jgoodies.forms.layout.CellConstraints;
 import com.jgoodies.forms.layout.FormLayout;

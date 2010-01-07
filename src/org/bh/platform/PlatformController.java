@@ -64,7 +64,7 @@ public class PlatformController {
 	 * 
 	 * @author Marcus Katzor
 	 */
-	public static Preferences preferences;
+	public static Preferences preferences = Preferences.userNodeForPackage(PlatformController.class);
 
 	/**
 	 * Path to the properties file
@@ -87,15 +87,6 @@ public class PlatformController {
 			.getLogger(PlatformController.class);
 
 	public PlatformController() {
-
-		/**
-		 * Try to load properties
-		 * 
-		 * @author Marcus Katzor
-		 */
-		log.debug("Loading properties");
-		preferences = Preferences.userNodeForPackage(PlatformController.class);
-
 		/*------------------------------------
 		 * Fill Repo (sample DTOs)
 		 * -----------------------------------

@@ -1,13 +1,12 @@
 package org.bh.gui.chart;
 
-import java.awt.Component;
 import java.util.List;
 
 import javax.swing.UIManager;
 
 import org.bh.gui.swing.IBHComponent;
+import org.bh.platform.IPlatformListener;
 import org.bh.platform.PlatformEvent;
-import org.bh.platform.Services;
 import org.bh.platform.PlatformEvent.Type;
 import org.bh.platform.i18n.BHTranslator;
 import org.jfree.chart.ChartFactory;
@@ -28,18 +27,16 @@ import org.jfree.data.statistics.HistogramDataset;
  * 
  */
 public class BHHistogramChart extends JFreeChart implements IBHComponent,
-		IBHAddValue {
+		IBHAddValue, IPlatformListener {
 	BHTranslator translator = BHTranslator.getInstance();
 
 	private String key;
 	private JFreeChart chart;
 	private HistogramDataset dataset;
-	private String inputHint;
 
 	protected BHHistogramChart(final String title, final String xAxis, final String yAxis,
 			final Dataset dataset, final String key, final Plot plot) {
 		super(plot);
-		Services.addPlatformListener(this);
 		this.key = key;
 		this.dataset = (HistogramDataset) dataset;
 
@@ -78,20 +75,6 @@ public class BHHistogramChart extends JFreeChart implements IBHComponent,
 		this.dataset.addSeries(key, values, bins, minimum, maximum);
 	}
 
-	/* Specified by interface/super class. */
-	@Override
-	public final Component add(final Component comp) {
-		// TODO Auto-generated method stub
-		throw new UnsupportedOperationException(
-				"This method has not been implemented");
-	}
-
-	public final boolean isTypeValid() {
-		// TODO Auto-generated method stub
-		throw new UnsupportedOperationException(
-				"This method has not been implemented");
-	}
-
 	@Override
 	public void addValue(final Number value, Comparable<String> columnKey) {
 		// TODO Auto-generated method stub
@@ -119,10 +102,6 @@ public class BHHistogramChart extends JFreeChart implements IBHComponent,
 				"This method has not been implemented");
 	}
 
-	public String getInputHint() {
-		return this.inputHint;
-	}
-
 	@Override
 	public String getBHHint() {
 		// TODO Auto-generated method stub
@@ -134,16 +113,15 @@ public class BHHistogramChart extends JFreeChart implements IBHComponent,
 	 */
 	@Override
 	public void platformEvent(PlatformEvent e) {
-		if(e.getEventType() ==Type.LOCALE_CHANGED){
+		if(e.getEventType() == Type.LOCALE_CHANGED){
 			this.reloadText();
 		}
 	}
 	
 	/**
-	 * Reset Text if necessary.
+	 * Reloads Text if necessary.
 	 */
-	@Override
-	public void reloadText() {
+	protected void reloadText() {
 		this.chart.getPlot().setNoDataMessage(translator.translate("noDataAvailable"));
 	}
 }

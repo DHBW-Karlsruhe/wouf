@@ -26,9 +26,9 @@ import com.jgoodies.forms.layout.FormLayout;
 
 public class BHProjectInputForm extends JPanel {
 
-	private BHLabel lproject;
-	private BHLabel lprojectname;
-	private BHLabel lcomment;
+	private BHDescriptionLabel lproject;
+	private BHDescriptionLabel lprojectname;
+	private BHDescriptionLabel lcomment;
 	private BHTextField tfprojectname;
 	private BHTextField tfcomment;
 
@@ -53,23 +53,23 @@ public class BHProjectInputForm extends JPanel {
 	
 	// TODO add missing label keys and translations, change hard coded values to keys
 	
-	public BHLabel getLproject() {
+	public BHDescriptionLabel getLproject() {
 		if (lproject == null) {
-			lproject = new BHLabel("project");
+			lproject = new BHDescriptionLabel("project");
 		}
 		return lproject;
 	}
 
-	public BHLabel getLcomment() {
+	public BHDescriptionLabel getLcomment() {
 		if (lcomment == null) {
-			lcomment = new BHLabel(DTOProject.Key.COMMENT);
+			lcomment = new BHDescriptionLabel(DTOProject.Key.COMMENT);
 		}
 		return lcomment;
 	}
 	
-	public BHLabel getLprojectname() {
+	public BHDescriptionLabel getLprojectname() {
 		if (lprojectname == null) {
-			lprojectname = new BHLabel(DTOProject.Key.NAME);
+			lprojectname = new BHDescriptionLabel(DTOProject.Key.NAME);
 			lprojectname.setVisible(true);
 		}
 		return lprojectname;

@@ -247,6 +247,7 @@ public class BHMainFrame extends JFrame implements IPlatformListener {
 	 * @return the current <code>BHFileChooser</code>.
 	 */
 	public BHFileChooser getChooser() {
+		chooser = new BHFileChooser();
 		return chooser;
 	}
 	

@@ -24,7 +24,7 @@ import org.apache.log4j.Logger;
 import org.bh.data.IDTO;
 import org.bh.gui.chart.IBHAddValue;
 import org.bh.gui.swing.BHButton;
-import org.bh.gui.swing.BHLabel;
+import org.bh.gui.swing.BHDescriptionLabel;
 import org.bh.gui.swing.BHStatusBar;
 import org.bh.gui.swing.BHTextField;
 import org.bh.gui.swing.IBHComponent;
@@ -73,7 +73,7 @@ public abstract class View implements MouseListener, FocusListener,
 	 * representing all BH labels and Buttons
 	 * 
 	 * @see BHButton
-	 * @see BHLabel
+	 * @see BHDescriptionLabel
 	 */
 	private Map<String, IBHComponent> bhTextComponents;
 
@@ -165,7 +165,7 @@ public abstract class View implements MouseListener, FocusListener,
 			if (comp instanceof IBHComponent) {
 				IBHComponent bhcomp = (IBHComponent) comp;
 				this.bhComponents.put(bhcomp.getKey(), bhcomp);
-				if (comp instanceof BHLabel || comp instanceof BHButton) {
+				if (comp instanceof BHDescriptionLabel || comp instanceof BHButton) {
 					this.bhTextComponents.put(bhcomp.getKey(), bhcomp);
 				} else if (comp instanceof IBHAddValue) {
 					this.bhChartComponents.put(bhcomp.getKey(),
