@@ -186,6 +186,11 @@ public class BHMainFrame extends JFrame implements IPlatformListener {
 		if (path != null) {
 			this.setTitle(this.getTitle() + " - " + path);
 		}
+		
+		if (ProjectRepositoryManager.isChanged()) {
+			String changedSuffix = " (" + Services.getTranslator().translate("changed") + ")";
+			this.setTitle(this.getTitle() + changedSuffix);
+		}
 	}
 	
 	/**
