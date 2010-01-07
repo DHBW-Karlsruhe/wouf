@@ -70,7 +70,6 @@ public class BHTextArea extends JTextArea implements IBHComponent {
 	 */
 	private void setProperties() {
 		Services.addPlatformListener(this);
-		this.putClientProperty("JComponent.sizeVariant", IBHComponent.MINI); // Minitextfield
 	}
 
 	@Override

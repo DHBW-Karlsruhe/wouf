@@ -103,7 +103,6 @@ public class BHButton extends JButton implements IBHComponent, IBHAction {
 	 */
 	private void setProperties() {
 		Services.addPlatformListener(this);
-		this.putClientProperty("JComponent.sizeVariant", IBHComponent.MINI); // Minibutton
 	}
 
 	public static List<IBHAction> getPlatformItems() {

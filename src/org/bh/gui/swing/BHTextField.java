@@ -128,7 +128,6 @@ public class BHTextField extends JTextField implements IBHModelComponent {
 	 */
 	private void setProperties() {
 		Services.addPlatformListener(this);
-		this.putClientProperty("JComponent.sizeVariant", IBHComponent.MINI); // Minitextfield
 	}
 
 	@Override

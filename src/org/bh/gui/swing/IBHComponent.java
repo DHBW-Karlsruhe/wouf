@@ -31,21 +31,6 @@ public interface IBHComponent extends IPlatformListener {
 	String MAXVALUE = "MAX_";
 
 	/**
-	 * Constant for Nimbus Look&Feel: Size for JComponent is large.
-	 */
-	String LARGE = "large";
-
-	/**
-	 * Constant for Nimbus Look&Feel: Size for JComponent is regular.
-	 */
-	String REGULAR = "regular";
-
-	/**
-	 * Constant for Nimbus Look&Feel: Size for JComponent is small.
-	 */
-	String SMALL = "small";
-
-	/**
 	 * Constant for Nimbus Look&Feel: Size for JComponent is mini.
 	 */
 	String MINI = "mini";

@@ -119,7 +119,6 @@ public class BHLabel extends JLabel implements IBHComponent {
 	 */
 	private void setProperties() {
 		Services.addPlatformListener(this);
-		this.putClientProperty("JComponent.sizeVariant", IBHComponent.MINI); // Minilabel
 	}
 
 	@Override
