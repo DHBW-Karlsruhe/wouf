@@ -85,11 +85,10 @@ class PlatformActionListener implements ActionListener {
 			break;
 
 		/*
-		 * Save the whole workspace using the already defined filepath
+		 * Save the whole workspace using the already defined filepath or ask for new path
 		 * 
 		 * @author Michael Löckelt
 		 */
-
 		case FILESAVE:
 			log.debug("handling FILESAVE event");
 			Services.firePlatformEvent(new PlatformEvent(PlatformActionListener.class, PlatformEvent.Type.SAVE));
@@ -100,18 +99,23 @@ class PlatformActionListener implements ActionListener {
 		 * 
 		 * @author Michael Löckelt
 		 */
-
 		case FILESAVEAS:
 			log.debug("handling FILESAVEAS event");
 			Services.firePlatformEvent(new PlatformEvent(PlatformActionListener.class, PlatformEvent.Type.SAVEAS));
 			break;
-
+		
+		/*
+		 * Clear workspace - same like filenew
+		 * 
+		 * @author Michael Löckelt
+		 */	
 		case FILECLOSE:
-			// TODO Loeckelt.Michael Fileclose implementieren.
+			log.debug("handling FILECLOSE event");
+			this.fileNew();
 			break;
 
 		case FILEQUIT:
-			// TODO Prüfen und ggf. implementieren!
+			log.debug("handling FILEQUIT event");
 			bhmf.dispose();
 			break;
 
@@ -347,11 +351,37 @@ class PlatformActionListener implements ActionListener {
 		}
 	}
 
+	/*
+	 * could be done with more glamour ;)
+	 */
 	private void fileNew() {
-		projectRepoManager.clearProjectList();
-		pC.setupTree(bhmf, projectRepoManager);
-		PlatformController.preferences.remove("path");
-		bhmf.resetTitle();
+		if (ProjectRepositoryManager.isChanged()) {
+			
+			int i = JOptionPane.showConfirmDialog(bhmf, Services.getTranslator().translate("Psave"));
+			
+			if (i == JOptionPane.YES_OPTION) {
+				Services.firePlatformEvent(new PlatformEvent(BHMainFrame.class, PlatformEvent.Type.SAVE));
+				projectRepoManager.clearProjectList();
+				pC.setupTree(bhmf, projectRepoManager);
+				PlatformController.preferences.remove("path");
+				bhmf.resetTitle();
+			} else if (i == JOptionPane.NO_OPTION) {
+				Logger.getLogger(getClass()).debug("Existing changes but no save wish - clear project list");
+				projectRepoManager.clearProjectList();
+				pC.setupTree(bhmf, projectRepoManager);
+				PlatformController.preferences.remove("path");
+				bhmf.resetTitle();
+			} else if (i == JOptionPane.CANCEL_OPTION) {
+				
+			}
+			
+		} else { 
+			Logger.getLogger(getClass()).debug("No changes - clear project list");
+			projectRepoManager.clearProjectList();
+			pC.setupTree(bhmf, projectRepoManager);
+			PlatformController.preferences.remove("path");
+			bhmf.resetTitle();
+		}
 	}
 
 	private void fileOpen() {
@@ -367,8 +397,6 @@ class PlatformActionListener implements ActionListener {
 			// rebuild Tree
 			pC.setupTree(bhmf, projectRepoManager);
 
-			log.debug("file " + bhmf.getChooser().getSelectedFile()
-					+ " successfully opened");
 		}
 	}
 

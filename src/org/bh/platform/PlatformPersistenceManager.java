@@ -56,7 +56,11 @@ public class PlatformPersistenceManager {
 	}
 
 	public ArrayList<DTOProject> openFile(File path) {
-		this.path = path;
+		if (!path.toString().endsWith(".bh"))
+			path = new File(path.toString() + ".bh");
+		else
+			this.path = path;
+		
 		ArrayList<DTOProject> returnRepository = new ArrayList<DTOProject>();
 
 		try {
@@ -78,19 +82,23 @@ public class PlatformPersistenceManager {
 			projectRepositoryManager.replaceProjectList(returnRepository);
 
 			// Save path to preferences
-			PlatformController.preferences.put("path", bhmf.getChooser()
-					.getSelectedFile().toString());
+			PlatformController.preferences.put("path", path.toString());
 
 			// Refresh title
 			bhmf.resetTitle();
 
 			// Set isChanged
 			ProjectRepositoryManager.setChanged(false);
+			
+
+			log.debug("file " + path.toString()
+					+ " successfully opened");
 
 			return returnRepository;
+		} catch (IOException e) {
+			log.error("IOException while opening file");
 		} catch (Exception e) {
 			log.error("Exception while opening file");
-			e.printStackTrace();
 		}
 
 		return null;
