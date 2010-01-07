@@ -13,6 +13,7 @@ import org.bh.gui.ViewException;
 import org.bh.gui.swing.BHTextField;
 import org.bh.gui.swing.IBHComponent;
 import org.bh.platform.PlatformEvent;
+import org.bh.platform.i18n.BHTranslator;
 import org.bh.plugin.xmldataexchange.xmlexport.XMLDataExportPanel;
 import org.bh.plugin.xmldataexchange.xmlexport.XMLExport;
 import org.bh.plugin.xmldataexchange.xmlimport.XMLDataImportPanel;
@@ -33,7 +34,7 @@ public class XMLDataExchangeController extends InputController {
 	{
 		XMLDataExportPanel panel = new XMLDataExportPanel();		
 		try {
-			view = new XMLDataExchangeView(panel, null, null);
+			view = new XMLDataExchangeView(panel, null, BHTranslator.getInstance());
 			setView(view);	
 		} catch (ViewException e) {
 			// TODO Auto-generated catch block
