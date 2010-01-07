@@ -10,6 +10,7 @@ import java.util.ResourceBundle;
 import javax.swing.JComponent;
 
 import org.apache.log4j.Logger;
+import org.bh.platform.PlatformController;
 import org.bh.platform.PlatformEvent;
 import org.bh.platform.Services;
 
@@ -20,25 +21,26 @@ import org.bh.platform.Services;
  * @author Thiele.Klaus
  * @version 0.1, 2009/12/12
  * @version 0.2, 2010/01/02
+ * @version 1.0 2010/01/07
  * 
  */
 public final class BHTranslator implements ITranslator {
-	
+
 	/**
-	 * Parameter for short text. 
+	 * Parameter for short text.
 	 */
 	public static final int SHORT = 0;
-	
+
 	/**
-	 * Parameter for regular text. 
+	 * Parameter for regular text.
 	 */
 	public static final int REGULAR = 1;
-	
+
 	/**
-	 * Parameter for long text. 
+	 * Parameter for long text.
 	 */
 	public static final int LONG = 2;
-	
+
 	/**
 	 * private Logging instance for log.
 	 */
@@ -53,7 +55,17 @@ public final class BHTranslator implements ITranslator {
 	 * Available <code>Locale</code>s. Only provided if corresponding properties
 	 * file is provided.
 	 */
-	private static final Locale[] availableLocales = {Locale.US, Locale.GERMANY};
+	private static final Locale[] AVAILABLE = { Locale.ENGLISH, Locale.GERMAN };
+
+	/**
+	 * Default Locale for Business Horizon.
+	 */
+	private static final Locale DEFAULT = Locale.GERMAN;
+
+	/**
+	 * Locale used for translation.
+	 */
+	private Locale locale;
 
 	/**
 	 * Singleton instance.
@@ -72,28 +84,53 @@ public final class BHTranslator implements ITranslator {
 
 	/**
 	 * Default Constructor which instantiates the <code>BHTranslator</code> with
-	 * the default <code>Locale</code>.
+	 * the default <code>Locale</code>. Private for singelton.
 	 */
 	private BHTranslator() {
-		this(Locale.getDefault());
- 	}
+		// Try to get preferred language
+		String prefLanguage = PlatformController.preferences.get("language", "initial");
 
-	/**
-	 * Alternative Constructor.
-	 * 
-	 * @param locale
-	 *            locale to be used to instantiate the <code>BHTranslator</code>
-	 */
-	private BHTranslator(Locale locale) {
-		Locale.setDefault(locale);
-		JComponent.setDefaultLocale(locale);
-		this.bundle = ResourceBundle.getBundle(BHTranslator.BHGUIKEYS);
+		// If no language has been preferred, set Locale.
+		if ("initial".equals(prefLanguage)) {
+			
+			// if OS language supported, set OS language.
+			for (Locale l : BHTranslator.AVAILABLE) {
+				if (l.getLanguage().equals(Locale.getDefault().getLanguage())) {
+					this.locale = new Locale(l.getLanguage());
+					break;
+				}
+			}
+			
+			// Still no language found, use BH default.
+			if (this.locale == null) {
+				this.locale = BHTranslator.DEFAULT;
+			}
+			
+			// Finally save invoked language to preferences.
+			PlatformController.preferences.put("language", BHTranslator.DEFAULT.getLanguage());
+			
+		} else {
+			// set preferred Locale.
+			for (Locale l : BHTranslator.AVAILABLE) {
+				if (l.getLanguage().equals(prefLanguage)) {
+					this.locale = l;
+				}
+			}
+		}
+
+		// Set locale defaults for i18n & Look&Feel.
+		Locale.setDefault(this.locale);
+		JComponent.setDefaultLocale(this.locale);
+
+		// init resource bundle instance
+		this.bundle = ResourceBundle.getBundle(BHTranslator.BHGUIKEYS, this.locale);
+
 		this.listener = new ArrayList<PropertyChangeListener>();
 		LOG.debug("Translator initialized with Locale " + this.bundle.getLocale());
 	}
 
 	/**
-	 * Returns the Singelton instance of <code>BHTranslator</code>.
+	 * Returns the Singleton instance of <code>BHTranslator</code>.
 	 * 
 	 * @return the instance.
 	 */
@@ -131,11 +168,12 @@ public final class BHTranslator implements ITranslator {
 	 * @return translated <code>String</code>
 	 */
 	public String translate(Object key, int type) {
+
 		switch (type) {
-		
+
 		case SHORT:
 			try {
-				return this.bundle.getString(key.toString()+ "_short");
+				return this.bundle.getString(key.toString() + "_short");
 			} catch (MissingResourceException e) {
 				return this.translate(key);
 			}
@@ -145,7 +183,7 @@ public final class BHTranslator implements ITranslator {
 
 		case LONG:
 			try {
-				return this.bundle.getString(key.toString()+ "_long");
+				return this.bundle.getString(key.toString() + "_long");
 			} catch (MissingResourceException e) {
 				return this.translate(key);
 			}
@@ -155,7 +193,6 @@ public final class BHTranslator implements ITranslator {
 		}
 
 	}
-	
 
 	/**
 	 * Sets a new <code>Locale</code> for further translation.
@@ -165,15 +202,16 @@ public final class BHTranslator implements ITranslator {
 	 */
 	@Override
 	public void setLocale(Locale newLocale) {
-		Locale current = Locale.getDefault();
-		
+		Locale oldLocale = this.locale;
+		this.locale = newLocale;
+
 		Locale.setDefault(newLocale);
 		JComponent.setDefaultLocale(newLocale);
 
-		this.bundle = null;
-		this.bundle = ResourceBundle.getBundle(BHTranslator.BHGUIKEYS);
-		
-		this.firePropertyChange("Locale", current, this.bundle.getLocale());
+		this.bundle = null; // TODO Thiele.Klaus: Workaround still necessary?
+		this.bundle = ResourceBundle.getBundle(BHTranslator.BHGUIKEYS, this.locale);
+
+		this.firePropertyChange("Locale", oldLocale, this.bundle.getLocale());
 	}
 
 	/**
@@ -202,8 +240,8 @@ public final class BHTranslator implements ITranslator {
 	 * Provides all available languages.
 	 */
 	@Override
-	public Locale[] getAvaiableLocales() {
-		return BHTranslator.availableLocales;
+	public Locale[] getAvailableLocales() {
+		return BHTranslator.AVAILABLE;
 	}
 
 	/**
@@ -215,9 +253,10 @@ public final class BHTranslator implements ITranslator {
 	}
 
 	/**
-	 * Remove a PropertyChangeListener.
+	 * Removes a PropertyChangeListener.
 	 * 
-	 * @param l Listener to be added.
+	 * @param l
+	 *            Listener to be added.
 	 */
 	@Override
 	public void removePropertyChangeListener(PropertyChangeListener l) {
@@ -239,8 +278,10 @@ public final class BHTranslator implements ITranslator {
 
 		// for each listener call propertyChange with proper attributes
 		for (PropertyChangeListener l : this.listener) {
-			l.propertyChange(new PropertyChangeEvent(this, key, oldValue,newValue));
+			l.propertyChange(new PropertyChangeEvent(this, key, oldValue,
+					newValue));
 		}
-		Services.firePlatformEvent(new PlatformEvent(BHTranslator.class, PlatformEvent.Type.LOCALE_CHANGED));
+		Services.firePlatformEvent(new PlatformEvent(BHTranslator.class,
+				PlatformEvent.Type.LOCALE_CHANGED));
 	}
 }

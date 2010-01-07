@@ -14,6 +14,7 @@ import javax.swing.ListCellRenderer;
 import javax.swing.WindowConstants;
 
 import org.bh.platform.IPlatformListener;
+import org.bh.platform.PlatformController;
 import org.bh.platform.PlatformEvent;
 import org.bh.platform.Services;
 import org.bh.platform.PlatformEvent.Type;
@@ -22,12 +23,13 @@ import org.bh.platform.i18n.BHTranslator;
 import com.jgoodies.forms.layout.CellConstraints;
 import com.jgoodies.forms.layout.FormLayout;
 
-public class BHOptionDialog extends JDialog implements ActionListener, IPlatformListener {
+public class BHOptionDialog extends JDialog implements ActionListener,
+		IPlatformListener {
 
 	private CellConstraints cons;
 
 	private BHLabel language;
-	JComboBox combo;
+	private JComboBox combo;
 	private BHButton apply;
 
 	public BHOptionDialog() {
@@ -40,13 +42,11 @@ public class BHOptionDialog extends JDialog implements ActionListener, IPlatform
 		cons = new CellConstraints();
 
 		// create select language components
-		language = new BHLabel("MoptionsLanguage", BHTranslator.getInstance().translate(
-				"MoptionsLanguage"));
+		language = new BHLabel("MoptionsLanguage", BHTranslator.getInstance().translate("MoptionsLanguage"));
 
-		combo = new JComboBox(Services.getTranslator().getAvaiableLocales());
+		combo = new JComboBox(Services.getTranslator().getAvailableLocales());
 		combo.setRenderer(new BHLanguageRenderer());
 		combo.setSelectedItem(Services.getTranslator().getLocale());
-		
 
 		apply = new BHButton("Bapply");
 		apply.setText(BHTranslator.getInstance().translate("Bapply"));
@@ -70,32 +70,57 @@ public class BHOptionDialog extends JDialog implements ActionListener, IPlatform
 
 	@Override
 	public void actionPerformed(ActionEvent e) {
+		PlatformController.preferences.put("language", ((Locale) combo
+				.getSelectedItem()).getLanguage());
 		Services.getTranslator().setLocale((Locale) combo.getSelectedItem());
-	}
-	
-	public class BHLanguageRenderer implements ListCellRenderer {
-		private JLabel l = null;
-		
-		public BHLanguageRenderer() {
-			l = new JLabel();
-			l.setPreferredSize(new Dimension(l.getPreferredSize().width, 30));
-		}
-		@Override
-		public Component getListCellRendererComponent(JList list, Object value,
-				int index, boolean isSelected, boolean cellHasFocus) {
-			
-			l.setText(((Locale) value).getDisplayLanguage(Services.getTranslator().getLocale()));
-			return l;
-			
-		}
-			
 	}
 
 	@Override
 	public void platformEvent(PlatformEvent e) {
 		if (e.getEventType() == Type.LOCALE_CHANGED) {
-			BHTranslator.getInstance().translate("MoptionsDialog");
+			Services.getTranslator().translate("MoptionsDialog");
 			combo.revalidate();
+			combo.repaint();
 		}
+	}
+
+	/**
+	 * Renderer for Locales in Options combobox.
+	 * 
+	 * <p>
+	 * This class implementing the <code>ListCellRenderer</code> Interface
+	 * provides a stamp like method for the Languages.
+	 * 
+	 * @author klaus
+	 * @version 1.0, Jan 7, 2010
+	 * 
+	 */
+	public class BHLanguageRenderer implements ListCellRenderer {
+		
+		/**
+		 * <code>JLabel</code> to be used for every item.
+		 */
+		private JLabel l = null;
+
+		/**
+		 * Default constructor.
+		 */
+		public BHLanguageRenderer() {
+			l = new JLabel();
+			l.setPreferredSize(new Dimension(l.getPreferredSize().width, 30));
+		}
+		/**
+		 * Method to return a Component for each item of the List.
+		 */
+		@Override
+		public Component getListCellRendererComponent(JList list, Object value,
+				int index, boolean isSelected, boolean cellHasFocus) {
+
+			l.setText(((Locale) value).getDisplayLanguage(Services
+					.getTranslator().getLocale()));
+			return l;
+
+		}
+
 	}
 }

@@ -9,6 +9,7 @@ import java.util.Locale;
  * 
  * @author Thiele.Klaus
  * @version 0.1, Dec 6, 2009
+ * @versio 1.0, 2010/01/07
  * 
  */
 public interface ITranslator {
@@ -61,7 +62,7 @@ public interface ITranslator {
 	 * @return available languages
 	 */
 
-	Locale[] getAvaiableLocales();
+	Locale[] getAvailableLocales();
 
 	/**
 	 * Add a PropertyChangeListener.
