@@ -9,6 +9,7 @@ import javax.swing.UIManager;
 import org.bh.gui.swing.IBHComponent;
 import org.bh.platform.PlatformEvent;
 import org.bh.platform.Services;
+import org.bh.platform.PlatformEvent.Type;
 import org.bh.platform.i18n.BHTranslator;
 import org.jfree.chart.ChartFactory;
 import org.jfree.chart.JFreeChart;
@@ -133,7 +134,9 @@ public class BHPieChart extends JFreeChart implements IBHComponent, IBHAddValue 
 	 */
 	@Override
 	public void platformEvent(PlatformEvent e) {
-		// TODO Zuckschwert.Lars
+		if(e.getEventType()==Type.LOCALE_CHANGED){
+			this.reloadText();
+		}
 	}
 	
 	/**
@@ -141,7 +144,7 @@ public class BHPieChart extends JFreeChart implements IBHComponent, IBHAddValue 
 	 */
 	@Override
 	public void reloadText() {
-		// TODO Zuckschwert.Lars
+		this.chart.getPlot().setNoDataMessage(translator.translate("noDataAvailable"));
 	}
 
 }
