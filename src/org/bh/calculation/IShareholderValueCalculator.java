@@ -20,6 +20,8 @@ public interface IShareholderValueCalculator extends IDisplayablePlugin {
 	 * value.
 	 */
 	final String SHAREHOLDER_VALUE = "sv";
+	final String DEBT = "fk";
+	final String FREE_CASH_FLOW = "fcf";
 
 	/**
 	 * This method calculates the shareholder value and possibly other values.

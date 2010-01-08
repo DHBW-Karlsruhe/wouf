@@ -33,12 +33,6 @@ public class APVCalculator implements IShareholderValueCalculator {
 	private static final String GUI_KEY = "apv";
 
 	public enum Result {
-
-		/**
-		 * The Shareholder Value Calculated with APV Method </br><b>Array</b>
-		 * but only first value [0] interesting
-		 */
-		SHAREHOLDER_VALUE,
 		/**
 		 * Present Value of the not debted enterprise. </br><b>Array</b> but
 		 * only first value [0] interesting
@@ -117,6 +111,8 @@ public class APVCalculator implements IShareholderValueCalculator {
 			}
 		}
 		Map<String, Calculable[]> result = new HashMap<String, Calculable[]>();
+		result.put(DEBT, fk);
+		result.put(FREE_CASH_FLOW, fcf);
 		result.put(SHAREHOLDER_VALUE, uw);
 		result.put(Result.PRESENT_VALUE_FCF.name(), presentValueFCF);
 		result.put(Result.PRESENT_VALUE_TAX_SHIELD.name(),
@@ -163,10 +159,10 @@ public class APVCalculator implements IShareholderValueCalculator {
 	// PresentValueTaxShield[T] = (s * FKr * FK[T]) / FKr
 	private Calculable calcPresentValueTaxShieldEndless(Calculable s,
 			Calculable FKr, Calculable FK) {
-		if (log.isDebugEnabled()) {
-			log.debug("PVTSEndless (s * FKr * FK[T]) / FKr): "
-					+ s.mul(FKr).mul(FK).div(FKr));
-		}
+//		if (log.isDebugEnabled()) {
+//			log.debug("PVTSEndless (s * FKr * FK[T]) / FKr): "
+//					+ s.mul(FKr).mul(FK).div(FKr));
+//		}
 		return s.mul(FKr).mul(FK).div(FKr);
 	}
 
@@ -178,13 +174,13 @@ public class APVCalculator implements IShareholderValueCalculator {
 		for (int i = PVTS.length - 2; i >= 0; i--) {
 			PVTS[i] = (PVTS[i + 1].add(s.mul(FKr).mul(FK[i + 1 - 1]))).div(FKr
 					.add(new DoubleValue(1)));
-			if (log.isDebugEnabled()) {
-				log
-						.debug("PVTS["
-								+ i
-								+ "] (PresentValueTaxShield[t + 1] + (s * FKr * FK[t])) / (FKr + 1): "
-								+ PVTS[i]);
-			}
+//			if (log.isDebugEnabled()) {
+//				log
+//						.debug("PVTS["
+//								+ i
+//								+ "] (PresentValueTaxShield[t + 1] + (s * FKr * FK[t])) / (FKr + 1): "
+//								+ PVTS[i]);
+//			}
 		}
 		return PVTS;
 	}

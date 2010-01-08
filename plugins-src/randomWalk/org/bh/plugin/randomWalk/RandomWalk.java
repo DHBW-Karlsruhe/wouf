@@ -22,21 +22,26 @@ import org.bh.data.types.Calculable;
 import org.bh.data.types.DistributionMap;
 import org.bh.data.types.DoubleValue;
 import org.bh.data.types.IValue;
+
 import org.bh.data.types.IntegerValue;
 import org.bh.gui.swing.BHDescriptionLabel;
 import org.bh.gui.swing.BHTextField;
 import org.bh.platform.Services;
 import org.bh.platform.i18n.ITranslator;
+
 import org.bh.validation.VRIsInteger;
 import org.bh.validation.VRIsPositive;
 import org.bh.validation.VRMandatory;
 import org.bh.validation.ValidationRule;
 
-
 import com.jgoodies.forms.layout.CellConstraints;
 import com.jgoodies.forms.layout.FormLayout;
 import com.jgoodies.forms.layout.RowSpec;
 
+
+//import org.bh.plugin.directinput.DTODirectInput;
+//import org.bh.data.types.StringValue;
+//import java.util.Iterator;
 /**
  * This class provides the functionality to process the Random Walk on every value which
  * should be determined stochastically.
@@ -84,7 +89,10 @@ public class RandomWalk implements IStochasticProcess {
 			for (DTOKeyPair key : stochasticKeys) {
 				IPeriodicalValuesDTO pvdto = clone.getPeriodicalValuesDTO(key
 						.getDtoId());
-				pvdto.put(key.getKey(), this.doOneRandomWalk(previous
+				IPeriodicalValuesDTO previousDto = previous.getPeriodicalValuesDTO(key
+						.getDtoId());
+				
+				pvdto.put(key.getKey(), this.doOneRandomWalk(previousDto
 						.getCalculable(key.getKey()),
 						map.get(STEPS_PER_PERIOD),
 						(Calculable) this.internalMap
@@ -100,7 +108,9 @@ public class RandomWalk implements IStochasticProcess {
 				for (DTOKeyPair key : stochasticKeys) {
 					IPeriodicalValuesDTO pvdto = clone
 							.getPeriodicalValuesDTO(key.getDtoId());
-					pvdto.put(key.getKey(), this.doOneRandomWalk(previous
+					IPeriodicalValuesDTO previousDto = previous.getPeriodicalValuesDTO(key
+							.getDtoId());
+					pvdto.put(key.getKey(), this.doOneRandomWalk(previousDto
 							.getCalculable(key.getKey()), map
 							.get(STEPS_PER_PERIOD),
 							(Calculable) this.internalMap.get(key.getKey()
@@ -332,15 +342,8 @@ public class RandomWalk implements IStochasticProcess {
 
 		RandomWalk rw = new RandomWalk();
 		rw.setScenario(scenario);
-		
-		JFrame test = new JFrame();
-		test.setContentPane(rw.calculateParameters());
-		test.pack();
-		test.show();
-		
+		rw.calculateParameters();
 		DistributionMap dm = rw.calculate();
-		
-		
 
 		Iterator<Entry<java.lang.Double, Integer>> iter = dm.iterator();
 		System.out.println("Key 0");
@@ -357,5 +360,5 @@ public class RandomWalk implements IStochasticProcess {
 			System.out.println(entry.getValue());
 		}
 	}
-*/
+	*/
 }

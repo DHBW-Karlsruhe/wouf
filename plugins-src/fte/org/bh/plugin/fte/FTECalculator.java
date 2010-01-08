@@ -30,11 +30,6 @@ public class FTECalculator implements IShareholderValueCalculator {
 
 	public enum Result {
 		/**
-		 * The Shareholder Value Calculated with APV Method </br><b>Array</b>
-		 * but only first value [0] interesting
-		 */
-		SHAREHOLDER_VALUE,
-		/**
 		 * The advantage for the present value when having debts.
 		 * </br><b>Array</b> but only first value [0] interesting
 		 */
@@ -203,6 +198,9 @@ public class FTECalculator implements IShareholderValueCalculator {
 
 		Map<String, Calculable[]> result = new HashMap<String, Calculable[]>();
 		result.put(SHAREHOLDER_VALUE, uw);
+		result.put(DEBT, fk);
+		result.put(FREE_CASH_FLOW, fcf);
+		
 		result.put(Result.PRESENT_VALUE_TAX_SHIELD.name(),
 				PresentValueTaxShield);
 		result.put(Result.FLOW_TO_EQUITY_INTEREST.name(), FTEInterest);

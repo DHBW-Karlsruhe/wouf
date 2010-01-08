@@ -2,6 +2,7 @@ package org.bh.plugin.wienerProcess;
 
 import java.awt.Component;
 import java.util.HashMap;
+
 import java.util.List;
 import java.util.Map;
 import java.util.Random;
@@ -22,20 +23,25 @@ import org.bh.data.types.Calculable;
 import org.bh.data.types.DistributionMap;
 import org.bh.data.types.DoubleValue;
 import org.bh.data.types.IValue;
+
 import org.bh.data.types.IntegerValue;
 import org.bh.gui.swing.BHDescriptionLabel;
 import org.bh.gui.swing.BHTextField;
 import org.bh.platform.Services;
 import org.bh.platform.i18n.ITranslator;
+
 import org.bh.validation.VRIsInteger;
 import org.bh.validation.VRIsPositive;
 import org.bh.validation.VRMandatory;
 import org.bh.validation.ValidationRule;
 
-
 import com.jgoodies.forms.layout.CellConstraints;
 import com.jgoodies.forms.layout.FormLayout;
 import com.jgoodies.forms.layout.RowSpec;
+
+//import org.bh.data.types.StringValue;
+//import org.bh.plugin.directinput.DTODirectInput;
+//import java.util.Iterator;
 /**
  * This class provides the functionality to process the Wiener Process on every value which
  * should be determined stochastically.
@@ -84,7 +90,9 @@ public class WienerProcess implements IStochasticProcess {
 			for (DTOKeyPair key : stochasticKeys) {
 				IPeriodicalValuesDTO pvdto = clone.getPeriodicalValuesDTO(key
 						.getDtoId());
-				pvdto.put(key.getKey(), this.doOneWienerProcess(previous
+				IPeriodicalValuesDTO previousDto = previous.getPeriodicalValuesDTO(key
+						.getDtoId());
+				pvdto.put(key.getKey(), this.doOneWienerProcess(previousDto
 						.getCalculable(key.getKey()), map.get(STEPS_PER_PERIOD),
 						(Calculable) this.internalMap.get(key.getKey() + STANDARD_DEVIATION),
 						(Calculable) this.internalMap.get(key.getKey() + SLOPE)));
@@ -97,7 +105,9 @@ public class WienerProcess implements IStochasticProcess {
 				for (DTOKeyPair key : stochasticKeys) {
 					IPeriodicalValuesDTO pvdto = clone
 							.getPeriodicalValuesDTO(key.getDtoId());
-					pvdto.put(key.getKey(), this.doOneWienerProcess(previous
+					IPeriodicalValuesDTO previousDto = previous.getPeriodicalValuesDTO(key
+							.getDtoId());
+					pvdto.put(key.getKey(), this.doOneWienerProcess(previousDto
 							.getCalculable(key.getKey()), map.get(STEPS_PER_PERIOD),
 							(Calculable) this.internalMap.get(key.getKey()
 									+ STANDARD_DEVIATION), (Calculable) this.internalMap
@@ -105,9 +115,9 @@ public class WienerProcess implements IStochasticProcess {
 				}
 				temp.addChild(clone);
 			}
-
+			
 			result
-					.put(((DoubleValue) Services.getDCFMethod("apv").calculate(
+					.put(((DoubleValue) scenario.getDCFMethod().calculate(
 							temp).get(
 							IShareholderValueCalculator.SHAREHOLDER_VALUE)[0])
 							.getValue());
@@ -170,6 +180,8 @@ public class WienerProcess implements IStochasticProcess {
 				Calculable standardDeviation = calcStandardDeviation(e
 						.getValue());
 				Calculable slope = calcSlope(e.getValue());
+				internalMap.put(e.getKey().getKey() + SLOPE, slope);
+				internalMap.put(e.getKey().getKey() + STANDARD_DEVIATION, standardDeviation);
 				
 				layout.appendRow(RowSpec.decode("p"));
 				layout.appendRow(RowSpec.decode("4px"));
@@ -232,8 +244,10 @@ public class WienerProcess implements IStochasticProcess {
 		Calculable d = calcSlope(inputValues);
 		Calculable sum = new DoubleValue(0);
 		for (int i = 0; i < inputValues.size() - 1; i++) {
-			sum = sum
-					.add(inputValues.get(i + 1).sub(inputValues.get(i)).sub(d));
+//			Calculable x = inputValues.get(i + 1).sub(inputValues.get(i)).sub(d).pow(new IntegerValue(2));
+//			sum = sum
+//					.add(x);
+			sum = sum.add(inputValues.get(i + 1).sub(inputValues.get(i)).sub(d));
 		}
 		Calculable result = (sum.div(new IntegerValue(inputValues.size())))
 				.sqrt();
@@ -243,9 +257,10 @@ public class WienerProcess implements IStochasticProcess {
 	private Calculable doOneWienerProcess(Calculable lastValue,
 			int amountOfSteps, Calculable standardDeviation, Calculable slope) {
 		Random r = new Random();
-		Calculable deltaT = new DoubleValue(1 / amountOfSteps);
+		Calculable deltaT = new DoubleValue(1.0 / amountOfSteps);
 		Calculable value = lastValue;
 		for(int i = 0; i < amountOfSteps; i++){
+			// Xt+dT = Xt + d * dT + (standardA * dTsqrt * eps)
 			value = value.add(slope.mul(deltaT))
 					.add(standardDeviation.mul(deltaT.sqrt()).mul(
 							new DoubleValue(r.nextGaussian())));
@@ -277,9 +292,8 @@ public class WienerProcess implements IStochasticProcess {
 		scenario.put(DTOScenario.Key.DCF_METHOD, new StringValue("apv"));
 
 		DTODirectInput di0 = new DTODirectInput();
-		di0.put(DTODirectInput.Key.FCF, StochasticValue.INSTANCE);
-		di0.put(DTODirectInput.Key.LIABILITIES, StochasticValue.INSTANCE);
 		DTOPeriod period0 = new DTOPeriod();
+		period0.put(DTOPeriod.Key.NAME, new StringValue("Test"));
 		period0.addChild(di0);
 		scenario.addChild(period0);
 
@@ -287,6 +301,7 @@ public class WienerProcess implements IStochasticProcess {
 		di.put(DTODirectInput.Key.FCF, new DoubleValue(130));
 		di.put(DTODirectInput.Key.LIABILITIES, new DoubleValue(1200));
 		DTOPeriod period1 = new DTOPeriod();
+		period1.put(DTOPeriod.Key.NAME, new StringValue("Test"));
 		period1.addChild(di);
 		scenario.addChild(period1);
 
@@ -294,6 +309,7 @@ public class WienerProcess implements IStochasticProcess {
 		di2.put(DTODirectInput.Key.FCF, new DoubleValue(105));
 		di2.put(DTODirectInput.Key.LIABILITIES, new DoubleValue(1050));
 		DTOPeriod period2 = new DTOPeriod();
+		period2.put(DTOPeriod.Key.NAME, new StringValue("Test"));
 		period2.addChild(di2);
 		scenario.addChild(period2);
 
@@ -301,6 +317,7 @@ public class WienerProcess implements IStochasticProcess {
 		di3.put(DTODirectInput.Key.FCF, new DoubleValue(90));
 		di3.put(DTODirectInput.Key.LIABILITIES, new DoubleValue(1100));
 		DTOPeriod period3 = new DTOPeriod();
+		period3.put(DTOPeriod.Key.NAME, new StringValue("Test"));
 		period3.addChild(di3);
 		scenario.addChild(period3);
 
@@ -308,6 +325,7 @@ public class WienerProcess implements IStochasticProcess {
 		di4.put(DTODirectInput.Key.FCF, new DoubleValue(100));
 		di4.put(DTODirectInput.Key.LIABILITIES, new DoubleValue(1000));
 		DTOPeriod period4 = new DTOPeriod();
+		period4.put(DTOPeriod.Key.NAME, new StringValue("Test"));
 		period4.addChild(di4);
 		scenario.addChild(period4);
 

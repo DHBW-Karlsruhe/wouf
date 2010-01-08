@@ -29,11 +29,6 @@ public class FCFCalculator implements IShareholderValueCalculator {
 
 	public enum Result {
 		/**
-		 * The Shareholder Value Calculated with APV Method </br><b>Array</b>
-		 * but only first value [0] interesting
-		 */
-		SHAREHOLDER_VALUE,
-		/**
 		 * Present Value of the not debted enterprise. </br><b>Array</b> but
 		 * only first value [0] interesting
 		 */
@@ -182,6 +177,8 @@ public class FCFCalculator implements IShareholderValueCalculator {
 
 		Map<String, Calculable[]> result = new HashMap<String, Calculable[]>();
 		result.put(SHAREHOLDER_VALUE, uw);
+		result.put(DEBT, fk);
+		result.put(FREE_CASH_FLOW, fcf);
 		result.put(Result.PRESENT_VALUE_FCF.name(), FCFPresentValueTaxShield);
 		result.put(Result.EQUITY_RETURN_RATE_FCF.name(), EKrFCF);
 		result.put(Result.DEBT_TO_EQUITY_RATIO.name(), calcDebtToEquityRatio(
