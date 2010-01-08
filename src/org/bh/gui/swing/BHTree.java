@@ -187,7 +187,6 @@ public class BHTree extends JTree{
 		public void platformEvent(PlatformEvent e) {
 			if(e.getEventType() == PlatformEvent.Type.DATA_CHANGED){
 
-				treeModel.reload();
 				
 			}
 		}
