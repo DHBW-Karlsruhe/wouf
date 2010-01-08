@@ -5,6 +5,7 @@ import java.util.ServiceLoader;
 
 import org.apache.log4j.Logger;
 import org.bh.calculation.ICalculationPreparer;
+import org.bh.controller.IPeriodController;
 import org.bh.data.types.Calculable;
 import org.bh.data.types.IValue;
 import org.bh.platform.PluginManager;
@@ -39,7 +40,12 @@ public class DTOPeriod extends DTO<IPeriodicalValuesDTO> {
 		/**
 		 * FreeCashFlow
 		 */
-		@Method FCF;
+		@Method FCF,
+		
+		/**
+		 * The {@link IPeriodController} which manages this period.
+		 */
+		CONTROLLER;
 		
 		@Override
 		public String toString() {

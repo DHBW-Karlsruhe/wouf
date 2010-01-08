@@ -64,7 +64,8 @@ public class PlatformController {
 	 * 
 	 * @author Marcus Katzor
 	 */
-	public static Preferences preferences = Preferences.userNodeForPackage(PlatformController.class);
+	public static Preferences preferences = Preferences
+			.userNodeForPackage(PlatformController.class);
 
 	/**
 	 * Path to the properties file
@@ -72,7 +73,7 @@ public class PlatformController {
 	 * @author Marcus Katzor
 	 */
 	private static final String propertiesFilePath = "";
-	
+
 	/**
 	 * PlatformPersistenceManager Instance
 	 * 
@@ -116,7 +117,8 @@ public class PlatformController {
 		 * -----------------------------------
 		 */
 		bhmf = new BHMainFrame();
-		
+		Services.setBHMainFrame(bhmf);
+
 		/*------------------------------------
 		 * fill Project/Scenario/Period-Tree
 		 * -----------------------------------
@@ -139,36 +141,40 @@ public class PlatformController {
 		for (IBHAction item : BHMenuItem.getPlatformItems()) {
 			item.addActionListener(pal);
 		}
-		
+
 		/*
 		 * Create a new Persistence instance
 		 * 
 		 * @author Loeckelt.Michael
 		 */
-		platformPersistenceManager = new PlatformPersistenceManager(bhmf,projectRepoManager);
-		
+		platformPersistenceManager = new PlatformPersistenceManager(bhmf,
+				projectRepoManager);
+
 		// Fire event.
-		Services.firePlatformEvent(new PlatformEvent(this, Type.PLATFORM_LOADING_COMPLETED));
-		
+		Services.firePlatformEvent(new PlatformEvent(this,
+				Type.PLATFORM_LOADING_COMPLETED));
+
 		/*
 		 * last edited file dialog
 		 * 
 		 * @author Thiele.Klaus
+		 * 
 		 * @author Loeckelt.Michael
 		 */
 		String lastFile = PlatformController.preferences.get("path", "");
 		if (!lastFile.equals("")) {
-			int action = JOptionPane.showConfirmDialog(bhmf, Services.getTranslator().translate("PlastFile"),"" , JOptionPane.YES_NO_OPTION);
-			
+			int action = JOptionPane.showConfirmDialog(bhmf, Services
+					.getTranslator().translate("PlastFile"), "",
+					JOptionPane.YES_NO_OPTION);
+
 			if (action == JOptionPane.YES_OPTION) {
 				File tmpFile = new File(lastFile);
 				PlatformController.platformPersistenceManager.openFile(tmpFile);
-				
+
 				// rebuild Tree
 				setupTree(bhmf, projectRepoManager);
 				bhmf.getBHTree().expandAll();
-			}
-			else if (action == JOptionPane.NO_OPTION) {
+			} else if (action == JOptionPane.NO_OPTION) {
 				PlatformController.preferences.remove("path");
 				bhmf.resetTitle();
 			}
@@ -238,15 +244,15 @@ public class PlatformController {
 			SwingUtilities.invokeLater(new Runnable() {
 				@Override
 				public void run() {
-					if(tse.getPath().getLastPathComponent() instanceof BHTreeNode){
+					if (tse.getPath().getLastPathComponent() instanceof BHTreeNode) {
 						DTO<?> selection = (DTO<?>) ((BHTreeNode) tse.getPath()
 								.getLastPathComponent()).getUserObject();
 						if (selection instanceof DTOProject) {
 							try {
-								View view = new BHProjectView(new BHProjectInputForm());
+								View view = new BHProjectView(
+										new BHProjectInputForm());
 								IDTO<?> model = selection;
-								controller = new InputController(
-										view, model);
+								controller = new InputController(view, model);
 								bhmf.addContentForms(view.getViewPanel());
 								controller.loadAllToView();
 
@@ -259,19 +265,25 @@ public class PlatformController {
 								View view = null;
 								IDTO<?> model = selection;
 
-								//find out if stochastic process was chosen at init of strategy
-								try{
-									selection.get(DTOScenario.Key.STOCHASTIC_PROCESS);
-									//when value is set -> next command will be processed (else: not, but Exception)
-									view = new BHScenarioView(new BHScenarioForm(BHScenarioForm.Type.STOCHASTIC));
-								}catch(DTOAccessException e){
-									//Answer: no
-									view = new BHScenarioView(new BHScenarioForm(BHScenarioForm.Type.DETERMINISTIC));
+								// find out if stochastic process was chosen at
+								// init of strategy
+								try {
+									selection
+											.get(DTOScenario.Key.STOCHASTIC_PROCESS);
+									// when value is set -> next command will be
+									// processed (else: not, but Exception)
+									view = new BHScenarioView(
+											new BHScenarioForm(
+													BHScenarioForm.Type.STOCHASTIC));
+								} catch (DTOAccessException e) {
+									// Answer: no
+									view = new BHScenarioView(
+											new BHScenarioForm(
+													BHScenarioForm.Type.DETERMINISTIC));
 								}
-								
+
 								bhmf.addContentForms(view.getViewPanel());
-								controller = new InputController(
-										view, model);
+								controller = new InputController(view, model);
 
 								BHComboBox cbDcfMethod = (BHComboBox) view
 										.getBHComponent(DTOScenario.Key.DCF_METHOD);
@@ -280,8 +292,8 @@ public class PlatformController {
 								ArrayList<BHComboBox.Item> items = new ArrayList<BHComboBox.Item>();
 								for (IShareholderValueCalculator dcfMethod : dcfMethods) {
 									items.add(new BHComboBox.Item(dcfMethod
-											.getGuiKey(), new StringValue(dcfMethod
-											.getUniqueId())));
+											.getGuiKey(), new StringValue(
+											dcfMethod.getUniqueId())));
 								}
 								cbDcfMethod.setSorted(true);
 								cbDcfMethod.setValueList(items
@@ -294,11 +306,10 @@ public class PlatformController {
 							}
 
 						} else if (selection instanceof DTOPeriod) {
-							// TODO Schmalzhaf.Alexander muss noch implementiert
-							// werden
+							Services.startPeriodEditing((DTOPeriod) selection);
 						}
 					}
-					
+
 				}
 			});
 		}

@@ -1,16 +1,17 @@
 package org.bh.plugin.directinput;
 
-import java.awt.GridLayout;
 import java.util.List;
 
-import javax.swing.JLabel;
 import javax.swing.JPanel;
-import javax.swing.JTextField;
 
+import org.apache.log4j.Logger;
 import org.bh.controller.IPeriodController;
+import org.bh.controller.InputController;
 import org.bh.data.DTOKeyPair;
 import org.bh.data.DTOPeriod;
-import org.bh.data.types.DoubleValue;
+import org.bh.data.IPeriodicalValuesDTO;
+import org.bh.gui.View;
+import org.bh.gui.ViewException;
 import org.bh.platform.Services;
 
 public class DirectInputController implements IPeriodController {
@@ -20,43 +21,25 @@ public class DirectInputController implements IPeriodController {
 			.getStochasticKeysFromEnum(DTODirectInput.getUniqueIdStatic(),
 					DTODirectInput.Key.values());
 
-	DTODirectInput dto;
-	JTextField fcf;
-	JTextField liabilities;
-	boolean isInited = false;
+	private static final Logger log = Logger.getLogger(DirectInputController.class);
 
 	@Override
 	public void editDTO(DTOPeriod period, JPanel panel) {
-		while (period.getChildrenSize() > 0)
-			period.removeChild(0);
+		IPeriodicalValuesDTO model = period.getPeriodicalValuesDTO(DTODirectInput.getUniqueIdStatic());
+		if (model == null) {
+			model = new DTODirectInput();
+			period.removeAllChildren();
+			period.addChild(model);
+		}
 
-		dto = new DTODirectInput();
-		period.addChild(dto);
-
-		panel.setLayout(new GridLayout(2, 2));
-
-		panel.add(new JLabel("FCF"));
-		fcf = new JTextField("0");
-		panel.add(fcf);
-
-		panel.add(new JLabel("Liabilities"));
-		liabilities = new JTextField("0");
-		panel.add(liabilities);
-
-		panel.getRootPane().validate();
-		isInited = true;
-	}
-
-	@Override
-	public void stopEditing() {
-		if (!isInited)
-			return;
-
-		dto.put(DTODirectInput.Key.FCF, new DoubleValue(Double.parseDouble(fcf
-				.getText())));
-		dto.put(DTODirectInput.Key.LIABILITIES, new DoubleValue(Double
-				.parseDouble(liabilities.getText())));
-		// dto = null;
+		try {
+			View view = new DirectInputView();
+			panel.add(view.getViewPanel());
+			InputController controller = new InputController(view, model);
+			controller.loadAllToView();
+		} catch (ViewException e) {
+			log.error("Could not create view", e);
+		}
 	}
 
 	@Override

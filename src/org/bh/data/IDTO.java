@@ -91,6 +91,11 @@ public interface IDTO<ChildT extends IDTO> extends Cloneable, Serializable, Iter
 	public ChildT removeChild(int index) throws DTOAccessException;
 	
 	/**
+	 * Removes all children from this DTO.
+	 */
+	public void removeAllChildren();
+	
+	/**
 	 * Returns the number of children assigned to this DTO.
 	 * @return Number of children.
 	 */

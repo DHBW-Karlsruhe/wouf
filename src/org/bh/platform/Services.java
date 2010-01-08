@@ -1,6 +1,7 @@
 package org.bh.platform;
 
 import java.awt.Color;
+import java.awt.FlowLayout;
 import java.lang.reflect.Field;
 import java.net.URL;
 import java.util.ArrayList;
@@ -10,6 +11,7 @@ import java.util.Map;
 import java.util.ServiceLoader;
 
 import javax.swing.ImageIcon;
+import javax.swing.JPanel;
 import javax.swing.UIManager;
 import javax.swing.UIManager.LookAndFeelInfo;
 import javax.swing.event.EventListenerList;
@@ -19,7 +21,9 @@ import org.bh.calculation.IShareholderValueCalculator;
 import org.bh.calculation.IStochasticProcess;
 import org.bh.controller.IPeriodController;
 import org.bh.data.DTOKeyPair;
+import org.bh.data.DTOPeriod;
 import org.bh.data.DTO.Stochastic;
+import org.bh.gui.swing.BHMainFrame;
 import org.bh.gui.swing.BHStatusBar;
 import org.bh.platform.i18n.BHTranslator;
 import org.bh.platform.i18n.ITranslator;
@@ -37,6 +41,11 @@ public class Services {
 	private static HashMap<String, IShareholderValueCalculator> dcfMethods;
 	private static HashMap<String, IStochasticProcess> stochasticProcesses;
 	private static HashMap<String, IPeriodController> periodControllers;
+	private static BHMainFrame bhmf = null;
+
+	public static void setBHMainFrame(BHMainFrame bhmf) {
+		Services.bhmf = bhmf;
+	}
 
 	/*
 	 * --------------------------------------- Platform Event Handling
@@ -228,5 +237,16 @@ public class Services {
 		Logger.getLogger(Services.class).debug("Could not find icon " + path);
 		return null;
 
+	}
+
+	public static void startPeriodEditing(DTOPeriod period) {
+		// TODO Schmalzhaf.Alexander es gibt kein Panel, das ich greifen
+		// kann vom bhmf -> muss eigenes erzeugen
+		JPanel panel = new JPanel();
+		panel.setLayout(new FlowLayout(FlowLayout.LEFT));
+		bhmf.addContentForms(panel);
+		Services.getPeriodController(
+				period.get(DTOPeriod.Key.CONTROLLER).toString()).editDTO(
+				(DTOPeriod) period, panel);
 	}
 }

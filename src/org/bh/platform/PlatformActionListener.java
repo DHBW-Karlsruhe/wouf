@@ -9,7 +9,6 @@ import java.util.Comparator;
 import javax.swing.JDialog;
 import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
-import javax.swing.JPanel;
 import javax.swing.WindowConstants;
 import javax.swing.tree.TreePath;
 
@@ -514,6 +513,7 @@ class PlatformActionListener implements ActionListener {
 			DTOPeriod newPeriod = new DTOPeriod();
 			// TODO hardgecodeder String raus! AS
 			newPeriod.put(DTOPeriod.Key.NAME, new StringValue("neue Periode"));
+			newPeriod.put(DTOPeriod.Key.CONTROLLER, new StringValue(res.getKey()));
 
 			// ...add it to DTO-Repository
 			((DTOScenario) ((BHTreeNode) bhmf.getBHTree().getSelectionPath()
@@ -530,13 +530,7 @@ class PlatformActionListener implements ActionListener {
 			bhmf.getBHTree().startEditingAtPath(
 					new TreePath(newPeriodNode.getPath()));
 
-			// create concrete Period
-			// TODO Schmalzhaf.Alexander es gibt kein Panel, das ich greifen
-			// kann vom bhmf -> muss eigenes erzeugen
-			JPanel panel = new JPanel();
-			bhmf.addContentForms(panel);
-			Services.getPeriodController(res.getKey())
-					.editDTO(newPeriod, panel);
+			Services.startPeriodEditing(newPeriod);
 		}
 	}
 

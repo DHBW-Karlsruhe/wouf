@@ -261,9 +261,10 @@ public abstract class DTO<ChildT extends IDTO> implements IDTO<ChildT> {
 	@Override
 	public ChildT removeChild(int index) throws DTOAccessException {
 		try {
+			ChildT removedChild = children.remove(index);
 			Services.firePlatformEvent(new PlatformEvent(this,
 					PlatformEvent.Type.DATA_CHANGED));
-			return children.remove(index);
+			return removedChild;
 		} catch (IndexOutOfBoundsException e) {
 			throw new DTOAccessException(
 					"There is no child at the given position: " + index);
@@ -278,13 +279,20 @@ public abstract class DTO<ChildT extends IDTO> implements IDTO<ChildT> {
 	 */
 	public void removeChild(ChildT child) throws DTOAccessException {
 		try {
+			children.remove(child);
 			Services.firePlatformEvent(new PlatformEvent(this,
 					PlatformEvent.Type.DATA_CHANGED));
-			children.remove(child);
 		} catch (IndexOutOfBoundsException e) {
 			throw new DTOAccessException(
 					"This object is not a child in DTOs childlist!");
 		}
+	}
+
+	@Override
+	public void removeAllChildren() {
+		children.clear();
+		Services.firePlatformEvent(new PlatformEvent(this,
+				PlatformEvent.Type.DATA_CHANGED));
 	}
 
 	@Override

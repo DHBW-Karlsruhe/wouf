@@ -36,16 +36,8 @@ public interface IPeriodController extends IDisplayablePlugin {
 	 *            The DTO of the period.
 	 * @param panel
 	 *            Panel for the view.
-	 * @see #stopEditing()
 	 */
 	void editDTO(DTOPeriod dto, JPanel panel);
-
-	/**
-	 * When this method is called, the controller must no longer modify the DTO
-	 * and JPanel passed in the {@link #editDTO} function.
-	 * 
-	 */
-	void stopEditing();
 
 	/**
 	 * Defines the priority. This is used to sort the controllers before
