@@ -326,8 +326,7 @@ public class BHScenarioHeadForm extends JPanel {
 		if (this.tftradetax == null) {
 			this.tftradetax = new BHTextField(DTOScenario.Key.BTAX);
 			ValidationRule[] rules = { VRMandatory.INSTANCE,
-					VRIsDouble.INSTANCE, VRIsPositive.INSTANCE,
-					VRIsBetween.BETWEEN0AND100 };
+					VRIsDouble.INSTANCE, VRIsPositive.INSTANCE };
 			tftradetax.setValidationRules(rules);
 		}
 		return this.tftradetax;
@@ -343,8 +342,7 @@ public class BHScenarioHeadForm extends JPanel {
 		if (this.tfcorporatetax == null) {
 			this.tfcorporatetax = new BHTextField(DTOScenario.Key.CTAX);
 			ValidationRule[] rules = { VRMandatory.INSTANCE,
-					VRIsDouble.INSTANCE, VRIsPositive.INSTANCE,
-					VRIsBetween.BETWEEN0AND100 };
+					VRIsDouble.INSTANCE, VRIsPositive.INSTANCE };
 			tfcorporatetax.setValidationRules(rules);
 		}
 		return this.tfcorporatetax;
@@ -360,7 +358,7 @@ public class BHScenarioHeadForm extends JPanel {
 		if (this.tfbaseyear == null) {
 			this.tfbaseyear = new BHTextField(DTOScenario.Key.IDENTIFIER);
 			ValidationRule[] rules = { VRMandatory.INSTANCE,
-					VRIsInteger.INSTANCE, VRIsBetween.BETWEEN1900AND2100 };
+					VRIsInteger.INSTANCE };
 			tfbaseyear.setValidationRules(rules);
 		}
 		return this.tfbaseyear;

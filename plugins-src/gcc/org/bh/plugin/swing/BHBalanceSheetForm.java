@@ -18,6 +18,7 @@ import org.bh.gui.swing.IBHComponent;
 import org.bh.platform.i18n.ITranslator;
 import org.bh.plugin.gcc.data.DTOGCCBalanceSheet;
 import org.bh.validation.VRIsDouble;
+import org.bh.validation.VRIsPositive;
 import org.bh.validation.VRMandatory;
 import org.bh.validation.ValidationRule;
 
@@ -315,7 +316,7 @@ public class BHBalanceSheetForm extends JPanel {
 		if (tfIVG == null) {
 			tfIVG = new BHTextField(DTOGCCBalanceSheet.Key.IVG);
 			ValidationRule[] rules = { VRMandatory.INSTANCE,
-					VRIsDouble.INSTANCE };
+					VRIsDouble.INSTANCE, VRIsPositive.INSTANCE };
 			tfIVG.setValidationRules(rules);
 		}
 		return tfIVG;
@@ -330,7 +331,7 @@ public class BHBalanceSheetForm extends JPanel {
 		if (tfSA == null) {
 			tfSA = new BHTextField(DTOGCCBalanceSheet.Key.SA);
 			ValidationRule[] rules = { VRMandatory.INSTANCE,
-					VRIsDouble.INSTANCE };
+					VRIsDouble.INSTANCE, VRIsPositive.INSTANCE };
 			tfSA.setValidationRules(rules);
 		}
 		return tfSA;
@@ -345,7 +346,7 @@ public class BHBalanceSheetForm extends JPanel {
 		if (tfFA == null) {
 			tfFA = new BHTextField(DTOGCCBalanceSheet.Key.FA);
 			ValidationRule[] rules = { VRMandatory.INSTANCE,
-					VRIsDouble.INSTANCE };
+					VRIsDouble.INSTANCE, VRIsPositive.INSTANCE };
 			tfFA.setValidationRules(rules);
 		}
 		return tfFA;
@@ -360,7 +361,7 @@ public class BHBalanceSheetForm extends JPanel {
 		if (tfVOR == null) {
 			tfVOR = new BHTextField(DTOGCCBalanceSheet.Key.VOR);
 			ValidationRule[] rules = { VRMandatory.INSTANCE,
-					VRIsDouble.INSTANCE };
+					VRIsDouble.INSTANCE, VRIsPositive.INSTANCE };
 			tfVOR.setValidationRules(rules);
 		}
 		return tfVOR;
@@ -375,7 +376,7 @@ public class BHBalanceSheetForm extends JPanel {
 		if (tfFSVG == null) {
 			tfFSVG = new BHTextField(DTOGCCBalanceSheet.Key.FSVG);
 			ValidationRule[] rules = { VRMandatory.INSTANCE,
-					VRIsDouble.INSTANCE };
+					VRIsDouble.INSTANCE, VRIsPositive.INSTANCE };
 			tfFSVG.setValidationRules(rules);
 		}
 		return tfFSVG;
@@ -390,7 +391,7 @@ public class BHBalanceSheetForm extends JPanel {
 		if (tfWP == null) {
 			tfWP = new BHTextField(DTOGCCBalanceSheet.Key.WP);
 			ValidationRule[] rules = { VRMandatory.INSTANCE,
-					VRIsDouble.INSTANCE };
+					VRIsDouble.INSTANCE, VRIsPositive.INSTANCE };
 			tfWP.setValidationRules(rules);
 		}
 		return tfWP;
@@ -405,7 +406,7 @@ public class BHBalanceSheetForm extends JPanel {
 		if (tfKBGGKS == null) {
 			tfKBGGKS = new BHTextField(DTOGCCBalanceSheet.Key.KBGGKS);
 			ValidationRule[] rules = { VRMandatory.INSTANCE,
-					VRIsDouble.INSTANCE };
+					VRIsDouble.INSTANCE, VRIsPositive.INSTANCE };
 			tfKBGGKS.setValidationRules(rules);
 		}
 		return tfKBGGKS;
@@ -420,7 +421,7 @@ public class BHBalanceSheetForm extends JPanel {
 		if (tfEK == null) {
 			tfEK = new BHTextField(DTOGCCBalanceSheet.Key.EK);
 			ValidationRule[] rules = { VRMandatory.INSTANCE,
-					VRIsDouble.INSTANCE };
+					VRIsDouble.INSTANCE, VRIsPositive.INSTANCE };
 			tfEK.setValidationRules(rules);
 		}
 		return tfEK;
@@ -435,7 +436,7 @@ public class BHBalanceSheetForm extends JPanel {
 		if (tfRS == null) {
 			tfRS = new BHTextField(DTOGCCBalanceSheet.Key.RS);
 			ValidationRule[] rules = { VRMandatory.INSTANCE,
-					VRIsDouble.INSTANCE };
+					VRIsDouble.INSTANCE, VRIsPositive.INSTANCE };
 			tfRS.setValidationRules(rules);
 		}
 		return tfRS;
@@ -450,7 +451,7 @@ public class BHBalanceSheetForm extends JPanel {
 		if (tfVB == null) {
 			tfVB = new BHTextField(DTOGCCBalanceSheet.Key.VB);
 			ValidationRule[] rules = { VRMandatory.INSTANCE,
-					VRIsDouble.INSTANCE };
+					VRIsDouble.INSTANCE, VRIsPositive.INSTANCE };
 			tfVB.setValidationRules(rules);
 		}
 		return tfVB;
@@ -468,7 +469,7 @@ public class BHBalanceSheetForm extends JPanel {
 			tfIVGmax = new BHTextField(IBHComponent.MAXVALUE + "_"
 					+ DTOGCCBalanceSheet.Key.IVG);
 			ValidationRule[] rules = { VRMandatory.INSTANCE,
-					VRIsDouble.INSTANCE };
+					VRIsDouble.INSTANCE, VRIsPositive.INSTANCE };
 			tfIVGmax.setValidationRules(rules);
 		}
 		return tfIVGmax;
@@ -484,7 +485,7 @@ public class BHBalanceSheetForm extends JPanel {
 			tfSAmax = new BHTextField(IBHComponent.MAXVALUE + "_"
 					+ DTOGCCBalanceSheet.Key.SA);
 			ValidationRule[] rules = { VRMandatory.INSTANCE,
-					VRIsDouble.INSTANCE };
+					VRIsDouble.INSTANCE, VRIsPositive.INSTANCE };
 			tfSAmax.setValidationRules(rules);
 		}
 		return tfSAmax;
@@ -500,7 +501,7 @@ public class BHBalanceSheetForm extends JPanel {
 			tfFAmax = new BHTextField(IBHComponent.MAXVALUE + "_"
 					+ DTOGCCBalanceSheet.Key.FA);
 			ValidationRule[] rules = { VRMandatory.INSTANCE,
-					VRIsDouble.INSTANCE };
+					VRIsDouble.INSTANCE, VRIsPositive.INSTANCE };
 			tfFAmax.setValidationRules(rules);
 		}
 		return tfFAmax;
@@ -516,7 +517,7 @@ public class BHBalanceSheetForm extends JPanel {
 			tfVORmax = new BHTextField(IBHComponent.MAXVALUE + "_"
 					+ DTOGCCBalanceSheet.Key.VOR);
 			ValidationRule[] rules = { VRMandatory.INSTANCE,
-					VRIsDouble.INSTANCE };
+					VRIsDouble.INSTANCE, VRIsPositive.INSTANCE };
 			tfVORmax.setValidationRules(rules);
 		}
 		return tfVORmax;
@@ -532,7 +533,7 @@ public class BHBalanceSheetForm extends JPanel {
 			tfFSVGmax = new BHTextField(IBHComponent.MAXVALUE + "_"
 					+ DTOGCCBalanceSheet.Key.FSVG);
 			ValidationRule[] rules = { VRMandatory.INSTANCE,
-					VRIsDouble.INSTANCE };
+					VRIsDouble.INSTANCE, VRIsPositive.INSTANCE };
 			tfFSVGmax.setValidationRules(rules);
 		}
 		return tfFSVGmax;
@@ -548,7 +549,7 @@ public class BHBalanceSheetForm extends JPanel {
 			tfWPmax = new BHTextField(IBHComponent.MAXVALUE + "_"
 					+ DTOGCCBalanceSheet.Key.WP);
 			ValidationRule[] rules = { VRMandatory.INSTANCE,
-					VRIsDouble.INSTANCE };
+					VRIsDouble.INSTANCE, VRIsPositive.INSTANCE };
 			tfWPmax.setValidationRules(rules);
 		}
 		return tfWPmax;
@@ -564,7 +565,7 @@ public class BHBalanceSheetForm extends JPanel {
 			tfKBGGKSmax = new BHTextField(IBHComponent.MAXVALUE + "_"
 					+ DTOGCCBalanceSheet.Key.KBGGKS);
 			ValidationRule[] rules = { VRMandatory.INSTANCE,
-					VRIsDouble.INSTANCE };
+					VRIsDouble.INSTANCE, VRIsPositive.INSTANCE };
 			tfKBGGKSmax.setValidationRules(rules);
 		}
 		return tfKBGGKSmax;
@@ -580,7 +581,7 @@ public class BHBalanceSheetForm extends JPanel {
 			tfEKmax = new BHTextField(IBHComponent.MAXVALUE + "_"
 					+ DTOGCCBalanceSheet.Key.EK);
 			ValidationRule[] rules = { VRMandatory.INSTANCE,
-					VRIsDouble.INSTANCE };
+					VRIsDouble.INSTANCE, VRIsPositive.INSTANCE };
 			tfEKmax.setValidationRules(rules);
 		}
 		return tfEKmax;
@@ -596,7 +597,7 @@ public class BHBalanceSheetForm extends JPanel {
 			tfRSmax = new BHTextField(IBHComponent.MAXVALUE + "_"
 					+ DTOGCCBalanceSheet.Key.RS);
 			ValidationRule[] rules = { VRMandatory.INSTANCE,
-					VRIsDouble.INSTANCE };
+					VRIsDouble.INSTANCE, VRIsPositive.INSTANCE };
 			tfRSmax.setValidationRules(rules);
 		}
 		return tfRSmax;
@@ -612,7 +613,7 @@ public class BHBalanceSheetForm extends JPanel {
 			tfVBmax = new BHTextField(IBHComponent.MAXVALUE + "_"
 					+ DTOGCCBalanceSheet.Key.VB);
 			ValidationRule[] rules = { VRMandatory.INSTANCE,
-					VRIsDouble.INSTANCE };
+					VRIsDouble.INSTANCE, VRIsPositive.INSTANCE };
 			tfVBmax.setValidationRules(rules);
 		}
 		return tfVBmax;
@@ -630,7 +631,7 @@ public class BHBalanceSheetForm extends JPanel {
 			tfIVGmin = new BHTextField(IBHComponent.MINVALUE + "_"
 					+ DTOGCCBalanceSheet.Key.IVG);
 			ValidationRule[] rules = { VRMandatory.INSTANCE,
-					VRIsDouble.INSTANCE };
+					VRIsDouble.INSTANCE, VRIsPositive.INSTANCE };
 			tfIVGmin.setValidationRules(rules);
 		}
 		return tfIVGmin;
@@ -646,7 +647,7 @@ public class BHBalanceSheetForm extends JPanel {
 			tfSAmin = new BHTextField(IBHComponent.MINVALUE + "_"
 					+ DTOGCCBalanceSheet.Key.SA);
 			ValidationRule[] rules = { VRMandatory.INSTANCE,
-					VRIsDouble.INSTANCE };
+					VRIsDouble.INSTANCE, VRIsPositive.INSTANCE };
 			tfSAmin.setValidationRules(rules);
 		}
 		return tfSAmin;
@@ -662,7 +663,7 @@ public class BHBalanceSheetForm extends JPanel {
 			tfFAmin = new BHTextField(IBHComponent.MINVALUE + "_"
 					+ DTOGCCBalanceSheet.Key.FA);
 			ValidationRule[] rules = { VRMandatory.INSTANCE,
-					VRIsDouble.INSTANCE };
+					VRIsDouble.INSTANCE, VRIsPositive.INSTANCE };
 			tfFAmin.setValidationRules(rules);
 		}
 		return tfFAmin;
@@ -678,7 +679,7 @@ public class BHBalanceSheetForm extends JPanel {
 			tfVORmin = new BHTextField(IBHComponent.MINVALUE + "_"
 					+ DTOGCCBalanceSheet.Key.VOR);
 			ValidationRule[] rules = { VRMandatory.INSTANCE,
-					VRIsDouble.INSTANCE };
+					VRIsDouble.INSTANCE, VRIsPositive.INSTANCE };
 			tfVORmin.setValidationRules(rules);
 		}
 		return tfVORmin;
@@ -694,7 +695,7 @@ public class BHBalanceSheetForm extends JPanel {
 			tfFSVGmin = new BHTextField(IBHComponent.MINVALUE + "_"
 					+ DTOGCCBalanceSheet.Key.FSVG);
 			ValidationRule[] rules = { VRMandatory.INSTANCE,
-					VRIsDouble.INSTANCE };
+					VRIsDouble.INSTANCE, VRIsPositive.INSTANCE };
 			tfFSVGmin.setValidationRules(rules);
 		}
 		return tfFSVGmin;
@@ -710,7 +711,7 @@ public class BHBalanceSheetForm extends JPanel {
 			tfWPmin = new BHTextField(IBHComponent.MINVALUE + "_"
 					+ DTOGCCBalanceSheet.Key.WP);
 			ValidationRule[] rules = { VRMandatory.INSTANCE,
-					VRIsDouble.INSTANCE };
+					VRIsDouble.INSTANCE, VRIsPositive.INSTANCE };
 			tfWPmin.setValidationRules(rules);
 		}
 		return tfWPmin;
@@ -726,7 +727,7 @@ public class BHBalanceSheetForm extends JPanel {
 			tfKBGGKSmin = new BHTextField(IBHComponent.MINVALUE + "_"
 					+ DTOGCCBalanceSheet.Key.KBGGKS);
 			ValidationRule[] rules = { VRMandatory.INSTANCE,
-					VRIsDouble.INSTANCE };
+					VRIsDouble.INSTANCE, VRIsPositive.INSTANCE };
 			tfKBGGKSmin.setValidationRules(rules);
 		}
 		return tfKBGGKSmin;
@@ -742,7 +743,7 @@ public class BHBalanceSheetForm extends JPanel {
 			tfEKmin = new BHTextField(IBHComponent.MINVALUE + "_"
 					+ DTOGCCBalanceSheet.Key.EK);
 			ValidationRule[] rules = { VRMandatory.INSTANCE,
-					VRIsDouble.INSTANCE };
+					VRIsDouble.INSTANCE, VRIsPositive.INSTANCE };
 			tfEKmin.setValidationRules(rules);
 		}
 		return tfEKmin;
@@ -758,7 +759,7 @@ public class BHBalanceSheetForm extends JPanel {
 			tfRSmin = new BHTextField(IBHComponent.MINVALUE + "_"
 					+ DTOGCCBalanceSheet.Key.RS);
 			ValidationRule[] rules = { VRMandatory.INSTANCE,
-					VRIsDouble.INSTANCE };
+					VRIsDouble.INSTANCE, VRIsPositive.INSTANCE };
 			tfRSmin.setValidationRules(rules);
 		}
 		return tfRSmin;
@@ -774,7 +775,7 @@ public class BHBalanceSheetForm extends JPanel {
 			tfVBmin = new BHTextField(IBHComponent.MINVALUE + "_"
 					+ DTOGCCBalanceSheet.Key.VB);
 			ValidationRule[] rules = { VRMandatory.INSTANCE,
-					VRIsDouble.INSTANCE };
+					VRIsDouble.INSTANCE, VRIsPositive.INSTANCE };
 			tfVBmin.setValidationRules(rules);
 		}
 		return tfVBmin;
