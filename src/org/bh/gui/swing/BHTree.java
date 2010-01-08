@@ -168,7 +168,7 @@ public class BHTree extends JTree{
 
 			}
 			else if (node.getUserObject() instanceof DTOPeriod) {
-				if(((DTOScenario)node.getUserObject()).isValid(true)){
+				if(((DTOPeriod)node.getUserObject()).isValid(true)){
 					icon = BHTree.PERIOD_ICON;
 				}
 				else icon = BHTree.ERROR_ICON;

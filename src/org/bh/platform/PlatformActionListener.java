@@ -575,19 +575,6 @@ class PlatformActionListener implements ActionListener {
 		}
 	}
 
-	private int getNumPos(String s){
-		int[] numbers = {0,1,2,3,4,5,6,7,8,9};
-		
-		int start = s.length();
-		
-		for(int i : numbers){
-			if(s.indexOf(""+i) < start && s.indexOf(""+i)> -1)
-				start = s.indexOf(""+i);
-		}
-		System.out.println("start "+start);
-		return start;
-		
-	}
 	
 	private void duplicateProject() {
 		TreePath currentDuplicateProjectSelection = bhmf.getBHTree()
@@ -668,5 +655,24 @@ class PlatformActionListener implements ActionListener {
 					BHTranslator.getInstance().translate("EisSelectScenario"),
 					true);
 		}
+	}
+	/**
+	 * Method to get Position on numeric value in a string
+	 * Necessary for naming of Periods
+	 * @param s
+	 * @return
+	 */
+	private int getNumPos(String s){
+		int[] numbers = {0,1,2,3,4,5,6,7,8,9};
+		
+		int start = s.length();
+		
+		for(int i : numbers){
+			if(s.indexOf(""+i) < start && s.indexOf(""+i)> -1)
+				start = s.indexOf(""+i);
+		}
+		System.out.println("start "+start);
+		return start;
+		
 	}
 }
