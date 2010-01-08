@@ -74,7 +74,7 @@ public class BHScenarioHeadForm extends JPanel {
 	 */
 	private void initialize() {
 
-		String rowDef = "4px,p,4px,p,4px,p,4px,p,20px,p,4px,p,20px,p,4px,p,4px";
+		String rowDef = "4px,p,4px,p,4px,p,4px,p,20px,p,4px,p,4px,p,4px,p,4px";
 		String colDef = "4px,4px,right:pref,4px,pref,max(80px;pref),4px,left:pref,24px:grow,pref,4px,pref,4px,right:pref,4px,pref,pref,4px,pref,4px,pref,4px";
 
 		FormLayout layout = new FormLayout(colDef, rowDef);
@@ -89,24 +89,24 @@ public class BHScenarioHeadForm extends JPanel {
 		this.add(this.gettfBase(), cons.xywh(17, 4, 1, 1));
 
 		this.add(this.getlscenDescript(), cons.xywh(3, 6, 1, 1));
-		this.add(this.getlequityYield(), cons.xywh(3, 10, 1, 1));
-		this.add(this.getldeptYield(), cons.xywh(3, 12, 1, 1));
-		this.add(this.getltradeTax(), cons.xywh(14, 10, 1, 1));
-		this.add(this.getlcorporateTax(), cons.xywh(14, 12, 1, 1));
+		this.add(this.getlequityYield(), cons.xywh(3, 12, 1, 1));
+		this.add(this.getldeptYield(), cons.xywh(3, 14, 1, 1));
+		this.add(this.getltradeTax(), cons.xywh(14, 12, 1, 1));
+		this.add(this.getlcorporateTax(), cons.xywh(14, 14, 1, 1));
 		this.add(this.gettfscenName(), cons.xywh(6, 4, 4, 1));
 		this.add(this.gettfscenDescript(), cons.xywh(6, 6, 12, 1));
-		this.add(this.gettfequityYeild(), cons.xywh(6, 10, 1, 1));
-		this.add(this.gettfdeptYield(), cons.xywh(6, 12, 1, 1));
-		this.add(this.gettftradeTax(), cons.xywh(17, 10, 1, 1));
-		this.add(this.gettfcorporateTax(), cons.xywh(17, 12, 1, 1));
-		this.add(this.getlpercentEquity(), cons.xywh(8, 10, 1, 1));
-		this.add(this.getlpercentDept(), cons.xywh(8, 12, 1, 1));
-		this.add(this.getlpercentTrade(), cons.xywh(19, 10, 1, 1));
-		this.add(this.getlpercentCorporate(), cons.xywh(19, 12, 1, 1));
+		this.add(this.gettfequityYeild(), cons.xywh(6, 12, 1, 1));
+		this.add(this.gettfdeptYield(), cons.xywh(6, 14, 1, 1));
+		this.add(this.gettftradeTax(), cons.xywh(17, 12, 1, 1));
+		this.add(this.gettfcorporateTax(), cons.xywh(17, 14, 1, 1));
+		this.add(this.getlpercentEquity(), cons.xywh(8, 12, 1, 1));
+		this.add(this.getlpercentDept(), cons.xywh(8, 14, 1, 1));
+		this.add(this.getlpercentTrade(), cons.xywh(19, 12, 1, 1));
+		this.add(this.getlpercentCorporate(), cons.xywh(19, 14, 1, 1));
 		//this.add(this.getLprocess(), cons.xywh(3, 16, 1, 1));
 		//this.add(this.getCbprocess(), cons.xywh(6, 16, 3, 1));
-		this.add(this.getlDCFmethod(), cons.xywh(3, 14, 1, 1));
-		this.add(this.getcbDCFmethod(), cons.xywh(6, 14, 3, 1));
+//		this.add(this.getlDCFmethod(), cons.xywh(3, 14, 1, 1));
+//		this.add(this.getcbDCFmethod(), cons.xywh(6, 14, 3, 1));
 		//this.add(this.getLdirect(), cons.xywh(14, 14, 1, 1));
 		//this.add(this.getCbdirect(), cons.xywh(17, 14, 3, 1));
 		
