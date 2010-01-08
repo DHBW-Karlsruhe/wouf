@@ -11,9 +11,11 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.UIManager;
 
+import org.bh.calculation.IShareholderValueCalculator;
 import org.bh.gui.chart.BHChartFactory;
 import org.bh.gui.swing.BHDescriptionLabel;
 import org.bh.gui.swing.BHDescriptionTextArea;
+import org.bh.gui.swing.BHValueLabel;
 import org.bh.platform.i18n.BHTranslator;
 import org.jfree.chart.ChartPanel;
 /**
@@ -41,6 +43,7 @@ public class BHResultPanel extends JPanel{
 	private ChartPanel pieChartLabel;
 	private BHDescriptionTextArea lineChartTextArea;
 	private BHDescriptionTextArea pieChartTextArea;
+	private BHValueLabel shareholderValue;
 	
 	
 	final BHTranslator translator = BHTranslator.getInstance();
@@ -124,10 +127,13 @@ public class BHResultPanel extends JPanel{
        		/**
        		 * add the Content into centerPanel
        		 */
-       		centerPanel.add(lineChartTextArea, "1,1");
+       		//centerPanel.add(lineChartTextArea, "1,1");
        		centerPanel.add(lineChartLabel, "2,1");
        		centerPanel.add(pieChartLabel, "1,2");
        		centerPanel.add(pieChartTextArea, "2,2");
+       		
+       		shareholderValue = new BHValueLabel(IShareholderValueCalculator.SHAREHOLDER_VALUE);
+       		centerPanel.add(shareholderValue, "1,1");
        		
        		this.add(centerPanel, BorderLayout.CENTER);
         	

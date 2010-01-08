@@ -244,7 +244,7 @@ public class Services {
 		// kann vom bhmf -> muss eigenes erzeugen
 		JPanel panel = new JPanel();
 		panel.setLayout(new FlowLayout(FlowLayout.LEFT));
-		bhmf.addContentForms(panel);
+		bhmf.setContentForm(panel);
 		Services.getPeriodController(
 				period.get(DTOPeriod.Key.CONTROLLER).toString()).editDTO(
 				(DTOPeriod) period, panel);

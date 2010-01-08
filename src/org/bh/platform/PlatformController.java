@@ -5,8 +5,10 @@ import java.awt.event.ActionListener;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
+import java.util.Map;
 import java.util.prefs.Preferences;
 
+import javax.swing.JPanel;
 import javax.swing.SwingUtilities;
 import javax.swing.event.TreeSelectionEvent;
 import javax.swing.event.TreeSelectionListener;
@@ -24,7 +26,9 @@ import org.bh.data.DTOPeriod;
 import org.bh.data.DTOProject;
 import org.bh.data.DTOScenario;
 import org.bh.data.IDTO;
+import org.bh.data.types.Calculable;
 import org.bh.data.types.StringValue;
+import org.bh.gui.IDeterministicResultAnalyser;
 import org.bh.gui.View;
 import org.bh.gui.ViewException;
 import org.bh.gui.swing.BHButton;
@@ -155,7 +159,7 @@ public class PlatformController {
 				Type.PLATFORM_LOADING_COMPLETED));
 
 		platformPersistenceManager.lastEditedFile();
-		
+
 		// rebuild Tree
 		setupTree(bhmf, projectRepoManager);
 		bhmf.getBHTree().expandAll();
@@ -233,7 +237,7 @@ public class PlatformController {
 										new BHProjectInputForm());
 								IDTO<?> model = selection;
 								controller = new InputController(view, model);
-								bhmf.addContentForms(view.getViewPanel());
+								bhmf.setContentForm(view.getViewPanel());
 								controller.loadAllToView();
 
 							} catch (ViewException e) {
@@ -262,7 +266,7 @@ public class PlatformController {
 													BHScenarioForm.Type.DETERMINISTIC));
 								}
 
-								bhmf.addContentForms(view.getViewPanel());
+								bhmf.setContentForm(view.getViewPanel());
 								controller = new InputController(view, model);
 
 								BHComboBox cbDcfMethod = (BHComboBox) view
@@ -278,15 +282,30 @@ public class PlatformController {
 								cbDcfMethod.setSorted(true);
 								cbDcfMethod.setValueList(items
 										.toArray(new BHComboBox.Item[0]));
-								
+
 								// FIXME
-								((BHButton) view.getBHComponent(PlatformKey.CALCSHAREHOLDERVALUE)).addActionListener(new ActionListener() {
-									@Override
-									public void actionPerformed(ActionEvent e) {
-										DTOScenario scenario = (DTOScenario) controller.getModel();
-										scenario.getDCFMethod().calculate(scenario);
-									}
-								});
+								((BHButton) view
+										.getBHComponent(PlatformKey.CALCSHAREHOLDERVALUE))
+										.addActionListener(new ActionListener() {
+											@Override
+											public void actionPerformed(
+													ActionEvent e) {
+												DTOScenario scenario = (DTOScenario) controller
+														.getModel();
+												Map<String, Calculable[]> result = scenario
+														.getDCFMethod()
+														.calculate(scenario);
+												JPanel panel = new JPanel();
+												bhmf.setCharts(panel);
+												for (IDeterministicResultAnalyser analyser : PluginManager
+														.getInstance()
+														.getServices(
+																IDeterministicResultAnalyser.class)) {
+													analyser.setResult(result, panel);
+													break;
+												}
+											}
+										});
 
 								controller.loadAllToView();
 

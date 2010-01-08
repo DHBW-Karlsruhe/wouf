@@ -333,7 +333,7 @@ class PlatformActionListener implements ActionListener {
 				TreePath tp = new TreePath(currentNode.getPreviousNode().getPath());
 				bhmf.getBHTree().setSelectionPath(tp);
 				if(bhmf.getBHTree().getSelectionPath().getPathCount() == 1)
-					bhmf.addContentForms(new BHContent());
+					bhmf.setContentForm(new BHContent());
 				
 				((BHTreeModel) bhmf.getBHTree().getModel())
 						.removeNodeFromParent(currentNode);

@@ -102,6 +102,9 @@ public class BHMainFrame extends JFrame implements IPlatformListener {
 	 * Open / Save dialog.
 	 */
 	private BHFileChooser chooser;
+	
+	private Component formsPanel;
+	private Component chartsPanel;
 
 	/**
 	 * Standard constructor for <code>BHMainFrame</code>.
@@ -228,14 +231,16 @@ public class BHMainFrame extends JFrame implements IPlatformListener {
 		
 	}
 
-	public void addContentForms(Component content) {
-		JScrollPane formsScrollPane = new JScrollPane(content);
-		paneH.setRightComponent(formsScrollPane);
+	public void setContentForm(Component content) {
+		formsPanel = new JScrollPane(content);
+		chartsPanel = null;
+		paneH.setRightComponent(formsPanel);
 
 	}
 
-	public void addContentFormsAndChart(Component forms, Component chart) {
-		JSplitPane paneV = new JSplitPane(JSplitPane.VERTICAL_SPLIT, forms, chart);
+	public void setCharts(Component chart) {
+		chartsPanel = new JScrollPane(chart);
+		JSplitPane paneV = new JSplitPane(JSplitPane.VERTICAL_SPLIT, formsPanel, chartsPanel);
 
 		paneV.setOneTouchExpandable(true);
 

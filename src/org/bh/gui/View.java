@@ -234,7 +234,7 @@ public abstract class View implements MouseListener, FocusListener,
 	 * 
 	 * @return Map of BHcharts
 	 */
-	protected Map<String, IBHAddValue> getBHchartComponents() {
+	public Map<String, IBHAddValue> getBHchartComponents() {
 		return bhChartComponents;
 	}
 
