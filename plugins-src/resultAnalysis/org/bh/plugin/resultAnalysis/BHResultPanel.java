@@ -9,7 +9,6 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.UIManager;
 
-import org.bh.calculation.IShareholderValueCalculator;
 import org.bh.gui.ViewException;
 import org.bh.gui.chart.BHChartFactory;
 import org.bh.gui.swing.BHDescriptionLabel;
@@ -17,9 +16,6 @@ import org.bh.gui.swing.BHDescriptionTextArea;
 import org.bh.gui.swing.BHValueLabel;
 import org.bh.platform.Services;
 import org.bh.platform.i18n.ITranslator;
-import org.bh.plugin.apv.APVCalculator;
-import org.bh.plugin.fcf.FCFCalculator;
-import org.bh.plugin.fte.FTECalculator;
 import org.jfree.chart.ChartPanel;
 
 import com.jgoodies.forms.layout.CellConstraints;
@@ -131,53 +127,52 @@ public final class BHResultPanel extends JPanel{
        		 */
        		
        		//barChartLabel = new ChartPanel(BHChartFactory.getBarChart(IShareholderValueCalculator.SHAREHOLDER_VALUE, "XAxis", "YAxis", "FTEShareholderValue"));
-       		barChartLabel.setFont(UIManager.getFont("defaultFont"));
+       		//barChartLabel.setFont(UIManager.getFont("defaultFont"));
        		
        		
        		/**
        		 * creates the Value- and DescriptionLabels
        		 */
-       		//FIXME können nicht plugin Übergreifend auf Konstanten zugreifen! Muss über String gleichheit passieren!
-       		// 				Ansprechpartner Sebastian
+       		
        		//All Labels to FTE
-//       		FTEshareholderValue = new BHValueLabel(IShareholderValueCalculator.SHAREHOLDER_VALUE);
-//       		FTEshareholderValueDESC = new BHDescriptionLabel(IShareholderValueCalculator.SHAREHOLDER_VALUE);
-//       		FTEdebtAmortisation = new BHValueLabel(FTECalculator.Result.DEBT_AMORTISATION);
-//       		FTEdebtAmortisationDESC = new BHDescriptionLabel(FTECalculator.Result.DEBT_AMORTISATION);
-//       		FTEequityReturnRate = new BHValueLabel(FTECalculator.Result.EQUITY_RETURN_RATE_FTE);
-//       		FTEequityReturnRateDESC = new BHDescriptionLabel(FTECalculator.Result.EQUITY_RETURN_RATE_FTE);
-//       		FTEflowEquity = new BHValueLabel(FTECalculator.Result.FLOW_TO_EQUITY);
-//       		FTEflowEquityDESC = new BHDescriptionLabel(FTECalculator.Result.FLOW_TO_EQUITY);
-//       		FTEflowEquityTaxShield = new BHValueLabel(FTECalculator.Result.FLOW_TO_EQUITY_TAX_SHIELD);
-//       		FTEflowEquityTaxShieldDESC = new BHDescriptionLabel(FTECalculator.Result.FLOW_TO_EQUITY_TAX_SHIELD);
-//       		FTEflowToEquity = new BHValueLabel(FTECalculator.Result.FLOW_TO_EQUITY_INTEREST);
-//       		FTEflowToEquityDESC = new BHDescriptionLabel(FTECalculator.Result.FLOW_TO_EQUITY_INTEREST);
-//       		FTEpresentValueTaxShield = new BHValueLabel(FTECalculator.Result.PRESENT_VALUE_TAX_SHIELD);
-//       		FTEpresentValueTaxShieldDESC = new BHDescriptionLabel(FTECalculator.Result.PRESENT_VALUE_TAX_SHIELD);
-//       		
-//       		//All Labels to FCF
-//       		FCFshareholderValue = new BHValueLabel(IShareholderValueCalculator.SHAREHOLDER_VALUE);
-//       		FCFshareholderValueDESC = new BHDescriptionLabel(IShareholderValueCalculator.SHAREHOLDER_VALUE);
-//       		FCFpresentValue = new BHValueLabel(FCFCalculator.Result.PRESENT_VALUE_FCF);
-//       		FCFpresentValueDESC = new BHDescriptionLabel(FCFCalculator.Result.PRESENT_VALUE_FCF);
-//       		FCFdebtToEquityRatio = new BHValueLabel(FCFCalculator.Result.DEBT_TO_EQUITY_RATIO);
-//       		FCFdebtToEquityRatioDESC = new BHDescriptionLabel(FCFCalculator.Result.DEBT_TO_EQUITY_RATIO);
-//       		FCFequityReturnRate = new BHValueLabel(FCFCalculator.Result.EQUITY_RETURN_RATE_FCF);
-//       		FCFequityReturnRateDESC = new BHDescriptionLabel(FCFCalculator.Result.EQUITY_RETURN_RATE_FCF);
-//       		FCFwacc = new BHValueLabel(FCFCalculator.Result.WACC);
-//       		FCFwaccDESC = new BHDescriptionLabel(FCFCalculator.Result.WACC);
-//       		FCFwaccDebts = new BHValueLabel(FCFCalculator.Result.WACC_DEBTS);
-//       		FCFwaccDebtsDESC = new BHDescriptionLabel(FCFCalculator.Result.WACC_DEBTS);
-//       		FCFwaccEquity = new BHValueLabel(FCFCalculator.Result.WACC_EQUITY);
-//       		FCFwaccEquityDESC = new BHDescriptionLabel(FCFCalculator.Result.WACC_EQUITY);
-//       		
-//       		//All Labels to APV
-//       		APVpresentValue = new BHValueLabel(APVCalculator.Result.PRESENT_VALUE_FCF);
-//       		APVpresentValueDESC = new BHDescriptionLabel(APVCalculator.Result.PRESENT_VALUE_FCF);
-//       		APVshareholderValue = new BHValueLabel(IShareholderValueCalculator.SHAREHOLDER_VALUE);
-//       		APVshareholderValueDESC = new BHDescriptionLabel(IShareholderValueCalculator.SHAREHOLDER_VALUE);
-//       		APVpresentValueTaxShield = new BHValueLabel(APVCalculator.Result.PRESENT_VALUE_TAX_SHIELD);
-//       		APVpresentValueTaxShieldDESC = new BHDescriptionLabel(APVCalculator.Result.PRESENT_VALUE_TAX_SHIELD);
+      		FTEshareholderValue = new BHValueLabel("SHAREHOLDER_VALUE");
+      		FTEshareholderValueDESC = new BHDescriptionLabel("SHAREHOLDER_VALUE");
+       		FTEdebtAmortisation = new BHValueLabel("DEBT_AMORTISATION");
+       		FTEdebtAmortisationDESC = new BHDescriptionLabel("DEBT_AMORTISATION");
+       		FTEequityReturnRate = new BHValueLabel("EQUITY_RETURN_RATE_FTE");
+       		FTEequityReturnRateDESC = new BHDescriptionLabel("EQUITY_RETURN_RATE_FTE");
+      		FTEflowEquity = new BHValueLabel("FLOW_TO_EQUITY");
+       		FTEflowEquityDESC = new BHDescriptionLabel("FLOW_TO_EQUITY");
+       		FTEflowEquityTaxShield = new BHValueLabel("FLOW_TO_EQUITY_TAX_SHIELD");
+       		FTEflowEquityTaxShieldDESC = new BHDescriptionLabel("FLOW_TO_EQUITY_TAX_SHIELD");
+       		FTEflowToEquity = new BHValueLabel("LOW_TO_EQUITY_INTEREST");
+      		FTEflowToEquityDESC = new BHDescriptionLabel("FLOW_TO_EQUITY_INTEREST");
+      		FTEpresentValueTaxShield = new BHValueLabel("PRESENT_VALUE_TAX_SHIELD");
+       		FTEpresentValueTaxShieldDESC = new BHDescriptionLabel("PRESENT_VALUE_TAX_SHIELD");
+       		
+       		//All Labels to FCF
+       		FCFshareholderValue = new BHValueLabel("SHAREHOLDER_VALUE");
+       		FCFshareholderValueDESC = new BHDescriptionLabel("SHAREHOLDER_VALUE");
+       		FCFpresentValue = new BHValueLabel("PRESENT_VALUE_FCF");
+       		FCFpresentValueDESC = new BHDescriptionLabel("Result.PRESENT_VALUE_FCF");
+       		FCFdebtToEquityRatio = new BHValueLabel("DEBT_TO_EQUITY_RATIO");
+      		FCFdebtToEquityRatioDESC = new BHDescriptionLabel("Result.DEBT_TO_EQUITY_RATIO");
+       		FCFequityReturnRate = new BHValueLabel("EQUITY_RETURN_RATE_FCF");
+       		FCFequityReturnRateDESC = new BHDescriptionLabel("EQUITY_RETURN_RATE_FCF");
+       		FCFwacc = new BHValueLabel("WACC");
+       		FCFwaccDESC = new BHDescriptionLabel("WACC");
+       		FCFwaccDebts = new BHValueLabel("WACC_DEBTS");
+       		FCFwaccDebtsDESC = new BHDescriptionLabel("WACC_DEBTS");
+       		FCFwaccEquity = new BHValueLabel("WACC_EQUITY");
+       		FCFwaccEquityDESC = new BHDescriptionLabel("WACC_EQUITY");
+       		
+       		//All Labels to APV
+      		APVpresentValue = new BHValueLabel("PRESENT_VALUE_FCF");
+       		APVpresentValueDESC = new BHDescriptionLabel("PRESENT_VALUE_FCF");
+       		APVshareholderValue = new BHValueLabel("SHAREHOLDER_VALUE");
+       		APVshareholderValueDESC = new BHDescriptionLabel("SHAREHOLDER_VALUE");
+       		APVpresentValueTaxShield = new BHValueLabel("PRESENT_VALUE_TAX_SHIELD");
+       		APVpresentValueTaxShieldDESC = new BHDescriptionLabel("PRESENT_VALUE_TAX_SHIELD");
        		
        		//Formeldarstellung
        		
@@ -195,7 +190,7 @@ public final class BHResultPanel extends JPanel{
        		
        		this.add(FTEequityReturnRateDESC);
        		this.add(FTEequityReturnRate);
-       		this.add(barChartLabel);
+       		//this.add(barChartLabel);
        		
        		//this.add(ResultFormulaParser.getAPVformula());
        		
