@@ -147,6 +147,7 @@
             <manifest>
                 <attribute name="Main-Class" value="${jar.mainclass}"/>
                 <attribute name="Class-Path" value="."/>
+                <attribute name="SplashScreen-Image" value="org/bh/images/SplashScreen.jpg"/>
             </manifest>
             <fileset dir="${jar.dir}"/>
         </jar>
@@ -159,6 +160,7 @@
             <manifest>
                 <attribute name="Main-Class" value="${jar.mainclass}"/>
                 <attribute name="Class-Path" value="."/>
+                <attribute name="SplashScreen-Image" value="org/bh/images/SplashScreen.jpg"/>
             </manifest>
             <fileset dir="${jar.dir}"/>
             <fileset dir="." includes="${plugins.build.dir}/**"/>
