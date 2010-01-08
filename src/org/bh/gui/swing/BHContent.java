@@ -3,10 +3,10 @@ package org.bh.gui.swing;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
-import javax.swing.*;
 
-import org.jfree.data.category.CategoryDataset;
-import org.jfree.data.category.DefaultCategoryDataset;
+import javax.swing.ImageIcon;
+import javax.swing.JLabel;
+import javax.swing.JPanel;
 
 /**
  * 
@@ -32,7 +32,7 @@ public class BHContent extends JPanel{
 		setMinimumSize(new Dimension(100, 100));
 		setBackground(Color.white);
 		
-		logo = new JLabel(new ImageIcon(BHSplashScreen.class.getResource("/org/bh/images/background.jpg")));
+		logo = new JLabel(new ImageIcon(BHContent.class.getResource("/org/bh/images/background.jpg")));
 		
 		add(logo, BorderLayout.CENTER);	
 		
