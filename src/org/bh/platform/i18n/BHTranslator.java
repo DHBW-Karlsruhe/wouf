@@ -10,6 +10,7 @@ import java.util.ResourceBundle;
 import javax.swing.JComponent;
 
 import org.apache.log4j.Logger;
+import org.bh.gui.swing.IBHComponent;
 import org.bh.platform.PlatformController;
 import org.bh.platform.PlatformEvent;
 import org.bh.platform.Services;
@@ -88,11 +89,12 @@ public final class BHTranslator implements ITranslator {
 	 */
 	private BHTranslator() {
 		// Try to get preferred language
-		String prefLanguage = PlatformController.preferences.get("language", "initial");
+		String prefLanguage = PlatformController.preferences.get("language",
+				"initial");
 
 		// If no language has been preferred, set Locale.
 		if ("initial".equals(prefLanguage)) {
-			
+
 			// if OS language supported, set OS language.
 			for (Locale l : BHTranslator.AVAILABLE) {
 				if (l.getLanguage().equals(Locale.getDefault().getLanguage())) {
@@ -100,15 +102,16 @@ public final class BHTranslator implements ITranslator {
 					break;
 				}
 			}
-			
+
 			// Still no language found, use BH default.
 			if (this.locale == null) {
 				this.locale = BHTranslator.DEFAULT;
 			}
-			
+
 			// Finally save invoked language to preferences.
-			PlatformController.preferences.put("language", BHTranslator.DEFAULT.getLanguage());
-			
+			PlatformController.preferences.put("language", BHTranslator.DEFAULT
+					.getLanguage());
+
 		} else {
 			// set preferred Locale.
 			for (Locale l : BHTranslator.AVAILABLE) {
@@ -123,10 +126,12 @@ public final class BHTranslator implements ITranslator {
 		JComponent.setDefaultLocale(this.locale);
 
 		// init resource bundle instance
-		this.bundle = ResourceBundle.getBundle(BHTranslator.BHGUIKEYS, this.locale);
+		this.bundle = ResourceBundle.getBundle(BHTranslator.BHGUIKEYS,
+				this.locale);
 
 		this.listener = new ArrayList<PropertyChangeListener>();
-		LOG.debug("Translator initialized with Locale " + this.bundle.getLocale());
+		LOG.debug("Translator initialized with Locale "
+				+ this.bundle.getLocale());
 	}
 
 	/**
@@ -154,6 +159,14 @@ public final class BHTranslator implements ITranslator {
 		try {
 			return this.bundle.getString(key.toString());
 		} catch (MissingResourceException e) {
+			try {
+				if (key.toString().startsWith(IBHComponent.MINVALUE) ||
+						key.toString().startsWith(IBHComponent.MAXVALUE)) {
+					return this.bundle.getString(key.toString().replaceFirst("^.*_", "")); 
+				}
+			} 
+			catch (MissingResourceException ex) {
+			}
 			LOG.error("Could not translate key \"" + key + "\"", e);
 			return key.toString();
 		}
@@ -209,7 +222,8 @@ public final class BHTranslator implements ITranslator {
 		JComponent.setDefaultLocale(newLocale);
 
 		this.bundle = null; // TODO Thiele.Klaus: Workaround still necessary?
-		this.bundle = ResourceBundle.getBundle(BHTranslator.BHGUIKEYS, this.locale);
+		this.bundle = ResourceBundle.getBundle(BHTranslator.BHGUIKEYS,
+				this.locale);
 
 		this.firePropertyChange("Locale", oldLocale, this.bundle.getLocale());
 	}
