@@ -6,7 +6,6 @@ import java.awt.dnd.DnDConstants;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.util.Enumeration;
-
 import javax.swing.ImageIcon;
 import javax.swing.JLabel;
 import javax.swing.JPopupMenu;
@@ -18,7 +17,6 @@ import javax.swing.tree.DefaultTreeModel;
 import javax.swing.tree.TreeCellRenderer;
 import javax.swing.tree.TreePath;
 import javax.swing.tree.TreeSelectionModel;
-
 import org.bh.data.DTOPeriod;
 import org.bh.data.DTOProject;
 import org.bh.data.DTOScenario;
@@ -55,6 +53,10 @@ public class BHTree extends JTree{
 	 */
 	public static ImageIcon PERIOD_ICON = Services.createImageIcon("/org/bh/images/tree/period.png", Services.getTranslator().translate("period"));
 	
+	/**
+	 * Node that holds all projects (which contain scenarios). 
+	 * This node is not visible on GUI. It's only technically necessary.
+	 */
 	protected DefaultMutableTreeNode rootNode;
 	protected DefaultTreeModel treeModel;
 
@@ -97,6 +99,8 @@ public class BHTree extends JTree{
 		this.setModel(treeModel);
 		// TODO Find out, if reload is necessary...
 	}
+	
+	
 	void showPopup(MouseEvent e) {
         if (e.isPopupTrigger()) {
             JPopupMenu neu = new JPopupMenu();

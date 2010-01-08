@@ -4,7 +4,9 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Calendar;
 import java.util.Comparator;
+import java.util.Date;
 
 import javax.swing.JDialog;
 import javax.swing.JFileChooser;
@@ -441,6 +443,9 @@ class PlatformActionListener implements ActionListener {
 			newScenario.put(DTOScenario.Key.NAME, new StringValue(
 					"neues Scenario"));
 			
+			//...set Basis (IDENTIFIER) of scenario -> naming of periods
+			newScenario.put(DTOScenario.Key.IDENTIFIER, new StringValue(""+Calendar.getInstance().get(Calendar.YEAR)));
+			
 			// ...add it to DTO-Repository
 			((DTOProject) ((BHTreeNode) bhmf.getBHTree().getSelectionPath()
 					.getPathComponent(1)).getUserObject())
@@ -448,10 +453,9 @@ class PlatformActionListener implements ActionListener {
 
 			//ceck kind of scenario: deterministic or stochastic?
 			//TODO Schmalzhaf.Alexander: String raus!
-			
 			ArrayList<BHComboBox.Item> itemsList = new ArrayList<BHComboBox.Item>();
-			itemsList.add(new BHComboBox.Item("stochastic", new StringValue("stochastisch")));
 			itemsList.add(new BHComboBox.Item("deterministic", new StringValue("deterministisch")));
+			itemsList.add(new BHComboBox.Item("stochastic", new StringValue("stochastisch")));
 			BHComboBox.Item res = (BHComboBox.Item) JOptionPane
 			.showInputDialog(bhmf,
 					"Bitte gewünschten Szenariotyp auswählen:",
@@ -487,8 +491,8 @@ class PlatformActionListener implements ActionListener {
 		// If a scenario or a period is selected...
 		if (bhmf.getBHTree().getSelectionPath() != null
 				&& bhmf.getBHTree().getSelectionPath().getPathCount() > 2) {
-			// TODO Schmalzhaf.Alexander at first: show selection screen for
-			// sort of Period
+			
+			//show selectionBox for sort of period
 			IPeriodController[] periodTypes = Services.getPeriodControllers()
 					.values().toArray(new IPeriodController[0]);
 			Arrays.sort(periodTypes, new Comparator<IPeriodController>() {
@@ -503,8 +507,6 @@ class PlatformActionListener implements ActionListener {
 						new StringValue(periodType.getGuiKey())));
 			}
 
-			// TODO Thiele.Klaus dürfen "wir" die OptionPane benutzen?
-
 			// TODO Schmalzhaf.Alexander hartgecodete Strings raus!
 			BHComboBox.Item res = (BHComboBox.Item) JOptionPane
 					.showInputDialog(bhmf,
@@ -512,7 +514,8 @@ class PlatformActionListener implements ActionListener {
 							"Periodentyp auswählen",
 							JOptionPane.QUESTION_MESSAGE, null, itemsList
 									.toArray(), null);
-
+			
+			//Handle cancel
 			if (res == null) {
 				return;
 			}
@@ -520,7 +523,37 @@ class PlatformActionListener implements ActionListener {
 			// ...create new period
 			DTOPeriod newPeriod = new DTOPeriod();
 			// TODO hardgecodeder String raus! AS
-			newPeriod.put(DTOPeriod.Key.NAME, new StringValue("neue Periode"));
+			
+			//...set name of period
+			String periodName = "";
+			DTOScenario scenario = ((DTOScenario)((BHTreeNode)bhmf.getBHTree().getSelectionPath().getPathComponent(2)).getUserObject());
+			if(scenario.getChildrenSize() == 0){
+				try{
+					periodName = BHTranslator.getInstance().translate("project")+" "+(Integer.parseInt(((StringValue)scenario.get(DTOScenario.Key.IDENTIFIER)).getString())+1);
+				}catch(Exception e){
+					//Do nothing;
+				}
+			}else{
+				DTOPeriod lastPeriod;
+				try{
+					//get number of last Period and add 1.
+					lastPeriod = scenario.getChild(scenario.getChildrenSize()-1);
+					periodName = ""+(Integer.parseInt(((StringValue)lastPeriod.get(DTOPeriod.Key.NAME)).getString())+1);
+				}catch(Exception e){
+					try{
+						//get number and Text of last Period and add 1.
+						lastPeriod = scenario.getChild(scenario.getChildrenSize()-1);
+						String lastPeriodName = ((StringValue)lastPeriod.get(DTOPeriod.Key.NAME)).getString();
+						int tempNum =  Integer.parseInt(lastPeriodName.substring(getNumPos(lastPeriodName)));
+						periodName = lastPeriodName.substring(0,getNumPos(lastPeriodName) ) + (tempNum+1);
+					}catch(Exception e1){
+						//TODO Schmalzhaf.Alexander harter String raus!
+						periodName = "neue Periode";
+					}
+					
+				}
+			}
+			newPeriod.put(DTOPeriod.Key.NAME, new StringValue(periodName));
 			newPeriod.put(DTOPeriod.Key.CONTROLLER, new StringValue(res.getKey()));
 
 			// ...add it to DTO-Repository
@@ -542,6 +575,20 @@ class PlatformActionListener implements ActionListener {
 		}
 	}
 
+	private int getNumPos(String s){
+		int[] numbers = {0,1,2,3,4,5,6,7,8,9};
+		
+		int start = s.length();
+		
+		for(int i : numbers){
+			if(s.indexOf(""+i) < start && s.indexOf(""+i)> -1)
+				start = s.indexOf(""+i);
+		}
+		System.out.println("start "+start);
+		return start;
+		
+	}
+	
 	private void duplicateProject() {
 		TreePath currentDuplicateProjectSelection = bhmf.getBHTree()
 				.getSelectionPath();

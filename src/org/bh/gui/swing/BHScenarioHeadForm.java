@@ -45,7 +45,7 @@ public class BHScenarioHeadForm extends JPanel {
 	private BHTextField tfdeptyield;
 	private BHTextField tftradetax;
 	private BHTextField tfcorporatetax;
-	private BHTextField tfbaseyear;
+	private BHTextField tfBase;
 	private JLabel lpercentequity;
 	private JLabel lpercentdept;
 	private JLabel lpercenttrade;
@@ -85,8 +85,8 @@ public class BHScenarioHeadForm extends JPanel {
 		CellConstraints cons = new CellConstraints();
 
 		this.add(this.getlscenName(), cons.xywh(3, 4, 1, 1));
-		this.add(this.getlbaseYear(), cons.xywh(14, 4, 1, 1));
-		this.add(this.gettfbaseYear(), cons.xywh(17, 4, 1, 1));
+		this.add(this.getlBase(), cons.xywh(14, 4, 1, 1));
+		this.add(this.gettfBase(), cons.xywh(17, 4, 1, 1));
 
 		this.add(this.getlscenDescript(), cons.xywh(3, 6, 1, 1));
 		this.add(this.getlequityYield(), cons.xywh(3, 10, 1, 1));
@@ -245,7 +245,7 @@ public class BHScenarioHeadForm extends JPanel {
 	 * 
 	 * @return the initialized component
 	 */
-	public BHDescriptionLabel getlbaseYear() {
+	public BHDescriptionLabel getlBase() {
 
 		if (this.lbaseyear == null) {
 			this.lbaseyear = new BHDescriptionLabel(DTOScenario.Key.IDENTIFIER);
@@ -353,15 +353,15 @@ public class BHScenarioHeadForm extends JPanel {
 	 * 
 	 * @return the initialized component
 	 */
-	public BHTextField gettfbaseYear() {
+	public BHTextField gettfBase() {
 
-		if (this.tfbaseyear == null) {
-			this.tfbaseyear = new BHTextField(DTOScenario.Key.IDENTIFIER);
+		if (this.tfBase == null) {
+			this.tfBase = new BHTextField(DTOScenario.Key.IDENTIFIER);
 			ValidationRule[] rules = { VRMandatory.INSTANCE,
 					VRIsInteger.INSTANCE };
-			tfbaseyear.setValidationRules(rules);
+			tfBase.setValidationRules(rules);
 		}
-		return this.tfbaseyear;
+		return this.tfBase;
 	}
 
 	/**
