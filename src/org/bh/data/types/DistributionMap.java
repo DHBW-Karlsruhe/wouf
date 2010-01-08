@@ -108,19 +108,28 @@ public class DistributionMap{
 	 * 		E.g. confidence = 95% => the "real" value will be in between 
 	 * 		the returned borders with a likeliness of 95%
 	 */
-	public double[] valueAtRisk(double confidenceCoefficient){
-		double[] result = new double[2];
+	public IntervalValue valueAtRisk(double confidenceCoefficient){
+		double min = 0;
+		double max = 0;
 		double n = amountOfValues * ((1 - confidenceCoefficient) / 2);
 		
 		int sum = 0;
 		for(Entry<Double, Integer> e : map.entrySet()){
 			sum += e.getValue();
-			if(sum > n)
-				result[0] = e.getKey();
-			if(sum > amountOfValues - n)
-				result[1] = e.getKey();
+			if(sum >= n){
+				min = e.getKey();
+				break;
+			}
 		}
-		return result;
+		sum = 0;
+		for(Entry<Double, Integer> e : map.descendingMap().entrySet()){
+			sum += e.getValue();
+			if(sum >= n){
+				max = e.getKey();
+				break;
+			}
+		}
+		return new IntervalValue(min, max);
 	}
 //	public double calculateQuality(double standardDeviation, double mean) throws MathException{
 //	System.out.println(standardDeviation);
