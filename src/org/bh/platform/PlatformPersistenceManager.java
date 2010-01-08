@@ -171,9 +171,8 @@ public class PlatformPersistenceManager {
 	/*
 	 * last edited file dialog
 	 * 
-	 * @author Thiele.Klaus
-	 * 
-	 * @author Loeckelt.Michael
+	 * @author Thiele.Klaus (UI)
+	 * @author Loeckelt.Michael (persistence logic)
 	 */
 	public void lastEditedFile () {
 		String lastFile = PlatformController.preferences.get("path", "");

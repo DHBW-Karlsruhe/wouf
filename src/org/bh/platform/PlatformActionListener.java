@@ -350,29 +350,29 @@ class PlatformActionListener implements ActionListener {
 	}
 
 	/*
-	 * could be done with more glamour ;)
+	 * new file
+	 * 
+	 * @author Loeckelt.Michael
 	 */
 	private void fileNew() {
 		if (ProjectRepositoryManager.isChanged()) {
 			
 			int i = JOptionPane.showConfirmDialog(bhmf, Services.getTranslator().translate("Psave"));
 			
-			if (i == JOptionPane.YES_OPTION) {
-				Services.firePlatformEvent(new PlatformEvent(BHMainFrame.class, PlatformEvent.Type.SAVE));
+			if (i == JOptionPane.YES_OPTION || i == JOptionPane.NO_OPTION) {
+				if (i == JOptionPane.YES_OPTION)
+					Services.firePlatformEvent(new PlatformEvent(BHMainFrame.class, PlatformEvent.Type.SAVE));
+				
+				if (i == JOptionPane.NO_OPTION)
+					Logger.getLogger(getClass()).debug("Existing changes but no save wish - clear project list");
+				
 				projectRepoManager.clearProjectList();
 				pC.setupTree(bhmf, projectRepoManager);
 				PlatformController.preferences.remove("path");
 				
 				ProjectRepositoryManager.setChanged(false);
 				bhmf.resetTitle();
-			} else if (i == JOptionPane.NO_OPTION) {
-				Logger.getLogger(getClass()).debug("Existing changes but no save wish - clear project list");
-				projectRepoManager.clearProjectList();
-				pC.setupTree(bhmf, projectRepoManager);
-				PlatformController.preferences.remove("path");
 				
-				ProjectRepositoryManager.setChanged(false);
-				bhmf.resetTitle();
 			} else if (i == JOptionPane.CANCEL_OPTION) {
 				
 			}
@@ -386,8 +386,14 @@ class PlatformActionListener implements ActionListener {
 			ProjectRepositoryManager.setChanged(false);
 			bhmf.resetTitle();
 		}
+		
 	}
 
+	/*
+	 * new file
+	 * 
+	 * @author Loeckelt.Michael
+	 */
 	private void fileOpen() {
 		// create a open-dialog
 		int returnVal = bhmf.getChooser().showOpenDialog(bhmf);
