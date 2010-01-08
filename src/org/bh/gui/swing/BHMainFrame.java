@@ -139,8 +139,7 @@ public class BHMainFrame extends JFrame implements IPlatformListener {
 
 		// Create the horizontal split pane and put the treeBar and the content
 		// in it.
-		paneH = new JSplitPane(JSplitPane.HORIZONTAL_SPLIT, bhTreeScroller,
-				content);
+		paneH = new JSplitPane(JSplitPane.HORIZONTAL_SPLIT, bhTreeScroller, content);
 		paneH.setOneTouchExpandable(true);
 		
 		bhTreeScroller.setMinimumSize(new Dimension(UIManager.getInt("BHTree.minimumWidth"), bhTreeScroller.getMinimumSize().height));
@@ -240,7 +239,7 @@ public class BHMainFrame extends JFrame implements IPlatformListener {
 
 	public void setCharts(Component chart) {
 		chartsPanel = new JScrollPane(chart);
-		JSplitPane paneV = new JSplitPane(JSplitPane.HORIZONTAL_SPLIT, formsPanel, chartsPanel);
+		JSplitPane paneV = new JSplitPane(JSplitPane.VERTICAL_SPLIT, formsPanel, chartsPanel);
 
 		paneV.setOneTouchExpandable(true);
 
