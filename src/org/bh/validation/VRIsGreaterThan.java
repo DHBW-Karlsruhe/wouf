@@ -12,6 +12,8 @@ public class VRIsGreaterThan extends ValidationRule {
 	public static final VRIsGreaterThan GTZERO = new VRIsGreaterThan(0, false);
 	/** Constant to check whether a value is greater than or equal to zero. */
 	public static final VRIsGreaterThan GTEZERO = new VRIsGreaterThan(0, true);
+	
+	
 	private final double compareValue;
 	private final boolean orEqual;
 

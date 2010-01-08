@@ -11,7 +11,7 @@ import javax.swing.JPanel;
 import org.bh.data.DTOScenario;
 import org.bh.platform.Services;
 import org.bh.platform.i18n.ITranslator;
-import org.bh.validation.VRIsBetween0and100;
+import org.bh.validation.VRIsBetween;
 import org.bh.validation.VRIsInteger;
 import org.bh.validation.VRIsPositive;
 import org.bh.validation.VRMandatory;
@@ -183,7 +183,7 @@ public class BHStochasticInputForm extends JPanel {
 			// TODO add key, input hint and check rules
 			ValidationRule[] rules = { VRMandatory.INSTANCE,
 					VRIsInteger.INSTANCE,
-					VRIsBetween0and100.INSTANCE };
+					VRIsBetween.BETWEEN0AND100 };
 			tfprobab.setValidationRules(rules);
 		}
 

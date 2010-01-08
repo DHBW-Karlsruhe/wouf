@@ -11,7 +11,7 @@ import javax.swing.JPanel;
 import org.bh.data.DTOScenario;
 import org.bh.platform.Services;
 import org.bh.platform.i18n.ITranslator;
-import org.bh.validation.VRIsBetween0and100;
+import org.bh.validation.VRIsBetween;
 import org.bh.validation.VRIsDouble;
 import org.bh.validation.VRIsInteger;
 import org.bh.validation.VRIsPositive;
@@ -327,7 +327,7 @@ public class BHScenarioHeadForm extends JPanel {
 			this.tftradetax = new BHTextField(DTOScenario.Key.BTAX);
 			ValidationRule[] rules = { VRMandatory.INSTANCE,
 					VRIsDouble.INSTANCE, VRIsPositive.INSTANCE,
-					VRIsBetween0and100.INSTANCE };
+					VRIsBetween.BETWEEN0AND100 };
 			tftradetax.setValidationRules(rules);
 		}
 		return this.tftradetax;
@@ -344,7 +344,7 @@ public class BHScenarioHeadForm extends JPanel {
 			this.tfcorporatetax = new BHTextField(DTOScenario.Key.CTAX);
 			ValidationRule[] rules = { VRMandatory.INSTANCE,
 					VRIsDouble.INSTANCE, VRIsPositive.INSTANCE,
-					VRIsBetween0and100.INSTANCE };
+					VRIsBetween.BETWEEN0AND100 };
 			tfcorporatetax.setValidationRules(rules);
 		}
 		return this.tfcorporatetax;
@@ -360,7 +360,7 @@ public class BHScenarioHeadForm extends JPanel {
 		if (this.tfbaseyear == null) {
 			this.tfbaseyear = new BHTextField(DTOScenario.Key.IDENTIFIER);
 			ValidationRule[] rules = { VRMandatory.INSTANCE,
-					VRIsInteger.INSTANCE, VRIsPositive.INSTANCE };
+					VRIsInteger.INSTANCE, VRIsBetween.BETWEEN1900AND2100 };
 			tfbaseyear.setValidationRules(rules);
 		}
 		return this.tfbaseyear;
