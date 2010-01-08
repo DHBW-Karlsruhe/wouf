@@ -43,16 +43,15 @@ public class BHStochasticProcessForm extends JPanel {
 	 */
 	private void initialize() {
 		FormLayout layout;
-		//TODO Kharitonov.Anton rowDef/colDef überarbeiten
-		String rowDef = "100px";
-		String colDef = "4px,pref:grow,4px";
+		String rowDef = "4px,p,4px";
+		String colDef = "pref:grow";
 
 		layout = new FormLayout(colDef, rowDef);
 		this.setLayout(layout);
 
 		CellConstraints cons = new CellConstraints();
 		
-		this.add(new JScrollPane(this.getStochasticInputForm()), cons.xywh(2, 1, 2, 1));
+		this.add(new JScrollPane(this.getStochasticInputForm()), cons.xywh(1, 2, 1, 1));
 	}
 
 	// TODO add missing label keys and translations, change hard coded values to keys

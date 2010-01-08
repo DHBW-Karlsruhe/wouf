@@ -37,6 +37,21 @@ public class BHScenarioForm extends JPanel {
 		DETERMINISTIC;
 	}
 	
+	public enum Key {
+		/**
+		 * 
+		 */
+		SCENARIO_HEADDATA,
+		
+		/**
+		 * 
+		 */
+		PROCESS_DATA;
+
+		public String toString() {
+		    return getClass().getName() + "." + super.toString();
+		}
+	}
 	
 	private JPanel pscenario;
 	private JPanel pprocess;
@@ -106,7 +121,8 @@ public class BHScenarioForm extends JPanel {
 		default:
 			pprocess = new BHDeterministicProcessForm();
 		}
-		
+		pprocess.setBorder(BorderFactory
+				.createTitledBorder(BorderFactory.createEtchedBorder(EtchedBorder.LOWERED),translator.translate(BHScenarioForm.Key.PROCESS_DATA)));
 		return pprocess;
 	}
 	
@@ -115,7 +131,7 @@ public class BHScenarioForm extends JPanel {
 			pscenario = new BHScenarioHeadForm();
 			//TODO String raus!
 			pscenario.setBorder(BorderFactory
-					.createTitledBorder(BorderFactory.createEtchedBorder(EtchedBorder.LOWERED),"Szenariokopfdaten"));
+					.createTitledBorder(BorderFactory.createEtchedBorder(EtchedBorder.LOWERED),translator.translate(BHScenarioForm.Key.SCENARIO_HEADDATA)));
 		}
 		return pscenario;
 	}
