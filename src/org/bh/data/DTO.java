@@ -75,7 +75,13 @@ public abstract class DTO<ChildT extends IDTO> implements IDTO<ChildT> {
 	 * fallback data if a validation check returns false.
 	 */
 	protected boolean sandBoxMode = false;
-
+	
+	/**
+	 * This flag shows if the dto was filled valid.
+	 * It used for the tree and for the exception list
+	 */
+	private boolean valid;
+	
 	/**
 	 * The actual map which contains all values.
 	 */
@@ -380,5 +386,38 @@ public abstract class DTO<ChildT extends IDTO> implements IDTO<ChildT> {
 	 */
 	public Iterator iterator() {
 		return getChildren().iterator();
+	}
+	
+	/**
+	 * return isValid
+	 */
+	public boolean isValid(boolean recursive) { 
+		if (recursive)
+			return this.valid && getChildValidity();
+		return this.valid;
+	}
+	
+	/**
+	 * get the validity of all childs
+	 * @return
+	 */
+	private boolean getChildValidity () {
+		
+		Iterator<ChildT> childIterator = getChildren().iterator();
+		
+		while (childIterator.hasNext()) {
+			DTO<ChildT> childT = (DTO<ChildT>) childIterator.next();
+			if (!childT.isValid(true)) {
+				return false;
+			}
+		}
+		return true;
+	}
+	
+	/**
+	 * set validity
+	 */
+	public void setValid(boolean valid) {
+		this.valid = valid;
 	}
 }
