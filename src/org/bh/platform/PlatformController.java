@@ -59,7 +59,7 @@ import org.bh.platform.PlatformEvent.Type;
 public class PlatformController {
 
 	private BHMainFrame bhmf;
-	private ProjectRepositoryManager projectRepoManager = new ProjectRepositoryManager();
+	private ProjectRepositoryManager projectRepoManager = ProjectRepositoryManager.getInstance();
 
 	InputController controller = null;
 

@@ -199,6 +199,7 @@ public class BHMainFrame extends JFrame implements IPlatformListener {
 	@Override
 	public void dispose() {
 		// TODO Michael Löckelt: Kommentieren, Save Dialog
+		// TODO Dispose evtl noch auslagern
 		if (ProjectRepositoryManager.isChanged()) {
 			
 			int i = JOptionPane.showConfirmDialog(this, Services.getTranslator().translate("Psave"));

@@ -355,7 +355,7 @@ class PlatformActionListener implements ActionListener {
 	 * @author Loeckelt.Michael
 	 */
 	private void fileNew() {
-		if (ProjectRepositoryManager.isChanged()) {
+		if (ProjectRepositoryManager.isChanged() && !projectRepoManager.getRepositoryList().isEmpty()) {
 			
 			int i = JOptionPane.showConfirmDialog(bhmf, Services.getTranslator().translate("Psave"));
 			
@@ -378,7 +378,7 @@ class PlatformActionListener implements ActionListener {
 			}
 			
 		} else { 
-			Logger.getLogger(getClass()).debug("No changes - clear project list");
+			Logger.getLogger(getClass()).debug("No changes / empty project list - clear project list");
 			projectRepoManager.clearProjectList();
 			pC.setupTree(bhmf, projectRepoManager);
 			PlatformController.preferences.remove("path");

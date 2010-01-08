@@ -23,12 +23,24 @@ import org.bh.data.DTOProject;
 public class ProjectRepositoryManager {
 	
     private ArrayList<DTOProject> repositoryList = new ArrayList<DTOProject>();
-    
-	private static final Logger log = Logger.getLogger(ProjectRepositoryManager.class);
 	
     private static boolean isChanged;
     
-    public static ChangedListener cL = new ChangedListener();
+    public ChangedListener cL = new ChangedListener(this);
+    
+    private static final Logger log = Logger.getLogger(ProjectRepositoryManager.class);
+    
+    private static ProjectRepositoryManager singletonRepo;
+    
+    private ProjectRepositoryManager () {
+    	super();
+    }
+    
+    public static ProjectRepositoryManager getInstance() {
+    	if (singletonRepo == null)
+    		singletonRepo = new ProjectRepositoryManager();
+    	return singletonRepo;
+    }
 
 	/**
      * Adds a new project to the actual repository.
@@ -73,7 +85,7 @@ public class ProjectRepositoryManager {
     		
     	repositoryList.remove(project);
     	Services.firePlatformEvent(new PlatformEvent(ProjectRepositoryManager.class,PlatformEvent.Type.DATA_CHANGED));
-
+    	
     }
     
     
@@ -124,14 +136,25 @@ public class ProjectRepositoryManager {
 
 class ChangedListener implements IPlatformListener {
 	
-	public ChangedListener () {
+	private static final Logger log = Logger.getLogger(ProjectRepositoryManager.class);
+	
+	ProjectRepositoryManager projectRepositoryManager;
+	
+	public ChangedListener (ProjectRepositoryManager projectRepositoryManager) {
+		this.projectRepositoryManager = projectRepositoryManager;
 		Services.addPlatformListener(this);
 	}
 
 	@Override
 	public void platformEvent(PlatformEvent e) {
 		if (PlatformEvent.Type.DATA_CHANGED == e.getEventType())
-			ProjectRepositoryManager.setChanged(true);
+			if (!projectRepositoryManager.getRepositoryList().isEmpty()) {
+				ProjectRepositoryManager.setChanged(true);
+			} else {
+				log.debug("Empty tree");
+				ProjectRepositoryManager.setChanged(false);
+			}
+				
 	}
 	
 }

@@ -97,30 +97,34 @@ public class PlatformPersistenceManager {
 
 			return returnRepository;
 		} catch (IOException e) {
-			log.error("IOException while opening file");
+			log.error("IOException while opening file", e);
 		} catch (Exception e) {
-			log.error("Exception while opening file");
+			log.error("Exception while opening file", e);
 		}
 
 		return null;
 	}
 
 	public void prepareSaveFile (boolean forcedSaveAs) {
-		if (PlatformController.preferences.get("path", "").equals("") || forcedSaveAs == true) {
-			
-			int returnVal = bhmf.getChooser().showSaveDialog(bhmf);
-			 if (returnVal == JFileChooser.APPROVE_OPTION) {
-				 log.debug("You choose to save this file: " + bhmf.getChooser().getSelectedFile().getName());
-				 this.path = bhmf.getChooser().getSelectedFile();
-			 }
-			 
+		if (projectRepositoryManager.getRepositoryList().isEmpty()) {
+			log.debug("No save necessary - empty tree");
 		} else {
-			File path = new File(PlatformController.preferences.get("path", ""));
+			if (PlatformController.preferences.get("path", "").equals("") || forcedSaveAs == true) {
+				
+				int returnVal = bhmf.getChooser().showSaveDialog(bhmf);
+				 if (returnVal == JFileChooser.APPROVE_OPTION) {
+					 log.debug("You choose to save this file: " + bhmf.getChooser().getSelectedFile().getName());
+					 this.path = bhmf.getChooser().getSelectedFile();
+				 }
+				 
+			} else {
+				File path = new File(PlatformController.preferences.get("path", ""));
 
-			this.path = path;
+				this.path = path;
+			}
+			
+			this.saveFile();
 		}
-		
-		this.saveFile();
 	}
 	
 	public void saveFile() {
@@ -162,9 +166,9 @@ public class PlatformPersistenceManager {
 			bhmf.resetTitle();
 
 		} catch (FileNotFoundException e) {
-			log.error("File " + path + "not found!");
+			log.error("File " + path + "not found!", e);
 		} catch (IOException e) {
-			log.error("IO Error occured while saving" + path);
+			log.error("IO Error occured while saving" + path, e);
 			e.printStackTrace();
 		}
 	}
