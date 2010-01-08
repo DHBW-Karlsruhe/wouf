@@ -98,61 +98,58 @@ public class BHPeriodInputForm extends JPanel {
 				.createEtchedBorder(EtchedBorder.LOWERED), this.year));
 	}
 
-	// TODO add missing label keys and translations, change hard coded values to
-	// keys
-
 	public JLabel getLmax() {
 		if (lmax == null) {
-			lmax = new JLabel(translator.translate("max"));
+			lmax = new JLabel(translator.translate("MAX"));
 		}
 		return lmax;
 	}
 
 	public JLabel getLmin() {
 		if (lmin == null) {
-			lmin = new JLabel(translator.translate("min"));
+			lmin = new JLabel(translator.translate("MIN"));
 		}
 		return lmin;
 	}
 
 	public JLabel getLcurrency1() {
 		if (lcurrency1 == null) {
-			lcurrency1 = new JLabel(translator.translate("currency"));
+			lcurrency1 = new JLabel(translator.translate("Currency"));
 		}
 		return lcurrency1;
 	}
 
 	public JLabel getLcurrency2() {
 		if (lcurrency2 == null) {
-			lcurrency2 = new JLabel(translator.translate("currency"));
+			lcurrency2 = new JLabel(translator.translate("Currency"));
 		}
 		return lcurrency2;
 	}
 	
 	public JLabel getLcurrency3() {
 		if (lcurrency3 == null) {
-			lcurrency3 = new JLabel(translator.translate("currency"));
+			lcurrency3 = new JLabel(translator.translate("Currency"));
 		}
 		return lcurrency3;
 	}
 
 	public JLabel getLcurrency4() {
 		if (lcurrency4 == null) {
-			lcurrency4 = new JLabel(translator.translate("currency"));
+			lcurrency4 = new JLabel(translator.translate("Currency"));
 		}
 		return lcurrency4;
 	}
 
 	public JLabel getLcurrency5() {
 		if (lcurrency5 == null) {
-			lcurrency5 = new JLabel(translator.translate("currency"));
+			lcurrency5 = new JLabel(translator.translate("Currency"));
 		}
 		return lcurrency5;
 	}
 
 	public JLabel getLcurrency6() {
 		if (lcurrency6 == null) {
-			lcurrency6 = new JLabel(translator.translate("currency"));
+			lcurrency6 = new JLabel(translator.translate("Currency"));
 		}
 		return lcurrency6;
 	}

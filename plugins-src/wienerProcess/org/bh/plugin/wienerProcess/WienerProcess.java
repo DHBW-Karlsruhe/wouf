@@ -182,8 +182,7 @@ public class WienerProcess implements IStochasticProcess {
 				result.add(new BHDescriptionLabel(translator.translate(SLOPE)), cons.xywh(2, layout.getRowCount()-1, 1, 1));
 				result.add(new BHTextField(key + SLOPE, "" + slope), cons.xywh(4, layout.getRowCount()-1, 1, 1));
 				result.add(new BHDescriptionLabel(translator.translate(STANDARD_DEVIATION)), cons.xywh(6, layout.getRowCount()-1, 1, 1));
-				result
-						.add(new BHTextField(key + STANDARD_DEVIATION, "" + standardDeviation), cons.xywh(8, layout.getRowCount()-1, 1, 1));
+				result.add(new BHTextField(key + STANDARD_DEVIATION, "" + standardDeviation), cons.xywh(8, layout.getRowCount()-1, 1, 1));
 
 			}
 			this.panel = result;

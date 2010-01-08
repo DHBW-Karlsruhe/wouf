@@ -10,6 +10,9 @@ import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 
+import org.bh.platform.Services;
+import org.bh.platform.i18n.ITranslator;
+
 import com.jgoodies.forms.layout.CellConstraints;
 import com.jgoodies.forms.layout.FormLayout;
 
@@ -26,6 +29,7 @@ public class BHDeterministicProcessForm extends JPanel {
 	private JCheckBox chbinterval;
 	private JTable tperioddata;
 
+	ITranslator translator = Services.getTranslator();
 
 	/**
 	 * Constructor.
@@ -58,7 +62,7 @@ public class BHDeterministicProcessForm extends JPanel {
 	
 	public BHDescriptionLabel getLinterval() {
 		if (linterval == null) {
-			linterval = new BHDescriptionLabel("Intervallrechnung");
+			linterval = new BHDescriptionLabel(translator.translate("IntervalArithmetic"));
 		}
 		return linterval;
 	}
