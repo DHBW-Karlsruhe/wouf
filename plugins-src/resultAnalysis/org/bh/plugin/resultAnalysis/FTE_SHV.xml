@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!--
-    Document   : FTE_SHV.xml
-    Created on : 8. Januar 2010, 15:15
-    Author     : Marco Hammel
-    Description:
-        Purpose of the document follows.
--->
-
-<root>
-
-</root>
+<math>
+    <apply>
+        <ci>GK</ci>
+        <eq/>
+        <apply>
+            <ci>EK</ci>
+            <plus/>
+            <ci>FK</ci>
+        </apply>
+    </apply>
+</math>
