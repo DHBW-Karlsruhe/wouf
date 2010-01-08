@@ -459,6 +459,9 @@ class PlatformActionListener implements ActionListener {
 					JOptionPane.QUESTION_MESSAGE, null, itemsList
 							.toArray(), null);
 			
+			if(res == null)
+				return;
+			
 			if(res.getKey().equalsIgnoreCase("STOCHASTIC"))
 					newScenario.put(DTOScenario.Key.STOCHASTIC_PROCESS, new StringValue("true"));
 			
