@@ -13,6 +13,7 @@ import javax.swing.JTree;
 import javax.swing.SwingConstants;
 import javax.swing.UIManager;
 import javax.swing.tree.DefaultMutableTreeNode;
+import javax.swing.tree.DefaultTreeCellRenderer;
 import javax.swing.tree.DefaultTreeModel;
 import javax.swing.tree.TreeCellRenderer;
 import javax.swing.tree.TreePath;
@@ -20,6 +21,8 @@ import javax.swing.tree.TreeSelectionModel;
 import org.bh.data.DTOPeriod;
 import org.bh.data.DTOProject;
 import org.bh.data.DTOScenario;
+import org.bh.platform.IPlatformListener;
+import org.bh.platform.PlatformEvent;
 import org.bh.platform.PlatformKey;
 import org.bh.platform.Services;
 
@@ -53,10 +56,17 @@ public class BHTree extends JTree{
 	 */
 	public static ImageIcon PERIOD_ICON = Services.createImageIcon("/org/bh/images/tree/period.png", Services.getTranslator().translate("period"));
 	
+
+	/**
+	 * icon for project nodes with error.
+	 */
+	public static ImageIcon ERROR_ICON = Services.createImageIcon("/org/bh/images/tree/error.png", Services.getTranslator().translate("error"));
+
 	/**
 	 * Node that holds all projects (which contain scenarios). 
 	 * This node is not visible on GUI. It's only technically necessary.
 	 */
+
 	protected DefaultMutableTreeNode rootNode;
 	protected DefaultTreeModel treeModel;
 
@@ -71,6 +81,8 @@ public class BHTree extends JTree{
 		this.getSelectionModel().setSelectionMode(TreeSelectionModel.SINGLE_TREE_SELECTION);
 		this.setShowsRootHandles(true);
 		this.setCellRenderer(new BHTreeCellRenderer());
+		
+		Services.addPlatformListener(new BHTreeValidationListener());
 
 		new DefaultTreeTransferHandler(this, DnDConstants.ACTION_COPY_OR_MOVE);
 
@@ -138,17 +150,29 @@ public class BHTree extends JTree{
 			//Downcast just for determination of the type.
 			DefaultMutableTreeNode node = (DefaultMutableTreeNode) value;
 			
+			
+			
 			//Determine icon
 			ImageIcon icon = null; 
 						
 			if (node.getUserObject() instanceof DTOProject) {
+	
 				icon = BHTree.PROJECT_ICON;
+				
 			}
 			else if (node.getUserObject() instanceof DTOScenario) {
-				icon = BHTree.SCENARIO_ICON;
+				if(((DTOScenario)node.getUserObject()).isValid(true)){
+					icon = BHTree.SCENARIO_ICON;
+				}
+				else icon = BHTree.ERROR_ICON;
+
 			}
 			else if (node.getUserObject() instanceof DTOPeriod) {
-				icon = BHTree.PERIOD_ICON;
+				if(((DTOScenario)node.getUserObject()).isValid(true)){
+					icon = BHTree.PERIOD_ICON;
+				}
+				else icon = BHTree.ERROR_ICON;
+
 			}
 			
 			// return TreeCell
@@ -156,6 +180,18 @@ public class BHTree extends JTree{
 			treeCell.setPreferredSize(new Dimension((int) treeCell.getPreferredSize().getWidth(), UIManager.getInt("BHTree.nodeheight"))); 
 			return treeCell;
 		}
+	}
+	
+	public class BHTreeValidationListener implements IPlatformListener{
+
+		public void platformEvent(PlatformEvent e) {
+			if(e.getEventType() == PlatformEvent.Type.DATA_CHANGED){
+
+				treeModel.reload();
+				
+			}
+		}
+		
 	}
 	
 	/**
