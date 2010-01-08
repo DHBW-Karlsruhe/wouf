@@ -21,7 +21,7 @@ import org.jfree.data.category.DefaultCategoryDataset;
 
 public class BHContent extends JPanel{
 
-    public JLabel chart, forms, logo;
+    public JLabel logo;
     
     /**
      * currently  only test contents are available in this class

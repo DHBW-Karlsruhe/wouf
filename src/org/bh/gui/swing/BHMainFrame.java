@@ -240,7 +240,7 @@ public class BHMainFrame extends JFrame implements IPlatformListener {
 
 	public void setCharts(Component chart) {
 		chartsPanel = new JScrollPane(chart);
-		JSplitPane paneV = new JSplitPane(JSplitPane.VERTICAL_SPLIT, formsPanel, chartsPanel);
+		JSplitPane paneV = new JSplitPane(JSplitPane.HORIZONTAL_SPLIT, formsPanel, chartsPanel);
 
 		paneV.setOneTouchExpandable(true);
 
