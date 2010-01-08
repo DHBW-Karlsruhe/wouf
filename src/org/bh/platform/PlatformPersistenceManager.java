@@ -17,6 +17,7 @@ import javax.swing.JOptionPane;
 import org.apache.log4j.Logger;
 import org.bh.data.DTOProject;
 import org.bh.gui.swing.BHMainFrame;
+import org.bh.platform.i18n.BHTranslator;
 
 /**
  * Platform Persistence
@@ -177,10 +178,12 @@ public class PlatformPersistenceManager {
 	public void lastEditedFile () {
 		String lastFile = PlatformController.preferences.get("path", "");
 		if (!lastFile.equals("")) {
-			int action = JOptionPane.showConfirmDialog(bhmf, Services
-					.getTranslator().translate("PlastFile"), "",
-					JOptionPane.YES_NO_OPTION);
-
+			String test = "/Users/klaus/Documents/DHBW/05_DHBW-Semester5/Geschäftsprozessmodellierung/VisObjNet27/DEUTSCHES TUTORIAL/blah/juju/tescht.bh";
+			String title = Services.getTranslator().translate("PlastFile");
+			String message = "<html>" + Services.getTranslator().translate("PlastFile", BHTranslator.LONG) + "<br /><i>(" + test + ")</i></html>";
+			
+			
+			int action = JOptionPane.showConfirmDialog(bhmf, message, title, JOptionPane.YES_NO_OPTION);
 			if (action == JOptionPane.YES_OPTION) {
 				File tmpFile = new File(lastFile);
 				PlatformController.platformPersistenceManager.openFile(tmpFile);
