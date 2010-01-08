@@ -107,7 +107,7 @@ public class BHOptionDialog extends JDialog implements ActionListener,
 		 */
 		public BHLanguageRenderer() {
 			l = new JLabel();
-			l.setPreferredSize(new Dimension(l.getPreferredSize().width, 30));
+			l.setPreferredSize(new Dimension(l.getPreferredSize().width, 20));
 		}
 		/**
 		 * Method to return a Component for each item of the List.
