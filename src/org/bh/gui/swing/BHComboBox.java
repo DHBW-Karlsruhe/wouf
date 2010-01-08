@@ -52,8 +52,10 @@ public class BHComboBox extends JComboBox implements IBHModelComponent, ActionLi
 
 	@Override
 	public void setValue(IValue value) {
-		if (value == null)
+		if (value == null) {
+			this.setSelectedIndex(0);
 			return;
+		}
 		
 		for (int i = 0; i < this.getItemCount(); i++) {
 			Item item = (Item) this.getItemAt(i);
