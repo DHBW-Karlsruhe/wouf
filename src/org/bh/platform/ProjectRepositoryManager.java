@@ -84,6 +84,11 @@ public class ProjectRepositoryManager {
     public void removeProject(DTOProject project){
     		
     	repositoryList.remove(project);
+    	
+    	if (repositoryList.isEmpty() && PlatformController.preferences.get("path", "").equals("")) 
+    		ProjectRepositoryManager.setChanged(false);
+    	
+    		
     	Services.firePlatformEvent(new PlatformEvent(ProjectRepositoryManager.class,PlatformEvent.Type.DATA_CHANGED));
     	
     }

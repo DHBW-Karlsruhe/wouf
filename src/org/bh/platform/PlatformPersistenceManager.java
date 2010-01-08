@@ -106,25 +106,20 @@ public class PlatformPersistenceManager {
 	}
 
 	public void prepareSaveFile (boolean forcedSaveAs) {
-		if (projectRepositoryManager.getRepositoryList().isEmpty()) {
-			log.debug("No save necessary - empty tree");
-		} else {
-			if (PlatformController.preferences.get("path", "").equals("") || forcedSaveAs == true) {
-				
-				int returnVal = bhmf.getChooser().showSaveDialog(bhmf);
-				 if (returnVal == JFileChooser.APPROVE_OPTION) {
-					 log.debug("You choose to save this file: " + bhmf.getChooser().getSelectedFile().getName());
-					 this.path = bhmf.getChooser().getSelectedFile();
-				 }
-				 
-			} else {
-				File path = new File(PlatformController.preferences.get("path", ""));
-
-				this.path = path;
-			}
+		if (PlatformController.preferences.get("path", "").equals("") || forcedSaveAs == true) {
 			
-			this.saveFile();
+			int returnVal = bhmf.getChooser().showSaveDialog(bhmf);
+			 if (returnVal == JFileChooser.APPROVE_OPTION) {
+				 log.debug("You choose to save this file: " + bhmf.getChooser().getSelectedFile().getName());
+				 this.path = bhmf.getChooser().getSelectedFile();
+			 }
+			 
+		} else {
+			File path = new File(PlatformController.preferences.get("path", ""));
+			this.path = path;
 		}
+		
+		this.saveFile();
 	}
 	
 	public void saveFile() {
