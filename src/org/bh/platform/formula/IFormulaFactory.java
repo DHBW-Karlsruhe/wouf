@@ -11,7 +11,7 @@ import org.w3c.dom.Document;
 public interface IFormulaFactory {
 
 	/** The instance of the currently used IFormulaFactory implementation. */
-	IFormulaFactory instance = new FormulaFactoryImpl();
+	static IFormulaFactory instance = new FormulaFactoryImpl();
 
 	/**
 	 * Creates a new IFormula object.
