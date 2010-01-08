@@ -1,4 +1,4 @@
-package org.bh.plugin.swing;
+package org.bh.plugin.gcc.swing;
 
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
@@ -15,43 +15,40 @@ import org.bh.gui.swing.BHDescriptionLabel;
 import org.bh.gui.swing.BHTextField;
 import org.bh.gui.swing.IBHComponent;
 import org.bh.platform.i18n.BHTranslator;
-import org.bh.plugin.gcc.data.DTOGCCProfitLossStatementCostOfSales;
+import org.bh.plugin.gcc.data.DTOGCCProfitLossStatementTotalCost;
 import org.bh.validation.VRIsDouble;
 import org.bh.validation.VRMandatory;
 import org.bh.validation.ValidationRule;
 
 import com.jgoodies.forms.layout.CellConstraints;
 import com.jgoodies.forms.layout.FormLayout;
-import com.jgoodies.validation.view.ValidationComponentUtils;
 
 /**
- * This class contains the cost of sales form for the plugin
+ * This class contains the total cost form for the plugin
  * 
  * @author Anton Kharitonov
  * @author Patrick Heinz
  * @version 0.1, 08.01.2010
  * 
  */
-public class BHPLSCostOfSalesForm extends JPanel {
+public class BHPLSTotalCostForm extends JPanel {
 
     private BHTextField tfUE;
-    private BHTextField tfHK;
-    private BHTextField tfVVSBA;
+    private BHTextField tfABSCH;
+    private BHTextField tfSBA;
     private BHTextField tfAUERG;
-
     private BHTextField tfUEmax;
-    private BHTextField tfHKmax;
-    private BHTextField tfVVSBAmax;
+    private BHTextField tfABSCHmax;
+    private BHTextField tfSBAmax;
     private BHTextField tfAUERGmax;
-
     private BHTextField tfUEmin;
-    private BHTextField tfHKmin;
-    private BHTextField tfVVSBAmin;
+    private BHTextField tfABSCHmin;
+    private BHTextField tfSBAmin;
     private BHTextField tfAUERGmin;
 
     private BHDescriptionLabel lUE;
-    private BHDescriptionLabel lHK;
-    private BHDescriptionLabel lVVSBA;
+    private BHDescriptionLabel lABSCH;
+    private BHDescriptionLabel lSBA;
     private BHDescriptionLabel lAUERG;
 
     private JLabel lmin;
@@ -63,22 +60,19 @@ public class BHPLSCostOfSalesForm extends JPanel {
 	/**
 	 * 
 	 */
-	PLS_CostOfSales;
+	PLS_TotalCost;
 
-		@Override
 	public String toString() {
 	    return getClass().getName() + "." + super.toString();
 	}
 
     }
 
-    public BHPLSCostOfSalesForm() {
-
+    public BHPLSTotalCostForm() {
 	this.initialize();
     }
 
     public void initialize() {
-
 	String rowDef = "4px,p,4px,p,4px,p,4px,p,4px,p,4px";
 	String colDef = "4px,right:pref,4px,60px:grow,4px,pref,24px:grow,pref,4px,max(35px;pref):grow,4px,pref,4px:grow,pref,4px,max(35px;pref):grow,4px,pref,4px:grow";
 
@@ -88,15 +82,15 @@ public class BHPLSCostOfSalesForm extends JPanel {
 	CellConstraints cons = new CellConstraints();
 	layout.setColumnGroups(new int[][] { { 4, 10, 16 } });
 
-	this.add(this.getLUE(), cons.xywh(2, 4, 1, 1));
-	this.add(this.getLHK(), cons.xywh(2, 6, 1, 1));
-	this.add(this.getLVVSBA(), cons.xywh(2, 8, 1, 1));
-	this.add(this.getLAUERG(), cons.xywh(2, 10, 1, 1));
-
 	this.add(this.getTfUE(), cons.xywh(4, 4, 1, 1));
-	this.add(this.getTfHK(), cons.xywh(4, 6, 1, 1));
-	this.add(this.getTfVVSBA(), cons.xywh(4, 8, 1, 1));
+	this.add(this.getTfABSCH(), cons.xywh(4, 6, 1, 1));
+	this.add(this.getTfSBA(), cons.xywh(4, 8, 1, 1));
 	this.add(this.getTfAUERG(), cons.xywh(4, 10, 1, 1));
+
+	this.add(this.getLUE(), cons.xywh(2, 4, 1, 1));
+	this.add(this.getLABSCH(), cons.xywh(2, 6, 1, 1));
+	this.add(this.getLSBA(), cons.xywh(2, 8, 1, 1));
+	this.add(this.getLAUERG(), cons.xywh(2, 10, 1, 1));
 
 	this
 		.add(new JSeparator(SwingConstants.VERTICAL), cons.xywh(8, 2,
@@ -107,28 +101,26 @@ public class BHPLSCostOfSalesForm extends JPanel {
 	this.add(this.getLmax(), cons.xywh(16, 2, 1, 1));
 
 	this.add(this.getTfUEmin(), cons.xywh(10, 4, 1, 1));
-	this.add(this.getTfHKmin(), cons.xywh(10, 6, 1, 1));
-	this.add(this.getTfVVSBAmin(), cons.xywh(10, 8, 1, 1));
+	this.add(this.getTfABSCHmin(), cons.xywh(10, 6, 1, 1));
+	this.add(this.getTfSBAmin(), cons.xywh(10, 8, 1, 1));
 	this.add(this.getTfAUERGmin(), cons.xywh(10, 10, 1, 1));
 
 	this.add(this.getTfUEmax(), cons.xywh(16, 4, 1, 1));
-	this.add(this.getTfHKmax(), cons.xywh(16, 6, 1, 1));
-	this.add(this.getTfVVSBAmax(), cons.xywh(16, 8, 1, 1));
+	this.add(this.getTfABSCHmax(), cons.xywh(16, 6, 1, 1));
+	this.add(this.getTfSBAmax(), cons.xywh(16, 8, 1, 1));
 	this.add(this.getTfAUERGmax(), cons.xywh(16, 10, 1, 1));
 
 	this.setBorder(BorderFactory.createTitledBorder(BorderFactory
 		.createEtchedBorder(EtchedBorder.LOWERED), translator
-		.translate(BHPLSCostOfSalesForm.Key.PLS_CostOfSales))); // "GuV nach Umsatzkostenverfahren"
-
+		.translate(BHPLSTotalCostForm.Key.PLS_TotalCost))); // "GuV nach Gesamtkostenverfahren"
     }
 
 	// Here do the getters for the textfields begin
 	// TODO add comments for getter Methods
 	// TODO @Patrick H. add input hints for all TFs
-
     public BHTextField getTfUE() {
 	if (tfUE == null) {
-	    tfUE = new BHTextField(DTOGCCProfitLossStatementCostOfSales.Key.UE);
+	    tfUE = new BHTextField(DTOGCCProfitLossStatementTotalCost.Key.UE);
 			ValidationRule[] rules = { VRMandatory.INSTANCE,
 					VRIsDouble.INSTANCE };
 			tfUE.setValidationRules(rules);
@@ -136,31 +128,31 @@ public class BHPLSCostOfSalesForm extends JPanel {
 	return tfUE;
     }
 
-    public BHTextField getTfHK() {
-	if (tfHK == null) {
-	    tfHK = new BHTextField(DTOGCCProfitLossStatementCostOfSales.Key.HK);
+    public BHTextField getTfABSCH() {
+	if (tfABSCH == null) {
+	    tfABSCH = new BHTextField(
+		    DTOGCCProfitLossStatementTotalCost.Key.ABSCH);
 			ValidationRule[] rules = { VRMandatory.INSTANCE,
 					VRIsDouble.INSTANCE };
-			tfHK.setValidationRules(rules);
+			tfABSCH.setValidationRules(rules);
 	}
-	return tfHK;
+	return tfABSCH;
     }
 
-    public BHTextField getTfVVSBA() {
-	if (tfVVSBA == null) {
-	    tfVVSBA = new BHTextField(
-		    DTOGCCProfitLossStatementCostOfSales.Key.VVSBA);
+    public BHTextField getTfSBA() {
+	if (tfSBA == null) {
+	    tfSBA = new BHTextField(DTOGCCProfitLossStatementTotalCost.Key.SBA);
 			ValidationRule[] rules = { VRMandatory.INSTANCE,
 					VRIsDouble.INSTANCE };
-			tfVVSBA.setValidationRules(rules);
+			tfSBA.setValidationRules(rules);
 	}
-	return tfVVSBA;
+	return tfSBA;
     }
 
     public BHTextField getTfAUERG() {
 	if (tfAUERG == null) {
 	    tfAUERG = new BHTextField(
-		    DTOGCCProfitLossStatementCostOfSales.Key.AUERG);
+		    DTOGCCProfitLossStatementTotalCost.Key.AUERG);
 			ValidationRule[] rules = { VRMandatory.INSTANCE,
 					VRIsDouble.INSTANCE };
 			tfAUERG.setValidationRules(rules);
@@ -171,7 +163,7 @@ public class BHPLSCostOfSalesForm extends JPanel {
     public BHTextField getTfUEmax() {
 	if (tfUEmax == null) {
 	    tfUEmax = new BHTextField(IBHComponent.MAXVALUE
-		    + DTOGCCProfitLossStatementCostOfSales.Key.UE);
+		    + DTOGCCProfitLossStatementTotalCost.Key.UE);
 			ValidationRule[] rules = { VRMandatory.INSTANCE,
 					VRIsDouble.INSTANCE };
 			tfUEmax.setValidationRules(rules);
@@ -179,32 +171,32 @@ public class BHPLSCostOfSalesForm extends JPanel {
 	return tfUEmax;
     }
 
-    public BHTextField getTfHKmax() {
-	if (tfHKmax == null) {
-	    tfHKmax = new BHTextField(IBHComponent.MAXVALUE
-		    + DTOGCCProfitLossStatementCostOfSales.Key.HK);
+    public BHTextField getTfABSCHmax() {
+	if (tfABSCHmax == null) {
+	    tfABSCHmax = new BHTextField(IBHComponent.MAXVALUE
+		    + DTOGCCProfitLossStatementTotalCost.Key.ABSCH);
 			ValidationRule[] rules = { VRMandatory.INSTANCE,
 					VRIsDouble.INSTANCE };
-			tfHKmax.setValidationRules(rules);
+			tfABSCHmax.setValidationRules(rules);
 	}
-	return tfHKmax;
+	return tfABSCHmax;
     }
 
-    public BHTextField getTfVVSBAmax() {
-	if (tfVVSBAmax == null) {
-	    tfVVSBAmax = new BHTextField(IBHComponent.MAXVALUE
-		    + DTOGCCProfitLossStatementCostOfSales.Key.VVSBA);
+    public BHTextField getTfSBAmax() {
+	if (tfSBAmax == null) {
+	    tfSBAmax = new BHTextField(IBHComponent.MAXVALUE
+		    + DTOGCCProfitLossStatementTotalCost.Key.SBA);
 			ValidationRule[] rules = { VRMandatory.INSTANCE,
 					VRIsDouble.INSTANCE };
-			tfVVSBAmax.setValidationRules(rules);
+			tfSBAmax.setValidationRules(rules);
 	}
-	return tfVVSBAmax;
+	return tfSBAmax;
     }
 
     public BHTextField getTfAUERGmax() {
 	if (tfAUERGmax == null) {
 	    tfAUERGmax = new BHTextField(IBHComponent.MAXVALUE
-		    + DTOGCCProfitLossStatementCostOfSales.Key.AUERG);
+		    + DTOGCCProfitLossStatementTotalCost.Key.AUERG);
 			ValidationRule[] rules = { VRMandatory.INSTANCE,
 					VRIsDouble.INSTANCE };
 			tfAUERGmax.setValidationRules(rules);
@@ -215,7 +207,7 @@ public class BHPLSCostOfSalesForm extends JPanel {
     public BHTextField getTfUEmin() {
 	if (tfUEmin == null) {
 	    tfUEmin = new BHTextField(IBHComponent.MINVALUE
-		    + DTOGCCProfitLossStatementCostOfSales.Key.UE);
+		    + DTOGCCProfitLossStatementTotalCost.Key.UE);
 			ValidationRule[] rules = { VRMandatory.INSTANCE,
 					VRIsDouble.INSTANCE };
 			tfUEmin.setValidationRules(rules);
@@ -223,32 +215,32 @@ public class BHPLSCostOfSalesForm extends JPanel {
 	return tfUEmin;
     }
 
-    public BHTextField getTfHKmin() {
-	if (tfHKmin == null) {
-	    tfHKmin = new BHTextField(IBHComponent.MINVALUE
-		    + DTOGCCProfitLossStatementCostOfSales.Key.HK);
+    public BHTextField getTfABSCHmin() {
+	if (tfABSCHmin == null) {
+	    tfABSCHmin = new BHTextField(IBHComponent.MINVALUE
+		    + DTOGCCProfitLossStatementTotalCost.Key.ABSCH);
 			ValidationRule[] rules = { VRMandatory.INSTANCE,
 					VRIsDouble.INSTANCE };
-			tfHKmin.setValidationRules(rules);
+			tfABSCHmin.setValidationRules(rules);
 	}
-	return tfHKmin;
+	return tfABSCHmin;
     }
 
-    public BHTextField getTfVVSBAmin() {
-	if (tfVVSBAmin == null) {
-	    tfVVSBAmin = new BHTextField(IBHComponent.MINVALUE
-		    + DTOGCCProfitLossStatementCostOfSales.Key.VVSBA);
+    public BHTextField getTfSBAmin() {
+	if (tfSBAmin == null) {
+	    tfSBAmin = new BHTextField(IBHComponent.MINVALUE
+		    + DTOGCCProfitLossStatementTotalCost.Key.SBA);
 			ValidationRule[] rules = { VRMandatory.INSTANCE,
 					VRIsDouble.INSTANCE };
-			tfVVSBAmin.setValidationRules(rules);
+			tfSBAmin.setValidationRules(rules);
 	}
-	return tfVVSBAmin;
+	return tfSBAmin;
     }
 
     public BHTextField getTfAUERGmin() {
 	if (tfAUERGmin == null) {
 	    tfAUERGmin = new BHTextField(IBHComponent.MINVALUE
-		    + DTOGCCProfitLossStatementCostOfSales.Key.AUERG);
+		    + DTOGCCProfitLossStatementTotalCost.Key.AUERG);
 			ValidationRule[] rules = { VRMandatory.INSTANCE,
 					VRIsDouble.INSTANCE };
 			tfAUERGmin.setValidationRules(rules);
@@ -257,35 +249,35 @@ public class BHPLSCostOfSalesForm extends JPanel {
     }
 
 	// Here do the getters for the labels begin
-
+	
     public BHDescriptionLabel getLUE() {
 	if (lUE == null) {
 			lUE = new BHDescriptionLabel(
-					DTOGCCProfitLossStatementCostOfSales.Key.UE);
+					DTOGCCProfitLossStatementTotalCost.Key.UE);
 	}
 	return lUE;
     }
 
-    public BHDescriptionLabel getLHK() {
-	if (lHK == null) {
-			lHK = new BHDescriptionLabel(
-					DTOGCCProfitLossStatementCostOfSales.Key.HK);
+    public BHDescriptionLabel getLABSCH() {
+	if (lABSCH == null) {
+			lABSCH = new BHDescriptionLabel(
+					DTOGCCProfitLossStatementTotalCost.Key.ABSCH);
 	}
-	return lHK;
+	return lABSCH;
     }
 
-    public BHDescriptionLabel getLVVSBA() {
-	if (lVVSBA == null) {
-			lVVSBA = new BHDescriptionLabel(
-					DTOGCCProfitLossStatementCostOfSales.Key.VVSBA);
+    public BHDescriptionLabel getLSBA() {
+	if (lSBA == null) {
+			lSBA = new BHDescriptionLabel(
+					DTOGCCProfitLossStatementTotalCost.Key.SBA);
 	}
-	return lVVSBA;
+	return lSBA;
     }
 
     public BHDescriptionLabel getLAUERG() {
 	if (lAUERG == null) {
 			lAUERG = new BHDescriptionLabel(
-					DTOGCCProfitLossStatementCostOfSales.Key.AUERG);
+					DTOGCCProfitLossStatementTotalCost.Key.AUERG);
 	}
 	return lAUERG;
     }
@@ -311,7 +303,7 @@ public class BHPLSCostOfSalesForm extends JPanel {
     public static void main(String args[]) {
 
 	JFrame test = new JFrame("Test for ViewPeriodData1");
-	test.setContentPane(new BHPLSCostOfSalesForm());
+	test.setContentPane(new BHPLSTotalCostForm());
 	test.addWindowListener(new WindowAdapter() {
 	    public void windowClosing(WindowEvent e) {
 		System.exit(0);

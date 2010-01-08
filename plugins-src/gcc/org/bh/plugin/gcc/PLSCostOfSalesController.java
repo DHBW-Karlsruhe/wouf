@@ -1,4 +1,4 @@
-package org.bh.plugin.swing;
+package org.bh.plugin.gcc;
 
 import java.awt.Component;
 import java.util.List;
@@ -15,6 +15,9 @@ import org.bh.gui.ViewException;
 import org.bh.platform.Services;
 import org.bh.plugin.gcc.data.DTOGCCBalanceSheet;
 import org.bh.plugin.gcc.data.DTOGCCProfitLossStatementCostOfSales;
+import org.bh.plugin.gcc.swing.BHBalanceSheetForm;
+import org.bh.plugin.gcc.swing.BHPLSCostOfSalesForm;
+import org.bh.plugin.gcc.swing.GCCCombinedForm;
 
 /**
  * 

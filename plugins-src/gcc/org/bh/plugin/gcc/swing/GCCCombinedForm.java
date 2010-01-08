@@ -1,4 +1,4 @@
-package org.bh.plugin.swing;
+package org.bh.plugin.gcc.swing;
 
 import javax.swing.JPanel;
 
