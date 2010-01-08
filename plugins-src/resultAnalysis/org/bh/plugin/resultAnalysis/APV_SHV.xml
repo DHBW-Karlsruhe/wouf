@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<math>
+    <apply>
+        <ci>GK</ci>
+        <eq/>
+        <apply>
+            <ci>EK</ci>
+            <plus/>
+            <ci>FK</ci>
+        </apply>
+    </apply>
+</math>
