@@ -1,5 +1,6 @@
 package org.bh.controller;
 
+import java.awt.Component;
 import java.util.List;
 
 import javax.swing.JPanel;
@@ -32,12 +33,12 @@ public interface IPeriodController extends IDisplayablePlugin {
 	 * Modifications to the DTO can (and most probably will) occur even after
 	 * the function has returned.
 	 * 
-	 * @param dto
+	 * @param period
 	 *            The DTO of the period.
-	 * @param panel
-	 *            Panel for the view.
+	 * @return Component where the view has put its components, or null if not
+	 *         necessary
 	 */
-	void editDTO(DTOPeriod dto, JPanel panel);
+	Component editDTO(DTOPeriod period);
 
 	/**
 	 * Defines the priority. This is used to sort the controllers before

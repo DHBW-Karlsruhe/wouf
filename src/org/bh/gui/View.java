@@ -36,7 +36,7 @@ import org.bh.platform.Services;
  * @author Marco Hammel
  * @author Robert
  */
-public abstract class View implements MouseListener, FocusListener,
+public class View implements MouseListener, FocusListener,
 		ICompValueChangeListener {
 
 	private static Logger log = Logger.getLogger(View.class);

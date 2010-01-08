@@ -1,8 +1,7 @@
 package org.bh.plugin.directinput;
 
+import java.awt.Component;
 import java.util.List;
-
-import javax.swing.JPanel;
 
 import org.apache.log4j.Logger;
 import org.bh.controller.IPeriodController;
@@ -24,7 +23,7 @@ public class DirectInputController implements IPeriodController {
 	private static final Logger log = Logger.getLogger(DirectInputController.class);
 
 	@Override
-	public void editDTO(DTOPeriod period, JPanel panel) {
+	public Component editDTO(DTOPeriod period) {
 		IPeriodicalValuesDTO model = period.getPeriodicalValuesDTO(DTODirectInput.getUniqueIdStatic());
 		if (model == null) {
 			model = new DTODirectInput();
@@ -33,12 +32,13 @@ public class DirectInputController implements IPeriodController {
 		}
 
 		try {
-			View view = new DirectInputView();
-			panel.add(view.getViewPanel());
+			View view = new View(new DirectInputForm());
 			InputController controller = new InputController(view, model);
 			controller.loadAllToView();
+			return view.getViewPanel();
 		} catch (ViewException e) {
 			log.error("Could not create view", e);
+			return null;
 		}
 	}
 

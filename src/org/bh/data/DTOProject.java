@@ -43,10 +43,4 @@ public class DTOProject extends DTO<DTOScenario> {
 		throw new UnsupportedOperationException(
 				"This method has not been implemented");
 	}
-
-	@Override
-	public void regenerateMethodsList() {
-		regenerateMethodsList(Key.values());
-	}
-
 }

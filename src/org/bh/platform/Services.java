@@ -1,7 +1,7 @@
 package org.bh.platform;
 
 import java.awt.Color;
-import java.awt.FlowLayout;
+import java.awt.Component;
 import java.lang.reflect.Field;
 import java.net.URL;
 import java.util.ArrayList;
@@ -240,13 +240,12 @@ public class Services {
 	}
 
 	public static void startPeriodEditing(DTOPeriod period) {
-		// TODO Schmalzhaf.Alexander es gibt kein Panel, das ich greifen
-		// kann vom bhmf -> muss eigenes erzeugen
-		JPanel panel = new JPanel();
-		panel.setLayout(new FlowLayout(FlowLayout.LEFT));
-		bhmf.setContentForm(panel);
-		Services.getPeriodController(
-				period.get(DTOPeriod.Key.CONTROLLER).toString()).editDTO(
-				(DTOPeriod) period, panel);
+		IPeriodController periodController = Services
+				.getPeriodController(period.get(DTOPeriod.Key.CONTROLLER)
+						.toString());
+		Component viewComponent = periodController.editDTO((DTOPeriod) period);
+		if (viewComponent == null)
+			viewComponent = new JPanel();
+		bhmf.setContentForm(viewComponent);
 	}
 }

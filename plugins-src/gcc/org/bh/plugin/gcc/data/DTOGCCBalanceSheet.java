@@ -449,4 +449,8 @@ public class DTOGCCBalanceSheet extends DTO implements IPeriodicalValuesDTO {
 		regenerateMethodsList(Key.values());
 	}
 
+	public static String getUniqueIdStatic() {
+		return UNIQUE_ID;
+	}
+
 }

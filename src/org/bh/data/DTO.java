@@ -113,7 +113,7 @@ public abstract class DTO<ChildT extends IDTO> implements IDTO<ChildT> {
 							element.name());
 					Method method = field.getAnnotation(Method.class);
 					if (method != null) {
-						String methodName = (method.value().isEmpty()) ? (METHOD_PREFIX + key)
+						String methodName = (method.value().isEmpty()) ? (METHOD_PREFIX + element.name())
 								: (method.value());
 						availableMethods.put(key, methodName);
 					}
@@ -141,7 +141,11 @@ public abstract class DTO<ChildT extends IDTO> implements IDTO<ChildT> {
 			return result;
 		// If no value is assigned to this key, but a method exists
 		else if (availableMethods.containsKey(key))
-			return invokeMethod(availableMethods.get(key));
+			try {
+				return invokeMethod(availableMethods.get(key));
+			} catch (NoSuchMethodError e) {
+				throw new DTOAccessException("Method does not exist", e);
+			}
 		else
 			throw new DTOAccessException(
 					"There is no value assigned to the key: '" + key + "'");

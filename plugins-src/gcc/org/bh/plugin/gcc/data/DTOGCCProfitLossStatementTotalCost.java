@@ -218,5 +218,9 @@ public class DTOGCCProfitLossStatementTotalCost extends DTO implements
 	public void regenerateMethodsList() {
 		regenerateMethodsList(Key.values());
 	}
+	
+	public static String getUniqueIdStatic() {
+		return UNIQUE_ID;
+	}
 
 }

@@ -106,9 +106,4 @@ public interface IDTO<ChildT extends IDTO> extends Cloneable, Serializable, Iter
 	 * @return List of keys.
 	 */
 	public List<String> getKeys();
-	
-	/**
-	 * starts the regeneration of methods list
-	 */
-	public void regenerateMethodsList();
 }

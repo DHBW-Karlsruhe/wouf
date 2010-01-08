@@ -148,11 +148,6 @@ public class DTOPeriod extends DTO<IPeriodicalValuesDTO> {
 		return scenario;
 	}
 
-	@Override
-	public void regenerateMethodsList() {
-		regenerateMethodsList(Key.values());
-	}
-
 	/**
 	 * return a period clone (used in stochastic process)
 	 * @author Michael Löckelt
