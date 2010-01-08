@@ -244,7 +244,6 @@ class PlatformActionListener implements ActionListener {
 			break;
 
 		case OPTIONSCHANGE:
-			// TODO Tietze.Patrick
 			new BHOptionDialog();
 
 			break;
