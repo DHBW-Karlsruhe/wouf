@@ -49,6 +49,56 @@ public class BHChartFactory {
 		return chart.getChart();
 
 	}
+	
+	//TODO Lars.Zuckschwerdt JavaDoc
+	/**
+	 * 
+	 * @param title
+	 * @param XAxis
+	 * @param YAxis
+	 * @param key
+	 * @return
+	 */
+	public static JFreeChart getWaterfallChart(final String title,  final String XAxis,
+			final String YAxis, final String key){
+		
+		BHwaterfallChart chart = new BHwaterfallChart(title, XAxis, YAxis, dimDataset(
+				YAxis, XAxis), key);
+		return chart.getChart();
+	}
+	//TODO Lars.Zuckschwerdt JavaDoc
+	/**
+	 * 
+	 * @param title
+	 * @param XAxis
+	 * @param YAxis
+	 * @param key
+	 * @return
+	 */
+	public static JFreeChart getBarChart(final String title,  final String XAxis,
+			final String YAxis, final String key){
+		
+		BHBarChart chart = new BHBarChart(title, XAxis, YAxis, dimDataset(
+				YAxis, XAxis), key);
+		return chart.getChart();
+	}
+	
+	//TODO Lars.Zuckschwerdt JavaDoc
+	/**
+	 * 
+	 * @param title
+	 * @param XAxis
+	 * @param YAxis
+	 * @param key
+	 * @return
+	 */
+	public static JFreeChart getStackedBarChart(final String title,  final String XAxis,
+			final String YAxis, final String key){
+		
+		BHstackedBarChart chart = new BHstackedBarChart(title, XAxis, YAxis, dimDataset(
+				YAxis, XAxis), key);
+		return chart.getChart();
+	}
 	/**
 	 * method to create the <code>BHpieChart</code>
 	 * 
