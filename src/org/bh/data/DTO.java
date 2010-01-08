@@ -385,7 +385,7 @@ public abstract class DTO<ChildT extends IDTO> implements IDTO<ChildT> {
 	 * return a iterable object containing children
 	 */
 	public Iterator iterator() {
-		return getChildren().iterator();
+		return values.entrySet().iterator();
 	}
 	
 	/**
