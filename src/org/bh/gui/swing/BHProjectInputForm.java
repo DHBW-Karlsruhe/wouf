@@ -12,7 +12,6 @@ import org.bh.platform.i18n.ITranslator;
 import org.bh.validation.VRMandatory;
 import org.bh.validation.ValidationRule;
 
-
 import com.jgoodies.forms.layout.CellConstraints;
 import com.jgoodies.forms.layout.FormLayout;
 
@@ -82,7 +81,7 @@ public class BHProjectInputForm extends JPanel {
 	 */
 	public BHTextField getTfprojectname() {
 		if (tfprojectname == null) {
-			tfprojectname = new BHTextField(DTOProject.Key.NAME);
+			tfprojectname = new BHTextField(DTOProject.Key.NAME, false);
 			ValidationRule[] rules = { VRMandatory.INSTANCE };
 			tfprojectname.setValidationRules(rules);
 		}
@@ -96,7 +95,7 @@ public class BHProjectInputForm extends JPanel {
 	 */
 	public BHTextField getTfcomment() {
 		if (tfcomment == null) {
-			tfcomment = new BHTextField(DTOProject.Key.COMMENT);
+			tfcomment = new BHTextField(DTOProject.Key.COMMENT, false);
 		}
 		return tfcomment;
 	}

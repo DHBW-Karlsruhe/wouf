@@ -1,20 +1,14 @@
 package org.bh.gui.swing;
 
-import java.awt.Color;
-import java.awt.Dimension;
 import java.awt.GridLayout;
-import java.awt.event.WindowAdapter;
-import java.awt.event.WindowEvent;
 
 import javax.swing.BorderFactory;
-import javax.swing.JFrame;
 import javax.swing.JPanel;
-import javax.swing.JScrollPane;
 import javax.swing.JTabbedPane;
-import javax.swing.JTable;
 import javax.swing.border.EtchedBorder;
 
 import org.apache.log4j.Logger;
+import org.bh.platform.PlatformKey;
 import org.bh.platform.Services;
 import org.bh.platform.i18n.ITranslator;
 
@@ -128,7 +122,7 @@ public class BHScenarioForm extends JPanel {
 
 	public BHButton getBcalculate() {
 		if (this.bcalculate == null) {
-			this.bcalculate = new BHButton("TempCalcUw");
+			this.bcalculate = new BHButton(PlatformKey.CALCSHAREHOLDERVALUE);
 		}
 		return bcalculate;
 		

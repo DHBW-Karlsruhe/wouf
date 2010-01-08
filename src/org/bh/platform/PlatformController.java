@@ -1,5 +1,7 @@
 package org.bh.platform;
 
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.io.File;
 import java.util.ArrayList;
 import java.util.Collection;
@@ -298,6 +300,15 @@ public class PlatformController {
 								cbDcfMethod.setSorted(true);
 								cbDcfMethod.setValueList(items
 										.toArray(new BHComboBox.Item[0]));
+								
+								// FIXME
+								((BHButton) view.getBHComponent(PlatformKey.CALCSHAREHOLDERVALUE)).addActionListener(new ActionListener() {
+									@Override
+									public void actionPerformed(ActionEvent e) {
+										DTOScenario scenario = (DTOScenario) controller.getModel();
+										scenario.getDCFMethod().calculate(scenario);
+									}
+								});
 
 								controller.loadAllToView();
 

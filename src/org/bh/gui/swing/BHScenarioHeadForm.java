@@ -264,7 +264,7 @@ public class BHScenarioHeadForm extends JPanel {
 	public BHTextField gettfscenName() {
 
 		if (this.tfscenname == null) {
-			this.tfscenname = new BHTextField(DTOScenario.Key.NAME);
+			this.tfscenname = new BHTextField(DTOScenario.Key.NAME, false);
 			ValidationRule[] rules = { VRMandatory.INSTANCE };
 			tfscenname.setValidationRules(rules);
 		}
@@ -279,7 +279,7 @@ public class BHScenarioHeadForm extends JPanel {
 	public BHTextField gettfscenDescript() {
 
 		if (this.tfscendescript == null) {
-			this.tfscendescript = new BHTextField(DTOScenario.Key.COMMENT);
+			this.tfscendescript = new BHTextField(DTOScenario.Key.COMMENT, false);
 		}
 		return this.tfscendescript;
 	}

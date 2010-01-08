@@ -7,6 +7,7 @@ import javax.swing.text.BadLocationException;
 import javax.swing.text.DocumentFilter;
 
 import org.apache.log4j.Logger;
+import org.bh.data.types.Calculable;
 import org.bh.data.types.IValue;
 import org.bh.data.types.StringValue;
 import org.bh.gui.CompValueChangeManager;
@@ -32,36 +33,38 @@ public class BHTextField extends JTextField implements IBHModelComponent {
 	/**
 	 * unique key to identify Label.
 	 */
-	Object key;
+	String key;
 
 	private ValidationRule[] validationRules = new ValidationRule[0];
 	private String inputHint;
 	private boolean changeListenerEnabled = true;
 	private final CompValueChangeManager valueChangeManager = new CompValueChangeManager();
 	private static final Logger log = Logger.getLogger(BHTextField.class);
+	private boolean returnCalculable;
 
 	/**
-	 * Constructor to create new <code>BHTextField</code>. Defined for the use
-	 * with unkeyed text
+	 * Constructor to create new <code>BHTextField</code>.
 	 * 
 	 * @param key
 	 *            unique key
 	 * @param value
 	 *            default value
+	 * @param returnCalculable
+	 *            whether to return a {@link Calculable} or {@link StringValue}
 	 */
-	public BHTextField(String key, String value) {
+	public BHTextField(Object key, String value, boolean returnCalculable) {
 		super(value);
-		this.key = key;
-		if (key.isEmpty())
+		this.key = key.toString();
+		if (this.key.isEmpty())
 			log.debug("Empty key", new IllegalArgumentException());
 		((AbstractDocument) getDocument())
 				.setDocumentFilter(new ChangeListener());
+		this.returnCalculable = returnCalculable;
 	}
 
-	// TODO Konsoliedieren der Konstruktoren (nicht alle notwendig)
 	/**
-	 * Constructor to create new <code>BHTextField</code>. Defined for the use
-	 * with unkeyed text
+	 * Constructor to create new <code>BHTextField</code> which returns
+	 * Calculables.
 	 * 
 	 * @param key
 	 *            unique key
@@ -69,27 +72,30 @@ public class BHTextField extends JTextField implements IBHModelComponent {
 	 *            default value
 	 */
 	public BHTextField(Object key, String value) {
-		this(key.toString(), value);
+		this(key, value, true);
 	}
 
 	/**
-	 * Constructor to create new <code>BHTextField</code>. with key based text
+	 * Constructor to create new <code>BHTextField</code>.
 	 * 
 	 * @param key
 	 *            unique key
+	 * @param returnCalculable
+	 *            whether to return a {@link Calculable} or {@link StringValue}
 	 */
-	public BHTextField(String key) {
-		this(key, "");
+	public BHTextField(Object key, boolean returnCalculable) {
+		this(key, "", returnCalculable);
 	}
 
 	/**
-	 * Constructor to create new <code>BHTextField</code>. with key based text
+	 * Constructor to create new <code>BHTextField</code> which returns
+	 * Calculables.
 	 * 
 	 * @param key
 	 *            unique key
 	 */
 	public BHTextField(Object key) {
-		this(key.toString());
+		this(key, "", true);
 	}
 
 	@Override
@@ -122,7 +128,10 @@ public class BHTextField extends JTextField implements IBHModelComponent {
 
 	@Override
 	public IValue getValue() {
-		return new StringValue(this.getText());
+		if (returnCalculable)
+			return Calculable.parseCalculable(this.getText());
+		else
+			return new StringValue(this.getText());
 	}
 
 	@Override

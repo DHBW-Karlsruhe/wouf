@@ -13,7 +13,7 @@ import javax.help.UnsupportedOperationException;
  */
 public class DoubleValue extends Calculable {
 	
-	public static final String REGEX = "-?(?:[0-9]*\\.[0-9]+|[0-9]+\\.[0-9]*)+";
+	public static final String REGEX = "-?(?:[0-9]*[.,][0-9]+|[0-9]+[.,][0-9]*)+";
 
 	/** The value. */
 	protected final double value;

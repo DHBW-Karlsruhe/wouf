@@ -24,12 +24,14 @@ public abstract class Calculable implements IValue {
 	/**
 	 * Pattern for a double value. It matches zero or one minus sign, followed
 	 * by zero or more digits (0-9), followed by a dot and one or more digits.
-	 * Leading or trailing spaces will be ignored.
+	 * Leading or trailing spaces will be ignored. Instead of the dot, a comma
+	 * can be used.
 	 * 
 	 * <p>
 	 * Examples for values are:
 	 * <ul>
 	 * <li>1.2
+	 * <li>1,2
 	 * <li>12.3
 	 * <li>12.34
 	 * <li>.1
@@ -154,10 +156,10 @@ public abstract class Calculable implements IValue {
 	 * @return the result as a new Calculable instance
 	 */
 	public abstract Calculable div(Calculable divisor);
-    
-    public abstract boolean lessThan(Calculable compare);
-    
-    public abstract boolean greaterThan(Calculable compare);
+
+	public abstract boolean lessThan(Calculable compare);
+
+	public abstract boolean greaterThan(Calculable compare);
 
 	/**
 	 * Multiplies the current Calculable with the multiplicand.
@@ -168,8 +170,8 @@ public abstract class Calculable implements IValue {
 	 * @return the result as a new Calculable instance
 	 */
 	public abstract Calculable mul(Calculable multiplicand);
-    
-    public abstract Calculable abs();
+
+	public abstract Calculable abs();
 
 	/**
 	 * Returns the square root of the current Calculable.
@@ -204,7 +206,7 @@ public abstract class Calculable implements IValue {
 		if (INTEGER_PATTERN.matcher(s).matches()) {
 			return new IntegerValue(java.lang.Integer.parseInt(s));
 		} else if (DOUBLE_PATTERN.matcher(s).matches()) {
-			return new DoubleValue(java.lang.Double.parseDouble(s));
+			return new DoubleValue(java.lang.Double.parseDouble(s.replace(',', '.')));
 		} else {
 			Matcher intervalMatcher = INTERVAL_PATTERN.matcher(s);
 			if (intervalMatcher.matches()) {
@@ -248,16 +250,19 @@ public abstract class Calculable implements IValue {
 		}
 		return result;
 	}
-	
+
 	/**
-	 * Checks whether the (value) difference of the given calculable objects is less than the limit
+	 * Checks whether the (value) difference of the given calculable objects is
+	 * less than the limit
 	 * 
-	 * @param c calculable to compare
-	 * @param limit the limit of difference
+	 * @param c
+	 *            calculable to compare
+	 * @param limit
+	 *            the limit of difference
 	 * 
 	 * @return true if the difference is less than the limit
 	 */
-	public abstract boolean diffToLess(Calculable c, double limit );
+	public abstract boolean diffToLess(Calculable c, double limit);
 
 	/* Specified by interface/super class. */
 	@Override
