@@ -12,6 +12,7 @@ import java.util.ArrayList;
 import java.util.Iterator;
 
 import javax.swing.JFileChooser;
+import javax.swing.JOptionPane;
 
 import org.apache.log4j.Logger;
 import org.bh.data.DTOProject;
@@ -164,6 +165,31 @@ public class PlatformPersistenceManager {
 		} catch (IOException e) {
 			log.error("IO Error occured while saving" + path);
 			e.printStackTrace();
+		}
+	}
+	
+	/*
+	 * last edited file dialog
+	 * 
+	 * @author Thiele.Klaus
+	 * 
+	 * @author Loeckelt.Michael
+	 */
+	public void lastEditedFile () {
+		String lastFile = PlatformController.preferences.get("path", "");
+		if (!lastFile.equals("")) {
+			int action = JOptionPane.showConfirmDialog(bhmf, Services
+					.getTranslator().translate("PlastFile"), "",
+					JOptionPane.YES_NO_OPTION);
+
+			if (action == JOptionPane.YES_OPTION) {
+				File tmpFile = new File(lastFile);
+				PlatformController.platformPersistenceManager.openFile(tmpFile);
+				
+			} else if (action == JOptionPane.NO_OPTION) {
+				PlatformController.preferences.remove("path");
+				bhmf.resetTitle();
+			}
 		}
 	}
 }

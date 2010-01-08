@@ -2,13 +2,11 @@ package org.bh.platform;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.io.File;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 import java.util.prefs.Preferences;
 
-import javax.swing.JOptionPane;
 import javax.swing.SwingUtilities;
 import javax.swing.event.TreeSelectionEvent;
 import javax.swing.event.TreeSelectionListener;
@@ -156,31 +154,11 @@ public class PlatformController {
 		Services.firePlatformEvent(new PlatformEvent(this,
 				Type.PLATFORM_LOADING_COMPLETED));
 
-		/*
-		 * last edited file dialog
-		 * 
-		 * @author Thiele.Klaus
-		 * 
-		 * @author Loeckelt.Michael
-		 */
-		String lastFile = PlatformController.preferences.get("path", "");
-		if (!lastFile.equals("")) {
-			int action = JOptionPane.showConfirmDialog(bhmf, Services
-					.getTranslator().translate("PlastFile"), "",
-					JOptionPane.YES_NO_OPTION);
-
-			if (action == JOptionPane.YES_OPTION) {
-				File tmpFile = new File(lastFile);
-				PlatformController.platformPersistenceManager.openFile(tmpFile);
-
-				// rebuild Tree
-				setupTree(bhmf, projectRepoManager);
-				bhmf.getBHTree().expandAll();
-			} else if (action == JOptionPane.NO_OPTION) {
-				PlatformController.preferences.remove("path");
-				bhmf.resetTitle();
-			}
-		}
+		platformPersistenceManager.lastEditedFile();
+		
+		// rebuild Tree
+		setupTree(bhmf, projectRepoManager);
+		bhmf.getBHTree().expandAll();
 
 	}
 
