@@ -20,6 +20,7 @@ import org.bh.data.types.Calculable;
 @SuppressWarnings("unchecked")
 public class DTOGCCProfitLossStatementTotalCost extends DTO implements
 		IPeriodicalValuesDTO {
+	private static final long serialVersionUID = -8054967003351068404L;
 	private static final String UNIQUE_ID = "gcc_pls_totalcost";
 	private static final Logger log = Logger
 			.getLogger(DTOGCCProfitLossStatementTotalCost.class);
@@ -159,13 +160,6 @@ public class DTOGCCProfitLossStatementTotalCost extends DTO implements
 	}
 
 	@Override
-	public boolean validate() {
-		// TODO Auto-generated method stub
-		throw new UnsupportedOperationException(
-				"This method has not been implemented");
-	}
-
-	@Override
 	public String getUniqueId() {
 		return UNIQUE_ID;
 	}
@@ -214,11 +208,7 @@ public class DTOGCCProfitLossStatementTotalCost extends DTO implements
 	protected Calculable getJUJF() {
 		return null;
 	}
-	
-	public void regenerateMethodsList() {
-		regenerateMethodsList(Key.values());
-	}
-	
+
 	public static String getUniqueIdStatic() {
 		return UNIQUE_ID;
 	}

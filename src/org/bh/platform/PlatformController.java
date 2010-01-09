@@ -26,6 +26,7 @@ import org.bh.data.DTOPeriod;
 import org.bh.data.DTOProject;
 import org.bh.data.DTOScenario;
 import org.bh.data.IDTO;
+import org.bh.data.IPeriodicalValuesDTO;
 import org.bh.data.types.Calculable;
 import org.bh.data.types.IValue;
 import org.bh.data.types.StringValue;
@@ -384,7 +385,8 @@ public class PlatformController {
 
 			if (e.getSource() instanceof DTOProject
 					|| e.getSource() instanceof DTOScenario
-					|| e.getSource() instanceof DTOPeriod) {
+					|| e.getSource() instanceof DTOPeriod
+					|| e.getSource() instanceof IPeriodicalValuesDTO) {
 				bhmf.getBHTree().updateUI();
 			}
 		}

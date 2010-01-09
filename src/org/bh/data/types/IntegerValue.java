@@ -12,7 +12,7 @@ import javax.help.UnsupportedOperationException;
  * @version 0.3, 21.12.2009, Norman
  */
 public class IntegerValue extends Calculable {
-	
+	private static final long serialVersionUID = -1099799716306283566L;
 	public static final String REGEX = "-?[0-9]+";
 	
 	/** The value. */

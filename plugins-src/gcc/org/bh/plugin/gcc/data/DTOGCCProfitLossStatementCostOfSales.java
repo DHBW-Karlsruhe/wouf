@@ -20,6 +20,7 @@ import org.bh.data.types.Calculable;
 @SuppressWarnings("unchecked")
 public class DTOGCCProfitLossStatementCostOfSales extends DTO implements
 		IPeriodicalValuesDTO {
+	private static final long serialVersionUID = 5411394776750186305L;
 	private static final String UNIQUE_ID = "gcc_pls_costofsales";
 	private static final Logger log = Logger.getLogger(DTOGCCProfitLossStatementCostOfSales.class);
 
@@ -149,13 +150,6 @@ public class DTOGCCProfitLossStatementCostOfSales extends DTO implements
 	public DTOGCCProfitLossStatementCostOfSales() {
 		super(Key.values());
 		log.debug("Object created!");
-	}
-
-	@Override
-	public boolean validate() {
-		// TODO Auto-generated method stub
-		throw new UnsupportedOperationException(
-				"This method has not been implemented");
 	}
 
 	@Override

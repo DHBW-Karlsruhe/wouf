@@ -4,6 +4,7 @@
  */
 package org.bh.gui;
 
+import java.awt.Component;
 import java.util.Collection;
 import java.util.Map;
 
@@ -147,6 +148,9 @@ public abstract class BHValidityEngine {
      * @see ValidationResult
      */
 	public ValidationResult validate(IBHModelComponent comp) {
+		if (comp instanceof Component && !((Component) comp).isVisible())
+			return ValidationResult.EMPTY;
+		
 		ValidationResult validationResult = new ValidationResult();
 		for (ValidationRule validationRule : comp.getValidationRules()) {
 			validationResult.addAllFrom(validationRule.validate(comp));

@@ -32,6 +32,7 @@ import org.bh.platform.Services;
  */
 @SuppressWarnings("unchecked")
 public abstract class DTO<ChildT extends IDTO> implements IDTO<ChildT> {
+	private static final long serialVersionUID = -9118358642929015184L;
 	private static final Logger log = Logger.getLogger(DTO.class);
 
 	@Retention(RetentionPolicy.RUNTIME)
@@ -75,13 +76,13 @@ public abstract class DTO<ChildT extends IDTO> implements IDTO<ChildT> {
 	 * fallback data if a validation check returns false.
 	 */
 	protected boolean sandBoxMode = false;
-	
+
 	/**
-	 * This flag shows if the dto was filled valid.
-	 * It used for the tree and for the exception list
+	 * This flag shows if the dto was filled valid. It used for the tree and for
+	 * the exception list
 	 */
-	private boolean valid;
-	
+	private boolean valid = true;
+
 	/**
 	 * The actual map which contains all values.
 	 */
@@ -91,8 +92,6 @@ public abstract class DTO<ChildT extends IDTO> implements IDTO<ChildT> {
 	 * Fallback data in order to provide a kind of undo functionality.
 	 */
 	protected Map<String, IValue> fallBackValues = new HashMap<String, IValue>();
-
-	private int iteratorCounter = 0;
 
 	public DTO(Enum[] enumeration) {
 		String className = getClass().getName();
@@ -113,7 +112,8 @@ public abstract class DTO<ChildT extends IDTO> implements IDTO<ChildT> {
 							element.name());
 					Method method = field.getAnnotation(Method.class);
 					if (method != null) {
-						String methodName = (method.value().isEmpty()) ? (METHOD_PREFIX + element.name())
+						String methodName = (method.value().isEmpty()) ? (METHOD_PREFIX + element
+								.name())
 								: (method.value());
 						availableMethods.put(key, methodName);
 					}
@@ -231,6 +231,7 @@ public abstract class DTO<ChildT extends IDTO> implements IDTO<ChildT> {
 		return addChild(child, true);
 	}
 
+	@Override
 	public ChildT addChild(ChildT child, boolean addLast)
 			throws DTOAccessException {
 		if (!children.contains(child)) {
@@ -264,7 +265,8 @@ public abstract class DTO<ChildT extends IDTO> implements IDTO<ChildT> {
 		return Collections.unmodifiableList(children);
 	}
 
-	public ChildT getLastChildren() {
+	@Override
+	public ChildT getLastChild() {
 		return children.getLast();
 	}
 
@@ -281,12 +283,7 @@ public abstract class DTO<ChildT extends IDTO> implements IDTO<ChildT> {
 		}
 	}
 
-	/**
-	 * Remove a single child
-	 * 
-	 * @param child
-	 * @throws DTOAccessException
-	 */
+	@Override
 	public void removeChild(ChildT child) throws DTOAccessException {
 		try {
 			children.remove(child);
@@ -326,9 +323,6 @@ public abstract class DTO<ChildT extends IDTO> implements IDTO<ChildT> {
 	}
 
 	@Override
-	public abstract boolean validate();
-
-	@Override
 	public DTO<ChildT> clone() throws DTOAccessException {
 		DTO<ChildT> result = null;
 		try {
@@ -361,54 +355,28 @@ public abstract class DTO<ChildT extends IDTO> implements IDTO<ChildT> {
 	}
 
 	/**
-	 * regenerate methods list after opening from file
-	 * 
-	 */
-
-	// TODO: Marcus check
-
-	public void regenerateMethodsList(Enum[] enumeration) {
-		/*
-		 * String className = getClass().getName();
-		 * 
-		 * availableMethods = new HashMap<String, java.lang.reflect.Method>();
-		 * 
-		 * for (Enum element : enumeration) { String key =
-		 * element.toString().toLowerCase(); try { Field field =
-		 * element.getClass().getDeclaredField(element.name()); Method method =
-		 * field.getAnnotation(Method.class); if (method != null) { String
-		 * methodName = (method.value().isEmpty()) ? (METHOD_PREFIX + key) :
-		 * (method.value()); availableMethods.put(key, getMethod(methodName)); }
-		 * } catch (Throwable e) { continue; } }
-		 * 
-		 * METHODS_CACHE.put(className, availableMethods);
-		 */
-	}
-
-	/**
 	 * return a iterable object containing children
 	 */
+	@Override
 	public Iterator iterator() {
 		return values.entrySet().iterator();
 	}
-	
-	/**
-	 * return isValid
-	 */
-	public boolean isValid(boolean recursive) { 
+
+	@Override
+	public boolean isValid(boolean recursive) {
 		if (recursive)
 			return this.valid && getChildValidity();
 		return this.valid;
 	}
-	
+
 	/**
-	 * get the validity of all childs
+	 * get the validity of all children
+	 * 
 	 * @return
 	 */
-	private boolean getChildValidity () {
-		
+	private boolean getChildValidity() {
 		Iterator<ChildT> childIterator = getChildren().iterator();
-		
+
 		while (childIterator.hasNext()) {
 			DTO<ChildT> childT = (DTO<ChildT>) childIterator.next();
 			if (!childT.isValid(true)) {
@@ -417,11 +385,11 @@ public abstract class DTO<ChildT extends IDTO> implements IDTO<ChildT> {
 		}
 		return true;
 	}
-	
-	/**
-	 * set validity
-	 */
+
+	@Override
 	public void setValid(boolean valid) {
 		this.valid = valid;
+		Services.firePlatformEvent(new PlatformEvent(this,
+				PlatformEvent.Type.DATA_CHANGED));
 	}
 }

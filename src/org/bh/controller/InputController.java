@@ -12,13 +12,14 @@ import org.bh.gui.View;
 import org.bh.gui.ViewEvent;
 import org.bh.gui.swing.IBHModelComponent;
 
+import com.jgoodies.validation.ValidationResult;
+
 /**
  * 
  * @author Marco Hammel
  * @author Robert
  */
-public class InputController extends Controller implements
-		IInputController {
+public class InputController extends Controller implements IInputController {
 
 	/**
 	 * Referenz to the model Can be null
@@ -71,6 +72,16 @@ public class InputController extends Controller implements
 			// the value of the component has been validated, so save it to the
 			// model
 			saveToModel((IBHModelComponent) e.getSource());
+			// maybe other fields are now valid as well
+			// TODO save values of fields which have previously been invalid and
+			// have become valid now (does not trigger a change event, so maybe
+			// we should simply save the values of all valid fields at this
+			// point.
+			ValidationResult validationResult = this.view.revalidate();
+			model.setValid(!validationResult.hasErrors());
+			break;
+		case VALIDATION_FAILED:
+			model.setValid(false);
 			break;
 		}
 	}
@@ -81,7 +92,8 @@ public class InputController extends Controller implements
 			this.view.removeViewListener(this);
 		}
 		super.setView(view);
-		// Marcus.Katzor: A listener can only be added when the view exists		
+		// Marcus.Katzor: A listener can only be added when the view exists
+		// TODO Vollmer.Robert: Does a controller without view make sense?
 		if (view != null)
 			view.addViewListener(this);
 	}
@@ -93,7 +105,7 @@ public class InputController extends Controller implements
 	public static void saveAllToModel(View view, IDTO<?> model)
 			throws DTOAccessException {
 		log.debug("Saving values from view to model");
-		//model.setSandBoxMode(true);
+		// model.setSandBoxMode(true);
 		for (IBHModelComponent comp : view.getBHModelComponents().values()) {
 			model.put(comp.getKey(), comp.getValue());
 		}
@@ -102,14 +114,14 @@ public class InputController extends Controller implements
 	public static void saveToModel(IBHModelComponent comp, IDTO<?> model)
 			throws DTOAccessException {
 		log.debug("Saving value from component to model");
-		//model.setSandBoxMode(true);
+		// model.setSandBoxMode(true);
 		model.put(comp.getKey(), comp.getValue());
 	}
 
 	public static void saveToModel(View view, IDTO<?> model, Object key)
 			throws DTOAccessException {
 		log.debug("Saving value from view to model");
-		//model.setSandBoxMode(true);
+		// model.setSandBoxMode(true);
 		IBHModelComponent comp = view.getBHModelComponents()
 				.get(key.toString());
 		if (comp != null) {
@@ -126,18 +138,28 @@ public class InputController extends Controller implements
 				comp.setValue(null);
 			}
 		}
-		view.revalidate();
+		ValidationResult validationResult = view.revalidate();
+		model.setValid(!validationResult.hasErrors());
 	}
 
-	public static void loadToView(IDTO<?> model, IBHModelComponent comp)
-			throws DTOAccessException {
+	public static void loadToView(IDTO<?> model, IBHModelComponent comp,
+			View view) throws DTOAccessException {
 		log.debug("Loading value from model to component");
 		try {
 			comp.setValue(model.get(comp.getKey()));
 		} catch (DTOAccessException e) {
 			comp.setValue(null);
 		}
-		// TODO check if there is any way to revalidate this component  
+		if (view != null) {
+			ValidationResult validationResult = view.revalidate();
+			model.setValid(!validationResult.hasErrors());
+		} else {
+			// TODO check if there is any way to revalidate this component
+		}
+	}
+
+	public static void loadToView(IDTO<?> model, IBHModelComponent comp) {
+		loadToView(model, comp, null);
 	}
 
 	public static void loadToView(IDTO<?> model, View view, Object key)
@@ -151,7 +173,8 @@ public class InputController extends Controller implements
 			} catch (DTOAccessException e) {
 				comp.setValue(null);
 			}
-			view.revalidate(comp);
+			ValidationResult validationResult = view.revalidate();
+			model.setValid(!validationResult.hasErrors());
 		}
 	}
 
@@ -175,7 +198,7 @@ public class InputController extends Controller implements
 	}
 
 	public void loadToView(IBHModelComponent comp) throws DTOAccessException {
-		loadToView(this.model, comp);
+		loadToView(this.model, comp, this.view);
 	}
 
 	public void loadToView(Object key) {

@@ -13,6 +13,7 @@ import org.apache.log4j.Logger;
  * 
  */
 public class DTOProject extends DTO<DTOScenario> {
+	private static final long serialVersionUID = -4854118820969934676L;
 	private static final Logger log = Logger.getLogger(DTOProject.class);
 
 	public enum Key {
@@ -34,13 +35,5 @@ public class DTOProject extends DTO<DTOScenario> {
 
 	public DTOProject() {
 		super(Key.values());
-		log.debug("Object created!");
-	}
-
-	@Override
-	public boolean validate() {
-		// TODO Auto-generated method stub
-		throw new UnsupportedOperationException(
-				"This method has not been implemented");
 	}
 }

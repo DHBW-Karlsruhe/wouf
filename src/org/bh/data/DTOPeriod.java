@@ -22,7 +22,7 @@ import org.bh.platform.PluginManager;
  */
 
 public class DTOPeriod extends DTO<IPeriodicalValuesDTO> {
-	
+	private static final long serialVersionUID = 1576283051584502781L;
 	private static final Logger log = Logger.getLogger(DTOPeriod.class);
 	
 	public enum Key {
@@ -101,12 +101,6 @@ public class DTOPeriod extends DTO<IPeriodicalValuesDTO> {
 		return result;
 	}
 
-	@Override
-	public boolean validate() {
-		// TODO Auto-generated method stub
-		throw new UnsupportedOperationException("This method has not been implemented");
-	}
-	
 	/**
 	 * Get the DTO for the previous period.
 	 * @return DTO for the previous period.

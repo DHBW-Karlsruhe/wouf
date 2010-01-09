@@ -20,6 +20,7 @@ import java.util.regex.Pattern;
  * @version 0.6, 28.12.2009, Sebastian (added more needed functions)
  */
 public abstract class Calculable implements IValue {
+	private static final long serialVersionUID = 1234704259997706589L;
 
 	/**
 	 * Pattern for a double value. It matches zero or one minus sign, followed

@@ -13,6 +13,10 @@ public class ViewEvent extends EventObject {
 		 * successfully validated
 		 */
 		VALUE_CHANGED,
+		/**
+		 * Validation of at least one of the components on the view failed
+		 */
+		VALIDATION_FAILED,
 	}
 
 	public ViewEvent(Object source, Type type) {

@@ -25,6 +25,7 @@ import org.bh.platform.Services;
  */
 
 public class DTOScenario extends DTO<DTOPeriod> {
+	private static final long serialVersionUID = -2952168332645683232L;
 	private static final Logger log = Logger.getLogger(DTOScenario.class);
 	
 	/**
@@ -112,15 +113,8 @@ public class DTOScenario extends DTO<DTOPeriod> {
 	public DTOScenario(boolean futureValues) {
 		super(Key.values());
 		this.futureValues = futureValues;
-		log.debug("Object created");
 	}
 
-	@Override
-	public boolean validate() {
-		// TODO Auto-generated method stub
-		throw new UnsupportedOperationException("This method has not been implemented");
-	}
-	
 	@Override
 	public DTOPeriod addChild(DTOPeriod child) throws DTOAccessException {
 		DTOPeriod result = super.addChild(child,this.futureValues);
@@ -233,9 +227,5 @@ public class DTOScenario extends DTO<DTOPeriod> {
 	 */
 	public void setFutureValues(boolean futureValues) {
 		this.futureValues = futureValues;
-	}
-	
-	public void regenerateMethodsList() {
-		regenerateMethodsList(Key.values());
 	}
 }

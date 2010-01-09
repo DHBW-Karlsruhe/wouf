@@ -72,7 +72,7 @@ public class RandomWalk implements IStochasticProcess {
 	public DistributionMap calculate() {
 
 		DistributionMap result = new DistributionMap(1);
-		DTOPeriod last = scenario.getLastChildren();
+		DTOPeriod last = scenario.getLastChild();
 		List<DTOKeyPair> stochasticKeys = scenario.getPeriodStochasticKeys();
 		// List<String> stochasticKeys = last.getStochasticKeys();
 

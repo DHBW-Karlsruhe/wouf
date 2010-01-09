@@ -9,6 +9,7 @@ import org.bh.controller.InputController;
 import org.bh.data.DTOKeyPair;
 import org.bh.data.DTOPeriod;
 import org.bh.data.IPeriodicalValuesDTO;
+import org.bh.gui.ValidationMethods;
 import org.bh.gui.View;
 import org.bh.gui.ViewException;
 import org.bh.platform.Services;
@@ -32,7 +33,7 @@ public class DirectInputController implements IPeriodController {
 		}
 
 		try {
-			View view = new View(new DirectInputForm());
+			View view = new View(new DirectInputForm(), new ValidationMethods());
 			InputController controller = new InputController(view, model);
 			controller.loadAllToView();
 			return view.getViewPanel();

@@ -18,6 +18,7 @@ import org.bh.data.types.Calculable;
 
 @SuppressWarnings("unchecked")
 public class DTOGCCBalanceSheet extends DTO implements IPeriodicalValuesDTO {
+	private static final long serialVersionUID = -7381619521831943168L;
 	private static final String UNIQUE_ID = "gccbalancesheet";
 	private static final Logger log = Logger.getLogger(DTOGCCBalanceSheet.class);
 
@@ -371,13 +372,6 @@ public class DTOGCCBalanceSheet extends DTO implements IPeriodicalValuesDTO {
 	}
 
 	@Override
-	public boolean validate() {
-		// TODO Auto-generated method stub
-		throw new UnsupportedOperationException(
-				"This method has not been implemented");
-	}
-
-	@Override
 	public String getUniqueId() {
 		return UNIQUE_ID;
 	}
@@ -443,10 +437,6 @@ public class DTOGCCBalanceSheet extends DTO implements IPeriodicalValuesDTO {
 	 */
 	protected Calculable getVB() {
 		return null;
-	}
-	
-	public void regenerateMethodsList() {
-		regenerateMethodsList(Key.values());
 	}
 
 	public static String getUniqueIdStatic() {

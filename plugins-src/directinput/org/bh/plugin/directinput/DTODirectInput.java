@@ -22,6 +22,7 @@ import org.bh.data.types.Calculable;
 
 @SuppressWarnings("unchecked")
 public class DTODirectInput extends DTO implements IPeriodicalValuesDTO, ICalculationPreparer {
+	private static final long serialVersionUID = 8597865495976356944L;
 	private static final String UNIQUE_ID = "directinput";
 	private static final Logger log = Logger.getLogger(DTODirectInput.class);
 	
@@ -53,12 +54,6 @@ public class DTODirectInput extends DTO implements IPeriodicalValuesDTO, ICalcul
 	}
 
 	@Override
-	public boolean validate() {
-		// TODO Auto-generated method stub
-		throw new UnsupportedOperationException("This method has not been implemented");
-	}
-	
-	@Override
 	public String getUniqueId() {
 		return UNIQUE_ID;
 	}
@@ -67,10 +62,6 @@ public class DTODirectInput extends DTO implements IPeriodicalValuesDTO, ICalcul
 		return UNIQUE_ID;
 	}
 	
-	public void regenerateMethodsList() {
-		regenerateMethodsList(Key.values());
-	}
-
 	@Override
 	public Calculable getFCF(DTOPeriod period) {
 		IPeriodicalValuesDTO dto = period.getPeriodicalValuesDTO("directinput");

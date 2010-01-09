@@ -13,6 +13,7 @@ import javax.help.UnsupportedOperationException;
  * @version 0.4, 03.01.2009, Norman corrected abs(), sqrt()
  */
 public class IntervalValue extends Calculable {
+	private static final long serialVersionUID = 6854419128579732095L;
 
 	/** The min. */
 	protected final double min;

@@ -31,6 +31,8 @@ import org.bh.gui.swing.IBHComponent;
 import org.bh.gui.swing.IBHModelComponent;
 import org.bh.platform.Services;
 
+import com.jgoodies.validation.ValidationResult;
+
 /**
  * 
  * @author Marco Hammel
@@ -165,7 +167,8 @@ public class View implements MouseListener, FocusListener,
 			if (comp instanceof IBHComponent) {
 				IBHComponent bhcomp = (IBHComponent) comp;
 				this.bhComponents.put(bhcomp.getKey(), bhcomp);
-				if (comp instanceof BHDescriptionLabel || comp instanceof BHButton) {
+				if (comp instanceof BHDescriptionLabel
+						|| comp instanceof BHButton) {
 					this.bhTextComponents.put(bhcomp.getKey(), bhcomp);
 				} else if (comp instanceof IBHAddValue) {
 					this.bhChartComponents.put(bhcomp.getKey(),
@@ -309,14 +312,16 @@ public class View implements MouseListener, FocusListener,
 		}
 	}
 
-	public void revalidate() {
-		if (validator != null)
-			this.validator.publishValidationAll(bhModelComponents);
+	public ValidationResult revalidate() {
+		if (validator == null)
+			return ValidationResult.EMPTY;
+		return this.validator.publishValidationAll(bhModelComponents);
 	}
 
-	public void revalidate(IBHModelComponent comp) {
-		if (validator != null)
-			this.validator.publishValidationComp(comp);
+	public ValidationResult revalidate(IBHModelComponent comp) {
+		if (validator == null)
+			return ValidationResult.EMPTY;
+		return this.validator.publishValidationComp(comp);
 	}
 
 	@Override
@@ -324,6 +329,8 @@ public class View implements MouseListener, FocusListener,
 		if (validator == null
 				|| !validator.publishValidationComp(comp).hasErrors())
 			fireViewEvent(new ViewEvent(comp, ViewEvent.Type.VALUE_CHANGED));
+		else
+			fireViewEvent(new ViewEvent(comp, ViewEvent.Type.VALIDATION_FAILED));
 	}
 
 	/**
