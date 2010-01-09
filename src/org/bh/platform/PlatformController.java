@@ -27,12 +27,14 @@ import org.bh.data.DTOProject;
 import org.bh.data.DTOScenario;
 import org.bh.data.IDTO;
 import org.bh.data.types.Calculable;
+import org.bh.data.types.IValue;
 import org.bh.data.types.StringValue;
 import org.bh.gui.IDeterministicResultAnalyser;
 import org.bh.gui.View;
 import org.bh.gui.ViewException;
 import org.bh.gui.swing.BHButton;
 import org.bh.gui.swing.BHComboBox;
+import org.bh.gui.swing.BHDeterministicProcessForm;
 import org.bh.gui.swing.BHMainFrame;
 import org.bh.gui.swing.BHMenuItem;
 import org.bh.gui.swing.BHProjectInputForm;
@@ -59,7 +61,8 @@ import org.bh.platform.PlatformEvent.Type;
 public class PlatformController {
 
 	private BHMainFrame bhmf;
-	private ProjectRepositoryManager projectRepoManager = ProjectRepositoryManager.getInstance();
+	private ProjectRepositoryManager projectRepoManager = ProjectRepositoryManager
+			.getInstance();
 
 	InputController controller = null;
 
@@ -259,11 +262,46 @@ public class PlatformController {
 									view = new BHScenarioView(
 											new BHScenarioForm(
 													BHScenarioForm.Type.STOCHASTIC));
+									
 								} catch (DTOAccessException e) {
 									// Answer: no
 									view = new BHScenarioView(
 											new BHScenarioForm(
 													BHScenarioForm.Type.DETERMINISTIC));
+									//if scenario is deterministic, a overview table is provided
+									IValue[][] periodData = new IValue[0][3];
+									IValue[][] tempPeriodData;
+									IValue[] singleData;
+									List<?> children = selection.getChildren();
+									DTOPeriod period;
+									//transform data
+									for(int i = 0; i < children.size(); i++){
+										try{
+											period = (DTOPeriod)children.get(i);
+											singleData = new IValue[3];
+											
+											singleData[0] = period.get(DTOPeriod.Key.NAME);
+											singleData[1] = period.getLiabilities();
+											singleData[2] = period.getFCF();
+											
+											//resize result array
+											tempPeriodData = new IValue[periodData.length+1][3];
+											for(int y = 0; y < periodData.length; y++){
+												tempPeriodData[y] = periodData[y];
+											}
+											tempPeriodData[tempPeriodData.length-1] = singleData;
+											periodData = tempPeriodData;
+										}catch(DTOAccessException dtoae){
+											//do nothing...
+										}
+										
+									}
+									try {
+										((BHDeterministicProcessForm)((BHScenarioForm)view.getViewPanel()).getProcessForm()).setPeriodTable(periodData);
+									} catch (Exception e1) {
+										//TODO Exception ausprogrammieren
+									}
+									
 								}
 
 								bhmf.setContentForm(view.getViewPanel());
@@ -271,17 +309,19 @@ public class PlatformController {
 
 								BHComboBox cbDcfMethod = (BHComboBox) view
 										.getBHComponent(DTOScenario.Key.DCF_METHOD);
-								Collection<IShareholderValueCalculator> dcfMethods = Services
-										.getDCFMethods().values();
-								ArrayList<BHComboBox.Item> items = new ArrayList<BHComboBox.Item>();
-								for (IShareholderValueCalculator dcfMethod : dcfMethods) {
-									items.add(new BHComboBox.Item(dcfMethod
-											.getGuiKey(), new StringValue(
-											dcfMethod.getUniqueId())));
+								if (cbDcfMethod != null) {
+									Collection<IShareholderValueCalculator> dcfMethods = Services
+											.getDCFMethods().values();
+									ArrayList<BHComboBox.Item> items = new ArrayList<BHComboBox.Item>();
+									for (IShareholderValueCalculator dcfMethod : dcfMethods) {
+										items.add(new BHComboBox.Item(dcfMethod
+												.getGuiKey(), new StringValue(
+												dcfMethod.getUniqueId())));
+									}
+									cbDcfMethod.setSorted(true);
+									cbDcfMethod.setValueList(items
+											.toArray(new BHComboBox.Item[0]));
 								}
-								cbDcfMethod.setSorted(true);
-								cbDcfMethod.setValueList(items
-										.toArray(new BHComboBox.Item[0]));
 
 								// FIXME
 								((BHButton) view
@@ -301,7 +341,8 @@ public class PlatformController {
 														.getInstance()
 														.getServices(
 																IDeterministicResultAnalyser.class)) {
-													analyser.setResult(result, panel);
+													analyser.setResult(result,
+															panel);
 													break;
 												}
 											}

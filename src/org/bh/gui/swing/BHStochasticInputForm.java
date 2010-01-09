@@ -30,17 +30,17 @@ import com.jgoodies.forms.layout.FormLayout;
  */
 public class BHStochasticInputForm extends JPanel {
 
-	private BHDescriptionLabel ldcfchoise;
-	private JComboBox cbdcfchoise;
 	private BHDescriptionLabel lstochprocess;
 	private BHDescriptionLabel lrange;
 	private BHTextField tfrange;
 	private BHDescriptionLabel lprobab;
 	private BHTextField tfprobab;
 	private JLabel lpercentprobab;
-
+	private BHDescriptionLabel ldcfMethod;
+	
 	private JComboBox cbstochprocess;
-
+	private BHComboBox cbdcfMethod;
+	
 	ITranslator translator = Services.getTranslator();
 
 	/**
@@ -55,16 +55,17 @@ public class BHStochasticInputForm extends JPanel {
 	 */
 	private void initialize() {
 
-		String rowDef = "2dlu,p,10dlu,p,2dlu,p,12dlu,p,2dlu,p,2dlu";
 		String colDef = "2dlu:grow(0.3),2dlu,right:pref,2dlu,pref,max(40dlu;pref),2dlu,left:5dlu,12dlu:grow(0.4),pref,2dlu,pref,2dlu,right:pref,2dlu,pref,pref,2dlu,pref,2dlu,pref,2dlu:grow(0.3)";
+		String rowDef = "2dlu,p,10dlu,p,2dlu,p,12dlu,p,2dlu,p,2dlu";
+		
 
 		FormLayout layout = new FormLayout(colDef, rowDef);
 		this.setLayout(layout);
 
 		CellConstraints cons = new CellConstraints();
 
-		this.add(this.getlDCFchoise(), cons.xywh(3, 2, 1, 1));
-		this.add(this.getcbDCFchoise(), cons.xywh(6, 2, 3, 1));
+		this.add(this.getlDCFmethod(), cons.xywh(3, 2, 1, 1));
+		this.add(this.getcbDCFmethod(), cons.xywh(6, 2, 3, 1));
 		this.add(this.getlstochProcess(), cons.xywh(3, 6, 1, 1));
 		this.add(this.getlrange(), cons.xywh(3, 8, 1, 1));
 		this.add(this.gettfrange(), cons.xywh(6, 8, 1, 1));
@@ -77,35 +78,27 @@ public class BHStochasticInputForm extends JPanel {
 
 	// TODO add missing label keys and translations, change hard coded values to
 	// keys
-
+	
+	//TODO Overwork Javadoc
 	/**
 	 * Getter method for component lDCFchoise.
 	 * 
 	 * @return the initialized component
 	 */
-	public BHDescriptionLabel getlDCFchoise() {
-
-		if (this.ldcfchoise == null) {
-			this.ldcfchoise = new BHDescriptionLabel(DTOScenario.Key.DCF_METHOD);
-		}
-
-		return this.ldcfchoise;
+	public BHDescriptionLabel getlDCFmethod() {
+		if (this.ldcfMethod == null)
+			this.ldcfMethod = new BHDescriptionLabel(DTOScenario.Key.DCF_METHOD);
+		return this.ldcfMethod;
 	}
-
-	/**
-	 * Getter method for component cbDCFchoise.
-	 * 
-	 * @return the initialized component
-	 */
-	public JComboBox getcbDCFchoise() {
-
-		if (this.cbdcfchoise == null) {
-			this.cbdcfchoise = new JComboBox();
+	
+	
+	public BHComboBox getcbDCFmethod() {
+		if (this.cbdcfMethod == null) {
+			this.cbdcfMethod = new BHComboBox(DTOScenario.Key.DCF_METHOD);
 		}
-
-		return this.cbdcfchoise;
+		return this.cbdcfMethod;
 	}
-
+	
 	/**
 	 * Getter method for component lstochProcess.
 	 * 

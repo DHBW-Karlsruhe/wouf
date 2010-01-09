@@ -16,6 +16,7 @@ import javax.swing.tree.TreePath;
 
 import org.apache.log4j.Logger;
 import org.bh.controller.IPeriodController;
+import org.bh.data.DTOAccessException;
 import org.bh.data.DTOPeriod;
 import org.bh.data.DTOProject;
 import org.bh.data.DTOScenario;
@@ -492,7 +493,18 @@ class PlatformActionListener implements ActionListener {
 		if (bhmf.getBHTree().getSelectionPath() != null
 				&& bhmf.getBHTree().getSelectionPath().getPathCount() > 2) {
 			
+			DTOScenario scenario = ((DTOScenario)((BHTreeNode)bhmf.getBHTree().getSelectionPath().getPathComponent(2)).getUserObject());
+			
 			//show selectionBox for sort of period
+			// -only when deterministic scenario is parent (stochastic scenario owns setting itself)
+			try{
+				//try if exception is thrown
+				scenario.get(DTOScenario.Key.STOCHASTIC_PROCESS);
+				
+			}catch(DTOAccessException e){
+				
+			}
+			
 			IPeriodController[] periodTypes = Services.getPeriodControllers()
 					.values().toArray(new IPeriodController[0]);
 			Arrays.sort(periodTypes, new Comparator<IPeriodController>() {
@@ -506,7 +518,8 @@ class PlatformActionListener implements ActionListener {
 				itemsList.add(new BHComboBox.Item(periodType.getGuiKey(),
 						new StringValue(periodType.getGuiKey())));
 			}
-
+			
+			
 			// TODO Schmalzhaf.Alexander hartgecodete Strings raus!
 			BHComboBox.Item res = (BHComboBox.Item) JOptionPane
 					.showInputDialog(bhmf,
@@ -526,10 +539,9 @@ class PlatformActionListener implements ActionListener {
 			
 			//...set name of period
 			String periodName = "";
-			DTOScenario scenario = ((DTOScenario)((BHTreeNode)bhmf.getBHTree().getSelectionPath().getPathComponent(2)).getUserObject());
 			if(scenario.getChildrenSize() == 0){
 				try{
-					periodName = BHTranslator.getInstance().translate("project")+" "+(Integer.parseInt(((StringValue)scenario.get(DTOScenario.Key.IDENTIFIER)).getString())+1);
+					periodName = BHTranslator.getInstance().translate("period")+" "+Integer.parseInt(((StringValue)scenario.get(DTOScenario.Key.IDENTIFIER)).getString());
 				}catch(Exception e){
 					//Do nothing;
 				}
@@ -538,14 +550,30 @@ class PlatformActionListener implements ActionListener {
 				try{
 					//get number of last Period and add 1.
 					lastPeriod = scenario.getChild(scenario.getChildrenSize()-1);
-					periodName = ""+(Integer.parseInt(((StringValue)lastPeriod.get(DTOPeriod.Key.NAME)).getString())+1);
+					
+					//distinguish between stoachstic and deterministic periods
+					try{
+						scenario.get(DTOScenario.Key.STOCHASTIC_PROCESS);
+						periodName = ""+(Integer.parseInt(((StringValue)lastPeriod.get(DTOPeriod.Key.NAME)).getString())-1);
+					}catch(DTOAccessException dtoAE){
+						periodName = ""+(Integer.parseInt(((StringValue)lastPeriod.get(DTOPeriod.Key.NAME)).getString())+1);
+					}
+					
 				}catch(Exception e){
 					try{
 						//get number and Text of last Period and add 1.
 						lastPeriod = scenario.getChild(scenario.getChildrenSize()-1);
 						String lastPeriodName = ((StringValue)lastPeriod.get(DTOPeriod.Key.NAME)).getString();
 						int tempNum =  Integer.parseInt(lastPeriodName.substring(getNumPos(lastPeriodName)));
-						periodName = lastPeriodName.substring(0,getNumPos(lastPeriodName) ) + (tempNum+1);
+						
+						//distinguish between stoachstic and deterministic periods
+						try{
+							scenario.get(DTOScenario.Key.STOCHASTIC_PROCESS);
+							periodName = lastPeriodName.substring(0,getNumPos(lastPeriodName) ) + (tempNum-1);
+						}catch(DTOAccessException dtoAE){
+							periodName = lastPeriodName.substring(0,getNumPos(lastPeriodName) ) + (tempNum+1);
+						}
+						
 					}catch(Exception e1){
 						//TODO Schmalzhaf.Alexander harter String raus!
 						periodName = "neue Periode";

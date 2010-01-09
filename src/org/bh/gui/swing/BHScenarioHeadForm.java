@@ -11,7 +11,6 @@ import javax.swing.JPanel;
 import org.bh.data.DTOScenario;
 import org.bh.platform.Services;
 import org.bh.platform.i18n.ITranslator;
-import org.bh.validation.VRIsBetween;
 import org.bh.validation.VRIsDouble;
 import org.bh.validation.VRIsInteger;
 import org.bh.validation.VRIsPositive;
@@ -50,9 +49,6 @@ public class BHScenarioHeadForm extends JPanel {
 	private JLabel lpercentdept;
 	private JLabel lpercenttrade;
 	private JLabel lpercentcorporate;
-
-	private BHDescriptionLabel ldcfMethod;
-	private BHComboBox cbdcfMethod;
 	private BHDescriptionLabel lprocess;
 	private JComboBox cbprocess;
 	private BHDescriptionLabel ldirect;
@@ -129,18 +125,6 @@ public class BHScenarioHeadForm extends JPanel {
 		return cbprocess;
 	}
 
-	public BHDescriptionLabel getlDCFmethod() {
-		if (this.ldcfMethod == null)
-			this.ldcfMethod = new BHDescriptionLabel(DTOScenario.Key.DCF_METHOD);
-		return this.ldcfMethod;
-	}
-
-	public BHComboBox getcbDCFmethod() {
-		if (this.cbdcfMethod == null) {
-			this.cbdcfMethod = new BHComboBox(DTOScenario.Key.DCF_METHOD);
-		}
-		return this.cbdcfMethod;
-	}
 
 	public BHDescriptionLabel getLdirect() {
 		if (this.ldirect == null) {

@@ -56,9 +56,8 @@ public class BHScenarioForm extends JPanel {
 	private JPanel pscenario;
 	private JPanel pprocess;
 	private BHButton bcalculate;
-	private JTabbedPane tabbedPane;
-	
-
+	private JPanel topPanel;
+	private JPanel bottomPanel;
 
 
 	ITranslator translator = Services.getTranslator();
@@ -67,7 +66,7 @@ public class BHScenarioForm extends JPanel {
 	 * Constructor
 	 */
 	public BHScenarioForm(BHScenarioForm.Type type) {
-		super(new GridLayout(1, 1));
+		super(new GridLayout(2, 1));
 		this.initialize(type);
 	}
 
@@ -75,30 +74,52 @@ public class BHScenarioForm extends JPanel {
 	 * Initialize method.
 	 */
 	private void initialize(BHScenarioForm.Type type) {
-
-		//create TabPane
-		tabbedPane = new JTabbedPane();
-
 		
-		//create JPanel for first Tab
-		JPanel generalTabPanel = new JPanel();
-		String rowDef = "4px,p,14px,p,14px,p,14px,p,4px";
+		/*
+		 * Structure of ScenarioForm:
+		 * The scenario form consists of 2 areas: 
+		 * a big one top which shows all fields and a smaller one bottom
+		 * which contains A) the button to start calculations and B) a short Info-Bar 
+		 * with shortview of calculated UW with a button to start "slider view" (which holds
+		 * all analysis information).
+		 */
+		
+		topPanel = new JPanel();
+		bottomPanel = new JPanel();
+		
+		/*
+		 * build topPanel
+		 */
 		String colDef = "4px,pref:grow,4px";
+		String rowDef = "4px,p,14px,p,14px,p,14px,p,4px";
+		
+		FormLayout topLayout = new FormLayout(colDef, rowDef);
+		topPanel.setLayout(topLayout);
 
-		FormLayout layout = new FormLayout(colDef, rowDef);
-		generalTabPanel.setLayout(layout);
+		CellConstraints topCons = new CellConstraints();
+		
+		topPanel.add(this.getPscenario(), topCons.xywh(2, 2, 1, 1));
+		topPanel.add(this.getPprocess(type), topCons.xywh(2, 4, 1, 1));
+		
+		//add topPanel to ScenarioForm
+		this.add(topPanel);
 
-		CellConstraints cons = new CellConstraints();
 		
-		generalTabPanel.add(this.getPscenario(), cons.xywh(2, 2, 1, 1));
-		generalTabPanel.add(this.getPprocess(type), cons.xywh(2, 4, 1, 1));
-		generalTabPanel.add(this.getBcalculate(), cons.xywh(2, 8, 1, 1, "right, bottom"));
 		
-		//add generalTabPanel to TabPane
-		tabbedPane.addTab("Allgemeine Daten", generalTabPanel);
+		/*
+		 * build bottomPanel
+		 */
+		colDef = "4px,pref:grow,4px";
+		rowDef = "4px,p,4px,p,4px";
 		
-		//add TabPane to ScenarioForm
-		this.add(tabbedPane);
+		FormLayout bottomLayout = new FormLayout(colDef, rowDef);
+		bottomPanel.setLayout(bottomLayout);
+
+		CellConstraints bottomCons = new CellConstraints();
+		bottomPanel.add(this.getBcalculate(), bottomCons.xywh(2, 2, 1, 1, "right, bottom"));
+		
+		//add topPanel to ScenarioForm
+		this.add(bottomPanel);
 		
 	}
 
@@ -106,7 +127,7 @@ public class BHScenarioForm extends JPanel {
 	// values to keys
 	// TODO Check after "OK" if there is a DCF method chosen
 	
-	public JPanel getPprocess(BHScenarioForm.Type type) {
+	private JPanel getPprocess(BHScenarioForm.Type type) {
 		switch (type){
 		case STOCHASTIC:
 			pprocess = new BHStochasticProcessForm();
@@ -126,7 +147,11 @@ public class BHScenarioForm extends JPanel {
 		return pprocess;
 	}
 	
-	public JPanel getPscenario() {
+	public JPanel getProcessForm(){
+		return pprocess;
+	}
+	
+	private JPanel getPscenario() {
 		if (pscenario == null) {
 			pscenario = new BHScenarioHeadForm();
 			//TODO String raus!
@@ -141,14 +166,8 @@ public class BHScenarioForm extends JPanel {
 			this.bcalculate = new BHButton(PlatformKey.CALCSHAREHOLDERVALUE);
 		}
 		return bcalculate;
-		
 	}
 	
-//	@Override
-//	public void resize(Dimension d){
-//		super.resize(d);
-//		tabbedPane.setPreferredSize(new Dimension(this.getSize().height-15,this.getSize().width-15));
-//	}
 	
 
 	

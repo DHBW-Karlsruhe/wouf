@@ -82,7 +82,7 @@ public class BHTree extends JTree{
 		this.setShowsRootHandles(true);
 		this.setCellRenderer(new BHTreeCellRenderer());
 		
-		Services.addPlatformListener(new BHTreeValidationListener());
+		Services.addPlatformListener(new BHTreeValidationListener(this));
 
 		new DefaultTreeTransferHandler(this, DnDConstants.ACTION_COPY_OR_MOVE);
 
@@ -146,7 +146,7 @@ public class BHTree extends JTree{
 		public Component getTreeCellRendererComponent(JTree tree, Object value,
 				boolean selected, boolean expanded, boolean leaf, int row,
 				boolean hasFocus) {
-
+			
 			//Downcast just for determination of the type.
 			DefaultMutableTreeNode node = (DefaultMutableTreeNode) value;
 			
@@ -183,11 +183,16 @@ public class BHTree extends JTree{
 	}
 	
 	public class BHTreeValidationListener implements IPlatformListener{
-
+		
+		BHTree tree;
+		
+		public BHTreeValidationListener(BHTree tree){
+			this.tree = tree;
+		}
+		
 		public void platformEvent(PlatformEvent e) {
 			if(e.getEventType() == PlatformEvent.Type.DATA_CHANGED){
-
-				
+				tree.revalidate();
 			}
 		}
 		
