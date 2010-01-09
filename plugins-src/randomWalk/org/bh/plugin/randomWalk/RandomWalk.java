@@ -13,7 +13,6 @@ import javax.swing.JSeparator;
 import org.apache.log4j.Logger;
 import org.bh.calculation.IShareholderValueCalculator;
 import org.bh.calculation.IStochasticProcess;
-import org.bh.controller.Controller;
 import org.bh.data.DTOKeyPair;
 import org.bh.data.DTOPeriod;
 import org.bh.data.DTOScenario;
@@ -22,13 +21,10 @@ import org.bh.data.types.Calculable;
 import org.bh.data.types.DistributionMap;
 import org.bh.data.types.DoubleValue;
 import org.bh.data.types.IValue;
-
 import org.bh.data.types.IntegerValue;
 import org.bh.gui.swing.BHDescriptionLabel;
 import org.bh.gui.swing.BHTextField;
 import org.bh.platform.Services;
-import org.bh.platform.i18n.ITranslator;
-
 import org.bh.validation.VRIsInteger;
 import org.bh.validation.VRIsPositive;
 import org.bh.validation.VRMandatory;
@@ -131,7 +127,6 @@ public class RandomWalk implements IStochasticProcess {
 
 	@Override
 	public JPanel calculateParameters() {
-		ITranslator translator = Controller.getTranslator();
 		internalMap = new HashMap<String, IValue>();
 		map = new HashMap<String, Integer>();
 
@@ -150,7 +145,7 @@ public class RandomWalk implements IStochasticProcess {
 			layout.setColumnGroups(new int[][] {{4,8}});
 			CellConstraints cons = new CellConstraints();
 			
-			result.add(new BHDescriptionLabel(translator.translate(AMOUNT_OF_PERIODS)), cons.xywh(2, 2, 1, 1));
+			result.add(new BHDescriptionLabel(AMOUNT_OF_PERIODS), cons.xywh(2, 2, 1, 1));
 			BHTextField tf = new BHTextField(AMOUNT_OF_PERIODS);
 			ValidationRule[] rules = { VRMandatory.INSTANCE,
 					VRIsInteger.INSTANCE,
@@ -159,7 +154,7 @@ public class RandomWalk implements IStochasticProcess {
 			result.add(tf, cons.xywh(4, 2, 1, 1));
 			map.put(AMOUNT_OF_PERIODS, new Integer(5));
 
-			result.add(new BHDescriptionLabel(translator.translate(STEPS_PER_PERIOD)), cons.xywh(2, 4, 1, 1));
+			result.add(new BHDescriptionLabel(STEPS_PER_PERIOD), cons.xywh(2, 4, 1, 1));
 			BHTextField tf1 = new BHTextField(STEPS_PER_PERIOD);
 			ValidationRule[] rules1 = { VRMandatory.INSTANCE,
 					VRIsInteger.INSTANCE,
@@ -168,7 +163,7 @@ public class RandomWalk implements IStochasticProcess {
 			result.add(tf1, cons.xywh(4, 4, 1, 1));
 			map.put(STEPS_PER_PERIOD, new Integer(250 / 5));
 
-			result.add(new BHDescriptionLabel(translator.translate(REPETITIONS)), cons.xywh(6, 2, 1, 1));
+			result.add(new BHDescriptionLabel(REPETITIONS), cons.xywh(6, 2, 1, 1));
 			BHTextField tf2 = new BHTextField(REPETITIONS);
 			ValidationRule[] rules2 = { VRMandatory.INSTANCE,
 					VRIsInteger.INSTANCE,
@@ -188,14 +183,14 @@ public class RandomWalk implements IStochasticProcess {
 				layout.appendRow(RowSpec.decode("p"));
 				layout.appendRow(RowSpec.decode("4px"));
 
-				result.add(new BHDescriptionLabel(translator.translate(key)), cons.xywh(2, layout.getRowCount()-1, 1, 1));
+				result.add(new BHDescriptionLabel(key), cons.xywh(2, layout.getRowCount()-1, 1, 1));
 
 				layout.appendRow(RowSpec.decode("p"));
 				layout.appendRow(RowSpec.decode("14px"));
 				
-				result.add(new BHDescriptionLabel(translator.translate(CHANCE)), cons.xywh(2, layout.getRowCount()-1, 1, 1));
+				result.add(new BHDescriptionLabel(CHANCE), cons.xywh(2, layout.getRowCount()-1, 1, 1));
 				result.add(new BHTextField(key + CHANCE, "" + chance), cons.xywh(4, layout.getRowCount()-1, 1, 1));
-				result.add(new BHDescriptionLabel(translator.translate(INCREMENT)), cons.xywh(6, layout.getRowCount()-1, 1, 1));
+				result.add(new BHDescriptionLabel(INCREMENT), cons.xywh(6, layout.getRowCount()-1, 1, 1));
 				result
 						.add(new BHTextField(key + INCREMENT, "" + increment), cons.xywh(8, layout.getRowCount()-1, 1, 1));
 

@@ -30,7 +30,9 @@ import org.bh.data.IPeriodicalValuesDTO;
 import org.bh.data.types.Calculable;
 import org.bh.data.types.IValue;
 import org.bh.data.types.StringValue;
+import org.bh.gui.BHValidityEngine;
 import org.bh.gui.IDeterministicResultAnalyser;
+import org.bh.gui.ValidationMethods;
 import org.bh.gui.View;
 import org.bh.gui.ViewException;
 import org.bh.gui.swing.BHButton;
@@ -44,7 +46,10 @@ import org.bh.gui.swing.BHScenarioForm;
 import org.bh.gui.swing.BHScenarioView;
 import org.bh.gui.swing.BHTreeNode;
 import org.bh.gui.swing.IBHAction;
+import org.bh.gui.swing.IBHModelComponent;
 import org.bh.platform.PlatformEvent.Type;
+
+import com.jgoodies.validation.ValidationResult;
 
 /**
  * The Platform Controller handles a) start up of the application b) main
@@ -251,7 +256,25 @@ public class PlatformController {
 						} else if (selection instanceof DTOScenario) {
 							try {
 								View view = null;
-								IDTO<?> model = selection;
+								final IDTO<?> model = selection;
+								BHValidityEngine validator = new ValidationMethods() {
+									@Override
+									public ValidationResult validateAll(
+											Map<String, IBHModelComponent> toValidate) {
+										ValidationResult res = super
+												.validateAll(toValidate);
+										if (model.getChildren().isEmpty()) {
+											// TODO this error does not get
+											// removed when a period is added...
+											res
+													.addError(Services
+															.getTranslator()
+															.translate(
+																	"scenarioHasNoPeriods"));
+										}
+										return res;
+									}
+								};
 
 								// find out if stochastic process was chosen at
 								// init of strategy
@@ -262,47 +285,48 @@ public class PlatformController {
 									// processed (else: not, but Exception)
 									view = new BHScenarioView(
 											new BHScenarioForm(
-													BHScenarioForm.Type.STOCHASTIC));
-									
+													BHScenarioForm.Type.STOCHASTIC),
+											validator);
+
 								} catch (DTOAccessException e) {
 									// Answer: no
 									view = new BHScenarioView(
 											new BHScenarioForm(
-													BHScenarioForm.Type.DETERMINISTIC));
-									//if scenario is deterministic, a overview table is provided
-									IValue[][] periodData = new IValue[0][3];
-									IValue[][] tempPeriodData;
-									IValue[] singleData;
-									List<?> children = selection.getChildren();
-									DTOPeriod period;
-									//transform data
-									for(int i = 0; i < children.size(); i++){
-										try{
-											period = (DTOPeriod)children.get(i);
-											singleData = new IValue[3];
-											
-											singleData[0] = period.get(DTOPeriod.Key.NAME);
-											singleData[1] = period.getLiabilities();
-											singleData[2] = period.getFCF();
-											
-											//resize result array
-											tempPeriodData = new IValue[periodData.length+1][3];
-											for(int y = 0; y < periodData.length; y++){
-												tempPeriodData[y] = periodData[y];
-											}
-											tempPeriodData[tempPeriodData.length-1] = singleData;
-											periodData = tempPeriodData;
-										}catch(DTOAccessException dtoae){
-											//do nothing...
+													BHScenarioForm.Type.DETERMINISTIC),
+											validator);
+
+									// if scenario is deterministic, an overview
+									// table is provided
+									@SuppressWarnings("unchecked")
+									List<DTOPeriod> periods = (List<DTOPeriod>) selection
+											.getChildren();
+									IValue[][] periodData = new IValue[periods
+											.size()][3];
+									// transform data
+									for (int i = 0; i < periods.size(); i++) {
+										try {
+											DTOPeriod period = (DTOPeriod) periods
+													.get(i);
+
+											periodData[i][0] = period
+													.get(DTOPeriod.Key.NAME);
+											periodData[i][1] = period
+													.getLiabilities();
+											periodData[i][2] = period.getFCF();
+										} catch (DTOAccessException dtoae) {
+											// do nothing...
 										}
-										
+
 									}
 									try {
-										((BHDeterministicProcessForm)((BHScenarioForm)view.getViewPanel()).getProcessForm()).setPeriodTable(periodData);
+										((BHDeterministicProcessForm) ((BHScenarioForm) view
+												.getViewPanel())
+												.getProcessForm())
+												.setPeriodTable(periodData);
 									} catch (Exception e1) {
-										//TODO Exception ausprogrammieren
+										// TODO Exception ausprogrammieren
 									}
-									
+
 								}
 
 								bhmf.setContentForm(view.getViewPanel());

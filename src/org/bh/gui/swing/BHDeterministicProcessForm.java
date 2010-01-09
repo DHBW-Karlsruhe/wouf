@@ -11,7 +11,7 @@ import javax.swing.JScrollPane;
 import javax.swing.JTable;
 
 import org.bh.data.DTOScenario;
-import org.bh.data.types.*;
+import org.bh.data.types.IValue;
 import org.bh.platform.Services;
 import org.bh.platform.i18n.ITranslator;
 
@@ -72,7 +72,7 @@ public class BHDeterministicProcessForm extends JPanel {
 	
 	public BHDescriptionLabel getLinterval() {
 		if (linterval == null) {
-			linterval = new BHDescriptionLabel(translator.translate("IntervalArithmetic"));
+			linterval = new BHDescriptionLabel("IntervalArithmetic");
 		}
 		return linterval;
 	}
