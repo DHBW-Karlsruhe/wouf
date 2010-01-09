@@ -15,7 +15,8 @@ import javax.swing.UIManager;
  * List for selecting Scenarios for Import / Export
  *
  * @author Thiele.Klaus
- * @version 0.5, 2010/01/08
+ * @author Katzor.Marcus
+ * @version 0.6, 2010/01/09
  *
  */
 public class BHSelectionList extends JList implements MouseListener {
@@ -26,10 +27,13 @@ public class BHSelectionList extends JList implements MouseListener {
 	 */
 	public BHSelectionList(Object[] elements) {
 		super();
+		DefaultListModel model = new DefaultListModel();
 		for (Object element : elements) {
-			((DefaultListModel) this.getModel()).addElement(new ListElement(element));
+			model.addElement(new ListElement(element));
 		}
+		setModel(model);
 		this.setCellRenderer(new BHScenarioSelectionRenderer());
+		addMouseListener(this);
 	}
 	
 	/**
@@ -120,7 +124,7 @@ public class BHSelectionList extends JList implements MouseListener {
 				int index, boolean isSelected, boolean cellHasFocus) {
 			
 			this.setEnabled(list.isEnabled());
-			
+			System.out.println(new Boolean(((ListElement) value).isSelected).toString());
 			this.setSelected(((ListElement) value).isSelected);
 			
 			if (index % 2 == 0) {
