@@ -4,6 +4,7 @@ import java.util.Map;
 
 import javax.swing.JPanel;
 
+import org.bh.data.DTOScenario;
 import org.bh.data.types.Calculable;
 
 public interface IDeterministicResultAnalyser {
@@ -16,5 +17,5 @@ public interface IDeterministicResultAnalyser {
 	 * @param panel
 	 *            Panel which can be used to display a GUI.
 	 */
-	public void setResult(Map<String, Calculable[]> result, JPanel panel);
+	public void setResult(DTOScenario scenario, Map<String, Calculable[]> result, JPanel panel);
 }

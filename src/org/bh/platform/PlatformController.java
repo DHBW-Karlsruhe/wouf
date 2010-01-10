@@ -366,7 +366,7 @@ public class PlatformController {
 														.getInstance()
 														.getServices(
 																IDeterministicResultAnalyser.class)) {
-													analyser.setResult(result,
+													analyser.setResult(scenario, result,
 															panel);
 													break;
 												}

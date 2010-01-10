@@ -17,6 +17,9 @@ import org.bh.gui.swing.BHDescriptionLabel;
 import org.bh.gui.swing.BHDescriptionTextArea;
 import org.bh.gui.swing.BHValueLabel;
 import org.bh.platform.Services;
+import org.bh.platform.formula.FormulaException;
+import org.bh.platform.formula.IFormula;
+import org.bh.platform.formula.IFormulaFactory;
 import org.bh.platform.i18n.ITranslator;
 import org.jfree.chart.ChartPanel;
 
@@ -103,10 +106,10 @@ public final class BHResultPanel extends JPanel{
 		 double border = 10;
 	     double size[][] =
 	         {{border, TableLayout.PREFERRED, border, TableLayout.PREFERRED, border, TableLayout.PREFERRED, border},  // Columns
-	          {border, TableLayout.PREFERRED, border, TableLayout.PREFERRED, border, TableLayout.PREFERRED, border}}; // Rows
+	          {border, TableLayout.PREFERRED, border, TableLayout.PREFERRED, border, TableLayout.PREFERRED, border,  TableLayout.PREFERRED, border}}; // Rows
 
 
-		
+	 	try {
 		this.setLayout(new TableLayout(size));
 		
 		//this.setMaximumSize(BHMainFrame.chartsPanel.getMaximumSize());
@@ -184,7 +187,11 @@ public final class BHResultPanel extends JPanel{
        		APVpresentValueTaxShieldDESC = new BHDescriptionLabel("PRESENT_VALUE_TAX_SHIELD");
        		
        		//Formeldarstellung
-       		
+       	
+				IFormulaFactory ff = IFormulaFactory.instance;
+				IFormula finite = ff.createFormula("FCF_SHV_t1", getClass().getResourceAsStream("FCF_SHV_t1.xml"),false);
+				IFormula infinite = ff.createFormula("FCF_SHV_T", getClass().getResourceAsStream("FCF_SHV_T.xml"),false);
+		
        		
        		/**
        		 * add Content to ResultPanel
@@ -247,18 +254,30 @@ public final class BHResultPanel extends JPanel{
 //       		this.add(FCFwaccEquity, BorderLayout.CENTER);
 //       		//this.add(lineChartLabel, BorderLayout.EAST);
 //       		
-       		this.add(APVpresentValueDESC, "1,1");
-       		this.add(APVpresentValue, "3,1");
-       		this.add(pieChartLabel, "5,1");
+				this.add(finite.getJMathComponent(),"3,1");
+	      		this.add(infinite.getJMathComponent(),"5,1");
+	       		
+				
+       		this.add(APVpresentValueDESC, "1,3");
        		
-       		this.add(APVpresentValueTaxShieldDESC, "1,3");
-       		this.add(APVpresentValueTaxShield, "3,3");
-       		this.add(lineChartLabel, "5,3");
+       	
+       		this.add(APVpresentValue, "3,3");
+       		this.add(pieChartLabel, "5,3");
+       		
+       		this.add(APVpresentValueTaxShieldDESC, "1,5");
+       		this.add(APVpresentValueTaxShield, "3,5");
+       		this.add(lineChartLabel, "5,5");
+       		
 //       		
 //       		this.add(APVshareholderValueDESC, "1,2");
 //       		this.add(APVshareholderValue, "2,2");
 //       		this.add(lineChartLabel, "3,2");
        		
+    		
+		} catch (FormulaException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 	
 	/**
