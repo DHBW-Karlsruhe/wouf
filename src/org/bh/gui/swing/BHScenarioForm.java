@@ -1,10 +1,8 @@
 package org.bh.gui.swing;
 
-import java.awt.GridLayout;
-
 import javax.swing.BorderFactory;
 import javax.swing.JPanel;
-import javax.swing.JTabbedPane;
+import javax.swing.JScrollPane;
 import javax.swing.border.EtchedBorder;
 
 import org.apache.log4j.Logger;
@@ -23,6 +21,7 @@ import com.jgoodies.forms.layout.FormLayout;
  * @version 0.4, 04.01.2010
  * 
  */
+@SuppressWarnings("serial")
 public class BHScenarioForm extends JPanel {
 	
 	public enum Type{
@@ -66,7 +65,7 @@ public class BHScenarioForm extends JPanel {
 	 * Constructor
 	 */
 	public BHScenarioForm(BHScenarioForm.Type type) {
-		super(new GridLayout(2, 1));
+		super(new FormLayout("4px,pref:grow,4px", "4px,fill:200px:grow,4px,pref,4px"));
 		this.initialize(type);
 	}
 
@@ -91,18 +90,19 @@ public class BHScenarioForm extends JPanel {
 		 * build topPanel
 		 */
 		String colDef = "4px,pref:grow,4px";
-		String rowDef = "4px,p,14px,p,14px,p,14px,p,4px";
+		String rowDef = "4px,p,14px,p,4px";
 		
 		FormLayout topLayout = new FormLayout(colDef, rowDef);
 		topPanel.setLayout(topLayout);
 
-		CellConstraints topCons = new CellConstraints();
+		CellConstraints cons = new CellConstraints();
 		
-		topPanel.add(this.getPscenario(), topCons.xywh(2, 2, 1, 1));
-		topPanel.add(this.getPprocess(type), topCons.xywh(2, 4, 1, 1));
+		topPanel.add(this.getPscenario(), cons.xywh(2, 2, 1, 1));
+		topPanel.add(this.getPprocess(type), cons.xywh(2, 4, 1, 1));
+		JScrollPane scrollPane = new JScrollPane(topPanel);
 		
 		//add topPanel to ScenarioForm
-		this.add(topPanel);
+		this.add(scrollPane, cons.xywh(2, 2, 1, 1));
 
 		
 		
@@ -110,22 +110,20 @@ public class BHScenarioForm extends JPanel {
 		 * build bottomPanel
 		 */
 		colDef = "4px,pref:grow,4px";
-		rowDef = "4px,p,4px,p,4px";
+		rowDef = "4px,p,4px";
 		
 		FormLayout bottomLayout = new FormLayout(colDef, rowDef);
 		bottomPanel.setLayout(bottomLayout);
 
-		CellConstraints bottomCons = new CellConstraints();
-		bottomPanel.add(this.getBcalculate(), bottomCons.xywh(2, 2, 1, 1, "right, bottom"));
+		bottomPanel.add(this.getBcalculate(), cons.xywh(2, 2, 1, 1, "right, bottom"));
 		
 		//add topPanel to ScenarioForm
-		this.add(bottomPanel);
+		this.add(bottomPanel, cons.xywh(2, 4, 1, 1));
 		
 	}
 
 	// TODO @Anton add missing keys etc. and translations, change hard coded
 	// values to keys
-	// TODO Check after "OK" if there is a DCF method chosen
 	
 	private JPanel getPprocess(BHScenarioForm.Type type) {
 		switch (type){
@@ -142,6 +140,7 @@ public class BHScenarioForm extends JPanel {
 		default:
 			pprocess = new BHDeterministicProcessForm();
 		}
+		// TODO add locale change handler
 		pprocess.setBorder(BorderFactory
 				.createTitledBorder(BorderFactory.createEtchedBorder(EtchedBorder.LOWERED),translator.translate(BHScenarioForm.Key.PROCESS_DATA)));
 		return pprocess;
@@ -154,7 +153,7 @@ public class BHScenarioForm extends JPanel {
 	private JPanel getPscenario() {
 		if (pscenario == null) {
 			pscenario = new BHScenarioHeadForm();
-			//TODO String raus!
+			//TODO add locale change handler
 			pscenario.setBorder(BorderFactory
 					.createTitledBorder(BorderFactory.createEtchedBorder(EtchedBorder.LOWERED),translator.translate(BHScenarioForm.Key.SCENARIO_HEADDATA)));
 		}

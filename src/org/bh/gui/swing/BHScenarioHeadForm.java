@@ -1,13 +1,10 @@
 package org.bh.gui.swing;
 
 import java.awt.Component;
-import java.awt.Container;
-import java.awt.FocusTraversalPolicy;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.util.Vector;
 
-import javax.swing.JComboBox;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
@@ -32,8 +29,8 @@ import com.jgoodies.forms.layout.FormLayout;
  * @version 0.3, 01.01.2010
  * 
  */
+@SuppressWarnings("serial")
 public class BHScenarioHeadForm extends JPanel {
-
 	private BHDescriptionLabel lscenname;
 	private BHDescriptionLabel lscendescript;
 	private BHDescriptionLabel lequityyield;
@@ -53,13 +50,8 @@ public class BHScenarioHeadForm extends JPanel {
 	private JLabel lpercentdept;
 	private JLabel lpercenttrade;
 	private JLabel lpercentcorporate;
-	private BHDescriptionLabel lprocess;
-	private JComboBox cbprocess;
-	private BHDescriptionLabel ldirect;
-	private JComboBox cbdirect;
-	
+
 	private BHFocusTraversalPolicy focusPolicy;
-	
 
 	ITranslator translator = Services.getTranslator();
 
@@ -86,16 +78,16 @@ public class BHScenarioHeadForm extends JPanel {
 		CellConstraints cons = new CellConstraints();
 
 		this.add(this.getlscenName(), cons.xywh(3, 4, 1, 1));
+		this.add(this.gettfscenName(), cons.xywh(6, 4, 4, 1));
 		this.add(this.getlBase(), cons.xywh(14, 4, 1, 1));
 		this.add(this.gettfBase(), cons.xywh(17, 4, 1, 1));
-
 		this.add(this.getlscenDescript(), cons.xywh(3, 6, 1, 1));
+		this.add(this.gettfscenDescript(), cons.xywh(6, 6, 12, 1));
+
 		this.add(this.getlequityYield(), cons.xywh(3, 12, 1, 1));
 		this.add(this.getldeptYield(), cons.xywh(3, 14, 1, 1));
 		this.add(this.getltradeTax(), cons.xywh(14, 12, 1, 1));
 		this.add(this.getlcorporateTax(), cons.xywh(14, 14, 1, 1));
-		this.add(this.gettfscenName(), cons.xywh(6, 4, 4, 1));
-		this.add(this.gettfscenDescript(), cons.xywh(6, 6, 12, 1));
 		this.add(this.gettfequityYeild(), cons.xywh(6, 12, 1, 1));
 		this.add(this.gettfdeptYield(), cons.xywh(6, 14, 1, 1));
 		this.add(this.gettftradeTax(), cons.xywh(17, 12, 1, 1));
@@ -104,72 +96,35 @@ public class BHScenarioHeadForm extends JPanel {
 		this.add(this.getlpercentDept(), cons.xywh(8, 14, 1, 1));
 		this.add(this.getlpercentTrade(), cons.xywh(19, 12, 1, 1));
 		this.add(this.getlpercentCorporate(), cons.xywh(19, 14, 1, 1));
-		//this.add(this.getLprocess(), cons.xywh(3, 16, 1, 1));
-		//this.add(this.getCbprocess(), cons.xywh(6, 16, 3, 1));
-//		this.add(this.getlDCFmethod(), cons.xywh(3, 14, 1, 1));
-//		this.add(this.getcbDCFmethod(), cons.xywh(6, 14, 3, 1));
-		//this.add(this.getLdirect(), cons.xywh(14, 14, 1, 1));
-		//this.add(this.getCbdirect(), cons.xywh(17, 14, 3, 1));
-		
-		Vector<Component> order = new Vector<Component>(7);
-        order.add(this.gettfscenName());
-        order.add(this.gettfBase());
-        order.add(this.gettfscenDescript());
-        order.add(this.gettfequityYeild());
-        order.add(this.gettfdeptYield());
-        order.add(this.gettftradeTax());
-        order.add(this.gettfcorporateTax());
 
-        
+		Vector<Component> order = new Vector<Component>(7);
+		order.add(this.gettfscenName());
+		order.add(this.gettfBase());
+		order.add(this.gettfscenDescript());
+		order.add(this.gettfequityYeild());
+		order.add(this.gettfdeptYield());
+		order.add(this.gettftradeTax());
+		order.add(this.gettfcorporateTax());
+
 		this.setFocusPolicy(order);
-		
+
 		this.setFocusTraversalPolicy(this.getFocusPolicy());
 		this.setFocusTraversalPolicyProvider(true);
-		
 	}
 
 	// TODO add missing label keys etc. and translations, change hard coded
 	// values to keys
-	
+
 	public void setFocusPolicy(Vector<Component> order) {
-			this.focusPolicy = new BHFocusTraversalPolicy(order);
+		this.focusPolicy = new BHFocusTraversalPolicy(order);
 	}
-	
+
 	public BHFocusTraversalPolicy getFocusPolicy() {
-		if (this.focusPolicy == null){			
+		if (this.focusPolicy == null) {
 			this.focusPolicy = new BHFocusTraversalPolicy(null);
 		}
-		
+
 		return this.focusPolicy;
-	}
-
-	public BHDescriptionLabel getLprocess() {
-		if (this.lprocess == null) {
-			this.lprocess = new BHDescriptionLabel("Berechnungsart");
-		}
-		return lprocess;
-	}
-
-	public JComboBox getCbprocess() {
-		if (this.cbprocess == null) {
-			this.cbprocess = new JComboBox();
-		}
-		return cbprocess;
-	}
-
-
-	public BHDescriptionLabel getLdirect() {
-		if (this.ldirect == null) {
-			this.ldirect = new BHDescriptionLabel("direct");
-		}
-		return ldirect;
-	}
-
-	public JComboBox getCbdirect() {
-		if (this.cbdirect == null) {
-			this.cbdirect = new JComboBox();
-		}
-		return cbdirect;
 	}
 
 	/**
@@ -295,7 +250,8 @@ public class BHScenarioHeadForm extends JPanel {
 	public BHTextField gettfscenDescript() {
 
 		if (this.tfscendescript == null) {
-			this.tfscendescript = new BHTextField(DTOScenario.Key.COMMENT, false);
+			this.tfscendescript = new BHTextField(DTOScenario.Key.COMMENT,
+					false);
 		}
 		return this.tfscendescript;
 	}
@@ -431,7 +387,6 @@ public class BHScenarioHeadForm extends JPanel {
 		}
 		return this.lpercentcorporate;
 	}
-	
 
 	// TODO remove main later
 	/**

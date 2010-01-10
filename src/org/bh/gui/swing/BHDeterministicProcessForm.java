@@ -1,5 +1,4 @@
 package org.bh.gui.swing;
-import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
@@ -25,6 +24,7 @@ import com.jgoodies.forms.layout.FormLayout;
  * @version 0.1, 05.01.2010
  * 
  */
+@SuppressWarnings("serial")
 public class BHDeterministicProcessForm extends JPanel {
 	
 	//Labels
@@ -87,12 +87,17 @@ public class BHDeterministicProcessForm extends JPanel {
 	public JTable getTperioddata(IValue[][] data) {
 		//TODO hartgecodete Strings raus!
 		String[] columnnames = { "Periode", "Fremdkapital", "FCF" };
-		this.tperioddata = new JTable(data, columnnames);
+		this.tperioddata = new JTable(data, columnnames) {
+			// always make the table as large as necessary 
+			@Override
+			public Dimension getPreferredScrollableViewportSize() {
+				return getPreferredSize();
+			}
+		};
+		this.tperioddata.setEnabled(false);
+		this.tperioddata.getTableHeader().setReorderingAllowed(false);
 		//TODO Thiele.Klaus Farben der Tabelle...?
-		this.tperioddata.setGridColor(new Color(0, 0, 0));
-		this.tperioddata.setPreferredScrollableViewportSize(new Dimension(
-					30, 30));
-		return tperioddata;
+		return this.tperioddata;
 	}
 	
 	
@@ -135,7 +140,7 @@ public class BHDeterministicProcessForm extends JPanel {
 			}
 		});
 		test.pack();
-		test.show();
+		test.setVisible(true);
 	}
 
 }

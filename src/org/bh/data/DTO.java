@@ -229,7 +229,7 @@ public abstract class DTO<ChildT extends IDTO> implements IDTO<ChildT> {
 
 	@Override
 	public String toString() {
-		return values.toString();
+		return getClass().getSimpleName() + values.toString();
 	}
 
 	@Override

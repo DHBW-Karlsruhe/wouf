@@ -7,10 +7,11 @@ import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.util.Vector;
 
-import javax.swing.JComboBox;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.JSeparator;
+import javax.swing.SwingConstants;
 
 import org.bh.data.DTOScenario;
 import org.bh.platform.Services;
@@ -32,8 +33,8 @@ import com.jgoodies.forms.layout.FormLayout;
  * @version 0.3, 01.01.2010
  * 
  */
+@SuppressWarnings("serial")
 public class BHScenarioHeadIntervalForm extends JPanel {
-
 	private BHDescriptionLabel lscenname;
 	private BHDescriptionLabel lscendescript;
 	private BHDescriptionLabel lequityyield;
@@ -55,13 +56,6 @@ public class BHScenarioHeadIntervalForm extends JPanel {
 	private JLabel lmaxpercenttrade;
 	private JLabel lmaxpercentcorporate;
 
-	private BHDescriptionLabel ldcfMethod;
-	private BHComboBox cbdcfMethod;
-	private BHDescriptionLabel lprocess;
-	private JComboBox cbprocess;
-	private BHDescriptionLabel ldirect;
-	private JComboBox cbdirect;
-
 	ITranslator translator = Services.getTranslator();
 	private BHTextField tfminequityyield;
 	private BHTextField tfmindeptyield;
@@ -76,7 +70,7 @@ public class BHScenarioHeadIntervalForm extends JPanel {
 	private JLabel lmax;
 	private JLabel lmin1;
 	private JLabel lmax1;
-	
+
 	private BHFocusTraversalPolicy focusPolicy;
 
 	/**
@@ -92,74 +86,71 @@ public class BHScenarioHeadIntervalForm extends JPanel {
 	private void initialize() {
 
 		String rowDef = "4px,p,4px,p,4px,p,4px,p,20px,p,4px,p,4px,p,4px,p,4px";
-		String colDef = "4px,4px,right:pref,4px,pref,max(80px;pref),4px,left:pref,4px,pref,4px,left:pref,24px:grow,pref,4px,pref,4px,right:pref,4px,pref,pref,4px,pref,4px,pref,4px,left:pref,4px";
+		String colDef = "4px,right:pref,4px,max(80px;pref),4px,left:pref,4px,pref,4px,pref,4px,left:pref,24px:grow,4px,right:pref,4px,pref,4px,left:pref,4px,pref,4px,pref,4px,left:pref,4px";
 
 		FormLayout layout = new FormLayout(colDef, rowDef);
 		this.setLayout(layout);
 
-		layout.setColumnGroups(new int[][] { { 6, 10, 21, 25 } });
+		layout.setColumnGroups(new int[][] { { 4, 10, 17, 23 } });
 
 		CellConstraints cons = new CellConstraints();
 
-		this.add(this.getlscenName(), cons.xywh(3, 4, 1, 1));
-		this.add(this.getlbaseYear(), cons.xywh(18, 4, 1, 1));
-		this.add(this.gettfbaseYear(), cons.xywh(21, 4, 1, 1));
+		this.add(this.getlscenName(), cons.xywh(2, 4, 1, 1));
+		this.add(this.gettfscenName(), cons.xywh(4, 4, 12, 1));
+		this.add(this.getlbaseYear(), cons.xywh(17, 4, 5, 1, "right, default"));
+		this.add(this.gettfbaseYear(), cons.xywh(23, 4, 1, 1));
+		this.add(this.getlscenDescript(), cons.xywh(2, 6, 1, 1));
+		this.add(this.gettfscenDescript(), cons.xywh(4, 6, 20, 1));
 
-		this.add(this.getLmin(), cons.xywh(6, 10, 1, 1, "center, center"));
-		this.add(this.getLmax(), cons.xywh(10, 10, 1, 1, "center, center"));
-		this.add(this.getLmin1(), cons.xywh(21, 10, 1, 1, "center, center"));
-		this.add(this.getLmax1(), cons.xywh(25, 10, 1, 1, "center, center"));
+		this.add(new JSeparator(SwingConstants.VERTICAL), cons
+				.xywh(8, 10, 1, 5));
+		this.add(this.getLmin(), cons.xywh(4, 10, 1, 1, "center, default"));
+		this.add(this.getLmax(), cons.xywh(10, 10, 1, 1, "center, default"));
+		this.add(new JSeparator(SwingConstants.VERTICAL), cons.xywh(21, 10, 1,
+				5));
+		this.add(this.getLmin1(), cons.xywh(17, 10, 1, 1, "center, default"));
+		this.add(this.getLmax1(), cons.xywh(23, 10, 1, 1, "center, default"));
 
-		this.add(this.getlscenDescript(), cons.xywh(3, 6, 1, 1));
-		this.add(this.getlequityYield(), cons.xywh(3, 12, 1, 1));
-		this.add(this.getldeptYield(), cons.xywh(3, 14, 1, 1));
-		this.add(this.getltradeTax(), cons.xywh(18, 12, 1, 1));
-		this.add(this.getlcorporateTax(), cons.xywh(18, 14, 1, 1));
-		this.add(this.gettfscenName(), cons.xywh(6, 4, 8, 1));
-		this.add(this.gettfscenDescript(), cons.xywh(6, 6, 20, 1));
+		this.add(this.getlequityYield(), cons.xywh(2, 12, 1, 1));
+		this.add(this.getldeptYield(), cons.xywh(2, 14, 1, 1));
+		this.add(this.getltradeTax(), cons.xywh(15, 12, 1, 1));
+		this.add(this.getlcorporateTax(), cons.xywh(15, 14, 1, 1));
 
-		this.add(this.gettfminequityyield(), cons.xywh(6, 12, 1, 1));
-		this.add(this.gettfmindeptyield(), cons.xywh(6, 14, 1, 1));
-		this.add(this.gettfmintradetax(), cons.xywh(21, 12, 1, 1));
-		this.add(this.gettfmincorporatetax(), cons.xywh(21, 14, 1, 1));
+		this.add(this.gettfminequityyield(), cons.xywh(4, 12, 1, 1));
+		this.add(this.gettfmindeptyield(), cons.xywh(4, 14, 1, 1));
+		this.add(this.gettfmintradetax(), cons.xywh(17, 12, 1, 1));
+		this.add(this.gettfmincorporatetax(), cons.xywh(17, 14, 1, 1));
 
 		this.add(this.gettfmaxequityyield(), cons.xywh(10, 12, 1, 1));
 		this.add(this.gettfmaxdeptyield(), cons.xywh(10, 14, 1, 1));
-		this.add(this.gettfmaxtradetax(), cons.xywh(25, 12, 1, 1));
-		this.add(this.gettfmaxcorporatetax(), cons.xywh(25, 14, 1, 1));
+		this.add(this.gettfmaxtradetax(), cons.xywh(23, 12, 1, 1));
+		this.add(this.gettfmaxcorporatetax(), cons.xywh(23, 14, 1, 1));
 
-		this.add(this.getlminpercentEquity(), cons.xywh(8, 12, 1, 1));
-		this.add(this.getlminpercentDept(), cons.xywh(8, 14, 1, 1));
-		this.add(this.getlminpercentTrade(), cons.xywh(23, 12, 1, 1));
-		this.add(this.getlminpercentCorporate(), cons.xywh(23, 14, 1, 1));
+		this.add(this.getlminpercentEquity(), cons.xywh(6, 12, 1, 1));
+		this.add(this.getlminpercentDept(), cons.xywh(6, 14, 1, 1));
+		this.add(this.getlminpercentTrade(), cons.xywh(19, 12, 1, 1));
+		this.add(this.getlminpercentCorporate(), cons.xywh(19, 14, 1, 1));
 
 		this.add(this.getlmaxpercentEquity(), cons.xywh(12, 12, 1, 1));
 		this.add(this.getlmaxpercentDept(), cons.xywh(12, 14, 1, 1));
-		this.add(this.getlmaxpercentTrade(), cons.xywh(27, 12, 1, 1));
-		this.add(this.getlmaxpercentCorporate(), cons.xywh(27, 14, 1, 1));
+		this.add(this.getlmaxpercentTrade(), cons.xywh(25, 12, 1, 1));
+		this.add(this.getlmaxpercentCorporate(), cons.xywh(25, 14, 1, 1));
 
-		// this.add(this.getLprocess(), cons.xywh(3, 16, 1, 1));
-		// this.add(this.getCbprocess(), cons.xywh(6, 16, 3, 1));
-		// this.add(this.getlDCFmethod(), cons.xywh(3, 14, 1, 1));
-		// this.add(this.getcbDCFmethod(), cons.xywh(6, 14, 3, 1));
-		// this.add(this.getLdirect(), cons.xywh(14, 14, 1, 1));
-		// this.add(this.getCbdirect(), cons.xywh(17, 14, 3, 1));
-		
 		Vector<Component> order = new Vector<Component>(11);
-        order.add(this.gettfscenName());
-        order.add(this.gettfbaseYear());
-        order.add(this.gettfscenDescript());
-        order.add(this.gettfminequityyield());
-        order.add(this.gettfmaxequityyield());
-        order.add(this.gettfmindeptyield());
-        order.add(this.gettfmaxdeptyield());
-        order.add(this.gettfmintradetax());
-        order.add(this.gettfmaxtradetax());
-        order.add(this.gettfmincorporatetax());
-        order.add(this.gettfmaxcorporatetax());
-        
-this.setFocusPolicy(order);
-		
+		order.add(this.gettfscenName());
+		order.add(this.gettfbaseYear());
+		order.add(this.gettfscenDescript());
+		order.add(this.gettfminequityyield());
+		order.add(this.gettfmaxequityyield());
+		order.add(this.gettfmindeptyield());
+		order.add(this.gettfmaxdeptyield());
+		order.add(this.gettfmintradetax());
+		order.add(this.gettfmaxtradetax());
+		order.add(this.gettfmincorporatetax());
+		order.add(this.gettfmaxcorporatetax());
+
+		this.setFocusPolicy(order);
+
 		this.setFocusTraversalPolicy(this.getFocusPolicy());
 		this.setFocusTraversalPolicyProvider(true);
 
@@ -167,18 +158,18 @@ this.setFocusPolicy(order);
 
 	// TODO add missing label keys etc. and translations, change hard coded
 	// values to keys
-	
+
 	public void setFocusPolicy(Vector<Component> order) {
 		this.focusPolicy = new BHFocusTraversalPolicy(order);
-}
-
-public BHFocusTraversalPolicy getFocusPolicy() {
-	if (this.focusPolicy == null){			
-		this.focusPolicy = new BHFocusTraversalPolicy(null);
 	}
-	
-	return this.focusPolicy;
-}
+
+	public BHFocusTraversalPolicy getFocusPolicy() {
+		if (this.focusPolicy == null) {
+			this.focusPolicy = new BHFocusTraversalPolicy(null);
+		}
+
+		return this.focusPolicy;
+	}
 
 	/**
 	 * Getter method for component lmin.
@@ -226,77 +217,6 @@ public BHFocusTraversalPolicy getFocusPolicy() {
 			this.lmax1 = new JLabel(translator.translate("max"));
 		}
 		return lmax1;
-	}
-
-	/**
-	 * Getter method for component lprocess.
-	 * 
-	 * @return BHDescriptionLabel
-	 */
-	public BHDescriptionLabel getLprocess() {
-		if (this.lprocess == null) {
-			this.lprocess = new BHDescriptionLabel("Berechnungsart");
-		}
-		return lprocess;
-	}
-
-	/**
-	 * Getter method for component cbprocess.
-	 * 
-	 * @return JComboBox
-	 */
-	public JComboBox getCbprocess() {
-		if (this.cbprocess == null) {
-			this.cbprocess = new JComboBox();
-		}
-		return cbprocess;
-	}
-
-	/**
-	 * Getter method for component ldcfMethod.
-	 * 
-	 * @return BHDescriptionLabel
-	 */
-	public BHDescriptionLabel getlDCFmethod() {
-		if (this.ldcfMethod == null)
-			this.ldcfMethod = new BHDescriptionLabel(DTOScenario.Key.DCF_METHOD);
-		return this.ldcfMethod;
-	}
-
-	/**
-	 * Getter method for component cbdcfMethod.
-	 * 
-	 * @return BHComboBox
-	 */
-	public BHComboBox getcbDCFmethod() {
-		if (this.cbdcfMethod == null) {
-			this.cbdcfMethod = new BHComboBox(DTOScenario.Key.DCF_METHOD);
-		}
-		return this.cbdcfMethod;
-	}
-
-	/**
-	 * Getter method for component ldirect.
-	 * 
-	 * @return BHDescriptionLabel
-	 */
-	public BHDescriptionLabel getLdirect() {
-		if (this.ldirect == null) {
-			this.ldirect = new BHDescriptionLabel("direct");
-		}
-		return ldirect;
-	}
-
-	/**
-	 * Getter method for component cbdirect.
-	 * 
-	 * @return JComboBox
-	 */
-	public JComboBox getCbdirect() {
-		if (this.cbdirect == null) {
-			this.cbdirect = new JComboBox();
-		}
-		return cbdirect;
 	}
 
 	/**
@@ -451,7 +371,7 @@ public BHFocusTraversalPolicy getFocusPolicy() {
 	 */
 	public BHTextField gettfminequityyield() {
 		if (this.tfminequityyield == null) {
-			this.tfminequityyield = new BHTextField(IBHComponent.MINVALUE + "_"
+			this.tfminequityyield = new BHTextField(IBHComponent.MINVALUE
 					+ DTOScenario.Key.REK);
 			ValidationRule[] rules = { VRMandatory.INSTANCE,
 					VRIsDouble.INSTANCE, VRIsPositive.INSTANCE };
@@ -467,7 +387,7 @@ public BHFocusTraversalPolicy getFocusPolicy() {
 	 */
 	public BHTextField gettfmindeptyield() {
 		if (this.tfmindeptyield == null) {
-			this.tfmindeptyield = new BHTextField(IBHComponent.MINVALUE + "_"
+			this.tfmindeptyield = new BHTextField(IBHComponent.MINVALUE
 					+ DTOScenario.Key.RFK);
 			ValidationRule[] rules = { VRMandatory.INSTANCE,
 					VRIsDouble.INSTANCE, VRIsPositive.INSTANCE };
@@ -483,7 +403,7 @@ public BHFocusTraversalPolicy getFocusPolicy() {
 	 */
 	public BHTextField gettfmintradetax() {
 		if (this.tfmintradetax == null) {
-			this.tfmintradetax = new BHTextField(IBHComponent.MINVALUE + "_"
+			this.tfmintradetax = new BHTextField(IBHComponent.MINVALUE
 					+ DTOScenario.Key.BTAX);
 			ValidationRule[] rules = { VRMandatory.INSTANCE,
 					VRIsDouble.INSTANCE, VRIsPositive.INSTANCE };
@@ -515,7 +435,7 @@ public BHFocusTraversalPolicy getFocusPolicy() {
 	 */
 	public BHTextField gettfmaxequityyield() {
 		if (this.tfmaxequityyield == null) {
-			this.tfmaxequityyield = new BHTextField(IBHComponent.MAXVALUE + "_"
+			this.tfmaxequityyield = new BHTextField(IBHComponent.MAXVALUE
 					+ DTOScenario.Key.REK);
 			ValidationRule[] rules = { VRMandatory.INSTANCE,
 					VRIsDouble.INSTANCE, VRIsPositive.INSTANCE };
@@ -531,7 +451,7 @@ public BHFocusTraversalPolicy getFocusPolicy() {
 	 */
 	public BHTextField gettfmaxdeptyield() {
 		if (this.tfmaxdeptyield == null) {
-			this.tfmaxdeptyield = new BHTextField(IBHComponent.MAXVALUE + "_"
+			this.tfmaxdeptyield = new BHTextField(IBHComponent.MAXVALUE
 					+ DTOScenario.Key.RFK);
 			ValidationRule[] rules = { VRMandatory.INSTANCE,
 					VRIsDouble.INSTANCE, VRIsPositive.INSTANCE };
@@ -547,7 +467,7 @@ public BHFocusTraversalPolicy getFocusPolicy() {
 	 */
 	public BHTextField gettfmaxtradetax() {
 		if (this.tfmaxtradetax == null) {
-			this.tfmaxtradetax = new BHTextField(IBHComponent.MAXVALUE + "_"
+			this.tfmaxtradetax = new BHTextField(IBHComponent.MAXVALUE
 					+ DTOScenario.Key.BTAX);
 			ValidationRule[] rules = { VRMandatory.INSTANCE,
 					VRIsDouble.INSTANCE, VRIsPositive.INSTANCE };
