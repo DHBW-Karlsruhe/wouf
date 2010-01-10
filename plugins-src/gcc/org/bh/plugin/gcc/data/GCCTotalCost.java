@@ -6,20 +6,15 @@ import org.bh.data.IPeriodicalValuesDTO;
 import org.bh.data.types.Calculable;
 import org.bh.data.types.DoubleValue;
 
-/**
- * Calculates the FCF from the current profit&loss statement, the current balance sheet and the
- * balance sheet from the year before.
- * 
- * @author Robert Vollmer  
- */
-public class GCCCostOfSales implements ICalculationPreparer {
+public class GCCTotalCost implements ICalculationPreparer {
+
 	@Override
 	public Calculable getFCF(DTOPeriod period) {
 		// Check whether this method is applicable for the DTOs in this and the previous period.
 		if (period.getPrevious() == null)
 			return null;
 		
-		IPeriodicalValuesDTO plsNow = period.getPeriodicalValuesDTO("gcc_pls_costofsales");
+		IPeriodicalValuesDTO plsNow = period.getPeriodicalValuesDTO("gcc_pls_totalcost");
 		if (plsNow == null) {
 			return null;
 		}
@@ -32,12 +27,10 @@ public class GCCCostOfSales implements ICalculationPreparer {
 		
 		Calculable ebit = new DoubleValue(0);
 		
-		ebit.add(plsNow.getCalculable(DTOGCCProfitLossStatementCostOfSales.Key.UE),
-				plsNow.getCalculable(DTOGCCProfitLossStatementCostOfSales.Key.HK),
-				plsNow.getCalculable(DTOGCCProfitLossStatementCostOfSales.Key.VERTK),
-				plsNow.getCalculable(DTOGCCProfitLossStatementCostOfSales.Key.VERWK),
-				plsNow.getCalculable(DTOGCCProfitLossStatementCostOfSales.Key.SBA),
-				plsNow.getCalculable(DTOGCCProfitLossStatementCostOfSales.Key.AUA));
+		ebit.add(plsNow.getCalculable(DTOGCCProfitLossStatementTotalCost.Key.UE),
+				plsNow.getCalculable(DTOGCCProfitLossStatementTotalCost.Key.ABSCH),
+				plsNow.getCalculable(DTOGCCProfitLossStatementTotalCost.Key.SBA),
+				plsNow.getCalculable(DTOGCCProfitLossStatementTotalCost.Key.AUA));
 		
 		Calculable bsCorrection = 
 				bsNow.getCalculable(DTOGCCBalanceSheet.Key.RS).sub(
@@ -78,7 +71,7 @@ public class GCCCostOfSales implements ICalculationPreparer {
 			);
 		
 		return ebit.sub(cfInvest);
-	} 
+	}
 
 	@Override
 	public Calculable getLiabilities(DTOPeriod period) {
