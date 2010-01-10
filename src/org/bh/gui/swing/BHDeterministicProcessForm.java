@@ -53,7 +53,7 @@ public class BHDeterministicProcessForm extends JPanel {
 	private void initialize() {
 		FormLayout layout;
 		//TODO rowDef überarbeiten
-		String colDef = "4px,right:pref,4px,24px:grow,pref:grow,4px";
+		String colDef = "4px,right:pref,4px,max(80px;pref),pref:grow,4px";
 		String rowDef = "4px,p,4px,p,4px,p,4px";
 		
 		layout = new FormLayout(colDef, rowDef);
