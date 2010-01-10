@@ -20,8 +20,8 @@ public class VRMandatory extends ValidationRule {
 		if (comp instanceof JTextField || comp instanceof BHTextField) {
 			BHTextField tf_toValidate = (BHTextField) comp;
 			if (ValidationComponentUtils.isMandatoryAndBlank(tf_toValidate)) {
-				validationResult.addError(translator.translate("Efield")
-						+ translator.translate(tf_toValidate.getKey())
+				validationResult.addError(translator.translate("Efield") + " '"
+						+ translator.translate(tf_toValidate.getKey()) + "' "
 						+ translator.translate("EisMandatory"));
 			}
 		}

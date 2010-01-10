@@ -40,9 +40,10 @@ public class VRIsEqual extends ValidationRule {
 		}
 
 		if (!success)
-			validationResult.addError(translator.translate("Efield")
-					+ translator.translate(comp.getKey())
-					+ translator.translate("EisEqual")
+			validationResult.addError(translator.translate("Efield") + " '"
+					+ translator.translate(comp.getKey()) + "' "
+					+ translator.translate("EisEqual")  + " "
+					// TODO check where " '" and "' " for compare value (other) have to be
 					+ ((other != null) ? translator.translate(other.getKey())
 							: compareValue));
 		return validationResult;

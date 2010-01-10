@@ -40,8 +40,8 @@ public class VRIsLowerThan extends ValidationRule {
 			} catch (NumberFormatException nfe) {
 			}
 			if (!success) {
-				validationResult.addError(translator.translate("Efield")
-						+ translator.translate(tf_toValidate.getKey())
+				validationResult.addError(translator.translate("Efield") + " '"
+						+ translator.translate(tf_toValidate.getKey()) + "' "
 						+ translator.translate("EisLower") + compareValue);
 			}
 		}

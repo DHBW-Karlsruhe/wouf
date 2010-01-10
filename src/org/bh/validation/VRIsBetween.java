@@ -11,8 +11,12 @@ public class VRIsBetween extends ValidationRule {
 	private VRIsGreaterThan vrIsGreaterThan;
 	private VRIsLowerThan vrIsLowerThan;
 	
+	private int lowerBound;
+	private int upperBound;
 	
-	public VRIsBetween(double lowerBound, double upperBound) {
+	public VRIsBetween(int lowerBound, int upperBound) {
+		this.lowerBound = lowerBound;
+		this.upperBound = upperBound;
 		vrIsGreaterThan = new VRIsGreaterThan(lowerBound);
 		vrIsLowerThan = new VRIsLowerThan(upperBound);
 	}
@@ -22,10 +26,12 @@ public class VRIsBetween extends ValidationRule {
 		ValidationResult validationResult = new ValidationResult();
 		if ( vrIsGreaterThan.validate(comp).hasMessages()
 				|| vrIsLowerThan.validate(comp).hasMessages()) {
-			// TODO Error Messages for all values
-			validationResult.addError(translator.translate("Efield")
-					+ translator.translate(comp.getKey())
-					+ translator.translate("EisBetween0and100"));
+			validationResult.addError(translator.translate("Efield") + " '"
+					+ translator.translate(comp.getKey()) + "' "
+					+ translator.translate("EisBetween") + " "
+					+ lowerBound + " "
+					+ translator.translate("Eand") + " "
+					+ upperBound + ".");
 		}
 		return validationResult;
 	}

@@ -22,8 +22,8 @@ public class VRIsDouble extends ValidationRule {
 			try {
 				Double.parseDouble(valueString);
 			} catch (NumberFormatException nfe) {
-				validationResult.addError(translator.translate("Efield")
-						+ translator.translate(tf_toValidate.getKey())
+				validationResult.addError(translator.translate("Efield") + " '"
+						+ translator.translate(tf_toValidate.getKey()) + "' "
 						+ translator.translate("EisDouble"));
 			}
 		}

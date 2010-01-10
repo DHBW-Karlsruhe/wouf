@@ -14,8 +14,8 @@ public class VRIsPositive extends ValidationRule {
 	public ValidationResult validate(IBHModelComponent comp) {
 		ValidationResult validationResult = new ValidationResult();
 		if (VRIsGreaterThan.GTEZERO.validate(comp).hasMessages()) {
-			validationResult.addError(translator.translate("Efield")
-					+ translator.translate(comp.getKey())
+			validationResult.addError(translator.translate("Efield") + " '"
+					+ translator.translate(comp.getKey()) + "' "
 					+ translator.translate("EisPositive"));
 		}
 		return validationResult;

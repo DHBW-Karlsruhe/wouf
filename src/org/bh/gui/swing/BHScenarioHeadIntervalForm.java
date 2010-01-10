@@ -1,11 +1,7 @@
 package org.bh.gui.swing;
 
-import java.awt.Component;
-import java.awt.Container;
-import java.awt.FocusTraversalPolicy;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
-import java.util.Vector;
 
 import javax.swing.JComboBox;
 import javax.swing.JFrame;
@@ -15,8 +11,9 @@ import javax.swing.JPanel;
 import org.bh.data.DTOScenario;
 import org.bh.platform.Services;
 import org.bh.platform.i18n.ITranslator;
-import org.bh.validation.VRIsBetween;
+import org.bh.validation.VRIsDouble;
 import org.bh.validation.VRIsInteger;
+import org.bh.validation.VRIsPositive;
 import org.bh.validation.VRMandatory;
 import org.bh.validation.ValidationRule;
 
@@ -24,7 +21,7 @@ import com.jgoodies.forms.layout.CellConstraints;
 import com.jgoodies.forms.layout.FormLayout;
 
 /**
- * This class contains the form for head-data
+ * This class contains the form for interval head-data
  * 
  * @author Anton Kharitonov
  * @author Patrick Heinz
@@ -44,7 +41,7 @@ public class BHScenarioHeadIntervalForm extends JPanel {
 	private BHTextField tfscenname;
 	private BHTextField tfscendescript;
 	private BHTextField tfbaseyear;
-	
+
 	private JLabel lminpercentequity;
 	private JLabel lminpercentdept;
 	private JLabel lminpercenttrade;
@@ -70,7 +67,7 @@ public class BHScenarioHeadIntervalForm extends JPanel {
 	private BHTextField tfmaxcorporatetax;
 	private BHTextField tfmaxequityyield;
 	private BHTextField tfmaxtradetax;
-	
+
 	private JLabel lmin;
 	private JLabel lmax;
 	private JLabel lmin1;
@@ -101,7 +98,7 @@ public class BHScenarioHeadIntervalForm extends JPanel {
 		this.add(this.getlscenName(), cons.xywh(3, 4, 1, 1));
 		this.add(this.getlbaseYear(), cons.xywh(18, 4, 1, 1));
 		this.add(this.gettfbaseYear(), cons.xywh(21, 4, 1, 1));
-		
+
 		this.add(this.getLmin(), cons.xywh(6, 10, 1, 1, "center, center"));
 		this.add(this.getLmax(), cons.xywh(10, 10, 1, 1, "center, center"));
 		this.add(this.getLmin1(), cons.xywh(21, 10, 1, 1, "center, center"));
@@ -114,27 +111,27 @@ public class BHScenarioHeadIntervalForm extends JPanel {
 		this.add(this.getlcorporateTax(), cons.xywh(18, 14, 1, 1));
 		this.add(this.gettfscenName(), cons.xywh(6, 4, 8, 1));
 		this.add(this.gettfscenDescript(), cons.xywh(6, 6, 20, 1));
-		
+
 		this.add(this.gettfminequityyield(), cons.xywh(6, 12, 1, 1));
 		this.add(this.gettfmindeptyield(), cons.xywh(6, 14, 1, 1));
 		this.add(this.gettfmintradetax(), cons.xywh(21, 12, 1, 1));
 		this.add(this.gettfmincorporatetax(), cons.xywh(21, 14, 1, 1));
-		
+
 		this.add(this.gettfmaxequityyield(), cons.xywh(10, 12, 1, 1));
 		this.add(this.gettfmaxdeptyield(), cons.xywh(10, 14, 1, 1));
 		this.add(this.gettfmaxtradetax(), cons.xywh(25, 12, 1, 1));
 		this.add(this.gettfmaxcorporatetax(), cons.xywh(25, 14, 1, 1));
-		
+
 		this.add(this.getlminpercentEquity(), cons.xywh(8, 12, 1, 1));
 		this.add(this.getlminpercentDept(), cons.xywh(8, 14, 1, 1));
 		this.add(this.getlminpercentTrade(), cons.xywh(23, 12, 1, 1));
 		this.add(this.getlminpercentCorporate(), cons.xywh(23, 14, 1, 1));
-		
+
 		this.add(this.getlmaxpercentEquity(), cons.xywh(12, 12, 1, 1));
 		this.add(this.getlmaxpercentDept(), cons.xywh(12, 14, 1, 1));
 		this.add(this.getlmaxpercentTrade(), cons.xywh(27, 12, 1, 1));
 		this.add(this.getlmaxpercentCorporate(), cons.xywh(27, 14, 1, 1));
-		
+
 		// this.add(this.getLprocess(), cons.xywh(3, 16, 1, 1));
 		// this.add(this.getCbprocess(), cons.xywh(6, 16, 3, 1));
 		// this.add(this.getlDCFmethod(), cons.xywh(3, 14, 1, 1));
@@ -145,99 +142,60 @@ public class BHScenarioHeadIntervalForm extends JPanel {
 
 	// TODO add missing label keys etc. and translations, change hard coded
 	// values to keys
-	
-	public BHTextField gettfminequityyield() {
-		if (this.tfminequityyield == null) {
-			this.tfminequityyield = new BHTextField(IBHComponent.MINVALUE + "_"
-					+ DTOScenario.Key.REK);
-		}
-		return this.tfminequityyield;
-	}
 
+	/**
+	 * Getter method for component lmin.
+	 * 
+	 * @return JLabel
+	 */
 	public JLabel getLmin() {
-		if(this.lmin == null){
+		if (this.lmin == null) {
 			this.lmin = new JLabel(translator.translate("min"));
 		}
 		return lmin;
 	}
 
+	/**
+	 * Getter method for component lmax.
+	 * 
+	 * @return JLabel
+	 */
 	public JLabel getLmax() {
-		if(this.lmax == null){
+		if (this.lmax == null) {
 			this.lmax = new JLabel(translator.translate("max"));
 		}
 		return lmax;
 	}
-	
+
+	/**
+	 * Getter method for component lmin1.
+	 * 
+	 * @return JLabel
+	 */
 	public JLabel getLmin1() {
-		if(this.lmin1 == null){
+		if (this.lmin1 == null) {
 			this.lmin1 = new JLabel(translator.translate("min"));
 		}
 		return lmin1;
 	}
 
+	/**
+	 * Getter method for component lmax1.
+	 * 
+	 * @return JLabel
+	 */
 	public JLabel getLmax1() {
-		if(this.lmax1 == null){
+		if (this.lmax1 == null) {
 			this.lmax1 = new JLabel(translator.translate("max"));
 		}
 		return lmax1;
 	}
 
-	public BHTextField gettfmindeptyield() {
-		if (this.tfmindeptyield == null) {
-			this.tfmindeptyield = new BHTextField(IBHComponent.MINVALUE + "_"
-					+ DTOScenario.Key.RFK);
-		}
-		return this.tfmindeptyield;
-	}
-
-	public BHTextField gettfmintradetax() {
-		if (this.tfmintradetax == null) {
-			this.tfmintradetax = new BHTextField(IBHComponent.MINVALUE + "_"
-					+ DTOScenario.Key.BTAX);
-		}
-		return this.tfmintradetax;
-	}
-
-	public BHTextField gettfmincorporatetax() {
-		if (this.tfmincorporatetax == null) {
-			this.tfmincorporatetax = new BHTextField(IBHComponent.MINVALUE
-					+ "_" + DTOScenario.Key.CTAX);
-		}
-		return this.tfmincorporatetax;
-	}
-
-	public BHTextField gettfmaxequityyield() {
-		if (this.tfmaxequityyield == null) {
-			this.tfmaxequityyield = new BHTextField(IBHComponent.MAXVALUE + "_"
-					+ DTOScenario.Key.REK);
-		}
-		return this.tfmaxequityyield;
-	}
-
-	public BHTextField gettfmaxdeptyield() {
-		if (this.tfmaxdeptyield == null) {
-			this.tfmaxdeptyield = new BHTextField(IBHComponent.MAXVALUE + "_"
-					+ DTOScenario.Key.RFK);
-		}
-		return this.tfmaxdeptyield;
-	}
-
-	public BHTextField gettfmaxtradetax() {
-		if (this.tfmaxtradetax == null) {
-			this.tfmaxtradetax = new BHTextField(IBHComponent.MAXVALUE + "_"
-					+ DTOScenario.Key.BTAX);
-		}
-		return this.tfmaxtradetax;
-	}
-
-	public BHTextField gettfmaxcorporatetax() {
-		if (this.tfmaxcorporatetax == null) {
-			this.tfmaxcorporatetax = new BHTextField(IBHComponent.MAXVALUE
-					+ "_" + DTOScenario.Key.CTAX);
-		}
-		return this.tfmaxcorporatetax;
-	}
-
+	/**
+	 * Getter method for component lprocess.
+	 * 
+	 * @return BHDescriptionLabel
+	 */
 	public BHDescriptionLabel getLprocess() {
 		if (this.lprocess == null) {
 			this.lprocess = new BHDescriptionLabel("Berechnungsart");
@@ -245,6 +203,11 @@ public class BHScenarioHeadIntervalForm extends JPanel {
 		return lprocess;
 	}
 
+	/**
+	 * Getter method for component cbprocess.
+	 * 
+	 * @return JComboBox
+	 */
 	public JComboBox getCbprocess() {
 		if (this.cbprocess == null) {
 			this.cbprocess = new JComboBox();
@@ -252,12 +215,22 @@ public class BHScenarioHeadIntervalForm extends JPanel {
 		return cbprocess;
 	}
 
+	/**
+	 * Getter method for component ldcfMethod.
+	 * 
+	 * @return BHDescriptionLabel
+	 */
 	public BHDescriptionLabel getlDCFmethod() {
 		if (this.ldcfMethod == null)
 			this.ldcfMethod = new BHDescriptionLabel(DTOScenario.Key.DCF_METHOD);
 		return this.ldcfMethod;
 	}
 
+	/**
+	 * Getter method for component cbdcfMethod.
+	 * 
+	 * @return BHComboBox
+	 */
 	public BHComboBox getcbDCFmethod() {
 		if (this.cbdcfMethod == null) {
 			this.cbdcfMethod = new BHComboBox(DTOScenario.Key.DCF_METHOD);
@@ -265,6 +238,11 @@ public class BHScenarioHeadIntervalForm extends JPanel {
 		return this.cbdcfMethod;
 	}
 
+	/**
+	 * Getter method for component ldirect.
+	 * 
+	 * @return BHDescriptionLabel
+	 */
 	public BHDescriptionLabel getLdirect() {
 		if (this.ldirect == null) {
 			this.ldirect = new BHDescriptionLabel("direct");
@@ -272,6 +250,11 @@ public class BHScenarioHeadIntervalForm extends JPanel {
 		return ldirect;
 	}
 
+	/**
+	 * Getter method for component cbdirect.
+	 * 
+	 * @return JComboBox
+	 */
 	public JComboBox getCbdirect() {
 		if (this.cbdirect == null) {
 			this.cbdirect = new JComboBox();
@@ -282,7 +265,7 @@ public class BHScenarioHeadIntervalForm extends JPanel {
 	/**
 	 * Getter method for component lscenName.
 	 * 
-	 * @return the initialized component
+	 * @return BHDescriptionLabel
 	 */
 	public BHDescriptionLabel getlscenName() {
 
@@ -296,7 +279,7 @@ public class BHScenarioHeadIntervalForm extends JPanel {
 	/**
 	 * Getter method for component lscenDescript.
 	 * 
-	 * @return the initialized component
+	 * @return BHDescriptionLabel
 	 */
 	public BHDescriptionLabel getlscenDescript() {
 
@@ -310,7 +293,7 @@ public class BHScenarioHeadIntervalForm extends JPanel {
 	/**
 	 * Getter method for component lequityYield.
 	 * 
-	 * @return the initialized component
+	 * @return BHDescriptionLabel
 	 */
 	public BHDescriptionLabel getlequityYield() {
 
@@ -324,7 +307,7 @@ public class BHScenarioHeadIntervalForm extends JPanel {
 	/**
 	 * Getter method for component ldeptYield.
 	 * 
-	 * @return the initialized component
+	 * @return BHDescriptionLabel
 	 */
 	public BHDescriptionLabel getldeptYield() {
 
@@ -338,7 +321,7 @@ public class BHScenarioHeadIntervalForm extends JPanel {
 	/**
 	 * Getter method for component ltradeTax.
 	 * 
-	 * @return the initialized component
+	 * @return BHDescriptionLabel
 	 */
 	public BHDescriptionLabel getltradeTax() {
 
@@ -352,7 +335,7 @@ public class BHScenarioHeadIntervalForm extends JPanel {
 	/**
 	 * Getter method for component lcorporateTax.
 	 * 
-	 * @return the initialized component
+	 * @return BHDescriptionLabel
 	 */
 	public BHDescriptionLabel getlcorporateTax() {
 
@@ -366,7 +349,7 @@ public class BHScenarioHeadIntervalForm extends JPanel {
 	/**
 	 * Getter method for component lbaseYear.
 	 * 
-	 * @return the initialized component
+	 * @return BHDescriptionLabel
 	 */
 	public BHDescriptionLabel getlbaseYear() {
 
@@ -382,7 +365,7 @@ public class BHScenarioHeadIntervalForm extends JPanel {
 	/**
 	 * Getter method for component tfscenName.
 	 * 
-	 * @return the initialized component
+	 * @return BHTextField
 	 */
 	public BHTextField gettfscenName() {
 
@@ -397,7 +380,7 @@ public class BHScenarioHeadIntervalForm extends JPanel {
 	/**
 	 * Getter method for component tfscenDescript.
 	 * 
-	 * @return the initialized component
+	 * @return BHTextField
 	 */
 	public BHTextField gettfscenDescript() {
 
@@ -411,23 +394,151 @@ public class BHScenarioHeadIntervalForm extends JPanel {
 	/**
 	 * Getter method for component tfbaseYear.
 	 * 
-	 * @return the initialized component
+	 * @return BHTextField
 	 */
 	public BHTextField gettfbaseYear() {
 
 		if (this.tfbaseyear == null) {
 			this.tfbaseyear = new BHTextField(DTOScenario.Key.IDENTIFIER);
 			ValidationRule[] rules = { VRMandatory.INSTANCE,
-					VRIsInteger.INSTANCE, VRIsBetween.BETWEEN1900AND2100 };
+					VRIsInteger.INSTANCE };
 			tfbaseyear.setValidationRules(rules);
 		}
 		return this.tfbaseyear;
 	}
 
 	/**
+	 * Getter method for component tfminequityyield.
+	 * 
+	 * @return BHTextField
+	 */
+	public BHTextField gettfminequityyield() {
+		if (this.tfminequityyield == null) {
+			this.tfminequityyield = new BHTextField(IBHComponent.MINVALUE + "_"
+					+ DTOScenario.Key.REK);
+			ValidationRule[] rules = { VRMandatory.INSTANCE,
+					VRIsDouble.INSTANCE, VRIsPositive.INSTANCE };
+			tfminequityyield.setValidationRules(rules);
+		}
+		return this.tfminequityyield;
+	}
+
+	/**
+	 * Getter method for component tfmindeptyield.
+	 * 
+	 * @return BHTextField
+	 */
+	public BHTextField gettfmindeptyield() {
+		if (this.tfmindeptyield == null) {
+			this.tfmindeptyield = new BHTextField(IBHComponent.MINVALUE + "_"
+					+ DTOScenario.Key.RFK);
+			ValidationRule[] rules = { VRMandatory.INSTANCE,
+					VRIsDouble.INSTANCE, VRIsPositive.INSTANCE };
+			tfmindeptyield.setValidationRules(rules);
+		}
+		return this.tfmindeptyield;
+	}
+
+	/**
+	 * Getter method for component tfmintradetax.
+	 * 
+	 * @return BHTextField
+	 */
+	public BHTextField gettfmintradetax() {
+		if (this.tfmintradetax == null) {
+			this.tfmintradetax = new BHTextField(IBHComponent.MINVALUE + "_"
+					+ DTOScenario.Key.BTAX);
+			ValidationRule[] rules = { VRMandatory.INSTANCE,
+					VRIsDouble.INSTANCE, VRIsPositive.INSTANCE };
+			tfmintradetax.setValidationRules(rules);
+		}
+		return this.tfmintradetax;
+	}
+
+	/**
+	 * Getter method for component tfmincorporatetax.
+	 * 
+	 * @return BHTextField
+	 */
+	public BHTextField gettfmincorporatetax() {
+		if (this.tfmincorporatetax == null) {
+			this.tfmincorporatetax = new BHTextField(IBHComponent.MINVALUE
+					+ "_" + DTOScenario.Key.CTAX);
+			ValidationRule[] rules = { VRMandatory.INSTANCE,
+					VRIsDouble.INSTANCE, VRIsPositive.INSTANCE };
+			tfmincorporatetax.setValidationRules(rules);
+		}
+		return this.tfmincorporatetax;
+	}
+
+	/**
+	 * Getter method for component tfmaxequityyield.
+	 * 
+	 * @return BHTextField
+	 */
+	public BHTextField gettfmaxequityyield() {
+		if (this.tfmaxequityyield == null) {
+			this.tfmaxequityyield = new BHTextField(IBHComponent.MAXVALUE + "_"
+					+ DTOScenario.Key.REK);
+			ValidationRule[] rules = { VRMandatory.INSTANCE,
+					VRIsDouble.INSTANCE, VRIsPositive.INSTANCE };
+			tfmaxequityyield.setValidationRules(rules);
+		}
+		return this.tfmaxequityyield;
+	}
+
+	/**
+	 * Getter method for component tfmaxdeptyield.
+	 * 
+	 * @return BHTextField
+	 */
+	public BHTextField gettfmaxdeptyield() {
+		if (this.tfmaxdeptyield == null) {
+			this.tfmaxdeptyield = new BHTextField(IBHComponent.MAXVALUE + "_"
+					+ DTOScenario.Key.RFK);
+			ValidationRule[] rules = { VRMandatory.INSTANCE,
+					VRIsDouble.INSTANCE, VRIsPositive.INSTANCE };
+			tfmaxdeptyield.setValidationRules(rules);
+		}
+		return this.tfmaxdeptyield;
+	}
+
+	/**
+	 * Getter method for component tfmaxtradetax.
+	 * 
+	 * @return BHTextField
+	 */
+	public BHTextField gettfmaxtradetax() {
+		if (this.tfmaxtradetax == null) {
+			this.tfmaxtradetax = new BHTextField(IBHComponent.MAXVALUE + "_"
+					+ DTOScenario.Key.BTAX);
+			ValidationRule[] rules = { VRMandatory.INSTANCE,
+					VRIsDouble.INSTANCE, VRIsPositive.INSTANCE };
+			tfmaxtradetax.setValidationRules(rules);
+		}
+		return this.tfmaxtradetax;
+	}
+
+	/**
+	 * Getter method for component tfmaxcorporatetax.
+	 * 
+	 * @return BHTextField
+	 */
+	public BHTextField gettfmaxcorporatetax() {
+		if (this.tfmaxcorporatetax == null) {
+			this.tfmaxcorporatetax = new BHTextField(IBHComponent.MAXVALUE
+					+ "_" + DTOScenario.Key.CTAX);
+			ValidationRule[] rules = { VRMandatory.INSTANCE,
+					VRIsDouble.INSTANCE, VRIsPositive.INSTANCE };
+			tfmaxcorporatetax.setValidationRules(rules);
+		}
+		return this.tfmaxcorporatetax;
+	}
+
+	/**
 	 * Getter method for component lpercentEquity.
 	 * 
-	 * @return the initialized component
+	 * @return JLabel
 	 */
 	public JLabel getlminpercentEquity() {
 
@@ -440,7 +551,7 @@ public class BHScenarioHeadIntervalForm extends JPanel {
 	/**
 	 * Getter method for component lpercentDept.
 	 * 
-	 * @return the initialized component
+	 * @return JLabel
 	 */
 	public JLabel getlminpercentDept() {
 
@@ -453,7 +564,7 @@ public class BHScenarioHeadIntervalForm extends JPanel {
 	/**
 	 * Getter method for component lpercentTrade.
 	 * 
-	 * @return the initialized component
+	 * @return JLabel
 	 */
 	public JLabel getlminpercentTrade() {
 
@@ -466,7 +577,7 @@ public class BHScenarioHeadIntervalForm extends JPanel {
 	/**
 	 * Getter method for component lminpercentCorporate.
 	 * 
-	 * @return the initialized component
+	 * @return JLabel
 	 */
 	public JLabel getlminpercentCorporate() {
 
@@ -475,11 +586,11 @@ public class BHScenarioHeadIntervalForm extends JPanel {
 		}
 		return this.lminpercentcorporate;
 	}
-	
+
 	/**
 	 * Getter method for component lpercentEquity.
 	 * 
-	 * @return the initialized component
+	 * @return JLabel
 	 */
 	public JLabel getlmaxpercentEquity() {
 
@@ -492,7 +603,7 @@ public class BHScenarioHeadIntervalForm extends JPanel {
 	/**
 	 * Getter method for component lpercentDept.
 	 * 
-	 * @return the initialized component
+	 * @return JLabel
 	 */
 	public JLabel getlmaxpercentDept() {
 
@@ -505,7 +616,7 @@ public class BHScenarioHeadIntervalForm extends JPanel {
 	/**
 	 * Getter method for component lpercentTrade.
 	 * 
-	 * @return the initialized component
+	 * @return JLabel
 	 */
 	public JLabel getlmaxpercentTrade() {
 
@@ -518,7 +629,7 @@ public class BHScenarioHeadIntervalForm extends JPanel {
 	/**
 	 * Getter method for component lmaxpercentCorporate.
 	 * 
-	 * @return the initialized component
+	 * @return JLabel
 	 */
 	public JLabel getlmaxpercentCorporate() {
 

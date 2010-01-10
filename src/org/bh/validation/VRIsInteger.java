@@ -22,8 +22,8 @@ public class VRIsInteger extends ValidationRule {
 			try {
 				Integer.parseInt(valueString);
 			} catch (NumberFormatException nfe) {
-				validationResult.addError(translator.translate("Efield")
-						+ translator.translate(tf_toValidate.getKey())
+				validationResult.addError(translator.translate("Efield") + " '"
+						+ translator.translate(tf_toValidate.getKey()) + "' "
 						+ translator.translate("EisInteger"));
 			}
 		}
