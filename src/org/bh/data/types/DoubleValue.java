@@ -1,7 +1,5 @@
 package org.bh.data.types;
 
-import javax.help.UnsupportedOperationException;
-
 /**
  * Calculable implementation for floating point values.
  * 
@@ -55,11 +53,9 @@ public class DoubleValue extends Calculable {
 	@Override
 	public final Calculable sub(final Calculable subtrahend) {
 		if (subtrahend instanceof IntegerValue) {
-			return new DoubleValue(value
-					- ((IntegerValue) subtrahend).value);
+			return new DoubleValue(value - ((IntegerValue) subtrahend).value);
 		} else if (subtrahend instanceof DoubleValue) {
-			return new DoubleValue(value
-					- ((DoubleValue) subtrahend).value);
+			return new DoubleValue(value - ((DoubleValue) subtrahend).value);
 		} else if (subtrahend instanceof IntervalValue) {
 			return new IntervalValue(value, value).sub(subtrahend);
 		} else {
@@ -71,11 +67,9 @@ public class DoubleValue extends Calculable {
 	@Override
 	public final Calculable mul(final Calculable multiplicand) {
 		if (multiplicand instanceof IntegerValue) {
-			return new DoubleValue(value
-					* ((IntegerValue) multiplicand).value);
+			return new DoubleValue(value * ((IntegerValue) multiplicand).value);
 		} else if (multiplicand instanceof DoubleValue) {
-			return new DoubleValue(value
-					* ((DoubleValue) multiplicand).value);
+			return new DoubleValue(value * ((DoubleValue) multiplicand).value);
 		} else if (multiplicand instanceof IntervalValue) {
 			return new IntervalValue(value, value).mul(multiplicand);
 		} else {
@@ -101,9 +95,11 @@ public class DoubleValue extends Calculable {
 	@Override
 	public final Calculable pow(final Calculable exponent) {
 		if (exponent instanceof IntegerValue) {
-			return new DoubleValue(Math.pow(value, ((IntegerValue) exponent).value));
+			return new DoubleValue(Math.pow(value,
+					((IntegerValue) exponent).value));
 		} else if (exponent instanceof DoubleValue) {
-			return new DoubleValue(Math.pow(value, ((DoubleValue) exponent).value));
+			return new DoubleValue(Math.pow(value,
+					((DoubleValue) exponent).value));
 		} else if (exponent instanceof IntervalValue) {
 			return new IntervalValue(value, value).pow(exponent);
 		} else {
@@ -116,57 +112,52 @@ public class DoubleValue extends Calculable {
 	public final Calculable sqrt() {
 		return new DoubleValue(Math.sqrt(value));
 	}
-    
-    @Override
+
+	@Override
 	public boolean greaterThan(Calculable compare) {
-		if (compare instanceof IntegerValue){
-		    IntegerValue IntegerValue = (IntegerValue)compare;
-		    if(this.getValue() > IntegerValue.getValue())
-		    	return true;
-		    else
-		    	return false;
-		}else if (compare instanceof DoubleValue){
-			DoubleValue doubleValue = (DoubleValue)compare;
-		    if(this.getValue() > doubleValue.getValue())
-		    	return true;
-		    else
-		    	return false;
-		}else{
-			IntervalValue intervalValue = (IntervalValue)compare;
-			IntervalValue sub = (IntervalValue) this.sub(intervalValue);
-		    if(sub.getMin() > 0 && sub.getMax() > 0)
-		    	return true;
-		    else return false;
+		if (compare instanceof IntegerValue) {
+			IntegerValue integerValue = (IntegerValue) compare;
+			if (this.getValue() > integerValue.getValue()) {
+				return true;
+			}
+			return false;
+		} else if (compare instanceof DoubleValue) {
+			DoubleValue doubleValue = (DoubleValue) compare;
+			if (this.getValue() > doubleValue.getValue()) {
+				return true;
+			}
+			return false;
+		} else {
+			return new IntervalValue(value, value).greaterThan(compare);
 		}
 	}
 
 	/* Specified by interface/super class. */
 	@Override
 	public boolean lessThan(Calculable compare) {
-		if (compare instanceof IntegerValue){
-		    IntegerValue IntegerValue = (IntegerValue)compare;
-		    if(this.getValue() < IntegerValue.getValue())
-		    	return true;
-		    else
-		    	return false;
-		}else if (compare instanceof DoubleValue){
-			DoubleValue DoubleValueValue = (DoubleValue)compare;
-		    if(this.getValue() < DoubleValueValue.getValue())
-		    	return true;
-		    else
-		    	return false;
-		}else{
-			IntervalValue intervalValue = (IntervalValue)compare;
-			IntervalValue sub = (IntervalValue) this.sub(intervalValue);
-		    if(sub.getMin() < 0 && sub.getMax() < 0)
-		    	return true;
-		    else return false;
+		if (compare instanceof IntegerValue) {
+			IntegerValue integerValue = (IntegerValue) compare;
+			if (this.getValue() < integerValue.getValue()) {
+				return true;
+			}
+			return false;
+		} else if (compare instanceof DoubleValue) {
+			DoubleValue doubleValue = (DoubleValue) compare;
+			if (this.getValue() < doubleValue.getValue()) {
+				return true;
+			}
+			return false;
+		} else {
+			return new IntervalValue(value, value).lessThan(compare);
 		}
 	}
 
+	@Override
 	public Calculable abs() {
 		return new DoubleValue(Math.abs(this.value));
 	}
+
+	@Override
 	public final Calculable clone() {
 		return new DoubleValue(value);
 	}
@@ -205,13 +196,13 @@ public class DoubleValue extends Calculable {
 
 	@Override
 	public boolean diffToLess(Calculable c, double limit) {
-		if(c instanceof IntegerValue) {
+		if (c instanceof IntegerValue) {
 			return Math.abs(value - ((IntegerValue) c).value) < limit;
-		}else if(c instanceof DoubleValue) {
+		} else if (c instanceof DoubleValue) {
 			return Math.abs(value - ((DoubleValue) c).value) < limit;
-		}else if (c instanceof IntervalValue) {
-			return new IntervalValue(value,value).diffToLess(c, limit);
-		}else {
+		} else if (c instanceof IntervalValue) {
+			return new IntervalValue(value, value).diffToLess(c, limit);
+		} else {
 			throw new UnsupportedOperationException("Unsupported");
 		}
 	}
