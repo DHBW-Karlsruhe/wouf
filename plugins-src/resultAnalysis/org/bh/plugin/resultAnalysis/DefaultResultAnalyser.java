@@ -16,7 +16,7 @@ public class DefaultResultAnalyser implements IDeterministicResultAnalyser {
 	@Override
 	public void setResult(DTOScenario scenario, Map<String, Calculable[]> result, JPanel panel) {
 		try {
-			View view = new ViewBHResultPanel();
+			View view = new ViewBHResultPanel(scenario, result);
 			panel.add(view.getViewPanel());
 			new OutputController(view, result);
 		} catch (ViewException e) {

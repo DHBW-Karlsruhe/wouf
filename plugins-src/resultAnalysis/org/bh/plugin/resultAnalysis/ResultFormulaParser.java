@@ -17,6 +17,8 @@ import org.bh.data.types.Calculable;
  *
  * @author Marco Hammel
  */
+
+//TODO Marco really necessary? by Norman
 public final class ResultFormulaParser {
 
     private static Logger log = Logger.getLogger(ResultFormulaParser.class);

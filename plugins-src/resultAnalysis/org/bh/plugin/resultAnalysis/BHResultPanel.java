@@ -4,13 +4,15 @@ package org.bh.plugin.resultAnalysis;
 import info.clearthought.layout.TableLayout;
 
 import java.awt.BorderLayout;
-import java.awt.event.WindowAdapter;
-import java.awt.event.WindowEvent;
+import java.awt.Component;
+import java.util.Map;
 
-import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.UIManager;
 
+import org.apache.log4j.Logger;
+import org.bh.data.DTOScenario;
+import org.bh.data.types.Calculable;
 import org.bh.gui.ViewException;
 import org.bh.gui.chart.BHChartFactory;
 import org.bh.gui.swing.BHDescriptionLabel;
@@ -35,16 +37,22 @@ import com.jgoodies.forms.layout.CellConstraints;
  * @author Lars.Zuckschwerdt
  * @version 1.0, 30.12.2009
  *
+ * @author Norman
+ * @version 1.1, 10.01.2010
+ *
  */
 
 public final class BHResultPanel extends JPanel{
-	
+	private static final Logger log = Logger.getLogger(BHResultPanel.class);
+
 	private JPanel panel;
 	private ChartPanel lineChartLabel;
 	private ChartPanel pieChartLabel;
 	private ChartPanel barChartLabel;
 	private BHDescriptionTextArea pieChartTextArea;
 	
+	
+	//TODO check Marco, Lars: Really necessary for every procedure?
 	//FTE Verfahren
 	private BHValueLabel FTEshareholderValue;
 	private BHDescriptionLabel FTEshareholderValueDESC;
@@ -87,20 +95,24 @@ public final class BHResultPanel extends JPanel{
 
 	private CellConstraints cons;
 	
+	// formulas
+	public Component finiteFormula;
+	public Component infiniteFormula;
+	
 	final ITranslator translator = Services.getTranslator();
 	/**
 	 * Constructor
 	 * @throws ViewException 
 	 */
-	public BHResultPanel() throws ViewException{
-		this.initialize();
+	public BHResultPanel(DTOScenario scenario, Map<String, Calculable[]> result) {
+		initialize(scenario, result);
 	}
-	
+
 	/**
 	 * Initialize method
 	 * @throws ViewException 
 	 */
-	public void initialize() throws ViewException{
+	public void initialize(DTOScenario scenario, Map<String, Calculable[]> result){
 		BorderLayout layout = new BorderLayout();
 		
 		 double border = 10;
@@ -109,23 +121,22 @@ public final class BHResultPanel extends JPanel{
 	          {border, TableLayout.PREFERRED, border, TableLayout.PREFERRED, border, TableLayout.PREFERRED, border,  TableLayout.PREFERRED, border}}; // Rows
 
 
-	 	try {
-		this.setLayout(new TableLayout(size));
+	 	this.setLayout(new TableLayout(size));
 		
 		//this.setMaximumSize(BHMainFrame.chartsPanel.getMaximumSize());
-       		/**
+       		/*
        		 * Creates the default LineChart and add it on a Label 
        		 */
        		lineChartLabel = new ChartPanel(BHChartFactory.getLineChart("TestChart", "XAxis", "YAxis",  "LineChart"));
        		lineChartLabel.setFont(UIManager.getFont("defaultFont"));
        		
-       		/**
+       		/*
        		 * Creates the description and add it on a Label
        		 */
        		//lineChartTextArea = new BHDescriptionTextArea("RlineChartText", 5, 5);
        		
-       		
-       		/**
+       	
+       		/*
        		 * creates the default PieChart
        		 */
        		pieChartLabel = new ChartPanel(BHChartFactory.getPieChart("TestPieChart", "XAxis", "YAxis", "PieChart"));
@@ -134,7 +145,7 @@ public final class BHResultPanel extends JPanel{
        		
        		pieChartTextArea = new BHDescriptionTextArea("RpieChartText", 5, 5);
        		
-       		/**
+       		/*
        		 * creates BarChart
        		 */
        		
@@ -142,7 +153,7 @@ public final class BHResultPanel extends JPanel{
        		//barChartLabel.setFont(UIManager.getFont("defaultFont"));
        		
        		
-       		/**
+       		/*
        		 * creates the Value- and DescriptionLabels
        		 */
        		
@@ -187,13 +198,44 @@ public final class BHResultPanel extends JPanel{
        		APVpresentValueTaxShieldDESC = new BHDescriptionLabel("PRESENT_VALUE_TAX_SHIELD");
        		
        		//Formeldarstellung
-       	
-				IFormulaFactory ff = IFormulaFactory.instance;
-				IFormula finite = ff.createFormula("FCF_SHV_t1", getClass().getResourceAsStream("FCF_SHV_t1.xml"),false);
-				IFormula infinite = ff.createFormula("FCF_SHV_T", getClass().getResourceAsStream("FCF_SHV_T.xml"),false);
+       		IFormulaFactory ff = IFormulaFactory.instance;
+       		IFormula f;
+       		if(scenario.getDCFMethod().getUniqueId().equals("fcf")) {
+       			try {
+					f = ff.createFormula("FCF_T", getClass().getResourceAsStream("FCF_SHV_T.xml"), false);
+					finiteFormula = f.getJMathComponent(); 
+	           		
+					f = ff.createFormula("FCF_t1", getClass().getResourceAsStream("FCF_SHV_t1.xml"), false);
+					infiniteFormula = f.getJMathComponent();
+				} catch (FormulaException e) {
+					log.debug(e);
+				}
+       		}else if(scenario.getDCFMethod().getUniqueId().equals("apv")){
+       			try {
+					f = ff.createFormula("APV_T", getClass().getResourceAsStream("APV_SHV_T.xml"), false);
+					finiteFormula = f.getJMathComponent(); 
+	           		
+					f = ff.createFormula("APV_t1", getClass().getResourceAsStream("APV_SHV_t1.xml"), false);
+					infiniteFormula = f.getJMathComponent();
+				} catch (FormulaException e) {
+					log.debug(e);
+				}
+       		}else if(scenario.getDCFMethod().getUniqueId().equals("fte")){
+       			try {
+					f = ff.createFormula("FTE_T", getClass().getResourceAsStream("FTE_SHV_T.xml"), false);
+					finiteFormula = f.getJMathComponent(); 
+	           		
+					f = ff.createFormula("FTE_t1", getClass().getResourceAsStream("FTE_SHV_t1.xml"), false);
+					infiniteFormula = f.getJMathComponent();
+				} catch (FormulaException e) {
+					log.debug(e);
+				}
+       		}
+       		
+				
 		
        		
-       		/**
+       		/*
        		 * add Content to ResultPanel
        		 */
 //       		this.add(FTEshareholderValueDESC, "1,1");
@@ -254,8 +296,8 @@ public final class BHResultPanel extends JPanel{
 //       		this.add(FCFwaccEquity, BorderLayout.CENTER);
 //       		//this.add(lineChartLabel, BorderLayout.EAST);
 //       		
-				this.add(finite.getJMathComponent(),"3,1");
-	      		this.add(infinite.getJMathComponent(),"5,1");
+				this.add(finiteFormula,"3,1");
+	      		this.add(infiniteFormula,"5,1");
 	       		
 				
        		this.add(APVpresentValueDESC, "1,3");
@@ -267,35 +309,24 @@ public final class BHResultPanel extends JPanel{
        		this.add(APVpresentValueTaxShieldDESC, "1,5");
        		this.add(APVpresentValueTaxShield, "3,5");
        		this.add(lineChartLabel, "5,5");
-       		
-//       		
-//       		this.add(APVshareholderValueDESC, "1,2");
-//       		this.add(APVshareholderValue, "2,2");
-//       		this.add(lineChartLabel, "3,2");
-       		
-    		
-		} catch (FormulaException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
 	}
 	
-	/**
-     * Test main method.
-	 * @throws ViewException 
-     */
-    public static void main(String args[]) throws ViewException {
-
-	JFrame test = new JFrame("Test for ResultPanel");
-	test.setContentPane(new BHResultPanel());
-	test.addWindowListener(new WindowAdapter() {
-	    
-	    @Override
-		public void windowClosing(WindowEvent e) {
-		System.exit(0);
-	    }
-	});
-	//test.pack();
-	test.setVisible(true);
-   }
+//	/**
+//     * Test main method.
+//	 * @throws ViewException 
+//     */
+//    public static void main(String args[]) throws ViewException {
+//
+//	JFrame test = new JFrame("Test for ResultPanel");
+//	test.setContentPane(new BHResultPanel());
+//	test.addWindowListener(new WindowAdapter() {
+//	    
+//	    @Override
+//		public void windowClosing(WindowEvent e) {
+//		System.exit(0);
+//	    }
+//	});
+//	//test.pack();
+//	test.setVisible(true);
+//   }
 }
