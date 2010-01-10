@@ -75,4 +75,16 @@ public interface IFormulaFactory {
 	 *             the formula exception
 	 */
 	IFormula createFormula(String name, File mathMlDoc) throws FormulaException;
+
+	IFormula createFormula(String name, Document formulaDoc,
+			boolean initExpression) throws FormulaException;
+
+	IFormula createFormula(String name, InputStream document,
+			boolean initExpression) throws FormulaException;
+
+	IFormula createFormula(String name, String document, boolean initExpression)
+			throws FormulaException;
+
+	IFormula createFormula(String name, File mathMlDoc, boolean initExpression)
+			throws FormulaException;
 }

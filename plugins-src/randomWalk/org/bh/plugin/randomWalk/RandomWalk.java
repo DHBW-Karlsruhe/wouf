@@ -135,71 +135,69 @@ public class RandomWalk implements IStochasticProcess {
 
 		if (toBeDetermined.isEmpty())
 			return null;
-		else {
-			JPanel result = new JPanel();
+		JPanel result = new JPanel();
 
-			String rowDef = "4px,p,4px,p,4px,p,4px,p,4px";
-			String colDef = "4px,right:pref,4px,60px:grow,8px:grow,right:pref,4px,max(35px;pref):grow,4px:grow";
-			FormLayout layout = new FormLayout(colDef, rowDef);
-			result.setLayout(layout);
-			layout.setColumnGroups(new int[][] {{4,8}});
-			CellConstraints cons = new CellConstraints();
+		String rowDef = "4px,p,4px,p,4px,p,4px,p,4px";
+		String colDef = "4px,right:pref,4px,60px:grow,8px:grow,right:pref,4px,max(35px;pref):grow,4px:grow";
+		FormLayout layout = new FormLayout(colDef, rowDef);
+		result.setLayout(layout);
+		layout.setColumnGroups(new int[][] {{4,8}});
+		CellConstraints cons = new CellConstraints();
+		
+		result.add(new BHDescriptionLabel(AMOUNT_OF_PERIODS), cons.xywh(2, 2, 1, 1));
+		BHTextField tf = new BHTextField(AMOUNT_OF_PERIODS);
+		ValidationRule[] rules = { VRMandatory.INSTANCE,
+				VRIsInteger.INSTANCE,
+				VRIsPositive.INSTANCE };
+		tf.setValidationRules(rules);
+		result.add(tf, cons.xywh(4, 2, 1, 1));
+		map.put(AMOUNT_OF_PERIODS, new Integer(5));
+
+		result.add(new BHDescriptionLabel(STEPS_PER_PERIOD), cons.xywh(2, 4, 1, 1));
+		BHTextField tf1 = new BHTextField(STEPS_PER_PERIOD);
+		ValidationRule[] rules1 = { VRMandatory.INSTANCE,
+				VRIsInteger.INSTANCE,
+				VRIsPositive.INSTANCE };
+		tf1.setValidationRules(rules1);
+		result.add(tf1, cons.xywh(4, 4, 1, 1));
+		map.put(STEPS_PER_PERIOD, new Integer(250 / 5));
+
+		result.add(new BHDescriptionLabel(REPETITIONS), cons.xywh(6, 2, 1, 1));
+		BHTextField tf2 = new BHTextField(REPETITIONS);
+		ValidationRule[] rules2 = { VRMandatory.INSTANCE,
+				VRIsInteger.INSTANCE,
+				VRIsPositive.INSTANCE };
+		tf2.setValidationRules(rules2);
+		result.add(tf2, cons.xywh(8, 2, 1, 1));
+		map.put(REPETITIONS, new Integer(100000));
+		
+		result.add(new JSeparator(), cons.xywh(2, 8, 7, 1));
+
+		for (Entry<DTOKeyPair, List<Calculable>> e : toBeDetermined
+				.entrySet()) {
+			String key = e.getKey().getKey();
+			Calculable chance = calcChance(e.getValue());
+			Calculable increment = calcIncrement(e.getValue());
 			
-			result.add(new BHDescriptionLabel(AMOUNT_OF_PERIODS), cons.xywh(2, 2, 1, 1));
-			BHTextField tf = new BHTextField(AMOUNT_OF_PERIODS);
-			ValidationRule[] rules = { VRMandatory.INSTANCE,
-					VRIsInteger.INSTANCE,
-					VRIsPositive.INSTANCE };
-			tf.setValidationRules(rules);
-			result.add(tf, cons.xywh(4, 2, 1, 1));
-			map.put(AMOUNT_OF_PERIODS, new Integer(5));
+			layout.appendRow(RowSpec.decode("p"));
+			layout.appendRow(RowSpec.decode("4px"));
 
-			result.add(new BHDescriptionLabel(STEPS_PER_PERIOD), cons.xywh(2, 4, 1, 1));
-			BHTextField tf1 = new BHTextField(STEPS_PER_PERIOD);
-			ValidationRule[] rules1 = { VRMandatory.INSTANCE,
-					VRIsInteger.INSTANCE,
-					VRIsPositive.INSTANCE };
-			tf1.setValidationRules(rules1);
-			result.add(tf1, cons.xywh(4, 4, 1, 1));
-			map.put(STEPS_PER_PERIOD, new Integer(250 / 5));
+			result.add(new BHDescriptionLabel(key), cons.xywh(2, layout.getRowCount()-1, 1, 1));
 
-			result.add(new BHDescriptionLabel(REPETITIONS), cons.xywh(6, 2, 1, 1));
-			BHTextField tf2 = new BHTextField(REPETITIONS);
-			ValidationRule[] rules2 = { VRMandatory.INSTANCE,
-					VRIsInteger.INSTANCE,
-					VRIsPositive.INSTANCE };
-			tf2.setValidationRules(rules2);
-			result.add(tf2, cons.xywh(8, 2, 1, 1));
-			map.put(REPETITIONS, new Integer(100000));
+			layout.appendRow(RowSpec.decode("p"));
+			layout.appendRow(RowSpec.decode("14px"));
 			
-			result.add(new JSeparator(), cons.xywh(2, 8, 7, 1));
+			result.add(new BHDescriptionLabel(CHANCE), cons.xywh(2, layout.getRowCount()-1, 1, 1));
+			result.add(new BHTextField(key + CHANCE, "" + chance), cons.xywh(4, layout.getRowCount()-1, 1, 1));
+			result.add(new BHDescriptionLabel(INCREMENT), cons.xywh(6, layout.getRowCount()-1, 1, 1));
+			result
+					.add(new BHTextField(key + INCREMENT, "" + increment), cons.xywh(8, layout.getRowCount()-1, 1, 1));
 
-			for (Entry<DTOKeyPair, List<Calculable>> e : toBeDetermined
-					.entrySet()) {
-				String key = e.getKey().getKey();
-				Calculable chance = calcChance(e.getValue());
-				Calculable increment = calcIncrement(e.getValue());
-				
-				layout.appendRow(RowSpec.decode("p"));
-				layout.appendRow(RowSpec.decode("4px"));
-
-				result.add(new BHDescriptionLabel(key), cons.xywh(2, layout.getRowCount()-1, 1, 1));
-
-				layout.appendRow(RowSpec.decode("p"));
-				layout.appendRow(RowSpec.decode("14px"));
-				
-				result.add(new BHDescriptionLabel(CHANCE), cons.xywh(2, layout.getRowCount()-1, 1, 1));
-				result.add(new BHTextField(key + CHANCE, "" + chance), cons.xywh(4, layout.getRowCount()-1, 1, 1));
-				result.add(new BHDescriptionLabel(INCREMENT), cons.xywh(6, layout.getRowCount()-1, 1, 1));
-				result
-						.add(new BHTextField(key + INCREMENT, "" + increment), cons.xywh(8, layout.getRowCount()-1, 1, 1));
-
-				internalMap.put(key + CHANCE, chance);
-				internalMap.put(key + INCREMENT, increment);
-			}
-			this.panel = result;
-			return result;
+			internalMap.put(key + CHANCE, chance);
+			internalMap.put(key + INCREMENT, increment);
 		}
+		this.panel = result;
+		return result;
 	}
 
 	@Override

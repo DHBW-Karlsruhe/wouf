@@ -33,10 +33,23 @@ public class FormulaFactoryImpl implements IFormulaFactory {
 	protected FormulaFactoryImpl() {
 		// noop
 	}
-
+	
 	/* Specified by interface/super class. */
 	@Override
 	public final IFormula createFormula(String name, Document formulaDoc)
+			throws FormulaException {
+		return createFormulaInternal(name, formulaDoc, true);
+	}
+
+	/* Specified by interface/super class. */
+	@Override
+	public final IFormula createFormula(String name, Document formulaDoc,
+			boolean initExpression) throws FormulaException {
+		return createFormulaInternal(name, formulaDoc, initExpression);
+	}
+
+	private final IFormula createFormulaInternal(String name,
+			Document formulaDoc, boolean initExpression)
 			throws FormulaException {
 		Node leftHandSideNode;
 		Node rightHandSideNode;
@@ -61,12 +74,15 @@ public class FormulaFactoryImpl implements IFormulaFactory {
 				.getNextSibling().getNextSibling();
 		leftHandSide = leftHandSideNode.getTextContent();
 
-		rightHandSideNode = leftHandSideNode.getNextSibling().getNextSibling();
-		try {
-			rightHandSide = IExpressionFactoy.instance
-					.createExpression(rightHandSideNode);
-		} catch (ExpressionException e) {
-			throw new FormulaException(e);
+		if (initExpression) {
+			rightHandSideNode = leftHandSideNode.getNextSibling()
+					.getNextSibling();
+			try {
+				rightHandSide = IExpressionFactoy.instance
+						.createExpression(rightHandSideNode);
+			} catch (ExpressionException e) {
+				throw new FormulaException(e);
+			}
 		}
 
 		return new FormulaImpl(name, formulaDoc, leftHandSide, rightHandSide);
@@ -74,7 +90,7 @@ public class FormulaFactoryImpl implements IFormulaFactory {
 
 	/* Specified by interface/super class. */
 	@Override
-	public final IFormula createFormula(final String name, InputStream document)
+	public final IFormula createFormula(final String name, InputStream document, boolean initExpression)
 			throws FormulaException {
 		Document formulaDoc = null;
 		try {
@@ -84,12 +100,12 @@ public class FormulaFactoryImpl implements IFormulaFactory {
 		} catch (IOException e) {
 			throw new FormulaException(e);
 		}
-		return createFormula(name, formulaDoc);
+		return createFormula(name, formulaDoc, initExpression);
 	}
 
 	/* Specified by interface/super class. */
 	@Override
-	public final IFormula createFormula(final String name, final String document)
+	public final IFormula createFormula(final String name, final String document, boolean initExpression)
 			throws FormulaException {
 		Document formulaDoc = null;
 		try {
@@ -101,12 +117,12 @@ public class FormulaFactoryImpl implements IFormulaFactory {
 		} catch (ParserConfigurationException e) {
 			throw new FormulaException(e);
 		}
-		return createFormula(name, formulaDoc);
+		return createFormula(name, formulaDoc, initExpression);
 	}
 
 	/* Specified by interface/super class. */
 	@Override
-	public final IFormula createFormula(final String name, final File mathMlDoc)
+	public final IFormula createFormula(final String name, final File mathMlDoc, boolean initExpression)
 			throws FormulaException {
 		Document formulaDoc = null;
 		try {
@@ -116,6 +132,22 @@ public class FormulaFactoryImpl implements IFormulaFactory {
 		} catch (IOException e) {
 			throw new FormulaException(e);
 		}
-		return createFormula(name, formulaDoc);
+		return createFormula(name, formulaDoc, initExpression);
+	}
+
+	@Override
+	public IFormula createFormula(String name, InputStream mathMlDoc) throws FormulaException {
+		return createFormula(name, mathMlDoc, true);
+	}
+
+	@Override
+	public IFormula createFormula(String name, String mathMlDoc)
+			throws FormulaException {
+		return createFormula(name, mathMlDoc, true);
+	}
+
+	@Override
+	public IFormula createFormula(String name, File mathMlDoc) throws FormulaException {
+		return createFormula(name, mathMlDoc, true);
 	}
 }

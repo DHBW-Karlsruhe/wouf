@@ -58,7 +58,7 @@ public class ExpressionFactoryImpl implements IExpressionFactoy {
 		// check whether Node recExp is of element <apply>
 		if (!isExpression(expNode)) {
 			throw new ExpressionException(
-					"Node is not an expression. Expressions tag name is <apply>");
+					"Node is not an expression. Expressions tag name is <apply> and not " + expNode.getNodeName());
 		}
 
 		// check whether operator is valid
