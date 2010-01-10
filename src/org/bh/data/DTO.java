@@ -399,8 +399,8 @@ public abstract class DTO<ChildT extends IDTO> implements IDTO<ChildT> {
 
 	@Override
 	public void setValid(boolean valid) {
+		if (this.valid == valid)
+			return;
 		this.valid = valid;
-		Services.firePlatformEvent(new PlatformEvent(this,
-				PlatformEvent.Type.DATA_CHANGED));
 	}
 }
