@@ -10,6 +10,8 @@
 	<classpathentry excluding="**/.svn/" kind="src" output="plugins/randomWalk" path="plugins-src/randomWalk"/>
 	<classpathentry excluding="**/.svn/" kind="src" output="plugins/wienerProcess" path="plugins-src/wienerProcess"/>
 	<classpathentry excluding="**/.svn/" kind="src" output="plugins/directinput" path="plugins-src/directinput"/>
+	<classpathentry excluding="**/.svn/" kind="src" output="plugins/pdfexport" path="plugins-src/pdfexport"/>
+
 	<classpathentry kind="src" output="plugins/xmldataexchange" path="plugins-src/xmldataexchange"/>
 	<classpathentry excluding="src/" kind="src" path="lib"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER/org.eclipse.jdt.internal.debug.ui.launcher.StandardVMType/JavaSE-1.6"/>
