@@ -105,7 +105,9 @@ public abstract class DTO<ChildT extends IDTO> implements IDTO<ChildT> {
 			availableMethods = new HashMap<String, String>();
 
 			for (Enum element : enumeration) {
-				String key = element.toString().toLowerCase();
+				// Norman, 08.01.2010, 17:36 --> Keys in properties file for translation are not lowercase
+				//String key = element.toString().toLowerCase();
+				String key = element.toString();
 				availableKeys.add(key);
 				try {
 					Field field = element.getClass().getDeclaredField(
@@ -129,7 +131,9 @@ public abstract class DTO<ChildT extends IDTO> implements IDTO<ChildT> {
 
 	@Override
 	public IValue get(Object key1) throws DTOAccessException {
-		String key = key1.toString().toLowerCase();
+		// Norman, 08.01.2010, 17:36 --> Keys in properties file for translation are not lowercase
+		//String key = key1.toString().toLowerCase();
+		String key = key1.toString();
 		// Check whether the key is part of the DTO
 		if (!availableKeys.contains(key))
 			throw new DTOAccessException("This DTO does not have a key '" + key
@@ -158,7 +162,9 @@ public abstract class DTO<ChildT extends IDTO> implements IDTO<ChildT> {
 
 	@Override
 	public void put(Object key1, IValue value) throws DTOAccessException {
-		String key = key1.toString().toLowerCase();
+		// Norman, 08.01.2010, 17:36 --> Keys in properties file for translation are not lowercase
+		//String key = key1.toString().toLowerCase();
+		String key = key1.toString();
 		if (availableKeys.contains(key)) {
 			values.put(key, value);
 			Services.firePlatformEvent(new PlatformEvent(this,
@@ -306,6 +312,11 @@ public abstract class DTO<ChildT extends IDTO> implements IDTO<ChildT> {
 	public int getChildrenSize() {
 		return children.size();
 	}
+	
+	@Override
+	public int getNoOfValues() {
+		return values.size();
+	}
 
 	@Override
 	public boolean getSandBoxMode() {
@@ -358,7 +369,7 @@ public abstract class DTO<ChildT extends IDTO> implements IDTO<ChildT> {
 	 * return a iterable object containing children
 	 */
 	@Override
-	public Iterator iterator() {
+	public Iterator<Map.Entry<String, IValue>> iterator() {
 		return values.entrySet().iterator();
 	}
 

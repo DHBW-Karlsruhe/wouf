@@ -2,13 +2,13 @@ package org.bh.data;
 
 import java.io.Serializable;
 import java.util.List;
+import java.util.Map;
 
 import org.bh.data.types.Calculable;
 import org.bh.data.types.IValue;
 
 @SuppressWarnings("unchecked")
-public interface IDTO<ChildT extends IDTO> extends Cloneable, Serializable,
-		Iterable {
+public interface IDTO<ChildT extends IDTO> extends Cloneable, Serializable, Iterable<Map.Entry<String, IValue>> {
 
 	/**
 	 * Returns a value assigned to the passed key.
@@ -159,4 +159,9 @@ public interface IDTO<ChildT extends IDTO> extends Cloneable, Serializable,
 	 */
 	public boolean isValid(boolean recursive);
 	
+
+	/**
+	 * gets the number of entries in the values map
+	 */
+	int getNoOfValues();
 }
