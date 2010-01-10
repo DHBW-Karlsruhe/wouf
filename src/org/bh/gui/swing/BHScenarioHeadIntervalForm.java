@@ -1,7 +1,11 @@
 package org.bh.gui.swing;
 
+import java.awt.Component;
+import java.awt.Container;
+import java.awt.FocusTraversalPolicy;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
+import java.util.Vector;
 
 import javax.swing.JComboBox;
 import javax.swing.JFrame;
@@ -72,6 +76,8 @@ public class BHScenarioHeadIntervalForm extends JPanel {
 	private JLabel lmax;
 	private JLabel lmin1;
 	private JLabel lmax1;
+	
+	private BHFocusTraversalPolicy focusPolicy;
 
 	/**
 	 * Constructor.
@@ -138,10 +144,41 @@ public class BHScenarioHeadIntervalForm extends JPanel {
 		// this.add(this.getcbDCFmethod(), cons.xywh(6, 14, 3, 1));
 		// this.add(this.getLdirect(), cons.xywh(14, 14, 1, 1));
 		// this.add(this.getCbdirect(), cons.xywh(17, 14, 3, 1));
+		
+		Vector<Component> order = new Vector<Component>(11);
+        order.add(this.gettfscenName());
+        order.add(this.gettfbaseYear());
+        order.add(this.gettfscenDescript());
+        order.add(this.gettfminequityyield());
+        order.add(this.gettfmaxequityyield());
+        order.add(this.gettfmindeptyield());
+        order.add(this.gettfmaxdeptyield());
+        order.add(this.gettfmintradetax());
+        order.add(this.gettfmaxtradetax());
+        order.add(this.gettfmincorporatetax());
+        order.add(this.gettfmaxcorporatetax());
+        
+this.setFocusPolicy(order);
+		
+		this.setFocusTraversalPolicy(this.getFocusPolicy());
+		this.setFocusCycleRoot(true);
+
 	}
 
 	// TODO add missing label keys etc. and translations, change hard coded
 	// values to keys
+	
+	public void setFocusPolicy(Vector<Component> order) {
+		this.focusPolicy = new BHFocusTraversalPolicy(order);
+}
+
+public BHFocusTraversalPolicy getFocusPolicy() {
+	if (this.focusPolicy == null){			
+		this.focusPolicy = new BHFocusTraversalPolicy(null);
+	}
+	
+	return this.focusPolicy;
+}
 
 	/**
 	 * Getter method for component lmin.
@@ -637,6 +674,42 @@ public class BHScenarioHeadIntervalForm extends JPanel {
 			this.lmaxpercentcorporate = new JLabel("%");
 		}
 		return this.lmaxpercentcorporate;
+	}
+
+	public static class BHFocusTraversalPolicy extends FocusTraversalPolicy {
+		Vector<Component> order;
+
+		public BHFocusTraversalPolicy(Vector<Component> order) {
+			this.order = new Vector<Component>(order.size());
+			this.order.addAll(order);
+		}
+
+		public Component getComponentAfter(Container focusCycleRoot,
+				Component aComponent) {
+			int idx = (order.indexOf(aComponent) + 1) % order.size();
+			return order.get(idx);
+		}
+
+		public Component getComponentBefore(Container focusCycleRoot,
+				Component aComponent) {
+			int idx = order.indexOf(aComponent) - 1;
+			if (idx < 0) {
+				idx = order.size() - 1;
+			}
+			return order.get(idx);
+		}
+
+		public Component getDefaultComponent(Container focusCycleRoot) {
+			return order.get(0);
+		}
+
+		public Component getLastComponent(Container focusCycleRoot) {
+			return order.lastElement();
+		}
+
+		public Component getFirstComponent(Container focusCycleRoot) {
+			return order.get(0);
+		}
 	}
 
 	// TODO remove main later

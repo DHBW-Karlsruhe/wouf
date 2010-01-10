@@ -1,7 +1,11 @@
 package org.bh.gui.swing;
 
+import java.awt.Component;
+import java.awt.Container;
+import java.awt.FocusTraversalPolicy;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
+import java.util.Vector;
 
 import javax.swing.JComboBox;
 import javax.swing.JFrame;
@@ -54,6 +58,7 @@ public class BHScenarioHeadForm extends JPanel {
 	private BHDescriptionLabel ldirect;
 	private JComboBox cbdirect;
 	
+	private BHFocusTraversalPolicy focusPolicy;
 	
 
 	ITranslator translator = Services.getTranslator();
@@ -106,10 +111,37 @@ public class BHScenarioHeadForm extends JPanel {
 		//this.add(this.getLdirect(), cons.xywh(14, 14, 1, 1));
 		//this.add(this.getCbdirect(), cons.xywh(17, 14, 3, 1));
 		
+		Vector<Component> order = new Vector<Component>(7);
+        order.add(this.gettfscenName());
+        order.add(this.gettfBase());
+        order.add(this.gettfscenDescript());
+        order.add(this.gettfequityYeild());
+        order.add(this.gettfdeptYield());
+        order.add(this.gettftradeTax());
+        order.add(this.gettfcorporateTax());
+
+        
+		this.setFocusPolicy(order);
+		
+		this.setFocusTraversalPolicy(this.getFocusPolicy());
+		this.setFocusCycleRoot(true);
+		
 	}
 
 	// TODO add missing label keys etc. and translations, change hard coded
 	// values to keys
+	
+	public void setFocusPolicy(Vector<Component> order) {
+			this.focusPolicy = new BHFocusTraversalPolicy(order);
+	}
+	
+	public BHFocusTraversalPolicy getFocusPolicy() {
+		if (this.focusPolicy == null){			
+			this.focusPolicy = new BHFocusTraversalPolicy(null);
+		}
+		
+		return this.focusPolicy;
+	}
 
 	public BHDescriptionLabel getLprocess() {
 		if (this.lprocess == null) {
@@ -399,7 +431,6 @@ public class BHScenarioHeadForm extends JPanel {
 		}
 		return this.lpercentcorporate;
 	}
-	
 	
 
 	// TODO remove main later
