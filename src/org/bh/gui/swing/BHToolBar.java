@@ -1,8 +1,19 @@
 package org.bh.gui.swing;
 
+import java.awt.BorderLayout;
+import java.awt.Component;
+import java.awt.FlowLayout;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
+
 import javax.swing.*;
 
 import org.bh.platform.PlatformKey;
+
+import com.jgoodies.forms.layout.CellConstraints;
+import com.jgoodies.forms.layout.FormLayout;
 
 /**
  * 
@@ -18,7 +29,7 @@ import org.bh.platform.PlatformKey;
  */
 
 
-public class BHToolBar extends JToolBar{
+public class BHToolBar extends JToolBar implements ActionListener, MouseListener{
     
     //HelpSet and HelpBroker are necessary for user help
     //javax.help.HelpSet helpSet = null;
@@ -26,46 +37,125 @@ public class BHToolBar extends JToolBar{
 
     //JileChooser allows file loading
     //JFileChooser fc;
+	
+	private boolean shown = false;
+	private boolean fixed = true;
+	private int width;
+	private int height;
+	public BHButton Bopen, Bsave, Bproject, Bscenario, Bperiod, Bdelete; 
+	public JButton BshowHide;
+	JPanel buttonPanel;
+	
+	CellConstraints cons;
+	
     
     public BHToolBar(int width, int height) {
-	
+    	this.width = width;
+    	this.height = height;
+    	addMouseListener(this);
+    	
 		//paint background
 		setOpaque(true);
-		
 		
 		//don't allow to relocate the bar
 		setFloatable(false);
 		
 		setSize(width, height);
 		
-		add( new BHToolButton(PlatformKey.TOOLBAROPEN, "Bopen"));
-		add( new BHToolButton(PlatformKey.TOOLBARSAVE, "Bsave"));
+		String rowDef = "p";
+		String colDef = "600px,fill:0px:grow,fill:30px";
+		setLayout(new FormLayout(colDef, rowDef));
+		cons = new CellConstraints();
 		
-		addSeparator();
+		createToolBar();
 		
-		add( new BHToolButton(PlatformKey.TOOLBARADDPRO, "BnewProject"));
-		add( new BHToolButton(PlatformKey.TOOLBARADDS, "BnewScenario"));
-		add( new BHToolButton(PlatformKey.TOOLBARADDPER, "BnewPeriod"));
-		
-		addSeparator();
-		
-		add( new BHToolButton(PlatformKey.TOOLBARREMOVE, "Bdelete"));
-		
-		
-		//old Buttons from library jlfgr-1_0.jar
-//		bNew = new BHToolButton(PlatformKey.TOOLBARNEW, "Bnew");
-//		bOpen = new BHToolButton(PlatformKey.TOOLBAROPEN, "Open24");
-//		bSave = new BHToolButton(PlatformKey.TOOLBARSAVE, "Save24");
-//		bAddP = new BHToolButton(PlatformKey.TOOLBARADDP, "Add24");
-//		bAddS = new BHToolButton(PlatformKey.TOOLBARADDS, "Edit24");
-//		bRemove = new BHToolButton(PlatformKey.TOOLBARREMOVE, "Remove24");
-//		bDelete = new BHToolButton(PlatformKey.TOOLBARDELETE, "Delete24");
-
-			//example of combo box in tool bar
-			//lable = new BHLabel("Methode: ", "value");
-			//String methods[] = {"Berechnungsmethode 1", "Berechnungsmethode 2", "Berechnungsmethode 3"};
-			//comboBox = new JComboBox(methods);
-
     }
+    
+    public void hideToolBar(){
+   	
+    	buttonPanel.setVisible(false);
+    	
+    	shown = false;
+    }
+    
+    public void showToolBar(){
+   	
+    	buttonPanel.setVisible(true);
+    	
+    	shown = true;
+    }
+    
+    public void createToolBar(){
+    	
+    	buttonPanel = new JPanel();
+    	buttonPanel.setLayout(new FlowLayout());
+    	buttonPanel.setOpaque(false);
+    	
+    	Bopen = new BHToolButton(PlatformKey.TOOLBAROPEN, "Bopen");
+		Bsave = new BHToolButton(PlatformKey.TOOLBARSAVE, "Bsave");
+		Bproject = new BHToolButton(PlatformKey.TOOLBARADDPRO, "BnewProject");
+		Bscenario = new BHToolButton(PlatformKey.TOOLBARADDS, "BnewScenario");
+		Bperiod = new BHToolButton(PlatformKey.TOOLBARADDPER, "BnewPeriod");
+		Bdelete = new BHToolButton(PlatformKey.TOOLBARREMOVE, "Bdelete");
+
+		BshowHide = new JButton("");
+		BshowHide.setIcon(new ImageIcon(BHToolBar.class.getResource("/org/bh/images/buttons/Bshow.png"), ""));
+		BshowHide.addActionListener(this);	
+		
+		buttonPanel.add(Bopen);
+		buttonPanel.add(Bsave);
+		buttonPanel.add(Bproject);
+		buttonPanel.add(Bscenario);
+		buttonPanel.add(Bperiod);
+		buttonPanel.add(Bdelete);
+		
+		add(buttonPanel,  cons.xywh(1, 1, 1, 1));
+		add(BshowHide, cons.xywh(3, 1, 1, 1));
+		
+		shown = true;
+    }
+
+	@Override
+	public void actionPerformed(ActionEvent arg0) {
+		if(shown){
+			BshowHide.setIcon(new ImageIcon(BHToolBar.class.getResource("/org/bh/images/buttons/Bhide.png"), ""));
+			fixed = false;
+			
+		}else {
+			BshowHide.setIcon(new ImageIcon(BHToolBar.class.getResource("/org/bh/images/buttons/Bshow.png"), ""));
+			fixed = true;
+			showToolBar();
+		}
+	}
+
+	@Override
+	public void mouseClicked(MouseEvent arg0) {
+		// TODO Auto-generated method stub
+		throw new UnsupportedOperationException("This method has not been implemented");
+	}
+
+	@Override
+	public void mouseEntered(MouseEvent arg0) {
+		if(!shown)
+			showToolBar();
+	}
+
+	@Override
+	public void mouseExited(MouseEvent arg0) {
+		if(!fixed)
+			hideToolBar();
+	}
+
+	@Override
+	public void mousePressed(MouseEvent arg0) {
+		// TODO Auto-generated method stub
+		throw new UnsupportedOperationException("This method has not been implemented");
+	}
+
+	@Override
+	public void mouseReleased(MouseEvent arg0) {
+		// TODO Auto-generated method stub
+		throw new UnsupportedOperationException("This method has not been implemented");
+	}
 }
 
