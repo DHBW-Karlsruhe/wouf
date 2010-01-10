@@ -1,3 +1,4 @@
+package org.bh.plugin.pdfexport;
 import java.util.Map;
 
 import org.bh.data.DTOProject;
