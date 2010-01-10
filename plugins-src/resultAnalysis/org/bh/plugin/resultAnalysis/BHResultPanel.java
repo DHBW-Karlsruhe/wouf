@@ -1,7 +1,9 @@
 
 package org.bh.plugin.resultAnalysis;
 
-import java.awt.GridLayout;
+import info.clearthought.layout.TableLayout;
+
+import java.awt.BorderLayout;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 
@@ -96,11 +98,18 @@ public final class BHResultPanel extends JPanel{
 	 * @throws ViewException 
 	 */
 	public void initialize() throws ViewException{
-		GridLayout layout = new GridLayout(0,3);
+		BorderLayout layout = new BorderLayout();
 		
+		 double border = 10;
+	     double size[][] =
+	         {{border, TableLayout.PREFERRED, border, TableLayout.PREFERRED, border, TableLayout.PREFERRED, border},  // Columns
+	          {border, TableLayout.PREFERRED, border, TableLayout.PREFERRED, border, TableLayout.PREFERRED, border}}; // Rows
+
+
 		
-		this.setLayout(layout);
+		this.setLayout(new TableLayout(size));
 		
+		//this.setMaximumSize(BHMainFrame.chartsPanel.getMaximumSize());
        		/**
        		 * Creates the default LineChart and add it on a Label 
        		 */
@@ -180,75 +189,75 @@ public final class BHResultPanel extends JPanel{
        		/**
        		 * add Content to ResultPanel
        		 */
-       		this.add(FTEshareholderValueDESC);
-       		this.add(FTEshareholderValue);
-       		this.add(lineChartLabel);
+//       		this.add(FTEshareholderValueDESC, "1,1");
+//       		this.add(FTEshareholderValue, "2,1");
+//       		this.add(lineChartLabel, "3,1");
+//       		
+//       		this.add(FTEdebtAmortisationDESC, "1,2");
+//       		this.add(FTEdebtAmortisation, "2,2");
+//       		this.add(pieChartLabel, "3,2");
+//       		
+//       		this.add(FTEequityReturnRateDESC, BorderLayout.WEST);
+//       		this.add(FTEequityReturnRate, BorderLayout.CENTER);
+//       		//this.add(barChartLabel, BorderLayout.EAST);
+//       		
+//       		//this.add(ResultFormulaParser.getAPVformula());
+//       		
+//       		this.add(FTEflowEquityDESC, BorderLayout.WEST);
+//       		this.add(FTEflowEquity, BorderLayout.CENTER);
+//       		//this.add(barChartLabel, BorderLayout.EAST);
+//       		
+//       		this.add(FTEflowEquityTaxShieldDESC, BorderLayout.WEST);
+//       		this.add(FTEflowEquityTaxShield, BorderLayout.CENTER);
+//       		//this.add(lineChartLabel, BorderLayout.EAST);
+//       		
+//       		this.add(FTEflowToEquityDESC, BorderLayout.WEST);
+//       		this.add(FTEflowToEquity, BorderLayout.CENTER);
+//       		//this.add(lineChartLabel, BorderLayout.EAST);
+//       		
+//       		this.add(FTEpresentValueTaxShieldDESC, BorderLayout.WEST);
+//       		this.add(FTEpresentValueTaxShield, BorderLayout.CENTER);
+//       		//this.add(lineChartLabel, BorderLayout.EAST);
+//       	
+//       		this.add(FCFpresentValueDESC, BorderLayout.WEST);
+//       		this.add(FCFpresentValue, BorderLayout.CENTER);
+//       		//this.add(lineChartLabel, BorderLayout.EAST);
+//       		
+//       		this.add(FCFdebtToEquityRatioDESC, BorderLayout.WEST);
+//       		this.add(FCFdebtToEquityRatio, BorderLayout.CENTER);
+//       		//this.add(lineChartLabel, BorderLayout.EAST);
+//       		
+//       		this.add(FCFequityReturnRateDESC, BorderLayout.WEST);
+//       		this.add(FCFequityReturnRate, BorderLayout.CENTER);
+//       		//this.add(lineChartLabel, BorderLayout.EAST);
+//       		
+//       		this.add(FCFshareholderValueDESC, BorderLayout.WEST);
+//       		this.add(FCFshareholderValue, BorderLayout.CENTER);
+//       		//this.add(lineChartLabel, BorderLayout.EAST);
+//       		
+//       		this.add(FCFwaccDESC, BorderLayout.WEST);
+//       		this.add(FCFwacc, BorderLayout.CENTER);
+//       		//this.add(lineChartLabel, BorderLayout.EAST);
+//       		
+//       		this.add(FCFwaccDebtsDESC, BorderLayout.WEST);
+//       		this.add(FCFwaccDebts, BorderLayout.CENTER);
+//       		//this.add(lineChartLabel, BorderLayout.EAST);
+//       		
+//       		this.add(FCFwaccEquityDESC, BorderLayout.WEST);
+//       		this.add(FCFwaccEquity, BorderLayout.CENTER);
+//       		//this.add(lineChartLabel, BorderLayout.EAST);
+//       		
+       		this.add(APVpresentValueDESC, "1,1");
+       		this.add(APVpresentValue, "3,1");
+       		this.add(pieChartLabel, "5,1");
        		
-       		this.add(FTEdebtAmortisationDESC);
-       		this.add(FTEdebtAmortisation);
-       		this.add(pieChartLabel);
-       		
-       		this.add(FTEequityReturnRateDESC);
-       		this.add(FTEequityReturnRate);
-       		//this.add(barChartLabel);
-       		
-       		//this.add(ResultFormulaParser.getAPVformula());
-       		
-       		this.add(FTEflowEquityDESC);
-       		this.add(FTEflowEquity);
-       		//this.add(barChartLabel);
-       		
-       		this.add(FTEflowEquityTaxShieldDESC);
-       		this.add(FTEflowEquityTaxShield);
-       		//this.add(lineChartLabel);
-       		
-       		this.add(FTEflowToEquityDESC);
-       		this.add(FTEflowToEquity);
-       		//this.add(lineChartLabel);
-       		
-       		this.add(FTEpresentValueTaxShieldDESC);
-       		this.add(FTEpresentValueTaxShield);
-       		//this.add(lineChartLabel);
-       	
-       		this.add(FCFpresentValueDESC);
-       		this.add(FCFpresentValue);
-       		//this.add(lineChartLabel);
-       		
-       		this.add(FCFdebtToEquityRatioDESC);
-       		this.add(FCFdebtToEquityRatio);
-       		//this.add(lineChartLabel);
-       		
-       		this.add(FCFequityReturnRateDESC);
-       		this.add(FCFequityReturnRate);
-       		//this.add(lineChartLabel);
-       		
-       		this.add(FCFshareholderValueDESC);
-       		this.add(FCFshareholderValue);
-       		//this.add(lineChartLabel);
-       		
-       		this.add(FCFwaccDESC);
-       		this.add(FCFwacc);
-       		//this.add(lineChartLabel);
-       		
-       		this.add(FCFwaccDebtsDESC);
-       		this.add(FCFwaccDebts);
-       		//this.add(lineChartLabel);
-       		
-       		this.add(FCFwaccEquityDESC);
-       		this.add(FCFwaccEquity);
-       		//this.add(lineChartLabel);
-       		
-       		this.add(APVpresentValueDESC);
-       		this.add(APVpresentValue);
-       		//this.add(lineChartLabel);
-       		
-       		this.add(APVpresentValueTaxShieldDESC);
-       		this.add(APVpresentValueTaxShield);
-       		//this.add(lineChartLabel);
-       		
-       		this.add(APVshareholderValueDESC);
-       		this.add(APVshareholderValue);
-       		//this.add(lineChartLabel);
+       		this.add(APVpresentValueTaxShieldDESC, "1,3");
+       		this.add(APVpresentValueTaxShield, "3,3");
+       		this.add(lineChartLabel, "5,3");
+//       		
+//       		this.add(APVshareholderValueDESC, "1,2");
+//       		this.add(APVshareholderValue, "2,2");
+//       		this.add(lineChartLabel, "3,2");
        		
 	}
 	
