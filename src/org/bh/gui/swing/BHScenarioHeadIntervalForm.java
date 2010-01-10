@@ -161,7 +161,7 @@ public class BHScenarioHeadIntervalForm extends JPanel {
 this.setFocusPolicy(order);
 		
 		this.setFocusTraversalPolicy(this.getFocusPolicy());
-		this.setFocusCycleRoot(true);
+		this.setFocusTraversalPolicyProvider(true);
 
 	}
 
