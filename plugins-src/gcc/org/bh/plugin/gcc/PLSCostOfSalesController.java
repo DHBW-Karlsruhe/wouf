@@ -66,11 +66,13 @@ public class PLSCostOfSalesController implements IPeriodController {
 		}
 
 		try {
-			View bsView = new View(new BHBalanceSheetForm(), new ValidationMethods());
+			boolean intervalArithmetic = period.getScenario().isIntervalArithmetic();
+			
+			View bsView = new View(new BHBalanceSheetForm(intervalArithmetic), new ValidationMethods());
 			InputController bsController = new InputController(bsView, bs);
 			bsController.loadAllToView();
 			
-			View plsView = new View(new BHPLSCostOfSalesForm(), new ValidationMethods());
+			View plsView = new View(new BHPLSCostOfSalesForm(intervalArithmetic), new ValidationMethods());
 			InputController plsController = new InputController(plsView, pls);
 			plsController.loadAllToView();
 			

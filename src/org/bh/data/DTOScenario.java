@@ -237,4 +237,8 @@ public class DTOScenario extends DTO<DTOPeriod> {
 	public boolean isValid(boolean recursive) {
 		return super.isValid(recursive) && !children.isEmpty();
 	}
+
+	public boolean isIntervalArithmetic() {
+		return false;
+	}
 }

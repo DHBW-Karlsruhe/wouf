@@ -34,6 +34,7 @@ import com.jgoodies.forms.layout.FormLayout;
  * 
  */
 
+@SuppressWarnings("serial")
 public class BHBalanceSheetForm extends JPanel {
 
 	private JPanel paktiva;
@@ -109,13 +110,11 @@ public class BHBalanceSheetForm extends JPanel {
 	/**
 	 * Constructor.
 	 */
-	public BHBalanceSheetForm() {
-
-		this.initialize();
+	public BHBalanceSheetForm(boolean intervalArithmetic) {
+		this.initialize(intervalArithmetic);
 	}
 
-	public void initialize() {
-
+	public void initialize(boolean intervalArithmetic) {
 		String rowDef = "4px,p:grow,4px";
 		String colDef = "4px,pref:grow,4px,pref:grow,4px";
 
@@ -124,62 +123,79 @@ public class BHBalanceSheetForm extends JPanel {
 
 		CellConstraints cons = new CellConstraints();
 
-		this.add(this.getAktiva(), cons.xywh(2, 2, 1, 1, "fill, fill"));
-		this.add(this.getPassiva(), cons.xywh(4, 2, 1, 1, "fill, fill"));
+		this.add(this.getAktiva(intervalArithmetic), cons.xywh(2, 2, 1, 1,
+				"fill, fill"));
+		this.add(this.getPassiva(intervalArithmetic), cons.xywh(4, 2, 1, 1,
+				"fill, fill"));
 	}
 
-	public JPanel getAktiva() {
-
+	public JPanel getAktiva(boolean intervalArithmetic) {
 		paktiva = new JPanel();
 
-		String rowDef = "4px,p,4px,p,4px,p,4px,p,4px,p,4px,p,4px,p,4px,p,4px";
-		String colDef = "4px,right:pref,4px,60px:grow,4px,pref,24px,pref,4px,max(35px;pref):grow,4px,pref,4px,pref,4px,max(35px;pref):grow,4px,pref,4px";
+		String rowDef = "4px,p,4px,p,4px,p,4px,p,4px,p,4px,p,4px,p,4px";
+		String colDef = "4px,right:pref,4px,max(100px;pref):grow,4px";
+		if (intervalArithmetic) {
+			rowDef = "4px,p," + rowDef;
+			colDef += ",pref,4px,max(100px;pref):grow,4px";
+		}
 
 		FormLayout layout = new FormLayout(colDef, rowDef);
 		paktiva.setLayout(layout);
 
 		CellConstraints cons = new CellConstraints();
-		layout.setColumnGroups(new int[][] { { 4, 10, 16 } });
 
-		paktiva.add(this.getLIVG(), cons.xywh(2, 4, 1, 1));
-		paktiva.add(this.getLSA(), cons.xywh(2, 6, 1, 1));
-		paktiva.add(this.getLFA(), cons.xywh(2, 8, 1, 1));
-		paktiva.add(this.getLVOR(), cons.xywh(2, 10, 1, 1));
-		paktiva.add(this.getLFSVG(), cons.xywh(2, 12, 1, 1));
-		paktiva.add(this.getLWP(), cons.xywh(2, 14, 1, 1));
-		paktiva.add(this.getLKBGGKS(), cons.xywh(2, 16, 1, 1));
+		if (!intervalArithmetic) {
+			paktiva.add(this.getLIVG(), cons.xywh(2, 2, 1, 1));
+			paktiva.add(this.getLSA(), cons.xywh(2, 4, 1, 1));
+			paktiva.add(this.getLFA(), cons.xywh(2, 6, 1, 1));
+			paktiva.add(this.getLVOR(), cons.xywh(2, 8, 1, 1));
+			paktiva.add(this.getLFSVG(), cons.xywh(2, 10, 1, 1));
+			paktiva.add(this.getLWP(), cons.xywh(2, 12, 1, 1));
+			paktiva.add(this.getLKBGGKS(), cons.xywh(2, 14, 1, 1));
 
-		paktiva.add(this.getTfIVG(), cons.xywh(4, 4, 1, 1));
-		paktiva.add(this.getTfSA(), cons.xywh(4, 6, 1, 1));
-		paktiva.add(this.getTfFA(), cons.xywh(4, 8, 1, 1));
-		paktiva.add(this.getTfVOR(), cons.xywh(4, 10, 1, 1));
-		paktiva.add(this.getTfFSVG(), cons.xywh(4, 12, 1, 1));
-		paktiva.add(this.getTfWP(), cons.xywh(4, 14, 1, 1));
-		paktiva.add(this.getTfKBGGKS(), cons.xywh(4, 16, 1, 1));
+			paktiva.add(this.getTfIVG(), cons.xywh(4, 2, 1, 1));
+			paktiva.add(this.getTfSA(), cons.xywh(4, 4, 1, 1));
+			paktiva.add(this.getTfFA(), cons.xywh(4, 6, 1, 1));
+			paktiva.add(this.getTfVOR(), cons.xywh(4, 8, 1, 1));
+			paktiva.add(this.getTfFSVG(), cons.xywh(4, 10, 1, 1));
+			paktiva.add(this.getTfWP(), cons.xywh(4, 12, 1, 1));
+			paktiva.add(this.getTfKBGGKS(), cons.xywh(4, 14, 1, 1));
+		} else {
+			layout.setColumnGroups(new int[][] { { 4, 8 } });
 
-		paktiva.add(new JSeparator(SwingConstants.VERTICAL), cons.xywh(8, 2, 1,
-				15));
-		paktiva.add(this.getLminakt(), cons.xywh(10, 2, 1, 1));
-		paktiva.add(new JSeparator(SwingConstants.VERTICAL), cons.xywh(14, 2,
-				1, 15));
-		paktiva.add(this.getLmaxakt(), cons.xywh(16, 2, 1, 1));
+			paktiva.add(this.getLIVG(), cons.xywh(2, 4, 1, 1));
+			paktiva.add(this.getLSA(), cons.xywh(2, 6, 1, 1));
+			paktiva.add(this.getLFA(), cons.xywh(2, 8, 1, 1));
+			paktiva.add(this.getLVOR(), cons.xywh(2, 10, 1, 1));
+			paktiva.add(this.getLFSVG(), cons.xywh(2, 12, 1, 1));
+			paktiva.add(this.getLWP(), cons.xywh(2, 14, 1, 1));
+			paktiva.add(this.getLKBGGKS(), cons.xywh(2, 16, 1, 1));
 
-		paktiva.add(this.getTfIVGmin(), cons.xywh(10, 4, 1, 1));
-		paktiva.add(this.getTfSAmin(), cons.xywh(10, 6, 1, 1));
-		paktiva.add(this.getTfFAmin(), cons.xywh(10, 8, 1, 1));
-		paktiva.add(this.getTfVORmin(), cons.xywh(10, 10, 1, 1));
-		paktiva.add(this.getTfFSVGmin(), cons.xywh(10, 12, 1, 1));
-		paktiva.add(this.getTfWPmin(), cons.xywh(10, 14, 1, 1));
-		paktiva.add(this.getTfKBGGKSmin(), cons.xywh(10, 16, 1, 1));
+			paktiva.add(new JSeparator(SwingConstants.VERTICAL), cons.xywh(6,
+					2, 1, 15));
+			paktiva.add(this.getLminakt(), cons.xywh(4, 2, 1, 1,
+					"center,default"));
+			paktiva.add(this.getLmaxakt(), cons.xywh(8, 2, 1, 1,
+					"center,default"));
 
-		paktiva.add(this.getTfIVGmax(), cons.xywh(16, 4, 1, 1));
-		paktiva.add(this.getTfSAmax(), cons.xywh(16, 6, 1, 1));
-		paktiva.add(this.getTfFAmax(), cons.xywh(16, 8, 1, 1));
-		paktiva.add(this.getTfVORmax(), cons.xywh(16, 10, 1, 1));
-		paktiva.add(this.getTfFSVGmax(), cons.xywh(16, 12, 1, 1));
-		paktiva.add(this.getTfWPmax(), cons.xywh(16, 14, 1, 1));
-		paktiva.add(this.getTfKBGGKSmax(), cons.xywh(16, 16, 1, 1));
+			paktiva.add(this.getTfIVGmin(), cons.xywh(4, 4, 1, 1));
+			paktiva.add(this.getTfSAmin(), cons.xywh(4, 6, 1, 1));
+			paktiva.add(this.getTfFAmin(), cons.xywh(4, 8, 1, 1));
+			paktiva.add(this.getTfVORmin(), cons.xywh(4, 10, 1, 1));
+			paktiva.add(this.getTfFSVGmin(), cons.xywh(4, 12, 1, 1));
+			paktiva.add(this.getTfWPmin(), cons.xywh(4, 14, 1, 1));
+			paktiva.add(this.getTfKBGGKSmin(), cons.xywh(4, 16, 1, 1));
 
+			paktiva.add(this.getTfIVGmax(), cons.xywh(8, 4, 1, 1));
+			paktiva.add(this.getTfSAmax(), cons.xywh(8, 6, 1, 1));
+			paktiva.add(this.getTfFAmax(), cons.xywh(8, 8, 1, 1));
+			paktiva.add(this.getTfVORmax(), cons.xywh(8, 10, 1, 1));
+			paktiva.add(this.getTfFSVGmax(), cons.xywh(8, 12, 1, 1));
+			paktiva.add(this.getTfWPmax(), cons.xywh(8, 14, 1, 1));
+			paktiva.add(this.getTfKBGGKSmax(), cons.xywh(8, 16, 1, 1));
+		}
+
+		// TODO add handler for locale change
 		paktiva.setBorder(BorderFactory.createTitledBorder(BorderFactory
 				.createEtchedBorder(EtchedBorder.LOWERED), translator
 				.translate(BHBalanceSheetForm.Key.AKTIVA), TitledBorder.CENTER,
@@ -188,42 +204,53 @@ public class BHBalanceSheetForm extends JPanel {
 		return paktiva;
 	}
 
-	public JPanel getPassiva() {
-
+	public JPanel getPassiva(boolean intervalArithmetic) {
 		ppassiva = new JPanel();
 
-		String rowDef = "4px,p,4px,p,4px,p,4px,p,4px,p,4px,p,4px,p,4px,p,4px";
-		String colDef = "4px,right:pref,4px,60px:grow,4px,pref,24px,pref,4px,max(35px;pref):grow,4px,pref,4px,pref,4px,max(35px;pref):grow,4px,pref,4px";
+		String rowDef = "4px,p,4px,p,4px,p,4px";
+		String colDef = "4px,right:pref,4px,max(100px;pref):grow,4px";
+		if (intervalArithmetic) {
+			rowDef = "4px,p," + rowDef;
+			colDef += ",pref,4px,max(100px;pref):grow,4px";
+		}
 
 		FormLayout layout = new FormLayout(colDef, rowDef);
 		ppassiva.setLayout(layout);
 
 		CellConstraints cons = new CellConstraints();
-		layout.setColumnGroups(new int[][] { { 4, 10, 16 } });
 
-		ppassiva.add(this.getLEK(), cons.xywh(2, 4, 1, 1));
-		ppassiva.add(this.getLRS(), cons.xywh(2, 6, 1, 1));
-		ppassiva.add(this.getLVB(), cons.xywh(2, 8, 1, 1));
+		if (!intervalArithmetic) {
+			ppassiva.add(this.getLEK(), cons.xywh(2, 2, 1, 1));
+			ppassiva.add(this.getLRS(), cons.xywh(2, 4, 1, 1));
+			ppassiva.add(this.getLVB(), cons.xywh(2, 6, 1, 1));
 
-		ppassiva.add(this.getTfEK(), cons.xywh(4, 4, 1, 1));
-		ppassiva.add(this.getTfRS(), cons.xywh(4, 6, 1, 1));
-		ppassiva.add(this.getTfVB(), cons.xywh(4, 8, 1, 1));
+			ppassiva.add(this.getTfEK(), cons.xywh(4, 2, 1, 1));
+			ppassiva.add(this.getTfRS(), cons.xywh(4, 4, 1, 1));
+			ppassiva.add(this.getTfVB(), cons.xywh(4, 6, 1, 1));
+		} else {
+			layout.setColumnGroups(new int[][] { { 4, 8 } });
+			
+			ppassiva.add(this.getLEK(), cons.xywh(2, 4, 1, 1));
+			ppassiva.add(this.getLRS(), cons.xywh(2, 6, 1, 1));
+			ppassiva.add(this.getLVB(), cons.xywh(2, 8, 1, 1));
 
-		ppassiva.add(new JSeparator(SwingConstants.VERTICAL), cons.xywh(8, 2,
-				1, 15));
-		ppassiva.add(this.getLminpas(), cons.xywh(10, 2, 1, 1));
-		ppassiva.add(new JSeparator(SwingConstants.VERTICAL), cons.xywh(14, 2,
-				1, 15));
-		ppassiva.add(this.getLmaxpas(), cons.xywh(16, 2, 1, 1));
+			ppassiva.add(new JSeparator(SwingConstants.VERTICAL), cons.xywh(6,
+					2, 1, 7));
+			ppassiva.add(this.getLminpas(), cons.xywh(4, 2, 1, 1,
+					"center,default"));
+			ppassiva.add(this.getLmaxpas(), cons.xywh(8, 2, 1, 1,
+					"center,default"));
 
-		ppassiva.add(this.getTfEKmin(), cons.xywh(10, 4, 1, 1));
-		ppassiva.add(this.getTfRSmin(), cons.xywh(10, 6, 1, 1));
-		ppassiva.add(this.getTfVBmin(), cons.xywh(10, 8, 1, 1));
+			ppassiva.add(this.getTfEKmin(), cons.xywh(4, 4, 1, 1));
+			ppassiva.add(this.getTfRSmin(), cons.xywh(4, 6, 1, 1));
+			ppassiva.add(this.getTfVBmin(), cons.xywh(4, 8, 1, 1));
 
-		ppassiva.add(this.getTfEKmax(), cons.xywh(16, 4, 1, 1));
-		ppassiva.add(this.getTfRSmax(), cons.xywh(16, 6, 1, 1));
-		ppassiva.add(this.getTfVBmax(), cons.xywh(16, 8, 1, 1));
+			ppassiva.add(this.getTfEKmax(), cons.xywh(8, 4, 1, 1));
+			ppassiva.add(this.getTfRSmax(), cons.xywh(8, 6, 1, 1));
+			ppassiva.add(this.getTfVBmax(), cons.xywh(8, 8, 1, 1));
+		}
 
+		// TODO add handler for locale change
 		ppassiva.setBorder(BorderFactory.createTitledBorder(BorderFactory
 				.createEtchedBorder(EtchedBorder.LOWERED), translator
 				.translate(BHBalanceSheetForm.Key.PASSIVA),
@@ -813,11 +840,11 @@ public class BHBalanceSheetForm extends JPanel {
 	/**
 	 * Test main method.
 	 */
-	@SuppressWarnings("deprecation")
 	public static void main(String args[]) {
 
 		JFrame test = new JFrame("Test for ViewPeriodData1");
-		test.setContentPane(new BHBalanceSheetForm());
+		boolean intervalArithmetic = true;
+		test.setContentPane(new BHBalanceSheetForm(intervalArithmetic));
 		test.addWindowListener(new WindowAdapter() {
 			@Override
 			public void windowClosing(WindowEvent e) {
@@ -825,6 +852,6 @@ public class BHBalanceSheetForm extends JPanel {
 			}
 		});
 		test.pack();
-		test.show();
+		test.setVisible(true);
 	}
 }
