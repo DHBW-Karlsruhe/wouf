@@ -202,7 +202,7 @@
                 <attribute name="SplashScreen-Image" value="org/bh/images/SplashScreen.jpg"/>
             </manifest>
             <fileset dir="${jar.dir}"/>
-            <fileset dir="${plugins.jar.dir}" />
+            <fileset dir="." includes="${plugins.jar.dir}/**" />
         </jar>
         
         <signjar jar="${jar.name.bundled}" keystore="${jar.store.file}" alias="${jar.store.alias}" storepass="${jar.store.pass}"/>
