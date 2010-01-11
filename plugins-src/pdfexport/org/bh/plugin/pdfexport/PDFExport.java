@@ -24,6 +24,7 @@ import org.bh.gui.swing.BHOptionDialog;
 import org.bh.platform.IImportExport;
 import org.bh.platform.Services;
 import org.bh.platform.i18n.BHTranslator;
+import org.bh.platform.i18n.ITranslator;
 
 import com.itextpdf.text.Chapter;
 import com.itextpdf.text.Document;
@@ -49,7 +50,7 @@ public class PDFExport implements IImportExport {
 	private static final String GUI_KEY = "*.pdf";
 
 	private static Logger log = Logger.getLogger(PDFExport.class);
-	private static BHTranslator trans = BHTranslator.getInstance();
+	private static ITranslator trans = BHTranslator.getInstance();
 
 	private static final SimpleDateFormat S = new SimpleDateFormat(
 			"EEEEE, 'den' dd.MM.yyyy");

@@ -40,7 +40,7 @@ public class BHValueLabel extends JLabel implements IBHModelComponent {
 	}
 
 	@Override
-	public String getBHHint() {
+	public String getInputHint() {
 		// TODO Auto-generated method stub
 		throw new UnsupportedOperationException(
 				"This method has not been implemented");

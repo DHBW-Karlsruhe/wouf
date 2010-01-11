@@ -13,6 +13,7 @@ import javax.swing.PopupFactory;
 import javax.swing.event.MouseInputAdapter;
 
 import org.bh.platform.i18n.BHTranslator;
+import org.bh.platform.i18n.ITranslator;
 
 import com.jgoodies.forms.layout.CellConstraints;
 import com.jgoodies.forms.layout.FormLayout;
@@ -41,7 +42,7 @@ public class BHStatusBar extends JPanel{
 	JScrollPane popupPane;
 	boolean open;
 	
-	BHTranslator translator = BHTranslator.getInstance(); 
+	ITranslator translator = BHTranslator.getInstance(); 
 	
 	JOptionPane optionPane;
 	

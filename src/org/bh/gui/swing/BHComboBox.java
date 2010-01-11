@@ -67,7 +67,7 @@ public class BHComboBox extends JComboBox implements IBHModelComponent, ActionLi
 	}
 
 	@Override
-	public String getBHHint() {
+	public String getInputHint() {
 		// TODO Auto-generated method stub
 		throw new UnsupportedOperationException(
 				"This method has not been implemented");

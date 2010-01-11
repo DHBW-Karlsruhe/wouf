@@ -6,6 +6,7 @@ import org.bh.platform.IPlatformListener;
 import org.bh.platform.PlatformEvent;
 import org.bh.platform.Services;
 import org.bh.platform.PlatformEvent.Type;
+import org.bh.platform.i18n.ITranslator;
 
 /**
  * BHTextArea to display simple text fields at screen.
@@ -25,6 +26,7 @@ public class BHDescriptionTextArea extends JTextArea implements IBHComponent, IP
 	 * unique key to identify Label.
 	 */
 	private String key;
+	private String inputHint;
 	
 	public BHDescriptionTextArea(String key, int row, int column) {
 		super(row, column);
@@ -32,7 +34,9 @@ public class BHDescriptionTextArea extends JTextArea implements IBHComponent, IP
 		this.setEditable(false);
 		this.setWrapStyleWord(true);
 		this.setLineWrap(true);
+		
 		reloadText();
+		Services.addPlatformListener(this);
 	}
 	
 	public BHDescriptionTextArea(String key) {
@@ -44,9 +48,8 @@ public class BHDescriptionTextArea extends JTextArea implements IBHComponent, IP
 	}
 
 	@Override
-	public String getBHHint() {
-		// TODO Auto-generated method stub
-		throw new UnsupportedOperationException("This method has not been implemented");
+	public String getInputHint() {
+		return inputHint;
 	}
 
 	@Override
@@ -58,5 +61,7 @@ public class BHDescriptionTextArea extends JTextArea implements IBHComponent, IP
 	
 	protected void reloadText() {
 		this.setText(Services.getTranslator().translate(key));
+		inputHint = Services.getTranslator().translate(key, ITranslator.LONG);
+		setToolTipText(inputHint);
 	}
 }

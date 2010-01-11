@@ -15,6 +15,7 @@ import org.bh.gui.swing.BHDescriptionLabel;
 import org.bh.gui.swing.BHTextField;
 import org.bh.gui.swing.IBHComponent;
 import org.bh.platform.i18n.BHTranslator;
+import org.bh.platform.i18n.ITranslator;
 import org.bh.plugin.gcc.data.DTOGCCProfitLossStatementTotalCost;
 import org.bh.validation.VRIsDouble;
 import org.bh.validation.VRMandatory;
@@ -55,7 +56,7 @@ public class BHPLSTotalCostForm extends JPanel {
 	private JLabel lmin;
 	private JLabel lmax;
 
-	final BHTranslator translator = BHTranslator.getInstance();
+	final ITranslator translator = BHTranslator.getInstance();
 
 	public enum Key {
 		/**

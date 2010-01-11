@@ -8,8 +8,10 @@ import javax.swing.UIManager;
 import org.bh.gui.swing.IBHComponent;
 import org.bh.platform.IPlatformListener;
 import org.bh.platform.PlatformEvent;
+import org.bh.platform.Services;
 import org.bh.platform.PlatformEvent.Type;
 import org.bh.platform.i18n.BHTranslator;
+import org.bh.platform.i18n.ITranslator;
 import org.jfree.chart.ChartFactory;
 import org.jfree.chart.JFreeChart;
 import org.jfree.chart.plot.CategoryPlot;
@@ -17,11 +19,13 @@ import org.jfree.chart.plot.Plot;
 import org.jfree.data.general.Dataset;
 import org.jfree.data.general.DefaultPieDataset;
 
+@SuppressWarnings("serial")
 public class BHPieChart extends JFreeChart implements IBHComponent,
 	IBHAddValue, IPlatformListener {
-	BHTranslator translator = BHTranslator.getInstance();
+	ITranslator translator = BHTranslator.getInstance();
 
 	private String key;
+	private String inputHint;
 	private JFreeChart chart;
 	private DefaultPieDataset dataset;
 	private static Plot plot = new CategoryPlot();;
@@ -33,10 +37,12 @@ public class BHPieChart extends JFreeChart implements IBHComponent,
 
 		chart = ChartFactory.createPieChart(title, this.dataset, true, true,
 				false);
-		plot.setNoDataMessage(translator.translate("noDataAvailable"));
 		if ("Nimbus".equals(UIManager.getLookAndFeel().getName())) {
 			chart.setBackgroundPaint(UIManager.getColor("desktop"));
 		}
+		
+		reloadText();
+		Services.addPlatformListener(this);
 	}
 	/**
 	 * returns the created Chart of the <code>BHPieChart</code>
@@ -105,9 +111,8 @@ public class BHPieChart extends JFreeChart implements IBHComponent,
 	}
 
 	@Override
-	public String getBHHint() {
-		// TODO Auto-generated method stub
-		throw new UnsupportedOperationException("This method has not been implemented");
+	public String getInputHint() {
+		return inputHint;
 	}
 	
 	/**
@@ -125,5 +130,6 @@ public class BHPieChart extends JFreeChart implements IBHComponent,
 	 */
 	protected void reloadText() {
 		this.chart.getPlot().setNoDataMessage(translator.translate("noDataAvailable"));
+		inputHint = Services.getTranslator().translate(key, ITranslator.LONG);
 	}
 }

@@ -13,6 +13,18 @@ import java.util.Locale;
  * 
  */
 public interface ITranslator {
+	/**
+	 * Parameter for short text.
+	 */
+	public static final int SHORT = 0;
+	/**
+	 * Parameter for regular text.
+	 */
+	public static final int REGULAR = 1;
+	/**
+	 * Parameter for long text.
+	 */
+	public static final int LONG = 2;
 
 	/**
 	 * @return currently used <code>Locale</code>

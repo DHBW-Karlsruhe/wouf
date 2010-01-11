@@ -1,18 +1,15 @@
 package org.bh.gui.swing;
 
-import java.awt.event.MouseEvent;
 import java.util.ArrayList;
 import java.util.List;
 
 import javax.swing.JButton;
-import javax.swing.event.MouseInputAdapter;
 
 import org.bh.platform.IPlatformListener;
 import org.bh.platform.PlatformEvent;
 import org.bh.platform.PlatformKey;
 import org.bh.platform.Services;
 import org.bh.platform.PlatformEvent.Type;
-import org.bh.platform.i18n.BHTranslator;
 import org.bh.platform.i18n.ITranslator;
 
 /**
@@ -37,7 +34,7 @@ public class BHButton extends JButton implements IBHComponent, IBHAction, IPlatf
 
 	private String key;
 	private PlatformKey platformKey;
-	private String toolTip = "";
+	private String inputHint;
 
 	/**
 	 * Secondary constructor for platform buttons (are added to
@@ -60,10 +57,9 @@ public class BHButton extends JButton implements IBHComponent, IBHAction, IPlatf
 	public BHButton(String key) {
 		super();
 		this.key = key;
+
 		reloadText();
 		Services.addPlatformListener(this);
-		this.addMouseListener(new BHToolTipListener());
-		// TODO get INPUT-HINT out of properties-File (querstions? Ask Alex)
 	}
 
 	/**
@@ -100,10 +96,8 @@ public class BHButton extends JButton implements IBHComponent, IBHAction, IPlatf
 	}
 
 	@Override
-	public String getBHHint() {
-		// TODO Auto-generated method stub
-		throw new UnsupportedOperationException(
-				"This method has not been implemented");
+	public String getInputHint() {
+		return inputHint;
 	}
 	
 
@@ -116,8 +110,8 @@ public class BHButton extends JButton implements IBHComponent, IBHAction, IPlatf
 
 	protected void reloadText() {
 		this.setText(translator.translate(key));
-		// set ToolTip if available
-		this.toolTip = translator.translate(key, BHTranslator.LONG);
+		inputHint = translator.translate(key, ITranslator.LONG);
+		setToolTipText(inputHint);
 	}
 
 	/**
@@ -129,6 +123,7 @@ public class BHButton extends JButton implements IBHComponent, IBHAction, IPlatf
 	 * @version 1.0, 29.12.2009
 	 * 
 	 */
+	/*
 	class BHToolTipListener extends MouseInputAdapter {
 		@Override
 		public void mouseEntered(MouseEvent e) {
@@ -142,4 +137,5 @@ public class BHButton extends JButton implements IBHComponent, IBHAction, IPlatf
 				Services.getBHstatusBar().removeHint();
 		}
 	}
+	*/
 }

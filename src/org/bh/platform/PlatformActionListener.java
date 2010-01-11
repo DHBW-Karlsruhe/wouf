@@ -6,7 +6,6 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Calendar;
 import java.util.Comparator;
-import java.util.Date;
 
 import javax.swing.JDialog;
 import javax.swing.JFileChooser;
@@ -460,7 +459,7 @@ class PlatformActionListener implements ActionListener {
 			BHComboBox.Item res = (BHComboBox.Item) JOptionPane
 			.showInputDialog(bhmf,
 					"Bitte gewünschten Szenariotyp auswählen:",
-					"Periodentyp auswählen",
+					"Szenariotyp auswählen",
 					JOptionPane.QUESTION_MESSAGE, null, itemsList
 							.toArray(), null);
 			

@@ -11,11 +11,6 @@ package org.bh.gui.swing;
  * @version 0.2, 2009/12/25
  */
 public interface IBHComponent {
-
-	/**
-	 * Constant can be use to check objects.
-	 */
-	boolean ISBHCOMPONENT = true;
 	/**
 	 * Have to be used by instancing a BHComponent representing a minimum of a
 	 * intervall.
@@ -44,5 +39,5 @@ public interface IBHComponent {
 	 * 
 	 * @return BHHint
 	 */
-	public String getBHHint();
+	public String getInputHint();
 }

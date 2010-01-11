@@ -17,7 +17,7 @@ import javax.swing.JOptionPane;
 import org.apache.log4j.Logger;
 import org.bh.data.DTOProject;
 import org.bh.gui.swing.BHMainFrame;
-import org.bh.platform.i18n.BHTranslator;
+import org.bh.platform.i18n.ITranslator;
 
 /**
  * Platform Persistence
@@ -178,7 +178,7 @@ public class PlatformPersistenceManager {
 		String lastFile = PlatformController.preferences.get("path", "");
 		if (!lastFile.equals("")) {
 			String title = Services.getTranslator().translate("PlastFile");
-			String message = "<html>" + Services.getTranslator().translate("PlastFile", BHTranslator.LONG) + "<br /><i>(" + lastFile + ")</i></html>";
+			String message = "<html>" + Services.getTranslator().translate("PlastFile", ITranslator.LONG) + "<br /><i>(" + lastFile + ")</i></html>";
 			
 			int action = JOptionPane.showConfirmDialog(bhmf, message, title, JOptionPane.YES_NO_OPTION);
 			if (action == JOptionPane.YES_OPTION) {

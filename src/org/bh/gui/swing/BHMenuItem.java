@@ -12,6 +12,7 @@ import org.bh.platform.PlatformEvent;
 import org.bh.platform.PlatformKey;
 import org.bh.platform.Services;
 import org.bh.platform.PlatformEvent.Type;
+import org.bh.platform.i18n.ITranslator;
 
 /**
  * BHMenuItem to create and display new menu items in the menu bar.
@@ -28,6 +29,7 @@ import org.bh.platform.PlatformEvent.Type;
 public class BHMenuItem extends JMenuItem implements IBHComponent, IBHAction, IPlatformListener {
 	private static final long serialVersionUID = 457483046895655665L;
 	private PlatformKey key;
+	private String inputHint;
 	private static List<IBHAction> platformItems = new ArrayList<IBHAction>();
 
 	/**
@@ -121,10 +123,8 @@ public class BHMenuItem extends JMenuItem implements IBHComponent, IBHAction, IP
 	}
 
 	@Override
-	public String getBHHint() {
-		// TODO Auto-generated method stub
-		throw new UnsupportedOperationException(
-				"This method has not been implemented");
+	public String getInputHint() {
+		return inputHint;
 	}
 
 	@Override
@@ -139,5 +139,7 @@ public class BHMenuItem extends JMenuItem implements IBHComponent, IBHAction, IP
 	 */
 	protected void reloadText() {
 		this.setText(Services.getTranslator().translate(key.toString()));
+		inputHint = Services.getTranslator().translate(key, ITranslator.LONG);
+		setToolTipText(inputHint);
 	}
 }

@@ -11,6 +11,11 @@ import org.bh.data.types.Calculable;
 import org.bh.data.types.IValue;
 import org.bh.data.types.StringValue;
 import org.bh.gui.CompValueChangeManager;
+import org.bh.platform.IPlatformListener;
+import org.bh.platform.PlatformEvent;
+import org.bh.platform.Services;
+import org.bh.platform.PlatformEvent.Type;
+import org.bh.platform.i18n.ITranslator;
 import org.bh.validation.ValidationRule;
 
 /**
@@ -26,15 +31,13 @@ import org.bh.validation.ValidationRule;
  * 
  */
 
-// TODO Hints setzen!!! Noch werden für Textfields keine Hints erzeugt
-public class BHTextField extends JTextField implements IBHModelComponent {
+public class BHTextField extends JTextField implements IBHModelComponent, IPlatformListener {
 	private static final long serialVersionUID = -5249789865255724932L;
 
 	/**
 	 * unique key to identify Label.
 	 */
-	String key;
-
+	private String key;
 	private ValidationRule[] validationRules = new ValidationRule[0];
 	private String inputHint;
 	private boolean changeListenerEnabled = true;
@@ -60,6 +63,9 @@ public class BHTextField extends JTextField implements IBHModelComponent {
 		((AbstractDocument) getDocument())
 				.setDocumentFilter(new ChangeListener());
 		this.returnCalculable = returnCalculable;
+
+		reloadText();
+		Services.addPlatformListener(this);
 	}
 
 	/**
@@ -113,19 +119,6 @@ public class BHTextField extends JTextField implements IBHModelComponent {
 		this.validationRules = validationRules;
 	}
 
-	public boolean isTypeValid() {
-		throw new UnsupportedOperationException("Not supported yet.");
-	}
-
-	public void setInputHint(String inputHint) {
-		this.inputHint = inputHint;
-	}
-
-	// TODO ins Interface aufnehmen?
-	public String getInputHint() {
-		return this.inputHint;
-	}
-
 	@Override
 	public IValue getValue() {
 		if (returnCalculable)
@@ -135,10 +128,8 @@ public class BHTextField extends JTextField implements IBHModelComponent {
 	}
 
 	@Override
-	public String getBHHint() {
-		// TODO Auto-generated method stub
-		throw new UnsupportedOperationException(
-				"This method has not been implemented");
+	public String getInputHint() {
+		return inputHint;
 	}
 
 	@Override
@@ -159,6 +150,24 @@ public class BHTextField extends JTextField implements IBHModelComponent {
 		changeListenerEnabled = false;
 		super.setText(t);
 		changeListenerEnabled = true;
+	}
+	
+	/**
+	 * Handle PlatformEvents
+	 */
+	@Override
+	public void platformEvent(PlatformEvent e) {
+		if (e.getEventType() == Type.LOCALE_CHANGED) {
+			reloadText();
+		}
+	}
+
+	/**
+	 * Reloads text if necessary.
+	 */
+	protected void reloadText() {
+		inputHint = Services.getTranslator().translate(key, ITranslator.LONG);
+		setToolTipText(inputHint);
 	}
 
 	protected class ChangeListener extends DocumentFilter {

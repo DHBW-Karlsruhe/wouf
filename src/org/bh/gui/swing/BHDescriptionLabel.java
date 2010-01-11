@@ -6,6 +6,7 @@ import org.bh.platform.IPlatformListener;
 import org.bh.platform.PlatformEvent;
 import org.bh.platform.Services;
 import org.bh.platform.PlatformEvent.Type;
+import org.bh.platform.i18n.ITranslator;
 
 /**
  * Label which displays the translation of a key.
@@ -23,6 +24,7 @@ public class BHDescriptionLabel extends JLabel implements IBHComponent, IPlatfor
 	 * unique key to identify Label.
 	 */
 	private String key;
+	private String inputHint;
 
 	/**
 	 * Constructor to create new <code>BHLabel</code>.
@@ -32,8 +34,9 @@ public class BHDescriptionLabel extends JLabel implements IBHComponent, IPlatfor
 	 */
 	public BHDescriptionLabel(Object key) {
 		this.key = key.toString();
-		Services.addPlatformListener(this);
+		
 		reloadText();
+		Services.addPlatformListener(this);
 	}
 
 	/**
@@ -47,10 +50,8 @@ public class BHDescriptionLabel extends JLabel implements IBHComponent, IPlatfor
 	}
 
 	@Override
-	public String getBHHint() {
-		// TODO Auto-generated method stub
-		throw new UnsupportedOperationException(
-				"This method has not been implemented");
+	public String getInputHint() {
+		return inputHint;
 	}
 
 	/**
@@ -68,5 +69,7 @@ public class BHDescriptionLabel extends JLabel implements IBHComponent, IPlatfor
 	 */
 	protected void reloadText() {
 		this.setText(Services.getTranslator().translate(key));
+		inputHint = Services.getTranslator().translate(key, ITranslator.LONG);
+		setToolTipText(inputHint);
 	}
 }

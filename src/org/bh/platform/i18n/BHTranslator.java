@@ -26,22 +26,6 @@ import org.bh.platform.Services;
  * 
  */
 public final class BHTranslator implements ITranslator {
-
-	/**
-	 * Parameter for short text.
-	 */
-	public static final int SHORT = 0;
-
-	/**
-	 * Parameter for regular text.
-	 */
-	public static final int REGULAR = 1;
-
-	/**
-	 * Parameter for long text.
-	 */
-	public static final int LONG = 2;
-
 	/**
 	 * private Logging instance for log.
 	 */
@@ -71,7 +55,7 @@ public final class BHTranslator implements ITranslator {
 	/**
 	 * Singleton instance.
 	 */
-	private static BHTranslator instance;
+	private static ITranslator instance;
 
 	/**
 	 * <code>ResourceBundle</code> for access to the properties file.
@@ -139,7 +123,7 @@ public final class BHTranslator implements ITranslator {
 	 * 
 	 * @return the instance.
 	 */
-	public static BHTranslator getInstance() {
+	public static ITranslator getInstance() {
 		if (BHTranslator.instance == null) {
 			BHTranslator.instance = new BHTranslator();
 		}
