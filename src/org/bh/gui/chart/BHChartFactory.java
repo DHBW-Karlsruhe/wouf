@@ -16,14 +16,13 @@ import org.jfree.data.xy.DefaultXYDataset;
  * 
  * @author Lars
  * @version 0.1, 16.12.2009
+ *
+ * @author Marco Hammel
+ * @version 0.2 11.01.2010
  * 
  */
 
 public class BHChartFactory {
-
-	public static enum Type {
-		CHARTTYPE;
-	}
 
 	/**
 	 * Method to create a LineChart
@@ -41,12 +40,12 @@ public class BHChartFactory {
 	 * @param key
 	 * @return created LineChart
 	 */
-	public static JFreeChart getLineChart(final String title, final String XAxis,
+	public static BHChartPanel getLineChart(final String title, final String XAxis,
 			final String YAxis, final String key) {
 
 		BHLineChart chart = new BHLineChart(title, XAxis, YAxis, dimDataset(
 				YAxis, XAxis), key);
-		return chart.getChart();
+		return new BHChartPanel(key, chart.getChart(), chart.getClass());
 
 	}
 	
@@ -59,12 +58,12 @@ public class BHChartFactory {
 	 * @param key
 	 * @return
 	 */
-	public static JFreeChart getWaterfallChart(final String title,  final String XAxis,
+	public static BHChartPanel getWaterfallChart(final String title,  final String XAxis,
 			final String YAxis, final String key){
 		
 		BHwaterfallChart chart = new BHwaterfallChart(title, XAxis, YAxis, dimDataset(
 				YAxis, XAxis), key);
-		return chart.getChart();
+		return new BHChartPanel(key, chart.getChart(), chart.getClass());
 	}
 	//TODO Lars.Zuckschwerdt JavaDoc
 	/**
@@ -75,12 +74,12 @@ public class BHChartFactory {
 	 * @param key
 	 * @return
 	 */
-	public static JFreeChart getBarChart(final String title,  final String XAxis,
+	public static BHChartPanel getBarChart(final String title,  final String XAxis,
 			final String YAxis, final String key){
 		
 		BHBarChart chart = new BHBarChart(title, XAxis, YAxis, dimDataset(
 				YAxis, XAxis), key);
-		return chart.getChart();
+		return new BHChartPanel(key, chart.getChart(), chart.getClass());
 	}
 	
 	//TODO Lars.Zuckschwerdt JavaDoc
@@ -92,12 +91,12 @@ public class BHChartFactory {
 	 * @param key
 	 * @return
 	 */
-	public static JFreeChart getStackedBarChart(final String title,  final String XAxis,
+	public static BHChartPanel getStackedBarChart(final String title,  final String XAxis,
 			final String YAxis, final String key){
 		
 		BHstackedBarChart chart = new BHstackedBarChart(title, XAxis, YAxis, dimDataset(
 				YAxis, XAxis), key);
-		return chart.getChart();
+		return new BHChartPanel(key, chart.getChart(), chart.getClass());
 	}
 	/**
 	 * method to create the <code>BHpieChart</code>
@@ -114,10 +113,10 @@ public class BHChartFactory {
 	 * 		<code>String</code> key
 	 * @return
 	 */
-	public static JFreeChart getPieChart(final String title, final String XAxis, final String YAxis, final String key){
+	public static BHChartPanel getPieChart(final String title, final String XAxis, final String YAxis, final String key){
 		BHPieChart chart = new BHPieChart(title, dimDataset(), key);
 		
-		return chart.getChart();
+		return new BHChartPanel(key, chart.getChart(), chart.getClass());
 	}
 	/**
 	 * method to create the <code>BHxyAreaChart</code>
@@ -140,13 +139,13 @@ public class BHChartFactory {
 	 * @return
 	 * 
 	 */
-	public static JFreeChart getXYAreaChart(final String title, final String xAxis,
+	public static BHChartPanel getXYAreaChart(final String title, final String xAxis,
 			final String yAxis, final String seriesKey, final double[][] data, final String key,
 			final XYPlot plot) {
 
 		BHxyAreaChart chart = new BHxyAreaChart(title, xAxis, yAxis,
 				dimDataset(seriesKey, data), key, plot);
-		return chart.getChart();
+		return new BHChartPanel(key, chart.getChart(), chart.getClass());
 	}
 
 	/**
@@ -171,14 +170,14 @@ public class BHChartFactory {
 	 * @return
 	 * 
 	 */
-	public static JFreeChart getHistogramChart(final String title, final String xAxis,
+	public static BHChartPanel getHistogramChart(final String title, final String xAxis,
 			final String yAxis, final String datasetKey, final double[] values, final int bins,
 			final double minimum, final double maximum, final String key, final Plot plot) {
 
 		BHHistogramChart chart = new BHHistogramChart(title, xAxis, yAxis,
 				dimDataset(datasetKey, values, bins, minimum, maximum), key,
 				plot);
-		return chart.getChart();
+		return new BHChartPanel(key, chart.getChart(), chart.getClass());
 	}
 
 	/**

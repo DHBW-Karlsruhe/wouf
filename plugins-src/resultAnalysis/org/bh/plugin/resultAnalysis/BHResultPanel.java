@@ -45,6 +45,8 @@ import com.jgoodies.forms.layout.CellConstraints;
  * @author Norman
  * @version 1.1, 10.01.2010
  *
+ * @author Marco Hammel
+ * @version 1.2 11.01.2010
  */
 
 public final class BHResultPanel extends JPanel{
@@ -142,7 +144,7 @@ public final class BHResultPanel extends JPanel{
        		/*
        		 * Creates the default LineChart and add it on a Label 
        		 */
-       		lineChartLabel = new ChartPanel(BHChartFactory.getLineChart("TestChart", "XAxis", "YAxis",  "LineChart"));
+       		lineChartLabel = BHChartFactory.getLineChart("TestChart", "XAxis", "YAxis",  "LineChart");
        		lineChartLabel.setFont(UIManager.getFont("defaultFont"));
        		
        		/*
@@ -154,7 +156,7 @@ public final class BHResultPanel extends JPanel{
        		/*
        		 * creates the default PieChart
        		 */
-       		pieChartLabel = new ChartPanel(BHChartFactory.getPieChart("TestPieChart", "XAxis", "YAxis", "PieChart"));
+       		pieChartLabel = BHChartFactory.getPieChart("TestPieChart", "XAxis", "YAxis", "PieChart");
        		pieChartLabel.setFont(UIManager.getFont("defaultFont"));
        		
        		
