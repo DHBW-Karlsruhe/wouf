@@ -31,11 +31,6 @@ import com.jgoodies.forms.layout.FormLayout;
 public class BHStochasticInputForm extends JPanel {
 
 	private BHDescriptionLabel lstochprocess;
-	private BHDescriptionLabel lrange;
-	private BHTextField tfrange;
-	private BHDescriptionLabel lprobab;
-	private BHTextField tfprobab;
-	private JLabel lpercentprobab;
 	private BHDescriptionLabel ldcfMethod;
 	
 	private JComboBox cbstochprocess;
@@ -67,11 +62,11 @@ public class BHStochasticInputForm extends JPanel {
 		this.add(this.getlDCFmethod(), cons.xywh(3, 2, 1, 1));
 		this.add(this.getcbDCFmethod(), cons.xywh(6, 2, 3, 1));
 		this.add(this.getlstochProcess(), cons.xywh(3, 6, 1, 1));
-		this.add(this.getlrange(), cons.xywh(3, 8, 1, 1));
-		this.add(this.gettfrange(), cons.xywh(6, 8, 1, 1));
-		this.add(this.getlprobab(), cons.xywh(3, 10, 1, 1));
-		this.add(this.gettfprobab(), cons.xywh(6, 10, 1, 1));
-		this.add(this.getlpercentProbab(), cons.xywh(8, 10, 1, 1));
+//		this.add(this.getlrange(), cons.xywh(3, 8, 1, 1));
+//		this.add(this.gettfrange(), cons.xywh(6, 8, 1, 1));
+//		this.add(this.getlprobab(), cons.xywh(3, 10, 1, 1));
+//		this.add(this.gettfprobab(), cons.xywh(6, 10, 1, 1));
+//		this.add(this.getlpercentProbab(), cons.xywh(8, 10, 1, 1));
 		this.add(this.getcbstochProcess(), cons.xywh(6, 6, 3, 1));
 
 	}
@@ -113,89 +108,6 @@ public class BHStochasticInputForm extends JPanel {
 		return this.lstochprocess;
 	}
 
-	/**
-	 * Getter method for component lrange.
-	 * 
-	 * @return the initialized component
-	 */
-	public BHDescriptionLabel getlrange() {
-
-		if (this.lrange == null) {
-			this.lrange = new BHDescriptionLabel("increment");
-		}
-
-		return this.lrange;
-	}
-
-	// Here do the getters for the textfields begin
-	
-	/**
-	 * Getter method for component tfrange.
-	 * 
-	 * @return the initialized component
-	 */
-	public BHTextField gettfrange() {
-
-		if (this.tfrange == null) {
-			//TODO remove dummy
-			this.tfrange = new BHTextField("dummy");
-			// TODO add key, input hint and check rules;
-			// ValidationMethods.isNotZero???
-			ValidationRule[] rules = { VRMandatory.INSTANCE,
-					VRIsInteger.INSTANCE, VRIsPositive.INSTANCE };
-			tfrange.setValidationRules(rules);
-		}
-
-		return this.tfrange;
-	}
-
-	/**
-	 * Getter method for component lprobab.
-	 * 
-	 * @return the initialized component
-	 */
-	public BHDescriptionLabel getlprobab() {
-
-		if (this.lprobab == null) {
-			this.lprobab = new BHDescriptionLabel("chance");
-		}
-
-		return this.lprobab;
-	}
-
-	/**
-	 * Getter method for component tfprobab.
-	 * 
-	 * @return the initialized component
-	 */
-	public BHTextField gettfprobab() {
-
-		if (this.tfprobab == null) {
-			//TODO remove DUMMY
-			this.tfprobab = new BHTextField("dummy");
-			// TODO add key, input hint and check rules
-			ValidationRule[] rules = { VRMandatory.INSTANCE,
-					VRIsInteger.INSTANCE,
-					VRIsBetween.BETWEEN0AND100 };
-			tfprobab.setValidationRules(rules);
-		}
-
-		return this.tfprobab;
-	}
-
-	/**
-	 * Getter method for component lpercentProbab.
-	 * 
-	 * @return the initialized component
-	 */
-	public JLabel getlpercentProbab() {
-
-		if (this.lpercentprobab == null) {
-			this.lpercentprobab = new JLabel("%");
-		}
-
-		return this.lpercentprobab;
-	}
 
 	/**
 	 * Getter method for component cbstochProcess.
