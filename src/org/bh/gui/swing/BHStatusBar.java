@@ -78,7 +78,7 @@ public class BHStatusBar extends JPanel {
 		// add components to panel
 		add(hintLabel, new CellConstraints().xywh(2, 1, 1, 1));
 		add(bh, cons.xywh(4, 1, 1, 1));
-		add(errorHintLabel, new CellConstraints().xywh(6, 1, 1, 1));
+		add(errorHintLabel, new CellConstraints().xywh(6, 1, 1, 1,"right,center"));
 	}
 
 	public static BHStatusBar getInstance() {
