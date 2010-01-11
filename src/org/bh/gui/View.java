@@ -9,7 +9,6 @@ import java.awt.Container;
 import java.awt.event.FocusEvent;
 import java.awt.event.FocusListener;
 import java.awt.event.KeyListener;
-import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.beans.PropertyChangeListener;
 import java.util.Collections;
@@ -38,8 +37,7 @@ import com.jgoodies.validation.ValidationResult;
  * @author Marco Hammel
  * @author Robert
  */
-public class View implements MouseListener, FocusListener,
-		ICompValueChangeListener {
+public class View implements FocusListener, ICompValueChangeListener {
 
 	private static Logger log = Logger.getLogger(View.class);
 
@@ -128,7 +126,6 @@ public class View implements MouseListener, FocusListener,
 	 */
 	private void addListeners(IBHComponent comp) {
 		if (comp instanceof Component) {
-			((Component) comp).addMouseListener(this);
 			((Component) comp).addFocusListener(this);
 		}
 		if (comp instanceof IBHModelComponent) {
@@ -144,7 +141,6 @@ public class View implements MouseListener, FocusListener,
 	 */
 	private void removeViewListeners(IBHComponent comp) {
 		if (comp instanceof Component) {
-			((Component) comp).removeMouseListener(this);
 			((Component) comp).removeFocusListener(this);
 		}
 		if (comp instanceof IBHModelComponent) {
@@ -340,30 +336,12 @@ public class View implements MouseListener, FocusListener,
 	 *            representes the source
 	 * @see BHStatusBar
 	 */
-	private void handleInputInfoEvent(Object e) {
-		if (e instanceof IBHComponent) {
-			BHValidityEngine.setInputHintLabel((IBHComponent) e);
-		}
-	}
+	protected void handleInputInfoEvent(Object e) {
+		if (!(e instanceof IBHComponent))
+			return;
 
-	public void mouseClicked(MouseEvent e) {
-		// this.handleInputInfoEvent(e.getSource());
-	}
-
-	public void mouseEntered(MouseEvent e) {
-		// this.handleInputInfoEvent(e.getSource());
-	}
-
-	public void mouseExited(MouseEvent e) {
-		// this.handleInputInfoEvent(e.getSource());
-	}
-
-	public void mousePressed(MouseEvent e) {
-		this.handleInputInfoEvent(e.getSource());
-	}
-
-	public void mouseReleased(MouseEvent e) {
-		// this.handleInputInfoEvent(e.getSource());
+		IBHComponent comp = (IBHComponent) e;
+		Services.getBHstatusBar().setHint(comp.getInputHint());
 	}
 
 	public void addViewListener(IViewListener l) {
@@ -385,6 +363,7 @@ public class View implements MouseListener, FocusListener,
 			SwingUtilities.invokeLater(new Runnable() {
 				@Override
 				public void run() {
+					handleInputInfoEvent(e.getSource());
 					revalidate((IBHModelComponent) e.getSource());
 				}
 			});
@@ -393,6 +372,7 @@ public class View implements MouseListener, FocusListener,
 
 	@Override
 	public void focusLost(FocusEvent e) {
+		Services.getBHstatusBar().removeHint();
 		Services.getBHstatusBar().removeErrorHint();
 	}
 

@@ -17,6 +17,7 @@ import org.bh.platform.i18n.ITranslator;
 
 import com.jgoodies.forms.layout.CellConstraints;
 import com.jgoodies.forms.layout.FormLayout;
+import com.jgoodies.validation.view.ValidationResultViewFactory;
 
 /**
  * 
@@ -28,57 +29,58 @@ import com.jgoodies.forms.layout.FormLayout;
  * 
  **/
 
-public class BHStatusBar extends JPanel{
+@SuppressWarnings("serial")
+public class BHStatusBar extends JPanel {
 
 	private static BHStatusBar instance = null;
 	JLabel bh;
-	JLabel hint;
-	JLabel errorHint;
+	JLabel hintLabel;
+	JLabel errorHintLabel;
 	CellConstraints cons;
-	
+
 	PopupFactory factory;
 	public Popup popup;
-	
+
 	JScrollPane popupPane;
 	boolean open;
-	
-	ITranslator translator = BHTranslator.getInstance(); 
-	
+
+	ITranslator translator = BHTranslator.getInstance();
+
 	JOptionPane optionPane;
-	
-	private JPanel hintContainer;
 
 	private BHStatusBar() {
-				
-		//setLayout to the status bar
+		// setLayout to the status bar
 		String rowDef = "p";
-		String colDef = "6px,0:grow(0.4),0:grow(0.2),0:grow(0.4)";
-		setLayout(new FormLayout(colDef, rowDef));
+		String colDef = "6px,fill:min:grow,6px,min,6px,fill:min:grow,6px";
+		FormLayout layout = new FormLayout(colDef, rowDef);
+		layout.setColumnGroups(new int[][] { { 2, 6 } });
+		setLayout(layout);
 		cons = new CellConstraints();
-
-		// create tool tip label
-		hint = new JLabel("");
-		hint.setText("");
 		
-		hintContainer = new JPanel();
-		hintContainer.setLayout(new FormLayout("0:grow(0.4)", "p"));
+		hintLabel = new JLabel("");
+		hintLabel.setIcon(ValidationResultViewFactory.getInfoIcon());
+		removeHint();
 		
-		//Test the Popup		
-//		popupPane = new JScrollPane(new JLabel("TEST"));
-//		factory = PopupFactory.getSharedInstance();
-//	    popup = factory.getPopup(this, popupPane, 500, 500);
+		errorHintLabel = new JLabel(translator.translate("LtoolTip"));
+		errorHintLabel.setIcon(ValidationResultViewFactory.getErrorIcon());
+		errorHintLabel.addMouseListener(new BHLabelListener());
+		removeErrorHint();
 
+		// Test the Popup
+		// popupPane = new JScrollPane(new JLabel("TEST"));
+		// factory = PopupFactory.getSharedInstance();
+		// popup = factory.getPopup(this, popupPane, 500, 500);
 
 		// create BH logo label
 		bh = new JLabel(new ImageIcon(BHStatusBar.class
 				.getResource("/org/bh/images/bh-logo-2.png")));
 
 		// add components to panel
-		add(hintContainer, cons.xywh(2, 1, 1, 1));
-		add(bh, cons.xywh(3, 1, 1, 1));
+		add(hintLabel, new CellConstraints().xywh(2, 1, 1, 1));
+		add(bh, cons.xywh(4, 1, 1, 1));
+		add(errorHintLabel, new CellConstraints().xywh(6, 1, 1, 1));
 	}
 
-	
 	public static BHStatusBar getInstance() {
 		if (instance == null) {
 			instance = new BHStatusBar();
@@ -86,98 +88,83 @@ public class BHStatusBar extends JPanel{
 		return instance;
 	}
 
-	/**
-	 * create the status bar with the tooltip included
-	 * 
-	 * @param toolTip
-	 */
-	public void setHint(JLabel hintLabel) {
-		hintContainer.removeAll();
-		if (hintLabel != null)
-			hintContainer.add(hintLabel, new CellConstraints().xy(1, 1));
-		this.revalidate();
-		this.repaint();
-		
-		//popup test
-//		optionPane = new JOptionPane(new JLabel("TEST"), JOptionPane.PLAIN_MESSAGE);
-//		optionPane.createDialog(null, "Errors").setVisible(true);
-		
+	public void setHint(String hintText) {
+		setHint(hintText, false);
 	}
-	
-	public void setHint(String toolTip){
-		setHint(toolTip, false);
-	}
-	
-	public void setHint(String hintText, boolean alert){
-		hint.setText(hintText);
-		if(alert){
-			hint.setForeground(Color.red);
-		}else{
-			hint.setForeground(Color.black);
+
+	public void setHint(String hintText, boolean alert) {
+		hintLabel.setText(hintText);
+		if (alert) {
+			hintLabel.setForeground(Color.RED);
+		} else {
+			hintLabel.setForeground(Color.BLACK);
 		}
-		setHint(hint);
-		//TEST
-		//setToolTip(new JScrollPane(new JLabel("TEST")));
+		hintLabel.setVisible(true);
+
+		// popup test
+		// optionPane = new JOptionPane(new JLabel("TEST"),
+		// JOptionPane.PLAIN_MESSAGE);
+		// optionPane.createDialog(null, "Errors").setVisible(true);
 	}
-	
+
 	public void setErrorHint(JScrollPane pane) {
-		//TODO InfoText festlegen: ob erster Fehler aus Liste oder allgemeiner Hinweis!?
+		// TODO InfoText festlegen: ob erster Fehler aus Liste oder allgemeiner
+		// Hinweis!?
 		
-		errorHint = new JLabel(translator.translate("LtoolTip"));
-		errorHint.addMouseListener(new BHLabelListener());
+		errorHintLabel.setVisible(true);
 		
 		popupPane = pane;
-		
-//		factory = PopupFactory.getSharedInstance();
-//		//TODO genaue Koordniaten für das Popup bestimmen -> abhängig von MainFrame-Größe und Bidlschirmauflösung
-//	    popup = factory.getPopup(this, pane, 500, 500);
 
-		//creates the popup for the error information
+		// factory = PopupFactory.getSharedInstance();
+		// //TODO genaue Koordniaten für das Popup bestimmen -> abhängig von
+		// MainFrame-Größe und Bidlschirmauflösung
+		// popup = factory.getPopup(this, pane, 500, 500);
+
+		// creates the popup for the error information
 		optionPane = new JOptionPane(pane, JOptionPane.PLAIN_MESSAGE);
-    
-		setHint(errorHint);
-	}
-	
-	public void removeHint(){
-		setHint(errorHint);
-	}
-	
-	public void removeErrorHint() {
-		errorHint = null;
-		removeHint();
 	}
 
-	public void openToolTipPopup(){
+	public void removeHint() {
+		hintLabel.setVisible(false);
+	}
+
+	public void removeErrorHint() {
+		errorHintLabel.setVisible(false);
+	}
+
+	public void openToolTipPopup() {
 		factory = PopupFactory.getSharedInstance();
-	    popup = factory.getPopup(this, popupPane, 500, 500);
-	    popup.show();
+		popup = factory.getPopup(this, popupPane, 500, 500);
+		popup.show();
 	}
 
 	/**
 	 * 
-	 * This MouseListener provides the lErrorTip - Label the ability to show a popup with validation information
+	 * This MouseListener provides the lErrorTip - Label the ability to show a
+	 * popup with validation information
 	 * 
 	 * @author Tietze.Patrick
 	 * @version 1.0, 2009/12/30
-	 *
+	 * 
 	 */
-	
-	class BHLabelListener extends MouseInputAdapter{
-    	
-		public BHLabelListener(){
+
+	class BHLabelListener extends MouseInputAdapter {
+
+		public BHLabelListener() {
 			open = false;
 		}
+
 		@Override
-		public void mouseClicked(MouseEvent e){
-//			if(!open){
-//    			popup.show();
-//    			open = true;
-//			}else if(open){
-//    			popup.hide();
-//    			open = false;
-//    		}
+		public void mouseClicked(MouseEvent e) {
+			// if(!open){
+			// popup.show();
+			// open = true;
+			// }else if(open){
+			// popup.hide();
+			// open = false;
+			// }
 			optionPane.createDialog(null, "Errors").setVisible(true);
 		}
-	
-    }
+
+	}
 }

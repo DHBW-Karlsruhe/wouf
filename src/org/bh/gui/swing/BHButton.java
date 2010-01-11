@@ -1,9 +1,11 @@
 package org.bh.gui.swing;
 
+import java.awt.event.MouseEvent;
 import java.util.ArrayList;
 import java.util.List;
 
 import javax.swing.JButton;
+import javax.swing.event.MouseInputAdapter;
 
 import org.bh.platform.IPlatformListener;
 import org.bh.platform.PlatformEvent;
@@ -57,6 +59,7 @@ public class BHButton extends JButton implements IBHComponent, IBHAction, IPlatf
 	public BHButton(String key) {
 		super();
 		this.key = key;
+		this.addMouseListener(new BHToolTipListener());
 
 		reloadText();
 		Services.addPlatformListener(this);
@@ -123,19 +126,17 @@ public class BHButton extends JButton implements IBHComponent, IBHAction, IPlatf
 	 * @version 1.0, 29.12.2009
 	 * 
 	 */
-	/*
 	class BHToolTipListener extends MouseInputAdapter {
 		@Override
 		public void mouseEntered(MouseEvent e) {
-			if (!toolTip.isEmpty())
-				Services.getBHstatusBar().setHint(toolTip);
+			if (!inputHint.isEmpty())
+				Services.getBHstatusBar().setHint(inputHint);
 		}
 
 		@Override
 		public void mouseExited(MouseEvent e) {
-			if (!toolTip.isEmpty())
+			if (!inputHint.isEmpty())
 				Services.getBHstatusBar().removeHint();
 		}
 	}
-	*/
 }

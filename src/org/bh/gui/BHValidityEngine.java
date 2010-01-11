@@ -8,13 +8,10 @@ import java.awt.Component;
 import java.util.Collection;
 import java.util.Map;
 
-import javax.swing.JComponent;
-import javax.swing.JLabel;
 import javax.swing.JScrollPane;
 import javax.swing.text.JTextComponent;
 
 import org.apache.log4j.Logger;
-import org.bh.controller.Controller;
 import org.bh.gui.swing.BHStatusBar;
 import org.bh.gui.swing.IBHComponent;
 import org.bh.gui.swing.IBHModelComponent;
@@ -87,16 +84,6 @@ public abstract class BHValidityEngine {
 
         JScrollPane resultList = (JScrollPane) ValidationResultViewFactory.createReportList(validationResultModel);
         return resultList;
-    }
-    /**
-     * set the Input hint to the BHStatusBar
-     *
-     * @param comp instances of IBHComponent
-     * @see BHStatusBar
-     */
-    protected static void setInputHintLabel(IBHComponent comp) {
-        log.debug("Input ToolTip has been set to Status Bar");
-        Controller.setBHstatusBarHint((JLabel) ValidationComponentUtils.getInputHint((JComponent) comp));
     }
     /**
      * run a validation and deliver the Result to the BHStatusBar

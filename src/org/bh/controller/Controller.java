@@ -4,7 +4,6 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.Map;
 
-import javax.swing.JLabel;
 import javax.swing.JPanel;
 
 import org.apache.log4j.Logger;
@@ -13,7 +12,6 @@ import org.bh.gui.IViewListener;
 import org.bh.gui.View;
 import org.bh.gui.ViewEvent;
 import org.bh.gui.swing.BHButton;
-import org.bh.gui.swing.BHStatusBar;
 import org.bh.gui.swing.IBHComponent;
 import org.bh.gui.swing.IBHModelComponent;
 import org.bh.platform.IPlatformListener;
@@ -100,17 +98,6 @@ public abstract class Controller implements IController, ActionListener,
 	 */
 	public static ITranslator getTranslator() {
 		return Services.getTranslator();
-	}
-
-	/**
-	 * concret BHValidityEngine can use this method to set Info Tool Tip
-	 * 
-	 * @param hintLabel
-	 * @see JLabel
-	 * @see BHStatusBar
-	 */
-	public static void setBHstatusBarHint(JLabel hintLabel) {
-		Services.getBHstatusBar().setHint(hintLabel);
 	}
 
 	/**
