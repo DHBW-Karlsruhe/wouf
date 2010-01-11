@@ -45,7 +45,7 @@ public class BHChartFactory {
 
 		BHLineChart chart = new BHLineChart(title, XAxis, YAxis, dimDataset(
 				YAxis, XAxis), key);
-		return new BHChartPanel(key, chart.getChart(), chart.getClass());
+		return new BHChartPanel(key, chart.getChart(), chart.getClass(), chart);
 
 	}
 	
@@ -63,7 +63,7 @@ public class BHChartFactory {
 		
 		BHwaterfallChart chart = new BHwaterfallChart(title, XAxis, YAxis, dimDataset(
 				YAxis, XAxis), key);
-		return new BHChartPanel(key, chart.getChart(), chart.getClass());
+		return new BHChartPanel(key, chart.getChart(), chart.getClass(), chart);
 	}
 	//TODO Lars.Zuckschwerdt JavaDoc
 	/**
@@ -79,7 +79,7 @@ public class BHChartFactory {
 		
 		BHBarChart chart = new BHBarChart(title, XAxis, YAxis, dimDataset(
 				YAxis, XAxis), key);
-		return new BHChartPanel(key, chart.getChart(), chart.getClass());
+		return new BHChartPanel(key, chart.getChart(), chart.getClass(), chart);
 	}
 	
 	//TODO Lars.Zuckschwerdt JavaDoc
@@ -96,7 +96,7 @@ public class BHChartFactory {
 		
 		BHstackedBarChart chart = new BHstackedBarChart(title, XAxis, YAxis, dimDataset(
 				YAxis, XAxis), key);
-		return new BHChartPanel(key, chart.getChart(), chart.getClass());
+		return new BHChartPanel(key, chart.getChart(), chart.getClass(), chart);
 	}
 	/**
 	 * method to create the <code>BHpieChart</code>
@@ -116,7 +116,7 @@ public class BHChartFactory {
 	public static BHChartPanel getPieChart(final String title, final String XAxis, final String YAxis, final String key){
 		BHPieChart chart = new BHPieChart(title, dimDataset(), key);
 		
-		return new BHChartPanel(key, chart.getChart(), chart.getClass());
+		return new BHChartPanel(key, chart.getChart(), chart.getClass(), chart);
 	}
 	/**
 	 * method to create the <code>BHxyAreaChart</code>
@@ -145,7 +145,7 @@ public class BHChartFactory {
 
 		BHxyAreaChart chart = new BHxyAreaChart(title, xAxis, yAxis,
 				dimDataset(seriesKey, data), key, plot);
-		return new BHChartPanel(key, chart.getChart(), chart.getClass());
+		return new BHChartPanel(key, chart.getChart(), chart.getClass(), chart);
 	}
 
 	/**
@@ -177,7 +177,7 @@ public class BHChartFactory {
 		BHHistogramChart chart = new BHHistogramChart(title, xAxis, yAxis,
 				dimDataset(datasetKey, values, bins, minimum, maximum), key,
 				plot);
-		return new BHChartPanel(key, chart.getChart(), chart.getClass());
+		return new BHChartPanel(key, chart.getChart(), chart.getClass(), chart);
 	}
 
 	/**

@@ -22,11 +22,13 @@ public class BHChartPanel extends ChartPanel implements IBHComponent{
     private String key;
     private String inputHint;
     private Class<? extends IBHAddValue> chartClass;
+    private IBHAddValue chartInstance;
 
-    public BHChartPanel(Object key, JFreeChart chart, Class<? extends IBHAddValue> chartClass){
+    public BHChartPanel(Object key, JFreeChart chart, Class<? extends IBHAddValue> chartClass, IBHAddValue chartInstance){
         super(chart);
         this.key = key.toString();
         this.chartClass = chartClass;
+        this.chartInstance = chartInstance;
     }
 
     /**
@@ -35,6 +37,10 @@ public class BHChartPanel extends ChartPanel implements IBHComponent{
      */
     public Class<? extends IBHAddValue> getChartClass(){
         return this.chartClass;
+    }
+
+    public IBHAddValue getChartInstance(){
+        return this.chartInstance;
     }
 
     public String getInputHint() {
