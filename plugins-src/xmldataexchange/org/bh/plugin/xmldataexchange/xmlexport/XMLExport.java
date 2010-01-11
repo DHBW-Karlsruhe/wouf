@@ -6,6 +6,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.bh.data.DTOAccessException;
 import org.bh.data.DTOProject;
 import org.bh.data.DTOScenario;
 import org.bh.data.IDTO;
@@ -65,12 +66,12 @@ public class XMLExport {
 	 * the specified file.
 	 * @return
 	 */
-	public boolean startExport()
+	public boolean startExport() throws IOException
 	{
 		// Check if the path is a valid input 
 		if (!checkFile())
 		{
-			// TODO export exception
+			throw new IOException();
 		}
 		// Convert the "DTO tree" into a "XML tree"
 		Element project = getDTOInXML(model);
@@ -90,16 +91,12 @@ public class XMLExport {
 		// the XML into the file
 		XMLOutputter out = new XMLOutputter(Format.getPrettyFormat());
 				
-		try {
-			// Create FileWriter
-			FileWriter writer = new FileWriter(exportFile);	
-			// Write into the file	
-			out.output(doc, writer);
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-			return false;
-		}		
+		
+		// Create FileWriter
+		FileWriter writer = new FileWriter(exportFile);	
+		// Write into the file	
+		out.output(doc, writer);
+		
 		return true;
 	}
 	
@@ -113,8 +110,11 @@ public class XMLExport {
 	{
 		exportFile = new File(exportFilePath);
 		
-		if (!exportFile.isFile() || !exportFile.canRead() ||
-				!exportFile.canWrite())
+		if (exportFile.exists() && (!exportFile.isFile() || !exportFile.canRead() ||
+				!exportFile.canWrite()))
+			return false;
+		else if (!exportFile.exists() && exportFile.getParentFile().isDirectory() && (!exportFile.getParentFile()
+				.canRead() || exportFile.getParentFile().canWrite() ))
 			return false;
 		
 		return true;
@@ -148,9 +148,15 @@ public class XMLExport {
 		for (String key : keys)
 		{
 			// Get value and convert it into a JDOM Element
-			IValue val = dto.get(key);
-			Element value = DataTypeConverter.getXMLRepresentation(key, val, bhDataNS);
-			values.add(value);
+			try
+			{
+				IValue val = dto.get(key);
+				Element value = DataTypeConverter.getXMLRepresentation(key, val, bhDataNS);
+				values.add(value);
+			}
+			catch (DTOAccessException e)
+			{			
+			}
 		}
 		
 		// Add all values to the corresponding node

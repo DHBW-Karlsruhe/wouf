@@ -232,13 +232,33 @@ public class DTOScenario extends DTO<DTOPeriod> {
 	public void setFutureValues(boolean futureValues) {
 		this.futureValues = futureValues;
 	}
+
+
+	@Override
+	public String toString() {
+		String result;
+		try
+		{
+			result = get(Key.NAME).toString();
+		}
+		catch  (DTOAccessException e)
+		{
+			return super.toString();
+		}
+		
+		return result;
+	}
+	
+
 	
 	@Override
 	public boolean isValid(boolean recursive) {
 		return super.isValid(recursive) && !children.isEmpty();
 	}
 
+
 	public boolean isIntervalArithmetic() {
 		return false;
 	}
+
 }

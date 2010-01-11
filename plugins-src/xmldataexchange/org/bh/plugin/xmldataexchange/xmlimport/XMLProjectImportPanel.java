@@ -7,9 +7,11 @@ import javax.swing.JPanel;
 import org.bh.gui.swing.BHButton;
 import org.bh.gui.swing.BHTextField;
 
-public class XMLDataImportPanel extends JPanel {
+public class XMLProjectImportPanel extends JPanel {
 
-	public XMLDataImportPanel() {
+	public static final String KEY = "xmldataexchange_project_import_panel";	
+	
+	public XMLProjectImportPanel() {
 		super();
 		
 		setLayout(new FlowLayout());

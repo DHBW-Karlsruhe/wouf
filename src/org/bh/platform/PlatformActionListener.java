@@ -1,5 +1,6 @@
 package org.bh.platform;
 
+import java.awt.BorderLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
@@ -14,14 +15,17 @@ import javax.swing.WindowConstants;
 import javax.swing.tree.TreePath;
 
 import org.apache.log4j.Logger;
+import org.bh.controller.IDataExchangeController;
 import org.bh.controller.IPeriodController;
 import org.bh.data.DTOAccessException;
 import org.bh.data.DTOPeriod;
 import org.bh.data.DTOProject;
 import org.bh.data.DTOScenario;
+import org.bh.data.IDTO;
 import org.bh.data.types.StringValue;
 import org.bh.gui.swing.BHComboBox;
 import org.bh.gui.swing.BHContent;
+import org.bh.gui.swing.BHExportDialog;
 import org.bh.gui.swing.BHMainFrame;
 import org.bh.gui.swing.BHOptionDialog;
 import org.bh.gui.swing.BHStatusBar;
@@ -132,34 +136,21 @@ class PlatformActionListener implements ActionListener {
 		// TODO Katzor.Marcus
 
 		case PROJECTEXPORT:
-			/*
+			
+			final String projectExportPanelKey = "DXMLProjectExport" ;
+			
 			if (bhmf.getBHTree().getSelectionPath() != null)
 			{
 				BHTreeNode selectedNode = (BHTreeNode)bhmf.getBHTree().getSelectionPath().getLastPathComponent();
 				if (selectedNode.getUserObject() instanceof DTOProject)
 				{
-					// Get export plugin
-					PluginManager.getInstance().loadAllServices(IController.class);
-					ServiceLoader<IController> controller = PluginManager.getInstance().getServices(IController.class);		
-					XMLDataExchangeController exportController = null;
-					for (IController contrl : controller)
-					{			
-						contrl.getClass().getPackage().getName().equals("org.bh.plugin.xmldataexchange");
-						{
-							exportController = (XMLDataExchangeController) contrl;				
-							break;
-						}
-					}
-					if (exportController == null)
-					{
-						// TODO Katzor.Marcus Show Message
-						return;
-					}
+					// Get data exchange controller
 					
-					exportController.setExportView();
-					
-					BHExportDialog exportDialog = new BHExportDialog();
-					exportDialog.add(exportController.getViewPanel());
+					IDataExchangeController contrl = Services.getDataExchangeController("XML");					
+					contrl.setModel((IDTO<?>) selectedNode.getUserObject());
+					BHExportDialog exportDialog = new BHExportDialog(bhmf, true);	
+					exportDialog.setTitle(BHTranslator.getInstance().translate(projectExportPanelKey));
+					exportDialog.add(contrl.getExportPanel(projectExportPanelKey, exportDialog), BorderLayout.CENTER);
 					exportDialog.setVisible(true);
 					
 				}
@@ -172,7 +163,7 @@ class PlatformActionListener implements ActionListener {
 			{
 				// TODO Katzor.Marcus Show Message
 			}
-			*/
+			
 			break;
 
 		case PROJECTREMOVE:

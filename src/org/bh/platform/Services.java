@@ -20,6 +20,7 @@ import javax.swing.event.EventListenerList;
 import org.apache.log4j.Logger;
 import org.bh.calculation.IShareholderValueCalculator;
 import org.bh.calculation.IStochasticProcess;
+import org.bh.controller.IDataExchangeController;
 import org.bh.controller.IPeriodController;
 import org.bh.data.DTOKeyPair;
 import org.bh.data.DTOPeriod;
@@ -42,7 +43,9 @@ public class Services {
 	private static HashMap<String, IShareholderValueCalculator> dcfMethods;
 	private static HashMap<String, IStochasticProcess> stochasticProcesses;
 	private static HashMap<String, IPeriodController> periodControllers;
+	private static HashMap<String, IDataExchangeController> dataExchangeController;
 	private static HashMap<String, IImportExport> importExport;
+
 	private static BHMainFrame bhmf = null;
 
 	public static void setBHMainFrame(BHMainFrame bhmf) {
@@ -167,6 +170,32 @@ public class Services {
 		}
 
 	}
+	
+	
+	public static Map<String, IDataExchangeController> getDataExchangeController()
+	{
+		if (dataExchangeController == null)
+			loadDataExchangeController();
+		return dataExchangeController;
+	}
+	
+	public static IDataExchangeController getDataExchangeController(String dataFormat)
+	{
+		if (dataExchangeController == null)
+			loadDataExchangeController();
+		return dataExchangeController.get(dataFormat);
+	}
+	
+	
+	private static void loadDataExchangeController()
+	{
+		dataExchangeController = new HashMap<String, IDataExchangeController>();
+		ServiceLoader<IDataExchangeController> controller = PluginManager
+				.getInstance().getServices(IDataExchangeController.class);
+		for (IDataExchangeController contrl : controller)
+			dataExchangeController.put(contrl.getDataFormat(), contrl);
+	}
+	
 
 	@SuppressWarnings("unchecked")
 	public static List<DTOKeyPair> getStochasticKeysFromEnum(String dtoId,

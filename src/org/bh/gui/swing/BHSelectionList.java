@@ -4,12 +4,17 @@ import java.awt.Color;
 import java.awt.Component;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.swing.DefaultListModel;
 import javax.swing.JCheckBox;
 import javax.swing.JList;
 import javax.swing.ListCellRenderer;
+import javax.swing.ListSelectionModel;
 import javax.swing.UIManager;
+
+import org.bh.data.DTOScenario;
 
 /**
  * List for selecting Scenarios for Import / Export
@@ -21,6 +26,9 @@ import javax.swing.UIManager;
  */
 public class BHSelectionList extends JList implements MouseListener {
 	
+	private List<Object> selectedSecenario = new ArrayList<Object>();
+	
+	
 	/**
 	 * Default Constructor
 	 * @param elements elements to be used.
@@ -30,9 +38,11 @@ public class BHSelectionList extends JList implements MouseListener {
 		DefaultListModel model = new DefaultListModel();
 		for (Object element : elements) {
 			model.addElement(new ListElement(element));
+			selectedSecenario.add(element);
 		}
 		setModel(model);
-		this.setCellRenderer(new BHScenarioSelectionRenderer());
+		setCellRenderer(new BHScenarioSelectionRenderer());
+		setSelectionMode(ListSelectionModel.MULTIPLE_INTERVAL_SELECTION);
 		addMouseListener(this);
 	}
 	
@@ -48,11 +58,12 @@ public class BHSelectionList extends JList implements MouseListener {
 		 
 		// Toggle selected state
 		item.isSelected =!item.isSelected;
-		if (item.isSelected) {
-			this.addSelectionInterval(index, index);
+		
+		if (item.isSelected && !selectedSecenario.contains(item.value)) {
+			selectedSecenario.add(item.value);			
 		}
-		else {
-			this.removeSelectionInterval(index, index);
+		else if (!item.isSelected){
+			selectedSecenario.remove(item.value);
 		}
 		// Repaint cell
 		this.repaint(this.getCellBounds(index, index));
@@ -72,6 +83,15 @@ public class BHSelectionList extends JList implements MouseListener {
 
 	@Override
 	public void mouseReleased(MouseEvent e) {
+	}
+	
+	
+	
+	
+
+	public List<Object> getSelectedScenario()
+	{
+		return selectedSecenario;
 	}
 
 	public class ListElement {
@@ -123,17 +143,17 @@ public class BHSelectionList extends JList implements MouseListener {
 		public Component getListCellRendererComponent(JList list, Object value,
 				int index, boolean isSelected, boolean cellHasFocus) {
 			
-			this.setEnabled(list.isEnabled());
-			System.out.println(new Boolean(((ListElement) value).isSelected).toString());
+			this.setEnabled(list.isEnabled());			
 			this.setSelected(((ListElement) value).isSelected);
 			
 			if (index % 2 == 0) {
 				this.setBackground(UIManager.getColor("control"));
 			} else {
-				this.setBackground(Color.WHITE);
+				this.setBackground(Color.BLUE);
 			}
 			
 			this.setText(value.toString());
+			
 			return this;
 		}
 	}
