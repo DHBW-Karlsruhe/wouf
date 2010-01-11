@@ -165,7 +165,6 @@ public class BHPeriodInputForm extends JPanel {
 		if (tfmaxliabilities == null) {
 			tfmaxliabilities = new BHTextField(IBHComponent.MAXVALUE
 					+ DTOPeriod.Key.LIABILITIES);
-			// TODO add input hint and more rules
 			ValidationRule[] rules = { VRMandatory.INSTANCE };
 			tfmaxliabilities.setValidationRules(rules);
 		}
@@ -181,7 +180,6 @@ public class BHPeriodInputForm extends JPanel {
 		if (tfminliabilities == null) {
 			tfminliabilities = new BHTextField(IBHComponent.MINVALUE
 					+ DTOPeriod.Key.LIABILITIES);
-			// TODO add input hint and more rules
 			ValidationRule[] rules = { VRMandatory.INSTANCE };
 			tfminliabilities.setValidationRules(rules);
 		}
@@ -197,7 +195,6 @@ public class BHPeriodInputForm extends JPanel {
 		if (tfmaxfcf == null) {
 			tfmaxfcf = new BHTextField(IBHComponent.MAXVALUE
 					+ DTOPeriod.Key.FCF);
-			// TODO add input hint and more rules
 			ValidationRule[] rules = { VRMandatory.INSTANCE };
 			tfmaxfcf.setValidationRules(rules);
 		}
@@ -213,7 +210,6 @@ public class BHPeriodInputForm extends JPanel {
 		if (tfminfcf == null) {
 			tfminfcf = new BHTextField(IBHComponent.MINVALUE
 					+ DTOPeriod.Key.FCF);
-			// TODO add input hint and more rules
 			ValidationRule[] rules = { VRMandatory.INSTANCE };
 			tfminfcf.setValidationRules(rules);
 		}
@@ -235,7 +231,6 @@ public class BHPeriodInputForm extends JPanel {
 	public BHTextField getTffcf() {
 		if (tffcf == null) {
 			tffcf = new BHTextField(DTOPeriod.Key.FCF);
-			// TODO add input hint and more rules
 			ValidationRule[] rules = { VRMandatory.INSTANCE };
 			tffcf.setValidationRules(rules);
 		}
@@ -257,13 +252,14 @@ public class BHPeriodInputForm extends JPanel {
 	public BHTextField getTfliabilities() {
 		if (tfliabilities == null) {
 			tfliabilities = new BHTextField(DTOPeriod.Key.LIABILITIES);
-			// TODO input hint and more rules
 			ValidationRule[] rules = { VRMandatory.INSTANCE };
 			tfliabilities.setValidationRules(rules);
 		}
 		return tfliabilities;
 	}
 
+	
+	// TODO remove main later
 	/**
 	 * Test main method.
 	 */

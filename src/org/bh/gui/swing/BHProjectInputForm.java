@@ -50,11 +50,9 @@ public class BHProjectInputForm extends JPanel {
 		this.add(this.getTfcomment(), cons.xywh(4, 6, 1, 1));
 	}
 	
-	// TODO add missing label keys and translations, change hard coded values to keys
-	
 	public BHDescriptionLabel getLproject() {
 		if (lproject == null) {
-			lproject = new BHDescriptionLabel("project");
+			lproject = new BHDescriptionLabel("Project");
 		}
 		return lproject;
 	}
@@ -77,7 +75,7 @@ public class BHProjectInputForm extends JPanel {
 	/**
 	 * Getter method for component tfprojectname.
 	 * 
-	 * @return the initialized component
+	 * @return BHTextField
 	 */
 	public BHTextField getTfprojectname() {
 		if (tfprojectname == null) {
@@ -91,7 +89,7 @@ public class BHProjectInputForm extends JPanel {
 	/**
 	 * Getter method for component tfcomment.
 	 * 
-	 * @return the initialized component
+	 * @return BHTextField
 	 */
 	public BHTextField getTfcomment() {
 		if (tfcomment == null) {

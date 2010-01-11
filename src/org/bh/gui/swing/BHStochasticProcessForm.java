@@ -40,7 +40,6 @@ public class BHStochasticProcessForm extends JPanel {
 		this.add(new JScrollPane(this.getStochasticInputForm()), cons.xywh(1, 2, 1, 1));
 	}
 
-	// TODO add missing label keys and translations, change hard coded values to keys
 	public BHStochasticInputForm getStochasticInputForm() {
 		if (stochasticInputForm == null) {
 			stochasticInputForm = new BHStochasticInputForm();

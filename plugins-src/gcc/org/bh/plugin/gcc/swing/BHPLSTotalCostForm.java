@@ -128,7 +128,7 @@ public class BHPLSTotalCostForm extends JPanel {
 	}
 
 	// Here do the getters for the textfields begin
-	// TODO @Patrick H. add input hints for all TFs
+	
 	public BHTextField getTfUE() {
 		if (tfUE == null) {
 			tfUE = new BHTextField(DTOGCCProfitLossStatementTotalCost.Key.UE);
