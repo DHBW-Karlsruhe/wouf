@@ -17,7 +17,7 @@ public class BHExportDialog extends JDialog {
 
 
 	}
-
+	//TODO make generic for all export plugins
 	private void setWindowProperties() {
 		this.setTitle(BHTranslator.getInstance().translate("DXMLExportTitle"));
 		this.setSize(400, 500);

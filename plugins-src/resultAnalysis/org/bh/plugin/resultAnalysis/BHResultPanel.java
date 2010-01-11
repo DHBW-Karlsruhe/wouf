@@ -5,8 +5,11 @@ import info.clearthought.layout.TableLayout;
 
 import java.awt.BorderLayout;
 import java.awt.Component;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.util.Map;
 
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.UIManager;
 
@@ -15,9 +18,11 @@ import org.bh.data.DTOScenario;
 import org.bh.data.types.Calculable;
 import org.bh.gui.ViewException;
 import org.bh.gui.chart.BHChartFactory;
+import org.bh.gui.swing.BHButton;
 import org.bh.gui.swing.BHDescriptionLabel;
 import org.bh.gui.swing.BHDescriptionTextArea;
 import org.bh.gui.swing.BHValueLabel;
+import org.bh.platform.IImportExport;
 import org.bh.platform.Services;
 import org.bh.platform.formula.FormulaException;
 import org.bh.platform.formula.IFormula;
@@ -44,6 +49,8 @@ import com.jgoodies.forms.layout.CellConstraints;
 
 public final class BHResultPanel extends JPanel{
 	private static final Logger log = Logger.getLogger(BHResultPanel.class);
+
+	private final BHResultPanel me = this;
 
 	private JPanel panel;
 	private ChartPanel lineChartLabel;
@@ -96,23 +103,31 @@ public final class BHResultPanel extends JPanel{
 	private CellConstraints cons;
 	
 	// formulas
-	public Component finiteFormula;
-	public Component infiniteFormula;
+	private Component finiteFormula;
+	private Component infiniteFormula;
 	
+	//export button
+	private BHButton exportButton;
+	
+	//probably not necessary in a later version
+	final DTOScenario scenario;
+	 final Map<String, Calculable[]> result;
 	final ITranslator translator = Services.getTranslator();
 	/**
 	 * Constructor
 	 * @throws ViewException 
 	 */
 	public BHResultPanel(DTOScenario scenario, Map<String, Calculable[]> result) {
-		initialize(scenario, result);
+		this.scenario = scenario;
+		this.result = result;
+		initialize();
 	}
 
 	/**
 	 * Initialize method
 	 * @throws ViewException 
 	 */
-	public void initialize(DTOScenario scenario, Map<String, Calculable[]> result){
+	public void initialize(){
 		BorderLayout layout = new BorderLayout();
 		
 		 double border = 10;
@@ -232,6 +247,48 @@ public final class BHResultPanel extends JPanel{
 				}
        		}
        		
+       		// exportButton
+       		exportButton = new BHButton("EXPORTSCENARIO");
+       		exportButton.addActionListener(new ActionListener() {
+
+				@Override
+				public void actionPerformed(ActionEvent e) {
+					Map<String, IImportExport> impExpPlugins;
+					impExpPlugins = Services.getImportExportPlugins(IImportExport.EXP_SCENARIO_RES_DET);
+					//BHSelectionList selList = new BHSelectionList(impExpPlugins.keySet().toArray());
+					//BHExportDialog expD = new BHExportDialog();
+					//expD.add(selList);
+					//expD.setVisible(true);
+					String[] impExpArray = impExpPlugins.keySet().toArray(new String[0]);
+					String s = (String)JOptionPane.showInputDialog(
+		                    me, "Choose output format",
+		                    "Scenario Export",
+		                    JOptionPane.PLAIN_MESSAGE,
+		                    null,
+		                    impExpArray, impExpArray[0]);
+					try {
+						IImportExport esp = impExpPlugins.get(s).getClass().newInstance();
+						esp.exportScenarioResults(scenario, result);
+					
+					} catch (InstantiationException e1) {
+						// TODO Auto-generated catch block
+						e1.printStackTrace();
+					} catch (IllegalAccessException e1) {
+						// TODO Auto-generated catch block
+						e1.printStackTrace();
+					}
+
+		//If a string was returned, say so.
+//		if ((s != null) && (s.length() > 0)) {
+//		    setLabel("Green eggs and... " + s + "!");
+//		    return;
+//		}
+
+				}
+       			
+       		});
+       		
+       		
 				
 		
        		
@@ -296,19 +353,22 @@ public final class BHResultPanel extends JPanel{
 //       		this.add(FCFwaccEquity, BorderLayout.CENTER);
 //       		//this.add(lineChartLabel, BorderLayout.EAST);
 //       		
-				this.add(finiteFormula,"3,1");
-	      		this.add(infiniteFormula,"5,1");
+       		this.add(exportButton, "3,1");
+       		
+       		
+       		this.add(finiteFormula,"3,3");
+	      	this.add(infiniteFormula,"5,3");
 	       		
 				
-       		this.add(APVpresentValueDESC, "1,3");
+       		this.add(APVpresentValueDESC, "1,5");
        		
        	
-       		this.add(APVpresentValue, "3,3");
-       		this.add(pieChartLabel, "5,3");
+       		this.add(APVpresentValue, "3,5");
+       		this.add(pieChartLabel, "5,5");
        		
-       		this.add(APVpresentValueTaxShieldDESC, "1,5");
-       		this.add(APVpresentValueTaxShield, "3,5");
-       		this.add(lineChartLabel, "5,5");
+       		this.add(APVpresentValueTaxShieldDESC, "1,7");
+       		this.add(APVpresentValueTaxShield, "3,7");
+       		this.add(lineChartLabel, "5,7");
 	}
 	
 //	/**

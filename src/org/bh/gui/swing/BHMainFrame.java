@@ -34,7 +34,6 @@ import org.bh.platform.PlatformEvent.Type;
  * @author Thiele.Klaus
  * @author Schmalzhaf.Alexander
  * @author Loeckelt.Michael
- * 
  * @version 0.1.1, 2009/12/16
  * @version 0.2, 2009/12/22
  * @version 0.3, 2009/12/31

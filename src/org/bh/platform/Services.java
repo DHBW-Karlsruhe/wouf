@@ -9,6 +9,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.ServiceLoader;
+import java.util.Map.Entry;
 
 import javax.swing.ImageIcon;
 import javax.swing.JPanel;
@@ -41,6 +42,7 @@ public class Services {
 	private static HashMap<String, IShareholderValueCalculator> dcfMethods;
 	private static HashMap<String, IStochasticProcess> stochasticProcesses;
 	private static HashMap<String, IPeriodController> periodControllers;
+	private static HashMap<String, IImportExport> importExport;
 	private static BHMainFrame bhmf = null;
 
 	public static void setBHMainFrame(BHMainFrame bhmf) {
@@ -183,6 +185,39 @@ public class Services {
 		return keys;
 	}
 
+	private static void loadImportExportPlugins() {
+		// load all import export plug-ins and put them into the map
+		importExport = new HashMap<String, IImportExport>();
+		ServiceLoader<IImportExport> impExpPlugins = PluginManager
+				.getInstance().getServices(IImportExport.class);
+		for (IImportExport impExp : impExpPlugins) {
+			importExport.put(impExp.getUniqueId(), impExp);
+		}
+	}
+	
+	/**
+	 * Returns the references to all import export plug-ins.
+	 * 
+	 * @return References to all import export plug-ins matching the required methods.
+	 */
+	public static Map<String, IImportExport> getImportExportPlugins(int requiredMetods) {
+		int check;
+		Map<String, IImportExport> matchingImportExport;
+		
+		if (importExport == null) {
+			loadImportExportPlugins();
+		}
+		matchingImportExport = new HashMap<String, IImportExport>();
+		for(Entry<String, IImportExport> plugin : importExport.entrySet()) {
+			check = requiredMetods & plugin.getValue().getSupportedMethods();
+			if(requiredMetods == check) {
+				matchingImportExport.put(plugin.getKey(), plugin.getValue());
+			}
+		}
+		return matchingImportExport;
+	}
+	
+	
 	/*
 	 * --------------------------------------- GUI
 	 * ---------------------------------------

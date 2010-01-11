@@ -15,7 +15,7 @@ import org.bh.data.types.DistributionMap;
  * @version 1.0, 10.01.2010
  * 
  */
-public interface IImportExport {
+public interface IImportExport extends IDisplayablePlugin {
 	
 	static final int EXP_PROJECT		 	= 1 << 0;
 	static final int EXP_PROJECT_RES_DET	= 1 << 1;
@@ -99,4 +99,6 @@ public interface IImportExport {
 	 * @return int as bitmap of supported methodes
 	 */
 	int getSupportedMethods();
+
+	String getUniqueId();
 }
