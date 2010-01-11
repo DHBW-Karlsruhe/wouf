@@ -122,8 +122,6 @@ public class BHScenarioForm extends JPanel {
 		
 	}
 
-	// TODO @Anton add missing keys etc. and translations, change hard coded
-	// values to keys
 	
 	private JPanel getPprocess(BHScenarioForm.Type type) {
 		switch (type){
