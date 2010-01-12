@@ -272,17 +272,36 @@ public class PlatformController {
 											.size()][3];
 									// transform data
 									for (int i = 0; i < periods.size(); i++) {
-										try {
-											DTOPeriod period = (DTOPeriod) periods
-													.get(i);
+										DTOPeriod period = (DTOPeriod) periods
+												.get(i);
 
+										try {
 											periodData[i][0] = period
 													.get(DTOPeriod.Key.NAME);
+										} catch (DTOAccessException dtoae) {
+											log
+													.error(
+															"Cannot get name for period table",
+															dtoae);
+										}
+										try {
 											periodData[i][1] = period
 													.getLiabilities();
+										} catch (DTOAccessException dtoae) {
+											log
+													.error(
+															"Cannot get liabilities for period table",
+															dtoae);
+										}
+										try {
 											periodData[i][2] = period.getFCF();
 										} catch (DTOAccessException dtoae) {
-											// do nothing...
+											if (i > 0) {
+												log
+														.error(
+																"Cannot get FCF for period table",
+																dtoae);
+											}
 										}
 
 									}
