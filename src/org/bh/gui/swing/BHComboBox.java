@@ -26,6 +26,7 @@ public class BHComboBox extends JComboBox implements IBHModelComponent,
 	private boolean sorted = false;
 	private Item[] items = new Item[0];
 	private final CompValueChangeManager valueChangeManager = new CompValueChangeManager();
+	private boolean changeListenerEnabled = true;
 
 	public BHComboBox(Object key) {
 		this.key = key.toString();
@@ -33,7 +34,9 @@ public class BHComboBox extends JComboBox implements IBHModelComponent,
 		addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				valueChangeManager.fireCompValueChangeEvent(BHComboBox.this);
+				if (changeListenerEnabled)
+					valueChangeManager
+							.fireCompValueChangeEvent(BHComboBox.this);
 			}
 		});
 	}
@@ -55,6 +58,9 @@ public class BHComboBox extends JComboBox implements IBHModelComponent,
 	@Override
 	public void setValue(IValue value) {
 		if (value == null) {
+			// at this point, it is necessary to trigger a change event because
+			// the first item seems to be selected, but in fact is not saved in
+			// the DTO
 			this.setSelectedIndex(0);
 			return;
 		}
@@ -62,7 +68,9 @@ public class BHComboBox extends JComboBox implements IBHModelComponent,
 		for (int i = 0; i < this.getItemCount(); i++) {
 			Item item = (Item) this.getItemAt(i);
 			if (value.equals(item.getValue())) {
+				changeListenerEnabled = false;
 				this.setSelectedIndex(i);
+				changeListenerEnabled = true;
 				return;
 			}
 		}

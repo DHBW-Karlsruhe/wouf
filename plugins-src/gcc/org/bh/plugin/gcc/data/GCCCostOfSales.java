@@ -33,7 +33,7 @@ public class GCCCostOfSales implements ICalculationPreparer {
 		
 		Calculable ebit = new DoubleValue(0);
 		
-		ebit.add(plsNow.getCalculable(DTOGCCProfitLossStatementCostOfSales.Key.UE),
+		ebit = ebit.add(plsNow.getCalculable(DTOGCCProfitLossStatementCostOfSales.Key.UE),
 				plsNow.getCalculable(DTOGCCProfitLossStatementCostOfSales.Key.HK),
 //				plsNow.getCalculable(DTOGCCProfitLossStatementCostOfSales.Key.VERTK),
 //				plsNow.getCalculable(DTOGCCProfitLossStatementCostOfSales.Key.VERWK),

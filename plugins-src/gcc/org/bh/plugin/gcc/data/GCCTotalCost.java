@@ -28,7 +28,7 @@ public class GCCTotalCost implements ICalculationPreparer {
 		
 		Calculable ebit = new DoubleValue(0);
 		
-		ebit.add(plsNow.getCalculable(DTOGCCProfitLossStatementTotalCost.Key.UE),
+		ebit = ebit.add(plsNow.getCalculable(DTOGCCProfitLossStatementTotalCost.Key.UE),
 				plsNow.getCalculable(DTOGCCProfitLossStatementTotalCost.Key.ABSCH),
 				plsNow.getCalculable(DTOGCCProfitLossStatementTotalCost.Key.SBA),
 				plsNow.getCalculable(DTOGCCProfitLossStatementTotalCost.Key.AUERG));
