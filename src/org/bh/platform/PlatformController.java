@@ -284,6 +284,10 @@ public class PlatformController {
 															"Cannot get name for period table",
 															dtoae);
 										}
+										
+										if (!period.isValid(true))
+											continue;
+										
 										try {
 											periodData[i][1] = period
 													.getLiabilities();
@@ -303,7 +307,6 @@ public class PlatformController {
 																dtoae);
 											}
 										}
-
 									}
 									try {
 										((BHDeterministicProcessForm) ((BHScenarioForm) view

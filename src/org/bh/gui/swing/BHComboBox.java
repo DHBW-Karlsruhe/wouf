@@ -17,17 +17,19 @@ import org.bh.platform.PlatformEvent.Type;
 import org.bh.platform.i18n.ITranslator;
 import org.bh.validation.ValidationRule;
 
-
-public class BHComboBox extends JComboBox implements IBHModelComponent, ActionListener, IPlatformListener {
+public class BHComboBox extends JComboBox implements IBHModelComponent,
+		ActionListener, IPlatformListener {
 	private static final long serialVersionUID = 3609724364063209645L;
 	private static final ITranslator translator = Services.getTranslator();
 	private String key;
+	private String inputHint;
 	private boolean sorted = false;
 	private Item[] items = new Item[0];
 	private final CompValueChangeManager valueChangeManager = new CompValueChangeManager();
 
 	public BHComboBox(Object key) {
 		this.key = key.toString();
+		reloadText();
 		addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
@@ -56,7 +58,7 @@ public class BHComboBox extends JComboBox implements IBHModelComponent, ActionLi
 			this.setSelectedIndex(0);
 			return;
 		}
-		
+
 		for (int i = 0; i < this.getItemCount(); i++) {
 			Item item = (Item) this.getItemAt(i);
 			if (value.equals(item.getValue())) {
@@ -68,9 +70,7 @@ public class BHComboBox extends JComboBox implements IBHModelComponent, ActionLi
 
 	@Override
 	public String getInputHint() {
-		// TODO Auto-generated method stub
-		throw new UnsupportedOperationException(
-				"This method has not been implemented");
+		return inputHint;
 	}
 
 	@Override
@@ -79,6 +79,8 @@ public class BHComboBox extends JComboBox implements IBHModelComponent, ActionLi
 	}
 
 	protected void reloadText() {
+		inputHint = Services.getTranslator().translate(key, ITranslator.LONG);
+		setToolTipText(inputHint);
 		this.updateUI();
 	}
 
@@ -132,7 +134,7 @@ public class BHComboBox extends JComboBox implements IBHModelComponent, ActionLi
 		public String toString() {
 			return translator.translate(key);
 		}
-		
+
 		public String getKey() {
 			return key;
 		}
