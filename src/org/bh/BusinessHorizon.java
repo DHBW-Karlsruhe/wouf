@@ -5,7 +5,6 @@ import java.lang.Thread.UncaughtExceptionHandler;
 import javax.swing.SwingUtilities;
 
 import org.apache.log4j.Logger;
-import org.bh.data.IPeriodicalValuesDTO;
 import org.bh.platform.PlatformController;
 import org.bh.platform.PluginManager;
 import org.bh.platform.Services;
@@ -32,11 +31,8 @@ public class BusinessHorizon {
 	 */
 	public static void main(String[] args) throws Exception {
 		log.info("Business Horizon is starting...");
-		// set Look&Feel
-		Services.setNimbusLookAndFeel();
 		
-		// TODO Thiele.Klaus Replace with java.awt.Splashscreen
-		// new Thread(new BHSplashScreen()).start();
+		PluginManager.init();
 
 		Thread
 				.setDefaultUncaughtExceptionHandler(new UncaughtExceptionHandler() {
@@ -45,19 +41,19 @@ public class BusinessHorizon {
 						log.error("Uncaught exception", e);
 					}
 				});
-
-		PluginManager.getInstance().loadAllServices(IPeriodicalValuesDTO.class);
-
+		
+		// set Look&Feel
+		Services.setNimbusLookAndFeel();
+		
+		// TODO Thiele.Klaus Replace with java.awt.Splashscreen
+		// new Thread(new BHSplashScreen()).start();
+		
 		// Invoke start of BHMainFrame
 		SwingUtilities.invokeLater(new Runnable() {
-
 			@Override
 			public void run() {
-				
 				PlatformController pc = new PlatformController();
-				
 			}
-
 		});
 	}
 }

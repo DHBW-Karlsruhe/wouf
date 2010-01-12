@@ -8,6 +8,7 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
+import java.io.ObjectStreamClass;
 import java.util.ArrayList;
 import java.util.Iterator;
 
@@ -62,12 +63,24 @@ public class PlatformPersistenceManager {
 			path = new File(path.toString() + ".bh");
 		else
 			this.path = path;
-		
+
 		ArrayList<DTOProject> returnRepository = new ArrayList<DTOProject>();
 
 		try {
 			FileInputStream fileLoader = new FileInputStream(path);
-			ObjectInputStream objectLoader = new ObjectInputStream(fileLoader);
+			ObjectInputStream objectLoader = new ObjectInputStream(fileLoader) {
+				@Override
+				protected Class<?> resolveClass(ObjectStreamClass desc)
+						throws IOException, ClassNotFoundException {
+					String name = desc.getName();
+					try {
+						return Class.forName(name, true, PluginManager
+								.getInstance().getPluginClassLoader());
+					} catch (ClassNotFoundException ex) {
+						return super.resolveClass(desc);
+					}
+				}
+			};
 
 			Object whileObj = null;
 
@@ -88,12 +101,11 @@ public class PlatformPersistenceManager {
 
 			// Set isChanged
 			ProjectRepositoryManager.setChanged(false);
-			
+
 			// Refresh title
 			bhmf.resetTitle();
 
-			log.debug("file " + path.toString()
-					+ " successfully opened");
+			log.debug("file " + path.toString() + " successfully opened");
 
 			return returnRepository;
 		} catch (IOException e) {
@@ -105,23 +117,25 @@ public class PlatformPersistenceManager {
 		return null;
 	}
 
-	public void prepareSaveFile (boolean forcedSaveAs) {
-		if (PlatformController.preferences.get("path", "").equals("") || forcedSaveAs == true) {
-			
+	public void prepareSaveFile(boolean forcedSaveAs) {
+		if (PlatformController.preferences.get("path", "").equals("")
+				|| forcedSaveAs == true) {
+
 			int returnVal = bhmf.getChooser().showSaveDialog(bhmf);
-			 if (returnVal == JFileChooser.APPROVE_OPTION) {
-				 log.debug("You choose to save this file: " + bhmf.getChooser().getSelectedFile().getName());
-				 this.path = bhmf.getChooser().getSelectedFile();
-			 }
-			 
+			if (returnVal == JFileChooser.APPROVE_OPTION) {
+				log.debug("You choose to save this file: "
+						+ bhmf.getChooser().getSelectedFile().getName());
+				this.path = bhmf.getChooser().getSelectedFile();
+			}
+
 		} else {
 			File path = new File(PlatformController.preferences.get("path", ""));
 			this.path = path;
 		}
-		
+
 		this.saveFile();
 	}
-	
+
 	public void saveFile() {
 
 		try {
@@ -148,12 +162,12 @@ public class PlatformPersistenceManager {
 
 			objectWriter.close();
 			fileWriter.close();
-			
+
 			log.debug("ProjectRepository successfully saved to " + path);
-			
+
 			// Set isChanged
 			ProjectRepositoryManager.setChanged(false);
-			
+
 			// Save path to preferences
 			PlatformController.preferences.put("path", this.path.toString());
 
@@ -167,24 +181,29 @@ public class PlatformPersistenceManager {
 			e.printStackTrace();
 		}
 	}
-	
+
 	/*
 	 * last edited file dialog
 	 * 
 	 * @author Thiele.Klaus (UI)
+	 * 
 	 * @author Loeckelt.Michael (persistence logic)
 	 */
-	public void lastEditedFile () {
+	public void lastEditedFile() {
 		String lastFile = PlatformController.preferences.get("path", "");
 		if (!lastFile.equals("")) {
 			String title = Services.getTranslator().translate("PlastFile");
-			String message = "<html>" + Services.getTranslator().translate("PlastFile", ITranslator.LONG) + "<br /><i>(" + lastFile + ")</i></html>";
-			
-			int action = JOptionPane.showConfirmDialog(bhmf, message, title, JOptionPane.YES_NO_OPTION);
+			String message = "<html>"
+					+ Services.getTranslator().translate("PlastFile",
+							ITranslator.LONG) + "<br /><i>(" + lastFile
+					+ ")</i></html>";
+
+			int action = JOptionPane.showConfirmDialog(bhmf, message, title,
+					JOptionPane.YES_NO_OPTION);
 			if (action == JOptionPane.YES_OPTION) {
 				File tmpFile = new File(lastFile);
 				PlatformController.platformPersistenceManager.openFile(tmpFile);
-				
+
 			} else if (action == JOptionPane.NO_OPTION) {
 				PlatformController.preferences.remove("path");
 				bhmf.resetTitle();
@@ -202,7 +221,8 @@ class SaveActionListener implements IPlatformListener {
 	@Override
 	public void platformEvent(PlatformEvent e) {
 		if (PlatformEvent.Type.SAVE == e.getEventType()) {
-			PlatformController.platformPersistenceManager.prepareSaveFile(false);
+			PlatformController.platformPersistenceManager
+					.prepareSaveFile(false);
 		} else if (PlatformEvent.Type.SAVEAS == e.getEventType()) {
 			PlatformController.platformPersistenceManager.prepareSaveFile(true);
 		}
