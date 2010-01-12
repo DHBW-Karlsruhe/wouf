@@ -39,7 +39,7 @@ public interface IDataExchangeController extends IDisplayablePlugin {
 	 * @param type TODO
 	 * @return
 	 */
-	JPanel getImportPanel(String type);
+	JPanel getImportPanel(String type, Container cont);
 	
 	
 	/**

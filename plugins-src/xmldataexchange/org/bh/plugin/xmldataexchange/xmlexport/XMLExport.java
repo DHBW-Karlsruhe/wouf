@@ -22,7 +22,7 @@ import org.jdom.output.XMLOutputter;
  * This class provides the functionality to export a {@link DTOProject} to
  * a XML document.
  * <p>
- * @author Familie Katzor
+ * @author Katzor.Marcus
  * @version 1.0, 27.12.2009
  *
  */

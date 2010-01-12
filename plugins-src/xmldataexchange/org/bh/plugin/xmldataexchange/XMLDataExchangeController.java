@@ -27,9 +27,12 @@ import org.bh.data.IDTO;
 import org.bh.gui.swing.BHButton;
 import org.bh.gui.swing.IBHComponent;
 import org.bh.platform.PlatformController;
+import org.bh.platform.ProjectRepositoryManager;
 import org.bh.platform.i18n.BHTranslator;
 import org.bh.plugin.xmldataexchange.xmlexport.XMLExport;
 import org.bh.plugin.xmldataexchange.xmlexport.XMLProjectExportPanel;
+import org.bh.plugin.xmldataexchange.xmlimport.XMLImport;
+import org.bh.plugin.xmldataexchange.xmlimport.XMLNotValidException;
 import org.bh.plugin.xmldataexchange.xmlimport.XMLProjectImportPanel;
 
 public class XMLDataExchangeController implements IDataExchangeController, ActionListener {
@@ -51,76 +54,132 @@ public class XMLDataExchangeController implements IDataExchangeController, Actio
 
 	@Override
 	public void actionPerformed(ActionEvent e) {
-		IBHComponent comp =  (IBHComponent) e.getSource();
-		/*BHTextField txtExportPath = (BHTextField) view.getBHModelComponents().get("txtExportPath");
-		BHTextField txtImportPath = (BHTextField) view.getBHModelComponents().get("txtImportPath");
-		*/
+		IBHComponent comp =  (IBHComponent) e.getSource();		
 		
-		
-		XMLProjectExportPanel projExportPanel = (XMLProjectExportPanel) exportPanels.get(XMLProjectExportPanel.KEY);
-		if (comp.getKey().equals("Bbrowse"))
+		if (GUI_KEY.equals(XMLProjectExportPanel.KEY))
 		{
-			JFileChooser fileChooser = new JFileChooser();
-			fileChooser.setFileSelectionMode(JFileChooser.FILES_ONLY);
-			
-			String strDefDir = PlatformController.preferences.get("lastExportDirectory", null);
-			if (strDefDir != null)
+			XMLProjectExportPanel projExportPanel = (XMLProjectExportPanel) exportPanels.get(XMLProjectExportPanel.KEY);
+			if (comp.getKey().equals("Bbrowse"))
 			{
-				File defDir = new File(strDefDir);
-				fileChooser.setCurrentDirectory(defDir);
-			}		
-			
-			String descr = BHTranslator.getInstance().translate("DXMLFileDescription");
-			String ext = BHTranslator.getInstance().translate("DXMLFileExtension");			
-			fileChooser.setFileFilter(new FileNameExtensionFilter(descr, ext));
-			
-			int returnVal = fileChooser.showSaveDialog(projExportPanel);		
-			
-			if (returnVal == JFileChooser.APPROVE_OPTION)
-			{
-				PlatformController.preferences.put("lastExportDirectory", fileChooser.getSelectedFile().getParent()); 
-				projExportPanel.getTxtPath().setText(fileChooser.getSelectedFile().getPath());			
-			}
-			
-		}
-		else if (comp.getKey().equals("Mexport"))
-		{
-			DTOProject cloneProject = (DTOProject) model.get(0).clone();
-			cloneProject.removeAllChildren();
-			for (Object sec : projExportPanel.getSecList().getSelectedScenario())
-			{				
-				cloneProject.addChild((DTOScenario) sec);
-			}			
-			
-			if (!projExportPanel.getTxtPath().getText().equals(""))
-				try {
-					boolean result = new XMLExport(projExportPanel.getTxtPath().getText(), cloneProject).startExport();
-					if (result)
-					{
-						String msg = BHTranslator.getInstance().translate("DXMLExportSuccessfull");
-						msg = msg.replace("[PATH]", projExportPanel.getTxtPath().getText());
-						JOptionPane.showMessageDialog(container, msg,
-								BHTranslator.getInstance().translate(XMLProjectExportPanel.KEY),
-								JOptionPane.INFORMATION_MESSAGE);
-						closeContainingWindow();
-					}
-					else
-					{
-						JOptionPane.showMessageDialog(container, BHTranslator.getInstance().translate("DXMLExportError"),
-								BHTranslator.getInstance().translate(XMLProjectExportPanel.KEY),
-								JOptionPane.ERROR_MESSAGE);
-					}
-					
-				} catch (IOException e1) {
-					JOptionPane.showMessageDialog(container, BHTranslator.getInstance().translate("DXMLExportFileError"),
-							BHTranslator.getInstance().translate(XMLProjectExportPanel.KEY),
-							JOptionPane.WARNING_MESSAGE);
+				JFileChooser fileChooser = new JFileChooser();
+				fileChooser.setFileSelectionMode(JFileChooser.FILES_ONLY);
+				
+				String strDefDir = PlatformController.preferences.get("lastExportDirectory", null);
+				if (strDefDir != null)
+				{
+					File defDir = new File(strDefDir);
+					fileChooser.setCurrentDirectory(defDir);
+				}		
+				
+				String descr = BHTranslator.getInstance().translate("DXMLFileDescription");
+				String ext = BHTranslator.getInstance().translate("DXMLFileExtension");			
+				fileChooser.setFileFilter(new FileNameExtensionFilter(descr, ext));
+				
+				int returnVal = fileChooser.showSaveDialog(projExportPanel);		
+				
+				if (returnVal == JFileChooser.APPROVE_OPTION)
+				{
+					PlatformController.preferences.put("lastExportDirectory", fileChooser.getSelectedFile().getParent()); 
+					projExportPanel.getTxtPath().setText(fileChooser.getSelectedFile().getPath());			
 				}
 				
+			}
+			else if (comp.getKey().equals("Mexport"))
+			{
+				DTOProject cloneProject = (DTOProject) model.get(0).clone();
+				cloneProject.removeAllChildren();
+				for (Object sec : projExportPanel.getSecList().getSelectedScenario())
+				{				
+					cloneProject.addChild((DTOScenario) sec);
+				}			
 				
-			
+				if (!projExportPanel.getTxtPath().getText().equals(""))
+					try {
+						boolean result = new XMLExport(projExportPanel.getTxtPath().getText(), cloneProject).startExport();
+						if (result)
+						{
+							String msg = BHTranslator.getInstance().translate("DXMLExportSuccessfull");
+							msg = msg.replace("[PATH]", projExportPanel.getTxtPath().getText());
+							JOptionPane.showMessageDialog(container, msg,
+									BHTranslator.getInstance().translate(XMLProjectExportPanel.KEY),
+									JOptionPane.INFORMATION_MESSAGE);
+							closeContainingWindow();
+						}
+						else
+						{
+							JOptionPane.showMessageDialog(container, BHTranslator.getInstance().translate("DXMLExportError"),
+									BHTranslator.getInstance().translate(XMLProjectExportPanel.KEY),
+									JOptionPane.ERROR_MESSAGE);
+						}
+						
+					} catch (IOException e1) {
+						JOptionPane.showMessageDialog(container, BHTranslator.getInstance().translate("DXMLExportFileError"),
+								BHTranslator.getInstance().translate(XMLProjectExportPanel.KEY),
+								JOptionPane.WARNING_MESSAGE);
+					}
+					
+					
+				
+			}
 		}
-		else if (comp.getKey().equals("Bcancel"))
+		else if (GUI_KEY.equals(XMLProjectImportPanel.KEY))
+		{
+			XMLProjectImportPanel projImportPanel = (XMLProjectImportPanel) importPanels.get(XMLProjectImportPanel.KEY);
+			if (comp.getKey().equals("Bbrowse"))
+			{
+				JFileChooser fileChooser = new JFileChooser();
+				fileChooser.setFileSelectionMode(JFileChooser.FILES_ONLY);
+				
+				String strDefDir = PlatformController.preferences.get("lastExportDirectory", null);
+				if (strDefDir != null)
+				{
+					File defDir = new File(strDefDir);
+					fileChooser.setCurrentDirectory(defDir);
+				}		
+				
+				String descr = BHTranslator.getInstance().translate("DXMLFileDescription");
+				String ext = BHTranslator.getInstance().translate("DXMLFileExtension");			
+				fileChooser.setFileFilter(new FileNameExtensionFilter(descr, ext));
+				
+				int returnVal = fileChooser.showOpenDialog(projImportPanel);		
+				
+				if (returnVal == JFileChooser.APPROVE_OPTION)
+				{
+					try {
+						IDTO<?> proj = new XMLImport(fileChooser.getSelectedFile().getPath()).startImport();
+						if (proj != null)
+						{
+							setModel(proj);
+							projImportPanel.getSecList().setModel(proj.getChildren().toArray());						
+						}
+						else
+						{
+							// TODO Katzor.Marcus
+						}
+						
+					} catch (XMLNotValidException e1) {
+						// TODO Auto-generated catch block
+						e1.printStackTrace();
+					} catch (IOException e1) {
+						// TODO Auto-generated catch block
+						e1.printStackTrace();
+					}
+					
+					
+					
+					/*PlatformController.preferences.put("lastImportDirectory", fileChooser.getSelectedFile().getParent());*/ 
+					projImportPanel.getTxtPath().setText(fileChooser.getSelectedFile().getPath());			
+				}
+				
+			}
+			else if (comp.getKey().equals("Mimport"))
+			{
+				
+				PlatformController.getInstance().addProject((DTOProject) getModel());
+			}
+		}
+		
+		if (comp.getKey().equals("Bcancel"))
 		{
 			closeContainingWindow();
 			
@@ -191,10 +250,10 @@ public class XMLDataExchangeController implements IDataExchangeController, Actio
 
 
 	@Override
-	public JPanel getImportPanel(String type) {
-		if (importPanels == null)
-			initializeImportPanels();
+	public JPanel getImportPanel(String type, Container cont) {
+		initializeImportPanels();
 		GUI_KEY = type;
+		container = cont;
 		
 		if (importPanels.containsKey(type))
 			return importPanels.get(type);

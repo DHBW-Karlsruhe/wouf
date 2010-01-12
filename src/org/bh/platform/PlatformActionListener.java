@@ -25,7 +25,7 @@ import org.bh.data.IDTO;
 import org.bh.data.types.StringValue;
 import org.bh.gui.swing.BHComboBox;
 import org.bh.gui.swing.BHContent;
-import org.bh.gui.swing.BHExportDialog;
+import org.bh.gui.swing.BHDataExchangeDialog;
 import org.bh.gui.swing.BHMainFrame;
 import org.bh.gui.swing.BHOptionDialog;
 import org.bh.gui.swing.BHStatusBar;
@@ -46,6 +46,8 @@ class PlatformActionListener implements ActionListener {
 	BHMainFrame bhmf;
 	ProjectRepositoryManager projectRepoManager;
 	PlatformController pC;
+	
+	IDataExchangeController dataExchangeCntrl;
 
 	public PlatformActionListener(BHMainFrame bhmf,
 			ProjectRepositoryManager projectRepoManager,
@@ -131,6 +133,16 @@ class PlatformActionListener implements ActionListener {
 		// TODO Katzor.Marcus
 		case PROJECTIMPORT:
 
+			final String projectImportPanelKey = "DXMLProjectImport" ;
+			
+				
+			// Get data exchange controller			
+			dataExchangeCntrl = Services.getDataExchangeController("XML");							
+			BHDataExchangeDialog importDialog = new BHDataExchangeDialog(bhmf, true);	
+			importDialog.setTitle(BHTranslator.getInstance().translate(projectImportPanelKey));
+			importDialog.add(dataExchangeCntrl.getImportPanel(projectImportPanelKey, importDialog), BorderLayout.CENTER);
+			importDialog.setVisible(true);
+			
 			break;
 
 		// TODO Katzor.Marcus
@@ -146,11 +158,11 @@ class PlatformActionListener implements ActionListener {
 				{
 					// Get data exchange controller
 					
-					IDataExchangeController contrl = Services.getDataExchangeController("XML");					
-					contrl.setModel((IDTO<?>) selectedNode.getUserObject());
-					BHExportDialog exportDialog = new BHExportDialog(bhmf, true);	
+					dataExchangeCntrl = Services.getDataExchangeController("XML");					
+					dataExchangeCntrl.setModel((IDTO<?>) selectedNode.getUserObject());
+					BHDataExchangeDialog exportDialog = new BHDataExchangeDialog(bhmf, true);	
 					exportDialog.setTitle(BHTranslator.getInstance().translate(projectExportPanelKey));
-					exportDialog.add(contrl.getExportPanel(projectExportPanelKey, exportDialog), BorderLayout.CENTER);
+					exportDialog.add(dataExchangeCntrl.getExportPanel(projectExportPanelKey, exportDialog), BorderLayout.CENTER);
 					exportDialog.setVisible(true);
 					
 				}

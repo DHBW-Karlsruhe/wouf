@@ -1,13 +1,10 @@
 package org.bh.plugin.xmldataexchange.xmlexport;
 
 import info.clearthought.layout.TableLayout;
-import info.clearthought.layout.TableLayoutConstraints;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Component;
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
 import java.util.List;
 
 import javax.swing.BorderFactory;
@@ -15,12 +12,8 @@ import javax.swing.Box;
 import javax.swing.BoxLayout;
 import javax.swing.JPanel;
 import javax.swing.JSeparator;
-import javax.swing.JTree;
 import javax.swing.UIManager;
 import javax.swing.border.Border;
-import javax.swing.tree.DefaultTreeModel;
-import javax.swing.tree.TreePath;
-import javax.swing.tree.TreeSelectionModel;
 
 import org.bh.data.IDTO;
 import org.bh.gui.swing.BHButton;

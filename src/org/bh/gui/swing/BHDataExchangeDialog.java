@@ -6,10 +6,10 @@ import java.awt.Frame;
 import javax.swing.JDialog;
 import javax.swing.WindowConstants;
 
-public class BHExportDialog extends JDialog {
+public class BHDataExchangeDialog extends JDialog {
 
 	
-	public BHExportDialog(Frame owner, boolean modal) {
+	public BHDataExchangeDialog(Frame owner, boolean modal) {
 		super(owner, modal);
 		setLayout(new BorderLayout());
 		

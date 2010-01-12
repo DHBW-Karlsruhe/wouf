@@ -35,12 +35,11 @@ public class BHSelectionList extends JList implements MouseListener {
 	 */
 	public BHSelectionList(Object[] elements) {
 		super();
-		DefaultListModel model = new DefaultListModel();
-		for (Object element : elements) {
-			model.addElement(new ListElement(element));
-			selectedSecenario.add(element);
+		
+		if (elements != null)
+		{
+			setModel(elements);
 		}
-		setModel(model);
 		setCellRenderer(new BHScenarioSelectionRenderer());
 		setSelectionMode(ListSelectionModel.MULTIPLE_INTERVAL_SELECTION);
 		addMouseListener(this);
@@ -51,19 +50,24 @@ public class BHSelectionList extends JList implements MouseListener {
 	 */
 	@Override
 	public void mouseClicked(MouseEvent e) {
-
+		
 		// Get index of item clicked
 		int index = this.locationToIndex(e.getPoint());
-		ListElement item = (ListElement) this.getModel().getElementAt(index);
-		 
-		// Toggle selected state
-		item.isSelected =!item.isSelected;
 		
-		if (item.isSelected && !selectedSecenario.contains(item.value)) {
-			selectedSecenario.add(item.value);			
-		}
-		else if (!item.isSelected){
-			selectedSecenario.remove(item.value);
+		if (getModel() != null)
+		{
+			
+			ListElement item = (ListElement) this.getModel().getElementAt(index);
+			 
+			// Toggle selected state
+			item.isSelected =!item.isSelected;
+			
+			if (item.isSelected && !selectedSecenario.contains(item.value)) {
+				selectedSecenario.add(item.value);			
+			}
+			else if (!item.isSelected){
+				selectedSecenario.remove(item.value);
+			}
 		}
 		// Repaint cell
 		this.repaint(this.getCellBounds(index, index));
@@ -85,8 +89,15 @@ public class BHSelectionList extends JList implements MouseListener {
 	public void mouseReleased(MouseEvent e) {
 	}
 	
-	
-	
+	public void setModel(Object[] elements)
+	{
+		DefaultListModel model = new DefaultListModel();
+		for (Object element : elements) {
+			model.addElement(new ListElement(element));
+			selectedSecenario.add(element);
+		}
+		super.setModel(model);
+	}
 	
 
 	public List<Object> getSelectedScenario()
