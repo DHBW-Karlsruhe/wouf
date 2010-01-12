@@ -40,6 +40,7 @@ import org.bh.platform.PlatformEvent.Type;
  * @version 0.4, 2010/01/07
  * 
  */
+@SuppressWarnings("serial")
 public class BHMainFrame extends JFrame implements IPlatformListener {
 
 	/**
@@ -91,11 +92,6 @@ public class BHMainFrame extends JFrame implements IPlatformListener {
 	 * Horizontal Split pane.
 	 */
 	private JSplitPane paneH;
-
-	/**
-	 * Vertical Split pane.
-	 */
-	private JSplitPane paneV;
 
 	/**
 	 * Open / Save dialog.
@@ -163,7 +159,7 @@ public class BHMainFrame extends JFrame implements IPlatformListener {
 		this.resetTitle();
 		this.setExtendedState(MAXIMIZED_BOTH);
 		this.setLocationRelativeTo(null);
-		this.setSize(1024, 768);
+		this.setSize(1000, 700);
 		// EXIT is like app suicide
 		this.setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
 		this.setLocationRelativeTo(null);

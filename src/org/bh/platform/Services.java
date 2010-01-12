@@ -312,4 +312,8 @@ public class Services {
 			viewComponent = new JPanel();
 		bhmf.setContentForm(viewComponent);
 	}
+	
+	public static void setCharts(Component chart) {
+		bhmf.setCharts(chart);
+	}
 }

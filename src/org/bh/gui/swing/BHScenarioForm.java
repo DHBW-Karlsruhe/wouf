@@ -45,7 +45,9 @@ public class BHScenarioForm extends JPanel {
 		/**
 		 * 
 		 */
-		PROCESS_DATA;
+		PROCESS_DATA,
+		
+		CANNOT_CALCULATE_HINT;
 
 		public String toString() {
 		    return getClass().getName() + "." + super.toString();
@@ -55,6 +57,7 @@ public class BHScenarioForm extends JPanel {
 	private JPanel pscenario;
 	private JPanel pprocess;
 	private BHButton bcalculate;
+	private BHDescriptionLabel lCannotCalculateHint;
 	private JPanel topPanel;
 	private JPanel bottomPanel;
 
@@ -109,13 +112,14 @@ public class BHScenarioForm extends JPanel {
 		/*
 		 * build bottomPanel
 		 */
-		colDef = "4px,pref:grow,4px";
+		colDef = "4px,4px:grow,4px,right:pref,4px";
 		rowDef = "4px,p,4px";
 		
 		FormLayout bottomLayout = new FormLayout(colDef, rowDef);
 		bottomPanel.setLayout(bottomLayout);
 
-		bottomPanel.add(this.getBcalculate(), cons.xywh(2, 2, 1, 1, "right, bottom"));
+		bottomPanel.add(this.getCannotCalculateHint(), cons.xywh(2, 2, 1, 1));
+		bottomPanel.add(this.getBcalculate(), cons.xywh(4, 2, 1, 1));
 		
 		//add topPanel to ScenarioForm
 		this.add(bottomPanel, cons.xywh(2, 4, 1, 1));
@@ -165,6 +169,13 @@ public class BHScenarioForm extends JPanel {
 		return bcalculate;
 	}
 	
+	public BHDescriptionLabel getCannotCalculateHint() {
+		if (lCannotCalculateHint == null) {
+			lCannotCalculateHint = new BHDescriptionLabel(Key.CANNOT_CALCULATE_HINT);
+			lCannotCalculateHint.setVisible(false);
+		}
+		return lCannotCalculateHint;
+	}
 	
 
 	

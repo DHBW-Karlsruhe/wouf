@@ -28,18 +28,19 @@ public class BHDescriptionTextArea extends JTextArea implements IBHComponent, IP
 	private String key;
 	private String inputHint;
 	
-	public BHDescriptionTextArea(String key, int row, int column) {
+	public BHDescriptionTextArea(Object key, int row, int column) {
 		super(row, column);
-		this.key = key;
+		this.key = key.toString();
 		this.setEditable(false);
 		this.setWrapStyleWord(true);
 		this.setLineWrap(true);
+		this.setOpaque(false);
 		
 		reloadText();
 		Services.addPlatformListener(this);
 	}
 	
-	public BHDescriptionTextArea(String key) {
+	public BHDescriptionTextArea(Object key) {
 		this(key, 0, 0);
 	}
 

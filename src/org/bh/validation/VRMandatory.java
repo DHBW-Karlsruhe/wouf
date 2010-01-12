@@ -24,11 +24,6 @@ public class VRMandatory extends ValidationRule {
 						+ translator.translate(tf_toValidate.getKey()) + "' "
 						+ translator.translate("EisMandatory"));
 			}
-			else {
-				validationResult.addWarning(translator.translate("Efield") + " '"
-						+ translator.translate(tf_toValidate.getKey()) + "' "
-						+ translator.translate("EisOptional"));
-			}
 		}
 		return validationResult;
 	}

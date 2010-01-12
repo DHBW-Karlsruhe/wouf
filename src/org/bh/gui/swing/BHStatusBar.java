@@ -51,7 +51,7 @@ public class BHStatusBar extends JPanel {
 	private BHStatusBar() {
 		// setLayout to the status bar
 		String rowDef = "p";
-		String colDef = "6px,fill:min:grow,6px,min,6px,fill:min:grow,6px";
+		String colDef = "6px,fill:1px:grow,6px,min,6px,fill:1px:grow,6px";
 		FormLayout layout = new FormLayout(colDef, rowDef);
 		layout.setColumnGroups(new int[][] { { 2, 6 } });
 		setLayout(layout);
@@ -61,7 +61,7 @@ public class BHStatusBar extends JPanel {
 		hintLabel.setIcon(ValidationResultViewFactory.getInfoIcon());
 		removeHint();
 		
-		errorHintLabel = new JLabel(translator.translate("LtoolTip"));
+		errorHintLabel = new JLabel(translator.translate("errorHint"));
 		errorHintLabel.setIcon(ValidationResultViewFactory.getErrorIcon());
 		errorHintLabel.addMouseListener(new BHLabelListener());
 		removeErrorHint();

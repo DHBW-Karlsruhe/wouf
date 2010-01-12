@@ -1,14 +1,8 @@
 package org.bh.platform;
 
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.util.ArrayList;
-import java.util.Collection;
 import java.util.List;
-import java.util.Map;
 import java.util.prefs.Preferences;
 
-import javax.swing.JPanel;
 import javax.swing.SwingUtilities;
 import javax.swing.event.TreeSelectionEvent;
 import javax.swing.event.TreeSelectionListener;
@@ -18,7 +12,6 @@ import javax.swing.tree.TreeNode;
 import javax.swing.tree.TreePath;
 
 import org.apache.log4j.Logger;
-import org.bh.calculation.IShareholderValueCalculator;
 import org.bh.controller.InputController;
 import org.bh.data.DTO;
 import org.bh.data.DTOAccessException;
@@ -27,16 +20,12 @@ import org.bh.data.DTOProject;
 import org.bh.data.DTOScenario;
 import org.bh.data.IDTO;
 import org.bh.data.IPeriodicalValuesDTO;
-import org.bh.data.types.Calculable;
 import org.bh.data.types.IValue;
 import org.bh.data.types.StringValue;
-import org.bh.gui.BHValidityEngine;
-import org.bh.gui.IDeterministicResultAnalyser;
 import org.bh.gui.ValidationMethods;
 import org.bh.gui.View;
 import org.bh.gui.ViewException;
 import org.bh.gui.swing.BHButton;
-import org.bh.gui.swing.BHComboBox;
 import org.bh.gui.swing.BHDeterministicProcessForm;
 import org.bh.gui.swing.BHMainFrame;
 import org.bh.gui.swing.BHMenuItem;
@@ -46,10 +35,7 @@ import org.bh.gui.swing.BHScenarioForm;
 import org.bh.gui.swing.BHScenarioView;
 import org.bh.gui.swing.BHTreeNode;
 import org.bh.gui.swing.IBHAction;
-import org.bh.gui.swing.IBHModelComponent;
 import org.bh.platform.PlatformEvent.Type;
-
-import com.jgoodies.validation.ValidationResult;
 
 /**
  * The Platform Controller handles a) start up of the application b) main
@@ -256,25 +242,7 @@ public class PlatformController {
 						} else if (selection instanceof DTOScenario) {
 							try {
 								View view = null;
-								final IDTO<?> model = selection;
-								BHValidityEngine validator = new ValidationMethods() {
-									@Override
-									public ValidationResult validateAll(
-											Map<String, IBHModelComponent> toValidate) {
-										ValidationResult res = super
-												.validateAll(toValidate);
-										if (model.getChildren().isEmpty()) {
-											// TODO this error does not get
-											// removed when a period is added...
-											res
-													.addError(Services
-															.getTranslator()
-															.translate(
-																	"scenarioHasNoPeriods"));
-										}
-										return res;
-									}
-								};
+								IDTO<?> model = selection;
 
 								// find out if stochastic process was chosen at
 								// init of strategy
@@ -286,14 +254,14 @@ public class PlatformController {
 									view = new BHScenarioView(
 											new BHScenarioForm(
 													BHScenarioForm.Type.STOCHASTIC),
-											validator);
+											new ValidationMethods());
 
 								} catch (DTOAccessException e) {
 									// Answer: no
 									view = new BHScenarioView(
 											new BHScenarioForm(
 													BHScenarioForm.Type.DETERMINISTIC),
-											validator);
+											new ValidationMethods());
 
 									// if scenario is deterministic, an overview
 									// table is provided
@@ -330,49 +298,7 @@ public class PlatformController {
 								}
 
 								bhmf.setContentForm(view.getViewPanel());
-								controller = new InputController(view, model);
-
-								BHComboBox cbDcfMethod = (BHComboBox) view
-										.getBHComponent(DTOScenario.Key.DCF_METHOD);
-								if (cbDcfMethod != null) {
-									Collection<IShareholderValueCalculator> dcfMethods = Services
-											.getDCFMethods().values();
-									ArrayList<BHComboBox.Item> items = new ArrayList<BHComboBox.Item>();
-									for (IShareholderValueCalculator dcfMethod : dcfMethods) {
-										items.add(new BHComboBox.Item(dcfMethod
-												.getGuiKey(), new StringValue(
-												dcfMethod.getUniqueId())));
-									}
-									cbDcfMethod.setSorted(true);
-									cbDcfMethod.setValueList(items
-											.toArray(new BHComboBox.Item[0]));
-								}
-
-								// FIXME
-								((BHButton) view
-										.getBHComponent(PlatformKey.CALCSHAREHOLDERVALUE))
-										.addActionListener(new ActionListener() {
-											@Override
-											public void actionPerformed(
-													ActionEvent e) {
-												DTOScenario scenario = (DTOScenario) controller
-														.getModel();
-												Map<String, Calculable[]> result = scenario
-														.getDCFMethod()
-														.calculate(scenario);
-												JPanel panel = new JPanel();
-												bhmf.setCharts(panel);
-												for (IDeterministicResultAnalyser analyser : PluginManager
-														.getInstance()
-														.getServices(
-																IDeterministicResultAnalyser.class)) {
-													analyser.setResult(scenario, result,
-															panel);
-													break;
-												}
-											}
-										});
-
+								controller = new ScenarioController(view, model);
 								controller.loadAllToView();
 
 							} catch (ViewException e) {
