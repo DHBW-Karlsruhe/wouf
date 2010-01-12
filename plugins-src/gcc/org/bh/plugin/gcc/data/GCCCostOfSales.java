@@ -5,6 +5,7 @@ import org.bh.data.DTOPeriod;
 import org.bh.data.IPeriodicalValuesDTO;
 import org.bh.data.types.Calculable;
 import org.bh.data.types.DoubleValue;
+import org.bh.plugin.gcc.data.DTOGCCBalanceSheet.Key;
 
 /**
  * Calculates the FCF from the current profit&loss statement, the current balance sheet and the
@@ -34,17 +35,21 @@ public class GCCCostOfSales implements ICalculationPreparer {
 		
 		ebit.add(plsNow.getCalculable(DTOGCCProfitLossStatementCostOfSales.Key.UE),
 				plsNow.getCalculable(DTOGCCProfitLossStatementCostOfSales.Key.HK),
-				plsNow.getCalculable(DTOGCCProfitLossStatementCostOfSales.Key.VERTK),
-				plsNow.getCalculable(DTOGCCProfitLossStatementCostOfSales.Key.VERWK),
-				plsNow.getCalculable(DTOGCCProfitLossStatementCostOfSales.Key.SBA),
-				plsNow.getCalculable(DTOGCCProfitLossStatementCostOfSales.Key.AUA));
+//				plsNow.getCalculable(DTOGCCProfitLossStatementCostOfSales.Key.VERTK),
+//				plsNow.getCalculable(DTOGCCProfitLossStatementCostOfSales.Key.VERWK),
+//				plsNow.getCalculable(DTOGCCProfitLossStatementCostOfSales.Key.SBA),
+				plsNow.getCalculable(DTOGCCProfitLossStatementCostOfSales.Key.VVSBA),
+				plsNow.getCalculable(DTOGCCProfitLossStatementCostOfSales.Key.AUERG));
 		
 		Calculable bsCorrection = 
 				bsNow.getCalculable(DTOGCCBalanceSheet.Key.RS).sub(
 						bsPrev.getCalculable(DTOGCCBalanceSheet.Key.RS)).add(
 								
-				bsNow.getCalculable(DTOGCCBalanceSheet.Key.AV).sub(
-						bsPrev.getCalculable(DTOGCCBalanceSheet.Key.AV)),
+//				bsNow.getCalculable(DTOGCCBalanceSheet.Key.AV).sub(
+//						bsPrev.getCalculable(DTOGCCBalanceSheet.Key.AV)),
+								
+				(bsNow.getCalculable(Key.IVG).add(bsNow.getCalculable(Key.SA)).add(bsNow.getCalculable(Key.FA)))
+					.sub(bsPrev.getCalculable(Key.IVG).add(bsPrev.getCalculable(Key.SA)).add(bsPrev.getCalculable(Key.FA))),
 						
 				bsNow.getCalculable(DTOGCCBalanceSheet.Key.VOR).sub(
 						bsPrev.getCalculable(DTOGCCBalanceSheet.Key.VOR)),
@@ -86,10 +91,6 @@ public class GCCCostOfSales implements ICalculationPreparer {
 		if (bs == null)
 		    return null;
 		
-		return bs.getCalculable(DTOGCCBalanceSheet.Key.ANL).add(
-			   bs.getCalculable(DTOGCCBalanceSheet.Key.SVB),
-		       bs.getCalculable(DTOGCCBalanceSheet.Key.VBK),
-			   bs.getCalculable(DTOGCCBalanceSheet.Key.RSPV)
-			);
+		return bs.getCalculable(DTOGCCBalanceSheet.Key.VB).add(bs.getCalculable(DTOGCCBalanceSheet.Key.RS));
 	}
 }

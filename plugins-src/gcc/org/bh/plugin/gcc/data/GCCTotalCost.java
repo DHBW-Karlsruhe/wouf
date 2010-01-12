@@ -5,6 +5,7 @@ import org.bh.data.DTOPeriod;
 import org.bh.data.IPeriodicalValuesDTO;
 import org.bh.data.types.Calculable;
 import org.bh.data.types.DoubleValue;
+import org.bh.plugin.gcc.data.DTOGCCBalanceSheet.Key;
 
 public class GCCTotalCost implements ICalculationPreparer {
 
@@ -30,14 +31,17 @@ public class GCCTotalCost implements ICalculationPreparer {
 		ebit.add(plsNow.getCalculable(DTOGCCProfitLossStatementTotalCost.Key.UE),
 				plsNow.getCalculable(DTOGCCProfitLossStatementTotalCost.Key.ABSCH),
 				plsNow.getCalculable(DTOGCCProfitLossStatementTotalCost.Key.SBA),
-				plsNow.getCalculable(DTOGCCProfitLossStatementTotalCost.Key.AUA));
+				plsNow.getCalculable(DTOGCCProfitLossStatementTotalCost.Key.AUERG));
 		
 		Calculable bsCorrection = 
 				bsNow.getCalculable(DTOGCCBalanceSheet.Key.RS).sub(
 						bsPrev.getCalculable(DTOGCCBalanceSheet.Key.RS)).add(
 								
-				bsNow.getCalculable(DTOGCCBalanceSheet.Key.AV).sub(
-						bsPrev.getCalculable(DTOGCCBalanceSheet.Key.AV)),
+//				bsNow.getCalculable(DTOGCCBalanceSheet.Key.AV).sub(
+//						bsPrev.getCalculable(DTOGCCBalanceSheet.Key.AV)),
+						
+				(bsNow.getCalculable(Key.IVG).add(bsNow.getCalculable(Key.SA)).add(bsNow.getCalculable(Key.FA)))
+						.sub(bsPrev.getCalculable(Key.IVG).add(bsPrev.getCalculable(Key.SA)).add(bsPrev.getCalculable(Key.FA))),
 						
 				bsNow.getCalculable(DTOGCCBalanceSheet.Key.VOR).sub(
 						bsPrev.getCalculable(DTOGCCBalanceSheet.Key.VOR)),
@@ -79,10 +83,6 @@ public class GCCTotalCost implements ICalculationPreparer {
 		if (bs == null)
 		    return null;
 		
-		return bs.getCalculable(DTOGCCBalanceSheet.Key.ANL).add(
-			   bs.getCalculable(DTOGCCBalanceSheet.Key.SVB),
-		       bs.getCalculable(DTOGCCBalanceSheet.Key.VBK),
-			   bs.getCalculable(DTOGCCBalanceSheet.Key.RSPV)
-			);
+		return bs.getCalculable(DTOGCCBalanceSheet.Key.VB).add(bs.getCalculable(DTOGCCBalanceSheet.Key.RS));
 	}
 }

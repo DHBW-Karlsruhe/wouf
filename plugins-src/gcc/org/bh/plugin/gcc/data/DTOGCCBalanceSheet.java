@@ -391,7 +391,7 @@ public class DTOGCCBalanceSheet extends DTO implements IPeriodicalValuesDTO {
 	 * @return Calculable
 	 */
 	protected Calculable getAV() {
-		return null;
+		return getCalculable(Key.IVG).add(getCalculable(Key.SA)).add(getCalculable(Key.FA));
 	}
 
 	/**

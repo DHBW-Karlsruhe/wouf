@@ -358,7 +358,7 @@ public class FCFCalculator implements IShareholderValueCalculator {
 
 	/**
 	 * Calculates the Weighted Average Cost of Debt for the WACC. WACCDebt[t] =
-	 * FKr * ((1-s) * (FK[t] / (UW[t] + FK[t-1])))
+	 * FKr * ((1-s) * (FK[t-1] / (UW[t-1] + FK[t-1])))
 	 * 
 	 * @param FK
 	 *            Debt
