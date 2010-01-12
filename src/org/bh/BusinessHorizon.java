@@ -52,7 +52,7 @@ public class BusinessHorizon {
 		SwingUtilities.invokeLater(new Runnable() {
 			@Override
 			public void run() {
-				PlatformController pc = new PlatformController();
+				PlatformController pc = PlatformController.getInstance();
 			}
 		});
 	}

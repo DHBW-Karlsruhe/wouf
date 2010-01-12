@@ -52,12 +52,18 @@ import org.bh.platform.PlatformEvent.Type;
 
 public class PlatformController {
 
+	/**
+	 * Instance for Singleton; 
+	 * PlugIns can get access to all parts of Platform through that
+	 */
+	private static PlatformController singletonInstance;
+	
 	private BHMainFrame bhmf;
 	private ProjectRepositoryManager projectRepoManager = ProjectRepositoryManager
 			.getInstance();
 
 	InputController controller = null;
-
+	
 	/**
 	 * Reference to a preference object which allows platform independent
 	 * 
@@ -86,30 +92,14 @@ public class PlatformController {
 	private static final Logger log = Logger
 			.getLogger(PlatformController.class);
 
-	public PlatformController() {
-		/*------------------------------------
-		 * Fill Repo (sample DTOs)
-		 * -----------------------------------
-		 */
-
-		/*
-		 * DTOProject project1 = new DTOProject(); DTOScenario scenario1 = new
-		 * DTOScenario(true); DTOPeriod period1 = new DTOPeriod();
-		 * 
-		 * 
-		 * StringValue projectName = new StringValue("project1");
-		 * project1.put(DTOProject.Key.NAME, projectName);
-		 * 
-		 * scenario1.addChild(period1); StringValue periodIdent = new
-		 * StringValue("Periode 1"); period1.put(DTOPeriod.Key.NAME,
-		 * periodIdent);
-		 * 
-		 * project1.addChild(scenario1); StringValue scenarioName = new
-		 * StringValue("Scenario1"); scenario1.put(DTOScenario.Key.NAME,
-		 * scenarioName);
-		 * 
-		 * projectRepoManager.addProject(project1);
-		 */
+	public static PlatformController getInstance(){
+		if(singletonInstance == null){
+			singletonInstance = new PlatformController();
+		}
+		return singletonInstance;
+	}
+	
+	private PlatformController() {
 
 		/*------------------------------------
 		 * start mainFrame
@@ -203,6 +193,28 @@ public class PlatformController {
 		Services.addPlatformListener(new DataChangedListener());
 
 	}
+	
+	
+	public void addProject(DTOProject newProject){
+		projectRepoManager.addProject(newProject);
+
+		// and create a Node for tree on gui
+		BHTreeNode newProjectNode = bhmf.getBHTree().addProjectNode(newProject,
+				bhmf);
+
+		// last steps: unfold tree to new element, set focus and start editing
+		bhmf.getBHTree().scrollPathToVisible(
+				new TreePath(newProjectNode.getPath()));
+		bhmf.getBHTree().startEditingAtPath(
+				new TreePath(newProjectNode.getPath()));
+	}
+	
+	
+	
+	/*------------------------------------
+	 * Subclasses
+	 * -----------------------------------
+	 */
 
 	// TODO Schmalzhaf.Alexander Javadoc schreiben
 	/**

@@ -409,18 +409,9 @@ class PlatformActionListener implements ActionListener {
 		DTOProject newProject = new DTOProject();
 		// TODO hardgecodeder String raus! AS
 		newProject.put(DTOProject.Key.NAME, new StringValue("neues Projekt"));
-		// add it to DTO-Repository
-		projectRepoManager.addProject(newProject);
-
-		// and create a Node for tree on gui
-		BHTreeNode newProjectNode = bhmf.getBHTree().addProjectNode(newProject,
-				bhmf);
-
-		// last steps: unfold tree to new element, set focus and start editing
-		bhmf.getBHTree().scrollPathToVisible(
-				new TreePath(newProjectNode.getPath()));
-		bhmf.getBHTree().startEditingAtPath(
-				new TreePath(newProjectNode.getPath()));
+		// add it to DTO-Repository and Tree
+		PlatformController.getInstance().addProject(newProject);
+		
 
 	}
 
