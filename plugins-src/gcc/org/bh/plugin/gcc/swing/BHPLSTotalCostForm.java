@@ -76,49 +76,76 @@ public class BHPLSTotalCostForm extends JPanel {
 
 	public void initialize(boolean intervalArithmetic) {
 		String rowDef = "4px,p,4px,p,4px,p,4px,p,4px";
-		String colDef = "4px,right:pref,4px,max(100px;pref):grow,4px";
+		String colDef = "4px,right:pref,4px,max(100px;pref):grow,4px,pref,4px";
 		if (intervalArithmetic) {
 			rowDef = "4px,p," + rowDef;
-			colDef += ",pref,4px,max(100px;pref):grow,4px";
-		}
+			colDef += ",max(100px;pref):grow,4px,pref,4px";
 
-		FormLayout layout = new FormLayout(colDef, rowDef);
-		this.setLayout(layout);
+			FormLayout layout = new FormLayout(colDef, rowDef);
+			this.setLayout(layout);
 
-		CellConstraints cons = new CellConstraints();
+			CellConstraints cons = new CellConstraints();
 
-		if (!intervalArithmetic) {
-			this.add(this.getLUE(), cons.xywh(2, 2, 1, 1));
-			this.add(this.getLABSCH(), cons.xywh(2, 4, 1, 1));
-			this.add(this.getLSBA(), cons.xywh(2, 6, 1, 1));
-			this.add(this.getLAUERG(), cons.xywh(2, 8, 1, 1));
-			
-			this.add(this.getTfUE(), cons.xywh(4, 2, 1, 1));
-			this.add(this.getTfABSCH(), cons.xywh(4, 4, 1, 1));
-			this.add(this.getTfSBA(), cons.xywh(4, 6, 1, 1));
-			this.add(this.getTfAUERG(), cons.xywh(4, 8, 1, 1));
-		} else {
-			layout.setColumnGroups(new int[][] { { 4, 8 } });
-			
-			this.add(this.getLUE(), cons.xywh(2, 4, 1, 1));
-			this.add(this.getLABSCH(), cons.xywh(2, 6, 1, 1));
-			this.add(this.getLSBA(), cons.xywh(2, 8, 1, 1));
-			this.add(this.getLAUERG(), cons.xywh(2, 10, 1, 1));
+			if (!intervalArithmetic) {
+				this.add(this.getLUE(), cons.xywh(2, 2, 1, 1));
+				this.add(this.getLABSCH(), cons.xywh(2, 4, 1, 1));
+				this.add(this.getLSBA(), cons.xywh(2, 6, 1, 1));
+				this.add(this.getLAUERG(), cons.xywh(2, 8, 1, 1));
 
-			this.add(new JSeparator(SwingConstants.VERTICAL), cons.xywh(6, 2,
-					1, 9));
-			this.add(this.getLmin(), cons.xywh(4, 2, 1, 1, "center,default"));
-			this.add(this.getLmax(), cons.xywh(8, 2, 1, 1, "center,default"));
+				this.add(this.getTfUE(), cons.xywh(4, 2, 1, 1));
+				this.add(new JLabel(translator.translate("currency")), cons
+						.xywh(6, 2, 1, 1));
+				this.add(this.getTfABSCH(), cons.xywh(4, 4, 1, 1));
+				this.add(new JLabel(translator.translate("currency")), cons
+						.xywh(6, 4, 1, 1));
+				this.add(this.getTfSBA(), cons.xywh(4, 6, 1, 1));
+				this.add(new JLabel(translator.translate("currency")), cons
+						.xywh(6, 6, 1, 1));
+				this.add(this.getTfAUERG(), cons.xywh(4, 8, 1, 1));
+				this.add(new JLabel(translator.translate("currency")), cons
+						.xywh(6, 8, 1, 1));
+			} else {
+				layout.setColumnGroups(new int[][] { { 4, 8 } });
 
-			this.add(this.getTfUEmin(), cons.xywh(4, 4, 1, 1));
-			this.add(this.getTfABSCHmin(), cons.xywh(4, 6, 1, 1));
-			this.add(this.getTfSBAmin(), cons.xywh(4, 8, 1, 1));
-			this.add(this.getTfAUERGmin(), cons.xywh(4, 10, 1, 1));
+				this.add(this.getLUE(), cons.xywh(2, 4, 1, 1));
+				this.add(this.getLABSCH(), cons.xywh(2, 6, 1, 1));
+				this.add(this.getLSBA(), cons.xywh(2, 8, 1, 1));
+				this.add(this.getLAUERG(), cons.xywh(2, 10, 1, 1));
 
-			this.add(this.getTfUEmax(), cons.xywh(8, 4, 1, 1));
-			this.add(this.getTfABSCHmax(), cons.xywh(8, 6, 1, 1));
-			this.add(this.getTfSBAmax(), cons.xywh(8, 8, 1, 1));
-			this.add(this.getTfAUERGmax(), cons.xywh(8, 10, 1, 1));
+				// this.add(new JSeparator(SwingConstants.VERTICAL),
+				// cons.xywh(6, 2,
+				// 1, 9));
+				this.add(this.getLmin(), cons
+						.xywh(4, 2, 1, 1, "center,default"));
+				this.add(this.getLmax(), cons
+						.xywh(8, 2, 1, 1, "center,default"));
+
+				this.add(this.getTfUEmin(), cons.xywh(4, 4, 1, 1));
+				this.add(new JLabel(translator.translate("currency")), cons
+						.xywh(6, 4, 1, 1));
+				this.add(this.getTfABSCHmin(), cons.xywh(4, 6, 1, 1));
+				this.add(new JLabel(translator.translate("currency")), cons
+						.xywh(6, 6, 1, 1));
+				this.add(this.getTfSBAmin(), cons.xywh(4, 8, 1, 1));
+				this.add(new JLabel(translator.translate("currency")), cons
+						.xywh(6, 8, 1, 1));
+				this.add(this.getTfAUERGmin(), cons.xywh(4, 10, 1, 1));
+				this.add(new JLabel(translator.translate("currency")), cons
+						.xywh(6, 10, 1, 1));
+
+				this.add(this.getTfUEmax(), cons.xywh(8, 4, 1, 1));
+				this.add(new JLabel(translator.translate("currency")), cons
+						.xywh(10, 4, 1, 1));
+				this.add(this.getTfABSCHmax(), cons.xywh(8, 6, 1, 1));
+				this.add(new JLabel(translator.translate("currency")), cons
+						.xywh(10, 6, 1, 1));
+				this.add(this.getTfSBAmax(), cons.xywh(8, 8, 1, 1));
+				this.add(new JLabel(translator.translate("currency")), cons
+						.xywh(10, 8, 1, 1));
+				this.add(this.getTfAUERGmax(), cons.xywh(8, 10, 1, 1));
+				this.add(new JLabel(translator.translate("currency")), cons
+						.xywh(10, 10, 1, 1));
+			}
 		}
 
 		// TODO add handler for locale change
@@ -128,7 +155,7 @@ public class BHPLSTotalCostForm extends JPanel {
 	}
 
 	// Here do the getters for the textfields begin
-	
+
 	public BHTextField getTfUE() {
 		if (tfUE == null) {
 			tfUE = new BHTextField(DTOGCCProfitLossStatementTotalCost.Key.UE);

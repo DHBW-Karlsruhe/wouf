@@ -5,6 +5,7 @@ import java.awt.event.WindowEvent;
 
 import javax.swing.BorderFactory;
 import javax.swing.JFrame;
+import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JSeparator;
 import javax.swing.SwingConstants;
@@ -133,10 +134,10 @@ public class BHBalanceSheetForm extends JPanel {
 		paktiva = new JPanel();
 
 		String rowDef = "4px,p,4px,p,4px,p,4px,p,4px,p,4px,p,4px,p,4px";
-		String colDef = "4px,right:pref,4px,max(100px;pref):grow,4px";
+		String colDef = "4px,right:pref,4px,max(100px;pref):grow,4px,pref,4px";
 		if (intervalArithmetic) {
 			rowDef = "4px,p," + rowDef;
-			colDef += ",pref,4px,max(100px;pref):grow,4px";
+			colDef += ",max(100px;pref):grow,4px,pref,4px";
 		}
 
 		FormLayout layout = new FormLayout(colDef, rowDef);
@@ -154,12 +155,19 @@ public class BHBalanceSheetForm extends JPanel {
 			paktiva.add(this.getLKBGGKS(), cons.xywh(2, 14, 1, 1));
 
 			paktiva.add(this.getTfIVG(), cons.xywh(4, 2, 1, 1));
+			paktiva.add(new JLabel(translator.translate("currency")), cons.xywh(6, 2, 1, 1));
 			paktiva.add(this.getTfSA(), cons.xywh(4, 4, 1, 1));
+			paktiva.add(new JLabel(translator.translate("currency")), cons.xywh(6, 4, 1, 1));
 			paktiva.add(this.getTfFA(), cons.xywh(4, 6, 1, 1));
+			paktiva.add(new JLabel(translator.translate("currency")), cons.xywh(6, 6, 1, 1));
 			paktiva.add(this.getTfVOR(), cons.xywh(4, 8, 1, 1));
+			paktiva.add(new JLabel(translator.translate("currency")), cons.xywh(6, 8, 1, 1));
 			paktiva.add(this.getTfFSVG(), cons.xywh(4, 10, 1, 1));
+			paktiva.add(new JLabel(translator.translate("currency")), cons.xywh(6, 10, 1, 1));
 			paktiva.add(this.getTfWP(), cons.xywh(4, 12, 1, 1));
+			paktiva.add(new JLabel(translator.translate("currency")), cons.xywh(6, 12, 1, 1));
 			paktiva.add(this.getTfKBGGKS(), cons.xywh(4, 14, 1, 1));
+			paktiva.add(new JLabel(translator.translate("currency")), cons.xywh(6, 14, 1, 1));
 		} else {
 			layout.setColumnGroups(new int[][] { { 4, 8 } });
 
@@ -171,28 +179,42 @@ public class BHBalanceSheetForm extends JPanel {
 			paktiva.add(this.getLWP(), cons.xywh(2, 14, 1, 1));
 			paktiva.add(this.getLKBGGKS(), cons.xywh(2, 16, 1, 1));
 
-			paktiva.add(new JSeparator(SwingConstants.VERTICAL), cons.xywh(6,
-					2, 1, 15));
+//			paktiva.add(new JSeparator(SwingConstants.VERTICAL), cons.xywh(6,
+//					2, 1, 15));
 			paktiva.add(this.getLminakt(), cons.xywh(4, 2, 1, 1,
 					"center,default"));
 			paktiva.add(this.getLmaxakt(), cons.xywh(8, 2, 1, 1,
 					"center,default"));
 
 			paktiva.add(this.getTfIVGmin(), cons.xywh(4, 4, 1, 1));
+			paktiva.add(new JLabel(translator.translate("currency")), cons.xywh(6, 4, 1, 1));
 			paktiva.add(this.getTfSAmin(), cons.xywh(4, 6, 1, 1));
+			paktiva.add(new JLabel(translator.translate("currency")), cons.xywh(6, 6, 1, 1));
 			paktiva.add(this.getTfFAmin(), cons.xywh(4, 8, 1, 1));
+			paktiva.add(new JLabel(translator.translate("currency")), cons.xywh(6, 8, 1, 1));
 			paktiva.add(this.getTfVORmin(), cons.xywh(4, 10, 1, 1));
+			paktiva.add(new JLabel(translator.translate("currency")), cons.xywh(6, 10, 1, 1));
 			paktiva.add(this.getTfFSVGmin(), cons.xywh(4, 12, 1, 1));
+			paktiva.add(new JLabel(translator.translate("currency")), cons.xywh(6, 12, 1, 1));
 			paktiva.add(this.getTfWPmin(), cons.xywh(4, 14, 1, 1));
+			paktiva.add(new JLabel(translator.translate("currency")), cons.xywh(6, 14, 1, 1));
 			paktiva.add(this.getTfKBGGKSmin(), cons.xywh(4, 16, 1, 1));
+			paktiva.add(new JLabel(translator.translate("currency")), cons.xywh(6, 16, 1, 1));
 
 			paktiva.add(this.getTfIVGmax(), cons.xywh(8, 4, 1, 1));
+			paktiva.add(new JLabel(translator.translate("currency")), cons.xywh(10, 4, 1, 1));
 			paktiva.add(this.getTfSAmax(), cons.xywh(8, 6, 1, 1));
+			paktiva.add(new JLabel(translator.translate("currency")), cons.xywh(10, 6, 1, 1));
 			paktiva.add(this.getTfFAmax(), cons.xywh(8, 8, 1, 1));
+			paktiva.add(new JLabel(translator.translate("currency")), cons.xywh(10, 8, 1, 1));
 			paktiva.add(this.getTfVORmax(), cons.xywh(8, 10, 1, 1));
+			paktiva.add(new JLabel(translator.translate("currency")), cons.xywh(10, 10, 1, 1));
 			paktiva.add(this.getTfFSVGmax(), cons.xywh(8, 12, 1, 1));
+			paktiva.add(new JLabel(translator.translate("currency")), cons.xywh(10, 12, 1, 1));
 			paktiva.add(this.getTfWPmax(), cons.xywh(8, 14, 1, 1));
+			paktiva.add(new JLabel(translator.translate("currency")), cons.xywh(10, 14, 1, 1));
 			paktiva.add(this.getTfKBGGKSmax(), cons.xywh(8, 16, 1, 1));
+			paktiva.add(new JLabel(translator.translate("currency")), cons.xywh(10, 16, 1, 1));
 		}
 
 		// TODO add handler for locale change
@@ -208,10 +230,10 @@ public class BHBalanceSheetForm extends JPanel {
 		ppassiva = new JPanel();
 
 		String rowDef = "4px,p,4px,p,4px,p,4px";
-		String colDef = "4px,right:pref,4px,max(100px;pref):grow,4px";
+		String colDef = "4px,right:pref,4px,max(100px;pref):grow,4px,pref,4px";
 		if (intervalArithmetic) {
 			rowDef = "4px,p," + rowDef;
-			colDef += ",pref,4px,max(100px;pref):grow,4px";
+			colDef += ",max(100px;pref):grow,4px,pref,4px";
 		}
 
 		FormLayout layout = new FormLayout(colDef, rowDef);
@@ -225,8 +247,11 @@ public class BHBalanceSheetForm extends JPanel {
 			ppassiva.add(this.getLVB(), cons.xywh(2, 6, 1, 1));
 
 			ppassiva.add(this.getTfEK(), cons.xywh(4, 2, 1, 1));
+			ppassiva.add(new JLabel(translator.translate("currency")), cons.xywh(6, 2, 1, 1));
 			ppassiva.add(this.getTfRS(), cons.xywh(4, 4, 1, 1));
+			ppassiva.add(new JLabel(translator.translate("currency")), cons.xywh(6, 4, 1, 1));
 			ppassiva.add(this.getTfVB(), cons.xywh(4, 6, 1, 1));
+			ppassiva.add(new JLabel(translator.translate("currency")), cons.xywh(6, 6, 1, 1));
 		} else {
 			layout.setColumnGroups(new int[][] { { 4, 8 } });
 			
@@ -234,20 +259,26 @@ public class BHBalanceSheetForm extends JPanel {
 			ppassiva.add(this.getLRS(), cons.xywh(2, 6, 1, 1));
 			ppassiva.add(this.getLVB(), cons.xywh(2, 8, 1, 1));
 
-			ppassiva.add(new JSeparator(SwingConstants.VERTICAL), cons.xywh(6,
-					2, 1, 7));
+//			ppassiva.add(new JSeparator(SwingConstants.VERTICAL), cons.xywh(6,
+//					2, 1, 7));
 			ppassiva.add(this.getLminpas(), cons.xywh(4, 2, 1, 1,
 					"center,default"));
 			ppassiva.add(this.getLmaxpas(), cons.xywh(8, 2, 1, 1,
 					"center,default"));
 
 			ppassiva.add(this.getTfEKmin(), cons.xywh(4, 4, 1, 1));
+			ppassiva.add(new JLabel(translator.translate("currency")), cons.xywh(6, 4, 1, 1));
 			ppassiva.add(this.getTfRSmin(), cons.xywh(4, 6, 1, 1));
+			ppassiva.add(new JLabel(translator.translate("currency")), cons.xywh(6, 6, 1, 1));
 			ppassiva.add(this.getTfVBmin(), cons.xywh(4, 8, 1, 1));
+			ppassiva.add(new JLabel(translator.translate("currency")), cons.xywh(6, 8, 1, 1));
 
 			ppassiva.add(this.getTfEKmax(), cons.xywh(8, 4, 1, 1));
+			ppassiva.add(new JLabel(translator.translate("currency")), cons.xywh(10, 4, 1, 1));
 			ppassiva.add(this.getTfRSmax(), cons.xywh(8, 6, 1, 1));
+			ppassiva.add(new JLabel(translator.translate("currency")), cons.xywh(10, 6, 1, 1));
 			ppassiva.add(this.getTfVBmax(), cons.xywh(8, 8, 1, 1));
+			ppassiva.add(new JLabel(translator.translate("currency")), cons.xywh(10, 8, 1, 1));
 		}
 
 		// TODO add handler for locale change
