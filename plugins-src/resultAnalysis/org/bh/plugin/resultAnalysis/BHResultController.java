@@ -17,13 +17,15 @@ import org.bh.gui.View;
 public class BHResultController extends OutputController{
 
     public static enum ChartKeys{
-        BAR_SHAREHOLDER_VALUE,
-        STACK_CV,
-        WATER_CV,
-        BAR_FCF_YEAR,
-        STACK_WACC,
-        BAR_FTE,
-        WATER_FTE;
+    	APV_WF_SV,
+    	APV_BC_CS,
+    	FCF_WF_SV,
+    	FCF_BC_CS,
+    	FCF_BC_FCF,
+    	FCF_BC_RR,
+    	FTE_BC_SV,
+    	FTE_BC_CS,
+    	FTE_BC_FTE;
 
         @Override
         public String toString() {
