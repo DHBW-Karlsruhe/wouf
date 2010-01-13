@@ -93,27 +93,27 @@ public final class BHResultPanel extends JPanel {
 //        this.setLayout(new TableLayout(size));
         this.setLayout(new FlowLayout());
 
-        //this.setMaximumSize(BHMainFrame.chartsPanel.getMaximumSize());
-       		/*
-         * Creates the default LineChart and add it on a Label
-         */
-        lineChartLabel = BHChartFactory.getLineChart("TestChart", "XAxis", "YAxis", "LineChart");
-        lineChartLabel.setFont(UIManager.getFont("defaultFont"));
-
-        /*
-         * Creates the description and add it on a Label
-         */
-        //lineChartTextArea = new BHDescriptionTextArea("RlineChartText", 5, 5);
-
-
-        /*
-         * creates the default PieChart
-         */
-        pieChartLabel = BHChartFactory.getPieChart("TestPieChart", "XAxis", "YAxis", "PieChart");
-        pieChartLabel.setFont(UIManager.getFont("defaultFont"));
-
-
-        pieChartTextArea = new BHDescriptionTextArea("RpieChartText", 5, 5);
+//        //this.setMaximumSize(BHMainFrame.chartsPanel.getMaximumSize());
+//       		/*
+//         * Creates the default LineChart and add it on a Label
+//         */
+//        lineChartLabel = BHChartFactory.getLineChart("TestChart", "XAxis", "YAxis", "LineChart");
+//        lineChartLabel.setFont(UIManager.getFont("defaultFont"));
+//
+//        /*
+//         * Creates the description and add it on a Label
+//         */
+//        //lineChartTextArea = new BHDescriptionTextArea("RlineChartText", 5, 5);
+//
+//
+//        /*
+//         * creates the default PieChart
+//         */
+//        pieChartLabel = BHChartFactory.getPieChart("TestPieChart", "XAxis", "YAxis", "PieChart");
+//        pieChartLabel.setFont(UIManager.getFont("defaultFont"));
+//
+//
+//        pieChartTextArea = new BHDescriptionTextArea("RpieChartText", 5, 5);
 
         /*
          * creates BarChart
@@ -246,7 +246,7 @@ public final class BHResultPanel extends JPanel {
 //       		this.add(FCFwaccEquity, BorderLayout.CENTER);
 //       		//this.add(lineChartLabel, BorderLayout.EAST);
 //       		
-        this.add(exportButton, "3,1");
+        this.add(exportButton);
     }
 //	/**
 //     * Test main method.

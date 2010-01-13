@@ -41,10 +41,10 @@ public class BHChartFactory {
 	 * @return created LineChart
 	 */
 	public static BHChartPanel getLineChart(final String title, final String XAxis,
-			final String YAxis, final String key) {
+			final String YAxis, final Object key) {
 
 		BHLineChart chart = new BHLineChart(title, XAxis, YAxis, dimDataset(
-				YAxis, XAxis), key);
+				YAxis, XAxis), key.toString());
 		return new BHChartPanel(key, chart.getChart(), chart.getClass(), chart);
 
 	}
@@ -59,10 +59,10 @@ public class BHChartFactory {
 	 * @return
 	 */
 	public static BHChartPanel getWaterfallChart(final String title,  final String XAxis,
-			final String YAxis, final String key){
+			final String YAxis, final Object key){
 		
 		BHwaterfallChart chart = new BHwaterfallChart(title, XAxis, YAxis, dimDataset(
-				YAxis, XAxis), key);
+				YAxis, XAxis), key.toString());
 		return new BHChartPanel(key, chart.getChart(), chart.getClass(), chart);
 	}
 	//TODO Lars.Zuckschwerdt JavaDoc
@@ -75,10 +75,10 @@ public class BHChartFactory {
 	 * @return
 	 */
 	public static BHChartPanel getBarChart(final String title,  final String XAxis,
-			final String YAxis, final String key){
+			final String YAxis, final Object key){
 		
 		BHBarChart chart = new BHBarChart(title, XAxis, YAxis, dimDataset(
-				YAxis, XAxis), key);
+				YAxis, XAxis), key.toString());
 		return new BHChartPanel(key, chart.getChart(), chart.getClass(), chart);
 	}
 	
@@ -92,10 +92,10 @@ public class BHChartFactory {
 	 * @return
 	 */
 	public static BHChartPanel getStackedBarChart(final String title,  final String XAxis,
-			final String YAxis, final String key){
+			final String YAxis, final Object key){
 		
 		BHstackedBarChart chart = new BHstackedBarChart(title, XAxis, YAxis, dimDataset(
-				YAxis, XAxis), key);
+				YAxis, XAxis), key.toString());
 		return new BHChartPanel(key, chart.getChart(), chart.getClass(), chart);
 	}
 	/**
@@ -113,8 +113,8 @@ public class BHChartFactory {
 	 * 		<code>String</code> key
 	 * @return
 	 */
-	public static BHChartPanel getPieChart(final String title, final String XAxis, final String YAxis, final String key){
-		BHPieChart chart = new BHPieChart(title, dimDataset(), key);
+	public static BHChartPanel getPieChart(final String title, final String XAxis, final String YAxis, final Object key){
+		BHPieChart chart = new BHPieChart(title, dimDataset(), key.toString());
 		
 		return new BHChartPanel(key, chart.getChart(), chart.getClass(), chart);
 	}
@@ -140,11 +140,11 @@ public class BHChartFactory {
 	 * 
 	 */
 	public static BHChartPanel getXYAreaChart(final String title, final String xAxis,
-			final String yAxis, final String seriesKey, final double[][] data, final String key,
+			final String yAxis, final String seriesKey, final double[][] data, final Object key,
 			final XYPlot plot) {
 
 		BHxyAreaChart chart = new BHxyAreaChart(title, xAxis, yAxis,
-				dimDataset(seriesKey, data), key, plot);
+				dimDataset(seriesKey, data), key.toString(), plot);
 		return new BHChartPanel(key, chart.getChart(), chart.getClass(), chart);
 	}
 
@@ -172,10 +172,10 @@ public class BHChartFactory {
 	 */
 	public static BHChartPanel getHistogramChart(final String title, final String xAxis,
 			final String yAxis, final String datasetKey, final double[] values, final int bins,
-			final double minimum, final double maximum, final String key, final Plot plot) {
+			final double minimum, final double maximum, final Object key, final Plot plot) {
 
 		BHHistogramChart chart = new BHHistogramChart(title, xAxis, yAxis,
-				dimDataset(datasetKey, values, bins, minimum, maximum), key,
+				dimDataset(datasetKey, values, bins, minimum, maximum), key.toString(),
 				plot);
 		return new BHChartPanel(key, chart.getChart(), chart.getClass(), chart);
 	}
