@@ -58,21 +58,28 @@ public class ScenarioController extends InputController {
 	protected class CalculationListener implements ActionListener {
 		@Override
 		public void actionPerformed(ActionEvent e) {
-			DTOScenario scenario = (DTOScenario) getModel();
-			// start calculation
-			Map<String, Calculable[]> result = scenario.getDCFMethod()
-					.calculate(scenario);
+			
+			Runnable r = new Runnable() {
+				@Override
+				public void run() {
+					DTOScenario scenario = (DTOScenario) getModel();
+					// start calculation
+					Map<String, Calculable[]> result = scenario.getDCFMethod()
+							.calculate(scenario);
 
-			// TODO maybe setResult should return the panel of the view
-			JPanel panel = new JPanel();
-			Services.setCharts(panel);
-			// FIXME selection of result analyser plugin
-			for (IDeterministicResultAnalyser analyser : PluginManager
-					.getInstance().getServices(
-							IDeterministicResultAnalyser.class)) {
-				analyser.setResult(scenario, result, panel);
-				break;
-			}
+					// TODO maybe setResult should return the panel of the view
+					JPanel panel = new JPanel();
+					Services.setCharts(panel);
+					// FIXME selection of result analyser plugin
+					for (IDeterministicResultAnalyser analyser : PluginManager
+							.getInstance().getServices(
+									IDeterministicResultAnalyser.class)) {
+						analyser.setResult(scenario, result, panel);
+						break;
+					}
+				}	
+			};
+			new Thread(r).start();
 		}
 	}
 }
