@@ -25,7 +25,7 @@ import org.bh.data.IDTO;
 import org.bh.data.types.StringValue;
 import org.bh.gui.swing.BHComboBox;
 import org.bh.gui.swing.BHContent;
-import org.bh.gui.swing.BHProjectDataExchangeDialog;
+import org.bh.gui.swing.BHDataExchangeDialog;
 import org.bh.gui.swing.BHMainFrame;
 import org.bh.gui.swing.BHOptionDialog;
 import org.bh.gui.swing.BHStatusBar;
@@ -138,7 +138,7 @@ class PlatformActionListener implements ActionListener {
 				
 			// Get data exchange controller			
 			dataExchangeCntrl = Services.getDataExchangeController("XML");							
-			BHProjectDataExchangeDialog importDialog = new BHProjectDataExchangeDialog(bhmf, true);	
+			BHDataExchangeDialog importDialog = new BHDataExchangeDialog(bhmf, true);	
 			importDialog.setTitle(BHTranslator.getInstance().translate(projectImportPanelKey));
 			importDialog.add(dataExchangeCntrl.getImportPanel(projectImportPanelKey, importDialog), BorderLayout.CENTER);
 			importDialog.setVisible(true);
@@ -165,7 +165,7 @@ class PlatformActionListener implements ActionListener {
 					exportDialog.add(dataExchangeCntrl.getExportPanel(projectExportPanelKey, exportDialog), BorderLayout.CENTER);
 					exportDialog.setVisible(true);*/
 			
-					BHProjectDataExchangeDialog dialog = new BHProjectDataExchangeDialog(bhmf, true);
+					BHDataExchangeDialog dialog = new BHDataExchangeDialog(bhmf, true);
 					dialog.setAction(IImportExport.EXP_PROJECT);
 					dialog.setModel((IDTO<?>) selectedNode.getUserObject());
 					dialog.setAvailablePlugins(Services.getImportExportPlugins(IImportExport.EXP_PROJECT));

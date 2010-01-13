@@ -19,7 +19,7 @@ import org.bh.data.DTOScenario;
 import org.bh.data.IDTO;
 import org.bh.data.types.Calculable;
 import org.bh.data.types.DistributionMap;
-import org.bh.gui.swing.BHProjectDataExchangeDialog;
+import org.bh.gui.swing.BHDataExchangeDialog;
 import org.bh.gui.swing.IBHComponent;
 import org.bh.platform.IImportExport;
 import org.bh.platform.PlatformController;
@@ -232,7 +232,7 @@ public class XMLDataExchangeController implements IImportExport, ActionListener 
 	}
 
 	@Override
-	public void exportProject(DTOProject project, BHProjectDataExchangeDialog exportDialog) {
+	public void exportProject(DTOProject project, BHDataExchangeDialog exportDialog) {
 		model = project;
 		exportDialog.setDefaulExportProjectPanel();
 		exportDialog.setPluginActionListener(this);

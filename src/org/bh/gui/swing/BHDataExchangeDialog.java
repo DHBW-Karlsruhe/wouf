@@ -30,7 +30,7 @@ import org.bh.platform.IImportExport;
 import org.bh.platform.i18n.BHTranslator;
 
 
-public class BHProjectDataExchangeDialog extends JDialog implements ActionListener {
+public class BHDataExchangeDialog extends JDialog implements ActionListener {
 
 	/**
 	 * First panel with the format selection
@@ -100,7 +100,7 @@ public class BHProjectDataExchangeDialog extends JDialog implements ActionListen
 	 * @param owner
 	 * @param modal
 	 */
-	public BHProjectDataExchangeDialog(Frame owner, boolean modal) {
+	public BHDataExchangeDialog(Frame owner, boolean modal) {
 		super(owner, modal);
 		
 		// Set some properties

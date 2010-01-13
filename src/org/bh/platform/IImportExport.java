@@ -7,7 +7,7 @@ import org.bh.data.DTOProject;
 import org.bh.data.DTOScenario;
 import org.bh.data.types.Calculable;
 import org.bh.data.types.DistributionMap;
-import org.bh.gui.swing.BHProjectDataExchangeDialog;
+import org.bh.gui.swing.BHDataExchangeDialog;
 
 /**
  * Interface for plugins which can import export DTOs to third party file
@@ -36,7 +36,7 @@ public interface IImportExport extends IDisplayablePlugin {
 	 * @param project
 	 * @param exportDialog 
 	 */
-	void exportProject(DTOProject project, BHProjectDataExchangeDialog exportDialog);	
+	void exportProject(DTOProject project, BHDataExchangeDialog exportDialog);	
 
 	/**
 	 * Must be implemented if export of a project DTO with results from a
