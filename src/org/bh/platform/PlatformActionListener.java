@@ -575,26 +575,7 @@ class PlatformActionListener implements ActionListener {
 
 			DTOProject newProject = (DTOProject) duplicateProject.clone();
 
-			BHTreeNode newProjectNode = bhmf.getBHTree().addProject(newProject);
-
-			for (int x = 0; x < newProject.getChildren().size(); x++) {
-				BHTreeNode newScenarioNode = bhmf.getBHTree()
-						.duplicateScenarioNode(newProject.getChildren().get(x),
-								bhmf, newProjectNode);
-
-				for (int y = 0; y < newProject.getChildren().get(x)
-						.getChildren().size(); y++) {
-					newScenarioNode.add(bhmf.getBHTree().duplicatePeriodNode(
-							newProject.getChildren().get(x).getChildren()
-									.get(y), bhmf, newScenarioNode));
-				}
-			}
-
-			// add DTOProject to repository
-			projectRepoManager.addProject(newProject);
-
-			// add DTOProject to repository
-			projectRepoManager.addProject(newProject);
+			bhmf.getBHTree().addProject(newProject);		
 
 		} else {
 			BHStatusBar.getInstance().setHint(
@@ -618,19 +599,8 @@ class PlatformActionListener implements ActionListener {
 			// neues DTOProject mit Referenz auf den Klon
 			DTOScenario newScenario = (DTOScenario) duplicateScenario.clone();
 
-			BHTreeNode newScenarioNode = bhmf.getBHTree()
-					.addScenarioAtCurrentPos(newScenario);
+			bhmf.getBHTree().addScenarioAtCurrentPos(newScenario);
 
-			for (int y = 0; y < newScenario.getChildren().size(); y++) {
-				newScenarioNode.add(bhmf.getBHTree()
-						.duplicatePeriodNode(newScenario.getChildren().get(y),
-								bhmf, newScenarioNode));
-			}
-
-			// add DTOScenario to parent DTOProject
-			((DTOProject) ((BHTreeNode) bhmf.getBHTree().getSelectionPath()
-					.getPathComponent(1)).getUserObject())
-					.addChild(newScenario);
 
 		} else {
 			BHStatusBar.getInstance().setHint(
