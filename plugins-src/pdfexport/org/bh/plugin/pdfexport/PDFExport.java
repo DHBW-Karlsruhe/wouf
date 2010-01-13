@@ -19,6 +19,7 @@ import org.bh.data.IPeriodicalValuesDTO;
 import org.bh.data.types.Calculable;
 import org.bh.data.types.DistributionMap;
 import org.bh.data.types.IValue;
+import org.bh.gui.swing.BHDataExchangeDialog;
 import org.bh.gui.swing.BHFileChooser;
 import org.bh.gui.swing.BHOptionDialog;
 import org.bh.gui.swing.BHProjectDataExchangeDialog;
@@ -67,7 +68,10 @@ public class PDFExport implements IImportExport {
 	private Chapter report;
 
 	@Override
-	public void exportProject(DTOProject project, BHProjectDataExchangeDialog exportDialog) {
+	public void exportProject(DTOProject project, BHDataExchangeDialog exportDialog) {
+		//exportDialog.setPluginActionListener(pluginActionListener)
+		exportDialog.setDefaulExportProjectPanel();
+		//exportDialog.getModel()
 		// TODO Auto-generated method stub
 		throw new UnsupportedOperationException(
 				"This method has not been implemented");
@@ -318,8 +322,7 @@ public class PDFExport implements IImportExport {
 
 	@Override
 	public String toString() {
-		// TODO test only
-		return GUI_KEY + " from to String";
+		return "PDF - Portable Document Format";
 	}
 
 }
