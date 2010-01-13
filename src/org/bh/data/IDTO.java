@@ -38,7 +38,15 @@ public interface IDTO<ChildT extends IDTO> extends Cloneable, Serializable, Iter
 	 * @throws DTOAccessException
 	 */
 	void put(Object key, IValue value) throws DTOAccessException;
-
+	
+	/**
+	 * Removes a key-value-pair from DTO.
+	 * 
+	 * @param key
+	 * @throws DTOAcessException
+	 */
+	void remove(Object key) throws DTOAccessException;
+	
 	/**
 	 * In the sandbox mode a valid copy of the DTO is made and can be used as
 	 * fallback data if a validation check returns false.

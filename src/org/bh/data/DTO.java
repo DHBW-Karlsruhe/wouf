@@ -178,7 +178,20 @@ public abstract class DTO<ChildT extends IDTO> implements IDTO<ChildT> {
 			throw new DTOAccessException("The key '" + key
 					+ "' is not part of this DTO!");
 	}
+	
+	@Override
+	public void remove(Object key) throws DTOAccessException{
+		if (availableKeys.contains(key)) {
+			values.remove(key);
+			Services.firePlatformEvent(new PlatformEvent(this,
+					PlatformEvent.Type.DATA_CHANGED));
+		}
 
+		else
+			throw new DTOAccessException("The key '" + key
+					+ "' is not part of this DTO!");
+	}
+	
 	/**
 	 * Get a reference to a method with the specified name.
 	 * 
@@ -197,7 +210,7 @@ public abstract class DTO<ChildT extends IDTO> implements IDTO<ChildT> {
 				return method;
 			}
 		}
-		throw new NoSuchMethodError(methodName);
+		throw new NoSuchMethodException(methodName);
 	}
 
 	/**
@@ -330,7 +343,7 @@ public abstract class DTO<ChildT extends IDTO> implements IDTO<ChildT> {
 	public void setSandBoxMode(boolean mode) {
 		if (mode) {
 			fallBackValues.clear();
-			values.putAll(((DTO<ChildT>) clone()).values);
+			values.putAll((clone()).values);
 		}
 		sandBoxMode = mode;
 		log.debug("Sandboxmode changed to " + mode);

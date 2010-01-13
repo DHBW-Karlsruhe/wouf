@@ -81,6 +81,10 @@ public class InputController extends Controller implements IInputController {
 			model.setValid(!validationResult.hasErrors());
 			break;
 		case VALIDATION_FAILED:
+			//the validation of the component went wrong, so remvove value for DTO
+			//(necessary e.g. in case of saving DTO to file; otherwise, deleted values
+			//would be saved)
+			removeFromModel((IBHModelComponent) e.getSource());
 			model.setValid(false);
 			break;
 		}
@@ -128,7 +132,21 @@ public class InputController extends Controller implements IInputController {
 			model.put(key.toString(), comp.getValue());
 		}
 	}
-
+	
+	/**
+	 * Method to remove value from DTO
+	 * e.g. necessary when validation went wrong
+	 * 
+	 * @param comp
+	 * @param model
+	 * @throws DTOAccessException
+	 */
+	public static void removeFromModel(IBHModelComponent comp, IDTO<?> model)
+	throws DTOAccessException {
+		log.debug("Removing value from model");
+		model.remove(comp.getKey());
+	}
+	
 	public static void loadAllToView(IDTO<?> model, View view) {
 		log.debug("Loading values from model to view");
 		for (IBHModelComponent comp : view.getBHModelComponents().values()) {
@@ -192,7 +210,11 @@ public class InputController extends Controller implements IInputController {
 	public void saveToModel(Object key) throws DTOAccessException {
 		saveToModel(this.view, this.model, key);
 	}
-
+	
+	public void removeFromModel(IBHModelComponent comp) throws DTOAccessException {
+		removeFromModel(comp, this.model);
+	}
+	
 	public void loadAllToView() throws DTOAccessException {
 		loadAllToView(this.model, this.view);
 	}
