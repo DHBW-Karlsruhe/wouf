@@ -13,12 +13,17 @@ public class VRIsGreaterThan extends ValidationRule {
 	/** Constant to check whether a value is greater than or equal to zero. */
 	public static final VRIsGreaterThan GTEZERO = new VRIsGreaterThan(0, true);
 	
-	
-	private final double compareValue;
+	private IBHModelComponent other = null;
+	private double compareValue;
 	private final boolean orEqual;
 
 	public VRIsGreaterThan(double compareValue, boolean orEqual) {
 		this.compareValue = compareValue;
+		this.orEqual = orEqual;
+	}
+	
+	public VRIsGreaterThan(IBHModelComponent other, boolean orEqual) {
+		this.other = other;
 		this.orEqual = orEqual;
 	}
 
@@ -31,9 +36,14 @@ public class VRIsGreaterThan extends ValidationRule {
 		ValidationResult validationResult = new ValidationResult();
 		if (comp instanceof JTextField || comp instanceof BHTextField) {
 			BHTextField tf_toValidate = (BHTextField) comp;
+			BHTextField tf_other = (BHTextField) other;
 			String valueString = tf_toValidate.getText().replace(',', '.');
 			boolean success = false;
 			try {
+				if (other != null) {
+					String otherString = tf_other.getText().replace(',', '.');
+					compareValue = Double.parseDouble(otherString);
+				}
 				double value = Double.parseDouble(valueString);
 				success = orEqual ? (value >= compareValue)
 						: (value > compareValue);
@@ -41,12 +51,20 @@ public class VRIsGreaterThan extends ValidationRule {
 			} catch (NumberFormatException nfe) {
 			}
 			if (!success) {
-				validationResult.addError(translator.translate("Efield") + " '"
-						+ translator.translate(tf_toValidate.getKey()) + "' "
-						+ translator.translate("EisGreater") + compareValue);
+				if (other != null) {
+					validationResult.addError(translator.translate("EValueField") + " '"
+							+ translator.translate(tf_toValidate.getKey()) + "' "
+							+ translator.translate("EisGreater") + " '" + 
+							translator.translate(other.getKey()) + "'.");
+				}
+				else {
+					validationResult.addError(translator.translate("Efield") + " '"
+							+ translator.translate(tf_toValidate.getKey()) + "' "
+							+ translator.translate("EisGreaterValue") + " " + compareValue);
+				}
+
 			}
 		}
 		return validationResult;
 	}
-
 }

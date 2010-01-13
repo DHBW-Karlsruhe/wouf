@@ -88,7 +88,7 @@ public class BHScenarioHeadForm extends JPanel {
 		this.add(this.getldeptYield(), cons.xywh(3, 14, 1, 1));
 		this.add(this.getltradeTax(), cons.xywh(14, 12, 1, 1));
 		this.add(this.getlcorporateTax(), cons.xywh(14, 14, 1, 1));
-		this.add(this.gettfequityYeild(), cons.xywh(6, 12, 1, 1));
+		this.add(this.gettfequityYield(), cons.xywh(6, 12, 1, 1));
 		this.add(this.gettfdeptYield(), cons.xywh(6, 14, 1, 1));
 		this.add(this.gettftradeTax(), cons.xywh(17, 12, 1, 1));
 		this.add(this.gettfcorporateTax(), cons.xywh(17, 14, 1, 1));
@@ -101,7 +101,7 @@ public class BHScenarioHeadForm extends JPanel {
 		order.add(this.gettfscenName());
 		order.add(this.gettfBase());
 		order.add(this.gettfscenDescript());
-		order.add(this.gettfequityYeild());
+		order.add(this.gettfequityYield());
 		order.add(this.gettfdeptYield());
 		order.add(this.gettftradeTax());
 		order.add(this.gettfcorporateTax());
@@ -261,7 +261,7 @@ public class BHScenarioHeadForm extends JPanel {
 	 * 
 	 * @return the initialized component
 	 */
-	public BHTextField gettfequityYeild() {
+	public BHTextField gettfequityYield() {
 
 		if (this.tfequityyield == null) {
 			this.tfequityyield = new BHTextField(DTOScenario.Key.REK);
