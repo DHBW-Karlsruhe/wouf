@@ -90,9 +90,6 @@ public class XMLProjectExportPanel extends JPanel {
 		
 		// Create list with all available scenarios of the given project
 		secList = new BHSelectionList(model.get(0).getChildren().toArray());		
-		Border secListBorder = BorderFactory.createCompoundBorder(BorderFactory.createLineBorder(UIManager.getColor("controlDkShadow")),
-				BorderFactory.createEmptyBorder(5,5,10,5));
-		secList.setBorder(secListBorder);	
 		
 		// An extra panel for file selection
 		JPanel fileSelectionPanel = new JPanel();	

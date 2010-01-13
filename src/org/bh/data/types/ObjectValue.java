@@ -2,22 +2,25 @@ package org.bh.data.types;
 
 public class ObjectValue implements IValue {
 	private static final long serialVersionUID = 1392784563718846200L;
-	protected final Cloneable object;
+	protected final Object object;
 
-	public ObjectValue(Cloneable object) {
+	public ObjectValue(Object object) {
 		this.object = object;
 	}
 
 	@Override
 	public ObjectValue clone() {
 		try {
-			Cloneable clone = (Cloneable) object.getClass().getMethod("clone")
-					.invoke(object);
+			Object clone = object.getClass().getMethod("clone").invoke(object);
 			return new ObjectValue(clone);
 		} catch (Exception e) {
 			throw new IllegalArgumentException("Could not clone object", e);
 		}
 
+	}
+	
+	public Object getObject() {
+		return object;
 	}
 
 	@Override

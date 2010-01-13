@@ -280,7 +280,7 @@ public class PlatformController {
 
 									View view;
 									// find out if stochastic process was chosen at init of strategy
-									if (model.isDeterministic()) {
+									if (!model.isDeterministic()) {
 										view = new BHScenarioView(
 												new BHScenarioForm(
 														BHScenarioForm.Type.STOCHASTIC),

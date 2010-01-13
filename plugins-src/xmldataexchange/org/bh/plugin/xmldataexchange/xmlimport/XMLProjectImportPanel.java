@@ -5,7 +5,6 @@ import info.clearthought.layout.TableLayout;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Component;
-import java.awt.FlowLayout;
 import java.util.List;
 
 import javax.swing.BorderFactory;
@@ -92,9 +91,6 @@ public class XMLProjectImportPanel extends JPanel {
 		
 		// Create list with all available scenarios of the given project
 		secList = new BHSelectionList(null);		
-		Border secListBorder = BorderFactory.createCompoundBorder(BorderFactory.createLineBorder(UIManager.getColor("controlDkShadow")),
-				BorderFactory.createEmptyBorder(5,5,10,5));
-		secList.setBorder(secListBorder);	
 		
 		// An extra panel for file selection
 		JPanel fileSelectionPanel = new JPanel();	
