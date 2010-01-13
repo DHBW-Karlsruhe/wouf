@@ -5,7 +5,6 @@ import java.util.ServiceLoader;
 
 import org.apache.log4j.Logger;
 import org.bh.calculation.ICalculationPreparer;
-import org.bh.controller.IPeriodController;
 import org.bh.data.types.Calculable;
 import org.bh.data.types.IValue;
 import org.bh.platform.PluginManager;
@@ -22,7 +21,7 @@ import org.bh.platform.PluginManager;
  */
 
 public class DTOPeriod extends DTO<IPeriodicalValuesDTO> {
-	private static final long serialVersionUID = 1576283051584502781L;
+	private static final long serialVersionUID = 1576283051584502782L;
 	private static final Logger log = Logger.getLogger(DTOPeriod.class);
 	
 	public enum Key {
@@ -40,12 +39,7 @@ public class DTOPeriod extends DTO<IPeriodicalValuesDTO> {
 		/**
 		 * FreeCashFlow
 		 */
-		@Method FCF,
-		
-		/**
-		 * The {@link IPeriodController} which manages this period.
-		 */
-		CONTROLLER;
+		@Method FCF;
 		
 		@Override
 		public String toString() {

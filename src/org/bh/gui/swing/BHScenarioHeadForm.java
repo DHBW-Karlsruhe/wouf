@@ -50,6 +50,9 @@ public class BHScenarioHeadForm extends JPanel {
 	private JLabel lpercentdept;
 	private JLabel lpercenttrade;
 	private JLabel lpercentcorporate;
+	
+	private BHDescriptionLabel lPeriodType;
+	private BHComboBox cmbPeriodType;
 
 	private BHFocusTraversalPolicy focusPolicy;
 
@@ -67,7 +70,7 @@ public class BHScenarioHeadForm extends JPanel {
 	 */
 	private void initialize() {
 
-		String rowDef = "4px,p,4px,p,4px,p,4px,p,20px,p,4px,p,4px,p,4px,p,4px";
+		String rowDef = "4px,p,4px,p,4px,p,4px,p,20px,p,4px,p,4px,p,20px,p,4px";
 		String colDef = "4px,4px,right:pref,4px,pref,max(80px;pref),4px,left:pref,24px:grow,pref,4px,pref,4px,right:pref,4px,pref,pref,4px,pref,4px,pref,4px";
 
 		FormLayout layout = new FormLayout(colDef, rowDef);
@@ -96,8 +99,11 @@ public class BHScenarioHeadForm extends JPanel {
 		this.add(this.getlpercentDept(), cons.xywh(8, 14, 1, 1));
 		this.add(this.getlpercentTrade(), cons.xywh(19, 12, 1, 1));
 		this.add(this.getlpercentCorporate(), cons.xywh(19, 14, 1, 1));
+		
+		this.add(this.getlPeriodType(), cons.xywh(3, 16, 1, 1));
+		this.add(this.getCmbPeriodType(), cons.xywh(6, 16, 4, 1));
 
-		Vector<Component> order = new Vector<Component>(7);
+		Vector<Component> order = new Vector<Component>();
 		order.add(this.gettfscenName());
 		order.add(this.gettfBase());
 		order.add(this.gettfscenDescript());
@@ -105,6 +111,7 @@ public class BHScenarioHeadForm extends JPanel {
 		order.add(this.gettfdeptYield());
 		order.add(this.gettftradeTax());
 		order.add(this.gettfcorporateTax());
+		order.add(this.getCmbPeriodType());
 
 		this.setFocusPolicy(order);
 
@@ -386,6 +393,20 @@ public class BHScenarioHeadForm extends JPanel {
 			this.lpercentcorporate = new JLabel("%");
 		}
 		return this.lpercentcorporate;
+	}
+
+	public BHDescriptionLabel getlPeriodType() {
+		if (lPeriodType == null) {
+			lPeriodType = new BHDescriptionLabel(DTOScenario.Key.PERIOD_TYPE);
+		}
+		return lPeriodType;
+	}
+
+	public BHComboBox getCmbPeriodType() {
+		if (cmbPeriodType == null) {
+			cmbPeriodType = new BHComboBox(DTOScenario.Key.PERIOD_TYPE);
+		}
+		return cmbPeriodType;
 	}
 
 	// TODO remove main later

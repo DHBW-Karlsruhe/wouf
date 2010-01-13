@@ -25,6 +25,7 @@ import org.bh.controller.IDataExchangeController;
 import org.bh.controller.IPeriodController;
 import org.bh.data.DTOKeyPair;
 import org.bh.data.DTOPeriod;
+import org.bh.data.DTOScenario;
 import org.bh.data.DTO.Stochastic;
 import org.bh.gui.swing.BHMainFrame;
 import org.bh.gui.swing.BHPeriodForm;
@@ -172,32 +173,27 @@ public class Services {
 		}
 
 	}
-	
-	
-	public static Map<String, IDataExchangeController> getDataExchangeController()
-	{
+
+	public static Map<String, IDataExchangeController> getDataExchangeController() {
 		if (dataExchangeController == null)
 			loadDataExchangeController();
 		return dataExchangeController;
 	}
-	
-	public static IDataExchangeController getDataExchangeController(String dataFormat)
-	{
+
+	public static IDataExchangeController getDataExchangeController(
+			String dataFormat) {
 		if (dataExchangeController == null)
 			loadDataExchangeController();
 		return dataExchangeController.get(dataFormat);
 	}
-	
-	
-	private static void loadDataExchangeController()
-	{
+
+	private static void loadDataExchangeController() {
 		dataExchangeController = new HashMap<String, IDataExchangeController>();
 		ServiceLoader<IDataExchangeController> controller = PluginManager
 				.getInstance().getServices(IDataExchangeController.class);
 		for (IDataExchangeController contrl : controller)
 			dataExchangeController.put(contrl.getDataFormat(), contrl);
 	}
-	
 
 	@SuppressWarnings("unchecked")
 	public static List<DTOKeyPair> getStochasticKeysFromEnum(String dtoId,
@@ -225,30 +221,31 @@ public class Services {
 			importExport.put(impExp.getUniqueId(), impExp);
 		}
 	}
-	
+
 	/**
 	 * Returns the references to all import export plug-ins.
 	 * 
-	 * @return References to all import export plug-ins matching the required methods.
+	 * @return References to all import export plug-ins matching the required
+	 *         methods.
 	 */
-	public static Map<String, IImportExport> getImportExportPlugins(int requiredMetods) {
+	public static Map<String, IImportExport> getImportExportPlugins(
+			int requiredMetods) {
 		int check;
 		Map<String, IImportExport> matchingImportExport;
-		
+
 		if (importExport == null) {
 			loadImportExportPlugins();
 		}
 		matchingImportExport = new HashMap<String, IImportExport>();
-		for(Entry<String, IImportExport> plugin : importExport.entrySet()) {
+		for (Entry<String, IImportExport> plugin : importExport.entrySet()) {
 			check = requiredMetods & plugin.getValue().getSupportedMethods();
-			if(requiredMetods == check) {
+			if (requiredMetods == check) {
 				matchingImportExport.put(plugin.getKey(), plugin.getValue());
 			}
 		}
 		return matchingImportExport;
 	}
-	
-	
+
 	/*
 	 * --------------------------------------- GUI
 	 * ---------------------------------------
@@ -307,35 +304,38 @@ public class Services {
 
 	public static void startPeriodEditing(DTOPeriod period) {
 		IPeriodController periodController = Services
-				.getPeriodController(period.get(DTOPeriod.Key.CONTROLLER)
-						.toString());
-		Component viewComponent = periodController.editDTO((DTOPeriod) period);
+				.getPeriodController(period.getScenario().get(
+						DTOScenario.Key.PERIOD_TYPE).toString());
+		Component viewComponent = periodController.editDTO(period);
 		BHPeriodForm container = new BHPeriodForm();
-		container.setPvalues((JPanel)viewComponent);
+		container.setPvalues((JPanel) viewComponent);
 		if (viewComponent == null)
 			viewComponent = new JPanel();
 		bhmf.setContentForm(container);
 	}
-	
+
 	public static void setCharts(Component chart) {
 		bhmf.setCharts(chart);
 	}
-	
+
 	/**
 	 * Checks if JRE is fulfilling the requirements for Business Horizon.
 	 * 
-	 * Currently Business Horizon is requiring Java 6 Update 10. (1.6.0_10) 
-	 * @return <code>true</code> if JRE fulfills and <code>false</code> if it doesn't.
+	 * Currently Business Horizon is requiring Java 6 Update 10. (1.6.0_10)
+	 * 
+	 * @return <code>true</code> if JRE fulfills and <code>false</code> if it
+	 *         doesn't.
 	 */
 	public static boolean jreFulfillsRequirements() {
 		// Require Java 6 Update 10 or higher.
-		StringTokenizer javaVersion = new StringTokenizer(System.getProperty("java.version"), "._");
-		
+		StringTokenizer javaVersion = new StringTokenizer(System
+				.getProperty("java.version"), "._");
+
 		int root = Integer.parseInt(javaVersion.nextToken());
 		int major = Integer.parseInt(javaVersion.nextToken());
 		int minor = Integer.parseInt(javaVersion.nextToken());
 		int patchlevel = Integer.parseInt(javaVersion.nextToken());
-		
+
 		if (root < 1) {
 			return false;
 		}

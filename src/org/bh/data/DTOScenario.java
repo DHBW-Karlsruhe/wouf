@@ -25,7 +25,7 @@ import org.bh.platform.Services;
  */
 
 public class DTOScenario extends DTO<DTOPeriod> {
-	private static final long serialVersionUID = -2952168332645683232L;
+	private static final long serialVersionUID = -2952168332645683233L;
 	private static final Logger log = Logger.getLogger(DTOScenario.class);
 
 	/**
@@ -87,7 +87,12 @@ public class DTOScenario extends DTO<DTOPeriod> {
 		/**
 		 * Stochastic process
 		 */
-		STOCHASTIC_PROCESS;
+		STOCHASTIC_PROCESS,
+		
+		/**
+		 * Period type
+		 */
+		PERIOD_TYPE;
 
 		@Override
 		public String toString() {

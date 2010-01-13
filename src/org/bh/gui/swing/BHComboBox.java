@@ -61,7 +61,8 @@ public class BHComboBox extends JComboBox implements IBHModelComponent,
 			// at this point, it is necessary to trigger a change event because
 			// the first item seems to be selected, but in fact is not saved in
 			// the DTO
-			this.setSelectedIndex(0);
+			if (this.getItemCount() > 0)
+				this.setSelectedIndex(0);
 			return;
 		}
 

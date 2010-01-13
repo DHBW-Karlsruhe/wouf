@@ -136,7 +136,9 @@ public class BHScenarioHeadIntervalForm extends JPanel {
 		this.add(this.getlmaxpercentDept(), cons.xywh(12, 14, 1, 1));
 		this.add(this.getlmaxpercentTrade(), cons.xywh(25, 12, 1, 1));
 		this.add(this.getlmaxpercentCorporate(), cons.xywh(25, 14, 1, 1));
-
+		
+		// TODO Anton: Combobox for period type 
+		
 		Vector<Component> order = new Vector<Component>(11);
 		order.add(this.gettfscenName());
 		order.add(this.gettfbaseYear());
