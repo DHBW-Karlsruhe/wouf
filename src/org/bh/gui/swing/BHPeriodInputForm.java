@@ -114,42 +114,42 @@ public class BHPeriodInputForm extends JPanel {
 
 	public JLabel getLcurrency1() {
 		if (lcurrency1 == null) {
-			lcurrency1 = new JLabel(translator.translate("Currency"));
+			lcurrency1 = new JLabel(translator.translate("currency"));
 		}
 		return lcurrency1;
 	}
 
 	public JLabel getLcurrency2() {
 		if (lcurrency2 == null) {
-			lcurrency2 = new JLabel(translator.translate("Currency"));
+			lcurrency2 = new JLabel(translator.translate("currency"));
 		}
 		return lcurrency2;
 	}
 	
 	public JLabel getLcurrency3() {
 		if (lcurrency3 == null) {
-			lcurrency3 = new JLabel(translator.translate("Currency"));
+			lcurrency3 = new JLabel(translator.translate("currency"));
 		}
 		return lcurrency3;
 	}
 
 	public JLabel getLcurrency4() {
 		if (lcurrency4 == null) {
-			lcurrency4 = new JLabel(translator.translate("Currency"));
+			lcurrency4 = new JLabel(translator.translate("currency"));
 		}
 		return lcurrency4;
 	}
 
 	public JLabel getLcurrency5() {
 		if (lcurrency5 == null) {
-			lcurrency5 = new JLabel(translator.translate("Currency"));
+			lcurrency5 = new JLabel(translator.translate("currency"));
 		}
 		return lcurrency5;
 	}
 
 	public JLabel getLcurrency6() {
 		if (lcurrency6 == null) {
-			lcurrency6 = new JLabel(translator.translate("Currency"));
+			lcurrency6 = new JLabel(translator.translate("currency"));
 		}
 		return lcurrency6;
 	}
