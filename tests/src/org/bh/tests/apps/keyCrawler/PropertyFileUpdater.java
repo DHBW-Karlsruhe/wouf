@@ -4,6 +4,7 @@ package org.bh.tests.apps.keyCrawler;
 
 import java.util.Properties;
 import Prog1Tools.IOTools;
+import java.io.File;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
@@ -61,11 +62,14 @@ public class PropertyFileUpdater {
                     System.out.println(o);
                     if(pfu.propFile.getProperty(o.toString()) == null){
                         pfu.propFile.setProperty(o.toString(), "TO_FILL");
-                        pfu.propFile.setProperty(o.toString() + "_LONG", "TO_FILL");
+                        pfu.propFile.setProperty(o.toString() + "_long", "TO_FILL");
                     }
                 }
             }
             if(pfu.createCopy){
+                if(!(new File(pfu.propPathWrite)).exists()){
+                    new File(pfu.propPathWrite).createNewFile();
+                }
                 pfu.propFile.store(new FileWriter(pfu.propPathWrite), "verion: " + PropertyFileUpdater.version);
             }else{
                 pfu.propFile.store(new FileWriter(pfu.propPathRead), "verion: " + PropertyFileUpdater.version);
@@ -73,7 +77,7 @@ public class PropertyFileUpdater {
             
         } catch (ClassNotFoundException ex) {
             System.out.println("Klasse "+ pfu.classPath + " oder Verzeichnis " + pfu.vzPath +
-                    "wurde nicht gefunden bzw. enthält keine Klassen");
+                    " wurde nicht gefunden bzw. enthält keine Klassen");
         }catch (IOException ex){
             System.out.println("Property File konnte nicht geladen, oder geschrieben werden");
         }
