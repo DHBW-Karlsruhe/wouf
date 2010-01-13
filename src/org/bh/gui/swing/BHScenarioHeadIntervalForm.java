@@ -17,6 +17,7 @@ import org.bh.data.DTOScenario;
 import org.bh.platform.Services;
 import org.bh.platform.i18n.ITranslator;
 import org.bh.validation.VRIsDouble;
+import org.bh.validation.VRIsGreaterThan;
 import org.bh.validation.VRIsInteger;
 import org.bh.validation.VRIsPositive;
 import org.bh.validation.VRMandatory;
@@ -438,7 +439,8 @@ public class BHScenarioHeadIntervalForm extends JPanel {
 			this.tfmaxequityyield = new BHTextField(IBHComponent.MAXVALUE
 					+ DTOScenario.Key.REK);
 			ValidationRule[] rules = { VRMandatory.INSTANCE,
-					VRIsDouble.INSTANCE, VRIsPositive.INSTANCE };
+					VRIsDouble.INSTANCE, VRIsPositive.INSTANCE,
+					new VRIsGreaterThan(gettfminequityyield(), true) };
 			tfmaxequityyield.setValidationRules(rules);
 		}
 		return this.tfmaxequityyield;
@@ -454,7 +456,8 @@ public class BHScenarioHeadIntervalForm extends JPanel {
 			this.tfmaxdeptyield = new BHTextField(IBHComponent.MAXVALUE
 					+ DTOScenario.Key.RFK);
 			ValidationRule[] rules = { VRMandatory.INSTANCE,
-					VRIsDouble.INSTANCE, VRIsPositive.INSTANCE };
+					VRIsDouble.INSTANCE, VRIsPositive.INSTANCE,
+					new VRIsGreaterThan(gettfmindeptyield(), true) };
 			tfmaxdeptyield.setValidationRules(rules);
 		}
 		return this.tfmaxdeptyield;
@@ -470,7 +473,8 @@ public class BHScenarioHeadIntervalForm extends JPanel {
 			this.tfmaxtradetax = new BHTextField(IBHComponent.MAXVALUE
 					+ DTOScenario.Key.BTAX);
 			ValidationRule[] rules = { VRMandatory.INSTANCE,
-					VRIsDouble.INSTANCE, VRIsPositive.INSTANCE };
+					VRIsDouble.INSTANCE, VRIsPositive.INSTANCE,
+					new VRIsGreaterThan(gettfmintradetax(), true) };
 			tfmaxtradetax.setValidationRules(rules);
 		}
 		return this.tfmaxtradetax;
@@ -486,7 +490,8 @@ public class BHScenarioHeadIntervalForm extends JPanel {
 			this.tfmaxcorporatetax = new BHTextField(IBHComponent.MAXVALUE
 					+ "_" + DTOScenario.Key.CTAX);
 			ValidationRule[] rules = { VRMandatory.INSTANCE,
-					VRIsDouble.INSTANCE, VRIsPositive.INSTANCE };
+					VRIsDouble.INSTANCE, VRIsPositive.INSTANCE,
+					new VRIsGreaterThan(gettfmaxcorporatetax(), true) };
 			tfmaxcorporatetax.setValidationRules(rules);
 		}
 		return this.tfmaxcorporatetax;

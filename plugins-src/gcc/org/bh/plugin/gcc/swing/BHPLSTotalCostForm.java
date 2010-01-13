@@ -7,8 +7,6 @@ import javax.swing.BorderFactory;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
-import javax.swing.JSeparator;
-import javax.swing.SwingConstants;
 import javax.swing.border.EtchedBorder;
 
 import org.bh.gui.swing.BHDescriptionLabel;
@@ -18,6 +16,7 @@ import org.bh.platform.i18n.BHTranslator;
 import org.bh.platform.i18n.ITranslator;
 import org.bh.plugin.gcc.data.DTOGCCProfitLossStatementTotalCost;
 import org.bh.validation.VRIsDouble;
+import org.bh.validation.VRIsGreaterThan;
 import org.bh.validation.VRMandatory;
 import org.bh.validation.ValidationRule;
 
@@ -200,7 +199,8 @@ public class BHPLSTotalCostForm extends JPanel {
 			tfUEmax = new BHTextField(IBHComponent.MAXVALUE
 					+ DTOGCCProfitLossStatementTotalCost.Key.UE);
 			ValidationRule[] rules = { VRMandatory.INSTANCE,
-					VRIsDouble.INSTANCE };
+					VRIsDouble.INSTANCE,
+					new VRIsGreaterThan(getTfUEmin(), true)};
 			tfUEmax.setValidationRules(rules);
 		}
 		return tfUEmax;
@@ -211,7 +211,8 @@ public class BHPLSTotalCostForm extends JPanel {
 			tfABSCHmax = new BHTextField(IBHComponent.MAXVALUE
 					+ DTOGCCProfitLossStatementTotalCost.Key.ABSCH);
 			ValidationRule[] rules = { VRMandatory.INSTANCE,
-					VRIsDouble.INSTANCE };
+					VRIsDouble.INSTANCE,
+					new VRIsGreaterThan(getTfABSCHmin(), true) };
 			tfABSCHmax.setValidationRules(rules);
 		}
 		return tfABSCHmax;
@@ -222,7 +223,8 @@ public class BHPLSTotalCostForm extends JPanel {
 			tfSBAmax = new BHTextField(IBHComponent.MAXVALUE
 					+ DTOGCCProfitLossStatementTotalCost.Key.SBA);
 			ValidationRule[] rules = { VRMandatory.INSTANCE,
-					VRIsDouble.INSTANCE };
+					VRIsDouble.INSTANCE,
+					new VRIsGreaterThan(getTfSBAmin(), true) };
 			tfSBAmax.setValidationRules(rules);
 		}
 		return tfSBAmax;
@@ -233,7 +235,8 @@ public class BHPLSTotalCostForm extends JPanel {
 			tfAUERGmax = new BHTextField(IBHComponent.MAXVALUE
 					+ DTOGCCProfitLossStatementTotalCost.Key.AUERG);
 			ValidationRule[] rules = { VRMandatory.INSTANCE,
-					VRIsDouble.INSTANCE };
+					VRIsDouble.INSTANCE,
+					new VRIsGreaterThan(getTfAUERGmin(), true) };
 			tfAUERGmax.setValidationRules(rules);
 		}
 		return tfAUERGmax;
@@ -319,14 +322,14 @@ public class BHPLSTotalCostForm extends JPanel {
 
 	public JLabel getLmax() {
 		if (lmax == null) {
-			lmax = new BHDescriptionLabel("max");
+			lmax = new BHDescriptionLabel(translator.translate("max"));
 		}
 		return lmax;
 	}
 
 	public JLabel getLmin() {
 		if (lmin == null) {
-			lmin = new BHDescriptionLabel("min");
+			lmin = new BHDescriptionLabel(translator.translate("min"));
 		}
 		return lmin;
 	}

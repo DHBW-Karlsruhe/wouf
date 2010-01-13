@@ -19,6 +19,7 @@ import org.bh.gui.swing.IBHComponent;
 import org.bh.platform.i18n.ITranslator;
 import org.bh.plugin.gcc.data.DTOGCCBalanceSheet;
 import org.bh.validation.VRIsDouble;
+import org.bh.validation.VRIsGreaterThan;
 import org.bh.validation.VRIsPositive;
 import org.bh.validation.VRMandatory;
 import org.bh.validation.ValidationRule;
@@ -290,9 +291,6 @@ public class BHBalanceSheetForm extends JPanel {
 		return ppassiva;
 	}
 
-	// TODO add missing label keys and translations, change hard coded values to
-	// keys
-
 	public BHDescriptionLabel getLIVG() {
 		if (lIVG == null) {
 			lIVG = new BHDescriptionLabel(DTOGCCBalanceSheet.Key.IVG);
@@ -527,7 +525,8 @@ public class BHBalanceSheetForm extends JPanel {
 			tfIVGmax = new BHTextField(IBHComponent.MAXVALUE
 					+ DTOGCCBalanceSheet.Key.IVG);
 			ValidationRule[] rules = { VRMandatory.INSTANCE,
-					VRIsDouble.INSTANCE, VRIsPositive.INSTANCE };
+					VRIsDouble.INSTANCE, VRIsPositive.INSTANCE,
+					new VRIsGreaterThan(getTfIVGmin(), true) };
 			tfIVGmax.setValidationRules(rules);
 		}
 		return tfIVGmax;
@@ -543,7 +542,8 @@ public class BHBalanceSheetForm extends JPanel {
 			tfSAmax = new BHTextField(IBHComponent.MAXVALUE
 					+ DTOGCCBalanceSheet.Key.SA);
 			ValidationRule[] rules = { VRMandatory.INSTANCE,
-					VRIsDouble.INSTANCE, VRIsPositive.INSTANCE };
+					VRIsDouble.INSTANCE, VRIsPositive.INSTANCE,
+					new VRIsGreaterThan(getTfSAmin(), true) };
 			tfSAmax.setValidationRules(rules);
 		}
 		return tfSAmax;
@@ -559,7 +559,8 @@ public class BHBalanceSheetForm extends JPanel {
 			tfFAmax = new BHTextField(IBHComponent.MAXVALUE
 					+ DTOGCCBalanceSheet.Key.FA);
 			ValidationRule[] rules = { VRMandatory.INSTANCE,
-					VRIsDouble.INSTANCE, VRIsPositive.INSTANCE };
+					VRIsDouble.INSTANCE, VRIsPositive.INSTANCE,
+					new VRIsGreaterThan(getTfFAmin(), true) };
 			tfFAmax.setValidationRules(rules);
 		}
 		return tfFAmax;
@@ -575,7 +576,8 @@ public class BHBalanceSheetForm extends JPanel {
 			tfVORmax = new BHTextField(IBHComponent.MAXVALUE
 					+ DTOGCCBalanceSheet.Key.VOR);
 			ValidationRule[] rules = { VRMandatory.INSTANCE,
-					VRIsDouble.INSTANCE, VRIsPositive.INSTANCE };
+					VRIsDouble.INSTANCE, VRIsPositive.INSTANCE,
+					new VRIsGreaterThan(getTfVORmin(), true) };
 			tfVORmax.setValidationRules(rules);
 		}
 		return tfVORmax;
@@ -591,7 +593,8 @@ public class BHBalanceSheetForm extends JPanel {
 			tfFSVGmax = new BHTextField(IBHComponent.MAXVALUE
 					+ DTOGCCBalanceSheet.Key.FSVG);
 			ValidationRule[] rules = { VRMandatory.INSTANCE,
-					VRIsDouble.INSTANCE, VRIsPositive.INSTANCE };
+					VRIsDouble.INSTANCE, VRIsPositive.INSTANCE,
+					new VRIsGreaterThan(getTfFSVGmin(), true)};
 			tfFSVGmax.setValidationRules(rules);
 		}
 		return tfFSVGmax;
@@ -607,7 +610,8 @@ public class BHBalanceSheetForm extends JPanel {
 			tfWPmax = new BHTextField(IBHComponent.MAXVALUE
 					+ DTOGCCBalanceSheet.Key.WP);
 			ValidationRule[] rules = { VRMandatory.INSTANCE,
-					VRIsDouble.INSTANCE, VRIsPositive.INSTANCE };
+					VRIsDouble.INSTANCE, VRIsPositive.INSTANCE,
+					new VRIsGreaterThan(getTfWPmin(), true) };
 			tfWPmax.setValidationRules(rules);
 		}
 		return tfWPmax;
@@ -623,7 +627,8 @@ public class BHBalanceSheetForm extends JPanel {
 			tfKBGGKSmax = new BHTextField(IBHComponent.MAXVALUE
 					+ DTOGCCBalanceSheet.Key.KBGGKS);
 			ValidationRule[] rules = { VRMandatory.INSTANCE,
-					VRIsDouble.INSTANCE, VRIsPositive.INSTANCE };
+					VRIsDouble.INSTANCE, VRIsPositive.INSTANCE,
+					new VRIsGreaterThan(getTfKBGGKSmin(), true) };
 			tfKBGGKSmax.setValidationRules(rules);
 		}
 		return tfKBGGKSmax;
@@ -639,7 +644,8 @@ public class BHBalanceSheetForm extends JPanel {
 			tfEKmax = new BHTextField(IBHComponent.MAXVALUE
 					+ DTOGCCBalanceSheet.Key.EK);
 			ValidationRule[] rules = { VRMandatory.INSTANCE,
-					VRIsDouble.INSTANCE, VRIsPositive.INSTANCE };
+					VRIsDouble.INSTANCE, VRIsPositive.INSTANCE,
+					new VRIsGreaterThan(getTfEKmin(), true)};
 			tfEKmax.setValidationRules(rules);
 		}
 		return tfEKmax;
@@ -655,7 +661,8 @@ public class BHBalanceSheetForm extends JPanel {
 			tfRSmax = new BHTextField(IBHComponent.MAXVALUE
 					+ DTOGCCBalanceSheet.Key.RS);
 			ValidationRule[] rules = { VRMandatory.INSTANCE,
-					VRIsDouble.INSTANCE, VRIsPositive.INSTANCE };
+					VRIsDouble.INSTANCE, VRIsPositive.INSTANCE,
+					new VRIsGreaterThan(getTfRSmin(), true)};
 			tfRSmax.setValidationRules(rules);
 		}
 		return tfRSmax;
@@ -671,7 +678,8 @@ public class BHBalanceSheetForm extends JPanel {
 			tfVBmax = new BHTextField(IBHComponent.MAXVALUE
 					+ DTOGCCBalanceSheet.Key.VB);
 			ValidationRule[] rules = { VRMandatory.INSTANCE,
-					VRIsDouble.INSTANCE, VRIsPositive.INSTANCE };
+					VRIsDouble.INSTANCE, VRIsPositive.INSTANCE,
+					new VRIsGreaterThan(getTfVBmin(), true)};
 			tfVBmax.setValidationRules(rules);
 		}
 		return tfVBmax;
@@ -841,28 +849,28 @@ public class BHBalanceSheetForm extends JPanel {
 
 	public BHDescriptionLabel getLmaxakt() {
 		if (lmaxakt == null) {
-			lmaxakt = new BHDescriptionLabel("max");
+			lmaxakt = new BHDescriptionLabel(translator.translate("max"));
 		}
 		return lmaxakt;
 	}
 
 	public BHDescriptionLabel getLminakt() {
 		if (lminakt == null) {
-			lminakt = new BHDescriptionLabel("min");
+			lminakt = new BHDescriptionLabel(translator.translate("min"));
 		}
 		return lminakt;
 	}
 
 	public BHDescriptionLabel getLmaxpas() {
 		if (lmaxpas == null) {
-			lmaxpas = new BHDescriptionLabel("max");
+			lmaxpas = new BHDescriptionLabel(translator.translate("max"));
 		}
 		return lmaxpas;
 	}
 
 	public BHDescriptionLabel getLminpas() {
 		if (lminpas == null) {
-			lminpas = new BHDescriptionLabel("min");
+			lminpas = new BHDescriptionLabel(translator.translate("min"));
 		}
 		return lminpas;
 	}

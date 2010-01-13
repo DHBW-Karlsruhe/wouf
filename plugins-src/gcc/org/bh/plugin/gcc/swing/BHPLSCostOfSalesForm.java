@@ -7,8 +7,6 @@ import javax.swing.BorderFactory;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
-import javax.swing.JSeparator;
-import javax.swing.SwingConstants;
 import javax.swing.border.EtchedBorder;
 
 import org.bh.gui.swing.BHDescriptionLabel;
@@ -18,6 +16,7 @@ import org.bh.platform.i18n.BHTranslator;
 import org.bh.platform.i18n.ITranslator;
 import org.bh.plugin.gcc.data.DTOGCCProfitLossStatementCostOfSales;
 import org.bh.validation.VRIsDouble;
+import org.bh.validation.VRIsGreaterThan;
 import org.bh.validation.VRMandatory;
 import org.bh.validation.ValidationRule;
 
@@ -192,7 +191,8 @@ public class BHPLSCostOfSalesForm extends JPanel {
 			tfUEmax = new BHTextField(IBHComponent.MAXVALUE
 					+ DTOGCCProfitLossStatementCostOfSales.Key.UE);
 			ValidationRule[] rules = { VRMandatory.INSTANCE,
-					VRIsDouble.INSTANCE };
+					VRIsDouble.INSTANCE,
+					new VRIsGreaterThan(getTfUEmin(), true) };
 			tfUEmax.setValidationRules(rules);
 		}
 		return tfUEmax;
@@ -203,7 +203,8 @@ public class BHPLSCostOfSalesForm extends JPanel {
 			tfHKmax = new BHTextField(IBHComponent.MAXVALUE
 					+ DTOGCCProfitLossStatementCostOfSales.Key.HK);
 			ValidationRule[] rules = { VRMandatory.INSTANCE,
-					VRIsDouble.INSTANCE };
+					VRIsDouble.INSTANCE,
+					new VRIsGreaterThan(getTfHKmin(), true) };
 			tfHKmax.setValidationRules(rules);
 		}
 		return tfHKmax;
@@ -214,7 +215,8 @@ public class BHPLSCostOfSalesForm extends JPanel {
 			tfVVSBAmax = new BHTextField(IBHComponent.MAXVALUE
 					+ DTOGCCProfitLossStatementCostOfSales.Key.VVSBA);
 			ValidationRule[] rules = { VRMandatory.INSTANCE,
-					VRIsDouble.INSTANCE };
+					VRIsDouble.INSTANCE,
+					new VRIsGreaterThan(getTfVVSBAmin(), true) };
 			tfVVSBAmax.setValidationRules(rules);
 		}
 		return tfVVSBAmax;
@@ -225,7 +227,8 @@ public class BHPLSCostOfSalesForm extends JPanel {
 			tfAUERGmax = new BHTextField(IBHComponent.MAXVALUE
 					+ DTOGCCProfitLossStatementCostOfSales.Key.AUERG);
 			ValidationRule[] rules = { VRMandatory.INSTANCE,
-					VRIsDouble.INSTANCE };
+					VRIsDouble.INSTANCE,
+					new VRIsGreaterThan(getTfAUERGmin(), true) };
 			tfAUERGmax.setValidationRules(rules);
 		}
 		return tfAUERGmax;

@@ -14,6 +14,7 @@ import javax.swing.border.EtchedBorder;
 import org.bh.data.DTOPeriod;
 import org.bh.platform.Services;
 import org.bh.platform.i18n.ITranslator;
+import org.bh.validation.VRIsGreaterThan;
 import org.bh.validation.VRMandatory;
 import org.bh.validation.ValidationRule;
 
@@ -100,14 +101,14 @@ public class BHPeriodInputForm extends JPanel {
 
 	public JLabel getLmax() {
 		if (lmax == null) {
-			lmax = new JLabel(translator.translate("MAX"));
+			lmax = new JLabel(translator.translate("max"));
 		}
 		return lmax;
 	}
 
 	public JLabel getLmin() {
 		if (lmin == null) {
-			lmin = new JLabel(translator.translate("MIN"));
+			lmin = new JLabel(translator.translate("min"));
 		}
 		return lmin;
 	}
@@ -165,7 +166,8 @@ public class BHPeriodInputForm extends JPanel {
 		if (tfmaxliabilities == null) {
 			tfmaxliabilities = new BHTextField(IBHComponent.MAXVALUE
 					+ DTOPeriod.Key.LIABILITIES);
-			ValidationRule[] rules = { VRMandatory.INSTANCE };
+			ValidationRule[] rules = { VRMandatory.INSTANCE,
+					new VRIsGreaterThan(getTfminliabilities(), true)};
 			tfmaxliabilities.setValidationRules(rules);
 		}
 		return tfmaxliabilities;
@@ -195,7 +197,8 @@ public class BHPeriodInputForm extends JPanel {
 		if (tfmaxfcf == null) {
 			tfmaxfcf = new BHTextField(IBHComponent.MAXVALUE
 					+ DTOPeriod.Key.FCF);
-			ValidationRule[] rules = { VRMandatory.INSTANCE };
+			ValidationRule[] rules = { VRMandatory.INSTANCE,
+					new VRIsGreaterThan(getTfminfcf(), true)};
 			tfmaxfcf.setValidationRules(rules);
 		}
 		return tfmaxfcf;

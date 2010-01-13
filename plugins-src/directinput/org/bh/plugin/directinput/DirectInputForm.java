@@ -13,6 +13,7 @@ import org.bh.gui.swing.BHDescriptionLabel;
 import org.bh.gui.swing.BHTextField;
 import org.bh.platform.i18n.ITranslator;
 import org.bh.validation.VRIsDouble;
+import org.bh.validation.VRIsGreaterThan;
 import org.bh.validation.VRIsPositive;
 import org.bh.validation.VRMandatory;
 import org.bh.validation.ValidationRule;
@@ -162,7 +163,8 @@ public class DirectInputForm extends JPanel {
 		if (tfmaxliabilities == null) {
 			tfmaxliabilities = new BHTextField("");
 			ValidationRule[] rules = { VRMandatory.INSTANCE,
-					VRIsDouble.INSTANCE, VRIsPositive.INSTANCE };
+					VRIsDouble.INSTANCE, VRIsPositive.INSTANCE,
+					new VRIsGreaterThan(getTfminliabilities(), true)};
 			tfmaxliabilities.setValidationRules(rules);
 		}
 		return tfmaxliabilities;
@@ -182,7 +184,8 @@ public class DirectInputForm extends JPanel {
 		if (tfmaxfcf == null) {
 			tfmaxfcf = new BHTextField("");
 			ValidationRule[] rules = { VRMandatory.INSTANCE,
-					VRIsDouble.INSTANCE };
+					VRIsDouble.INSTANCE,
+					new VRIsGreaterThan(getTfminfcf(), true) };
 			tfmaxfcf.setValidationRules(rules);
 		}
 		return tfmaxfcf;
