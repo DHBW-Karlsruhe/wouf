@@ -40,14 +40,18 @@ public class BH_APV_ResultPanel extends JPanel {
     private Component finiteFormula;
     private Component infiniteFormula;
 
+    public BH_APV_ResultPanel(){
+        this.initialize();
+    }
+
     public void initialize() {
-//        double border = 10;
-//        double size[][] = {{border, TableLayout.PREFERRED, border, TableLayout.PREFERRED, border, TableLayout.PREFERRED, border}, // Columns
-//            {border, TableLayout.PREFERRED, border, TableLayout.PREFERRED, border, TableLayout.PREFERRED, border, TableLayout.PREFERRED, border}}; // Rows
-//
-//
-//        this.setLayout(new TableLayout(size));
-        this.setLayout(new FlowLayout());
+        double border = 10;
+        double size[][] = {{border, TableLayout.PREFERRED, border, TableLayout.PREFERRED, border, TableLayout.PREFERRED, border}, // Columns
+            {border, TableLayout.PREFERRED, border, TableLayout.PREFERRED, border, TableLayout.PREFERRED, border, TableLayout.PREFERRED, border}}; // Rows
+
+
+        this.setLayout(new TableLayout(size));
+        //this.setLayout(new FlowLayout());
         //All Labels to APV
         APVpresentValue = new BHValueLabel("PRESENT_VALUE_FCF");
         APVpresentValueDESC = new BHDescriptionLabel("PRESENT_VALUE_FCF");
