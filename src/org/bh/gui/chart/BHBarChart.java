@@ -123,7 +123,7 @@ import org.jfree.data.general.Dataset;
 		}
 
 		@Override
-		public String getInputHint() {
+		public String getHint() {
 			return inputHint;
 		}
 		

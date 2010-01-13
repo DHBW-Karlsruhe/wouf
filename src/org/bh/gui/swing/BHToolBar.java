@@ -2,6 +2,7 @@ package org.bh.gui.swing;
 
 import java.awt.BorderLayout;
 import java.awt.Component;
+import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -49,7 +50,7 @@ public class BHToolBar extends JToolBar implements ActionListener, MouseListener
 	CellConstraints cons;
 	
     
-    public BHToolBar(int width, int height) {
+    public BHToolBar() {
     	this.width = width;
     	this.height = height;
     	addMouseListener(this);
@@ -60,10 +61,11 @@ public class BHToolBar extends JToolBar implements ActionListener, MouseListener
 		//don't allow to relocate the bar
 		setFloatable(false);
 		
-		setSize(width, height);
+		//setSize(width, height);
+		
 		
 		String rowDef = "p";
-		String colDef = "600px,fill:0px:grow,fill:30px";
+		String colDef = "50px,50px,50px,50px,50px,50px,fill:0px:grow,fill:30px";
 		setLayout(new FormLayout(colDef, rowDef));
 		cons = new CellConstraints();
 		
@@ -73,24 +75,43 @@ public class BHToolBar extends JToolBar implements ActionListener, MouseListener
     
     public void hideToolBar(){
    	
-    	buttonPanel.setVisible(false);
+    	//buttonPanel.setVisible(false);
+    	remove(Bopen);
+    	remove(Bsave);
+    	remove(Bproject);
+    	remove(Bscenario);
+    	remove(Bperiod);
+    	remove(Bdelete);
+    	
+    	validate();
+    	repaint();
     	
     	shown = false;
     }
     
     public void showToolBar(){
    	
-    	buttonPanel.setVisible(true);
-    	
+		add(Bopen,  cons.xywh(1, 1, 1, 1));
+		add(Bsave,  cons.xywh(2, 1, 1, 1));
+		add(Bproject,  cons.xywh(3, 1, 1, 1));
+		add(Bscenario,  cons.xywh(4, 1, 1, 1));
+		add(Bperiod,  cons.xywh(5, 1, 1, 1));
+		add(Bdelete,  cons.xywh(6, 1, 1, 1));
+		
+    	validate();
+    	repaint();
+    			
     	shown = true;
     }
     
     public void createToolBar(){
     	
-    	buttonPanel = new JPanel();
-    	buttonPanel.setLayout(new FlowLayout());
-    	buttonPanel.setOpaque(false);
-    	buttonPanel.addMouseListener(this);
+//    	buttonPanel = new JPanel();
+//    	buttonPanel.setLayout(new FlowLayout());
+//    	buttonPanel.setOpaque(false);
+//    	buttonPanel.addMouseListener(this);
+    	
+    	this.addMouseListener(this);
     	
     	Bopen = new BHToolButton(PlatformKey.TOOLBAROPEN, "Bopen");
     	Bopen.addMouseListener(this);
@@ -110,15 +131,16 @@ public class BHToolBar extends JToolBar implements ActionListener, MouseListener
 		BshowHide.addActionListener(this);
 		
 		
-		buttonPanel.add(Bopen);
-		buttonPanel.add(Bsave);
-		buttonPanel.add(Bproject);
-		buttonPanel.add(Bscenario);
-		buttonPanel.add(Bperiod);
-		buttonPanel.add(Bdelete);
+		add(Bopen,  cons.xywh(1, 1, 1, 1));
+		add(Bsave,  cons.xywh(2, 1, 1, 1));
+		add(Bproject,  cons.xywh(3, 1, 1, 1));
+		add(Bscenario,  cons.xywh(4, 1, 1, 1));
+		add(Bperiod,  cons.xywh(5, 1, 1, 1));
+		add(Bdelete,  cons.xywh(6, 1, 1, 1));
 		
-		add(buttonPanel,  cons.xywh(1, 1, 1, 1));
-		add(BshowHide, cons.xywh(3, 1, 1, 1));
+		
+//		add(buttonPanel,  cons.xywh(1, 1, 1, 1));
+		add(BshowHide, cons.xywh(8, 1, 1, 1));
 		
 		shown = true;
     }
@@ -128,6 +150,7 @@ public class BHToolBar extends JToolBar implements ActionListener, MouseListener
 		if(shown){
 			BshowHide.setIcon(new ImageIcon(BHToolBar.class.getResource("/org/bh/images/buttons/Bhide.png"), ""));
 			fixed = false;
+			
 			
 		}else {
 			BshowHide.setIcon(new ImageIcon(BHToolBar.class.getResource("/org/bh/images/buttons/Bshow.png"), ""));

@@ -34,7 +34,7 @@ public class ValidationMethods extends BHValidityEngine {
 
 				// add some kind of tooltipp to textfield
 				ValidationComponentUtils.setInputHint(tf_toValidate,
-						tf_toValidate.getInputHint());
+						tf_toValidate.getHint());
 
 				// check if a textfield has the rule isMandatory
 				for (ValidationRule validationRule : tf_toValidate.getValidationRules()) {

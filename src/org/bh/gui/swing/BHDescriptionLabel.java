@@ -48,7 +48,7 @@ public class BHDescriptionLabel extends JLabel implements IBHComponent, IPlatfor
 	}
 
 	@Override
-	public String getInputHint() {
+	public String getHint() {
 		return "";
 	}
 

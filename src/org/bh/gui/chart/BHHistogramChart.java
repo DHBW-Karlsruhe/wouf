@@ -109,7 +109,7 @@ public class BHHistogramChart extends JFreeChart implements IBHComponent,
 	}
 
 	@Override
-	public String getInputHint() {
+	public String getHint() {
 		return inputHint;
 	}
 	

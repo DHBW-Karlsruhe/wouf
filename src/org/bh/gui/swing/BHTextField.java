@@ -39,7 +39,7 @@ public class BHTextField extends JTextField implements IBHModelComponent, IPlatf
 	 */
 	private String key;
 	private ValidationRule[] validationRules = new ValidationRule[0];
-	private String inputHint;
+	private String hint;
 	private boolean changeListenerEnabled = true;
 	private final CompValueChangeManager valueChangeManager = new CompValueChangeManager();
 	private static final Logger log = Logger.getLogger(BHTextField.class);
@@ -128,8 +128,8 @@ public class BHTextField extends JTextField implements IBHModelComponent, IPlatf
 	}
 
 	@Override
-	public String getInputHint() {
-		return inputHint;
+	public String getHint() {
+		return hint;
 	}
 
 	@Override
@@ -166,8 +166,8 @@ public class BHTextField extends JTextField implements IBHModelComponent, IPlatf
 	 * Reloads text if necessary.
 	 */
 	protected void reloadText() {
-		inputHint = Services.getTranslator().translate(key, ITranslator.LONG);
-		setToolTipText(inputHint);
+		hint = Services.getTranslator().translate(key, ITranslator.LONG);
+		setToolTipText(hint);
 	}
 
 	protected class ChangeListener extends DocumentFilter {

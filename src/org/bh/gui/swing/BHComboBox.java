@@ -22,7 +22,7 @@ public class BHComboBox extends JComboBox implements IBHModelComponent,
 	private static final long serialVersionUID = 3609724364063209645L;
 	private static final ITranslator translator = Services.getTranslator();
 	private String key;
-	private String inputHint;
+	private String hint;
 	private boolean sorted = false;
 	private Item[] items = new Item[0];
 	private final CompValueChangeManager valueChangeManager = new CompValueChangeManager();
@@ -77,8 +77,8 @@ public class BHComboBox extends JComboBox implements IBHModelComponent,
 	}
 
 	@Override
-	public String getInputHint() {
-		return inputHint;
+	public String getHint() {
+		return hint;
 	}
 
 	@Override
@@ -87,8 +87,8 @@ public class BHComboBox extends JComboBox implements IBHModelComponent,
 	}
 
 	protected void reloadText() {
-		inputHint = Services.getTranslator().translate(key, ITranslator.LONG);
-		setToolTipText(inputHint);
+		hint = Services.getTranslator().translate(key, ITranslator.LONG);
+		setToolTipText(hint);
 		this.updateUI();
 	}
 

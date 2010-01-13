@@ -29,7 +29,7 @@ import org.bh.platform.i18n.ITranslator;
 public class BHMenuItem extends JMenuItem implements IBHComponent, IBHAction, IPlatformListener {
 	private static final long serialVersionUID = 457483046895655665L;
 	private PlatformKey key;
-	private String inputHint;
+	private String hint;
 	private static List<IBHAction> platformItems = new ArrayList<IBHAction>();
 
 	/**
@@ -123,8 +123,8 @@ public class BHMenuItem extends JMenuItem implements IBHComponent, IBHAction, IP
 	}
 
 	@Override
-	public String getInputHint() {
-		return inputHint;
+	public String getHint() {
+		return hint;
 	}
 
 	@Override
@@ -139,7 +139,7 @@ public class BHMenuItem extends JMenuItem implements IBHComponent, IBHAction, IP
 	 */
 	protected void reloadText() {
 		this.setText(Services.getTranslator().translate(key.toString()));
-		inputHint = Services.getTranslator().translate(key, ITranslator.LONG);
-		setToolTipText(inputHint);
+		hint = Services.getTranslator().translate(key, ITranslator.LONG);
+		setToolTipText(hint);
 	}
 }

@@ -111,7 +111,7 @@ public class BHPieChart extends JFreeChart implements IBHComponent,
 	}
 
 	@Override
-	public String getInputHint() {
+	public String getHint() {
 		return inputHint;
 	}
 	

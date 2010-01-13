@@ -39,5 +39,5 @@ public interface IBHComponent {
 	 * 
 	 * @return BHHint
 	 */
-	public String getInputHint();
+	public String getHint();
 }

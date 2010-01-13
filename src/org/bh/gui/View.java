@@ -341,7 +341,7 @@ public class View implements FocusListener, ICompValueChangeListener {
 			return;
 
 		IBHComponent comp = (IBHComponent) e;
-		Services.getBHstatusBar().setHint(comp.getInputHint());
+		Services.getBHstatusBar().setHint(comp.getHint());
 	}
 
 	public void addViewListener(IViewListener l) {

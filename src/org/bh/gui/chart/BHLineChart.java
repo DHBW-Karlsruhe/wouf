@@ -123,7 +123,7 @@ public class BHLineChart extends JFreeChart implements IBHComponent,
 	}
 
 	@Override
-	public String getInputHint() {
+	public String getHint() {
 		return inputHint;
 	}
 	

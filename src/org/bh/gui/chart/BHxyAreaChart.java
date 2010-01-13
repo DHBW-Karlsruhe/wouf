@@ -33,7 +33,7 @@ public class BHxyAreaChart extends JFreeChart implements IBHComponent,
 		IBHAddValue, IPlatformListener {
 	ITranslator translator = BHTranslator.getInstance();
 	private String key;
-	private String inputHint;
+	private String hint;
 	private JFreeChart chart;
 	private DefaultXYDataset dataset;
 
@@ -110,8 +110,8 @@ public class BHxyAreaChart extends JFreeChart implements IBHComponent,
 	}
 
 	@Override
-	public String getInputHint() {
-		return inputHint;
+	public String getHint() {
+		return hint;
 	}
 	
 	/**
@@ -129,6 +129,6 @@ public class BHxyAreaChart extends JFreeChart implements IBHComponent,
 	 */
 	protected void reloadText() {
 		this.chart.getPlot().setNoDataMessage(translator.translate("noDataAvailable"));
-		inputHint = Services.getTranslator().translate(key, ITranslator.LONG);
+		hint = Services.getTranslator().translate(key, ITranslator.LONG);
 	}
 }

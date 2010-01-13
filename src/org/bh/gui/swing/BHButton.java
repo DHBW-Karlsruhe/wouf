@@ -36,7 +36,7 @@ public class BHButton extends JButton implements IBHComponent, IBHAction, IPlatf
 
 	private String key;
 	private PlatformKey platformKey;
-	private String inputHint;
+	private String hint;
 
 	/**
 	 * Secondary constructor for platform buttons (are added to
@@ -99,8 +99,8 @@ public class BHButton extends JButton implements IBHComponent, IBHAction, IPlatf
 	}
 
 	@Override
-	public String getInputHint() {
-		return inputHint;
+	public String getHint() {
+		return hint;
 	}
 	
 
@@ -113,8 +113,8 @@ public class BHButton extends JButton implements IBHComponent, IBHAction, IPlatf
 
 	protected void reloadText() {
 		this.setText(translator.translate(key));
-		inputHint = translator.translate(key, ITranslator.LONG);
-		setToolTipText(inputHint);
+		hint = translator.translate(key, ITranslator.LONG);
+		setToolTipText(hint);
 	}
 
 	/**
@@ -129,13 +129,13 @@ public class BHButton extends JButton implements IBHComponent, IBHAction, IPlatf
 	class BHToolTipListener extends MouseInputAdapter {
 		@Override
 		public void mouseEntered(MouseEvent e) {
-			if (!inputHint.isEmpty())
-				Services.getBHstatusBar().setHint(inputHint);
+			if (!hint.isEmpty())
+				Services.getBHstatusBar().setHint(hint);
 		}
 
 		@Override
 		public void mouseExited(MouseEvent e) {
-			if (!inputHint.isEmpty())
+			if (!hint.isEmpty())
 				Services.getBHstatusBar().removeHint();
 		}
 	}

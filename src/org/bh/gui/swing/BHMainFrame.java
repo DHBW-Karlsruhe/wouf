@@ -119,7 +119,7 @@ public class BHMainFrame extends JFrame implements IPlatformListener {
 		desktop = new JPanel();
 		desktop.setLayout(new BorderLayout());
 
-		toolBar = new BHToolBar(getWidth(), STANDARDBARHEIGHT);
+		toolBar = new BHToolBar();
 		// toolBar.setBounds(0, 0, screenSize.width, standardBarHeight);
 
 		bhTree = new BHTree();

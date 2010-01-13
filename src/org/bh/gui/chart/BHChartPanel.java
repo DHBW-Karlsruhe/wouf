@@ -43,7 +43,7 @@ public class BHChartPanel extends ChartPanel implements IBHComponent{
         return this.chartInstance;
     }
 
-    public String getInputHint() {
+    public String getHint() {
         return this.inputHint;
     }
 

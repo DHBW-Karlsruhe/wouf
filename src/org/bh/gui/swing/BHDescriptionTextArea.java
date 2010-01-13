@@ -26,7 +26,7 @@ public class BHDescriptionTextArea extends JTextArea implements IBHComponent, IP
 	 * unique key to identify Label.
 	 */
 	private String key;
-	private String inputHint;
+	private String hint;
 	
 	public BHDescriptionTextArea(Object key, int row, int column) {
 		super(row, column);
@@ -49,8 +49,8 @@ public class BHDescriptionTextArea extends JTextArea implements IBHComponent, IP
 	}
 
 	@Override
-	public String getInputHint() {
-		return inputHint;
+	public String getHint() {
+		return hint;
 	}
 
 	@Override
@@ -62,7 +62,7 @@ public class BHDescriptionTextArea extends JTextArea implements IBHComponent, IP
 	
 	protected void reloadText() {
 		this.setText(Services.getTranslator().translate(key));
-		inputHint = Services.getTranslator().translate(key, ITranslator.LONG);
-		setToolTipText(inputHint);
+		hint = Services.getTranslator().translate(key, ITranslator.LONG);
+		setToolTipText(hint);
 	}
 }
