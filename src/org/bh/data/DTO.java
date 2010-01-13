@@ -18,6 +18,7 @@ import org.apache.log4j.Logger;
 import org.bh.data.types.Calculable;
 import org.bh.data.types.IValue;
 import org.bh.platform.PlatformEvent;
+import org.bh.platform.ProjectRepositoryManager;
 import org.bh.platform.Services;
 
 /**
@@ -126,6 +127,8 @@ public abstract class DTO<ChildT extends IDTO> implements IDTO<ChildT> {
 
 			KEYS_CACHE.put(className, availableKeys);
 			METHODS_CACHE.put(className, availableMethods);
+			
+			Services.firePlatformEvent(new PlatformEvent(ProjectRepositoryManager.class,PlatformEvent.Type.DATA_CHANGED));
 		}
 	}
 

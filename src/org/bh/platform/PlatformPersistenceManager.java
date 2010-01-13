@@ -117,7 +117,7 @@ public class PlatformPersistenceManager {
 		return null;
 	}
 
-	public void prepareSaveFile(boolean forcedSaveAs) {
+	public void prepareSaveFile(boolean forcedSaveAs) throws Exception {
 		if (PlatformController.preferences.get("path", "").equals("")
 				|| forcedSaveAs == true) {
 
@@ -126,6 +126,8 @@ public class PlatformPersistenceManager {
 				log.debug("You choose to save this file: "
 						+ bhmf.getChooser().getSelectedFile().getName());
 				this.path = bhmf.getChooser().getSelectedFile();
+			} else {
+				throw new Exception("save canceled");
 			}
 
 		} else {
@@ -213,6 +215,9 @@ public class PlatformPersistenceManager {
 }
 
 class SaveActionListener implements IPlatformListener {
+	
+	private static final Logger log = Logger
+	.getLogger(PlatformPersistenceManager.class);
 
 	public SaveActionListener() {
 		Services.addPlatformListener(this);
@@ -221,10 +226,18 @@ class SaveActionListener implements IPlatformListener {
 	@Override
 	public void platformEvent(PlatformEvent e) {
 		if (PlatformEvent.Type.SAVE == e.getEventType()) {
-			PlatformController.platformPersistenceManager
-					.prepareSaveFile(false);
+			try {
+				PlatformController.platformPersistenceManager
+						.prepareSaveFile(false);
+			} catch (Exception e1) {
+				log.debug("User canceled save operation");
+			}
 		} else if (PlatformEvent.Type.SAVEAS == e.getEventType()) {
-			PlatformController.platformPersistenceManager.prepareSaveFile(true);
+			try {
+				PlatformController.platformPersistenceManager.prepareSaveFile(true);
+			} catch (Exception e1) {
+				log.debug("User canceled save operation");
+			}
 		}
 	}
 }
