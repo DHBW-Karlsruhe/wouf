@@ -27,6 +27,7 @@ import org.bh.data.DTOKeyPair;
 import org.bh.data.DTOPeriod;
 import org.bh.data.DTO.Stochastic;
 import org.bh.gui.swing.BHMainFrame;
+import org.bh.gui.swing.BHPeriodForm;
 import org.bh.gui.swing.BHStatusBar;
 import org.bh.platform.i18n.BHTranslator;
 import org.bh.platform.i18n.ITranslator;
@@ -309,9 +310,11 @@ public class Services {
 				.getPeriodController(period.get(DTOPeriod.Key.CONTROLLER)
 						.toString());
 		Component viewComponent = periodController.editDTO((DTOPeriod) period);
+		BHPeriodForm container = new BHPeriodForm();
+		container.setPvalues((JPanel)viewComponent);
 		if (viewComponent == null)
 			viewComponent = new JPanel();
-		bhmf.setContentForm(viewComponent);
+		bhmf.setContentForm(container);
 	}
 	
 	public static void setCharts(Component chart) {

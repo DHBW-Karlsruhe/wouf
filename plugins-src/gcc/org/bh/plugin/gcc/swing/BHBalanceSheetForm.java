@@ -93,6 +93,11 @@ public class BHBalanceSheetForm extends JPanel {
 	ITranslator translator = Controller.getTranslator();
 
 	public enum Key {
+		
+		/**
+		 * 
+		 */
+		BALANCE_SHEET,
 		/**
 		 * 
 		 */
@@ -129,6 +134,9 @@ public class BHBalanceSheetForm extends JPanel {
 				"fill, fill"));
 		this.add(this.getPassiva(intervalArithmetic), cons.xywh(4, 2, 1, 1,
 				"fill, fill"));
+		this.setBorder(BorderFactory.createTitledBorder(BorderFactory
+				.createEtchedBorder(EtchedBorder.LOWERED), translator
+				.translate(BHBalanceSheetForm.Key.BALANCE_SHEET)));
 	}
 
 	public JPanel getAktiva(boolean intervalArithmetic) {

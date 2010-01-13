@@ -9,6 +9,7 @@ import javax.swing.JPanel;
 import javax.swing.border.EtchedBorder;
 
 import org.bh.controller.Controller;
+import org.bh.data.DTOPeriod;
 import org.bh.gui.swing.BHDescriptionLabel;
 import org.bh.gui.swing.BHTextField;
 import org.bh.platform.i18n.ITranslator;
@@ -40,10 +41,12 @@ public class DirectInputForm extends JPanel {
 	private BHDescriptionLabel lcurrency4;
 	private BHDescriptionLabel lcurrency5;
 	private BHDescriptionLabel lcurrency6;
+	private BHDescriptionLabel lname;
 	private BHTextField tfmaxliabilities;
 	private BHTextField tfminliabilities;
 	private BHTextField tfmaxfcf;
 	private BHTextField tfminfcf;
+	private BHTextField tfname;
 	
 	ITranslator translator = Controller.getTranslator();
 
@@ -52,7 +55,7 @@ public class DirectInputForm extends JPanel {
 		/**
 		 * 
 		 */
-		PERIOD_DATA;
+		PERIOD_DIRECT;
 		
 		public String toString() {
 		    return getClass().getName() + "." + super.toString();
@@ -66,16 +69,17 @@ public class DirectInputForm extends JPanel {
 	}
 
 	public void initialize(boolean intervalArithmetic) {
-		String rowDef = "4px,p,4px,p,4px,p,4px";
-		String colDef = "4px,right:pref,4px,max(100px;pref):grow,4px,pref,4px";
+		String rowDef = "4px,p,4px,p,4px,p,4px,p,4px";
+		String colDef = "4px,right:pref,4px,max(100px;pref),4px,pref,4px";
 		if (intervalArithmetic) {
 			rowDef = "4px,p," + rowDef;
-			colDef += ",max(100px;pref):grow,4px,pref,4px";
+			colDef += ",max(100px;pref),4px,pref,4px";
 		}
 		FormLayout layout = new FormLayout(colDef, rowDef);
 		this.setLayout(layout);
 
 		CellConstraints cons = new CellConstraints();
+		
 		
 		this.add(this.getLfcf(), cons.xywh(2, 4, 1, 1));
 		this.add(this.getLliabilities(), cons.xywh(2, 6, 1, 1));
@@ -98,13 +102,11 @@ public class DirectInputForm extends JPanel {
 			// 6));
 			this.add(this.getLmax(), cons.xywh(8, 2, 1, 1));
 
-			this.add(this.getLfcf(), cons.xywh(2, 4, 1, 1));
 			this.add(this.getTfminfcf(), cons.xywh(4, 4, 1, 1));
 			this.add(this.getLcurrency3(), cons.xywh(6, 4, 1, 1));
 			this.add(this.getTfmaxfcf(), cons.xywh(8, 4, 1, 1));
 			this.add(this.getLcurrency4(), cons.xywh(10, 4, 1, 1));
 
-			this.add(this.getLliabilities(), cons.xywh(2, 6, 1, 1));
 			this.add(this.getTfminliabilities(), cons.xywh(4, 6, 1, 1));
 			this.add(this.getLcurrency5(), cons.xywh(6, 6, 1, 1));
 			this.add(this.getTfmaxliabilities(), cons.xywh(8, 6, 1, 1));
@@ -112,7 +114,22 @@ public class DirectInputForm extends JPanel {
 		}
 		
 		this.setBorder(BorderFactory
-				.createTitledBorder(BorderFactory.createEtchedBorder(EtchedBorder.LOWERED),translator.translate(DirectInputForm.Key.PERIOD_DATA)));
+				.createTitledBorder(BorderFactory.createEtchedBorder(EtchedBorder.LOWERED),translator.translate(DirectInputForm.Key.PERIOD_DIRECT)));
+	}
+	
+	
+	public BHDescriptionLabel getLname() {
+		if (lname == null) {
+			lname = new BHDescriptionLabel(DTOPeriod.Key.NAME);
+		}
+		return lname;
+	}
+
+	public BHTextField getTfname() {
+		if(tfname == null){
+			tfname = new BHTextField(DTOPeriod.Key.NAME);
+		}
+		return tfname;
 	}
 
 	public BHDescriptionLabel getLmax() {
