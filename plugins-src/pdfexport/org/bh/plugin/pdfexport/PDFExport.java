@@ -21,6 +21,7 @@ import org.bh.data.types.DistributionMap;
 import org.bh.data.types.IValue;
 import org.bh.gui.swing.BHFileChooser;
 import org.bh.gui.swing.BHOptionDialog;
+import org.bh.gui.swing.BHProjectDataExchangeDialog;
 import org.bh.platform.IImportExport;
 import org.bh.platform.Services;
 import org.bh.platform.i18n.BHTranslator;
@@ -66,7 +67,7 @@ public class PDFExport implements IImportExport {
 	private Chapter report;
 
 	@Override
-	public void exportProject(DTOProject project) {
+	public void exportProject(DTOProject project, BHProjectDataExchangeDialog exportDialog) {
 		// TODO Auto-generated method stub
 		throw new UnsupportedOperationException(
 				"This method has not been implemented");
@@ -320,4 +321,5 @@ public class PDFExport implements IImportExport {
 		// TODO test only
 		return GUI_KEY + " from to String";
 	}
+
 }
