@@ -12,7 +12,6 @@ import javax.xml.validation.Validator;
 
 import org.apache.log4j.Logger;
 import org.bh.data.DTOProject;
-import org.bh.data.DTOScenario;
 import org.bh.data.IDTO;
 import org.bh.data.types.IValue;
 import org.bh.platform.PluginManager;
@@ -163,12 +162,12 @@ public class XMLImport {
 	
 	private void applyDTOSpecificData(IDTO dto, Element elDTO)
 	{
+		/*
 		if (dto instanceof DTOScenario)
 		{
 			DTOScenario sec = (DTOScenario) dto;
-			String futureValues = elDTO.getAttributeValue("containsValuesInFuture");
-			sec.setFutureValues(Boolean.parseBoolean(futureValues));			
 		}
+		*/
 	}
 
 

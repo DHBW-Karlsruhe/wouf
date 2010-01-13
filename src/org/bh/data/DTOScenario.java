@@ -9,6 +9,7 @@ import org.bh.calculation.IShareholderValueCalculator;
 import org.bh.calculation.IStochasticProcess;
 import org.bh.data.types.Calculable;
 import org.bh.data.types.DoubleValue;
+import org.bh.data.types.StringValue;
 import org.bh.platform.Services;
 
 /**
@@ -25,17 +26,8 @@ import org.bh.platform.Services;
  */
 
 public class DTOScenario extends DTO<DTOPeriod> {
-	private static final long serialVersionUID = -2952168332645683233L;
+	private static final long serialVersionUID = -2952168332645683234L;
 	private static final Logger log = Logger.getLogger(DTOScenario.class);
-
-	/**
-	 * Used to difference between values in the past and values in the future if
-	 * futureValues is true, new childs are appended at the end of the
-	 * childlist, if not, new childs are appended at the beginning
-	 */
-	protected boolean futureValues = true;
-
-	protected IShareholderValueCalculator dcfMethod;
 
 	public enum Key {
 		/**
@@ -92,7 +84,17 @@ public class DTOScenario extends DTO<DTOPeriod> {
 		/**
 		 * Period type
 		 */
-		PERIOD_TYPE;
+		PERIOD_TYPE,
+		
+		/**
+		 * Whether to use interval arithmetic
+		 */
+		INTERVAL_ARITHMETIC,
+		
+		/**
+		 * List of keys selected for stochastic process
+		 */
+		STOCHASTIC_KEYS;
 
 		@Override
 		public String toString() {
@@ -106,20 +108,22 @@ public class DTOScenario extends DTO<DTOPeriod> {
 	 * @author Marcus Katzor
 	 */
 	public DTOScenario() {
-		super(Key.values());
+		this(true);
 	}
 
 	/**
 	 * initialize key and method list
 	 */
-	public DTOScenario(boolean futureValues) {
+	public DTOScenario(boolean isDeterministic) {
 		super(Key.values());
-		this.futureValues = futureValues;
+		if (!isDeterministic) {
+			values.put(Key.STOCHASTIC_PROCESS.toString(), new StringValue("true"));
+		}
 	}
 
 	@Override
 	public DTOPeriod addChild(DTOPeriod child) throws DTOAccessException {
-		DTOPeriod result = super.addChild(child, this.futureValues);
+		DTOPeriod result = super.addChild(child, isDeterministic());
 		child.scenario = this;
 		refreshPeriodReferences();
 		return result;
@@ -224,20 +228,9 @@ public class DTOScenario extends DTO<DTOPeriod> {
 	 * @author Marcus Katzor
 	 * @return
 	 */
-	public boolean isFutureValues() {
-		return futureValues;
+	public boolean isDeterministic() {
+		return !values.containsKey(Key.STOCHASTIC_PROCESS.toString());
 	}
-
-	/**
-	 * Sets flag for differentiation between past and future values.
-	 * 
-	 * @author Marcus Katzor
-	 * @param futureValues
-	 */
-	public void setFutureValues(boolean futureValues) {
-		this.futureValues = futureValues;
-	}
-
 
 	@Override
 	public String toString() {
@@ -261,9 +254,8 @@ public class DTOScenario extends DTO<DTOPeriod> {
 		return super.isValid(recursive) && !children.isEmpty();
 	}
 
-
 	public boolean isIntervalArithmetic() {
-		return false;
+		return new StringValue("true").equals(values.get(Key.INTERVAL_ARITHMETIC.toString()));
 	}
 
 }

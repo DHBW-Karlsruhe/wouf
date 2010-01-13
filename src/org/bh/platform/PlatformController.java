@@ -271,7 +271,7 @@ public class PlatformController {
 						} else if (selectedDto instanceof DTOScenario) {
 							try {
 
-								IDTO<?> model = selectedDto;
+								DTOScenario model = (DTOScenario) selectedDto;
 
 								// ceck if controller is already there...
 								if ((controller = selectedNode.getController()) == null) {
@@ -280,21 +280,12 @@ public class PlatformController {
 
 									View view;
 									// find out if stochastic process was chosen at init of strategy
-									try {
-										selectedDto
-												.get(DTOScenario.Key.STOCHASTIC_PROCESS);
-										
-									// when value is set -> STOCHASTIC
-									//  next command will be processed (else: not, but Exception)
+									if (model.isDeterministic()) {
 										view = new BHScenarioView(
 												new BHScenarioForm(
 														BHScenarioForm.Type.STOCHASTIC),
 												new ValidationMethods());
-										
-										
-									// when value is not set -> DETERMINISTIC
-									} catch (DTOAccessException e) {
-										// Answer: no
+									} else {
 										view = new BHScenarioView(
 												new BHScenarioForm(
 														BHScenarioForm.Type.DETERMINISTIC),
@@ -352,15 +343,15 @@ public class PlatformController {
 											// TODO Exception ausprogrammieren
 										}
 										
-										//create controller
-										controller = new ScenarioController(view, model);
-										controller.loadAllToView();
-										selectedNode.setController(controller);
 									}
+									
+									//create controller
+									controller = new ScenarioController(view, model);
+									controller.loadAllToView();
+									selectedNode.setController(controller);
 								}
 								
 								bhmf.setContentForm(controller.getViewPanel());
-
 
 							} catch (ViewException e) {
 								e.printStackTrace();

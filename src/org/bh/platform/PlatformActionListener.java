@@ -513,7 +513,7 @@ class PlatformActionListener implements ActionListener {
 				DTOPeriod lastPeriod = scenario.getLastChild();
 
 				// distinguish between stoachstic and deterministic periods
-				int periodDifference = scenario.isFutureValues() ? 1 : -1;
+				int periodDifference = scenario.isDeterministic() ? 1 : -1;
 
 				try {
 					// get number of last Period and add 1.

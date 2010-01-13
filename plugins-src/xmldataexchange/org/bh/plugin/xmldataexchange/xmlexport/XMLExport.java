@@ -8,7 +8,6 @@ import java.util.List;
 
 import org.bh.data.DTOAccessException;
 import org.bh.data.DTOProject;
-import org.bh.data.DTOScenario;
 import org.bh.data.IDTO;
 import org.bh.data.types.IValue;
 import org.jdom.Attribute;
@@ -209,13 +208,11 @@ public class XMLExport {
 	@SuppressWarnings("unchecked")
 	private void applyDTOSpecificData(IDTO dto, Element elDTO)
 	{
+		/*
 		if (dto instanceof DTOScenario)
 		{
 			DTOScenario sec = (DTOScenario) dto;
-			// Save the futureValue flag
-			Attribute attrFlag = new Attribute("containsValuesInFuture",
-					(new Boolean(sec.isFutureValues())).toString());
-			elDTO.setAttribute(attrFlag);			
 		}
+		*/
 	}
 }
