@@ -1,56 +1,49 @@
-package org.bh.plugin.xmldataexchange.xmlexport;
+package org.bh.gui.swing;
 
 import info.clearthought.layout.TableLayout;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Component;
-import java.util.List;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.io.File;
 
 import javax.swing.BorderFactory;
 import javax.swing.Box;
 import javax.swing.BoxLayout;
+import javax.swing.JFileChooser;
 import javax.swing.JPanel;
 import javax.swing.JSeparator;
 import javax.swing.UIManager;
 import javax.swing.border.Border;
+import javax.swing.filechooser.FileNameExtensionFilter;
 
 import org.bh.data.IDTO;
-import org.bh.gui.swing.BHButton;
-import org.bh.gui.swing.BHDescriptionLabel;
-import org.bh.gui.swing.BHDescriptionTextArea;
-import org.bh.gui.swing.BHSelectionList;
-import org.bh.gui.swing.BHTextField;
+import org.bh.platform.PlatformController;
+import org.bh.platform.i18n.BHTranslator;
 
-public class XMLProjectExportPanel extends JPanel {
+public class BHDefaultProjectExportPanel extends JPanel implements ActionListener {
 	
-	public static final String KEY = "DXMLProjectExport";	
+	private BHSelectionList secList;
+	private BHTextField txtPath;
 
-	private List<IDTO<?>> model = null;
-	
-	private BHTextField txtPath = null;
-	
-	private BHSelectionList secList = null;
-	
-	public XMLProjectExportPanel(List<IDTO<?>> model) {
-		super();		
-		this.model = model;		
+	private IDTO<?> model;
+
+	public BHDefaultProjectExportPanel(IDTO<?> model)
+	{
 		setLayout(new BorderLayout());
+		this.model = model;
 		
-		// Create description area
-		JPanel panDescr = createDescriptionPanel();	
-		// Create selection area
-		JPanel listPanel = createSelectionArea();	
-		// Create action area (buttons)
+		JPanel descrPanel = createDescriptionPanel();		
+		JPanel selPanel = createSelectionArea();		
 		JPanel actionPanel = createActionArea();
-		
-		// Add all panels to the dialog
-		add(panDescr, BorderLayout.NORTH);
-		add(listPanel, BorderLayout.CENTER);
+						
+		add(descrPanel, BorderLayout.NORTH);
+		add(selPanel, BorderLayout.CENTER);
 		add(actionPanel, BorderLayout.SOUTH);
-		
 	}
-
+	
 	
 	private JPanel createActionArea() {
 		// Panel on which the Buttons will be placed
@@ -89,7 +82,11 @@ public class XMLProjectExportPanel extends JPanel {
 		
 		
 		// Create list with all available scenarios of the given project
-		secList = new BHSelectionList(model.get(0).getChildren().toArray());		
+		Object[] children = null;
+		if (model.getChildren() != null)
+			children = model.getChildren().toArray();
+		
+		secList = new BHSelectionList(children);		
 		Border secListBorder = BorderFactory.createCompoundBorder(BorderFactory.createLineBorder(UIManager.getColor("controlDkShadow")),
 				BorderFactory.createEmptyBorder(5,5,10,5));
 		secList.setBorder(secListBorder);	
@@ -112,6 +109,7 @@ public class XMLProjectExportPanel extends JPanel {
 		
 		// Button to start the file choosing dialog
 		BHButton btnChooseFile = new BHButton("Bbrowse");
+		btnChooseFile.addActionListener(this);
 		fileSelectionPanel.add(btnChooseFile, "1,1");
 		
 		listPanel.add(secList, BorderLayout.CENTER);
@@ -144,14 +142,44 @@ public class XMLProjectExportPanel extends JPanel {
 	}
 
 
+	public BHSelectionList getSecList() {
+		return secList;
+	}
+
+
 	public BHTextField getTxtPath() {
 		return txtPath;
 	}
 
 
-	public BHSelectionList getSecList() {
-		return secList;
-	}	
+	@Override
+	public void actionPerformed(ActionEvent e) {
+		IBHComponent comp =  (IBHComponent) e.getSource();
+		if (comp.getKey().equals("Bbrowse"))
+		{
+			JFileChooser fileChooser = new JFileChooser();
+			fileChooser.setFileSelectionMode(JFileChooser.FILES_ONLY);
+			
+			String strDefDir = PlatformController.preferences.get("lastExportDirectory", null);
+			if (strDefDir != null)
+			{
+				File defDir = new File(strDefDir);
+				fileChooser.setCurrentDirectory(defDir);
+			}		
+			
+			String descr = BHTranslator.getInstance().translate("DXMLFileDescription");
+			String ext = BHTranslator.getInstance().translate("DXMLFileExtension");			
+			fileChooser.setFileFilter(new FileNameExtensionFilter(descr, ext));
+			
+			int returnVal = fileChooser.showSaveDialog(this);		
+			
+			if (returnVal == JFileChooser.APPROVE_OPTION)
+			{
+				PlatformController.preferences.put("lastExportDirectory", fileChooser.getSelectedFile().getParent()); 
+				txtPath.setText(fileChooser.getSelectedFile().getPath());			
+			}
+			
+		}
+	}
 
 }
-

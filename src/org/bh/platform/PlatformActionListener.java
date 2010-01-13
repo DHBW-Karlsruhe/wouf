@@ -25,7 +25,7 @@ import org.bh.data.IDTO;
 import org.bh.data.types.StringValue;
 import org.bh.gui.swing.BHComboBox;
 import org.bh.gui.swing.BHContent;
-import org.bh.gui.swing.BHDataExchangeDialog;
+import org.bh.gui.swing.BHProjectDataExchangeDialog;
 import org.bh.gui.swing.BHMainFrame;
 import org.bh.gui.swing.BHOptionDialog;
 import org.bh.gui.swing.BHStatusBar;
@@ -138,7 +138,7 @@ class PlatformActionListener implements ActionListener {
 				
 			// Get data exchange controller			
 			dataExchangeCntrl = Services.getDataExchangeController("XML");							
-			BHDataExchangeDialog importDialog = new BHDataExchangeDialog(bhmf, true);	
+			BHProjectDataExchangeDialog importDialog = new BHProjectDataExchangeDialog(bhmf, true);	
 			importDialog.setTitle(BHTranslator.getInstance().translate(projectImportPanelKey));
 			importDialog.add(dataExchangeCntrl.getImportPanel(projectImportPanelKey, importDialog), BorderLayout.CENTER);
 			importDialog.setVisible(true);
@@ -157,13 +157,22 @@ class PlatformActionListener implements ActionListener {
 				if (selectedNode.getUserObject() instanceof DTOProject)
 				{
 					// Get data exchange controller
-					
+					/*
 					dataExchangeCntrl = Services.getDataExchangeController("XML");					
 					dataExchangeCntrl.setModel((IDTO<?>) selectedNode.getUserObject());
-					BHDataExchangeDialog exportDialog = new BHDataExchangeDialog(bhmf, true);	
+					BHProjectDataExchangeDialog exportDialog = new BHProjectDataExchangeDialog(bhmf, true);	
 					exportDialog.setTitle(BHTranslator.getInstance().translate(projectExportPanelKey));
 					exportDialog.add(dataExchangeCntrl.getExportPanel(projectExportPanelKey, exportDialog), BorderLayout.CENTER);
-					exportDialog.setVisible(true);
+					exportDialog.setVisible(true);*/
+			
+					BHProjectDataExchangeDialog dialog = new BHProjectDataExchangeDialog(bhmf, true);
+					dialog.setAction(IImportExport.EXP_PROJECT);
+					dialog.setModel((IDTO<?>) selectedNode.getUserObject());
+					dialog.setAvailablePlugins(Services.getImportExportPlugins(IImportExport.EXP_PROJECT));
+					
+					
+					dialog.setDescription("This is just a test");
+					dialog.setVisible(true);
 					
 				}
 				else
@@ -175,6 +184,9 @@ class PlatformActionListener implements ActionListener {
 			{
 				// TODO Katzor.Marcus Show Message
 			}
+			
+			
+			
 			
 			break;
 

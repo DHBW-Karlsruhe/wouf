@@ -2,10 +2,12 @@ package org.bh.platform;
 
 import java.util.Map;
 
+
 import org.bh.data.DTOProject;
 import org.bh.data.DTOScenario;
 import org.bh.data.types.Calculable;
 import org.bh.data.types.DistributionMap;
+import org.bh.gui.swing.BHProjectDataExchangeDialog;
 
 /**
  * Interface for plugins which can import export DTOs to third party file
@@ -32,8 +34,9 @@ public interface IImportExport extends IDisplayablePlugin {
 	 * implementing plug-in.
 	 * 
 	 * @param project
+	 * @param exportDialog 
 	 */
-	void exportProject(DTOProject project);
+	void exportProject(DTOProject project, BHProjectDataExchangeDialog exportDialog);	
 
 	/**
 	 * Must be implemented if export of a project DTO with results from a
@@ -101,4 +104,5 @@ public interface IImportExport extends IDisplayablePlugin {
 	int getSupportedMethods();
 
 	String getUniqueId();
+	
 }
