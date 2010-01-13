@@ -1,9 +1,5 @@
 package org.bh.gui.swing;
 
-import java.awt.BorderLayout;
-import java.awt.Component;
-import java.awt.Dimension;
-import java.awt.FlowLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
@@ -30,22 +26,15 @@ import com.jgoodies.forms.layout.FormLayout;
  */
 
 
-public class BHToolBar extends JToolBar implements ActionListener, MouseListener{
-    
-    //HelpSet and HelpBroker are necessary for user help
-    //javax.help.HelpSet helpSet = null;
-    //javax.help.HelpBroker helpBroker = null;
+public class BHToolBar extends JToolBar implements MouseListener{
 
-    //JileChooser allows file loading
-    //JFileChooser fc;
-	
 	private boolean shown = false;
 	private boolean fixed = true;
 	private int width;
 	private int height;
-	public BHButton Bopen, Bsave, Bproject, Bscenario, Bperiod, Bdelete; 
-	public JButton BshowHide;
-	JPanel buttonPanel;
+	private BHButton Bopen, Bsave, Bproject, Bscenario, Bperiod, Bdelete; 
+	private JButton BshowHide;
+	private JLabel showHide;
 	
 	CellConstraints cons;
 	
@@ -118,13 +107,17 @@ public class BHToolBar extends JToolBar implements ActionListener, MouseListener
 		Bdelete = new BHToolButton(PlatformKey.TOOLBARREMOVE, "Bdelete");
 		Bdelete.addMouseListener(this);
 
-		BshowHide = new JButton("");
-		BshowHide.setIcon(new ImageIcon(BHToolBar.class.getResource("/org/bh/images/buttons/Bshow.png"), ""));
-		BshowHide.addActionListener(this);
-		
+//		BshowHide = new JButton("");
+//		BshowHide.setIcon(new ImageIcon(BHToolBar.class.getResource("/org/bh/images/buttons/Bshow.png"), ""));
+//		BshowHide.addActionListener(this);
+
+		showHide = new JLabel("");
+		showHide.setIcon(new ImageIcon(BHToolBar.class.getResource("/org/bh/images/buttons/Bshow.png"), ""));
+		showHide.addMouseListener(new LabelListener());
 		
 		add(Bopen,  cons.xywh(1, 1, 1, 1));
 		add(Bsave,  cons.xywh(2, 1, 1, 1));
+		//add(addSeparator(),  cons.xywh(7, 1, 1, 1));
 		add(Bproject,  cons.xywh(3, 1, 1, 1));
 		add(Bscenario,  cons.xywh(4, 1, 1, 1));
 		add(Bperiod,  cons.xywh(5, 1, 1, 1));
@@ -132,31 +125,20 @@ public class BHToolBar extends JToolBar implements ActionListener, MouseListener
 		
 		
 //		add(buttonPanel,  cons.xywh(1, 1, 1, 1));
-		add(BshowHide, cons.xywh(8, 1, 1, 1));
+		add(showHide, cons.xywh(8, 1, 1, 1, "right,top"));
 		
 		addMouseListener(this);
     			
 		shown = true;
     }
 
-	@Override
-	public void actionPerformed(ActionEvent arg0) {
-		if(shown){
-			BshowHide.setIcon(new ImageIcon(BHToolBar.class.getResource("/org/bh/images/buttons/Bhide.png"), ""));
-			fixed = false;
-			
-			
-		}else {
-			BshowHide.setIcon(new ImageIcon(BHToolBar.class.getResource("/org/bh/images/buttons/Bshow.png"), ""));
-			fixed = true;
-			showToolBar();
-		}
-	}
-
+	/**
+	 *  Listener for Sliding ToolBar
+	 */
+	
 	@Override
 	public void mouseClicked(MouseEvent arg0) {
-		// TODO Auto-generated method stub
-		throw new UnsupportedOperationException("This method has not been implemented");
+		// not necessary
 	}
 
 	@Override
@@ -173,14 +155,61 @@ public class BHToolBar extends JToolBar implements ActionListener, MouseListener
 
 	@Override
 	public void mousePressed(MouseEvent arg0) {
-		// TODO Auto-generated method stub
-		throw new UnsupportedOperationException("This method has not been implemented");
+		// not necessary
 	}
 
 	@Override
 	public void mouseReleased(MouseEvent arg0) {
-		// TODO Auto-generated method stub
-		throw new UnsupportedOperationException("This method has not been implemented");
+		//not necessary
+	}
+	
+	/**
+	 * 
+	 * The listener class for the toolbar label
+	 *
+	 * <p>
+	 * This class provides a MouseListener for the label on the ToolBar to fix or slide the ToolBar
+	 *
+	 * @author Tietze.Patrick
+	 * @version 1.0, 13.01.2010
+	 *
+	 */
+	class LabelListener implements MouseListener{
+		@Override
+		public void mouseClicked(MouseEvent arg0) {
+			if(shown){
+				showHide.setIcon(new ImageIcon(BHToolBar.class.getResource("/org/bh/images/buttons/Bhide.png"), ""));
+				fixed = false;
+				shown = false;
+				
+			}else {
+				showHide.setIcon(new ImageIcon(BHToolBar.class.getResource("/org/bh/images/buttons/Bshow.png"), ""));
+				fixed = true;
+				shown = true;
+				showToolBar();
+			}
+		}
+
+		@Override
+		public void mouseEntered(MouseEvent arg0) {
+			// not necessary
+		}
+
+		@Override
+		public void mouseExited(MouseEvent arg0) {
+			// not necessary
+		}
+
+		@Override
+		public void mousePressed(MouseEvent arg0) {
+			// not necessary
+		}
+
+		@Override
+		public void mouseReleased(MouseEvent arg0) {
+			// not necessary
+		}
+		
 	}
 }
 
