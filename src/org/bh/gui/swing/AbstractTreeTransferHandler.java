@@ -22,7 +22,6 @@ public abstract class AbstractTreeTransferHandler implements DragGestureListener
 	private BHTree tree;
  
 	protected AbstractTreeTransferHandler(BHTree tree, int action, boolean drawIcon) {
-		this.bhmf = bhmf;
 		this.tree = tree;
 	    drawImage = drawIcon;
 		dragSource = new DragSource();

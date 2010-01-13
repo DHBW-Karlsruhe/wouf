@@ -130,7 +130,6 @@ public final class BHResultPanel extends JPanel{
 	 * @throws ViewException 
 	 */
 	public void initialize(){
-		BorderLayout layout = new BorderLayout();
 		
 		 double border = 10;
 	     double size[][] =

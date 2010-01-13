@@ -105,22 +105,23 @@ public class PDFExport implements IImportExport {
 		JFileChooser pathChooser = new JFileChooser();
 		String description = "PDF";
 		String extension = "pdf";
-		FileNameExtensionFilter filter = new FileNameExtensionFilter(description, extension);
+		FileNameExtensionFilter filter = new FileNameExtensionFilter(
+				description, extension);
 		pathChooser.setFileFilter(filter);
-		
+
 		int returnVal = pathChooser.showSaveDialog(null);
 		if (returnVal == JFileChooser.APPROVE_OPTION) {
 			log.debug("You chose to export pdf to this file: "
 					+ pathChooser.getSelectedFile().getName());
-		path =  pathChooser.getSelectedFile().getAbsolutePath() + ".pdf";
-		
-		newDocument(path, scenario);
-		buildHeadData(scenario);
-		buildScenarioData(scenario);
-		buildResultDataDet(results);
-		closeDocument();
-		log.debug("pdf export completed "
-				+ pathChooser.getSelectedFile().getName());
+			path = pathChooser.getSelectedFile().getAbsolutePath() + ".pdf";
+
+			newDocument(path, scenario);
+			buildHeadData(scenario);
+			buildScenarioData(scenario);
+			buildResultDataDet(results);
+			closeDocument();
+			log.debug("pdf export completed "
+					+ pathChooser.getSelectedFile().getName());
 		}
 	}
 
@@ -190,16 +191,56 @@ public class PDFExport implements IImportExport {
 	private void buildResultDataDet(Map<String, Calculable[]> resultMap) {
 		Paragraph title;
 		Section results;
+		Section resultMapSection;
+		PdfPTable t;
 
 		results = buildResultHead();
+		
+		title = new Paragraph("Result Map",
+				SECTION2_FONT);
+		resultMapSection = results.addSection(title, 2);
+		
+		t = new PdfPTable(2);
+		for (Entry<String, Calculable[]> e : resultMap.entrySet()) {
+			Calculable[] val = e.getValue();
+			if (val.length >= 1) {
+				t.addCell(trans.translate(e.getKey()));
+				t.addCell(val[0].toString());
+			}
+			if (val.length > 1) {
+				for (int i = 1; i < val.length; i++) {
+					t.addCell(" ");
+					t.addCell(val[i].toString());
+				}
+			}
+		}
+		resultMapSection.add(t);
+		
+		//TODO Graphs
 
 	}
 
 	private void buildResultDataStoch(DistributionMap distMap) {
 		Paragraph title;
 		Section results;
-
+		Section distMapSection;
+		PdfPTable t;
+		
 		results = buildResultHead();
+		
+		title = new Paragraph("Distribution Map",
+				SECTION2_FONT);
+		distMapSection = results.addSection(title, 2);
+		
+		t = new PdfPTable(2);
+		for (Iterator<Entry<Double, Integer>> i = distMap.iterator(); i.hasNext();) {
+			Entry<Double, Integer> val = i.next();
+				t.addCell(val.getKey().toString());
+				t.addCell(val.getValue().toString());
+		}
+		distMapSection.add(t);
+		
+		//TODO addCharts
 	}
 
 	private Section buildResultHead() {
@@ -273,10 +314,10 @@ public class PDFExport implements IImportExport {
 	public String getGuiKey() {
 		return GUI_KEY;
 	}
-	
+
 	@Override
 	public String toString() {
-		//TODO test only
+		// TODO test only
 		return GUI_KEY + " from to String";
 	}
 }

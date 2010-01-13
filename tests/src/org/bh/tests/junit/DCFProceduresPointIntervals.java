@@ -33,8 +33,6 @@ import org.junit.Test;
 public class DCFProceduresPointIntervals {
 
 	IShareholderValueCalculator svCalc;
-	IShareholderValueCalculator svCalc2;
-	IShareholderValueCalculator svCalc3;
 
 	Map<String, Calculable[]> res;
 	Map<String, Calculable[]> res2;

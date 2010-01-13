@@ -1,14 +1,9 @@
 package org.bh.tests.junit;
 
 
-import static org.junit.Assert.assertTrue;
-
-import java.util.Map;
-
 import org.bh.calculation.IShareholderValueCalculator;
 import org.bh.data.DTOPeriod;
 import org.bh.data.DTOScenario;
-import org.bh.data.types.Calculable;
 import org.bh.data.types.DoubleValue;
 import org.bh.data.types.IntervalValue;
 import org.bh.data.types.StringValue;
@@ -31,14 +26,6 @@ public class DCFProceduresIntervalValues {
 	IShareholderValueCalculator svCalc;
 	IShareholderValueCalculator svCalc2;
 	IShareholderValueCalculator svCalc3;
-	
-	Map<String, Calculable[]> res;
-	Map<String, Calculable[]> res2;
-	Map<String, Calculable[]> res3;
-	
-	IntervalValue uw0;
-	IntervalValue uw0_2;
-	IntervalValue uw0_3;
 	
 	DTOScenario scenario;
 	DTOPeriod period;

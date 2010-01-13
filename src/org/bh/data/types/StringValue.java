@@ -11,7 +11,7 @@ package org.bh.data.types;
  * 
  */
 
-public class StringValue implements IValue {
+public class StringValue implements IValue{
 	private static final long serialVersionUID = 1081936369068868863L;
 	private final String myString;
 	

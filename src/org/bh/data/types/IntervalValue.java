@@ -393,7 +393,7 @@ public class IntervalValue extends Calculable {
 			int value = ((IntegerValue) c).getValue();
 			return diffToLess(new IntervalValue(value, value), limit);
 		} else if (c instanceof DoubleValue) {
-			double value = ((IntegerValue) c).getValue();
+			double value = ((DoubleValue) c).getValue();
 			return diffToLess(new IntervalValue(value, value), limit);
 		} else if (c instanceof IntervalValue) {
 			IntervalValue c2 = (IntervalValue) c;

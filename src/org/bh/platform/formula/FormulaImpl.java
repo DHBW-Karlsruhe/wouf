@@ -3,6 +3,7 @@ package org.bh.platform.formula;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
 import java.util.Map;
+import java.util.Map.Entry;
 
 import javax.swing.Icon;
 import javax.swing.ImageIcon;
@@ -95,8 +96,8 @@ public class FormulaImpl implements IFormula {
 			if (LOG.isDebugEnabled()) {
 				LOG.debug("------------------------------------------");
 				LOG.debug("Formula: " + name + " invoked with values:");
-				for (String key : inputValues.keySet()) {
-					LOG.debug(key + " = " + inputValues.get(key));
+				for (Entry<String, Calculable> entry : inputValues.entrySet()){
+					LOG.debug(entry.getKey() + " = " + entry.getValue());
 				}
 			}
 

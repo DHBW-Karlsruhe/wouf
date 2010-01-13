@@ -76,7 +76,7 @@ public class IntervalValueUnitTest {
 	}
 
 	@Test
-	public void IntervalValuesAdd() {
+	public void intervalValuesAdd() {
 
 		resIv = (IntervalValue) iv1.add(iv2);
 		resRi = IAMath.add(ri1, ri2);
@@ -104,7 +104,7 @@ public class IntervalValueUnitTest {
 	}
 
 	@Test
-	public void IntervalValuesSub() {
+	public void intervalValuesSub() {
 
 		resIv = (IntervalValue) iv1.sub(iv2);
 		resRi = IAMath.sub(ri1, ri2);
@@ -125,7 +125,7 @@ public class IntervalValueUnitTest {
 	}
 	
 	@Test
-	public void IntervalValuesExtendedSub() {
+	public void intervalValuesExtendedSub() {
 		IntervalValue inf = new IntervalValue(Double.NEGATIVE_INFINITY, Double.POSITIVE_INFINITY);
 		IntervalValue upperInf = new IntervalValue(1, Double.POSITIVE_INFINITY);
 		IntervalValue lowerInf = new IntervalValue(Double.NEGATIVE_INFINITY, -1);
@@ -162,7 +162,7 @@ public class IntervalValueUnitTest {
 	}
 
 	@Test
-	public void IntervalValuesMul() {
+	public void intervalValuesMul() {
 
 		resIv = (IntervalValue) iv1.mul(iv2);
 		resRi = IAMath.mul(ri1, ri2);
@@ -189,7 +189,7 @@ public class IntervalValueUnitTest {
 	}
 
 	@Test
-	public void IntervalValuesDiv() {
+	public void intervalValuesDiv() {
 
 		resIv = (IntervalValue) iv1.div(iv2);
 		resRi = IAMath.div(ri1, ri2);
@@ -227,7 +227,7 @@ public class IntervalValueUnitTest {
 	}
 
 	@Test
-	public void IntervalValuesDivZero() {
+	public void intervalValuesDivZero() {
 		// interval tests concerning div with zero
 
 		IntervalValue res;
@@ -303,7 +303,7 @@ public class IntervalValueUnitTest {
 	}
 
 	@Test
-	public void IntervalValuesPow() {
+	public void intervalValuesPow() {
 		// TODO
 	}
 	
@@ -336,7 +336,7 @@ public class IntervalValueUnitTest {
 	}
 
 	@Test
-	public void IntervalValuesSqrt() {
+	public void intervalValuesSqrt() {
 		resIv = (IntervalValue) iv1.sqrt();
 		resRi = IAMath.integerRoot(ri1, new RealInterval(2, 2));
 		// difference at the last decimal place is acceptable
