@@ -176,9 +176,9 @@ public class FCFCalculator implements IShareholderValueCalculator {
 		Calculable[] waccDebts = calcWACCDebts(fk, fkr, uw, s);
 
 		Map<String, Calculable[]> result = new HashMap<String, Calculable[]>();
-		result.put(SHAREHOLDER_VALUE, uw);
-		result.put(DEBT, fk);
-		result.put(FREE_CASH_FLOW, fcf);
+		result.put(IShareholderValueCalculator.Result.SHAREHOLDER_VALUE.name(), uw);
+		result.put(IShareholderValueCalculator.Result.DEBT.name(), fk);
+		result.put(IShareholderValueCalculator.Result.FREE_CASH_FLOW.name(), fcf);
 		result.put(Result.PRESENT_VALUE_FCF.name(), FCFPresentValueTaxShield);
 		result.put(Result.EQUITY_RETURN_RATE_FCF.name(), EKrFCF);
 		result.put(Result.DEBT_TO_EQUITY_RATIO.name(), calcDebtToEquityRatio(

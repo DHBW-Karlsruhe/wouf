@@ -19,9 +19,12 @@ public interface IShareholderValueCalculator extends IDisplayablePlugin {
 	 * Key for {@link #calculate(DTOScenario)} which identifies the shareholder
 	 * value.
 	 */
-	final String SHAREHOLDER_VALUE = "sv";
-	final String DEBT = "fk";
-	final String FREE_CASH_FLOW = "fcf";
+	public enum Result{
+		SHAREHOLDER_VALUE,
+		DEBT,
+		FREE_CASH_FLOW;
+	}
+	
 
 	/**
 	 * This method calculates the shareholder value and possibly other values.

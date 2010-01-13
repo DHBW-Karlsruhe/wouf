@@ -119,7 +119,7 @@ public class RandomWalk implements IStochasticProcess {
 			result
 					.put(((DoubleValue) Services.getDCFMethod("apv").calculate(
 							temp).get(
-							IShareholderValueCalculator.SHAREHOLDER_VALUE)[0])
+							IShareholderValueCalculator.Result.SHAREHOLDER_VALUE)[0])
 							.getValue());
 		}
 		return result;
