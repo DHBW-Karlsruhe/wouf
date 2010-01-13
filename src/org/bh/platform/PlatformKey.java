@@ -45,8 +45,8 @@ public enum PlatformKey{
 	TOOLBARADDPER("TaddPer","TOOLBARADDPER"),
 	TOOLBARREMOVE("Tremove","TOOLBARREMOVE"),
 	
-	CALCSHAREHOLDERVALUE("BcalculateShareholderValue","CALCSHAREHOLDERVALUE");
-
+	CALCSHAREHOLDERVALUE("BcalculateShareholderValue","CALCSHAREHOLDERVALUE"),
+	CALCDASHBOARD("BcalculateDashBoard", "CALCDASHBOARD");
 	
 	String translationKey;
 	String actionKey;
