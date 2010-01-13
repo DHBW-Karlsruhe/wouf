@@ -20,19 +20,12 @@ import org.jfree.data.general.Dataset;
 import org.jfree.data.general.DefaultPieDataset;
 
 @SuppressWarnings("serial")
-public class BHPieChart extends JFreeChart implements IBHComponent,
-	IBHAddValue, IPlatformListener {
-	ITranslator translator = BHTranslator.getInstance();
+public class BHPieChart extends BHChart implements IBHAddValue, IPlatformListener {
 
-	private String key;
-	private String inputHint;
-	private JFreeChart chart;
 	private DefaultPieDataset dataset;
-	private static Plot plot = new CategoryPlot();;
 
 	protected BHPieChart(String title, final Dataset dataset, String key) {
-		super(plot);
-		this.key = key;
+		super(key);
 		this.dataset = (DefaultPieDataset) dataset;
 
 		chart = ChartFactory.createPieChart(title, this.dataset, true, true,
@@ -44,29 +37,11 @@ public class BHPieChart extends JFreeChart implements IBHComponent,
 		reloadText();
 		Services.addPlatformListener(this);
 	}
-	/**
-	 * returns the created Chart of the <code>BHPieChart</code>
-	 * 
-	 * @return JFreeChart PieChart
-	 */
-
-	public JFreeChart getChart() {
-		return chart;
-	}
-	/**
-	 * returns a unique Key
-	 * 
-	 * @return String key
-	 */
-	@Override
-	public String getKey() {
-		return this.key;
-	}
-
+	
 	@Override
 	public final void addValue(Number value, Comparable<String> columnKey) {
 		this.dataset.setValue(columnKey, value);
-		fireChartChanged();
+		chart.fireChartChanged();
 	}
 
 	@Override
@@ -78,7 +53,7 @@ public class BHPieChart extends JFreeChart implements IBHComponent,
 				while (it.hasNext()) {
 					this.dataset.setValue((String) list.get(j), (Number) list
 							.get(i));
-					fireChartChanged();
+					chart.fireChartChanged();
 				}
 			}
 		}
@@ -111,25 +86,10 @@ public class BHPieChart extends JFreeChart implements IBHComponent,
 	}
 
 	@Override
-	public String getHint() {
-		return inputHint;
-	}
-	
-	/**
-	 * Handle PlatformEvents
-	 */
-	@Override
 	public void platformEvent(PlatformEvent e) {
 		if(e.getEventType()== Type.LOCALE_CHANGED){
 			this.reloadText();
 		}
 	}
 	
-	/**
-	 * Reloads Text if necessary.
-	 */
-	protected void reloadText() {
-		this.chart.getPlot().setNoDataMessage(translator.translate("noDataAvailable"));
-		inputHint = Services.getTranslator().translate(key, ITranslator.LONG);
-	}
 }

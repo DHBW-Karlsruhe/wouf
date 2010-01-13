@@ -32,20 +32,14 @@ import org.jfree.data.general.Dataset;
  * 
  */
 @SuppressWarnings("serial")
-public class BHLineChart extends JFreeChart implements IBHComponent,
-		IBHAddValue, IPlatformListener {
-	ITranslator translator = BHTranslator.getInstance();
+public class BHLineChart extends BHChart implements IBHAddValue, IPlatformListener {
 
-	private String key;
-	private String inputHint;
-	private JFreeChart chart;
 	private DefaultCategoryDataset dataset;
-	private static Plot plot = new CategoryPlot();
+	
 
 	protected BHLineChart(String title, final String XAxis, final String YAxis,
 			final Dataset dataset, final String key) {
-		super(plot);
-		this.key = key;
+		super(key);
 		this.dataset = (DefaultCategoryDataset) dataset;
 
 		chart = ChartFactory.createLineChart(title, XAxis, YAxis, this.dataset,
@@ -58,31 +52,11 @@ public class BHLineChart extends JFreeChart implements IBHComponent,
 		Services.addPlatformListener(this);
 	}
 
-	/**
-	 * returns the created Chart of the <code>BHLineChart</code>
-	 * 
-	 * @return JFreeChart LineChart
-	 */
-
-	public JFreeChart getChart() {
-		return chart;
-	}
-
-	/**
-	 * Returns the unique ID of the <code>BHLineChart</code>.
-	 * 
-	 * @return id unique identifier.
-	 */
-	@Override
-	public String getKey() {
-		return key;
-	}
-
 	@Override
 	public final void addValue(Number value, int row, Comparable<String> columnKey) {
 
-		this.dataset.addValue(value, dataset.getRowKey(row), columnKey);
-		fireChartChanged();
+		this.dataset.addValue(value, row, columnKey);
+		chart.fireChartChanged();
 	}
 
 	@Override
@@ -94,7 +68,7 @@ public class BHLineChart extends JFreeChart implements IBHComponent,
 				while (it.hasNext()) {
 					this.dataset.addValue((Number) list.get(i), i,
 							(String) list.get(j));
-					fireChartChanged();
+					chart.fireChartChanged();
 				}
 			}
 		}
@@ -122,10 +96,6 @@ public class BHLineChart extends JFreeChart implements IBHComponent,
 				"This method has not been implemented");
 	}
 
-	@Override
-	public String getHint() {
-		return inputHint;
-	}
 	
 	/**
 	 * Handle PlatformEvents
@@ -137,11 +107,4 @@ public class BHLineChart extends JFreeChart implements IBHComponent,
 		}
 	}
 	
-	/**
-	 * Reloads Text if necessary.
-	 */
-	protected void reloadText() {
-		this.chart.getPlot().setNoDataMessage(translator.translate("noDataAvailable"));
-		inputHint = Services.getTranslator().translate(key, ITranslator.LONG);
-	}
 }

@@ -29,19 +29,13 @@ import org.jfree.data.statistics.HistogramDataset;
  * 
  */
 @SuppressWarnings("serial")
-public class BHHistogramChart extends JFreeChart implements IBHComponent,
-		IBHAddValue, IPlatformListener {
-	ITranslator translator = BHTranslator.getInstance();
+public class BHHistogramChart extends BHChart implements IBHAddValue, IPlatformListener {
 
-	private String key;
-	private String inputHint;
-	private JFreeChart chart;
 	private HistogramDataset dataset;
 
 	protected BHHistogramChart(final String title, final String xAxis, final String yAxis,
 			final Dataset dataset, final String key, final Plot plot) {
-		super(plot);
-		this.key = key;
+                super(key);
 		this.dataset = (HistogramDataset) dataset;
 
 		chart = ChartFactory.createHistogram(title, xAxis, yAxis, this.dataset,
@@ -56,29 +50,13 @@ public class BHHistogramChart extends JFreeChart implements IBHComponent,
 	}
 
 	/**
-	 * method to get the <code>JFreeChart</code> BHHistogramChart
-	 * 
-	 * @return <code>JFreeChart</code> chart
-	 */
-	public final JFreeChart getChart() {
-		return chart;
-	}
-
-	/**
-	 * returns key of BHHistogramChart
-	 */
-
-	public final String getKey() {
-		return key;
-	}
-
-	/**
 	 * method to add a series into an empty HistogramDataset
 	 */
 
 	public final void addSeries(final Comparable<String> key, final double[] values, int bins,
 			final double minimum, final double maximum) {
 		this.dataset.addSeries(key, values, bins, minimum, maximum);
+                chart.fireChartChanged();
 	}
 
 	@Override
@@ -107,11 +85,6 @@ public class BHHistogramChart extends JFreeChart implements IBHComponent,
 		throw new UnsupportedOperationException(
 				"This method has not been implemented");
 	}
-
-	@Override
-	public String getHint() {
-		return inputHint;
-	}
 	
 	/**
 	 * Handle PlatformEvents
@@ -123,11 +96,4 @@ public class BHHistogramChart extends JFreeChart implements IBHComponent,
 		}
 	}
 	
-	/**
-	 * Reloads Text if necessary.
-	 */
-	protected void reloadText() {
-		this.chart.getPlot().setNoDataMessage(translator.translate("noDataAvailable"));
-		inputHint = Services.getTranslator().translate(key, ITranslator.LONG);
-	}
 }

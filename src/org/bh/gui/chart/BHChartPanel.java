@@ -52,8 +52,8 @@ public class BHChartPanel extends ChartPanel implements IBHComponent, IBHAddValu
     }
 
     protected void reloadText() {
-	inputHint = Services.getTranslator().translate(key, ITranslator.LONG);
-	setToolTipText(inputHint);
+//	inputHint = Services.getTranslator().translate(key, ITranslator.LONG);
+//	setToolTipText(inputHint);
     }
 
     public void addSeries(Comparable<String> key, double[] values, int bins, double minimum, double maximum) {

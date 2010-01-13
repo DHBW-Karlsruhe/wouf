@@ -32,20 +32,13 @@ import org.jfree.data.general.Dataset;
 	 * 
 	 */
 	@SuppressWarnings("serial")
-	public class BHstackedBarChart extends JFreeChart implements IBHComponent,
-			IBHAddValue, IPlatformListener {
-		ITranslator translator = BHTranslator.getInstance();
-
-		private String key;
-		private String inputHint;
-		private JFreeChart chart;
+	public class BHstackedBarChart extends BHChart implements IBHAddValue, IPlatformListener {
+		
 		private DefaultCategoryDataset dataset;
-		private static Plot plot = new CategoryPlot();
 
 		protected BHstackedBarChart(String title, final String XAxis, final String YAxis,
 				final Dataset dataset, final String key) {
-			super(plot);
-			this.key = key;
+			super(key);
 			this.dataset = (DefaultCategoryDataset) dataset;
 
 			chart = ChartFactory.createStackedBarChart(title, XAxis, YAxis, this.dataset,
@@ -58,31 +51,11 @@ import org.jfree.data.general.Dataset;
 			Services.addPlatformListener(this);
 		}
 
-		/**
-		 * returns the created Chart of the <code>BHstackedBarChart</code>
-		 * 
-		 * @return JFreeChart stackedBarChart
-		 */
-
-		public JFreeChart getChart() {
-			return chart;
-		}
-
-		/**
-		 * Returns the unique ID of the <code>BHstackedBarChart</code>.
-		 * 
-		 * @return id unique identifier.
-		 */
-		@Override
-		public String getKey() {
-			return key;
-		}
-
 		@Override
 		public final void addValue(Number value, int row, Comparable<String> columnKey) {
 
 			this.dataset.addValue(value, row, columnKey);
-			fireChartChanged();
+			chart.fireChartChanged();
 		}
 
 		@Override
@@ -94,7 +67,7 @@ import org.jfree.data.general.Dataset;
 					while (it.hasNext()) {
 						this.dataset.addValue((Number) list.get(i), i,
 								(String) list.get(j));
-						fireChartChanged();
+						chart.fireChartChanged();
 					}
 				}
 			}
@@ -122,11 +95,6 @@ import org.jfree.data.general.Dataset;
 					"This method has not been implemented");
 		}
 
-		@Override
-		public String getHint() {
-			return inputHint;
-		}
-		
 		/**
 		 * Handle PlatformEvents
 		 */
@@ -137,11 +105,4 @@ import org.jfree.data.general.Dataset;
 			}
 		}
 		
-		/**
-		 * Reloads Text if necessary.
-		 */
-		protected void reloadText() {
-			this.chart.getPlot().setNoDataMessage(translator.translate("noDataAvailable"));
-			inputHint = Services.getTranslator().translate(key, ITranslator.LONG);
-		}
 }

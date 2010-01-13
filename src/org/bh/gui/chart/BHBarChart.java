@@ -32,20 +32,13 @@ import org.jfree.data.general.Dataset;
 	 * 
 	 */
 	@SuppressWarnings("serial")
-	public class BHBarChart extends JFreeChart implements IBHComponent,
-			IBHAddValue, IPlatformListener {
-		ITranslator translator = BHTranslator.getInstance();
+	public class BHBarChart extends BHChart implements IBHAddValue, IPlatformListener {
 
-		private String key;
-		private String inputHint;
-		private JFreeChart chart;
 		private DefaultCategoryDataset dataset;
-		private static Plot plot = new CategoryPlot();
 
 		protected BHBarChart(String title, final String XAxis, final String YAxis,
 				final Dataset dataset, final String key) {
-			super(plot);
-			this.key = key;
+			super(key);
 			this.dataset = (DefaultCategoryDataset) dataset;
 
 			chart = ChartFactory.createBarChart(title, XAxis, YAxis, this.dataset,
@@ -58,26 +51,7 @@ import org.jfree.data.general.Dataset;
 			Services.addPlatformListener(this);
 		}
 
-		/**
-		 * returns the created Chart of the <code>BHBarChart</code>
-		 * 
-		 * @return JFreeChart BarChart
-		 */
-
-		public JFreeChart getChart() {
-			return chart;
-		}
-
-		/**
-		 * Returns the unique ID of the <code>BHBarChart</code>.
-		 * 
-		 * @return id unique identifier.
-		 */
-		@Override
-		public String getKey() {
-			return key;
-		}
-
+		
 		@Override
 		public final void addValue(Number value, int row, Comparable<String> columnKey) {
 
@@ -94,7 +68,7 @@ import org.jfree.data.general.Dataset;
 					while (it.hasNext()) {
 						this.dataset.addValue((Number) list.get(i), i,
 								(String) list.get(j));
-						fireChartChanged();
+						chart.fireChartChanged();
 					}
 				}
 			}
@@ -122,11 +96,6 @@ import org.jfree.data.general.Dataset;
 					"This method has not been implemented");
 		}
 
-		@Override
-		public String getHint() {
-			return inputHint;
-		}
-		
 		/**
 		 * Handle PlatformEvents
 		 */
@@ -137,11 +106,4 @@ import org.jfree.data.general.Dataset;
 			}
 		}
 		
-		/**
-		 * Reloads Text if necessary.
-		 */
-		protected void reloadText() {
-			this.chart.getPlot().setNoDataMessage(translator.translate("noDataAvailable"));
-			inputHint = Services.getTranslator().translate(key, ITranslator.LONG);
-		}
 }

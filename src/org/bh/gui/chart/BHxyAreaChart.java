@@ -29,18 +29,13 @@ import org.jfree.data.xy.DefaultXYDataset;
  * 
  */
 @SuppressWarnings("serial")
-public class BHxyAreaChart extends JFreeChart implements IBHComponent,
-		IBHAddValue, IPlatformListener {
-	ITranslator translator = BHTranslator.getInstance();
-	private String key;
-	private String hint;
-	private JFreeChart chart;
+public class BHxyAreaChart extends BHChart implements IBHAddValue, IPlatformListener {
+	
 	private DefaultXYDataset dataset;
 
 	protected BHxyAreaChart(final String title, final String xAxis, final String yAxis,
 			final Dataset dataset, final String key, final XYPlot plot) {
-		super(plot);
-		this.key = key;
+		super(key);
 		this.dataset = (DefaultXYDataset) dataset;
 
 		chart = ChartFactory.createXYAreaChart(title, xAxis, yAxis,
@@ -54,30 +49,12 @@ public class BHxyAreaChart extends JFreeChart implements IBHComponent,
 	}
 
 	/**
-	 * method to get the <code>BHxyAreaChart</code>
-	 * 
-	 * @return <code>JFreeChart</code> chart
-	 */
-	public final JFreeChart getChart() {
-		return chart;
-	}
-
-	/**
-	 * returns unique ID
-	 * 
-	 */
-	@Override
-	public final String getKey() {
-		return key;
-	}
-
-	/**
 	 * method to add a series into an empty dataset
 	 */
 	@Override
 	public final void addSeries(final Comparable<String> seriesKey, final double[][] data) {
 		this.dataset.addSeries(seriesKey, data);
-		fireChartChanged();
+		chart.fireChartChanged();
 	}
 
 	@Override
@@ -109,11 +86,6 @@ public class BHxyAreaChart extends JFreeChart implements IBHComponent,
 				"This method has not been implemented");
 	}
 
-	@Override
-	public String getHint() {
-		return hint;
-	}
-	
 	/**
 	 * Handle PlatformEvents
 	 */
@@ -124,11 +96,4 @@ public class BHxyAreaChart extends JFreeChart implements IBHComponent,
 		}
 	}
 	
-	/**
-	 * Reloads Text if necessary.
-	 */
-	protected void reloadText() {
-		this.chart.getPlot().setNoDataMessage(translator.translate("noDataAvailable"));
-		hint = Services.getTranslator().translate(key, ITranslator.LONG);
-	}
 }
