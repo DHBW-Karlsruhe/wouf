@@ -121,14 +121,20 @@ public class XMLImport {
 			dto = (IDTO) Class.forName(className).newInstance();
 			
 			// Get a list of all value nodes
-			List<Element> values =  node.getChild("values", bhDataNS).getChildren("value", bhDataNS);
-			
-			// Put all values into the DTO
-			for (Element val : values)
-			{				
-				Object[] value = DataTypeConverter.getIValueRepresenation(val, bhDataNS);
-				dto.put(value[0], (IValue) value[1]);
+			Element valuesNode = node.getChild("values", bhDataNS);
+			if (valuesNode != null)
+			{
+				List<Element> values =  valuesNode.getChildren("value", bhDataNS);
+				// Put all values into the DTO
+				for (Element val : values)
+				{				
+					Object[] value = DataTypeConverter.getIValueRepresenation(val, bhDataNS);
+					dto.put(value[0], (IValue) value[1]);
+				}
 			}
+			
+			
+			
 			
 			// Get a list of all child nodes
 			Element nodeChildren = node.getChild("children", bhDataNS);

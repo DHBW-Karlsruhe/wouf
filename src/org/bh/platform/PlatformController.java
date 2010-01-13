@@ -53,17 +53,17 @@ import org.bh.platform.PlatformEvent.Type;
 public class PlatformController {
 
 	/**
-	 * Instance for Singleton; 
-	 * PlugIns can get access to all parts of Platform through that
+	 * Instance for Singleton; PlugIns can get access to all parts of Platform
+	 * through that
 	 */
 	private static PlatformController singletonInstance;
-	
+
 	private BHMainFrame bhmf;
 	private ProjectRepositoryManager projectRepoManager = ProjectRepositoryManager
 			.getInstance();
 
 	InputController controller = null;
-	
+
 	/**
 	 * Reference to a preference object which allows platform independent
 	 * 
@@ -92,13 +92,13 @@ public class PlatformController {
 	private static final Logger log = Logger
 			.getLogger(PlatformController.class);
 
-	public static PlatformController getInstance(){
-		if(singletonInstance == null){
+	public static PlatformController getInstance() {
+		if (singletonInstance == null) {
 			singletonInstance = new PlatformController();
 		}
 		return singletonInstance;
 	}
-	
+
 	private PlatformController() {
 
 		/*------------------------------------
@@ -155,7 +155,7 @@ public class PlatformController {
 		// rebuild Tree
 		setupTree(bhmf, projectRepoManager);
 		bhmf.getBHTree().expandAll();
-		
+
 		// create PlatformU...
 		// TODO naming
 		PlatformUserDialog.init(bhmf);
@@ -204,9 +204,8 @@ public class PlatformController {
 		Services.addPlatformListener(new DataChangedListener());
 
 	}
-	
-	
-	public void addProject(DTOProject newProject){
+
+	public void addProject(DTOProject newProject) {
 		projectRepoManager.addProject(newProject);
 
 		// and create a Node for tree on gui
@@ -218,9 +217,7 @@ public class PlatformController {
 		bhmf.getBHTree().startEditingAtPath(
 				new TreePath(newProjectNode.getPath()));
 	}
-	
-	
-	
+
 	/*------------------------------------
 	 * Subclasses
 	 * -----------------------------------
@@ -240,19 +237,29 @@ public class PlatformController {
 	 */
 	class BHTreeSelectionListener implements TreeSelectionListener {
 
+		private Boolean first = true;
+
 		@Override
 		public void valueChanged(final TreeSelectionEvent tse) {
 			SwingUtilities.invokeLater(new Runnable() {
 				@Override
 				public void run() {
 					if (tse.getPath().getLastPathComponent() instanceof BHTreeNode) {
-						DTO<?> selection = (DTO<?>) ((BHTreeNode) tse.getPath()
-								.getLastPathComponent()).getUserObject();
-						if (selection instanceof DTOProject) {
+						BHTreeNode selectedNode = (BHTreeNode) tse.getPath()
+								.getLastPathComponent();
+						DTO<?> selectedDto = (DTO<?>) selectedNode
+								.getUserObject();
+						if (selectedDto instanceof DTOProject) {
 							try {
-								View view = new BHProjectView(
-										new BHProjectInputForm());
-								IDTO<?> model = selection;
+								View view;
+
+								if ((view = selectedNode.getView()) == null) {
+									view = new BHProjectView(
+											new BHProjectInputForm());
+									selectedNode.setView(view);
+								}
+
+								IDTO<?> model = selectedDto;
 								controller = new InputController(view, model);
 								bhmf.setContentForm(view.getViewPanel());
 								controller.loadAllToView();
@@ -261,96 +268,107 @@ public class PlatformController {
 								e.printStackTrace();
 							}
 
-						} else if (selection instanceof DTOScenario) {
+						} else if (selectedDto instanceof DTOScenario) {
 							try {
-								View view = null;
-								IDTO<?> model = selection;
 
-								// find out if stochastic process was chosen at
-								// init of strategy
-								try {
-									selection
-											.get(DTOScenario.Key.STOCHASTIC_PROCESS);
-									// when value is set -> next command will be
-									// processed (else: not, but Exception)
-									view = new BHScenarioView(
-											new BHScenarioForm(
-													BHScenarioForm.Type.STOCHASTIC),
-											new ValidationMethods());
+								IDTO<?> model = selectedDto;
 
-								} catch (DTOAccessException e) {
-									// Answer: no
-									view = new BHScenarioView(
-											new BHScenarioForm(
-													BHScenarioForm.Type.DETERMINISTIC),
-											new ValidationMethods());
+								// ceck if controller is already there...
+								if ((controller = selectedNode.getController()) == null) {
 
-									// if scenario is deterministic, an overview
-									// table is provided
-									@SuppressWarnings("unchecked")
-									List<DTOPeriod> periods = (List<DTOPeriod>) selection
-											.getChildren();
-									IValue[][] periodData = new IValue[periods
-											.size()][3];
-									// transform data
-									for (int i = 0; i < periods.size(); i++) {
-										DTOPeriod period = (DTOPeriod) periods
-												.get(i);
+									// if not, create view at first
 
-										try {
-											periodData[i][0] = period
-													.get(DTOPeriod.Key.NAME);
-										} catch (DTOAccessException dtoae) {
-											log
-													.error(
-															"Cannot get name for period table",
-															dtoae);
-										}
+									View view;
+									// find out if stochastic process was chosen at init of strategy
+									try {
+										selectedDto
+												.get(DTOScenario.Key.STOCHASTIC_PROCESS);
 										
-										if (!period.isValid(true))
-											continue;
+									// when value is set -> STOCHASTIC
+									//  next command will be processed (else: not, but Exception)
+										view = new BHScenarioView(
+												new BHScenarioForm(
+														BHScenarioForm.Type.STOCHASTIC),
+												new ValidationMethods());
 										
-										try {
-											periodData[i][1] = period
-													.getLiabilities();
-										} catch (DTOAccessException dtoae) {
-											log
-													.error(
-															"Cannot get liabilities for period table",
-															dtoae);
-										}
-										try {
-											periodData[i][2] = period.getFCF();
-										} catch (DTOAccessException dtoae) {
-											if (i > 0) {
-												log
-														.error(
-																"Cannot get FCF for period table",
+										
+									// when value is not set -> DETERMINISTIC
+									} catch (DTOAccessException e) {
+										// Answer: no
+										view = new BHScenarioView(
+												new BHScenarioForm(
+														BHScenarioForm.Type.DETERMINISTIC),
+												new ValidationMethods());
+
+										// if scenario is deterministic, an
+										// overview
+										// table is provided
+										@SuppressWarnings("unchecked")
+										List<DTOPeriod> periods = (List<DTOPeriod>) selectedDto
+												.getChildren();
+										IValue[][] periodData = new IValue[periods
+												.size()][3];
+										// transform data
+										for (int i = 0; i < periods.size(); i++) {
+											DTOPeriod period = periods.get(i);
+
+											try {
+												periodData[i][0] = period
+														.get(DTOPeriod.Key.NAME);
+											} catch (DTOAccessException dtoae) {
+												log.error("Cannot get name for period table",
 																dtoae);
 											}
+
+											if (!period.isValid(true))
+												continue;
+
+											try {
+												periodData[i][1] = period
+														.getLiabilities();
+											} catch (DTOAccessException dtoae) {
+												log
+														.error(
+																"Cannot get liabilities for period table",
+																dtoae);
+											}
+											try {
+												periodData[i][2] = period
+														.getFCF();
+											} catch (DTOAccessException dtoae) {
+												if (i > 0) {
+													log.error("Cannot get FCF for period table",dtoae);
+												}
+											}
 										}
+										
+										// table for periods
+										try {
+											((BHDeterministicProcessForm) ((BHScenarioForm) view
+													.getViewPanel())
+													.getProcessForm())
+													.setPeriodTable(periodData);
+										} catch (Exception e1) {
+											// TODO Exception ausprogrammieren
+										}
+										
+										//create controller
+										controller = new ScenarioController(view, model);
+										controller.loadAllToView();
+										selectedNode.setController(controller);
 									}
-									try {
-										((BHDeterministicProcessForm) ((BHScenarioForm) view
-												.getViewPanel())
-												.getProcessForm())
-												.setPeriodTable(periodData);
-									} catch (Exception e1) {
-										// TODO Exception ausprogrammieren
-									}
-
 								}
+								
+								bhmf.setContentForm(controller.getViewPanel());
 
-								bhmf.setContentForm(view.getViewPanel());
-								controller = new ScenarioController(view, model);
-								controller.loadAllToView();
 
 							} catch (ViewException e) {
 								e.printStackTrace();
 							}
 
-						} else if (selection instanceof DTOPeriod) {
-							Services.startPeriodEditing((DTOPeriod) selection);
+						} else if (selectedDto instanceof DTOPeriod) {
+							Services
+									.startPeriodEditing((DTOPeriod) selectedDto);
 						}
 					}
 

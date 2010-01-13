@@ -94,7 +94,7 @@ public abstract class BHValidityEngine {
      * @see BHStatusBar
      */
     public ValidationResult publishValidationAll(Map<String, IBHModelComponent> toValidate) {
-        log.debug("Trigger validation process for All Components");
+    	log.debug("Trigger validation process for All Components");
         validationResultAll = validateAll(toValidate);
         setValidityStatus(validationResultAll);
         if (validationResultAll.hasMessages())
