@@ -2,12 +2,14 @@ package org.bh;
 
 import java.lang.Thread.UncaughtExceptionHandler;
 
+import javax.swing.JOptionPane;
 import javax.swing.SwingUtilities;
 
 import org.apache.log4j.Logger;
 import org.bh.platform.PlatformController;
 import org.bh.platform.PluginManager;
 import org.bh.platform.Services;
+import org.bh.platform.i18n.ITranslator;
 
 /**
  * 
@@ -31,6 +33,16 @@ public class BusinessHorizon {
 	 */
 	public static void main(String[] args) throws Exception {
 		log.info("Business Horizon is starting...");
+		
+		// Check if JRE is Java 6 Update 10, else quit.
+		if (!Services.jreFulfillsRequirements()) {	
+			String message = Services.getTranslator().translate("PjreRequirement", ITranslator.LONG);
+			String title = Services.getTranslator().translate("PjreRequirement");
+			log.error(message);
+			JOptionPane.showMessageDialog(null, message, title, JOptionPane.ERROR_MESSAGE);
+			System.exit(1);
+		}
+		
 		if (SVN.isRevisionSet())
 			log.info("SVN Revision is " + SVN.getRevision());
 		
@@ -46,9 +58,6 @@ public class BusinessHorizon {
 		
 		// set Look&Feel
 		Services.setNimbusLookAndFeel();
-		
-		// TODO Thiele.Klaus Replace with java.awt.Splashscreen
-		// new Thread(new BHSplashScreen()).start();
 		
 		// Invoke start of BHMainFrame
 		SwingUtilities.invokeLater(new Runnable() {

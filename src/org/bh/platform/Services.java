@@ -9,6 +9,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.ServiceLoader;
+import java.util.StringTokenizer;
 import java.util.Map.Entry;
 
 import javax.swing.ImageIcon;
@@ -315,5 +316,34 @@ public class Services {
 	
 	public static void setCharts(Component chart) {
 		bhmf.setCharts(chart);
+	}
+	
+	/**
+	 * Checks if JRE is fulfilling the requirements for Business Horizon.
+	 * 
+	 * Currently Business Horizon is requiring Java 6 Update 10. (1.6.0_10) 
+	 * @return <code>true</code> if JRE fulfills and <code>false</code> if it doesn't.
+	 */
+	public static boolean jreFulfillsRequirements() {
+		// Require Java 6 Update 10 or higher.
+		StringTokenizer javaVersion = new StringTokenizer(System.getProperty("java.version"), "._");
+		boolean versionOK = true;
+		int root = Integer.parseInt(javaVersion.nextToken());
+		int major = Integer.parseInt(javaVersion.nextToken());
+		int minor = Integer.parseInt(javaVersion.nextToken());
+		int patchlevel = Integer.parseInt(javaVersion.nextToken());
+		
+		if (root < 1) {
+			versionOK = false;
+		}
+		if (major < 6) {
+			versionOK = false;
+		}
+		if (minor == 0) {
+			if (patchlevel < 10) {
+				versionOK = false;
+			}
+		}
+		return versionOK;
 	}
 }
