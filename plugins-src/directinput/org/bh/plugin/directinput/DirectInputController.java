@@ -33,7 +33,9 @@ public class DirectInputController implements IPeriodController {
 		}
 
 		try {
-			View view = new View(new DirectInputForm(), new ValidationMethods());
+			boolean intervalArithmetic = period.getScenario().isIntervalArithmetic();
+			
+			View view = new View(new DirectInputForm(intervalArithmetic), new ValidationMethods());
 			InputController controller = new InputController(view, model);
 			controller.loadAllToView();
 			return view.getViewPanel();
