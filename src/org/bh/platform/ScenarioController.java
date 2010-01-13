@@ -69,7 +69,7 @@ public class ScenarioController extends InputController {
 
 					// TODO maybe setResult should return the panel of the view
 					JPanel panel = new JPanel();
-					Services.setCharts(panel);
+					
 					// FIXME selection of result analyser plugin
 					for (IDeterministicResultAnalyser analyser : PluginManager
 							.getInstance().getServices(
@@ -77,6 +77,7 @@ public class ScenarioController extends InputController {
 						analyser.setResult(scenario, result, panel);
 						break;
 					}
+					Services.setCharts(panel);
 				}	
 			};
 			new Thread(r, "Calculation Thread").start();

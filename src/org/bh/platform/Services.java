@@ -327,23 +327,21 @@ public class Services {
 	public static boolean jreFulfillsRequirements() {
 		// Require Java 6 Update 10 or higher.
 		StringTokenizer javaVersion = new StringTokenizer(System.getProperty("java.version"), "._");
-		boolean versionOK = true;
+		
 		int root = Integer.parseInt(javaVersion.nextToken());
 		int major = Integer.parseInt(javaVersion.nextToken());
 		int minor = Integer.parseInt(javaVersion.nextToken());
 		int patchlevel = Integer.parseInt(javaVersion.nextToken());
 		
 		if (root < 1) {
-			versionOK = false;
+			return false;
 		}
-		if (major < 6) {
-			versionOK = false;
+		if (root == 1 && major < 6) {
+			return false;
 		}
-		if (minor == 0) {
-			if (patchlevel < 10) {
-				versionOK = false;
-			}
+		if (root == 1 && major == 6 && minor == 0 && patchlevel < 10) {
+			return false;
 		}
-		return versionOK;
+		return true;
 	}
 }
