@@ -16,6 +16,7 @@ import javax.swing.UIManager;
 import javax.swing.WindowConstants;
 
 import org.apache.log4j.Logger;
+import org.bh.SVN;
 import org.bh.platform.IPlatformListener;
 import org.bh.platform.PlatformController;
 import org.bh.platform.PlatformEvent;
@@ -177,16 +178,22 @@ public class BHMainFrame extends JFrame implements IPlatformListener {
 	 * resets the title of the <code>BHMainFrame</code>.
 	 */
 	public void resetTitle() {
-		this.setTitle(Services.getTranslator().translate("title"));
+		String title =  Services.getTranslator().translate("title");
 		String path = PlatformController.preferences.get("path", null);
 		if (path != null) {
-			this.setTitle(this.getTitle() + " - " + path);
+			title += " - " + path;
 		}
 		
 		if (ProjectRepositoryManager.isChanged()) {
 			String changedSuffix = " (" + Services.getTranslator().translate("changed") + ")";
-			this.setTitle(this.getTitle() + changedSuffix);
+			title += changedSuffix;
 		}
+		
+		if (SVN.isRevisionSet()) {
+			title += " (Revision " + SVN.getRevision() + ")";
+		}
+		
+		setTitle(title);
 	}
 	
 	/**

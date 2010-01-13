@@ -31,6 +31,8 @@ public class BusinessHorizon {
 	 */
 	public static void main(String[] args) throws Exception {
 		log.info("Business Horizon is starting...");
+		if (SVN.isRevisionSet())
+			log.info("SVN Revision is " + SVN.getRevision());
 		
 		PluginManager.init();
 
