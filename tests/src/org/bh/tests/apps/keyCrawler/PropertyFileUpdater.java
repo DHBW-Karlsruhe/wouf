@@ -10,6 +10,8 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
+import java.util.TreeSet;
 
 /**
  *
@@ -17,7 +19,7 @@ import java.util.List;
  */
 public class PropertyFileUpdater {
 
-    Properties propFile = new Properties();
+    SortedProperties propFile = new SortedProperties();
     String propPathRead;
     String propPathWrite;
     String vzPath;
@@ -50,6 +52,7 @@ public class PropertyFileUpdater {
         System.out.println("Gefundene Enum(s):");
         try {
             pfu.propFile.load(new FileReader(pfu.propPathRead));
+
             for(Class<?> clazz : ClassFinder.getClasses(pfu.vzPath, pfu.classPath)){
                 if(clazz.isEnum()){
                     pfu.enumClasses.add(clazz);
@@ -80,10 +83,7 @@ public class PropertyFileUpdater {
                     " wurde nicht gefunden bzw. enthält keine Klassen");
         }catch (IOException ex){
             System.out.println("Property File konnte nicht geladen, oder geschrieben werden");
-        }
-
-        
-        
+        }  
     }
         
 
