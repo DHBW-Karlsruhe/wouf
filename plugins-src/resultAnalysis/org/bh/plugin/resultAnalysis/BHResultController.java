@@ -29,8 +29,7 @@ public class BHResultController extends OutputController{
         public String toString() {
             return getClass().getName() + "." + super.toString();
         }
-
-
+       
     }
     public BHResultController(View view, Map<String, Calculable> result){
         super(view);
