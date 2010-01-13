@@ -1,5 +1,7 @@
 package org.bh.gui.swing;
 
+import java.awt.event.ActionEvent;
+import java.awt.event.KeyEvent;
 import java.net.URL;
 
 import javax.swing.ImageIcon;
@@ -28,18 +30,13 @@ public class BHToolButton extends BHButton{
 	private static final Logger log = Logger.getLogger(BHToolButton.class);
     public String buttonName;
     
-    public BHToolButton(PlatformKey key, String imageName){
+    public BHToolButton(PlatformKey key, int eventKey, String imageName){
     	super(key);
     	
     	//Look for the image.
-        //String imgLocation = "/toolbarButtonGraphics/general/" + imageName + ".gif";
     	String imgLocation = "/org/bh/images/buttons/" + imageName + ".png";
-		//String imgLocation = "images/3D-blue/"+imageName+".png";
-        
+		 
         URL imageURL = BHToolBar.class.getResource(imgLocation);
-        
-        //setIcon(new ImageIcon(imgLocation));
-        //setPreferredSize(new Dimension(25, 25));
         
         if (imageURL != null) {                      
             //image found
@@ -47,7 +44,7 @@ public class BHToolButton extends BHButton{
             setIcon(new ImageIcon(imageURL, ""));
         } else {                                     
         	log.error("Resource not found: " + imgLocation);
-        }    
+        } 
     }
 
 	@Override

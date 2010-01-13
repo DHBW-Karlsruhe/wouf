@@ -1,6 +1,8 @@
 package org.bh.gui.swing;
 
 import java.awt.event.ActionEvent;
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -26,7 +28,7 @@ import org.bh.platform.i18n.ITranslator;
  * @version 0.1, 2009/12/16
  * 
  */
-public class BHMenuItem extends JMenuItem implements IBHComponent, IBHAction, IPlatformListener {
+public class BHMenuItem extends JMenuItem implements IBHComponent, IBHAction, IPlatformListener{
 	private static final long serialVersionUID = 457483046895655665L;
 	private PlatformKey key;
 	private String hint;
@@ -63,6 +65,17 @@ public class BHMenuItem extends JMenuItem implements IBHComponent, IBHAction, IP
 				metakey |= ActionEvent.SHIFT_MASK;
 			}
 
+//			if(key == PlatformKey.PROJECTCREATE){
+//				metakey = 0;
+//				setMnemonic(eventKey);			
+//			}
+//
+//			
+//			if(key == PlatformKey.SCENARIOCREATE){
+//				metakey = 0;
+//				setMnemonic(eventKey);			
+//			}
+			
 			this.setAccelerator(KeyStroke.getKeyStroke(eventKey, metakey));
 		}
 

@@ -94,17 +94,17 @@ public class BHToolBar extends JToolBar implements MouseListener{
     public void createToolBar(){
     	
     
-    	Bopen = new BHToolButton(PlatformKey.TOOLBAROPEN, "Bopen");
+    	Bopen = new BHToolButton(PlatformKey.TOOLBAROPEN, 0, "Bopen");
     	Bopen.addMouseListener(this);
-		Bsave = new BHToolButton(PlatformKey.TOOLBARSAVE, "Bsave");
+		Bsave = new BHToolButton(PlatformKey.TOOLBARSAVE, 0,"Bsave");
 		Bsave.addMouseListener(this);
-		Bproject = new BHToolButton(PlatformKey.TOOLBARADDPRO, "BnewProject");
+		Bproject = new BHToolButton(PlatformKey.TOOLBARADDPRO, 113, "BnewProject");
 		Bproject.addMouseListener(this);
-		Bscenario = new BHToolButton(PlatformKey.TOOLBARADDS, "BnewScenario");
+		Bscenario = new BHToolButton(PlatformKey.TOOLBARADDS, 114, "BnewScenario");
 		Bscenario.addMouseListener(this);
-		Bperiod = new BHToolButton(PlatformKey.TOOLBARADDPER, "BnewPeriod");
+		Bperiod = new BHToolButton(PlatformKey.TOOLBARADDPER, 115, "BnewPeriod");
 		Bperiod.addMouseListener(this);
-		Bdelete = new BHToolButton(PlatformKey.TOOLBARREMOVE, "Bdelete");
+		Bdelete = new BHToolButton(PlatformKey.TOOLBARREMOVE, 0, "Bdelete");
 		Bdelete.addMouseListener(this);
 
 //		BshowHide = new JButton("");
@@ -192,12 +192,14 @@ public class BHToolBar extends JToolBar implements MouseListener{
 
 		@Override
 		public void mouseEntered(MouseEvent arg0) {
-			// not necessary
+			if(!shown)
+				showToolBar();
 		}
 
 		@Override
 		public void mouseExited(MouseEvent arg0) {
-			// not necessary
+			if(!fixed)
+				hideToolBar();
 		}
 
 		@Override

@@ -255,31 +255,12 @@ class PlatformActionListener implements ActionListener {
 
 		case HELPUSERHELP:
 
-			log.debug("HELPUSERHELP gefeuert");
-			JDialog frame = new JDialog();
-			frame.setTitle(BHTranslator.getInstance().translate(
-					"MuserHelpDialog"));
-			frame.setSize(610, 600);
-			frame.getContentPane().add(new BHHelpSystem("userhelp"));
-			frame.setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
-			frame.setResizable(false);
-			frame.setLocationRelativeTo(null);
-			frame.setVisible(true);
-			break;
+			openUserHelp("userhelp");
+
 
 		case HELPMATHHELP:
-			System.out.println("HELPMATHHELP gefeuert");
-			JDialog mathframe = new JDialog();
-			// TODO Hartgecodeder String raus!! LZ
-			mathframe.setTitle("Business Horizon Mathematische Erläuterungen");
-			mathframe.setSize(610, 600);
-			mathframe.getContentPane().add(new BHHelpSystem("mathhelp"));
-			mathframe
-					.setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
-			mathframe.setLocationRelativeTo(null);
-			mathframe.setResizable(false);
-			mathframe.setVisible(true);
-			break;
+
+			openUserHelp("mathhelp");
 
 		case HELPINFO:
 			// TODO Prüfen und ggf. implementieren!
@@ -399,7 +380,7 @@ class PlatformActionListener implements ActionListener {
 	 * 
 	 * @author Loeckelt.Michael
 	 */
-	private void fileOpen() {
+	protected void fileOpen() {
 		// create a open-dialog
 		int returnVal = bhmf.getChooser().showOpenDialog(bhmf);
 		if (returnVal == JFileChooser.APPROVE_OPTION) {
@@ -416,7 +397,7 @@ class PlatformActionListener implements ActionListener {
 		}
 	}
 
-	private void createProject() {
+	protected void createProject() {
 		// Create new project
 		DTOProject newProject = new DTOProject();
 		// TODO hardgecodeder String raus! AS
@@ -427,7 +408,7 @@ class PlatformActionListener implements ActionListener {
 
 	}
 
-	private void createScenario() {
+	protected void createScenario() {
 		// If a path is selected...
 		if (bhmf.getBHTree().getSelectionPath() != null) {
 			
@@ -480,7 +461,7 @@ class PlatformActionListener implements ActionListener {
 
 	}
 
-	private void createPeriod() {
+	protected void createPeriod() {
 		// If a scenario or a period is selected...
 		if (bhmf.getBHTree().getSelectionPath() != null
 				&& bhmf.getBHTree().getSelectionPath().getPathCount() > 2) {
@@ -673,6 +654,19 @@ class PlatformActionListener implements ActionListener {
 					true);
 		}
 	}
+	
+	protected void openUserHelp(String help){
+		log.debug("HELPUSERHELP gefeuert");
+		JDialog frame = new JDialog();
+		frame.setTitle(BHTranslator.getInstance().translate("MuserHelpDialog"));
+		frame.setSize(610, 600);
+		frame.getContentPane().add(new BHHelpSystem(help));
+		frame.setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
+		frame.setResizable(false);
+		frame.setLocationRelativeTo(null);
+		frame.setVisible(true);
+	}
+
 	/**
 	 * Method to get Position on numeric value in a string
 	 * Necessary for naming of Periods
