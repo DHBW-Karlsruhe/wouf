@@ -22,11 +22,15 @@ public interface IShareholderValueCalculator extends IDisplayablePlugin {
 	public enum Result{
 		SHAREHOLDER_VALUE,
 		DEBT,
-		FREE_CASH_FLOW;
+		FREE_CASH_FLOW,
+		DEBT_RETURN_RATE;
+		
+		@Override
+        public String toString() {
+            return getClass().getName() + "." + super.toString();
+        }
 	}
 	
-	final String DEBT_RETURN_RATE = "fkr";
-
 	/**
 	 * This method calculates the shareholder value and possibly other values.
 	 * 
@@ -34,7 +38,7 @@ public interface IShareholderValueCalculator extends IDisplayablePlugin {
 	 * The returned map contains at least an entry with the key
 	 * {@link #SHAREHOLDER_VALUE}, so the shareholder value can always be
 	 * retrieved using
-	 * <code>result.get(IShareholderValueCalculator.SHAREHOLDER_VALUE)[0]</code>.
+	 * <code>result.get(IShareholderValueCalculator.Result.SHAREHOLDER_VALUE.toString())[0]</code>.
 	 * 
 	 * @param scenario
 	 *            The DTO of the scenario.

@@ -54,6 +54,11 @@ public class FTECalculator implements IShareholderValueCalculator {
 		 * Variable equity return rate </br><b>Array</b>
 		 */
 		EQUITY_RETURN_RATE_FTE;
+		
+		@Override
+        public String toString() {
+            return getClass().getName() + "." + super.toString();
+        }
 	}
 
 	@Override
@@ -197,17 +202,17 @@ public class FTECalculator implements IShareholderValueCalculator {
 		} while (!isIdentical);
 
 		Map<String, Calculable[]> result = new HashMap<String, Calculable[]>();
-		result.put(IShareholderValueCalculator.Result.SHAREHOLDER_VALUE.name(), uw);
-		result.put(IShareholderValueCalculator.Result.DEBT.name(), fk);
-		result.put(IShareholderValueCalculator.Result.FREE_CASH_FLOW.name(), fcf);
+		result.put(IShareholderValueCalculator.Result.SHAREHOLDER_VALUE.toString(), uw);
+		result.put(IShareholderValueCalculator.Result.DEBT.toString(), fk);
+		result.put(IShareholderValueCalculator.Result.FREE_CASH_FLOW.toString(), fcf);
 		
-		result.put(Result.PRESENT_VALUE_TAX_SHIELD.name(),
+		result.put(Result.PRESENT_VALUE_TAX_SHIELD.toString(),
 				PresentValueTaxShield);
-		result.put(Result.FLOW_TO_EQUITY_INTEREST.name(), FTEInterest);
-		result.put(Result.FLOW_TO_EQUITY_TAX_SHIELD.name(), FTETaxShield);
-		result.put(Result.FLOW_TO_EQUITY.name(), FTE);
-		result.put(Result.DEBT_AMORTISATION.name(), FTEDebtAmort);
-		result.put(Result.EQUITY_RETURN_RATE_FTE.name(), EKrFTE);
+		result.put(Result.FLOW_TO_EQUITY_INTEREST.toString(), FTEInterest);
+		result.put(Result.FLOW_TO_EQUITY_TAX_SHIELD.toString(), FTETaxShield);
+		result.put(Result.FLOW_TO_EQUITY.toString(), FTE);
+		result.put(Result.DEBT_AMORTISATION.toString(), FTEDebtAmort);
+		result.put(Result.EQUITY_RETURN_RATE_FTE.toString(), EKrFTE);
 
 		LOG.info("----- FTE procedure finished -----");
 

@@ -20,11 +20,7 @@ import org.bh.data.types.Calculable;
 import org.bh.data.types.DistributionMap;
 import org.bh.data.types.IValue;
 import org.bh.gui.swing.BHDataExchangeDialog;
-import org.bh.gui.swing.BHFileChooser;
-import org.bh.gui.swing.BHOptionDialog;
-import org.bh.gui.swing.BHProjectDataExchangeDialog;
 import org.bh.platform.IImportExport;
-import org.bh.platform.Services;
 import org.bh.platform.i18n.BHTranslator;
 import org.bh.platform.i18n.ITranslator;
 

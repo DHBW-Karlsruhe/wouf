@@ -54,6 +54,11 @@ public class FCFCalculator implements IShareholderValueCalculator {
 		 * </br><b>Array</b>
 		 */
 		WACC;
+		
+		@Override
+        public String toString() {
+            return getClass().getName() + "." + super.toString();
+        }
 	}
 
 	@Override
@@ -176,18 +181,19 @@ public class FCFCalculator implements IShareholderValueCalculator {
 		Calculable[] waccDebts = calcWACCDebts(fk, fkr, uw, s);
 
 		Map<String, Calculable[]> result = new HashMap<String, Calculable[]>();
-		result.put(IShareholderValueCalculator.Result.SHAREHOLDER_VALUE.name(), uw);
-		result.put(IShareholderValueCalculator.Result.DEBT.name(), fk);
-		result.put(IShareholderValueCalculator.Result.FREE_CASH_FLOW.name(), fcf);
-		result.put(Result.PRESENT_VALUE_TAX_SHIELD.name(), FCFPresentValueTaxShield);
-		result.put(Result.EQUITY_RETURN_RATE_FCF.name(), EKrFCF);
-		result.put(Result.DEBT_TO_EQUITY_RATIO.name(), calcDebtToEquityRatio(
+		result.put(IShareholderValueCalculator.Result.SHAREHOLDER_VALUE.toString(), uw);
+		result.put(IShareholderValueCalculator.Result.DEBT.toString(), fk);
+		result.put(IShareholderValueCalculator.Result.FREE_CASH_FLOW.toString(), fcf);
+		result.put(IShareholderValueCalculator.Result.DEBT_RETURN_RATE.toString(), new Calculable[]{fkr});
+		result.put(Result.PRESENT_VALUE_TAX_SHIELD.toString(), FCFPresentValueTaxShield);
+		result.put(Result.EQUITY_RETURN_RATE_FCF.toString(), EKrFCF);
+		result.put(Result.DEBT_TO_EQUITY_RATIO.toString(), calcDebtToEquityRatio(
 				uw, fk));
-		result.put(Result.WACC_EQUITY.name(), waccEquity);
-		result.put(Result.WACC_DEBTS.name(), waccDebts);
-		result.put(Result.WACC.name(), calcWACC(waccEquity, waccDebts));
+		result.put(Result.WACC_EQUITY.toString(), waccEquity);
+		result.put(Result.WACC_DEBTS.toString(), waccDebts);
+		result.put(Result.WACC.toString(), calcWACC(waccEquity, waccDebts));
 
-		log.info("----- FTE procedure finished -----");
+		log.info("----- FCF procedure finished -----");
 
 		return result;
 	}
