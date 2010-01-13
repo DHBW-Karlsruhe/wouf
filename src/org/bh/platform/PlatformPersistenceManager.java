@@ -91,6 +91,9 @@ public class PlatformPersistenceManager {
 
 		} catch (FileNotFoundException e) {
 			log.error("File " + path + " not found!");
+			PlatformUserDialog.getInstance().showErrorDialog(
+					Services.getTranslator().translate("PfileNotFound",
+					ITranslator.LONG),Services.getTranslator().translate("PfileNotFound"));
 		} catch (EOFException e) {
 
 			// replace ProjectRepository
@@ -109,9 +112,11 @@ public class PlatformPersistenceManager {
 
 			return returnRepository;
 		} catch (IOException e) {
-			log.error("IOException while opening file", e);
+			log.error("IOException while opening " + path,e);
+			PlatformUserDialog.getInstance().showErrorDialog(e.toString(),Services.getTranslator().translate("PIOException"));
 		} catch (Exception e) {
-			log.error("Exception while opening file", e);
+			log.error("Exception while opening file" + path, e);
+			PlatformUserDialog.getInstance().showErrorDialog(e.toString(),Services.getTranslator().translate("PException"));
 		}
 
 		return null;
@@ -177,10 +182,13 @@ public class PlatformPersistenceManager {
 			bhmf.resetTitle();
 
 		} catch (FileNotFoundException e) {
-			log.error("File " + path + "not found!", e);
+			PlatformUserDialog.getInstance().showErrorDialog(
+					Services.getTranslator().translate("PfileNotFound",
+					ITranslator.LONG),Services.getTranslator().translate("PfileNotFound"));
 		} catch (IOException e) {
-			log.error("IO Error occured while saving" + path, e);
-			e.printStackTrace();
+			log.error("IOException while saving " + path,e);
+			PlatformUserDialog.getInstance().showErrorDialog(e.toString(),Services.getTranslator().translate("PIOException"));
+		
 		}
 	}
 

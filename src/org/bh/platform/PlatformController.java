@@ -148,6 +148,10 @@ public class PlatformController {
 		// rebuild Tree
 		setupTree(bhmf, projectRepoManager);
 		bhmf.getBHTree().expandAll();
+		
+		// create PlatformU...
+		// TODO naming
+		PlatformUserDialog.init(bhmf);
 
 	}
 
