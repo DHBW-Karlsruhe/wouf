@@ -68,7 +68,7 @@ public class BHScenarioForm extends JPanel {
 	 * Constructor
 	 */
 	public BHScenarioForm(BHScenarioForm.Type type) {
-		super(new FormLayout("4px,pref:grow,4px", "4px,fill:200px:grow,4px,pref,4px"));
+		super(new FormLayout("4px,pref:grow,4px", "4px,fill:0px:grow,4px,pref,4px"));
 		this.initialize(type);
 	}
 
