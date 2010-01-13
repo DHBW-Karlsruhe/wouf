@@ -1,9 +1,5 @@
 package org.bh.gui.swing;
 
-import java.awt.AlphaComposite;
-import java.awt.Graphics;
-import java.awt.Graphics2D;
-
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 
@@ -127,21 +123,5 @@ public class BHMenuBar extends JMenuBar{
 		menuHelp.add(new BHMenuItem(PlatformKey.HELPMATHHELP));
 		menuHelp.addSeparator();
 		menuHelp.add(new BHMenuItem(PlatformKey.HELPINFO, 112));
-	}
-	
-	public class BHMenu extends JMenu {
-		public BHMenu(String title) {
-			super(title);
-		}
-		
-		@Override
-		protected void paintComponent(Graphics g) {
-			System.err.println("BHMenuBar.paintComponent()");
-			Graphics2D g2d = (Graphics2D) g;
-//			super.paintComponent(g2d);
-//			g2d.rotate(60.0);
-			g2d.setComposite(AlphaComposite.SrcOver.derive(0.8f));
-			super.paintComponent(g2d);
-		}
 	}
 }
