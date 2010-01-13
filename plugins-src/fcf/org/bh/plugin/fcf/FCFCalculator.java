@@ -32,7 +32,7 @@ public class FCFCalculator implements IShareholderValueCalculator {
 		 * Present Value of the not debted enterprise. </br><b>Array</b> but
 		 * only first value [0] interesting
 		 */
-		PRESENT_VALUE_FCF,
+		PRESENT_VALUE_TAX_SHIELD,
 		/**
 		 * Variable equity return rate </br><b>Array</b>
 		 */
@@ -171,7 +171,7 @@ public class FCFCalculator implements IShareholderValueCalculator {
 				isIdentical = true;
 			}
 		} while (!isIdentical);
-
+		
 		Calculable[] waccEquity = calcWACCEquity(uw, fk, EKrFCF);
 		Calculable[] waccDebts = calcWACCDebts(fk, fkr, uw, s);
 
@@ -179,7 +179,7 @@ public class FCFCalculator implements IShareholderValueCalculator {
 		result.put(IShareholderValueCalculator.Result.SHAREHOLDER_VALUE.name(), uw);
 		result.put(IShareholderValueCalculator.Result.DEBT.name(), fk);
 		result.put(IShareholderValueCalculator.Result.FREE_CASH_FLOW.name(), fcf);
-		result.put(Result.PRESENT_VALUE_FCF.name(), FCFPresentValueTaxShield);
+		result.put(Result.PRESENT_VALUE_TAX_SHIELD.name(), FCFPresentValueTaxShield);
 		result.put(Result.EQUITY_RETURN_RATE_FCF.name(), EKrFCF);
 		result.put(Result.DEBT_TO_EQUITY_RATIO.name(), calcDebtToEquityRatio(
 				uw, fk));

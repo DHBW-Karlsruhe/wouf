@@ -5,7 +5,6 @@ import java.util.Map;
 import javax.swing.JPanel;
 
 import org.apache.log4j.Logger;
-import org.bh.controller.OutputController;
 import org.bh.data.DTOScenario;
 import org.bh.data.types.Calculable;
 import org.bh.gui.IDeterministicResultAnalyser;
@@ -18,7 +17,7 @@ public class DefaultResultAnalyser implements IDeterministicResultAnalyser {
 		try {
 			View view = new ViewBHResultPanel(scenario, result);
 			panel.add(view.getViewPanel());
-			new OutputController(view, result);
+			new BHResultController(view, result, scenario);
 		} catch (ViewException e) {
 			Logger.getLogger(DefaultResultAnalyser.class).error("Cannot create view", e);
 		}

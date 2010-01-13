@@ -206,4 +206,9 @@ public class DoubleValue extends Calculable  {
 			throw new UnsupportedOperationException("Unsupported");
 		}
 	}
+
+	@Override
+	public Number parse() {
+		return new Double(this.value);
+	}
 }

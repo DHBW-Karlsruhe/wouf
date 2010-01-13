@@ -190,6 +190,8 @@ public abstract class Calculable implements IValue {
 	 * @return the result as a new Calculable instance
 	 */
 	public abstract Calculable pow(Calculable exponent);
+	
+	public abstract Number parse();
 
 	/* Specified by interface/super class. */
 	@Override

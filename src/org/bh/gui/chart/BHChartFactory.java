@@ -195,7 +195,7 @@ public class BHChartFactory {
 			final Comparable<String> row) {
 
 		DefaultCategoryDataset dataset = new DefaultCategoryDataset();
-		dataset.addValue(null, row, column);
+		//dataset.addValue(null, row, column);
 		return dataset;
 	}
 

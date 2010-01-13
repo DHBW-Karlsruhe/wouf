@@ -411,4 +411,10 @@ public class IntervalValue extends Calculable {
 			throw new UnsupportedOperationException("Unsupported");
 		}
 	}
+
+	@Override
+	public Number parse() {
+		// TODO Auto-generated method stub
+		throw new UnsupportedOperationException("This method has not been implemented");
+	}
 }

@@ -39,7 +39,7 @@ public class BH_APV_ResultPanel extends JPanel {
     // formulas
     private Component finiteFormula;
     private Component infiniteFormula;
-
+    
     public BH_APV_ResultPanel(){
         this.initialize();
     }
@@ -47,22 +47,23 @@ public class BH_APV_ResultPanel extends JPanel {
     public void initialize() {
         double border = 10;
         double size[][] = {{border, TableLayout.PREFERRED, border, TableLayout.PREFERRED, border, TableLayout.PREFERRED, border}, // Columns
-            {border, TableLayout.PREFERRED, border, TableLayout.PREFERRED, border, TableLayout.PREFERRED, border, TableLayout.PREFERRED, border}}; // Rows
+            {border, TableLayout.PREFERRED, border, TableLayout.PREFERRED, border, TableLayout.PREFERRED, border, TableLayout.PREFERRED, border,TableLayout.PREFERRED
+        	, border,TableLayout.PREFERRED, border, border,TableLayout.PREFERRED, border}}; // Rows
 
 
         this.setLayout(new TableLayout(size));
         //this.setLayout(new FlowLayout());
-        //All Labels to APV
-        APVpresentValue = new BHValueLabel("PRESENT_VALUE_FCF");
+        //All Labels to APV            
+        APVpresentValue = new BHValueLabel("org.bh.plugin.apv.APVCalculator$Result.PRESENT_VALUE_FCF");
         APVpresentValueDESC = new BHDescriptionLabel("PRESENT_VALUE_FCF");
         APVshareholderValue = new BHValueLabel("SHAREHOLDER_VALUE");
         APVshareholderValueDESC = new BHDescriptionLabel("SHAREHOLDER_VALUE");
-        APVpresentValueTaxShield = new BHValueLabel("PRESENT_VALUE_TAX_SHIELD");
+        APVpresentValueTaxShield = new BHValueLabel("org.bh.plugin.apv.APVCalculator$Result.PRESENT_VALUE_TAX_SHIELD");
         APVpresentValueTaxShieldDESC = new BHDescriptionLabel("PRESENT_VALUE_TAX_SHIELD");
 
         //All APV Charts
-        apvWFShareholderValues = BHChartFactory.getWaterfallChart("", "", "", BHResultController.ChartKeys.APV_WF_SV);
-        apvBCCapitalStructure = BHChartFactory.getBarChart("", "", "", BHResultController.ChartKeys.APV_BC_CS);
+        apvWFShareholderValues = BHChartFactory.getBarChart("Test", "x", "y", BHResultController.ChartKeys.APV_WF_SV);
+        apvBCCapitalStructure = BHChartFactory.getStackedBarChart("Test2", "x", "y", BHResultController.ChartKeys.APV_BC_CS);
 
         //Formeldarstellung
         IFormulaFactory ff = IFormulaFactory.instance;
@@ -88,8 +89,8 @@ public class BH_APV_ResultPanel extends JPanel {
         this.add(APVpresentValueTaxShieldDESC, "1,7");
         this.add(APVpresentValueTaxShield, "3,7");
 
-        this.add(this.apvWFShareholderValues, "3,9");
-        this.add(this.apvBCCapitalStructure, "3,11");
+        this.add(apvWFShareholderValues, "3,9");        
+        this.add(apvBCCapitalStructure, "3,11");
         
     }
     public static void main(String[] args) {

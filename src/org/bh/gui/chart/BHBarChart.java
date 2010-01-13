@@ -48,7 +48,7 @@ import org.jfree.data.general.Dataset;
 			this.key = key;
 			this.dataset = (DefaultCategoryDataset) dataset;
 
-			chart = ChartFactory.createLineChart(title, XAxis, YAxis, this.dataset,
+			chart = ChartFactory.createBarChart(title, XAxis, YAxis, this.dataset,
 					PlotOrientation.VERTICAL, true, true, false);
 			if ("Nimbus".equals(UIManager.getLookAndFeel().getName())) {
 				chart.setBackgroundPaint(UIManager.getColor("desktop"));
@@ -81,8 +81,8 @@ import org.jfree.data.general.Dataset;
 		@Override
 		public final void addValue(Number value, int row, Comparable<String> columnKey) {
 
-			this.dataset.addValue(value, dataset.getRowKey(row), columnKey);
-			fireChartChanged();
+			this.dataset.addValue(value, row, columnKey);
+			chart.fireChartChanged();
 		}
 
 		@Override

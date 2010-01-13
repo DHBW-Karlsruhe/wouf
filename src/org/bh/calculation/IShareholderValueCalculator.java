@@ -25,6 +25,7 @@ public interface IShareholderValueCalculator extends IDisplayablePlugin {
 		FREE_CASH_FLOW;
 	}
 	
+	final String DEBT_RETURN_RATE = "fkr";
 
 	/**
 	 * This method calculates the shareholder value and possibly other values.

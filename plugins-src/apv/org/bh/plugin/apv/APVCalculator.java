@@ -43,6 +43,11 @@ public class APVCalculator implements IShareholderValueCalculator {
 		 * </br><b>Array</b> but only first value [0] interesting
 		 */
 		PRESENT_VALUE_TAX_SHIELD;
+		
+		 @Override
+	        public String toString() {
+	            return getClass().getName() + "." + super.toString();
+	        }
 	}
 
 	public Map<String, Calculable[]> calculate(DTOScenario scenario) {
@@ -114,8 +119,8 @@ public class APVCalculator implements IShareholderValueCalculator {
 		result.put(IShareholderValueCalculator.Result.DEBT.name(), fk);
 		result.put(IShareholderValueCalculator.Result.FREE_CASH_FLOW.name(), fcf);
 		result.put(IShareholderValueCalculator.Result.SHAREHOLDER_VALUE.name(), uw);
-		result.put(Result.PRESENT_VALUE_FCF.name(), presentValueFCF);
-		result.put(Result.PRESENT_VALUE_TAX_SHIELD.name(),
+		result.put(Result.PRESENT_VALUE_FCF.toString(), presentValueFCF);
+		result.put(Result.PRESENT_VALUE_TAX_SHIELD.toString(),
 				presentValueTaxShield);
 
 		log.info("----- APV procedure finished -----");

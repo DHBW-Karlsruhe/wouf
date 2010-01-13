@@ -207,4 +207,9 @@ public class IntegerValue extends Calculable {
 			throw new UnsupportedOperationException("Unsupported");
 		}
 	}
+
+	@Override
+	public Number parse() {
+		return new Integer(this.value);
+	}
 }

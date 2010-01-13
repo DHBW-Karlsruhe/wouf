@@ -8,6 +8,7 @@ package org.bh.controller;
 import java.util.Arrays;
 import java.util.Map;
 
+import org.bh.data.DTOScenario;
 import org.bh.data.types.Calculable;
 import org.bh.gui.View;
 import org.bh.gui.chart.IBHAddValue;
@@ -20,24 +21,22 @@ import org.bh.gui.swing.IBHModelComponent;
  */
 public class OutputController extends Controller implements IOutputController {
 	protected Map<String, Calculable[]> result;
+	protected DTOScenario scenario;
 
-	public OutputController(View view, Map<String, Calculable[]> result) {
+	public OutputController(View view, Map<String, Calculable[]> result, DTOScenario scenario) {
 		super(view);
-		setResult(result);
+		setResult(result, scenario);
 	}
 
 	public OutputController(View view) {
 		super(view);
 	}
 
-	public OutputController(Map<String, Calculable[]> result) {
-		this(null, result);
-	}
-
 	@Override
-	public void setResult(Map<String, Calculable[]> result)
+	public void setResult(Map<String, Calculable[]> result, DTOScenario scenario)
 			throws ControllerException {
 		this.result = result;
+		this.scenario = scenario;
 
 		log.debug("Loading results to view");
 		for (Map.Entry<String, IBHComponent> entry : view.getBHComponents()
