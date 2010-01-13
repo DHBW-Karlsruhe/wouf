@@ -90,17 +90,25 @@ public class BHToolBar extends JToolBar implements ActionListener, MouseListener
     	buttonPanel = new JPanel();
     	buttonPanel.setLayout(new FlowLayout());
     	buttonPanel.setOpaque(false);
+    	buttonPanel.addMouseListener(this);
     	
     	Bopen = new BHToolButton(PlatformKey.TOOLBAROPEN, "Bopen");
+    	Bopen.addMouseListener(this);
 		Bsave = new BHToolButton(PlatformKey.TOOLBARSAVE, "Bsave");
+		Bsave.addMouseListener(this);
 		Bproject = new BHToolButton(PlatformKey.TOOLBARADDPRO, "BnewProject");
+		Bproject.addMouseListener(this);
 		Bscenario = new BHToolButton(PlatformKey.TOOLBARADDS, "BnewScenario");
+		Bscenario.addMouseListener(this);
 		Bperiod = new BHToolButton(PlatformKey.TOOLBARADDPER, "BnewPeriod");
+		Bperiod.addMouseListener(this);
 		Bdelete = new BHToolButton(PlatformKey.TOOLBARREMOVE, "Bdelete");
+		Bdelete.addMouseListener(this);
 
 		BshowHide = new JButton("");
 		BshowHide.setIcon(new ImageIcon(BHToolBar.class.getResource("/org/bh/images/buttons/Bshow.png"), ""));
-		BshowHide.addActionListener(this);	
+		BshowHide.addActionListener(this);
+		
 		
 		buttonPanel.add(Bopen);
 		buttonPanel.add(Bsave);
