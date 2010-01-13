@@ -208,15 +208,25 @@ public class BHTree extends JTree{
 	 * @return
 	 * 		BHTreeNode
 	 */
-	public BHTreeNode addProjectNode(DTOProject newProject, BHMainFrame bhmf){
+	public BHTreeNode addProject(DTOProject newProject){
+		//create new Node
 		BHTreeNode newProjectNode = new BHTreeNode(newProject);
-		((DefaultTreeModel)bhmf.getBHTree().getModel()).insertNodeInto(
+		
+		//insert Node into Tree
+		((DefaultTreeModel)this.getModel()).insertNodeInto(
 				newProjectNode, 
-				(DefaultMutableTreeNode)bhmf.getBHTree().getModel().getRoot(), 
-				((DefaultMutableTreeNode)bhmf.getBHTree().getModel().getRoot()).getChildCount()
+				(DefaultMutableTreeNode)this.getModel().getRoot(), 
+				((DefaultMutableTreeNode)this.getModel().getRoot()).getChildCount()
 		);
+		
+		//are there Children?
+		for(DTOScenario scenario : newProject.getChildren()){
+			this.addScenario(scenario, newProjectNode);
+		}
+		
 		return newProjectNode;
 	}
+	
 	/**
 	 * method to create a new ScenarioNode
 	 * 
@@ -227,15 +237,32 @@ public class BHTree extends JTree{
 	 * @return
 	 * 		BHTreeNode
 	 */
-	public BHTreeNode addScenarioNode(DTOScenario newScenario, BHMainFrame bhmf){
+	public BHTreeNode addScenario(DTOScenario newScenario, BHTreeNode parentNode){
+		//create new Node
 		BHTreeNode newScenarioNode = new BHTreeNode(newScenario);
-		((DefaultTreeModel)bhmf.getBHTree().getModel()).insertNodeInto(
-				newScenarioNode, 
-				(BHTreeNode)(this.getSelectionPath().getPathComponent(1)), 
-				((BHTreeNode) bhmf.getBHTree().getSelectionPath().getPathComponent(1)).getChildCount()
+		//add Node to Tree
+		((DefaultTreeModel)this.getModel()).insertNodeInto(
+				newScenarioNode, parentNode, parentNode.getChildCount()
 		);
+		
+		//are there Children?
+		for(DTOPeriod period : newScenario.getChildren()){
+			this.addPeriod(period, newScenarioNode);
+		}
+		
 		return newScenarioNode;
+		
 	}
+	
+	
+	/**
+	 * 
+	 */
+	public BHTreeNode addScenarioAtCurrentPos(DTOScenario newScenario){
+		return this.addScenario(newScenario, (BHTreeNode)(this.getSelectionPath().getPathComponent(1)));
+	}
+	
+	
 	
 	
 	
@@ -249,15 +276,27 @@ public class BHTree extends JTree{
 	 * @return
 	 * 		BHTreeNode
 	 */
-	public BHTreeNode addPeriodNode(DTOPeriod newPeriod, BHMainFrame bhmf){
+	public BHTreeNode addPeriod(DTOPeriod newPeriod, BHTreeNode parentNode){
+		//create new Node
 		BHTreeNode newPeriodNode = new BHTreeNode(newPeriod);
-		((DefaultTreeModel)bhmf.getBHTree().getModel()).insertNodeInto(
-				newPeriodNode,
-				(BHTreeNode)(bhmf.getBHTree().getSelectionPath().getPathComponent(2)), 
-				((BHTreeNode) bhmf.getBHTree().getSelectionPath().getPathComponent(2)).getChildCount()
+		
+		//add Node to Tree
+		((DefaultTreeModel)this.getModel()).insertNodeInto(
+				newPeriodNode, parentNode, parentNode.getChildCount()
 		);
 		return newPeriodNode;
 	}
+	
+	/**
+	 * 
+	 * @param newPeriod
+	 * @return
+	 */
+	public BHTreeNode addPeriodAtCurrentPos(DTOPeriod newPeriod){
+		return this.addPeriod(newPeriod, (BHTreeNode)(this.getSelectionPath().getPathComponent(2)));
+	}
+	
+	
 	/**
 	 * method to duplicate a ScenarioNode
 	 * 

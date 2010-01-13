@@ -199,8 +199,7 @@ public class PlatformController {
 		projectRepoManager.addProject(newProject);
 
 		// and create a Node for tree on gui
-		BHTreeNode newProjectNode = bhmf.getBHTree().addProjectNode(newProject,
-				bhmf);
+		BHTreeNode newProjectNode = bhmf.getBHTree().addProject(newProject);
 
 		// last steps: unfold tree to new element, set focus and start editing
 		bhmf.getBHTree().scrollPathToVisible(

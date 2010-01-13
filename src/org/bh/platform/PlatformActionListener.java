@@ -464,8 +464,7 @@ class PlatformActionListener implements ActionListener {
 					newScenario.put(DTOScenario.Key.STOCHASTIC_PROCESS, new StringValue("true"));
 			
 			// ...and insert it into GUI-Tree
-			BHTreeNode newScenarioNode = bhmf.getBHTree().addScenarioNode(
-					newScenario, bhmf);
+			BHTreeNode newScenarioNode = bhmf.getBHTree().addScenarioAtCurrentPos(newScenario);
 
 			// last steps: unfold tree to new element, set focus and start
 			// editing
@@ -582,8 +581,7 @@ class PlatformActionListener implements ActionListener {
 					.getPathComponent(2)).getUserObject()).addChild(newPeriod);
 
 			// ...and insert it into GUI-Tree
-			BHTreeNode newPeriodNode = bhmf.getBHTree().addPeriodNode(
-					newPeriod, bhmf);
+			BHTreeNode newPeriodNode = bhmf.getBHTree().addPeriodAtCurrentPos(newPeriod);
 
 			// last steps: unfold tree to new element, set focus and start
 			// editing
@@ -613,8 +611,7 @@ class PlatformActionListener implements ActionListener {
 
 			DTOProject newProject = (DTOProject) duplicateProject.clone();
 
-			BHTreeNode newProjectNode = bhmf.getBHTree().addProjectNode(
-					newProject, bhmf);
+			BHTreeNode newProjectNode = bhmf.getBHTree().addProject(newProject);
 
 			for (int x = 0; x < newProject.getChildren().size(); x++) {
 				BHTreeNode newScenarioNode = bhmf.getBHTree()
@@ -657,8 +654,7 @@ class PlatformActionListener implements ActionListener {
 			// neues DTOProject mit Referenz auf den Klon
 			DTOScenario newScenario = (DTOScenario) duplicateScenario.clone();
 
-			BHTreeNode newScenarioNode = bhmf.getBHTree().addScenarioNode(
-					newScenario, bhmf);
+			BHTreeNode newScenarioNode = bhmf.getBHTree().addScenarioAtCurrentPos(newScenario);
 
 			for (int y = 0; y < newScenario.getChildren().size(); y++) {
 				newScenarioNode.add(bhmf.getBHTree()
