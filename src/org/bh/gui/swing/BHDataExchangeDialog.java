@@ -342,6 +342,7 @@ public class BHDataExchangeDialog extends JDialog implements ActionListener {
 	public void showPluginPanel()
 	{
 		((CardLayout)mainPanel.getLayout()).show(mainPanel, PLUGIN_PANEL);
+		visiblePanel = PLUGIN_PANEL;
 	}
 	
 	/**
