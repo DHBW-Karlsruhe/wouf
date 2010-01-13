@@ -2,6 +2,7 @@ package org.bh.plugin.resultAnalysis;
 
 import info.clearthought.layout.TableLayout;
 
+import java.awt.BorderLayout;
 import java.awt.Component;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -91,7 +92,7 @@ public final class BHResultPanel extends JPanel {
 //
 //
 //        this.setLayout(new TableLayout(size));
-        this.setLayout(new FlowLayout());
+        this.setLayout(new BorderLayout());
 
 //        //this.setMaximumSize(BHMainFrame.chartsPanel.getMaximumSize());
 //       		/*
@@ -126,20 +127,6 @@ public final class BHResultPanel extends JPanel {
         /*
          * creates the Value- and DescriptionLabels
          */
-
-
-
-
-
-
-
-        //Formeldarstellung
-        IFormulaFactory ff = IFormulaFactory.instance;
-        IFormula f;
-        if (scenario.getDCFMethod().getUniqueId().equals("fcf")) {
-        } else if (scenario.getDCFMethod().getUniqueId().equals("apv")) {
-        } else if (scenario.getDCFMethod().getUniqueId().equals("fte")) {
-        }
 
         // exportButton
         exportButton = new BHButton("EXPORTSCENARIO");
@@ -246,7 +233,17 @@ public final class BHResultPanel extends JPanel {
 //       		this.add(FCFwaccEquity, BorderLayout.CENTER);
 //       		//this.add(lineChartLabel, BorderLayout.EAST);
 //       		
-        this.add(exportButton);
+       
+        if (scenario.getDCFMethod().getUniqueId().equals("fcf")) {
+        	this.add(new BH_FCF_ResultPanel(), BorderLayout.CENTER);
+        } else if (scenario.getDCFMethod().getUniqueId().equals("apv")) {
+        	this.add(new BH_APV_ResultPanel(), BorderLayout.CENTER);
+        } else if (scenario.getDCFMethod().getUniqueId().equals("fte")) {
+        	this.add(new BH_FTE_ResultPanel(), BorderLayout.CENTER);
+        }
+        this.add(exportButton, BorderLayout.SOUTH);
+
+        
     }
 //	/**
 //     * Test main method.
