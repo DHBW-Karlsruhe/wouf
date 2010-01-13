@@ -79,7 +79,7 @@ public class ScenarioController extends InputController {
 					}
 				}	
 			};
-			new Thread(r).start();
+			new Thread(r, "Calculation Thread").start();
 		}
 	}
 }
