@@ -37,7 +37,7 @@ public class BHStochasticProcessForm extends JPanel {
 
 		CellConstraints cons = new CellConstraints();
 		
-		this.add(new JScrollPane(this.getStochasticInputForm()), cons.xywh(1, 2, 1, 1));
+		this.add(this.getStochasticInputForm(), cons.xywh(1, 2, 1, 1));
 	}
 
 	public BHStochasticInputForm getStochasticInputForm() {
