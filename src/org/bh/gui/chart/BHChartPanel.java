@@ -16,7 +16,7 @@ import org.jfree.chart.JFreeChart;
  *
  * @author Marco Hammel
  */
-public class BHChartPanel extends ChartPanel implements IBHComponent{
+public class BHChartPanel extends ChartPanel implements IBHComponent, IBHAddValue{
     private static final long serialVersionUID = -8018664370176080809L;
 
     private String key;
@@ -55,4 +55,28 @@ public class BHChartPanel extends ChartPanel implements IBHComponent{
 	inputHint = Services.getTranslator().translate(key, ITranslator.LONG);
 	setToolTipText(inputHint);
     }
+
+    public void addSeries(Comparable<String> key, double[] values, int bins, double minimum, double maximum) {
+        this.chartInstance.addSeries(key, values, bins, minimum, maximum);
+    }
+
+    public void addSeries(Comparable<String> seriesKey, double[][] data) {
+        this.chartInstance.addSeries(key, data);
+    }
+
+    public void addValue(Number value, Comparable<String> columnKey) {
+        this.chartInstance.addValue(value, columnKey);
+    }
+
+    public void addValue(Number value, int rowKey, Comparable<String> columnKey) {
+        this.chartInstance.addValue(value, rowKey, columnKey);
+    }
+
+    public void addValues(List<?> list) {
+        this.chartInstance.addValues(list);
+    }
+
+
+
+
 }
