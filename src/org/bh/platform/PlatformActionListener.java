@@ -277,6 +277,11 @@ class PlatformActionListener implements ActionListener {
 			// TODO Prüfen und ggf. implementieren!
 			break;
 
+		case TOOLBARNEW:
+			log.debug("handling FILENEW event");
+			this.fileNew();
+			break;
+			
 		case TOOLBAROPEN:
 			log.debug("handling TOOLBAROPEN event");
 			this.fileOpen();

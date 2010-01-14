@@ -1,8 +1,12 @@
 package org.bh.platform;
 
+import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
+
+import org.bh.gui.swing.BHMainFrame;
+import org.bh.gui.swing.IBHAction;
 
 /**
  * 
@@ -18,11 +22,12 @@ public class PlatformKeyListener implements KeyListener{
 	
 	public PlatformKeyListener(PlatformActionListener pal) {
 		this.pal = pal;
+
 	}
-	
+
 	public void keyPressed(KeyEvent e) {
 
-		if(e.getKeyCode() == KeyEvent.VK_F5){				
+		if(e.getKeyCode() == KeyEvent.VK_F5){
 			pal.createProject();
 		} else if(e.getKeyCode() == KeyEvent.VK_F6){		
 			pal.createScenario();

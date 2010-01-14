@@ -32,9 +32,8 @@ public class BHToolBar extends JToolBar implements MouseListener{
 	private boolean fixed = true;
 	private int width;
 	private int height;
-	private BHButton Bopen, Bsave, Bproject, Bscenario, Bperiod, Bdelete; 
-	private JButton BshowHide;
-	private JLabel showHide;
+	private BHButton Bnew, Bopen, Bsave, Bproject, Bscenario, Bperiod, Bdelete; 
+	private JLabel showHide,separator1, separator2;
 	
 	CellConstraints cons;
 	
@@ -54,7 +53,7 @@ public class BHToolBar extends JToolBar implements MouseListener{
 		
 		
 		String rowDef = "p";
-		String colDef = "60px,60px,60px,60px,60px,60px,fill:0px:grow,fill:30px";
+		String colDef = "65px,65px,65px,6px,65px,65px,65px,6px,65px,fill:0px:grow,fill:30px";
 		setLayout(new FormLayout(colDef, rowDef));
 		cons = new CellConstraints();
 		
@@ -64,6 +63,7 @@ public class BHToolBar extends JToolBar implements MouseListener{
     
     public void hideToolBar(){
 
+    	Bnew.setVisible(false);
     	Bopen.setVisible(false);
     	Bsave.setVisible(false);
     	Bproject.setVisible(false);
@@ -78,7 +78,7 @@ public class BHToolBar extends JToolBar implements MouseListener{
     
     public void showToolBar(){
    	
-    
+    	Bnew.setVisible(true);
     	Bopen.setVisible(true);
     	Bsave.setVisible(true);
     	Bproject.setVisible(true);
@@ -93,7 +93,8 @@ public class BHToolBar extends JToolBar implements MouseListener{
     
     public void createToolBar(){
     	
-    
+    	Bnew = new BHToolButton(PlatformKey.TOOLBARNEW, 0, "BnewWorkspace");
+    	Bnew.addMouseListener(this);
     	Bopen = new BHToolButton(PlatformKey.TOOLBAROPEN, 0, "Bopen");
     	Bopen.addMouseListener(this);
 		Bsave = new BHToolButton(PlatformKey.TOOLBARSAVE, 0,"Bsave");
@@ -107,25 +108,26 @@ public class BHToolBar extends JToolBar implements MouseListener{
 		Bdelete = new BHToolButton(PlatformKey.TOOLBARREMOVE, 0, "Bdelete");
 		Bdelete.addMouseListener(this);
 
-//		BshowHide = new JButton("");
-//		BshowHide.setIcon(new ImageIcon(BHToolBar.class.getResource("/org/bh/images/buttons/Bshow.png"), ""));
-//		BshowHide.addActionListener(this);
-
 		showHide = new JLabel("");
 		showHide.setIcon(new ImageIcon(BHToolBar.class.getResource("/org/bh/images/buttons/Bshow.png"), ""));
 		showHide.addMouseListener(new LabelListener());
 		
-		add(Bopen,  cons.xywh(1, 1, 1, 1));
-		add(Bsave,  cons.xywh(2, 1, 1, 1));
-		//add(addSeparator(),  cons.xywh(7, 1, 1, 1));
-		add(Bproject,  cons.xywh(3, 1, 1, 1));
-		add(Bscenario,  cons.xywh(4, 1, 1, 1));
-		add(Bperiod,  cons.xywh(5, 1, 1, 1));
-		add(Bdelete,  cons.xywh(6, 1, 1, 1));
+		separator1 = new JLabel("");
+		separator1.setIcon(new ImageIcon(BHToolBar.class.getResource("/org/bh/images/buttons/Separator.png"), ""));
 		
+		separator2 = new JLabel("");
+		separator2.setIcon(new ImageIcon(BHToolBar.class.getResource("/org/bh/images/buttons/Separator.png"), ""));
 		
-//		add(buttonPanel,  cons.xywh(1, 1, 1, 1));
-		add(showHide, cons.xywh(8, 1, 1, 1, "right,top"));
+		add(Bnew,  cons.xywh(1, 1, 1, 1));
+		add(Bopen,  cons.xywh(2, 1, 1, 1));
+		add(Bsave,  cons.xywh(3, 1, 1, 1));
+		add(separator1,  cons.xywh(4, 1, 1, 1));
+		add(Bproject,  cons.xywh(5, 1, 1, 1));
+		add(Bscenario,  cons.xywh(6, 1, 1, 1));
+		add(Bperiod,  cons.xywh(7, 1, 1, 1));
+		add(separator2,  cons.xywh(8, 1, 1, 1));
+		add(Bdelete,  cons.xywh(9, 1, 1, 1));
+		add(showHide, cons.xywh(10, 1, 1, 1, "right,top"));
 		
 		addMouseListener(this);
     			

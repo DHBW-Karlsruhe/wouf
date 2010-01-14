@@ -38,6 +38,7 @@ public enum PlatformKey{
 	 * ActionKeys of PlatformToolbar
 	 * -------------------------------
 	 */
+	TOOLBARNEW("TnewWorkspace","TOOLBARNEW"),
 	TOOLBAROPEN("Topen","TOOLBAROPEN"),
 	TOOLBARSAVE("Tsave","TOOLBARSAVE"),
 	TOOLBARADDPRO("TaddPro","TOOLBARADDPRO"),
