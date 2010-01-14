@@ -256,7 +256,7 @@ public class DTOScenario extends DTO<DTOPeriod> {
 	
 	@Override
 	public boolean isValid(boolean recursive) {
-		return super.isValid(recursive) && !children.isEmpty();
+		return super.isValid(recursive) && children.size() > 1;
 	}
 
 	public boolean isIntervalArithmetic() {

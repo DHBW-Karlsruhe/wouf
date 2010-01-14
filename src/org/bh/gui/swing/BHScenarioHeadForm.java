@@ -101,7 +101,7 @@ public class BHScenarioHeadForm extends JPanel {
 		this.add(this.getlpercentCorporate(), cons.xywh(19, 14, 1, 1));
 		
 		this.add(this.getlPeriodType(), cons.xywh(3, 16, 1, 1));
-		this.add(this.getCmbPeriodType(), cons.xywh(6, 16, 4, 1));
+		this.add(this.getCmbPeriodType(), cons.xywh(6, 16, 12, 1, "left, default"));
 
 		Vector<Component> order = new Vector<Component>();
 		order.add(this.gettfscenName());

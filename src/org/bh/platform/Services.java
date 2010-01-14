@@ -23,10 +23,14 @@ import org.bh.calculation.IShareholderValueCalculator;
 import org.bh.calculation.IStochasticProcess;
 import org.bh.controller.IDataExchangeController;
 import org.bh.controller.IPeriodController;
+import org.bh.controller.InputController;
 import org.bh.data.DTOKeyPair;
 import org.bh.data.DTOPeriod;
 import org.bh.data.DTOScenario;
 import org.bh.data.DTO.Stochastic;
+import org.bh.gui.ValidationMethods;
+import org.bh.gui.View;
+import org.bh.gui.ViewException;
 import org.bh.gui.swing.BHMainFrame;
 import org.bh.gui.swing.BHPeriodForm;
 import org.bh.gui.swing.BHStatusBar;
@@ -308,9 +312,15 @@ public class Services {
 						DTOScenario.Key.PERIOD_TYPE).toString());
 		Component viewComponent = periodController.editDTO(period);
 		BHPeriodForm container = new BHPeriodForm();
+		try {
+			View periodView = new View(container.getPperiod(), new ValidationMethods());
+			InputController controller = new InputController(periodView, period);
+			controller.loadAllToView();
+		} catch (ViewException e) {
+			// should not happen
+			log.error("Cannot create period view", e);
+		}
 		container.setPvalues((JPanel) viewComponent);
-		if (viewComponent == null)
-			viewComponent = new JPanel();
 		bhmf.setContentForm(container);
 	}
 

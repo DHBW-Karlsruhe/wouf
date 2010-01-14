@@ -54,8 +54,7 @@ public class ScenarioController extends InputController {
 	@Override
 	public void platformEvent(PlatformEvent e) {
 		super.platformEvent(e);
-		if (e.getEventType() == Type.DATA_CHANGED
-				&& e.getSource() == getModel()) {
+		if (e.getEventType() == Type.DATA_CHANGED) {
 			setCalculationEnabled(getModel().isValid(true));
 		}
 	}

@@ -2,11 +2,8 @@ package org.bh.gui.swing;
 
 import javax.swing.BorderFactory;
 import javax.swing.JPanel;
-import javax.swing.JScrollPane;
 import javax.swing.border.EtchedBorder;
 
-import org.apache.log4j.Logger;
-import org.bh.platform.PlatformKey;
 import org.bh.platform.Services;
 import org.bh.platform.i18n.ITranslator;
 
@@ -85,7 +82,7 @@ public class BHPeriodForm extends JPanel {
 		return pvalues;
 	}
 	
-	private JPanel getPperiod() {
+	public JPanel getPperiod() {
 		if (pperiod == null) {
 			pperiod = new BHPeriodHeadForm();
 			//TODO add locale change handler
