@@ -309,5 +309,65 @@ public class XMLDataExchangeController implements IImportExport, ActionListener 
 	}
 
 
+	@Override
+	public void exportProject(DTOProject project, String filePath) {
+		// TODO Auto-generated method stub
+		throw new UnsupportedOperationException("This method has not been implemented");
+	}
+
+
+	@Override
+	public void exportProjectResults(DTOProject project,
+			Map<String, Calculable[]> results, String filePath) {
+		// TODO Auto-generated method stub
+		throw new UnsupportedOperationException("This method has not been implemented");
+	}
+
+
+	@Override
+	public void exportProjectResults(DTOProject project,
+			DistributionMap results, String filePath) {
+		// TODO Auto-generated method stub
+		throw new UnsupportedOperationException("This method has not been implemented");
+	}
+
+
+	@Override
+	public void exportScenario(DTOScenario scenario, String filePath) {
+		// TODO Auto-generated method stub
+		throw new UnsupportedOperationException("This method has not been implemented");
+	}
+
+
+	@Override
+	public void exportScenarioResults(DTOScenario scenario,
+			Map<String, Calculable[]> results, String filePath) {
+		// TODO Auto-generated method stub
+		throw new UnsupportedOperationException("This method has not been implemented");
+	}
+
+
+	@Override
+	public void exportScenarioResults(DTOScenario scenario,
+			DistributionMap results, String filePath) {
+		// TODO Auto-generated method stub
+		throw new UnsupportedOperationException("This method has not been implemented");
+	}
+
+
+	@Override
+	public String getFileDescription() {
+		// TODO Auto-generated method stub
+		throw new UnsupportedOperationException("This method has not been implemented");
+	}
+
+
+	@Override
+	public String getFileExtension() {
+		// TODO Auto-generated method stub
+		throw new UnsupportedOperationException("This method has not been implemented");
+	}
+
+
 	
 }

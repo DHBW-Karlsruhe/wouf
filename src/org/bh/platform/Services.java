@@ -229,7 +229,7 @@ public class Services {
 	 *         methods.
 	 */
 	public static Map<String, IImportExport> getImportExportPlugins(
-			int requiredMetods) {
+			int requiredMethods) {
 		int check;
 		Map<String, IImportExport> matchingImportExport;
 
@@ -238,8 +238,8 @@ public class Services {
 		}
 		matchingImportExport = new HashMap<String, IImportExport>();
 		for (Entry<String, IImportExport> plugin : importExport.entrySet()) {
-			check = requiredMetods & plugin.getValue().getSupportedMethods();
-			if (requiredMetods == check) {
+			check = requiredMethods & plugin.getValue().getSupportedMethods();
+			if (requiredMethods == check) {
 				matchingImportExport.put(plugin.getKey(), plugin.getValue());
 			}
 		}

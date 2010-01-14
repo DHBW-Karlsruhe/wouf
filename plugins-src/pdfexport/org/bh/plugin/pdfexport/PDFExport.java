@@ -55,6 +55,7 @@ public class PDFExport implements IImportExport {
 	private static final String FILE_EXT = "pdf";
 
 	static Logger log = Logger.getLogger(PDFExport.class);
+
 	private static ITranslator trans = BHTranslator.getInstance();
 
 	private static final SimpleDateFormat S = new SimpleDateFormat(
@@ -62,8 +63,10 @@ public class PDFExport implements IImportExport {
 
 	private static final Font TITLE_FONT = FontFactory.getFont(
 			FontFactory.HELVETICA, 20, Font.BOLD);
+
 	private static final Font SECTION1_FONT = FontFactory.getFont(
 			FontFactory.HELVETICA, 16, Font.BOLD);
+
 	private static final Font SECTION2_FONT = FontFactory.getFont(
 			FontFactory.HELVETICA, 14, Font.BOLD);
 
@@ -73,10 +76,12 @@ public class PDFExport implements IImportExport {
 	@Override
 	public void exportProject(DTOProject project,
 			BHDataExchangeDialog exportDialog) {
-		// exportDialog.setPluginActionListener(pluginActionListener)
-		exportDialog.setDefaulExportProjectPanel();
-		// exportDialog.getModel()
-		// TODO Auto-generated method stub
+		throw new UnsupportedOperationException(
+				"This method has not been implemented");
+	}
+
+	@Override
+	public void exportProject(DTOProject project, String filePath) {
 		throw new UnsupportedOperationException(
 				"This method has not been implemented");
 	}
@@ -84,7 +89,20 @@ public class PDFExport implements IImportExport {
 	@Override
 	public void exportProjectResults(DTOProject project,
 			Map<String, Calculable[]> results, BHDataExchangeDialog exportDialog) {
-		// TODO Auto-generated method stub
+		throw new UnsupportedOperationException(
+				"This method has not been implemented");
+	}
+
+	@Override
+	public void exportProjectResults(DTOProject project,
+			Map<String, Calculable[]> results, String filePath) {
+		throw new UnsupportedOperationException(
+				"This method has not been implemented");
+	}
+
+	@Override
+	public void exportProjectResults(DTOProject project,
+			DistributionMap results, String filePath) {
 		throw new UnsupportedOperationException(
 				"This method has not been implemented");
 	}
@@ -92,20 +110,59 @@ public class PDFExport implements IImportExport {
 	@Override
 	public void exportProjectResults(DTOProject project,
 			DistributionMap results, BHDataExchangeDialog exportDialog) {
-		// TODO Auto-generated method stub
 		throw new UnsupportedOperationException(
 				"This method has not been implemented");
 	}
 
 	@Override
-	public void exportScenario(DTOScenario scenario,
-			BHDataExchangeDialog exportDialog) {
-		// TODO replace with file dialog
-		String path = "test";
-		newDocument(path, scenario);
+	public DTOProject importProject() {
+		throw new UnsupportedOperationException(
+				"This method has not been implemented");
+	}
+
+	@Override
+	public void exportScenario(final DTOScenario scenario,
+			final BHDataExchangeDialog exportDialog) {
+
+		final BHDefaultScenarioExportPanel dp = exportDialog
+				.setDefaulExportScenarioPanel(FILE_DESC, FILE_EXT);
+		exportDialog.pack();
+
+		exportDialog.setPluginActionListener(new ActionListener() {
+
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				IBHComponent comp = (IBHComponent) e.getSource();
+				if (comp.getKey().equals("Mexport")) {
+					newDocument(dp.getFilePath(), scenario);
+					buildHeadData(scenario);
+					buildScenarioData(scenario);
+					closeDocument();
+					log.debug("pdf export completed " + dp.getFilePath());
+					if (dp.openAfterExport()) {
+						try {
+							Desktop.getDesktop().open(
+									new File(dp.getFilePath()));
+						} catch (IOException e1) {
+							log.error(e1);
+						}
+					}
+					exportDialog.dispose();
+				}
+				if (comp.getKey().equals("Bcancel")) {
+					exportDialog.dispose();
+				}
+			}
+		});
+	}
+
+	@Override
+	public void exportScenario(DTOScenario scenario, String filePath) {
+		newDocument(filePath, scenario);
 		buildHeadData(scenario);
 		buildScenarioData(scenario);
 		closeDocument();
+		log.debug("pdf scenario batch export completed " + filePath);
 	}
 
 	@Override
@@ -129,12 +186,12 @@ public class PDFExport implements IImportExport {
 					buildResultDataDet(results);
 					closeDocument();
 					log.debug("pdf export completed " + dp.getFilePath());
-					if(dp.openAfterExport()) {
+					if (dp.openAfterExport()) {
 						try {
-							Desktop.getDesktop().open(new File(dp.getFilePath()));
+							Desktop.getDesktop().open(
+									new File(dp.getFilePath()));
 						} catch (IOException e1) {
-							// TODO Auto-generated catch block
-							e1.printStackTrace();
+							log.error(e1);
 						}
 					}
 					exportDialog.dispose();
@@ -148,34 +205,77 @@ public class PDFExport implements IImportExport {
 
 	@Override
 	public void exportScenarioResults(DTOScenario scenario,
-			DistributionMap results, BHDataExchangeDialog exportDialog) {
-		String path = "test";
-		newDocument(path, scenario);
+			Map<String, Calculable[]> results, String filePath) {
+
+		newDocument(filePath, scenario);
+		buildHeadData(scenario);
+		buildScenarioData(scenario);
+		buildResultDataDet(results);
+		closeDocument();
+		log.debug("pdf scenario batch export completed " + filePath);
+	}
+
+	@Override
+	public void exportScenarioResults(final DTOScenario scenario,
+			final DistributionMap results,
+			final BHDataExchangeDialog exportDialog) {
+
+		final BHDefaultScenarioExportPanel dp = exportDialog
+				.setDefaulExportScenarioPanel(FILE_DESC, FILE_EXT);
+		exportDialog.pack();
+
+		exportDialog.setPluginActionListener(new ActionListener() {
+
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				IBHComponent comp = (IBHComponent) e.getSource();
+				if (comp.getKey().equals("Mexport")) {
+					newDocument(dp.getFilePath(), scenario);
+					buildHeadData(scenario);
+					buildScenarioData(scenario);
+					buildResultDataStoch(results);
+					closeDocument();
+					log.debug("pdf export completed " + dp.getFilePath());
+					if (dp.openAfterExport()) {
+						try {
+							Desktop.getDesktop().open(
+									new File(dp.getFilePath()));
+						} catch (IOException e1) {
+							log.error(e1);
+						}
+					}
+					exportDialog.dispose();
+				}
+				if (comp.getKey().equals("Bcancel")) {
+					exportDialog.dispose();
+				}
+			}
+		});
+	}
+
+	@Override
+	public void exportScenarioResults(DTOScenario scenario,
+			DistributionMap results, String filePath) {
+
+		newDocument(filePath, scenario);
 		buildHeadData(scenario);
 		buildScenarioData(scenario);
 		buildResultDataStoch(results);
 		closeDocument();
+		log.debug("pdf scenario batch export completed " + filePath);
+	}
+
+	@Override
+	public DTOScenario importScenario() {
+		throw new UnsupportedOperationException(
+				"This method has not been implemented");
 	}
 
 	@Override
 	public int getSupportedMethods() {
 		return IImportExport.EXP_SCENARIO_RES_DET
 				+ IImportExport.EX_SCENARIO_RES_STOCH
-				+ IImportExport.EXP_SCENARIO;
-	}
-
-	@Override
-	public DTOProject importProject() {
-		// TODO Auto-generated method stub
-		throw new UnsupportedOperationException(
-				"This method has not been implemented");
-	}
-
-	@Override
-	public DTOScenario importScenario() {
-		// TODO Auto-generated method stub
-		throw new UnsupportedOperationException(
-				"This method has not been implemented");
+				+ IImportExport.EXP_SCENARIO + IImportExport.BATCH_EXPORT;
 	}
 
 	void newDocument(String path, DTOScenario scenario) {
@@ -250,7 +350,7 @@ public class PDFExport implements IImportExport {
 
 	}
 
-	private void buildResultDataStoch(DistributionMap distMap) {
+	void buildResultDataStoch(DistributionMap distMap) {
 		Paragraph title;
 		Section results;
 		Section distMapSection;
@@ -273,7 +373,7 @@ public class PDFExport implements IImportExport {
 		// TODO addCharts
 	}
 
-	private Section buildResultHead() {
+	Section buildResultHead() {
 		Paragraph title;
 		title = new Paragraph("Ergebnisse", SECTION1_FONT);
 
@@ -351,4 +451,13 @@ public class PDFExport implements IImportExport {
 		return FILE_EXT + " - " + FILE_DESC;
 	}
 
+	@Override
+	public String getFileDescription() {
+		return FILE_DESC;
+	}
+
+	@Override
+	public String getFileExtension() {
+		return FILE_EXT;
+	}
 }

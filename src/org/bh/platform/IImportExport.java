@@ -29,6 +29,8 @@ public interface IImportExport extends IDisplayablePlugin {
 	static final int EX_SCENARIO_RES_STOCH 	= 1 << 6;
 	static final int IMP_SCENARIO		    = 1 << 7;
 	
+	static final int BATCH_EXPORT		    = 1 << 8;
+	
 	/**
 	 * Must be implemented if export of a project DTO should be supported by the
 	 * implementing plug-in.
@@ -36,7 +38,9 @@ public interface IImportExport extends IDisplayablePlugin {
 	 * @param project
 	 * @param exportDialog 
 	 */
-	void exportProject(DTOProject project, BHDataExchangeDialog exportDialog);	
+	void exportProject( final DTOProject project, final BHDataExchangeDialog exportDialog);	
+	void exportProject(final DTOProject project, final String filePath);	
+
 
 	/**
 	 * Must be implemented if export of a project DTO with results from a
@@ -44,8 +48,11 @@ public interface IImportExport extends IDisplayablePlugin {
 	 * 
 	 * @param project
 	 */
-	void exportProjectResults(DTOProject project,
-			Map<String, Calculable[]> results, BHDataExchangeDialog bhDataExchangeDialog);
+	void exportProjectResults(final DTOProject project,
+			final Map<String, Calculable[]> results, final BHDataExchangeDialog bhDataExchangeDialog);
+	
+	void exportProjectResults(final DTOProject project,
+			final Map<String, Calculable[]> results, final String filePath);
 
 	/**
 	 * Must be implemented if export of a project DTO with results from a
@@ -53,8 +60,8 @@ public interface IImportExport extends IDisplayablePlugin {
 	 * 
 	 * @param project
 	 */
-	void exportProjectResults(DTOProject project, DistributionMap results, BHDataExchangeDialog bhDataExchangeDialog);
-
+	void exportProjectResults(final DTOProject project, final DistributionMap results, final BHDataExchangeDialog bhDataExchangeDialog);
+	void exportProjectResults(final DTOProject project, final DistributionMap results, final String filePath);
 	/**
 	 * Must be implemented if import of projects should be supported  by the
 	 * implementing plug-in.
@@ -70,7 +77,8 @@ public interface IImportExport extends IDisplayablePlugin {
 	 * 
 	 * @param scenario
 	 */
-	void exportScenario(DTOScenario scenario, BHDataExchangeDialog bhDataExchangeDialog);
+	void exportScenario(final DTOScenario scenario, final BHDataExchangeDialog bhDataExchangeDialog);
+	void exportScenario(final DTOScenario scenario, final String filePath);
 
 	/**
 	 * Must be implemented if export of a scenario DTO with results from a
@@ -79,7 +87,10 @@ public interface IImportExport extends IDisplayablePlugin {
 	 * @param scenario
 	 */
 	void exportScenarioResults(final DTOScenario scenario,
-			final Map<String, Calculable[]> results, BHDataExchangeDialog bhDataExchangeDialog);
+			final Map<String, Calculable[]> results, final BHDataExchangeDialog bhDataExchangeDialog);
+	
+	void exportScenarioResults(final DTOScenario scenario,
+			final Map<String, Calculable[]> results, final String filePath);
 	
 	/**
 	 * Must be implemented if export of a scenario DTO with results from a
@@ -87,8 +98,8 @@ public interface IImportExport extends IDisplayablePlugin {
 	 * 
 	 * @param scenario
 	 */
-	void exportScenarioResults(DTOScenario scenario, DistributionMap results, BHDataExchangeDialog bhDataExchangeDialog);
-
+	void exportScenarioResults(final DTOScenario scenario, final DistributionMap results, final BHDataExchangeDialog bhDataExchangeDialog);
+	void exportScenarioResults(final DTOScenario scenario, final DistributionMap results,  final String filePath);
 	/**
 	 * Must be implemented if import of scenarios should be supported  by the
 	 * implementing plug-in.
@@ -102,6 +113,9 @@ public interface IImportExport extends IDisplayablePlugin {
 	 * @return int as bitmap of supported methodes
 	 */
 	int getSupportedMethods();
+	
+	String getFileExtension();
+	String getFileDescription();
 
 	String getUniqueId();
 
