@@ -66,9 +66,11 @@ public class BHToolBar extends JToolBar implements MouseListener{
     	Bnew.setVisible(false);
     	Bopen.setVisible(false);
     	Bsave.setVisible(false);
+    	separator1.setVisible(false);
     	Bproject.setVisible(false);
     	Bscenario.setVisible(false);
     	Bperiod.setVisible(false);
+    	separator2.setVisible(false);
     	Bdelete.setVisible(false);
     	    	      
     	repaint();
@@ -81,9 +83,11 @@ public class BHToolBar extends JToolBar implements MouseListener{
     	Bnew.setVisible(true);
     	Bopen.setVisible(true);
     	Bsave.setVisible(true);
+    	separator1.setVisible(true);
     	Bproject.setVisible(true);
     	Bscenario.setVisible(true);
     	Bperiod.setVisible(true);
+    	separator2.setVisible(true);
     	Bdelete.setVisible(true);
     	
     	repaint();
@@ -114,9 +118,11 @@ public class BHToolBar extends JToolBar implements MouseListener{
 		
 		separator1 = new JLabel("");
 		separator1.setIcon(new ImageIcon(BHToolBar.class.getResource("/org/bh/images/buttons/Separator.png"), ""));
+		separator1.addMouseListener(this);
 		
 		separator2 = new JLabel("");
 		separator2.setIcon(new ImageIcon(BHToolBar.class.getResource("/org/bh/images/buttons/Separator.png"), ""));
+		separator2.addMouseListener(this);
 		
 		add(Bnew,  cons.xywh(1, 1, 1, 1));
 		add(Bopen,  cons.xywh(2, 1, 1, 1));
@@ -127,7 +133,7 @@ public class BHToolBar extends JToolBar implements MouseListener{
 		add(Bperiod,  cons.xywh(7, 1, 1, 1));
 		add(separator2,  cons.xywh(8, 1, 1, 1));
 		add(Bdelete,  cons.xywh(9, 1, 1, 1));
-		add(showHide, cons.xywh(10, 1, 1, 1, "right,top"));
+		add(showHide, cons.xywh(11, 1, 1, 1, "right,top"));
 		
 		addMouseListener(this);
     			
