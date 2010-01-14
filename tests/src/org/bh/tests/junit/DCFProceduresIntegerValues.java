@@ -133,9 +133,9 @@ public class DCFProceduresIntegerValues {
 		res2 = svCalc2.calculate(scenario);
 		res3 = svCalc3.calculate(scenario);
 		
-		uw0 = ((DoubleValue)res.get(IShareholderValueCalculator.Result.SHAREHOLDER_VALUE)[0]).getValue();
-		uw0_2 = ((DoubleValue)res2.get(IShareholderValueCalculator.Result.SHAREHOLDER_VALUE)[0]).getValue();
-		uw0_3 = ((DoubleValue)res3.get(IShareholderValueCalculator.Result.SHAREHOLDER_VALUE)[0]).getValue();
+		uw0 = ((DoubleValue)res.get(IShareholderValueCalculator.Result.SHAREHOLDER_VALUE.toString())[0]).getValue();
+		uw0_2 = ((DoubleValue)res2.get(IShareholderValueCalculator.Result.SHAREHOLDER_VALUE.toString())[0]).getValue();
+		uw0_3 = ((DoubleValue)res3.get(IShareholderValueCalculator.Result.SHAREHOLDER_VALUE.toString())[0]).getValue();
 		
 		System.out.println("Results were " + uw0 + ", " + uw0_2 + ", " + uw0_3);
 		

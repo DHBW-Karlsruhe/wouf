@@ -176,9 +176,9 @@ public class DCFProceduresPointIntervals {
 		res2 = svCalc.calculate(scenarioInterval);
 
 		uw0 = (DoubleValue) res
-				.get(IShareholderValueCalculator.Result.SHAREHOLDER_VALUE)[0];
+				.get(IShareholderValueCalculator.Result.SHAREHOLDER_VALUE.toString())[0];
 		uw0_2 = ((IntervalValue) res2
-				.get(IShareholderValueCalculator.Result.SHAREHOLDER_VALUE)[0]);
+				.get(IShareholderValueCalculator.Result.SHAREHOLDER_VALUE.toString())[0]);
 
 		System.out.println("Results APV: " + uw0 + " ; " + uw0_2);
 		assertTrue(uw0_2.contains(uw0.getValue()));
@@ -192,9 +192,9 @@ public class DCFProceduresPointIntervals {
 		res2 = svCalc.calculate(scenarioInterval);
 
 		uw0 = (DoubleValue) res
-				.get(IShareholderValueCalculator.Result.SHAREHOLDER_VALUE)[0];
+				.get(IShareholderValueCalculator.Result.SHAREHOLDER_VALUE.toString())[0];
 		uw0_2 = (IntervalValue) res2
-				.get(IShareholderValueCalculator.Result.SHAREHOLDER_VALUE)[0];
+				.get(IShareholderValueCalculator.Result.SHAREHOLDER_VALUE.toString())[0];
 
 		System.out.println("Results FCF: " + uw0 + " ; " + uw0_2);
 		assertTrue(uw0_2.contains(uw0.getValue()));
@@ -207,9 +207,9 @@ public class DCFProceduresPointIntervals {
 		res2 = svCalc.calculate(scenarioInterval);
 
 		uw0 = (DoubleValue) res
-				.get(IShareholderValueCalculator.Result.SHAREHOLDER_VALUE)[0];
+				.get(IShareholderValueCalculator.Result.SHAREHOLDER_VALUE.toString())[0];
 		uw0_2 = (IntervalValue) res2
-				.get(IShareholderValueCalculator.Result.SHAREHOLDER_VALUE)[0];
+				.get(IShareholderValueCalculator.Result.SHAREHOLDER_VALUE.toString())[0];
 
 		System.out.println("Results FTE: " + uw0 + " ; " + uw0_2);
 		assertTrue(uw0_2.contains(uw0.getValue()));
