@@ -29,6 +29,7 @@ import org.bh.gui.swing.BHTreeNode;
 import org.bh.gui.swing.IBHAction;
 import org.bh.platform.PlatformController.BHTreeModel;
 import org.bh.platform.i18n.BHTranslator;
+import org.bh.platform.i18n.ITranslator;
 
 /**
  * The PlatformActionListener handles all actions that are fired by a button
@@ -355,7 +356,8 @@ class PlatformActionListener implements ActionListener {
 		if (ProjectRepositoryManager.isChanged()) {
 
 			int i = JOptionPane.showConfirmDialog(bhmf, Services
-					.getTranslator().translate("Psave"));
+					.getTranslator().translate("Psave", ITranslator.LONG), Services
+					.getTranslator().translate("Psave"), JOptionPane.YES_NO_CANCEL_OPTION);
 
 			if (i == JOptionPane.YES_OPTION || i == JOptionPane.NO_OPTION) {
 				if (i == JOptionPane.YES_OPTION)
