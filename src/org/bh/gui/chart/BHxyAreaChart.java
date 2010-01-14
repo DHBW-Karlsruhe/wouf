@@ -73,7 +73,7 @@ public class BHxyAreaChart extends BHChart implements IBHAddValue, IPlatformList
 	}
 
 	@Override
-	public final void addValue(Number value, int rowKey, Comparable<String> columnKey) {
+	public final void addValue(Number value, Comparable rowKey, Comparable<String> columnKey) {
 		// TODO Auto-generated method stub
 		throw new UnsupportedOperationException(
 				"This method has not been implemented");

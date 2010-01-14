@@ -53,7 +53,7 @@ public class BHLineChart extends BHChart implements IBHAddValue, IPlatformListen
 	}
 
 	@Override
-	public final void addValue(Number value, int row, Comparable<String> columnKey) {
+	public final void addValue(Number value, Comparable row, Comparable<String> columnKey) {
 
 		this.dataset.addValue(value, row, columnKey);
 		chart.fireChartChanged();

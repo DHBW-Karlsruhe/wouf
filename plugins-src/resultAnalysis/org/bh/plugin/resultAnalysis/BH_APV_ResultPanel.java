@@ -32,6 +32,10 @@ public class BH_APV_ResultPanel extends JPanel {
     private Component finiteFormula;
     private Component infiniteFormula;
     
+    enum Keys{
+    	
+    }
+    
     public BH_APV_ResultPanel(){
         this.initialize();
     }
@@ -45,7 +49,7 @@ public class BH_APV_ResultPanel extends JPanel {
         this.setLayout(new TableLayout(size));
 
         //All APV Charts
-        apvWFShareholderValues = BHChartFactory.getBarChart("Test", "x", "y", BHResultController.ChartKeys.APV_WF_SV);
+        apvWFShareholderValues = BHChartFactory.getWaterfallChart("Test", "x", "y", BHResultController.ChartKeys.APV_WF_SV);
         apvBCCapitalStructure = BHChartFactory.getStackedBarChart("Test2", "x", "y", BHResultController.ChartKeys.APV_BC_CS);
 
         //Formeldarstellung

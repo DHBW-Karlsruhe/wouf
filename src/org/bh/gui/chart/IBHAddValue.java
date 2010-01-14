@@ -31,7 +31,7 @@ public interface IBHAddValue {
 	 * @param columnKey
 	 *            Comparable<String> columnKey to identify the column
 	 */
-	void addValue(Number value, int rowKey, Comparable<String> columnKey);
+	void addValue(Number value, Comparable rowKey, Comparable<String> columnKey);
 
 	/**
 	 * method to add a series into an empty dataset

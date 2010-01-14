@@ -68,13 +68,15 @@ public class BHChartPanel extends ChartPanel implements IBHComponent, IBHAddValu
         this.chartInstance.addValue(value, columnKey);
     }
 
-    public void addValue(Number value, int rowKey, Comparable<String> columnKey) {
-        this.chartInstance.addValue(value, rowKey, columnKey);
-    }
-
     public void addValues(List<?> list) {
         this.chartInstance.addValues(list);
     }
+
+	@Override
+	public void addValue(Number value, Comparable rowKey,
+			Comparable<String> columnKey) {
+		 this.chartInstance.addValue(value, rowKey, columnKey);
+	}
 
 
 

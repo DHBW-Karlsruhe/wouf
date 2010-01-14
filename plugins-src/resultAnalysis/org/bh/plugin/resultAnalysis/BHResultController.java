@@ -51,7 +51,7 @@ public class BHResultController extends OutputController{
     		IBHAddValue comp = super.view.getBHchartComponents().get(ChartKeys.APV_WF_SV.toString());
     		comp.addValue(result.get("org.bh.plugin.apv.APVCalculator$Result.PRESENT_VALUE_FCF")[0].parse(),1, "1");
     		comp.addValue(result.get("org.bh.plugin.apv.APVCalculator$Result.PRESENT_VALUE_TAX_SHIELD")[0].parse(),1, "2");
-    		comp.addValue(result.get("org.bh.calculation.IShareholderValueCalculator$Result.DEBT")[0].parse(),1, "3");
+    		comp.addValue((result.get("org.bh.calculation.IShareholderValueCalculator$Result.DEBT")[0].parse().doubleValue() * -1) ,1, "3");
     		comp.addValue(result.get("org.bh.calculation.IShareholderValueCalculator$Result.SHAREHOLDER_VALUE")[0].parse(),1, "4");
     		
     		IBHAddValue comp2 = super.view.getBHchartComponents().get(ChartKeys.APV_BC_CS.toString());
@@ -64,8 +64,12 @@ public class BHResultController extends OutputController{
     	}else if(scenario.getDCFMethod().getUniqueId().equals("fcf")){
     		
     		IBHAddValue comp = super.view.getBHchartComponents().get(ChartKeys.FCF_WF_SV.toString());
-    		//TODO
-    		
+    		double gk = result.get("org.bh.calculation.IShareholderValueCalculator$Result.DEBT")[0].parse().doubleValue() + 
+    			result.get("org.bh.calculation.IShareholderValueCalculator$Result.SHAREHOLDER_VALUE")[0].parse().doubleValue();
+    		comp.addValue(gk, 1, "1");
+    		comp.addValue(result.get("org.bh.calculation.IShareholderValueCalculator$Result.DEBT")[0].parse().doubleValue() * -1, 1, "2");
+    		comp.addValue(result.get("org.bh.calculation.IShareholderValueCalculator$Result.SHAREHOLDER_VALUE")[0].parse(), 1, "3");    		
+ 
     		IBHAddValue comp2 = super.view.getBHchartComponents().get(ChartKeys.FCF_BC_CS.toString());
     		for (int i = 0; i < result.get("org.bh.plugin.fcf.FCFCalculator$Result.PRESENT_VALUE_TAX_SHIELD").length; i++) {
 				comp2.addValue(result.get("org.bh.plugin.fcf.FCFCalculator$Result.PRESENT_VALUE_TAX_SHIELD")[i].parse(), 1, String.valueOf(i));
@@ -81,8 +85,8 @@ public class BHResultController extends OutputController{
     		
     		IBHAddValue comp4 = super.view.getBHchartComponents().get(ChartKeys.FCF_BC_RR.toString());
     		for (int i = 0; i < result.get("org.bh.plugin.fcf.FCFCalculator$Result.EQUITY_RETURN_RATE_FCF").length; i++) {
-				comp4.addValue(result.get("org.bh.plugin.fcf.FCFCalculator$Result.EQUITY_RETURN_RATE_FCF")[i].parse(), 1, String.valueOf(i));
-				comp4.addValue(result.get("org.bh.calculation.IShareholderValueCalculator$Result.DEBT_RETURN_RATE")[0].parse(), 2, String.valueOf(i));
+				comp4.addValue(result.get("org.bh.plugin.fcf.FCFCalculator$Result.EQUITY_RETURN_RATE_FCF")[i].parse(), "EKR", String.valueOf(i));
+				comp4.addValue(result.get("org.bh.calculation.IShareholderValueCalculator$Result.DEBT_RETURN_RATE")[0].parse(), "FKR", String.valueOf(i));
     		}
     		
     	}else if(scenario.getDCFMethod().getUniqueId().equals("fte")){

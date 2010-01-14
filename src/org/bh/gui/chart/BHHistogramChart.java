@@ -67,7 +67,7 @@ public class BHHistogramChart extends BHChart implements IBHAddValue, IPlatformL
 	}
 
 	@Override
-	public void addValue(final Number value, final int rowKey, Comparable<String> columnKey) {
+	public void addValue(final Number value, final Comparable rowKey, Comparable<String> columnKey) {
 		// TODO Auto-generated method stub
 		throw new UnsupportedOperationException(
 				"This method has not been implemented");
