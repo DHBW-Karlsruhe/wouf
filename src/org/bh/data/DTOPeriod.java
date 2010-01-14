@@ -55,7 +55,7 @@ public class DTOPeriod extends DTO<IPeriodicalValuesDTO> {
      * initialize key and method list
      */
 	public DTOPeriod() {
-		super(Key.values());
+		super(Key.class);
 		log.debug("Object created!");
 	}
 	

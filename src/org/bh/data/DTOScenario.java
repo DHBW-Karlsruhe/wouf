@@ -26,7 +26,7 @@ import org.bh.platform.Services;
  */
 
 public class DTOScenario extends DTO<DTOPeriod> {
-	private static final long serialVersionUID = -2952168332645683234L;
+	private static final long serialVersionUID = -2952168332645683235L;
 	private static final Logger log = Logger.getLogger(DTOScenario.class);
 
 	public enum Key {
@@ -94,7 +94,12 @@ public class DTOScenario extends DTO<DTOPeriod> {
 		/**
 		 * List of keys selected for stochastic process
 		 */
-		STOCHASTIC_KEYS;
+		STOCHASTIC_KEYS,
+		
+		/**
+		 * Parameters for the stochastic process
+		 */
+		STOCHASTIC_PARAMETERS;
 
 		@Override
 		public String toString() {
@@ -115,7 +120,7 @@ public class DTOScenario extends DTO<DTOPeriod> {
 	 * initialize key and method list
 	 */
 	public DTOScenario(boolean isDeterministic) {
-		super(Key.values());
+		super(Key.class);
 		if (!isDeterministic) {
 			values.put(Key.STOCHASTIC_PROCESS.toString(), new StringValue("true"));
 		}

@@ -34,6 +34,6 @@ public class DTOProject extends DTO<DTOScenario> {
 	}
 
 	public DTOProject() {
-		super(Key.values());
+		super(Key.class);
 	}
 }

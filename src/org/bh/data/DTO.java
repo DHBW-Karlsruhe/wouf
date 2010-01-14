@@ -1,5 +1,8 @@
 package org.bh.data;
 
+import java.io.IOException;
+import java.io.InvalidClassException;
+import java.io.ObjectInputStream;
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
@@ -33,7 +36,7 @@ import org.bh.platform.Services;
  */
 @SuppressWarnings("unchecked")
 public abstract class DTO<ChildT extends IDTO> implements IDTO<ChildT> {
-	private static final long serialVersionUID = -9118358642929015184L;
+	private static final long serialVersionUID = -9118358642929015185L;
 	private static final Logger log = Logger.getLogger(DTO.class);
 
 	@Retention(RetentionPolicy.RUNTIME)
@@ -47,12 +50,14 @@ public abstract class DTO<ChildT extends IDTO> implements IDTO<ChildT> {
 	public @interface Stochastic {
 	}
 
+	private final String enumerationName;
+
 	/**
 	 * Possible keys with which the user can access this DTO.
 	 */
-	protected final List<String> availableKeys;
+	protected transient List<String> availableKeys;
 
-	private static Map<String, List<String>> KEYS_CACHE = new HashMap<String, List<String>>();
+	private static transient Map<String, List<String>> KEYS_CACHE = new HashMap<String, List<String>>();
 
 	/**
 	 * Prefix of the methods. Method name: methodPrefix + key
@@ -63,9 +68,9 @@ public abstract class DTO<ChildT extends IDTO> implements IDTO<ChildT> {
 	 * Possible methods with which the user can call simple methods for
 	 * calculation.
 	 */
-	protected Map<String, String> availableMethods;
+	protected transient Map<String, java.lang.reflect.Method> availableMethods;
 
-	private static Map<String, Map<String, String>> METHODS_CACHE = new HashMap<String, Map<String, String>>();
+	private static transient Map<String, Map<String, java.lang.reflect.Method>> METHODS_CACHE = new HashMap<String, Map<String, java.lang.reflect.Method>>();
 
 	/**
 	 * All children assigned to this DTO.
@@ -94,7 +99,12 @@ public abstract class DTO<ChildT extends IDTO> implements IDTO<ChildT> {
 	 */
 	protected Map<String, IValue> fallBackValues = new HashMap<String, IValue>();
 
-	public DTO(Enum[] enumeration) {
+	public DTO(Class<? extends Enum> enumeration) {
+		enumerationName = enumeration.getName();
+		initKeys(enumeration);
+	}
+
+	private void initKeys(Class<? extends Enum> enumeration) {
 		String className = getClass().getName();
 		if (KEYS_CACHE.containsKey(className)
 				&& METHODS_CACHE.containsKey(className)) {
@@ -103,11 +113,9 @@ public abstract class DTO<ChildT extends IDTO> implements IDTO<ChildT> {
 
 		} else {
 			availableKeys = new ArrayList<String>();
-			availableMethods = new HashMap<String, String>();
+			availableMethods = new HashMap<String, java.lang.reflect.Method>();
 
-			for (Enum element : enumeration) {
-				// Norman, 08.01.2010, 17:36 --> Keys in properties file for translation are not lowercase
-				//String key = element.toString().toLowerCase();
+			for (Enum element : enumeration.getEnumConstants()) {
 				String key = element.toString();
 				availableKeys.add(key);
 				try {
@@ -118,24 +126,25 @@ public abstract class DTO<ChildT extends IDTO> implements IDTO<ChildT> {
 						String methodName = (method.value().isEmpty()) ? (METHOD_PREFIX + element
 								.name())
 								: (method.value());
-						availableMethods.put(key, methodName);
+						availableMethods.put(key, getMethod(methodName));
 					}
 				} catch (Throwable e) {
+					log.error("", e);
 					continue;
 				}
 			}
 
 			KEYS_CACHE.put(className, availableKeys);
 			METHODS_CACHE.put(className, availableMethods);
-			
-			Services.firePlatformEvent(new PlatformEvent(ProjectRepositoryManager.class,PlatformEvent.Type.DATA_CHANGED));
+
+			Services.firePlatformEvent(new PlatformEvent(
+					ProjectRepositoryManager.class,
+					PlatformEvent.Type.DATA_CHANGED));
 		}
 	}
 
 	@Override
 	public IValue get(Object key1) throws DTOAccessException {
-		// Norman, 08.01.2010, 17:36 --> Keys in properties file for translation are not lowercase
-		//String key = key1.toString().toLowerCase();
 		String key = key1.toString();
 		// Check whether the key is part of the DTO
 		if (!availableKeys.contains(key))
@@ -165,8 +174,6 @@ public abstract class DTO<ChildT extends IDTO> implements IDTO<ChildT> {
 
 	@Override
 	public void put(Object key1, IValue value) throws DTOAccessException {
-		// Norman, 08.01.2010, 17:36 --> Keys in properties file for translation are not lowercase
-		//String key = key1.toString().toLowerCase();
 		String key = key1.toString();
 		if (availableKeys.contains(key)) {
 			values.put(key, value);
@@ -178,9 +185,9 @@ public abstract class DTO<ChildT extends IDTO> implements IDTO<ChildT> {
 			throw new DTOAccessException("The key '" + key
 					+ "' is not part of this DTO!");
 	}
-	
+
 	@Override
-	public void remove(Object key) throws DTOAccessException{
+	public void remove(Object key) throws DTOAccessException {
 		if (availableKeys.contains(key)) {
 			values.remove(key);
 			Services.firePlatformEvent(new PlatformEvent(this,
@@ -191,7 +198,7 @@ public abstract class DTO<ChildT extends IDTO> implements IDTO<ChildT> {
 			throw new DTOAccessException("The key '" + key
 					+ "' is not part of this DTO!");
 	}
-	
+
 	/**
 	 * Get a reference to a method with the specified name.
 	 * 
@@ -220,23 +227,20 @@ public abstract class DTO<ChildT extends IDTO> implements IDTO<ChildT> {
 	 * @return
 	 * @throws DTOAccessException
 	 */
-	private IValue invokeMethod(String methodName) throws DTOAccessException {
+	private IValue invokeMethod(java.lang.reflect.Method method) throws DTOAccessException {
 		IValue result = null;
 		try {
 			// Invoke method and store result
-			result = (IValue) getMethod(methodName).invoke(this);
-		} catch (NoSuchMethodException e) {
-			throw new DTOAccessException("The specified method '" + methodName
-					+ "' could not be found.");
+			result = (IValue) method.invoke(this);
 		} catch (InvocationTargetException e) {
 			throw new DTOAccessException(e.getTargetException());
 		} catch (Exception e) {
-			throw new DTOAccessException("The specified method '" + methodName
-					+ "' could not be invoked.");
+			throw new DTOAccessException("The specified method '" + method.getName()
+					+ "' could not be invoked.", e);
 		}
 
 		if (result == null)
-			throw new DTOAccessException("The method '" + methodName
+			throw new DTOAccessException("The method '" + method.getName()
 					+ "' returned no proper result.");
 
 		// Return result
@@ -328,7 +332,7 @@ public abstract class DTO<ChildT extends IDTO> implements IDTO<ChildT> {
 	public int getChildrenSize() {
 		return children.size();
 	}
-	
+
 	@Override
 	public int getNoOfValues() {
 		return values.size();
@@ -420,5 +424,19 @@ public abstract class DTO<ChildT extends IDTO> implements IDTO<ChildT> {
 		this.valid = valid;
 		Services.firePlatformEvent(new PlatformEvent(this,
 				PlatformEvent.Type.DATA_CHANGED));
+	}
+
+	/**
+	 * This is called on deserialization of the DTO
+	 */
+	private void readObject(ObjectInputStream ois)
+			throws ClassNotFoundException, IOException {
+		ois.defaultReadObject();
+
+		try {
+			initKeys((Class<? extends Enum>) Class.forName(enumerationName));
+		} catch (ClassNotFoundException e) {
+			throw new InvalidClassException("Could not restore keys");
+		}
 	}
 }

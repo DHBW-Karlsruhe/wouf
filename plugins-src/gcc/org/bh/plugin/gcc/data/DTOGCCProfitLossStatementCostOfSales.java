@@ -148,7 +148,7 @@ public class DTOGCCProfitLossStatementCostOfSales extends DTO implements
 	}
 
 	public DTOGCCProfitLossStatementCostOfSales() {
-		super(Key.values());
+		super(Key.class);
 		log.debug("Object created!");
 	}
 
@@ -162,7 +162,7 @@ public class DTOGCCProfitLossStatementCostOfSales extends DTO implements
 	 * 
 	 * @return Calculable
 	 */
-	protected Calculable getBUM() {
+	public Calculable getBUM() {
 		return null;
 	}
 
@@ -171,7 +171,7 @@ public class DTOGCCProfitLossStatementCostOfSales extends DTO implements
 	 * 
 	 * @return Calculable
 	 */
-	protected Calculable getBERG() {
+	public Calculable getBERG() {
 		return null;
 	}
 
@@ -180,7 +180,7 @@ public class DTOGCCProfitLossStatementCostOfSales extends DTO implements
 	 * 
 	 * @return Calculable
 	 */
-	protected Calculable getEGG() {
+	public Calculable getEGG() {
 		return null;
 	}
 
@@ -189,7 +189,7 @@ public class DTOGCCProfitLossStatementCostOfSales extends DTO implements
 	 * 
 	 * @return Calculable
 	 */
-	protected Calculable getAUERG() {
+	public Calculable getAUERG() {
 		return null;
 	}
 
@@ -198,7 +198,7 @@ public class DTOGCCProfitLossStatementCostOfSales extends DTO implements
 	 * 
 	 * @return Calculable
 	 */
-	protected Calculable getJUJF() {
+	public Calculable getJUJF() {
 		return null;
 	}
 

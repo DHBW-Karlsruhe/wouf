@@ -108,6 +108,10 @@ public class PlatformController {
 		bhmf = new BHMainFrame();
 		Services.setBHMainFrame(bhmf);
 
+		// create PlatformU...
+		// TODO naming
+		PlatformUserDialog.init(bhmf);
+
 		/*------------------------------------
 		 * fill Project/Scenario/Period-Tree
 		 * -----------------------------------
@@ -155,10 +159,6 @@ public class PlatformController {
 		// rebuild Tree
 		setupTree(bhmf, projectRepoManager);
 		bhmf.getBHTree().expandAll();
-
-		// create PlatformU...
-		// TODO naming
-		PlatformUserDialog.init(bhmf);
 
 	}
 

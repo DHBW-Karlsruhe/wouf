@@ -34,6 +34,17 @@ public class BusinessHorizon {
 	public static void main(String[] args) throws Exception {
 		log.info("Business Horizon is starting...");
 		
+		Thread
+		.setDefaultUncaughtExceptionHandler(new UncaughtExceptionHandler() {
+			@Override
+			public void uncaughtException(Thread t, Throwable e) {
+				log.error("Uncaught exception", e);
+			}
+		});
+		
+		if (SVN.isRevisionSet())
+			log.info("SVN Revision is " + SVN.getRevision());
+		
 		// Check if JRE is Java 6 Update 10, else quit.
 		if (!Services.jreFulfillsRequirements()) {	
 			String message = Services.getTranslator().translate("PjreRequirement", ITranslator.LONG);
@@ -43,19 +54,8 @@ public class BusinessHorizon {
 			System.exit(1);
 		}
 		
-		if (SVN.isRevisionSet())
-			log.info("SVN Revision is " + SVN.getRevision());
-		
 		PluginManager.init();
 
-		Thread
-				.setDefaultUncaughtExceptionHandler(new UncaughtExceptionHandler() {
-					@Override
-					public void uncaughtException(Thread t, Throwable e) {
-						log.error("Uncaught exception", e);
-					}
-				});
-		
 		// set Look&Feel
 		Services.setNimbusLookAndFeel();
 		

@@ -47,6 +47,8 @@ public class ScenarioController extends InputController {
 
 		((BHButton) view.getBHComponent(PlatformKey.CALCSHAREHOLDERVALUE))
 				.addActionListener(new CalculationListener());
+		
+		setCalculationEnabled(getModel().isValid(true));
 	}
 
 	@Override
@@ -54,13 +56,16 @@ public class ScenarioController extends InputController {
 		super.platformEvent(e);
 		if (e.getEventType() == Type.DATA_CHANGED
 				&& e.getSource() == getModel()) {
-			boolean calculationEnabled = getModel().isValid(true);
-			((Component) view.getBHComponent(PlatformKey.CALCSHAREHOLDERVALUE))
-					.setEnabled(calculationEnabled);
-			((Component) view
-					.getBHComponent(BHScenarioForm.Key.CANNOT_CALCULATE_HINT))
-					.setVisible(!calculationEnabled);
+			setCalculationEnabled(getModel().isValid(true));
 		}
+	}
+
+	protected void setCalculationEnabled(boolean calculationEnabled) {
+		((Component) view.getBHComponent(PlatformKey.CALCSHAREHOLDERVALUE))
+				.setEnabled(calculationEnabled);
+		((Component) view
+				.getBHComponent(BHScenarioForm.Key.CANNOT_CALCULATE_HINT))
+				.setVisible(!calculationEnabled);
 	}
 
 	protected static BHComboBox.Item[] getDcfMethodItems() {

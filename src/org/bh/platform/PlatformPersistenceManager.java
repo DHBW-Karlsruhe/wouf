@@ -6,6 +6,7 @@ import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.InvalidClassException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.io.ObjectStreamClass;
@@ -111,6 +112,9 @@ public class PlatformPersistenceManager {
 			log.debug("file " + path.toString() + " successfully opened");
 
 			return returnRepository;
+		} catch (InvalidClassException e) {
+			log.error("InvalidClassException while opening " + path, e);
+			PlatformUserDialog.getInstance().showErrorDialog(Services.getTranslator().translate("PInvalidClassException_long"),Services.getTranslator().translate("PInvalidClassException"));
 		} catch (IOException e) {
 			log.error("IOException while opening " + path,e);
 			PlatformUserDialog.getInstance().showErrorDialog(e.toString(),Services.getTranslator().translate("PIOException"));

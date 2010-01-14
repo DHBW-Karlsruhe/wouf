@@ -49,7 +49,7 @@ public class DTODirectInput extends DTO implements IPeriodicalValuesDTO, ICalcul
      * initialize key and method list
      */
 	public DTODirectInput() {
-		super(Key.values());
+		super(Key.class);
 		log.debug("Object created!");
 	}
 

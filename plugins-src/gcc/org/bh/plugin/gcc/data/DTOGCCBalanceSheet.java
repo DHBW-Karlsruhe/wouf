@@ -367,7 +367,7 @@ public class DTOGCCBalanceSheet extends DTO implements IPeriodicalValuesDTO {
 	}
 
 	public DTOGCCBalanceSheet() {
-		super(Key.values());
+		super(Key.class);
 		log.debug("Object created!");
 	}
 
@@ -381,7 +381,7 @@ public class DTOGCCBalanceSheet extends DTO implements IPeriodicalValuesDTO {
 	 * 
 	 * @return Calculable
 	 */
-	protected Calculable getAKTIVA() {
+	public Calculable getAKTIVA() {
 		return null;
 	}
 
@@ -390,7 +390,7 @@ public class DTOGCCBalanceSheet extends DTO implements IPeriodicalValuesDTO {
 	 * 
 	 * @return Calculable
 	 */
-	protected Calculable getAV() {
+	public Calculable getAV() {
 		return getCalculable(Key.IVG).add(getCalculable(Key.SA)).add(getCalculable(Key.FA));
 	}
 
@@ -399,7 +399,7 @@ public class DTOGCCBalanceSheet extends DTO implements IPeriodicalValuesDTO {
 	 * 
 	 * @return Calculable
 	 */
-	protected Calculable getUV() {
+	public Calculable getUV() {
 		return null;
 	}
 
@@ -408,7 +408,7 @@ public class DTOGCCBalanceSheet extends DTO implements IPeriodicalValuesDTO {
 	 * 
 	 * @return Calculable
 	 */
-	protected Calculable getPASSIVA() {
+	public Calculable getPASSIVA() {
 		return null;
 	}
 
@@ -417,7 +417,7 @@ public class DTOGCCBalanceSheet extends DTO implements IPeriodicalValuesDTO {
 	 * 
 	 * @return Calculable
 	 */
-	protected Calculable getEK() {
+	public Calculable getEK() {
 		return null;
 	}
 
@@ -426,7 +426,7 @@ public class DTOGCCBalanceSheet extends DTO implements IPeriodicalValuesDTO {
 	 * 
 	 * @return Calculable
 	 */
-	protected Calculable getRS() {
+	public Calculable getRS() {
 		return null;
 	}
 
@@ -435,7 +435,7 @@ public class DTOGCCBalanceSheet extends DTO implements IPeriodicalValuesDTO {
 	 * 
 	 * @return Calculable
 	 */
-	protected Calculable getVB() {
+	public Calculable getVB() {
 		return null;
 	}
 
