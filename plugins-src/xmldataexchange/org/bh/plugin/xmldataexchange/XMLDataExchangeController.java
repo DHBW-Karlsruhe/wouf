@@ -241,29 +241,21 @@ public class XMLDataExchangeController implements IImportExport, ActionListener 
 
 	@Override
 	public void exportProjectResults(DTOProject project,
-			Map<String, Calculable[]> results) {
+			Map<String, Calculable[]> results, BHDataExchangeDialog exportDialog) {
 		// TODO Auto-generated method stub
 		throw new UnsupportedOperationException("This method has not been implemented");
 	}
 
 
 	@Override
-	public void exportProjectResults(DTOProject project, DistributionMap results) {
+	public void exportProjectResults(DTOProject project, DistributionMap results, BHDataExchangeDialog exportDialog) {
 		// TODO Auto-generated method stub
 		throw new UnsupportedOperationException("This method has not been implemented");
 	}
 
 
 	@Override
-	public void exportScenario(DTOScenario scenario) {
-		// TODO Auto-generated method stub
-		throw new UnsupportedOperationException("This method has not been implemented");
-	}
-
-
-	@Override
-	public void exportScenarioResults(DTOScenario scenario,
-			Map<String, Calculable[]> results) {
+	public void exportScenario(DTOScenario scenario, BHDataExchangeDialog exportDialog) {
 		// TODO Auto-generated method stub
 		throw new UnsupportedOperationException("This method has not been implemented");
 	}
@@ -271,7 +263,15 @@ public class XMLDataExchangeController implements IImportExport, ActionListener 
 
 	@Override
 	public void exportScenarioResults(DTOScenario scenario,
-			DistributionMap results) {
+			Map<String, Calculable[]> results, BHDataExchangeDialog exportDialog) {
+		// TODO Auto-generated method stub
+		throw new UnsupportedOperationException("This method has not been implemented");
+	}
+
+
+	@Override
+	public void exportScenarioResults(DTOScenario scenario,
+			DistributionMap results, BHDataExchangeDialog exportDialog) {
 		// TODO Auto-generated method stub
 		throw new UnsupportedOperationException("This method has not been implemented");
 	}

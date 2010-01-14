@@ -1,15 +1,17 @@
 package org.bh.plugin.pdfexport;
 
+import java.awt.Desktop;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
+import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Iterator;
 import java.util.Map;
 import java.util.Map.Entry;
-
-import javax.swing.JFileChooser;
-import javax.swing.filechooser.FileNameExtensionFilter;
 
 import org.apache.log4j.Logger;
 import org.bh.data.DTOPeriod;
@@ -20,6 +22,8 @@ import org.bh.data.types.Calculable;
 import org.bh.data.types.DistributionMap;
 import org.bh.data.types.IValue;
 import org.bh.gui.swing.BHDataExchangeDialog;
+import org.bh.gui.swing.BHDefaultScenarioExportPanel;
+import org.bh.gui.swing.IBHComponent;
 import org.bh.platform.IImportExport;
 import org.bh.platform.i18n.BHTranslator;
 import org.bh.platform.i18n.ITranslator;
@@ -47,7 +51,10 @@ public class PDFExport implements IImportExport {
 	private static final String UNIQUE_ID = "pdf";
 	private static final String GUI_KEY = "*.pdf";
 
-	private static Logger log = Logger.getLogger(PDFExport.class);
+	private static final String FILE_DESC = "Portable Document Format";
+	private static final String FILE_EXT = "pdf";
+
+	static Logger log = Logger.getLogger(PDFExport.class);
 	private static ITranslator trans = BHTranslator.getInstance();
 
 	private static final SimpleDateFormat S = new SimpleDateFormat(
@@ -64,10 +71,11 @@ public class PDFExport implements IImportExport {
 	private Chapter report;
 
 	@Override
-	public void exportProject(DTOProject project, BHDataExchangeDialog exportDialog) {
-		//exportDialog.setPluginActionListener(pluginActionListener)
+	public void exportProject(DTOProject project,
+			BHDataExchangeDialog exportDialog) {
+		// exportDialog.setPluginActionListener(pluginActionListener)
 		exportDialog.setDefaulExportProjectPanel();
-		//exportDialog.getModel()
+		// exportDialog.getModel()
 		// TODO Auto-generated method stub
 		throw new UnsupportedOperationException(
 				"This method has not been implemented");
@@ -75,21 +83,23 @@ public class PDFExport implements IImportExport {
 
 	@Override
 	public void exportProjectResults(DTOProject project,
-			Map<String, Calculable[]> results) {
+			Map<String, Calculable[]> results, BHDataExchangeDialog exportDialog) {
 		// TODO Auto-generated method stub
 		throw new UnsupportedOperationException(
 				"This method has not been implemented");
 	}
 
 	@Override
-	public void exportProjectResults(DTOProject project, DistributionMap results) {
+	public void exportProjectResults(DTOProject project,
+			DistributionMap results, BHDataExchangeDialog exportDialog) {
 		// TODO Auto-generated method stub
 		throw new UnsupportedOperationException(
 				"This method has not been implemented");
 	}
 
 	@Override
-	public void exportScenario(DTOScenario scenario) {
+	public void exportScenario(DTOScenario scenario,
+			BHDataExchangeDialog exportDialog) {
 		// TODO replace with file dialog
 		String path = "test";
 		newDocument(path, scenario);
@@ -99,36 +109,46 @@ public class PDFExport implements IImportExport {
 	}
 
 	@Override
-	public void exportScenarioResults(DTOScenario scenario,
-			Map<String, Calculable[]> results) {
-		// TODO first dirty verion only
-		String path = null;
-		JFileChooser pathChooser = new JFileChooser();
-		String description = "PDF";
-		String extension = "pdf";
-		FileNameExtensionFilter filter = new FileNameExtensionFilter(
-				description, extension);
-		pathChooser.setFileFilter(filter);
+	public void exportScenarioResults(final DTOScenario scenario,
+			final Map<String, Calculable[]> results,
+			final BHDataExchangeDialog exportDialog) {
 
-		int returnVal = pathChooser.showSaveDialog(null);
-		if (returnVal == JFileChooser.APPROVE_OPTION) {
-			log.debug("You chose to export pdf to this file: "
-					+ pathChooser.getSelectedFile().getName());
-			path = pathChooser.getSelectedFile().getAbsolutePath() + ".pdf";
+		final BHDefaultScenarioExportPanel dp = exportDialog
+				.setDefaulExportScenarioPanel(FILE_DESC, FILE_EXT);
+		exportDialog.pack();
 
-			newDocument(path, scenario);
-			buildHeadData(scenario);
-			buildScenarioData(scenario);
-			buildResultDataDet(results);
-			closeDocument();
-			log.debug("pdf export completed "
-					+ pathChooser.getSelectedFile().getName());
-		}
+		exportDialog.setPluginActionListener(new ActionListener() {
+
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				IBHComponent comp = (IBHComponent) e.getSource();
+				if (comp.getKey().equals("Mexport")) {
+					newDocument(dp.getFilePath(), scenario);
+					buildHeadData(scenario);
+					buildScenarioData(scenario);
+					buildResultDataDet(results);
+					closeDocument();
+					log.debug("pdf export completed " + dp.getFilePath());
+					if(dp.openAfterExport()) {
+						try {
+							Desktop.getDesktop().open(new File(dp.getFilePath()));
+						} catch (IOException e1) {
+							// TODO Auto-generated catch block
+							e1.printStackTrace();
+						}
+					}
+					exportDialog.dispose();
+				}
+				if (comp.getKey().equals("Bcancel")) {
+					exportDialog.dispose();
+				}
+			}
+		});
 	}
 
 	@Override
 	public void exportScenarioResults(DTOScenario scenario,
-			DistributionMap results) {
+			DistributionMap results, BHDataExchangeDialog exportDialog) {
 		String path = "test";
 		newDocument(path, scenario);
 		buildHeadData(scenario);
@@ -158,7 +178,7 @@ public class PDFExport implements IImportExport {
 				"This method has not been implemented");
 	}
 
-	private void newDocument(String path, DTOScenario scenario) {
+	void newDocument(String path, DTOScenario scenario) {
 		try {
 			doc = new Document(PageSize.A4, 50, 50, 50, 50);
 
@@ -179,7 +199,7 @@ public class PDFExport implements IImportExport {
 
 	}
 
-	private void closeDocument() {
+	void closeDocument() {
 		try {
 			doc.add(report);
 			doc.close();
@@ -189,35 +209,44 @@ public class PDFExport implements IImportExport {
 
 	}
 
-	private void buildResultDataDet(Map<String, Calculable[]> resultMap) {
+	void buildResultDataDet(Map<String, Calculable[]> resultMap) {
 		Paragraph title;
 		Section results;
 		Section resultMapSection;
 		PdfPTable t;
 
 		results = buildResultHead();
-		
-		title = new Paragraph("Result Map",
-				SECTION2_FONT);
-		resultMapSection = results.addSection(title, 2);
-		
-		t = new PdfPTable(2);
-		for (Entry<String, Calculable[]> e : resultMap.entrySet()) {
-			Calculable[] val = e.getValue();
-			if (val.length >= 1) {
-				t.addCell(trans.translate(e.getKey()));
-				t.addCell(val[0].toString());
-			}
-			if (val.length > 1) {
-				for (int i = 1; i < val.length; i++) {
-					t.addCell(" ");
-					t.addCell(val[i].toString());
+
+		if (resultMap != null && resultMap.size() > 0) {
+			title = new Paragraph("Result Map", SECTION2_FONT);
+			resultMapSection = results.addSection(title, 2);
+			resultMapSection.add(new Paragraph("\n"));
+			t = new PdfPTable(2);
+			for (Entry<String, Calculable[]> e : resultMap.entrySet()) {
+				Calculable[] val = e.getValue();
+				if (val.length >= 1) {
+					t.addCell(trans.translate(e.getKey()));
+					if (val[0] != null) {
+						t.addCell(val[0].toString());
+					} else {
+						t.addCell(" ");
+					}
+				}
+				if (val.length > 1) {
+					for (int i = 1; i < val.length; i++) {
+						t.addCell(" ");
+						if (val[i] != null) {
+							t.addCell(val[i].toString());
+						} else {
+							t.addCell(" ");
+						}
+					}
 				}
 			}
+
+			resultMapSection.add(t);
 		}
-		resultMapSection.add(t);
-		
-		//TODO Graphs
+		// TODO Graphs
 
 	}
 
@@ -226,22 +255,22 @@ public class PDFExport implements IImportExport {
 		Section results;
 		Section distMapSection;
 		PdfPTable t;
-		
+
 		results = buildResultHead();
-		
-		title = new Paragraph("Distribution Map",
-				SECTION2_FONT);
+
+		title = new Paragraph("Distribution Map", SECTION2_FONT);
 		distMapSection = results.addSection(title, 2);
-		
+
 		t = new PdfPTable(2);
-		for (Iterator<Entry<Double, Integer>> i = distMap.iterator(); i.hasNext();) {
+		for (Iterator<Entry<Double, Integer>> i = distMap.iterator(); i
+				.hasNext();) {
 			Entry<Double, Integer> val = i.next();
-				t.addCell(val.getKey().toString());
-				t.addCell(val.getValue().toString());
+			t.addCell(val.getKey().toString());
+			t.addCell(val.getValue().toString());
 		}
 		distMapSection.add(t);
-		
-		//TODO addCharts
+
+		// TODO addCharts
 	}
 
 	private Section buildResultHead() {
@@ -251,7 +280,7 @@ public class PDFExport implements IImportExport {
 		return report.addSection(title, 1);
 	}
 
-	private void buildHeadData(DTOScenario scenario) {
+	void buildHeadData(DTOScenario scenario) {
 		Section data;
 		PdfPTable t;
 
@@ -278,7 +307,8 @@ public class PDFExport implements IImportExport {
 		data.add(new Paragraph("\n\n"));
 	}
 
-	private void buildScenarioData(DTOScenario scenario) {
+	@SuppressWarnings("unchecked")
+	void buildScenarioData(DTOScenario scenario) {
 		Paragraph title;
 		Section input;
 		Section period;
@@ -318,7 +348,7 @@ public class PDFExport implements IImportExport {
 
 	@Override
 	public String toString() {
-		return "PDF - Portable Document Format";
+		return FILE_EXT + " - " + FILE_DESC;
 	}
 
 }

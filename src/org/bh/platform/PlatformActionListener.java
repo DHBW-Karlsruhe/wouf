@@ -176,10 +176,8 @@ class PlatformActionListener implements ActionListener {
 							bhmf, true);
 					dialog.setAction(IImportExport.EXP_PROJECT);
 					dialog.setModel((IDTO<?>) selectedNode.getUserObject());
-					dialog.setAvailablePlugins(Services
-							.getImportExportPlugins(IImportExport.EXP_PROJECT));
-
-					dialog.setDescription("This is just a test");
+					
+					//dialog.setDescription("This is just a test");
 					dialog.setVisible(true);
 
 				} else {

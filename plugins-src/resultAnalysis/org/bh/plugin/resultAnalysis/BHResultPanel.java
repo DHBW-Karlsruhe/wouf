@@ -14,10 +14,12 @@ import javax.swing.UIManager;
 
 import org.apache.log4j.Logger;
 import org.bh.data.DTOScenario;
+import org.bh.data.IDTO;
 import org.bh.data.types.Calculable;
 import org.bh.gui.ViewException;
 import org.bh.gui.chart.BHChartFactory;
 import org.bh.gui.swing.BHButton;
+import org.bh.gui.swing.BHDataExchangeDialog;
 import org.bh.gui.swing.BHDescriptionLabel;
 import org.bh.gui.swing.BHDescriptionTextArea;
 import org.bh.gui.swing.BHValueLabel;
@@ -134,30 +136,36 @@ public final class BHResultPanel extends JPanel {
 
             @Override
             public void actionPerformed(ActionEvent e) {
-                Map<String, IImportExport> impExpPlugins;
-                impExpPlugins = Services.getImportExportPlugins(IImportExport.EXP_SCENARIO_RES_DET);
-                //BHSelectionList selList = new BHSelectionList(impExpPlugins.keySet().toArray());
-                //BHExportDialog expD = new BHExportDialog();
-                //expD.add(selList);
-                //expD.setVisible(true);
-                String[] impExpArray = impExpPlugins.keySet().toArray(new String[0]);
-                String s = (String) JOptionPane.showInputDialog(
-                        me, "Choose output format",
-                        "Scenario Export",
-                        JOptionPane.PLAIN_MESSAGE,
-                        null,
-                        impExpArray, impExpArray[0]);
-                try {
-                    IImportExport esp = impExpPlugins.get(s).getClass().newInstance();
-                    esp.exportScenarioResults(scenario, result);
+            	
+            	BHDataExchangeDialog dialog = new BHDataExchangeDialog(null, true);
+				dialog.setAction(IImportExport.EXP_SCENARIO_RES_DET);
+				dialog.setModel(scenario);
+				dialog.setResults(result);
+				dialog.setVisible(true);
+//                Map<String, IImportExport> impExpPlugins;
+//                impExpPlugins = Services.getImportExportPlugins(IImportExport.EXP_SCENARIO_RES_DET);
+//                //BHSelectionList selList = new BHSelectionList(impExpPlugins.keySet().toArray());
+//                //BHExportDialog expD = new BHExportDialog();
+//                //expD.add(selList);
+//                //expD.setVisible(true);
+//                String[] impExpArray = impExpPlugins.keySet().toArray(new String[0]);
+//                String s = (String) JOptionPane.showInputDialog(
+//                        me, "Choose output format",
+//                        "Scenario Export",
+//                        JOptionPane.PLAIN_MESSAGE,
+//                        null,
+//                        impExpArray, impExpArray[0]);
+//                try {
+//                    IImportExport esp = impExpPlugins.get(s).getClass().newInstance();
+//                 //TODO NOrman   esp.exportScenarioResults(scenario, result);
 
-                } catch (InstantiationException e1) {
-                    // TODO Auto-generated catch block
-                    e1.printStackTrace();
-                } catch (IllegalAccessException e1) {
-                    // TODO Auto-generated catch block
-                    e1.printStackTrace();
-                }
+//                } catch (InstantiationException e1) {
+//                    // TODO Auto-generated catch block
+//                    e1.printStackTrace();
+//                } catch (IllegalAccessException e1) {
+//                    // TODO Auto-generated catch block
+//                    e1.printStackTrace();
+//                }
 
                 //If a string was returned, say so.
 //		if ((s != null) && (s.length() > 0)) {

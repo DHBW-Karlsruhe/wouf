@@ -28,7 +28,7 @@ public interface IImportExport extends IDisplayablePlugin {
 	static final int EXP_SCENARIO_RES_DET	= 1 << 5;
 	static final int EX_SCENARIO_RES_STOCH 	= 1 << 6;
 	static final int IMP_SCENARIO		    = 1 << 7;
-
+	
 	/**
 	 * Must be implemented if export of a project DTO should be supported by the
 	 * implementing plug-in.
@@ -45,7 +45,7 @@ public interface IImportExport extends IDisplayablePlugin {
 	 * @param project
 	 */
 	void exportProjectResults(DTOProject project,
-			Map<String, Calculable[]> results);
+			Map<String, Calculable[]> results, BHDataExchangeDialog bhDataExchangeDialog);
 
 	/**
 	 * Must be implemented if export of a project DTO with results from a
@@ -53,7 +53,7 @@ public interface IImportExport extends IDisplayablePlugin {
 	 * 
 	 * @param project
 	 */
-	void exportProjectResults(DTOProject project, DistributionMap results);
+	void exportProjectResults(DTOProject project, DistributionMap results, BHDataExchangeDialog bhDataExchangeDialog);
 
 	/**
 	 * Must be implemented if import of projects should be supported  by the
@@ -70,7 +70,7 @@ public interface IImportExport extends IDisplayablePlugin {
 	 * 
 	 * @param scenario
 	 */
-	void exportScenario(DTOScenario scenario);
+	void exportScenario(DTOScenario scenario, BHDataExchangeDialog bhDataExchangeDialog);
 
 	/**
 	 * Must be implemented if export of a scenario DTO with results from a
@@ -78,8 +78,8 @@ public interface IImportExport extends IDisplayablePlugin {
 	 * 
 	 * @param scenario
 	 */
-	void exportScenarioResults(DTOScenario scenario,
-			Map<String, Calculable[]> results);
+	void exportScenarioResults(final DTOScenario scenario,
+			final Map<String, Calculable[]> results, BHDataExchangeDialog bhDataExchangeDialog);
 	
 	/**
 	 * Must be implemented if export of a scenario DTO with results from a
@@ -87,7 +87,7 @@ public interface IImportExport extends IDisplayablePlugin {
 	 * 
 	 * @param scenario
 	 */
-	void exportScenarioResults(DTOScenario scenario, DistributionMap results);
+	void exportScenarioResults(DTOScenario scenario, DistributionMap results, BHDataExchangeDialog bhDataExchangeDialog);
 
 	/**
 	 * Must be implemented if import of scenarios should be supported  by the
@@ -104,5 +104,5 @@ public interface IImportExport extends IDisplayablePlugin {
 	int getSupportedMethods();
 
 	String getUniqueId();
-	
+
 }
