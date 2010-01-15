@@ -3,7 +3,6 @@ package org.bh.gui.swing;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 
-import javax.swing.JComboBox;
 import javax.swing.JFrame;
 import javax.swing.JList;
 import javax.swing.JPanel;
@@ -28,7 +27,7 @@ public class BHStochasticInputForm extends JPanel {
 	private BHDescriptionLabel lstochprocess;
 	private BHDescriptionLabel ldcfMethod;
 	
-	private JComboBox cbstochprocess;
+	private BHComboBox cbstochprocess;
 	private BHComboBox cbdcfMethod;
 	
 	private BHDescriptionLabel lStochasticKeys;
@@ -89,6 +88,13 @@ public class BHStochasticInputForm extends JPanel {
 		return this.cbdcfMethod;
 	}
 	
+	
+	public BHComboBox getcbstochProcess() {
+		if (this.cbstochprocess == null) {
+			this.cbstochprocess = new BHComboBox(DTOScenario.Key.STOCHASTIC_PROCESS);
+		}
+		return this.cbstochprocess;
+	}
 	/**
 	 * Getter method for component lstochProcess.
 	 * 
@@ -101,21 +107,6 @@ public class BHStochasticInputForm extends JPanel {
 		}
 
 		return this.lstochprocess;
-	}
-
-
-	/**
-	 * Getter method for component cbstochProcess.
-	 * 
-	 * @return the initialized component
-	 */
-	public JComboBox getcbstochProcess() {
-
-		if (this.cbstochprocess == null) {
-			this.cbstochprocess = new BHComboBox(DTOScenario.Key.STOCHASTIC_PROCESS);
-		}
-
-		return this.cbstochprocess;
 	}
 	
 	public BHDescriptionLabel getlStochasticKeysList() {

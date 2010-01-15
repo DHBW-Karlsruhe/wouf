@@ -14,6 +14,7 @@ import javax.swing.JPanel;
 import javax.swing.JSplitPane;
 import javax.swing.tree.DefaultTreeModel;
 import org.bh.calculation.IShareholderValueCalculator;
+import org.bh.calculation.IStochasticProcess;
 import org.bh.controller.IPeriodController;
 import org.bh.controller.InputController;
 import org.bh.data.DTOScenario;
@@ -32,6 +33,7 @@ import org.bh.platform.PlatformEvent.Type;
 public class ScenarioController extends InputController {
 	protected static final BHComboBox.Item[] DCF_METHOD_ITEMS = getDcfMethodItems();
 	protected static final BHComboBox.Item[] PERIOD_TYPE_ITEMS = getPeriodTypeItems();
+	protected static final BHComboBox.Item[] STOCHASTIC_METHOD_ITEMS = getStochasticProcessItems();
 
 	public ScenarioController(View view, IDTO<?> model) {
 		super(view, model);
@@ -47,6 +49,12 @@ public class ScenarioController extends InputController {
 				.getBHComponent(DTOScenario.Key.PERIOD_TYPE);
 		if (cbPeriodType != null) {
 			cbPeriodType.setValueList(PERIOD_TYPE_ITEMS);
+		}
+		
+		BHComboBox cbStochasticMethod = (BHComboBox) view.getBHComponent(DTOScenario.Key.STOCHASTIC_PROCESS);
+		if (cbStochasticMethod != null) {
+			cbStochasticMethod.setSorted(true);
+			cbStochasticMethod.setValueList(STOCHASTIC_METHOD_ITEMS);
 		}
 
 		((BHButton) view.getBHComponent(PlatformKey.CALCSHAREHOLDERVALUE))
@@ -76,6 +84,16 @@ public class ScenarioController extends InputController {
 					new StringValue(dcfMethod.getUniqueId())));
 		}
 		return items.toArray(new BHComboBox.Item[0]);
+	}
+	
+	protected static BHComboBox.Item[] getStochasticProcessItems() {
+		Collection<IStochasticProcess> stochasticProcesses = Services.getStochasticProcesses().values();
+		ArrayList<BHComboBox.Item> items = new ArrayList<BHComboBox.Item>();
+		for (IStochasticProcess stochasticProcess : stochasticProcesses) {
+			items.add(new BHComboBox.Item(stochasticProcess.getGuiKey(), new StringValue(stochasticProcess.getUniqueId())));
+		}
+		return items.toArray(new BHComboBox.Item[0]);
+		
 	}
 
 	protected static BHComboBox.Item[] getPeriodTypeItems() {
