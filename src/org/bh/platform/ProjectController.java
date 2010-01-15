@@ -2,9 +2,12 @@ package org.bh.platform;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.util.ArrayList;
-import java.util.List;
+import java.util.HashMap;
 import java.util.Map;
+
+import javax.swing.ImageIcon;
+import javax.swing.JPanel;
+import javax.swing.JSplitPane;
 
 import org.bh.calculation.IShareholderValueCalculator;
 import org.bh.controller.InputController;
@@ -13,8 +16,14 @@ import org.bh.data.DTOScenario;
 import org.bh.data.IDTO;
 import org.bh.data.types.Calculable;
 import org.bh.data.types.DistributionMap;
+import org.bh.gui.IDeterministicResultAnalyser;
 import org.bh.gui.View;
+import org.bh.gui.ViewException;
 import org.bh.gui.swing.BHButton;
+import org.bh.gui.swing.BHDashBoardPanelView;
+import org.bh.gui.swing.BHTree;
+import org.bh.gui.swing.BHTreeNode;
+import org.bh.platform.ScenarioController.CalculationListener;
 
 public class ProjectController extends InputController {
 
@@ -22,36 +31,55 @@ public class ProjectController extends InputController {
 		super(view, model);
 
 		((BHButton) view.getBHComponent(PlatformKey.CALCDASHBOARD))
-				.addActionListener(new CalculationListener());
+				.addActionListener(new CalculationListener(PlatformController
+						.getInstance().getMainFrame().getBHTree()));
 	}
 
 	protected class CalculationListener implements ActionListener {
-		@SuppressWarnings({ "unchecked", "cast" })
-		@Override
+		private final ImageIcon LOADING = Services.createImageIcon(
+				"/org/bh/images/loading.gif", null);
+
+		private BHTree bhTree;
+
+		public CalculationListener(BHTree bhTree) {
+			this.bhTree = bhTree;
+		}
+
 		public void actionPerformed(ActionEvent ae) {
 
 			DTOProject project = (DTOProject) getModel();
 			// Map an DashboardController übergeben
-			List<Calculable[]> results = new ArrayList<Calculable[]>(); 
-			
+			Map<DTOScenario, Map<?, ?>> results = new HashMap<DTOScenario, Map<?, ?>>();
+
 			for (DTOScenario scenario : project.getChildren()) {
 				// start calculation
-				try {
-					Map<String, Calculable[]> resultDCF = scenario
+
+				if (scenario.isDeterministic()) {
+					Map<String, Calculable[]> resultsDCF = scenario
 							.getDCFMethod().calculate(scenario);
-					resultDCF.get(IShareholderValueCalculator.Result.SHAREHOLDER_VALUE);
-					results.add(resultDCF.get(IShareholderValueCalculator.Result.SHAREHOLDER_VALUE));
-					
-				}
-				catch(Exception e) {
+
+					results.put(scenario, resultsDCF);
+				} else {
 					DistributionMap resultStochastic = (DistributionMap) scenario
 							.getStochasticProcess().calculate();
-					// TODO @Patrick Heinz ausimplementieren
-//					resultStochastic.get(IShareholderValueCalculator.);
+
+					results.put(scenario, resultStochastic);
 				}
 			}
-			//JPanel panel = new JPanel();
-			//Services.setCharts(panel);
+			try {
+				View v = new BHDashBoardPanelView(results);
+				JSplitPane crForm = Services.createContentResultForm(v
+						.getViewPanel());
+				BHTreeNode tn = (BHTreeNode) bhTree.getSelectionPath()
+						.getPathComponent(2);
+
+				tn.setBackgroundPane(crForm);
+			} catch (ViewException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+
 		}
+
 	}
 }

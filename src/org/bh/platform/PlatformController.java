@@ -252,7 +252,7 @@ public class PlatformController {
 										new BHProjectForm());
 
 								IDTO<?> model = selectedDto;
-								controller = new InputController(view, model);
+								controller = new ProjectController(view, model);
 								bhmf.setContentForm(view.getViewPanel());
 								controller.loadAllToView();
 

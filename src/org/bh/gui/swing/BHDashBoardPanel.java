@@ -2,8 +2,10 @@ package org.bh.gui.swing;
 
 import java.util.Map;
 
+import javax.swing.JLabel;
 import javax.swing.JPanel;
 
+import org.bh.data.DTOScenario;
 import org.bh.gui.chart.BHChartFactory;
 import org.bh.gui.chart.BHChartPanel;
 
@@ -13,13 +15,16 @@ public class BHDashBoardPanel extends JPanel {
 	}
 	private BHChartPanel chartPanel;
 
-	public BHDashBoardPanel(Map <String, Object> resultMap) {
-		initialize(resultMap);
+	public BHDashBoardPanel(Map<DTOScenario, Map<?, ?>> results) {
+		initialize(results);
 	}
 	
-	public void initialize(Map <String, Object> result) {
+	public void initialize(Map<DTOScenario, Map<?, ?>> results) {
+		add(new JLabel("TEST"));
 		this.chartPanel = BHChartFactory.getBarChart("", "", "", BHDashBoardPanel.dashbKeys.BAR_SV);
-		
+		for(java.util.Map.Entry<DTOScenario, Map<?, ?>> e : results.entrySet()){
+			add(new JLabel( e.getKey().get(DTOScenario.Key.IDENTIFIER).toString()));
+		}
 		
 		
 		this.add(chartPanel);
