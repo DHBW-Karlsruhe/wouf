@@ -53,8 +53,8 @@ public class ProjectController extends InputController {
 				}
 			}
 
-			JPanel panel = new JPanel();
-			Services.setCharts(panel);
+			//JPanel panel = new JPanel();
+			//Services.setCharts(panel);
 		}
 	}
 }

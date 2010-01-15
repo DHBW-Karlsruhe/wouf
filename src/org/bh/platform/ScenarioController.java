@@ -8,11 +8,11 @@ import java.util.Arrays;
 import java.util.Collection;
 import java.util.Comparator;
 import java.util.Map;
-
-import javax.swing.ImageIcon;
 import javax.swing.JButton;
+import javax.swing.JComponent;
 import javax.swing.JPanel;
-
+import javax.swing.JSplitPane;
+import javax.swing.tree.DefaultTreeModel;
 import org.bh.calculation.IShareholderValueCalculator;
 import org.bh.controller.IPeriodController;
 import org.bh.controller.InputController;
@@ -25,6 +25,8 @@ import org.bh.gui.View;
 import org.bh.gui.swing.BHButton;
 import org.bh.gui.swing.BHComboBox;
 import org.bh.gui.swing.BHScenarioForm;
+import org.bh.gui.swing.BHTree;
+import org.bh.gui.swing.BHTreeNode;
 import org.bh.platform.PlatformEvent.Type;
 
 public class ScenarioController extends InputController {
@@ -48,25 +50,21 @@ public class ScenarioController extends InputController {
 		}
 
 		((BHButton) view.getBHComponent(PlatformKey.CALCSHAREHOLDERVALUE))
-				.addActionListener(new CalculationListener());
-		
-		setCalculationEnabled(getModel().isValid(true));
+				.addActionListener(new CalculationListener(PlatformController.getInstance().getMainFrame().getBHTree()));
 	}
 
 	@Override
 	public void platformEvent(PlatformEvent e) {
 		super.platformEvent(e);
-		if (e.getEventType() == Type.DATA_CHANGED) {
-			setCalculationEnabled(getModel().isValid(true));
+		if (e.getEventType() == Type.DATA_CHANGED
+				&& e.getSource() == getModel()) {
+			boolean calculationEnabled = getModel().isValid(true);
+			((Component) view.getBHComponent(PlatformKey.CALCSHAREHOLDERVALUE))
+					.setEnabled(calculationEnabled);
+			((Component) view
+					.getBHComponent(BHScenarioForm.Key.CANNOT_CALCULATE_HINT))
+					.setVisible(!calculationEnabled);
 		}
-	}
-
-	protected void setCalculationEnabled(boolean calculationEnabled) {
-		((Component) view.getBHComponent(PlatformKey.CALCSHAREHOLDERVALUE))
-				.setEnabled(calculationEnabled);
-		((Component) view
-				.getBHComponent(BHScenarioForm.Key.CANNOT_CALCULATE_HINT))
-				.setVisible(!calculationEnabled);
 	}
 
 	protected static BHComboBox.Item[] getDcfMethodItems() {
@@ -99,7 +97,12 @@ public class ScenarioController extends InputController {
 	}
 
 	protected class CalculationListener implements ActionListener {
-		private final ImageIcon LOADING = Services.createImageIcon("/org/bh/images/loading.gif", "test"/*Services.getTranslator().translate("scenario")*/); 
+		
+		private BHTree bhTree;
+		
+		public CalculationListener(BHTree bhTree){
+			this.bhTree = bhTree;
+		}
 		
 		@Override
 		public void actionPerformed(ActionEvent e) {
@@ -124,7 +127,10 @@ public class ScenarioController extends InputController {
 						analyser.setResult(scenario, result, panel);
 						break;
 					}
-					Services.setCharts(panel);
+					JSplitPane crForm = Services.createContentResultForm(panel);
+					BHTreeNode tn = (BHTreeNode)bhTree.getSelectionPath().getPathComponent(2);
+					
+					tn.setBackgroundPane(crForm);
 					
 					b.setEnabled(true);
 				}

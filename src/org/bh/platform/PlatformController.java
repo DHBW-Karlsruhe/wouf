@@ -3,6 +3,8 @@ package org.bh.platform;
 import java.util.List;
 import java.util.prefs.Preferences;
 
+import javax.swing.JComponent;
+import javax.swing.JSplitPane;
 import javax.swing.SwingUtilities;
 import javax.swing.event.TreeSelectionEvent;
 import javax.swing.event.TreeSelectionListener;
@@ -251,13 +253,8 @@ public class PlatformController {
 								.getUserObject();
 						if (selectedDto instanceof DTOProject) {
 							try {
-								View view;
-
-								if ((view = selectedNode.getView()) == null) {
-									view = new BHProjectView(
-											new BHProjectInputForm());
-									selectedNode.setView(view);
-								}
+								View view = new BHProjectView(
+										new BHProjectInputForm());
 
 								IDTO<?> model = selectedDto;
 								controller = new InputController(view, model);
@@ -273,7 +270,7 @@ public class PlatformController {
 
 								DTOScenario model = (DTOScenario) selectedDto;
 
-								// ceck if controller is already there...
+								// check if controller is already there...
 								if ((controller = selectedNode.getController()) == null) {
 
 									// if not, create view at first
@@ -351,8 +348,16 @@ public class PlatformController {
 									selectedNode.setController(controller);
 								}
 								
-								bhmf.setContentForm(controller.getViewPanel());
-
+								JSplitPane bgComponent;
+								
+								if((bgComponent = selectedNode.getBackgroundPane()) != null){
+									bhmf.setContentResultForm(bgComponent);
+								}else{
+									bhmf.setContentForm(controller.getViewPanel());
+								}
+								
+								
+								
 							} catch (ViewException e) {
 								e.printStackTrace();
 							}
@@ -434,5 +439,9 @@ public class PlatformController {
 				}
 			}
 		}
+	}
+	
+	public BHMainFrame getMainFrame() {
+		return this.bhmf;
 	}
 }

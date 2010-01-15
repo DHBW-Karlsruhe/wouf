@@ -1,5 +1,10 @@
 package org.bh.gui.swing;
 
+import java.awt.Component;
+
+import javax.swing.JComponent;
+import javax.swing.JPanel;
+import javax.swing.JSplitPane;
 import javax.swing.tree.DefaultMutableTreeNode;
 
 import org.bh.controller.InputController;
@@ -21,9 +26,8 @@ import org.bh.gui.View;
  */
 public class BHTreeNode extends DefaultMutableTreeNode{
 	
-	private View view;
 	private InputController controller;
-	
+	private JSplitPane backgroundPane;
 	
 	public BHTreeNode(Object ob){
 		super(ob);
@@ -42,12 +46,12 @@ public class BHTreeNode extends DefaultMutableTreeNode{
 		return "Type not known - must be implemented in BHTreeNode";
 	}
 	
-	public void setView(View view){
-		this.view = view;	
+	public void setBackgroundPane(JSplitPane backgroundPane){
+		this.backgroundPane = backgroundPane;
 	}
 	
-	public View getView(){
-		return this.view;
+	public JSplitPane getBackgroundPane(){
+		return this.backgroundPane;
 	}
 	
 	public void setController(InputController controller){

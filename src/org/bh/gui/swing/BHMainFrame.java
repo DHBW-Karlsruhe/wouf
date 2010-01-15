@@ -99,7 +99,7 @@ public class BHMainFrame extends JFrame implements IPlatformListener {
 	 */
 	private BHFileChooser chooser;
 	
-	private Component formsPanel;
+	private JScrollPane contentForm;
 	private Component chartsPanel;
 
 	/**
@@ -235,19 +235,27 @@ public class BHMainFrame extends JFrame implements IPlatformListener {
 	}
 
 	public void setContentForm(Component content) {
-		formsPanel = new JScrollPane(content);
-		chartsPanel = null;
-		paneH.setRightComponent(formsPanel);
+		contentForm = new JScrollPane(content);
+		paneH.setRightComponent(contentForm);
 
 	}
+	
+	public JScrollPane getContentForm() {
+		return contentForm;
+	}
 
-	public void setCharts(Component chart) {
-		chartsPanel = new JScrollPane(chart);
-		JSplitPane paneV = new JSplitPane(JSplitPane.VERTICAL_SPLIT, formsPanel, chartsPanel);
+	public JSplitPane createContentResultForm(Component chart) {
+		JSplitPane paneV = new JSplitPane(JSplitPane.VERTICAL_SPLIT, getContentForm(), new JScrollPane(chart));
 		
 		paneV.setOneTouchExpandable(true);
 
 		paneH.setRightComponent(paneV);
+		
+		return paneV;
+	}
+	
+	public void setContentResultForm(JSplitPane contentResultForm){
+		paneH.setRightComponent(contentResultForm);
 	}
 
 	/**

@@ -14,6 +14,7 @@ import java.util.Map.Entry;
 
 import javax.swing.ImageIcon;
 import javax.swing.JPanel;
+import javax.swing.JSplitPane;
 import javax.swing.UIManager;
 import javax.swing.UIManager.LookAndFeelInfo;
 import javax.swing.event.EventListenerList;
@@ -325,8 +326,8 @@ public class Services {
 		bhmf.setContentForm(container);
 	}
 
-	public static void setCharts(Component chart) {
-		bhmf.setCharts(chart);
+	public static JSplitPane createContentResultForm(Component chart) {
+		return bhmf.createContentResultForm(chart);
 	}
 
 	/**
