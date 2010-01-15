@@ -1,17 +1,14 @@
 package org.bh.platform;
 
-import java.awt.BorderLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
 import java.util.Calendar;
-
 import javax.swing.JDialog;
 import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
 import javax.swing.WindowConstants;
 import javax.swing.tree.TreePath;
-
 import org.apache.log4j.Logger;
 import org.bh.controller.IDataExchangeController;
 import org.bh.data.DTOPeriod;
@@ -241,6 +238,27 @@ class PlatformActionListener implements ActionListener {
 					BHStatusBar.getInstance().setHint(
 							BHTranslator.getInstance().translate(
 									"EisSelectScenario"), true);
+				}
+			}
+			break;
+		
+		case PERIODCREATE:
+			this.createPeriod();
+			break;
+		
+		case PERIODDUPLICATE:
+			this.duplicatePeriod();
+			break;
+			
+		case PERIODREMOVE:
+			TreePath currentRemovePeriodSelection = bhmf.getBHTree().getSelectionPath();
+			if (currentRemovePeriodSelection != null) {
+				BHTreeNode removeNode = (BHTreeNode) bhmf.getBHTree().getSelectionPath().getLastPathComponent();
+				if (removeNode.getUserObject() instanceof DTOPeriod) {
+					((BHTreeModel) bhmf.getBHTree().getModel()).removeNodeFromParent(removeNode);
+					((DTOPeriod) ((BHTreeNode) removeNode.getParent()).getUserObject()).remove((DTOPeriod) removeNode.getUserObject());
+			} else {
+				BHStatusBar.getInstance().setHint(BHTranslator.getInstance().translate("EisSelectPeriod"), true);
 				}
 			}
 			break;
@@ -485,7 +503,7 @@ class PlatformActionListener implements ActionListener {
 					new TreePath(newScenarioNode.getPath()));
 		} else {
 			BHStatusBar.getInstance().setHint(
-					BHTranslator.getInstance().translate("EisSelectPeriod"),
+					BHTranslator.getInstance().translate("EisSelectProject"),
 					true);
 		}
 
@@ -591,10 +609,10 @@ class PlatformActionListener implements ActionListener {
 	}
 
 	private void duplicateScenario() {
-		TreePath currentDuplicateProjectSelection = bhmf.getBHTree()
+		TreePath currentDuplicateScenarioSelection = bhmf.getBHTree()
 				.getSelectionPath();
-		if (currentDuplicateProjectSelection != null) {
-			// Access to selected project
+		if (currentDuplicateScenarioSelection != null) {
+			// Access to selected scenario
 			BHTreeNode duplicateScenarioNode = (BHTreeNode) bhmf.getBHTree()
 					.getSelectionPath().getLastPathComponent();
 
@@ -608,6 +626,32 @@ class PlatformActionListener implements ActionListener {
 			bhmf.getBHTree().addScenarioAtCurrentPos(newScenario);
 
 
+		} else {
+			BHStatusBar.getInstance().setHint(
+					BHTranslator.getInstance().translate("EisSelectScenario"),
+					true);
+		}
+	}
+	
+	private void duplicatePeriod() {
+		//implement the 'duplicate period' method
+		TreePath currentDuplicatePeriodSelection = bhmf.getBHTree()
+		.getSelectionPath();
+		if (currentDuplicatePeriodSelection != null) {
+			// Access to selected period
+			BHTreeNode duplicatePeriodNode = (BHTreeNode) bhmf.getBHTree()
+					.getSelectionPath().getLastPathComponent();
+		
+			// copy the period to a temp period
+			DTOPeriod duplicatePeriod = (DTOPeriod) duplicatePeriodNode
+					.getUserObject();
+		
+			// new DTOPeriod object with reference to the clone
+			DTOPeriod newPeriod = (DTOPeriod) duplicatePeriod.clone();
+		
+			bhmf.getBHTree().addPeriodAtCurrentPos(newPeriod);
+		
+		
 		} else {
 			BHStatusBar.getInstance().setHint(
 					BHTranslator.getInstance().translate("EisSelectScenario"),

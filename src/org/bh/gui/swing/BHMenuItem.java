@@ -55,6 +55,7 @@ public class BHMenuItem extends JMenuItem implements IBHComponent, IBHAction, IP
 			this.setMnemonic(eventKey);
 
 			int metakey = 0;
+			
 			if ("Mac OS X".equals(System.getProperty("os.name"))) {
 				metakey = ActionEvent.META_MASK;
 			} else {
@@ -65,16 +66,25 @@ public class BHMenuItem extends JMenuItem implements IBHComponent, IBHAction, IP
 				metakey |= ActionEvent.SHIFT_MASK;
 			}
 
-//			if(key == PlatformKey.PROJECTCREATE){
-//				metakey = 0;
-//				setMnemonic(eventKey);			
-//			}
-//
-//			
-//			if(key == PlatformKey.SCENARIOCREATE){
-//				metakey = 0;
-//				setMnemonic(eventKey);			
-//			}
+			if(key == PlatformKey.PROJECTCREATE){
+				metakey = 0;
+				setMnemonic(eventKey);			
+			}
+
+			if(key == PlatformKey.SCENARIOCREATE){
+				metakey = 0;
+				setMnemonic(eventKey);			
+			}
+			
+			if(key == PlatformKey.PERIODCREATE){
+				metakey = 0;
+				setMnemonic(eventKey);			
+			}
+			
+			if(key == PlatformKey.HELPUSERHELP){
+				metakey = 0;
+				setMnemonic(eventKey);			
+			}
 			
 			this.setAccelerator(KeyStroke.getKeyStroke(eventKey, metakey));
 		}

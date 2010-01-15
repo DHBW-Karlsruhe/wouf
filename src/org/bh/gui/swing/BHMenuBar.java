@@ -1,5 +1,7 @@
 package org.bh.gui.swing;
 
+import java.awt.event.KeyEvent;
+
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 
@@ -36,19 +38,24 @@ public class BHMenuBar extends JMenuBar{
 
 		// create menu --> File
 		JMenu menuFile = new JMenu(translator.translate("Mfile"));
-		// menuFile.setMnemonic(KeyEvent.VK_D);
+		menuFile.setMnemonic(KeyEvent.VK_D);
 		add(menuFile);
 
 		// create menu --> Project
 		JMenu menuProject = new JMenu(translator.translate("Mproject"));
-		// menuProject.setMnemonic(KeyEvent.VK_P);
+		menuProject.setMnemonic(KeyEvent.VK_P);
 		add(menuProject);
 
 		// create menu --> Scenario
 		JMenu menuScenario = new JMenu(translator.translate("Mscenario"));
-		// menuScenario.setMnemonic(KeyEvent.VK_S);
+		menuScenario.setMnemonic(KeyEvent.VK_S);
 		add(menuScenario);
 
+		// create menu --> Period
+		JMenu menuPeriod = new JMenu(translator.translate("Mperiod"));
+		menuPeriod.setMnemonic(KeyEvent.VK_E);
+		add(menuPeriod);
+		
 //		// create menu --> Bilanz & GuV
 //		JMenu menuBilanzGuV = new JMenu(translator
 //				.translate("MbalanceProfitLoss"));
@@ -57,12 +64,12 @@ public class BHMenuBar extends JMenuBar{
 
 		// create menu --> Options
 		JMenu menuOptions = new JMenu(translator.translate("Moptions"));
-		// menuOptions.setMnemonic(KeyEvent.VK_O);
+		menuOptions.setMnemonic(KeyEvent.VK_O);
 		add(menuOptions);
 
 		// create menu --> Help
 		JMenu menuHelp = new JMenu(translator.translate("Mhelp"));
-		// menuHelp.setMnemonic(KeyEvent.VK_H);
+		menuHelp.setMnemonic(KeyEvent.VK_H);
 		add(menuHelp);
 
 		/**
@@ -80,7 +87,7 @@ public class BHMenuBar extends JMenuBar{
 		/**
 		 * create menu items --> project
 		 **/
-		menuProject.add(new BHMenuItem(PlatformKey.PROJECTCREATE));
+		menuProject.add(new BHMenuItem(PlatformKey.PROJECTCREATE, 114)); //F5
 //		menuProject.add(new BHMenuItem(PlatformKey.PROJECTRENAME));
 		menuProject.add(new BHMenuItem(PlatformKey.PROJECTDUPLICATE));
 		menuProject.addSeparator();
@@ -93,13 +100,20 @@ public class BHMenuBar extends JMenuBar{
 		/**
 		 * create menu items --> scenario
 		 **/
-		menuScenario.add(new BHMenuItem(PlatformKey.SCENARIOCREATE));
+		menuScenario.add(new BHMenuItem(PlatformKey.SCENARIOCREATE, 115)); //F6
 //		menuScenario.add(new BHMenuItem(PlatformKey.SCENARIORENAME));
 		menuScenario.add(new BHMenuItem(PlatformKey.SCENARIODUPLICATE));
 		menuScenario.addSeparator();
 //		menuScenario.add(new BHMenuItem(PlatformKey.SCENARIOMOVE));
 		menuScenario.add(new BHMenuItem(PlatformKey.SCENARIOREMOVE));
 
+		/**
+		 * create menu items --> scenario
+		 **/
+		menuPeriod.add(new BHMenuItem(PlatformKey.PERIODCREATE, 116)); //F7
+		menuPeriod.add(new BHMenuItem(PlatformKey.PERIODDUPLICATE));
+		menuPeriod.addSeparator();
+		menuPeriod.add(new BHMenuItem(PlatformKey.PERIODREMOVE));
 		
 //		/**
 //		 * create menu items --> Bilanz & GuV
@@ -119,9 +133,9 @@ public class BHMenuBar extends JMenuBar{
 		/**
 		 * create menu items --> options
 		 **/
-		menuHelp.add(new BHMenuItem(PlatformKey.HELPUSERHELP, 72));
+		menuHelp.add(new BHMenuItem(PlatformKey.HELPUSERHELP, 112)); //F1
 		menuHelp.add(new BHMenuItem(PlatformKey.HELPMATHHELP));
 		menuHelp.addSeparator();
-		menuHelp.add(new BHMenuItem(PlatformKey.HELPINFO, 112));
+		menuHelp.add(new BHMenuItem(PlatformKey.HELPINFO));
 	}
 }

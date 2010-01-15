@@ -137,13 +137,6 @@ public class PlatformController {
 			item.addActionListener(pal);
 		}
 
-		/*------------------------------------
-		 * Add KeyListener to BHMainFrame
-		 * -----------------------------------
-		 */
-		PlatformKeyListener pkl = new PlatformKeyListener(pal);
-		bhmf.addKeyListener(pkl);
-		
 		/*
 		 * Create a new Persistence instance
 		 * 
