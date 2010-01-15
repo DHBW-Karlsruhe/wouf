@@ -43,6 +43,7 @@ public class DTOGCCBalanceSheet extends DTO implements IPeriodicalValuesDTO {
 		/**
 		 * --- Immaterielle Vermögensgegenstände
 		 */
+		@Stochastic
 		IVG,
 
 		/**
@@ -71,6 +72,7 @@ public class DTOGCCBalanceSheet extends DTO implements IPeriodicalValuesDTO {
 		/**
 		 * --- Sachanlagen
 		 */
+		@Stochastic
 		SA,
 
 		/**
@@ -97,6 +99,7 @@ public class DTOGCCBalanceSheet extends DTO implements IPeriodicalValuesDTO {
 		/**
 		 * --- Finanzanlagen
 		 */
+		@Stochastic
 		FA,
 
 		/**
@@ -139,6 +142,7 @@ public class DTOGCCBalanceSheet extends DTO implements IPeriodicalValuesDTO {
 		/**
 		 * --- Vorräte
 		 */
+		@Stochastic
 		VOR,
 
 		/**
@@ -164,6 +168,7 @@ public class DTOGCCBalanceSheet extends DTO implements IPeriodicalValuesDTO {
 		/**
 		 * --- Forderungen und sonstige Vermögensgegenstände
 		 */
+		@Stochastic
 		FSVG,
 
 		/**
@@ -190,6 +195,7 @@ public class DTOGCCBalanceSheet extends DTO implements IPeriodicalValuesDTO {
 		/**
 		 * --- Wertpapiere
 		 */
+		@Stochastic
 		WP,
 
 		/**
@@ -206,6 +212,7 @@ public class DTOGCCBalanceSheet extends DTO implements IPeriodicalValuesDTO {
 		 * --- Kassenbestand, Bundesbankguthaben, Guthaben bei Kreditinstituten
 		 * und Schecks (liquide Mittel)
 		 */
+		@Stochastic
 		KBGGKS,
 
 		/**
@@ -232,6 +239,7 @@ public class DTOGCCBalanceSheet extends DTO implements IPeriodicalValuesDTO {
 		/**
 		 * -- Eigenkapital
 		 */
+		@Stochastic
 		@Method
 		EK,
 
@@ -284,6 +292,7 @@ public class DTOGCCBalanceSheet extends DTO implements IPeriodicalValuesDTO {
 		/**
 		 * -- Rückstellungen
 		 */
+		@Stochastic
 		@Method
 		RS,
 
@@ -305,6 +314,7 @@ public class DTOGCCBalanceSheet extends DTO implements IPeriodicalValuesDTO {
 		/**
 		 * -- Verbindlichkeiten
 		 */
+		@Stochastic
 		@Method
 		VB,
 

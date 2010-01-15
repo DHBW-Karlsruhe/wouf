@@ -1,6 +1,10 @@
 package org.bh.data;
 
-public class DTOKeyPair implements Comparable<DTOKeyPair> {
+import java.io.Serializable;
+
+import org.bh.platform.Services;
+
+public class DTOKeyPair implements Comparable<DTOKeyPair>, Serializable {
 	private final String dtoId;
 	private final String key;
 
@@ -48,4 +52,10 @@ public class DTOKeyPair implements Comparable<DTOKeyPair> {
 		DTOKeyPair other = (DTOKeyPair) obj;
 		return dtoId.equals(other.dtoId) && key.equals(other.key);
 	}
+
+	@Override
+	public String toString() {
+		return Services.getTranslator().translate(key);
+	}
+	
 }

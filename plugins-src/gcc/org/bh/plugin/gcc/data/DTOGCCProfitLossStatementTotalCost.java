@@ -3,6 +3,7 @@ package org.bh.plugin.gcc.data;
 import org.apache.log4j.Logger;
 import org.bh.data.DTO;
 import org.bh.data.IPeriodicalValuesDTO;
+import org.bh.data.DTO.Stochastic;
 import org.bh.data.types.Calculable;
 
 /**
@@ -30,6 +31,7 @@ public class DTOGCCProfitLossStatementTotalCost extends DTO implements
 		/**
 		 * (+) Umsatzerlöse
 		 */
+		@Stochastic
 		UE,
 
 		/**
@@ -69,11 +71,13 @@ public class DTOGCCProfitLossStatementTotalCost extends DTO implements
 		/**
 		 * (-) Abschreibungen
 		 */
+		@Stochastic
 		ABSCH,
 
 		/**
 		 * (-) sonstige betriebliche Aufwendungen
 		 */
+		@Stochastic
 		SBA,
 
 		/**
@@ -128,6 +132,7 @@ public class DTOGCCProfitLossStatementTotalCost extends DTO implements
 		/**
 		 * (=) außerordentliches Ergebnis
 		 */
+		@Stochastic
 		@Method
 		AUERG,
 

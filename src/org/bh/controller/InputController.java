@@ -226,4 +226,5 @@ public class InputController extends Controller implements IInputController {
 	public void loadToView(Object key) {
 		loadToView(this.model, this.view, key);
 	}
+
 }

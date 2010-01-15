@@ -118,7 +118,7 @@ public class BHStochasticInputForm extends JPanel {
 	
 	public BHSelectionList getliStochasticKeysList() {
 		if (liStochasticKeys == null) {
-			liStochasticKeys = new BHSelectionList(DTOScenario.Key.STOCHASTIC_KEYS, new Integer[] {1,2,3,4,5,6,7,8,9});
+			liStochasticKeys = new BHSelectionList(DTOScenario.Key.STOCHASTIC_KEYS, null);
 			liStochasticKeys.setLayoutOrientation(JList.VERTICAL_WRAP);
 			liStochasticKeys.setVisibleRowCount(3);
 		}

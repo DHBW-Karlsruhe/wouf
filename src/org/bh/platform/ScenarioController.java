@@ -3,14 +3,18 @@ package org.bh.platform;
 import java.awt.Component;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.ItemEvent;
+import java.awt.event.ItemListener;
+import java.io.File;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.Comparator;
+import java.util.List;
 import java.util.Map;
 
-import javax.swing.ImageIcon;
 import javax.swing.JButton;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JSplitPane;
 
@@ -18,6 +22,7 @@ import org.bh.calculation.IShareholderValueCalculator;
 import org.bh.calculation.IStochasticProcess;
 import org.bh.controller.IPeriodController;
 import org.bh.controller.InputController;
+import org.bh.data.DTOKeyPair;
 import org.bh.data.DTOScenario;
 import org.bh.data.IDTO;
 import org.bh.data.types.Calculable;
@@ -27,6 +32,7 @@ import org.bh.gui.View;
 import org.bh.gui.swing.BHButton;
 import org.bh.gui.swing.BHComboBox;
 import org.bh.gui.swing.BHScenarioForm;
+import org.bh.gui.swing.BHSelectionList;
 import org.bh.gui.swing.BHTree;
 import org.bh.gui.swing.BHTreeNode;
 import org.bh.platform.PlatformEvent.Type;
@@ -46,10 +52,35 @@ public class ScenarioController extends InputController {
 			cbDcfMethod.setValueList(DCF_METHOD_ITEMS);
 		}
 
-		BHComboBox cbPeriodType = (BHComboBox) view
+		final BHComboBox cbPeriodType = (BHComboBox) view
 				.getBHComponent(DTOScenario.Key.PERIOD_TYPE);
 		if (cbPeriodType != null) {
 			cbPeriodType.setValueList(PERIOD_TYPE_ITEMS);
+			cbPeriodType.addItemListener(new ItemListener() {
+			
+				@Override
+				public void itemStateChanged(ItemEvent e) {
+					
+					if(!((DTOScenario)getModel()).isDeterministic()){
+						if(((DTOScenario)getModel()).getChildrenSize() != 0){
+							int action = JOptionPane.showConfirmDialog(getView().getViewPanel(),"Test","Test", JOptionPane.YES_NO_OPTION);
+							
+							if (action == JOptionPane.YES_OPTION) {
+								
+								((DTOScenario)getModel()).removeAllChildren();
+								BHSelectionList slStochasticKeys = (BHSelectionList)getView().getBHComponent(DTOScenario.Key.STOCHASTIC_KEYS);
+								List<DTOKeyPair> keyPair = Services.getPeriodController(cbPeriodType.getValue().toString()).getStochasticKeys();
+								slStochasticKeys.setModel(keyPair.toArray());
+								
+							} else if (action == JOptionPane.NO_OPTION) {}
+						}else{
+							BHSelectionList slStochasticKeys = (BHSelectionList)getView().getBHComponent(DTOScenario.Key.STOCHASTIC_KEYS);
+							List<DTOKeyPair> keyPair = Services.getPeriodController(cbPeriodType.getValue().toString()).getStochasticKeys();
+							slStochasticKeys.setModel(keyPair.toArray());
+						}
+					}
+				}
+			});
 		}
 		
 		BHComboBox cbStochasticMethod = (BHComboBox) view.getBHComponent(DTOScenario.Key.STOCHASTIC_PROCESS);

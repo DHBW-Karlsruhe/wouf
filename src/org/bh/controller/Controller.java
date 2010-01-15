@@ -133,4 +133,8 @@ public abstract class Controller implements IController, ActionListener,
 	public void actionPerformed(ActionEvent e) {
 		// to be defined by subclass
 	}
+	@Override
+	public View getView() {
+		return view;
+	}
 }

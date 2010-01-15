@@ -3,6 +3,7 @@ package org.bh.plugin.gcc.data;
 import org.apache.log4j.Logger;
 import org.bh.data.DTO;
 import org.bh.data.IPeriodicalValuesDTO;
+import org.bh.data.DTO.Stochastic;
 import org.bh.data.types.Calculable;
 
 /**
@@ -29,12 +30,14 @@ public class DTOGCCProfitLossStatementCostOfSales extends DTO implements
 		/**
 		 * (+) Umsatzerlöse
 		 */
+		@Stochastic
 		UE,
 
 		/**
 		 * (-) Herstellkosten der zur Erzielung der Umsatzerlöse erbrachten
 		 * Leistungen
 		 */
+		@Stochastic
 		HK,
 
 		/**
@@ -51,6 +54,7 @@ public class DTOGCCProfitLossStatementCostOfSales extends DTO implements
 		/**
 		 * (-) Verwaltungskosten
 		 */
+		@Stochastic
 		VERWK,
 
 		/**
@@ -116,6 +120,7 @@ public class DTOGCCProfitLossStatementCostOfSales extends DTO implements
 		 * (=) außerordentliches Ergebnis
 		 */
 		@Method
+		@Stochastic
 		AUERG,
 
 		/**
