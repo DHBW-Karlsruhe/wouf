@@ -1,5 +1,6 @@
 package org.bh.gui.swing;
 
+import java.awt.Component;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 
@@ -33,7 +34,20 @@ public class BHStochasticInputForm extends JPanel {
 	private BHDescriptionLabel lStochasticKeys;
 	private BHSelectionList liStochasticKeys;
 	
+	private BHButton bCalcParameters;
+	private BHButton bResetParameters;
+	private Component pParameters;
+	
 	ITranslator translator = Services.getTranslator();
+	
+	public enum Key {
+		CALC_PARAMETERS,
+		RESET_PARAMETERS;
+		
+		public String toString() {
+		    return getClass().getName() + "." + super.toString();
+		}
+	}
 
 	/**
 	 * Constructor.
@@ -47,8 +61,8 @@ public class BHStochasticInputForm extends JPanel {
 	 */
 	private void initialize() {
 
-		String colDef = "4px,p,4px,p,4px,p,4px,p,4px";
-		String rowDef = "4px,p,4px,p,4px,p,4px";
+		String colDef = "4px,p,4px,p,4px,p,4px,p,0px:grow,4px";
+		String rowDef = "4px,p,4px,p,4px,p,10px,p,4px,p,4px";
 		
 
 		FormLayout layout = new FormLayout(colDef, rowDef);
@@ -61,8 +75,12 @@ public class BHStochasticInputForm extends JPanel {
 		this.add(this.getlstochProcess(), cons.xywh(6, 2, 1, 1));
 		this.add(this.getcbstochProcess(), cons.xywh(8, 2, 1, 1));
 		
-		this.add(this.getlStochasticKeysList(), cons.xywh(2, 4, 7, 1));
-		this.add(this.getliStochasticKeysList(), cons.xywh(2, 6, 7, 1));
+		this.add(this.getlStochasticKeysList(), cons.xywh(2, 4, 8, 1));
+		this.add(this.getliStochasticKeysList(), cons.xywh(2, 6, 8, 1));
+		
+		this.add(this.getbCalcParameters(), cons.xywh(2, 8, 8, 1));
+		this.add(this.getbResetParameters(), cons.xywh(2, 8, 8, 1));
+		this.getbResetParameters().setVisible(false);
 	}
 
 	// TODO add missing label keys and translations, change hard coded values to
@@ -124,7 +142,36 @@ public class BHStochasticInputForm extends JPanel {
 		}
 		return liStochasticKeys;
 	}
-
+	
+	public BHButton getbCalcParameters() {
+		if (bCalcParameters == null) {
+			bCalcParameters = new BHButton(Key.CALC_PARAMETERS);
+		}
+		return bCalcParameters;
+	}
+	
+	public BHButton getbResetParameters() {
+		if (bResetParameters == null) {
+			bResetParameters = new BHButton(Key.RESET_PARAMETERS);
+		}
+		return bResetParameters;
+	}
+	
+	public void setParametersPanel(Component component) {
+		removeParametersPanel();
+		pParameters = component;
+		CellConstraints cons = new CellConstraints();
+		add(pParameters, cons.xywh(2, 10, 8, 1));
+		revalidate();
+	}
+	
+	public void removeParametersPanel() {
+		if (pParameters != null) {
+			remove(pParameters);
+			revalidate();
+		}
+	}
+	
 	/**
 	 * Test main method.
 	 */

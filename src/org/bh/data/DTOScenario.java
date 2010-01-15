@@ -9,6 +9,7 @@ import org.bh.calculation.IShareholderValueCalculator;
 import org.bh.calculation.IStochasticProcess;
 import org.bh.data.types.Calculable;
 import org.bh.data.types.DoubleValue;
+import org.bh.data.types.ObjectValue;
 import org.bh.data.types.StringValue;
 import org.bh.platform.Services;
 
@@ -122,7 +123,7 @@ public class DTOScenario extends DTO<DTOPeriod> {
 	public DTOScenario(boolean isDeterministic) {
 		super(Key.class);
 		if (!isDeterministic) {
-			values.put(Key.STOCHASTIC_PROCESS.toString(), new StringValue("true"));
+			values.put(Key.STOCHASTIC_PROCESS.toString(), null);
 		}
 	}
 
@@ -163,8 +164,8 @@ public class DTOScenario extends DTO<DTOPeriod> {
 	 * @return Tax for scenario.
 	 */
 	public Calculable getTax() {
-		Calculable ctax = (Calculable) getCalculable(DTOScenario.Key.CTAX);
-		Calculable btax = (Calculable) getCalculable(DTOScenario.Key.BTAX);
+		Calculable ctax = getCalculable(DTOScenario.Key.CTAX);
+		Calculable btax = getCalculable(DTOScenario.Key.BTAX);
 
 		Calculable myTax = btax.mul(new DoubleValue(0.5)).mul(
 				ctax.mul(new DoubleValue(-1)).add(new DoubleValue(1)))
@@ -197,9 +198,9 @@ public class DTOScenario extends DTO<DTOPeriod> {
 	 * 
 	 * @return List of keys.
 	 */
+	@SuppressWarnings("unchecked")
 	public List<DTOKeyPair> getPeriodStochasticKeys() {
-		// @TODO
-		throw new UnsupportedOperationException();
+		return (List<DTOKeyPair>)((ObjectValue) get(Key.STOCHASTIC_KEYS)).getObject();
 	}
 
 	/**

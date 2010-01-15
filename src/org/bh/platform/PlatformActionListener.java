@@ -4,11 +4,13 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
 import java.util.Calendar;
+
 import javax.swing.JDialog;
 import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
 import javax.swing.WindowConstants;
 import javax.swing.tree.TreePath;
+
 import org.apache.log4j.Logger;
 import org.bh.controller.IDataExchangeController;
 import org.bh.data.DTOPeriod;
@@ -429,23 +431,7 @@ class PlatformActionListener implements ActionListener {
 	protected void createScenario() {
 		// If a path is selected...
 		if (bhmf.getBHTree().getSelectionPath() != null) {
-
-			// ...create new scenario
-			DTOScenario newScenario = new DTOScenario();
-			// TODO hardgecodeder String raus! AS
-			newScenario.put(DTOScenario.Key.NAME, new StringValue(
-					"neues Scenario"));
-
-			// ...set Basis (IDENTIFIER) of scenario -> naming of periods
-			newScenario.put(DTOScenario.Key.IDENTIFIER, new StringValue(""
-					+ Calendar.getInstance().get(Calendar.YEAR)));
-
-			// ...add it to DTO-Repository
-			((DTOProject) ((BHTreeNode) bhmf.getBHTree().getSelectionPath()
-					.getPathComponent(1)).getUserObject())
-					.addChild(newScenario);
-
-			// ceck kind of scenario: deterministic or stochastic?
+			// check kind of scenario: deterministic or stochastic?
 			// TODO Schmalzhaf.Alexander: String raus!
 			ArrayList<BHComboBox.Item> itemsList = new ArrayList<BHComboBox.Item>();
 			itemsList.add(new BHComboBox.Item("deterministic", new StringValue(
@@ -461,10 +447,21 @@ class PlatformActionListener implements ActionListener {
 
 			if (res == null)
 				return;
+			
+			// ...create new scenario
+			DTOScenario newScenario = new DTOScenario(res.getKey().equalsIgnoreCase("deterministic"));
+			// TODO hardgecodeder String raus! AS
+			newScenario.put(DTOScenario.Key.NAME, new StringValue(
+					"neues Szenario"));
 
-			if (res.getKey().equalsIgnoreCase("STOCHASTIC"))
-				newScenario.put(DTOScenario.Key.STOCHASTIC_PROCESS,
-						new StringValue("true"));
+			// ...set Basis (IDENTIFIER) of scenario -> naming of periods
+			newScenario.put(DTOScenario.Key.IDENTIFIER, new StringValue(""
+					+ Calendar.getInstance().get(Calendar.YEAR)));
+
+			// ...add it to DTO-Repository
+			((DTOProject) ((BHTreeNode) bhmf.getBHTree().getSelectionPath()
+					.getPathComponent(1)).getUserObject())
+					.addChild(newScenario);
 
 			// ...and insert it into GUI-Tree
 			BHTreeNode newScenarioNode = bhmf.getBHTree()

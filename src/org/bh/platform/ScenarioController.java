@@ -5,7 +5,6 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.ItemEvent;
 import java.awt.event.ItemListener;
-import java.io.File;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
@@ -34,6 +33,7 @@ import org.bh.gui.swing.BHButton;
 import org.bh.gui.swing.BHComboBox;
 import org.bh.gui.swing.BHScenarioForm;
 import org.bh.gui.swing.BHSelectionList;
+import org.bh.gui.swing.BHStochasticInputForm;
 import org.bh.gui.swing.BHTree;
 import org.bh.gui.swing.BHTreeNode;
 import org.bh.platform.PlatformEvent.Type;
@@ -53,45 +53,86 @@ public class ScenarioController extends InputController {
 			cbDcfMethod.setValueList(DCF_METHOD_ITEMS);
 		}
 
-		final BHComboBox cbPeriodType = (BHComboBox) view
+		BHComboBox cbPeriodType = (BHComboBox) view
 				.getBHComponent(DTOScenario.Key.PERIOD_TYPE);
 		if (cbPeriodType != null) {
 			cbPeriodType.setValueList(PERIOD_TYPE_ITEMS);
 			cbPeriodType.addItemListener(new ItemListener() {
-			
 				@Override
 				public void itemStateChanged(ItemEvent e) {
-					
-					if(!((DTOScenario)getModel()).isDeterministic()){
-						if(((DTOScenario)getModel()).getChildrenSize() != 0){
-							int action = JOptionPane.showConfirmDialog(getView().getViewPanel(),"Test","Test", JOptionPane.YES_NO_OPTION);
-							
-							if (action == JOptionPane.YES_OPTION) {
-								
-								((DTOScenario)getModel()).removeAllChildren();
-								BHSelectionList slStochasticKeys = (BHSelectionList)getView().getBHComponent(DTOScenario.Key.STOCHASTIC_KEYS);
-								List<DTOKeyPair> keyPair = Services.getPeriodController(cbPeriodType.getValue().toString()).getStochasticKeys();
-								slStochasticKeys.setModel(keyPair.toArray());
-								
-							} else if (action == JOptionPane.NO_OPTION) {}
-						}else{
-							BHSelectionList slStochasticKeys = (BHSelectionList)getView().getBHComponent(DTOScenario.Key.STOCHASTIC_KEYS);
-							List<DTOKeyPair> keyPair = Services.getPeriodController(cbPeriodType.getValue().toString()).getStochasticKeys();
-							slStochasticKeys.setModel(keyPair.toArray());
+					DTOScenario scenario = (DTOScenario) getModel();
+
+					if (scenario.getChildrenSize() > 0) {
+						int action = JOptionPane.showConfirmDialog(getView()
+								.getViewPanel(), "Test", "Test",
+								JOptionPane.YES_NO_OPTION);
+						if (action == JOptionPane.YES_OPTION) {
+							((DTOScenario) getModel()).removeAllChildren();
+						} else if (action == JOptionPane.NO_OPTION) {
+							return;
 						}
 					}
+
+					updateStochasticFieldsList();
 				}
 			});
 		}
-		
-		BHComboBox cbStochasticMethod = (BHComboBox) view.getBHComponent(DTOScenario.Key.STOCHASTIC_PROCESS);
+
+		BHComboBox cbStochasticMethod = (BHComboBox) view
+				.getBHComponent(DTOScenario.Key.STOCHASTIC_PROCESS);
 		if (cbStochasticMethod != null) {
 			cbStochasticMethod.setSorted(true);
 			cbStochasticMethod.setValueList(STOCHASTIC_METHOD_ITEMS);
 		}
 
 		((BHButton) view.getBHComponent(PlatformKey.CALCSHAREHOLDERVALUE))
-				.addActionListener(new CalculationListener(PlatformController.getInstance().getMainFrame().getBHTree()));
+				.addActionListener(new CalculationListener(PlatformController
+						.getInstance().getMainFrame().getBHTree()));
+		
+		updateStochasticFieldsList();
+
+		BHButton calcStochasticParameters = ((BHButton) view
+				.getBHComponent(BHStochasticInputForm.Key.CALC_PARAMETERS));
+		BHButton resetStochasticParameters = ((BHButton) view
+				.getBHComponent(BHStochasticInputForm.Key.RESET_PARAMETERS));
+		if (calcStochasticParameters != null
+				&& resetStochasticParameters != null) {
+			calcStochasticParameters.addActionListener(new ActionListener() {
+				@Override
+				public void actionPerformed(ActionEvent e) {
+					DTOScenario scenario = (DTOScenario) getModel();
+					IStochasticProcess process = scenario
+							.getStochasticProcess().createNewInstance();
+					process.setScenario(scenario);
+					JPanel parametersPanel = process.calculateParameters();
+					BHStochasticInputForm form = (BHStochasticInputForm) ((Component) e
+							.getSource()).getParent();
+					form.setParametersPanel(parametersPanel);
+				}
+			});
+
+			resetStochasticParameters.addActionListener(new ActionListener() {
+				@Override
+				public void actionPerformed(ActionEvent e) {
+					// TODO Auto-generated method stub
+					throw new UnsupportedOperationException(
+							"This method has not been implemented");
+				}
+			});
+		}
+	}
+
+	protected void updateStochasticFieldsList() {
+		DTOScenario scenario = (DTOScenario) getModel();
+		BHComboBox cbPeriodType = (BHComboBox) view
+				.getBHComponent(DTOScenario.Key.PERIOD_TYPE);
+		if (cbPeriodType != null && !scenario.isDeterministic()) {
+			BHSelectionList slStochasticKeys = (BHSelectionList) getView()
+					.getBHComponent(DTOScenario.Key.STOCHASTIC_KEYS);
+			List<DTOKeyPair> keyPair = Services.getPeriodController(
+					cbPeriodType.getValue().toString()).getStochasticKeys();
+			slStochasticKeys.setModel(keyPair.toArray());
+		}
 	}
 
 	@Override
@@ -118,15 +159,17 @@ public class ScenarioController extends InputController {
 		}
 		return items.toArray(new BHComboBox.Item[0]);
 	}
-	
+
 	protected static BHComboBox.Item[] getStochasticProcessItems() {
-		Collection<IStochasticProcess> stochasticProcesses = Services.getStochasticProcesses().values();
+		Collection<IStochasticProcess> stochasticProcesses = Services
+				.getStochasticProcesses().values();
 		ArrayList<BHComboBox.Item> items = new ArrayList<BHComboBox.Item>();
 		for (IStochasticProcess stochasticProcess : stochasticProcesses) {
-			items.add(new BHComboBox.Item(stochasticProcess.getGuiKey(), new StringValue(stochasticProcess.getUniqueId())));
+			items.add(new BHComboBox.Item(stochasticProcess.getGuiKey(),
+					new StringValue(stochasticProcess.getUniqueId())));
 		}
 		return items.toArray(new BHComboBox.Item[0]);
-		
+
 	}
 
 	protected static BHComboBox.Item[] getPeriodTypeItems() {
@@ -148,20 +191,21 @@ public class ScenarioController extends InputController {
 	}
 
 	protected class CalculationListener implements ActionListener {
-		
-		private final ImageIcon LOADING = Services.createImageIcon("/org/bh/images/loading.gif", null);
-		
+
+		private final ImageIcon LOADING = Services.createImageIcon(
+				"/org/bh/images/loading.gif", null);
+
 		private BHTree bhTree;
-		
-		public CalculationListener(BHTree bhTree){
+
+		public CalculationListener(BHTree bhTree) {
 			this.bhTree = bhTree;
 		}
-		
+
 		@Override
 		public void actionPerformed(ActionEvent e) {
 			final JButton b = (JButton) e.getSource();
 			b.setIcon(this.LOADING);
-			
+
 			Runnable r = new Runnable() {
 				@Override
 				public void run() {
@@ -181,10 +225,11 @@ public class ScenarioController extends InputController {
 						break;
 					}
 					JSplitPane crForm = Services.createContentResultForm(panel);
-					BHTreeNode tn = (BHTreeNode)bhTree.getSelectionPath().getPathComponent(2);
-					
+					BHTreeNode tn = (BHTreeNode) bhTree.getSelectionPath()
+							.getPathComponent(2);
+
 					tn.setBackgroundPane(crForm);
-					
+
 					b.setIcon(null);
 				}
 			};
