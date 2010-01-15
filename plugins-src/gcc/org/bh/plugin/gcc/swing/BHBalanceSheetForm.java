@@ -199,12 +199,12 @@ public class BHBalanceSheetForm extends JPanel {
 			layout.insertRow(2, RowSpec.decode("p"));
 			layout.insertRow(3, RowSpec.decode("4px"));
 			paktiva.add(this.getlAV(), cons.xywh(2, 2, 2, 1));
-			paktiva.add(this.getTfAV(), cons.xywh(5, 2, 1, 1));
+			// paktiva.add(this.getTfAV(), cons.xywh(5, 2, 1, 1));
 
 			layout.insertRow(10, RowSpec.decode("p"));
 			layout.insertRow(11, RowSpec.decode("4px"));
 			paktiva.add(this.getlUV(), cons.xywh(2, 10, 2, 1));
-			paktiva.add(this.getTfUV(), cons.xywh(5, 10, 1, 1));
+			// paktiva.add(this.getTfUV(), cons.xywh(5, 10, 1, 1));
 			
 		} else {
 			layout.setColumnGroups(new int[][] { { 4, 8 } });
