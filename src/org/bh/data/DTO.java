@@ -431,16 +431,13 @@ public abstract class DTO<ChildT extends IDTO> implements IDTO<ChildT> {
 	@Override
 	public boolean isMeOrChild(Object checkDto){
 		if(this == checkDto){
-			System.out.println("1 ----true");
 			return true;
 		}
 		for(ChildT tempChild : this.getChildren()){
 			if(tempChild.isMeOrChild(checkDto)){
-				System.out.println("2 ----------true");
 				return true;
 			}
 		}
-		System.out.println("3 ----- false");
 		return false;
 	}
 	
