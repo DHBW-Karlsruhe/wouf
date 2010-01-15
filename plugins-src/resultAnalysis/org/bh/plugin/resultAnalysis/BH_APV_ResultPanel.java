@@ -43,7 +43,8 @@ public class BH_APV_ResultPanel extends JPanel {
     public void initialize() {
         double border = 10;
         double size[][] = {{border, TableLayout.PREFERRED, border, TableLayout.PREFERRED, border, TableLayout.PREFERRED, border}, // Columns
-            {border, TableLayout.PREFERRED, border, TableLayout.PREFERRED, border, TableLayout.PREFERRED, border, TableLayout.PREFERRED, border,TableLayout.PREFERRED}}; // Rows
+            {border, TableLayout.PREFERRED, border, TableLayout.PREFERRED, border, TableLayout.PREFERRED, border, TableLayout.PREFERRED, border,TableLayout.PREFERRED, 
+        	border,TableLayout.PREFERRED}}; // Rows
 
 
         this.setLayout(new TableLayout(size));
@@ -58,6 +59,7 @@ public class BH_APV_ResultPanel extends JPanel {
 
         try {
             f = ff.createFormula("APV_T", getClass().getResourceAsStream("APV_SHV_T.xml"), false);
+            
             finiteFormula = f.getJMathComponent();
 
             f = ff.createFormula("APV_t1", getClass().getResourceAsStream("APV_SHV_t1.xml"), false);
@@ -67,12 +69,12 @@ public class BH_APV_ResultPanel extends JPanel {
         }
 
 
-
+        
         this.add(finiteFormula, "3,3");
-        this.add(infiniteFormula, "5,3");
+        this.add(infiniteFormula, "3,5");
 
-        this.add(apvWFShareholderValues, "3,5");        
-        this.add(apvBCCapitalStructure, "3,7");
+        this.add(apvWFShareholderValues, "3,9");        
+        this.add(apvBCCapitalStructure, "3,11");
         
     }
 }

@@ -38,7 +38,7 @@ public class BH_FCF_ResultPanel extends JPanel {
         double border = 10;
         double size[][] = {{border, TableLayout.PREFERRED, border, TableLayout.PREFERRED, border, TableLayout.PREFERRED, border}, // Columns
             {border, TableLayout.PREFERRED, border, TableLayout.PREFERRED, border, TableLayout.PREFERRED, border, TableLayout.PREFERRED, border,
-        	TableLayout.PREFERRED, border, TableLayout.PREFERRED, border}}; // Rows
+        	TableLayout.PREFERRED, border, TableLayout.PREFERRED, border, TableLayout.PREFERRED, border, TableLayout.PREFERRED, border}}; // Rows
 
 
         this.setLayout(new TableLayout(size));
@@ -66,12 +66,12 @@ public class BH_FCF_ResultPanel extends JPanel {
         
 
         this.add(finiteFormula, "3,3");
-        this.add(infiniteFormula, "5,3");
+        this.add(infiniteFormula, "3,5");
         
-        this.add(fcf_shareholderValue, "3,5");
-        this.add(fcf_capitalStructure, "3,7");
-        this.add(fcf_fcf, "3,9");
-        this.add(fcf_returnRate, "3,11");
+        this.add(fcf_shareholderValue, "3,7");
+        this.add(fcf_capitalStructure, "3,9");
+        this.add(fcf_fcf, "3,11");
+        this.add(fcf_returnRate, "3,13");
 
     }
 }

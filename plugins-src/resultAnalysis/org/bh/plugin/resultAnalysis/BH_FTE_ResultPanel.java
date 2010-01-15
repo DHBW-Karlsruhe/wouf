@@ -101,25 +101,10 @@ public class BH_FTE_ResultPanel extends JPanel {
         fteFlowToEquity = BHChartFactory.getBarChart("", "", "", BHResultController.ChartKeys.FTE_BC_FTE);
         
         this.add(finiteFormula, "3,3");
-        this.add(infiniteFormula, "5,3");
-//        this.add(FTEshareholderValueDESC, "1,5");
-//        this.add(FTEshareholderValue, "3,5");
-//        this.add(FTEdebtAmortisationDESC, "1,7");
-//        this.add(FTEdebtAmortisation, "3,7");
-//        this.add(FTEequityReturnRateDESC, "1,9");
-//        this.add(FTEequityReturnRate, "3,9");
-//        this.add(FTEflowEquityDESC, "1, 11");
-//        this.add(FTEflowEquity, "3,11");
-//        this.add(FTEflowEquityTaxShieldDESC, "1,13");
-//        this.add(FTEflowEquityTaxShield, "3,13");
-//        this.add(FTEflowToEquityDESC, "1,15");
-//        this.add(FTEflowToEquity, "3,15");
-//        this.add(FTEpresentValueTaxShieldDESC, "1,17");
-//        this.add(FTEpresentValueTaxShield, "3,17");
+        this.add(infiniteFormula, "3,53");
         
-        this.add(fteShareholderValue, "3,19");
-        this.add(fteCapitalStructure, "3,21");
-        this.add(fteFlowToEquity, "3,23");
+        this.add(fteCapitalStructure, "3,7");
+        this.add(fteFlowToEquity, "3,9");
         
 
     }
