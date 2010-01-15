@@ -39,7 +39,6 @@ public class BHProjectForm extends JPanel {
 	}
 	
 	private JPanel pproject;
-//	private JPanel pprocess;
 	private BHButton bcalculate;
 	private BHDescriptionLabel lCannotCalculateHint;
 	private JPanel topPanel;
@@ -61,14 +60,12 @@ public class BHProjectForm extends JPanel {
 	 */
 	private void initialize() {
 		
-//		/*
-//		 * Structure of ProjectForm:
-//		 * The scenario form consists of 2 areas: 
-//		 * a big one top which shows all fields and a smaller one bottom
-//		 * which contains A) the button to start calculations and B) a short Info-Bar 
-//		 * with shortview of calculated UW with a button to start "slider view" (which holds
-//		 * all analysis information).
-//		 */
+		/*
+		 * Structure of ProjectForm:
+		 * The scenario form consists of 2 areas: 
+		 * a big one top which shows all fields and a smaller one bottom
+		 * which contains the button to show Dashboard. 
+		 */
 		
 		topPanel = new JPanel();
 		bottomPanel = new JPanel();
@@ -85,10 +82,9 @@ public class BHProjectForm extends JPanel {
 		CellConstraints cons = new CellConstraints();
 		
 		topPanel.add(this.getPproject(), cons.xywh(2, 2, 1, 1));
-//		topPanel.add(this.getPprocess(), cons.xywh(2, 4, 1, 1));
 		JScrollPane scrollPane = new JScrollPane(topPanel);
 		
-		//add topPanel to ScenarioForm
+		//add topPanel to ProjectForm
 		this.add(scrollPane, cons.xywh(2, 2, 1, 1));
 
 		
