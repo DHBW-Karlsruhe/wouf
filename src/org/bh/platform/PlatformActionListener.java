@@ -133,7 +133,7 @@ class PlatformActionListener implements ActionListener {
 		// TODO Katzor.Marcus
 		case PROJECTIMPORT:
 
-			final String projectImportPanelKey = "DXMLProjectImport";
+			/*final String projectImportPanelKey = "DXMLProjectImport";
 
 			// Get data exchange controller
 			dataExchangeCntrl = Services.getDataExchangeController("XML");
@@ -145,13 +145,13 @@ class PlatformActionListener implements ActionListener {
 					projectImportPanelKey, importDialog), BorderLayout.CENTER);
 			importDialog.setVisible(true);
 
-			break;
+			break;*/
 
 		// TODO Katzor.Marcus
 
 		case PROJECTEXPORT:
 
-			final String projectExportPanelKey = "DXMLProjectExport";
+			
 
 			if (bhmf.getBHTree().getSelectionPath() != null) {
 				BHTreeNode selectedNode = (BHTreeNode) bhmf.getBHTree()
@@ -176,9 +176,10 @@ class PlatformActionListener implements ActionListener {
 					BHDataExchangeDialog dialog = new BHDataExchangeDialog(
 							bhmf, true);
 					dialog.setAction(IImportExport.EXP_PROJECT);
-					dialog.setModel((IDTO<?>) selectedNode.getUserObject());
-					
-					//dialog.setDescription("This is just a test");
+					dialog.setModel((IDTO<?>) selectedNode.getUserObject());				
+
+					dialog.setDescription(BHTranslator.getInstance().translate("DExpFileFormatSel"));
+
 					dialog.setVisible(true);
 
 				} else {

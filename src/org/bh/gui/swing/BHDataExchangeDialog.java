@@ -96,6 +96,9 @@ public class BHDataExchangeDialog extends JDialog implements ActionListener {
 	 */
 	private JPanel mainPanel;
 
+	private BHButton btnContinue;
+	
+
 	/**
 	 * Creates a dialog with which project can be imported and exported.
 	 * 
@@ -115,6 +118,7 @@ public class BHDataExchangeDialog extends JDialog implements ActionListener {
 		setSize(400, 500);
 		setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
 		setLocationRelativeTo(null);
+		setTitle(BHTranslator.getInstance().translate("DProjectDataExchangeTitle"));
 
 		// Create format selection panel
 		createFormatChooserPanel();
@@ -158,6 +162,8 @@ public class BHDataExchangeDialog extends JDialog implements ActionListener {
 		formatChooseDescr = new BHDescriptionTextArea(
 				"DProjectDataExchangeDescr");
 		formatChooseDescr.setFocusable(false);
+		formatChooseDescr.setToolTipText(null);
+		
 
 		// Create border for that textarea
 		Border marginBorder = BorderFactory.createEmptyBorder(15, 5, 15, 5);
@@ -196,11 +202,12 @@ public class BHDataExchangeDialog extends JDialog implements ActionListener {
 		BHButton btnCancel = new BHButton("Bcancel");
 
 		// Start export
-		BHButton btnExport = new BHButton("Bcontinue");
-		btnExport.setAlignmentX(Component.RIGHT_ALIGNMENT);
+		btnContinue = new BHButton("Bcontinue");
+		btnContinue.setEnabled(false);
+		btnContinue.setAlignmentX(Component.RIGHT_ALIGNMENT);		
 
 		buttonPanel.add(btnCancel);
-		buttonPanel.add(btnExport);
+		buttonPanel.add(btnContinue);
 
 		actionPanel.add(buttonPanel, BorderLayout.CENTER);
 		return actionPanel;
@@ -237,12 +244,17 @@ public class BHDataExchangeDialog extends JDialog implements ActionListener {
 	private void setAvailablePlugins(Map<String, IImportExport> plugins) {
 		DefaultListModel model = new DefaultListModel();
 		if (plugins != null && plugins.size() > 0)
+		{
 			for (IImportExport plugin : plugins.values())
 				model.addElement(plugin);
+			btnContinue.setEnabled(true);			
+		}
 		else
 			model.addElement(BHTranslator.getInstance().translate(
 					"DNoDataExchangeFormatsFound"));
 		availFormatsList.setModel(model);
+		availFormatsList.setSelectedIndex(0);
+		
 	}
 
 	/**
@@ -258,8 +270,11 @@ public class BHDataExchangeDialog extends JDialog implements ActionListener {
 	/**
 	 * Creates a default project export panel as plug-in panel
 	 */
-	public void setDefaulExportProjectPanel() {
-		setPluginPanel(new BHDefaultProjectExportPanel(model));
+	public BHDefaultProjectExportPanel setDefaulExportProjectPanel()
+	{
+		BHDefaultProjectExportPanel result = new BHDefaultProjectExportPanel(model);
+		setPluginPanel(result);
+		return result;
 	}
 
 	/**
@@ -291,34 +306,33 @@ public class BHDataExchangeDialog extends JDialog implements ActionListener {
 	 */
 	@SuppressWarnings("unchecked")
 	@Override
-	public void actionPerformed(ActionEvent e) {
-		if (visiblePanel.equals(FORMAT_CHOOSER_PANEL)) {
-			IBHComponent comp = (IBHComponent) e.getSource();
+	public void actionPerformed(ActionEvent e) {		
+		IBHComponent comp =  (IBHComponent) e.getSource();
+		if (visiblePanel.equals(FORMAT_CHOOSER_PANEL))
+		{
 			// Continue has been pressed -> show Plugin panel
-			if (comp.getKey().equals("Bcontinue")) {
-				if (availFormatsList.getSelectedValue() != null
-						&& model != null) {
-
-					IImportExport ie = ((IImportExport) availFormatsList
-							.getSelectedValue());
+			if (comp.getKey().equals("Bcontinue"))
+			{
+				IImportExport importExportPlugin = (IImportExport)availFormatsList.getSelectedValue();
+				if (availFormatsList.getSelectedValue() != null && model != null
+						&& importExportPlugin != null)
+				{
 					
-					// invoke correct method based on selected action
 					switch (action) {
 					case IImportExport.EXP_PROJECT:
-
-						ie.exportProject((DTOProject) model, this);
+						importExportPlugin.exportProject((DTOProject) model, this);
 						break;
 					case IImportExport.EXP_SCENARIO_RES_DET:
 						if (results != null) {
 							if (results instanceof DistributionMap) {
-								ie.exportScenarioResults((DTOScenario) model,
+								importExportPlugin.exportScenarioResults((DTOScenario) model,
 										(DistributionMap) results, this);
 							} else {
 								Entry<?, ?> entry = results.entrySet()
 										.iterator().next();
 								if (entry.getKey() instanceof String
 										&& entry.getValue() instanceof Calculable[]) {
-									ie.exportScenarioResults(
+									importExportPlugin.exportScenarioResults(
 													(DTOScenario) model,
 													(Map<String, Calculable[]>) results,
 													this);
@@ -327,18 +341,26 @@ public class BHDataExchangeDialog extends JDialog implements ActionListener {
 							}
 						}
 						break;
-
-					default:
 					}
-
+					
 				}
-				showPluginPanel();
-			} else if (comp.getKey().equals("Bcancel")) {
-				dispose();
-			}
-		} else {
+				
+						
+				showPluginPanel();	
+				setTitle(BHTranslator.getInstance().translate(importExportPlugin.getGuiKey()));
+			}				
+		}			
+		else {
 			if (pluginActionListener != null)
 				pluginActionListener.actionPerformed(e);
+		}	
+		if (comp.getKey().equals("Bback"))
+		{
+			showFormatSelectionPanel();
+		}
+		else if (comp.getKey().equals("Bcancel"))
+		{
+			dispose();
 		}
 	}
 
@@ -373,11 +395,19 @@ public class BHDataExchangeDialog extends JDialog implements ActionListener {
 	/**
 	 * Changes to the plug-in panel
 	 */
-	public void showPluginPanel() {
-		((CardLayout) mainPanel.getLayout()).show(mainPanel, PLUGIN_PANEL);
+	private void showPluginPanel()
+	{
+		((CardLayout)mainPanel.getLayout()).show(mainPanel, PLUGIN_PANEL);
 		visiblePanel = PLUGIN_PANEL;
 	}
 
+	private void showFormatSelectionPanel()
+	{
+		((CardLayout)mainPanel.getLayout()).show(mainPanel, FORMAT_CHOOSER_PANEL);
+		visiblePanel = FORMAT_CHOOSER_PANEL;
+		setTitle(BHTranslator.getInstance().translate("DProjectDataExchangeTitle"));
+	}
+	
 	/**
 	 * Sets the plug-in panel
 	 * 
@@ -392,6 +422,7 @@ public class BHDataExchangeDialog extends JDialog implements ActionListener {
 		}
 	}
 
+
 	public Map<?, ?> getResults() {
 		return results;
 	}
@@ -399,5 +430,6 @@ public class BHDataExchangeDialog extends JDialog implements ActionListener {
 	public void setResults(Map<?, ?> results) {
 		this.results = results;
 	}
+
 
 }

@@ -20,6 +20,7 @@ import org.bh.data.IDTO;
 import org.bh.data.types.Calculable;
 import org.bh.data.types.DistributionMap;
 import org.bh.gui.swing.BHDataExchangeDialog;
+import org.bh.gui.swing.BHDefaultProjectExportPanel;
 import org.bh.gui.swing.IBHComponent;
 import org.bh.platform.IImportExport;
 import org.bh.platform.PlatformController;
@@ -40,10 +41,13 @@ public class XMLDataExchangeController implements IImportExport, ActionListener 
 
 	private static final String UNIQUE_ID = "XML";
 	
-	private Map<String, JPanel> exportPanels = new HashMap<String, JPanel>();
-	private Map<String, JPanel> importPanels = new HashMap<String, JPanel>();
+	
+	
+	private BHDefaultProjectExportPanel exportPanel = null;
 	
 	private Container container = null;
+
+	private BHDataExchangeDialog exportDialog;
 	
 	public XMLDataExchangeController() {
 		
@@ -56,8 +60,38 @@ public class XMLDataExchangeController implements IImportExport, ActionListener 
 		
 		if (comp.getKey().equals("Mexport"))
 		{
+			DTOProject cloneProject = (DTOProject) model.clone();
+			cloneProject.removeAllChildren();
+			for (Object sec : exportPanel.getSecList().getSelectedItems())
+			{				
+				cloneProject.addChild((DTOScenario) sec);
+			}			
 			
-		}
+			if (!exportPanel.getTxtPath().getText().equals(""))
+				try {
+					boolean result = new XMLExport(exportPanel.getTxtPath().getText(), cloneProject).startExport();
+					if (result)
+					{
+						String msg = BHTranslator.getInstance().translate("DXMLExportSuccessfull");
+						msg = msg.replace("[PATH]", exportPanel.getTxtPath().getText());
+						JOptionPane.showMessageDialog(container, msg,
+								BHTranslator.getInstance().translate(XMLProjectExportPanel.KEY),
+								JOptionPane.INFORMATION_MESSAGE);
+						exportDialog.dispose();
+					}
+					else
+					{
+						JOptionPane.showMessageDialog(container, BHTranslator.getInstance().translate("DXMLExportError"),
+								BHTranslator.getInstance().translate(XMLProjectExportPanel.KEY),
+								JOptionPane.ERROR_MESSAGE);
+					}
+					
+				} catch (IOException e1) {
+					JOptionPane.showMessageDialog(container, BHTranslator.getInstance().translate("DXMLExportFileError"),
+							BHTranslator.getInstance().translate(XMLProjectExportPanel.KEY),
+							JOptionPane.WARNING_MESSAGE);
+				}
+		}		
 		
 		
 		/*if (GUI_KEY.equals(XMLProjectExportPanel.KEY))
@@ -215,14 +249,24 @@ public class XMLDataExchangeController implements IImportExport, ActionListener 
 		}*/
 		
 	}
+	
+	
+	@Override
+	public void exportProject(DTOProject project,
+			BHDataExchangeDialog exportDialog) {
+		GUI_KEY = "DXMLProjectExport";
+		model = project;
+		exportPanel = exportDialog.setDefaulExportProjectPanel();
+		exportDialog.setPluginActionListener(this);
+		this.exportDialog = exportDialog;
+	}
 
 
-	private void closeContainingWindow() {
-		if (container != null && 
-				Window.class.isAssignableFrom(container.getClass()))
-				{
-					((Window)container).dispose();
-				}
+	@Override
+	public DTOProject importProject(DTOProject project,
+			BHDataExchangeDialog exportDialog) {
+		// TODO Auto-generated method stub
+		throw new UnsupportedOperationException("This method has not been implemented");
 	}
 
 
@@ -230,14 +274,6 @@ public class XMLDataExchangeController implements IImportExport, ActionListener 
 	public String getGuiKey() {
 		return GUI_KEY;
 	}
-
-	@Override
-	public void exportProject(DTOProject project, BHDataExchangeDialog exportDialog) {
-		model = project;
-		exportDialog.setDefaulExportProjectPanel();
-		exportDialog.setPluginActionListener(this);
-	}
-
 
 	@Override
 	public void exportProjectResults(DTOProject project,
@@ -255,6 +291,7 @@ public class XMLDataExchangeController implements IImportExport, ActionListener 
 
 
 	@Override
+
 	public void exportScenario(DTOScenario scenario, BHDataExchangeDialog exportDialog) {
 		// TODO Auto-generated method stub
 		throw new UnsupportedOperationException("This method has not been implemented");
@@ -288,26 +325,17 @@ public class XMLDataExchangeController implements IImportExport, ActionListener 
 	public String getUniqueId() {
 		return UNIQUE_ID;
 	}
-
-
-	@Override
-	public DTOProject importProject() {
-		// TODO Auto-generated method stub
-		throw new UnsupportedOperationException("This method has not been implemented");
-	}
-
-
-	@Override
-	public DTOScenario importScenario() {
-		// TODO Auto-generated method stub
-		throw new UnsupportedOperationException("This method has not been implemented");
-	}
-
+	
 	@Override
 	public String toString() {
 		return "XML - Extensible Markup Language";
 	}
 
+	@Override
+	public DTOScenario importScenario(BHDataExchangeDialog importDialog) {
+		// TODO Auto-generated method stub
+		throw new UnsupportedOperationException("This method has not been implemented");
+	}
 
 	@Override
 	public void exportProject(DTOProject project, String filePath) {
@@ -367,6 +395,9 @@ public class XMLDataExchangeController implements IImportExport, ActionListener 
 		// TODO Auto-generated method stub
 		throw new UnsupportedOperationException("This method has not been implemented");
 	}
+
+
+	
 
 
 	

@@ -29,6 +29,7 @@ public class BHDefaultProjectExportPanel extends JPanel implements ActionListene
 	private BHTextField txtPath;
 
 	private IDTO<?> model;
+	private BHButton btnExport;
 
 	public BHDefaultProjectExportPanel(IDTO<?> model)
 	{
@@ -57,14 +58,19 @@ public class BHDefaultProjectExportPanel extends JPanel implements ActionListene
 		buttonPanel.setLayout(new BoxLayout(buttonPanel, BoxLayout.LINE_AXIS));
 		buttonPanel.add(Box.createHorizontalGlue());
 		
-		// Cancel 
+		// Cancel
 		BHButton btnCancel = new BHButton("Bcancel");
 		
+		// Back 
+		BHButton btnBack = new BHButton("Bback");
+		
 		// Start export
-		BHButton btnExport = new BHButton("Mexport");
+		btnExport = new BHButton("Mexport");
 		btnExport.setAlignmentX(Component.RIGHT_ALIGNMENT);		
+		btnExport.setEnabled(false);
 		
 		buttonPanel.add(btnCancel);
+		buttonPanel.add(btnBack);
 		buttonPanel.add(btnExport);
 		
 		
@@ -100,11 +106,11 @@ public class BHDefaultProjectExportPanel extends JPanel implements ActionListene
 		fileSelectionPanel.setLayout(new TableLayout(size));
 			
 		// Small label for instruction
-		BHDescriptionLabel lblselExportPath = new BHDescriptionLabel("DXMLExportPathSelection");		
+		BHDescriptionLabel lblselExportPath = new BHDescriptionLabel("DExportPathSelection");		
 		fileSelectionPanel.add(lblselExportPath, "0,0");
 		
 		// Text field which will show the chosen path
-		txtPath = new BHTextField("DXMLTxtExportImportPath", "");
+		txtPath = new BHTextField("DTxtExportImportPath", "");
 		fileSelectionPanel.add(txtPath, "0,1");
 		
 		// Button to start the file choosing dialog
@@ -125,8 +131,9 @@ public class BHDefaultProjectExportPanel extends JPanel implements ActionListene
 		panDescr.setLayout(new BorderLayout());
 		
 		// Text area with description
-		BHDescriptionTextArea lblDescr = new BHDescriptionTextArea("DXMLExportDescription");		
+		BHDescriptionTextArea lblDescr = new BHDescriptionTextArea("DExportDescription");		
 		lblDescr.setFocusable(false);
+		lblDescr.setToolTipText(null);
 		
 		// Create border for that textarea
 		Border marginBorder = BorderFactory.createEmptyBorder(15, 5, 15, 5);
@@ -176,7 +183,8 @@ public class BHDefaultProjectExportPanel extends JPanel implements ActionListene
 			if (returnVal == JFileChooser.APPROVE_OPTION)
 			{
 				PlatformController.preferences.put("lastExportDirectory", fileChooser.getSelectedFile().getParent()); 
-				txtPath.setText(fileChooser.getSelectedFile().getPath());			
+				txtPath.setText(fileChooser.getSelectedFile().getPath());	
+				btnExport.setEnabled(true);
 			}
 			
 		}

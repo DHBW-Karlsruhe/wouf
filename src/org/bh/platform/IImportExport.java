@@ -34,14 +34,13 @@ public interface IImportExport extends IDisplayablePlugin {
 	/**
 	 * Must be implemented if export of a project DTO should be supported by the
 	 * implementing plug-in.
-	 * 
-	 * @param project
+	 *  
 	 * @param exportDialog 
 	 */
-	void exportProject( final DTOProject project, final BHDataExchangeDialog exportDialog);	
-	void exportProject(final DTOProject project, final String filePath);	
-
-
+	
+	void exportProject(final DTOProject project, final BHDataExchangeDialog exportDialog);	
+	void exportProject(final DTOProject project, final String filePath);
+	
 	/**
 	 * Must be implemented if export of a project DTO with results from a
 	 * deterministic procedure should be supported by the implementing plug-in.
@@ -65,20 +64,22 @@ public interface IImportExport extends IDisplayablePlugin {
 	/**
 	 * Must be implemented if import of projects should be supported  by the
 	 * implementing plug-in.
+	 * @param importDialog TODO
 	 * 
 	 * @return an instance of DTOProject
 	 */
-	DTOProject importProject();
+	DTOProject importProject(final DTOProject project, final BHDataExchangeDialog exportDialog);
 
 	
 	/**
 	 * Must be implemented if export of a scenario DTO should be supported by the
 	 * implementing plug-in.
 	 * 
-	 * @param scenario
+	 * @param exportDialog
 	 */
 	void exportScenario(final DTOScenario scenario, final BHDataExchangeDialog bhDataExchangeDialog);
 	void exportScenario(final DTOScenario scenario, final String filePath);
+
 
 	/**
 	 * Must be implemented if export of a scenario DTO with results from a
@@ -103,10 +104,11 @@ public interface IImportExport extends IDisplayablePlugin {
 	/**
 	 * Must be implemented if import of scenarios should be supported  by the
 	 * implementing plug-in.
+	 * @param importDialog TODO
 	 * 
 	 * @return an instance of DTOScenario
 	 */
-	DTOScenario importScenario();
+	DTOScenario importScenario(BHDataExchangeDialog importDialog);
 
 	/**
 	 * Must return the sum of supported method bitmap.

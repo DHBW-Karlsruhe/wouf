@@ -112,13 +112,7 @@ public class PDFExport implements IImportExport {
 			DistributionMap results, BHDataExchangeDialog exportDialog) {
 		throw new UnsupportedOperationException(
 				"This method has not been implemented");
-	}
-
-	@Override
-	public DTOProject importProject() {
-		throw new UnsupportedOperationException(
-				"This method has not been implemented");
-	}
+	}	
 
 	@Override
 	public void exportScenario(final DTOScenario scenario,
@@ -265,12 +259,7 @@ public class PDFExport implements IImportExport {
 		log.debug("pdf scenario batch export completed " + filePath);
 	}
 
-	@Override
-	public DTOScenario importScenario() {
-		throw new UnsupportedOperationException(
-				"This method has not been implemented");
-	}
-
+	
 	@Override
 	public int getSupportedMethods() {
 		return IImportExport.EXP_SCENARIO_RES_DET
@@ -459,5 +448,18 @@ public class PDFExport implements IImportExport {
 	@Override
 	public String getFileExtension() {
 		return FILE_EXT;
+	}
+
+	@Override
+	public DTOProject importProject(DTOProject project,
+			BHDataExchangeDialog exportDialog) {
+		// TODO Auto-generated method stub
+		throw new UnsupportedOperationException("This method has not been implemented");
+	}
+
+	@Override
+	public DTOScenario importScenario(BHDataExchangeDialog importDialog) {
+		// TODO Auto-generated method stub
+		throw new UnsupportedOperationException("This method has not been implemented");
 	}
 }
