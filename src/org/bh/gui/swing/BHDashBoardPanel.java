@@ -8,7 +8,6 @@ import javax.swing.JPanel;
 import org.bh.data.DTOScenario;
 import org.bh.gui.chart.BHChartFactory;
 import org.bh.gui.chart.BHChartPanel;
-import org.bh.plugin.resultAnalysis.BHResultController;
 
 public class BHDashBoardPanel extends JPanel {
 	public static enum dashbKeys{
