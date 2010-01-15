@@ -41,10 +41,12 @@ public class BHScenarioHeadForm extends JPanel {
 
 	private BHTextField tfscenname;
 	private BHTextField tfscendescript;
+        //fields show percentage as %
 	private BHTextField tfequityyield;
 	private BHTextField tfdeptyield;
 	private BHTextField tftradetax;
 	private BHTextField tfcorporatetax;
+        
 	private BHTextField tfBase;
 	private JLabel lpercentequity;
 	private JLabel lpercentdept;
@@ -271,7 +273,7 @@ public class BHScenarioHeadForm extends JPanel {
 	public BHTextField gettfequityYield() {
 
 		if (this.tfequityyield == null) {
-			this.tfequityyield = new BHTextField(DTOScenario.Key.REK);
+			this.tfequityyield = new BHPercentTextField(DTOScenario.Key.REK);
 			ValidationRule[] rules = { VRMandatory.INSTANCE,
 					VRIsDouble.INSTANCE, VRIsPositive.INSTANCE };
 			tfequityyield.setValidationRules(rules);
@@ -287,7 +289,7 @@ public class BHScenarioHeadForm extends JPanel {
 	public BHTextField gettfdeptYield() {
 
 		if (this.tfdeptyield == null) {
-			this.tfdeptyield = new BHTextField(DTOScenario.Key.RFK);
+			this.tfdeptyield = new BHPercentTextField(DTOScenario.Key.RFK);
 			ValidationRule[] rules = { VRMandatory.INSTANCE,
 					VRIsDouble.INSTANCE, VRIsPositive.INSTANCE };
 			tfdeptyield.setValidationRules(rules);
@@ -303,7 +305,7 @@ public class BHScenarioHeadForm extends JPanel {
 	public BHTextField gettftradeTax() {
 
 		if (this.tftradetax == null) {
-			this.tftradetax = new BHTextField(DTOScenario.Key.BTAX);
+			this.tftradetax = new BHPercentTextField(DTOScenario.Key.BTAX);
 			ValidationRule[] rules = { VRMandatory.INSTANCE,
 					VRIsDouble.INSTANCE, VRIsPositive.INSTANCE };
 			tftradetax.setValidationRules(rules);
@@ -319,7 +321,7 @@ public class BHScenarioHeadForm extends JPanel {
 	public BHTextField gettfcorporateTax() {
 
 		if (this.tfcorporatetax == null) {
-			this.tfcorporatetax = new BHTextField(DTOScenario.Key.CTAX);
+			this.tfcorporatetax = new BHPercentTextField(DTOScenario.Key.CTAX);
 			ValidationRule[] rules = { VRMandatory.INSTANCE,
 					VRIsDouble.INSTANCE, VRIsPositive.INSTANCE };
 			tfcorporatetax.setValidationRules(rules);
