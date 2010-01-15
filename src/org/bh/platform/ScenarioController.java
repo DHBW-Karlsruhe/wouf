@@ -10,6 +10,7 @@ import java.util.Comparator;
 import java.util.Map;
 
 import javax.swing.ImageIcon;
+import javax.swing.JButton;
 import javax.swing.JPanel;
 
 import org.bh.calculation.IShareholderValueCalculator;
@@ -102,9 +103,9 @@ public class ScenarioController extends InputController {
 		
 		@Override
 		public void actionPerformed(ActionEvent e) {
-//			JButton b = (JButton) e.getSource();
+			final JButton b = (JButton) e.getSource();
 //			b.setIcon(this.LOADING);
-//			b.setEnabled(false);
+			b.setEnabled(false);
 			Runnable r = new Runnable() {
 				@Override
 				public void run() {
@@ -124,6 +125,8 @@ public class ScenarioController extends InputController {
 						break;
 					}
 					Services.setCharts(panel);
+					
+					b.setEnabled(true);
 				}
 			};
 			new Thread(r, "Calculation Thread").start();
