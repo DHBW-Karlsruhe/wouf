@@ -9,6 +9,7 @@ import java.util.Collection;
 import java.util.Comparator;
 import java.util.Map;
 
+import javax.swing.ImageIcon;
 import javax.swing.JPanel;
 
 import org.bh.calculation.IShareholderValueCalculator;
@@ -97,9 +98,13 @@ public class ScenarioController extends InputController {
 	}
 
 	protected class CalculationListener implements ActionListener {
+		private final ImageIcon LOADING = Services.createImageIcon("/org/bh/images/loading.gif", "test"/*Services.getTranslator().translate("scenario")*/); 
+		
 		@Override
 		public void actionPerformed(ActionEvent e) {
-
+//			JButton b = (JButton) e.getSource();
+//			b.setIcon(this.LOADING);
+//			b.setEnabled(false);
 			Runnable r = new Runnable() {
 				@Override
 				public void run() {
