@@ -53,6 +53,7 @@ public class Services {
 	private static HashMap<String, IPeriodController> periodControllers;
 	private static HashMap<String, IDataExchangeController> dataExchangeController;
 	private static HashMap<String, IImportExport> importExport;
+	private static HashMap<String, IPrint> print;
 
 	private static BHMainFrame bhmf = null;
 
@@ -249,6 +250,29 @@ public class Services {
 			}
 		}
 		return matchingImportExport;
+	}
+	
+	/**
+	 * Returns the references to all print plug-ins.
+	 * 
+	 * @return References to all print
+	 */
+	public static Map<String, IPrint> getPrintPlugins(
+			int requiredMethods) {
+		if (print == null) {
+			loadPrintPlugins();
+		}
+		return print;
+	}
+	
+	private static void loadPrintPlugins() {
+		// load all print plug-ins and put them into the map
+		print = new HashMap<String,IPrint>();
+		ServiceLoader<IPrint> printPlugins = PluginManager
+				.getInstance().getServices(IPrint.class);
+		for (IPrint printPlug : printPlugins) {
+			print.put(printPlug.getUniqueId(), printPlug);
+		}
 	}
 
 	/*
