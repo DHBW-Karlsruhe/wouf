@@ -3,11 +3,9 @@
 <information>
   <title>Business Horizon</title>
   <vendor>Business Horizon Project Team</vendor>
-  <description>{Description}</description>
-  <shortcut>
-      <desktop/>
-  </shortcut>
+  <description></description>
   <offline-allowed/>
+  <icon kind="splash" href="splash.jpg" />
 </information>
 <security>
   <all-permissions/>
