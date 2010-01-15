@@ -8,11 +8,12 @@ import java.util.Arrays;
 import java.util.Collection;
 import java.util.Comparator;
 import java.util.Map;
+
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
-import javax.swing.JComponent;
 import javax.swing.JPanel;
 import javax.swing.JSplitPane;
-import javax.swing.tree.DefaultTreeModel;
+
 import org.bh.calculation.IShareholderValueCalculator;
 import org.bh.calculation.IStochasticProcess;
 import org.bh.controller.IPeriodController;
@@ -116,6 +117,8 @@ public class ScenarioController extends InputController {
 
 	protected class CalculationListener implements ActionListener {
 		
+		private final ImageIcon LOADING = Services.createImageIcon("/org/bh/images/loading.gif", null);
+		
 		private BHTree bhTree;
 		
 		public CalculationListener(BHTree bhTree){
@@ -125,8 +128,8 @@ public class ScenarioController extends InputController {
 		@Override
 		public void actionPerformed(ActionEvent e) {
 			final JButton b = (JButton) e.getSource();
-//			b.setIcon(this.LOADING);
-			b.setEnabled(false);
+			b.setIcon(this.LOADING);
+			
 			Runnable r = new Runnable() {
 				@Override
 				public void run() {
@@ -150,7 +153,7 @@ public class ScenarioController extends InputController {
 					
 					tn.setBackgroundPane(crForm);
 					
-					b.setEnabled(true);
+					b.setIcon(null);
 				}
 			};
 			new Thread(r, "Calculation Thread").start();
