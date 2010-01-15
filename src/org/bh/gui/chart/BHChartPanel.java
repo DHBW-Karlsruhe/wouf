@@ -6,9 +6,8 @@
 package org.bh.gui.chart;
 
 import java.util.List;
+
 import org.bh.gui.swing.IBHComponent;
-import org.bh.platform.Services;
-import org.bh.platform.i18n.ITranslator;
 import org.jfree.chart.ChartPanel;
 import org.jfree.chart.JFreeChart;
 

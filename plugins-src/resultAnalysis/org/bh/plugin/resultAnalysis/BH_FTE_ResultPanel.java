@@ -57,11 +57,11 @@ public class BH_FTE_ResultPanel extends JPanel {
 
         double border = 10;
         double size[][] = {{border, TableLayout.PREFERRED, border, TableLayout.PREFERRED, border, TableLayout.PREFERRED, border}, // Columns
-            {border, TableLayout.PREFERRED, border, TableLayout.PREFERRED, border, TableLayout.PREFERRED, border, TableLayout.PREFERRED, border
-        	, TableLayout.PREFERRED, border, TableLayout.PREFERRED, border, TableLayout.PREFERRED, border, TableLayout.PREFERRED, border
-        	, TableLayout.PREFERRED, border, TableLayout.PREFERRED, border, TableLayout.PREFERRED, border, TableLayout.PREFERRED, border
-        	, TableLayout.PREFERRED, border, TableLayout.PREFERRED, border, TableLayout.PREFERRED, border, TableLayout.PREFERRED, border
-        	, TableLayout.PREFERRED, border, TableLayout.PREFERRED, border, TableLayout.PREFERRED, border, TableLayout.PREFERRED, border}}; // Rows
+            {border, TableLayout.PREFERRED, border, TableLayout.PREFERRED, border, TableLayout.PREFERRED, border, TableLayout.PREFERRED, 
+        	 border, TableLayout.PREFERRED, border, TableLayout.PREFERRED, border, TableLayout.PREFERRED, border, TableLayout.PREFERRED, 
+        	 border, TableLayout.PREFERRED, border, TableLayout.PREFERRED, border, TableLayout.PREFERRED, border, TableLayout.PREFERRED, 
+        	 border, TableLayout.PREFERRED, border, TableLayout.PREFERRED, border, TableLayout.PREFERRED, border, TableLayout.PREFERRED, 
+        	 border, TableLayout.PREFERRED, border, TableLayout.PREFERRED, border, TableLayout.PREFERRED, border, TableLayout.PREFERRED, border}}; // Rows
 
 
         this.setLayout(new TableLayout(size));
@@ -101,10 +101,11 @@ public class BH_FTE_ResultPanel extends JPanel {
         fteFlowToEquity = BHChartFactory.getBarChart("", "Periode", "GE", BHResultController.ChartKeys.FTE_BC_FTE.toString());
         
         this.add(finiteFormula, "3,3");
-        this.add(infiniteFormula, "3,53");
+        this.add(infiniteFormula, "3,5");
         
-        this.add(fteCapitalStructure, "3,7");
-        this.add(fteFlowToEquity, "3,9");
+        this.add(fteShareholderValue, "3,7");
+        this.add(fteCapitalStructure, "3,9");
+        this.add(fteFlowToEquity, "3,11");
         
 
     }

@@ -12,6 +12,7 @@ import org.bh.data.types.DoubleValue;
 import org.bh.data.types.ObjectValue;
 import org.bh.data.types.StringValue;
 import org.bh.platform.Services;
+import org.bh.plugin.directinput.DTODirectInput;
 
 /**
  * Scenario DTO
