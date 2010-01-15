@@ -52,7 +52,6 @@ public class ProjectController extends InputController {
 //					resultStochastic.get(IShareholderValueCalculator.);
 				}
 			}
-
 			//JPanel panel = new JPanel();
 			//Services.setCharts(panel);
 		}
