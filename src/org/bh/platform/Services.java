@@ -2,6 +2,7 @@ package org.bh.platform;
 
 import java.awt.Color;
 import java.awt.Component;
+import java.awt.Container;
 import java.lang.reflect.Field;
 import java.net.URL;
 import java.util.ArrayList;
@@ -15,6 +16,7 @@ import java.util.Map.Entry;
 import javax.swing.ImageIcon;
 import javax.swing.JPanel;
 import javax.swing.JSplitPane;
+import javax.swing.SwingUtilities;
 import javax.swing.UIManager;
 import javax.swing.UIManager.LookAndFeelInfo;
 import javax.swing.event.EventListenerList;
@@ -35,6 +37,7 @@ import org.bh.gui.ViewException;
 import org.bh.gui.swing.BHMainFrame;
 import org.bh.gui.swing.BHPeriodForm;
 import org.bh.gui.swing.BHStatusBar;
+import org.bh.gui.swing.BHTextField;
 import org.bh.platform.i18n.BHTranslator;
 import org.bh.platform.i18n.ITranslator;
 
@@ -337,13 +340,20 @@ public class Services {
 		Component viewComponent = periodController.editDTO(period);
 		BHPeriodForm container = new BHPeriodForm();
 		try {
-			View periodView = new View(container.getPperiod(), new ValidationMethods());
+			View periodView = new View(container.getPperiod(),
+					new ValidationMethods());
 			InputController controller = new InputController(periodView, period);
 			controller.loadAllToView();
 		} catch (ViewException e) {
 			// should not happen
 			log.error("Cannot create period view", e);
 		}
+		if (viewComponent instanceof Container) {
+			// viewComponent.setFocusable(true);
+			Container cont = (Container) viewComponent;
+			setFocus(cont);
+		}
+
 		container.setPvalues((JPanel) viewComponent);
 		bhmf.setContentForm(container);
 	}
@@ -380,5 +390,25 @@ public class Services {
 			return false;
 		}
 		return true;
+	}
+
+	public static boolean setFocus(Container cont) {
+		for (Component comp : cont.getComponents()) {
+			if (comp instanceof BHTextField) {
+				final BHTextField tf = (BHTextField) comp;
+
+				SwingUtilities.invokeLater(new Runnable() {
+					public void run() {
+						tf.requestFocus();
+					}
+				});
+				return true;
+			} else if (comp instanceof JPanel) {
+				if (setFocus((Container) comp))
+					return true;
+			}
+
+		}
+		return false;
 	}
 }
