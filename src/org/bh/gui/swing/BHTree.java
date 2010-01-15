@@ -5,6 +5,7 @@ import java.awt.Dimension;
 import java.awt.dnd.DnDConstants;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.util.ArrayList;
 import java.util.Enumeration;
 import javax.swing.ImageIcon;
 import javax.swing.JLabel;
@@ -140,7 +141,14 @@ public class BHTree extends JTree{
 					if(tempPeriodNode.getUserObject() == dto){
 						return tempPeriodNode;
 					}
+					
+					//check PeriodChilds
+					for(int a = 0; a < tempPeriodNode.getChildCount(); a++){
+						
+					}
 				}
+				
+				
 			}
 		}
 		//after all, return null;
@@ -298,7 +306,25 @@ public class BHTree extends JTree{
 	}
 	
 	
-	
+	public ArrayList<BHTreeNode> getScenarioNodes(){
+		
+		ArrayList<BHTreeNode> results = new ArrayList<BHTreeNode>(); 
+		
+		BHTreeNode tempProjectNode;
+		for(int i = 0; i < ((DefaultMutableTreeNode)this.getModel().getRoot()).getChildCount(); i++){
+			tempProjectNode = (BHTreeNode) ((DefaultMutableTreeNode)this.getModel().getRoot()).getChildAt(i);
+			
+			for(int y = 0; y < tempProjectNode.getChildCount(); y++){
+				results.add((BHTreeNode)tempProjectNode.getChildAt(y));
+			}
+			
+		}
+		if(results.size() != 0){
+			return results;
+		}
+		return null;
+		
+	}
 	
 	
 	/**

@@ -1,5 +1,6 @@
 package org.bh.platform;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.prefs.Preferences;
 
@@ -285,54 +286,10 @@ public class PlatformController {
 										// if scenario is deterministic, an
 										// overview
 										// table is provided
-										@SuppressWarnings("unchecked")
-										List<DTOPeriod> periods = (List<DTOPeriod>) selectedDto
-												.getChildren();
-										IValue[][] periodData = new IValue[periods
-												.size()][3];
-										// transform data
-										for (int i = 0; i < periods.size(); i++) {
-											DTOPeriod period = periods.get(i);
-
-											try {
-												periodData[i][0] = period
-														.get(DTOPeriod.Key.NAME);
-											} catch (DTOAccessException dtoae) {
-												log.error("Cannot get name for period table",
-																dtoae);
-											}
-
-											if (!period.isValid(true))
-												continue;
-
-											try {
-												periodData[i][1] = period
-														.getLiabilities();
-											} catch (DTOAccessException dtoae) {
-												log
-														.error(
-																"Cannot get liabilities for period table",
-																dtoae);
-											}
-											try {
-												periodData[i][2] = period
-														.getFCF();
-											} catch (DTOAccessException dtoae) {
-												if (i > 0) {
-													log.error("Cannot get FCF for period table",dtoae);
-												}
-											}
-										}
 										
-										// table for periods
-										try {
-											((BHDeterministicProcessForm) ((BHScenarioForm) view
-													.getViewPanel())
-													.getProcessForm())
-													.setPeriodTable(periodData);
-										} catch (Exception e1) {
-											// TODO Exception ausprogrammieren
-										}
+										
+										
+										
 										
 									}
 									
@@ -340,6 +297,16 @@ public class PlatformController {
 									controller = new ScenarioController(view, model);
 									controller.loadAllToView();
 									selectedNode.setController(controller);
+								}
+								
+								// table for periods
+								try {
+									((BHDeterministicProcessForm) ((BHScenarioForm) controller.getViewPanel())
+											.getProcessForm()).setPeriodTable(PlatformController.this.prepareScenarioTableData(model));
+									
+								} catch (Exception e1) {
+									// TODO Exception ausprogrammieren#
+									e1.printStackTrace();
 								}
 								
 								JSplitPane bgComponent;
@@ -393,13 +360,29 @@ public class PlatformController {
 					|| e.getSource() instanceof IPeriodicalValuesDTO) {
 				bhmf.getBHTree().updateUI();
 			}
-			
-			if (e.getSource() instanceof DTOScenario){
-				BHTreeNode tempScenarioNode = bhmf.getBHTree().getNodeForDto((DTOScenario)e.getSource());
-				if(tempScenarioNode != null){
-					tempScenarioNode.setBackgroundPane(null);
-				}
 				
+				
+			if (e.getSource() instanceof DTO<?>) {
+				//check if data has changed and remove result panel from scenario then...
+				ArrayList<BHTreeNode> scenarioNodes = bhmf.getBHTree().getScenarioNodes();
+				if(scenarioNodes != null){
+					for(BHTreeNode scenarioNode : scenarioNodes){
+						if(((DTOScenario)scenarioNode.getUserObject()).isMeOrChild(e.getSource()) 
+								&&  scenarioNode.getBackgroundPane()!=null){
+							scenarioNode.setBackgroundPane(null);
+							
+							
+							//throw away present screen, if scenario is on screen
+							TreePath tp = bhmf.getBHTree().getSelectionPath();
+							if(tp.getPathCount() == 3){
+								bhmf.setContentForm(((BHTreeNode)tp.getPathComponent(2)).getController().getViewPanel());
+								
+							}
+						}
+					}
+				}	
+				
+			
 			}
 		}
 	}
@@ -445,7 +428,46 @@ public class PlatformController {
 		}
 	}
 	
+	
 	public BHMainFrame getMainFrame() {
 		return this.bhmf;
+	}
+	
+	
+	private IValue[][] prepareScenarioTableData(DTOScenario scenarioDto){
+		@SuppressWarnings("unchecked")
+		List<DTOPeriod> periods = (List<DTOPeriod>) scenarioDto.getChildren();
+		
+		IValue[][] periodData = new IValue[periods.size()][3];
+		
+		// transform data
+		for (int i = 0; i < periods.size(); i++) {
+			DTOPeriod period = periods.get(i);
+
+			try {
+				periodData[i][0] = period.get(DTOPeriod.Key.NAME);
+			} catch (DTOAccessException dtoae) {
+				log.error("Cannot get name for period table",dtoae);
+			}
+			
+			if (!period.isValid(true))
+				continue;
+
+			try {
+				periodData[i][1] = period
+						.getLiabilities();
+			} catch (DTOAccessException dtoae) {
+				log.error("Cannot get liabilities for period table",dtoae);
+			}
+			try {
+				periodData[i][2] = period.getFCF();
+			} catch (DTOAccessException dtoae) {
+				if (i > 0) {
+					log.error("Cannot get FCF for period table",dtoae);
+				}
+			}
+		}
+		
+		return periodData;
 	}
 }

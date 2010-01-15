@@ -35,7 +35,7 @@ public class BHDeterministicProcessForm extends JPanel {
 	private JCheckBox chbinterval;
 	private JTable tperioddata;
 	private BHComboBox cbdcfMethod;
-
+	private JScrollPane tablePane;
 	CellConstraints cons; 
 	
 	ITranslator translator = Services.getTranslator();
@@ -107,8 +107,15 @@ public class BHDeterministicProcessForm extends JPanel {
 			if(data[0].length != 3)
 				throw new Exception("PeriodTableData: Data array has wrong length!");
 		
-		this.add(new JScrollPane(this.getTperioddata(data)), cons.xywh(2, 6, 4, 1));
+		if(tablePane != null)
+			this.remove(tablePane);
+		
+		tablePane = new JScrollPane(this.getTperioddata(data));
+		
+		this.add(tablePane, cons.xywh(2, 6, 4, 1));
 	}
+	
+	
 	
 	
 	public BHDescriptionLabel getlDCFmethod() {

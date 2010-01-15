@@ -179,5 +179,5 @@ public interface IDTO<ChildT extends IDTO> extends Cloneable, Serializable, Iter
 	 * @param dto
 	 * @return
 	 */
-	boolean isMeOrChild(DTO<?> checkDto);
+	boolean isMeOrChild(Object checkDto);
 }

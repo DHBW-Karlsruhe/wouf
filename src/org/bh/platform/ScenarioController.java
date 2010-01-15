@@ -120,6 +120,8 @@ public class ScenarioController extends InputController {
 				}
 			});
 		}
+		
+		setCalcEnabled(getModel().isValid(true));
 	}
 
 	protected void updateStochasticFieldsList() {
@@ -139,16 +141,19 @@ public class ScenarioController extends InputController {
 	public void platformEvent(PlatformEvent e) {
 		super.platformEvent(e);
 		if (e.getEventType() == Type.DATA_CHANGED
-				&& e.getSource() == getModel()) {
-			boolean calculationEnabled = getModel().isValid(true);
-			((Component) view.getBHComponent(PlatformKey.CALCSHAREHOLDERVALUE))
-					.setEnabled(calculationEnabled);
-			((Component) view
-					.getBHComponent(BHScenarioForm.Key.CANNOT_CALCULATE_HINT))
-					.setVisible(!calculationEnabled);
+				&& getModel().isMeOrChild(e.getSource())) {
+			setCalcEnabled(getModel().isValid(true));
 		}
 	}
-
+	
+	protected void setCalcEnabled(boolean calculationEnabled){
+		((Component) view.getBHComponent(PlatformKey.CALCSHAREHOLDERVALUE))
+		.setEnabled(calculationEnabled);
+		((Component) view
+		.getBHComponent(BHScenarioForm.Key.CANNOT_CALCULATE_HINT))
+		.setVisible(!calculationEnabled);
+	}
+	
 	protected static BHComboBox.Item[] getDcfMethodItems() {
 		Collection<IShareholderValueCalculator> dcfMethods = Services
 				.getDCFMethods().values();
