@@ -58,7 +58,7 @@ public class BHToolBar extends JToolBar implements MouseListener{
 		setLayout(new FormLayout(colDef, rowDef));
 		cons = new CellConstraints();
 		
-		if (PlatformController.preferences.get("showToolbar", "").equals("true")) {
+		if (PlatformController.preferences.get("showToolbar", "true").equals("true")) {
 			fixed = true;
 			shown = true;
 			createToolBar();
