@@ -6,7 +6,6 @@ import org.bh.gui.swing.BHTextField;
 import org.bh.gui.swing.IBHModelComponent;
 
 import com.jgoodies.validation.ValidationResult;
-import com.jgoodies.validation.view.ValidationComponentUtils;
 
 public class VRCheckFileTag extends ValidationRule {
 	

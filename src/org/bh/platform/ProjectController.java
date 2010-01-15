@@ -6,8 +6,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
-import javax.swing.JPanel;
-
 import org.bh.calculation.IShareholderValueCalculator;
 import org.bh.controller.InputController;
 import org.bh.data.DTOProject;

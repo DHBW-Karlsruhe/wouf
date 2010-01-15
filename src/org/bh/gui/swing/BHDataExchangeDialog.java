@@ -29,6 +29,7 @@ import org.bh.data.DTOScenario;
 import org.bh.data.IDTO;
 import org.bh.data.types.Calculable;
 import org.bh.data.types.DistributionMap;
+import org.bh.gui.ViewException;
 import org.bh.platform.IImportExport;
 import org.bh.platform.Services;
 import org.bh.platform.i18n.BHTranslator;
@@ -279,8 +280,9 @@ public class BHDataExchangeDialog extends JDialog implements ActionListener {
 
 	/**
 	 * Creates a default scenario export panel as plug-in panel
+	 * @throws ViewException 
 	 */
-	public BHDefaultScenarioExportPanel setDefaulExportScenarioPanel(String fileDesc, String fileExt) {
+	public BHDefaultScenarioExportPanel setDefaulExportScenarioPanel(String fileDesc, String fileExt){
 		setPluginPanel(new BHDefaultScenarioExportPanel(fileDesc, fileExt));
 		return (BHDefaultScenarioExportPanel) pluginPanel;
 	}
@@ -357,7 +359,8 @@ public class BHDataExchangeDialog extends JDialog implements ActionListener {
 				
 						
 				showPluginPanel();	
-				setTitle(BHTranslator.getInstance().translate(importExportPlugin.getGuiKey()));
+				//TODO find good usage for Gui Key
+				setTitle(importExportPlugin.getGuiKey());
 			}				
 		}			
 		else {
