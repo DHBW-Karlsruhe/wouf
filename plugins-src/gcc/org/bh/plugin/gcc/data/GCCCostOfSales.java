@@ -39,7 +39,7 @@ public class GCCCostOfSales implements ICalculationPreparer {
 //				plsNow.getCalculable(DTOGCCProfitLossStatementCostOfSales.Key.VERWK),
 //				plsNow.getCalculable(DTOGCCProfitLossStatementCostOfSales.Key.SBA),
 				plsNow.getCalculable(DTOGCCProfitLossStatementCostOfSales.Key.VVSBA),
-				plsNow.getCalculable(DTOGCCProfitLossStatementCostOfSales.Key.AUERG));
+				plsNow.getCalculable(DTOGCCProfitLossStatementCostOfSales.Key.SBE));
 		
 		Calculable bsCorrection = 
 				bsNow.getCalculable(DTOGCCBalanceSheet.Key.RS).sub(

@@ -156,7 +156,6 @@ class ChangedListener implements IPlatformListener {
 			if (!projectRepositoryManager.getRepositoryList().isEmpty()) {
 				ProjectRepositoryManager.setChanged(true);
 			} else {
-				log.debug("Empty tree");
 				ProjectRepositoryManager.setChanged(false);
 			}
 				

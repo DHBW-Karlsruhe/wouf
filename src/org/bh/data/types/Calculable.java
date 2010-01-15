@@ -237,6 +237,23 @@ public abstract class Calculable implements IValue {
 		}
 		return result;
 	}
+	
+	/**
+	 * TODO Scharfenberger.Sebastian Comment me, pls - i just fix
+	 * Calculates the sum of all parameters.
+	 * 
+	 * @param summands
+	 *            the summands
+	 * 
+	 * @return sum of all parameters as new Calculable
+	 */
+	public Calculable sub(Calculable... summands) {
+		Calculable result = this;
+		for (Calculable summand : summands) {
+			result = result.sub(summand);
+		}
+		return result;
+	}
 
 	/**
 	 * Calculates the product of all parameters.
