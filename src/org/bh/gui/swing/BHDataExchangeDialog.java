@@ -284,6 +284,13 @@ public class BHDataExchangeDialog extends JDialog implements ActionListener {
 		setPluginPanel(new BHDefaultScenarioExportPanel(fileDesc, fileExt));
 		return (BHDefaultScenarioExportPanel) pluginPanel;
 	}
+	
+	public BHDefaultProjectImportPanel setDefaultImportProjectPanel()
+	{
+		BHDefaultProjectImportPanel result = new BHDefaultProjectImportPanel();
+		setPluginPanel(result);
+		return result;
+	}
 
 	/**
 	 * Adds for each button an action listener to this component
@@ -314,13 +321,16 @@ public class BHDataExchangeDialog extends JDialog implements ActionListener {
 			if (comp.getKey().equals("Bcontinue"))
 			{
 				IImportExport importExportPlugin = (IImportExport)availFormatsList.getSelectedValue();
-				if (availFormatsList.getSelectedValue() != null && model != null
+				if (availFormatsList.getSelectedValue() != null 
 						&& importExportPlugin != null)
 				{
 					
 					switch (action) {
 					case IImportExport.EXP_PROJECT:
 						importExportPlugin.exportProject((DTOProject) model, this);
+						break;
+					case IImportExport.IMP_PROJECT:
+						importExportPlugin.importProject(this);
 						break;
 					case IImportExport.EXP_SCENARIO_RES_DET:
 						if (results != null) {

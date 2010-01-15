@@ -1,17 +1,14 @@
 package org.bh.plugin.xmldataexchange;
 
 import java.awt.Container;
-import java.awt.Window;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
 import java.io.IOException;
-import java.util.HashMap;
 import java.util.Map;
 
 import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
-import javax.swing.JPanel;
 import javax.swing.filechooser.FileNameExtensionFilter;
 
 import org.bh.data.DTOProject;
@@ -21,26 +18,26 @@ import org.bh.data.types.Calculable;
 import org.bh.data.types.DistributionMap;
 import org.bh.gui.swing.BHDataExchangeDialog;
 import org.bh.gui.swing.BHDefaultProjectExportPanel;
+import org.bh.gui.swing.BHDefaultProjectImportPanel;
 import org.bh.gui.swing.IBHComponent;
 import org.bh.platform.IImportExport;
 import org.bh.platform.PlatformController;
 import org.bh.platform.i18n.BHTranslator;
 import org.bh.plugin.xmldataexchange.xmlexport.XMLExport;
-import org.bh.plugin.xmldataexchange.xmlexport.XMLProjectExportPanel;
 import org.bh.plugin.xmldataexchange.xmlimport.XMLImport;
 import org.bh.plugin.xmldataexchange.xmlimport.XMLNotValidException;
-import org.bh.plugin.xmldataexchange.xmlimport.XMLProjectImportPanel;
 
 public class XMLDataExchangeController implements IImportExport, ActionListener {
 		
-	private IDTO<?> model = null;
+	private IDTO<?> exportModel = null;
+	private IDTO<?> importModel = null;
 	
 	private static String GUI_KEY = "xmldataexchange";
-	private static final String dataFormat = "XML";
 	
+	private static final String GUI_KEY_IMPORT = "DXMLProjectImport";
+	private static final String GUI_KEY_EXPORT = "DXMLProjectExport";
 
 	private static final String UNIQUE_ID = "XML";
-	
 	
 	
 	private BHDefaultProjectExportPanel exportPanel = null;
@@ -48,11 +45,14 @@ public class XMLDataExchangeController implements IImportExport, ActionListener 
 	private Container container = null;
 
 	private BHDataExchangeDialog exportDialog;
+
+	private BHDefaultProjectImportPanel importPanel;
+
+	private BHDataExchangeDialog importDialog;
 	
 	public XMLDataExchangeController() {
 		
-	}
-	
+	}	
 
 	@Override
 	public void actionPerformed(ActionEvent e) {
@@ -60,7 +60,7 @@ public class XMLDataExchangeController implements IImportExport, ActionListener 
 		
 		if (comp.getKey().equals("Mexport"))
 		{
-			DTOProject cloneProject = (DTOProject) model.clone();
+			DTOProject cloneProject = (DTOProject) exportModel.clone();
 			cloneProject.removeAllChildren();
 			for (Object sec : exportPanel.getSecList().getSelectedItems())
 			{				
@@ -72,181 +72,78 @@ public class XMLDataExchangeController implements IImportExport, ActionListener 
 					boolean result = new XMLExport(exportPanel.getTxtPath().getText(), cloneProject).startExport();
 					if (result)
 					{
-						String msg = BHTranslator.getInstance().translate("DXMLExportSuccessfull");
+						String msg = BHTranslator.getInstance().translate("DExportSuccessfull");
 						msg = msg.replace("[PATH]", exportPanel.getTxtPath().getText());
-						JOptionPane.showMessageDialog(container, msg,
-								BHTranslator.getInstance().translate(XMLProjectExportPanel.KEY),
+						JOptionPane.showMessageDialog(exportDialog, msg,
+								BHTranslator.getInstance().translate("DProjectExport"),
 								JOptionPane.INFORMATION_MESSAGE);
 						exportDialog.dispose();
 					}
 					else
 					{
-						JOptionPane.showMessageDialog(container, BHTranslator.getInstance().translate("DXMLExportError"),
-								BHTranslator.getInstance().translate(XMLProjectExportPanel.KEY),
+						JOptionPane.showMessageDialog(exportDialog, BHTranslator.getInstance().translate("DXMLExportError"),
+								BHTranslator.getInstance().translate("DProjectExport"),
 								JOptionPane.ERROR_MESSAGE);
 					}
 					
 				} catch (IOException e1) {
-					JOptionPane.showMessageDialog(container, BHTranslator.getInstance().translate("DXMLExportFileError"),
-							BHTranslator.getInstance().translate(XMLProjectExportPanel.KEY),
+					JOptionPane.showMessageDialog(exportDialog, BHTranslator.getInstance().translate("DXMLExportFileError"),
+							BHTranslator.getInstance().translate("DProjectExport"),
 							JOptionPane.WARNING_MESSAGE);
 				}
 		}		
-		
-		
-		/*if (GUI_KEY.equals(XMLProjectExportPanel.KEY))
+		else if (comp.getKey().equals("Mimport"))
 		{
-			XMLProjectExportPanel projExportPanel = (XMLProjectExportPanel) exportPanels.get(XMLProjectExportPanel.KEY);
-			if (comp.getKey().equals("Bbrowse"))
-			{
-				JFileChooser fileChooser = new JFileChooser();
-				fileChooser.setFileSelectionMode(JFileChooser.FILES_ONLY);
-				
-				String strDefDir = PlatformController.preferences.get("lastExportDirectory", null);
-				if (strDefDir != null)
-				{
-					File defDir = new File(strDefDir);
-					fileChooser.setCurrentDirectory(defDir);
-				}		
-				
-				String descr = BHTranslator.getInstance().translate("DXMLFileDescription");
-				String ext = BHTranslator.getInstance().translate("DXMLFileExtension");			
-				fileChooser.setFileFilter(new FileNameExtensionFilter(descr, ext));
-				
-				int returnVal = fileChooser.showSaveDialog(projExportPanel);		
-				
-				if (returnVal == JFileChooser.APPROVE_OPTION)
-				{
-					PlatformController.preferences.put("lastExportDirectory", fileChooser.getSelectedFile().getParent()); 
-					projExportPanel.getTxtPath().setText(fileChooser.getSelectedFile().getPath());			
-				}
-				
-			}
-			else if (comp.getKey().equals("Mexport"))
-			{
-				DTOProject cloneProject = (DTOProject) model.get(0).clone();
-				cloneProject.removeAllChildren();
-				for (Object sec : projExportPanel.getSecList().getSelectedScenario())
-				{				
-					cloneProject.addChild((DTOScenario) sec);
-				}			
-				
-				if (!projExportPanel.getTxtPath().getText().equals(""))
-					try {
-						boolean result = new XMLExport(projExportPanel.getTxtPath().getText(), cloneProject).startExport();
-						if (result)
-						{
-							String msg = BHTranslator.getInstance().translate("DXMLExportSuccessfull");
-							msg = msg.replace("[PATH]", projExportPanel.getTxtPath().getText());
-							JOptionPane.showMessageDialog(container, msg,
-									BHTranslator.getInstance().translate(XMLProjectExportPanel.KEY),
-									JOptionPane.INFORMATION_MESSAGE);
-							closeContainingWindow();
-						}
-						else
-						{
-							JOptionPane.showMessageDialog(container, BHTranslator.getInstance().translate("DXMLExportError"),
-									BHTranslator.getInstance().translate(XMLProjectExportPanel.KEY),
-									JOptionPane.ERROR_MESSAGE);
-						}
-						
-					} catch (IOException e1) {
-						JOptionPane.showMessageDialog(container, BHTranslator.getInstance().translate("DXMLExportFileError"),
-								BHTranslator.getInstance().translate(XMLProjectExportPanel.KEY),
-								JOptionPane.WARNING_MESSAGE);
-					}
-					
-					
-				
-			}
-		}
-		else if (GUI_KEY.equals(XMLProjectImportPanel.KEY))
+			importModel.removeAllChildren();
+			for (Object sec : importPanel.getSecList().getSelectedItems())
+				((DTOProject)importModel).addChild((DTOScenario) sec);
+			PlatformController.getInstance().addProject((DTOProject) importModel);			
+		}		
+		else if (comp.getKey().equals("Bbrowse") && GUI_KEY.equals(GUI_KEY_IMPORT))
 		{
-			XMLProjectImportPanel projImportPanel = (XMLProjectImportPanel) importPanels.get(XMLProjectImportPanel.KEY);
-			if (comp.getKey().equals("Bbrowse"))
-			{
-				JFileChooser fileChooser = new JFileChooser();
-				fileChooser.setFileSelectionMode(JFileChooser.FILES_ONLY);
-				
-				String strDefDir = PlatformController.preferences.get("lastExportDirectory", null);
-				if (strDefDir != null)
-				{
-					File defDir = new File(strDefDir);
-					fileChooser.setCurrentDirectory(defDir);
-				}		
-				
-				String descr = BHTranslator.getInstance().translate("DXMLFileDescription");
-				String ext = BHTranslator.getInstance().translate("DXMLFileExtension");			
-				fileChooser.setFileFilter(new FileNameExtensionFilter(descr, ext));
-				
-				int returnVal = fileChooser.showOpenDialog(projImportPanel);		
-				
-				if (returnVal == JFileChooser.APPROVE_OPTION)
-				{
-					try {
-						IDTO<?> proj = new XMLImport(fileChooser.getSelectedFile().getPath()).startImport();
-						if (proj != null)
-						{
-							model = proj;
-							projImportPanel.getSecList().setModel(proj.getChildren().toArray());						
-						}
-						else
-						{
-							// TODO Katzor.Marcus
-						}
-						
-					} catch (XMLNotValidException e1) {
-						// TODO Auto-generated catch block
-						e1.printStackTrace();
-					} catch (IOException e1) {
-						// TODO Auto-generated catch block
-						e1.printStackTrace();
-					}
-					
-					
-					
-					/*PlatformController.preferences.put("lastImportDirectory", fileChooser.getSelectedFile().getParent()); 
-					projImportPanel.getTxtPath().setText(fileChooser.getSelectedFile().getPath());			
-				}
-				
-			}
-			else if (comp.getKey().equals("Mimport"))
-			{
-				
-				PlatformController.getInstance().addProject((DTOProject) model);
-			}
-		}
-		
-		if (comp.getKey().equals("Bcancel"))
-		{
-			closeContainingWindow();
 			
-		}
-		/*
-		if (comp.getKey().equals("btnImportChooseFile"))
-		{
 			JFileChooser fileChooser = new JFileChooser();
-			int returnVal = fileChooser.showSaveDialog(getViewPanel());
+			fileChooser.setFileSelectionMode(JFileChooser.FILES_ONLY);
+			
+			String strDefDir = PlatformController.preferences.get("lastExportDirectory", null);
+			if (strDefDir != null)
+			{
+				File defDir = new File(strDefDir);
+				fileChooser.setCurrentDirectory(defDir);
+			}		
+			
+			String descr = BHTranslator.getInstance().translate("DXMLFileDescription");
+			String ext = BHTranslator.getInstance().translate("DXMLFileExtension");			
+			fileChooser.setFileFilter(new FileNameExtensionFilter(descr, ext));
+			
+			int returnVal = fileChooser.showOpenDialog(importDialog);		
 			
 			if (returnVal == JFileChooser.APPROVE_OPTION)
-			{
-				txtImportPath.setText(fileChooser.getSelectedFile().getPath());
+			{			
+				try {
+					importModel = new XMLImport(fileChooser.getSelectedFile().getPath()).startImport();
+					if (importModel != null)
+					{					
+						importPanel.getSecList().setModel(importModel.getChildren().toArray());	
+						importPanel.getBtnImport().setEnabled(true);
+					}
+					else
+					{
+						// TODO Katzor.Marcus
+					}
+					
+				} catch (XMLNotValidException e1) {
+					
+				} catch (IOException e1) {
+					
+				}				
+				
+				PlatformController.preferences.put("lastImportDirectory", fileChooser.getSelectedFile().getParent()); 
+				importPanel.getTxtPath().setText(fileChooser.getSelectedFile().getPath());			
 			}
 			
+			
 		}
-		else if (comp.getKey().equals("btnImport"))
-		{
-			if (!txtImportPath.getText().equals(""))
-				try {
-					new XMLImport(txtImportPath.getText()).startImport();
-				} catch (XMLNotValidException e1) {
-					// TODO Auto-generated catch block
-					e1.printStackTrace();
-				} catch (IOException e1) {
-					// TODO Auto-generated catch block
-					e1.printStackTrace();
-				}
-		}*/
 		
 	}
 	
@@ -254,8 +151,8 @@ public class XMLDataExchangeController implements IImportExport, ActionListener 
 	@Override
 	public void exportProject(DTOProject project,
 			BHDataExchangeDialog exportDialog) {
-		GUI_KEY = "DXMLProjectExport";
-		model = project;
+		GUI_KEY = GUI_KEY_EXPORT;
+		exportModel = project;
 		exportPanel = exportDialog.setDefaulExportProjectPanel();
 		exportDialog.setPluginActionListener(this);
 		this.exportDialog = exportDialog;
@@ -263,10 +160,12 @@ public class XMLDataExchangeController implements IImportExport, ActionListener 
 
 
 	@Override
-	public DTOProject importProject(DTOProject project,
-			BHDataExchangeDialog exportDialog) {
-		// TODO Auto-generated method stub
-		throw new UnsupportedOperationException("This method has not been implemented");
+	public DTOProject importProject(BHDataExchangeDialog importDialog) {
+		GUI_KEY = GUI_KEY_IMPORT;		
+		importPanel = importDialog.setDefaultImportProjectPanel();
+		importDialog.setPluginActionListener(this);
+		this.importDialog = importDialog;
+		return null;
 	}
 
 

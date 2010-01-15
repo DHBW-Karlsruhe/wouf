@@ -451,8 +451,7 @@ public class PDFExport implements IImportExport {
 	}
 
 	@Override
-	public DTOProject importProject(DTOProject project,
-			BHDataExchangeDialog exportDialog) {
+	public DTOProject importProject(BHDataExchangeDialog importDialog) {
 		// TODO Auto-generated method stub
 		throw new UnsupportedOperationException("This method has not been implemented");
 	}

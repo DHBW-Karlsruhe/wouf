@@ -1,11 +1,10 @@
-package org.bh.plugin.xmldataexchange.xmlexport;
+package org.bh.gui.swing;
 
 import info.clearthought.layout.TableLayout;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Component;
-import java.util.List;
 
 import javax.swing.BorderFactory;
 import javax.swing.Box;
@@ -15,27 +14,17 @@ import javax.swing.JSeparator;
 import javax.swing.UIManager;
 import javax.swing.border.Border;
 
-import org.bh.data.IDTO;
-import org.bh.gui.swing.BHButton;
-import org.bh.gui.swing.BHDescriptionLabel;
-import org.bh.gui.swing.BHDescriptionTextArea;
-import org.bh.gui.swing.BHSelectionList;
-import org.bh.gui.swing.BHTextField;
-
-public class XMLProjectExportPanel extends JPanel {
-	
-	public static final String KEY = "DXMLProjectExport";	
-
-	private List<IDTO<?>> model = null;
+public class BHDefaultProjectImportPanel extends JPanel {
 	
 	private BHTextField txtPath = null;
 	
 	private BHSelectionList secList = null;
-	
-	public XMLProjectExportPanel(List<IDTO<?>> model) {
-		super();		
-		this.model = model;		
-		setLayout(new BorderLayout());
+
+	private BHButton btnImport;	
+		
+	public BHDefaultProjectImportPanel() {
+		super();
+		setLayout(new BorderLayout());	
 		
 		// Create description area
 		JPanel panDescr = createDescriptionPanel();	
@@ -48,10 +37,9 @@ public class XMLProjectExportPanel extends JPanel {
 		add(panDescr, BorderLayout.NORTH);
 		add(listPanel, BorderLayout.CENTER);
 		add(actionPanel, BorderLayout.SOUTH);
-		
 	}
 
-	
+
 	private JPanel createActionArea() {
 		// Panel on which the Buttons will be placed
 		JPanel actionPanel = new JPanel(new BorderLayout());
@@ -64,15 +52,20 @@ public class XMLProjectExportPanel extends JPanel {
 		buttonPanel.setLayout(new BoxLayout(buttonPanel, BoxLayout.LINE_AXIS));
 		buttonPanel.add(Box.createHorizontalGlue());
 		
-		// Cancel 
+		// Cancel
 		BHButton btnCancel = new BHButton("Bcancel");
 		
-		// Start export
-		BHButton btnExport = new BHButton("Mexport");
-		btnExport.setAlignmentX(Component.RIGHT_ALIGNMENT);		
+		// Back 
+		BHButton btnBack = new BHButton("Bback");
+		
+		// Start Import
+		btnImport = new BHButton("Mimport");
+		btnImport.setEnabled(false);
+		btnImport.setAlignmentX(Component.RIGHT_ALIGNMENT);		
 		
 		buttonPanel.add(btnCancel);
-		buttonPanel.add(btnExport);
+		buttonPanel.add(btnBack);
+		buttonPanel.add(btnImport);
 		
 		
 		actionPanel.add(buttonPanel, BorderLayout.CENTER);
@@ -85,34 +78,35 @@ public class XMLProjectExportPanel extends JPanel {
 		// Create panel on wich the selection list and the file chooser area
 		// will be placed
 		JPanel listPanel = new JPanel(new BorderLayout());
-		listPanel.setBorder(BorderFactory.createEmptyBorder(20, 15, 15, 15));
+		listPanel.setBorder(BorderFactory.createEmptyBorder(5, 15, 15, 15));
 		
 		
 		// Create list with all available scenarios of the given project
-		secList = new BHSelectionList(model.get(0).getChildren().toArray());		
+		secList = new BHSelectionList(null);		
 		
 		// An extra panel for file selection
 		JPanel fileSelectionPanel = new JPanel();	
-		fileSelectionPanel.setBorder(BorderFactory.createEmptyBorder(7,0,0,0));
+		fileSelectionPanel.setBorder(BorderFactory.createEmptyBorder(0,0,7,0));
 		// 2 columns, 2 rows
 		double size[][] = 
 		{{0.7, 0.3}, {0.5, 0.5}};
 		fileSelectionPanel.setLayout(new TableLayout(size));
 			
 		// Small label for instruction
-		BHDescriptionLabel lblselExportPath = new BHDescriptionLabel("DXMLExportPathSelection");		
-		fileSelectionPanel.add(lblselExportPath, "0,0");
+		BHDescriptionLabel lblselImportPath = new BHDescriptionLabel("DImportPathSelection");		
+		fileSelectionPanel.add(lblselImportPath, "0,0");
 		
 		// Text field which will show the chosen path
-		txtPath = new BHTextField("DXMLTxtExportImportPath", "");
+		txtPath = new BHTextField("DTxtExportImportPath", "");
 		fileSelectionPanel.add(txtPath, "0,1");
 		
 		// Button to start the file choosing dialog
-		BHButton btnChooseFile = new BHButton("Bbrowse");
-		fileSelectionPanel.add(btnChooseFile, "1,1");
+		BHButton btnChooseFile = new BHButton("Bbrowse");		
+		fileSelectionPanel.add(btnChooseFile, "1,1");		
 		
+		listPanel.add(fileSelectionPanel, BorderLayout.NORTH);
 		listPanel.add(secList, BorderLayout.CENTER);
-		listPanel.add(fileSelectionPanel, BorderLayout.SOUTH);
+		
 		return listPanel;
 	}
 
@@ -124,7 +118,7 @@ public class XMLProjectExportPanel extends JPanel {
 		panDescr.setLayout(new BorderLayout());
 		
 		// Text area with description
-		BHDescriptionTextArea lblDescr = new BHDescriptionTextArea("DXMLExportDescription");		
+		BHDescriptionTextArea lblDescr = new BHDescriptionTextArea("DXMLImportDescription");		
 		lblDescr.setFocusable(false);
 		
 		// Create border for that textarea
@@ -148,7 +142,12 @@ public class XMLProjectExportPanel extends JPanel {
 
 	public BHSelectionList getSecList() {
 		return secList;
-	}	
+	}
+	
+	public BHButton getBtnImport() {
+		return btnImport;
+	}
+
+
 
 }
-

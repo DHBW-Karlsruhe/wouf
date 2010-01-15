@@ -65,10 +65,9 @@ public interface IImportExport extends IDisplayablePlugin {
 	 * Must be implemented if import of projects should be supported  by the
 	 * implementing plug-in.
 	 * @param importDialog TODO
-	 * 
 	 * @return an instance of DTOProject
 	 */
-	DTOProject importProject(final DTOProject project, final BHDataExchangeDialog exportDialog);
+	DTOProject importProject(final BHDataExchangeDialog importDialog);
 
 	
 	/**

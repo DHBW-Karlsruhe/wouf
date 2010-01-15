@@ -88,8 +88,7 @@ public class XMLExport {
 		
 		// Create an instance of XMLOutputter to write 
 		// the XML into the file
-		XMLOutputter out = new XMLOutputter(Format.getPrettyFormat());
-				
+		XMLOutputter out = new XMLOutputter(Format.getPrettyFormat());				
 		
 		// Create FileWriter
 		FileWriter writer = new FileWriter(exportFile);	
@@ -113,7 +112,7 @@ public class XMLExport {
 				!exportFile.canWrite()))
 			return false;
 		else if (!exportFile.exists() && exportFile.getParentFile().isDirectory() && (!exportFile.getParentFile()
-				.canRead() || exportFile.getParentFile().canWrite() ))
+				.canRead() || !exportFile.getParentFile().canWrite() ))
 			return false;
 		
 		return true;
