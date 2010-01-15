@@ -3,17 +3,12 @@ package org.bh.gui.swing;
 import java.awt.BorderLayout;
 import java.awt.Component;
 import java.awt.Dimension;
-import java.awt.Graphics;
 import java.awt.Image;
-import java.awt.List;
-import java.awt.Toolkit;
-import java.awt.image.BufferedImage;
-import java.io.IOException;
+import java.util.List;
 import java.util.ArrayList;
 import java.util.prefs.BackingStoreException;
 
 import javax.imageio.ImageIO;
-import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
@@ -175,8 +170,11 @@ public class BHMainFrame extends JFrame implements IPlatformListener {
 		
 		//this.setIconImage(new ImageIcon("/org/bh/images/bh-logo.jpg").getImage()); //TODO Test on windows	
 		try {
-
-			this.setIconImage(ImageIO.read(getClass().getResourceAsStream("/org/bh/images/BH-Logo-16px.png")));
+			List<Image> icons = new ArrayList<Image>();
+			icons.add(ImageIO.read(getClass().getResourceAsStream("/org/bh/images/BH-Logo-16px.png")));
+			icons.add(ImageIO.read(getClass().getResourceAsStream("/org/bh/images/BH-Logo-32px.png")));
+			icons.add(ImageIO.read(getClass().getResourceAsStream("/org/bh/images/BH-Logo-48px.png")));
+			this.setIconImages(icons);
 		} catch (Exception e) {
 			log.error("Failed to load IconImage", e);
 		}
