@@ -31,13 +31,13 @@ import org.bh.platform.i18n.ITranslator;
  */
 public class PDFExport implements IImportExport {
 
+	static Logger log = Logger.getLogger(PDFExport.class);
+
 	private static final String UNIQUE_ID = "pdf";
-	private static final String GUI_KEY = "*.pdf";
+	private static final String GUI_KEY = "PDF";
 
 	private static final String FILE_DESC = "Portable Document Format";
 	private static final String FILE_EXT = "pdf";
-
-	static Logger log = Logger.getLogger(PDFExport.class);
 
 	ITranslator trans = BHTranslator.getInstance();
 	ITextDocumentBuilder db = new ITextDocumentBuilder();
@@ -81,7 +81,14 @@ public class PDFExport implements IImportExport {
 			DistributionMap results, BHDataExchangeDialog exportDialog) {
 		throw new UnsupportedOperationException(
 				"This method has not been implemented");
-	}	
+	}
+
+	@Override
+	public DTOProject importProject(BHDataExchangeDialog importDialog) {
+		// TODO Auto-generated method stub
+		throw new UnsupportedOperationException(
+				"This method has not been implemented");
+	}
 
 	@Override
 	public void exportScenario(final DTOScenario scenario,
@@ -97,10 +104,9 @@ public class PDFExport implements IImportExport {
 			public void actionPerformed(ActionEvent e) {
 				IBHComponent comp = (IBHComponent) e.getSource();
 				if (comp.getKey().equals("Mexport")) {
-					if(!checkFile(dp.getFilePath(), dp)){
+					if (!checkFile(dp.getFilePath(), dp)) {
 						return;
 					}
-					
 					db.newDocument(dp.getFilePath(), scenario);
 					db.buildHeadData(scenario);
 					db.buildScenarioData(scenario);
@@ -121,30 +127,6 @@ public class PDFExport implements IImportExport {
 				}
 			}
 		});
-	}
-
-	protected boolean checkFile(String filePath, Component parent) {
-		File f = new File(filePath);
-		if((f.exists())) {
-			if(!f.canWrite()) {
-				JOptionPane.showMessageDialog(parent, trans.translate("NOWRITE"), trans.translate("NOWRITETITLE"), JOptionPane.ERROR_MESSAGE);
-				return false;
-			}
-			int res =  JOptionPane.showConfirmDialog(parent, trans.translate("OVERWRITE"), trans.translate("OVERWRITETITLE"), JOptionPane.YES_NO_OPTION);
-			if(res == JOptionPane.YES_OPTION) {
-				return true;
-			}
-			return false;
-		}
-		// f does not exist
-		try {
-			f.createNewFile();
-		} catch (IOException e) {
-			JOptionPane.showMessageDialog(parent, trans.translate("NOWRITE"), trans.translate("NOWRITETITLE"), JOptionPane.ERROR_MESSAGE);
-			return false;
-		}
-		f.delete();
-		return true;
 	}
 
 	@Override
@@ -171,10 +153,9 @@ public class PDFExport implements IImportExport {
 			public void actionPerformed(ActionEvent e) {
 				IBHComponent comp = (IBHComponent) e.getSource();
 				if (comp.getKey().equals("Mexport")) {
-					if(!checkFile(dp.getFilePath(), dp)){
+					if (!checkFile(dp.getFilePath(), dp)) {
 						return;
 					}
-					
 					db.newDocument(dp.getFilePath(), scenario);
 					db.buildHeadData(scenario);
 					db.buildScenarioData(scenario);
@@ -201,7 +182,6 @@ public class PDFExport implements IImportExport {
 	@Override
 	public void exportScenarioResults(DTOScenario scenario,
 			Map<String, Calculable[]> results, String filePath) {
-
 		db.newDocument(filePath, scenario);
 		db.buildHeadData(scenario);
 		db.buildScenarioData(scenario);
@@ -225,10 +205,9 @@ public class PDFExport implements IImportExport {
 			public void actionPerformed(ActionEvent e) {
 				IBHComponent comp = (IBHComponent) e.getSource();
 				if (comp.getKey().equals("Mexport")) {
-					if(checkFile(dp.getFilePath(), dp)){
+					if (checkFile(dp.getFilePath(), dp)) {
 						return;
 					}
-					
 					db.newDocument(dp.getFilePath(), scenario);
 					db.buildHeadData(scenario);
 					db.buildScenarioData(scenario);
@@ -255,7 +234,6 @@ public class PDFExport implements IImportExport {
 	@Override
 	public void exportScenarioResults(DTOScenario scenario,
 			DistributionMap results, String filePath) {
-
 		db.newDocument(filePath, scenario);
 		db.buildHeadData(scenario);
 		db.buildScenarioData(scenario);
@@ -264,11 +242,48 @@ public class PDFExport implements IImportExport {
 		log.debug("pdf scenario batch export completed " + filePath);
 	}
 
-	
+	@Override
+	public DTOScenario importScenario(BHDataExchangeDialog importDialog) {
+		// TODO Auto-generated method stub
+		throw new UnsupportedOperationException(
+				"This method has not been implemented");
+	}
+
+	protected boolean checkFile(String filePath, Component parent) {
+		File f = new File(filePath);
+		if (f.exists()) {
+			if (!f.canWrite()) {
+				JOptionPane.showMessageDialog(parent, trans
+						.translate("NOWRITE"), trans.translate("NOWRITETITLE"),
+						JOptionPane.ERROR_MESSAGE);
+				return false;
+			}
+			int res = JOptionPane.showConfirmDialog(parent, trans
+					.translate("OVERWRITE"), trans.translate("OVERWRITETITLE"),
+					JOptionPane.YES_NO_OPTION);
+			if (res == JOptionPane.YES_OPTION) {
+				return true;
+			}
+			return false;
+		}
+		// f does not exist
+		try {
+			f.createNewFile();
+		} catch (IOException e) {
+			// no write rights 
+			JOptionPane.showMessageDialog(parent, trans.translate("NOWRITE"),
+					trans.translate("NOWRITETITLE"), JOptionPane.ERROR_MESSAGE);
+			return false;
+		}
+		// can write
+		f.delete();
+		return true;
+	}
+
 	@Override
 	public int getSupportedMethods() {
-		return IImportExport.EXP_SCENARIO_RES
-				+ IImportExport.EXP_SCENARIO + IImportExport.BATCH_EXPORT;
+		return IImportExport.EXP_SCENARIO_RES + IImportExport.EXP_SCENARIO
+				+ IImportExport.BATCH_EXPORT;
 	}
 
 	@Override
@@ -294,17 +309,5 @@ public class PDFExport implements IImportExport {
 	@Override
 	public String getFileExtension() {
 		return FILE_EXT;
-	}
-
-	@Override
-	public DTOProject importProject(BHDataExchangeDialog importDialog) {
-		// TODO Auto-generated method stub
-		throw new UnsupportedOperationException("This method has not been implemented");
-	}
-
-	@Override
-	public DTOScenario importScenario(BHDataExchangeDialog importDialog) {
-		// TODO Auto-generated method stub
-		throw new UnsupportedOperationException("This method has not been implemented");
 	}
 }

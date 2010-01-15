@@ -29,7 +29,15 @@ import com.itextpdf.text.Section;
 import com.itextpdf.text.pdf.PdfPTable;
 import com.itextpdf.text.pdf.PdfWriter;
 
+/**
+ * Builder class for pdf's
+ * 
+ * @author Norman
+ * @version 1.0, 15.01.2010
+ * 
+ */
 public class ITextDocumentBuilder {
+	
 	static Logger log = Logger.getLogger(ITextDocumentBuilder.class);
 
 	private static ITranslator trans = BHTranslator.getInstance();

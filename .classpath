@@ -39,5 +39,7 @@
 	<classpathentry kind="lib" path="lib/hsviewer.jar"/>
 	<classpathentry kind="lib" path="lib/jh.jar"/>
 	<classpathentry kind="lib" path="lib/plugins/pdfexport/iText.jar"/>
+	<classpathentry kind="lib" path="lib/plugins/pdfexport/pdfbox-0.8.0-incubating.jar"/>
+	<classpathentry kind="lib" path="lib/plugins/pdfexport/fontbox-0.8.0-incubating.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>
