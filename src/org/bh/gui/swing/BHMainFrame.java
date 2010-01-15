@@ -4,8 +4,8 @@ import java.awt.BorderLayout;
 import java.awt.Component;
 import java.awt.Dimension;
 import java.awt.Image;
-import java.util.List;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.prefs.BackingStoreException;
 
 import javax.imageio.ImageIO;
@@ -211,7 +211,7 @@ public class BHMainFrame extends JFrame implements IPlatformListener {
 		// TODO Dispose evtl noch auslagern
 		if (ProjectRepositoryManager.isChanged()) {
 			
-			int i = JOptionPane.showConfirmDialog(this, Services.getTranslator().translate("PsaveEnd_long"), Services.getTranslator().translate("PsaveEnd"),JOptionPane.YES_NO_OPTION);
+			int i = JOptionPane.showConfirmDialog(this, Services.getTranslator().translate("PsaveEnd_long"), Services.getTranslator().translate("PsaveEnd"),JOptionPane.YES_NO_CANCEL_OPTION);
 			if (i == JOptionPane.YES_OPTION) {
 			
 				/**

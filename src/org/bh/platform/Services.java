@@ -306,7 +306,7 @@ public class Services {
 					
 					// BH specific attributes.
 					UIManager.put("BHTree.nodeheight", 20);
-					UIManager.put("BHTree.minimumWidth", 150);
+					UIManager.put("BHTree.minimumWidth", 160);
 					UIManager.put("Chart.background", UIManager.get("control"));
 
 					UIManager.setLookAndFeel(info.getClassName());
