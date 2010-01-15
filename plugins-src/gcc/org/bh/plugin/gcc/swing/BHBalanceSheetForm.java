@@ -372,8 +372,6 @@ public class BHBalanceSheetForm extends JPanel {
 	public BHDescriptionLabel getlAV() {
 		if (lAV == null) {
 			lAV = new BHDescriptionLabel(DTOGCCBalanceSheet.Key.AV);
-			float size = lAV.getFont().getSize2D() + 1;
-			lAV.setFont(lAV.getFont().deriveFont(size));
 		}
 		return lAV;
 	}
@@ -381,8 +379,6 @@ public class BHBalanceSheetForm extends JPanel {
 	public BHDescriptionLabel getlUV() {
 		if (lUV == null) {
 			lUV = new BHDescriptionLabel(DTOGCCBalanceSheet.Key.UV);
-			float size = lUV.getFont().getSize2D() + 1;
-			lUV.setFont(lUV.getFont().deriveFont(size));
 		}
 		return lUV;
 	}
