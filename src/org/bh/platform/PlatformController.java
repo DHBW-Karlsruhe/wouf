@@ -352,6 +352,8 @@ public class PlatformController {
 								
 								
 								
+								
+								
 							} catch (ViewException e) {
 								e.printStackTrace();
 							}
@@ -390,6 +392,14 @@ public class PlatformController {
 					|| e.getSource() instanceof DTOPeriod
 					|| e.getSource() instanceof IPeriodicalValuesDTO) {
 				bhmf.getBHTree().updateUI();
+			}
+			
+			if (e.getSource() instanceof DTOScenario){
+				BHTreeNode tempScenarioNode = bhmf.getBHTree().getNodeForDto((DTOScenario)e.getSource());
+				if(tempScenarioNode != null){
+					tempScenarioNode.setBackgroundPane(null);
+				}
+				
 			}
 		}
 	}

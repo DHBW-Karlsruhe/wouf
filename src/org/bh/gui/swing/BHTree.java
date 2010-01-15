@@ -15,9 +15,13 @@ import javax.swing.UIManager;
 import javax.swing.tree.DefaultMutableTreeNode;
 import javax.swing.tree.DefaultTreeCellRenderer;
 import javax.swing.tree.DefaultTreeModel;
+import javax.swing.tree.MutableTreeNode;
 import javax.swing.tree.TreeCellRenderer;
+import javax.swing.tree.TreeNode;
 import javax.swing.tree.TreePath;
 import javax.swing.tree.TreeSelectionModel;
+
+import org.bh.data.DTO;
 import org.bh.data.DTOPeriod;
 import org.bh.data.DTOProject;
 import org.bh.data.DTOScenario;
@@ -73,7 +77,6 @@ public class BHTree extends JTree{
 	DefaultTreeModel model;
 
 	public BHTree() {
-
 		// set settings
 		this.setEditable(true);
 		this.setDragEnabled(true);
@@ -112,6 +115,38 @@ public class BHTree extends JTree{
 		// TODO Find out, if reload is necessary...
 	}
 	
+	public BHTreeNode getNodeForDto(DTO<?> dto){
+		
+		//check Projects
+		BHTreeNode tempProjectNode;
+		for(int i = 0; i < ((MutableTreeNode)((DefaultTreeModel)this.getModel()).getRoot()).getChildCount();i++){
+			tempProjectNode = (BHTreeNode)((MutableTreeNode)((DefaultTreeModel)this.getModel()).getRoot()).getChildAt(i);
+			if(tempProjectNode.getUserObject() == dto){
+				return tempProjectNode;
+			}
+				
+			//check Scenarios...
+			BHTreeNode tempScenarioNode;
+			for(int y = 0; y < tempProjectNode.getChildCount();y++){
+				tempScenarioNode = (BHTreeNode)tempProjectNode.getChildAt(y);
+				if(tempScenarioNode.getUserObject() == dto){
+					return tempScenarioNode;
+				}
+						
+				//check Periods
+				BHTreeNode tempPeriodNode;
+				for(int z = 0; z< tempScenarioNode.getChildCount();z++){
+					tempPeriodNode = (BHTreeNode)tempScenarioNode.getChildAt(z);
+					if(tempPeriodNode.getUserObject() == dto){
+						return tempPeriodNode;
+					}
+				}
+			}
+		}
+		//after all, return null;
+		return null;	
+	}
+			
 	
 	void showPopup(MouseEvent e) {
         if (e.isPopupTrigger()) {
@@ -296,6 +331,39 @@ public class BHTree extends JTree{
 		return this.addPeriod(newPeriod, (BHTreeNode)(this.getSelectionPath().getPathComponent(2)));
 	}
 	
+	/**
+	 * 
+	 * removes all children of tree and DTO
+	 * 
+	 * @param tempDto
+	 */
+	public void removeAllPeriods(DTOScenario tempDto){
+		
+		BHTreeNode tempNode = this.getNodeForDto(tempDto);
+		//remove from TreeNode
+		for(int i = 0; i < tempNode.getChildCount(); i++) {
+			((DefaultTreeModel)this.getModel()).removeNodeFromParent((BHTreeNode)tempNode.getChildAt(i));
+		}
+		
+		//remove from DTO
+		tempDto.removeAllChildren();
+	}
+	
+	/**
+	 * remove all children of tree and DTO
+	 * 
+	 * @param scenarioNode
+	 */
+	public void removeAllPeriods(BHTreeNode scenarioNode){
+		if(scenarioNode.getUserObject() instanceof DTOScenario){
+			for(int i = 0; i < scenarioNode.getChildCount(); i++) {
+				((DefaultTreeModel)this.getModel()).removeNodeFromParent((BHTreeNode)scenarioNode.getChildAt(i));
+			}
+			
+			//remove from DTO
+			((DTOScenario)scenarioNode.getUserObject()).removeAllChildren();
+		}
+	}
 	
 	/**
 	 * method to duplicate a ScenarioNode
@@ -351,7 +419,9 @@ public class BHTree extends JTree{
 	         this.expandRow(i);
 		}
 	}
-		
+	
+	
+	
 	/*
 	 * collapse all nodes
 	 * 

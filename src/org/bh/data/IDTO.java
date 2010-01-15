@@ -172,4 +172,12 @@ public interface IDTO<ChildT extends IDTO> extends Cloneable, Serializable, Iter
 	 * gets the number of entries in the values map
 	 */
 	int getNoOfValues();
+	
+	/**
+	 * Checks weather the given DTO is the DTO itself or one of its children
+	 * 
+	 * @param dto
+	 * @return
+	 */
+	boolean isMeOrChild(DTO<?> checkDto);
 }

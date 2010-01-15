@@ -427,7 +427,22 @@ public abstract class DTO<ChildT extends IDTO> implements IDTO<ChildT> {
 		Services.firePlatformEvent(new PlatformEvent(this,
 				PlatformEvent.Type.DATA_CHANGED));
 	}
-
+	
+	@Override
+	public boolean isMeOrChild(DTO<?> checkDto){
+		if(this == checkDto){
+			return true;
+		}
+		for(ChildT tempChild : this.getChildren()){
+			if(tempChild == checkDto){
+				return true;
+			}
+		}
+		
+		return false;
+	}
+	
+	
 	/**
 	 * This is called on deserialization of the DTO
 	 */
