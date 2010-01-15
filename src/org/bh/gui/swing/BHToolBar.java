@@ -1,12 +1,13 @@
 package org.bh.gui.swing;
 
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 
-import javax.swing.*;
+import javax.swing.ImageIcon;
+import javax.swing.JLabel;
+import javax.swing.JToolBar;
 
+import org.bh.platform.PlatformController;
 import org.bh.platform.PlatformKey;
 
 import com.jgoodies.forms.layout.CellConstraints;
@@ -28,8 +29,8 @@ import com.jgoodies.forms.layout.FormLayout;
 
 public class BHToolBar extends JToolBar implements MouseListener{
 
-	private boolean shown = false;
-	private boolean fixed = true;
+	boolean shown = true;
+	boolean fixed = true;
 	private int width;
 	private int height;
 	private BHButton Bnew, Bopen, Bsave, Bproject, Bscenario, Bperiod, Bdelete; 
@@ -57,7 +58,18 @@ public class BHToolBar extends JToolBar implements MouseListener{
 		setLayout(new FormLayout(colDef, rowDef));
 		cons = new CellConstraints();
 		
-		createToolBar();
+		if (PlatformController.preferences.get("showToolbar", "").equals("true")) {
+			fixed = true;
+			shown = true;
+			createToolBar();
+			showToolBar();
+			
+		} else {
+			fixed = false;
+			shown = false;
+			createToolBar();
+			hideToolBar();
+		}
 		
     }
     
@@ -113,7 +125,12 @@ public class BHToolBar extends JToolBar implements MouseListener{
 		Bdelete.addMouseListener(this);
 
 		showHide = new JLabel("");
-		showHide.setIcon(new ImageIcon(BHToolBar.class.getResource("/org/bh/images/buttons/Bshow.png"), ""));
+		
+		if (fixed)
+			showHide.setIcon(new ImageIcon(BHToolBar.class.getResource("/org/bh/images/buttons/Bshow.png"), ""));
+		else
+			showHide.setIcon(new ImageIcon(BHToolBar.class.getResource("/org/bh/images/buttons/Bhide.png"), ""));
+		
 		showHide.addMouseListener(new LabelListener());
 		
 		separator1 = new JLabel("");
@@ -136,8 +153,7 @@ public class BHToolBar extends JToolBar implements MouseListener{
 		add(showHide, cons.xywh(11, 1, 1, 1, "right,top"));
 				
 		addMouseListener(this);
-    			
-		shown = true;
+		
     }
 
 	/**
@@ -190,11 +206,16 @@ public class BHToolBar extends JToolBar implements MouseListener{
 				fixed = false;
 				shown = false;
 				
+				// save toolbar state to preferences
+				PlatformController.preferences.put("showToolbar", "false");
 			}else {
 				showHide.setIcon(new ImageIcon(BHToolBar.class.getResource("/org/bh/images/buttons/Bshow.png"), ""));
 				fixed = true;
 				shown = true;
 				showToolBar();
+				
+				// save toolbar state to preferences
+				PlatformController.preferences.put("showToolbar", "true");
 			}
 		}
 
