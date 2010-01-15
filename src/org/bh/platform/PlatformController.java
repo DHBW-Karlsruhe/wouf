@@ -4,7 +4,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.prefs.Preferences;
 
-import javax.swing.JComponent;
 import javax.swing.JSplitPane;
 import javax.swing.SwingUtilities;
 import javax.swing.event.TreeSelectionEvent;
@@ -33,7 +32,6 @@ import org.bh.gui.swing.BHDeterministicProcessForm;
 import org.bh.gui.swing.BHMainFrame;
 import org.bh.gui.swing.BHMenuItem;
 import org.bh.gui.swing.BHProjectForm;
-import org.bh.gui.swing.BHProjectInputForm;
 import org.bh.gui.swing.BHProjectView;
 import org.bh.gui.swing.BHScenarioForm;
 import org.bh.gui.swing.BHScenarioView;
@@ -295,18 +293,12 @@ public class PlatformController {
 									
 									//create controller
 									controller = new ScenarioController(view, model);
-									controller.loadAllToView();
 									selectedNode.setController(controller);
 								}
 								
-								// table for periods
-								try {
+								if (model.isDeterministic()) {
 									((BHDeterministicProcessForm) ((BHScenarioForm) controller.getViewPanel())
 											.getProcessForm()).setPeriodTable(PlatformController.this.prepareScenarioTableData(model));
-									
-								} catch (Exception e1) {
-									// TODO Exception ausprogrammieren#
-									e1.printStackTrace();
 								}
 								
 								JSplitPane bgComponent;

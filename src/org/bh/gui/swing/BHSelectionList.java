@@ -33,6 +33,7 @@ public class BHSelectionList extends JList implements MouseListener,
 		IBHModelComponent {
 
 	private final String key;
+	private boolean defaultValue = true;
 	private List<Object> selectedItems = new ArrayList<Object>();
 	private final CompValueChangeManager valueChangeManager = new CompValueChangeManager();
 
@@ -116,7 +117,7 @@ public class BHSelectionList extends JList implements MouseListener,
 		selectedItems = new ArrayList<Object>();
 		for (Object element : elements) {
 			model.addElement(new ListElement(element));
-			if (ListElement.DEFAULT)
+			if (defaultValue)
 				selectedItems.add(element);
 		}
 		super.setModel(model);
@@ -127,12 +128,6 @@ public class BHSelectionList extends JList implements MouseListener,
 	}
 
 	public class ListElement {
-
-		/**
-		 * Default for selection of ListElement.
-		 */
-		public static final boolean DEFAULT = true;
-
 		/**
 		 * selection element.
 		 */
@@ -150,7 +145,7 @@ public class BHSelectionList extends JList implements MouseListener,
 		 * @param value
 		 */
 		public ListElement(Object value) {
-			this.isSelected = ListElement.DEFAULT;
+			this.isSelected = defaultValue;
 			this.value = value;
 		}
 
@@ -237,5 +232,13 @@ public class BHSelectionList extends JList implements MouseListener,
 	@Override
 	public String getKey() {
 		return key;
+	}
+
+	public boolean getDefaultValue() {
+		return defaultValue;
+	}
+
+	public void setDefaultValue(boolean defaultValue) {
+		this.defaultValue = defaultValue;
 	}
 }

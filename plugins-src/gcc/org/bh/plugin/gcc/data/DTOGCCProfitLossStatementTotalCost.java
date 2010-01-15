@@ -54,6 +54,7 @@ public class DTOGCCProfitLossStatementTotalCost extends DTO implements
 		 * (-) Materialaufwand (Aufwendungen für Roh-, Hilfs- und Betriebsstoffe
 		 * und für bezogene Waren sowie Aufwendungen für bezogene Leistungen)
 		 */
+		@Stochastic
 		MA,
 
 		/**
@@ -66,6 +67,7 @@ public class DTOGCCProfitLossStatementTotalCost extends DTO implements
 		 * (-) Personalaufwand (Löhne und Gehälter sowie soziale Abgaben und
 		 * Aufwendungen für Altersversorgung und für Unterstützung)
 		 */
+		@Stochastic
 		PA,
 
 		/**

@@ -27,6 +27,7 @@ import org.bh.data.DTOScenario;
 import org.bh.data.IDTO;
 import org.bh.data.types.Calculable;
 import org.bh.data.types.StringValue;
+import org.bh.gui.ICompValueChangeListener;
 import org.bh.gui.IDeterministicResultAnalyser;
 import org.bh.gui.View;
 import org.bh.gui.swing.BHButton;
@@ -36,12 +37,15 @@ import org.bh.gui.swing.BHSelectionList;
 import org.bh.gui.swing.BHStochasticInputForm;
 import org.bh.gui.swing.BHTree;
 import org.bh.gui.swing.BHTreeNode;
+import org.bh.gui.swing.IBHModelComponent;
 import org.bh.platform.PlatformEvent.Type;
 
 public class ScenarioController extends InputController {
 	protected static final BHComboBox.Item[] DCF_METHOD_ITEMS = getDcfMethodItems();
 	protected static final BHComboBox.Item[] PERIOD_TYPE_ITEMS = getPeriodTypeItems();
 	protected static final BHComboBox.Item[] STOCHASTIC_METHOD_ITEMS = getStochasticProcessItems();
+
+	private Object oldPeriodType = null;
 
 	public ScenarioController(View view, IDTO<?> model) {
 		super(view, model);
@@ -53,29 +57,42 @@ public class ScenarioController extends InputController {
 			cbDcfMethod.setValueList(DCF_METHOD_ITEMS);
 		}
 
-		BHComboBox cbPeriodType = (BHComboBox) view
+		final BHComboBox cbPeriodType = (BHComboBox) view
 				.getBHComponent(DTOScenario.Key.PERIOD_TYPE);
 		if (cbPeriodType != null) {
 			cbPeriodType.setValueList(PERIOD_TYPE_ITEMS);
 			cbPeriodType.addItemListener(new ItemListener() {
 				@Override
 				public void itemStateChanged(ItemEvent e) {
-					DTOScenario scenario = (DTOScenario) getModel();
+					if (e.getStateChange() != ItemEvent.DESELECTED)
+						return;
 
-					if (scenario.getChildrenSize() > 0) {
-						int action = JOptionPane.showConfirmDialog(getView()
-								.getViewPanel(), "Test", "Test",
-								JOptionPane.YES_NO_OPTION);
-						if (action == JOptionPane.YES_OPTION) {
-							((DTOScenario) getModel()).removeAllChildren();
-						} else if (action == JOptionPane.NO_OPTION) {
-							return;
-						}
-					}
-
-					updateStochasticFieldsList();
+					oldPeriodType = e.getItem();
 				}
 			});
+			cbPeriodType.getValueChangeManager().addCompValueChangeListener(
+					new ICompValueChangeListener() {
+						@Override
+						public void compValueChanged(IBHModelComponent comp) {
+							if (cbPeriodType.getSelectedItem() == oldPeriodType)
+								return;
+							
+							DTOScenario scenario = (DTOScenario) getModel();
+
+							if (scenario.getChildrenSize() > 0) {
+								int action = PlatformUserDialog.getInstance()
+										.showYesNoDialog("Test", "Test");
+								if (action == JOptionPane.NO_OPTION) {
+									((BHComboBox) comp)
+											.setSelectedItem(oldPeriodType);
+									return;
+								}
+							}
+
+							scenario.removeAllChildren();
+							updateStochasticFieldsList();
+						}
+					});
 		}
 
 		BHComboBox cbStochasticMethod = (BHComboBox) view
@@ -88,8 +105,6 @@ public class ScenarioController extends InputController {
 		((BHButton) view.getBHComponent(PlatformKey.CALCSHAREHOLDERVALUE))
 				.addActionListener(new CalculationListener(PlatformController
 						.getInstance().getMainFrame().getBHTree()));
-		
-		updateStochasticFieldsList();
 
 		BHButton calcStochasticParameters = ((BHButton) view
 				.getBHComponent(BHStochasticInputForm.Key.CALC_PARAMETERS));
@@ -120,8 +135,11 @@ public class ScenarioController extends InputController {
 				}
 			});
 		}
-		
+
 		setCalcEnabled(getModel().isValid(true));
+		
+		loadAllToView();
+		updateStochasticFieldsList();
 	}
 
 	protected void updateStochasticFieldsList() {
@@ -145,15 +163,15 @@ public class ScenarioController extends InputController {
 			setCalcEnabled(getModel().isValid(true));
 		}
 	}
-	
-	protected void setCalcEnabled(boolean calculationEnabled){
+
+	protected void setCalcEnabled(boolean calculationEnabled) {
 		((Component) view.getBHComponent(PlatformKey.CALCSHAREHOLDERVALUE))
-		.setEnabled(calculationEnabled);
+				.setEnabled(calculationEnabled);
 		((Component) view
-		.getBHComponent(BHScenarioForm.Key.CANNOT_CALCULATE_HINT))
-		.setVisible(!calculationEnabled);
+				.getBHComponent(BHScenarioForm.Key.CANNOT_CALCULATE_HINT))
+				.setVisible(!calculationEnabled);
 	}
-	
+
 	protected static BHComboBox.Item[] getDcfMethodItems() {
 		Collection<IShareholderValueCalculator> dcfMethods = Services
 				.getDCFMethods().values();

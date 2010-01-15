@@ -53,7 +53,6 @@ public class DTOGCCProfitLossStatementCostOfSales extends DTO implements
 		/**
 		 * (-) Verwaltungskosten
 		 */
-		@Stochastic
 		VERWK,
 
 		/**
@@ -142,6 +141,7 @@ public class DTOGCCProfitLossStatementCostOfSales extends DTO implements
 		 * Vertriebskosten + allg. Verwaltungskosten +sonstige betriebliche Aufwendungen
 		 * (von der BWL Gruppe als extra Feld gewünscht)
 		 */
+		@Stochastic
 		VVSBA;
 		
 		@Override

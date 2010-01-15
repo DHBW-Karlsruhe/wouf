@@ -5,8 +5,8 @@ import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 
 import javax.swing.JFrame;
-import javax.swing.JList;
 import javax.swing.JPanel;
+import javax.swing.JScrollPane;
 
 import org.bh.data.DTOScenario;
 import org.bh.platform.Services;
@@ -62,7 +62,7 @@ public class BHStochasticInputForm extends JPanel {
 	private void initialize() {
 
 		String colDef = "4px,p,4px,p,4px,p,4px,p,0px:grow,4px";
-		String rowDef = "4px,p,4px,p,4px,p,10px,p,4px,p,4px";
+		String rowDef = "4px,p,4px,p,4px,80px,10px,p,4px,p,4px";
 		
 
 		FormLayout layout = new FormLayout(colDef, rowDef);
@@ -76,7 +76,7 @@ public class BHStochasticInputForm extends JPanel {
 		this.add(this.getcbstochProcess(), cons.xywh(8, 2, 1, 1));
 		
 		this.add(this.getlStochasticKeysList(), cons.xywh(2, 4, 8, 1));
-		this.add(this.getliStochasticKeysList(), cons.xywh(2, 6, 8, 1));
+		this.add(new JScrollPane(this.getliStochasticKeysList()), cons.xywh(2, 6, 8, 1));
 		
 		this.add(this.getbCalcParameters(), cons.xywh(2, 8, 8, 1));
 		this.add(this.getbResetParameters(), cons.xywh(2, 8, 8, 1));
@@ -136,9 +136,8 @@ public class BHStochasticInputForm extends JPanel {
 	
 	public BHSelectionList getliStochasticKeysList() {
 		if (liStochasticKeys == null) {
-			liStochasticKeys = new BHSelectionList(DTOScenario.Key.STOCHASTIC_KEYS, null);
-			liStochasticKeys.setLayoutOrientation(JList.VERTICAL_WRAP);
-			liStochasticKeys.setVisibleRowCount(3);
+			liStochasticKeys = new BHSelectionList(DTOScenario.Key.STOCHASTIC_KEYS, new String[] {"Testxyz","Testxyz","Testxyz","Testxyz","Testxyz","Testxyz","Testxyz","Testxyz","Testxyz","Testxyz","Testxyz","Testxyz","Testxyz","Testxyz","Testxyz","Testxyz","Testxyz","Testxyz","Testxyz","Testxyz","Testxyz","Testxyz","Testxyz","Testxyz","Testxyz","Testxyz","Testxyz","Testxyz","Testxyz","Testxyz","Testxyz","Testxyz","Testxyz","Testxyz","Testxyz","Testxyz","Testxyz","Testxyz","Testxyz","Testxyz","Testxyz"});
+			liStochasticKeys.setDefaultValue(false);
 		}
 		return liStochasticKeys;
 	}

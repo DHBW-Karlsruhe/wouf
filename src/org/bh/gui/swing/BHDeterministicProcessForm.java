@@ -102,10 +102,10 @@ public class BHDeterministicProcessForm extends JPanel {
 	
 	
 	
-	public void setPeriodTable(IValue[][] data) throws Exception{
+	public void setPeriodTable(IValue[][] data) {
 		if(data.length > 0)
 			if(data[0].length != 3)
-				throw new Exception("PeriodTableData: Data array has wrong length!");
+				throw new Error("PeriodTableData: Data array has wrong length!");
 		
 		if(tablePane != null)
 			this.remove(tablePane);
