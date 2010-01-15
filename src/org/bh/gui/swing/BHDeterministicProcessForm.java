@@ -3,7 +3,6 @@ import java.awt.Dimension;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 
-import javax.swing.JCheckBox;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
@@ -32,7 +31,7 @@ public class BHDeterministicProcessForm extends JPanel {
 	private BHDescriptionLabel ldcfMethod;
 	
 	//Components
-	private JCheckBox chbinterval;
+	private BHCheckBox chbinterval;
 	private JTable tperioddata;
 	private BHComboBox cbdcfMethod;
 	private JScrollPane tablePane;
@@ -53,7 +52,7 @@ public class BHDeterministicProcessForm extends JPanel {
 	private void initialize() {
 		FormLayout layout;
 		//TODO rowDef überarbeiten
-		String colDef = "4px,right:pref,4px,max(80px;pref),pref:grow,4px";
+		String colDef = "4px,right:pref,4px,max(80px;pref),4px:grow(0.2),pref:grow,4px";
 		String rowDef = "4px,p,4px,p,4px,p,4px";
 		
 		layout = new FormLayout(colDef, rowDef);
@@ -63,23 +62,24 @@ public class BHDeterministicProcessForm extends JPanel {
 		
 		this.add(this.getlDCFmethod(), cons.xywh(2, 2, 1, 1));
 		this.add(this.getcbDCFmethod(), cons.xywh(4, 2, 1, 1));
-		this.add(this.getLinterval(), cons.xywh(2, 4, 1, 1));
-		this.add(this.getChbinterval(), cons.xywh(4, 4, 1, 1));
+//		this.add(this.getLinterval(), cons.xywh(2, 4, 1, 1));
+		this.add(this.getChbinterval(), cons.xywh(6, 2, 1, 1));
 		
 	}
 
 	// TODO add missing label keys and translations, change hard coded values to keys
 	
-	public BHDescriptionLabel getLinterval() {
-		if (linterval == null) {
-			linterval = new BHDescriptionLabel("IntervalArithmetic");
-		}
-		return linterval;
-	}
+//	public BHDescriptionLabel getLinterval() {
+//		if (linterval == null) {
+//			linterval = new BHDescriptionLabel("IntervalArithmetic");
+//		}
+//		return linterval;
+//	}
 
-	public JCheckBox getChbinterval() {
+	public BHCheckBox getChbinterval() {
 		if (chbinterval == null) {
-			chbinterval = new JCheckBox();
+			chbinterval = new BHCheckBox(DTOScenario.Key.INTERVAL_ARITHMETIC);
+			chbinterval.setText(translator.translate(DTOScenario.Key.INTERVAL_ARITHMETIC));
 		}
 		return chbinterval;
 	}
@@ -112,7 +112,7 @@ public class BHDeterministicProcessForm extends JPanel {
 		
 		tablePane = new JScrollPane(this.getTperioddata(data));
 		
-		this.add(tablePane, cons.xywh(2, 6, 4, 1));
+		this.add(tablePane, cons.xywh(2, 6, 6, 1));
 	}
 	
 	
