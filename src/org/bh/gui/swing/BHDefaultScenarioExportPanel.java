@@ -21,6 +21,8 @@ import javax.swing.border.Border;
 import javax.swing.filechooser.FileNameExtensionFilter;
 
 import org.bh.platform.PlatformController;
+import org.bh.validation.VRCheckFileTag;
+import org.bh.validation.ValidationRule;
 
 public class BHDefaultScenarioExportPanel extends JPanel implements ActionListener {
 	
@@ -97,6 +99,9 @@ public class BHDefaultScenarioExportPanel extends JPanel implements ActionListen
 		
 		// Text field which will show the chosen path
 		txtPath = new BHTextField("DTxtExportImportPath", "");
+		ValidationRule[] r = { VRCheckFileTag.PDF };
+		txtPath.setValidationRules(r);
+		
 		fileSelectionPanel.add(txtPath, "0,1");
 		
 		// Button to start the file choosing dialog
