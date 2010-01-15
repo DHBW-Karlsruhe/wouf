@@ -1,5 +1,6 @@
 package org.bh.gui.chart;
 
+import java.text.DecimalFormat;
 import java.text.NumberFormat;
 
 import org.jfree.chart.labels.AbstractCategoryItemLabelGenerator;
@@ -12,13 +13,16 @@ public class BHChartLabelGenerator extends AbstractCategoryItemLabelGenerator
 	public BHChartLabelGenerator(){
 		super("", NumberFormat.getInstance());
 	}
-
+	
 	@Override
 	public String generateLabel(CategoryDataset dataset, int row, int column) {
 		String result = null;
+		
 		Number value = dataset.getValue(row, column);
+		DecimalFormat number = new DecimalFormat(",##0.00");
+		
 		if (value != null){
-			result = value.toString();
+			result = number.format(value);
 		}
 		return result;
 	}

@@ -31,6 +31,7 @@ public class BH_APV_ResultPanel extends JPanel {
     // formulas
     private Component finiteFormula;
     private Component infiniteFormula;
+    private Component valueFormula;
     
     enum Keys{
     	
@@ -50,13 +51,23 @@ public class BH_APV_ResultPanel extends JPanel {
         this.setLayout(new TableLayout(size));
 
         //All APV Charts
-        apvWFShareholderValues = BHChartFactory.getWaterfallChart("Test", "x", "y", BHResultController.ChartKeys.APV_WF_SV);
-        apvBCCapitalStructure = BHChartFactory.getStackedBarChart("Test2", "x", "y", BHResultController.ChartKeys.APV_BC_CS);
+        apvWFShareholderValues = BHChartFactory.getWaterfallChart("Test", "Periode", "GE", BHResultController.ChartKeys.APV_WF_SV);
+        apvBCCapitalStructure = BHChartFactory.getStackedBarChart("Test2", "Periode", "GE", BHResultController.ChartKeys.APV_BC_CS);
 
         //Formeldarstellung
         IFormulaFactory ff = IFormulaFactory.instance;
         IFormula f;
-
+        
+        //create HashMap for Formelparser
+//        Map<String,Calculable> formelMap;
+//        formelMap.put("UWAPV, T");
+//        formelMap.put("FCFT");
+//        formelMap.put("ruEK");
+//        formelMap.put("srFK");
+//        formelMap.put("FKT");
+//        formelMap.put("rFK");
+//        formelMap.put("FKT2");
+//      
         try {
             f = ff.createFormula("APV_T", getClass().getResourceAsStream("APV_SHV_T.xml"), false);
             
@@ -64,6 +75,10 @@ public class BH_APV_ResultPanel extends JPanel {
 
             f = ff.createFormula("APV_t1", getClass().getResourceAsStream("APV_SHV_t1.xml"), false);
             infiniteFormula = f.getJMathComponent();
+            
+//            f = ff.createFormula("APV_T", getClass().getResourceAsStream("APV_SHV_T.xml"), false);
+//            valueFormula = f.getJMathComponentForInputValues(formelMap);
+//            
         } catch (FormulaException e) {
             log.debug(e);
         }
@@ -72,6 +87,7 @@ public class BH_APV_ResultPanel extends JPanel {
         
         this.add(finiteFormula, "3,3");
         this.add(infiniteFormula, "3,5");
+//        this.add(valueFormula, "3,7");
 
         this.add(apvWFShareholderValues, "3,9");        
         this.add(apvBCCapitalStructure, "3,11");

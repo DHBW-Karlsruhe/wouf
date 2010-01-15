@@ -59,10 +59,10 @@ public class BH_FCF_ResultPanel extends JPanel {
         
         //All charts
         //TODO Schön Darstellen!!!!
-        BHChartPanel fcf_shareholderValue = BHChartFactory.getWaterfallChart("Test", "x", "y", BHResultController.ChartKeys.FCF_WF_SV);
-        BHChartPanel fcf_capitalStructure = BHChartFactory.getStackedBarChart("Test2", "x", "y", BHResultController.ChartKeys.FCF_BC_CS);
-        BHChartPanel fcf_fcf = BHChartFactory.getBarChart("Test3", "x", "y", BHResultController.ChartKeys.FCF_BC_FCF);
-        BHChartPanel fcf_returnRate = BHChartFactory.getBarChart("Test4", "x", "y", BHResultController.ChartKeys.FCF_BC_RR);        
+        BHChartPanel fcf_shareholderValue = BHChartFactory.getWaterfallChart("Test", "Periode", "GE", BHResultController.ChartKeys.FCF_WF_SV);
+        BHChartPanel fcf_capitalStructure = BHChartFactory.getStackedBarChart("Test2", "Periode", "GE", BHResultController.ChartKeys.FCF_BC_CS);
+        BHChartPanel fcf_fcf = BHChartFactory.getBarChart("Test3", "Periode", "GE", BHResultController.ChartKeys.FCF_BC_FCF);
+        BHChartPanel fcf_returnRate = BHChartFactory.getBarChart("Test4", "Periode", "%", BHResultController.ChartKeys.FCF_BC_RR);        
         
 
         this.add(finiteFormula, "3,3");
