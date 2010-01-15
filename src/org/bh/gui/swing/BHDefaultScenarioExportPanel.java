@@ -28,11 +28,11 @@ import org.bh.validation.ValidationRule;
 
 public class BHDefaultScenarioExportPanel extends JPanel {
 
-	private BHTextField txtPath;
+	BHTextField txtPath;
 	private JCheckBox open;
 
 	private String fileDesc;
-	private String fileExt;
+	String fileExt;
 
 	public BHDefaultScenarioExportPanel(String fileDesc, String fileExt) {
 		this.fileDesc = fileDesc;
@@ -134,9 +134,7 @@ public class BHDefaultScenarioExportPanel extends JPanel {
 
 				// Text field which will show the chosen path
 				txtPath = new BHTextField("DTxtExportImportPath", "");
-				ValidationRule[] r = { VRCheckFileTag.PDF };
-				txtPath.setValidationRules(r);
-
+				txtPath.setEditable(false);
 				fileSelectionPanel.add(txtPath, "0,1");
 
 				// Button to start the file choosing dialog
@@ -192,7 +190,11 @@ public class BHDefaultScenarioExportPanel extends JPanel {
 				if (returnVal == JFileChooser.APPROVE_OPTION) {
 					PlatformController.preferences.put("lastExportDirectory",
 							fileChooser.getSelectedFile().getParent());
-					txtPath.setText(fileChooser.getSelectedFile().getPath());
+					String filePath = fileChooser.getSelectedFile().getAbsolutePath();
+					if(!filePath.endsWith("." + fileExt)) {
+						filePath = filePath + "." + fileExt;
+					}
+					txtPath.setText(filePath);
 				}
 			}
 		}

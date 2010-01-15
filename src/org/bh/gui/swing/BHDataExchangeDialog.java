@@ -334,7 +334,7 @@ public class BHDataExchangeDialog extends JDialog implements ActionListener {
 					case IImportExport.IMP_PROJECT:
 						importExportPlugin.importProject(this);
 						break;
-					case IImportExport.EXP_SCENARIO_RES_DET:
+					case IImportExport.EXP_SCENARIO_RES:
 						if (results != null) {
 							if (results instanceof DistributionMap) {
 								importExportPlugin.exportScenarioResults((DTOScenario) model,

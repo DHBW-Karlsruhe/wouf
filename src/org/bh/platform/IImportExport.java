@@ -20,16 +20,14 @@ import org.bh.gui.swing.BHDataExchangeDialog;
 public interface IImportExport extends IDisplayablePlugin {
 	
 	static final int EXP_PROJECT		 	= 1 << 0;
-	static final int EXP_PROJECT_RES_DET	= 1 << 1;
-	static final int EX_PROJECT_RES_STOCH 	= 1 << 2;
-	static final int IMP_PROJECT		    = 1 << 3;
+	static final int EXP_PROJECT_RES		= 1 << 1;
+	static final int IMP_PROJECT		    = 1 << 2;
 	
-	static final int EXP_SCENARIO		 	= 1 << 4;
-	static final int EXP_SCENARIO_RES_DET	= 1 << 5;
-	static final int EX_SCENARIO_RES_STOCH 	= 1 << 6;
-	static final int IMP_SCENARIO		    = 1 << 7;
+	static final int EXP_SCENARIO		 	= 1 << 3;
+	static final int EXP_SCENARIO_RES		= 1 << 4;
+	static final int IMP_SCENARIO		    = 1 << 5;
 	
-	static final int BATCH_EXPORT		    = 1 << 8;
+	static final int BATCH_EXPORT		    = 1 << 6;
 	
 	/**
 	 * Must be implemented if export of a project DTO should be supported by the

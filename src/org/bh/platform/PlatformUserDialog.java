@@ -46,5 +46,9 @@ public class PlatformUserDialog {
 		JOptionPane.showMessageDialog(bhmf, message, title, JOptionPane.ERROR_MESSAGE);
 	}
 	
+	public int showYesNoDialog (String message, String title) {
+		return JOptionPane.showConfirmDialog(bhmf, message, title, JOptionPane.YES_NO_OPTION);
+	}
+	
 
 }

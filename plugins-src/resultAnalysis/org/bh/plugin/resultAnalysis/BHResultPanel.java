@@ -19,6 +19,7 @@ import org.bh.gui.swing.BHButton;
 import org.bh.gui.swing.BHDataExchangeDialog;
 import org.bh.gui.swing.BHDescriptionTextArea;
 import org.bh.platform.IImportExport;
+import org.bh.platform.IPrint;
 import org.bh.platform.PlatformUserDialog;
 import org.bh.platform.Services;
 import org.bh.platform.i18n.ITranslator;
@@ -144,7 +145,7 @@ public final class BHResultPanel extends JPanel {
 
 				BHDataExchangeDialog dialog = new BHDataExchangeDialog(null,
 						true);
-				dialog.setAction(IImportExport.EXP_SCENARIO_RES_DET);
+				dialog.setAction(IImportExport.EXP_SCENARIO_RES);
 				dialog.setModel(scenario);
 				dialog.setResults(result);
 				dialog.setVisible(true);
@@ -158,31 +159,33 @@ public final class BHResultPanel extends JPanel {
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				File temp;
+				Map<String, IPrint> pPlugs = Services.getPrintPlugins(IPrint.PRINT_SCENARIO_RES);
+				((IPrint) pPlugs.values().toArray()[0]).printScenarioResults(scenario, result);
+				//File temp;
 				
-				int requiredMethods = IImportExport.BATCH_EXPORT
-						+ IImportExport.EXP_SCENARIO_RES_DET;
-				Map<String, IImportExport> expPlugs = Services
-						.getImportExportPlugins(requiredMethods);
-				IImportExport exp = expPlugs.get("pdf");
-				if (exp == null) {
-					if (expPlugs.values().size() == 0) {
-						PlatformUserDialog.getInstance().showErrorDialog(
-								translator.translate("PRINTNOTPOSSIBLE"), " ");
-					} else {
-						exp = (IImportExport) expPlugs.values().toArray()[0];
-					}
-				} else {
-					try {
-						temp = File.createTempFile("bh_scneario_print", "." + exp.getFileExtension());
-						exp.exportScenarioResults(scenario, result, temp
-								.getAbsolutePath());
-						Desktop.getDesktop().print(temp);
-						temp.deleteOnExit();
-					} catch (IOException e1) {
-						log.debug(e1);
-					}
-				}
+//				int requiredMethods = IImportExport.BATCH_EXPORT
+//						+ IImportExport.EXP_SCENARIO_RES;
+//				Map<String, IImportExport> expPlugs = Services
+//						.getImportExportPlugins(requiredMethods);
+//				IImportExport exp = expPlugs.get("pdf");
+//				if (exp == null) {
+//					if (expPlugs.values().size() == 0) {
+//						PlatformUserDialog.getInstance().showErrorDialog(
+//								translator.translate("PRINTNOTPOSSIBLE"), " ");
+//					} else {
+//						exp = (IImportExport) expPlugs.values().toArray()[0];
+//					}
+//				} else {
+//					try {
+//						temp = File.createTempFile("bh_scneario_print", "." + exp.getFileExtension());
+//						exp.exportScenarioResults(scenario, result, temp
+//								.getAbsolutePath());
+//						Desktop.getDesktop().print(temp);
+//						temp.deleteOnExit();
+//					} catch (IOException e1) {
+//						log.debug(e1);
+//					}
+//				}
 			}
 		});
 

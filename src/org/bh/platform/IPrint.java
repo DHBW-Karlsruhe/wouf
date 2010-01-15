@@ -20,8 +20,8 @@ public interface IPrint {
 	static final int PRINT_PROJECT		 	= 1 << 0;
 	static final int PRINT_PROJECT_RES		= 1 << 1;
 	
-	static final int EXP_SCENARIO		 	= 1 << 2;
-	static final int EXP_SCENARIO_RES		= 1 << 3;
+	static final int PRINT_SCENARIO		 	= 1 << 2;
+	static final int PRINT_SCENARIO_RES		= 1 << 3;
 	
 	void printProject(DTOProject project);
 	void printScenario(DTOScenario scenario);
