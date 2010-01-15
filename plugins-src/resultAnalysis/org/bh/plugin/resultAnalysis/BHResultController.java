@@ -64,9 +64,7 @@ public class BHResultController extends OutputController{
     	}else if(scenario.getDCFMethod().getUniqueId().equals("fcf")){
     		
     		IBHAddValue comp = super.view.getBHchartComponents().get(ChartKeys.FCF_WF_SV.toString());
-    		double gk = result.get("org.bh.calculation.IShareholderValueCalculator$Result.DEBT")[0].parse().doubleValue() + 
-    			result.get("org.bh.calculation.IShareholderValueCalculator$Result.SHAREHOLDER_VALUE")[0].parse().doubleValue();
-    		comp.addValue(gk, 1, "1");
+    		comp.addValue(result.get("org.bh.plugin.fcf.FCFCalculator$Result.TOTAL_CAPITAL")[0].parse(), 1, "1");
     		comp.addValue(result.get("org.bh.calculation.IShareholderValueCalculator$Result.DEBT")[0].parse().doubleValue() * -1, 1, "2");
     		comp.addValue(result.get("org.bh.calculation.IShareholderValueCalculator$Result.SHAREHOLDER_VALUE")[0].parse(), 1, "3");    		
  
@@ -92,7 +90,7 @@ public class BHResultController extends OutputController{
     	}else if(scenario.getDCFMethod().getUniqueId().equals("fte")){
     		
     		IBHAddValue comp = super.view.getBHchartComponents().get(ChartKeys.FTE_BC_SV.toString());
-    		comp.addValue(result.get("org.bh.calculation.IShareholderValueCalculator$Result.SHAREHOLDER_VALUE")[0].parse(), "1");
+    		comp.addValue(result.get("org.bh.calculation.IShareholderValueCalculator$Result.SHAREHOLDER_VALUE")[0].parse(),1, "1");
     		
     		IBHAddValue comp2 = super.view.getBHchartComponents().get(ChartKeys.FTE_BC_CS.toString());
     		for (int i = 0; i < result.get("org.bh.plugin.fte.FTECalculator$Result.PRESENT_VALUE_TAX_SHIELD").length; i++) {
@@ -101,8 +99,8 @@ public class BHResultController extends OutputController{
     		}
     		
     		IBHAddValue comp3 = super.view.getBHchartComponents().get(ChartKeys.FTE_BC_FTE.toString());
-    		for (int i = 0; i < result.get("org.bh.plugin.fte.FTECalculator$Result.FLOW_TO_EQUITY").length; i++) {
-				comp3.addValue(result.get("org.bh.plugin.fte.FTECalculator$Result.FLOW_TO_EQUITY")[i].parse(), String.valueOf(i));
+    		for (int i = 1; i < result.get("org.bh.plugin.fte.FTECalculator$Result.FLOW_TO_EQUITY").length; i++) {
+				comp3.addValue(result.get("org.bh.plugin.fte.FTECalculator$Result.FLOW_TO_EQUITY")[i].parse(),1, String.valueOf(i));
     		}
     		
     	}else {

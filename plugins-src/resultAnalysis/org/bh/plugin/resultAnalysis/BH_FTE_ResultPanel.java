@@ -5,10 +5,16 @@
 package org.bh.plugin.resultAnalysis;
 
 import info.clearthought.layout.TableLayout;
+
 import java.awt.Component;
+
 import javax.swing.JPanel;
+
 import org.apache.log4j.Logger;
-import org.bh.gui.swing.*;
+import org.bh.gui.chart.BHChartFactory;
+import org.bh.gui.chart.BHChartPanel;
+import org.bh.gui.swing.BHDescriptionLabel;
+import org.bh.gui.swing.BHValueLabel;
 import org.bh.platform.formula.FormulaException;
 import org.bh.platform.formula.IFormula;
 import org.bh.platform.formula.IFormulaFactory;
@@ -38,12 +44,24 @@ public class BH_FTE_ResultPanel extends JPanel {
     // formulas
     private Component finiteFormula;
     private Component infiniteFormula;
-
+    //charts
+    private BHChartPanel fteShareholderValue;
+    private BHChartPanel fteCapitalStructure;
+    private BHChartPanel fteFlowToEquity;
+    
+    public BH_FTE_ResultPanel(){
+    	initialize();
+    }
+    
     public void initialize() {
 
         double border = 10;
         double size[][] = {{border, TableLayout.PREFERRED, border, TableLayout.PREFERRED, border, TableLayout.PREFERRED, border}, // Columns
-            {border, TableLayout.PREFERRED, border, TableLayout.PREFERRED, border, TableLayout.PREFERRED, border, TableLayout.PREFERRED, border}}; // Rows
+            {border, TableLayout.PREFERRED, border, TableLayout.PREFERRED, border, TableLayout.PREFERRED, border, TableLayout.PREFERRED, border
+        	, TableLayout.PREFERRED, border, TableLayout.PREFERRED, border, TableLayout.PREFERRED, border, TableLayout.PREFERRED, border
+        	, TableLayout.PREFERRED, border, TableLayout.PREFERRED, border, TableLayout.PREFERRED, border, TableLayout.PREFERRED, border
+        	, TableLayout.PREFERRED, border, TableLayout.PREFERRED, border, TableLayout.PREFERRED, border, TableLayout.PREFERRED, border
+        	, TableLayout.PREFERRED, border, TableLayout.PREFERRED, border, TableLayout.PREFERRED, border, TableLayout.PREFERRED, border}}; // Rows
 
 
         this.setLayout(new TableLayout(size));
@@ -67,7 +85,7 @@ public class BH_FTE_ResultPanel extends JPanel {
         //Formeldarstellung
         IFormulaFactory ff = IFormulaFactory.instance;
         IFormula f;
-
+        
         try {
             f = ff.createFormula("FTE_T", getClass().getResourceAsStream("FTE_SHV_T.xml"), false);
             finiteFormula = f.getJMathComponent();
@@ -77,10 +95,47 @@ public class BH_FTE_ResultPanel extends JPanel {
         } catch (FormulaException e) {
             log.debug(e);
         }
-
+        //All FTE Charts
+        fteShareholderValue = BHChartFactory.getBarChart("", "", "", BHResultController.ChartKeys.FTE_BC_SV);
+        fteCapitalStructure = BHChartFactory.getBarChart("", "", "", BHResultController.ChartKeys.FTE_BC_CS);
+        fteFlowToEquity = BHChartFactory.getBarChart("", "", "", BHResultController.ChartKeys.FTE_BC_FTE);
+        
         this.add(finiteFormula, "3,3");
         this.add(infiniteFormula, "5,3");
-
+//        this.add(FTEshareholderValueDESC, "1,5");
+//        this.add(FTEshareholderValue, "3,5");
+//        this.add(FTEdebtAmortisationDESC, "1,7");
+//        this.add(FTEdebtAmortisation, "3,7");
+//        this.add(FTEequityReturnRateDESC, "1,9");
+//        this.add(FTEequityReturnRate, "3,9");
+//        this.add(FTEflowEquityDESC, "1, 11");
+//        this.add(FTEflowEquity, "3,11");
+//        this.add(FTEflowEquityTaxShieldDESC, "1,13");
+//        this.add(FTEflowEquityTaxShield, "3,13");
+//        this.add(FTEflowToEquityDESC, "1,15");
+//        this.add(FTEflowToEquity, "3,15");
+//        this.add(FTEpresentValueTaxShieldDESC, "1,17");
+//        this.add(FTEpresentValueTaxShield, "3,17");
+        
+        this.add(fteShareholderValue, "3,19");
+        this.add(fteCapitalStructure, "3,21");
+        this.add(fteFlowToEquity, "3,23");
+        
 
     }
+//    public static void main(String[] args) {
+//
+//    	JFrame test = new JFrame("Test for ResultPanel");
+//    	test.setContentPane(new BH_APV_ResultPanel());
+//    	test.addWindowListener(new WindowAdapter() {
+//
+//    	    @Override
+//    		public void windowClosing(WindowEvent e) {
+//    		System.exit(0);
+//    	    }
+//    	});
+//    	//test.pack();
+//    	test.setVisible(true);
+//
+//    }
 }

@@ -53,7 +53,11 @@ public class FCFCalculator implements IShareholderValueCalculator {
 		 * Weighted Average Cost of Capital = WACC_Equity + WACC_Debts
 		 * </br><b>Array</b>
 		 */
-		WACC;
+		WACC,
+		/**
+		 * Total Capital
+		 */
+		TOTAL_CAPITAL;
 		
 		@Override
         public String toString() {
@@ -179,7 +183,8 @@ public class FCFCalculator implements IShareholderValueCalculator {
 		
 		Calculable[] waccEquity = calcWACCEquity(uw, fk, EKrFCF);
 		Calculable[] waccDebts = calcWACCDebts(fk, fkr, uw, s);
-
+		Calculable[] wacc = calcWACC(waccEquity, waccDebts);
+		
 		Map<String, Calculable[]> result = new HashMap<String, Calculable[]>();
 		result.put(IShareholderValueCalculator.Result.SHAREHOLDER_VALUE.toString(), uw);
 		result.put(IShareholderValueCalculator.Result.DEBT.toString(), fk);
@@ -191,7 +196,14 @@ public class FCFCalculator implements IShareholderValueCalculator {
 				uw, fk));
 		result.put(Result.WACC_EQUITY.toString(), waccEquity);
 		result.put(Result.WACC_DEBTS.toString(), waccDebts);
-		result.put(Result.WACC.toString(), calcWACC(waccEquity, waccDebts));
+		result.put(Result.WACC.toString(), wacc);
+		
+		Calculable[] gk = new Calculable[wacc.length];
+		gk[gk.length - 1] = fcf[gk.length - 1].div(wacc[gk.length - 1]);
+		for(int z = gk.length - 2; z >= 0; z--){
+			gk[z] = (gk[z + 1].add(fcf[z+1])).div(new DoubleValue(1).add(wacc[z+1]));
+		}
+		result.put(Result.TOTAL_CAPITAL.toString(), gk);
 
 		log.info("----- FCF procedure finished -----");
 
