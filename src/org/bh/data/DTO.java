@@ -358,7 +358,9 @@ public abstract class DTO<ChildT extends IDTO> implements IDTO<ChildT> {
 		DTO<ChildT> result = null;
 		try {
 			// Try to instantiate a new instance of the class of this DTO
-			result = this.getClass().newInstance();
+			result = (DTO<ChildT>) super.clone();
+			result.values = new HashMap();
+			result.children = new LinkedList<ChildT>();
 			// Go through each value, copy it and put it into the new instance
 			for (Map.Entry<String, IValue> entry : values.entrySet()) {
 				result.put(entry.getKey(), entry.getValue().clone());

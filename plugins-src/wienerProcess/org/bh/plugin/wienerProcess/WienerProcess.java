@@ -79,7 +79,7 @@ public class WienerProcess implements IStochasticProcess {
 			temp.put(DTOScenario.Key.BTAX, scenario.get(DTOScenario.Key.BTAX));
 			temp.put(DTOScenario.Key.CTAX, scenario.get(DTOScenario.Key.CTAX));
 
-			DTOPeriod clone = last.clone();
+			DTOPeriod clone = (DTOPeriod) last.clone();
 			DTOPeriod previous = last.getPrevious();
 
 			for (DTOKeyPair key : stochasticKeys) {
@@ -96,7 +96,7 @@ public class WienerProcess implements IStochasticProcess {
 
 			for (int i = 0; i < map.get(AMOUNT_OF_PERIODS) - 1; i++) {
 				previous = clone;
-				clone = last.clone();
+				clone = (DTOPeriod) last.clone();
 				for (DTOKeyPair key : stochasticKeys) {
 					IPeriodicalValuesDTO pvdto = clone
 							.getPeriodicalValuesDTO(key.getDtoId());
