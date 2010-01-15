@@ -43,7 +43,7 @@ public class BHProjectInputForm extends JPanel {
 
 		CellConstraints cons = new CellConstraints();
 
-		this.add(this.getLproject(), cons.xywh(4, 2, 1, 1, "center, center"));
+//		this.add(this.getLproject(), cons.xywh(4, 2, 1, 1, "center, center"));
 		this.add(this.getLprojectname(), cons.xywh(2, 4, 1, 1));
 		this.add(this.getTfprojectname(), cons.xywh(4, 4, 1, 1));
 		this.add(this.getLcomment(), cons.xywh(2, 6, 1, 1));

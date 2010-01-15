@@ -31,6 +31,7 @@ import org.bh.gui.swing.BHButton;
 import org.bh.gui.swing.BHDeterministicProcessForm;
 import org.bh.gui.swing.BHMainFrame;
 import org.bh.gui.swing.BHMenuItem;
+import org.bh.gui.swing.BHProjectForm;
 import org.bh.gui.swing.BHProjectInputForm;
 import org.bh.gui.swing.BHProjectView;
 import org.bh.gui.swing.BHScenarioForm;
@@ -247,7 +248,7 @@ public class PlatformController {
 						if (selectedDto instanceof DTOProject) {
 							try {
 								View view = new BHProjectView(
-										new BHProjectInputForm());
+										new BHProjectForm());
 
 								IDTO<?> model = selectedDto;
 								controller = new InputController(view, model);
