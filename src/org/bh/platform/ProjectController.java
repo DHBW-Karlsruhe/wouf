@@ -60,7 +60,7 @@ public class ProjectController extends InputController {
 
 					results.put(scenario, resultsDCF);
 				} else {
-					DistributionMap resultStochastic = (DistributionMap) scenario
+					DistributionMap resultStochastic = scenario
 							.getStochasticProcess().calculate();
 
 					results.put(scenario, resultStochastic);

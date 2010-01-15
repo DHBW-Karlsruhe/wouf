@@ -28,6 +28,7 @@ public class OutputController extends Controller implements IOutputController {
 		setResult(result, scenario);
 	}
 
+	
 	public OutputController(View view) {
 		super(view);
 	}
