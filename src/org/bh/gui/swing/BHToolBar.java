@@ -134,7 +134,7 @@ public class BHToolBar extends JToolBar implements MouseListener{
 		add(separator2,  cons.xywh(8, 1, 1, 1));
 		add(Bdelete,  cons.xywh(9, 1, 1, 1));
 		add(showHide, cons.xywh(11, 1, 1, 1, "right,top"));
-		
+				
 		addMouseListener(this);
     			
 		shown = true;
