@@ -4,15 +4,11 @@ import java.util.List;
 
 import javax.swing.UIManager;
 
-import org.bh.gui.swing.IBHComponent;
 import org.bh.platform.IPlatformListener;
 import org.bh.platform.PlatformEvent;
 import org.bh.platform.Services;
 import org.bh.platform.PlatformEvent.Type;
-import org.bh.platform.i18n.BHTranslator;
-import org.bh.platform.i18n.ITranslator;
 import org.jfree.chart.ChartFactory;
-import org.jfree.chart.JFreeChart;
 import org.jfree.chart.plot.PlotOrientation;
 import org.jfree.chart.plot.XYPlot;
 import org.jfree.data.general.Dataset;
@@ -41,7 +37,7 @@ public class BHxyAreaChart extends BHChart implements IBHAddValue, IPlatformList
 		chart = ChartFactory.createXYAreaChart(title, xAxis, yAxis,
 				this.dataset, PlotOrientation.VERTICAL, true, true, false);
 		if ("Nimbus".equals(UIManager.getLookAndFeel().getName())) {
-			chart.setBackgroundPaint(UIManager.getColor("desktop"));
+			chart.setBackgroundPaint(UIManager.getColor("Chart.background"));
 		}
 		
 		reloadText();

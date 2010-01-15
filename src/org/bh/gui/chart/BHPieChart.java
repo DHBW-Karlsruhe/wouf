@@ -5,17 +5,11 @@ import java.util.List;
 
 import javax.swing.UIManager;
 
-import org.bh.gui.swing.IBHComponent;
 import org.bh.platform.IPlatformListener;
 import org.bh.platform.PlatformEvent;
 import org.bh.platform.Services;
 import org.bh.platform.PlatformEvent.Type;
-import org.bh.platform.i18n.BHTranslator;
-import org.bh.platform.i18n.ITranslator;
 import org.jfree.chart.ChartFactory;
-import org.jfree.chart.JFreeChart;
-import org.jfree.chart.plot.CategoryPlot;
-import org.jfree.chart.plot.Plot;
 import org.jfree.data.general.Dataset;
 import org.jfree.data.general.DefaultPieDataset;
 
@@ -31,7 +25,7 @@ public class BHPieChart extends BHChart implements IBHAddValue, IPlatformListene
 		chart = ChartFactory.createPieChart(title, this.dataset, true, true,
 				false);
 		if ("Nimbus".equals(UIManager.getLookAndFeel().getName())) {
-			chart.setBackgroundPaint(UIManager.getColor("desktop"));
+			chart.setBackgroundPaint(UIManager.getColor("Chart.background"));
 		}
 		
 		reloadText();
