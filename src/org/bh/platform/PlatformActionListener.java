@@ -574,6 +574,11 @@ class PlatformActionListener implements ActionListener {
 
 			DTOProject newProject = (DTOProject) duplicateProject.clone();
 
+			
+			//new name after duplication
+			String duplicateProjectName = bhmf.getBHTree().getSelectionPath().getPathComponent(1).toString();
+			newProject.put(DTOProject.Key.NAME, new StringValue(duplicateProjectName + " (2)"));
+			
 			bhmf.getBHTree().addProject(newProject);		
 
 		} else {
@@ -598,6 +603,12 @@ class PlatformActionListener implements ActionListener {
 			// neues DTOProject mit Referenz auf den Klon
 			DTOScenario newScenario = (DTOScenario) duplicateScenario.clone();
 
+			//new name after duplication
+			String duplicateScenarioName = bhmf.getBHTree().getSelectionPath().getPathComponent(2).toString();
+			newScenario.put(DTOScenario.Key.NAME, new StringValue(duplicateScenarioName + " (2)"));
+			
+		
+			
 			bhmf.getBHTree().addScenarioAtCurrentPos(newScenario);
 
 
@@ -616,14 +627,20 @@ class PlatformActionListener implements ActionListener {
 			// Access to selected period
 			BHTreeNode duplicatePeriodNode = (BHTreeNode) bhmf.getBHTree()
 					.getSelectionPath().getLastPathComponent();
-		
+			
+			
 			// copy the period to a temp period
 			DTOPeriod duplicatePeriod = (DTOPeriod) duplicatePeriodNode
 					.getUserObject();
-		
+
+
+			String duplicatePeriodName = bhmf.getBHTree().getSelectionPath().getPathComponent(3).toString();
+			
 			// new DTOPeriod object with reference to the clone
 			DTOPeriod newPeriod = (DTOPeriod) duplicatePeriod.clone();
 		
+			newPeriod.put(DTOPeriod.Key.NAME, new StringValue(duplicatePeriodName + " (2)"));
+			
 			bhmf.getBHTree().addPeriodAtCurrentPos(newPeriod);
 		
 		
