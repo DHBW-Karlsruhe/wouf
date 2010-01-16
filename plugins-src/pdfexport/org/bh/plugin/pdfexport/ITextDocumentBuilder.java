@@ -1,10 +1,13 @@
 package org.bh.plugin.pdfexport;
 
+import java.awt.Color;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
+import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Iterator;
+import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
 
@@ -17,16 +20,23 @@ import org.bh.data.types.DistributionMap;
 import org.bh.data.types.IValue;
 import org.bh.platform.i18n.BHTranslator;
 import org.bh.platform.i18n.ITranslator;
+import org.jfree.chart.JFreeChart;
 
+import com.itextpdf.text.BadElementException;
 import com.itextpdf.text.Chapter;
 import com.itextpdf.text.Document;
 import com.itextpdf.text.DocumentException;
+import com.itextpdf.text.Element;
 import com.itextpdf.text.Font;
 import com.itextpdf.text.FontFactory;
+import com.itextpdf.text.Image;
 import com.itextpdf.text.PageSize;
 import com.itextpdf.text.Paragraph;
+import com.itextpdf.text.Phrase;
+import com.itextpdf.text.Rectangle;
 import com.itextpdf.text.Section;
 import com.itextpdf.text.pdf.PdfPTable;
+import com.itextpdf.text.pdf.PdfPageEvent;
 import com.itextpdf.text.pdf.PdfWriter;
 
 /**
@@ -36,8 +46,8 @@ import com.itextpdf.text.pdf.PdfWriter;
  * @version 1.0, 15.01.2010
  * 
  */
-public class ITextDocumentBuilder {
-	
+public class ITextDocumentBuilder implements PdfPageEvent {
+
 	static Logger log = Logger.getLogger(ITextDocumentBuilder.class);
 
 	private static ITranslator trans = BHTranslator.getInstance();
@@ -58,27 +68,25 @@ public class ITextDocumentBuilder {
 	Chapter report;
 	PdfWriter pdfWriter;
 
-	
-	
 	void newDocument(String path, DTOScenario scenario) {
 		try {
 			doc = new Document(PageSize.A4, 50, 50, 50, 50);
-	
+
 			pdfWriter = PdfWriter.getInstance(doc, new FileOutputStream(path));
-	
+			pdfWriter.setPageEvent(this);
 			doc.addAuthor("Business Horizon");
 			doc.addSubject("Scenario Report");
 			doc.addCreationDate();
 			doc.addHeader("Header1", "Scenario Report header");
 			doc.addTitle("Scenario Report Title");
 			doc.open();
-	
+
 		} catch (FileNotFoundException e) {
 			log.error(e);
 		} catch (DocumentException e) {
 			log.error(e);
 		}
-	
+
 	}
 
 	void closeDocument() {
@@ -88,17 +96,18 @@ public class ITextDocumentBuilder {
 		} catch (DocumentException e) {
 			log.error(e);
 		}
-	
+
 	}
 
-	void buildResultDataDet(Map<String, Calculable[]> resultMap) {
+	void buildResultDataDet(Map<String, Calculable[]> resultMap,
+			List<JFreeChart> charts) {
 		Paragraph title;
 		Section results;
 		Section resultMapSection;
 		PdfPTable t;
-	
+
 		results = buildResultHead();
-	
+
 		if (resultMap != null && resultMap.size() > 0) {
 			title = new Paragraph("Result Map", SECTION2_FONT);
 			resultMapSection = results.addSection(title, 2);
@@ -125,24 +134,51 @@ public class ITextDocumentBuilder {
 					}
 				}
 			}
-	
 			resultMapSection.add(t);
+			resultMapSection.add(new Paragraph("\n\n"));
+
+			buildChartsSection(results, charts);
+
 		}
 		// TODO Graphs
-	
+
 	}
 
-	void buildResultDataStoch(DistributionMap distMap) {
+	private void buildChartsSection(Section results, List<JFreeChart> charts) {
+		Paragraph title;
+		Image chartImage;
+		Section chartSection;
+		try {
+			results.newPage();
+			title = new Paragraph("Charts", SECTION2_FONT);
+			chartSection = results.addSection(title, 2);
+			chartSection.add(new Paragraph("\n"));
+
+			for (JFreeChart c : charts) {
+
+				chartImage = Image.getInstance(c.createBufferedImage(500, 350),
+						new Color(Color.OPAQUE));
+				chartSection.add(chartImage);
+			}
+
+		} catch (BadElementException e) {
+			log.error(e);
+		} catch (IOException e) {
+			log.error(e);
+		}
+	}
+
+	void buildResultDataStoch(DistributionMap distMap, List<JFreeChart> charts) {
 		Paragraph title;
 		Section results;
 		Section distMapSection;
 		PdfPTable t;
-	
+
 		results = buildResultHead();
-	
+
 		title = new Paragraph("Distribution Map", SECTION2_FONT);
 		distMapSection = results.addSection(title, 2);
-	
+
 		t = new PdfPTable(2);
 		for (Iterator<Entry<Double, Integer>> i = distMap.iterator(); i
 				.hasNext();) {
@@ -151,21 +187,22 @@ public class ITextDocumentBuilder {
 			t.addCell(val.getValue().toString());
 		}
 		distMapSection.add(t);
-	
+
 		// TODO addCharts
+		buildChartsSection(results, charts);
 	}
 
 	Section buildResultHead() {
 		Paragraph title;
+		report.newPage();
 		title = new Paragraph("Ergebnisse", SECTION1_FONT);
-	
 		return report.addSection(title, 1);
 	}
 
 	void buildHeadData(DTOScenario scenario) {
 		Section data;
 		PdfPTable t;
-	
+
 		Paragraph title = new Paragraph("Scenario Report - "
 				+ scenario.get(DTOScenario.Key.IDENTIFIER), TITLE_FONT);
 		report = new Chapter(title, 1);
@@ -173,10 +210,10 @@ public class ITextDocumentBuilder {
 				.add(new Paragraph("Erstellt am " + S.format(new Date())
 						+ "\n\n"));
 		report.setNumberDepth(0);
-	
+
 		title = new Paragraph("Szenario Daten", SECTION1_FONT);
 		data = report.addSection(title, 1);
-	
+
 		data.add(new Paragraph("\n"));
 		t = new PdfPTable(2);
 		for (Iterator<Entry<String, IValue>> i = scenario.iterator(); i
@@ -195,10 +232,11 @@ public class ITextDocumentBuilder {
 		Section input;
 		Section period;
 		PdfPTable t;
-	
+
+		report.newPage();
 		title = new Paragraph("Periodendaten", SECTION1_FONT);
 		input = report.addSection(title, 1);
-	
+
 		for (DTOPeriod d : scenario.getChildren()) {
 			title = new Paragraph(d.get(DTOPeriod.Key.NAME).toString(),
 					SECTION2_FONT);
@@ -218,5 +256,88 @@ public class ITextDocumentBuilder {
 		}
 	}
 
+	@Override
+	public void onChapter(PdfWriter arg0, Document arg1, float arg2,
+			Paragraph arg3) {
+	}
+
+	@Override
+	public void onChapterEnd(PdfWriter arg0, Document arg1, float arg2) {
+	}
+
+	@Override
+	public void onCloseDocument(PdfWriter arg0, Document arg1) {
+	}
+
+	@Override
+	public void onEndPage(PdfWriter writer, Document document) {
+		//we will print the footer using the code below
+		try{
+			Rectangle page = document.getPageSize();
+			PdfPTable footTable = getFooterSignatures();
+		footTable.setTotalWidth(page.getWidth() - document.leftMargin() - document.rightMargin());
+		footTable.writeSelectedRows(0, -1, document.leftMargin(), document.bottomMargin() + 20,     writer.getDirectContent());
+		} catch (DocumentException ex) {
+		ex.printStackTrace();
+		}
+		}
+
+	private PdfPTable getFooterSignatures() throws DocumentException {
+		Font fontStyleFooters = FontFactory.getFont(FontFactory.HELVETICA, 9, Font.BOLD);
+		//the following code will create a table with 2 columns
+		PdfPTable footTable = new PdfPTable(2);
+		//now we set the widths of each of the columns
+		footTable.setWidths(new int[]{50, 50});
+		//set the width of the table
+		footTable.setWidthPercentage(100);
+		//set the padding
+		footTable.getDefaultCell().setPadding(2);
+		//since we are using 0 border width, the border wont apppear on this particular table
+		footTable.getDefaultCell().setBorderWidth(0);
+		footTable.getDefaultCell().setHorizontalAlignment(Element.ALIGN_LEFT);
+		// possible text
+		footTable.addCell(new Phrase("", fontStyleFooters));
+		footTable.addCell("");
+
+		footTable.addCell("\n");
+		footTable.addCell("\n");
+
+		// possible text
+		footTable.addCell(new Phrase(" ", fontStyleFooters));
 	
+		footTable.addCell(new Phrase("- " + pdfWriter.getPageNumber() + " -", fontStyleFooters));
+
+		return footTable;
+		}
+
+	@Override
+	public void onGenericTag(PdfWriter arg0, Document arg1, Rectangle arg2,
+			String arg3) {
+	}
+
+	@Override
+	public void onOpenDocument(PdfWriter arg0, Document arg1) {
+	}
+
+	@Override
+	public void onParagraph(PdfWriter arg0, Document arg1, float arg2) {
+	}
+
+	@Override
+	public void onParagraphEnd(PdfWriter arg0, Document arg1, float arg2) {
+	}
+
+	@Override
+	public void onSection(PdfWriter arg0, Document arg1, float arg2, int arg3,
+			Paragraph arg4) {
+	}
+
+	@Override
+	public void onSectionEnd(PdfWriter arg0, Document arg1, float arg2) {
+	}
+
+	@Override
+	public void onStartPage(PdfWriter arg0, Document arg1) {
+	}
+
 }

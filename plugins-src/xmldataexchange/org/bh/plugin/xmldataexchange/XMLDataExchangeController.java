@@ -5,6 +5,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
 import java.io.IOException;
+import java.util.List;
 import java.util.Map;
 
 import javax.swing.JFileChooser;
@@ -26,6 +27,7 @@ import org.bh.platform.i18n.BHTranslator;
 import org.bh.plugin.xmldataexchange.xmlexport.XMLExport;
 import org.bh.plugin.xmldataexchange.xmlimport.XMLImport;
 import org.bh.plugin.xmldataexchange.xmlimport.XMLNotValidException;
+import org.jfree.chart.JFreeChart;
 
 public class XMLDataExchangeController implements IImportExport, ActionListener {
 		
@@ -199,19 +201,10 @@ public class XMLDataExchangeController implements IImportExport, ActionListener 
 
 	@Override
 	public void exportScenarioResults(DTOScenario scenario,
-			Map<String, Calculable[]> results, BHDataExchangeDialog exportDialog) {
+			Map<String, Calculable[]> results, List<JFreeChart> charts, BHDataExchangeDialog exportDialog) {
 		// TODO Auto-generated method stub
 		throw new UnsupportedOperationException("This method has not been implemented");
 	}
-
-
-	@Override
-	public void exportScenarioResults(DTOScenario scenario,
-			DistributionMap results, BHDataExchangeDialog exportDialog) {
-		// TODO Auto-generated method stub
-		throw new UnsupportedOperationException("This method has not been implemented");
-	}
-
 
 	@Override
 	public int getSupportedMethods() {
@@ -265,23 +258,6 @@ public class XMLDataExchangeController implements IImportExport, ActionListener 
 		throw new UnsupportedOperationException("This method has not been implemented");
 	}
 
-
-	@Override
-	public void exportScenarioResults(DTOScenario scenario,
-			Map<String, Calculable[]> results, String filePath) {
-		// TODO Auto-generated method stub
-		throw new UnsupportedOperationException("This method has not been implemented");
-	}
-
-
-	@Override
-	public void exportScenarioResults(DTOScenario scenario,
-			DistributionMap results, String filePath) {
-		// TODO Auto-generated method stub
-		throw new UnsupportedOperationException("This method has not been implemented");
-	}
-
-
 	@Override
 	public String getFileDescription() {
 		// TODO Auto-generated method stub
@@ -291,6 +267,29 @@ public class XMLDataExchangeController implements IImportExport, ActionListener 
 
 	@Override
 	public String getFileExtension() {
+		// TODO Auto-generated method stub
+		throw new UnsupportedOperationException("This method has not been implemented");
+	}
+
+	@Override
+	public void exportScenarioResults(DTOScenario scenario,
+			Map<String, Calculable[]> results, List<JFreeChart> charts,
+			String filePath) {
+		// TODO Auto-generated method stub
+		throw new UnsupportedOperationException("This method has not been implemented");
+	}
+
+	@Override
+	public void exportScenarioResults(DTOScenario scenario,
+			DistributionMap results, List<JFreeChart> charts,
+			BHDataExchangeDialog bhDataExchangeDialog) {
+		// TODO Auto-generated method stub
+		throw new UnsupportedOperationException("This method has not been implemented");
+	}
+
+	@Override
+	public void exportScenarioResults(DTOScenario scenario,
+			DistributionMap results, List<JFreeChart> charts, String filePath) {
 		// TODO Auto-generated method stub
 		throw new UnsupportedOperationException("This method has not been implemented");
 	}

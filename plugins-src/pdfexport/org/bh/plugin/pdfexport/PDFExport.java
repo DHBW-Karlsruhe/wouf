@@ -6,6 +6,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
 import java.io.IOException;
+import java.util.List;
 import java.util.Map;
 
 import javax.swing.JOptionPane;
@@ -21,6 +22,7 @@ import org.bh.gui.swing.IBHComponent;
 import org.bh.platform.IImportExport;
 import org.bh.platform.i18n.BHTranslator;
 import org.bh.platform.i18n.ITranslator;
+import org.jfree.chart.JFreeChart;
 
 /**
  * Plug-in to export certain scenarios to PDF as a kind of report
@@ -140,7 +142,7 @@ public class PDFExport implements IImportExport {
 
 	@Override
 	public void exportScenarioResults(final DTOScenario scenario,
-			final Map<String, Calculable[]> results,
+			final Map<String, Calculable[]> results, final List<JFreeChart> charts,
 			final BHDataExchangeDialog exportDialog) {
 
 		final BHDefaultScenarioExportPanel dp = exportDialog
@@ -159,7 +161,7 @@ public class PDFExport implements IImportExport {
 					db.newDocument(dp.getFilePath(), scenario);
 					db.buildHeadData(scenario);
 					db.buildScenarioData(scenario);
-					db.buildResultDataDet(results);
+					db.buildResultDataDet(results, charts);
 					db.closeDocument();
 					log.debug("pdf export completed " + dp.getFilePath());
 					if (dp.openAfterExport()) {
@@ -181,18 +183,18 @@ public class PDFExport implements IImportExport {
 
 	@Override
 	public void exportScenarioResults(DTOScenario scenario,
-			Map<String, Calculable[]> results, String filePath) {
+			Map<String, Calculable[]> results, List<JFreeChart> charts, String filePath) {
 		db.newDocument(filePath, scenario);
 		db.buildHeadData(scenario);
 		db.buildScenarioData(scenario);
-		db.buildResultDataDet(results);
+		db.buildResultDataDet(results, charts);
 		db.closeDocument();
 		log.debug("pdf scenario batch export completed " + filePath);
 	}
 
 	@Override
 	public void exportScenarioResults(final DTOScenario scenario,
-			final DistributionMap results,
+			final DistributionMap results, final List<JFreeChart> charts,
 			final BHDataExchangeDialog exportDialog) {
 
 		final BHDefaultScenarioExportPanel dp = exportDialog
@@ -211,7 +213,7 @@ public class PDFExport implements IImportExport {
 					db.newDocument(dp.getFilePath(), scenario);
 					db.buildHeadData(scenario);
 					db.buildScenarioData(scenario);
-					db.buildResultDataStoch(results);
+					db.buildResultDataStoch(results, charts);
 					db.closeDocument();
 					log.debug("pdf export completed " + dp.getFilePath());
 					if (dp.openAfterExport()) {
@@ -233,11 +235,11 @@ public class PDFExport implements IImportExport {
 
 	@Override
 	public void exportScenarioResults(DTOScenario scenario,
-			DistributionMap results, String filePath) {
+			DistributionMap results, List<JFreeChart> charts, String filePath) {
 		db.newDocument(filePath, scenario);
 		db.buildHeadData(scenario);
 		db.buildScenarioData(scenario);
-		db.buildResultDataStoch(results);
+		db.buildResultDataStoch(results, charts);
 		db.closeDocument();
 		log.debug("pdf scenario batch export completed " + filePath);
 	}

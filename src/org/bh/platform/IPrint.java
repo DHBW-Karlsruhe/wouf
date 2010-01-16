@@ -1,11 +1,13 @@
 package org.bh.platform;
 
+import java.util.List;
 import java.util.Map;
 
 import org.bh.data.DTOProject;
 import org.bh.data.DTOScenario;
 import org.bh.data.types.Calculable;
 import org.bh.data.types.DistributionMap;
+import org.jfree.chart.JFreeChart;
 
 /**
  * Interface for plugins which can print DTOs 
@@ -25,8 +27,8 @@ public interface IPrint {
 	
 	void printProject(DTOProject project);
 	void printScenario(DTOScenario scenario);
-	void printScenarioResults(DTOScenario scenario, Map<String, Calculable[]> results);
-	void printScenarioResults(DTOScenario scenario, DistributionMap results);
+	void printScenarioResults(DTOScenario scenario, Map<String, Calculable[]> results, List<JFreeChart> charts);
+	void printScenarioResults(DTOScenario scenario, DistributionMap results, List<JFreeChart> charts);
 	
 	int getSupportedMethods();
 	String getUniqueId();

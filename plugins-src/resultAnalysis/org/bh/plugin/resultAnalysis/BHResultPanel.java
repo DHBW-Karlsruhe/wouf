@@ -2,11 +2,10 @@ package org.bh.plugin.resultAnalysis;
 
 import java.awt.BorderLayout;
 import java.awt.Component;
-import java.awt.Desktop;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.io.File;
-import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Map;
 
 import javax.swing.JPanel;
@@ -15,15 +14,17 @@ import org.apache.log4j.Logger;
 import org.bh.data.DTOScenario;
 import org.bh.data.types.Calculable;
 import org.bh.gui.ViewException;
+import org.bh.gui.chart.BHChart;
+import org.bh.gui.chart.BHChartPanel;
 import org.bh.gui.swing.BHButton;
 import org.bh.gui.swing.BHDataExchangeDialog;
 import org.bh.gui.swing.BHDescriptionTextArea;
 import org.bh.platform.IImportExport;
 import org.bh.platform.IPrint;
-import org.bh.platform.PlatformUserDialog;
 import org.bh.platform.Services;
 import org.bh.platform.i18n.ITranslator;
 import org.jfree.chart.ChartPanel;
+import org.jfree.chart.JFreeChart;
 
 import com.jgoodies.forms.layout.CellConstraints;
 
@@ -61,7 +62,7 @@ public final class BHResultPanel extends JPanel {
 	// export button
 	private BHButton exportButton;
 	// probably not necessary in a later version
-
+	JPanel procedurePanel = null;
 	// print Button
 	private BHButton printButton;
 	final DTOScenario scenario;
@@ -148,6 +149,16 @@ public final class BHResultPanel extends JPanel {
 				dialog.setAction(IImportExport.EXP_SCENARIO_RES);
 				dialog.setModel(scenario);
 				dialog.setResults(result);
+				
+				List<JFreeChart> charts = new ArrayList<JFreeChart>();
+				for(Component c : procedurePanel.getComponents()) {
+					if(c instanceof BHChartPanel) {
+						BHChartPanel cp = (BHChartPanel) c;
+						charts.add(cp.getChart());
+					}
+				}
+				dialog.setCharts(charts);
+				
 				dialog.setVisible(true);
 
 			}
@@ -160,7 +171,15 @@ public final class BHResultPanel extends JPanel {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				Map<String, IPrint> pPlugs = Services.getPrintPlugins(IPrint.PRINT_SCENARIO_RES);
-				((IPrint) pPlugs.values().toArray()[0]).printScenarioResults(scenario, result);
+				
+				List<JFreeChart> charts = new ArrayList<JFreeChart>();
+				for(Component c : procedurePanel.getComponents()) {
+					if(c instanceof BHChartPanel) {
+						BHChartPanel cp = (BHChartPanel) c;
+						charts.add(cp.getChart());
+					}
+				}
+				((IPrint) pPlugs.values().toArray()[0]).printScenarioResults(scenario, result, charts);
 				//File temp;
 				
 //				int requiredMethods = IImportExport.BATCH_EXPORT
@@ -252,12 +271,13 @@ public final class BHResultPanel extends JPanel {
 		//       		
 
 		if (scenario.getDCFMethod().getUniqueId().equals("fcf")) {
-			this.add(new BH_FCF_ResultPanel(), BorderLayout.CENTER);
+			procedurePanel = new BH_FCF_ResultPanel();
 		} else if (scenario.getDCFMethod().getUniqueId().equals("apv")) {
-			this.add(new BH_APV_ResultPanel(), BorderLayout.CENTER);
+			procedurePanel = new BH_APV_ResultPanel();
 		} else if (scenario.getDCFMethod().getUniqueId().equals("fte")) {
-			this.add(new BH_FTE_ResultPanel(), BorderLayout.CENTER);
+			procedurePanel = new BH_FTE_ResultPanel();
 		}
+		this.add(procedurePanel, BorderLayout.CENTER);
 		JPanel buttons = new JPanel();
 		
 		buttons.add(exportButton, BorderLayout.WEST);

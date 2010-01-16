@@ -3,6 +3,7 @@ package org.bh.plugin.pdfexport;
 import java.awt.print.PrinterException;
 import java.io.File;
 import java.io.IOException;
+import java.util.List;
 import java.util.Map;
 
 import org.apache.log4j.Logger;
@@ -12,6 +13,7 @@ import org.bh.data.DTOScenario;
 import org.bh.data.types.Calculable;
 import org.bh.data.types.DistributionMap;
 import org.bh.platform.IPrint;
+import org.jfree.chart.JFreeChart;
 
 /**
  * Plug-in to print scenario reports
@@ -56,7 +58,7 @@ public class PDFPrint implements IPrint {
 
 	@Override
 	public void printScenarioResults(DTOScenario scenario,
-			Map<String, Calculable[]> results) {
+			Map<String, Calculable[]> results, List<JFreeChart> charts) {
 		try {
 			PDDocument pDoc;
 			File tmpFile;
@@ -66,7 +68,7 @@ public class PDFPrint implements IPrint {
 			db.newDocument(tmpFile.getAbsolutePath(), scenario);
 			db.buildHeadData(scenario);
 			db.buildScenarioData(scenario);
-			db.buildResultDataDet(results);
+			db.buildResultDataDet(results, charts);
 			db.closeDocument();
 			
 			pDoc = PDDocument.load(tmpFile);
@@ -123,8 +125,8 @@ public class PDFPrint implements IPrint {
 	}
 
 	@Override
-	public void printScenarioResults(DTOScenario scenario,
-			DistributionMap results) {
+	public void printScenarioResults(DTOScenario scenario, 
+			DistributionMap results, List<JFreeChart> charts) {
 		try {
 			PDDocument pDoc;
 			File tmpFile;
@@ -134,6 +136,7 @@ public class PDFPrint implements IPrint {
 			db.newDocument(tmpFile.getAbsolutePath(), scenario);
 			db.buildHeadData(scenario);
 			db.buildScenarioData(scenario);
+			db.buildResultDataStoch(results, charts);
 			db.closeDocument();
 
 			pDoc = PDDocument.load(tmpFile);

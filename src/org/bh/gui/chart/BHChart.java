@@ -4,6 +4,8 @@
  */
 package org.bh.gui.chart;
 
+import java.awt.image.BufferedImage;
+
 import org.bh.gui.swing.IBHComponent;
 import org.bh.platform.Services;
 import org.bh.platform.i18n.ITranslator;
@@ -49,5 +51,9 @@ public abstract class BHChart implements IBHComponent {
     protected void reloadText() {
         this.chart.getPlot().setNoDataMessage(translator.translate("noDataAvailable"));
         this.chart.setTitle(translator.translate(key));
+    }
+    
+    public BufferedImage getChartAsImage(int width, int height) {
+    	return chart.createBufferedImage(width, height);
     }
 }
