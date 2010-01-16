@@ -35,5 +35,6 @@ public class DTOProject extends DTO<DTOScenario> {
 
 	public DTOProject() {
 		super(Key.class);
+		log.debug("Project DTO created");
 	}
 }

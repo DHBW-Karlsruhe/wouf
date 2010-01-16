@@ -47,18 +47,19 @@ public abstract class Controller implements IController, ActionListener,
 		Services.addPlatformListener(this);
 	}
 
-	/**
-	 * central exception handler method. Should be called in every catch
-	 * statement in each plugin.
-	 * 
-	 * @see BHstatusBar
-	 * @param e
-	 */
-	private void handleException(Exception e) {
-		log.error("Controller Exception ", e);
-		// TODO how to show system erros to the user
-		Services.getBHstatusBar().setHint(e.getMessage(), true);
-	}
+//TODO Marco - check whether needed, by Norman
+//	/**
+//	 * central exception handler method. Should be called in every catch
+//	 * statement in each plugin.
+//	 * 
+//	 * @see BHstatusBar
+//	 * @param e
+//	 */
+//	private void handleException(Exception e) {
+//		log.error("Controller Exception ", e);
+//		// TODO how to show system erros to the user
+//		Services.getBHstatusBar().setHint(e.getMessage(), true);
+//	}
 
 	public JPanel getViewPanel() {
 		if (this.view != null) {

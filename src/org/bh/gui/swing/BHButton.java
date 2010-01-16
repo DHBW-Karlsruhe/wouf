@@ -36,7 +36,7 @@ public class BHButton extends JButton implements IBHComponent, IBHAction, IPlatf
 
 	private String key;
 	private PlatformKey platformKey;
-	private String hint;
+	String hint;
 
 	/**
 	 * Secondary constructor for platform buttons (are added to

@@ -20,14 +20,14 @@ import org.bh.validation.ValidationRule;
 public class BHComboBox extends JComboBox implements IBHModelComponent,
 		ActionListener, IPlatformListener {
 	private static final long serialVersionUID = 3609724364063209645L;
-	private static final ITranslator translator = Services.getTranslator();
+	static final ITranslator translator = Services.getTranslator();
 	private String key;
 	private String hint;
 	private int lastSelectedIndex = 0;
 	private boolean sorted = false;
 	private Item[] items = new Item[0];
-	private final CompValueChangeManager valueChangeManager = new CompValueChangeManager();
-	private boolean changeListenerEnabled = true;
+	final CompValueChangeManager valueChangeManager = new CompValueChangeManager();
+	boolean changeListenerEnabled = true;
 
 	public BHComboBox(Object key) {
 		this.key = key.toString();

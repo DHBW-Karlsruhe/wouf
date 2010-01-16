@@ -1,24 +1,41 @@
 package org.bh.gui.swing;
-import java.awt.*;
-import javax.swing.*;
-import javax.swing.tree.*;
+import java.awt.AlphaComposite;
+import java.awt.Graphics2D;
+import java.awt.Point;
+import java.awt.Rectangle;
+import java.awt.datatransfer.Transferable;
+import java.awt.dnd.DnDConstants;
+import java.awt.dnd.DragGestureEvent;
+import java.awt.dnd.DragGestureListener;
+import java.awt.dnd.DragSource;
+import java.awt.dnd.DragSourceDragEvent;
+import java.awt.dnd.DragSourceDropEvent;
+import java.awt.dnd.DragSourceEvent;
+import java.awt.dnd.DragSourceListener;
+import java.awt.dnd.DropTarget;
+import java.awt.dnd.DropTargetDragEvent;
+import java.awt.dnd.DropTargetDropEvent;
+import java.awt.dnd.DropTargetEvent;
+import java.awt.dnd.DropTargetListener;
+import java.awt.image.BufferedImage;
 
-import org.bh.gui.swing.BHMainFrame;
-
-import java.awt.dnd.*;
-import java.awt.datatransfer.*;
-import java.awt.image.*;
-import java.awt.geom.*;
+import javax.swing.JComponent;
+import javax.swing.tree.DefaultMutableTreeNode;
+import javax.swing.tree.DefaultTreeModel;
+import javax.swing.tree.TreePath;
  
 public abstract class AbstractTreeTransferHandler implements DragGestureListener, DragSourceListener, DropTargetListener {
  
 	private DragSource dragSource; // dragsource
-	private DropTarget dropTarget; //droptarget
+
+//TODO Patrick T. --> brauchen wir die?
+//	private DropTarget dropTarget; //droptarget
+//	private BHMainFrame bhmf;
+	
 	private static DefaultMutableTreeNode draggedNode; 
 	private DefaultMutableTreeNode draggedNodeParent; 
 	private static BufferedImage image = null; //buff image
 	private boolean drawImage;
-	private BHMainFrame bhmf;
 	private BHTree tree;
  
 	protected AbstractTreeTransferHandler(BHTree tree, int action, boolean drawIcon) {
@@ -26,7 +43,9 @@ public abstract class AbstractTreeTransferHandler implements DragGestureListener
 	    drawImage = drawIcon;
 		dragSource = new DragSource();
 		dragSource.createDefaultDragGestureRecognizer(tree, action, this);
-		dropTarget = new DropTarget(tree, action, this);
+		//TODO Patrick s.o.
+		//		dropTarget = new DropTarget(tree, action, this);
+		new DropTarget(tree, action, this);
 		
 	}
  

@@ -1,10 +1,6 @@
 package org.bh.gui.swing;
 
-import java.awt.event.WindowAdapter;
-import java.awt.event.WindowEvent;
-
 import javax.swing.JCheckBox;
-import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTabbedPane;
@@ -229,20 +225,20 @@ public class BHFormsPanel extends JPanel {
 		return this.lDirectInput;
 	}
 
-	/**
-	 * Test main method.
-	 */
-	public static void main(String args[]) {
-
-		JFrame test = new JFrame("Test for ViewTabedPane3");
-		test.setContentPane(new BHFormsPanel());
-		test.addWindowListener(new WindowAdapter() {
-			@Override
-			public void windowClosing(WindowEvent e) {
-				System.exit(0);
-			}
-		});
-		test.pack();
-		test.show();
-	}
+//	/*
+//	 * Test main method.
+//	 */
+//	public static void main(String args[]) {
+//
+//		JFrame test = new JFrame("Test for ViewTabedPane3");
+//		test.setContentPane(new BHFormsPanel());
+//		test.addWindowListener(new WindowAdapter() {
+//			@Override
+//			public void windowClosing(WindowEvent e) {
+//				System.exit(0);
+//			}
+//		});
+//		test.pack();
+//		test.show();
+//	}
 }

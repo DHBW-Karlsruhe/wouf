@@ -17,8 +17,6 @@ import javax.swing.JPanel;
  * @version 0.1, 16.12.2009
  *
  */
-
-
 public class BHContent extends JPanel{
 
     public JLabel logo;

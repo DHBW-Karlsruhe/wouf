@@ -211,7 +211,10 @@ public class DTOScenario extends DTO<DTOPeriod> {
 	public TreeMap<DTOKeyPair, List<Calculable>> getPeriodStochasticKeysAndValues() {
 		List<DTOKeyPair> keys = getPeriodStochasticKeys();
 		TreeMap<DTOKeyPair, List<Calculable>> map = new TreeMap<DTOKeyPair, List<Calculable>>();
-		DTOPeriod lastPeriod = children.getLast();
+		
+		//TODO Michaael - check whether lastPeriod is needed
+		//DTOPeriod lastPeriod = children.getLast();
+		
 		for (DTOKeyPair key : keys) {
 			List<Calculable> pastValues = new ArrayList<Calculable>();
 			for (DTOPeriod period : children) {

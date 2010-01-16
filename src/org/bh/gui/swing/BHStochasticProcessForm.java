@@ -1,7 +1,6 @@
 package org.bh.gui.swing;
 
 import javax.swing.JPanel;
-import javax.swing.JScrollPane;
 import com.jgoodies.forms.layout.CellConstraints;
 import com.jgoodies.forms.layout.FormLayout;
 

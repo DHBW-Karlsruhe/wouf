@@ -3,11 +3,8 @@ package org.bh.gui.swing;
 import java.awt.Component;
 import java.awt.Container;
 import java.awt.FocusTraversalPolicy;
-import java.awt.event.WindowAdapter;
-import java.awt.event.WindowEvent;
 import java.util.Vector;
 
-import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JSeparator;
@@ -611,12 +608,14 @@ public class BHScenarioHeadIntervalForm extends JPanel {
 			this.order.addAll(order);
 		}
 
+		@Override
 		public Component getComponentAfter(Container focusCycleRoot,
 				Component aComponent) {
 			int idx = (order.indexOf(aComponent) + 1) % order.size();
 			return order.get(idx);
 		}
 
+		@Override
 		public Component getComponentBefore(Container focusCycleRoot,
 				Component aComponent) {
 			int idx = order.indexOf(aComponent) - 1;
@@ -626,35 +625,37 @@ public class BHScenarioHeadIntervalForm extends JPanel {
 			return order.get(idx);
 		}
 
+		@Override
 		public Component getDefaultComponent(Container focusCycleRoot) {
 			return order.get(0);
 		}
 
+		@Override
 		public Component getLastComponent(Container focusCycleRoot) {
 			return order.lastElement();
 		}
 
+		@Override
 		public Component getFirstComponent(Container focusCycleRoot) {
 			return order.get(0);
 		}
 	}
 
 	// TODO remove main later
-	/**
-	 * Test main method.
-	 */
-	@SuppressWarnings("deprecation")
-	public static void main(String args[]) {
-
-		JFrame test = new JFrame("Test for ViewHeadData1");
-		test.setContentPane(new BHScenarioHeadIntervalForm());
-		test.addWindowListener(new WindowAdapter() {
-			@Override
-			public void windowClosing(WindowEvent e) {
-				System.exit(0);
-			}
-		});
-		test.pack();
-		test.show();
-	}
+//	/**
+//	 * Test main method.
+//	 */
+//	public static void main(String args[]) {
+//
+//		JFrame test = new JFrame("Test for ViewHeadData1");
+//		test.setContentPane(new BHScenarioHeadIntervalForm());
+//		test.addWindowListener(new WindowAdapter() {
+//			@Override
+//			public void windowClosing(WindowEvent e) {
+//				System.exit(0);
+//			}
+//		});
+//		test.pack();
+//		test.show();
+//	}
 }

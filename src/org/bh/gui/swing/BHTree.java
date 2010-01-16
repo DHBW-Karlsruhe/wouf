@@ -443,7 +443,7 @@ public class BHTree extends JTree {
 			DefaultMutableTreeNode node) {
 		DefaultMutableTreeNode copy = new DefaultMutableTreeNode(node
 				.getUserObject());
-		for (Enumeration e = node.children(); e.hasMoreElements();) {
+		for (Enumeration<?> e = node.children(); e.hasMoreElements();) {
 			copy.add(makeDeepCopy((DefaultMutableTreeNode) e.nextElement()));
 		}
 		return (copy);

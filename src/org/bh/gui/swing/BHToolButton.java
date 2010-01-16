@@ -1,7 +1,5 @@
 package org.bh.gui.swing;
 
-import java.awt.event.ActionEvent;
-import java.awt.event.KeyEvent;
 import java.net.URL;
 
 import javax.swing.ImageIcon;
@@ -51,5 +49,4 @@ public class BHToolButton extends BHButton{
 	public void setText(String text) {
 		// do not allow setting a text for this button
 	}
-   
 }

@@ -27,7 +27,7 @@ import org.bh.platform.PlatformController;
 public class BHDefaultScenarioExportPanel extends JPanel {
 
 	BHTextField txtPath;
-	private JCheckBox open;
+	JCheckBox open;
 
 	String fileDesc;
 	String fileExt;
@@ -111,8 +111,9 @@ public class BHDefaultScenarioExportPanel extends JPanel {
 		
 		public SelectionArea(){
 			try {
-				BHDefaultScenarioExportPanelView bhDefScenExpPanView = new BHDefaultScenarioExportPanelView(
-						this, new ValidationMethods());
+//				BHDefaultScenarioExportPanelView bhDefScenExpPanView = new BHDefaultScenarioExportPanelView(
+//						this, new ValidationMethods());
+				new BHDefaultScenarioExportPanelView(this, new ValidationMethods());
 				
 				this.setLayout(new BorderLayout());
 				this.setBorder(BorderFactory.createEmptyBorder(20, 15, 15,15));

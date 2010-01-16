@@ -7,7 +7,6 @@ import org.bh.data.DTOProject;
 import org.bh.data.DTOScenario;
 import org.bh.data.types.Calculable;
 import org.bh.data.types.DistributionMap;
-import org.bh.gui.chart.BHChart;
 import org.bh.gui.swing.BHDataExchangeDialog;
 import org.jfree.chart.JFreeChart;
 

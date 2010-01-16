@@ -6,6 +6,7 @@ import java.awt.Component;
 import javax.swing.BorderFactory;
 import javax.swing.JLabel;
 import javax.swing.JTable;
+import javax.swing.SwingConstants;
 import javax.swing.border.Border;
 import javax.swing.table.TableCellRenderer;
 
@@ -34,15 +35,15 @@ public class BHTableCellRenderer implements TableCellRenderer {
 			if(hasFocus) {
 				label.setBackground(Color.RED);
 				label.setForeground(Color.white);
-				label.setHorizontalAlignment(JLabel.LEFT);
+				label.setHorizontalAlignment(SwingConstants.LEFT);
 			}
 			else if(isSelected) {
 				label.setBackground(Color.LIGHT_GRAY);
-				label.setHorizontalAlignment(JLabel.LEFT);
+				label.setHorizontalAlignment(SwingConstants.LEFT);
 			}
 			else { // (!isSelected)
 				column = table.convertColumnIndexToModel(column);
-				label.setHorizontalAlignment(JLabel.LEFT);
+				label.setHorizontalAlignment(SwingConstants.LEFT);
 			}
 		}
 		else if(value instanceof Integer) {
@@ -59,15 +60,15 @@ public class BHTableCellRenderer implements TableCellRenderer {
 			if(hasFocus) {
 				label.setBackground(Color.DARK_GRAY);
 				label.setForeground(Color.white);
-				label.setHorizontalAlignment(JLabel.RIGHT);
+				label.setHorizontalAlignment(SwingConstants.RIGHT);
 			}
 			else if(isSelected) {
 				label.setBackground(Color.LIGHT_GRAY);
-				label.setHorizontalAlignment(JLabel.RIGHT);
+				label.setHorizontalAlignment(SwingConstants.RIGHT);
 			}
 			else { // (!isSelected)
 				column = table.convertColumnIndexToModel(column);
-				label.setHorizontalAlignment(JLabel.RIGHT);
+				label.setHorizontalAlignment(SwingConstants.RIGHT);
 			}
 		}
 		return label;

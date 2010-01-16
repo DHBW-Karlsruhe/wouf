@@ -49,6 +49,7 @@ public class BHScenarioForm extends JPanel {
 		
 		CANNOT_CALCULATE_HINT;
 
+		@Override
 		public String toString() {
 		    return getClass().getName() + "." + super.toString();
 		}

@@ -40,8 +40,8 @@ public class BHTextField extends JTextField implements IBHModelComponent, IPlatf
 	private String key;
 	private ValidationRule[] validationRules = new ValidationRule[0];
 	private String hint;
-	private boolean changeListenerEnabled = true;
-	private final CompValueChangeManager valueChangeManager = new CompValueChangeManager();
+	boolean changeListenerEnabled = true;
+	final CompValueChangeManager valueChangeManager = new CompValueChangeManager();
 	private static final Logger log = Logger.getLogger(BHTextField.class);
 	private boolean returnCalculable;
 
@@ -123,8 +123,7 @@ public class BHTextField extends JTextField implements IBHModelComponent, IPlatf
 	public IValue getValue() {
 		if (returnCalculable)
 			return Calculable.parseCalculable(this.getText());
-		else
-			return new StringValue(this.getText());
+		return new StringValue(this.getText());
 	}
 
 	@Override

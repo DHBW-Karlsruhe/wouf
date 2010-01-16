@@ -1,7 +1,5 @@
 package org.bh.gui.swing;
 
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.awt.event.ItemEvent;
 import java.awt.event.ItemListener;
 
@@ -33,8 +31,10 @@ import org.bh.validation.ValidationRule;
 
 // TODO Hints setzen!!! Noch werden für Textfields keine Hints erzeugt
 public class BHCheckBox extends JCheckBox implements IBHModelComponent {
+
+	static final Logger log = Logger.getLogger(BHCheckBox.class);
+	static final ITranslator translator = Services.getTranslator();
 	
-	private static final Logger log = Logger.getLogger(BHCheckBox.class);
 	/**
 	 * unique key to identify Label.
 	 */
@@ -50,16 +50,19 @@ public class BHCheckBox extends JCheckBox implements IBHModelComponent {
 	 * @param key
 	 *            unique key
 	 */
-	public BHCheckBox(Object key) {
+	public BHCheckBox(final Object key) {
 		super();
 		this.key = key.toString();
 		reloadText();
 		addItemListener(new ItemListener() {
 			@Override
 			public void itemStateChanged(ItemEvent e) {
-				if (changeListenerEnabled)
+				if (changeListenerEnabled) {
 					valueChangeManager
 							.fireCompValueChangeEvent(BHCheckBox.this);
+					log.debug("ValueChangedEvent fired by BHCheckBox with key"
+							+ key.toString());
+				}
 			}
 		});
 		setSelected(false);
@@ -101,7 +104,7 @@ public class BHCheckBox extends JCheckBox implements IBHModelComponent {
 
 	@Override
 	public IValue getValue() {
-		if(isSelected()) {
+		if (isSelected()) {
 			return new IntegerValue(1);
 		}
 		return new IntegerValue(0);
@@ -122,12 +125,12 @@ public class BHCheckBox extends JCheckBox implements IBHModelComponent {
 		if (value == null) {
 			return;
 		}
-		if(value instanceof IntegerValue) {
+		if (value instanceof IntegerValue) {
 			int valInt = ((IntegerValue) value).getValue();
-			if(valInt >= 1) {
+			if (valInt >= 1) {
 				setSelected(true);
 			}
-			if(valInt == 0) {
+			if (valInt == 0) {
 				setSelected(false);
 			}
 		}
@@ -144,10 +147,15 @@ public class BHCheckBox extends JCheckBox implements IBHModelComponent {
 			return;
 		}
 	}
-	
+
 	protected void reloadText() {
 		hint = Services.getTranslator().translate(key, ITranslator.LONG);
 		setToolTipText(hint);
 		updateUI();
+	}
+	
+	@Override
+	public String toString() {
+		return translator.translate(key);
 	}
 }

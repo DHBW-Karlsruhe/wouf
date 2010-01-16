@@ -16,9 +16,7 @@ public class TransferableNode implements Transferable {
 		if (flavor == NODE_FLAVOR) {
 			return node;
 		}
-		else {
-			throw new UnsupportedFlavorException(flavor);	
-		}			
+		throw new UnsupportedFlavorException(flavor);			
 	}
  
 	public DataFlavor[] getTransferDataFlavors() {

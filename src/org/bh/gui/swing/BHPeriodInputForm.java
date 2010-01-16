@@ -1,10 +1,6 @@
 package org.bh.gui.swing;
 
-import java.awt.event.WindowAdapter;
-import java.awt.event.WindowEvent;
-
 import javax.swing.BorderFactory;
-import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JSeparator;
@@ -17,7 +13,6 @@ import org.bh.platform.i18n.ITranslator;
 import org.bh.validation.VRIsGreaterThan;
 import org.bh.validation.VRMandatory;
 import org.bh.validation.ValidationRule;
-
 
 import com.jgoodies.forms.layout.CellConstraints;
 import com.jgoodies.forms.layout.FormLayout;
@@ -263,20 +258,20 @@ public class BHPeriodInputForm extends JPanel {
 
 	
 	// TODO remove main later
-	/**
-	 * Test main method.
-	 */
-	public static void main(String args[]) {
-
-		JFrame test = new JFrame("Test for ViewPeriodData1");
-		test.setContentPane(new BHPeriodInputForm("2009"));
-		test.addWindowListener(new WindowAdapter() {
-			@Override
-			public void windowClosing(WindowEvent e) {
-				System.exit(0);
-			}
-		});
-		test.pack();
-		test.show();
-	}
+//	/**
+//	 * Test main method.
+//	 */
+//	public static void main(String args[]) {
+//
+//		JFrame test = new JFrame("Test for ViewPeriodData1");
+//		test.setContentPane(new BHPeriodInputForm("2009"));
+//		test.addWindowListener(new WindowAdapter() {
+//			@Override
+//			public void windowClosing(WindowEvent e) {
+//				System.exit(0);
+//			}
+//		});
+//		test.pack();
+//		test.show();
+//	}
 }

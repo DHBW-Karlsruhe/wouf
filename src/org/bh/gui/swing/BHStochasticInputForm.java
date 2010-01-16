@@ -1,10 +1,7 @@
 package org.bh.gui.swing;
 
 import java.awt.Component;
-import java.awt.event.WindowAdapter;
-import java.awt.event.WindowEvent;
 
-import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 
@@ -44,6 +41,7 @@ public class BHStochasticInputForm extends JPanel {
 		CALC_PARAMETERS,
 		RESET_PARAMETERS;
 		
+		@Override
 		public String toString() {
 		    return getClass().getName() + "." + super.toString();
 		}
@@ -170,21 +168,21 @@ public class BHStochasticInputForm extends JPanel {
 			revalidate();
 		}
 	}
-	
-	/**
-	 * Test main method.
-	 */
-	public static void main(String args[]) {
-
-		JFrame test = new JFrame("Test for ViewStochasticData3");
-		test.setContentPane(new BHStochasticInputForm());
-		test.addWindowListener(new WindowAdapter() {
-			@Override
-			public void windowClosing(WindowEvent e) {
-				System.exit(0);
-			}
-		});
-		test.pack();
-		test.show();
-	}
+	// TODO remove
+//	/**
+//	 * Test main method.
+//	 */
+//	public static void main(String args[]) {
+//
+//		JFrame test = new JFrame("Test for ViewStochasticData3");
+//		test.setContentPane(new BHStochasticInputForm());
+//		test.addWindowListener(new WindowAdapter() {
+//			@Override
+//			public void windowClosing(WindowEvent e) {
+//				System.exit(0);
+//			}
+//		});
+//		test.pack();
+//		test.show();
+//	}
 }

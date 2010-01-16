@@ -5,7 +5,6 @@ import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.border.EtchedBorder;
 
-import org.apache.log4j.Logger;
 import org.bh.platform.PlatformKey;
 import org.bh.platform.Services;
 import org.bh.platform.i18n.ITranslator;
@@ -33,6 +32,7 @@ public class BHProjectForm extends JPanel {
 		
 		CANNOT_CALCULATE_HINT;
 
+		@Override
 		public String toString() {
 		    return getClass().getName() + "." + super.toString();
 		}

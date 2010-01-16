@@ -33,7 +33,7 @@ public class BHSelectionList extends JList implements MouseListener,
 		IBHModelComponent {
 
 	private final String key;
-	private boolean defaultValue = true;
+	boolean defaultValue = true;
 	private List<Object> selectedItems = new ArrayList<Object>();
 	private final CompValueChangeManager valueChangeManager = new CompValueChangeManager();
 

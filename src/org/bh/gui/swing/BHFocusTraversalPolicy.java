@@ -13,12 +13,14 @@ public class BHFocusTraversalPolicy extends FocusTraversalPolicy {
 		this.order.addAll(order);
 	}
 
+	@Override
 	public Component getComponentAfter(Container focusCycleRoot,
 			Component aComponent) {
 		int idx = (order.indexOf(aComponent) + 1) % order.size();
 		return order.get(idx);
 	}
 
+	@Override
 	public Component getComponentBefore(Container focusCycleRoot,
 			Component aComponent) {
 		int idx = order.indexOf(aComponent) - 1;
@@ -28,14 +30,17 @@ public class BHFocusTraversalPolicy extends FocusTraversalPolicy {
 		return order.get(idx);
 	}
 
+	@Override
 	public Component getDefaultComponent(Container focusCycleRoot) {
 		return order.get(0);
 	}
 
+	@Override
 	public Component getLastComponent(Container focusCycleRoot) {
 		return order.lastElement();
 	}
 
+	@Override
 	public Component getFirstComponent(Container focusCycleRoot) {
 		return order.get(0);
 	}

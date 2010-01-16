@@ -31,17 +31,22 @@ public class BHToolBar extends JToolBar implements MouseListener{
 
 	boolean shown = true;
 	boolean fixed = true;
-	private int width;
-	private int height;
+	
+// TODO Patrick T. - necessary?
+//	private int width;
+//	private int height;
+
 	private BHButton Bnew, Bopen, Bsave, Bproject, Bscenario, Bperiod, Bdelete; 
-	private JLabel showHide,separator1, separator2;
+	JLabel showHide;
+	private JLabel separator1, separator2;
 	
 	CellConstraints cons;
 	
     
     public BHToolBar(int width, int height) {
-    	this.width = width;
-    	this.height = height;
+    	// TODO Patrick T. - necessary?
+//    	this.width = width;
+//    	this.height = height;
     	addMouseListener(this);
     	
 		//paint background

@@ -102,7 +102,9 @@ public class BHMainFrame extends JFrame implements IPlatformListener {
 	private BHFileChooser chooser;
 	
 	private JScrollPane contentForm;
-	private Component chartsPanel;
+
+	//TODO necessary?
+	//private Component chartsPanel;
 
 	/**
 	 * Standard constructor for <code>BHMainFrame</code>.

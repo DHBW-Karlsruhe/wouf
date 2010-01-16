@@ -28,6 +28,7 @@ public class BHPeriodForm extends JPanel {
 		 */
 		PERIOD_HEADDATA;
 
+		@Override
 		public String toString() {
 		    return getClass().getName() + "." + super.toString();
 		}

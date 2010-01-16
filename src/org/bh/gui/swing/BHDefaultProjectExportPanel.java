@@ -21,7 +21,6 @@ import javax.swing.filechooser.FileNameExtensionFilter;
 
 import org.bh.data.IDTO;
 import org.bh.platform.PlatformController;
-import org.bh.platform.i18n.BHTranslator;
 
 public class BHDefaultProjectExportPanel extends JPanel implements ActionListener {
 	
