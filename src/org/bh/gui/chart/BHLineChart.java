@@ -29,15 +29,17 @@ import org.jfree.data.general.Dataset;
 public class BHLineChart extends BHChart implements IBHAddValue, IPlatformListener {
 
 	private DefaultCategoryDataset dataset;
-	
 
-	protected BHLineChart(String title, final String XAxis, final String YAxis,
-			final Dataset dataset, final String key) {
+	protected BHLineChart(final Dataset dataset, final String key) {
 		super(key);
 		this.dataset = (DefaultCategoryDataset) dataset;
 
-		chart = ChartFactory.createLineChart(title, XAxis, YAxis, this.dataset,
-				PlotOrientation.VERTICAL, true, true, false);
+		chart = ChartFactory.createLineChart(translator.translate(key)
+                        , translator.translate(key.concat(BHChart.DIMX))
+                        , translator.translate(key.concat(BHChart.DIMY))
+                        , this.dataset
+                        , PlotOrientation.VERTICAL, true, true, false);
+                
 		if ("Nimbus".equals(UIManager.getLookAndFeel().getName())) {
 			chart.setBackgroundPaint(UIManager.getColor("Chart.background"));
 		}

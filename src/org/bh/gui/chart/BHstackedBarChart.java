@@ -31,13 +31,17 @@ import org.jfree.data.general.Dataset;
 		
 		private DefaultCategoryDataset dataset;
 
-		protected BHstackedBarChart(String title, final String XAxis, final String YAxis,
+		protected BHstackedBarChart(
 				final Dataset dataset, final String key) {
 			super(key);
 			this.dataset = (DefaultCategoryDataset) dataset;
 
-			chart = ChartFactory.createStackedBarChart(title, XAxis, YAxis, this.dataset,
-					PlotOrientation.VERTICAL, true, true, false);
+			chart = ChartFactory.createStackedBarChart(translator.translate(key)
+                                , translator.translate(key.concat(BHChart.DIMX))
+                                , translator.translate(key.concat(BHChart.DIMY))
+                                , this.dataset
+                                , PlotOrientation.VERTICAL, true, true, false);
+                        
 			if ("Nimbus".equals(UIManager.getLookAndFeel().getName())) {
 				chart.setBackgroundPaint(UIManager.getColor("Chart.background"));
 			}

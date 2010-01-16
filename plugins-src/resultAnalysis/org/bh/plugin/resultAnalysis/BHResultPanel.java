@@ -27,6 +27,7 @@ import org.jfree.chart.ChartPanel;
 import org.jfree.chart.JFreeChart;
 
 import com.jgoodies.forms.layout.CellConstraints;
+import java.awt.CardLayout;
 
 /**
  * 
@@ -276,7 +277,12 @@ public final class BHResultPanel extends JPanel {
 			procedurePanel = new BH_APV_ResultPanel();
 		} else if (scenario.getDCFMethod().getUniqueId().equals("fte")) {
 			procedurePanel = new BH_FTE_ResultPanel();
-		}
+		}else if (scenario.getDCFMethod().getUniqueId().endsWith("all_DCF")){
+                        this.setLayout(new CardLayout());
+                        this.add(new BH_APV_ResultPanel(), translator.translate("apv"));
+                        this.add(new BH_FCF_ResultPanel(), translator.translate("fcf"));
+                        this.add(new BH_FTE_ResultPanel(), translator.translate("fte"));
+                }
 		this.add(procedurePanel, BorderLayout.CENTER);
 		JPanel buttons = new JPanel();
 		

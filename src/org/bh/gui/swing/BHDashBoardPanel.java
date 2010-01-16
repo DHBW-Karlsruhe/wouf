@@ -22,7 +22,7 @@ public class BHDashBoardPanel extends JPanel {
 	
 	public void initialize(Map<DTOScenario, Map<?, ?>> results) {
 		add(new JLabel("TEST"));
-		chartPanel = BHChartFactory.getStackedBarChart("UW Vergleich", "Szenario", "GE", "Tests");
+		chartPanel = BHChartFactory.getStackedBarChart("Tests");
 		for(java.util.Map.Entry<DTOScenario, Map<?, ?>> e : results.entrySet()){
 			add(new JLabel( e.getKey().get(DTOScenario.Key.IDENTIFIER).toString()));
 		}

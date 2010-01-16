@@ -31,13 +31,17 @@ import org.jfree.data.general.Dataset;
 		
 		private DefaultCategoryDataset dataset;
 
-		protected BHwaterfallChart(String title, final String XAxis, final String YAxis,
+		protected BHwaterfallChart(
 				final Dataset dataset, final String key) {
 			super(key);
 			this.dataset = (DefaultCategoryDataset) dataset;
 
-			chart = ChartFactory.createWaterfallChart(title, XAxis, YAxis, this.dataset,
-					PlotOrientation.VERTICAL, true, true, false);
+			chart = ChartFactory.createWaterfallChart(translator.translate(key)
+                                , translator.translate(key.concat(BHChart.DIMX))
+                                , translator.translate(key.concat(BHChart.DIMY))
+                                , this.dataset
+                                , PlotOrientation.VERTICAL, true, true, false);
+
 			if ("Nimbus".equals(UIManager.getLookAndFeel().getName())) {
 				chart.setBackgroundPaint(UIManager.getColor("Chart.background"));
 			}

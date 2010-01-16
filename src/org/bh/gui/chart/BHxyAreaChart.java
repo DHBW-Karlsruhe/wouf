@@ -29,13 +29,17 @@ public class BHxyAreaChart extends BHChart implements IBHAddValue, IPlatformList
 	
 	private DefaultXYDataset dataset;
 
-	protected BHxyAreaChart(final String title, final String xAxis, final String yAxis,
-			final Dataset dataset, final String key, final XYPlot plot) {
+	protected BHxyAreaChart(
+			final Dataset dataset, final String key) {
 		super(key);
 		this.dataset = (DefaultXYDataset) dataset;
 
-		chart = ChartFactory.createXYAreaChart(title, xAxis, yAxis,
-				this.dataset, PlotOrientation.VERTICAL, true, true, false);
+		chart = ChartFactory.createXYAreaChart(translator.translate(key)
+                        , translator.translate(key.concat(BHChart.DIMX))
+                        , translator.translate(key.concat(BHChart.DIMY))
+                        ,this.dataset
+                        , PlotOrientation.VERTICAL, true, true, false);
+
 		if ("Nimbus".equals(UIManager.getLookAndFeel().getName())) {
 			chart.setBackgroundPaint(UIManager.getColor("Chart.background"));
 		}

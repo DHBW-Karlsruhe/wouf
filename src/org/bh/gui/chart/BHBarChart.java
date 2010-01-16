@@ -9,6 +9,7 @@ import org.bh.platform.IPlatformListener;
 import org.bh.platform.PlatformEvent;
 import org.bh.platform.Services;
 import org.bh.platform.PlatformEvent.Type;
+import org.bh.platform.i18n.ITranslator;
 import org.jfree.chart.ChartFactory;
 import org.jfree.chart.plot.PlotOrientation;
 import org.jfree.chart.renderer.category.BarRenderer;
@@ -25,20 +26,25 @@ import org.jfree.data.general.Dataset;
 	 * 
 	 * @author Lars
 	 * @version 0.1, 16.12.2009
-	 * 
+	 * @author Marcc Hammel
+         * @version 0.2 16.01.2010
 	 */
 	@SuppressWarnings("serial")
 	public class BHBarChart extends BHChart implements IBHAddValue, IPlatformListener {
 
 		private DefaultCategoryDataset dataset;
 
-		protected BHBarChart(String title, final String XAxis, final String YAxis,
-				final Dataset dataset, final String key) {
+		protected BHBarChart(final String key, Dataset dataset) {
 			super(key);
+
 			this.dataset = (DefaultCategoryDataset) dataset;
 
-			chart = ChartFactory.createBarChart(title, XAxis, YAxis, this.dataset,
-					PlotOrientation.VERTICAL, true, true, false);
+			chart = ChartFactory.createBarChart(translator.translate(key)
+                                , translator.translate(key.concat(BHChart.DIMX))
+                                , translator.translate(key.concat(BHChart.DIMY))
+                                , this.dataset
+                                , PlotOrientation.VERTICAL, true, true, false);
+
 			if ("Nimbus".equals(UIManager.getLookAndFeel().getName())) {
 				chart.setBackgroundPaint(UIManager.getColor("Chart.background"));
 			}

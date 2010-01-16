@@ -51,8 +51,8 @@ public class BH_APV_ResultPanel extends JPanel {
         this.setLayout(new TableLayout(size));
 
         //All APV Charts
-        apvWFShareholderValues = BHChartFactory.getWaterfallChart("Test", "Periode", "GE", BHResultController.ChartKeys.APV_WF_SV);
-        apvBCCapitalStructure = BHChartFactory.getStackedBarChart("Test2", "Periode", "GE", BHResultController.ChartKeys.APV_BC_CS);
+        apvWFShareholderValues = BHChartFactory.getWaterfallChart( BHResultController.ChartKeys.APV_WF_SV);
+        apvBCCapitalStructure = BHChartFactory.getStackedBarChart( BHResultController.ChartKeys.APV_BC_CS);
 
         //Formeldarstellung
         IFormulaFactory ff = IFormulaFactory.instance;

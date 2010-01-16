@@ -114,7 +114,10 @@ public class BHResultController extends OutputController{
 				comp3.addValue(result.get("org.bh.plugin.fte.FTECalculator$Result.FLOW_TO_EQUITY")[i].parse(),translator.translate("org.bh.plugin.fte.FTECalculator$Result.FLOW_TO_EQUITY"), name);
     		}
     		
-    	}else {
+    	}
+        else if(scenario.getDCFMethod().getUniqueId().equals("all_DCF")){
+            //TODO UI controll for all supported dcf UIs in plugin
+        }else {
     		
     	}
     }

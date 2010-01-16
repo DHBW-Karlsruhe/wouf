@@ -29,13 +29,16 @@ public class BHHistogramChart extends BHChart implements IBHAddValue, IPlatformL
 
 	private HistogramDataset dataset;
 
-	protected BHHistogramChart(final String title, final String xAxis, final String yAxis,
-			final Dataset dataset, final String key, final Plot plot) {
+	protected BHHistogramChart(
+			final Dataset dataset, final String key) {
                 super(key);
 		this.dataset = (HistogramDataset) dataset;
 
-		chart = ChartFactory.createHistogram(title, xAxis, yAxis, this.dataset,
-				PlotOrientation.VERTICAL, true, true, false);
+		chart = ChartFactory.createHistogram(translator.translate(key)
+                        , translator.translate(key.concat(BHChart.DIMX))
+                        , translator.translate(key.concat(BHChart.DIMY))
+                        , this.dataset
+                        , PlotOrientation.VERTICAL, true, true, false);
 		chart.getXYPlot().setForegroundAlpha(0.75f);
 		if ("Nimbus".equals(UIManager.getLookAndFeel().getName())) {
 			chart.setBackgroundPaint(UIManager.getColor("Chart.background"));
