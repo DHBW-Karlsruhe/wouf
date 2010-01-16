@@ -1,6 +1,7 @@
 package org.bh.plugin.pdfexport;
 
 import java.awt.Color;
+import java.awt.Transparency;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
@@ -169,7 +170,7 @@ public class ITextDocumentBuilder implements PdfPageEvent {
 			for (JFreeChart c : charts) {
 
 				chartImage = Image.getInstance(c.createBufferedImage(500, 350),
-						new Color(Color.OPAQUE));
+						new Color(Transparency.OPAQUE));
 				chartSection.add(chartImage);
 			}
 
