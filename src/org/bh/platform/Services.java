@@ -3,6 +3,7 @@ package org.bh.platform;
 import java.awt.Color;
 import java.awt.Component;
 import java.awt.Container;
+import java.io.StringWriter;
 import java.lang.reflect.Field;
 import java.net.URL;
 import java.util.ArrayList;
@@ -22,6 +23,8 @@ import javax.swing.UIManager.LookAndFeelInfo;
 import javax.swing.event.EventListenerList;
 
 import org.apache.log4j.Logger;
+import org.apache.log4j.PatternLayout;
+import org.apache.log4j.WriterAppender;
 import org.bh.calculation.IShareholderValueCalculator;
 import org.bh.calculation.IStochasticProcess;
 import org.bh.controller.IDataExchangeController;
@@ -59,6 +62,7 @@ public class Services {
 	private static HashMap<String, IPrint> print;
 
 	private static BHMainFrame bhmf = null;
+	private static StringWriter logWriter = new StringWriter();
 
 	public static void setBHMainFrame(BHMainFrame bhmf) {
 		Services.bhmf = bhmf;
@@ -414,5 +418,16 @@ public class Services {
 
 		}
 		return false;
+	}
+
+	public static void setupLogger() {
+		String pattern = "%d{ISO8601} %-5p [%t] %c: %m%n";
+		WriterAppender appender = new WriterAppender(new PatternLayout(pattern), logWriter);
+		Logger.getRootLogger().addAppender(appender);
+	}
+	
+	public static String getLog() {
+		logWriter.flush();
+		return logWriter.toString();
 	}
 }

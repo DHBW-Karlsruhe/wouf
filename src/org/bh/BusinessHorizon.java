@@ -24,6 +24,7 @@ import org.bh.platform.i18n.ITranslator;
  */
 
 public class BusinessHorizon {
+	public static final boolean DEBUG = true;
 	private static final Logger log = Logger.getLogger(BusinessHorizon.class);
 
 	/**
@@ -32,6 +33,9 @@ public class BusinessHorizon {
 	 * @throws Exception
 	 */
 	public static void main(String[] args) throws Exception {
+		if (DEBUG)
+			Services.setupLogger();
+		
 		log.info("Business Horizon is starting...");
 		
 		Thread
