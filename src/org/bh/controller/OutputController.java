@@ -10,6 +10,7 @@ import java.util.Map;
 
 import org.bh.data.DTOScenario;
 import org.bh.data.types.Calculable;
+import org.bh.data.types.DistributionMap;
 import org.bh.gui.View;
 import org.bh.gui.chart.IBHAddValue;
 import org.bh.gui.swing.IBHComponent;
@@ -21,9 +22,15 @@ import org.bh.gui.swing.IBHModelComponent;
  */
 public class OutputController extends Controller implements IOutputController {
 	protected Map<String, Calculable[]> result;
+	protected DistributionMap stochasticResult;
 	protected DTOScenario scenario;
 
 	public OutputController(View view, Map<String, Calculable[]> result, DTOScenario scenario) {
+		super(view);
+		setResult(result, scenario);
+	}
+	
+	public OutputController(View view, DistributionMap result, DTOScenario scenario) {
 		super(view);
 		setResult(result, scenario);
 	}
@@ -54,5 +61,12 @@ public class OutputController extends Controller implements IOutputController {
 				((IBHAddValue) comp).addValues(Arrays.asList(values));
 			}
 		}
+	}
+
+
+	@Override
+	public void setResult(DistributionMap result, DTOScenario scenario) throws ControllerException {
+		// TODO Auto-generated method stub
+		throw new UnsupportedOperationException("This method has not been implemented");
 	}
 }

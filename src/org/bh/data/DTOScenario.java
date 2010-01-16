@@ -217,8 +217,6 @@ public class DTOScenario extends DTO<DTOPeriod> {
 		for (DTOKeyPair key : keys) {
 			List<Calculable> pastValues = new ArrayList<Calculable>();
 			for (DTOPeriod period : children) {
-				if (period == lastPeriod)
-					break;
 				IPeriodicalValuesDTO periodValuesDto = period
 						.getPeriodicalValuesDTO(key.getDtoId());
 				pastValues.add(periodValuesDto.getCalculable(key.getKey()));

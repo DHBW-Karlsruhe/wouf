@@ -103,6 +103,12 @@ public class BHChartFactory {
                 dimDataset(seriesKey, data), key.toString());
         return new BHChartPanel(key, chart.getChart(), chart.getClass(), chart);
     }
+    
+    public static BHChartPanel getXYBarChart(Object key) {
+
+        BHXYBarChart chart = new BHXYBarChart(key.toString());
+        return new BHChartPanel(key, chart.getChart(), chart.getClass(), chart);
+    }
 
     /**
      * method to create the <code>BHHistogramChart</code>
@@ -117,11 +123,13 @@ public class BHChartFactory {
      * @return
      *
      */
-    public static BHChartPanel getHistogramChart( final String datasetKey, final double[] values, final int bins,
-            final double minimum, final double maximum, final Object key) {
+    public static BHChartPanel getHistogramChart(final Object key) {
 
-        BHHistogramChart chart = new BHHistogramChart(
-                dimDataset(datasetKey, values, bins, minimum, maximum), key.toString());
+//        BHHistogramChart chart = new BHHistogramChart(
+//                dimDataset(datasetKey, values, bins, minimum, maximum), key.toString());
+        
+        BHHistogramChart chart = new BHHistogramChart(histogrammDataset(), key.toString());
+        
         return new BHChartPanel(key, chart.getChart(), chart.getClass(), chart);
     }
 
@@ -163,7 +171,7 @@ public class BHChartFactory {
             final double[][] data) {
 
         DefaultXYDataset dataset = new DefaultXYDataset();
-        dataset.addSeries(seriesKey, data);
+        //dataset.addSeries(seriesKey, data);
         return dataset;
     }
 
@@ -186,8 +194,12 @@ public class BHChartFactory {
             final double[] values, final int bins, final double minimum, final double maximum) {
 
         HistogramDataset dataset = new HistogramDataset();
-        dataset.addSeries(key, values, bins, minimum, maximum);
+        //dataset.addSeries(key, values, bins, minimum, maximum);
         return dataset;
+    }
+    
+    private static Dataset histogrammDataset(){
+    	return new HistogramDataset();
     }
 
     private static Dataset dimDataset() {

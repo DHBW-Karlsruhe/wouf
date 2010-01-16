@@ -240,4 +240,13 @@ public class DistributionMap implements Map<Double, Integer>,
 	public Collection<Integer> values() {
 		return map.values();
 	}
+	public double[][] toDoubleArray(){
+		double[][] result = new double[this.keySet().size()][2];
+		int i = 0;
+		for(Entry<Double, Integer> e : this.entrySet()){
+			result[i][0] = e.getKey();
+			result[i][1] = e.getValue();
+		}
+		return result;
+	}
 }

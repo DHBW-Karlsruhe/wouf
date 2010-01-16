@@ -9,6 +9,7 @@ import java.util.Map;
 
 import org.bh.data.DTOScenario;
 import org.bh.data.types.Calculable;
+import org.bh.data.types.DistributionMap;
 
 /**
  *
@@ -23,4 +24,5 @@ public interface IOutputController extends IController{
      * @throws ControllerException
      */
     void setResult(Map<String, Calculable[]> result, DTOScenario scenario) throws ControllerException;
+    void setResult(DistributionMap result, DTOScenario scenario) throws ControllerException;
 }
