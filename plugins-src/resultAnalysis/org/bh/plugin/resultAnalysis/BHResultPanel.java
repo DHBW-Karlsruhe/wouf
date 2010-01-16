@@ -1,7 +1,6 @@
 package org.bh.plugin.resultAnalysis;
 
 import java.awt.BorderLayout;
-import java.awt.CardLayout;
 import java.awt.Component;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -271,17 +270,17 @@ public final class BHResultPanel extends JPanel {
 		//       		
 
 		if (scenario.getDCFMethod().getUniqueId().equals("fcf")) {
-			procedurePanel = new BH_FCF_ResultPanel();
+			procedurePanel = new BH_FCF_ResultPanel(false);
 		} else if (scenario.getDCFMethod().getUniqueId().equals("apv")) {
-			procedurePanel = new BH_APV_ResultPanel();
+			procedurePanel = new BH_APV_ResultPanel(false);
 		} else if (scenario.getDCFMethod().getUniqueId().equals("fte")) {
-			procedurePanel = new BH_FTE_ResultPanel();
+			procedurePanel = new BH_FTE_ResultPanel(false);
 		}else if (scenario.getDCFMethod().getUniqueId().equals("all")){
-			// TODO set procedurePanel to something
-	        this.setLayout(new CardLayout());
-	        this.add(new BH_APV_ResultPanel(), translator.translate("apv"));
-	        this.add(new BH_FCF_ResultPanel(), translator.translate("fcf"));
-	        this.add(new BH_FTE_ResultPanel(), translator.translate("fte"));
+			procedurePanel = new JPanel();
+			procedurePanel.setLayout(new BorderLayout());
+			procedurePanel.add(new BH_APV_ResultPanel(true), BorderLayout.NORTH);
+			procedurePanel.add(new BH_FCF_ResultPanel(true), BorderLayout.CENTER);
+			procedurePanel.add(new BH_FTE_ResultPanel(true), BorderLayout.SOUTH);
 	    }
 		this.add(procedurePanel, BorderLayout.CENTER);
 		JPanel buttons = new JPanel();

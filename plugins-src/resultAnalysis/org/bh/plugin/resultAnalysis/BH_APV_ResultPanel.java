@@ -37,11 +37,11 @@ public class BH_APV_ResultPanel extends JPanel {
     	
     }
     
-    public BH_APV_ResultPanel(){
-        this.initialize();
+    public BH_APV_ResultPanel(boolean isAllSelected){
+        this.initialize(isAllSelected);
     }
 
-    public void initialize() {
+    public void initialize(boolean isAllSelected) {
         double border = 10;
         double size[][] = {{border, TableLayout.PREFERRED, border, TableLayout.PREFERRED, border, TableLayout.PREFERRED, border}, // Columns
             {border, TableLayout.PREFERRED, border, TableLayout.PREFERRED, border, TableLayout.PREFERRED, border, TableLayout.PREFERRED, border,TableLayout.PREFERRED, 

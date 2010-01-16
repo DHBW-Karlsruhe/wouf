@@ -49,11 +49,11 @@ public class BH_FTE_ResultPanel extends JPanel {
     private BHChartPanel fteCapitalStructure;
     private BHChartPanel fteFlowToEquity;
     
-    public BH_FTE_ResultPanel(){
-    	initialize();
+    public BH_FTE_ResultPanel(boolean isAllSelected){
+    	initialize(isAllSelected);
     }
     
-    public void initialize() {
+    public void initialize(boolean isAllSelected) {
 
         double border = 10;
         double size[][] = {{border, TableLayout.PREFERRED, border, TableLayout.PREFERRED, border, TableLayout.PREFERRED, border}, // Columns
@@ -103,8 +103,10 @@ public class BH_FTE_ResultPanel extends JPanel {
         this.add(finiteFormula, "3,3");
         this.add(infiniteFormula, "3,5");
         
-        this.add(fteShareholderValue, "3,7");
-        this.add(fteCapitalStructure, "3,9");
+        if(!isAllSelected){
+	        this.add(fteShareholderValue, "3,7");
+	        this.add(fteCapitalStructure, "3,9");
+        }
         this.add(fteFlowToEquity, "3,11");
         
 

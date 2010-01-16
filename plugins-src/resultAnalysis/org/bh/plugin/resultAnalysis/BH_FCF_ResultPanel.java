@@ -29,11 +29,11 @@ public class BH_FCF_ResultPanel extends JPanel {
     private Component finiteFormula;
     private Component infiniteFormula;
     
-    public BH_FCF_ResultPanel(){
-        this.initialize();
+    public BH_FCF_ResultPanel(boolean isAllSelected){
+        this.initialize(isAllSelected);
     }
 
-    public void initialize() {
+    public void initialize(boolean isAllSelected) {
 
         double border = 10;
         double size[][] = {{border, TableLayout.PREFERRED, border, TableLayout.PREFERRED, border, TableLayout.PREFERRED, border}, // Columns
@@ -69,7 +69,8 @@ public class BH_FCF_ResultPanel extends JPanel {
         this.add(infiniteFormula, "3,5");
         
         this.add(fcf_shareholderValue, "3,7");
-        this.add(fcf_capitalStructure, "3,9");
+        if(!isAllSelected)
+        	this.add(fcf_capitalStructure, "3,9");
         this.add(fcf_fcf, "3,11");
         this.add(fcf_returnRate, "3,13");
 
