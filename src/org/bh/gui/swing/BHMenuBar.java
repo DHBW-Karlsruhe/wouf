@@ -5,6 +5,7 @@ import java.awt.event.KeyEvent;
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 
+import org.bh.BusinessHorizon;
 import org.bh.platform.PlatformKey;
 import org.bh.platform.Services;
 import org.bh.platform.i18n.ITranslator;
@@ -136,6 +137,8 @@ public class BHMenuBar extends JMenuBar{
 		menuHelp.add(new BHMenuItem(PlatformKey.HELPUSERHELP, 112)); //F1
 		menuHelp.add(new BHMenuItem(PlatformKey.HELPMATHHELP));
 		menuHelp.addSeparator();
+		if (BusinessHorizon.DEBUG) 
+			menuHelp.add(new BHMenuItem(PlatformKey.HELPDEBUG));
 		menuHelp.add(new BHMenuItem(PlatformKey.HELPINFO));
 	}
 }

@@ -36,6 +36,7 @@ public enum PlatformKey{
 	HELPUSERHELP("MuserHelp","HELPUSERHELP"),
 	HELPMATHHELP("MmathHelp","HELPMATHHELP"),
 	HELPINFO("Minfo","HELPINFO"),
+	HELPDEBUG("Mdebug","HELPDEBUG"),
 	
 	/*--------------------------------
 	 * ActionKeys of PlatformToolbar

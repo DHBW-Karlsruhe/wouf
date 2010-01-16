@@ -21,6 +21,7 @@ import org.bh.data.types.StringValue;
 import org.bh.gui.swing.BHComboBox;
 import org.bh.gui.swing.BHContent;
 import org.bh.gui.swing.BHDataExchangeDialog;
+import org.bh.gui.swing.BHHelpDebugDialog;
 import org.bh.gui.swing.BHMainFrame;
 import org.bh.gui.swing.BHOptionDialog;
 import org.bh.gui.swing.BHStatusBar;
@@ -308,6 +309,10 @@ class PlatformActionListener implements ActionListener {
 		case HELPINFO:
 			// TODO Prüfen und ggf. implementieren!
 			break;
+		
+		case HELPDEBUG:
+			new BHHelpDebugDialog();
+			break;
 
 		case TOOLBARNEW:
 			log.debug("handling FILENEW event");
@@ -592,7 +597,7 @@ class PlatformActionListener implements ActionListener {
 			Services.startPeriodEditing(newPeriod);
 		}
 	}
-
+	
 	private void duplicateProject() {
 		TreePath currentDuplicateProjectSelection = bhmf.getBHTree()
 				.getSelectionPath();
