@@ -23,10 +23,6 @@ public class BHDashBoardPanel extends JPanel {
 	private BHDescriptionLabel svRange;
 	private BHDescriptionLabel svRangeDescr;
 	
-	public BHDashBoardPanel(Map<DTOScenario, Map<?, ?>> results) {
-		initialize();
-	}
-	
 	public BHDashBoardPanel() {
 		initialize();
 	}

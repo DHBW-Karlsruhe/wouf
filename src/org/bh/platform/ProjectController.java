@@ -72,7 +72,7 @@ public class ProjectController extends InputController {
 					}
 				}
 
-				View v = new BHDashBoardPanelView(results);
+				View v = new BHDashBoardPanelView();
 				DashBoardController d = new DashBoardController(v);
 				d.setResult(results);
 				
