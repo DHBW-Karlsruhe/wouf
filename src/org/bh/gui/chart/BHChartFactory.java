@@ -198,8 +198,8 @@ public class BHChartFactory {
 
     private static String[] getAxes(Object key) {
         String[] axes = new String[2];
-        axes[1] = translator.translate(key.toString().concat(BHChart.DIMX));
-        axes[2] = translator.translate(key.toString().concat(BHChart.DIMY));
+        axes[0] = translator.translate(key.toString().concat(BHChart.DIMX));
+        axes[1] = translator.translate(key.toString().concat(BHChart.DIMY));
         return axes;
     }
 }
