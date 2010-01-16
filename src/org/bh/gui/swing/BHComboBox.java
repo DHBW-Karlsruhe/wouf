@@ -23,6 +23,7 @@ public class BHComboBox extends JComboBox implements IBHModelComponent,
 	private static final ITranslator translator = Services.getTranslator();
 	private String key;
 	private String hint;
+	private int lastSelectedIndex = 0;
 	private boolean sorted = false;
 	private Item[] items = new Item[0];
 	private final CompValueChangeManager valueChangeManager = new CompValueChangeManager();
@@ -157,4 +158,22 @@ public class BHComboBox extends JComboBox implements IBHModelComponent,
 	public CompValueChangeManager getValueChangeManager() {
 		return valueChangeManager;
 	}
+	
+	public int getLastSelectedIndex() {
+		return lastSelectedIndex;
+	}
+
+	@Override
+	public void setSelectedIndex(int arg0) {
+		lastSelectedIndex = getSelectedIndex();
+		super.setSelectedIndex(arg0);
+	}
+
+	@Override
+	public void setSelectedItem(Object arg0) {
+		lastSelectedIndex = getSelectedIndex();
+		super.setSelectedItem(arg0);
+	}
+
+	
 }

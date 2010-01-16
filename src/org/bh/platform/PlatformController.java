@@ -292,7 +292,7 @@ public class PlatformController {
 									}
 									
 									//create controller
-									controller = new ScenarioController(view, model);
+									controller = new ScenarioController(view, model, bhmf);
 									selectedNode.setController(controller);
 								}
 								
