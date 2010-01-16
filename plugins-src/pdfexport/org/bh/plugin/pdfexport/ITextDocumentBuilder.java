@@ -52,9 +52,6 @@ public class ITextDocumentBuilder implements PdfPageEvent {
 
 	private static ITranslator trans = BHTranslator.getInstance();
 
-	private static final SimpleDateFormat S = new SimpleDateFormat(
-			"EEEEE, 'den' dd.MM.yyyy");
-
 	private static final Font TITLE_FONT = FontFactory.getFont(
 			FontFactory.HELVETICA, 20, Font.BOLD);
 
@@ -64,29 +61,48 @@ public class ITextDocumentBuilder implements PdfPageEvent {
 	private static final Font SECTION2_FONT = FontFactory.getFont(
 			FontFactory.HELVETICA, 14, Font.BOLD);
 
+	SimpleDateFormat s;
 	Document doc;
 	Chapter report;
 	PdfWriter pdfWriter;
 
+	public enum Keys {
+		TITLE,
+		CHARTS,
+		RESULTS,
+		CREATEDAT,
+		DATEFORMAT,
+		SCENARIODATA,
+		RESULT_MAP,
+		DISTRIBUTION_MAP, PERIODDATA;
+
+		@Override
+		public String toString() {
+			return getClass().getName() + "." + super.toString();
+		}
+	}
+
 	void newDocument(String path, DTOScenario scenario) {
 		try {
+			
+			s = new SimpleDateFormat(trans.translate(Keys.DATEFORMAT));
 			doc = new Document(PageSize.A4, 50, 50, 50, 50);
 
 			pdfWriter = PdfWriter.getInstance(doc, new FileOutputStream(path));
 			pdfWriter.setPageEvent(this);
-			doc.addAuthor("Business Horizon");
-			doc.addSubject("Scenario Report");
+			
+			doc.addAuthor(trans.translate("title") + trans.translate("version") + trans.translate("version_long"));
+			doc.addSubject(trans.translate(Keys.TITLE));
 			doc.addCreationDate();
-			doc.addHeader("Header1", "Scenario Report header");
-			doc.addTitle("Scenario Report Title");
+			doc.addTitle(trans.translate(Keys.TITLE) + " - " 
+					+ scenario.get(DTOScenario.Key.IDENTIFIER));
 			doc.open();
-
+			
 		} catch (FileNotFoundException e) {
 			log.error(e);
 		} catch (DocumentException e) {
 			log.error(e);
 		}
-
 	}
 
 	void closeDocument() {
@@ -96,7 +112,6 @@ public class ITextDocumentBuilder implements PdfPageEvent {
 		} catch (DocumentException e) {
 			log.error(e);
 		}
-
 	}
 
 	void buildResultDataDet(Map<String, Calculable[]> resultMap,
@@ -109,7 +124,7 @@ public class ITextDocumentBuilder implements PdfPageEvent {
 		results = buildResultHead();
 
 		if (resultMap != null && resultMap.size() > 0) {
-			title = new Paragraph("Result Map", SECTION2_FONT);
+			title = new Paragraph(trans.translate(Keys.RESULT_MAP), SECTION2_FONT);
 			resultMapSection = results.addSection(title, 2);
 			resultMapSection.add(new Paragraph("\n"));
 			t = new PdfPTable(2);
@@ -138,10 +153,7 @@ public class ITextDocumentBuilder implements PdfPageEvent {
 			resultMapSection.add(new Paragraph("\n\n"));
 
 			buildChartsSection(results, charts);
-
 		}
-		// TODO Graphs
-
 	}
 
 	private void buildChartsSection(Section results, List<JFreeChart> charts) {
@@ -150,7 +162,7 @@ public class ITextDocumentBuilder implements PdfPageEvent {
 		Section chartSection;
 		try {
 			results.newPage();
-			title = new Paragraph("Charts", SECTION2_FONT);
+			title = new Paragraph(trans.translate(Keys.CHARTS), SECTION2_FONT);
 			chartSection = results.addSection(title, 2);
 			chartSection.add(new Paragraph("\n"));
 
@@ -176,7 +188,7 @@ public class ITextDocumentBuilder implements PdfPageEvent {
 
 		results = buildResultHead();
 
-		title = new Paragraph("Distribution Map", SECTION2_FONT);
+		title = new Paragraph(trans.translate(Keys.DISTRIBUTION_MAP), SECTION2_FONT);
 		distMapSection = results.addSection(title, 2);
 
 		t = new PdfPTable(2);
@@ -188,14 +200,13 @@ public class ITextDocumentBuilder implements PdfPageEvent {
 		}
 		distMapSection.add(t);
 
-		// TODO addCharts
 		buildChartsSection(results, charts);
 	}
 
 	Section buildResultHead() {
 		Paragraph title;
 		report.newPage();
-		title = new Paragraph("Ergebnisse", SECTION1_FONT);
+		title = new Paragraph(trans.translate(Keys.RESULTS), SECTION1_FONT);
 		return report.addSection(title, 1);
 	}
 
@@ -203,15 +214,15 @@ public class ITextDocumentBuilder implements PdfPageEvent {
 		Section data;
 		PdfPTable t;
 
-		Paragraph title = new Paragraph("Scenario Report - "
+		Paragraph title = new Paragraph(trans.translate(Keys.TITLE) + " - " 
 				+ scenario.get(DTOScenario.Key.IDENTIFIER), TITLE_FONT);
 		report = new Chapter(title, 1);
 		report
-				.add(new Paragraph("Erstellt am " + S.format(new Date())
+				.add(new Paragraph(trans.translate(Keys.CREATEDAT) + ": " + s.format(new Date())
 						+ "\n\n"));
 		report.setNumberDepth(0);
 
-		title = new Paragraph("Szenario Daten", SECTION1_FONT);
+		title = new Paragraph(trans.translate(Keys.SCENARIODATA), SECTION1_FONT);
 		data = report.addSection(title, 1);
 
 		data.add(new Paragraph("\n"));
@@ -234,7 +245,7 @@ public class ITextDocumentBuilder implements PdfPageEvent {
 		PdfPTable t;
 
 		report.newPage();
-		title = new Paragraph("Periodendaten", SECTION1_FONT);
+		title = new Paragraph(trans.translate(Keys.PERIODDATA), SECTION1_FONT);
 		input = report.addSection(title, 1);
 
 		for (DTOPeriod d : scenario.getChildren()) {
@@ -271,28 +282,32 @@ public class ITextDocumentBuilder implements PdfPageEvent {
 
 	@Override
 	public void onEndPage(PdfWriter writer, Document document) {
-		//we will print the footer using the code below
-		try{
+		// we will print the footer using the code below
+		try {
 			Rectangle page = document.getPageSize();
 			PdfPTable footTable = getFooterSignatures();
-		footTable.setTotalWidth(page.getWidth() - document.leftMargin() - document.rightMargin());
-		footTable.writeSelectedRows(0, -1, document.leftMargin(), document.bottomMargin() + 20,     writer.getDirectContent());
+			footTable.setTotalWidth(page.getWidth() - document.leftMargin()
+					- document.rightMargin());
+			footTable.writeSelectedRows(0, -1, document.leftMargin(), document
+					.bottomMargin() + 20, writer.getDirectContent());
 		} catch (DocumentException ex) {
-		ex.printStackTrace();
+			ex.printStackTrace();
 		}
-		}
+	}
 
 	private PdfPTable getFooterSignatures() throws DocumentException {
-		Font fontStyleFooters = FontFactory.getFont(FontFactory.HELVETICA, 9, Font.BOLD);
-		//the following code will create a table with 2 columns
+		Font fontStyleFooters = FontFactory.getFont(FontFactory.HELVETICA, 9,
+				Font.BOLD);
+		// the following code will create a table with 2 columns
 		PdfPTable footTable = new PdfPTable(2);
-		//now we set the widths of each of the columns
-		footTable.setWidths(new int[]{50, 50});
-		//set the width of the table
+		// now we set the widths of each of the columns
+		footTable.setWidths(new int[] { 50, 50 });
+		// set the width of the table
 		footTable.setWidthPercentage(100);
-		//set the padding
+		// set the padding
 		footTable.getDefaultCell().setPadding(2);
-		//since we are using 0 border width, the border wont apppear on this particular table
+		// since we are using 0 border width, the border wont apppear on this
+		// particular table
 		footTable.getDefaultCell().setBorderWidth(0);
 		footTable.getDefaultCell().setHorizontalAlignment(Element.ALIGN_LEFT);
 		// possible text
@@ -304,11 +319,12 @@ public class ITextDocumentBuilder implements PdfPageEvent {
 
 		// possible text
 		footTable.addCell(new Phrase(" ", fontStyleFooters));
-	
-		footTable.addCell(new Phrase("- " + pdfWriter.getPageNumber() + " -", fontStyleFooters));
+
+		footTable.addCell(new Phrase("- " + pdfWriter.getPageNumber() + " -",
+				fontStyleFooters));
 
 		return footTable;
-		}
+	}
 
 	@Override
 	public void onGenericTag(PdfWriter arg0, Document arg1, Rectangle arg2,

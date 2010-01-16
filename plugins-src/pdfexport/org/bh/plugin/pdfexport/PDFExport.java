@@ -40,6 +40,18 @@ public class PDFExport implements IImportExport {
 
 	private static final String FILE_DESC = "Portable Document Format";
 	private static final String FILE_EXT = "pdf";
+	
+	public enum Keys{
+		OVERWRITE,
+		OVERWRITETITLE,
+		NOWRITE,
+		NOWRITETITLE;
+		
+		@Override
+		public String toString() {
+			return getClass().getName() + "." + super.toString();
+		}
+	}
 
 	ITranslator trans = BHTranslator.getInstance();
 	ITextDocumentBuilder db = new ITextDocumentBuilder();
@@ -87,7 +99,6 @@ public class PDFExport implements IImportExport {
 
 	@Override
 	public DTOProject importProject(BHDataExchangeDialog importDialog) {
-		// TODO Auto-generated method stub
 		throw new UnsupportedOperationException(
 				"This method has not been implemented");
 	}
@@ -246,7 +257,6 @@ public class PDFExport implements IImportExport {
 
 	@Override
 	public DTOScenario importScenario(BHDataExchangeDialog importDialog) {
-		// TODO Auto-generated method stub
 		throw new UnsupportedOperationException(
 				"This method has not been implemented");
 	}
@@ -256,12 +266,12 @@ public class PDFExport implements IImportExport {
 		if (f.exists()) {
 			if (!f.canWrite()) {
 				JOptionPane.showMessageDialog(parent, trans
-						.translate("NOWRITE"), trans.translate("NOWRITETITLE"),
+						.translate(Keys.NOWRITE), trans.translate(Keys.NOWRITETITLE),
 						JOptionPane.ERROR_MESSAGE);
 				return false;
 			}
 			int res = JOptionPane.showConfirmDialog(parent, trans
-					.translate("OVERWRITE"), trans.translate("OVERWRITETITLE"),
+					.translate(Keys.OVERWRITE), trans.translate(Keys.OVERWRITETITLE),
 					JOptionPane.YES_NO_OPTION);
 			if (res == JOptionPane.YES_OPTION) {
 				return true;
@@ -273,8 +283,8 @@ public class PDFExport implements IImportExport {
 			f.createNewFile();
 		} catch (IOException e) {
 			// no write rights 
-			JOptionPane.showMessageDialog(parent, trans.translate("NOWRITE"),
-					trans.translate("NOWRITETITLE"), JOptionPane.ERROR_MESSAGE);
+			JOptionPane.showMessageDialog(parent, trans.translate(Keys.NOWRITE),
+					trans.translate(Keys.NOWRITETITLE), JOptionPane.ERROR_MESSAGE);
 			return false;
 		}
 		// can write
