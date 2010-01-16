@@ -42,8 +42,6 @@ import org.bh.gui.swing.IBHModelComponent;
 import org.bh.platform.PlatformEvent.Type;
 
 public class ScenarioController extends InputController {
-
-	private static String ALLDCF = "allDCF";
 	protected static final BHComboBox.Item[] DCF_METHOD_ITEMS = getDcfMethodItems();
 	protected static final BHComboBox.Item[] PERIOD_TYPE_ITEMS = getPeriodTypeItems();
 	protected static final BHComboBox.Item[] STOCHASTIC_METHOD_ITEMS = getStochasticProcessItems();
@@ -54,8 +52,7 @@ public class ScenarioController extends InputController {
 		BHComboBox cbDcfMethod = (BHComboBox) view
 				.getBHComponent(DTOScenario.Key.DCF_METHOD);
 		if (cbDcfMethod != null) {
-			// cbDcfMethod.setSorted(true);
-
+			cbDcfMethod.setSorted(true);
 			cbDcfMethod.setValueList(DCF_METHOD_ITEMS);
 		}
 
@@ -180,27 +177,16 @@ public class ScenarioController extends InputController {
 				.setVisible(!calculationEnabled);
 	}
 
-	protected static BHComboBox.Item[] getDcfMethodItems() {
-		Collection<IShareholderValueCalculator> dcfMethods = Services
-				.getDCFMethods().values();
-		ArrayList<BHComboBox.Item> items = new ArrayList<BHComboBox.Item>();
-		for (IShareholderValueCalculator dcfMethod : dcfMethods) {// TODO
-			// Marco.Hammel
-			if (dcfMethod != null) {
-				items.add(new BHComboBox.Item(dcfMethod.getGuiKey(),
-						new StringValue(dcfMethod.getUniqueId())));
-			} else {
-				items.add(new BHComboBox.Item(Services.getTranslator()
-						.translate("allDCF"), new StringValue("allDCF")));
-			}
-
-		}
-		// if (items.size() != 0) {
-		// items.add(new BHComboBox.Item(ALLDCF, new
-		// StringValue(Services.getTranslator().translate("allDCF"))));
-		// }
-		return items.toArray(new BHComboBox.Item[0]);
-	}
+    protected static BHComboBox.Item[] getDcfMethodItems() {
+        Collection<IShareholderValueCalculator> dcfMethods = Services
+                        .getDCFMethods().values();
+        ArrayList<BHComboBox.Item> items = new ArrayList<BHComboBox.Item>();
+        for (IShareholderValueCalculator dcfMethod : dcfMethods) {
+                items.add(new BHComboBox.Item(dcfMethod.getGuiKey(),
+                                new StringValue(dcfMethod.getUniqueId())));
+        }
+        return items.toArray(new BHComboBox.Item[0]);
+    }
 
 	protected static BHComboBox.Item[] getStochasticProcessItems() {
 		Collection<IStochasticProcess> stochasticProcesses = Services

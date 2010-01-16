@@ -1,6 +1,7 @@
 package org.bh.plugin.resultAnalysis;
 
 import java.awt.BorderLayout;
+import java.awt.CardLayout;
 import java.awt.Component;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -14,7 +15,6 @@ import org.apache.log4j.Logger;
 import org.bh.data.DTOScenario;
 import org.bh.data.types.Calculable;
 import org.bh.gui.ViewException;
-import org.bh.gui.chart.BHChart;
 import org.bh.gui.chart.BHChartPanel;
 import org.bh.gui.swing.BHButton;
 import org.bh.gui.swing.BHDataExchangeDialog;
@@ -27,7 +27,6 @@ import org.jfree.chart.ChartPanel;
 import org.jfree.chart.JFreeChart;
 
 import com.jgoodies.forms.layout.CellConstraints;
-import java.awt.CardLayout;
 
 /**
  * 
@@ -277,12 +276,13 @@ public final class BHResultPanel extends JPanel {
 			procedurePanel = new BH_APV_ResultPanel();
 		} else if (scenario.getDCFMethod().getUniqueId().equals("fte")) {
 			procedurePanel = new BH_FTE_ResultPanel();
-		}else if (scenario.getDCFMethod().getUniqueId().endsWith("all_DCF")){
-                        this.setLayout(new CardLayout());
-                        this.add(new BH_APV_ResultPanel(), translator.translate("apv"));
-                        this.add(new BH_FCF_ResultPanel(), translator.translate("fcf"));
-                        this.add(new BH_FTE_ResultPanel(), translator.translate("fte"));
-                }
+		}else if (scenario.getDCFMethod().getUniqueId().equals("all")){
+			// TODO set procedurePanel to something
+	        this.setLayout(new CardLayout());
+	        this.add(new BH_APV_ResultPanel(), translator.translate("apv"));
+	        this.add(new BH_FCF_ResultPanel(), translator.translate("fcf"));
+	        this.add(new BH_FTE_ResultPanel(), translator.translate("fte"));
+	    }
 		this.add(procedurePanel, BorderLayout.CENTER);
 		JPanel buttons = new JPanel();
 		

@@ -131,10 +131,6 @@ public class Services {
 		for (IShareholderValueCalculator calculator : calculators) {
 			dcfMethods.put(calculator.getUniqueId(), calculator);
 		}
-                //TODO Marco.Hammel search for a not so dirty version
-                if(!dcfMethods.isEmpty()){
-                    dcfMethods.put("all_DCF", null);//TODO all_DCF very dirty
-                }
 	}
 
 	/**
