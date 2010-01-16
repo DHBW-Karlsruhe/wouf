@@ -174,7 +174,7 @@ class PlatformActionListener implements ActionListener {
 			int pr_choice = JOptionPane.showConfirmDialog(bhmf, Services
 					.getTranslator().translate("Pproject_delete"), Services
 					.getTranslator().translate("Pdelete"),
-					JOptionPane.YES_NO_CANCEL_OPTION);
+					JOptionPane.YES_NO_OPTION);
 
 			if (pr_choice == JOptionPane.YES_OPTION) {
 				TreePath currentRemoveProjectSelection = bhmf.getBHTree()
@@ -216,7 +216,7 @@ class PlatformActionListener implements ActionListener {
 			int sc_choice = JOptionPane.showConfirmDialog(bhmf, Services
 					.getTranslator().translate("Pscenario_delete"), Services
 					.getTranslator().translate("Pdelete"),
-					JOptionPane.YES_NO_CANCEL_OPTION);
+					JOptionPane.YES_NO_OPTION);
 
 			if (sc_choice == JOptionPane.YES_OPTION) {
 				TreePath currentRemoveScenarioSelection = bhmf.getBHTree()
@@ -254,7 +254,7 @@ class PlatformActionListener implements ActionListener {
 			int pe_choice = JOptionPane.showConfirmDialog(bhmf, Services
 					.getTranslator().translate("Pperiod_delete"), Services
 					.getTranslator().translate("Pdelete"),
-					JOptionPane.YES_NO_CANCEL_OPTION);
+					JOptionPane.YES_NO_OPTION);
 			
 			if (pe_choice == JOptionPane.YES_OPTION) {
 				TreePath currentRemovePeriodSelection = bhmf.getBHTree()
