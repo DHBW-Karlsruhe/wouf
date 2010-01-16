@@ -1,15 +1,12 @@
 package org.bh.gui.swing;
 
 import info.clearthought.layout.TableLayout;
+import info.clearthought.layout.TableLayoutConstants;
 
 import java.awt.BorderLayout;
-import java.util.Map;
 
-import javax.swing.JFrame;
-import javax.swing.JLabel;
 import javax.swing.JPanel;
 
-import org.bh.data.DTOScenario;
 import org.bh.gui.chart.BHChartFactory;
 import org.bh.gui.chart.BHChartPanel;
 import org.bh.platform.DashBoardController;
@@ -33,9 +30,9 @@ public class BHDashBoardPanel extends JPanel {
 
 		double border = 10;
 		double size[][] = {
-				{ border, TableLayout.PREFERRED, border, TableLayout.PREFERRED,
+				{ border, TableLayoutConstants.PREFERRED, border, TableLayoutConstants.PREFERRED,
 						border }, // Columns
-				{ border, TableLayout.PREFERRED, border, TableLayout.PREFERRED,
+				{ border, TableLayoutConstants.PREFERRED, border, TableLayoutConstants.PREFERRED,
 						border } }; // Rows
 		txtArea.setLayout(new TableLayout(size));
 

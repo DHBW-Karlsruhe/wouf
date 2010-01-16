@@ -75,20 +75,19 @@ public class ProjectController extends InputController {
 				View v = new BHDashBoardPanelView();
 				DashBoardController d = new DashBoardController(v);
 				d.setResult(results);
-				
 
 				JSplitPane crForm = Services.createContentResultForm(v
 						.getViewPanel());
 
-				   BHTreeNode tn = (BHTreeNode) bhTree.getSelectionPath().getPathComponent(1);
+				BHTreeNode tn = (BHTreeNode) bhTree.getSelectionPath()
+						.getPathComponent(1);
 
-                   tn.setBackgroundPane(crForm);
+				tn.setBackgroundPane(crForm);
 
-				
-			//	BHTreeNode tn = (BHTreeNode) bhTree.getSelectionPath()
-			//			.getPathComponent(2);
+				// BHTreeNode tn = (BHTreeNode) bhTree.getSelectionPath()
+				// .getPathComponent(2);
 
-				//tn.setBackgroundPane(crForm);
+				// tn.setBackgroundPane(crForm);
 
 			} catch (ViewException e) {
 				log.error(e);

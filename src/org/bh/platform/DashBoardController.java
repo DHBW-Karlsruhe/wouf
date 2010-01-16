@@ -53,8 +53,9 @@ public class DashBoardController extends Controller{
 		DistributionMap d;
 		Map<String, Calculable[]> r;
 		Calculable sv;
+		IntervalValue i;
 		
-		IBHAddValue stackedBarChart = super.view.getBHchartComponents().get(ChartKeys.DB_SBC_SV.toString());
+		IBHAddValue stackedBarChart = view.getBHchartComponents().get(ChartKeys.DB_SBC_SV.toString());
 		
 		for(Entry<DTOScenario, Map<?, ?>> e : result.entrySet()){
 			s = e.getKey();
@@ -62,16 +63,18 @@ public class DashBoardController extends Controller{
 				r = (Map<String, Calculable[]>) e.getValue();
 				sv = r.get(IShareholderValueCalculator.Result.SHAREHOLDER_VALUE.toString())[0];
 				if(sv instanceof IntervalValue) {
-					stackedBarChart.addValue(((IntervalValue) sv).getMin(),translator.translate(ChartKeys.DB_SBC_SV), s.get(DTOScenario.Key.NAME).toString());
-					stackedBarChart.addValue(((IntervalValue) sv).getMax(),translator.translate(ChartKeys.DB_SBC_SV), s.get(DTOScenario.Key.NAME).toString());
+					i = (IntervalValue) sv;
+					stackedBarChart.addValue(i.getMin(),translator.translate(ChartKeys.DB_SBC_SV), s.get(DTOScenario.Key.NAME).toString());
+					stackedBarChart.addValue(i.getMax() - i.getMin(),translator.translate(ChartKeys.DB_SBC_SV), s.get(DTOScenario.Key.NAME).toString());
 				}else { // instance of DoubleValue || IntegerValue
 					stackedBarChart.addValue(sv.parse(),translator.translate(ChartKeys.DB_SBC_SV), s.get(DTOScenario.Key.NAME).toString());
 				}
 			}else { //stochastic scenario
 				d = (DistributionMap) e.getValue();
 				sv = d.valueAtRisk(95);
-				stackedBarChart.addValue(((IntervalValue) sv).getMin(),translator.translate(ChartKeys.DB_SBC_SV), s.get(DTOScenario.Key.NAME).toString());
-				stackedBarChart.addValue(((IntervalValue) sv).getMax(),translator.translate(ChartKeys.DB_SBC_SV), s.get(DTOScenario.Key.NAME).toString());
+				i = (IntervalValue) sv;
+				stackedBarChart.addValue(i.getMin(),translator.translate(ChartKeys.DB_SBC_SV), s.get(DTOScenario.Key.NAME).toString());
+				stackedBarChart.addValue(i.getMax() - i.getMin(),translator.translate(ChartKeys.DB_SBC_SV), s.get(DTOScenario.Key.NAME).toString());
 			}
 			
 //			if (scenario.getDCFMethod().getUniqueId().equals("apv")) {
