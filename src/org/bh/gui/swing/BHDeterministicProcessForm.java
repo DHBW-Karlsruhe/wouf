@@ -1,4 +1,5 @@
 package org.bh.gui.swing;
+import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
@@ -96,7 +97,9 @@ public class BHDeterministicProcessForm extends JPanel {
 		};
 		this.tperioddata.setEnabled(false);
 		this.tperioddata.getTableHeader().setReorderingAllowed(false);
-		//TODO Thiele.Klaus Farben der Tabelle...?
+		//TODO Thiele.Klaus Farben der Tabelle...? --> BHTableCellRender
+//		this.tperioddata.setDefaultRenderer(Object.class, new BHTableCellRenderer());
+		this.tperioddata.setGridColor(Color.RED);
 		return this.tperioddata;
 	}
 	
