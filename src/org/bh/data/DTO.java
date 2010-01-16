@@ -1,7 +1,6 @@
 package org.bh.data;
 
 import java.io.IOException;
-import java.io.InvalidClassException;
 import java.io.ObjectInputStream;
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;
@@ -21,6 +20,7 @@ import org.apache.log4j.Logger;
 import org.bh.data.types.Calculable;
 import org.bh.data.types.IValue;
 import org.bh.platform.PlatformEvent;
+import org.bh.platform.PluginManager;
 import org.bh.platform.Services;
 
 /**
@@ -189,8 +189,8 @@ public abstract class DTO<ChildT extends IDTO> implements IDTO<ChildT> {
 		if (availableKeys.contains(key)) {
 			values.remove(key);
 			if (throwEvents)
-			Services.firePlatformEvent(new PlatformEvent(this,
-					PlatformEvent.Type.DATA_CHANGED));
+				Services.firePlatformEvent(new PlatformEvent(this,
+						PlatformEvent.Type.DATA_CHANGED));
 		}
 
 		else
@@ -267,8 +267,8 @@ public abstract class DTO<ChildT extends IDTO> implements IDTO<ChildT> {
 				children.addFirst(child);
 			}
 			if (throwEvents)
-			Services.firePlatformEvent(new PlatformEvent(this,
-					PlatformEvent.Type.DATA_CHANGED));
+				Services.firePlatformEvent(new PlatformEvent(this,
+						PlatformEvent.Type.DATA_CHANGED));
 			return child;
 		}
 		throw new DTOAccessException(
@@ -302,8 +302,8 @@ public abstract class DTO<ChildT extends IDTO> implements IDTO<ChildT> {
 		try {
 			ChildT removedChild = children.remove(index);
 			if (throwEvents)
-			Services.firePlatformEvent(new PlatformEvent(this,
-					PlatformEvent.Type.DATA_CHANGED));
+				Services.firePlatformEvent(new PlatformEvent(this,
+						PlatformEvent.Type.DATA_CHANGED));
 			return removedChild;
 		} catch (IndexOutOfBoundsException e) {
 			throw new DTOAccessException(
@@ -316,8 +316,8 @@ public abstract class DTO<ChildT extends IDTO> implements IDTO<ChildT> {
 		try {
 			children.remove(child);
 			if (throwEvents)
-			Services.firePlatformEvent(new PlatformEvent(this,
-					PlatformEvent.Type.DATA_CHANGED));
+				Services.firePlatformEvent(new PlatformEvent(this,
+						PlatformEvent.Type.DATA_CHANGED));
 		} catch (IndexOutOfBoundsException e) {
 			throw new DTOAccessException(
 					"This object is not a child in DTOs childlist!");
@@ -328,8 +328,8 @@ public abstract class DTO<ChildT extends IDTO> implements IDTO<ChildT> {
 	public void removeAllChildren() {
 		children.clear();
 		if (throwEvents)
-		Services.firePlatformEvent(new PlatformEvent(this,
-				PlatformEvent.Type.DATA_CHANGED));
+			Services.firePlatformEvent(new PlatformEvent(this,
+					PlatformEvent.Type.DATA_CHANGED));
 	}
 
 	@Override
@@ -429,8 +429,8 @@ public abstract class DTO<ChildT extends IDTO> implements IDTO<ChildT> {
 			return;
 		this.valid = valid;
 		if (throwEvents)
-		Services.firePlatformEvent(new PlatformEvent(this,
-				PlatformEvent.Type.DATA_CHANGED));
+			Services.firePlatformEvent(new PlatformEvent(this,
+					PlatformEvent.Type.DATA_CHANGED));
 	}
 
 	@Override
@@ -454,9 +454,10 @@ public abstract class DTO<ChildT extends IDTO> implements IDTO<ChildT> {
 		ois.defaultReadObject();
 
 		try {
-			initKeys((Class<? extends Enum>) Class.forName(enumerationName));
+			initKeys((Class<? extends Enum>) Class.forName(enumerationName,
+					true, PluginManager.getInstance().getPluginClassLoader()));
 		} catch (ClassNotFoundException e) {
-			throw new InvalidClassException("Could not restore keys");
+			throw new ClassNotFoundException("Could not restore keys", e);
 		}
 	}
 
