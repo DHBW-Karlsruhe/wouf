@@ -276,9 +276,9 @@ public class BHDataExchangeDialog extends JDialog implements ActionListener {
 	/**
 	 * Creates a default project export panel as plug-in panel
 	 */
-	public BHDefaultProjectExportPanel setDefaulExportProjectPanel() {
+	public BHDefaultProjectExportPanel setDefaulExportProjectPanel(String fileDesc, String fileExt) {
 		BHDefaultProjectExportPanel result = new BHDefaultProjectExportPanel(
-				model);
+				model, fileDesc, fileExt);
 		setPluginPanel(result);
 		return result;
 	}

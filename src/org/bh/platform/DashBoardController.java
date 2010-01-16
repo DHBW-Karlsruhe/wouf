@@ -40,6 +40,8 @@ public class DashBoardController extends Controller{
 
 	Map<DTOScenario, Map<?,?>> result;
     
+	private int valueAtRisk = 95;
+	
     public DashBoardController(View view){
     	super(view);
     }
@@ -57,7 +59,7 @@ public class DashBoardController extends Controller{
 		IntervalValue i;
 		
 		IBHAddValue stackedBarChart = view.getBHchartComponents().get(ChartKeys.DB_SBC_SV.toString());
-		
+	
 		for(Entry<DTOScenario, Map<?, ?>> e : result.entrySet()){
 			s = e.getKey();
 			if(s.isDeterministic()) {
@@ -72,7 +74,7 @@ public class DashBoardController extends Controller{
 				}
 			}else { //stochastic scenario
 				d = (DistributionMap) e.getValue();
-				sv = d.valueAtRisk(95);
+				sv = d.valueAtRisk(valueAtRisk);
 				i = (IntervalValue) sv;
 				stackedBarChart.addValue(i.getMin(),translator.translate(ChartKeys.DB_SBC_SV), s.get(DTOScenario.Key.NAME).toString() + " (" + translator.translate("stochastic") + " )");
 				stackedBarChart.addValue(i.getMax() - i.getMin(),translator.translate(ChartKeys.DB_SBC_SV), s.get(DTOScenario.Key.NAME).toString());

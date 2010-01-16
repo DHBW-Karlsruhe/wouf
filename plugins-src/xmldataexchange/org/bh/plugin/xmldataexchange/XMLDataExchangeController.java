@@ -1,5 +1,7 @@
 package org.bh.plugin.xmldataexchange;
 
+import org.apache.log4j.Logger;
+
 import java.awt.Container;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -30,6 +32,10 @@ import org.bh.plugin.xmldataexchange.xmlimport.XMLNotValidException;
 import org.jfree.chart.JFreeChart;
 
 public class XMLDataExchangeController implements IImportExport, ActionListener {
+	/**
+	 * Logger for this class
+	 */
+	private static final Logger log = Logger.getLogger(XMLDataExchangeController.class);
 		
 	private IDTO<?> exportModel = null;
 	private IDTO<?> importModel = null;
@@ -40,6 +46,10 @@ public class XMLDataExchangeController implements IImportExport, ActionListener 
 	private static final String GUI_KEY_EXPORT = "DXMLProjectExport";
 
 	private static final String UNIQUE_ID = "XML";
+
+	private static final String FILE_EXT = "xml";
+
+	private static final String FILE_DESC = "eXtensible Markup Language";
 	
 	
 	private BHDefaultProjectExportPanel exportPanel = null;
@@ -74,11 +84,12 @@ public class XMLDataExchangeController implements IImportExport, ActionListener 
 					boolean result = new XMLExport(exportPanel.getTxtPath().getText(), cloneProject).startExport();
 					if (result)
 					{
-						String msg = BHTranslator.getInstance().translate("DExportSuccessfull");
-						msg = msg.replace("[PATH]", exportPanel.getTxtPath().getText());
-						JOptionPane.showMessageDialog(exportDialog, msg,
-								BHTranslator.getInstance().translate("DProjectExport"),
-								JOptionPane.INFORMATION_MESSAGE);
+						//TODO Marcus check - changed Norman --> thought we either open or do not give any response 
+//						String msg = BHTranslator.getInstance().translate("DExportSuccessfull");
+//						msg = msg.replace("[PATH]", exportPanel.getTxtPath().getText());
+//						JOptionPane.showMessageDialog(exportDialog, msg,
+//								BHTranslator.getInstance().translate("DProjectExport"),
+//								JOptionPane.INFORMATION_MESSAGE);
 						exportDialog.dispose();
 					}
 					else
@@ -89,6 +100,7 @@ public class XMLDataExchangeController implements IImportExport, ActionListener 
 					}
 					
 				} catch (IOException e1) {
+					log.debug(e1);
 					JOptionPane.showMessageDialog(exportDialog, BHTranslator.getInstance().translate("DXMLExportFileError"),
 							BHTranslator.getInstance().translate("DProjectExport"),
 							JOptionPane.WARNING_MESSAGE);
@@ -99,7 +111,10 @@ public class XMLDataExchangeController implements IImportExport, ActionListener 
 			importModel.removeAllChildren();
 			for (Object sec : importPanel.getSecList().getSelectedItems())
 				((DTOProject)importModel).addChild((DTOScenario) sec);
-			PlatformController.getInstance().addProject((DTOProject) importModel);			
+			PlatformController.getInstance().addProject((DTOProject) importModel);	
+			
+			//TODO Marcus -- check Norman added
+			importDialog.dispose();
 		}		
 		else if (comp.getKey().equals("Bbrowse") && GUI_KEY.equals(GUI_KEY_IMPORT))
 		{
@@ -155,7 +170,7 @@ public class XMLDataExchangeController implements IImportExport, ActionListener 
 			BHDataExchangeDialog exportDialog) {
 		GUI_KEY = GUI_KEY_EXPORT;
 		exportModel = project;
-		exportPanel = exportDialog.setDefaulExportProjectPanel();
+		exportPanel = exportDialog.setDefaulExportProjectPanel(FILE_DESC, FILE_EXT);
 		exportDialog.setPluginActionListener(this);
 		this.exportDialog = exportDialog;
 	}
@@ -260,15 +275,13 @@ public class XMLDataExchangeController implements IImportExport, ActionListener 
 
 	@Override
 	public String getFileDescription() {
-		// TODO Auto-generated method stub
-		throw new UnsupportedOperationException("This method has not been implemented");
+		return FILE_DESC;
 	}
 
 
 	@Override
 	public String getFileExtension() {
-		// TODO Auto-generated method stub
-		throw new UnsupportedOperationException("This method has not been implemented");
+		return FILE_EXT;
 	}
 
 	@Override

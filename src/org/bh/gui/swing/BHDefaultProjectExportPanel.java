@@ -30,11 +30,16 @@ public class BHDefaultProjectExportPanel extends JPanel implements ActionListene
 
 	private IDTO<?> model;
 	private BHButton btnExport;
+	
+	String fileDesc;
+	String fileExt;
 
-	public BHDefaultProjectExportPanel(IDTO<?> model)
+	public BHDefaultProjectExportPanel(IDTO<?> model, String fileDesc, String fileExt)
 	{
 		setLayout(new BorderLayout());
 		this.model = model;
+		this.fileDesc = fileDesc;
+		this.fileExt = fileExt;
 		
 		JPanel descrPanel = createDescriptionPanel();		
 		JPanel selPanel = createSelectionArea();		
@@ -111,6 +116,7 @@ public class BHDefaultProjectExportPanel extends JPanel implements ActionListene
 		
 		// Text field which will show the chosen path
 		txtPath = new BHTextField("DTxtExportImportPath", "");
+		txtPath.setEditable(false);
 		fileSelectionPanel.add(txtPath, "0,1");
 		
 		// Button to start the file choosing dialog
@@ -174,16 +180,18 @@ public class BHDefaultProjectExportPanel extends JPanel implements ActionListene
 				fileChooser.setCurrentDirectory(defDir);
 			}		
 			
-			String descr = BHTranslator.getInstance().translate("DXMLFileDescription");
-			String ext = BHTranslator.getInstance().translate("DXMLFileExtension");			
-			fileChooser.setFileFilter(new FileNameExtensionFilter(descr, ext));
+			fileChooser.setFileFilter(new FileNameExtensionFilter(fileDesc, fileExt));
 			
 			int returnVal = fileChooser.showSaveDialog(this);		
 			
 			if (returnVal == JFileChooser.APPROVE_OPTION)
 			{
 				PlatformController.preferences.put("lastExportDirectory", fileChooser.getSelectedFile().getParent()); 
-				txtPath.setText(fileChooser.getSelectedFile().getPath());	
+				String filePath = fileChooser.getSelectedFile().getAbsolutePath();
+				if(!filePath.endsWith("." + fileExt)) {
+					filePath = filePath + "." + fileExt;
+				}
+				txtPath.setText(filePath);
 				btnExport.setEnabled(true);
 			}
 			

@@ -106,16 +106,37 @@ public class XMLExport {
 	 */
 	private boolean checkFile()
 	{
+		if(!exportFilePath.endsWith(".xml")){
+			exportFilePath = exportFilePath + ".xml";
+		}
 		exportFile = new File(exportFilePath);
 		
-		if (exportFile.exists() && (!exportFile.isFile() || !exportFile.canRead() ||
-				!exportFile.canWrite()))
+		if (exportFile.exists()) {
+			if (!exportFile.canWrite()) {
+				return false;
+			}
+		}
+		// f does not exist
+		try {
+			exportFile.createNewFile();
+		} catch (IOException e) {
+			// no write rights 
 			return false;
-		else if (!exportFile.exists() && exportFile.getParentFile().isDirectory() && (!exportFile.getParentFile()
-				.canRead() || !exportFile.getParentFile().canWrite() ))
-			return false;
-		
+		}
+		// can write
 		return true;
+
+//		TODO Fix Marcus - quickfix Norman s.o. --> exportFile.getParentFile().canWrite() immer false --> kann nicht in Ordner schreiben 
+//		exportFile = new File(exportFilePath);
+//		
+//		if (exportFile.exists() && (!exportFile.isFile() || !exportFile.canRead() ||
+//				!exportFile.canWrite()))
+//			return false;
+//		else if (!exportFile.exists() && exportFile.getParentFile().isDirectory() && (!exportFile.getParentFile()
+//				.canRead() || !exportFile.getParentFile().canWrite() ))
+//			return false;
+//		
+//		return true;
 	}
 	
 	/**

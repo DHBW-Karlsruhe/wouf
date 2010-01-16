@@ -23,15 +23,13 @@ import javax.swing.filechooser.FileNameExtensionFilter;
 import org.bh.gui.ValidationMethods;
 import org.bh.gui.ViewException;
 import org.bh.platform.PlatformController;
-import org.bh.validation.VRCheckFileTag;
-import org.bh.validation.ValidationRule;
 
 public class BHDefaultScenarioExportPanel extends JPanel {
 
 	BHTextField txtPath;
 	private JCheckBox open;
 
-	private String fileDesc;
+	String fileDesc;
 	String fileExt;
 
 	public BHDefaultScenarioExportPanel(String fileDesc, String fileExt) {
