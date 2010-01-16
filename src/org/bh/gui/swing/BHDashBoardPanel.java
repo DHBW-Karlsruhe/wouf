@@ -1,7 +1,7 @@
 package org.bh.gui.swing;
 
-import info.clearthought.layout.TableLayout;
-import info.clearthought.layout.TableLayoutConstants;
+//import info.clearthought.layout.TableLayout;
+//import info.clearthought.layout.TableLayoutConstants;
 
 import java.awt.BorderLayout;
 
@@ -14,11 +14,11 @@ import org.bh.platform.DashBoardController;
 public class BHDashBoardPanel extends JPanel {
 
 	private BHChartPanel stackedBarChart;
-	private BHDescriptionLabel noOfScenarios;
-	private BHDescriptionLabel noOfScenariosDescr;
-
-	private BHDescriptionLabel svRange;
-	private BHDescriptionLabel svRangeDescr;
+//	private BHDescriptionLabel noOfScenarios;
+//	private BHDescriptionLabel noOfScenariosDescr;
+//
+//	private BHDescriptionLabel svRange;
+//	private BHDescriptionLabel svRangeDescr;
 	
 	public BHDashBoardPanel() {
 		initialize();
