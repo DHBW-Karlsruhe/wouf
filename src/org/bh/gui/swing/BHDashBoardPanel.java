@@ -26,29 +26,29 @@ public class BHDashBoardPanel extends JPanel {
 
 	public void initialize() {
 		setLayout(new BorderLayout());
-		JPanel txtArea = new JPanel();
-
-		double border = 10;
-		double size[][] = {
-				{ border, TableLayoutConstants.PREFERRED, border, TableLayoutConstants.PREFERRED,
-						border }, // Columns
-				{ border, TableLayoutConstants.PREFERRED, border, TableLayoutConstants.PREFERRED,
-						border } }; // Rows
-		txtArea.setLayout(new TableLayout(size));
-
-		noOfScenariosDescr = new  BHDescriptionLabel(DashBoardController.Keys.NO_OF_SCENARIOS_DESCR);
-		txtArea.add(noOfScenariosDescr,"1,1");
-		
-		noOfScenarios = new BHDescriptionLabel(DashBoardController.Keys.NO_OF_SCENARIOS);
-		txtArea.add(noOfScenarios,"3,1");
-		
-		svRangeDescr = new  BHDescriptionLabel(DashBoardController.Keys.SV_RANGE_DESCR);
-		txtArea.add(svRangeDescr,"1,3");
-		
-		svRange = new BHDescriptionLabel(DashBoardController.Keys.SV_RANGE);
-		txtArea.add(svRange,"3,3");
-		
-		add(txtArea, BorderLayout.NORTH);
+//		JPanel txtArea = new JPanel();
+//
+//		double border = 10;
+//		double size[][] = {
+//				{ border, TableLayoutConstants.PREFERRED, border, TableLayoutConstants.PREFERRED,
+//						border }, // Columns
+//				{ border, TableLayoutConstants.PREFERRED, border, TableLayoutConstants.PREFERRED,
+//						border } }; // Rows
+//		txtArea.setLayout(new TableLayout(size));
+//
+//		noOfScenariosDescr = new  BHDescriptionLabel(DashBoardController.Keys.NO_OF_SCENARIOS_DESCR);
+//		txtArea.add(noOfScenariosDescr,"1,1");
+//		
+//		noOfScenarios = new BHDescriptionLabel(DashBoardController.Keys.NO_OF_SCENARIOS);
+//		txtArea.add(noOfScenarios,"3,1");
+//		
+//		svRangeDescr = new  BHDescriptionLabel(DashBoardController.Keys.SV_RANGE_DESCR);
+//		txtArea.add(svRangeDescr,"1,3");
+//		
+//		svRange = new BHDescriptionLabel(DashBoardController.Keys.SV_RANGE);
+//		txtArea.add(svRange,"3,3");
+//		
+//		add(txtArea, BorderLayout.NORTH);
 
 		JPanel chartArea = new JPanel();
 
@@ -56,7 +56,7 @@ public class BHDashBoardPanel extends JPanel {
 				.getStackedBarChart(DashBoardController.ChartKeys.DB_SBC_SV);
 		chartArea.add(stackedBarChart);
 		
-		add(chartArea, BorderLayout.SOUTH);
+		add(chartArea, BorderLayout.CENTER);
 	}
 //	
 //	public static void main(String[] arg) {

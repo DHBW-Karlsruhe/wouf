@@ -48,6 +48,7 @@ public class DashBoardController extends Controller{
     @SuppressWarnings("unchecked")
 	public void setResult(Map<DTOScenario, Map<?,?>> result) {
 		ITranslator translator = Services.getTranslator();
+		//DB Controller referenz vom feld holen und anzahl setzen
 		
 		DTOScenario s;
 		DistributionMap d;
@@ -64,16 +65,16 @@ public class DashBoardController extends Controller{
 				sv = r.get(IShareholderValueCalculator.Result.SHAREHOLDER_VALUE.toString())[0];
 				if(sv instanceof IntervalValue) {
 					i = (IntervalValue) sv;
-					stackedBarChart.addValue(i.getMin(),translator.translate(ChartKeys.DB_SBC_SV), s.get(DTOScenario.Key.NAME).toString());
+					stackedBarChart.addValue(i.getMin(),translator.translate(ChartKeys.DB_SBC_SV), s.get(DTOScenario.Key.NAME).toString() + " (" + translator.translate("IntervalArithmetic") + " )");
 					stackedBarChart.addValue(i.getMax() - i.getMin(),translator.translate(ChartKeys.DB_SBC_SV), s.get(DTOScenario.Key.NAME).toString());
 				}else { // instance of DoubleValue || IntegerValue
-					stackedBarChart.addValue(sv.parse(),translator.translate(ChartKeys.DB_SBC_SV), s.get(DTOScenario.Key.NAME).toString());
+					stackedBarChart.addValue(sv.parse(),translator.translate(ChartKeys.DB_SBC_SV), s.get(DTOScenario.Key.NAME).toString() + " (" + translator.translate("deterministic") + ")");
 				}
 			}else { //stochastic scenario
 				d = (DistributionMap) e.getValue();
 				sv = d.valueAtRisk(95);
 				i = (IntervalValue) sv;
-				stackedBarChart.addValue(i.getMin(),translator.translate(ChartKeys.DB_SBC_SV), s.get(DTOScenario.Key.NAME).toString());
+				stackedBarChart.addValue(i.getMin(),translator.translate(ChartKeys.DB_SBC_SV), s.get(DTOScenario.Key.NAME).toString() + " (" + translator.translate("stochastic") + " )");
 				stackedBarChart.addValue(i.getMax() - i.getMin(),translator.translate(ChartKeys.DB_SBC_SV), s.get(DTOScenario.Key.NAME).toString());
 			}
 			
