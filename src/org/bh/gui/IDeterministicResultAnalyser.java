@@ -1,21 +1,19 @@
 package org.bh.gui;
 
+import java.awt.Component;
 import java.util.Map;
-
-import javax.swing.JPanel;
 
 import org.bh.data.DTOScenario;
 import org.bh.data.types.Calculable;
 
 public interface IDeterministicResultAnalyser {
 	/**
-	 * When called, the plugin should analyse the results (e.g. display them on
-	 * the GUI).
+	 * When called, the plugin should analyse the results and return the
+	 * Component where the results are displayed.
 	 * 
 	 * @param result
 	 *            The result to analyse.
-	 * @param panel
-	 *            Panel which can be used to display a GUI.
 	 */
-	public void setResult(DTOScenario scenario, Map<String, Calculable[]> result, JPanel panel);
+	public Component setResult(DTOScenario scenario,
+			Map<String, Calculable[]> result);
 }

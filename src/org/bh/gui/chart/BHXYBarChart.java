@@ -10,8 +10,6 @@ import org.bh.platform.Services;
 import org.bh.platform.i18n.ITranslator;
 import org.jfree.chart.ChartFactory;
 import org.jfree.chart.plot.PlotOrientation;
-import org.jfree.chart.renderer.category.BarRenderer;
-import org.jfree.chart.renderer.category.CategoryItemRenderer;
 import org.jfree.data.xy.XYSeries;
 import org.jfree.data.xy.XYSeriesCollection;
 
@@ -36,14 +34,7 @@ public class BHXYBarChart extends BHChart implements IBHAddValue,
 		if ("Nimbus".equals(UIManager.getLookAndFeel().getName())) {
 			chart.setBackgroundPaint(UIManager.getColor("Chart.background"));
 		}
-		
-		CategoryItemRenderer renderer = chart.getCategoryPlot().getRenderer();
-		renderer.setBaseItemLabelGenerator(new BHChartLabelGenerator());
-		renderer.setBaseItemLabelsVisible(true);
-		
-		BarRenderer barRenderer = (BarRenderer)chart.getCategoryPlot().getRenderer();
-		barRenderer.setDrawBarOutline(false);
-		
+
 		reloadText();
 		Services.addPlatformListener(this);
 	}
@@ -90,9 +81,6 @@ public class BHXYBarChart extends BHChart implements IBHAddValue,
 
 	@Override
 	public void platformEvent(PlatformEvent e) {
-		// TODO Auto-generated method stub
-		throw new UnsupportedOperationException(
-				"This method has not been implemented");
 	}
 
 }

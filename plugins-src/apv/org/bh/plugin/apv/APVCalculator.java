@@ -43,26 +43,30 @@ public class APVCalculator implements IShareholderValueCalculator {
 		 * </br><b>Array</b> but only first value [0] interesting
 		 */
 		PRESENT_VALUE_TAX_SHIELD;
-		
-		 @Override
-	        public String toString() {
-	            return getClass().getName() + "." + super.toString();
-	        }
+
+		@Override
+		public String toString() {
+			return getClass().getName() + "." + super.toString();
+		}
 	}
 
-	public Map<String, Calculable[]> calculate(DTOScenario scenario) {
+	@Override
+	public Map<String, Calculable[]> calculate(DTOScenario scenario,
+			boolean verboseLogging) {
 
-		log.info("----- APV procedure started -----");
+		if (verboseLogging)
+			log.info("----- APV procedure started -----");
 
 		Calculable[] fcf = new Calculable[scenario.getChildrenSize()];
 		Calculable[] fk = new Calculable[scenario.getChildrenSize()];
 		int i = 0;
-		log.debug("Input Values: FCF ; Liablities(FK):");
+		if (verboseLogging)
+			log.debug("Input Values: FCF ; Liablities(FK):");
 		for (DTOPeriod period : scenario.getChildren()) {
 			if (i > 0)
 				fcf[i] = period.getFCF();
 			fk[i] = period.getLiabilities();
-			if (log.isDebugEnabled()) {
+			if (verboseLogging && log.isDebugEnabled()) {
 				log.debug("\t" + period.get(DTOPeriod.Key.NAME) + ": " + fcf[i]
 						+ " ; " + fk[i]);
 			}
@@ -86,7 +90,7 @@ public class APVCalculator implements IShareholderValueCalculator {
 				(Calculable) scenario.get(DTOScenario.Key.REK));
 		uw[T] = calcEnterpriseValue(presentValueFCF[T],
 				presentValueTaxShield[T], fk[T]);
-		if (log.isDebugEnabled()) {
+		if (verboseLogging && log.isDebugEnabled()) {
 			log
 					.debug("PresentValue[T] (BarwertFreeCashFlow = FreeCashFlow / Eigenkapitalrendite: "
 							+ presentValueFCF[T]);
@@ -101,7 +105,7 @@ public class APVCalculator implements IShareholderValueCalculator {
 					fcf[t + 1], (Calculable) scenario.get(DTOScenario.Key.REK));
 			uw[t] = calcEnterpriseValue(presentValueFCF[t],
 					presentValueTaxShield[t], fk[t]);
-			if (log.isDebugEnabled()) {
+			if (verboseLogging && log.isDebugEnabled()) {
 				log
 						.debug("PresentValue["
 								+ t
@@ -117,16 +121,25 @@ public class APVCalculator implements IShareholderValueCalculator {
 		}
 		Map<String, Calculable[]> result = new HashMap<String, Calculable[]>();
 		result.put(IShareholderValueCalculator.Result.DEBT.toString(), fk);
-		result.put(IShareholderValueCalculator.Result.FREE_CASH_FLOW.toString(), fcf);
-		result.put(IShareholderValueCalculator.Result.SHAREHOLDER_VALUE.toString(), uw);
-		result.put(IShareholderValueCalculator.Result.EQUITY_RETURN_RATE.toString(), new Calculable[]{(Calculable)scenario.get(DTOScenario.Key.REK)});
-		result.put(IShareholderValueCalculator.Result.TAXES.toString(), new Calculable[]{scenario.getTax()});
-		result.put(IShareholderValueCalculator.Result.DEBT_RETURN_RATE.toString(), new Calculable[]{(Calculable)scenario.get(DTOScenario.Key.RFK)});
+		result.put(
+				IShareholderValueCalculator.Result.FREE_CASH_FLOW.toString(),
+				fcf);
+		result.put(IShareholderValueCalculator.Result.SHAREHOLDER_VALUE
+				.toString(), uw);
+		result.put(IShareholderValueCalculator.Result.EQUITY_RETURN_RATE
+				.toString(), new Calculable[] { (Calculable) scenario
+				.get(DTOScenario.Key.REK) });
+		result.put(IShareholderValueCalculator.Result.TAXES.toString(),
+				new Calculable[] { scenario.getTax() });
+		result.put(IShareholderValueCalculator.Result.DEBT_RETURN_RATE
+				.toString(), new Calculable[] { (Calculable) scenario
+				.get(DTOScenario.Key.RFK) });
 		result.put(Result.PRESENT_VALUE_FCF.toString(), presentValueFCF);
 		result.put(Result.PRESENT_VALUE_TAX_SHIELD.toString(),
 				presentValueTaxShield);
 
-		log.info("----- APV procedure finished -----");
+		if (verboseLogging)
+			log.info("----- APV procedure finished -----");
 
 		return result;
 	}
@@ -167,10 +180,10 @@ public class APVCalculator implements IShareholderValueCalculator {
 	// PresentValueTaxShield[T] = (s * FKr * FK[T]) / FKr
 	private Calculable calcPresentValueTaxShieldEndless(Calculable s,
 			Calculable FKr, Calculable FK) {
-//		if (log.isDebugEnabled()) {
-//			log.debug("PVTSEndless (s * FKr * FK[T]) / FKr): "
-//					+ s.mul(FKr).mul(FK).div(FKr));
-//		}
+		// if (log.isDebugEnabled()) {
+		// log.debug("PVTSEndless (s * FKr * FK[T]) / FKr): "
+		// + s.mul(FKr).mul(FK).div(FKr));
+		// }
 		return s.mul(FKr).mul(FK).div(FKr);
 	}
 
@@ -182,13 +195,14 @@ public class APVCalculator implements IShareholderValueCalculator {
 		for (int i = PVTS.length - 2; i >= 0; i--) {
 			PVTS[i] = (PVTS[i + 1].add(s.mul(FKr).mul(FK[i + 1 - 1]))).div(FKr
 					.add(new DoubleValue(1)));
-//			if (log.isDebugEnabled()) {
-//				log
-//						.debug("PVTS["
-//								+ i
-//								+ "] (PresentValueTaxShield[t + 1] + (s * FKr * FK[t])) / (FKr + 1): "
-//								+ PVTS[i]);
-//			}
+			// if (log.isDebugEnabled()) {
+			// log
+			// .debug("PVTS["
+			// + i
+			// +
+			// "] (PresentValueTaxShield[t + 1] + (s * FKr * FK[t])) / (FKr + 1): "
+			// + PVTS[i]);
+			// }
 		}
 		return PVTS;
 	}

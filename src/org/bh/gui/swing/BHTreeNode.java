@@ -1,9 +1,5 @@
 package org.bh.gui.swing;
 
-import java.awt.Component;
-
-import javax.swing.JComponent;
-import javax.swing.JPanel;
 import javax.swing.JSplitPane;
 import javax.swing.tree.DefaultMutableTreeNode;
 
@@ -13,7 +9,6 @@ import org.bh.data.DTOPeriod;
 import org.bh.data.DTOProject;
 import org.bh.data.DTOScenario;
 import org.bh.data.types.StringValue;
-import org.bh.gui.View;
 /**
  * 
  * Special TreeNode for use in Business Horizon.
@@ -61,6 +56,4 @@ public class BHTreeNode extends DefaultMutableTreeNode{
 	public InputController getController(){
 		return controller;
 	}
-	
-	
 }

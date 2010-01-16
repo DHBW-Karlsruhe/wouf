@@ -1,10 +1,10 @@
 package org.bh.gui;
 
-import javax.swing.JPanel;
+import java.awt.Component;
 
 import org.bh.data.DTOScenario;
 import org.bh.data.types.DistributionMap;
 
 public interface IStochasticResultAnalyser {
-	public void setResult(DTOScenario scenario, DistributionMap result, JPanel panel);
+	public Component setResult(DTOScenario scenario, DistributionMap result);
 }

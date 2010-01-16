@@ -20,14 +20,14 @@ public class AllDCFMethodsCalculator implements IShareholderValueCalculator {
 	private static final String GUI_KEY = "allDCF";
 
 	@Override
-	public Map<String, Calculable[]> calculate(DTOScenario scenario) {
+	public Map<String, Calculable[]> calculate(DTOScenario scenario, boolean verboseLogging) {
 		Map<String, Calculable[]> result = new HashMap<String, Calculable[]>();
 		for (IShareholderValueCalculator calculator : Services.getDCFMethods()
 				.values()) {
 			if (calculator.getUniqueId().equals(UNIQUE_ID))
 				continue;
 
-			result.putAll(calculator.calculate(scenario));
+			result.putAll(calculator.calculate(scenario, verboseLogging));
 		}
 		return result;
 	}

@@ -47,7 +47,7 @@ public interface IShareholderValueCalculator extends IDisplayablePlugin {
 	 * @return A map with the results. Values which do not belong to a specific
 	 *         value are stored in an array with one element.
 	 */
-	Map<String, Calculable[]> calculate(DTOScenario scenario);
+	Map<String, Calculable[]> calculate(DTOScenario scenario, boolean verboseLogging);
 
 	/**
 	 * Defines a unique string which identifies this calculation method.

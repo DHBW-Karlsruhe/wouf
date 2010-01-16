@@ -172,8 +172,8 @@ public class DCFProceduresPointIntervals {
 	@Test
 	public void apv() {
 		svCalc = new APVCalculator();
-		res = svCalc.calculate(scenarioInteger);
-		res2 = svCalc.calculate(scenarioInterval);
+		res = svCalc.calculate(scenarioInteger, true);
+		res2 = svCalc.calculate(scenarioInterval, true);
 
 		uw0 = (DoubleValue) res
 				.get(IShareholderValueCalculator.Result.SHAREHOLDER_VALUE.toString())[0];
@@ -188,8 +188,8 @@ public class DCFProceduresPointIntervals {
 	public void fcf() {
 		svCalc = new FCFCalculator();
 
-		res = svCalc.calculate(scenarioInteger);
-		res2 = svCalc.calculate(scenarioInterval);
+		res = svCalc.calculate(scenarioInteger, true);
+		res2 = svCalc.calculate(scenarioInterval, true);
 
 		uw0 = (DoubleValue) res
 				.get(IShareholderValueCalculator.Result.SHAREHOLDER_VALUE.toString())[0];
@@ -203,8 +203,8 @@ public class DCFProceduresPointIntervals {
 	@Test
 	public void fte() {
 		svCalc = new FTECalculator();
-		res = svCalc.calculate(scenarioInteger);
-		res2 = svCalc.calculate(scenarioInterval);
+		res = svCalc.calculate(scenarioInteger, true);
+		res2 = svCalc.calculate(scenarioInterval, true);
 
 		uw0 = (DoubleValue) res
 				.get(IShareholderValueCalculator.Result.SHAREHOLDER_VALUE.toString())[0];

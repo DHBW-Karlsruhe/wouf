@@ -246,6 +246,7 @@ public class DistributionMap implements Map<Double, Integer>,
 		for(Entry<Double, Integer> e : this.entrySet()){
 			result[i][0] = e.getKey();
 			result[i][1] = e.getValue();
+			i++;
 		}
 		return result;
 	}

@@ -13,6 +13,7 @@ import javax.swing.JSeparator;
 import org.apache.log4j.Logger;
 import org.bh.calculation.IShareholderValueCalculator;
 import org.bh.calculation.IStochasticProcess;
+import org.bh.data.DTO;
 import org.bh.data.DTOKeyPair;
 import org.bh.data.DTOPeriod;
 import org.bh.data.DTOScenario;
@@ -70,8 +71,8 @@ public class RandomWalk implements IStochasticProcess {
 		DistributionMap result = new DistributionMap(1);
 		DTOPeriod last = scenario.getLastChild();
 		List<DTOKeyPair> stochasticKeys = scenario.getPeriodStochasticKeys();
-		// List<String> stochasticKeys = last.getStochasticKeys();
 
+		DTO.setThrowEvents(false);
 		for (int j = 0; j < map.get(REPETITIONS); j++) {
 			DTOScenario temp = new DTOScenario(true);
 			temp.put(DTOScenario.Key.REK, scenario.get(DTOScenario.Key.REK));
@@ -118,10 +119,11 @@ public class RandomWalk implements IStochasticProcess {
 
 			result
 					.put(((DoubleValue) Services.getDCFMethod("apv").calculate(
-							temp).get(
-							IShareholderValueCalculator.Result.SHAREHOLDER_VALUE)[0])
+							temp, false).get(
+							IShareholderValueCalculator.Result.SHAREHOLDER_VALUE.toString())[0])
 							.getValue());
 		}
+		DTO.setThrowEvents(true);
 		return result;
 	}
 

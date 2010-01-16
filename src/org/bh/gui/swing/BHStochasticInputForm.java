@@ -136,7 +136,7 @@ public class BHStochasticInputForm extends JPanel {
 	
 	public BHSelectionList getliStochasticKeysList() {
 		if (liStochasticKeys == null) {
-			liStochasticKeys = new BHSelectionList(DTOScenario.Key.STOCHASTIC_KEYS, new String[] {"Testxyz","Testxyz","Testxyz","Testxyz","Testxyz","Testxyz","Testxyz","Testxyz","Testxyz","Testxyz","Testxyz","Testxyz","Testxyz","Testxyz","Testxyz","Testxyz","Testxyz","Testxyz","Testxyz","Testxyz","Testxyz","Testxyz","Testxyz","Testxyz","Testxyz","Testxyz","Testxyz","Testxyz","Testxyz","Testxyz","Testxyz","Testxyz","Testxyz","Testxyz","Testxyz","Testxyz","Testxyz","Testxyz","Testxyz","Testxyz","Testxyz"});
+			liStochasticKeys = new BHSelectionList(DTOScenario.Key.STOCHASTIC_KEYS);
 			liStochasticKeys.setDefaultValue(false);
 		}
 		return liStochasticKeys;

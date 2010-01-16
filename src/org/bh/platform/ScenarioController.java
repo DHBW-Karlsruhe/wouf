@@ -1,19 +1,19 @@
 package org.bh.platform;
 
 import java.awt.Component;
+import java.awt.Container;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
-import java.util.Collections;
 import java.util.Comparator;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
+import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JSplitPane;
@@ -26,9 +26,11 @@ import org.bh.data.DTOKeyPair;
 import org.bh.data.DTOScenario;
 import org.bh.data.IDTO;
 import org.bh.data.types.Calculable;
+import org.bh.data.types.DistributionMap;
 import org.bh.data.types.StringValue;
 import org.bh.gui.ICompValueChangeListener;
 import org.bh.gui.IDeterministicResultAnalyser;
+import org.bh.gui.IStochasticResultAnalyser;
 import org.bh.gui.View;
 import org.bh.gui.swing.BHButton;
 import org.bh.gui.swing.BHComboBox;
@@ -45,6 +47,7 @@ public class ScenarioController extends InputController {
 	protected static final BHComboBox.Item[] DCF_METHOD_ITEMS = getDcfMethodItems();
 	protected static final BHComboBox.Item[] PERIOD_TYPE_ITEMS = getPeriodTypeItems();
 	protected static final BHComboBox.Item[] STOCHASTIC_METHOD_ITEMS = getStochasticProcessItems();
+	private IStochasticProcess process = null;
 
 	public ScenarioController(View view, IDTO<?> model, final BHMainFrame bhmf) {
 		super(view, model);
@@ -86,7 +89,7 @@ public class ScenarioController extends InputController {
 																"PstochasticPeriodTypeChangeHeader"));
 								if (action == JOptionPane.YES_OPTION) {
 									bhmf.getBHTree().removeAllPeriods(scenario);
-								}else if (action == JOptionPane.NO_OPTION) {
+								} else if (action == JOptionPane.NO_OPTION) {
 									cbPeriodType.setSelectedIndex(cbPeriodType
 											.getLastSelectedIndex());
 									return;
@@ -109,9 +112,9 @@ public class ScenarioController extends InputController {
 				.addActionListener(new CalculationListener(PlatformController
 						.getInstance().getMainFrame().getBHTree()));
 
-		BHButton calcStochasticParameters = ((BHButton) view
+		final BHButton calcStochasticParameters = ((BHButton) view
 				.getBHComponent(BHStochasticInputForm.Key.CALC_PARAMETERS));
-		BHButton resetStochasticParameters = ((BHButton) view
+		final BHButton resetStochasticParameters = ((BHButton) view
 				.getBHComponent(BHStochasticInputForm.Key.RESET_PARAMETERS));
 		if (calcStochasticParameters != null
 				&& resetStochasticParameters != null) {
@@ -120,13 +123,26 @@ public class ScenarioController extends InputController {
 				@Override
 				public void actionPerformed(ActionEvent e) {
 					DTOScenario scenario = (DTOScenario) getModel();
-					IStochasticProcess process = scenario
-							.getStochasticProcess().createNewInstance();
+					process = scenario.getStochasticProcess()
+							.createNewInstance();
 					process.setScenario(scenario);
-					JPanel parametersPanel = process.calculateParameters();
+
+					Component parametersPanel = process.calculateParameters();
+					if (parametersPanel == null) {
+						// TODO add better text
+						parametersPanel = new JLabel("no parameters needed");
+					}
+
 					BHStochasticInputForm form = (BHStochasticInputForm) ((Component) e
 							.getSource()).getParent();
 					form.setParametersPanel(parametersPanel);
+					if (parametersPanel instanceof Container)
+						Services.setFocus((Container) parametersPanel);
+
+					resetStochasticParameters.setVisible(true);
+					calcStochasticParameters.setVisible(false);
+					((Component) getView().getBHComponent(
+							PlatformKey.CALCSHAREHOLDERVALUE)).setEnabled(true);
 				}
 			});
 
@@ -134,17 +150,27 @@ public class ScenarioController extends InputController {
 
 				@Override
 				public void actionPerformed(ActionEvent e) {
-					// TODO Auto-generated method stub
-					throw new UnsupportedOperationException(
-							"This method has not been implemented");
+					BHStochasticInputForm form = (BHStochasticInputForm) ((Component) e
+							.getSource()).getParent();
+					process = null;
+					form.removeParametersPanel();
+					calcStochasticParameters.setVisible(true);
+					resetStochasticParameters.setVisible(false);
+					((Component) getView().getBHComponent(
+							PlatformKey.CALCSHAREHOLDERVALUE)).setEnabled(false);
 				}
 			});
 		}
 
 		setCalcEnabled(getModel().isValid(true));
+		if (!((DTOScenario) model).isDeterministic()) {
+			((Component) view.getBHComponent(PlatformKey.CALCSHAREHOLDERVALUE))
+					.setEnabled(false);
+		}
 
-		loadAllToView();
+		loadToView(DTOScenario.Key.PERIOD_TYPE);
 		updateStochasticFieldsList();
+		loadAllToView();
 	}
 
 	protected void updateStochasticFieldsList() {
@@ -170,23 +196,29 @@ public class ScenarioController extends InputController {
 	}
 
 	protected void setCalcEnabled(boolean calculationEnabled) {
-		((Component) view.getBHComponent(PlatformKey.CALCSHAREHOLDERVALUE))
-				.setEnabled(calculationEnabled);
-		((Component) view
-				.getBHComponent(BHScenarioForm.Key.CANNOT_CALCULATE_HINT))
-				.setVisible(!calculationEnabled);
+		if (((DTOScenario) getModel()).isDeterministic()) {
+			((Component) view.getBHComponent(PlatformKey.CALCSHAREHOLDERVALUE))
+					.setEnabled(calculationEnabled);
+			((Component) view
+					.getBHComponent(BHScenarioForm.Key.CANNOT_CALCULATE_HINT))
+					.setVisible(!calculationEnabled);
+		} else {
+			((Component) view
+					.getBHComponent(BHStochasticInputForm.Key.CALC_PARAMETERS))
+					.setEnabled(calculationEnabled);
+		}
 	}
 
-    protected static BHComboBox.Item[] getDcfMethodItems() {
-        Collection<IShareholderValueCalculator> dcfMethods = Services
-                        .getDCFMethods().values();
-        ArrayList<BHComboBox.Item> items = new ArrayList<BHComboBox.Item>();
-        for (IShareholderValueCalculator dcfMethod : dcfMethods) {
-                items.add(new BHComboBox.Item(dcfMethod.getGuiKey(),
-                                new StringValue(dcfMethod.getUniqueId())));
-        }
-        return items.toArray(new BHComboBox.Item[0]);
-    }
+	protected static BHComboBox.Item[] getDcfMethodItems() {
+		Collection<IShareholderValueCalculator> dcfMethods = Services
+				.getDCFMethods().values();
+		ArrayList<BHComboBox.Item> items = new ArrayList<BHComboBox.Item>();
+		for (IShareholderValueCalculator dcfMethod : dcfMethods) {
+			items.add(new BHComboBox.Item(dcfMethod.getGuiKey(),
+					new StringValue(dcfMethod.getUniqueId())));
+		}
+		return items.toArray(new BHComboBox.Item[0]);
+	}
 
 	protected static BHComboBox.Item[] getStochasticProcessItems() {
 		Collection<IStochasticProcess> stochasticProcesses = Services
@@ -239,40 +271,43 @@ public class ScenarioController extends InputController {
 				@Override
 				public void run() {
 					DTOScenario scenario = (DTOScenario) getModel();
-					// start calculation
-					// TODO Marco.Hammel call of all avaiable dcf methods
-					Map<String, Calculable[]> result = Collections
-							.synchronizedMap(new HashMap<String, Calculable[]>());
-
-					if (scenario.getDCFMethod() != null) {// TODO Marco.Hammel
-						// getDCFMethod().equals(ALLDCF)
-						result = scenario.getDCFMethod().calculate(scenario);
-					} else {
-						// TODO Marco.Hammel ways to increase stability and
-						// performance by using threads?
-						for (IShareholderValueCalculator dcfMethod : Services
-								.getDCFMethods().values()) {
-							if (dcfMethod != null)
-								result.putAll(dcfMethod.calculate(scenario));
+					if (scenario.isDeterministic()) {
+						// start calculation
+						Map<String, Calculable[]> result = scenario.getDCFMethod()
+								.calculate(scenario, true);
+	
+						// FIXME selection of result analyser plugin
+						Component panel = new JPanel();
+						for (IDeterministicResultAnalyser analyser : PluginManager
+								.getInstance().getServices(
+										IDeterministicResultAnalyser.class)) {
+							panel = analyser.setResult(scenario, result);
+							break;
 						}
+						JSplitPane crForm = Services.createContentResultForm(panel);
+						BHTreeNode tn = (BHTreeNode) bhTree.getSelectionPath()
+								.getPathComponent(2);
+	
+						tn.setBackgroundPane(crForm);
+					} else {
+						process.updateParameters();
+						DistributionMap result = process.calculate();
+						
+						// FIXME selection of result analyser plugin
+						Component panel = new JPanel();
+						for (IStochasticResultAnalyser analyser : PluginManager
+								.getInstance().getServices(
+										IStochasticResultAnalyser.class)) {
+							panel = analyser.setResult(scenario, result);
+							break;
+						}
+						JSplitPane crForm = Services.createContentResultForm(panel);
+						BHTreeNode tn = (BHTreeNode) bhTree.getSelectionPath()
+								.getPathComponent(2);
+	
+						tn.setBackgroundPane(crForm);
 					}
-
-					// TODO maybe setResult should return the panel of the view
-					JPanel panel = new JPanel();
-
-					// FIXME selection of result analyser plugin
-					for (IDeterministicResultAnalyser analyser : PluginManager
-							.getInstance().getServices(
-									IDeterministicResultAnalyser.class)) {
-						analyser.setResult(scenario, result, panel);
-						break;
-					}
-					JSplitPane crForm = Services.createContentResultForm(panel);
-					BHTreeNode tn = (BHTreeNode) bhTree.getSelectionPath()
-							.getPathComponent(2);
-
-					tn.setBackgroundPane(crForm);
-
+					
 					b.setIcon(null);
 				}
 			};

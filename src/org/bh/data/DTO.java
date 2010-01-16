@@ -21,7 +21,6 @@ import org.apache.log4j.Logger;
 import org.bh.data.types.Calculable;
 import org.bh.data.types.IValue;
 import org.bh.platform.PlatformEvent;
-import org.bh.platform.ProjectRepositoryManager;
 import org.bh.platform.Services;
 
 /**
@@ -99,6 +98,8 @@ public abstract class DTO<ChildT extends IDTO> implements IDTO<ChildT> {
 	 */
 	protected Map<String, IValue> fallBackValues = new HashMap<String, IValue>();
 
+	protected static boolean throwEvents = true;
+
 	public DTO(Class<? extends Enum> enumeration) {
 		enumerationName = enumeration.getName();
 		initKeys(enumeration);
@@ -136,10 +137,6 @@ public abstract class DTO<ChildT extends IDTO> implements IDTO<ChildT> {
 
 			KEYS_CACHE.put(className, availableKeys);
 			METHODS_CACHE.put(className, availableMethods);
-
-			Services.firePlatformEvent(new PlatformEvent(
-					ProjectRepositoryManager.class,
-					PlatformEvent.Type.DATA_CHANGED));
 		}
 	}
 
@@ -177,8 +174,9 @@ public abstract class DTO<ChildT extends IDTO> implements IDTO<ChildT> {
 		String key = key1.toString();
 		if (availableKeys.contains(key)) {
 			values.put(key, value);
-			Services.firePlatformEvent(new PlatformEvent(this,
-					PlatformEvent.Type.DATA_CHANGED));
+			if (throwEvents)
+				Services.firePlatformEvent(new PlatformEvent(this,
+						PlatformEvent.Type.DATA_CHANGED));
 		}
 
 		else
@@ -190,6 +188,7 @@ public abstract class DTO<ChildT extends IDTO> implements IDTO<ChildT> {
 	public void remove(Object key) throws DTOAccessException {
 		if (availableKeys.contains(key)) {
 			values.remove(key);
+			if (throwEvents)
 			Services.firePlatformEvent(new PlatformEvent(this,
 					PlatformEvent.Type.DATA_CHANGED));
 		}
@@ -227,7 +226,8 @@ public abstract class DTO<ChildT extends IDTO> implements IDTO<ChildT> {
 	 * @return
 	 * @throws DTOAccessException
 	 */
-	private IValue invokeMethod(java.lang.reflect.Method method) throws DTOAccessException {
+	private IValue invokeMethod(java.lang.reflect.Method method)
+			throws DTOAccessException {
 		IValue result = null;
 		try {
 			// Invoke method and store result
@@ -235,8 +235,8 @@ public abstract class DTO<ChildT extends IDTO> implements IDTO<ChildT> {
 		} catch (InvocationTargetException e) {
 			throw new DTOAccessException(e.getTargetException());
 		} catch (Exception e) {
-			throw new DTOAccessException("The specified method '" + method.getName()
-					+ "' could not be invoked.", e);
+			throw new DTOAccessException("The specified method '"
+					+ method.getName() + "' could not be invoked.", e);
 		}
 
 		if (result == null)
@@ -266,6 +266,7 @@ public abstract class DTO<ChildT extends IDTO> implements IDTO<ChildT> {
 			} else {
 				children.addFirst(child);
 			}
+			if (throwEvents)
 			Services.firePlatformEvent(new PlatformEvent(this,
 					PlatformEvent.Type.DATA_CHANGED));
 			return child;
@@ -300,6 +301,7 @@ public abstract class DTO<ChildT extends IDTO> implements IDTO<ChildT> {
 	public ChildT removeChild(int index) throws DTOAccessException {
 		try {
 			ChildT removedChild = children.remove(index);
+			if (throwEvents)
 			Services.firePlatformEvent(new PlatformEvent(this,
 					PlatformEvent.Type.DATA_CHANGED));
 			return removedChild;
@@ -313,6 +315,7 @@ public abstract class DTO<ChildT extends IDTO> implements IDTO<ChildT> {
 	public void removeChild(ChildT child) throws DTOAccessException {
 		try {
 			children.remove(child);
+			if (throwEvents)
 			Services.firePlatformEvent(new PlatformEvent(this,
 					PlatformEvent.Type.DATA_CHANGED));
 		} catch (IndexOutOfBoundsException e) {
@@ -324,6 +327,7 @@ public abstract class DTO<ChildT extends IDTO> implements IDTO<ChildT> {
 	@Override
 	public void removeAllChildren() {
 		children.clear();
+		if (throwEvents)
 		Services.firePlatformEvent(new PlatformEvent(this,
 				PlatformEvent.Type.DATA_CHANGED));
 	}
@@ -424,24 +428,24 @@ public abstract class DTO<ChildT extends IDTO> implements IDTO<ChildT> {
 		if (this.valid == valid)
 			return;
 		this.valid = valid;
+		if (throwEvents)
 		Services.firePlatformEvent(new PlatformEvent(this,
 				PlatformEvent.Type.DATA_CHANGED));
 	}
-	
+
 	@Override
-	public boolean isMeOrChild(Object checkDto){
-		if(this == checkDto){
+	public boolean isMeOrChild(Object checkDto) {
+		if (this == checkDto) {
 			return true;
 		}
-		for(ChildT tempChild : this.getChildren()){
-			if(tempChild.isMeOrChild(checkDto)){
+		for (ChildT tempChild : this.getChildren()) {
+			if (tempChild.isMeOrChild(checkDto)) {
 				return true;
 			}
 		}
 		return false;
 	}
-	
-	
+
 	/**
 	 * This is called on deserialization of the DTO
 	 */
@@ -454,5 +458,13 @@ public abstract class DTO<ChildT extends IDTO> implements IDTO<ChildT> {
 		} catch (ClassNotFoundException e) {
 			throw new InvalidClassException("Could not restore keys");
 		}
+	}
+
+	public static boolean isThrowEvents() {
+		return throwEvents;
+	}
+
+	public static void setThrowEvents(boolean throwEvents) {
+		DTO.throwEvents = throwEvents;
 	}
 }

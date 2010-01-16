@@ -154,8 +154,6 @@ public class DTOScenario extends DTO<DTOPeriod> {
 		}
 		if (previous != null)
 			previous.next = null;
-
-		log.debug("PeriodReferences refreshed!");
 	}
 
 	/**

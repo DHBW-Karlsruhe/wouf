@@ -105,19 +105,19 @@ public class DCFProceduresIntegerValues {
 	@Test
 	public void apv() {
 		svCalc = new APVCalculator();
-		svCalc.calculate(scenario);
+		svCalc.calculate(scenario, true);
 	}
 	
 	@Test
 	public void fcf() {
 		svCalc = new FCFCalculator();
-		svCalc.calculate(scenario);
+		svCalc.calculate(scenario, true);
 	}
 	
 	@Test
 	public void fte() {
 		svCalc = new FTECalculator();
-		svCalc.calculate(scenario);
+		svCalc.calculate(scenario, true);
 		
 	}
 	
@@ -129,9 +129,9 @@ public class DCFProceduresIntegerValues {
 		svCalc2 = new FTECalculator();
 		svCalc3 = new FCFCalculator();
 		
-		res = svCalc.calculate(scenario);
-		res2 = svCalc2.calculate(scenario);
-		res3 = svCalc3.calculate(scenario);
+		res = svCalc.calculate(scenario, true);
+		res2 = svCalc2.calculate(scenario, true);
+		res3 = svCalc3.calculate(scenario, true);
 		
 		uw0 = ((DoubleValue)res.get(IShareholderValueCalculator.Result.SHAREHOLDER_VALUE.toString())[0]).getValue();
 		uw0_2 = ((DoubleValue)res2.get(IShareholderValueCalculator.Result.SHAREHOLDER_VALUE.toString())[0]).getValue();

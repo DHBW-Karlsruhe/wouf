@@ -350,14 +350,19 @@ public class PlatformController {
 					|| e.getSource() instanceof DTOScenario
 					|| e.getSource() instanceof DTOPeriod
 					|| e.getSource() instanceof IPeriodicalValuesDTO) {
-				bhmf.getBHTree().updateUI();
-			}
 				
+				for (BHTreeNode projectNode : bhmf.getBHTree().getProjectNodes()) {
+					if (((DTOProject) projectNode.getUserObject()).isMeOrChild(e.getSource())) {
+						bhmf.getBHTree().updateUI();
+						break;
+					}
+				}
+			}
 				
 			if (e.getSource() instanceof DTO<?>) {
 				//check if data has changed and remove result panel from scenario then...
 				ArrayList<BHTreeNode> scenarioNodes = bhmf.getBHTree().getScenarioNodes();
-				if(scenarioNodes != null){
+				if (!scenarioNodes.isEmpty()){
 					for(BHTreeNode scenarioNode : scenarioNodes){
 						if(((DTOScenario)scenarioNode.getUserObject()).isMeOrChild(e.getSource()) 
 								&&  scenarioNode.getBackgroundPane()!=null){

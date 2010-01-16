@@ -61,7 +61,7 @@ public class ProjectController extends InputController {
 
 					if (scenario.isDeterministic()) {
 						Map<String, Calculable[]> resultsDCF = scenario
-								.getDCFMethod().calculate(scenario);
+								.getDCFMethod().calculate(scenario, true);
 
 						results.put(scenario, resultsDCF);
 					} else {

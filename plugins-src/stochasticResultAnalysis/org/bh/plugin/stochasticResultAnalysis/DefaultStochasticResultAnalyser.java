@@ -1,6 +1,6 @@
 package org.bh.plugin.stochasticResultAnalysis;
 
-import javax.swing.JPanel;
+import java.awt.Component;
 
 import org.apache.log4j.Logger;
 import org.bh.data.DTOScenario;
@@ -10,14 +10,15 @@ import org.bh.gui.View;
 import org.bh.gui.ViewException;
 
 public class DefaultStochasticResultAnalyser implements IStochasticResultAnalyser{
-	
-	public void setResult(DTOScenario scenario, DistributionMap result, JPanel panel) {
+	@Override
+	public Component setResult(DTOScenario scenario, DistributionMap result) {
 		try {
 			View view = new ViewBHStochasticResultPanel(scenario, result);
-			panel.add(view.getViewPanel());
 			new BHStochasticResultController(view, result, scenario);
+			return view.getViewPanel();
 		} catch (ViewException e) {
 			Logger.getLogger(DefaultStochasticResultAnalyser.class).error("Cannot create view", e);
+			return null;
 		}
 	}
 
