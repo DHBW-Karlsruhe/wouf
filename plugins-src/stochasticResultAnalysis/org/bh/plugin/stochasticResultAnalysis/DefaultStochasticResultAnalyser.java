@@ -20,7 +20,7 @@ public class DefaultStochasticResultAnalyser implements IStochasticResultAnalyse
 			panel.add(view.getViewPanel());
 			new BHStochasticResultController(view, result, scenario);
 		} catch (ViewException e) {
-			Logger.getLogger(DefaultResultAnalyser.class).error("Cannot create view", e);
+			Logger.getLogger(DefaultStochasticResultAnalyser.class).error("Cannot create view", e);
 		}
 	}
 

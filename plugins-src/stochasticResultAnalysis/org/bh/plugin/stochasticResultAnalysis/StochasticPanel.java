@@ -11,7 +11,7 @@ import org.bh.plugin.resultAnalysis.BH_APV_ResultPanel;
 
 public class StochasticPanel extends JPanel{
 
-	 private static final Logger log = Logger.getLogger(BH_APV_ResultPanel.class);
+	 private static final Logger log = Logger.getLogger(StochasticPanel.class);
 	    //Chart
 	    private BHChartPanel distributionChart;
 	    
