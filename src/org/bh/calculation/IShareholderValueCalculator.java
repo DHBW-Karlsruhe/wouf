@@ -23,7 +23,9 @@ public interface IShareholderValueCalculator extends IDisplayablePlugin {
 		SHAREHOLDER_VALUE,
 		DEBT,
 		FREE_CASH_FLOW,
-		DEBT_RETURN_RATE;
+		DEBT_RETURN_RATE,
+		EQUITY_RETURN_RATE,
+		TAXES;
 		
 		@Override
         public String toString() {

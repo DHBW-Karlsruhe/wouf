@@ -119,6 +119,9 @@ public class APVCalculator implements IShareholderValueCalculator {
 		result.put(IShareholderValueCalculator.Result.DEBT.toString(), fk);
 		result.put(IShareholderValueCalculator.Result.FREE_CASH_FLOW.toString(), fcf);
 		result.put(IShareholderValueCalculator.Result.SHAREHOLDER_VALUE.toString(), uw);
+		result.put(IShareholderValueCalculator.Result.EQUITY_RETURN_RATE.toString(), new Calculable[]{(Calculable)scenario.get(DTOScenario.Key.REK)});
+		result.put(IShareholderValueCalculator.Result.TAXES.toString(), new Calculable[]{scenario.getTax()});
+		result.put(IShareholderValueCalculator.Result.DEBT_RETURN_RATE.toString(), new Calculable[]{(Calculable)scenario.get(DTOScenario.Key.RFK)});
 		result.put(Result.PRESENT_VALUE_FCF.toString(), presentValueFCF);
 		result.put(Result.PRESENT_VALUE_TAX_SHIELD.toString(),
 				presentValueTaxShield);

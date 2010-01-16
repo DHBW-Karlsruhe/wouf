@@ -205,7 +205,7 @@ public class BHResultController extends OutputController {
 							.addValue(
 									result
 											.get("org.bh.plugin.fcf.FCFCalculator$Result.EQUITY_RETURN_RATE_FCF")[i]
-											.parse(),
+											.parse().doubleValue() * 100,
 									translator
 											.translate("org.bh.plugin.fcf.FCFCalculator$Result.EQUITY_RETURN_RATE_FCF"),
 									name);
@@ -213,7 +213,7 @@ public class BHResultController extends OutputController {
 							.addValue(
 									result
 											.get("org.bh.calculation.IShareholderValueCalculator$Result.DEBT_RETURN_RATE")[0]
-											.parse(),
+											.parse().doubleValue() * 100,
 									translator
 											.translate("org.bh.calculation.IShareholderValueCalculator$Result.DEBT_RETURN_RATE"),
 									name);
@@ -409,7 +409,7 @@ public class BHResultController extends OutputController {
 							.addValue(
 									result
 											.get("org.bh.plugin.fcf.FCFCalculator$Result.EQUITY_RETURN_RATE_FCF")[i]
-											.parse(),
+											.parse().doubleValue() * 100,
 									translator
 											.translate("org.bh.plugin.fcf.FCFCalculator$Result.EQUITY_RETURN_RATE_FCF"),
 									name);
@@ -417,7 +417,7 @@ public class BHResultController extends OutputController {
 							.addValue(
 									result
 											.get("org.bh.calculation.IShareholderValueCalculator$Result.DEBT_RETURN_RATE")[0]
-											.parse(),
+											.parse().doubleValue() * 100,
 									translator
 											.translate("org.bh.calculation.IShareholderValueCalculator$Result.DEBT_RETURN_RATE"),
 									name);
