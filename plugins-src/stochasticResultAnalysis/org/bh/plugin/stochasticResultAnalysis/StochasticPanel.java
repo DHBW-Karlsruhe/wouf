@@ -7,7 +7,6 @@ import javax.swing.JPanel;
 import org.apache.log4j.Logger;
 import org.bh.gui.chart.BHChartFactory;
 import org.bh.gui.chart.BHChartPanel;
-import org.bh.plugin.resultAnalysis.BH_APV_ResultPanel;
 
 public class StochasticPanel extends JPanel{
 

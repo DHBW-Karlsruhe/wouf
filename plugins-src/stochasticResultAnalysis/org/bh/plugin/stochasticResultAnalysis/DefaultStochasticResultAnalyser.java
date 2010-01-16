@@ -8,9 +8,6 @@ import org.bh.data.types.DistributionMap;
 import org.bh.gui.IStochasticResultAnalyser;
 import org.bh.gui.View;
 import org.bh.gui.ViewException;
-import org.bh.plugin.resultAnalysis.BHResultController;
-import org.bh.plugin.resultAnalysis.DefaultResultAnalyser;
-import org.bh.plugin.resultAnalysis.ViewBHResultPanel;
 
 public class DefaultStochasticResultAnalyser implements IStochasticResultAnalyser{
 	
