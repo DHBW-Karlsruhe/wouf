@@ -344,43 +344,49 @@ class PlatformActionListener implements ActionListener {
 
 		case TOOLBARREMOVE:
 
-			TreePath currentSelection = bhmf.getBHTree().getSelectionPath();
-			// is a node selected?
-			if (currentSelection != null) {
-				// find out current selected node
-				BHTreeNode currentNode = (BHTreeNode) bhmf.getBHTree()
-						.getSelectionPath().getLastPathComponent();
-
-				// remove node from data model...
-				if (currentNode.getUserObject() instanceof DTOProject) {
-					projectRepoManager.removeProject((DTOProject) currentNode
-							.getUserObject());
-
-				} else if (currentNode.getUserObject() instanceof DTOScenario) {
-					((DTOProject) ((BHTreeNode) currentNode.getParent())
-							.getUserObject())
-							.removeChild((DTOScenario) currentNode
-									.getUserObject());
-
-				} else if (currentNode.getUserObject() instanceof DTOPeriod) {
-					((DTOScenario) ((BHTreeNode) currentNode.getParent())
-							.getUserObject())
-							.removeChild((DTOPeriod) currentNode
-									.getUserObject());
+			int choice = JOptionPane.showConfirmDialog(bhmf, Services
+					.getTranslator().translate("Pelement_delete"), Services
+					.getTranslator().translate("Pdelete"),
+					JOptionPane.YES_NO_OPTION);
+			
+			if (choice == JOptionPane.YES_OPTION) {
+				TreePath currentSelection = bhmf.getBHTree().getSelectionPath();
+				// is a node selected?
+				if (currentSelection != null) {
+					// find out current selected node
+					BHTreeNode currentNode = (BHTreeNode) bhmf.getBHTree()
+							.getSelectionPath().getLastPathComponent();
+	
+					// remove node from data model...
+					if (currentNode.getUserObject() instanceof DTOProject) {
+						projectRepoManager.removeProject((DTOProject) currentNode
+								.getUserObject());
+	
+					} else if (currentNode.getUserObject() instanceof DTOScenario) {
+						((DTOProject) ((BHTreeNode) currentNode.getParent())
+								.getUserObject())
+								.removeChild((DTOScenario) currentNode
+										.getUserObject());
+	
+					} else if (currentNode.getUserObject() instanceof DTOPeriod) {
+						((DTOScenario) ((BHTreeNode) currentNode.getParent())
+								.getUserObject())
+								.removeChild((DTOPeriod) currentNode
+										.getUserObject());
+					}
+	
+					// ... and from GUI and select other node or empty screen
+					TreePath tp = new TreePath(currentNode.getPreviousNode()
+							.getPath());
+					bhmf.getBHTree().setSelectionPath(tp);
+					if (bhmf.getBHTree().getSelectionPath().getPathCount() == 1)
+						bhmf.setContentForm(new BHContent());
+	
+					((BHTreeModel) bhmf.getBHTree().getModel())
+							.removeNodeFromParent(currentNode);
+	
 				}
-
-				// ... and from GUI and select other node or empty screen
-				TreePath tp = new TreePath(currentNode.getPreviousNode()
-						.getPath());
-				bhmf.getBHTree().setSelectionPath(tp);
-				if (bhmf.getBHTree().getSelectionPath().getPathCount() == 1)
-					bhmf.setContentForm(new BHContent());
-
-				((BHTreeModel) bhmf.getBHTree().getModel())
-						.removeNodeFromParent(currentNode);
-
 			}
-
 			break;
 
 		default:
