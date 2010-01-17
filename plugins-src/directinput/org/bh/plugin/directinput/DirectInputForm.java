@@ -12,6 +12,7 @@ import org.bh.controller.Controller;
 import org.bh.data.DTOPeriod;
 import org.bh.gui.swing.BHDescriptionLabel;
 import org.bh.gui.swing.BHTextField;
+import org.bh.gui.swing.IBHComponent;
 import org.bh.platform.i18n.ITranslator;
 import org.bh.validation.VRIsDouble;
 import org.bh.validation.VRIsGreaterThan;
@@ -47,20 +48,20 @@ public class DirectInputForm extends JPanel {
 	private BHTextField tfmaxfcf;
 	private BHTextField tfminfcf;
 	private BHTextField tfname;
-	
+
 	ITranslator translator = Controller.getTranslator();
 
-	
 	public enum Key {
 		/**
 		 * 
 		 */
 		PERIOD_DIRECT;
-		
+
 		public String toString() {
-		    return getClass().getName() + "." + super.toString();
+			return getClass().getName() + "." + super.toString();
 		}
 	}
+
 	/**
 	 * Constructor.
 	 */
@@ -79,15 +80,14 @@ public class DirectInputForm extends JPanel {
 		this.setLayout(layout);
 
 		CellConstraints cons = new CellConstraints();
-		
-		
+
 		this.add(this.getLfcf(), cons.xywh(2, 4, 1, 1));
 		this.add(this.getLliabilities(), cons.xywh(2, 6, 1, 1));
 
 		if (!intervalArithmetic) {
-			
+
 			this.add(this.getTffcf(), cons.xywh(4, 4, 1, 1));
-			this.add(this.getLcurrency1(), cons.xywh(6, 4, 1, 1));		
+			this.add(this.getLcurrency1(), cons.xywh(6, 4, 1, 1));
 			this.add(this.getTfliabilities(), cons.xywh(4, 6, 1, 1));
 			this.add(this.getLcurrency2(), cons.xywh(6, 6, 1, 1));
 		} else {
@@ -112,12 +112,12 @@ public class DirectInputForm extends JPanel {
 			this.add(this.getTfmaxliabilities(), cons.xywh(8, 6, 1, 1));
 			this.add(this.getLcurrency6(), cons.xywh(10, 6, 1, 1));
 		}
-		
-		this.setBorder(BorderFactory
-				.createTitledBorder(BorderFactory.createEtchedBorder(EtchedBorder.LOWERED),translator.translate(DirectInputForm.Key.PERIOD_DIRECT)));
+
+		this.setBorder(BorderFactory.createTitledBorder(BorderFactory
+				.createEtchedBorder(EtchedBorder.LOWERED), translator
+				.translate(DirectInputForm.Key.PERIOD_DIRECT)));
 	}
-	
-	
+
 	public BHDescriptionLabel getLname() {
 		if (lname == null) {
 			lname = new BHDescriptionLabel(DTOPeriod.Key.NAME);
@@ -126,7 +126,7 @@ public class DirectInputForm extends JPanel {
 	}
 
 	public BHTextField getTfname() {
-		if(tfname == null){
+		if (tfname == null) {
 			tfname = new BHTextField(DTOPeriod.Key.NAME);
 		}
 		return tfname;
@@ -178,10 +178,11 @@ public class DirectInputForm extends JPanel {
 	// IntervalValue
 	public BHTextField getTfmaxliabilities() {
 		if (tfmaxliabilities == null) {
-			tfmaxliabilities = new BHTextField("");
+			tfmaxliabilities = new BHTextField(IBHComponent.MAXVALUE
+					+ DTODirectInput.Key.LIABILITIES);
 			ValidationRule[] rules = { VRMandatory.INSTANCE,
 					VRIsDouble.INSTANCE, VRIsPositive.INSTANCE,
-					new VRIsGreaterThan(getTfminliabilities(), true)};
+					new VRIsGreaterThan(getTfminliabilities(), true) };
 			tfmaxliabilities.setValidationRules(rules);
 		}
 		return tfmaxliabilities;
@@ -189,7 +190,8 @@ public class DirectInputForm extends JPanel {
 
 	public BHTextField getTfminliabilities() {
 		if (tfminliabilities == null) {
-			tfminliabilities = new BHTextField("");
+			tfminliabilities = new BHTextField(IBHComponent.MINVALUE
+					+ DTODirectInput.Key.LIABILITIES);
 			ValidationRule[] rules = { VRMandatory.INSTANCE,
 					VRIsDouble.INSTANCE, VRIsPositive.INSTANCE };
 			tfminliabilities.setValidationRules(rules);
@@ -199,7 +201,8 @@ public class DirectInputForm extends JPanel {
 
 	public BHTextField getTfmaxfcf() {
 		if (tfmaxfcf == null) {
-			tfmaxfcf = new BHTextField("");
+			tfmaxfcf = new BHTextField(IBHComponent.MAXVALUE
+					+ DTODirectInput.Key.FCF);
 			ValidationRule[] rules = { VRMandatory.INSTANCE,
 					VRIsDouble.INSTANCE,
 					new VRIsGreaterThan(getTfminfcf(), true) };
@@ -210,7 +213,8 @@ public class DirectInputForm extends JPanel {
 
 	public BHTextField getTfminfcf() {
 		if (tfminfcf == null) {
-			tfminfcf = new BHTextField("");
+			tfminfcf = new BHTextField(IBHComponent.MINVALUE
+					+ DTODirectInput.Key.FCF);
 			ValidationRule[] rules = { VRMandatory.INSTANCE,
 					VRIsDouble.INSTANCE };
 			tfminfcf.setValidationRules(rules);

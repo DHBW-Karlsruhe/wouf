@@ -9,8 +9,8 @@ import org.bh.calculation.IShareholderValueCalculator;
 import org.bh.calculation.IStochasticProcess;
 import org.bh.data.types.Calculable;
 import org.bh.data.types.DoubleValue;
+import org.bh.data.types.IntegerValue;
 import org.bh.data.types.ObjectValue;
-import org.bh.data.types.StringValue;
 import org.bh.platform.Services;
 
 /**
@@ -260,7 +260,7 @@ public class DTOScenario extends DTO<DTOPeriod> {
 	}
 
 	public boolean isIntervalArithmetic() {
-		return new StringValue("true").equals(values.get(Key.INTERVAL_ARITHMETIC.toString()));
+		return new IntegerValue(1).equals(values.get(Key.INTERVAL_ARITHMETIC.toString()));
 	}
 
 }

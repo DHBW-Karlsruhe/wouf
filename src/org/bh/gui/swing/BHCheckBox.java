@@ -10,6 +10,7 @@ import org.bh.data.types.IValue;
 import org.bh.data.types.IntegerValue;
 import org.bh.data.types.StringValue;
 import org.bh.gui.CompValueChangeManager;
+import org.bh.platform.IPlatformListener;
 import org.bh.platform.PlatformEvent;
 import org.bh.platform.Services;
 import org.bh.platform.PlatformEvent.Type;
@@ -29,12 +30,13 @@ import org.bh.validation.ValidationRule;
  * 
  */
 
-// TODO Hints setzen!!! Noch werden für Textfields keine Hints erzeugt
-public class BHCheckBox extends JCheckBox implements IBHModelComponent {
+@SuppressWarnings("serial")
+public class BHCheckBox extends JCheckBox implements IBHModelComponent,
+		IPlatformListener {
 
 	static final Logger log = Logger.getLogger(BHCheckBox.class);
 	static final ITranslator translator = Services.getTranslator();
-	
+
 	/**
 	 * unique key to identify Label.
 	 */
@@ -54,18 +56,16 @@ public class BHCheckBox extends JCheckBox implements IBHModelComponent {
 		super();
 		this.key = key.toString();
 		reloadText();
+		Services.addPlatformListener(this);
 		addItemListener(new ItemListener() {
 			@Override
 			public void itemStateChanged(ItemEvent e) {
 				if (changeListenerEnabled) {
 					valueChangeManager
 							.fireCompValueChangeEvent(BHCheckBox.this);
-					log.debug("ValueChangedEvent fired by BHCheckBox with key"
-							+ key.toString());
 				}
 			}
 		});
-		setSelected(false);
 	}
 
 	@Override
@@ -78,19 +78,7 @@ public class BHCheckBox extends JCheckBox implements IBHModelComponent {
 		return hint;
 	}
 
-	// /**
-	// * set properties of instance.
-	// */
-	// private void setProperties() {
-	// Services.addPlatformListener(this);
-	// }
-
-	public String getBHHint() {
-
-		throw new UnsupportedOperationException(
-				"This method has not been implemented");
-	}
-
+	@Override
 	public void platformEvent(PlatformEvent e) {
 		if (e.getEventType() == Type.LOCALE_CHANGED) {
 			reloadText();
@@ -104,10 +92,7 @@ public class BHCheckBox extends JCheckBox implements IBHModelComponent {
 
 	@Override
 	public IValue getValue() {
-		if (isSelected()) {
-			return new IntegerValue(1);
-		}
-		return new IntegerValue(0);
+		return new IntegerValue(isSelected() ? 1 : 0);
 	}
 
 	@Override
@@ -123,37 +108,26 @@ public class BHCheckBox extends JCheckBox implements IBHModelComponent {
 	@Override
 	public void setValue(IValue value) {
 		if (value == null) {
+			setSelected(false);
 			return;
-		}
-		if (value instanceof IntegerValue) {
+		} else if (value instanceof IntegerValue) {
 			int valInt = ((IntegerValue) value).getValue();
-			if (valInt >= 1) {
-				setSelected(true);
-			}
-			if (valInt == 0) {
-				setSelected(false);
-			}
-		}
-		if (value instanceof StringValue) {
+			changeListenerEnabled = false;
+			setSelected(valInt >= 1);
+			changeListenerEnabled = true;
+		} else if (value instanceof StringValue) {
 			String valStr = ((StringValue) value).getString();
-			if (valStr.toLowerCase().equals("true")) {
-				setSelected(true);
-				return;
-			}
-			if (valStr.toLowerCase().equals("false")) {
-				setSelected(false);
-				return;
-			}
-			return;
+			changeListenerEnabled = false;
+			setSelected(valStr.toLowerCase().equals("true"));
+			changeListenerEnabled = false;
 		}
 	}
 
 	protected void reloadText() {
 		hint = Services.getTranslator().translate(key, ITranslator.LONG);
 		setToolTipText(hint);
-		updateUI();
 	}
-	
+
 	@Override
 	public String toString() {
 		return translator.translate(key);

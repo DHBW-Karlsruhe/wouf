@@ -371,7 +371,7 @@ public class BHScenarioHeadIntervalForm extends JPanel {
 	 */
 	public BHTextField gettfminequityyield() {
 		if (this.tfminequityyield == null) {
-			this.tfminequityyield = new BHTextField(IBHComponent.MINVALUE
+			this.tfminequityyield = new BHPercentTextField(IBHComponent.MINVALUE
 					+ DTOScenario.Key.REK);
 			ValidationRule[] rules = { VRMandatory.INSTANCE,
 					VRIsDouble.INSTANCE, VRIsPositive.INSTANCE };
@@ -387,7 +387,7 @@ public class BHScenarioHeadIntervalForm extends JPanel {
 	 */
 	public BHTextField gettfmindeptyield() {
 		if (this.tfmindeptyield == null) {
-			this.tfmindeptyield = new BHTextField(IBHComponent.MINVALUE
+			this.tfmindeptyield = new BHPercentTextField(IBHComponent.MINVALUE
 					+ DTOScenario.Key.RFK);
 			ValidationRule[] rules = { VRMandatory.INSTANCE,
 					VRIsDouble.INSTANCE, VRIsPositive.INSTANCE };
@@ -403,7 +403,7 @@ public class BHScenarioHeadIntervalForm extends JPanel {
 	 */
 	public BHTextField gettfmintradetax() {
 		if (this.tfmintradetax == null) {
-			this.tfmintradetax = new BHTextField(IBHComponent.MINVALUE
+			this.tfmintradetax = new BHPercentTextField(IBHComponent.MINVALUE
 					+ DTOScenario.Key.BTAX);
 			ValidationRule[] rules = { VRMandatory.INSTANCE,
 					VRIsDouble.INSTANCE, VRIsPositive.INSTANCE };
@@ -419,8 +419,8 @@ public class BHScenarioHeadIntervalForm extends JPanel {
 	 */
 	public BHTextField gettfmincorporatetax() {
 		if (this.tfmincorporatetax == null) {
-			this.tfmincorporatetax = new BHTextField(IBHComponent.MINVALUE
-					+ "_" + DTOScenario.Key.CTAX);
+			this.tfmincorporatetax = new BHPercentTextField(IBHComponent.MINVALUE
+					+ DTOScenario.Key.CTAX);
 			ValidationRule[] rules = { VRMandatory.INSTANCE,
 					VRIsDouble.INSTANCE, VRIsPositive.INSTANCE };
 			tfmincorporatetax.setValidationRules(rules);
@@ -435,7 +435,7 @@ public class BHScenarioHeadIntervalForm extends JPanel {
 	 */
 	public BHTextField gettfmaxequityyield() {
 		if (this.tfmaxequityyield == null) {
-			this.tfmaxequityyield = new BHTextField(IBHComponent.MAXVALUE
+			this.tfmaxequityyield = new BHPercentTextField(IBHComponent.MAXVALUE
 					+ DTOScenario.Key.REK);
 			ValidationRule[] rules = { VRMandatory.INSTANCE,
 					VRIsDouble.INSTANCE, VRIsPositive.INSTANCE,
@@ -452,7 +452,7 @@ public class BHScenarioHeadIntervalForm extends JPanel {
 	 */
 	public BHTextField gettfmaxdeptyield() {
 		if (this.tfmaxdeptyield == null) {
-			this.tfmaxdeptyield = new BHTextField(IBHComponent.MAXVALUE
+			this.tfmaxdeptyield = new BHPercentTextField(IBHComponent.MAXVALUE
 					+ DTOScenario.Key.RFK);
 			ValidationRule[] rules = { VRMandatory.INSTANCE,
 					VRIsDouble.INSTANCE, VRIsPositive.INSTANCE,
@@ -469,7 +469,7 @@ public class BHScenarioHeadIntervalForm extends JPanel {
 	 */
 	public BHTextField gettfmaxtradetax() {
 		if (this.tfmaxtradetax == null) {
-			this.tfmaxtradetax = new BHTextField(IBHComponent.MAXVALUE
+			this.tfmaxtradetax = new BHPercentTextField(IBHComponent.MAXVALUE
 					+ DTOScenario.Key.BTAX);
 			ValidationRule[] rules = { VRMandatory.INSTANCE,
 					VRIsDouble.INSTANCE, VRIsPositive.INSTANCE,
@@ -486,8 +486,8 @@ public class BHScenarioHeadIntervalForm extends JPanel {
 	 */
 	public BHTextField gettfmaxcorporatetax() {
 		if (this.tfmaxcorporatetax == null) {
-			this.tfmaxcorporatetax = new BHTextField(IBHComponent.MAXVALUE
-					+ "_" + DTOScenario.Key.CTAX);
+			this.tfmaxcorporatetax = new BHPercentTextField(IBHComponent.MAXVALUE
+					+ DTOScenario.Key.CTAX);
 			ValidationRule[] rules = { VRMandatory.INSTANCE,
 					VRIsDouble.INSTANCE, VRIsPositive.INSTANCE,
 					new VRIsGreaterThan(gettfmaxcorporatetax(), true) };

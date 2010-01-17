@@ -232,8 +232,6 @@ public class PlatformController {
 	 */
 	class BHTreeSelectionListener implements TreeSelectionListener {
 
-		private Boolean first = true;
-
 		@Override
 		public void valueChanged(final TreeSelectionEvent tse) {
 			SwingUtilities.invokeLater(new Runnable() {
@@ -269,50 +267,50 @@ public class PlatformController {
 									// if not, create view at first
 
 									View view;
-									// find out if stochastic process was chosen at init of strategy
+									// find out if stochastic process was chosen
+									// at init of strategy
 									if (!model.isDeterministic()) {
 										view = new BHScenarioView(
 												new BHScenarioForm(
-														BHScenarioForm.Type.STOCHASTIC),
+														BHScenarioForm.Type.STOCHASTIC,
+														model
+																.isIntervalArithmetic()),
 												new ValidationMethods());
 									} else {
 										view = new BHScenarioView(
 												new BHScenarioForm(
-														BHScenarioForm.Type.DETERMINISTIC),
+														BHScenarioForm.Type.DETERMINISTIC,
+														model
+																.isIntervalArithmetic()),
 												new ValidationMethods());
-
-										// if scenario is deterministic, an
-										// overview
-										// table is provided
-										
-										
-										
-										
-										
 									}
-									
-									//create controller
-									controller = new ScenarioController(view, model, bhmf);
+
+									// create controller
+									controller = new ScenarioController(view,
+											model, bhmf);
 									selectedNode.setController(controller);
 								}
-								
+
 								if (model.isDeterministic()) {
-									((BHDeterministicProcessForm) ((BHScenarioForm) controller.getViewPanel())
-											.getProcessForm()).setPeriodTable(PlatformController.this.prepareScenarioTableData(model));
+									// if scenario is deterministic, an
+									// overview
+									// table is provided
+									((BHDeterministicProcessForm) ((BHScenarioForm) controller
+											.getViewPanel()).getProcessForm())
+											.setPeriodTable(PlatformController.this
+													.prepareScenarioTableData(model));
 								}
-								
+
 								JSplitPane bgComponent;
-								
-								if((bgComponent = selectedNode.getBackgroundPane()) != null){
+
+								if ((bgComponent = selectedNode
+										.getBackgroundPane()) != null) {
 									bhmf.setContentResultForm(bgComponent);
-								}else{
-									bhmf.setContentForm(controller.getViewPanel());
+								} else {
+									bhmf.setContentForm(controller
+											.getViewPanel());
 								}
-								
-								
-								
-								
-								
+
 							} catch (ViewException e) {
 								e.printStackTrace();
 							}
@@ -350,36 +348,42 @@ public class PlatformController {
 					|| e.getSource() instanceof DTOScenario
 					|| e.getSource() instanceof DTOPeriod
 					|| e.getSource() instanceof IPeriodicalValuesDTO) {
-				
-				for (BHTreeNode projectNode : bhmf.getBHTree().getProjectNodes()) {
-					if (((DTOProject) projectNode.getUserObject()).isMeOrChild(e.getSource())) {
+
+				for (BHTreeNode projectNode : bhmf.getBHTree()
+						.getProjectNodes()) {
+					if (((DTOProject) projectNode.getUserObject())
+							.isMeOrChild(e.getSource())) {
 						bhmf.getBHTree().updateUI();
 						break;
 					}
 				}
 			}
-				
+
 			if (e.getSource() instanceof DTO<?>) {
-				//check if data has changed and remove result panel from scenario then...
-				ArrayList<BHTreeNode> scenarioNodes = bhmf.getBHTree().getScenarioNodes();
-				if (!scenarioNodes.isEmpty()){
-					for(BHTreeNode scenarioNode : scenarioNodes){
-						if(((DTOScenario)scenarioNode.getUserObject()).isMeOrChild(e.getSource()) 
-								&&  scenarioNode.getBackgroundPane()!=null){
+				// check if data has changed and remove result panel from
+				// scenario then...
+				ArrayList<BHTreeNode> scenarioNodes = bhmf.getBHTree()
+						.getScenarioNodes();
+				if (!scenarioNodes.isEmpty()) {
+					for (BHTreeNode scenarioNode : scenarioNodes) {
+						if (((DTOScenario) scenarioNode.getUserObject())
+								.isMeOrChild(e.getSource())
+								&& scenarioNode.getBackgroundPane() != null) {
 							scenarioNode.setBackgroundPane(null);
-							
-							
-							//throw away present screen, if scenario is on screen
+
+							// throw away present screen, if scenario is on
+							// screen
 							TreePath tp = bhmf.getBHTree().getSelectionPath();
-							if(tp.getPathCount() == 3){
-								bhmf.setContentForm(((BHTreeNode)tp.getPathComponent(2)).getController().getViewPanel());
-								
+							if (tp.getPathCount() == 3) {
+								bhmf.setContentForm(((BHTreeNode) tp
+										.getPathComponent(2)).getController()
+										.getViewPanel());
+
 							}
 						}
 					}
-				}	
-				
-			
+				}
+
 			}
 		}
 	}
@@ -424,19 +428,17 @@ public class PlatformController {
 			}
 		}
 	}
-	
-	
+
 	public BHMainFrame getMainFrame() {
 		return this.bhmf;
 	}
-	
-	
-	private IValue[][] prepareScenarioTableData(DTOScenario scenarioDto){
+
+	private IValue[][] prepareScenarioTableData(DTOScenario scenarioDto) {
 		@SuppressWarnings("unchecked")
 		List<DTOPeriod> periods = (List<DTOPeriod>) scenarioDto.getChildren();
-		
+
 		IValue[][] periodData = new IValue[periods.size()][3];
-		
+
 		// transform data
 		for (int i = 0; i < periods.size(); i++) {
 			DTOPeriod period = periods.get(i);
@@ -444,27 +446,26 @@ public class PlatformController {
 			try {
 				periodData[i][0] = period.get(DTOPeriod.Key.NAME);
 			} catch (DTOAccessException dtoae) {
-				log.error("Cannot get name for period table",dtoae);
+				log.error("Cannot get name for period table", dtoae);
 			}
-			
+
 			if (!period.isValid(true))
 				continue;
 
 			try {
-				periodData[i][1] = period
-						.getLiabilities();
+				periodData[i][1] = period.getLiabilities();
 			} catch (DTOAccessException dtoae) {
-				log.error("Cannot get liabilities for period table",dtoae);
+				log.error("Cannot get liabilities for period table", dtoae);
 			}
 			try {
 				periodData[i][2] = period.getFCF();
 			} catch (DTOAccessException dtoae) {
 				if (i > 0) {
-					log.error("Cannot get FCF for period table",dtoae);
+					log.error("Cannot get FCF for period table", dtoae);
 				}
 			}
 		}
-		
+
 		return periodData;
 	}
 }

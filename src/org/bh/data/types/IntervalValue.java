@@ -414,7 +414,8 @@ public class IntervalValue extends Calculable {
 
 	@Override
 	public Number parse() {
-		// TODO Auto-generated method stub
-		throw new UnsupportedOperationException("This method has not been implemented");
+		// FIXME this should not be called for intervals, but we don't want the
+		// app to crash
+		return min + (max - min) / 2;
 	}
 }

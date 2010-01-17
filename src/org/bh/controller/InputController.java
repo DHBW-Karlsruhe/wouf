@@ -7,9 +7,14 @@ package org.bh.controller;
 
 import org.bh.data.DTOAccessException;
 import org.bh.data.IDTO;
+import org.bh.data.types.DoubleValue;
+import org.bh.data.types.IValue;
+import org.bh.data.types.IntegerValue;
+import org.bh.data.types.IntervalValue;
 import org.bh.gui.BHValidityEngine;
 import org.bh.gui.View;
 import org.bh.gui.ViewEvent;
+import org.bh.gui.swing.IBHComponent;
 import org.bh.gui.swing.IBHModelComponent;
 
 import com.jgoodies.validation.ValidationResult;
@@ -81,9 +86,9 @@ public class InputController extends Controller implements IInputController {
 			model.setValid(!validationResult.hasErrors());
 			break;
 		case VALIDATION_FAILED:
-			//the validation of the component went wrong, so remvove value for DTO
-			//(necessary e.g. in case of saving DTO to file; otherwise, deleted values
-			//would be saved)
+			// the validation of the component went wrong, so remvove value for
+			// DTO (necessary e.g. in case of saving DTO to file; otherwise,
+			// deleted values would be saved)
 			removeFromModel((IBHModelComponent) e.getSource());
 			model.setValid(false);
 			break;
@@ -106,125 +111,119 @@ public class InputController extends Controller implements IInputController {
 	/*
 	 * Static methods for data transfer between model and view
 	 */
-	public static void saveAllToModel(View view, IDTO<?> model)
-			throws DTOAccessException {
-		log.debug("Saving values from view to model");
-		// model.setSandBoxMode(true);
+	public void saveAllToModel() throws DTOAccessException {
 		for (IBHModelComponent comp : view.getBHModelComponents().values()) {
-			model.put(comp.getKey(), comp.getValue());
+			saveToModel(comp);
 		}
 	}
 
-	public static void saveToModel(IBHModelComponent comp, IDTO<?> model)
-			throws DTOAccessException {
-		log.debug("Saving value from component to model");
+	public void saveToModel(IBHModelComponent comp) throws DTOAccessException {
 		// model.setSandBoxMode(true);
-		model.put(comp.getKey(), comp.getValue());
-	}
+		String key = comp.getKey();
+		if (key.startsWith(IBHComponent.MINVALUE)
+				|| key.startsWith(IBHComponent.MAXVALUE)) {
+			// interval
+			String baseKey = key.toString().replaceFirst("^.*_", "");
+			IBHModelComponent minComp = view.getBHModelComponents().get(
+					IBHComponent.MINVALUE + baseKey);
+			IBHModelComponent maxComp = view.getBHModelComponents().get(
+					IBHComponent.MAXVALUE + baseKey);
 
-	public static void saveToModel(View view, IDTO<?> model, Object key)
-			throws DTOAccessException {
-		log.debug("Saving value from view to model");
-		// model.setSandBoxMode(true);
-		IBHModelComponent comp = view.getBHModelComponents()
-				.get(key.toString());
-		if (comp != null) {
-			model.put(key.toString(), comp.getValue());
+			if (getValidator().validate(minComp).hasErrors()
+					|| getValidator().validate(maxComp).hasErrors())
+				return;
+
+			IValue minValue = minComp.getValue();
+			double min = 0;
+			if (minValue instanceof IntegerValue)
+				min = ((IntegerValue) minValue).getValue();
+			else if (minValue instanceof DoubleValue)
+				min = ((DoubleValue) minValue).getValue();
+
+			IValue maxValue = maxComp.getValue();
+			double max = 0;
+			if (maxValue instanceof IntegerValue)
+				max = ((IntegerValue) maxValue).getValue();
+			else if (minValue instanceof DoubleValue)
+				max = ((DoubleValue) maxValue).getValue();
+
+			model.put(baseKey, new IntervalValue(min, max));
+		} else {
+			// "normal" value
+			model.put(key, comp.getValue());
 		}
 	}
-	
+
 	/**
-	 * Method to remove value from DTO
-	 * e.g. necessary when validation went wrong
+	 * Method to remove value from DTO e.g. necessary when validation went wrong
 	 * 
 	 * @param comp
 	 * @param model
 	 * @throws DTOAccessException
 	 */
-	public static void removeFromModel(IBHModelComponent comp, IDTO<?> model)
-	throws DTOAccessException {
-		log.debug("Removing value from model");
+	public void removeFromModel(IBHModelComponent comp)
+			throws DTOAccessException {
 		model.remove(comp.getKey());
 	}
-	
-	public static void loadAllToView(IDTO<?> model, View view) {
-		log.debug("Loading values from model to view");
-		for (IBHModelComponent comp : view.getBHModelComponents().values()) {
-			try {
-				comp.setValue(model.get(comp.getKey()));
-			} catch (DTOAccessException e) {
-				comp.setValue(null);
-			}
+
+	public void loadAllToView() {
+		for (String key : model.getKeys()) {
+			loadToView(key, false);
 		}
 		ValidationResult validationResult = view.revalidate();
 		model.setValid(!validationResult.hasErrors());
 	}
 
-	public static void loadToView(IDTO<?> model, IBHModelComponent comp,
-			View view) throws DTOAccessException {
-		log.debug("Loading value from model to component");
-		try {
-			comp.setValue(model.get(comp.getKey()));
-		} catch (DTOAccessException e) {
-			comp.setValue(null);
-		}
-		if (view != null) {
-			ValidationResult validationResult = view.revalidate();
-			model.setValid(!validationResult.hasErrors());
-		} else {
-			// TODO check if there is any way to revalidate this component
-		}
+	public void loadToView(Object key1) throws DTOAccessException {
+		loadToView(key1, true);
 	}
 
-	public static void loadToView(IDTO<?> model, IBHModelComponent comp) {
-		loadToView(model, comp, null);
-	}
-
-	public static void loadToView(IDTO<?> model, View view, Object key)
+	public void loadToView(Object key1, boolean revalidate)
 			throws DTOAccessException {
-		log.debug("Loading value from model to component");
-		IBHModelComponent comp = view.getBHModelComponents()
-				.get(key.toString());
+		String key = key1.toString();
+		IValue value = null;
+		try {
+			value = model.get(key);
+		} catch (DTOAccessException e) {
+		}
+		DoubleValue min = null, max = null;
+		if (value instanceof IntervalValue) {
+			min = new DoubleValue(((IntervalValue) value).getMin());
+			max = new DoubleValue(((IntervalValue) value).getMax());
+		}
+		IBHModelComponent comp = view.getBHModelComponents().get(key);
 		if (comp != null) {
-			try {
-				comp.setValue(model.get(key.toString()));
-			} catch (DTOAccessException e) {
-				comp.setValue(null);
+			// "normal" values
+			if (min == null)
+				comp.setValue(value);
+			else
+				comp.setValue(min);
+		} else {
+			// interval
+			IBHModelComponent minComp = view.getBHModelComponents().get(
+					IBHComponent.MINVALUE + key.toString());
+
+			if (minComp != null) {
+				if (min == null)
+					minComp.setValue(value);
+				else
+					minComp.setValue(min);
 			}
+
+			IBHModelComponent maxComp = view.getBHModelComponents().get(
+					IBHComponent.MAXVALUE + key.toString());
+
+			if (maxComp != null) {
+				if (max == null)
+					maxComp.setValue(value);
+				else
+					maxComp.setValue(max);
+			}
+		}
+
+		if (revalidate) {
 			ValidationResult validationResult = view.revalidate();
 			model.setValid(!validationResult.hasErrors());
 		}
 	}
-
-	/*
-	 * Wrappers for the static data transfer classes
-	 */
-	public void saveAllToModel() throws DTOAccessException {
-		saveAllToModel(this.view, this.model);
-	}
-
-	public void saveToModel(IBHModelComponent comp) throws DTOAccessException {
-		saveToModel(comp, this.model);
-	}
-
-	public void saveToModel(Object key) throws DTOAccessException {
-		saveToModel(this.view, this.model, key);
-	}
-	
-	public void removeFromModel(IBHModelComponent comp) throws DTOAccessException {
-		removeFromModel(comp, this.model);
-	}
-	
-	public void loadAllToView() throws DTOAccessException {
-		loadAllToView(this.model, this.view);
-	}
-
-	public void loadToView(IBHModelComponent comp) throws DTOAccessException {
-		loadToView(this.model, comp, this.view);
-	}
-
-	public void loadToView(Object key) {
-		loadToView(this.model, this.view, key);
-	}
-
 }
