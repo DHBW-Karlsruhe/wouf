@@ -5,6 +5,7 @@ import java.awt.Transparency;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.net.MalformedURLException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Iterator;
@@ -68,14 +69,7 @@ public class ITextDocumentBuilder implements PdfPageEvent {
 	PdfWriter pdfWriter;
 
 	public enum Keys {
-		TITLE,
-		CHARTS,
-		RESULTS,
-		CREATEDAT,
-		DATEFORMAT,
-		SCENARIODATA,
-		RESULT_MAP,
-		DISTRIBUTION_MAP, PERIODDATA;
+		TITLE, CHARTS, RESULTS, CREATEDAT, DATEFORMAT, SCENARIODATA, RESULT_MAP, DISTRIBUTION_MAP, PERIODDATA;
 
 		@Override
 		public String toString() {
@@ -85,20 +79,21 @@ public class ITextDocumentBuilder implements PdfPageEvent {
 
 	void newDocument(String path, DTOScenario scenario) {
 		try {
-			
+
 			s = new SimpleDateFormat(trans.translate(Keys.DATEFORMAT));
 			doc = new Document(PageSize.A4, 50, 50, 50, 50);
 
 			pdfWriter = PdfWriter.getInstance(doc, new FileOutputStream(path));
 			pdfWriter.setPageEvent(this);
-			
-			doc.addAuthor(trans.translate("title") + trans.translate("version") + trans.translate("version_long"));
+
+			doc.addAuthor(trans.translate("title") + trans.translate("version")
+					+ trans.translate("version_long"));
 			doc.addSubject(trans.translate(Keys.TITLE));
 			doc.addCreationDate();
-			doc.addTitle(trans.translate(Keys.TITLE) + " - " 
+			doc.addTitle(trans.translate(Keys.TITLE) + " - "
 					+ scenario.get(DTOScenario.Key.IDENTIFIER));
 			doc.open();
-			
+
 		} catch (FileNotFoundException e) {
 			log.error(e);
 		} catch (DocumentException e) {
@@ -125,7 +120,8 @@ public class ITextDocumentBuilder implements PdfPageEvent {
 		results = buildResultHead();
 
 		if (resultMap != null && resultMap.size() > 0) {
-			title = new Paragraph(trans.translate(Keys.RESULT_MAP), SECTION2_FONT);
+			title = new Paragraph(trans.translate(Keys.RESULT_MAP),
+					SECTION2_FONT);
 			resultMapSection = results.addSection(title, 2);
 			resultMapSection.add(new Paragraph("\n"));
 			t = new PdfPTable(2);
@@ -189,7 +185,8 @@ public class ITextDocumentBuilder implements PdfPageEvent {
 
 		results = buildResultHead();
 
-		title = new Paragraph(trans.translate(Keys.DISTRIBUTION_MAP), SECTION2_FONT);
+		title = new Paragraph(trans.translate(Keys.DISTRIBUTION_MAP),
+				SECTION2_FONT);
 		distMapSection = results.addSection(title, 2);
 
 		t = new PdfPTable(2);
@@ -215,27 +212,45 @@ public class ITextDocumentBuilder implements PdfPageEvent {
 		Section data;
 		PdfPTable t;
 
-		Paragraph title = new Paragraph(trans.translate(Keys.TITLE) + " - " 
-				+ scenario.get(DTOScenario.Key.IDENTIFIER), TITLE_FONT);
-		report = new Chapter(title, 1);
-		report
-				.add(new Paragraph(trans.translate(Keys.CREATEDAT) + ": " + s.format(new Date())
-						+ "\n\n"));
-		report.setNumberDepth(0);
+		try {
+			Image img = Image.getInstance(getClass().getResource(
+					"/org/bh/images/background.jpg"));
+			img.scalePercent(70f);
+			img.setAlignment(Image.MIDDLE);
+			doc.add(img);
+			
+			Paragraph title = new Paragraph(trans.translate(Keys.TITLE) + " - "
+					+ scenario.get(DTOScenario.Key.NAME), TITLE_FONT);
+			doc.add(new Paragraph("\n\n"));
+			doc.add(title);
+			doc.add(new Paragraph(trans.translate(Keys.CREATEDAT) + ": "
+					+ s.format(new Date()) + "\n\n"));
+			
+			report = new Chapter(title, 1);
+			report.setNumberDepth(0);
+			title = new Paragraph(trans.translate(Keys.SCENARIODATA),
+					SECTION1_FONT);
+			data = report.addSection(title, 1);
 
-		title = new Paragraph(trans.translate(Keys.SCENARIODATA), SECTION1_FONT);
-		data = report.addSection(title, 1);
-
-		data.add(new Paragraph("\n"));
-		t = new PdfPTable(2);
-		for (Iterator<Entry<String, IValue>> i = scenario.iterator(); i
-				.hasNext();) {
-			Map.Entry<String, IValue> val = i.next();
-			t.addCell(trans.translate(val.getKey()));
-			t.addCell(val.getValue().toString());
+			data.add(new Paragraph("\n"));
+			t = new PdfPTable(2);
+			for (Iterator<Entry<String, IValue>> i = scenario.iterator(); i
+					.hasNext();) {
+				Map.Entry<String, IValue> val = i.next();
+				t.addCell(trans.translate(val.getKey()));
+				t.addCell(val.getValue().toString());
+			}
+			data.add(t);
+			data.add(new Paragraph("\n\n"));
+		} catch (BadElementException e) {
+			log.error(e);
+		} catch (MalformedURLException e) {
+			log.error(e);
+		} catch (IOException e) {
+			log.error(e);
+		} catch (DocumentException e) {
+			log.debug(e);
 		}
-		data.add(t);
-		data.add(new Paragraph("\n\n"));
 	}
 
 	@SuppressWarnings("unchecked")

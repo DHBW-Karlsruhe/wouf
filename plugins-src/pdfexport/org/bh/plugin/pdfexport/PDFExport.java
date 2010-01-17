@@ -22,6 +22,7 @@ import org.bh.gui.swing.IBHComponent;
 import org.bh.platform.IImportExport;
 import org.bh.platform.i18n.BHTranslator;
 import org.bh.platform.i18n.ITranslator;
+import org.bh.plugin.excelexport.ExcelExport;
 import org.jfree.chart.JFreeChart;
 
 /**
@@ -33,7 +34,8 @@ import org.jfree.chart.JFreeChart;
  */
 public class PDFExport implements IImportExport {
 
-	static Logger log = Logger.getLogger(PDFExport.class);
+	static Logger log = Logger.getLogger(ExcelExport.class);
+	static ITranslator trans = BHTranslator.getInstance();
 
 	private static final String UNIQUE_ID = "pdf";
 	private static final String GUI_KEY = "PDF";
@@ -52,8 +54,7 @@ public class PDFExport implements IImportExport {
 			return getClass().getName() + "." + super.toString();
 		}
 	}
-
-	ITranslator trans = BHTranslator.getInstance();
+	
 	ITextDocumentBuilder db = new ITextDocumentBuilder();
 
 	@Override
