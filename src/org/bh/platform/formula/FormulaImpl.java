@@ -177,18 +177,48 @@ public class FormulaImpl implements IFormula {
 	 * @return the dormula document without <ci> tags
 	 */
 	private Document replaceCIwithCN(final Map<String, Calculable> inputValues) {
-		determineLeftHandSideValueToInpValues(inputValues);
+		// Diabled because of changed requirements
+		//determineLeftHandSideValueToInpValues(inputValues);
+		String key;
 		Document formulaDoc2 = (Document) formulaDoc.cloneNode(true);
 		NodeList variables = formulaDoc2.getElementsByTagName("ci");
 		while (variables.getLength() > 0) {
 			Node node = variables.item(0);
 			Node newNode = formulaDoc2.createElementNS(node.getNamespaceURI(),
 					"cn");
-			newNode.setTextContent(inputValues.get(node.getTextContent())
+			key = getKey(node);
+			if(LOG.isDebugEnabled()) {
+				LOG.debug(key + " will be replaced with a value");
+			}
+			newNode.setTextContent(inputValues.get(key)
 					.toString());
+			
 			node.getParentNode().replaceChild(newNode, node);
 		}
 		return formulaDoc2;
+	}
+
+	private String getKey(Node node) {
+		String key = null;
+		
+		key = node.getTextContent();
+		key = key.replaceAll("\\s", "");
+		
+		return key;
+//		if(key != null) { // simple ci node
+//			return key;
+//		}
+//		 // nested ci element ci followed by msub,msup and mi tags
+//			Node sub = node.getChildNodes().item(2); // msub or msup node
+//			Node subSub;
+//			NodeList subSubNodes = sub.getChildNodes();
+//			for(int i = 0; i < subSubNodes.getLength(); i++) {
+//				subSub = subSubNodes.item(i);
+//				if(subSub.getNodeName().equals("mi")) {
+//					key = key + subSub.getTextContent();
+//				}
+//			}
+//		return key;
 	}
 
 	/**
