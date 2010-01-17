@@ -22,7 +22,6 @@ import org.bh.gui.swing.IBHComponent;
 import org.bh.platform.IImportExport;
 import org.bh.platform.i18n.BHTranslator;
 import org.bh.platform.i18n.ITranslator;
-import org.bh.plugin.excelexport.ExcelExport;
 import org.jfree.chart.JFreeChart;
 
 /**
