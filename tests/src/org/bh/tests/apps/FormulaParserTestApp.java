@@ -79,7 +79,7 @@ public class FormulaParserTestApp extends JFrame {
 	    public void actionPerformed(ActionEvent e) {
 		try {
 		    IFormula test = IFormulaFactory.instance.createFormula(
-			    "test", txt.getText());
+			    "test", txt.getText(),false);
 
 		    Map<String, org.bh.data.types.Calculable> values = new HashMap<String, Calculable>();
 		    String[] inputText = input.getText().split("\n");
@@ -91,14 +91,15 @@ public class FormulaParserTestApp extends JFrame {
 			values.put(ssplit[0], org.bh.data.types.Calculable
 				.parseCalculable((ssplit[1])));
 		    }
-		    test.setFormulaToJMathComponent(mathComponent);
+		 //   test.setFormulaToJMathComponent(mathComponent);
 		    test.setInputValuesToJMathComponent(values, mathCompForValues);
 		  
-		    long start = System.nanoTime();
-		    Calculable erg = test.determineLeftHandSideValue(values);
-		    long end = System.nanoTime();
+		    //Calaculation
+//		    long start = System.nanoTime();
+//		    Calculable erg = test.determineLeftHandSideValue(values);
+//		    long end = System.nanoTime();
 		 
-		    result.setText("Ergebnis: " + erg + " ; Berechnungsdauer: " + (end - start) / (double) 1000000 + "ms");
+//		    result.setText("Ergebnis: " + erg + " ; Berechnungsdauer: " + (end - start) / (double) 1000000 + "ms");
 		} catch (Exception e1) {
 		    e1.printStackTrace();
 		}

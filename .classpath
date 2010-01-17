@@ -11,6 +11,7 @@
 	<classpathentry excluding="**/.svn/" kind="src" output="plugins/wienerProcess" path="plugins-src/wienerProcess"/>
 	<classpathentry excluding="**/.svn/" kind="src" output="plugins/directinput" path="plugins-src/directinput"/>
 	<classpathentry excluding="**/.svn/" kind="src" output="plugins/pdfexport" path="plugins-src/pdfexport"/>
+	<classpathentry excluding="**/.svn/" kind="src" output="plugins/excelexport" path="plugins-src/excelexport"/>
 	<classpathentry excluding="**/.svn/" kind="src" output="plugins/stochasticResultAnalysis" path="plugins-src/stochasticResultAnalysis"/>
 	<classpathentry kind="src" output="plugins/xmldataexchange" path="plugins-src/xmldataexchange"/>
 	<classpathentry excluding="src/" kind="src" path="lib"/>
@@ -42,5 +43,10 @@
 	<classpathentry kind="lib" path="lib/plugins/pdfexport/iText.jar"/>
 	<classpathentry kind="lib" path="lib/plugins/pdfexport/pdfbox-0.8.0-incubating.jar"/>
 	<classpathentry kind="lib" path="lib/plugins/pdfexport/fontbox-0.8.0-incubating.jar"/>
+	<classpathentry kind="lib" path="lib/plugins/excelexport/poi-ooxml-3.6-20091214.jar"/>
+	<classpathentry kind="lib" path="lib/plugins/excelexport/poi-3.6-20091214.jar"/>
+	<classpathentry kind="lib" path="lib/plugins/excelexport/xmlbeans-2.3.0.jar"/>
+	<classpathentry kind="lib" path="lib/plugins/excelexport/poi-ooxml-schemas-3.6-20091214.jar"/>
+	<classpathentry kind="lib" path="lib/plugins/excelexport/dom4j-1.6.1.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>
