@@ -47,7 +47,7 @@ public class BHAboutBox {
 	int x = (frame.getWidth()- 480)/2;
 	int y = (frame.getHeight()- 600)/2;
 	PopupFactory factory = PopupFactory.getSharedInstance();
-	      popup = factory.getPopup(frame, about, x, 50);
+	      popup = factory.getPopup(frame, about, x, y);
 	      popup.show();
     }
     
