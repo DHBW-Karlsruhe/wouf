@@ -26,7 +26,7 @@ import org.bh.platform.i18n.ITranslator;
 public class BHResultController extends OutputController {
 
     protected static Logger log = Logger.getLogger(BHResultController.class);
-    private ITranslator translator;
+    private static final ITranslator translator = Services.getTranslator();
 
     public static enum ChartKeys {
 
@@ -48,7 +48,6 @@ public class BHResultController extends OutputController {
 
     public BHResultController(View view, Map<String, Calculable[]> result, DTOScenario scenario) {
         super(view, result, scenario);
-        this.translator = Services.getTranslator();
     }
 
     @Override
