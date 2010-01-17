@@ -18,6 +18,7 @@ import org.bh.data.DTOProject;
 import org.bh.data.DTOScenario;
 import org.bh.data.IDTO;
 import org.bh.data.types.StringValue;
+import org.bh.gui.swing.BHAboutBox;
 import org.bh.gui.swing.BHComboBox;
 import org.bh.gui.swing.BHContent;
 import org.bh.gui.swing.BHDataExchangeDialog;
@@ -309,7 +310,7 @@ class PlatformActionListener implements ActionListener {
 			break;
 
 		case HELPINFO:
-			// TODO Prüfen und ggf. implementieren!
+			new BHAboutBox(bhmf);
 			break;
 		
 		case HELPDEBUG:
