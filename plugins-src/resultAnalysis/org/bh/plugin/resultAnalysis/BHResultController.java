@@ -222,26 +222,40 @@ public class BHResultController extends OutputController {
     public static Map<String, Calculable> getFormulaMap(DTOScenario scenario, Map<String, Calculable[]> result) {
         log.debug("generate map for formular parser");
         HashMap<String, Calculable> formulaMap = new HashMap<String, Calculable>();
+        	int T = scenario.getChildrenSize() - 1;
+        
             //APV
-            formulaMap.put("FCFT", result.get("org.bh.calculation.IShareholderValueCalculator$ Result.FREE_CASH_FLOW")[1]);
-            formulaMap.put("ruEK", result.get("org.bh.plugin.apv.APVCalculator$Result. PRESENT_VALUE_FCF")[1]);
-            formulaMap.put("srFK", result.get("org.bh.plugin.apv.APVCalculator$Result. PRESENT_VALUE_TAX_SHIELD")[1]);
-            formulaMap.put("FKT", result.get("org.bh.calculation.IShareholderValueCalculator$ Result.EQUITY_RETURN_RATE")[0]);
-            formulaMap.put("rFK", result.get("org.bh.calculation.IShareholderValueCalculator$ Result.TAXES")[0]);//[0]
-            formulaMap.put("FKT2", result.get("org.bh.calculation.IShareholderValueCalculator$ Result.DEBT")[0]);//[t]
+        	putFormulaValue(formulaMap, "FCFT", result, "org.bh.calculation.IShareholderValueCalculator$Result.FREE_CASH_FLOW", 1);
+            putFormulaValue(formulaMap, "ruEK", result, "org.bh.plugin.apv.APVCalculator$Result.PRESENT_VALUE_FCF", 1);
+            putFormulaValue(formulaMap, "srFK", result, "org.bh.plugin.apv.APVCalculator$Result.PRESENT_VALUE_TAX_SHIELD", 1);
+            putFormulaValue(formulaMap, "FKT", result, "org.bh.calculation.IShareholderValueCalculator$Result.EQUITY_RETURN_RATE", 0);
+            putFormulaValue(formulaMap, "rFK", result, "org.bh.calculation.IShareholderValueCalculator$Result.TAXES", 0);//[0]
+            putFormulaValue(formulaMap, "FKT2", result, "org.bh.calculation.IShareholderValueCalculator$Result.DEBT", 0);//[t]
+            putFormulaValue(formulaMap, "UWAPV,T", result, "org.bh.calculation.IShareholderValueCalculator$Result.SHAREHOLDER_VALUE", T);//[T]
             //FCF
-            formulaMap.put("GKt", result.get("org.bh.plugin.fcf.FCFCalculator$Result.TOTAL_CAPITAL")[1]);
-            formulaMap.put("FCFT", result.get("org.bh.calculation.IShareholderValueCalculator$ Result.FREE_CASH_FLOW")[1]);//[t+1]
-            formulaMap.put("FKT", result.get("org.bh.calculation.IShareholderValueCalculator$ Result.DEBT")[1]);//[t]
-            formulaMap.put("s", result.get("org.bh.calculation.IShareholderValueCalculator$ Result.TAXES")[0]);//[0]
-            formulaMap.put("rFK", result.get("org.bh.calculation.IShareholderValueCalculator$ Result.DEBT_RETURN_RATE")[0]);//[0]
-            formulaMap.put("rvEK", result.get("org.bh.plugin.fcf.FCFCalculator$Result.EQUITY_RETURN_RATE_FCF")[0]);//[0]
+            putFormulaValue(formulaMap, "GKt", result, "org.bh.plugin.fcf.FCFCalculator$Result.TOTAL_CAPITAL", 1);
+            putFormulaValue(formulaMap, "FCFT", result, "org.bh.calculation.IShareholderValueCalculator$Result.FREE_CASH_FLOW", 1);//[t+1]
+            putFormulaValue(formulaMap, "FKT", result, "org.bh.calculation.IShareholderValueCalculator$Result.DEBT", 1);//[t]
+            putFormulaValue(formulaMap, "s", result, "org.bh.calculation.IShareholderValueCalculator$Result.TAXES", 0);//[0]
+            putFormulaValue(formulaMap, "rFK", result, "org.bh.calculation.IShareholderValueCalculator$Result.DEBT_RETURN_RATE", 0);//[0]
+            putFormulaValue(formulaMap, "rvEK", result, "org.bh.plugin.fcf.FCFCalculator$Result.EQUITY_RETURN_RATE_FCF", 0);//[0]
+            putFormulaValue(formulaMap, "UWFCF,T", result, "org.bh.calculation.IShareholderValueCalculator$Result.SHAREHOLDER_VALUE", T);//[T]
             //FTE
-            formulaMap.put("FTEt", result.get("org.bh.plugin.fte.FTECalculator$Result. FLOW_TO_EQUITY")[1]);//[t+1]
-            formulaMap.put("UWt", result.get("org.bh.calculation.IShareholderValueCalculator$ Result. SHAREHOLDER_VALUE")[0]);
-            formulaMap.put("rvEK", result.get("org.bh.plugin.fte.FTECalculator$Result. EQUITY_RETURN_RATE_FTE")[0]);//[0]
+            putFormulaValue(formulaMap, "FTEt", result, "org.bh.plugin.fte.FTECalculator$Result.FLOW_TO_EQUITY", 1);//[t+1]
+            putFormulaValue(formulaMap, "UWt", result, "org.bh.calculation.IShareholderValueCalculator$Result.SHAREHOLDER_VALUE", 0);
+            putFormulaValue(formulaMap, "rvEK", result, "org.bh.plugin.fte.FTECalculator$Result.EQUITY_RETURN_RATE_FTE", 0);//[0]
+            putFormulaValue(formulaMap, "UWFTE,T", result, "org.bh.calculation.IShareholderValueCalculator$Result.SHAREHOLDER_VALUE", T);//[T]
 
             return formulaMap;
+    }
+    
+    protected static void putFormulaValue(Map<String, Calculable> formulaMap,
+    		String formulaKey, Map<String, Calculable[]> resultMap, String resultKey, int resultIndex) {
+    	Calculable[] result = resultMap.get(resultKey);
+    	if (result == null || resultIndex >= result.length)
+    		return;
+    	
+    	formulaMap.put(formulaKey, result[resultIndex]);
     }
 		//TODO Marcos changes , sry forgot to commit first
 //    public Map<String, Calculable> getFormulaMap(DTOScenario scenario) {

@@ -182,6 +182,10 @@ public class FormulaImpl implements IFormula {
 		String key;
 		Document formulaDoc2 = (Document) formulaDoc.cloneNode(true);
 		NodeList variables = formulaDoc2.getElementsByTagName("ci");
+		if (LOG.isDebugEnabled()) {
+			LOG.debug("Input values: " + inputValues);
+		}
+			
 		while (variables.getLength() > 0) {
 			Node node = variables.item(0);
 			Node newNode = formulaDoc2.createElementNS(node.getNamespaceURI(),
@@ -190,8 +194,8 @@ public class FormulaImpl implements IFormula {
 			if(LOG.isDebugEnabled()) {
 				LOG.debug(key + " will be replaced with a value");
 			}
-			newNode.setTextContent(inputValues.get(key)
-					.toString());
+			Calculable inputValue = inputValues.get(key);
+			newNode.setTextContent((inputValue != null) ? inputValue.toString() : ("{" + key + "}"));
 			
 			node.getParentNode().replaceChild(newNode, node);
 		}
