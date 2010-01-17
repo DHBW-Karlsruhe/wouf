@@ -128,6 +128,7 @@ public class BHMainFrame extends JFrame implements IPlatformListener {
 		// toolBar.setBounds(0, 0, screenSize.width, standardBarHeight);
 
 		bhTree = new BHTree();
+		
 		bhTreeScroller = new JScrollPane(bhTree);
 	
 		// treeBar.setBounds(0, standardBarHeight, treeBarWidth,

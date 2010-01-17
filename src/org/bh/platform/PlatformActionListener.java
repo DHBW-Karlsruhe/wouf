@@ -388,7 +388,13 @@ class PlatformActionListener implements ActionListener {
 				}
 			}
 			break;
-
+			
+		case POPUPREMOVE:
+			//TODO Zuckschwerdt.Lars 
+			//DO ANYTHING...
+			
+			break;
+			
 		default:
 			// TODO implementieren?
 			break;

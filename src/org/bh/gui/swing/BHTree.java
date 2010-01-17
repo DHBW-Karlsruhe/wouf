@@ -30,6 +30,7 @@ import org.bh.data.DTOPeriod;
 import org.bh.data.DTOProject;
 import org.bh.data.DTOScenario;
 import org.bh.platform.IPlatformListener;
+import org.bh.platform.PlatformController;
 import org.bh.platform.PlatformEvent;
 import org.bh.platform.PlatformKey;
 import org.bh.platform.Services;
@@ -88,7 +89,16 @@ public class BHTree extends JTree {
 	protected DefaultTreeModel treeModel;
 
 	DefaultTreeModel model;
-
+	
+	/**
+	 * right-click popup for tree nodes with functions like 'remove' etc.
+	 */
+	private JPopupMenu popupMenu = new BHTreePopup();
+	
+	
+	/**
+	 * Constructor
+	 */
 	public BHTree() {
 		// set settings
 		this.setEditable(true);
@@ -100,12 +110,15 @@ public class BHTree extends JTree {
 		this.setCellRenderer(new BHTreeCellRenderer());
 
 		Services.addPlatformListener(new BHTreeValidationListener(this));
-
-		new DefaultTreeTransferHandler(this, DnDConstants.ACTION_COPY_OR_MOVE);
-
+		
+		//Drag and Drop
+		new BHTreeTransferHandler(this, DnDConstants.ACTION_COPY_OR_MOVE);
+		
+		
 		this.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseReleased(MouseEvent e) {
+				
 				showPopup(e);
 			}
 
@@ -171,15 +184,20 @@ public class BHTree extends JTree {
 		// after all, return null;
 		return null;
 	}
-
+	
+	/**
+	 * 
+	 * shows Popup for tree node if event was a popuptrigger;
+	 * otherwise, nothing happens
+	 * 
+	 * 
+	 * @param e
+	 */
 	void showPopup(MouseEvent e) {
 		if (e.isPopupTrigger()) {
-			JPopupMenu neu = new JPopupMenu();
-
-			neu.add(new BHMenuItem(PlatformKey.TOOLBARREMOVE));
-			neu.add(new BHMenuItem(PlatformKey.TOOLBARADDPER));
-
-			neu.show(e.getComponent(), e.getX(), e.getY());
+			
+			//TODO Zuckschwerdt.Lars tidy up this room :-)
+			popupMenu.show(e.getComponent(), e.getX(), e.getY());
 
 			// int selRow = BHTree.this.getRowForLocation(e.getX(), e.getY());
 			TreePath selPath = BHTree.this.getPathForLocation(e.getX(), e
@@ -187,7 +205,6 @@ public class BHTree extends JTree {
 			if (selPath != null)
 				BHTree.this.setSelectionPath(selPath);
 		}
-
 	}
 
 	/**

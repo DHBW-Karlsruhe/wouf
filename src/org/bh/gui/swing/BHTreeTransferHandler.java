@@ -6,9 +6,9 @@ import javax.swing.tree.DefaultMutableTreeNode;
 import javax.swing.tree.DefaultTreeModel;
 import javax.swing.tree.TreePath;
  
-public class DefaultTreeTransferHandler extends AbstractTreeTransferHandler {
+public class BHTreeTransferHandler extends AbstractTreeTransferHandler {
  
-	public DefaultTreeTransferHandler(BHTree tree, int action) {
+	public BHTreeTransferHandler(BHTree tree, int action) {
 		super(tree, action, true);
 	}
  

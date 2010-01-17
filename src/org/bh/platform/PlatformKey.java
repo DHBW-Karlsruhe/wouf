@@ -50,6 +50,13 @@ public enum PlatformKey{
 	TOOLBARADDPER("TaddPer","TOOLBARADDPER"),
 	TOOLBARREMOVE("Tremove","TOOLBARREMOVE"),
 	
+	/*--------------------------------
+	 * ActionKeys of Tree's Popup
+	 * -------------------------------
+	 */
+	POPUPREMOVE("Tremove","POPUPREMOVE"),
+	
+	
 	CALCSHAREHOLDERVALUE("BcalculateShareholderValue","CALCSHAREHOLDERVALUE"),
 	CALCDASHBOARD("BcalculateDashBoard", "CALCDASHBOARD");
 	

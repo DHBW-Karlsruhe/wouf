@@ -35,6 +35,7 @@ import org.bh.gui.swing.BHProjectForm;
 import org.bh.gui.swing.BHProjectView;
 import org.bh.gui.swing.BHScenarioForm;
 import org.bh.gui.swing.BHScenarioView;
+import org.bh.gui.swing.BHTree;
 import org.bh.gui.swing.BHTreeNode;
 import org.bh.gui.swing.IBHAction;
 import org.bh.platform.PlatformEvent.Type;
@@ -87,7 +88,12 @@ public class PlatformController {
 	 * @author Loeckelt.Michael
 	 */
 	public static PlatformPersistenceManager platformPersistenceManager;
-
+	
+	/**
+	 * PlatformactionListener
+	 */
+	public PlatformActionListener pal;
+	
 	/**
 	 * Logging
 	 */
@@ -124,7 +130,7 @@ public class PlatformController {
 		 * Add EventHandler to Platform-Items
 		 * -----------------------------------
 		 */
-		PlatformActionListener pal = new PlatformActionListener(bhmf,
+		pal = new PlatformActionListener(bhmf,
 				projectRepoManager, this);
 
 		// Add ActionListener to Toolbar-buttons
@@ -191,7 +197,7 @@ public class PlatformController {
 			// in the end, add all to rootNode
 			rootNode.add(projectNode);
 		}
-
+	
 		bhmf.getBHTree().setTreeModel(new BHTreeModel(rootNode));
 		bhmf.getBHTree()
 				.addTreeSelectionListener(new BHTreeSelectionListener());
@@ -199,7 +205,9 @@ public class PlatformController {
 		Services.addPlatformListener(new DataChangedListener());
 
 	}
-
+	
+	
+	
 	public void addProject(DTOProject newProject) {
 		projectRepoManager.addProject(newProject);
 
