@@ -2,7 +2,6 @@ package org.bh.gui.swing;
 
 import javax.swing.JPopupMenu;
 
-import org.bh.platform.PlatformController;
 import org.bh.platform.PlatformKey;
 
 
@@ -23,8 +22,11 @@ public class BHTreePopup extends JPopupMenu{
 	
 	public BHTreePopup(){
 		
+		this.add(new BHMenuItem(PlatformKey.POPUPADD));
+		this.add(new BHMenuItem(PlatformKey.POPUPDUPLICATE));
+		this.addSeparator();
 		this.add(new BHMenuItem(PlatformKey.POPUPREMOVE));
-
+		
 	}
 	
 

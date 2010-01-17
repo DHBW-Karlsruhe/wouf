@@ -347,11 +347,14 @@ class PlatformActionListener implements ActionListener {
 			break;
 			
 		case POPUPREMOVE:
-			//TODO Zuckschwerdt.Lars 
-			//DO ANYTHING...
-			
+			this.toolbarRemove();
 			break;
-			
+		case POPUPADD:
+			this.popupAdd();
+			break;
+		case POPUPDUPLICATE:
+			this.popupDuplicate();
+			break;
 		default:
 			// TODO implementieren?
 			break;
@@ -428,7 +431,38 @@ class PlatformActionListener implements ActionListener {
 			bhmf.getBHTree().expandAll();
 		}
 	}
-	
+	protected void popupDuplicate(){
+		TreePath currentSelection = bhmf.getBHTree().getSelectionPath();
+		//is a node selected?
+		if(currentSelection != null){
+			BHTreeNode currentNode = (BHTreeNode) bhmf.getBHTree()
+					.getSelectionPath().getLastPathComponent();
+			//add a new node to data model...
+			if(currentNode.getUserObject() instanceof DTOProject){
+				this.duplicateProject();
+			}else if(currentNode.getUserObject() instanceof DTOScenario){
+				this.duplicateScenario();
+			}else if(currentNode.getUserObject() instanceof DTOPeriod){
+				this.duplicatePeriod();
+			}
+		}
+	}
+	protected void popupAdd(){
+		TreePath currentSelection = bhmf.getBHTree().getSelectionPath();
+		//is a node selected?
+		if(currentSelection != null){
+			BHTreeNode currentNode = (BHTreeNode) bhmf.getBHTree()
+					.getSelectionPath().getLastPathComponent();
+			//add a new node to data model...
+			if(currentNode.getUserObject() instanceof DTOProject){
+				this.createScenario();
+			}else if(currentNode.getUserObject() instanceof DTOScenario){
+				this.createPeriod();
+			}
+		}else {
+			this.createProject();
+		}
+	}
 	protected void toolbarRemove() {
 		TreePath currentSelection = bhmf.getBHTree().getSelectionPath();
 		// is a node selected?
