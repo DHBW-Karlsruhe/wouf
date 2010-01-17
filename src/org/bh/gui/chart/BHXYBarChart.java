@@ -29,7 +29,7 @@ public class BHXYBarChart extends BHChart implements IBHAddValue,
 				false, 
 				translator.translate(key.concat(BHChart.DIMY)), 
 				dataset, 
-				PlotOrientation.VERTICAL, true, true, false);
+				PlotOrientation.VERTICAL, false, true, false);
 
 		if ("Nimbus".equals(UIManager.getLookAndFeel().getName())) {
 			chart.setBackgroundPaint(UIManager.getColor("Chart.background"));

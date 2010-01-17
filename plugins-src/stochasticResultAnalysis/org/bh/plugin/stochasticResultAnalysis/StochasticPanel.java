@@ -30,7 +30,7 @@ public class StochasticPanel extends JPanel{
 	        distributionChart = BHChartFactory.getXYBarChart(BHStochasticResultController.ChartKeys.DISTRIBUTION_CHART);
 	        
 
-	        this.add(distributionChart, "3,9");        
+	        this.add(distributionChart, "5,9");        
 	        
 	    }
 	}
