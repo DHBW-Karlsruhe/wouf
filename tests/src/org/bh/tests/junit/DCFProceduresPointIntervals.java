@@ -156,17 +156,6 @@ public class DCFProceduresPointIntervals {
 		period.addChild(dinp);
 
 		scenarioInterval.addChild(period);
-
-		period = new DTOPeriod();
-		period.put(DTOPeriod.Key.NAME, new StringValue("2010"));
-
-		dinp = new DTODirectInput();
-		dinp.put(DTODirectInput.Key.FCF, new IntervalValue(fcf[3], fcf[3]));
-		dinp.put(DTODirectInput.Key.LIABILITIES, new IntervalValue(liabilities[3], liabilities[3]));
-
-		period.addChild(dinp);
-
-		scenarioInterval.addChild(period);
 	}
 
 	@Test

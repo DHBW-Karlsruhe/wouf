@@ -212,16 +212,11 @@ public class FCFCalculator implements IShareholderValueCalculator {
 		result.put(Result.WACC.toString(), wacc);
 
 		Calculable[] gk = new Calculable[wacc.length];
-		// FIXME Sebi check calculation of GK / WACC
-		/*
 		gk[gk.length - 1] = fcf[gk.length - 1].div(wacc[gk.length - 1]);
 		for (int z = gk.length - 2; z >= 0; z--) {
 			gk[z] = (gk[z + 1].add(fcf[z + 1])).div(new DoubleValue(1)
 					.add(wacc[z + 1]));
 		}
-		*/
-		for (int z = 0; z < gk.length; z++)
-			gk[z] = uw[z].add(fk[z]);
 		result.put(Result.TOTAL_CAPITAL.toString(), gk);
 
 		if (verboseLogging)

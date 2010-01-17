@@ -88,18 +88,6 @@ public class DCFProceduresIntegerValues {
 		period.addChild(dinp);		
 		
 		scenario.addChild(period);
-	
-		
-		period = new DTOPeriod();
-		period.put(DTOPeriod.Key.NAME, new StringValue("2010"));
-		
-		dinp = new DTODirectInput();
-		dinp.put(DTODirectInput.Key.FCF, new IntegerValue(120));
-		dinp.put(DTODirectInput.Key.LIABILITIES, new IntegerValue(1200));
-		
-		period.addChild(dinp);		
-		
-		scenario.addChild(period);
 	}
 	
 	@Test
