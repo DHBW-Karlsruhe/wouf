@@ -8,9 +8,11 @@ import info.clearthought.layout.TableLayout;
 
 import java.awt.Component;
 
+import java.util.Map;
 import javax.swing.JPanel;
 
 import org.apache.log4j.Logger;
+import org.bh.data.types.Calculable;
 import org.bh.gui.chart.BHChartFactory;
 import org.bh.gui.chart.BHChartPanel;
 import org.bh.gui.swing.BHDescriptionLabel;
@@ -26,30 +28,33 @@ import org.bh.platform.formula.IFormulaFactory;
 public class BH_FTE_ResultPanel extends JPanel {
 
     private static final Logger log = Logger.getLogger(BH_FTE_ResultPanel.class);
-    //FTE Verfahren
-    private BHValueLabel FTEshareholderValue;
-    private BHDescriptionLabel FTEshareholderValueDESC;
-    private BHValueLabel FTEpresentValueTaxShield;
-    private BHDescriptionLabel FTEpresentValueTaxShieldDESC;
-    private BHValueLabel FTEflowEquity;
-    private BHDescriptionLabel FTEflowEquityDESC;
-    private BHValueLabel FTEflowEquityTaxShield;
-    private BHDescriptionLabel FTEflowEquityTaxShieldDESC;
-    private BHValueLabel FTEflowToEquity;
-    private BHDescriptionLabel FTEflowToEquityDESC;
-    private BHValueLabel FTEdebtAmortisation;
-    private BHDescriptionLabel FTEdebtAmortisationDESC;
-    private BHValueLabel FTEequityReturnRate;
-    private BHDescriptionLabel FTEequityReturnRateDESC;
+//    //FTE Verfahren
+//    private BHValueLabel FTEshareholderValue;
+//    private BHDescriptionLabel FTEshareholderValueDESC;
+//    private BHValueLabel FTEpresentValueTaxShield;
+//    private BHDescriptionLabel FTEpresentValueTaxShieldDESC;
+//    private BHValueLabel FTEflowEquity;
+//    private BHDescriptionLabel FTEflowEquityDESC;
+//    private BHValueLabel FTEflowEquityTaxShield;
+//    private BHDescriptionLabel FTEflowEquityTaxShieldDESC;
+//    private BHValueLabel FTEflowToEquity;
+//    private BHDescriptionLabel FTEflowToEquityDESC;
+//    private BHValueLabel FTEdebtAmortisation;
+//    private BHDescriptionLabel FTEdebtAmortisationDESC;
+//    private BHValueLabel FTEequityReturnRate;
+//    private BHDescriptionLabel FTEequityReturnRateDESC;
     // formulas
+    private Map<String, Calculable> formulaValues;
     private Component finiteFormula;
     private Component infiniteFormula;
+    private Component valueFormula;
     //charts
     private BHChartPanel fteShareholderValue;
     private BHChartPanel fteCapitalStructure;
     private BHChartPanel fteFlowToEquity;
     
-    public BH_FTE_ResultPanel(boolean isAllSelected){
+    public BH_FTE_ResultPanel(boolean isAllSelected, Map<String, Calculable> formulaValues){
+        this.formulaValues = formulaValues;
     	initialize(isAllSelected);
     }
     
@@ -66,21 +71,21 @@ public class BH_FTE_ResultPanel extends JPanel {
 
         this.setLayout(new TableLayout(size));
 
-        //All Labels to FTE
-        FTEshareholderValue = new BHValueLabel("SHAREHOLDER_VALUE");
-        FTEshareholderValueDESC = new BHDescriptionLabel("SHAREHOLDER_VALUE");
-        FTEdebtAmortisation = new BHValueLabel("DEBT_AMORTISATION");
-        FTEdebtAmortisationDESC = new BHDescriptionLabel("DEBT_AMORTISATION");
-        FTEequityReturnRate = new BHValueLabel("EQUITY_RETURN_RATE_FTE");
-        FTEequityReturnRateDESC = new BHDescriptionLabel("EQUITY_RETURN_RATE_FTE");
-        FTEflowEquity = new BHValueLabel("FLOW_TO_EQUITY");
-        FTEflowEquityDESC = new BHDescriptionLabel("FLOW_TO_EQUITY");
-        FTEflowEquityTaxShield = new BHValueLabel("FLOW_TO_EQUITY_TAX_SHIELD");
-        FTEflowEquityTaxShieldDESC = new BHDescriptionLabel("FLOW_TO_EQUITY_TAX_SHIELD");
-        FTEflowToEquity = new BHValueLabel("LOW_TO_EQUITY_INTEREST");
-        FTEflowToEquityDESC = new BHDescriptionLabel("FLOW_TO_EQUITY_INTEREST");
-        FTEpresentValueTaxShield = new BHValueLabel("PRESENT_VALUE_TAX_SHIELD");
-        FTEpresentValueTaxShieldDESC = new BHDescriptionLabel("PRESENT_VALUE_TAX_SHIELD");
+//        //All Labels to FTE
+//        FTEshareholderValue = new BHValueLabel("SHAREHOLDER_VALUE");
+//        FTEshareholderValueDESC = new BHDescriptionLabel("SHAREHOLDER_VALUE");
+//        FTEdebtAmortisation = new BHValueLabel("DEBT_AMORTISATION");
+//        FTEdebtAmortisationDESC = new BHDescriptionLabel("DEBT_AMORTISATION");
+//        FTEequityReturnRate = new BHValueLabel("EQUITY_RETURN_RATE_FTE");
+//        FTEequityReturnRateDESC = new BHDescriptionLabel("EQUITY_RETURN_RATE_FTE");
+//        FTEflowEquity = new BHValueLabel("FLOW_TO_EQUITY");
+//        FTEflowEquityDESC = new BHDescriptionLabel("FLOW_TO_EQUITY");
+//        FTEflowEquityTaxShield = new BHValueLabel("FLOW_TO_EQUITY_TAX_SHIELD");
+//        FTEflowEquityTaxShieldDESC = new BHDescriptionLabel("FLOW_TO_EQUITY_TAX_SHIELD");
+//        FTEflowToEquity = new BHValueLabel("LOW_TO_EQUITY_INTEREST");
+//        FTEflowToEquityDESC = new BHDescriptionLabel("FLOW_TO_EQUITY_INTEREST");
+//        FTEpresentValueTaxShield = new BHValueLabel("PRESENT_VALUE_TAX_SHIELD");
+//        FTEpresentValueTaxShieldDESC = new BHDescriptionLabel("PRESENT_VALUE_TAX_SHIELD");
 
         //Formeldarstellung
         IFormulaFactory ff = IFormulaFactory.instance;
@@ -92,6 +97,9 @@ public class BH_FTE_ResultPanel extends JPanel {
 
             f = ff.createFormula("FTE_t1", getClass().getResourceAsStream("FTE_SHV_t1.xml"), false);
             infiniteFormula = f.getJMathComponent();
+
+            f = ff.createFormula("FTE_T", getClass().getResourceAsStream("FTE_SHV_T.xml"), false);
+            valueFormula = f.getJMathComponentForInputValues(formulaValues);
         } catch (FormulaException e) {
             log.debug(e);
         }
@@ -102,12 +110,13 @@ public class BH_FTE_ResultPanel extends JPanel {
         
         this.add(finiteFormula, "3,3");
         this.add(infiniteFormula, "3,5");
+        this.add(valueFormula, "3,7");
         
         if(!isAllSelected){
-	        this.add(fteShareholderValue, "3,7");
-	        this.add(fteCapitalStructure, "3,9");
+	        this.add(fteShareholderValue, "3,9");
+	        this.add(fteCapitalStructure, "3,11");
         }
-        this.add(fteFlowToEquity, "3,11");
+        this.add(fteFlowToEquity, "3,13");
         
 
     }

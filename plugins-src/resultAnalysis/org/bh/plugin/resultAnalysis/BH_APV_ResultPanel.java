@@ -8,9 +8,11 @@ import info.clearthought.layout.TableLayout;
 
 import java.awt.Component;
 
+import java.util.Map;
 import javax.swing.JPanel;
 
 import org.apache.log4j.Logger;
+import org.bh.data.types.Calculable;
 import org.bh.gui.chart.BHChartFactory;
 import org.bh.gui.chart.BHChartPanel;
 import org.bh.platform.formula.FormulaException;
@@ -29,6 +31,7 @@ public class BH_APV_ResultPanel extends JPanel {
     private BHChartPanel apvWFShareholderValues;
     private BHChartPanel apvBCCapitalStructure;
     // formulas
+    private Map<String, Calculable> formulaValues;
     private Component finiteFormula;
     private Component infiniteFormula;
     private Component valueFormula;
@@ -37,7 +40,8 @@ public class BH_APV_ResultPanel extends JPanel {
     	
     }
     
-    public BH_APV_ResultPanel(boolean isAllSelected){
+    public BH_APV_ResultPanel(boolean isAllSelected, Map<String, Calculable> formulaValues){
+        this.formulaValues = formulaValues;
         this.initialize(isAllSelected);
     }
 
@@ -76,9 +80,9 @@ public class BH_APV_ResultPanel extends JPanel {
             f = ff.createFormula("APV_t1", getClass().getResourceAsStream("APV_SHV_t1.xml"), false);
             infiniteFormula = f.getJMathComponent();
             
-//            f = ff.createFormula("APV_T", getClass().getResourceAsStream("APV_SHV_T.xml"), false);
-//            valueFormula = f.getJMathComponentForInputValues(formelMap);
-//            
+            f = ff.createFormula("APV_T", getClass().getResourceAsStream("APV_SHV_T.xml"), false);
+            valueFormula = f.getJMathComponentForInputValues(formulaValues);
+            
         } catch (FormulaException e) {
             log.debug(e);
         }
@@ -87,7 +91,7 @@ public class BH_APV_ResultPanel extends JPanel {
         
         this.add(finiteFormula, "3,3");
         this.add(infiniteFormula, "3,5");
-//        this.add(valueFormula, "3,7");
+        this.add(valueFormula, "3,7");
 
         this.add(apvWFShareholderValues, "3,9");        
         this.add(apvBCCapitalStructure, "3,11");

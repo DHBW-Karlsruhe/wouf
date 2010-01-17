@@ -66,6 +66,7 @@ public final class BHResultPanel extends JPanel {
 	private BHButton printButton;
 	final DTOScenario scenario;
 	final Map<String, Calculable[]> result;
+        private final Map<String, Calculable> formulaValues;
 	final ITranslator translator = Services.getTranslator();
 
 	/**
@@ -73,9 +74,10 @@ public final class BHResultPanel extends JPanel {
 	 * 
 	 * @throws ViewException
 	 */
-	public BHResultPanel(DTOScenario scenario, Map<String, Calculable[]> result) {
+	public BHResultPanel(DTOScenario scenario, Map<String, Calculable[]> result, Map<String, Calculable> formulaValues) {
 		this.scenario = scenario;
 		this.result = result;
+                this.formulaValues = formulaValues;
 		initialize();
 	}
 
@@ -270,17 +272,17 @@ public final class BHResultPanel extends JPanel {
 		//       		
 
 		if (scenario.getDCFMethod().getUniqueId().equals("fcf")) {
-			procedurePanel = new BH_FCF_ResultPanel(false);
+			procedurePanel = new BH_FCF_ResultPanel(false, formulaValues);
 		} else if (scenario.getDCFMethod().getUniqueId().equals("apv")) {
-			procedurePanel = new BH_APV_ResultPanel(false);
+			procedurePanel = new BH_APV_ResultPanel(false, formulaValues);
 		} else if (scenario.getDCFMethod().getUniqueId().equals("fte")) {
-			procedurePanel = new BH_FTE_ResultPanel(false);
+			procedurePanel = new BH_FTE_ResultPanel(false, formulaValues);
 		}else if (scenario.getDCFMethod().getUniqueId().equals("all")){
 			procedurePanel = new JPanel();
 			procedurePanel.setLayout(new BorderLayout());
-			procedurePanel.add(new BH_APV_ResultPanel(true), BorderLayout.NORTH);
-			procedurePanel.add(new BH_FCF_ResultPanel(true), BorderLayout.CENTER);
-			procedurePanel.add(new BH_FTE_ResultPanel(true), BorderLayout.SOUTH);
+			procedurePanel.add(new BH_APV_ResultPanel(true,formulaValues), BorderLayout.NORTH);
+			procedurePanel.add(new BH_FCF_ResultPanel(true, formulaValues), BorderLayout.CENTER);
+			procedurePanel.add(new BH_FTE_ResultPanel(true, formulaValues), BorderLayout.SOUTH);
 	    }
 		this.add(procedurePanel, BorderLayout.CENTER);
 		JPanel buttons = new JPanel();

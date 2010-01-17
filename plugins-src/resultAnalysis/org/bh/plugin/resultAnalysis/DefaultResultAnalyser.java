@@ -14,8 +14,9 @@ public class DefaultResultAnalyser implements IDeterministicResultAnalyser {
 	@Override
 	public Component setResult(DTOScenario scenario, Map<String, Calculable[]> result) {
 		try {
-			View view = new ViewBHResultPanel(scenario, result);
+			View view = new ViewBHResultPanel(scenario, result, BHResultController.getFormulaMap(scenario, result));
 			new BHResultController(view, result, scenario);
+
 			return view.getViewPanel();
 		} catch (ViewException e) {
 			Logger.getLogger(DefaultResultAnalyser.class).error("Cannot create view", e);

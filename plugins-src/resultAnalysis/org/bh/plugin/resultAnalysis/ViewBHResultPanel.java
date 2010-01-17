@@ -18,7 +18,7 @@ import org.bh.gui.ViewException;
  * @author Norman
  */
 public class ViewBHResultPanel extends View{
-    public ViewBHResultPanel(DTOScenario scenario, Map<String, Calculable[]> result) throws ViewException{
-        super(new BHResultPanel(scenario, result));
+    public ViewBHResultPanel(DTOScenario scenario, Map<String, Calculable[]> result, Map<String, Calculable> formulaValues) throws ViewException{
+        super(new BHResultPanel(scenario, result, formulaValues));
     }
 }

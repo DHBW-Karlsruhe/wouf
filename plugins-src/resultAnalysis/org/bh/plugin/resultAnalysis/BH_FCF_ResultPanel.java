@@ -8,9 +8,11 @@ import info.clearthought.layout.TableLayout;
 
 import java.awt.Component;
 
+import java.util.Map;
 import javax.swing.JPanel;
 
 import org.apache.log4j.Logger;
+import org.bh.data.types.Calculable;
 import org.bh.gui.chart.BHChartFactory;
 import org.bh.gui.chart.BHChartPanel;
 import org.bh.platform.formula.FormulaException;
@@ -26,10 +28,13 @@ public class BH_FCF_ResultPanel extends JPanel {
 
     private static final Logger log = Logger.getLogger(BH_FCF_ResultPanel.class);
     // formulas
+    private Map<String, Calculable> formulaValues;
     private Component finiteFormula;
     private Component infiniteFormula;
+    private Component valueFormula;
     
-    public BH_FCF_ResultPanel(boolean isAllSelected){
+    public BH_FCF_ResultPanel(boolean isAllSelected, Map<String, Calculable> formulaValues){
+        this.formulaValues = formulaValues;
         this.initialize(isAllSelected);
     }
 
@@ -53,6 +58,9 @@ public class BH_FCF_ResultPanel extends JPanel {
 
             f = ff.createFormula("FCF_t1", getClass().getResourceAsStream("FCF_SHV_t1.xml"), false);
             infiniteFormula = f.getJMathComponent();
+
+            f = ff.createFormula("FCF_T", getClass().getResourceAsStream("FCF_SHV_T.xml"), false);
+            valueFormula = f.getJMathComponentForInputValues(formulaValues);
         } catch (FormulaException e) {
             log.debug(e);
         }
@@ -67,12 +75,13 @@ public class BH_FCF_ResultPanel extends JPanel {
 
         this.add(finiteFormula, "3,3");
         this.add(infiniteFormula, "3,5");
+        this.add(valueFormula,"3,7");
         
-        this.add(fcf_shareholderValue, "3,7");
+        this.add(fcf_shareholderValue, "3,9");
         if(!isAllSelected)
-        	this.add(fcf_capitalStructure, "3,9");
-        this.add(fcf_fcf, "3,11");
-        this.add(fcf_returnRate, "3,13");
+        	this.add(fcf_capitalStructure, "3,11");
+        this.add(fcf_fcf, "3,13");
+        this.add(fcf_returnRate, "3,15");
 
     }
 }
