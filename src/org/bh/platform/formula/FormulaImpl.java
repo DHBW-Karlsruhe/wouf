@@ -15,6 +15,9 @@ import net.sourceforge.jeuclid.swing.JMathComponent;
 
 import org.apache.log4j.Logger;
 import org.bh.data.types.Calculable;
+import org.bh.data.types.IntervalValue;
+import org.bh.data.types.DoubleValue;
+import org.bh.data.types.IntegerValue;
 import org.bh.platform.expression.ExpressionException;
 import org.bh.platform.expression.IExpression;
 import org.w3c.dom.Document;
@@ -195,11 +198,26 @@ public class FormulaImpl implements IFormula {
 				LOG.debug(key + " will be replaced with a value");
 			}
 			Calculable inputValue = inputValues.get(key);
-			newNode.setTextContent((inputValue != null) ? inputValue.toString() : ("{" + key + "}"));
+			newNode.setTextContent((inputValue != null) ? round(inputValue).toString() : ("{" + key + "}"));
 			
 			node.getParentNode().replaceChild(newNode, node);
 		}
 		return formulaDoc2;
+	}
+
+	private Calculable round(Calculable c) {
+		if(c instanceof IntegerValue || c instanceof DoubleValue) {
+			return new DoubleValue(round(c.getMin()));
+		}else if(c instanceof IntervalValue) {
+			return new IntervalValue(round(c.getMin()), round(c.getMax()));
+		}
+		return c;
+	}
+	
+	private double round(Number num) {
+		final int places = 4;
+		double factor = Math.pow(10, places);
+		return Math.round(num.doubleValue() * factor)/factor;
 	}
 
 	private String getKey(Node node) {
