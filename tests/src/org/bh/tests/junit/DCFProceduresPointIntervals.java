@@ -102,17 +102,6 @@ public class DCFProceduresPointIntervals {
 
 		scenarioInteger.addChild(period);
 
-		period = new DTOPeriod();
-		period.put(DTOPeriod.Key.NAME, new StringValue("2010"));
-
-		dinp = new DTODirectInput();
-		dinp.put(DTODirectInput.Key.FCF, new IntegerValue(fcf[3]));
-		dinp.put(DTODirectInput.Key.LIABILITIES, new IntegerValue(liabilities[3]));
-
-		period.addChild(dinp);
-
-		scenarioInteger.addChild(period);
-
 		// scenario with point intervals for Free Cash Flow (FCF) and
 		// Liabilities
 		scenarioInterval = new DTOScenario();
