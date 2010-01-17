@@ -20,10 +20,11 @@
                 </msub>
             </ci>
             <ci>
-                <msup>
+                <msubsup>
                     <mi>rv</mi>
+                    <mi>T</mi>
                     <mi>EK</mi>
-                </msup>
+                </msubsup>
             </ci>
         </apply>
     </apply>

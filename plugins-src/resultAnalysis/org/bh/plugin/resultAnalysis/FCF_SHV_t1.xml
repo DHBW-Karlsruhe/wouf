@@ -68,10 +68,11 @@
                 <plus/>
                 <cn>1</cn>
                 <ci>
-                    <msup>
-                        <mi>rv</mi>
-                        <mi>EK</mi>
-                    </msup>
+                    <msubsup>
+	                    <mi>rv</mi>
+	                    <mi>t+1</mi>
+	                    <mi>EK</mi>
+	                </msubsup>
                 </ci>
             </apply>
         </apply>

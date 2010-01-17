@@ -7,8 +7,8 @@ package org.bh.plugin.resultAnalysis;
 import info.clearthought.layout.TableLayout;
 
 import java.awt.Component;
-
 import java.util.Map;
+
 import javax.swing.JPanel;
 
 import org.apache.log4j.Logger;
@@ -31,7 +31,8 @@ public class BH_FCF_ResultPanel extends JPanel {
     private Map<String, Calculable> formulaValues;
     private Component finiteFormula;
     private Component infiniteFormula;
-    private Component valueFormula;
+    private Component valueFiniteFormula;
+    private Component valueInfiniteFormula;
     
     public BH_FCF_ResultPanel(boolean isAllSelected, Map<String, Calculable> formulaValues){
         this.formulaValues = formulaValues;
@@ -43,7 +44,7 @@ public class BH_FCF_ResultPanel extends JPanel {
         double border = 10;
         double size[][] = {{border, TableLayout.PREFERRED, border, TableLayout.PREFERRED, border, TableLayout.PREFERRED, border}, // Columns
             {border, TableLayout.PREFERRED, border, TableLayout.PREFERRED, border, TableLayout.PREFERRED, border, TableLayout.PREFERRED, border,
-        	TableLayout.PREFERRED, border, TableLayout.PREFERRED, border, TableLayout.PREFERRED, border, TableLayout.PREFERRED, border}}; // Rows
+        	TableLayout.PREFERRED, border, TableLayout.PREFERRED, border, TableLayout.PREFERRED, border, TableLayout.PREFERRED, border, TableLayout.PREFERRED, border}}; // Rows
 
 
         this.setLayout(new TableLayout(size));
@@ -54,13 +55,17 @@ public class BH_FCF_ResultPanel extends JPanel {
 
         try {
             f = ff.createFormula("FCF_T", getClass().getResourceAsStream("FCF_SHV_T.xml"), false);
-            finiteFormula = f.getJMathComponent();
-
-            f = ff.createFormula("FCF_t1", getClass().getResourceAsStream("FCF_SHV_t1.xml"), false);
             infiniteFormula = f.getJMathComponent();
 
             f = ff.createFormula("FCF_T", getClass().getResourceAsStream("FCF_SHV_T.xml"), false);
-            valueFormula = f.getJMathComponentForInputValues(formulaValues);
+            valueInfiniteFormula = f.getJMathComponentForInputValues(formulaValues);
+            
+            f = ff.createFormula("FCF_t1", getClass().getResourceAsStream("FCF_SHV_t1.xml"), false);
+            finiteFormula = f.getJMathComponent();
+            
+            f = ff.createFormula("FCF_t1", getClass().getResourceAsStream("FCF_SHV_t1.xml"), false);
+            valueFiniteFormula = f.getJMathComponentForInputValues(formulaValues);
+            
         } catch (FormulaException e) {
             log.debug(e);
         }
@@ -73,15 +78,16 @@ public class BH_FCF_ResultPanel extends JPanel {
         BHChartPanel fcf_returnRate = BHChartFactory.getBarChart( BHResultController.ChartKeys.FCF_BC_RR);        
         
 
-        this.add(finiteFormula, "3,3");
-        this.add(infiniteFormula, "3,5");
-        this.add(valueFormula,"3,7");
+        this.add(infiniteFormula, "3,3");
+        this.add(valueInfiniteFormula, "3,5");
+        this.add(finiteFormula, "3,7");
+        this.add(valueFiniteFormula, "3,9");
         
-        this.add(fcf_shareholderValue, "3,9");
+        this.add(fcf_shareholderValue, "3,11");
         if(!isAllSelected)
-        	this.add(fcf_capitalStructure, "3,11");
-        this.add(fcf_fcf, "3,13");
-        this.add(fcf_returnRate, "3,15");
+        	this.add(fcf_capitalStructure, "3,13");
+        this.add(fcf_fcf, "3,15");
+        this.add(fcf_returnRate, "3,17");
 
     }
 }

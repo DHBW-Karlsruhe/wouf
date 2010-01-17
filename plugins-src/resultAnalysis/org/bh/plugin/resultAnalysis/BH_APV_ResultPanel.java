@@ -7,8 +7,8 @@ package org.bh.plugin.resultAnalysis;
 import info.clearthought.layout.TableLayout;
 
 import java.awt.Component;
-
 import java.util.Map;
+
 import javax.swing.JPanel;
 
 import org.apache.log4j.Logger;
@@ -34,7 +34,8 @@ public class BH_APV_ResultPanel extends JPanel {
     private Map<String, Calculable> formulaValues;
     private Component finiteFormula;
     private Component infiniteFormula;
-    private Component valueFormula;
+    private Component valueFiniteFormula;
+    private Component valueInfiniteFormula;
     
     enum Keys{
     	
@@ -49,7 +50,7 @@ public class BH_APV_ResultPanel extends JPanel {
         double border = 10;
         double size[][] = {{border, TableLayout.PREFERRED, border, TableLayout.PREFERRED, border, TableLayout.PREFERRED, border}, // Columns
             {border, TableLayout.PREFERRED, border, TableLayout.PREFERRED, border, TableLayout.PREFERRED, border, TableLayout.PREFERRED, border,TableLayout.PREFERRED, 
-        	border,TableLayout.PREFERRED}}; // Rows
+        	border,TableLayout.PREFERRED,border,TableLayout.PREFERRED}}; // Rows
 
 
         this.setLayout(new TableLayout(size));
@@ -74,27 +75,28 @@ public class BH_APV_ResultPanel extends JPanel {
 //      
         try {
             f = ff.createFormula("APV_T", getClass().getResourceAsStream("APV_SHV_T.xml"), false);
-            
-            finiteFormula = f.getJMathComponent();
-
-            f = ff.createFormula("APV_t1", getClass().getResourceAsStream("APV_SHV_t1.xml"), false);
             infiniteFormula = f.getJMathComponent();
-            
+
             f = ff.createFormula("APV_T", getClass().getResourceAsStream("APV_SHV_T.xml"), false);
-            valueFormula = f.getJMathComponentForInputValues(formulaValues);
+            valueInfiniteFormula = f.getJMathComponentForInputValues(formulaValues);
+            
+            f = ff.createFormula("APV_t1", getClass().getResourceAsStream("APV_SHV_t1.xml"), false);
+            finiteFormula = f.getJMathComponent();
+            
+            f = ff.createFormula("APV_t1", getClass().getResourceAsStream("APV_SHV_t1.xml"), false);
+            valueFiniteFormula = f.getJMathComponentForInputValues(formulaValues);
             
         } catch (FormulaException e) {
             log.debug(e);
         }
-
-
         
-        this.add(finiteFormula, "3,3");
-        this.add(infiniteFormula, "3,5");
-        this.add(valueFormula, "3,7");
+        this.add(infiniteFormula, "3,3");
+        this.add(valueInfiniteFormula, "3,5");
+        this.add(finiteFormula, "3,7");
+        this.add(valueFiniteFormula, "3,9");
 
-        this.add(apvWFShareholderValues, "3,9");        
-        this.add(apvBCCapitalStructure, "3,11");
+        this.add(apvWFShareholderValues, "3,11");        
+        this.add(apvBCCapitalStructure, "3,13");
         
     }
 }

@@ -28,7 +28,7 @@
                         <ci>
                             <msub>
                                 <mi>V</mi>
-                                <mi>u1</mi>
+                                <mi>u, t+1</mi>
                             </msub>
                         </ci>
                     </apply>
@@ -70,7 +70,7 @@
                         <ci>
                             <msub>
                                 <mi>V</mi>
-                                <mi>s1</mi>
+                                <mi>s, t+1</mi>
                             </msub>
                         </ci>
                     </apply>
