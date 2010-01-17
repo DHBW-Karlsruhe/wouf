@@ -4,7 +4,6 @@ import java.awt.Color;
 import java.awt.Component;
 import java.awt.Dimension;
 import java.awt.Font;
-import java.awt.GridLayout;
 import java.awt.dnd.DnDConstants;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
@@ -30,10 +29,9 @@ import org.bh.data.DTOPeriod;
 import org.bh.data.DTOProject;
 import org.bh.data.DTOScenario;
 import org.bh.platform.IPlatformListener;
-import org.bh.platform.PlatformController;
 import org.bh.platform.PlatformEvent;
-import org.bh.platform.PlatformKey;
 import org.bh.platform.Services;
+
 import com.jgoodies.forms.layout.CellConstraints;
 import com.jgoodies.forms.layout.FormLayout;
 
@@ -265,6 +263,9 @@ public class BHTree extends JTree {
 			if (node.getUserObject() instanceof DTOPeriod) {
 				DTOPeriod periodDto = (DTOPeriod) node.getUserObject();
 				int idx = periodDto.getScenario().getChildren().indexOf(periodDto);
+				if (!periodDto.getScenario().isDeterministic()) {
+					idx = idx - periodDto.getScenario().getChildrenSize() + 1;
+				}
 				
 				//Index label
 				JLabel idxLabel = new JLabel("T"+idx+": ");
