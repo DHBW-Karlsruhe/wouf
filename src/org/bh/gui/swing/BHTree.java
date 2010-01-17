@@ -1,7 +1,10 @@
 package org.bh.gui.swing;
 
+import java.awt.Color;
 import java.awt.Component;
 import java.awt.Dimension;
+import java.awt.Font;
+import java.awt.GridLayout;
 import java.awt.dnd.DnDConstants;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
@@ -10,6 +13,7 @@ import java.util.Enumeration;
 
 import javax.swing.ImageIcon;
 import javax.swing.JLabel;
+import javax.swing.JPanel;
 import javax.swing.JPopupMenu;
 import javax.swing.JTree;
 import javax.swing.SwingConstants;
@@ -29,6 +33,8 @@ import org.bh.platform.IPlatformListener;
 import org.bh.platform.PlatformEvent;
 import org.bh.platform.PlatformKey;
 import org.bh.platform.Services;
+import com.jgoodies.forms.layout.CellConstraints;
+import com.jgoodies.forms.layout.FormLayout;
 
 /**
  * The Tree visualizing the file contents.
@@ -226,17 +232,60 @@ public class BHTree extends JTree {
 					icon = BHTree.ERROR_ICON;
 
 			}
+			
+			//create visualisation of treeNode
+			JLabel treeCell;
+			JPanel treeCellPanel = new JPanel();
+			
+			String rowDef = "p";
+			String colDef = "p,p,p";
+			CellConstraints cons = new CellConstraints();
+			FormLayout layout = new FormLayout(colDef, rowDef);
+			treeCellPanel.setLayout(layout);
+			treeCellPanel.setOpaque(false);
+			
+			//when Period, write index onto visualisation
+			if (node.getUserObject() instanceof DTOPeriod) {
+				DTOPeriod periodDto = (DTOPeriod) node.getUserObject();
+				int idx = periodDto.getScenario().getChildren().indexOf(periodDto);
+				
+				//Index label
+				JLabel idxLabel = new JLabel("T"+idx+": ");
+				idxLabel.setForeground(Color.RED);
+				idxLabel.setFont(new Font(idxLabel.getFont().getName(), 
+						idxLabel.getFont().getStyle(),
+						idxLabel.getFont().getSize()-3));
+				
+				//content label
+				treeCell = new JLabel(value.toString(),
+						SwingConstants.LEFT);
+				
+				treeCellPanel.add(new JLabel(icon), cons.xy(1,1));
+				treeCellPanel.add(idxLabel, cons.xy(2,1));
+				treeCellPanel.add(treeCell, cons.xy(3,1));
+			
+			//for scenarios and projects
+			} else {
+				
+				//content label
+				treeCell = new JLabel(value.toString(), icon,
+						SwingConstants.LEFT);
+				
+				treeCellPanel.add(treeCell,cons.xy(1,1));
+			}
 
+			
 			// return TreeCell
-			JLabel treeCell = new JLabel(value.toString(), icon,
-					SwingConstants.LEFT);
-			treeCell.setPreferredSize(new Dimension((int) treeCell
+			
+			treeCellPanel.setPreferredSize(new Dimension((int) treeCellPanel
 					.getPreferredSize().getWidth(), UIManager
 					.getInt("BHTree.nodeheight")));
-			return treeCell;
+			return treeCellPanel;
 		}
 	}
 
+	
+	
 	public class BHTreeValidationListener implements IPlatformListener {
 
 		BHTree tree;

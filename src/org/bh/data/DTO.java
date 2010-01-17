@@ -296,7 +296,12 @@ public abstract class DTO<ChildT extends IDTO> implements IDTO<ChildT> {
 	public ChildT getLastChild() {
 		return children.getLast();
 	}
-
+	
+	@Override
+	public ChildT getFirstChild(){
+		return children.getFirst();
+	}
+	
 	@Override
 	public ChildT removeChild(int index) throws DTOAccessException {
 		try {

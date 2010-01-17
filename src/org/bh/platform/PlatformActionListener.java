@@ -555,20 +555,28 @@ class PlatformActionListener implements ActionListener {
 					// Do nothing;
 				}
 			} else {
-				DTOPeriod lastPeriod = scenario.getLastChild();
-
-				// distinguish between stoachstic and deterministic periods
-				int periodDifference = scenario.isDeterministic() ? 1 : -1;
-
+				//get reference period to orient index
+				//-> depends on sort of scenario
+				DTOPeriod refPeriod;
+				int periodDifference;
+				if(scenario.isDeterministic()){
+					refPeriod = scenario.getLastChild();
+					periodDifference = 1;
+				}else{
+					refPeriod = scenario.getFirstChild();
+					periodDifference = -1;
+				}
+				
+				
 				try {
 					// get number of last Period and add 1.
 					periodName = ""
-							+ (Integer.parseInt(((StringValue) lastPeriod
+							+ (Integer.parseInt(((StringValue) refPeriod
 									.get(DTOPeriod.Key.NAME)).getString()) + periodDifference);
 				} catch (Exception e) {
 					try {
 						// get number and Text of last Period and add 1.
-						String lastPeriodName = ((StringValue) lastPeriod
+						String lastPeriodName = ((StringValue) refPeriod
 								.get(DTOPeriod.Key.NAME)).getString();
 						int tempNum = Integer.parseInt(lastPeriodName
 								.substring(getNumPos(lastPeriodName)));

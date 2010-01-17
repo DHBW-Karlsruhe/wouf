@@ -142,7 +142,14 @@ public interface IDTO<ChildT extends IDTO> extends Cloneable, Serializable, Iter
 	 * @return The last child.
 	 */
 	public ChildT getLastChild();
-
+	
+	/**
+	 * Returns the first child.
+	 * 
+	 * @return The first Child
+	 */
+	public ChildT getFirstChild();
+	
 	/**
 	 * Returns all available keys.
 	 * 
