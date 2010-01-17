@@ -68,8 +68,8 @@ public class FTECalculator implements IShareholderValueCalculator {
 		if (verboseLogging)
 			LOG.info("----- FTE procedure started -----");
 
-		Calculable[] fcf = new Calculable[scenario.getChildrenSize()];
-		Calculable[] fk = new Calculable[scenario.getChildrenSize()];
+		Calculable[] fcf = new Calculable[scenario.getChildrenSize() +1];
+		Calculable[] fk = new Calculable[scenario.getChildrenSize() +1];
 		int i = 0;
 		if (verboseLogging)
 			LOG.debug("Input Values: FCF ; Liablities(FK):");
@@ -77,6 +77,10 @@ public class FTECalculator implements IShareholderValueCalculator {
 			if (i > 0)
 				fcf[i] = period.getFCF();
 			fk[i] = period.getLiabilities();
+			if(i == fcf.length - 2){
+				fcf[i + 1] = period.getFCF();
+				fk[i + 1] = period.getLiabilities();
+			}
 			if (verboseLogging && LOG.isDebugEnabled()) {
 				LOG.debug("\t" + period.get(DTOPeriod.Key.NAME) + ": " + fcf[i]
 						+ " ; " + fk[i]);

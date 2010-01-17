@@ -72,8 +72,8 @@ public class FCFCalculator implements IShareholderValueCalculator {
 		if (verboseLogging)
 			log.info("----- FCF procedure started -----");
 
-		Calculable[] fcf = new Calculable[scenario.getChildrenSize()];
-		Calculable[] fk = new Calculable[scenario.getChildrenSize()];
+		Calculable[] fcf = new Calculable[scenario.getChildrenSize() + 1];
+		Calculable[] fk = new Calculable[scenario.getChildrenSize() + 1];
 		int i = 0;
 		if (verboseLogging)
 			log.debug("Input Values: FCF ; Liablities(FK):");
@@ -81,6 +81,10 @@ public class FCFCalculator implements IShareholderValueCalculator {
 			if (i > 0)
 				fcf[i] = period.getFCF();
 			fk[i] = period.getLiabilities();
+			if(i == fcf.length - 2){
+				fcf[i + 1] = period.getFCF();
+				fk[i + 1] = period.getLiabilities();
+			}
 			if (verboseLogging && log.isDebugEnabled()) {
 				log.debug("\t" + period.get(DTOPeriod.Key.NAME) + ": " + fcf[i]
 						+ " ; " + fk[i]);
