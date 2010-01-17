@@ -210,6 +210,21 @@ public class IntegerValue extends Calculable {
 
 	@Override
 	public Number parse() {
-		return new Integer(this.value);
+		return value;
+	}
+	
+	@Override
+	public double getMin() {
+		return value;
+	}
+	
+	@Override
+	public double getMax() {
+		return value;
+	}	
+
+	@Override
+	public double getMinMaxDiff() {
+		return 0;
 	}
 }

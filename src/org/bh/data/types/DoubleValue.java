@@ -209,6 +209,21 @@ public class DoubleValue extends Calculable  {
 
 	@Override
 	public Number parse() {
-		return new Double(this.value);
+		return value;
+	}
+
+	@Override
+	public double getMin() {
+		return value;
+	}
+	
+	@Override
+	public double getMax() {
+		return value;
+	}	
+
+	@Override
+	public double getMinMaxDiff() {
+		return 0;
 	}
 }

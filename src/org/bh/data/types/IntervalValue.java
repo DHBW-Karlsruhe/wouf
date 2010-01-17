@@ -217,6 +217,7 @@ public class IntervalValue extends Calculable {
 	 * 
 	 * @return the max
 	 */
+	@Override
 	public double getMax() {
 		return max;
 	}
@@ -226,8 +227,14 @@ public class IntervalValue extends Calculable {
 	 * 
 	 * @return the min
 	 */
+	@Override
 	public double getMin() {
 		return min;
+	}
+	
+	@Override
+	public double getMinMaxDiff() {
+		return max - min;
 	}
 
 	/* Specified by interface/super class. */
@@ -416,6 +423,8 @@ public class IntervalValue extends Calculable {
 	public Number parse() {
 		// FIXME this should not be called for intervals, but we don't want the
 		// app to crash
-		return min + (max - min) / 2;
+		return (min + max) / 2;
 	}
+	
+	
 }

@@ -191,7 +191,12 @@ public abstract class Calculable implements IValue {
 	 */
 	public abstract Calculable pow(Calculable exponent);
 	
+	// TODO refactor to "toNumber()"
 	public abstract Number parse();
+	
+	public abstract double getMin();
+	public abstract double getMax();
+	public abstract double getMinMaxDiff();
 
 	/* Specified by interface/super class. */
 	@Override
