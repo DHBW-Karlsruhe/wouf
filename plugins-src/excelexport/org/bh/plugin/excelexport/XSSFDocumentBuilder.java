@@ -12,7 +12,6 @@ import org.apache.log4j.Logger;
 import org.apache.poi.ss.usermodel.Cell;
 import org.apache.poi.ss.usermodel.CellStyle;
 import org.apache.poi.ss.usermodel.CreationHelper;
-import org.apache.poi.ss.usermodel.DataFormat;
 import org.apache.poi.ss.usermodel.Font;
 import org.apache.poi.ss.usermodel.RichTextString;
 import org.apache.poi.ss.usermodel.Row;
@@ -27,9 +26,6 @@ import org.bh.data.types.DistributionMap;
 import org.bh.data.types.IValue;
 import org.bh.platform.i18n.BHTranslator;
 import org.bh.platform.i18n.ITranslator;
-
-import com.itextpdf.text.Paragraph;
-import com.itextpdf.text.pdf.PdfPTable;
 
 public class XSSFDocumentBuilder {
 
