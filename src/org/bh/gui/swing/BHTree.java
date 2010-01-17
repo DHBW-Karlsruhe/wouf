@@ -379,27 +379,9 @@ public class BHTree extends JTree {
 		return this.addScenario(newScenario, (BHTreeNode) (this
 				.getSelectionPath().getPathComponent(1)));
 	}
-
-	public ArrayList<BHTreeNode> getProjectNodes() {
-		ArrayList<BHTreeNode> results = new ArrayList<BHTreeNode>();
-		for (int i = 0; i < ((DefaultMutableTreeNode) this.getModel().getRoot())
-				.getChildCount(); i++) {
-			results.add((BHTreeNode) ((DefaultMutableTreeNode) this.getModel()
-					.getRoot()).getChildAt(i));
-		}
-		return results;
-	}
-
-	public ArrayList<BHTreeNode> getScenarioNodes() {
-		ArrayList<BHTreeNode> results = new ArrayList<BHTreeNode>();
-		for (BHTreeNode projectNode : getProjectNodes()) {
-			for (int y = 0; y < projectNode.getChildCount(); y++) {
-				results.add((BHTreeNode) projectNode.getChildAt(y));
-			}
-
-		}
-		return results;
-	}
+	
+	
+	
 
 	/**
 	 * method to add a new PeriodNode
@@ -466,7 +448,29 @@ public class BHTree extends JTree {
 			((DTOScenario) scenarioNode.getUserObject()).removeAllChildren();
 		}
 	}
+	
+	public ArrayList<BHTreeNode> getProjectNodes() {
+		ArrayList<BHTreeNode> results = new ArrayList<BHTreeNode>();
+		for (int i = 0; i < ((DefaultMutableTreeNode) this.getModel().getRoot())
+				.getChildCount(); i++) {
+			results.add((BHTreeNode) ((DefaultMutableTreeNode) this.getModel()
+					.getRoot()).getChildAt(i));
+		}
+		return results;
+	}
 
+	public ArrayList<BHTreeNode> getScenarioNodes() {
+		ArrayList<BHTreeNode> results = new ArrayList<BHTreeNode>();
+		for (BHTreeNode projectNode : getProjectNodes()) {
+			for (int y = 0; y < projectNode.getChildCount(); y++) {
+				results.add((BHTreeNode) projectNode.getChildAt(y));
+			}
+
+		}
+		return results;
+	}
+	
+	
 	/**
 	 * method to duplicate a ScenarioNode
 	 * 
@@ -506,6 +510,8 @@ public class BHTree extends JTree {
 		return newPeriodNode;
 	}
 
+	
+	
 	public static DefaultMutableTreeNode makeDeepCopy(
 			DefaultMutableTreeNode node) {
 		DefaultMutableTreeNode copy = new DefaultMutableTreeNode(node

@@ -585,7 +585,6 @@ class PlatformActionListener implements ActionListener {
 
 			// ...create new period
 			DTOPeriod newPeriod = new DTOPeriod();
-			// TODO hardgecodeder String raus! AS
 
 			// ...set name of period
 			String periodName = "";
@@ -677,8 +676,10 @@ class PlatformActionListener implements ActionListener {
 					.getPathComponent(1).toString();
 			newProject.put(DTOProject.Key.NAME, new StringValue(
 					duplicateProjectName + " (2)"));
+			
+			//add into Tree and Repository (directly possible for Projects)
+			PlatformController.getInstance().addProject(newProject);
 
-			bhmf.getBHTree().addProject(newProject);
 
 		} else {
 			BHStatusBar.getInstance().setHint(
@@ -707,9 +708,13 @@ class PlatformActionListener implements ActionListener {
 					.getPathComponent(2).toString();
 			newScenario.put(DTOScenario.Key.NAME, new StringValue(
 					duplicateScenarioName + " (2)"));
-
-			bhmf.getBHTree().addScenarioAtCurrentPos(newScenario);
-
+			
+			//add new Scenario into Tree...
+			BHTreeNode node = bhmf.getBHTree().addScenarioAtCurrentPos(newScenario);
+			
+			//...and into Project DTO
+			((DTOProject)((BHTreeNode)node.getParent()).getUserObject()).addChild(newScenario);
+			
 		} else {
 			BHStatusBar.getInstance().setHint(
 					BHTranslator.getInstance().translate("EisSelectScenario"),
@@ -718,7 +723,7 @@ class PlatformActionListener implements ActionListener {
 	}
 
 	private void duplicatePeriod() {
-		// implement the 'duplicate period' method
+		
 		TreePath currentDuplicatePeriodSelection = bhmf.getBHTree()
 				.getSelectionPath();
 		if (currentDuplicatePeriodSelection != null) {
@@ -738,9 +743,13 @@ class PlatformActionListener implements ActionListener {
 
 			newPeriod.put(DTOPeriod.Key.NAME, new StringValue(
 					duplicatePeriodName + " (2)"));
-
-			bhmf.getBHTree().addPeriodAtCurrentPos(newPeriod);
-
+			
+			//add Period into Tree...
+			BHTreeNode newNode = bhmf.getBHTree().addPeriodAtCurrentPos(newPeriod);
+			
+			//...and into Scenario DTO
+			((DTOScenario)((BHTreeNode)newNode.getParent()).getUserObject()).addChild(newPeriod);
+			
 		} else {
 			BHStatusBar.getInstance().setHint(
 					BHTranslator.getInstance().translate("EisSelectScenario"),
