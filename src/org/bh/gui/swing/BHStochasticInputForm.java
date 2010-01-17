@@ -8,6 +8,8 @@ import javax.swing.JScrollPane;
 import org.bh.data.DTOScenario;
 import org.bh.platform.Services;
 import org.bh.platform.i18n.ITranslator;
+import org.bh.validation.VRListNotEmpty;
+import org.bh.validation.ValidationRule;
 
 import com.jgoodies.forms.layout.CellConstraints;
 import com.jgoodies.forms.layout.FormLayout;
@@ -135,6 +137,8 @@ public class BHStochasticInputForm extends JPanel {
 	public BHSelectionList getliStochasticKeysList() {
 		if (liStochasticKeys == null) {
 			liStochasticKeys = new BHSelectionList(DTOScenario.Key.STOCHASTIC_KEYS);
+			ValidationRule[] rules = { VRListNotEmpty.INSTANCE };
+			liStochasticKeys.setValidationRules(rules);
 			liStochasticKeys.setDefaultValue(false);
 		}
 		return liStochasticKeys;

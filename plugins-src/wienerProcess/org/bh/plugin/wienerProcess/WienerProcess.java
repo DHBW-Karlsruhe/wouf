@@ -128,8 +128,6 @@ public class WienerProcess implements IStochasticProcess {
 		TreeMap<DTOKeyPair, List<Calculable>> toBeDetermined = scenario
 				.getPeriodStochasticKeysAndValues();
 
-		if (toBeDetermined.isEmpty())
-			return null;
 		JPanel result = new JPanel();
 
 		String rowDef = "4px,p,4px,p,4px,p,4px,p,4px";

@@ -36,6 +36,7 @@ public class BHSelectionList extends JList implements MouseListener,
 	boolean defaultValue = true;
 	private List<Object> selectedItems = new ArrayList<Object>();
 	private final CompValueChangeManager valueChangeManager = new CompValueChangeManager();
+	protected ValidationRule[] validationRules = new ValidationRule[0];
 
 	/**
 	 * Default Constructor
@@ -190,7 +191,7 @@ public class BHSelectionList extends JList implements MouseListener,
 
 	@Override
 	public ValidationRule[] getValidationRules() {
-		return new ValidationRule[0];
+		return validationRules;
 	}
 
 	@Override
@@ -205,7 +206,7 @@ public class BHSelectionList extends JList implements MouseListener,
 
 	@Override
 	public void setValidationRules(ValidationRule[] validationRules) {
-		// not necessary
+		this.validationRules = validationRules;
 	}
 
 	@SuppressWarnings("unchecked")

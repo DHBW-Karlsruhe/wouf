@@ -13,7 +13,6 @@ import java.util.Map;
 
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
-import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JSplitPane;
@@ -128,11 +127,6 @@ public class ScenarioController extends InputController {
 					process.setScenario(scenario);
 
 					Component parametersPanel = process.calculateParameters();
-					if (parametersPanel == null) {
-						// TODO add better text
-						parametersPanel = new JLabel("no parameters needed");
-					}
-
 					BHStochasticInputForm form = (BHStochasticInputForm) ((Component) e
 							.getSource()).getParent();
 					form.setParametersPanel(parametersPanel);
@@ -143,6 +137,11 @@ public class ScenarioController extends InputController {
 					calcStochasticParameters.setVisible(false);
 					((Component) getView().getBHComponent(
 							PlatformKey.CALCSHAREHOLDERVALUE)).setEnabled(true);
+					((Component) getView().getBHComponent(
+							DTOScenario.Key.STOCHASTIC_KEYS)).setEnabled(false);
+					((Component) getView().getBHComponent(
+							DTOScenario.Key.STOCHASTIC_PROCESS))
+							.setEnabled(false);
 				}
 			});
 
@@ -157,7 +156,13 @@ public class ScenarioController extends InputController {
 					calcStochasticParameters.setVisible(true);
 					resetStochasticParameters.setVisible(false);
 					((Component) getView().getBHComponent(
-							PlatformKey.CALCSHAREHOLDERVALUE)).setEnabled(false);
+							PlatformKey.CALCSHAREHOLDERVALUE))
+							.setEnabled(false);
+					((Component) getView().getBHComponent(
+							DTOScenario.Key.STOCHASTIC_KEYS)).setEnabled(true);
+					((Component) getView().getBHComponent(
+							DTOScenario.Key.STOCHASTIC_PROCESS))
+							.setEnabled(true);
 				}
 			});
 		}
@@ -273,9 +278,9 @@ public class ScenarioController extends InputController {
 					DTOScenario scenario = (DTOScenario) getModel();
 					if (scenario.isDeterministic()) {
 						// start calculation
-						Map<String, Calculable[]> result = scenario.getDCFMethod()
-								.calculate(scenario, true);
-	
+						Map<String, Calculable[]> result = scenario
+								.getDCFMethod().calculate(scenario, true);
+
 						// FIXME selection of result analyser plugin
 						Component panel = new JPanel();
 						for (IDeterministicResultAnalyser analyser : PluginManager
@@ -284,15 +289,16 @@ public class ScenarioController extends InputController {
 							panel = analyser.setResult(scenario, result);
 							break;
 						}
-						JSplitPane crForm = Services.createContentResultForm(panel);
+						JSplitPane crForm = Services
+								.createContentResultForm(panel);
 						BHTreeNode tn = (BHTreeNode) bhTree.getSelectionPath()
 								.getPathComponent(2);
-	
+
 						tn.setBackgroundPane(crForm);
 					} else {
 						process.updateParameters();
 						DistributionMap result = process.calculate();
-						
+
 						// FIXME selection of result analyser plugin
 						Component panel = new JPanel();
 						for (IStochasticResultAnalyser analyser : PluginManager
@@ -301,13 +307,14 @@ public class ScenarioController extends InputController {
 							panel = analyser.setResult(scenario, result);
 							break;
 						}
-						JSplitPane crForm = Services.createContentResultForm(panel);
+						JSplitPane crForm = Services
+								.createContentResultForm(panel);
 						BHTreeNode tn = (BHTreeNode) bhTree.getSelectionPath()
 								.getPathComponent(2);
-	
+
 						tn.setBackgroundPane(crForm);
 					}
-					
+
 					b.setIcon(null);
 				}
 			};
