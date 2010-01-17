@@ -301,10 +301,12 @@ class PlatformActionListener implements ActionListener {
 		case HELPUSERHELP:
 
 			openUserHelp("userhelp");
+			break;
 
 		case HELPMATHHELP:
 
 			openUserHelp("mathhelp");
+			break;
 
 		case HELPINFO:
 			// TODO Prüfen und ggf. implementieren!
