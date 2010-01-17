@@ -127,6 +127,8 @@ public class PlatformPersistenceManager {
 	}
 
 	public void prepareSaveFile(boolean forcedSaveAs) throws Exception {
+		
+		// if no path exists in property file or saveAs is forced, show a save dialog
 		if (PlatformController.preferences.get("path", "").equals("")
 				|| forcedSaveAs == true) {
 
@@ -134,17 +136,40 @@ public class PlatformPersistenceManager {
 			if (returnVal == JFileChooser.APPROVE_OPTION) {
 				log.debug("You choose to save this file: "
 						+ bhmf.getChooser().getSelectedFile().getName());
-				this.path = bhmf.getChooser().getSelectedFile();
+				
+				// check if file already exists
+				if (bhmf.getChooser().getSelectedFile().exists() || new File(bhmf.getChooser().getSelectedFile() + ".bh").exists()) {
+					
+					// if yes, ask if its okay to overwrite it
+					int returnConfirmVal = JOptionPane.showConfirmDialog(bhmf, Services.getTranslator().translate("PoverwriteFile_long"), Services.getTranslator().translate("PoverwriteFile"),JOptionPane.YES_NO_OPTION);
+					
+					// if yes - do it!
+					if (returnConfirmVal == JOptionPane.YES_OPTION) {
+						this.path = bhmf.getChooser().getSelectedFile();
+					
+						// if no, try again to prepareSaveFile
+					} else {
+						this.prepareSaveFile(forcedSaveAs);
+					}
+				
+					// if file does not exist, just take it
+				} else {
+					this.path = bhmf.getChooser().getSelectedFile();
+				}
+				
 			} else {
 				throw new Exception("save canceled");
 			}
-
+			
+		// if path already exists in properties file and no saveAs wasnt forced, use already existing path
 		} else {
 			File path = new File(PlatformController.preferences.get("path", ""));
 			this.path = path;
 		}
-
+		
 		this.saveFile();
+
+		
 	}
 
 	public void saveFile() {
