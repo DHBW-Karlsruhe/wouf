@@ -219,6 +219,7 @@ public class Services {
 				if (field.isAnnotationPresent(Stochastic.class))
 					keys.add(new DTOKeyPair(dtoId, element.toString()));
 			} catch (Throwable e) {
+				log.error("Could not check annotation", e);
 				continue;
 			}
 		}

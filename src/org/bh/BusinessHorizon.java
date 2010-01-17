@@ -58,6 +58,8 @@ public class BusinessHorizon {
 			System.exit(1);
 		}
 		
+		System.setSecurityManager(null);
+		
 		PluginManager.init();
 
 		// set Look&Feel
