@@ -34,7 +34,7 @@ import org.jfree.chart.JFreeChart;
  */
 public class PDFExport implements IImportExport {
 
-	static Logger log = Logger.getLogger(ExcelExport.class);
+	static Logger log = Logger.getLogger(PDFExport.class);
 	static ITranslator trans = BHTranslator.getInstance();
 
 	private static final String UNIQUE_ID = "pdf";
