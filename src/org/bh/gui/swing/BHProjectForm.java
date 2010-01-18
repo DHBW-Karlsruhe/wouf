@@ -13,7 +13,7 @@ import com.jgoodies.forms.layout.CellConstraints;
 import com.jgoodies.forms.layout.FormLayout;
 
 /**
- * This class contains the form for head-data
+ * This class contains the form for projects
  * 
  * @author Anton Kharitonov
  * @author Patrick Heinz
@@ -39,7 +39,7 @@ public class BHProjectForm extends JPanel {
 	}
 	
 	private JPanel pproject;
-	private BHButton bcalculate;
+	private BHButton bcalculateDashBoard;
 	private BHDescriptionLabel lCannotCalculateHint;
 	private JPanel topPanel;
 	private JPanel bottomPanel;
@@ -99,7 +99,7 @@ public class BHProjectForm extends JPanel {
 		bottomPanel.setLayout(bottomLayout);
 
 		bottomPanel.add(this.getCannotCalculateHint(), cons.xywh(2, 2, 1, 1));
-		bottomPanel.add(this.getBcalculate(), cons.xywh(4, 2, 1, 1));
+		bottomPanel.add(this.getBcalculateDashBoard(), cons.xywh(4, 2, 1, 1));
 		
 		//add topPanel to ScenarioForm
 		this.add(bottomPanel, cons.xywh(2, 4, 1, 1));
@@ -117,11 +117,11 @@ public class BHProjectForm extends JPanel {
 		return pproject;
 	}
 
-	public BHButton getBcalculate() {
-		if (this.bcalculate == null) {
-			this.bcalculate = new BHButton(PlatformKey.CALCDASHBOARD);
+	public BHButton getBcalculateDashBoard() {
+		if (this.bcalculateDashBoard == null) {
+			this.bcalculateDashBoard = new BHButton(PlatformKey.CALCDASHBOARD);
 		}
-		return bcalculate;
+		return bcalculateDashBoard;
 	}
 	
 	public BHDescriptionLabel getCannotCalculateHint() {

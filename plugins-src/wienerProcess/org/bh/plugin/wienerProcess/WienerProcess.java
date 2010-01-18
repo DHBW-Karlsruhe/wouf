@@ -185,6 +185,8 @@ public class WienerProcess implements IStochasticProcess {
 			layout.appendRow(RowSpec.decode("p"));
 			layout.appendRow(RowSpec.decode("14px"));
 			
+			// TODO Patrick H. nicht alle Werte dürfen 0 sein
+			
 			BHTextField tfslope = new BHTextField(key + SLOPE, "" + slope);
 			ValidationRule[] rules_slope = { VRMandatory.INSTANCE, VRIsDouble.INSTANCE };
 			tfslope.setValidationRules(rules_slope);

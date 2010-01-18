@@ -37,12 +37,10 @@ public class PlatformEvent extends EventObject {
 		 * save
 		 */
 		SAVE,
-		
 		/**
 		 * save as
 		 */
 		SAVEAS,
-		
 		/**
 		 * save all
 		 */

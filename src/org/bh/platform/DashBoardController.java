@@ -50,7 +50,6 @@ public class DashBoardController extends Controller{
     @SuppressWarnings("unchecked")
 	public void setResult(Map<DTOScenario, Map<?,?>> result) {
 		ITranslator translator = Services.getTranslator();
-		//DB Controller referenz vom feld holen und anzahl setzen
 		
 		DTOScenario s;
 		DistributionMap d;
@@ -61,6 +60,7 @@ public class DashBoardController extends Controller{
 		IBHAddValue stackedBarChart = view.getBHchartComponents().get(ChartKeys.DB_SBC_SV.toString());
 	
 		for(Entry<DTOScenario, Map<?, ?>> e : result.entrySet()){
+			e.getKey().isValid(true);
 			s = e.getKey();
 			if(s.isDeterministic()) {
 				r = (Map<String, Calculable[]>) e.getValue();

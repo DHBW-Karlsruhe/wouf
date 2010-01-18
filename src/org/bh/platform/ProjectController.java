@@ -1,5 +1,6 @@
 package org.bh.platform;
 
+import java.awt.Component;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.HashMap;
@@ -19,10 +20,15 @@ import org.bh.gui.View;
 import org.bh.gui.ViewException;
 import org.bh.gui.swing.BHButton;
 import org.bh.gui.swing.BHDashBoardPanelView;
+import org.bh.gui.swing.BHProjectForm;
+import org.bh.gui.swing.BHScenarioForm;
+import org.bh.gui.swing.BHStochasticInputForm;
 import org.bh.gui.swing.BHTree;
 import org.bh.gui.swing.BHTreeNode;
+import org.bh.platform.PlatformEvent.Type;
 
-public class ProjectController extends InputController {
+public class ProjectController extends InputController implements
+		IPlatformListener {
 	/**
 	 * Logger for this class
 	 */
@@ -30,6 +36,7 @@ public class ProjectController extends InputController {
 
 	public ProjectController(View view, IDTO<?> model) {
 		super(view, model);
+		Services.addPlatformListener(this);
 
 		((BHButton) view.getBHComponent(PlatformKey.CALCDASHBOARD))
 				.addActionListener(new CalculationListener(PlatformController
@@ -53,7 +60,7 @@ public class ProjectController extends InputController {
 
 			try {
 				DTOProject project = (DTOProject) getModel();
-				// Map an DashboardController übergeben
+				// Give Map to DashboardController
 				Map<DTOScenario, Map<?, ?>> results = new HashMap<DTOScenario, Map<?, ?>>();
 
 				for (DTOScenario scenario : project.getChildren()) {
@@ -97,6 +104,43 @@ public class ProjectController extends InputController {
 				log.debug("actionPerformed(ActionEvent)-end-");
 			}
 		}
+	}
 
+	@Override
+	public void platformEvent(PlatformEvent e) {
+		super.platformEvent(e);
+		if (e.getEventType() == Type.DATA_CHANGED
+				&& getModel().isMeOrChild(e.getSource())) {
+			System.out.println("erreicht");
+			DTOProject project = (DTOProject) getModel();
+			int counter = 0;
+			for (DTOScenario scenario : project.getChildren()) {
+				System.out.println("erreicht2");
+				if (scenario.isValid(true)) {
+					counter++;
+					System.out.println("counter" + counter);
+				}
+			}
+			setCalcEnabled(counter < 2);
+		}
+	}
+
+	protected void setCalcEnabled(boolean calculationEnabled) {
+		System.out.println("calculation enabled");
+		if (calculationEnabled) {
+			// ((Component) view.getBHComponent(PlatformKey.CALCDASHBOARD))
+			// .setEnabled(calculationEnabled);
+			System.out.println("if");
+			((Component) view.getBHComponent(PlatformKey.CALCDASHBOARD))
+					.setEnabled(false);
+			((Component) view.getBHComponent(BHProjectForm.Key.CANNOT_CALCULATE_HINT))
+					.setVisible(true);
+		} else {
+			System.out.println("else");
+			((Component) view.getBHComponent(PlatformKey.CALCDASHBOARD))
+					.setEnabled(true);
+			((Component) view.getBHComponent(BHProjectForm.Key.CANNOT_CALCULATE_HINT))
+					.setVisible(false);
+		}
 	}
 }
