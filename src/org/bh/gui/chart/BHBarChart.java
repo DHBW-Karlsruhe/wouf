@@ -54,6 +54,7 @@ import org.jfree.data.general.Dataset;
 			
 			BarRenderer barRenderer = (BarRenderer)chart.getCategoryPlot().getRenderer();
 			barRenderer.setDrawBarOutline(false);
+			barRenderer.setMaximumBarWidth(0.1);
 			
 			reloadText();
 			Services.addPlatformListener(this);

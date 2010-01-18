@@ -12,6 +12,7 @@ import org.bh.platform.PlatformEvent.Type;
 import org.jfree.chart.ChartFactory;
 import org.jfree.chart.plot.PlotOrientation;
 import org.jfree.chart.renderer.category.CategoryItemRenderer;
+import org.jfree.chart.renderer.category.StackedBarRenderer;
 import org.jfree.data.category.DefaultCategoryDataset;
 import org.jfree.data.general.Dataset;
 
@@ -48,6 +49,10 @@ import org.jfree.data.general.Dataset;
 			CategoryItemRenderer renderer = chart.getCategoryPlot().getRenderer();
 			renderer.setBaseItemLabelGenerator(new BHChartLabelGenerator());
 			renderer.setBaseItemLabelsVisible(true);
+			
+			StackedBarRenderer barRenderer = (StackedBarRenderer)chart.getCategoryPlot().getRenderer();
+			barRenderer.setDrawBarOutline(false);
+			barRenderer.setMaximumBarWidth(0.1);
 			
 			reloadText();
 			Services.addPlatformListener(this);

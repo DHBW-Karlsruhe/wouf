@@ -21,7 +21,7 @@ public class BHXYBarChart extends BHChart implements IBHAddValue,
 	public BHXYBarChart(String key){
 		super(key);
 		ITranslator translator = Services.getTranslator();
-		this.dataset = new XYSeriesCollection(new XYSeries(""));
+		this.dataset = new XYSeriesCollection(new XYSeries(translator.translate(key)));
 
 		chart = ChartFactory.createXYBarChart(
 				translator.translate(key),
@@ -30,7 +30,7 @@ public class BHXYBarChart extends BHChart implements IBHAddValue,
 				translator.translate(key.concat(BHChart.DIMY)), 
 				dataset, 
 				PlotOrientation.VERTICAL, false, true, false);
-
+		
 		if ("Nimbus".equals(UIManager.getLookAndFeel().getName())) {
 			chart.setBackgroundPaint(UIManager.getColor("Chart.background"));
 		}

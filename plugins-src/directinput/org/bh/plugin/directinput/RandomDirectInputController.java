@@ -1,7 +1,6 @@
 package org.bh.plugin.directinput;
 
 import java.awt.Component;
-import java.util.ArrayList;
 import java.util.List;
 
 import org.apache.log4j.Logger;
@@ -14,13 +13,16 @@ import org.bh.data.types.Calculable;
 import org.bh.data.types.DoubleValue;
 import org.bh.gui.View;
 import org.bh.gui.ViewException;
+import org.bh.platform.Services;
 
 // TODO Testklasse, wird später entfernt
 
 public class RandomDirectInputController implements IPeriodController {
 	private static final String GUI_KEY = "Random_Values";
 	private static final int PRIORITY = 0;
-	private static final List<DTOKeyPair> STOCHASTIC_KEYS = new ArrayList<DTOKeyPair>();
+	private static final List<DTOKeyPair> STOCHASTIC_KEYS =Services
+			.getStochasticKeysFromEnum(DTODirectInput.getUniqueIdStatic(),
+					DTODirectInput.Key.values());
 	
 	private static final Logger log = Logger.getLogger(RandomDirectInputController.class);
 

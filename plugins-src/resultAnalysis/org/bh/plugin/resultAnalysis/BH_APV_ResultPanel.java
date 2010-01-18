@@ -47,9 +47,9 @@ public class BH_APV_ResultPanel extends JPanel {
     }
 
     public void initialize(boolean isAllSelected) {
-        double border = 10;
+        double border = 30;
         double size[][] = {{border, TableLayout.PREFERRED, border, TableLayout.PREFERRED, border, TableLayout.PREFERRED, border}, // Columns
-            {border, TableLayout.PREFERRED, border, TableLayout.PREFERRED, border, TableLayout.PREFERRED, border, TableLayout.PREFERRED, border,TableLayout.PREFERRED, 
+            {border, TableLayout.PREFERRED,border, TableLayout.PREFERRED, border, TableLayout.PREFERRED, border, TableLayout.PREFERRED, border,TableLayout.PREFERRED, 
         	border,TableLayout.PREFERRED,border,TableLayout.PREFERRED}}; // Rows
 
 

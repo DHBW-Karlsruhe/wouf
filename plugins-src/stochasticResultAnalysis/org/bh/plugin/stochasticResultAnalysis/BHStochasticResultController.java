@@ -5,6 +5,7 @@ import org.bh.data.DTOScenario;
 import org.bh.data.types.DistributionMap;
 import org.bh.gui.View;
 import org.bh.gui.chart.IBHAddValue;
+import org.bh.platform.Services;
 
 public class BHStochasticResultController extends OutputController{
 	public static enum ChartKeys {
@@ -23,7 +24,7 @@ public class BHStochasticResultController extends OutputController{
 	@Override
 	public void setResult(DistributionMap result, DTOScenario scenario) {
 		IBHAddValue comp = super.view.getBHchartComponents().get(ChartKeys.DISTRIBUTION_CHART.toString());
-		comp.addSeries("Verteilung", result.toDoubleArray());
+		comp.addSeries(Services.getTranslator().translate(ChartKeys.DISTRIBUTION_CHART.toString()), result.toDoubleArray());
 	}
 	
 }
