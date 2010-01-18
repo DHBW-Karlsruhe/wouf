@@ -1,33 +1,28 @@
 package org.bh.gui.swing;
 
-import java.awt.Image;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.event.WindowAdapter;
-import java.awt.event.WindowEvent;
 
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JDialog;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
-import javax.swing.JPanel;
-import javax.swing.Popup;
-import javax.swing.PopupFactory;
 
+import org.bh.platform.PlatformKey;
 import org.bh.platform.Services;
 import org.bh.platform.i18n.ITranslator;
 
 import com.jgoodies.forms.layout.CellConstraints;
 import com.jgoodies.forms.layout.FormLayout;
 
-public class BHAboutBox {
+public class BHAboutBox extends JDialog implements ActionListener {
 
-	JDialog about;
 	JButton ok;
 	final ITranslator translator = Services.getTranslator();
 
 	public BHAboutBox(JFrame contentFrame) {
+		super(contentFrame, true);
 		this.initialize(contentFrame);
 	}
 
@@ -39,53 +34,32 @@ public class BHAboutBox {
 
 		CellConstraints cons = new CellConstraints();
 
-		about = new JDialog(frame, true);
-		about.setLayout(layout);
-
-		ImageIcon image = new ImageIcon(BHAboutBox.class
-				.getResource("/org/bh/images/AboutBox.jpg"));
+		this.setLayout(layout);
+		this.setTitle(this.translator.translate(PlatformKey.HELPINFO));
+		this.ok = new JButton(this.translator.translate("Bokay"));
+		this.ok.addActionListener(this);
+		
+		ImageIcon image = new ImageIcon(BHAboutBox.class.getResource("/org/bh/images/AboutBox.jpg"));
 		int x = (frame.getWidth() - 480) / 2;
 		int y = (frame.getHeight() - 600) / 2;
 
-		about.add(new JLabel(image), cons.xywh(2, 2, 2, 1));
-		about.add(new JLabel("<html><body>" + translator.translate("website")
+		this.add(new JLabel(image), cons.xywh(2, 2, 2, 1));
+		this.add(new JLabel("<html><body>" + translator.translate("website")
 				+ ": " + translator.translate("website_long")
 				+ "</body></html>"), cons.xy(3, 4));
-		about.add(
+		this.add(
 				new JLabel("<html><body>" + translator.translate("email")
 						+ ": " + translator.translate("email_long")
 						+ "</body></html>"), cons.xy(3, 6));
-		about.add(this.getOk(), cons.xywh(2, 8, 2, 1, "center, center"));
-		about.setLocation(x, y);
-		about.setResizable(false);
-		about.pack();
-		about.show();
+		this.add(this.ok, cons.xywh(2, 8, 2, 1, "center, center"));
+		this.setLocation(x, y);
+		this.setResizable(false);
+		this.pack();
+		this.setVisible(true);
 
 	}
 
-	public JButton getOk() {
-		if (ok == null) {
-			ok = new JButton("OK");
-			ok.addActionListener(new ActionListener() {
-				public void actionPerformed(ActionEvent e) {
-					about.hide();
-				}
-			});
-		}
-		return ok;
+	public void actionPerformed(ActionEvent e) {
+		this.dispose();
 	}
-	// public static void main(String [] args){
-	// JFrame frame = new JFrame();
-	// frame.setContentPane(new JPanel());
-	// BHAboutBox box = new BHAboutBox(frame);
-	// frame.addWindowListener(new WindowAdapter() {
-	// @Override
-	// public void windowClosing(WindowEvent e) {
-	// System.exit(0);
-	// }
-	// });
-	// frame.pack();
-	// frame.show();
-	//	
-	// }
 }
