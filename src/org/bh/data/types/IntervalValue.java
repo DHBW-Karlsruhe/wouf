@@ -1,5 +1,6 @@
 package org.bh.data.types;
 
+import java.math.BigDecimal;
 import javax.help.UnsupportedOperationException;
 
 /**
@@ -14,6 +15,8 @@ import javax.help.UnsupportedOperationException;
  */
 public class IntervalValue extends Calculable {
 	private static final long serialVersionUID = 6854419128579732095L;
+
+        private static final int SCALE = 2;
 
 	/** The min. */
 	protected final double min;
@@ -240,7 +243,8 @@ public class IntervalValue extends Calculable {
 	/* Specified by interface/super class. */
 	@Override
 	public final String toString() {
-		return "[" + min + "; " + max + "]";
+		return "[" + this.scaleIntervallValue(min, SCALE, BigDecimal.ROUND_HALF_UP) + "; " +
+                        this.scaleIntervallValue(max, SCALE, BigDecimal.ROUND_HALF_UP) + "]";
 	}
 
 	/* Specified by interface/super class. */
@@ -426,5 +430,7 @@ public class IntervalValue extends Calculable {
 		return (min + max) / 2;
 	}
 	
-	
+	private double scaleIntervallValue(double value, int scale, int roundMode){
+            return new BigDecimal(value).setScale(scale, roundMode).doubleValue();
+        }
 }
