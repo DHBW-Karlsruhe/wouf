@@ -5,6 +5,7 @@ import static org.junit.Assert.assertTrue;
 import org.bh.data.types.Calculable;
 import org.bh.data.types.DoubleValue;
 import org.bh.data.types.IntegerValue;
+import org.bh.platform.Services;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
@@ -36,6 +37,8 @@ public class IntegerValueUnitTests {
 
 	@Before
 	public void setUp() throws Exception {
+		Services.initNumberFormats();
+		
 		i1 = getRandom();
 		i2 = getRandom();
 		i3 = getRandom();

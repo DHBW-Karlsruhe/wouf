@@ -7,6 +7,7 @@ import org.bh.data.DTOScenario;
 import org.bh.data.types.DoubleValue;
 import org.bh.data.types.IntervalValue;
 import org.bh.data.types.StringValue;
+import org.bh.platform.Services;
 import org.bh.plugin.apv.APVCalculator;
 import org.bh.plugin.directinput.DTODirectInput;
 import org.bh.plugin.fcf.FCFCalculator;
@@ -33,6 +34,8 @@ public class DCFProceduresIntervalValues {
 
 	@Before
 	public void setUp() throws Exception {
+		Services.initNumberFormats();
+		
 		scenario = new DTOScenario();
 		scenario.put(DTOScenario.Key.IDENTIFIER, new StringValue("TestScenario"));
 		scenario.put(DTOScenario.Key.RFK, new DoubleValue(0.10));

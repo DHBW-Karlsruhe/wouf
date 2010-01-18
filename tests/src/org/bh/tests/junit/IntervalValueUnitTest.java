@@ -6,6 +6,7 @@ import net.sourceforge.interval.ia_math.RealInterval;
 
 import org.bh.data.types.IntegerValue;
 import org.bh.data.types.IntervalValue;
+import org.bh.platform.Services;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -47,6 +48,7 @@ public class IntervalValueUnitTest {
 
 	@Before
 	public void setUp() throws Exception {
+		Services.initNumberFormats();
 
 		vp1 = getRandomPair();
 		vp2 = getRandomPair();

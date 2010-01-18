@@ -12,6 +12,7 @@ import org.bh.data.types.DoubleValue;
 import org.bh.data.types.IntegerValue;
 import org.bh.data.types.IntervalValue;
 import org.bh.data.types.StringValue;
+import org.bh.platform.Services;
 import org.bh.plugin.apv.APVCalculator;
 import org.bh.plugin.directinput.DTODirectInput;
 import org.bh.plugin.fcf.FCFCalculator;
@@ -47,6 +48,7 @@ public class DCFProceduresPointIntervals {
 
 	@Before
 	public void setUp() throws Exception {
+		Services.initNumberFormats();
 
 		DoubleValue rfk = new DoubleValue(0.10);
 		DoubleValue rek =  new DoubleValue(0.11);
