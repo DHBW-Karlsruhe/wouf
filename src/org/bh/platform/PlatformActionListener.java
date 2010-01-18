@@ -409,7 +409,10 @@ class PlatformActionListener implements ActionListener {
 			ProjectRepositoryManager.setChanged(false);
 			bhmf.resetTitle();
 		}
-
+		
+		// fix ticket #85
+		PlatformController.getInstance().getMainFrame().getBHTree().setSelectionPath(null);
+		bhmf.setContentForm(new BHContent());
 	}
 
 	/*
@@ -432,6 +435,11 @@ class PlatformActionListener implements ActionListener {
 			pC.setupTree(bhmf, projectRepoManager);
 
 			bhmf.getBHTree().expandAll();
+			
+			// fix ticket #85
+			PlatformController.getInstance().getMainFrame().getBHTree().setSelectionPath(null);
+			bhmf.setContentForm(new BHContent());
+			
 		}
 	}
 	protected void popupDuplicate(){

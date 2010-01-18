@@ -28,6 +28,7 @@ import org.bh.gui.ValidationMethods;
 import org.bh.gui.View;
 import org.bh.gui.ViewException;
 import org.bh.gui.swing.BHButton;
+import org.bh.gui.swing.BHContent;
 import org.bh.gui.swing.BHDeterministicProcessForm;
 import org.bh.gui.swing.BHMainFrame;
 import org.bh.gui.swing.BHMenuItem;
@@ -35,7 +36,6 @@ import org.bh.gui.swing.BHProjectForm;
 import org.bh.gui.swing.BHProjectView;
 import org.bh.gui.swing.BHScenarioForm;
 import org.bh.gui.swing.BHScenarioView;
-import org.bh.gui.swing.BHTree;
 import org.bh.gui.swing.BHTreeNode;
 import org.bh.gui.swing.IBHAction;
 import org.bh.platform.PlatformEvent.Type;
@@ -61,7 +61,7 @@ public class PlatformController {
 	 */
 	private static PlatformController singletonInstance;
 
-	private BHMainFrame bhmf;
+	BHMainFrame bhmf;
 	private ProjectRepositoryManager projectRepoManager = ProjectRepositoryManager
 			.getInstance();
 
@@ -88,12 +88,12 @@ public class PlatformController {
 	 * @author Loeckelt.Michael
 	 */
 	public static PlatformPersistenceManager platformPersistenceManager;
-	
+
 	/**
 	 * PlatformactionListener
 	 */
 	public PlatformActionListener pal;
-	
+
 	/**
 	 * Logging
 	 */
@@ -130,8 +130,7 @@ public class PlatformController {
 		 * Add EventHandler to Platform-Items
 		 * -----------------------------------
 		 */
-		pal = new PlatformActionListener(bhmf,
-				projectRepoManager, this);
+		pal = new PlatformActionListener(bhmf, projectRepoManager, this);
 
 		// Add ActionListener to Toolbar-buttons
 		for (IBHAction item : BHButton.getPlatformItems()) {
@@ -197,17 +196,19 @@ public class PlatformController {
 			// in the end, add all to rootNode
 			rootNode.add(projectNode);
 		}
-	
+
 		bhmf.getBHTree().setTreeModel(new BHTreeModel(rootNode));
-		bhmf.getBHTree()
-				.addTreeSelectionListener(new BHTreeSelectionListener());
+
+		// avoid to sum number of listeners -- done in context with ticket #85
+		if (bhmf.getBHTree().getTreeSelectionListeners().length < 3) {
+			bhmf.getBHTree().addTreeSelectionListener(
+					new BHTreeSelectionListener());
+		}
 
 		Services.addPlatformListener(new DataChangedListener());
 
 	}
-	
-	
-	
+
 	public void addProject(DTOProject newProject) {
 		projectRepoManager.addProject(newProject);
 
@@ -242,95 +243,103 @@ public class PlatformController {
 
 		@Override
 		public void valueChanged(final TreeSelectionEvent tse) {
-			SwingUtilities.invokeLater(new Runnable() {
-				@Override
-				public void run() {
-					if (tse.getPath().getLastPathComponent() instanceof BHTreeNode) {
-						BHTreeNode selectedNode = (BHTreeNode) tse.getPath()
-								.getLastPathComponent();
-						DTO<?> selectedDto = (DTO<?>) selectedNode
-								.getUserObject();
-						if (selectedDto instanceof DTOProject) {
-							try {
-								View view = new BHProjectView(
-										new BHProjectForm());
+			if (tse.getNewLeadSelectionPath() == null) {
+				bhmf.setContentForm(new BHContent());
+			} else {
+				SwingUtilities.invokeLater(new Runnable() {
+					@Override
+					public void run() {
+						if (tse.getPath().getLastPathComponent() instanceof BHTreeNode) {
+							BHTreeNode selectedNode = (BHTreeNode) tse
+									.getPath().getLastPathComponent();
+							DTO<?> selectedDto = (DTO<?>) selectedNode
+									.getUserObject();
+							if (selectedDto instanceof DTOProject) {
+								try {
+									View view = new BHProjectView(
+											new BHProjectForm());
 
-								IDTO<?> model = selectedDto;
-								controller = new ProjectController(view, model);
-								bhmf.setContentForm(view.getViewPanel());
-								controller.loadAllToView();
+									IDTO<?> model = selectedDto;
+									controller = new ProjectController(view,
+											model);
+									bhmf.setContentForm(view.getViewPanel());
+									controller.loadAllToView();
 
-							} catch (ViewException e) {
-								e.printStackTrace();
-							}
+								} catch (ViewException e) {
+									e.printStackTrace();
+								}
 
-						} else if (selectedDto instanceof DTOScenario) {
-							try {
+							} else if (selectedDto instanceof DTOScenario) {
+								try {
 
-								DTOScenario model = (DTOScenario) selectedDto;
+									DTOScenario model = (DTOScenario) selectedDto;
 
-								// check if controller is already there...
-								if ((controller = selectedNode.getController()) == null) {
+									// check if controller is already there...
+									if ((controller = selectedNode
+											.getController()) == null) {
 
-									// if not, create view at first
+										// if not, create view at first
 
-									View view;
-									// find out if stochastic process was chosen
-									// at init of strategy
-									if (!model.isDeterministic()) {
-										view = new BHScenarioView(
-												new BHScenarioForm(
-														BHScenarioForm.Type.STOCHASTIC,
-														model
-																.isIntervalArithmetic()),
-												new ValidationMethods());
-									} else {
-										view = new BHScenarioView(
-												new BHScenarioForm(
-														BHScenarioForm.Type.DETERMINISTIC,
-														model
-																.isIntervalArithmetic()),
-												new ValidationMethods());
+										View view;
+										// find out if stochastic process was
+										// chosen
+										// at init of strategy
+										if (!model.isDeterministic()) {
+											view = new BHScenarioView(
+													new BHScenarioForm(
+															BHScenarioForm.Type.STOCHASTIC,
+															model
+																	.isIntervalArithmetic()),
+													new ValidationMethods());
+										} else {
+											view = new BHScenarioView(
+													new BHScenarioForm(
+															BHScenarioForm.Type.DETERMINISTIC,
+															model
+																	.isIntervalArithmetic()),
+													new ValidationMethods());
+										}
+
+										// create controller
+										controller = new ScenarioController(
+												view, model, bhmf);
+										selectedNode.setController(controller);
 									}
 
-									// create controller
-									controller = new ScenarioController(view,
-											model, bhmf);
-									selectedNode.setController(controller);
+									if (model.isDeterministic()) {
+										// if scenario is deterministic, an
+										// overview
+										// table is provided
+										((BHDeterministicProcessForm) ((BHScenarioForm) controller
+												.getViewPanel())
+												.getProcessForm())
+												.setPeriodTable(PlatformController.this
+														.prepareScenarioTableData(model));
+									}
+
+									JSplitPane bgComponent;
+
+									if ((bgComponent = selectedNode
+											.getBackgroundPane()) != null) {
+										bhmf.setContentResultForm(bgComponent);
+									} else {
+										bhmf.setContentForm(controller
+												.getViewPanel());
+									}
+
+								} catch (ViewException e) {
+									e.printStackTrace();
 								}
 
-								if (model.isDeterministic()) {
-									// if scenario is deterministic, an
-									// overview
-									// table is provided
-									((BHDeterministicProcessForm) ((BHScenarioForm) controller
-											.getViewPanel()).getProcessForm())
-											.setPeriodTable(PlatformController.this
-													.prepareScenarioTableData(model));
-								}
-
-								JSplitPane bgComponent;
-
-								if ((bgComponent = selectedNode
-										.getBackgroundPane()) != null) {
-									bhmf.setContentResultForm(bgComponent);
-								} else {
-									bhmf.setContentForm(controller
-											.getViewPanel());
-								}
-
-							} catch (ViewException e) {
-								e.printStackTrace();
+							} else if (selectedDto instanceof DTOPeriod) {
+								Services
+										.startPeriodEditing((DTOPeriod) selectedDto);
 							}
-
-						} else if (selectedDto instanceof DTOPeriod) {
-							Services
-									.startPeriodEditing((DTOPeriod) selectedDto);
 						}
-					}
 
-				}
-			});
+					}
+				});
+			}
 		}
 	}
 
@@ -441,7 +450,7 @@ public class PlatformController {
 		return this.bhmf;
 	}
 
-	private IValue[][] prepareScenarioTableData(DTOScenario scenarioDto) {
+	IValue[][] prepareScenarioTableData(DTOScenario scenarioDto) {
 		@SuppressWarnings("unchecked")
 		List<DTOPeriod> periods = (List<DTOPeriod>) scenarioDto.getChildren();
 
