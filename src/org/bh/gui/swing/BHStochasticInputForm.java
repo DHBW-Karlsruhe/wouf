@@ -32,6 +32,7 @@ public class BHStochasticInputForm extends JPanel {
 	
 	private BHDescriptionLabel lStochasticKeys;
 	private BHSelectionList liStochasticKeys;
+	private BHDescriptionLabel lNoStochasticKeys;
 	
 	private BHButton bCalcParameters;
 	private BHButton bResetParameters;
@@ -41,7 +42,8 @@ public class BHStochasticInputForm extends JPanel {
 	
 	public enum Key {
 		CALC_PARAMETERS,
-		RESET_PARAMETERS;
+		RESET_PARAMETERS,
+		NO_STOCHASTIC_KEYS;
 		
 		@Override
 		public String toString() {
@@ -77,6 +79,7 @@ public class BHStochasticInputForm extends JPanel {
 		
 		this.add(this.getlStochasticKeysList(), cons.xywh(2, 4, 8, 1));
 		this.add(new JScrollPane(this.getliStochasticKeysList()), cons.xywh(2, 6, 8, 1));
+		this.add(this.getlNoStochasticKeys(), cons.xywh(2, 6, 8, 1));
 		
 		this.add(this.getbCalcParameters(), cons.xywh(2, 8, 8, 1));
 		this.add(this.getbResetParameters(), cons.xywh(2, 8, 8, 1));
@@ -142,6 +145,14 @@ public class BHStochasticInputForm extends JPanel {
 			liStochasticKeys.setDefaultValue(false);
 		}
 		return liStochasticKeys;
+	}
+	
+	public BHDescriptionLabel getlNoStochasticKeys() {
+		if (lNoStochasticKeys == null) {
+			lNoStochasticKeys = new BHDescriptionLabel(Key.NO_STOCHASTIC_KEYS);
+			lNoStochasticKeys.setVisible(false);
+		}
+		return lNoStochasticKeys;
 	}
 	
 	public BHButton getbCalcParameters() {

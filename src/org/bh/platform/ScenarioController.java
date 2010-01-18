@@ -37,6 +37,7 @@ import org.bh.gui.ViewEvent;
 import org.bh.gui.ViewException;
 import org.bh.gui.swing.BHButton;
 import org.bh.gui.swing.BHComboBox;
+import org.bh.gui.swing.BHDescriptionLabel;
 import org.bh.gui.swing.BHMainFrame;
 import org.bh.gui.swing.BHScenarioForm;
 import org.bh.gui.swing.BHSelectionList;
@@ -137,26 +138,31 @@ public class ScenarioController extends InputController {
 					if (parametersPanel instanceof Container)
 						Services.setFocus((Container) parametersPanel);
 					try {
-						final View view = new View(parametersPanel, new ValidationMethods());
+						final View view = new View(parametersPanel,
+								new ValidationMethods());
 						view.addViewListener(new IViewListener() {
 							@Override
 							public void viewEvent(ViewEvent e) {
 								switch (e.getEventType()) {
 								case VALUE_CHANGED:
-									boolean allValid = !view.revalidate().hasErrors();
+									boolean allValid = !view.revalidate()
+											.hasErrors();
 									((Component) getView().getBHComponent(
-											PlatformKey.CALCSHAREHOLDERVALUE)).setEnabled(allValid);
+											PlatformKey.CALCSHAREHOLDERVALUE))
+											.setEnabled(allValid);
 									break;
 								case VALIDATION_FAILED:
 									((Component) getView().getBHComponent(
-											PlatformKey.CALCSHAREHOLDERVALUE)).setEnabled(false);
+											PlatformKey.CALCSHAREHOLDERVALUE))
+											.setEnabled(false);
 									break;
 								}
 							}
 						});
 						boolean allValid = !view.revalidate().hasErrors();
 						((Component) getView().getBHComponent(
-								PlatformKey.CALCSHAREHOLDERVALUE)).setEnabled(allValid);
+								PlatformKey.CALCSHAREHOLDERVALUE))
+								.setEnabled(allValid);
 					} catch (ViewException e1) {
 					}
 
@@ -210,9 +216,19 @@ public class ScenarioController extends InputController {
 		if (cbPeriodType != null && !scenario.isDeterministic()) {
 			BHSelectionList slStochasticKeys = (BHSelectionList) getView()
 					.getBHComponent(DTOScenario.Key.STOCHASTIC_KEYS);
+			BHDescriptionLabel lNoStochasticKeys = (BHDescriptionLabel) getView()
+					.getBHComponent(
+							BHStochasticInputForm.Key.NO_STOCHASTIC_KEYS);
 			List<DTOKeyPair> keyPair = Services.getPeriodController(
 					cbPeriodType.getValue().toString()).getStochasticKeys();
-			slStochasticKeys.setModel(keyPair.toArray());
+			if (!keyPair.isEmpty()) {
+				slStochasticKeys.setModel(keyPair.toArray());
+				slStochasticKeys.getParent().getParent().setVisible(true);
+				lNoStochasticKeys.setVisible(false);
+			} else {
+				lNoStochasticKeys.setVisible(true);
+				slStochasticKeys.getParent().getParent().setVisible(false);
+			}
 		}
 	}
 
