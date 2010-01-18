@@ -218,7 +218,7 @@ public class PDFExport implements IImportExport {
 			public void actionPerformed(ActionEvent e) {
 				IBHComponent comp = (IBHComponent) e.getSource();
 				if (comp.getKey().equals("Mexport")) {
-					if (checkFile(dp.getFilePath(), exportDialog)) {
+					if (!checkFile(dp.getFilePath(), exportDialog)) {
 						return;
 					}
 					db.newDocument(dp.getFilePath(), scenario);

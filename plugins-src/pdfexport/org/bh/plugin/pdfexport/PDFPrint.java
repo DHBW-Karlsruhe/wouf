@@ -131,7 +131,7 @@ public class PDFPrint implements IPrint {
 			PDDocument pDoc;
 			File tmpFile;
 
-			tmpFile = File.createTempFile("bh_print", "pdf");
+			tmpFile = File.createTempFile("bh_print", ".pdf");
 
 			db.newDocument(tmpFile.getAbsolutePath(), scenario);
 			db.buildHeadData(scenario);
@@ -141,6 +141,8 @@ public class PDFPrint implements IPrint {
 
 			pDoc = PDDocument.load(tmpFile);
 			pDoc.print();
+			
+			tmpFile.deleteOnExit();
 		} catch (IOException e) {
 			log.debug(e);
 		} catch (PrinterException e) {

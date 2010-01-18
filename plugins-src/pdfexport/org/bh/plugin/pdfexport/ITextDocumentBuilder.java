@@ -188,7 +188,7 @@ public class ITextDocumentBuilder implements PdfPageEvent {
 		title = new Paragraph(trans.translate(Keys.DISTRIBUTION_MAP),
 				SECTION2_FONT);
 		distMapSection = results.addSection(title, 2);
-
+		distMapSection.add(new Paragraph("\n"));
 		t = new PdfPTable(2);
 		for (Iterator<Entry<Double, Integer>> i = distMap.iterator(); i
 				.hasNext();) {
