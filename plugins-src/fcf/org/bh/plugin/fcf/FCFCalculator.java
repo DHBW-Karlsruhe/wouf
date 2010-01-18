@@ -98,9 +98,9 @@ public class FCFCalculator implements IShareholderValueCalculator {
 		Calculable[] uw = new Calculable[fcf.length];
 		Calculable[] EKrFCF = new Calculable[fcf.length];
 		Calculable[] FCFPresentValueTaxShield = new Calculable[fcf.length];
-		Calculable ekr = (Calculable) scenario.get(DTOScenario.Key.REK);
-		Calculable fkr = (Calculable) scenario.get(DTOScenario.Key.RFK);
-		Calculable s = (DoubleValue) scenario.getTax();
+		Calculable ekr = scenario.getCalculable(DTOScenario.Key.REK);
+		Calculable fkr = scenario.getCalculable(DTOScenario.Key.RFK);
+		Calculable s = scenario.getTax();
 		// Needed Helper Array
 		Calculable[] uwFCFlastCalc = new Calculable[fcf.length];
 

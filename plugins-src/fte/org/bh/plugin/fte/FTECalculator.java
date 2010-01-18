@@ -92,9 +92,9 @@ public class FTECalculator implements IShareholderValueCalculator {
 
 		// Instantiate the result arrays
 		Calculable[] uw = new Calculable[fcf.length];
-		Calculable ekr = (Calculable) scenario.get(DTOScenario.Key.REK);
-		Calculable fkr = (Calculable) scenario.get(DTOScenario.Key.RFK);
-		Calculable s = (DoubleValue) scenario.getTax();
+		Calculable ekr = scenario.getCalculable(DTOScenario.Key.REK);
+		Calculable fkr = scenario.getCalculable(DTOScenario.Key.RFK);
+		Calculable s = scenario.getTax();
 
 		// Instantiate result Arrays
 		Calculable[] FTEInterest = new Calculable[fcf.length]; // Interest

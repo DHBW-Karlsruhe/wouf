@@ -82,12 +82,12 @@ public class APVCalculator implements IShareholderValueCalculator {
 
 		// Calculate PresentValueTaxShield
 		presentValueTaxShield = calcPresentValueTaxShield(scenario.getTax(),
-				(Calculable) scenario.get(DTOScenario.Key.RFK), fk,
+				scenario.getCalculable(DTOScenario.Key.RFK), fk,
 				presentValueTaxShield);
 
 		// Calculate results for endless period
 		presentValueFCF[T] = calcPresentValueFCFun(fcf[T],
-				(Calculable) scenario.get(DTOScenario.Key.REK));
+				scenario.getCalculable(DTOScenario.Key.REK));
 		uw[T] = calcEnterpriseValue(presentValueFCF[T],
 				presentValueTaxShield[T], fk[T]);
 		if (verboseLogging && log.isDebugEnabled()) {
