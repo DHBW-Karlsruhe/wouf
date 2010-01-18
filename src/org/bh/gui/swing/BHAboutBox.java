@@ -8,6 +8,7 @@ import javax.swing.JButton;
 import javax.swing.JDialog;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.WindowConstants;
 
 import org.bh.platform.PlatformKey;
 import org.bh.platform.Services;
@@ -18,15 +19,15 @@ import com.jgoodies.forms.layout.FormLayout;
 
 public class BHAboutBox extends JDialog implements ActionListener {
 
-	JButton ok;
-	final ITranslator translator = Services.getTranslator();
+	private JButton ok;
+	private final ITranslator translator = Services.getTranslator();
 
 	public BHAboutBox(JFrame contentFrame) {
 		super(contentFrame, true);
 		this.initialize(contentFrame);
 	}
 
-	public void initialize(JFrame frame) {
+	private void initialize(JFrame frame) {
 		String rowDef = "2px,p,4px,p,8px,p,14px,p,4px";
 		String colDef = "2px,40px,p:grow,2px";
 
@@ -36,6 +37,8 @@ public class BHAboutBox extends JDialog implements ActionListener {
 
 		this.setLayout(layout);
 		this.setTitle(this.translator.translate(PlatformKey.HELPINFO));
+		this.setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
+		
 		this.ok = new JButton(this.translator.translate("Bokay"));
 		this.ok.addActionListener(this);
 		
