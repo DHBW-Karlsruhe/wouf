@@ -108,9 +108,9 @@ public class BH_FTE_ResultPanel extends JPanel {
             log.debug(e);
         }
         //All FTE Charts
-        fteShareholderValue = BHChartFactory.getBarChart( BHResultController.ChartKeys.FTE_BC_SV.toString());
-        fteCapitalStructure = BHChartFactory.getStackedBarChart( BHResultController.ChartKeys.FTE_BC_CS.toString());
-        fteFlowToEquity = BHChartFactory.getBarChart( BHResultController.ChartKeys.FTE_BC_FTE.toString());
+        fteShareholderValue = BHChartFactory.getBarChart( BHResultController.ChartKeys.FTE_BC_SV.toString(), false,false);
+        fteCapitalStructure = BHChartFactory.getStackedBarChart( BHResultController.ChartKeys.FTE_BC_CS.toString(), true, false);
+        fteFlowToEquity = BHChartFactory.getBarChart( BHResultController.ChartKeys.FTE_BC_FTE.toString(), false, false);
         
         this.add(infiniteFormula, "3,3");
         this.add(valueInfiniteFormula, "3,5");

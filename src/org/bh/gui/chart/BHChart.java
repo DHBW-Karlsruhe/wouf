@@ -24,6 +24,10 @@ public abstract class BHChart implements IBHComponent {
      * definig access to get y axis title by runtime
      */
     protected static final String DIMY = ".Y";
+    /**
+     * definig access to get describtion by runtime
+     */
+    protected static final String DESC = ".D";
 
     ITranslator translator;
     

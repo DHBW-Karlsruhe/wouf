@@ -9,7 +9,6 @@ import org.bh.platform.IPlatformListener;
 import org.bh.platform.PlatformEvent;
 import org.bh.platform.Services;
 import org.bh.platform.PlatformEvent.Type;
-import org.bh.platform.i18n.ITranslator;
 import org.jfree.chart.ChartFactory;
 import org.jfree.chart.plot.PlotOrientation;
 import org.jfree.chart.renderer.category.BarRenderer;
@@ -34,7 +33,7 @@ import org.jfree.data.general.Dataset;
 
 		private DefaultCategoryDataset dataset;
 
-		protected BHBarChart(final String key, Dataset dataset) {
+		protected BHBarChart(final String key, Dataset dataset, boolean legend, boolean tooltips) {
 			super(key);
 
 			this.dataset = (DefaultCategoryDataset) dataset;
@@ -43,7 +42,7 @@ import org.jfree.data.general.Dataset;
                                 , translator.translate(key.concat(BHChart.DIMX))
                                 , translator.translate(key.concat(BHChart.DIMY))
                                 , this.dataset
-                                , PlotOrientation.VERTICAL, true, true, false);
+                                , PlotOrientation.VERTICAL, legend, tooltips, false);
 
 			if ("Nimbus".equals(UIManager.getLookAndFeel().getName())) {
 				chart.setBackgroundPaint(UIManager.getColor("Chart.background"));

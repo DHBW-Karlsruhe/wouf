@@ -53,7 +53,7 @@ public class BHDashBoardPanel extends JPanel {
 		JPanel chartArea = new JPanel();
 
 		stackedBarChart = BHChartFactory
-				.getStackedBarChart(DashBoardController.ChartKeys.DB_SBC_SV);
+				.getStackedBarChart(DashBoardController.ChartKeys.DB_SBC_SV, true, true);
 		chartArea.add(stackedBarChart);
 		
 		add(chartArea, BorderLayout.CENTER);

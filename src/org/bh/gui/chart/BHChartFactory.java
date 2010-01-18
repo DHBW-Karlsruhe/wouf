@@ -2,8 +2,6 @@ package org.bh.gui.chart;
 
 import org.bh.platform.Services;
 import org.bh.platform.i18n.ITranslator;
-import org.jfree.chart.plot.Plot;
-import org.jfree.chart.plot.XYPlot;
 import org.jfree.data.category.DefaultCategoryDataset;
 import org.jfree.data.general.Dataset;
 import org.jfree.data.general.DefaultPieDataset;
@@ -44,9 +42,9 @@ public class BHChartFactory {
      * @param key
      * @return
      */
-    public static BHChartPanel getWaterfallChart( final Object key) {
+    public static BHChartPanel getWaterfallChart( final Object key, boolean legend, boolean tooltips) {
 
-        BHwaterfallChart chart = new BHwaterfallChart(dimDataset(getAxes(key)[0], getAxes(key)[1]), key.toString());
+        BHwaterfallChart chart = new BHwaterfallChart(dimDataset(getAxes(key)[0], getAxes(key)[1]), key.toString(), legend, tooltips);
         return new BHChartPanel(key, chart.getChart(), chart.getClass(), chart);
     }
     //TODO Lars.Zuckschwerdt JavaDoc
@@ -56,9 +54,9 @@ public class BHChartFactory {
      * @param key
      * @return
      */
-    public static BHChartPanel getBarChart( final Object key) {
+    public static BHChartPanel getBarChart( final Object key, boolean legend, boolean tooltips) {
 
-        BHBarChart chart = new BHBarChart(key.toString(), dimDataset(getAxes(key)[0], getAxes(key)[1]));
+        BHBarChart chart = new BHBarChart(key.toString(), dimDataset(getAxes(key)[0], getAxes(key)[1]), legend, tooltips);
         return new BHChartPanel(key, chart.getChart(), chart.getClass(), chart);
     }
 
@@ -68,9 +66,9 @@ public class BHChartFactory {
      * @param key
      * @return
      */
-    public static BHChartPanel getStackedBarChart( final Object key) {
+    public static BHChartPanel getStackedBarChart( final Object key, boolean legend, boolean tooltips) {
 
-        BHstackedBarChart chart = new BHstackedBarChart(dimDataset(getAxes(key)[0], getAxes(key)[1]), key.toString());
+        BHstackedBarChart chart = new BHstackedBarChart(dimDataset(getAxes(key)[0], getAxes(key)[1]), key.toString(), legend, tooltips);
         return new BHChartPanel(key, chart.getChart(), chart.getClass(), chart);
     }
 

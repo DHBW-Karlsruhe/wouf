@@ -32,7 +32,7 @@ import org.jfree.data.general.Dataset;
 		private DefaultCategoryDataset dataset;
 
 		protected BHwaterfallChart(
-				final Dataset dataset, final String key) {
+				final Dataset dataset, final String key, boolean legend, boolean tooltips) {
 			super(key);
 			this.dataset = (DefaultCategoryDataset) dataset;
 
@@ -40,7 +40,7 @@ import org.jfree.data.general.Dataset;
                                 , translator.translate(key.concat(BHChart.DIMX))
                                 , translator.translate(key.concat(BHChart.DIMY))
                                 , this.dataset
-                                , PlotOrientation.VERTICAL, true, true, false);
+                                , PlotOrientation.VERTICAL, legend, tooltips, false);
 
 			if ("Nimbus".equals(UIManager.getLookAndFeel().getName())) {
 				chart.setBackgroundPaint(UIManager.getColor("Chart.background"));

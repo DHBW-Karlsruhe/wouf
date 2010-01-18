@@ -26,8 +26,19 @@ public class AllDCFMethodsCalculator implements IShareholderValueCalculator {
 				.values()) {
 			if (calculator.getUniqueId().equals(UNIQUE_ID))
 				continue;
-
-			result.putAll(calculator.calculate(scenario, verboseLogging));
+			Map<String, Calculable[]> result2 = calculator.calculate(scenario, verboseLogging);
+			if(result.containsKey("org.bh.calculation.IShareholderValueCalculator$Result.DEBT") && result.containsKey("org.bh.calculation.IShareholderValueCalculator$Result.FREE_CASH_FLOW")){
+				Calculable[] debt = result.get("org.bh.calculation.IShareholderValueCalculator$Result.DEBT");
+				Calculable[] fcf = result.get("org.bh.calculation.IShareholderValueCalculator$Result.FREE_CASH_FLOW");
+				Calculable[] debt2 = result2.get("org.bh.calculation.IShareholderValueCalculator$Result.DEBT");
+				Calculable[] fcf2 = result2.get("org.bh.calculation.IShareholderValueCalculator$Result.FREE_CASH_FLOW");
+				result.putAll(result2);
+				if(debt.length > debt2.length)
+					result.put("org.bh.calculation.IShareholderValueCalculator$Result.DEBT", debt);
+				if(fcf.length > fcf2.length)
+					result.put("org.bh.calculation.IShareholderValueCalculator$Result.FREE_CASH_FLOW", fcf);
+			}else
+				result.putAll(result2);
 		}
 		return result;
 	}

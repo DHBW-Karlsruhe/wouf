@@ -5,9 +5,16 @@
 
 package org.bh.gui.chart;
 
+import java.awt.BorderLayout;
+import java.awt.Dimension;
 import java.util.List;
 
+import javax.swing.BorderFactory;
+import javax.swing.JPanel;
+import javax.swing.JTextArea;
+
 import org.bh.gui.swing.IBHComponent;
+import org.bh.platform.Services;
 import org.jfree.chart.ChartPanel;
 import org.jfree.chart.JFreeChart;
 
@@ -15,7 +22,7 @@ import org.jfree.chart.JFreeChart;
  *
  * @author Marco Hammel
  */
-public class BHChartPanel extends ChartPanel implements IBHComponent, IBHAddValue{
+public class BHChartPanel extends JPanel implements IBHComponent, IBHAddValue{
     private static final long serialVersionUID = -8018664370176080809L;
 
     private String key;
@@ -24,10 +31,19 @@ public class BHChartPanel extends ChartPanel implements IBHComponent, IBHAddValu
     private IBHAddValue chartInstance;
 
     public BHChartPanel(Object key, JFreeChart chart, Class<? extends IBHAddValue> chartClass, IBHAddValue chartInstance){
-        super(chart);
-        this.key = key.toString();
+    	this.key = key.toString();
         this.chartClass = chartClass;
         this.chartInstance = chartInstance;
+    	this.setLayout(new BorderLayout());
+        this.add(new ChartPanel(chart), BorderLayout.CENTER);
+        JTextArea description = new JTextArea(Services.getTranslator().translate(key + BHChart.DESC));
+        description.setEditable(false);
+        description.setAutoscrolls(true);
+        description.setBorder(BorderFactory.createLoweredBevelBorder());
+        description.setLineWrap(true);
+        description.setWrapStyleWord(true);
+        description.setPreferredSize(new Dimension(250, 50));
+    	this.add(description, BorderLayout.EAST);
     }
 
     /**
@@ -37,7 +53,10 @@ public class BHChartPanel extends ChartPanel implements IBHComponent, IBHAddValu
     public Class<? extends IBHAddValue> getChartClass(){
         return this.chartClass;
     }
-
+    
+    public JFreeChart getChart(){
+    	return (JFreeChart)this.chartInstance;
+    }
     public IBHAddValue getChartInstance(){
         return this.chartInstance;
     }
