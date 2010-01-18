@@ -6,6 +6,7 @@ import java.awt.Container;
 import java.io.StringWriter;
 import java.lang.reflect.Field;
 import java.net.URL;
+import java.text.NumberFormat;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -60,6 +61,8 @@ public class Services {
 	private static HashMap<String, IDataExchangeController> dataExchangeController;
 	private static HashMap<String, IImportExport> importExport;
 	private static HashMap<String, IPrint> print;
+	private static NumberFormat doubleFormat = null;
+	private static NumberFormat integerFormat = null;
 
 	private static BHMainFrame bhmf = null;
 	private static StringWriter logWriter = new StringWriter();
@@ -259,25 +262,24 @@ public class Services {
 		}
 		return matchingImportExport;
 	}
-	
+
 	/**
 	 * Returns the references to all print plug-ins.
 	 * 
 	 * @return References to all print
 	 */
-	public static Map<String, IPrint> getPrintPlugins(
-			int requiredMethods) {
+	public static Map<String, IPrint> getPrintPlugins(int requiredMethods) {
 		if (print == null) {
 			loadPrintPlugins();
 		}
 		return print;
 	}
-	
+
 	private static void loadPrintPlugins() {
 		// load all print plug-ins and put them into the map
-		print = new HashMap<String,IPrint>();
-		ServiceLoader<IPrint> printPlugins = PluginManager
-				.getInstance().getServices(IPrint.class);
+		print = new HashMap<String, IPrint>();
+		ServiceLoader<IPrint> printPlugins = PluginManager.getInstance()
+				.getServices(IPrint.class);
 		for (IPrint printPlug : printPlugins) {
 			print.put(printPlug.getUniqueId(), printPlug);
 		}
@@ -307,8 +309,9 @@ public class Services {
 					UIManager.put("nimbusBase", new Color(55, 125, 170));
 					UIManager.put("control", new Color(235, 240, 255));
 					UIManager.put("nimbusOrange", new Color(255, 165, 0));
-					UIManager.put("nimbusSelectionBackground", new Color(80, 160, 190));
-					
+					UIManager.put("nimbusSelectionBackground", new Color(80,
+							160, 190));
+
 					// BH specific attributes.
 					UIManager.put("BHTree.nodeheight", 20);
 					UIManager.put("BHTree.minimumWidth", 160);
@@ -419,12 +422,44 @@ public class Services {
 
 	public static void setupLogger() {
 		String pattern = "%d{ISO8601} %-5p [%t] %c: %m%n";
-		WriterAppender appender = new WriterAppender(new PatternLayout(pattern), logWriter);
+		WriterAppender appender = new WriterAppender(
+				new PatternLayout(pattern), logWriter);
 		Logger.getRootLogger().addAppender(appender);
 	}
-	
+
 	public static String getLog() {
 		logWriter.flush();
 		return logWriter.toString();
+	}
+
+	public static void initNumberFormats() {
+		doubleFormat = NumberFormat.getNumberInstance();
+		doubleFormat.setMinimumIntegerDigits(1);
+		doubleFormat.setMinimumFractionDigits(0);
+		doubleFormat.setMaximumFractionDigits(4);
+
+		integerFormat = NumberFormat.getNumberInstance();
+		integerFormat.setParseIntegerOnly(true);
+		integerFormat.setMinimumIntegerDigits(1);
+	}
+
+	public static String numberToString(double number) {
+		return doubleFormat.format(number);
+	}
+
+	public static double stringToDouble(String string) {
+		try {
+			return doubleFormat.parse(string).doubleValue();
+		} catch (Exception e) {
+			return Double.NaN;
+		}
+	}
+
+	public static Integer stringToInt(String string) {
+		try {
+			return integerFormat.parse(string).intValue();
+		} catch (Exception e) {
+			return null;
+		}
 	}
 }

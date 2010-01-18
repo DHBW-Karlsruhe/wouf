@@ -235,7 +235,7 @@ public class RandomWalk implements IStochasticProcess {
 				if (internalMap.containsKey(key))
 					internalMap.put(key, Calculable.parseCalculable(text));
 				else
-					map.put(key, Integer.parseInt(text));
+					map.put(key, Services.stringToInt(text));
 			}
 		}
 	}

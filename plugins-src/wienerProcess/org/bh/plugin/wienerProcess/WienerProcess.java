@@ -26,6 +26,7 @@ import org.bh.data.types.IValue;
 import org.bh.data.types.IntegerValue;
 import org.bh.gui.swing.BHDescriptionLabel;
 import org.bh.gui.swing.BHTextField;
+import org.bh.platform.Services;
 import org.bh.validation.VRIsDouble;
 import org.bh.validation.VRIsInteger;
 import org.bh.validation.VRIsPositive;
@@ -227,7 +228,7 @@ public class WienerProcess implements IStochasticProcess {
 				if (internalMap.containsKey(key))
 					internalMap.put(key, Calculable.parseCalculable(text));
 				else
-					map.put(key, Integer.parseInt(text));
+					map.put(key, Services.stringToInt(text));
 			}
 		}
 	}

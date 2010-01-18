@@ -108,6 +108,7 @@ public final class BHTranslator implements ITranslator {
 		// Set locale defaults for i18n & Look&Feel.
 		Locale.setDefault(this.locale);
 		JComponent.setDefaultLocale(this.locale);
+		Services.initNumberFormats();
 
 		// init resource bundle instance
 		this.bundle = ResourceBundle.getBundle(BHTranslator.BHGUIKEYS,
@@ -204,6 +205,7 @@ public final class BHTranslator implements ITranslator {
 
 		Locale.setDefault(newLocale);
 		JComponent.setDefaultLocale(newLocale);
+		Services.initNumberFormats();
 
 		this.bundle = null; // TODO Thiele.Klaus: Workaround still necessary?
 		this.bundle = ResourceBundle.getBundle(BHTranslator.BHGUIKEYS,

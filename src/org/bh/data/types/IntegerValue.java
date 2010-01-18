@@ -2,6 +2,8 @@ package org.bh.data.types;
 
 import javax.help.UnsupportedOperationException;
 
+import org.bh.platform.Services;
+
 /**
  * Calculable implementation for integer values.
  * 
@@ -119,7 +121,7 @@ public class IntegerValue extends Calculable {
 	/* Specified by interface/super class. */
 	@Override
 	public String toString() {
-		return "" + value;
+		return Services.numberToString(value);
 	}
 
 	/* Specified by interface/super class. */

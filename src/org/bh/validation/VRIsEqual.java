@@ -4,6 +4,7 @@ import javax.swing.JTextField;
 
 import org.bh.gui.swing.BHTextField;
 import org.bh.gui.swing.IBHModelComponent;
+import org.bh.platform.Services;
 
 import com.jgoodies.validation.ValidationResult;
 
@@ -29,12 +30,8 @@ public class VRIsEqual extends ValidationRule {
 			success = comp.getValue().equals(other.getValue());
 		} else if (comp instanceof JTextField || comp instanceof BHTextField) {
 			BHTextField tf_toValidate = (BHTextField) comp;
-			String valueString = tf_toValidate.getText().replace(',', '.');
-			try {
-				double value = Double.parseDouble(valueString);
-				success = (value == compareValue);
-			} catch (NumberFormatException nfe) {
-			}
+			double value = Services.stringToDouble(tf_toValidate.getText());
+			success = (value == compareValue);
 		} else {
 			success = true;
 		}

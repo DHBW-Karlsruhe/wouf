@@ -1,5 +1,7 @@
 package org.bh.data.types;
 
+import org.bh.platform.Services;
+
 /**
  * Calculable implementation for floating point values.
  * 
@@ -191,7 +193,7 @@ public class DoubleValue extends Calculable  {
 
 	@Override
 	public final String toString() {
-		return "" + this.value;
+		return Services.numberToString(value);
 	}
 
 	@Override

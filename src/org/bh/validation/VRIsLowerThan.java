@@ -4,6 +4,7 @@ import javax.swing.JTextField;
 
 import org.bh.gui.swing.BHTextField;
 import org.bh.gui.swing.IBHModelComponent;
+import org.bh.platform.Services;
 
 import com.jgoodies.validation.ValidationResult;
 
@@ -37,19 +38,15 @@ public class VRIsLowerThan extends ValidationRule {
 		if (comp instanceof JTextField || comp instanceof BHTextField) {
 			BHTextField tf_toValidate = (BHTextField) comp;
 			BHTextField tf_other = (BHTextField) other;
-			String valueString = tf_toValidate.getText().replace(',', '.');
+			
 			boolean success = false;
-			try {
-				if (other != null) {
-					String otherString = tf_other.getText().replace(',', '.');
-					compareValue = Double.parseDouble(otherString);
-				}
-				double value = Double.parseDouble(valueString);
-				success = orEqual ? (value <= compareValue)
-						: (value < compareValue);
-
-			} catch (NumberFormatException nfe) {
+			double value = Services.stringToDouble(tf_toValidate.getText());
+			if (other != null) {
+				compareValue = Services.stringToDouble(tf_other.getText());
 			}
+			success = orEqual ? (value <= compareValue)
+					: (value < compareValue);
+
 			if (!success) {
 				if (other != null) {
 					validationResult.addError(translator.translate("EValueField") + " '"

@@ -3,6 +3,8 @@ package org.bh.data.types;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import org.bh.platform.Services;
+
 /**
  * Class for economic calculation with mixed types. Especially Interval
  * arithmetic is relevant.
@@ -211,9 +213,11 @@ public abstract class Calculable implements IValue {
 	 * @return the Calculable
 	 */
 	public static Calculable parseCalculable(String s) {
-		if (INTEGER_PATTERN.matcher(s).matches() || DOUBLE_PATTERN.matcher(s).matches()) {
-			return new DoubleValue(java.lang.Double.parseDouble(s.replace(',', '.')));
+		double value = Services.stringToDouble(s);
+		if (!Double.isNaN(value)) {
+			return new DoubleValue(value);
 		} else {
+			// TODO might not work for big numbers
 			Matcher intervalMatcher = INTERVAL_PATTERN.matcher(s);
 			if (intervalMatcher.matches()) {
 				String min = intervalMatcher.group(1);
