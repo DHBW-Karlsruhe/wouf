@@ -30,7 +30,11 @@ import org.bh.data.types.StringValue;
 import org.bh.gui.ICompValueChangeListener;
 import org.bh.gui.IDeterministicResultAnalyser;
 import org.bh.gui.IStochasticResultAnalyser;
+import org.bh.gui.IViewListener;
+import org.bh.gui.ValidationMethods;
 import org.bh.gui.View;
+import org.bh.gui.ViewEvent;
+import org.bh.gui.ViewException;
 import org.bh.gui.swing.BHButton;
 import org.bh.gui.swing.BHComboBox;
 import org.bh.gui.swing.BHMainFrame;
@@ -126,17 +130,38 @@ public class ScenarioController extends InputController {
 							.createNewInstance();
 					process.setScenario(scenario);
 
-					Component parametersPanel = process.calculateParameters();
+					JPanel parametersPanel = process.calculateParameters();
 					BHStochasticInputForm form = (BHStochasticInputForm) ((Component) e
 							.getSource()).getParent();
 					form.setParametersPanel(parametersPanel);
 					if (parametersPanel instanceof Container)
 						Services.setFocus((Container) parametersPanel);
+					try {
+						final View view = new View(parametersPanel, new ValidationMethods());
+						view.addViewListener(new IViewListener() {
+							@Override
+							public void viewEvent(ViewEvent e) {
+								switch (e.getEventType()) {
+								case VALUE_CHANGED:
+									boolean allValid = !view.revalidate().hasErrors();
+									((Component) getView().getBHComponent(
+											PlatformKey.CALCSHAREHOLDERVALUE)).setEnabled(allValid);
+									break;
+								case VALIDATION_FAILED:
+									((Component) getView().getBHComponent(
+											PlatformKey.CALCSHAREHOLDERVALUE)).setEnabled(false);
+									break;
+								}
+							}
+						});
+						boolean allValid = !view.revalidate().hasErrors();
+						((Component) getView().getBHComponent(
+								PlatformKey.CALCSHAREHOLDERVALUE)).setEnabled(allValid);
+					} catch (ViewException e1) {
+					}
 
 					resetStochasticParameters.setVisible(true);
 					calcStochasticParameters.setVisible(false);
-					((Component) getView().getBHComponent(
-							PlatformKey.CALCSHAREHOLDERVALUE)).setEnabled(true);
 					((Component) getView().getBHComponent(
 							DTOScenario.Key.STOCHASTIC_KEYS)).setEnabled(false);
 					((Component) getView().getBHComponent(
