@@ -26,6 +26,7 @@ import org.bh.data.types.IntegerValue;
 import org.bh.gui.swing.BHDescriptionLabel;
 import org.bh.gui.swing.BHTextField;
 import org.bh.platform.Services;
+import org.bh.validation.VRIsDouble;
 import org.bh.validation.VRIsInteger;
 import org.bh.validation.VRIsPositive;
 import org.bh.validation.VRMandatory;
@@ -187,11 +188,20 @@ public class RandomWalk implements IStochasticProcess {
 			layout.appendRow(RowSpec.decode("p"));
 			layout.appendRow(RowSpec.decode("14px"));
 			
+			// TODO Patrick H. Validation Rule, not all 0.0 or 1.0
+			
+			BHTextField tfchance = new BHTextField(key + CHANCE, "" + chance);
+			ValidationRule[] rules_chance = { VRMandatory.INSTANCE, VRIsDouble.INSTANCE };
+			tfchance.setValidationRules(rules_chance);
+			
+			BHTextField tfincrement = new BHTextField(key + INCREMENT, "" + increment);
+			ValidationRule[] rules_increment = { VRMandatory.INSTANCE, VRIsDouble.INSTANCE };
+			tfincrement.setValidationRules(rules_increment);
+			
 			result.add(new BHDescriptionLabel(CHANCE), cons.xywh(2, layout.getRowCount()-1, 1, 1));
-			result.add(new BHTextField(key + CHANCE, "" + chance), cons.xywh(4, layout.getRowCount()-1, 1, 1));
+			result.add(tfchance, cons.xywh(4, layout.getRowCount()-1, 1, 1));
 			result.add(new BHDescriptionLabel(INCREMENT), cons.xywh(6, layout.getRowCount()-1, 1, 1));
-			result
-					.add(new BHTextField(key + INCREMENT, "" + increment), cons.xywh(8, layout.getRowCount()-1, 1, 1));
+			result.add(tfincrement, cons.xywh(8, layout.getRowCount()-1, 1, 1));
 
 			internalMap.put(key + CHANCE, chance);
 			internalMap.put(key + INCREMENT, increment);

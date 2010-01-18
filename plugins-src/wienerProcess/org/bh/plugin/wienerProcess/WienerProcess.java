@@ -26,6 +26,7 @@ import org.bh.data.types.IValue;
 import org.bh.data.types.IntegerValue;
 import org.bh.gui.swing.BHDescriptionLabel;
 import org.bh.gui.swing.BHTextField;
+import org.bh.validation.VRIsDouble;
 import org.bh.validation.VRIsInteger;
 import org.bh.validation.VRIsPositive;
 import org.bh.validation.VRMandatory;
@@ -183,10 +184,18 @@ public class WienerProcess implements IStochasticProcess {
 			layout.appendRow(RowSpec.decode("p"));
 			layout.appendRow(RowSpec.decode("14px"));
 			
+			BHTextField tfslope = new BHTextField(key + SLOPE, "" + slope);
+			ValidationRule[] rules_slope = { VRMandatory.INSTANCE, VRIsDouble.INSTANCE };
+			tfslope.setValidationRules(rules_slope);
+			
+			BHTextField tfstandardDeviation = new BHTextField(key + STANDARD_DEVIATION, "" + standardDeviation);
+			ValidationRule[] rules_standardDeviation = { VRMandatory.INSTANCE, VRIsDouble.INSTANCE };
+			tfstandardDeviation.setValidationRules(rules_standardDeviation);
+			
 			result.add(new BHDescriptionLabel(SLOPE), cons.xywh(2, layout.getRowCount()-1, 1, 1));
-			result.add(new BHTextField(key + SLOPE, "" + slope), cons.xywh(4, layout.getRowCount()-1, 1, 1));
+			result.add(tfslope, cons.xywh(4, layout.getRowCount()-1, 1, 1));
 			result.add(new BHDescriptionLabel(STANDARD_DEVIATION), cons.xywh(6, layout.getRowCount()-1, 1, 1));
-			result.add(new BHTextField(key + STANDARD_DEVIATION, "" + standardDeviation), cons.xywh(8, layout.getRowCount()-1, 1, 1));
+			result.add(tfstandardDeviation, cons.xywh(8, layout.getRowCount()-1, 1, 1));
 
 		}
 		this.panel = result;
