@@ -211,9 +211,7 @@ public abstract class Calculable implements IValue {
 	 * @return the Calculable
 	 */
 	public static Calculable parseCalculable(String s) {
-		if (INTEGER_PATTERN.matcher(s).matches()) {
-			return new IntegerValue(java.lang.Integer.parseInt(s));
-		} else if (DOUBLE_PATTERN.matcher(s).matches()) {
+		if (INTEGER_PATTERN.matcher(s).matches() || DOUBLE_PATTERN.matcher(s).matches()) {
 			return new DoubleValue(java.lang.Double.parseDouble(s.replace(',', '.')));
 		} else {
 			Matcher intervalMatcher = INTERVAL_PATTERN.matcher(s);
