@@ -21,8 +21,6 @@ import org.bh.gui.ViewException;
 import org.bh.gui.swing.BHButton;
 import org.bh.gui.swing.BHDashBoardPanelView;
 import org.bh.gui.swing.BHProjectForm;
-import org.bh.gui.swing.BHScenarioForm;
-import org.bh.gui.swing.BHStochasticInputForm;
 import org.bh.gui.swing.BHTree;
 import org.bh.gui.swing.BHTreeNode;
 import org.bh.platform.PlatformEvent.Type;
@@ -41,6 +39,8 @@ public class ProjectController extends InputController implements
 		((BHButton) view.getBHComponent(PlatformKey.CALCDASHBOARD))
 				.addActionListener(new CalculationListener(PlatformController
 						.getInstance().getMainFrame().getBHTree()));
+		
+		setCalcEnabled();
 	}
 
 	protected class CalculationListener implements ActionListener {
@@ -111,36 +111,23 @@ public class ProjectController extends InputController implements
 		super.platformEvent(e);
 		if (e.getEventType() == Type.DATA_CHANGED
 				&& getModel().isMeOrChild(e.getSource())) {
-			System.out.println("erreicht");
-			DTOProject project = (DTOProject) getModel();
-			int counter = 0;
-			for (DTOScenario scenario : project.getChildren()) {
-				System.out.println("erreicht2");
-				if (scenario.isValid(true)) {
-					counter++;
-					System.out.println("counter" + counter);
-				}
-			}
-			setCalcEnabled(counter < 2);
+			setCalcEnabled();
 		}
 	}
 
-	protected void setCalcEnabled(boolean calculationEnabled) {
-		System.out.println("calculation enabled");
-		if (calculationEnabled) {
-			// ((Component) view.getBHComponent(PlatformKey.CALCDASHBOARD))
-			// .setEnabled(calculationEnabled);
-			System.out.println("if");
-			((Component) view.getBHComponent(PlatformKey.CALCDASHBOARD))
-					.setEnabled(false);
-			((Component) view.getBHComponent(BHProjectForm.Key.CANNOT_CALCULATE_HINT))
-					.setVisible(true);
-		} else {
-			System.out.println("else");
-			((Component) view.getBHComponent(PlatformKey.CALCDASHBOARD))
-					.setEnabled(true);
-			((Component) view.getBHComponent(BHProjectForm.Key.CANNOT_CALCULATE_HINT))
-					.setVisible(false);
+	protected void setCalcEnabled() {
+		DTOProject project = (DTOProject) getModel();
+		int counter = 0;
+		for (DTOScenario scenario : project.getChildren()) {
+			if (scenario.isValid(true)) {
+				counter++;
+			}
 		}
+		boolean calculationEnabled = (counter >= 2);
+
+		((Component) view.getBHComponent(PlatformKey.CALCDASHBOARD))
+				.setEnabled(calculationEnabled);
+		((Component) view.getBHComponent(BHProjectForm.Key.CANNOT_CALCULATE_HINT))
+				.setVisible(!calculationEnabled);
 	}
 }
