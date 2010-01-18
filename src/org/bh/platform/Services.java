@@ -63,6 +63,7 @@ public class Services {
 	private static HashMap<String, IPrint> print;
 	private static NumberFormat doubleFormat = null;
 	private static NumberFormat integerFormat = null;
+	private static NumberFormat oldDoubleFormat = null;
 
 	private static BHMainFrame bhmf = null;
 	private static StringWriter logWriter = new StringWriter();
@@ -433,6 +434,8 @@ public class Services {
 	}
 
 	public static void initNumberFormats() {
+		oldDoubleFormat = doubleFormat;
+		
 		doubleFormat = NumberFormat.getNumberInstance();
 		doubleFormat.setMinimumIntegerDigits(1);
 		doubleFormat.setMinimumFractionDigits(0);
@@ -460,6 +463,16 @@ public class Services {
 			return integerFormat.parse(string).intValue();
 		} catch (Exception e) {
 			return null;
+		}
+	}
+	
+	public static double oldStringToDouble(String string) {
+		if (oldDoubleFormat == null)
+			return Double.NaN;
+		try {
+			return oldDoubleFormat.parse(string).doubleValue();
+		} catch (Exception e) {
+			return Double.NaN;
 		}
 	}
 }

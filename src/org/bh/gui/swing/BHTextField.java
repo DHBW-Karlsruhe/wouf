@@ -133,7 +133,9 @@ public class BHTextField extends JTextField implements IBHModelComponent, IPlatf
 
 	@Override
 	public void setValue(IValue value) {
-		if (value != null)
+		if (value instanceof Calculable && !returnCalculable)
+			this.setText(((Calculable)value).parse().toString());
+		else if (value != null)
 			this.setText(value.toString());
 		else
 			this.setText("");
@@ -167,6 +169,11 @@ public class BHTextField extends JTextField implements IBHModelComponent, IPlatf
 	protected void reloadText() {
 		hint = Services.getTranslator().translate(key, ITranslator.LONG);
 		setToolTipText(hint);
+		if (returnCalculable) {
+			double value = Services.oldStringToDouble(getText());
+			if (!Double.isNaN(value))
+				setText(Services.numberToString(value));
+		}
 	}
 
 	protected class ChangeListener extends DocumentFilter {
