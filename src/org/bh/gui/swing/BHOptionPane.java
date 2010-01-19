@@ -35,7 +35,6 @@ public class BHOptionPane extends JOptionPane {
 		JDialog dialog = od.createDialog(parentComponent, title);
 		dialog.show();
 		Object selectedValue = od.getValue();
-		System.out.println(od.getValue());
 		Object[] options = od.getOptions();
 		if (options == null) {
 			if (selectedValue instanceof Integer)
@@ -50,14 +49,16 @@ public class BHOptionPane extends JOptionPane {
 	private static void setFocusTraversalKeys(Component component) {
 		// Change the forward focus traversal keys for a component
 		Set set = new HashSet(
-				component.getFocusTraversalKeys(KeyboardFocusManager.FORWARD_TRAVERSAL_KEYS));
+				component
+						.getFocusTraversalKeys(KeyboardFocusManager.FORWARD_TRAVERSAL_KEYS));
 		// set
 		set.add(KeyStroke.getKeyStroke(KeyEvent.VK_RIGHT, 0));
 		component.setFocusTraversalKeys(
 				KeyboardFocusManager.FORWARD_TRAVERSAL_KEYS, set);
-		
+
 		Set set2 = new HashSet(
-				component.getFocusTraversalKeys(KeyboardFocusManager.BACKWARD_TRAVERSAL_KEYS));
+				component
+						.getFocusTraversalKeys(KeyboardFocusManager.BACKWARD_TRAVERSAL_KEYS));
 		// set
 		set2.add(KeyStroke.getKeyStroke(KeyEvent.VK_LEFT, 0));
 		component.setFocusTraversalKeys(
@@ -87,8 +88,6 @@ public class BHOptionPane extends JOptionPane {
 
 						public void actionPerformed(ActionEvent e) {
 							JButton button = (JButton) e.getSource();
-
-							System.out.println(button.getText());
 						}
 					});
 				} else if (comp instanceof Container) {
