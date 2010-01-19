@@ -10,12 +10,13 @@ import java.util.List;
 import java.util.Map;
 
 import org.apache.log4j.Logger;
+import org.bh.data.IDTO;
 import org.bh.data.IPeriodicalValuesDTO;
-import org.bh.data.types.Calculable;
+import org.bh.data.types.Calculable;/*
 import org.bh.plugin.gcc.data.DTOGCCBalanceSheet;
 import org.bh.plugin.gcc.data.DTOGCCProfitLossStatementCostOfSales;
 import org.bh.plugin.gcc.data.DTOGCCProfitLossStatementTotalCost;
-import org.bh.plugin.gcc.data.DTOGCCBalanceSheet.Key;
+import org.bh.plugin.gcc.data.DTOGCCBalanceSheet.Key;*/
 import org.jdom.Document;
 import org.jdom.Element;
 import org.jdom.JDOMException;
@@ -91,7 +92,8 @@ public class XBRLImport {
 			throw new IOException();		
 		
 		// Create new DTO
-		DTOGCCBalanceSheet result = new DTOGCCBalanceSheet();			
+		//DTOGCCBalanceSheet result = new DTOGCCBalanceSheet();	
+		IPeriodicalValuesDTO result = null;
 		if (result == null)
 		{
 			Logger.getLogger(getClass()).debug("Could not create a DTOGCCBalanceSheet object!");
@@ -112,8 +114,8 @@ public class XBRLImport {
 			// Put all values into the DTO
 			for (String key : balanceSheetKeys)
 			{
-				Key dtoKey = Enum.valueOf(DTOGCCBalanceSheet.Key.ABET.getDeclaringClass(), key);
-				result.put(dtoKey, Calculable.parseCalculable(values.get(key)));				
+				//Key dtoKey = Enum.valueOf(DTOGCCBalanceSheet.Key.ABET.getDeclaringClass(), key);
+				result.put("", Calculable.parseCalculable(values.get(key)));				
 			}
 				
 		} catch (JDOMException e) {				
@@ -132,7 +134,8 @@ public class XBRLImport {
 			throw new IOException();		
 		
 		// Create new DTO
-		DTOGCCProfitLossStatementCostOfSales result = new DTOGCCProfitLossStatementCostOfSales();			
+		//DTOGCCProfitLossStatementCostOfSales result = new DTOGCCProfitLossStatementCostOfSales();
+		IPeriodicalValuesDTO result = null;
 		if (result == null)
 		{
 			Logger.getLogger(getClass()).debug("Could not create a DTOGCCBalanceSheet object!");
@@ -153,8 +156,8 @@ public class XBRLImport {
 			// Put all values into the DTO
 			for (String key : profitLossCostOfSalesKeys)
 			{			
-				DTOGCCProfitLossStatementCostOfSales.Key dtoKey = Enum.valueOf(DTOGCCProfitLossStatementCostOfSales.Key.AFW.getDeclaringClass(), key.replace("2", ""));
-				result.put(dtoKey, Calculable.parseCalculable(values.get(key)));				
+				//DTOGCCProfitLossStatementCostOfSales.Key dtoKey = Enum.valueOf(DTOGCCProfitLossStatementCostOfSales.Key.AFW.getDeclaringClass(), key.replace("2", ""));
+				result.put("", Calculable.parseCalculable(values.get(key)));				
 			}
 				
 		} catch (JDOMException e) {				
@@ -174,7 +177,8 @@ public class XBRLImport {
 			throw new IOException();		
 		
 		// Create new DTO
-		DTOGCCProfitLossStatementTotalCost result = new DTOGCCProfitLossStatementTotalCost();			
+		//DTOGCCProfitLossStatementTotalCost result = new DTOGCCProfitLossStatementTotalCost();	
+		IPeriodicalValuesDTO result = null;
 		if (result == null)
 		{
 			Logger.getLogger(getClass()).debug("Could not create a DTOGCCBalanceSheet object!");
@@ -195,8 +199,8 @@ public class XBRLImport {
 			// Put all values into the DTO
 			for (String key : profitLossTotalCostKeys)
 			{
-				DTOGCCProfitLossStatementTotalCost.Key dtoKey = Enum.valueOf(DTOGCCProfitLossStatementTotalCost.Key.AFW.getDeclaringClass(), key);
-				result.put(dtoKey, Calculable.parseCalculable(values.get(key)));				
+				//DTOGCCProfitLossStatementTotalCost.Key dtoKey = Enum.valueOf(DTOGCCProfitLossStatementTotalCost.Key.AFW.getDeclaringClass(), key);
+				result.put("", Calculable.parseCalculable(values.get(key)));				
 			}
 				
 		} catch (JDOMException e) {				
