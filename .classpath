@@ -33,6 +33,7 @@
 	<classpathentry kind="lib" path="lib/formula/mathmlc2p.diff"/>
 	<classpathentry kind="lib" path="lib/formula/xmlgraphics-commons-1.3.1.jar"/>
 	<classpathentry kind="lib" path="lib/tests/Prog1Tools.zip"/>
+	<classpathentry kind="lib" path="lib/TimingFramework-1.0.jar" sourcepath="lib/src/TimingFramework-1.0-src.zip"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.junit.JUNIT_CONTAINER/4"/>
 	<classpathentry kind="lib" path="lib/jdom.jar"/>
 	<classpathentry kind="lib" path="lib/build_lib/ia_math.jar"/>
