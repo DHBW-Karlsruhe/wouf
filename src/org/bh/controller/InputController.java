@@ -163,7 +163,17 @@ public class InputController extends Controller implements IInputController {
 	 */
 	public void removeFromModel(IBHModelComponent comp)
 			throws DTOAccessException {
-		model.remove(comp.getKey());
+		removeFromModel(comp.getKey());
+	}
+
+	public void removeFromModel(Object key1) throws DTOAccessException {
+		String key = key1.toString();
+		if (key.startsWith(IBHComponent.MINVALUE)
+				|| key.startsWith(IBHComponent.MAXVALUE)) {
+			// interval
+			key = key.toString().replaceFirst("^.*_", "");
+		}
+		model.remove(key);
 	}
 
 	public void loadAllToView() {
