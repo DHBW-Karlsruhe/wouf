@@ -22,7 +22,7 @@ import org.jfree.chart.JFreeChart;
  *
  * @author Marco Hammel
  */
-public class BHChartPanel extends JPanel implements IBHComponent, IBHAddValue{
+public class BHChartPanel extends JPanel implements IBHComponent, IBHAddValue, IBHAddGroupValue{
     private static final long serialVersionUID = -8018664370176080809L;
 
     private String key;
@@ -97,6 +97,14 @@ public class BHChartPanel extends JPanel implements IBHComponent, IBHAddValue{
 			Comparable<String> columnKey) {
 		 this.chartInstance.addValue(value, rowKey, columnKey);
 	}
+
+    public void setDefaultGroupSettings(String[] categories) {
+        ((IBHAddGroupValue) this.chartInstance).setDefaultGroupSettings(categories);
+    }
+
+    public void addValue(Number value, Comparable row, Comparable<String> columnKey, int catIdx) {
+        ((IBHAddGroupValue) this.chartInstance).addValue(value, row, columnKey, catIdx);
+    }
 
 
 

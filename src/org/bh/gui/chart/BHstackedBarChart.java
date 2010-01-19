@@ -36,7 +36,7 @@ import org.jfree.data.general.Dataset;
 		
 		private DefaultCategoryDataset dataset;
                 private GroupedStackedBarRenderer groupRenderer;
-                private KeyToGroupMap groupMap = new KeyToGroupMap();
+                private KeyToGroupMap groupMap;
                 private String[] categories;
 
                 private CategoryPlot plot;
@@ -81,17 +81,19 @@ import org.jfree.data.general.Dataset;
                 @Override
                 public final void addValue(Number value, Comparable row, Comparable<String> columnKey, int catIdx){
                     this.addValue(value, row, columnKey);
-                    groupMap.mapKeyToGroup(row, this.categories[catIdx]);
+                    groupMap.mapKeyToGroup(row, categories[catIdx]);
                     this.groupRenderer.setSeriesToGroupMap(groupMap);
                 }
                 
                 @Override
                 public void setDefaultGroupSettings(String[] categories){
-                    String cats = "";
-                    for(String s : categories){
-                        cats = cats + " / " + translator.translate(s);
-                    }
-                    this.domainAxis = new SubCategoryAxis(cats);
+                    this.categories = categories;
+                    this.groupMap = new KeyToGroupMap(categories[0]);
+//                    String cats = "";
+//                    for(String s : categories){
+//                        cats = cats + " / " + translator.translate(s);
+//                    }
+                    this.domainAxis = new SubCategoryAxis("");
                     this.domainAxis.setCategoryMargin(0.05);
                     for(String s : categories){
                         this.domainAxis.addSubCategory(translator.translate(s));

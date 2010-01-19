@@ -15,7 +15,7 @@ public interface IBHAddGroupValue extends IBHAddValue {
      */
     public static final String[] MIN_MAX_GROUP = {"min", "max"};
     public static final int MAX_POS = 1;
-    public static final int MIN_POS = 1;
+    public static final int MIN_POS = 0;
 
     /**
      * Have to be called bevor the stackedBarChart is used for grouped Values
