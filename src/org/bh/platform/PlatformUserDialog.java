@@ -3,6 +3,7 @@ package org.bh.platform;
 import javax.swing.JOptionPane;
 
 import org.bh.gui.swing.BHMainFrame;
+import org.bh.gui.swing.BHOptionPane;
 
 /**
  * User Dialog Messages
@@ -47,7 +48,7 @@ public class PlatformUserDialog {
 	}
 	
 	public int showYesNoDialog (String message, String title) {
-		return JOptionPane.showConfirmDialog(bhmf, message, title, JOptionPane.YES_NO_OPTION);
+		return BHOptionPane.showConfirmDialog(bhmf, message, title, JOptionPane.YES_NO_OPTION);
 	}
 	
 

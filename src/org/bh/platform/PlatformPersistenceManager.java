@@ -19,6 +19,7 @@ import javax.swing.JOptionPane;
 import org.apache.log4j.Logger;
 import org.bh.data.DTOProject;
 import org.bh.gui.swing.BHMainFrame;
+import org.bh.gui.swing.BHOptionPane;
 import org.bh.platform.i18n.ITranslator;
 
 /**
@@ -141,7 +142,7 @@ public class PlatformPersistenceManager {
 				if (bhmf.getChooser().getSelectedFile().exists() || new File(bhmf.getChooser().getSelectedFile() + ".bh").exists()) {
 					
 					// if yes, ask if its okay to overwrite it
-					int returnConfirmVal = JOptionPane.showConfirmDialog(bhmf, Services.getTranslator().translate("PoverwriteFile_long"), Services.getTranslator().translate("PoverwriteFile"),JOptionPane.YES_NO_OPTION);
+					int returnConfirmVal = BHOptionPane.showConfirmDialog(bhmf, Services.getTranslator().translate("PoverwriteFile_long"), Services.getTranslator().translate("PoverwriteFile"),JOptionPane.YES_NO_OPTION);
 					
 					// if yes - do it!
 					if (returnConfirmVal == JOptionPane.YES_OPTION) {
@@ -237,7 +238,7 @@ public class PlatformPersistenceManager {
 							ITranslator.LONG) + "<br /><i>(" + lastFile
 					+ ")</i></html>";
 
-			int action = JOptionPane.showConfirmDialog(bhmf, message, title,
+			int action = BHOptionPane.showConfirmDialog(bhmf, message, title,
 					JOptionPane.YES_NO_OPTION);
 			if (action == JOptionPane.YES_OPTION) {
 				File tmpFile = new File(lastFile);

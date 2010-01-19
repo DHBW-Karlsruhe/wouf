@@ -25,6 +25,7 @@ import org.bh.gui.swing.BHDataExchangeDialog;
 import org.bh.gui.swing.BHHelpDebugDialog;
 import org.bh.gui.swing.BHMainFrame;
 import org.bh.gui.swing.BHOptionDialog;
+import org.bh.gui.swing.BHOptionPane;
 import org.bh.gui.swing.BHStatusBar;
 import org.bh.gui.swing.BHTreeNode;
 import org.bh.gui.swing.IBHAction;
@@ -172,7 +173,7 @@ class PlatformActionListener implements ActionListener {
 
 		case PROJECTREMOVE:
 
-			int pr_choice = JOptionPane.showConfirmDialog(bhmf, Services
+			int pr_choice = BHOptionPane.showConfirmDialog(bhmf, Services
 					.getTranslator().translate("Pproject_delete"), Services
 					.getTranslator().translate("Pdelete"),
 					JOptionPane.YES_NO_OPTION);
@@ -214,7 +215,7 @@ class PlatformActionListener implements ActionListener {
 
 		case SCENARIOREMOVE:
 
-			int sc_choice = JOptionPane.showConfirmDialog(bhmf, Services
+			int sc_choice = BHOptionPane.showConfirmDialog(bhmf, Services
 					.getTranslator().translate("Pscenario_delete"), Services
 					.getTranslator().translate("Pdelete"),
 					JOptionPane.YES_NO_OPTION);
@@ -252,7 +253,7 @@ class PlatformActionListener implements ActionListener {
 
 		case PERIODREMOVE:
 
-			int pe_choice = JOptionPane.showConfirmDialog(bhmf, Services
+			int pe_choice = BHOptionPane.showConfirmDialog(bhmf, Services
 					.getTranslator().translate("Pperiod_delete"), Services
 					.getTranslator().translate("Pdelete"),
 					JOptionPane.YES_NO_OPTION);
@@ -372,7 +373,7 @@ class PlatformActionListener implements ActionListener {
 	private void fileNew() {
 		if (ProjectRepositoryManager.isChanged()) {
 
-			int i = JOptionPane.showConfirmDialog(bhmf, Services
+			int i = BHOptionPane.showConfirmDialog(bhmf, Services
 					.getTranslator().translate("Psave", ITranslator.LONG),
 					Services.getTranslator().translate("Psave"),
 					JOptionPane.YES_NO_CANCEL_OPTION);
@@ -478,7 +479,7 @@ class PlatformActionListener implements ActionListener {
 		TreePath currentSelection = bhmf.getBHTree().getSelectionPath();
 		// is a node selected?
 		if (currentSelection != null) {
-			int choice = JOptionPane.showConfirmDialog(bhmf, Services
+			int choice = BHOptionPane.showConfirmDialog(bhmf, Services
 					.getTranslator().translate("Pelement_delete"), Services
 					.getTranslator().translate("Pdelete"),
 					JOptionPane.YES_NO_OPTION);

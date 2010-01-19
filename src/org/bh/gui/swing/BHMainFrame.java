@@ -214,7 +214,7 @@ public class BHMainFrame extends JFrame implements IPlatformListener {
 		// TODO Dispose evtl noch auslagern
 		if (ProjectRepositoryManager.isChanged()) {
 			
-			int i = JOptionPane.showConfirmDialog(this, Services.getTranslator().translate("PsaveEnd_long"), Services.getTranslator().translate("PsaveEnd"),JOptionPane.YES_NO_CANCEL_OPTION);
+			int i = BHOptionPane.showConfirmDialog(this, Services.getTranslator().translate("PsaveEnd_long"), Services.getTranslator().translate("PsaveEnd"),JOptionPane.YES_NO_CANCEL_OPTION);
 			if (i == JOptionPane.YES_OPTION) {
 			
 				/**

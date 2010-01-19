@@ -1,7 +1,5 @@
 package org.bh.plugin.excelexport;
 
-import org.apache.log4j.Logger;
-
 import java.awt.Component;
 import java.awt.Desktop;
 import java.awt.event.ActionEvent;
@@ -13,6 +11,7 @@ import java.util.Map;
 
 import javax.swing.JOptionPane;
 
+import org.apache.log4j.Logger;
 import org.bh.data.DTOProject;
 import org.bh.data.DTOScenario;
 import org.bh.data.IPeriodicalValuesDTO;
@@ -20,6 +19,7 @@ import org.bh.data.types.Calculable;
 import org.bh.data.types.DistributionMap;
 import org.bh.gui.swing.BHDataExchangeDialog;
 import org.bh.gui.swing.BHDefaultScenarioExportPanel;
+import org.bh.gui.swing.BHOptionPane;
 import org.bh.gui.swing.IBHComponent;
 import org.bh.platform.IImportExport;
 import org.bh.platform.i18n.BHTranslator;
@@ -293,7 +293,7 @@ public class ExcelExport implements IImportExport {
 						JOptionPane.ERROR_MESSAGE);
 				return false;
 			}
-			int res = JOptionPane.showConfirmDialog(parent, trans
+			int res = BHOptionPane.showConfirmDialog(parent, trans
 					.translate(Keys.OVERWRITE), trans
 					.translate(Keys.OVERWRITETITLE), JOptionPane.YES_NO_OPTION);
 			if (res == JOptionPane.YES_OPTION) {

@@ -19,6 +19,7 @@ import org.bh.data.types.Calculable;
 import org.bh.data.types.DistributionMap;
 import org.bh.gui.swing.BHDataExchangeDialog;
 import org.bh.gui.swing.BHDefaultScenarioExportPanel;
+import org.bh.gui.swing.BHOptionPane;
 import org.bh.gui.swing.IBHComponent;
 import org.bh.platform.IImportExport;
 import org.bh.platform.i18n.BHTranslator;
@@ -271,7 +272,7 @@ public class PDFExport implements IImportExport {
 						JOptionPane.ERROR_MESSAGE);
 				return false;
 			}
-			int res = JOptionPane.showConfirmDialog(parent, trans
+			int res = BHOptionPane.showConfirmDialog(parent, trans
 					.translate(Keys.OVERWRITE), trans.translate(Keys.OVERWRITETITLE),
 					JOptionPane.YES_NO_OPTION);
 			if (res == JOptionPane.YES_OPTION) {
