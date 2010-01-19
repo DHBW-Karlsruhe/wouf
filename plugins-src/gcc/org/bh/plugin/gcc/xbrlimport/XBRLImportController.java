@@ -1,4 +1,4 @@
-package org.bh.plugin.xbrlimport;
+package org.bh.plugin.gcc.xbrlimport;
 
 import java.util.List;
 import java.util.Map;
