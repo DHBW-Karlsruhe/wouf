@@ -191,7 +191,7 @@ public class ScenarioController extends InputController {
 					.setEnabled(false);
 		}
 
-		loadToView(DTOScenario.Key.PERIOD_TYPE);
+		loadToView(DTOScenario.Key.PERIOD_TYPE, false);
 		updateStochasticFieldsList();
 		loadAllToView();
 	}
