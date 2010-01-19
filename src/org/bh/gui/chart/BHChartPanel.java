@@ -29,6 +29,7 @@ public class BHChartPanel extends JPanel implements IBHComponent, IBHAddValue{
     private String inputHint;
     private Class<? extends IBHAddValue> chartClass;
     private IBHAddValue chartInstance;
+    private JFreeChart chart;
 
     public BHChartPanel(Object key, JFreeChart chart, Class<? extends IBHAddValue> chartClass, IBHAddValue chartInstance){
     	this.key = key.toString();
@@ -44,6 +45,7 @@ public class BHChartPanel extends JPanel implements IBHComponent, IBHAddValue{
         description.setWrapStyleWord(true);
         description.setPreferredSize(new Dimension(250, 50));
     	this.add(description, BorderLayout.EAST);
+    	this.chart = chart;
     }
 
     /**
@@ -55,7 +57,7 @@ public class BHChartPanel extends JPanel implements IBHComponent, IBHAddValue{
     }
     
     public JFreeChart getChart(){
-    	return (JFreeChart)this.chartInstance;
+    	return chart;
     }
     public IBHAddValue getChartInstance(){
         return this.chartInstance;
