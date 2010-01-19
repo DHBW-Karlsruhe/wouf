@@ -36,6 +36,7 @@ import org.bh.gui.View;
 import org.bh.gui.ViewEvent;
 import org.bh.gui.ViewException;
 import org.bh.gui.swing.BHButton;
+import org.bh.gui.swing.BHCheckBox;
 import org.bh.gui.swing.BHComboBox;
 import org.bh.gui.swing.BHDescriptionLabel;
 import org.bh.gui.swing.BHMainFrame;
@@ -52,9 +53,12 @@ public class ScenarioController extends InputController {
 	protected static final BHComboBox.Item[] PERIOD_TYPE_ITEMS = getPeriodTypeItems();
 	protected static final BHComboBox.Item[] STOCHASTIC_METHOD_ITEMS = getStochasticProcessItems();
 	private IStochasticProcess process = null;
+	private final BHMainFrame bhmf;
 
 	public ScenarioController(View view, IDTO<?> model, final BHMainFrame bhmf) {
 		super(view, model);
+
+		this.bhmf = bhmf;
 
 		BHComboBox cbDcfMethod = (BHComboBox) view
 				.getBHComponent(DTOScenario.Key.DCF_METHOD);
@@ -63,47 +67,7 @@ public class ScenarioController extends InputController {
 			cbDcfMethod.setValueList(DCF_METHOD_ITEMS);
 		}
 
-		final BHComboBox cbPeriodType = (BHComboBox) view
-				.getBHComponent(DTOScenario.Key.PERIOD_TYPE);
-		if (cbPeriodType != null) {
-			cbPeriodType.setValueList(PERIOD_TYPE_ITEMS);
-			cbPeriodType.getValueChangeManager().addCompValueChangeListener(
-					new ICompValueChangeListener() {
-
-						@Override
-						public void compValueChanged(IBHModelComponent comp) {
-							if (cbPeriodType.getSelectedIndex() == cbPeriodType
-									.getLastSelectedIndex()) {
-								return;
-							}
-
-							DTOScenario scenario = (DTOScenario) getModel();
-							if (scenario.getChildrenSize() > 0) {
-								cbPeriodType.hidePopup();
-								int action = PlatformUserDialog
-										.getInstance()
-										.showYesNoDialog(
-												Services
-														.getTranslator()
-														.translate(
-																"PstochasticPeriodTypeChangeText"),
-												Services
-														.getTranslator()
-														.translate(
-																"PstochasticPeriodTypeChangeHeader"));
-								if (action == JOptionPane.YES_OPTION) {
-									bhmf.getBHTree().removeAllPeriods(scenario);
-								} else if (action == JOptionPane.NO_OPTION) {
-									cbPeriodType.setSelectedIndex(cbPeriodType
-											.getLastSelectedIndex());
-									return;
-								}
-							}
-
-							updateStochasticFieldsList();
-						}
-					});
-		}
+		reloadTopPanel();
 
 		BHComboBox cbStochasticMethod = (BHComboBox) view
 				.getBHComponent(DTOScenario.Key.STOCHASTIC_PROCESS);
@@ -198,6 +162,29 @@ public class ScenarioController extends InputController {
 			});
 		}
 
+		BHCheckBox chkInterval = (BHCheckBox) getView().getBHComponent(
+				DTOScenario.Key.INTERVAL_ARITHMETIC);
+		if (chkInterval != null) {
+			chkInterval.getValueChangeManager().addCompValueChangeListener(
+					new ICompValueChangeListener() {
+						@Override
+						public void compValueChanged(IBHModelComponent comp) {
+							saveToModel(comp);
+							DTOScenario scenario = (DTOScenario) getModel();
+							((BHScenarioForm) getViewPanel())
+									.setHeadPanel(scenario
+											.isIntervalArithmetic());
+							try {
+								reloadView();
+							} catch (ViewException e) {
+							}
+							loadAllToView();
+							reloadTopPanel();
+							setCalcEnabled(getModel().isValid(true));
+						}
+					});
+		}
+
 		setCalcEnabled(getModel().isValid(true));
 		if (!((DTOScenario) model).isDeterministic()) {
 			((Component) view.getBHComponent(PlatformKey.CALCSHAREHOLDERVALUE))
@@ -207,6 +194,50 @@ public class ScenarioController extends InputController {
 		loadToView(DTOScenario.Key.PERIOD_TYPE);
 		updateStochasticFieldsList();
 		loadAllToView();
+	}
+
+	protected void reloadTopPanel() {
+		final BHComboBox cbPeriodType = (BHComboBox) view
+				.getBHComponent(DTOScenario.Key.PERIOD_TYPE);
+		if (cbPeriodType != null) {
+			cbPeriodType.setValueList(PERIOD_TYPE_ITEMS);
+			cbPeriodType.getValueChangeManager().addCompValueChangeListener(
+					new ICompValueChangeListener() {
+
+						@Override
+						public void compValueChanged(IBHModelComponent comp) {
+							if (cbPeriodType.getSelectedIndex() == cbPeriodType
+									.getLastSelectedIndex()) {
+								return;
+							}
+
+							DTOScenario scenario = (DTOScenario) getModel();
+							if (scenario.getChildrenSize() > 0) {
+								cbPeriodType.hidePopup();
+								int action = PlatformUserDialog
+										.getInstance()
+										.showYesNoDialog(
+												Services
+														.getTranslator()
+														.translate(
+																"PstochasticPeriodTypeChangeText"),
+												Services
+														.getTranslator()
+														.translate(
+																"PstochasticPeriodTypeChangeHeader"));
+								if (action == JOptionPane.YES_OPTION) {
+									bhmf.getBHTree().removeAllPeriods(scenario);
+								} else if (action == JOptionPane.NO_OPTION) {
+									cbPeriodType.setSelectedIndex(cbPeriodType
+											.getLastSelectedIndex());
+									return;
+								}
+							}
+
+							updateStochasticFieldsList();
+						}
+					});
+		}
 	}
 
 	protected void updateStochasticFieldsList() {

@@ -101,7 +101,7 @@ public class BHScenarioForm extends JPanel {
 
 		CellConstraints cons = new CellConstraints();
 		
-		topPanel.add(this.getPscenario(isIntervalArithmethic), cons.xywh(2, 2, 1, 1));
+		setHeadPanel(isIntervalArithmethic);
 		topPanel.add(this.getPprocess(type), cons.xywh(2, 4, 1, 1));
 		JScrollPane scrollPane = new JScrollPane(topPanel);
 		
@@ -128,6 +128,24 @@ public class BHScenarioForm extends JPanel {
 	}
 
 	
+	public void setHeadPanel(boolean isIntervalArithmethic) {
+		if (pscenario != null)
+			topPanel.remove(pscenario);
+		
+		if (!isIntervalArithmethic)
+			pscenario = new BHScenarioHeadForm();
+		else
+			pscenario = new BHScenarioHeadIntervalForm();
+		
+		//TODO add locale change handler
+		pscenario.setBorder(BorderFactory
+				.createTitledBorder(BorderFactory.createEtchedBorder(EtchedBorder.LOWERED),translator.translate(BHScenarioForm.Key.SCENARIO_HEADDATA)));
+		
+		CellConstraints cons = new CellConstraints();
+		topPanel.add(pscenario, cons.xywh(2, 2, 1, 1));
+		this.revalidate();
+	}
+
 	private JPanel getPprocess(BHScenarioForm.Type type) {
 		switch (type){
 		case STOCHASTIC:
@@ -151,19 +169,6 @@ public class BHScenarioForm extends JPanel {
 	
 	public JPanel getProcessForm(){
 		return pprocess;
-	}
-	
-	private JPanel getPscenario(boolean isIntervalArithmethic) {
-		if (pscenario == null) {
-			if (!isIntervalArithmethic)
-				pscenario = new BHScenarioHeadForm();
-			else
-				pscenario = new BHScenarioHeadIntervalForm();
-			//TODO add locale change handler
-			pscenario.setBorder(BorderFactory
-					.createTitledBorder(BorderFactory.createEtchedBorder(EtchedBorder.LOWERED),translator.translate(BHScenarioForm.Key.SCENARIO_HEADDATA)));
-		}
-		return pscenario;
 	}
 
 	public BHButton getBcalculate() {

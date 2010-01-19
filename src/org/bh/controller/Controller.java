@@ -11,6 +11,7 @@ import org.bh.gui.BHValidityEngine;
 import org.bh.gui.IViewListener;
 import org.bh.gui.View;
 import org.bh.gui.ViewEvent;
+import org.bh.gui.ViewException;
 import org.bh.gui.swing.BHButton;
 import org.bh.gui.swing.IBHComponent;
 import org.bh.gui.swing.IBHModelComponent;
@@ -83,6 +84,11 @@ public abstract class Controller implements IController, ActionListener,
 			this.bhMappingComponents = this.view.getBHModelComponents();
 			this.addControllerAsListener(this.view.getBHtextComponents());
 		}
+	}
+	
+	protected void reloadView() throws ViewException {
+		view.setViewPanel(getViewPanel());
+		setView(view);
 	}
 
 	/**
