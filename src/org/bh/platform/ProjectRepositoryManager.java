@@ -153,11 +153,11 @@ class ChangedListener implements IPlatformListener {
 	@Override
 	public void platformEvent(PlatformEvent e) {
 		if (PlatformEvent.Type.DATA_CHANGED == e.getEventType())
-			if (!projectRepositoryManager.getRepositoryList().isEmpty()) {
+		//	if (!projectRepositoryManager.getRepositoryList().isEmpty()) {
 				ProjectRepositoryManager.setChanged(true);
-			} else {
-				ProjectRepositoryManager.setChanged(false);
-			}
+		//	} else {
+		//		ProjectRepositoryManager.setChanged(false);
+		//	}
 				
 	}
 	
