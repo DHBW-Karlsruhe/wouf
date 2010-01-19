@@ -5,6 +5,7 @@ import java.util.Map;
 
 import org.bh.data.DTOProject;
 import org.bh.data.DTOScenario;
+import org.bh.data.IPeriodicalValuesDTO;
 import org.bh.data.types.Calculable;
 import org.bh.data.types.DistributionMap;
 import org.bh.gui.swing.BHDataExchangeDialog;
@@ -29,6 +30,23 @@ public interface IImportExport extends IDisplayablePlugin {
 	static final int IMP_SCENARIO = 1 << 5;
 
 	static final int BATCH_EXPORT = 1 << 6;
+	
+	static final int IMP_BALANCE_SHEET = 1 << 7;
+	/**
+	 * Import profit and loss statement (total cost)
+	 */
+	static final int IMP_PLS_TOTAL_COST = 1 << 8;
+	
+	/**
+	 * Import profit and loss statement (cost of sales)
+	 */
+	static final int IMP_PLS_COST_OF_SALES = 1 << 9;
+	
+	
+	IPeriodicalValuesDTO importBalanceSheet(final BHDataExchangeDialog importDialog);
+	IPeriodicalValuesDTO importPLSTotalCost(final BHDataExchangeDialog importDialog);
+	IPeriodicalValuesDTO importPLSCostOfSales(final BHDataExchangeDialog importDialog);
+	
 
 	/**
 	 * Must be implemented if export of a project DTO should be supported by the

@@ -70,7 +70,7 @@ public class XMLImport {
 	 * @throws XMLImportException An exception occurred while processing the XML document. 
 	 * @throws IOException The passed file path does not lead to an accessible file.
 	 */
-	public DTOProject startImport() throws XMLNotValidException, IOException
+	public IDTO<?> startImport() throws XMLNotValidException, IOException
 	{		
 		// Check if the path is a valid input 
 		if (!checkFile())

@@ -41,7 +41,7 @@ public class XMLExport {
 	 * Reference to the model which should
 	 * be exported. 
 	 */
-	private DTOProject model = null;
+	private IDTO<?> model = null;
 	
 	/**
 	 * Namespace for all Business Horizon elements in the XML document.
@@ -54,7 +54,7 @@ public class XMLExport {
 	 * @param exportFilePath
 	 * @param model
 	 */
-	public XMLExport(String exportFilePath, DTOProject model) {
+	public XMLExport(String exportFilePath, IDTO<?> model) {
 		super();
 		this.exportFilePath = exportFilePath;
 		this.model = model;

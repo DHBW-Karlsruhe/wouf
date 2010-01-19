@@ -1,0 +1,38 @@
+# Assignment
+# DTO Key -> XML Node
+
+# Balance Sheet
+IVG = bs.ass.fixAss.intan
+SA = bs.ass.fixAss.tan
+FA = bs.ass.fixAss.fin
+VOR = bs.ass.currAss.inventory
+FSVG = bs.ass.currAss.receiv
+WP = bs.ass.currAss.securities
+KBGGKS = bs.ass.currAss.cashEquiv
+EK = bs.eqLiab.equity
+RS = bs.eqLiab.accruals
+VB = bs.eqLiab.liab
+
+# Profit Loss Statement Total Cost
+UE = is.netIncome.regular.operatingTC.grossTradingProfit.totalOutput.netSales
+SBE = is.netIncome.regular.operatingTC.otherOpRevenue
+MA = is.netIncome.regular.operatingTC.grossTradingProfit.materialServices
+PA = is.netIncome.regular.operatingTC.staff
+ABSCH = is.netIncome.regular.operatingTC.deprAmort
+SBA = is.netIncome.regular.operatingTC.otherCost
+
+
+# Profit Loss Statement Cost Of Sales
+UE2 = is.netIncome.regular.operatingCOGS.grossOpProfit.netSales
+SBE2 = is.netIncome.regular.operatingCOGS.grossOpProfit.otherRevenue
+HK = is.netIncome.regular.operatingCOGS.grossOpProfit.cogs
+VVSBA = VK + AVK + SBA2
+
+
+# Equations
+
+# Keys for calculation
+VK = is.netIncome.regular.operatingCOGS.salesCost
+AVK = is.netIncome.regular.operatingCOGS.adminCost
+SBA2 = is.netIncome.regular.operatingCOGS.otherCost
+

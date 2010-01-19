@@ -15,6 +15,7 @@ import javax.swing.JOptionPane;
 
 import org.bh.data.DTOProject;
 import org.bh.data.DTOScenario;
+import org.bh.data.IPeriodicalValuesDTO;
 import org.bh.data.types.Calculable;
 import org.bh.data.types.DistributionMap;
 import org.bh.gui.swing.BHDataExchangeDialog;
@@ -314,6 +315,27 @@ public class ExcelExport implements IImportExport {
 		// can write
 		f.delete();
 		return true;
+	}
+
+	@Override
+	public IPeriodicalValuesDTO importBalanceSheet(
+			BHDataExchangeDialog importDialog) {
+		// TODO Auto-generated method stub
+		throw new UnsupportedOperationException("This method has not been implemented");
+	}
+
+	@Override
+	public IPeriodicalValuesDTO importPLSCostOfSales(
+			BHDataExchangeDialog importDialog) {
+		// TODO Auto-generated method stub
+		throw new UnsupportedOperationException("This method has not been implemented");
+	}
+
+	@Override
+	public IPeriodicalValuesDTO importPLSTotalCost(
+			BHDataExchangeDialog importDialog) {
+		// TODO Auto-generated method stub
+		throw new UnsupportedOperationException("This method has not been implemented");
 	}
 
 }

@@ -14,6 +14,7 @@ import javax.swing.JOptionPane;
 import org.apache.log4j.Logger;
 import org.bh.data.DTOProject;
 import org.bh.data.DTOScenario;
+import org.bh.data.IPeriodicalValuesDTO;
 import org.bh.data.types.Calculable;
 import org.bh.data.types.DistributionMap;
 import org.bh.gui.swing.BHDataExchangeDialog;
@@ -321,5 +322,26 @@ public class PDFExport implements IImportExport {
 	@Override
 	public String getFileExtension() {
 		return FILE_EXT;
+	}
+
+	@Override
+	public IPeriodicalValuesDTO importBalanceSheet(
+			BHDataExchangeDialog importDialog) {
+		// TODO Auto-generated method stub
+		throw new UnsupportedOperationException("This method has not been implemented");
+	}
+
+	@Override
+	public IPeriodicalValuesDTO importPLSCostOfSales(
+			BHDataExchangeDialog importDialog) {
+		// TODO Auto-generated method stub
+		throw new UnsupportedOperationException("This method has not been implemented");
+	}
+
+	@Override
+	public IPeriodicalValuesDTO importPLSTotalCost(
+			BHDataExchangeDialog importDialog) {
+		// TODO Auto-generated method stub
+		throw new UnsupportedOperationException("This method has not been implemented");
 	}
 }
