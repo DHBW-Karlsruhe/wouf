@@ -10,9 +10,13 @@ import org.bh.platform.PlatformEvent;
 import org.bh.platform.Services;
 import org.bh.platform.PlatformEvent.Type;
 import org.jfree.chart.ChartFactory;
+import org.jfree.chart.axis.SubCategoryAxis;
+import org.jfree.chart.plot.CategoryPlot;
 import org.jfree.chart.plot.PlotOrientation;
 import org.jfree.chart.renderer.category.CategoryItemRenderer;
+import org.jfree.chart.renderer.category.GroupedStackedBarRenderer;
 import org.jfree.chart.renderer.category.StackedBarRenderer;
+import org.jfree.data.KeyToGroupMap;
 import org.jfree.data.category.DefaultCategoryDataset;
 import org.jfree.data.general.Dataset;
 
@@ -28,9 +32,15 @@ import org.jfree.data.general.Dataset;
 	 * 
 	 */
 	@SuppressWarnings("serial")
-	public class BHstackedBarChart extends BHChart implements IBHAddValue, IPlatformListener {
+	public class BHstackedBarChart extends BHChart implements IBHAddGroupValue, IPlatformListener {
 		
 		private DefaultCategoryDataset dataset;
+                private GroupedStackedBarRenderer groupRenderer;
+                private KeyToGroupMap groupMap = new KeyToGroupMap();
+                private String[] categories;
+
+                private CategoryPlot plot;
+                private SubCategoryAxis domainAxis;
 
 		protected BHstackedBarChart(
 				final Dataset dataset, final String key, boolean legend, boolean tooltips) {
@@ -49,6 +59,9 @@ import org.jfree.data.general.Dataset;
 			CategoryItemRenderer renderer = chart.getCategoryPlot().getRenderer();
 			renderer.setBaseItemLabelGenerator(new BHChartLabelGenerator());
 			renderer.setBaseItemLabelsVisible(true);
+
+                        this.plot = chart.getCategoryPlot();
+                        this.groupRenderer = new GroupedStackedBarRenderer();
 			
 			StackedBarRenderer barRenderer = (StackedBarRenderer)chart.getCategoryPlot().getRenderer();
 			barRenderer.setDrawBarOutline(false);
@@ -64,6 +77,29 @@ import org.jfree.data.general.Dataset;
 			this.dataset.addValue(value, row, columnKey);
 			chart.fireChartChanged();
 		}
+
+                @Override
+                public final void addValue(Number value, Comparable row, Comparable<String> columnKey, int catIdx){
+                    this.addValue(value, row, columnKey);
+                    groupMap.mapKeyToGroup(row, this.categories[catIdx]);
+                    this.groupRenderer.setSeriesToGroupMap(groupMap);
+                }
+                
+                @Override
+                public void setDefaultGroupSettings(String[] categories){
+                    String cats = "";
+                    for(String s : categories){
+                        cats = cats + " / " + translator.translate(s);
+                    }
+                    this.domainAxis = new SubCategoryAxis(cats);
+                    this.domainAxis.setCategoryMargin(0.05);
+                    for(String s : categories){
+                        this.domainAxis.addSubCategory(translator.translate(s));
+                    }
+                    this.plot.setDomainAxis(domainAxis);
+                    this.groupRenderer.setItemMargin(0.0);
+                    this.plot.setRenderer(groupRenderer);
+                }
 
 		@Override
 		public void addValues(List<?> list) {

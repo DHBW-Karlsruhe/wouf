@@ -13,6 +13,7 @@ import org.bh.data.DTOPeriod;
 import org.bh.data.DTOScenario;
 import org.bh.data.types.Calculable;
 import org.bh.gui.View;
+import org.bh.gui.chart.IBHAddGroupValue;
 import org.bh.gui.chart.IBHAddValue;
 import org.bh.platform.Services;
 import org.bh.platform.i18n.ITranslator;
@@ -59,23 +60,50 @@ public class BHResultController extends OutputController {
 
             if (scenario.getDCFMethod().getUniqueId().equals("apv")) {
                 IBHAddValue comp = super.view.getBHchartComponents().get(ChartKeys.APV_WF_SV.toString());
-                comp.addValue(result.get("org.bh.plugin.apv.APVCalculator$Result.PRESENT_VALUE_FCF")[0].getMin(), translator.translate(ChartKeys.APV_WF_SV), translator.translate("org.bh.plugin.apv.APVCalculator$Result.PRESENT_VALUE_FCF") + " " + translator.translate("min"));
-                comp.addValue(result.get("org.bh.plugin.apv.APVCalculator$Result.PRESENT_VALUE_FCF")[0].getMax(), translator.translate(ChartKeys.APV_WF_SV), translator.translate("org.bh.plugin.apv.APVCalculator$Result.PRESENT_VALUE_FCF") + " " + translator.translate("max"));
-                comp.addValue( result.get("org.bh.plugin.apv.APVCalculator$Result.PRESENT_VALUE_TAX_SHIELD")[0].getMin(), translator.translate(ChartKeys.APV_WF_SV), translator.translate("org.bh.plugin.apv.APVCalculator$Result.PRESENT_VALUE_TAX_SHIELD") + " " + translator.translate("min"));
-                comp.addValue( result.get("org.bh.plugin.apv.APVCalculator$Result.PRESENT_VALUE_TAX_SHIELD")[0].getMax(), translator.translate(ChartKeys.APV_WF_SV), translator.translate("org.bh.plugin.apv.APVCalculator$Result.PRESENT_VALUE_TAX_SHIELD") + " " + translator.translate("max"));
-                comp.addValue( result.get("org.bh.calculation.IShareholderValueCalculator$Result.DEBT")[0].getMin() * -1, translator.translate(ChartKeys.APV_WF_SV), translator.translate("org.bh.calculation.IShareholderValueCalculator$Result.DEBT") + " " + translator.translate("min"));
-                comp.addValue( result.get("org.bh.calculation.IShareholderValueCalculator$Result.DEBT")[0].getMax() * -1, translator.translate(ChartKeys.APV_WF_SV), translator.translate("org.bh.calculation.IShareholderValueCalculator$Result.DEBT") + " " + translator.translate("max"));
-                comp.addValue( result.get("org.bh.calculation.IShareholderValueCalculator$Result.SHAREHOLDER_VALUE")[0].getMin(), translator.translate(ChartKeys.APV_WF_SV), translator.translate("org.bh.calculation.IShareholderValueCalculator$Result.SHAREHOLDER_VALUE") + " " + translator.translate("min"));
-                comp.addValue( result.get("org.bh.calculation.IShareholderValueCalculator$Result.SHAREHOLDER_VALUE")[0].getMax(), translator.translate(ChartKeys.APV_WF_SV), translator.translate("org.bh.calculation.IShareholderValueCalculator$Result.SHAREHOLDER_VALUE") + " " + translator.translate("max"));
+
+//                comp.addValue(result.get("org.bh.plugin.apv.APVCalculator$Result.PRESENT_VALUE_FCF")[0].getMin(), translator.translate(ChartKeys.APV_WF_SV), translator.translate("org.bh.plugin.apv.APVCalculator$Result.PRESENT_VALUE_FCF") + " " + translator.translate("min"));
+//                comp.addValue(result.get("org.bh.plugin.apv.APVCalculator$Result.PRESENT_VALUE_FCF")[0].getMax(), translator.translate(ChartKeys.APV_WF_SV), translator.translate("org.bh.plugin.apv.APVCalculator$Result.PRESENT_VALUE_FCF") + " " + translator.translate("max"));
+//                comp.addValue( result.get("org.bh.plugin.apv.APVCalculator$Result.PRESENT_VALUE_TAX_SHIELD")[0].getMin(), translator.translate(ChartKeys.APV_WF_SV), translator.translate("org.bh.plugin.apv.APVCalculator$Result.PRESENT_VALUE_TAX_SHIELD") + " " + translator.translate("min"));
+//                comp.addValue( result.get("org.bh.plugin.apv.APVCalculator$Result.PRESENT_VALUE_TAX_SHIELD")[0].getMax(), translator.translate(ChartKeys.APV_WF_SV), translator.translate("org.bh.plugin.apv.APVCalculator$Result.PRESENT_VALUE_TAX_SHIELD") + " " + translator.translate("max"));
+//                comp.addValue( result.get("org.bh.calculation.IShareholderValueCalculator$Result.DEBT")[0].getMin() * -1, translator.translate(ChartKeys.APV_WF_SV), translator.translate("org.bh.calculation.IShareholderValueCalculator$Result.DEBT") + " " + translator.translate("min"));
+//                comp.addValue( result.get("org.bh.calculation.IShareholderValueCalculator$Result.DEBT")[0].getMax() * -1, translator.translate(ChartKeys.APV_WF_SV), translator.translate("org.bh.calculation.IShareholderValueCalculator$Result.DEBT") + " " + translator.translate("max"));
+//                comp.addValue( result.get("org.bh.calculation.IShareholderValueCalculator$Result.SHAREHOLDER_VALUE")[0].getMin(), translator.translate(ChartKeys.APV_WF_SV), translator.translate("org.bh.calculation.IShareholderValueCalculator$Result.SHAREHOLDER_VALUE") + " " + translator.translate("min"));
+//                comp.addValue( result.get("org.bh.calculation.IShareholderValueCalculator$Result.SHAREHOLDER_VALUE")[0].getMax(), translator.translate(ChartKeys.APV_WF_SV), translator.translate("org.bh.calculation.IShareholderValueCalculator$Result.SHAREHOLDER_VALUE") + " " + translator.translate("max"));
+//
+//                IBHAddValue comp2 = super.view.getBHchartComponents().get(ChartKeys.APV_BC_CS.toString());
+//                int length = result.get("org.bh.plugin.apv.APVCalculator$Result.PRESENT_VALUE_FCF").length;
+//                for (int i = 0; i < length; i++) {
+//                    String name = scenario.getChildren().get(i).get(DTOPeriod.Key.NAME).toString();
+//                    comp2.addValue( result.get("org.bh.plugin.apv.APVCalculator$Result.PRESENT_VALUE_FCF")[i].getMin(), translator.translate("org.bh.plugin.apv.APVCalculator$Result.PRESENT_VALUE_FCF") + " " + translator.translate("min"), name);
+//                    comp2.addValue( result.get("org.bh.plugin.apv.APVCalculator$Result.PRESENT_VALUE_FCF")[i].getMax(), translator.translate("org.bh.plugin.apv.APVCalculator$Result.PRESENT_VALUE_FCF") + " " + translator.translate("max"), name);
+//                    comp2.addValue( result.get("org.bh.calculation.IShareholderValueCalculator$Result.DEBT")[i].getMin(), translator.translate("org.bh.calculation.IShareholderValueCalculator$Result.DEBT") + " " + translator.translate("min"), name);
+//                    comp2.addValue( result.get("org.bh.calculation.IShareholderValueCalculator$Result.DEBT")[i].getMax(), translator.translate("org.bh.calculation.IShareholderValueCalculator$Result.DEBT") + " " + translator.translate("max"), name);
+//                }
+                IBHAddGroupValue groupComp = ((comp instanceof IBHAddGroupValue) ? null :  ((IBHAddGroupValue) comp));
+                if(groupComp != null){
+                    groupComp.setDefaultGroupSettings(IBHAddGroupValue.MIN_MAX_GROUP);
+                    groupComp.addValue(result.get("org.bh.plugin.apv.APVCalculator$Result.PRESENT_VALUE_FCF")[0].getMin(), translator.translate(ChartKeys.APV_WF_SV) + " " + translator.translate("min"), translator.translate("org.bh.plugin.apv.APVCalculator$Result.PRESENT_VALUE_FCF"), IBHAddGroupValue.MIN_POS);
+                    groupComp.addValue(result.get("org.bh.plugin.apv.APVCalculator$Result.PRESENT_VALUE_FCF")[0].getMax(), translator.translate(ChartKeys.APV_WF_SV) + " " + translator.translate("min"), translator.translate("org.bh.plugin.apv.APVCalculator$Result.PRESENT_VALUE_FCF"), IBHAddGroupValue.MAX_POS);
+
+
+                }
+                comp.addValue(result.get("org.bh.plugin.apv.APVCalculator$Result.PRESENT_VALUE_FCF")[0].getMin(), translator.translate(ChartKeys.APV_WF_SV) + " " + translator.translate("min"), translator.translate("org.bh.plugin.apv.APVCalculator$Result.PRESENT_VALUE_FCF"));
+                comp.addValue(result.get("org.bh.plugin.apv.APVCalculator$Result.PRESENT_VALUE_FCF")[0].getMax(), translator.translate(ChartKeys.APV_WF_SV), translator.translate("org.bh.plugin.apv.APVCalculator$Result.PRESENT_VALUE_FCF"));
+                comp.addValue( result.get("org.bh.plugin.apv.APVCalculator$Result.PRESENT_VALUE_TAX_SHIELD")[0].getMin(), translator.translate(ChartKeys.APV_WF_SV) + " " + translator.translate("min"), translator.translate("org.bh.plugin.apv.APVCalculator$Result.PRESENT_VALUE_TAX_SHIELD"));
+                comp.addValue( result.get("org.bh.plugin.apv.APVCalculator$Result.PRESENT_VALUE_TAX_SHIELD")[0].getMax(), translator.translate(ChartKeys.APV_WF_SV), translator.translate("org.bh.plugin.apv.APVCalculator$Result.PRESENT_VALUE_TAX_SHIELD"));
+                comp.addValue( result.get("org.bh.calculation.IShareholderValueCalculator$Result.DEBT")[0].getMin() * -1, translator.translate(ChartKeys.APV_WF_SV) + " " + translator.translate("min"), translator.translate("org.bh.calculation.IShareholderValueCalculator$Result.DEBT"));
+                comp.addValue( result.get("org.bh.calculation.IShareholderValueCalculator$Result.DEBT")[0].getMax() * -1, translator.translate(ChartKeys.APV_WF_SV), translator.translate("org.bh.calculation.IShareholderValueCalculator$Result.DEBT"));
+                comp.addValue( result.get("org.bh.calculation.IShareholderValueCalculator$Result.SHAREHOLDER_VALUE")[0].getMin(), translator.translate(ChartKeys.APV_WF_SV) + " " + translator.translate("min"), translator.translate("org.bh.calculation.IShareholderValueCalculator$Result.SHAREHOLDER_VALUE"));
+                comp.addValue( result.get("org.bh.calculation.IShareholderValueCalculator$Result.SHAREHOLDER_VALUE")[0].getMax(), translator.translate(ChartKeys.APV_WF_SV), translator.translate("org.bh.calculation.IShareholderValueCalculator$Result.SHAREHOLDER_VALUE"));
 
                 IBHAddValue comp2 = super.view.getBHchartComponents().get(ChartKeys.APV_BC_CS.toString());
                 int length = result.get("org.bh.plugin.apv.APVCalculator$Result.PRESENT_VALUE_FCF").length;
                 for (int i = 0; i < length; i++) {
                     String name = scenario.getChildren().get(i).get(DTOPeriod.Key.NAME).toString();
-                    comp2.addValue( result.get("org.bh.plugin.apv.APVCalculator$Result.PRESENT_VALUE_FCF")[i].getMin(), translator.translate("org.bh.plugin.apv.APVCalculator$Result.PRESENT_VALUE_FCF") + " " + translator.translate("min"), name);
-                    comp2.addValue( result.get("org.bh.plugin.apv.APVCalculator$Result.PRESENT_VALUE_FCF")[i].getMax(), translator.translate("org.bh.plugin.apv.APVCalculator$Result.PRESENT_VALUE_FCF") + " " + translator.translate("max"), name);
-                    comp2.addValue( result.get("org.bh.calculation.IShareholderValueCalculator$Result.DEBT")[i].getMin(), translator.translate("org.bh.calculation.IShareholderValueCalculator$Result.DEBT") + " " + translator.translate("min"), name);
-                    comp2.addValue( result.get("org.bh.calculation.IShareholderValueCalculator$Result.DEBT")[i].getMax(), translator.translate("org.bh.calculation.IShareholderValueCalculator$Result.DEBT") + " " + translator.translate("max"), name);
+                    comp2.addValue( result.get("org.bh.plugin.apv.APVCalculator$Result.PRESENT_VALUE_FCF")[i].getMin(), translator.translate("org.bh.plugin.apv.APVCalculator$Result.PRESENT_VALUE_FCF"), name + " " + translator.translate("min"));
+                    comp2.addValue( result.get("org.bh.plugin.apv.APVCalculator$Result.PRESENT_VALUE_FCF")[i].getMax(), translator.translate("org.bh.plugin.apv.APVCalculator$Result.PRESENT_VALUE_FCF"), name);
+                    comp2.addValue( result.get("org.bh.calculation.IShareholderValueCalculator$Result.DEBT")[i].getMin(), translator.translate("org.bh.calculation.IShareholderValueCalculator$Result.DEBT"), name + " " + translator.translate("min"));
+                    comp2.addValue( result.get("org.bh.calculation.IShareholderValueCalculator$Result.DEBT")[i].getMax(), translator.translate("org.bh.calculation.IShareholderValueCalculator$Result.DEBT"), name);
                 }
 
             } else if (scenario.getDCFMethod().getUniqueId().equals("fcf")) {
