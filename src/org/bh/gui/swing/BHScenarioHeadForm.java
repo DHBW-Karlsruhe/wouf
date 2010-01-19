@@ -14,6 +14,7 @@ import org.bh.platform.Services;
 import org.bh.platform.i18n.ITranslator;
 import org.bh.validation.VRIsDouble;
 import org.bh.validation.VRIsInteger;
+import org.bh.validation.VRIsNotEqual;
 import org.bh.validation.VRIsPositive;
 import org.bh.validation.VRMandatory;
 import org.bh.validation.ValidationRule;
@@ -275,7 +276,8 @@ public class BHScenarioHeadForm extends JPanel {
 		if (this.tfequityyield == null) {
 			this.tfequityyield = new BHPercentTextField(DTOScenario.Key.REK);
 			ValidationRule[] rules = { VRMandatory.INSTANCE,
-					VRIsDouble.INSTANCE, VRIsPositive.INSTANCE };
+					VRIsDouble.INSTANCE, VRIsPositive.INSTANCE,
+					VRIsNotEqual.ISNOTZERO };
 			tfequityyield.setValidationRules(rules);
 		}
 		return this.tfequityyield;
@@ -291,7 +293,8 @@ public class BHScenarioHeadForm extends JPanel {
 		if (this.tfdeptyield == null) {
 			this.tfdeptyield = new BHPercentTextField(DTOScenario.Key.RFK);
 			ValidationRule[] rules = { VRMandatory.INSTANCE,
-					VRIsDouble.INSTANCE, VRIsPositive.INSTANCE };
+					VRIsDouble.INSTANCE, VRIsPositive.INSTANCE,
+					VRIsNotEqual.ISNOTZERO };
 			tfdeptyield.setValidationRules(rules);
 		}
 		return this.tfdeptyield;

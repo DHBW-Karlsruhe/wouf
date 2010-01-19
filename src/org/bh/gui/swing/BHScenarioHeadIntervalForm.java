@@ -16,6 +16,7 @@ import org.bh.platform.i18n.ITranslator;
 import org.bh.validation.VRIsDouble;
 import org.bh.validation.VRIsGreaterThan;
 import org.bh.validation.VRIsInteger;
+import org.bh.validation.VRIsNotEqual;
 import org.bh.validation.VRIsPositive;
 import org.bh.validation.VRMandatory;
 import org.bh.validation.ValidationRule;
@@ -374,7 +375,8 @@ public class BHScenarioHeadIntervalForm extends JPanel {
 			this.tfminequityyield = new BHPercentTextField(IBHComponent.MINVALUE
 					+ DTOScenario.Key.REK);
 			ValidationRule[] rules = { VRMandatory.INSTANCE,
-					VRIsDouble.INSTANCE, VRIsPositive.INSTANCE };
+					VRIsDouble.INSTANCE, VRIsPositive.INSTANCE,
+					VRIsNotEqual.ISNOTZERO };
 			tfminequityyield.setValidationRules(rules);
 		}
 		return this.tfminequityyield;
@@ -390,7 +392,8 @@ public class BHScenarioHeadIntervalForm extends JPanel {
 			this.tfmindeptyield = new BHPercentTextField(IBHComponent.MINVALUE
 					+ DTOScenario.Key.RFK);
 			ValidationRule[] rules = { VRMandatory.INSTANCE,
-					VRIsDouble.INSTANCE, VRIsPositive.INSTANCE };
+					VRIsDouble.INSTANCE, VRIsPositive.INSTANCE,
+					VRIsNotEqual.ISNOTZERO };
 			tfmindeptyield.setValidationRules(rules);
 		}
 		return this.tfmindeptyield;
@@ -439,7 +442,8 @@ public class BHScenarioHeadIntervalForm extends JPanel {
 					+ DTOScenario.Key.REK);
 			ValidationRule[] rules = { VRMandatory.INSTANCE,
 					VRIsDouble.INSTANCE, VRIsPositive.INSTANCE,
-					new VRIsGreaterThan(gettfminequityyield(), true) };
+					new VRIsGreaterThan(gettfminequityyield(), true),
+					VRIsNotEqual.ISNOTZERO };
 			tfmaxequityyield.setValidationRules(rules);
 		}
 		return this.tfmaxequityyield;
@@ -456,7 +460,8 @@ public class BHScenarioHeadIntervalForm extends JPanel {
 					+ DTOScenario.Key.RFK);
 			ValidationRule[] rules = { VRMandatory.INSTANCE,
 					VRIsDouble.INSTANCE, VRIsPositive.INSTANCE,
-					new VRIsGreaterThan(gettfmindeptyield(), true) };
+					new VRIsGreaterThan(gettfmindeptyield(), true),
+					VRIsNotEqual.ISNOTZERO };
 			tfmaxdeptyield.setValidationRules(rules);
 		}
 		return this.tfmaxdeptyield;
