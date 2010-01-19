@@ -69,6 +69,9 @@ public class BHScenarioHeadIntervalForm extends JPanel {
 	private JLabel lmax;
 	private JLabel lmin1;
 	private JLabel lmax1;
+	
+	private BHDescriptionLabel lPeriodType;
+	private BHComboBox cmbPeriodType;
 
 	private BHFocusTraversalPolicy focusPolicy;
 
@@ -84,7 +87,7 @@ public class BHScenarioHeadIntervalForm extends JPanel {
 	 */
 	private void initialize() {
 
-		String rowDef = "4px,p,4px,p,4px,p,4px,p,20px,p,4px,p,4px,p,4px,p,4px";
+		String rowDef = "4px,p,4px,p,4px,p,4px,p,20px,p,4px,p,4px,p,20px,p,4px";
 		String colDef = "4px,right:pref,4px,max(80px;pref),4px,left:pref,4px,pref,4px,pref,4px,left:pref,24px:grow,4px,right:pref,4px,pref,4px,left:pref,4px,pref,4px,pref,4px,left:pref,4px";
 
 		FormLayout layout = new FormLayout(colDef, rowDef);
@@ -134,6 +137,9 @@ public class BHScenarioHeadIntervalForm extends JPanel {
 		this.add(this.getlmaxpercentDept(), cons.xywh(12, 14, 1, 1));
 		this.add(this.getlmaxpercentTrade(), cons.xywh(25, 12, 1, 1));
 		this.add(this.getlmaxpercentCorporate(), cons.xywh(25, 14, 1, 1));
+		
+		this.add(this.getlPeriodType(), cons.xywh(2, 16, 1, 1));
+		this.add(this.getCmbPeriodType(), cons.xywh(4, 16, 12, 1, "left, default"));
 		
 		// TODO Anton: Combobox for period type 
 		
@@ -603,6 +609,20 @@ public class BHScenarioHeadIntervalForm extends JPanel {
 			this.lmaxpercentcorporate = new JLabel("%");
 		}
 		return this.lmaxpercentcorporate;
+	}
+	
+	public BHDescriptionLabel getlPeriodType() {
+		if (lPeriodType == null) {
+			lPeriodType = new BHDescriptionLabel(DTOScenario.Key.PERIOD_TYPE);
+		}
+		return lPeriodType;
+	}
+
+	public BHComboBox getCmbPeriodType() {
+		if (cmbPeriodType == null) {
+			cmbPeriodType = new BHComboBox(DTOScenario.Key.PERIOD_TYPE);
+		}
+		return cmbPeriodType;
 	}
 
 	public static class BHFocusTraversalPolicy extends FocusTraversalPolicy {
