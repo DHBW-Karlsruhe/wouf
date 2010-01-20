@@ -8,11 +8,8 @@ import java.awt.event.ActionListener;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
-
 import javax.imageio.ImageIO;
-import javax.swing.ImageIcon;
 import javax.swing.JPanel;
-
 import org.apache.log4j.Logger;
 import org.bh.data.DTOScenario;
 import org.bh.data.types.DistributionMap;
@@ -22,12 +19,11 @@ import org.bh.gui.swing.BHDataExchangeDialog;
 import org.bh.platform.IImportExport;
 import org.bh.platform.IPrint;
 import org.bh.platform.Services;
-import org.bh.plugin.resultAnalysis.BHResultPanel;
 import org.jfree.chart.JFreeChart;
 
 public class BHStochasticResultPanel extends JPanel{
 	
-	static final Logger log = Logger.getLogger(BHResultPanel.class);
+	static final Logger log = Logger.getLogger(BHStochasticResultPanel.class);
 	private DTOScenario scenario;
 	private DistributionMap result;
 	private BHButton exportButton;
