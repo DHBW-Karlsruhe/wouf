@@ -81,7 +81,7 @@ public class BHChartPanel extends JPanel implements IBHComponent, IBHAddValue, I
     }
 
     public void addSeries(Comparable<String> seriesKey, double[][] data, Integer amountOfValues, Integer average) {
-        this.chartInstance.addSeries(key, data, null, null);
+        this.chartInstance.addSeries(key, data, amountOfValues, average);
     }
 
     public void addValue(Number value, Comparable<String> columnKey) {

@@ -305,7 +305,10 @@ public class DistributionMap implements Map<Double, Integer>,
 			int j = 0;
 			for(Entry<Double, Integer> e : newMap.entrySet()){
 				result[j][0] = e.getKey();
-				result[j][1] = e.getValue();
+				int value = e.getValue();
+				result[j][1] = value;
+				if(value > maxAmountOfValuesInCluster)
+					maxAmountOfValuesInCluster = value;
 				j++;
 			}
 			return result;
