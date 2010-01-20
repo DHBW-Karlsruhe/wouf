@@ -9,9 +9,11 @@ import org.bh.platform.PlatformEvent;
 import org.bh.platform.Services;
 import org.bh.platform.i18n.ITranslator;
 import org.jfree.chart.ChartFactory;
+import org.jfree.chart.labels.XYToolTipGenerator;
 import org.jfree.chart.plot.PlotOrientation;
 import org.jfree.chart.renderer.xy.StandardXYBarPainter;
 import org.jfree.chart.renderer.xy.XYBarRenderer;
+import org.jfree.data.xy.XYDataset;
 import org.jfree.data.xy.XYSeries;
 import org.jfree.data.xy.XYSeriesCollection;
 
@@ -20,9 +22,9 @@ public class BHXYBarChart extends BHChart implements IBHAddValue,
 	
 	private XYSeriesCollection dataset;
 	
-	public BHXYBarChart(String key){
+	public BHXYBarChart(final String key){
 		super(key);
-		ITranslator translator = Services.getTranslator();
+		final ITranslator translator = Services.getTranslator();
 		this.dataset = new XYSeriesCollection(new XYSeries(translator.translate(key)));
 		chart = ChartFactory.createXYBarChart(
 				translator.translate(key),
@@ -36,14 +38,22 @@ public class BHXYBarChart extends BHChart implements IBHAddValue,
 			chart.setBackgroundPaint(UIManager.getColor("Chart.background"));
 		}
 		
-		XYBarRenderer renderer = (XYBarRenderer) chart.getXYPlot().getRenderer();
-		
+		XYBarRenderer renderer = (XYBarRenderer) chart.getXYPlot().getRenderer();		
 		renderer.setBarPainter(new StandardXYBarPainter());
 		renderer.setShadowVisible(false);
 		renderer.setMargin(0.1);
-		
-		XYBarRenderer barRenderer = (XYBarRenderer)chart.getXYPlot().getRenderer();
-		barRenderer.setDrawBarOutline(false);
+		renderer.setDrawBarOutline(false);
+		renderer.setToolTipGenerator(new XYToolTipGenerator() {
+			
+			@Override
+			public String generateToolTip(XYDataset dataset, int series, int item) {
+				String x = Services.numberToString(dataset.getXValue(series, item));
+				String y = Services.numberToString(dataset.getYValue(series, item));
+				
+				return translator.translate(key.concat(BHChart.DIMX)) + " " +  x + "; " + 
+						translator.translate(key.concat(BHChart.DIMY)) + " " +  y;
+			}
+		});
 		
 		reloadText();
 		Services.addPlatformListener(this);
@@ -59,7 +69,7 @@ public class BHXYBarChart extends BHChart implements IBHAddValue,
 
 	@Override
 	public void addSeries(Comparable<String> seriesKey, double[][] data, Integer amountOfValues, Integer average) {
-		XYSeries series = new XYSeries(seriesKey);
+		XYSeries series = new XYSeries(translator.translate(seriesKey));
 		for(int i = 0; i < data.length; i++){
 			series.add(data[i][0], data[i][1]);
 		}
