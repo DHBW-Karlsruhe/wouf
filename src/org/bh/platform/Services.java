@@ -366,10 +366,13 @@ public class Services {
 		container.setPvalues((JPanel) viewComponent);
 		bhmf.setContentForm(container);
 	}
-
+	
+	//TODO Schmalzhaf.Alexander kann das weg
+	/*
 	public static JSplitPane createContentResultForm(Component chart) {
-		return bhmf.createContentResultForm(chart);
+		return bhmf.setResultForm(chart);
 	}
+	*/
 
 	/**
 	 * Checks if JRE is fulfilling the requirements for Business Horizon.

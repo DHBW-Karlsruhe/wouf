@@ -1,5 +1,6 @@
 package org.bh.gui.swing;
 
+import javax.swing.JScrollPane;
 import javax.swing.JSplitPane;
 import javax.swing.tree.DefaultMutableTreeNode;
 
@@ -22,7 +23,8 @@ import org.bh.data.types.StringValue;
 public class BHTreeNode extends DefaultMutableTreeNode{
 	
 	private InputController controller;
-	private JSplitPane backgroundPane;
+	private JScrollPane resultPane;
+	private int dividerLocation;
 	
 	public BHTreeNode(Object ob){
 		super(ob);
@@ -41,12 +43,12 @@ public class BHTreeNode extends DefaultMutableTreeNode{
 		return "Type not known - must be implemented in BHTreeNode";
 	}
 	
-	public void setBackgroundPane(JSplitPane backgroundPane){
-		this.backgroundPane = backgroundPane;
+	public void setResultPane(JScrollPane resultPane){
+		this.resultPane = resultPane;
 	}
 	
-	public JSplitPane getBackgroundPane(){
-		return this.backgroundPane;
+	public JScrollPane getResultPane(){
+		return this.resultPane;
 	}
 	
 	public void setController(InputController controller){
@@ -55,5 +57,13 @@ public class BHTreeNode extends DefaultMutableTreeNode{
 	
 	public InputController getController(){
 		return controller;
+	}
+	
+	public void setDividerLocation(int dividerLocation){
+		this.dividerLocation = dividerLocation;
+	}
+	
+	public int getDividerLocation(){
+		return this.dividerLocation;
 	}
 }

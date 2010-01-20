@@ -104,7 +104,6 @@ public class BHTree extends JTree{
 	public BHTree() {
 		// set settings
 		this.setEditable(true);
-		this.setDragEnabled(false);
 		this.setRootVisible(false);
 		this.getSelectionModel().setSelectionMode(
 				TreeSelectionModel.SINGLE_TREE_SELECTION);

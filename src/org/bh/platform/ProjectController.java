@@ -8,6 +8,7 @@ import java.util.Map;
 
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
+import javax.swing.JScrollPane;
 import javax.swing.JSplitPane;
 
 import org.apache.log4j.Logger;
@@ -87,19 +88,12 @@ public class ProjectController extends InputController implements
 						DashBoardController d = new DashBoardController(v);
 						d.setResult(results);
 
-						JSplitPane crForm = Services.createContentResultForm(v
-								.getViewPanel());
-
 						BHTreeNode tn = (BHTreeNode) bhTree.getSelectionPath()
-								.getPathComponent(1);
+						.getPathComponent(1);
 
-						tn.setBackgroundPane(crForm);
-						b.setIcon(null);
-
-						// BHTreeNode tn = (BHTreeNode) bhTree.getSelectionPath()
-						// .getPathComponent(2);
-
-						// tn.setBackgroundPane(crForm);
+						tn.setResultPane(new JScrollPane(v.getViewPanel()));
+				
+						PlatformController.getInstance().getMainFrame().setResultForm(tn.getResultPane());
 
 					} catch (ViewException e) {
 						log.error(e);

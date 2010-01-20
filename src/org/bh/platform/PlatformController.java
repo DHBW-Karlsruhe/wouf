@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.prefs.Preferences;
 
+import javax.swing.JScrollPane;
 import javax.swing.JSplitPane;
 import javax.swing.SwingUtilities;
 import javax.swing.event.TreeSelectionEvent;
@@ -258,6 +259,14 @@ public class PlatformController {
 			if (tse.getNewLeadSelectionPath() == null) {
 				bhmf.setContentForm(new BHContent());
 			} else {
+				//save divider location of split pane
+				BHTreeNode oldActiveNode;
+				if(tse.getOldLeadSelectionPath() != null){
+					TreePath tp = tse.getOldLeadSelectionPath();
+					oldActiveNode = (BHTreeNode)tp.getLastPathComponent();
+					oldActiveNode.setDividerLocation(bhmf.getVDividerLocation());
+				}
+				
 				SwingUtilities.invokeLater(new Runnable() {
 					@Override
 					public void run() {
@@ -274,7 +283,19 @@ public class PlatformController {
 									IDTO<?> model = selectedDto;
 									controller = new ProjectController(view,
 											model);
+									
+									//set content and result (=dashboard) if available
 									bhmf.setContentForm(view.getViewPanel());
+									JScrollPane resultPane;
+									if ((resultPane = selectedNode
+											.getResultPane()) != null) {
+										bhmf.setResultForm(resultPane);
+										bhmf.setVDividerLocation(selectedNode.getDividerLocation());
+									}else{
+										bhmf.removeResultForm();
+									}
+									
+									
 									controller.loadAllToView();
 
 								} catch (ViewException e) {
@@ -328,15 +349,19 @@ public class PlatformController {
 												.setPeriodTable(PlatformController.this
 														.prepareScenarioTableData(model));
 									}
-
-									JSplitPane bgComponent;
-
-									if ((bgComponent = selectedNode
-											.getBackgroundPane()) != null) {
-										bhmf.setContentResultForm(bgComponent);
-									} else {
-										bhmf.setContentForm(controller
-												.getViewPanel());
+									
+									//set content and result panels to bhmf
+									JScrollPane resultPane;
+									
+									bhmf.setContentForm(controller
+											.getViewPanel());
+									
+									if ((resultPane = selectedNode
+											.getResultPane()) != null) {
+										bhmf.setResultForm(resultPane);
+										bhmf.setVDividerLocation(selectedNode.getDividerLocation());	
+									}else{
+										bhmf.removeResultForm();
 									}
 
 								} catch (ViewException e) {
@@ -344,6 +369,7 @@ public class PlatformController {
 								}
 
 							} else if (selectedDto instanceof DTOPeriod) {
+								bhmf.removeResultForm();
 								Services
 										.startPeriodEditing((DTOPeriod) selectedDto);
 							}
@@ -397,16 +423,14 @@ public class PlatformController {
 					for (BHTreeNode scenarioNode : scenarioNodes) {
 						if (((DTOScenario) scenarioNode.getUserObject())
 								.isMeOrChild(e.getSource())
-								&& scenarioNode.getBackgroundPane() != null) {
-							scenarioNode.setBackgroundPane(null);
+								&& scenarioNode.getResultPane() != null) {
+							scenarioNode.setResultPane(null);
 
 							// throw away present screen, if scenario is on
 							// screen
 							TreePath tp = bhmf.getBHTree().getSelectionPath();
 							if (tp.getPathCount() == 3) {
-								bhmf.setContentForm(((BHTreeNode) tp
-										.getPathComponent(2)).getController()
-										.getViewPanel());
+								bhmf.fadeOutResultForm();
 
 							}
 						}

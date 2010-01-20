@@ -15,6 +15,7 @@ import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+import javax.swing.JScrollPane;
 import javax.swing.JSplitPane;
 
 import org.bh.calculation.IShareholderValueCalculator;
@@ -348,45 +349,53 @@ public class ScenarioController extends InputController {
 				@Override
 				public void run() {
 					DTOScenario scenario = (DTOScenario) getModel();
+					Component panel;
 					if (scenario.isDeterministic()) {
 						// start calculation
 						Map<String, Calculable[]> result = scenario
 								.getDCFMethod().calculate(scenario, true);
 
 						// FIXME selection of result analyser plugin
-						Component panel = new JPanel();
+						panel = new JPanel();
 						for (IDeterministicResultAnalyser analyser : PluginManager
 								.getInstance().getServices(
 										IDeterministicResultAnalyser.class)) {
 							panel = analyser.setResult(scenario, result);
 							break;
 						}
-						JSplitPane crForm = Services
-								.createContentResultForm(panel);
+
 						BHTreeNode tn = (BHTreeNode) bhTree.getSelectionPath()
 								.getPathComponent(2);
 
-						tn.setBackgroundPane(crForm);
+						tn.setResultPane(new JScrollPane(panel));
 					} else {
 						process.updateParameters();
 						DistributionMap result = process.calculate();
 
 						// FIXME selection of result analyser plugin
-						Component panel = new JPanel();
+						panel = new JPanel();
 						for (IStochasticResultAnalyser analyser : PluginManager
 								.getInstance().getServices(
 										IStochasticResultAnalyser.class)) {
 							panel = analyser.setResult(scenario, result);
 							break;
 						}
-						JSplitPane crForm = Services
-								.createContentResultForm(panel);
-						BHTreeNode tn = (BHTreeNode) bhTree.getSelectionPath()
-								.getPathComponent(2);
-
-						tn.setBackgroundPane(crForm);
+						
+						
 					}
-
+					
+					
+					if(panel != null){
+						
+						BHTreeNode tn = (BHTreeNode) bhTree.getSelectionPath()
+						.getPathComponent(2);
+						tn.setResultPane(new JScrollPane(panel));
+						//Put it onto screen
+						bhmf.setResultForm(tn.getResultPane());
+						
+						
+					}
+					
 					b.setIcon(null);
 				}
 			};

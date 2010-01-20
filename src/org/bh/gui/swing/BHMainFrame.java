@@ -95,16 +95,24 @@ public class BHMainFrame extends JFrame implements IPlatformListener {
 	 * Horizontal Split pane.
 	 */
 	private JSplitPane paneH;
-
+	
+	/**
+	 * vertical Split Pane on right side (upper part content, lower part result)
+	 */
+	private JSplitPane paneV;
+	
+	
+	
+	
 	/**
 	 * Open / Save dialog.
 	 */
 	private BHFileChooser chooser;
 	
 	private JScrollPane contentForm;
+	
+	private JScrollPane resultForm;
 
-	//TODO necessary?
-	//private Component chartsPanel;
 
 	/**
 	 * Standard constructor for <code>BHMainFrame</code>.
@@ -137,14 +145,19 @@ public class BHMainFrame extends JFrame implements IPlatformListener {
 		
 		statusBar = Services.getBHstatusBar();
 		content = new BHContent();
-
+		//Create vertical split pane 
+		paneV = new JSplitPane(JSplitPane.VERTICAL_SPLIT, content, resultForm);
+		
 		// Create the horizontal split pane and put the treeBar and the content
 		// in it.
 		paneH = new JSplitPane(JSplitPane.HORIZONTAL_SPLIT, bhTreeScroller,
-				content);
+				paneV);
 		paneH.setOneTouchExpandable(true);
 		
 		bhTreeScroller.setMinimumSize(new Dimension(UIManager.getInt("BHTree.minimumWidth"), bhTreeScroller.getMinimumSize().height));
+		
+		
+		
 		// stop moving the divider
 		// pane.setEnabled(false);
 
@@ -245,28 +258,26 @@ public class BHMainFrame extends JFrame implements IPlatformListener {
 
 	public void setContentForm(Component content) {
 		contentForm = new JScrollPane(content);
-		paneH.setRightComponent(contentForm);
+		paneV.setTopComponent(contentForm);
+	}
 
+
+	public void setResultForm(Component result) {
+		resultForm = new JScrollPane(result);
+		paneV.setBottomComponent(resultForm);
 	}
 	
-	public JScrollPane getContentForm() {
-		return contentForm;
-	}
-
-	public JSplitPane createContentResultForm(Component chart) {
-		JSplitPane paneV = new JSplitPane(JSplitPane.VERTICAL_SPLIT, getContentForm(), new JScrollPane(chart));
+	public void fadeOutResultForm() {
+		//TODO Thiele.Klaus
 		
-		paneV.setOneTouchExpandable(true);
-
-		paneH.setRightComponent(paneV);
-		
-		return paneV;
+		paneV.setBottomComponent(null);
 	}
 	
-	public void setContentResultForm(JSplitPane contentResultForm){
-		paneH.setRightComponent(contentResultForm);
+	public void removeResultForm() {
+		paneV.setBottomComponent(null);
 	}
-
+	
+	
 	/**
 	 * Returns the <code>FileChooser</code> of the <code>BHMainFrame</code>.
 	 * @return the current <code>BHFileChooser</code>.
@@ -309,6 +320,14 @@ public class BHMainFrame extends JFrame implements IPlatformListener {
 			this.resetTitle();
 			this.chooser = new BHFileChooser();
 		}
+	}
+	
+	public void setVDividerLocation(int dividerLocation){
+		paneV.setDividerLocation(dividerLocation);
+	}
+	
+	public int getVDividerLocation(){
+		return paneV.getDividerLocation();
 	}
 	
 	

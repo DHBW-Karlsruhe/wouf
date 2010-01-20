@@ -1,5 +1,6 @@
 package org.bh.gui.swing;
 import java.awt.AlphaComposite;
+import java.awt.Component;
 import java.awt.Graphics2D;
 import java.awt.Point;
 import java.awt.Rectangle;
@@ -19,10 +20,14 @@ import java.awt.dnd.DropTargetEvent;
 import java.awt.dnd.DropTargetListener;
 import java.awt.image.BufferedImage;
 
+import javax.swing.CellRendererPane;
+import javax.swing.JButton;
 import javax.swing.JComponent;
 import javax.swing.tree.DefaultMutableTreeNode;
 import javax.swing.tree.DefaultTreeModel;
 import javax.swing.tree.TreePath;
+
+import org.bh.gui.swing.BHTreePopup.Type;
  
 public abstract class AbstractTreeTransferHandler implements DragGestureListener, DragSourceListener, DropTargetListener {
  
@@ -145,7 +150,26 @@ public abstract class AbstractTreeTransferHandler implements DragGestureListener
 		int action = dtde.getDropAction();
 		
 		if (canPerformAction(tree, draggedNode, action, pt)) {
-			dtde.acceptDrag(action);			
+			
+			//get element for dragging...
+			for(Component c : tree.getComponents()){
+				
+			}
+			
+			//Component d = c.getComponentAt(dtde.getLocation());
+			
+			//CellRendererPane crp = (CellRendererPane)c.getComponentAt(dtde.getLocation());
+			
+			//System.out.println("---"+d.getComponentAt(dtde.getLocation()).getClass().getName());
+			
+				//paint a line on the drag-node
+				
+				//c.getLocation();
+				//tree.getGraphics().drawLine(d.getLocation().x,d.getLocation().y, d.getLocation().x+120, d.getLocation().y );
+			
+			
+			dtde.acceptDrag(action);
+			
 		}
 		else {
 			dtde.rejectDrag();
@@ -156,7 +180,7 @@ public abstract class AbstractTreeTransferHandler implements DragGestureListener
 		Point pt = dtde.getLocation();
 		int action = dtde.getDropAction();
 		if (canPerformAction(tree, draggedNode, action, pt)) {
-			dtde.acceptDrag(action);			
+			dtde.acceptDrag(action);
 		}
 		else {
 			dtde.rejectDrag();
