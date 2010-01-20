@@ -1,6 +1,7 @@
 package org.bh.gui.swing;
 import java.awt.Point;
 import java.awt.dnd.DnDConstants;
+import java.awt.dnd.DragGestureEvent;
 
 import javax.swing.tree.DefaultMutableTreeNode;
 import javax.swing.tree.DefaultTreeModel;
@@ -26,7 +27,7 @@ import org.bh.data.DTOScenario;
 public class BHTreeTransferHandler extends AbstractTreeTransferHandler {
  
 	public BHTreeTransferHandler(BHTree tree, int action) {
-		super(tree, action, true);
+		super(tree, action, false);
 	}
  
 	@Override
@@ -153,4 +154,10 @@ public class BHTreeTransferHandler extends AbstractTreeTransferHandler {
 //		}
 
 	}
+
+//	@Override
+//	public void dragGestureRecognized(DragGestureEvent dge){
+//		System.out.println("-------drag");
+//	}
+
 }

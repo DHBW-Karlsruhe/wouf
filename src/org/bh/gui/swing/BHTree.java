@@ -91,8 +91,9 @@ public class BHTree extends JTree {
 	/**
 	 * right-click popup for tree nodes with functions like 'remove' etc.
 	 */
-	private JPopupMenu popupMenu = new BHTreePopup();
+	private JPopupMenu projectPopup = new BHTreePopup(BHTreePopup.Type.PROJECT);
 	
+	private JPopupMenu defaultPopup = new BHTreePopup(BHTreePopup.Type.PERIOD);
 	
 	/**
 	 * Constructor
@@ -100,7 +101,7 @@ public class BHTree extends JTree {
 	public BHTree() {
 		// set settings
 		this.setEditable(true);
-		this.setDragEnabled(true);
+		this.setDragEnabled(false);
 		this.setRootVisible(false);
 		this.getSelectionModel().setSelectionMode(
 				TreeSelectionModel.SINGLE_TREE_SELECTION);
@@ -113,17 +114,7 @@ public class BHTree extends JTree {
 		new BHTreeTransferHandler(this, DnDConstants.ACTION_COPY_OR_MOVE);
 		
 		
-		this.addMouseListener(new MouseAdapter() {
-			@Override
-			public void mouseReleased(MouseEvent e) {
-				showPopup(e);
-			}
-
-			@Override
-			public void mousePressed(MouseEvent e) {
-				showPopup(e);
-			}
-		});
+		this.addMouseListener(new PopupListener(this));
 
 	}
 
@@ -190,17 +181,27 @@ public class BHTree extends JTree {
 	 * 
 	 * @param e
 	 */
-	void showPopup(MouseEvent e) {
+	void showPopup(MouseEvent e, BHTreePopup.Type nodeType) {
+		
 		if (e.isPopupTrigger()) {
 			
+			switch(nodeType){
+			case PROJECT:
+				projectPopup.show(e.getComponent(), e.getX(), e.getY());
+				break;
+				
+			case SCENARIO:
+				
+			case PERIOD:
+				defaultPopup.show(e.getComponent(), e.getX(), e.getY());
+				break;
+			}
+			
 			//TODO Zuckschwerdt.Lars tidy up this room :-)
-			popupMenu.show(e.getComponent(), e.getX(), e.getY());
+			
 
 			// int selRow = BHTree.this.getRowForLocation(e.getX(), e.getY());
-			TreePath selPath = BHTree.this.getPathForLocation(e.getX(), e
-					.getY());
-			if (selPath != null)
-				BHTree.this.setSelectionPath(selPath);
+			
 		}
 	}
 
@@ -542,4 +543,45 @@ public class BHTree extends JTree {
 			this.collapseRow(i);
 		}
 	}
+	
+	class PopupListener extends MouseAdapter {
+		
+		private BHTree tree;
+		
+		public PopupListener(BHTree tree){
+			this.tree = tree;
+		}
+		
+		@Override
+		public void mouseReleased(MouseEvent e) {
+			TreePath selPath = BHTree.this.getPathForLocation(e.getX(), e.getY());
+			if (selPath != null){
+				BHTree.this.setSelectionPath(selPath);
+				
+				if(((BHTreeNode)selPath.getLastPathComponent()).getUserObject() instanceof DTOProject){
+					showPopup(e, BHTreePopup.Type.PROJECT);
+				}else{
+					showPopup(e, BHTreePopup.Type.PERIOD);
+				}
+			}
+				
+			
+			
+			
+		}
+
+		@Override
+		public void mousePressed(MouseEvent e) {
+			TreePath selPath = BHTree.this.getPathForLocation(e.getX(), e.getY());
+			if (selPath != null){
+				BHTree.this.setSelectionPath(selPath);
+				
+				if(((BHTreeNode)selPath.getLastPathComponent()).getUserObject() instanceof DTOProject){
+					showPopup(e, BHTreePopup.Type.PROJECT);
+				}else{
+					showPopup(e, BHTreePopup.Type.PERIOD);
+				}
+			}
+		}
+	};
 }

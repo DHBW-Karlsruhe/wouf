@@ -20,15 +20,25 @@ import org.bh.platform.PlatformKey;
  */
 public class BHTreePopup extends JPopupMenu{
 	
-	public BHTreePopup(){
+	public enum Type{
+		PROJECT,
+		SCENARIO,
+		PERIOD;
+	}
+	
+	public BHTreePopup(Type type){
+		
 		
 		this.add(new BHMenuItem(PlatformKey.POPUPADD));
 		this.add(new BHMenuItem(PlatformKey.POPUPDUPLICATE));
-		this.add(new BHMenuItem(PlatformKey.POPUPEXPORT));
+		if(type == Type.PROJECT)
+			this.add(new BHMenuItem(PlatformKey.POPUPEXPORT));
 		this.addSeparator();
 		this.add(new BHMenuItem(PlatformKey.POPUPREMOVE));
 		
 	}
+	
+	
 	
 
 }
