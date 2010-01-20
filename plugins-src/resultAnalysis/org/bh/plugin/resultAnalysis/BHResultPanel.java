@@ -2,12 +2,15 @@ package org.bh.plugin.resultAnalysis;
 
 import java.awt.BorderLayout;
 import java.awt.Component;
+import java.awt.Image;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
+import javax.imageio.ImageIO;
+import javax.swing.ImageIcon;
 import javax.swing.JPanel;
 
 import org.apache.log4j.Logger;
@@ -150,6 +153,16 @@ public final class BHResultPanel extends JPanel {
 				dialog.setAction(IImportExport.EXP_SCENARIO_RES);
 				dialog.setModel(scenario);
 				dialog.setResults(result);
+				
+				try {
+					List<Image> icons = new ArrayList<Image>();
+					icons.add(ImageIO.read(getClass().getResourceAsStream("/org/bh/images/BH-Logo-16px.png")));
+					icons.add(ImageIO.read(getClass().getResourceAsStream("/org/bh/images/BH-Logo-32px.png")));
+					icons.add(ImageIO.read(getClass().getResourceAsStream("/org/bh/images/BH-Logo-48px.png")));
+					dialog.setIconImages(icons);
+				} catch (Exception eI) {
+					log.error("Failed to load IconImage", eI);
+				}
 				
 				List<JFreeChart> charts = new ArrayList<JFreeChart>();
 				for(Component c : procedurePanel.getComponents()) {

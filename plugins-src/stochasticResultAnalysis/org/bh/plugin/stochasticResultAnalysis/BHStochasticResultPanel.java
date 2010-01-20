@@ -2,14 +2,18 @@ package org.bh.plugin.stochasticResultAnalysis;
 
 import java.awt.BorderLayout;
 import java.awt.Component;
+import java.awt.Image;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
+import javax.imageio.ImageIO;
+import javax.swing.ImageIcon;
 import javax.swing.JPanel;
 
+import org.apache.log4j.Logger;
 import org.bh.data.DTOScenario;
 import org.bh.data.types.DistributionMap;
 import org.bh.gui.chart.BHChartPanel;
@@ -18,9 +22,12 @@ import org.bh.gui.swing.BHDataExchangeDialog;
 import org.bh.platform.IImportExport;
 import org.bh.platform.IPrint;
 import org.bh.platform.Services;
+import org.bh.plugin.resultAnalysis.BHResultPanel;
 import org.jfree.chart.JFreeChart;
 
 public class BHStochasticResultPanel extends JPanel{
+	
+	static final Logger log = Logger.getLogger(BHResultPanel.class);
 	private DTOScenario scenario;
 	private DistributionMap result;
 	private BHButton exportButton;
@@ -45,6 +52,16 @@ public class BHStochasticResultPanel extends JPanel{
 				dialog.setAction(IImportExport.EXP_SCENARIO_RES);
 				dialog.setModel(scenario);
 				dialog.setResults(result);
+				
+				try {
+					List<Image> icons = new ArrayList<Image>();
+					icons.add(ImageIO.read(getClass().getResourceAsStream("/org/bh/images/BH-Logo-16px.png")));
+					icons.add(ImageIO.read(getClass().getResourceAsStream("/org/bh/images/BH-Logo-32px.png")));
+					icons.add(ImageIO.read(getClass().getResourceAsStream("/org/bh/images/BH-Logo-48px.png")));
+					dialog.setIconImages(icons);
+				} catch (Exception eI) {
+					log.error("Failed to load IconImage", eI);
+				}
 				
 				List<JFreeChart> charts = new ArrayList<JFreeChart>();
 				for(Component c : mainPanel.getComponents()) {
