@@ -55,8 +55,7 @@ import org.jfree.ui.TextAnchor;
 			CategoryItemRenderer renderer = chart.getCategoryPlot().getRenderer();
 			renderer.setBaseItemLabelGenerator(new BHChartLabelGenerator());
 			
-			final ItemLabelPosition p = new ItemLabelPosition(ItemLabelAnchor.CENTER, TextAnchor.BASELINE_CENTER);
-			
+			final ItemLabelPosition p = new ItemLabelPosition(ItemLabelAnchor.CENTER, TextAnchor.CENTER, TextAnchor.CENTER, -Math.PI / 2.0);
 			renderer.setBasePositiveItemLabelPosition(p);
 			
 			renderer.setBaseItemLabelsVisible(true);

@@ -64,9 +64,8 @@ import org.jfree.ui.TextAnchor;
 			renderer.setBaseItemLabelGenerator(new BHChartLabelGenerator());
 			renderer.setBaseItemLabelsVisible(true);
 			
-			final ItemLabelPosition p = new ItemLabelPosition(ItemLabelAnchor.CENTER, TextAnchor.BASELINE_CENTER);
+			final ItemLabelPosition p = new ItemLabelPosition(ItemLabelAnchor.CENTER, TextAnchor.CENTER, TextAnchor.CENTER, -Math.PI / 2.0);
 			renderer.setBasePositiveItemLabelPosition(p);
-			
 			
                         this.plot = chart.getCategoryPlot();
                         this.groupRenderer = new GroupedStackedBarRenderer();
