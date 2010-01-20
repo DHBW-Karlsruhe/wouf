@@ -274,6 +274,19 @@ public abstract class DTO<ChildT extends IDTO> implements IDTO<ChildT> {
 		throw new DTOAccessException(
 				"The child is already assigned to this DTO!");
 	}
+	
+	public void addChildToPosition (ChildT child, int pos) {
+		try {
+			if (pos > children.size()) {
+				children.addLast(child);		
+			} else {
+				children.add(pos, child);
+			}
+		} catch (Exception e) {
+			throw new DTOAccessException(e.toString());
+		}
+		
+	}
 
 	@Override
 	public ChildT getChild(int index) throws DTOAccessException {
