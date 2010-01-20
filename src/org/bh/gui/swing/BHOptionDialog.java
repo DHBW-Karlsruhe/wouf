@@ -75,6 +75,7 @@ public class BHOptionDialog extends JDialog implements ActionListener,
 		combo.setPreferredSize(new Dimension(100,25));
 		
 		chbanimation = new BHCheckBox ("Chbanimation");
+		chbanimation.setSelected(PlatformController.preferences.getBoolean("animation", false));
 		
 		// add components
 		elements.add(language, cons.xywh(2, 2, 1, 1, "right,center"));
@@ -98,7 +99,7 @@ public class BHOptionDialog extends JDialog implements ActionListener,
 		cons = new CellConstraints();
 		
 		apply = new BHButton("Bapply");
-		apply.setText(BHTranslator.getInstance().translate("Bapply"));
+		apply.setText(BHTranslator.getInstance().translate("Bokay"));
 		apply.addActionListener(this);
 		
 		buttons.add(apply, cons.xywh(2, 2, 1, 1, "right, center"));
@@ -116,11 +117,19 @@ public class BHOptionDialog extends JDialog implements ActionListener,
 		this.setVisible(true);
 	}
 
+	/**
+	 * Handle Buttonclick
+	 */
 	@Override
 	public void actionPerformed(ActionEvent e) {
-		PlatformController.preferences.put("language", ((Locale) combo
-				.getSelectedItem()).getLanguage());
+		// Persit preferences.
+		PlatformController.preferences.put("language", ((Locale) combo.getSelectedItem()).getLanguage());
+		PlatformController.preferences.put("animation", Boolean.toString(chbanimation.isSelected()));
+		
+		// Apply preferences.
 		Services.getTranslator().setLocale((Locale) combo.getSelectedItem());
+		
+		this.dispose();
 	}
 
 	@Override
