@@ -5,23 +5,30 @@ import java.awt.Component;
 import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.dnd.DnDConstants;
+import java.awt.event.ActionEvent;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.util.ArrayList;
 import java.util.Enumeration;
+import java.util.EventObject;
 
 import javax.swing.ImageIcon;
+import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JPopupMenu;
 import javax.swing.JTree;
 import javax.swing.SwingConstants;
 import javax.swing.UIManager;
+import javax.swing.event.CellEditorListener;
 import javax.swing.tree.DefaultMutableTreeNode;
+import javax.swing.tree.DefaultTreeCellEditor;
+import javax.swing.tree.DefaultTreeCellRenderer;
 import javax.swing.tree.DefaultTreeModel;
 import javax.swing.tree.MutableTreeNode;
+import javax.swing.tree.TreeCellEditor;
 import javax.swing.tree.TreeCellRenderer;
 import javax.swing.tree.TreePath;
 import javax.swing.tree.TreeSelectionModel;
@@ -107,8 +114,8 @@ public class BHTree extends JTree{
 		this.setRootVisible(false);
 		this.getSelectionModel().setSelectionMode(
 				TreeSelectionModel.SINGLE_TREE_SELECTION);
-		this.setShowsRootHandles(true);
-		this.setCellRenderer(new BHTreeCellRenderer());
+		BHTreeCellRenderer tcr = new BHTreeCellRenderer();
+		this.setCellRenderer(tcr);
 		
 		Services.addPlatformListener(new BHTreeValidationListener(this));
 		
@@ -119,6 +126,7 @@ public class BHTree extends JTree{
 		this.addMouseListener(new PopupListener(this));
 
 	}
+	
 
 	/**
 	 * fixed minimum width.
@@ -184,8 +192,6 @@ public class BHTree extends JTree{
 	 * @param e
 	 */
 	void showPopup(MouseEvent e, BHTreePopup.Type nodeType) {
-		
-		if (e.isPopupTrigger()) {
 			
 			switch(nodeType){
 			case PROJECT:
@@ -197,13 +203,6 @@ public class BHTree extends JTree{
 			case PERIOD:
 				defaultPopup.show(e.getComponent(), e.getX(), e.getY());
 				break;
-			}
-			
-			//TODO Zuckschwerdt.Lars tidy up this room :-)
-			
-
-			// int selRow = BHTree.this.getRowForLocation(e.getX(), e.getY());
-			
 		}
 	}
 
@@ -296,7 +295,6 @@ public class BHTree extends JTree{
 
 			
 			// return TreeCell
-			
 			treeCellPanel.setPreferredSize(new Dimension((int) treeCellPanel
 					.getPreferredSize().getWidth(), UIManager
 					.getInt("BHTree.nodeheight")));
@@ -557,8 +555,8 @@ public class BHTree extends JTree{
 		@Override
 		public void mouseReleased(MouseEvent e) {
 			TreePath selPath = BHTree.this.getPathForLocation(e.getX(), e.getY());
-			if (selPath != null){
-				BHTree.this.setSelectionPath(selPath);
+			if (selPath != null && e.isPopupTrigger()){
+				//BHTree.this.setSelectionPath(selPath);
 				
 				if(((BHTreeNode)selPath.getLastPathComponent()).getUserObject() instanceof DTOProject){
 					showPopup(e, BHTreePopup.Type.PROJECT);
@@ -566,16 +564,12 @@ public class BHTree extends JTree{
 					showPopup(e, BHTreePopup.Type.PERIOD);
 				}
 			}
-				
-			
-			
-			
 		}
 
 		@Override
 		public void mousePressed(MouseEvent e) {
 			TreePath selPath = BHTree.this.getPathForLocation(e.getX(), e.getY());
-			if (selPath != null){
+			if (selPath != null && e.isPopupTrigger()){
 				BHTree.this.setSelectionPath(selPath);
 				
 				if(((BHTreeNode)selPath.getLastPathComponent()).getUserObject() instanceof DTOProject){

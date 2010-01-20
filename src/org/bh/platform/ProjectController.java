@@ -91,7 +91,7 @@ public class ProjectController extends InputController implements
 						.getPathComponent(1);
 
 						tn.setResultPane(new JScrollPane(v.getViewPanel()));
-				
+						
 						PlatformController.getInstance().getMainFrame().moveInResultForm(tn.getResultPane());
 						b.setIcon(null);
 					} catch (ViewException e) {

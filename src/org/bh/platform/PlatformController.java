@@ -250,7 +250,7 @@ public class PlatformController {
 	 * 
 	 */
 	class BHTreeSelectionListener implements TreeSelectionListener {
-
+		
 		@Override
 		public void valueChanged(final TreeSelectionEvent tse) {
 			if (tse.getNewLeadSelectionPath() == null) {
@@ -281,6 +281,8 @@ public class PlatformController {
 									controller = new ProjectController(view,
 											model);
 									
+									//TODO START VIEW
+									
 									//set content and result (=dashboard) if available
 									bhmf.setContentForm(view.getViewPanel());
 									JScrollPane resultPane;
@@ -292,6 +294,7 @@ public class PlatformController {
 										bhmf.removeResultForm();
 									}
 									
+									//TODO START VIEW
 									
 									controller.loadAllToView();
 
