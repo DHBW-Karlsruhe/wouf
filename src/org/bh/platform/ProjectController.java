@@ -80,6 +80,8 @@ public class ProjectController extends InputController implements
 										.getStochasticProcess().calculate();
 
 								results.put(scenario, resultStochastic);
+								
+								
 							}
 						}
 
