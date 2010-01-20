@@ -52,7 +52,7 @@ public class BHxyAreaChart extends BHChart implements IBHAddValue, IPlatformList
 	 * method to add a series into an empty dataset
 	 */
 	@Override
-	public final void addSeries(final Comparable<String> seriesKey, final double[][] data) {
+	public final void addSeries(final Comparable<String> seriesKey, final double[][] data, Integer amountOfValues, Integer average) {
 		this.dataset.addSeries(seriesKey, data);
 		chart.fireChartChanged();
 	}

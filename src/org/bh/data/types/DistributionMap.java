@@ -34,6 +34,8 @@ public class DistributionMap implements Map<Double, Integer>,
 	private int amountOfValues;
 	private double sumOfValues;
 	private int amountOfDifferentValues;
+	//only for displaying purpose
+	private int maxAmountOfValuesInCluster;
 
 	/**
 	 * The constructor for the distribution map.
@@ -285,13 +287,16 @@ public class DistributionMap implements Map<Double, Integer>,
 			
 		}
 		double[][] result = null;
-		
+		maxAmountOfValuesInCluster = 0;
 		if(newMap == null){
 			result = new double[map.keySet().size()][2]; 
 			int j = 0;
 			for(Entry<Double, Integer> e : map.entrySet()){
 				result[j][0] = e.getKey();
-				result[j][1] = e.getValue();
+				int value = e.getValue();
+				result[j][1] = value;
+				if(value > maxAmountOfValuesInCluster)
+					maxAmountOfValuesInCluster = value;
 				j++;
 			}
 			return result;
@@ -310,5 +315,12 @@ public class DistributionMap implements Map<Double, Integer>,
 	public int getAmountOfDifferentValues() {
 		return amountOfDifferentValues;
 	}
-	
+
+	public int getAmountOfValues() {
+		return amountOfValues;
+	}
+
+	public int getMaxAmountOfValuesInCluster() {
+		return maxAmountOfValuesInCluster;
+	}	
 }

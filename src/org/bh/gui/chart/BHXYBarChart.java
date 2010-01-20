@@ -59,7 +59,7 @@ public class BHXYBarChart extends BHChart implements IBHAddValue,
 	}
 
 	@Override
-	public void addSeries(Comparable<String> seriesKey, double[][] data) {
+	public void addSeries(Comparable<String> seriesKey, double[][] data, Integer amountOfValues, Integer average) {
 		XYSeries series = new XYSeries(seriesKey);
 		for(int i = 0; i < data.length; i++){
 			series.add(data[i][0], data[i][1]);

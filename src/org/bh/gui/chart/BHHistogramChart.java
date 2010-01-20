@@ -79,7 +79,7 @@ public class BHHistogramChart extends BHChart implements IBHAddValue, IPlatformL
 				"This method has not been implemented");
 	}
 
-	public final void addSeries(final Comparable<String> seriesKey, final double[][] data) {
+	public final void addSeries(final Comparable<String> seriesKey, final double[][] data, Integer amountOfValues, Integer average) {
 		// TODO Auto-generated method stub
 		throw new UnsupportedOperationException(
 				"This method has not been implemented");

@@ -57,7 +57,9 @@ public interface IBHAddValue {
 	 *            String key to identify the series
 	 * @param data
 	 *            double[][] Array with values to add
+	 * @param amountOfValues TODO
+	 * @param average TODO
 	 */
-	void addSeries(Comparable<String> seriesKey, double[][] data);
+	void addSeries(Comparable<String> seriesKey, double[][] data, Integer amountOfValues, Integer average);
 
 }

@@ -41,7 +41,7 @@ public class BHStochasticResultController extends OutputController{
 	public void setResult(DistributionMap result, DTOScenario scenario) {
 		super.setResult(result, scenario);
 		IBHAddValue comp = super.view.getBHchartComponents().get(ChartKeys.DISTRIBUTION_CHART.toString());
-		comp.addSeries(Services.getTranslator().translate(ChartKeys.DISTRIBUTION_CHART.toString()), result.toDoubleArray());
+		comp.addSeries(Services.getTranslator().translate(ChartKeys.DISTRIBUTION_CHART.toString()), result.toDoubleArray(), result.getAmountOfValues(), result.getMaxAmountOfValuesInCluster());
 		for (Map.Entry<String, IBHModelComponent> entry : view.getBHModelComponents().entrySet()) {
 			if(entry.getKey().equals(ChartKeys.STANDARD_DEVIATION.toString()))
 				entry.getValue().setValue(new DoubleValue(result.getStandardDeviation()));

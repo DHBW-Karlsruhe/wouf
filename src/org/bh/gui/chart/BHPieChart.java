@@ -73,7 +73,7 @@ public class BHPieChart extends BHChart implements IBHAddValue, IPlatformListene
 	}
 
 	@Override
-	public void addSeries(Comparable<String> seriesKey, double[][] data) {
+	public void addSeries(Comparable<String> seriesKey, double[][] data, Integer amountOfValues, Integer average) {
 		// TODO Auto-generated method stub
 		throw new UnsupportedOperationException(
 				"This method has not been implemented");
