@@ -116,12 +116,11 @@ public class BHTree extends JTree {
 		this.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseReleased(MouseEvent e) {
-				
 				showPopup(e);
 			}
 
 			@Override
-			public void mouseClicked(MouseEvent e) {
+			public void mousePressed(MouseEvent e) {
 				showPopup(e);
 			}
 		});
