@@ -185,6 +185,13 @@ public final class BHTranslator implements ITranslator {
 			} catch (MissingResourceException e) {
 				return this.translate(key);
 			}
+			
+		case MNEMONIC:
+			try {
+				return this.bundle.getString(key.toString() + "_m");
+			} catch (MissingResourceException e) {
+				return "Y"; // fall back mnemonic...
+			}
 
 		default:
 			return this.translate(key);

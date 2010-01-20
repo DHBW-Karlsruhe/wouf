@@ -1,7 +1,5 @@
 package org.bh.gui.swing;
 
-import java.awt.event.KeyEvent;
-
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 
@@ -39,32 +37,32 @@ public class BHMenuBar extends JMenuBar{
 
 		// create menu --> File
 		JMenu menuFile = new JMenu(translator.translate("Mfile"));
-		menuFile.setMnemonic(KeyEvent.VK_D);
+		menuFile.setMnemonic(translator.translate("Mfile", ITranslator.MNEMONIC).charAt(0));
 		add(menuFile);
 
 		// create menu --> Project
 		JMenu menuProject = new JMenu(translator.translate("Mproject"));
-		menuProject.setMnemonic(KeyEvent.VK_P);
+		menuProject.setMnemonic(translator.translate("Mproject", ITranslator.MNEMONIC).charAt(0));
 		add(menuProject);
 
 		// create menu --> Scenario
 		JMenu menuScenario = new JMenu(translator.translate("Mscenario"));
-		menuScenario.setMnemonic(KeyEvent.VK_S);
+		menuScenario.setMnemonic(translator.translate("Mscenario", ITranslator.MNEMONIC).charAt(0));
 		add(menuScenario);
 
 		// create menu --> Period
 		JMenu menuPeriod = new JMenu(translator.translate("Mperiod"));
-		menuPeriod.setMnemonic(KeyEvent.VK_E);
+		menuPeriod.setMnemonic(translator.translate("Mperiod", ITranslator.MNEMONIC).charAt(0));
 		add(menuPeriod);
 
 		// create menu --> Options
 		JMenu menuOptions = new JMenu(translator.translate("Moptions"));
-		menuOptions.setMnemonic(KeyEvent.VK_E);
+		menuOptions.setMnemonic(translator.translate("Moptions", ITranslator.MNEMONIC).charAt(0));
 		add(menuOptions);
 
 		// create menu --> Help
 		JMenu menuHelp = new JMenu(translator.translate("Mhelp"));
-		menuHelp.setMnemonic(KeyEvent.VK_H);
+		menuHelp.setMnemonic(translator.translate("Mhelp", ITranslator.MNEMONIC).charAt(0));
 		add(menuHelp);
 		
 		//DummyMenuItem to realize the function of the "delete"-Key

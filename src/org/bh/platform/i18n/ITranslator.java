@@ -25,6 +25,11 @@ public interface ITranslator {
 	 * Parameter for long text.
 	 */
 	public static final int LONG = 2;
+	
+	/**
+	 * Parameter for Mnemonic Key Character
+	 */
+	public static final int MNEMONIC = 3;
 
 	/**
 	 * @return currently used <code>Locale</code>

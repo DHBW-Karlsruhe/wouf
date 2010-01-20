@@ -50,7 +50,7 @@ public class BHMenuItem extends JMenuItem implements IBHComponent, IBHAction, IP
 		
 		Services.addPlatformListener(this);
 		if (eventKey != 0) {
-			this.setMnemonic(eventKey);
+			this.setMnemonic(Services.getTranslator().translate(key, ITranslator.MNEMONIC).charAt(0));
 
 			int metakey = 0;
 			
@@ -66,27 +66,22 @@ public class BHMenuItem extends JMenuItem implements IBHComponent, IBHAction, IP
 
 			if(key == PlatformKey.PROJECTCREATE){
 				metakey = 0;
-				setMnemonic(eventKey);			
 			}
 			
 			if(key == PlatformKey.SCENARIOCREATE){
 				metakey = 0;
-				setMnemonic(eventKey);			
 			}
 			
 			if(key == PlatformKey.PERIODCREATE){
 				metakey = 0;
-				setMnemonic(eventKey);			
 			}
 			
 			if(key == PlatformKey.HELPUSERHELP){
 				metakey = 0;
-				setMnemonic(eventKey);			
 			}
 			
 			if(key == PlatformKey.TOOLBARREMOVE){
 				metakey = 0;
-				setMnemonic(eventKey);			
 			}
 			
 			
