@@ -8,6 +8,8 @@ import java.util.Set;
 import java.util.TreeMap;
 import java.util.Map.Entry;
 
+import org.apache.log4j.Logger;
+
 /**
  * 
  * This class provides the functionalities for a mathematical distribution.
@@ -23,11 +25,15 @@ import java.util.Map.Entry;
  */
 public class DistributionMap implements Map<Double, Integer>,
 		Iterable<Entry<Double, Integer>> {
-
+	
+	private static final Logger log = Logger.getLogger(DistributionMap.class);
+	
+	private final int MAXIMUM_AMOUNT_OF_DIFFERENT_VALUES = 50; 
 	private double tolerance;
 	private TreeMap<Double, Integer> map;
 	private int amountOfValues;
 	private double sumOfValues;
+	private int amountOfDifferentValues;
 
 	/**
 	 * The constructor for the distribution map.
@@ -39,6 +45,7 @@ public class DistributionMap implements Map<Double, Integer>,
 	 *            values from 0 to 4 are added into the same cluster.
 	 */
 	public DistributionMap(double tolerance) {
+		amountOfDifferentValues = 0;
 		this.amountOfValues = 0;
 		sumOfValues = 0;
 		this.tolerance = tolerance;
@@ -76,6 +83,7 @@ public class DistributionMap implements Map<Double, Integer>,
 				int number = map.get(bucket);
 				map.put(bucket, ++number);
 			} else {
+				amountOfDifferentValues++;
 				map.put(bucket, 1);
 			}
 		}
@@ -132,7 +140,7 @@ public class DistributionMap implements Map<Double, Integer>,
 	public IntervalValue valueAtRisk(double confidenceCoefficient) {
 		double min = 0;
 		double max = 0;
-		double n = amountOfValues * ((1 - confidenceCoefficient) / 2);
+		double n = amountOfValues * ((1 - confidenceCoefficient / 100) / 2);
 
 		int sum = 0;
 		for (Entry<Double, Integer> e : map.entrySet()) {
@@ -240,14 +248,67 @@ public class DistributionMap implements Map<Double, Integer>,
 	public Collection<Integer> values() {
 		return map.values();
 	}
+	/**
+	 * This method returns the keys and values as a double[][]
+	 * Please use this method only for displaying purpose because the result is being "changed"
+	 * so that it can be displayed nicely (cluster size is determined dynamically so that the result
+	 * contains MAXIMUM_AMOUNT_OF_DIFFERENT_VALUES different values).
+	 * @return 
+	 * 		the result as a double array for displaying it with an XYChart
+	 */
 	public double[][] toDoubleArray(){
-		double[][] result = new double[this.keySet().size()][2];
-		int i = 0;
-		for(Entry<Double, Integer> e : this.entrySet()){
-			result[i][0] = e.getKey();
-			result[i][1] = e.getValue();
-			i++;
+		int newAmountOfDiffValues = amountOfDifferentValues;
+		double diff = map.lastKey() - map.firstKey();
+		double increment = diff / amountOfDifferentValues * MAXIMUM_AMOUNT_OF_DIFFERENT_VALUES;
+		double i = 1;
+		DistributionMap newMap = null;
+		
+		int z = 0;
+		log.debug("Durchlauf: " + z++ + " diffValues: " + newAmountOfDiffValues);
+		while(newAmountOfDiffValues > MAXIMUM_AMOUNT_OF_DIFFERENT_VALUES){
+			i += increment;
+			newMap = new DistributionMap(i);
+			for(Entry<Double, Integer> e : this.entrySet()){
+				double value = e.getKey();
+				for(int count = 0; count < e.getValue();count++){
+					newMap.put(value);
+				}
+			}
+			newAmountOfDiffValues = newMap. getAmountOfDifferentValues();
+			log.debug("Durchlauf: " + z++ + " diffValues: " + newAmountOfDiffValues);
+			
+			if(newAmountOfDiffValues < 40){
+				newAmountOfDiffValues = 51;
+				i = i / 2;
+				increment = increment / 2;
+			}
+			
 		}
-		return result;
+		double[][] result = null;
+		
+		if(newMap == null){
+			result = new double[map.keySet().size()][2]; 
+			int j = 0;
+			for(Entry<Double, Integer> e : map.entrySet()){
+				result[j][0] = e.getKey();
+				result[j][1] = e.getValue();
+				j++;
+			}
+			return result;
+		}else{
+			result = new double[newMap.keySet().size()][2];
+			int j = 0;
+			for(Entry<Double, Integer> e : newMap.entrySet()){
+				result[j][0] = e.getKey();
+				result[j][1] = e.getValue();
+				j++;
+			}
+			return result;
+		}
 	}
+
+	public int getAmountOfDifferentValues() {
+		return amountOfDifferentValues;
+	}
+	
 }

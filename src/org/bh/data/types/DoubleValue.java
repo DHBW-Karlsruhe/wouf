@@ -111,8 +111,8 @@ public class DoubleValue extends Calculable  {
 
 	/* Specified by interface/super class. */
 	@Override
-	public final Calculable sqrt() {
-		return new DoubleValue(Math.sqrt(value));
+	public final Calculable sqrt(){
+			return new DoubleValue(Math.sqrt(value));
 	}
 
 	@Override

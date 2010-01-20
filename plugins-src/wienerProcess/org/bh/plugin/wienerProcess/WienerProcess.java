@@ -164,7 +164,7 @@ public class WienerProcess implements IStochasticProcess {
 				VRIsPositive.INSTANCE };
 		tf2.setValidationRules(rules2);
 		result.add(tf2, cons.xywh(8, 2, 1, 1));
-		map.put(REPETITIONS, new Integer(100000));
+		map.put(REPETITIONS, new Integer(1));
 		
 		result.add(new JSeparator(), cons.xywh(2, 8, 7, 1));
 
@@ -247,10 +247,10 @@ public class WienerProcess implements IStochasticProcess {
 		Calculable d = calcSlope(inputValues);
 		Calculable sum = new DoubleValue(0);
 		for (int i = 0; i < inputValues.size() - 1; i++) {
-//			Calculable x = inputValues.get(i + 1).sub(inputValues.get(i)).sub(d).pow(new IntegerValue(2));
-//			sum = sum
-//					.add(x);
-			sum = sum.add(inputValues.get(i + 1).sub(inputValues.get(i)).sub(d));
+			Calculable x = inputValues.get(i + 1).sub(inputValues.get(i)).sub(d).pow(new IntegerValue(2));
+			sum = sum
+					.add(x);
+			//sum = sum.add(inputValues.get(i + 1).sub(inputValues.get(i)).sub(d));
 		}
 		Calculable result = (sum.div(new IntegerValue(inputValues.size())))
 				.sqrt();

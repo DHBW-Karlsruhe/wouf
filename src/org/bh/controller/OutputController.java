@@ -66,7 +66,7 @@ public class OutputController extends Controller implements IOutputController {
 
 	@Override
 	public void setResult(DistributionMap result, DTOScenario scenario) throws ControllerException {
-		// TODO Auto-generated method stub
-		throw new UnsupportedOperationException("This method has not been implemented");
+		this.scenario = scenario;
+		this.stochasticResult = result;
 	}
 }
