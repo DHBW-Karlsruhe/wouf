@@ -29,6 +29,7 @@ import org.bh.gui.View;
 import org.bh.gui.ViewException;
 import org.bh.gui.swing.BHButton;
 import org.bh.gui.swing.BHContent;
+import org.bh.gui.swing.BHDataExchangeDialog;
 import org.bh.gui.swing.BHDeterministicProcessForm;
 import org.bh.gui.swing.BHMainFrame;
 import org.bh.gui.swing.BHMenuItem;
@@ -38,7 +39,9 @@ import org.bh.gui.swing.BHScenarioForm;
 import org.bh.gui.swing.BHScenarioView;
 import org.bh.gui.swing.BHTreeNode;
 import org.bh.gui.swing.IBHAction;
+import org.bh.gui.swing.BHDataExchangeDialog.ImportListener;
 import org.bh.platform.PlatformEvent.Type;
+import org.bh.platform.i18n.BHTranslator;
 
 /**
  * The Platform Controller handles a) start up of the application b) main
@@ -221,6 +224,15 @@ public class PlatformController {
 		bhmf.getBHTree().startEditingAtPath(
 				new TreePath(newProjectNode.getPath()));
 	}
+	
+	public BHDataExchangeDialog createBalanceSheetAndPLSExchangeDialog()
+	{
+		// Create data exchange dialog
+		return new BHDataExchangeDialog(
+				bhmf, true);
+		
+	}
+	
 
 	/*------------------------------------
 	 * Subclasses

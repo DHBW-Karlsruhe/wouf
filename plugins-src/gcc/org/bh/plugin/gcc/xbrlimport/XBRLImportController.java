@@ -1,7 +1,13 @@
 package org.bh.plugin.gcc.xbrlimport;
 
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
+
+import javax.swing.JOptionPane;
 
 import org.bh.data.DTOProject;
 import org.bh.data.DTOScenario;
@@ -9,10 +15,14 @@ import org.bh.data.IPeriodicalValuesDTO;
 import org.bh.data.types.Calculable;
 import org.bh.data.types.DistributionMap;
 import org.bh.gui.swing.BHDataExchangeDialog;
+import org.bh.gui.swing.BHDefaultGCCImportExportPanel;
+import org.bh.gui.swing.IBHComponent;
 import org.bh.platform.IImportExport;
+import org.bh.platform.PlatformUserDialog;
+import org.bh.platform.i18n.BHTranslator;
 import org.jfree.chart.JFreeChart;
 
-public class XBRLImportController implements IImportExport {
+public class XBRLImportController implements IImportExport, ActionListener {
 
 	
 	private static final String UNIQUE_ID = "XBRL";
@@ -22,6 +32,29 @@ public class XBRLImportController implements IImportExport {
 	private static final String FILE_DESC = "eXtensible Markup Language";
 	
 	private static String GUI_KEY = "DXBRLImport";
+
+	private BHDefaultGCCImportExportPanel importPanel;
+
+	private BHDataExchangeDialog importDialog;
+	
+	
+	@Override
+	public List<IPeriodicalValuesDTO> importBSAndPLSCostOfSales(
+			BHDataExchangeDialog importDialog) {
+		this.importDialog = importDialog;
+		importPanel = importDialog.setDefaultImportExportPanel(FILE_DESC, FILE_EXT, false);
+		importDialog.setPluginActionListener(this);
+		importDialog.setSize((int)importDialog.getSize().getWidth(), 280);
+		return null;
+	}
+
+	@Override
+	public List<IPeriodicalValuesDTO> importBSAndPLSTotalCost(
+			BHDataExchangeDialog importDialog) {
+		// TODO Auto-generated method stub
+		throw new UnsupportedOperationException("This method has not been implemented");
+	}
+	
 	
 	@Override
 	public IPeriodicalValuesDTO importBalanceSheet(
@@ -71,7 +104,78 @@ public class XBRLImportController implements IImportExport {
 	@Override
 	public String getGuiKey() {
 		return GUI_KEY;
+	}	
+	
+	@Override
+	public String toString() {
+		return "XBRL - eXtensible Business Reporting Language";
 	}
+
+	@Override
+	public void actionPerformed(ActionEvent e) {
+		IBHComponent comp =  (IBHComponent) e.getSource();	
+		
+		if (comp.getKey().equals("Mimport"))
+		{
+			 
+			try {				
+				List<IPeriodicalValuesDTO> importedObjects = new ArrayList<IPeriodicalValuesDTO>();
+				boolean noBalanceSheet = false;
+				boolean noProfitLossStatement = false;
+				
+				// Try to import a balance sheet
+				try
+				{
+					IPeriodicalValuesDTO balanceSheet = XBRLImport.getInstance()
+						.getBalanceSheetDTO(importPanel.getFilePath());
+					importedObjects.add(balanceSheet);
+				}
+				catch (XBRLNoValueFoundException e1) {
+					noBalanceSheet = true;
+				} 		
+				
+				try
+				{
+					if ((importDialog.getAction() & IImportExport.IMP_PLS_COST_OF_SALES) == IImportExport.IMP_PLS_COST_OF_SALES)
+					{
+						IPeriodicalValuesDTO plsCostOfSales = XBRLImport.getInstance()
+						.getProfitLossStatementCostOfSalesDTO(importPanel.getFilePath());
+						importedObjects.add(plsCostOfSales);
+					}
+					else if ((importDialog.getAction() & IImportExport.IMP_PLS_TOTAL_COST) == IImportExport.IMP_PLS_TOTAL_COST)
+					{
+						IPeriodicalValuesDTO plsTotalCost = XBRLImport.getInstance()
+						.getProfitLossStatementTotalCostDTO(importPanel.getFilePath());
+						importedObjects.add(plsTotalCost);
+					}
+				}
+				catch (XBRLNoValueFoundException e1) {
+					noProfitLossStatement = true;
+				} 
+				
+				if (noBalanceSheet && noProfitLossStatement)
+				{
+					JOptionPane.showMessageDialog(importDialog, BHTranslator.getInstance()
+							.translate("DXBRLNoValuesFound"), BHTranslator.getInstance().translate("DXBRLImport"),
+							JOptionPane.WARNING_MESSAGE);
+					return;
+				}
+				else if ((noBalanceSheet  && !noProfitLossStatement) ||
+						(!noBalanceSheet && noProfitLossStatement))
+				{
+					JOptionPane.showMessageDialog(importDialog, BHTranslator.getInstance()
+							.translate("DXBRLPartlyImported"), BHTranslator.getInstance().translate("DXBRLImport"),
+							JOptionPane.WARNING_MESSAGE);
+				}				
+				importDialog.fireImportListener(importedObjects);
+				importDialog.dispose();
+			} catch (IOException e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			}		
+		}
+	}
+	
 	
 	
 	// [start]
@@ -188,4 +292,8 @@ public class XBRLImportController implements IImportExport {
 				"This method has not been implemented");
 	}
 	// [end]	
+
+	
+
+	
 }

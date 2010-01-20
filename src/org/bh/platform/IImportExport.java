@@ -47,6 +47,9 @@ public interface IImportExport extends IDisplayablePlugin {
 	IPeriodicalValuesDTO importPLSTotalCost(final BHDataExchangeDialog importDialog);
 	IPeriodicalValuesDTO importPLSCostOfSales(final BHDataExchangeDialog importDialog);
 	
+	List<IPeriodicalValuesDTO> importBSAndPLSTotalCost(final BHDataExchangeDialog importDialog);
+	List<IPeriodicalValuesDTO> importBSAndPLSCostOfSales(final BHDataExchangeDialog importDialog);
+	
 
 	/**
 	 * Must be implemented if export of a project DTO should be supported by the

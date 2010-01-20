@@ -29,6 +29,7 @@ import org.bh.gui.swing.BHOptionPane;
 import org.bh.gui.swing.BHStatusBar;
 import org.bh.gui.swing.BHTreeNode;
 import org.bh.gui.swing.IBHAction;
+import org.bh.gui.swing.BHDataExchangeDialog.ImportListener;
 import org.bh.platform.PlatformController.BHTreeModel;
 import org.bh.platform.i18n.BHTranslator;
 import org.bh.platform.i18n.ITranslator;
@@ -145,7 +146,6 @@ class PlatformActionListener implements ActionListener {
 		case PROJECTEXPORT:
 			this.projectExport();
 			break;
-
 		case PROJECTREMOVE:
 
 			if(((BHTreeNode) bhmf.getBHTree().getSelectionPath().getLastPathComponent()).getUserObject() instanceof DTOProject){
@@ -787,13 +787,8 @@ class PlatformActionListener implements ActionListener {
 				dialog.setDescription(BHTranslator.getInstance().translate(
 						"DExpFileFormatSel"));
 				dialog.setVisible(true);
-
-			} else {
-				// TODO Katzor.Marcus Show Message
-			}
-		} else {
-			// TODO Katzor.Marcus Show Message
-		}
+			} 
+		} 
 	}
 	protected void openUserHelp(String help) {
 		log.debug("HELPUSERHELP gefeuert");

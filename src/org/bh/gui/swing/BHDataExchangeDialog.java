@@ -7,6 +7,7 @@ import java.awt.Component;
 import java.awt.Frame;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
@@ -38,6 +39,12 @@ import org.jfree.chart.JFreeChart;
 
 public class BHDataExchangeDialog extends JDialog implements ActionListener {
 
+	public interface ImportListener 
+	{
+		void onImport(Object importedObject);
+	}
+	
+	
 	/**
 	 * First panel with the format selection
 	 */
@@ -105,6 +112,8 @@ public class BHDataExchangeDialog extends JDialog implements ActionListener {
 	private JPanel mainPanel;
 
 	private BHButton btnContinue;
+	
+	private List<ImportListener> importListener = new ArrayList<ImportListener>();
 
 	/**
 	 * Creates a dialog with which project can be imported and exported.
@@ -298,6 +307,14 @@ public class BHDataExchangeDialog extends JDialog implements ActionListener {
 		setPluginPanel(result);
 		return result;
 	}
+	
+	public BHDefaultGCCImportExportPanel setDefaultImportExportPanel(String fileDesc, String fileExt,
+			boolean export)
+	{
+		BHDefaultGCCImportExportPanel result = new BHDefaultGCCImportExportPanel(fileDesc, fileExt, export);
+		setPluginPanel(result);
+		return result;
+	}
 
 	/**
 	 * Adds for each button an action listener to this component
@@ -357,10 +374,13 @@ public class BHDataExchangeDialog extends JDialog implements ActionListener {
 							}
 						}
 						break;
+					case IImportExport.IMP_BALANCE_SHEET + IImportExport.IMP_PLS_COST_OF_SALES:
+						importExportPlugin.importBSAndPLSCostOfSales(this);
+						break;
 					}
 					showPluginPanel();	
 					//TODO find good usage for Gui Key
-					setTitle(importExportPlugin.getGuiKey());
+					setTitle(BHTranslator.getInstance().translate(importExportPlugin.getGuiKey()));
 				}
 			}				
 		}			
@@ -402,6 +422,18 @@ public class BHDataExchangeDialog extends JDialog implements ActionListener {
 
 	public int getAction() {
 		return action;
+	}
+	
+	public void addImportListener(ImportListener listener)
+	{
+		if (!importListener.contains(listener))
+			importListener.add(listener);
+	}
+	
+	public void fireImportListener(Object importedObject)
+	{
+		for (ImportListener listener : importListener)
+			listener.onImport(importedObject);
 	}
 
 	/**

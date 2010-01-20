@@ -486,4 +486,13 @@ public abstract class DTO<ChildT extends IDTO> implements IDTO<ChildT> {
 	public static void setThrowEvents(boolean throwEvents) {
 		DTO.throwEvents = throwEvents;
 	}
+	
+	public static void copyValues(DTO<?> source, DTO<?> target)
+	{
+		if (source.getClass().equals(target.getClass()))
+			for (Map.Entry<String, IValue> entry : source.values.entrySet())
+			{
+				target.put(entry.getKey(), entry.getValue());
+			}
+	}
 }

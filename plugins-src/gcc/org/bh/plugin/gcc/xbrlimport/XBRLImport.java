@@ -12,6 +12,7 @@ import java.util.Map;
 import org.apache.log4j.Logger;
 import org.bh.data.IPeriodicalValuesDTO;
 import org.bh.data.types.Calculable;
+import org.bh.data.types.DoubleValue;
 import org.bh.plugin.gcc.data.DTOGCCBalanceSheet;
 import org.bh.plugin.gcc.data.DTOGCCProfitLossStatementCostOfSales;
 import org.bh.plugin.gcc.data.DTOGCCProfitLossStatementTotalCost;
@@ -45,8 +46,7 @@ public class XBRLImport {
 	private XBRLImport()
 	{
 		// Load keys and node
-		URL keyNodeFileURL = getClass().getResource(keyNodeFile);
-		
+		URL keyNodeFileURL = getClass().getResource(keyNodeFile);		
 		if (keyNodeFileURL == null)
 			Logger.getLogger(getClass()).debug("No key<->node file found!");
 		
@@ -106,14 +106,15 @@ public class XBRLImport {
 			Map<String, String> values = getValues(doc.getRootElement(), balanceSheetKeys);
 			
 			// If no values were found then throw a expcetion
-			if (values.size() == 0)
-				throw new XBRLNoValueFoundException();
+			if (values.size() == 0)		
+				throw new XBRLNoValueFoundException();				
+			
 			
 			// Put all values into the DTO
 			for (String key : balanceSheetKeys)
 			{
 				Key dtoKey = Enum.valueOf(DTOGCCBalanceSheet.Key.ABET.getDeclaringClass(), key);
-				result.put(dtoKey, Calculable.parseCalculable(values.get(key)));				
+				result.put(dtoKey, new DoubleValue(Double.parseDouble(values.get(key))));				
 			}
 				
 		} catch (JDOMException e) {				
@@ -154,7 +155,7 @@ public class XBRLImport {
 			for (String key : profitLossCostOfSalesKeys)
 			{			
 				DTOGCCProfitLossStatementCostOfSales.Key dtoKey = Enum.valueOf(DTOGCCProfitLossStatementCostOfSales.Key.AFW.getDeclaringClass(), key.replace("2", ""));
-				result.put(dtoKey, Calculable.parseCalculable(values.get(key)));				
+				result.put(dtoKey, new DoubleValue(Double.parseDouble(values.get(key))));				
 			}
 				
 		} catch (JDOMException e) {				
@@ -196,7 +197,7 @@ public class XBRLImport {
 			for (String key : profitLossTotalCostKeys)
 			{
 				DTOGCCProfitLossStatementTotalCost.Key dtoKey = Enum.valueOf(DTOGCCProfitLossStatementTotalCost.Key.AFW.getDeclaringClass(), key);
-				result.put(dtoKey, Calculable.parseCalculable(values.get(key)));				
+				result.put(dtoKey, new DoubleValue(Double.parseDouble(values.get(key))));				
 			}
 				
 		} catch (JDOMException e) {				
@@ -223,7 +224,8 @@ public class XBRLImport {
 			if (nodeName.contains("+") || nodeName.contains("-"))
 			{
 				value = calculateValue(el, nodeName);
-				result.put(key, value);	
+				if (value != null)
+					result.put(key, value);	
 				continue;
 			}
 			
