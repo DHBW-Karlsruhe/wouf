@@ -142,16 +142,13 @@ class PlatformActionListener implements ActionListener {
 					"DXMLImportDescription"));
 			importDialog.setVisible(true);
 			break;
-
-		// TODO Katzor.Marcus
-
 		case PROJECTEXPORT:
 			// Get selected node
 			if (bhmf.getBHTree().getSelectionPath() != null) {
 				BHTreeNode selectedNode = (BHTreeNode) bhmf.getBHTree()
-						.getSelectionPath().getLastPathComponent();
+						.getSelectionPath().getPathComponent(1);
 				// Get DTOProject
-				if (selectedNode.getUserObject() instanceof DTOProject) {
+				if (selectedNode != null && selectedNode.getUserObject() instanceof DTOProject) {
 
 					// Create data exchange dialog
 					BHDataExchangeDialog dialog = new BHDataExchangeDialog(
