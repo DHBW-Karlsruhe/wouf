@@ -59,7 +59,7 @@ public class BHMenuBar extends JMenuBar{
 
 		// create menu --> Options
 		JMenu menuOptions = new JMenu(translator.translate("Moptions"));
-		menuOptions.setMnemonic(KeyEvent.VK_O);
+		menuOptions.setMnemonic(KeyEvent.VK_E);
 		add(menuOptions);
 
 		// create menu --> Help
