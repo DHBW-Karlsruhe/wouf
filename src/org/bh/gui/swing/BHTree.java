@@ -5,6 +5,8 @@ import java.awt.Component;
 import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.dnd.DnDConstants;
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.util.ArrayList;
@@ -30,6 +32,8 @@ import org.bh.data.DTOProject;
 import org.bh.data.DTOScenario;
 import org.bh.platform.IPlatformListener;
 import org.bh.platform.PlatformEvent;
+import org.bh.platform.PlatformKey;
+import org.bh.platform.PlatformKeyboardListener;
 import org.bh.platform.Services;
 
 import com.jgoodies.forms.layout.CellConstraints;
@@ -48,7 +52,7 @@ import com.jgoodies.forms.layout.FormLayout;
  * @version 0.2, 2009/12/30
  * 
  */
-public class BHTree extends JTree {
+public class BHTree extends JTree{
 
 	/**
 	 * icon for project nodes.
@@ -107,6 +111,7 @@ public class BHTree extends JTree {
 				TreeSelectionModel.SINGLE_TREE_SELECTION);
 		this.setShowsRootHandles(true);
 		this.setCellRenderer(new BHTreeCellRenderer());
+		this.addKeyListener(new PlatformKeyboardListener());
 
 		Services.addPlatformListener(new BHTreeValidationListener(this));
 		
@@ -543,7 +548,7 @@ public class BHTree extends JTree {
 			this.collapseRow(i);
 		}
 	}
-	
+
 	class PopupListener extends MouseAdapter {
 		
 		private BHTree tree;
@@ -584,4 +589,5 @@ public class BHTree extends JTree {
 			}
 		}
 	};
+
 }

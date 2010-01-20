@@ -68,7 +68,7 @@ public class BHMenuItem extends JMenuItem implements IBHComponent, IBHAction, IP
 				metakey = 0;
 				setMnemonic(eventKey);			
 			}
-
+			
 			if(key == PlatformKey.SCENARIOCREATE){
 				metakey = 0;
 				setMnemonic(eventKey);			
@@ -83,6 +83,12 @@ public class BHMenuItem extends JMenuItem implements IBHComponent, IBHAction, IP
 				metakey = 0;
 				setMnemonic(eventKey);			
 			}
+			
+			if(key == PlatformKey.TOOLBARREMOVE){
+				metakey = 0;
+				setMnemonic(eventKey);			
+			}
+			
 			
 			this.setAccelerator(KeyStroke.getKeyStroke(eventKey, metakey));
 		}
