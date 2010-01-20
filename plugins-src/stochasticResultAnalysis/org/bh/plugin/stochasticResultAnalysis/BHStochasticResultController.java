@@ -32,7 +32,17 @@ public class BHStochasticResultController extends OutputController{
 		}
 
 	}
-	
+	public static enum PanelKeys {
+		riskAtValue,
+		AVERAGE,
+		VALUE;
+
+		@Override
+		public String toString() {
+			return getClass().getName() + "." + super.toString();
+		}
+
+	}
 	public BHStochasticResultController(View view, DistributionMap result, DTOScenario scenario){
 		super(view, result, scenario);
 		((BHTextField)(view.getBHModelComponents().get(ChartKeys.RISK_AT_VALUE.toString()))).addCaretListener(new RiskAtValueListener());
