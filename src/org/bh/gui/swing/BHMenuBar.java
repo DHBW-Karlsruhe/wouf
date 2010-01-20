@@ -56,12 +56,6 @@ public class BHMenuBar extends JMenuBar{
 		JMenu menuPeriod = new JMenu(translator.translate("Mperiod"));
 		menuPeriod.setMnemonic(KeyEvent.VK_E);
 		add(menuPeriod);
-		
-//		// create menu --> Bilanz & GuV
-//		JMenu menuBilanzGuV = new JMenu(translator
-//				.translate("MbalanceProfitLoss"));
-//		// menuBilanzGuV.setMnemonic(KeyEvent.VK_B);
-//		add(menuBilanzGuV);
 
 		// create menu --> Options
 		JMenu menuOptions = new JMenu(translator.translate("Moptions"));
@@ -89,7 +83,6 @@ public class BHMenuBar extends JMenuBar{
 		 * create menu items --> project
 		 **/
 		menuProject.add(new BHMenuItem(PlatformKey.PROJECTCREATE, 114)); //F5
-//		menuProject.add(new BHMenuItem(PlatformKey.PROJECTRENAME));
 		menuProject.add(new BHMenuItem(PlatformKey.PROJECTDUPLICATE));
 		menuProject.addSeparator();
 		menuProject.add(new BHMenuItem(PlatformKey.PROJECTIMPORT));
@@ -102,10 +95,8 @@ public class BHMenuBar extends JMenuBar{
 		 * create menu items --> scenario
 		 **/
 		menuScenario.add(new BHMenuItem(PlatformKey.SCENARIOCREATE, 115)); //F6
-//		menuScenario.add(new BHMenuItem(PlatformKey.SCENARIORENAME));
 		menuScenario.add(new BHMenuItem(PlatformKey.SCENARIODUPLICATE));
 		menuScenario.addSeparator();
-//		menuScenario.add(new BHMenuItem(PlatformKey.SCENARIOMOVE));
 		menuScenario.add(new BHMenuItem(PlatformKey.SCENARIOREMOVE));
 
 		/**
@@ -116,14 +107,6 @@ public class BHMenuBar extends JMenuBar{
 		menuPeriod.addSeparator();
 		menuPeriod.add(new BHMenuItem(PlatformKey.PERIODREMOVE));
 		
-//		/**
-//		 * create menu items --> Bilanz & GuV
-//		 **/
-//		menuBilanzGuV.add(new BHMenuItem(PlatformKey.BILANZGUVSHOW, 66));
-//		menuBilanzGuV.add(new BHMenuItem(PlatformKey.BILANZGUVCREATE));
-//		menuBilanzGuV.add(new BHMenuItem(PlatformKey.BILANZGUVIMPORT));
-//		menuBilanzGuV.add(new BHMenuItem(PlatformKey.BILANZGUVREMOVE));
-
 		
 		/**
 		 * create menu items --> options
