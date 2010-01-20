@@ -90,6 +90,15 @@ public interface IDTO<ChildT extends IDTO> extends Cloneable, Serializable, Iter
 	 */
 	public ChildT addChild(ChildT child, boolean addLast)
 			throws DTOAccessException;
+	
+	/**
+	 * Adds a child to a specified position
+	 * 
+	 * @param child
+	 * @param position
+	 */
+	
+	public void addChildToPosition (ChildT child, int pos);
 
 	/**
 	 * Returns the child at the given position.
@@ -98,6 +107,7 @@ public interface IDTO<ChildT extends IDTO> extends Cloneable, Serializable, Iter
 	 * @return
 	 * @throws DTOAccessException
 	 */
+	
 	public ChildT getChild(int index) throws DTOAccessException;
 
 	/**
