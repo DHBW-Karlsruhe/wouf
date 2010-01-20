@@ -10,6 +10,8 @@ import org.bh.platform.Services;
 import org.bh.platform.i18n.ITranslator;
 import org.jfree.chart.ChartFactory;
 import org.jfree.chart.plot.PlotOrientation;
+import org.jfree.chart.renderer.xy.StandardXYBarPainter;
+import org.jfree.chart.renderer.xy.XYBarRenderer;
 import org.jfree.data.xy.XYSeries;
 import org.jfree.data.xy.XYSeriesCollection;
 
@@ -34,7 +36,17 @@ public class BHXYBarChart extends BHChart implements IBHAddValue,
 		if ("Nimbus".equals(UIManager.getLookAndFeel().getName())) {
 			chart.setBackgroundPaint(UIManager.getColor("Chart.background"));
 		}
-
+		
+		XYBarRenderer renderer = (XYBarRenderer) chart.getXYPlot().getRenderer();
+		
+		renderer.setBarPainter(new StandardXYBarPainter());
+		renderer.setShadowVisible(false);
+		renderer.setMargin(0.1);
+		
+		XYBarRenderer barRenderer = (XYBarRenderer)chart.getXYPlot().getRenderer();
+		
+		barRenderer.setDrawBarOutline(false);
+		
 		reloadText();
 		Services.addPlatformListener(this);
 	}
