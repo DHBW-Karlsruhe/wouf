@@ -18,7 +18,6 @@ import org.bh.gui.swing.BHDescriptionLabel;
 import org.bh.gui.swing.BHTextField;
 import org.bh.gui.swing.BHValueLabel;
 import org.bh.platform.i18n.ITranslator;
-import org.bh.plugin.gcc.swing.BHBalanceSheetForm;
 
 import com.jgoodies.forms.layout.FormLayout;
 
