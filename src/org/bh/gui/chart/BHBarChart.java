@@ -10,12 +10,15 @@ import org.bh.platform.PlatformEvent;
 import org.bh.platform.Services;
 import org.bh.platform.PlatformEvent.Type;
 import org.jfree.chart.ChartFactory;
+import org.jfree.chart.labels.ItemLabelAnchor;
+import org.jfree.chart.labels.ItemLabelPosition;
 import org.jfree.chart.plot.PlotOrientation;
 import org.jfree.chart.renderer.category.BarRenderer;
 import org.jfree.chart.renderer.category.CategoryItemRenderer;
 import org.jfree.chart.renderer.category.StandardBarPainter;
 import org.jfree.data.category.DefaultCategoryDataset;
 import org.jfree.data.general.Dataset;
+import org.jfree.ui.TextAnchor;
 
 	/**
 	 * 
@@ -51,6 +54,11 @@ import org.jfree.data.general.Dataset;
 			
 			CategoryItemRenderer renderer = chart.getCategoryPlot().getRenderer();
 			renderer.setBaseItemLabelGenerator(new BHChartLabelGenerator());
+			
+			final ItemLabelPosition p = new ItemLabelPosition(ItemLabelAnchor.CENTER, TextAnchor.BASELINE_CENTER);
+			
+			renderer.setBasePositiveItemLabelPosition(p);
+			
 			renderer.setBaseItemLabelsVisible(true);
 			
 			BarRenderer barRenderer = (BarRenderer)chart.getCategoryPlot().getRenderer();
