@@ -6,12 +6,15 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.Locale;
 
+import javax.swing.BorderFactory;
 import javax.swing.JComboBox;
 import javax.swing.JDialog;
 import javax.swing.JLabel;
 import javax.swing.JList;
+import javax.swing.JPanel;
 import javax.swing.ListCellRenderer;
 import javax.swing.WindowConstants;
+import javax.swing.border.EtchedBorder;
 
 import org.bh.platform.IPlatformListener;
 import org.bh.platform.PlatformController;
@@ -31,40 +34,85 @@ public class BHOptionDialog extends JDialog implements ActionListener,
 	private BHDescriptionLabel language;
 	private JComboBox combo;
 	private BHButton apply;
+	private BHDescriptionLabel lanimation;
+	private BHCheckBox chbanimation;
+	
+	private JPanel elements;
+	private JPanel buttons;
 
 	public BHOptionDialog() {
+		
+
+		String rowDef = "4px:grow,p,4px,p,4px:grow";
+		String colDef = "4px,fill:p:grow,4px";
+		
+		setLayout(new FormLayout(colDef, rowDef));
+		cons = new CellConstraints();
+
+		add(this.getElements(),cons.xy(2, 2));
+		add(this.getButtons(),cons.xy(2, 4,"right, center"));
+		
+		this.setSize(400,200);
 		this.setProperties();
 
+	}
+	
+	public JPanel getElements() {
+		elements = new JPanel();
 		// setLayout to the status bar
-		String rowDef = "p";
-		String colDef = "0:grow(0.05),0:grow(0.3),0:grow(0.3),0:grow(0.3),0:grow(0.05)";
-		setLayout(new FormLayout(colDef, rowDef));
+		String rowDef = "4px,p,4px,p,4px,p,4px";
+		String colDef = "20px:grow,pref,4px,max(80px;pref),20px:grow";
+		elements.setLayout(new FormLayout(colDef, rowDef));
 		cons = new CellConstraints();
 
 		// create select language components
 		language = new BHDescriptionLabel("MoptionsLanguage");
+		lanimation = new BHDescriptionLabel("MoptionsAnimation");
 
 		combo = new JComboBox(Services.getTranslator().getAvailableLocales());
 		combo.setRenderer(new BHLanguageRenderer());
 		combo.setSelectedItem(Services.getTranslator().getLocale());
+		combo.setPreferredSize(new Dimension(100,25));
+		
+		chbanimation = new BHCheckBox ("Chbanimation");
+		
+		// add components
+		elements.add(language, cons.xywh(2, 2, 1, 1, "right,center"));
+		elements.add(combo, cons.xywh(4, 2, 1, 1,"left, default"));
+		elements.add(lanimation, cons.xy(2, 4, "right,center"));
+		elements.add(chbanimation, cons.xy(4, 4, "left,center"));
+		
+		elements.setBorder(BorderFactory.createEtchedBorder(EtchedBorder.LOWERED));
+		
+//		elements.setSize(this.getPreferredSize());
+		
+		return elements;
+	}
 
+	public JPanel getButtons() {
+		buttons = new JPanel();
+		// setLayout to the status bar
+		String rowDef = "4px,p,4px";
+		String colDef = "4px,p,4px";
+		buttons.setLayout(new FormLayout(colDef, rowDef));
+		cons = new CellConstraints();
+		
 		apply = new BHButton("Bapply");
 		apply.setText(BHTranslator.getInstance().translate("Bapply"));
 		apply.addActionListener(this);
-
-		// add components
-		add(language, cons.xywh(2, 1, 1, 1, "right,center"));
-		add(combo, cons.xywh(3, 1, 1, 1));
-		add(apply, cons.xywh(4, 1, 1, 1));
-
+		
+		buttons.add(apply, cons.xywh(2, 2, 1, 1, "right, center"));
+		
+		buttons.setSize(buttons.getPreferredSize());
+		return buttons;
 	}
+
 
 	private void setProperties() {
 		this.setTitle(BHTranslator.getInstance().translate("MoptionsDialog"));
-		this.setSize(400, 200);
 		this.setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
 		this.setLocationRelativeTo(null);
-		this.setResizable(false);
+		this.setResizable(true);
 		this.setVisible(true);
 	}
 
