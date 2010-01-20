@@ -25,6 +25,8 @@ import org.bh.platform.PlatformEvent;
 import org.bh.platform.ProjectRepositoryManager;
 import org.bh.platform.Services;
 import org.bh.platform.PlatformEvent.Type;
+import org.jdesktop.animation.timing.Animator;
+import org.jdesktop.animation.timing.TimingTarget;
 
 /**
  * Main Frame for Business Horizon Application.
@@ -44,7 +46,7 @@ import org.bh.platform.PlatformEvent.Type;
  * 
  */
 @SuppressWarnings("serial")
-public class BHMainFrame extends JFrame implements IPlatformListener {
+public class BHMainFrame extends JFrame implements IPlatformListener, TimingTarget {
 
 	/**
 	 * logger
@@ -112,7 +114,21 @@ public class BHMainFrame extends JFrame implements IPlatformListener {
 	private JScrollPane contentForm;
 	
 	private JScrollPane resultForm;
-
+	
+	/**
+	 * Animator instance
+	 */
+	protected Animator animator;
+	
+	/**
+	 * flag for direction of animation. Only used for animation.
+	 */
+	private boolean visible;
+	
+	/**
+	 * current cached position of divider. Only used for animation.
+	 */
+	private int dividerLocation;
 
 	/**
 	 * Standard constructor for <code>BHMainFrame</code>.
@@ -133,15 +149,10 @@ public class BHMainFrame extends JFrame implements IPlatformListener {
 		desktop.setLayout(new BorderLayout());
 
 		toolBar = new BHToolBar(getWidth(), STANDARDBARHEIGHT);
-		// toolBar.setBounds(0, 0, screenSize.width, standardBarHeight);
 
 		bhTree = new BHTree();
 		
 		bhTreeScroller = new JScrollPane(bhTree);
-	
-		// treeBar.setBounds(0, standardBarHeight, treeBarWidth,
-		// screenSize.height-standardBarHeight);
-		// treeBar.setBounds(0,200,200,400);
 		
 		statusBar = Services.getBHstatusBar();
 		content = new BHContent();
@@ -155,11 +166,7 @@ public class BHMainFrame extends JFrame implements IPlatformListener {
 		paneH.setOneTouchExpandable(true);
 		
 		bhTreeScroller.setMinimumSize(new Dimension(UIManager.getInt("BHTree.minimumWidth"), bhTreeScroller.getMinimumSize().height));
-		
-		
-		
-		// stop moving the divider
-		// pane.setEnabled(false);
+
 
 		desktop.add(toolBar, BorderLayout.PAGE_START);
 		desktop.add(paneH, BorderLayout.CENTER);
@@ -169,6 +176,13 @@ public class BHMainFrame extends JFrame implements IPlatformListener {
 		this.setContentPane(desktop);
 
 		chooser = new BHFileChooser();
+		
+		// init animator.
+		this.animator = new Animator(1000, this);
+		this.animator.setAcceleration(0.3f);
+		this.animator.setDeceleration(0.2f);
+		this.animator.setResolution(50);
+		this.visible = false; 
 	}
 
 	/**
@@ -184,7 +198,6 @@ public class BHMainFrame extends JFrame implements IPlatformListener {
 		this.setLocationRelativeTo(null);
 		Services.addPlatformListener(this);
 		
-		//this.setIconImage(new ImageIcon("/org/bh/images/bh-logo.jpg").getImage()); //TODO Test on windows	
 		try {
 			List<Image> icons = new ArrayList<Image>();
 			icons.add(ImageIO.read(getClass().getResourceAsStream("/org/bh/images/BH-Logo-16px.png")));
@@ -194,6 +207,7 @@ public class BHMainFrame extends JFrame implements IPlatformListener {
 		} catch (Exception e) {
 			log.error("Failed to load IconImage", e);
 		}
+		this.visible = false;
 	}
 	
 	/**
@@ -253,7 +267,6 @@ public class BHMainFrame extends JFrame implements IPlatformListener {
 			Logger.getLogger(getClass()).debug("No changes - exiting app");
 			super.dispose();
 		}
-		
 	}
 
 	public void setContentForm(Component content) {
@@ -261,22 +274,41 @@ public class BHMainFrame extends JFrame implements IPlatformListener {
 		paneV.setTopComponent(contentForm);
 	}
 
-
 	public void setResultForm(Component result) {
 		resultForm = new JScrollPane(result);
 		paneV.setBottomComponent(resultForm);
 	}
 	
-	public void fadeOutResultForm() {
-		//TODO Thiele.Klaus
-		
-		paneV.setBottomComponent(null);
+	public void moveInResultForm(Component result) {	
+		this.setResultForm(result);
+		if (PlatformController.preferences.getBoolean("animation", true) && !visible) {
+			if (animator.isRunning()) {
+				animator.stop();
+			}
+			paneV.setDividerLocation(1.0);
+			animator.start();
+		}
+		else {
+			paneV.setDividerLocation(0.5);
+		}
+	}
+	public void moveOutResultForm() {
+		if (PlatformController.preferences.getBoolean("animation", true) && visible) {
+			if (animator.isRunning()) {
+				animator.stop();
+			}
+			visible = true;
+			animator.start();
+		}
+		else {
+			this.removeResultForm();
+		}
 	}
 	
 	public void removeResultForm() {
+		paneV.setDividerLocation(1.0);
 		paneV.setBottomComponent(null);
 	}
-	
 	
 	/**
 	 * Returns the <code>FileChooser</code> of the <code>BHMainFrame</code>.
@@ -295,8 +327,7 @@ public class BHMainFrame extends JFrame implements IPlatformListener {
 	}
 
 	/**
-	 * Brings <code>BHMainFrame</code> to front when 
-	 * <code>PLATFORM_LOADING_COMPLETED</code>.
+	 * Handles platform events.
 	 */
 	@Override
 	public void platformEvent(PlatformEvent e) {
@@ -328,6 +359,49 @@ public class BHMainFrame extends JFrame implements IPlatformListener {
 	
 	public int getVDividerLocation(){
 		return paneV.getDividerLocation();
+	}
+
+	/**
+	 * Called by animator at the beginnig of animation.
+	 */
+	@Override
+	public void begin() {
+		this.dividerLocation = this.paneV.getDividerLocation();
+	}
+
+	/**
+	 * Called by animator at the end of animation.
+	 */
+	@Override
+	public void end() {
+		this.visible = !this.visible;
+		if (this.visible) {
+			paneV.setDividerLocation(0.5);
+		}
+		else {
+			paneV.setDividerLocation(1.0);
+			paneV.setBottomComponent(null);
+		}
+	}
+	
+	/**
+	 * not needed by animation.
+	 */
+	@Override
+	public void repeat() {
+	}
+
+	/**
+	 * Called by the animator at every step of animation.
+	 */
+	@Override
+	public void timingEvent(float fraction) {
+		if (visible) {
+			paneV.setDividerLocation((int) (this.dividerLocation + (paneV.getHeight() - this.dividerLocation) * fraction));
+		}
+		else {
+			paneV.setDividerLocation(1 - (fraction * 0.5) );
+		}
 	}
 	
 	

@@ -16,7 +16,6 @@ import javax.swing.JButton;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
-import javax.swing.JSplitPane;
 
 import org.bh.calculation.IShareholderValueCalculator;
 import org.bh.calculation.IStochasticProcess;
@@ -391,7 +390,7 @@ public class ScenarioController extends InputController {
 						.getPathComponent(2);
 						tn.setResultPane(new JScrollPane(panel));
 						//Put it onto screen
-						bhmf.setResultForm(tn.getResultPane());
+						bhmf.moveInResultForm(tn.getResultPane());
 						
 						
 					}

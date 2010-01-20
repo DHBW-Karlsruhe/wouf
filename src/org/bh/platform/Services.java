@@ -17,7 +17,6 @@ import java.util.Map.Entry;
 
 import javax.swing.ImageIcon;
 import javax.swing.JPanel;
-import javax.swing.JSplitPane;
 import javax.swing.SwingUtilities;
 import javax.swing.UIManager;
 import javax.swing.UIManager.LookAndFeelInfo;
@@ -315,7 +314,7 @@ public class Services {
 
 					// BH specific attributes.
 					UIManager.put("BHTree.nodeheight", 20);
-					UIManager.put("BHTree.minimumWidth", 160);
+					UIManager.put("BHTree.minimumWidth", 200);
 					UIManager.put("Chart.background", UIManager.get("control"));
 
 					UIManager.setLookAndFeel(info.getClassName());

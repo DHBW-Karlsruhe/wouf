@@ -5,14 +5,12 @@ import java.awt.Dimension;
 import java.awt.Image;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
 
 import javax.imageio.ImageIO;
 import javax.swing.BorderFactory;
-import javax.swing.ImageIcon;
 import javax.swing.JComboBox;
 import javax.swing.JDialog;
 import javax.swing.JLabel;
@@ -91,7 +89,7 @@ public class BHOptionDialog extends JDialog implements ActionListener,
 		combo.setPreferredSize(new Dimension(100,25));
 		
 		chbanimation = new BHCheckBox ("Chbanimation");
-		chbanimation.setSelected(PlatformController.preferences.getBoolean("animation", false));
+		chbanimation.setSelected(PlatformController.preferences.getBoolean("animation", true));
 		
 		// add components
 		elements.add(language, cons.xywh(2, 2, 1, 1, "right,center"));

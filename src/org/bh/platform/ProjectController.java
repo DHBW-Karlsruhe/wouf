@@ -9,7 +9,6 @@ import java.util.Map;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JScrollPane;
-import javax.swing.JSplitPane;
 
 import org.apache.log4j.Logger;
 import org.bh.controller.InputController;
@@ -93,8 +92,8 @@ public class ProjectController extends InputController implements
 
 						tn.setResultPane(new JScrollPane(v.getViewPanel()));
 				
-						PlatformController.getInstance().getMainFrame().setResultForm(tn.getResultPane());
-
+						PlatformController.getInstance().getMainFrame().moveInResultForm(tn.getResultPane());
+						b.setIcon(null);
 					} catch (ViewException e) {
 						log.error(e);
 						((JButton) ae.getSource()).setIcon(null);

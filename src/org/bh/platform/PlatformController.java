@@ -5,7 +5,6 @@ import java.util.List;
 import java.util.prefs.Preferences;
 
 import javax.swing.JScrollPane;
-import javax.swing.JSplitPane;
 import javax.swing.SwingUtilities;
 import javax.swing.event.TreeSelectionEvent;
 import javax.swing.event.TreeSelectionListener;
@@ -40,9 +39,7 @@ import org.bh.gui.swing.BHScenarioForm;
 import org.bh.gui.swing.BHScenarioView;
 import org.bh.gui.swing.BHTreeNode;
 import org.bh.gui.swing.IBHAction;
-import org.bh.gui.swing.BHDataExchangeDialog.ImportListener;
 import org.bh.platform.PlatformEvent.Type;
-import org.bh.platform.i18n.BHTranslator;
 
 /**
  * The Platform Controller handles a) start up of the application b) main
@@ -430,7 +427,7 @@ public class PlatformController {
 							// screen
 							TreePath tp = bhmf.getBHTree().getSelectionPath();
 							if (tp.getPathCount() == 3) {
-								bhmf.fadeOutResultForm();
+								bhmf.moveOutResultForm();
 
 							}
 						}
