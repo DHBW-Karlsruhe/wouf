@@ -104,7 +104,7 @@ public class BHChartFactory {
     
     public static BHChartPanel getXYBarChart(Object key) {
 
-        BHXYBarChart chart = new BHXYBarChart(key.toString());
+        BHXYBarChart chart = new BHXYBarChart(key.toString());   	
         return new BHChartPanel(key, chart.getChart(), chart.getClass(), chart);
     }
 

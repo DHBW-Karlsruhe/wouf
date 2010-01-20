@@ -31,6 +31,8 @@ public class StochasticPanel extends JPanel{
 	        this.setLayout(new TableLayout(size));
 
 	        distributionChart = BHChartFactory.getXYBarChart(BHStochasticResultController.ChartKeys.DISTRIBUTION_CHART);
+	        
+	        
 	        BHDescriptionLabel sd = new BHDescriptionLabel("standardDeviation");
 	        BHDescriptionLabel ew = new BHDescriptionLabel("average");
 	        BHValueLabel sdValue = new BHValueLabel(BHStochasticResultController.ChartKeys.STANDARD_DEVIATION);

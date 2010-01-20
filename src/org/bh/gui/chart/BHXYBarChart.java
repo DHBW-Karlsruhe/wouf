@@ -24,7 +24,6 @@ public class BHXYBarChart extends BHChart implements IBHAddValue,
 		super(key);
 		ITranslator translator = Services.getTranslator();
 		this.dataset = new XYSeriesCollection(new XYSeries(translator.translate(key)));
-
 		chart = ChartFactory.createXYBarChart(
 				translator.translate(key),
 				translator.translate(key.concat(BHChart.DIMX)), 
@@ -66,6 +65,7 @@ public class BHXYBarChart extends BHChart implements IBHAddValue,
 			series.add(data[i][0], data[i][1]);
 		}
 		dataset.addSeries(series);
+		dataset.setIntervalWidth(0.0);
 		chart.fireChartChanged();
 	}
 
