@@ -7,6 +7,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 import javax.swing.ImageIcon;
+import javax.swing.JButton;
 import javax.swing.JSplitPane;
 
 import org.apache.log4j.Logger;
@@ -44,8 +45,7 @@ public class ProjectController extends InputController implements
 	}
 
 	protected class CalculationListener implements ActionListener {
-		private final ImageIcon LOADING = Services.createImageIcon(
-				"/org/bh/images/loading.gif", null);
+		private final ImageIcon prCalcLoading = Services.createImageIcon("/org/bh/images/loading.gif", null);
 
 		private BHTree bhTree;
 
@@ -53,56 +53,64 @@ public class ProjectController extends InputController implements
 			this.bhTree = bhTree;
 		}
 
-		public void actionPerformed(ActionEvent ae) {
-			if (log.isDebugEnabled()) {
-				log.debug("actionPerformed(ActionEvent)-start-");
-			}
+		public void actionPerformed(final ActionEvent ae) {
+			new Thread(new Runnable() {
+				public void run() {
+					if (log.isDebugEnabled()) {
+						log.debug("actionPerformed(ActionEvent)-start-");
+					}
 
-			try {
-				DTOProject project = (DTOProject) getModel();
-				// Give Map to DashboardController
-				Map<DTOScenario, Map<?, ?>> results = new HashMap<DTOScenario, Map<?, ?>>();
+					try {
+						JButton b = (JButton) ae.getSource();
+						b.setIcon(prCalcLoading);
+						DTOProject project = (DTOProject) getModel();
+						// Give Map to DashboardController
+						Map<DTOScenario, Map<?, ?>> results = new HashMap<DTOScenario, Map<?, ?>>();
 
-				for (DTOScenario scenario : project.getChildren()) {
-					// start calculation
+						for (DTOScenario scenario : project.getChildren()) {
+							// start calculation
 
-					if (scenario.isDeterministic()) {
-						Map<String, Calculable[]> resultsDCF = scenario
-								.getDCFMethod().calculate(scenario, true);
+							if (scenario.isDeterministic()) {
+								Map<String, Calculable[]> resultsDCF = scenario
+										.getDCFMethod().calculate(scenario, true);
 
-						results.put(scenario, resultsDCF);
-					} else {
-						DistributionMap resultStochastic = scenario
-								.getStochasticProcess().calculate();
+								results.put(scenario, resultsDCF);
+							} else {
+								DistributionMap resultStochastic = scenario
+										.getStochasticProcess().calculate();
 
-						results.put(scenario, resultStochastic);
+								results.put(scenario, resultStochastic);
+							}
+						}
+
+						View v = new BHDashBoardPanelView();
+						DashBoardController d = new DashBoardController(v);
+						d.setResult(results);
+
+						JSplitPane crForm = Services.createContentResultForm(v
+								.getViewPanel());
+
+						BHTreeNode tn = (BHTreeNode) bhTree.getSelectionPath()
+								.getPathComponent(1);
+
+						tn.setBackgroundPane(crForm);
+						b.setIcon(null);
+
+						// BHTreeNode tn = (BHTreeNode) bhTree.getSelectionPath()
+						// .getPathComponent(2);
+
+						// tn.setBackgroundPane(crForm);
+
+					} catch (ViewException e) {
+						log.error(e);
+						((JButton) ae.getSource()).setIcon(null);
+					}
+
+					if (log.isDebugEnabled()) {
+						log.debug("actionPerformed(ActionEvent)-end-");
 					}
 				}
-
-				View v = new BHDashBoardPanelView();
-				DashBoardController d = new DashBoardController(v);
-				d.setResult(results);
-
-				JSplitPane crForm = Services.createContentResultForm(v
-						.getViewPanel());
-
-				BHTreeNode tn = (BHTreeNode) bhTree.getSelectionPath()
-						.getPathComponent(1);
-
-				tn.setBackgroundPane(crForm);
-
-				// BHTreeNode tn = (BHTreeNode) bhTree.getSelectionPath()
-				// .getPathComponent(2);
-
-				// tn.setBackgroundPane(crForm);
-
-			} catch (ViewException e) {
-				log.error(e);
-			}
-
-			if (log.isDebugEnabled()) {
-				log.debug("actionPerformed(ActionEvent)-end-");
-			}
+			}).start();
 		}
 	}
 

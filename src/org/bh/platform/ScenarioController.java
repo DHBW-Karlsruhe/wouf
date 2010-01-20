@@ -330,7 +330,7 @@ public class ScenarioController extends InputController {
 
 	protected class CalculationListener implements ActionListener {
 
-		private final ImageIcon LOADING = Services.createImageIcon(
+		private final ImageIcon scCalcLoading = Services.createImageIcon(
 				"/org/bh/images/loading.gif", null);
 		private BHTree bhTree;
 
@@ -341,7 +341,7 @@ public class ScenarioController extends InputController {
 		@Override
 		public void actionPerformed(ActionEvent e) {
 			final JButton b = (JButton) e.getSource();
-			b.setIcon(this.LOADING);
+			b.setIcon(this.scCalcLoading);
 
 			Runnable r = new Runnable() {
 
