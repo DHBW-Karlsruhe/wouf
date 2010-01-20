@@ -10,6 +10,8 @@ import org.bh.platform.PlatformEvent;
 import org.bh.platform.Services;
 import org.bh.platform.PlatformEvent.Type;
 import org.jfree.chart.ChartFactory;
+import org.jfree.chart.axis.CategoryAxis;
+import org.jfree.chart.axis.CategoryLabelPositions;
 import org.jfree.chart.plot.PlotOrientation;
 import org.jfree.chart.renderer.category.CategoryItemRenderer;
 import org.jfree.data.category.DefaultCategoryDataset;
@@ -48,6 +50,10 @@ import org.jfree.data.general.Dataset;
 			CategoryItemRenderer renderer = chart.getCategoryPlot().getRenderer();
 			renderer.setBaseItemLabelGenerator(new BHChartLabelGenerator());
 			renderer.setBaseItemLabelsVisible(true);
+			
+			final CategoryAxis domainAxis = chart.getCategoryPlot().getDomainAxis();
+			domainAxis.setMaximumCategoryLabelLines(5);
+	        domainAxis.setCategoryLabelPositions(CategoryLabelPositions.UP_45);
 			
 			reloadText();
 			Services.addPlatformListener(this);

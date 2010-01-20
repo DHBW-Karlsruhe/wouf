@@ -9,12 +9,15 @@ import info.clearthought.layout.TableLayout;
 import java.awt.Component;
 import java.util.Map;
 
+import javax.swing.BorderFactory;
 import javax.swing.JPanel;
+import javax.swing.border.EtchedBorder;
 
 import org.apache.log4j.Logger;
 import org.bh.data.types.Calculable;
 import org.bh.gui.chart.BHChartFactory;
 import org.bh.gui.chart.BHChartPanel;
+import org.bh.platform.Services;
 import org.bh.platform.formula.FormulaException;
 import org.bh.platform.formula.IFormula;
 import org.bh.platform.formula.IFormulaFactory;
@@ -48,6 +51,7 @@ public class BH_APV_ResultPanel extends JPanel {
 
     public void initialize(boolean isAllSelected) {
         double border = 30;
+        
         double size[][] = {{border, TableLayout.PREFERRED, border, TableLayout.PREFERRED, border, TableLayout.PREFERRED, border}, // Columns
             {border, TableLayout.PREFERRED,border, TableLayout.PREFERRED, border, TableLayout.PREFERRED, border, TableLayout.PREFERRED, border,TableLayout.PREFERRED, 
         	border,TableLayout.PREFERRED,border,TableLayout.PREFERRED}}; // Rows
@@ -89,11 +93,14 @@ public class BH_APV_ResultPanel extends JPanel {
         } catch (FormulaException e) {
             log.debug(e);
         }
-        
-        this.add(infiniteFormula, "3,3");
-        this.add(valueInfiniteFormula, "3,5");
-        this.add(finiteFormula, "3,7");
-        this.add(valueFiniteFormula, "3,9");
+        if(!isAllSelected){
+	        JPanel panel = new JPanel();
+	        panel.setBorder(BorderFactory.createTitledBorder(BorderFactory.createEtchedBorder(EtchedBorder.LOWERED), Services.getTranslator().translate("org.bh.plugin.pdfexport.ITextDocumentBuilder$Keys.CHARTS")));
+	        this.add(infiniteFormula, "3,3");
+	        this.add(valueInfiniteFormula, "3,5");
+	        this.add(finiteFormula, "3,7");
+	        this.add(valueFiniteFormula, "3,9");
+        }
 
         this.add(apvWFShareholderValues, "3,11");        
         this.add(apvBCCapitalStructure, "3,13");

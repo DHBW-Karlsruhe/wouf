@@ -60,6 +60,7 @@ public class BH_FTE_ResultPanel extends JPanel {
     public void initialize(boolean isAllSelected) {
 
         double border = 30;
+        
         double size[][] = {{border, TableLayout.PREFERRED, border, TableLayout.PREFERRED, border, TableLayout.PREFERRED, border}, // Columns
             {border, TableLayout.PREFERRED, border, TableLayout.PREFERRED, border, TableLayout.PREFERRED, border, TableLayout.PREFERRED, 
         	 border, TableLayout.PREFERRED, border, TableLayout.PREFERRED, border, TableLayout.PREFERRED, border, TableLayout.PREFERRED, 
@@ -112,12 +113,11 @@ public class BH_FTE_ResultPanel extends JPanel {
         fteCapitalStructure = BHChartFactory.getStackedBarChart( BHResultController.ChartKeys.FTE_BC_CS.toString(), true, false);
         fteFlowToEquity = BHChartFactory.getBarChart( BHResultController.ChartKeys.FTE_BC_FTE.toString(), false, false);
         
-        this.add(infiniteFormula, "3,3");
-        this.add(valueInfiniteFormula, "3,5");
-        this.add(finiteFormula, "3,7");
-        this.add(valueFiniteFormula, "3,9");
-        
         if(!isAllSelected){
+	        this.add(infiniteFormula, "3,3");
+	        this.add(valueInfiniteFormula, "3,5");
+	        this.add(finiteFormula, "3,7");
+	        this.add(valueFiniteFormula, "3,9");
 	        this.add(fteShareholderValue, "3,11");
 	        this.add(fteCapitalStructure, "3,13");
         }

@@ -43,7 +43,6 @@ public class BHXYBarChart extends BHChart implements IBHAddValue,
 		renderer.setMargin(0.1);
 		
 		XYBarRenderer barRenderer = (XYBarRenderer)chart.getXYPlot().getRenderer();
-		
 		barRenderer.setDrawBarOutline(false);
 		
 		reloadText();

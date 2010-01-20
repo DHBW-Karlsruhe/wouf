@@ -42,6 +42,7 @@ public class BH_FCF_ResultPanel extends JPanel {
     public void initialize(boolean isAllSelected) {
 
         double border = 30;
+
         double size[][] = {{border, TableLayout.PREFERRED, border, TableLayout.PREFERRED, border, TableLayout.PREFERRED, border}, // Columns
             {border, TableLayout.PREFERRED, border, TableLayout.PREFERRED, border, TableLayout.PREFERRED, border, TableLayout.PREFERRED, border,
         	TableLayout.PREFERRED, border, TableLayout.PREFERRED, border, TableLayout.PREFERRED, border, TableLayout.PREFERRED, border, TableLayout.PREFERRED, border}}; // Rows
@@ -73,19 +74,19 @@ public class BH_FCF_ResultPanel extends JPanel {
         //All charts
         //TODO Schön Darstellen!!!!
         BHChartPanel fcf_shareholderValue = BHChartFactory.getWaterfallChart( BHResultController.ChartKeys.FCF_WF_SV, false, false);
-        BHChartPanel fcf_capitalStructure = BHChartFactory.getStackedBarChart( BHResultController.ChartKeys.FCF_BC_CS, true, false);
+       // BHChartPanel fcf_capitalStructure = BHChartFactory.getStackedBarChart( BHResultController.ChartKeys.FCF_BC_CS, true, false);
         BHChartPanel fcf_fcf = BHChartFactory.getBarChart( BHResultController.ChartKeys.FCF_BC_FCF, false, false);
         BHChartPanel fcf_returnRate = BHChartFactory.getBarChart( BHResultController.ChartKeys.FCF_BC_RR, true, false);        
         
-
-        this.add(infiniteFormula, "3,3");
-        this.add(valueInfiniteFormula, "3,5");
-        this.add(finiteFormula, "3,7");
-        this.add(valueFiniteFormula, "3,9");
-        
+        if(!isAllSelected){
+	        this.add(infiniteFormula, "3,3");
+	        this.add(valueInfiniteFormula, "3,5");
+	        this.add(finiteFormula, "3,7");
+	        this.add(valueFiniteFormula, "3,9");
+        }   
         this.add(fcf_shareholderValue, "3,11");
-        if(!isAllSelected)
-        	this.add(fcf_capitalStructure, "3,13");
+//        if(!isAllSelected)
+//        	this.add(fcf_capitalStructure, "3,13");
         this.add(fcf_fcf, "3,15");
         this.add(fcf_returnRate, "3,17");
 
