@@ -3,7 +3,6 @@ package org.bh.plugin.wienerProcess;
 import java.awt.Component;
 import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 import java.util.Random;
 import java.util.TreeMap;
 import java.util.Map.Entry;
@@ -55,8 +54,6 @@ public class WienerProcess implements IStochasticProcess {
 	private static final String STEPS_PER_PERIOD = "stepsPerPeriod";
 	private static final String AMOUNT_OF_PERIODS = "amountOfPeriods";
 	
-	
-	@SuppressWarnings("unused")
 	private static final Logger log = Logger.getLogger(WienerProcess.class);
 
 	private static final String UNIQUE_ID = "wienerProcess";
@@ -69,6 +66,7 @@ public class WienerProcess implements IStochasticProcess {
 
 	@Override
 	public DistributionMap calculate() {
+		log.info("Wiener process started");
 		
 		DistributionMap result = new DistributionMap(1);
 		DTOPeriod last = scenario.getLastChild();
@@ -120,6 +118,7 @@ public class WienerProcess implements IStochasticProcess {
 							.getValue());
 		}
 		DTO.setThrowEvents(true);
+		log.info("Wiener process finished");
 		return result;
 	}
 
@@ -203,15 +202,6 @@ public class WienerProcess implements IStochasticProcess {
 		}
 		this.panel = result;
 		return result;
-	}
-
-	@Override
-	public Map<String, IValue> getParametersForAnalysis() {
-		Map<String, IValue> returnMap = new HashMap<String, IValue>();
-		returnMap.putAll(internalMap);
-		for(Entry<String, Integer> e : map.entrySet())
-			returnMap.put(e.getKey(), new IntegerValue(e.getValue()));
-		return returnMap;
 	}
 
 	@Override

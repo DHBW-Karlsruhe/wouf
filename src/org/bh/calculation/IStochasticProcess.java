@@ -1,12 +1,9 @@
 package org.bh.calculation;
 
-import java.util.Map;
-
 import javax.swing.JPanel;
 
 import org.bh.data.DTOScenario;
 import org.bh.data.types.DistributionMap;
-import org.bh.data.types.IValue;
 import org.bh.platform.IDisplayablePlugin;
 
 /**
@@ -60,17 +57,6 @@ public interface IStochasticProcess extends IDisplayablePlugin {
 	 * @return The distribution of shareholder values.
 	 */
 	DistributionMap calculate();
-
-	/**
-	 * Returns a map with the most important parameters of the calculcation.
-	 * 
-	 * <p>
-	 * The map is used to display a table in the analysis screen. This helps the
-	 * user to remember these parameters, even after printing the analysis.
-	 * 
-	 * @return The map with the parameters.
-	 */
-	Map<String, IValue> getParametersForAnalysis();
 
 	/**
 	 * Defines a unique string which identifies this stochastic process.

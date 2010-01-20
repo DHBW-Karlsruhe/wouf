@@ -194,7 +194,7 @@ public class FTECalculator implements IShareholderValueCalculator {
 			}
 
 			EKrFTE = calcVariableEquityReturnRate(s, fkr, fk, ekr, uw, EKrFTE,
-					PresentValueTaxShield);
+					PresentValueTaxShield, verboseLogging);
 
 			// Check if former and current values are the same
 			isIdentical = false;
@@ -204,7 +204,7 @@ public class FTECalculator implements IShareholderValueCalculator {
 				isIdentical = true;
 			}
 			if (verboseLogging)
-				LOG.debug("No. of iterateions: " + iterations);
+				LOG.debug("No. of iterations: " + iterations);
 			iterations++;
 			if (iterations > 25000) {
 				isIdentical = true;
@@ -312,12 +312,12 @@ public class FTECalculator implements IShareholderValueCalculator {
 	 * @return Variable equity return rate for the endless period
 	 */
 	private Calculable calcVariableEquityReturnRateEndless(Calculable s,
-			Calculable FKr, Calculable FK, Calculable EKr, Calculable UW) {
-		LOG.debug("EKrFCFEndless: "
-				+ EKr.add(((EKr.sub(FKr)).mul(s.mul(new DoubleValue(-1)).add(
-						new DoubleValue(1))).mul(FK.div(UW)))));
-		return EKr.add(((EKr.sub(FKr)).mul(s.mul(new DoubleValue(-1)).add(
+			Calculable FKr, Calculable FK, Calculable EKr, Calculable UW, boolean verboseLogging) {
+		Calculable result = EKr.add(((EKr.sub(FKr)).mul(s.mul(new DoubleValue(-1)).add(
 				new DoubleValue(1))).mul(FK.div(UW))));
+		if (verboseLogging && LOG.isDebugEnabled())
+			LOG.debug("EKrFCFEndless: " + result);
+		return result;
 	}
 
 	/**
@@ -343,11 +343,11 @@ public class FTECalculator implements IShareholderValueCalculator {
 	 */
 	private Calculable[] calcVariableEquityReturnRateFinite(Calculable s,
 			Calculable FKr, Calculable[] FK, Calculable EKr, Calculable UW[],
-			Calculable[] EKrV, Calculable[] PresentValueTaxShield) {
+			Calculable[] EKrV, Calculable[] PresentValueTaxShield, boolean verboseLogging) {
 		for (int t = 1; t < UW.length - 1; t++) {
 			EKrV[t] = EKr.add(((EKr.sub(FKr)).mul((FK[t - 1]
 					.sub(PresentValueTaxShield[t - 1])).div(UW[t - 1]))));
-			if (LOG.isDebugEnabled()) {
+			if (verboseLogging && LOG.isDebugEnabled()) {
 				LOG
 						.debug("EKrV["
 								+ t
@@ -379,11 +379,11 @@ public class FTECalculator implements IShareholderValueCalculator {
 	 */
 	private Calculable[] calcVariableEquityReturnRate(Calculable s,
 			Calculable FKr, Calculable[] FK, Calculable EKr, Calculable UW[],
-			Calculable[] EKrV, Calculable[] PresentValueTaxShield) {
+			Calculable[] EKrV, Calculable[] PresentValueTaxShield, boolean verboseLogging) {
 		EKrV[EKrV.length - 1] = calcVariableEquityReturnRateEndless(s, FKr,
-				FK[EKrV.length - 1], EKr, UW[EKrV.length - 1]);
+				FK[EKrV.length - 1], EKr, UW[EKrV.length - 1], verboseLogging);
 		return calcVariableEquityReturnRateFinite(s, FKr, FK, EKr, UW, EKrV,
-				PresentValueTaxShield);
+				PresentValueTaxShield, verboseLogging);
 	}
 
 	/**

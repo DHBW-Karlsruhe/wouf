@@ -40,10 +40,10 @@ public class DoubleValue extends Calculable  {
 	/* Specified by interface/super class. */
 	@Override
 	public final Calculable add(final Calculable summand) {
-		if (summand instanceof IntegerValue) {
-			return new DoubleValue(value + ((IntegerValue) summand).value);
-		} else if (summand instanceof DoubleValue) {
+		if (summand instanceof DoubleValue) {
 			return new DoubleValue(value + ((DoubleValue) summand).value);
+		} else if (summand instanceof IntegerValue) {
+			return new DoubleValue(value + ((IntegerValue) summand).value);
 		} else if (summand instanceof IntervalValue) {
 			return new IntervalValue(value, value).add(summand);
 		} else {
@@ -54,10 +54,10 @@ public class DoubleValue extends Calculable  {
 	/* Specified by interface/super class. */
 	@Override
 	public final Calculable sub(final Calculable subtrahend) {
-		if (subtrahend instanceof IntegerValue) {
-			return new DoubleValue(value - ((IntegerValue) subtrahend).value);
-		} else if (subtrahend instanceof DoubleValue) {
+		if (subtrahend instanceof DoubleValue) {
 			return new DoubleValue(value - ((DoubleValue) subtrahend).value);
+		} else if (subtrahend instanceof IntegerValue) {
+			return new DoubleValue(value - ((IntegerValue) subtrahend).value);
 		} else if (subtrahend instanceof IntervalValue) {
 			return new IntervalValue(value, value).sub(subtrahend);
 		} else {
@@ -68,10 +68,10 @@ public class DoubleValue extends Calculable  {
 	/* Specified by interface/super class. */
 	@Override
 	public final Calculable mul(final Calculable multiplicand) {
-		if (multiplicand instanceof IntegerValue) {
-			return new DoubleValue(value * ((IntegerValue) multiplicand).value);
-		} else if (multiplicand instanceof DoubleValue) {
+		if (multiplicand instanceof DoubleValue) {
 			return new DoubleValue(value * ((DoubleValue) multiplicand).value);
+		} else if (multiplicand instanceof IntegerValue) {
+			return new DoubleValue(value * ((IntegerValue) multiplicand).value);
 		} else if (multiplicand instanceof IntervalValue) {
 			return new IntervalValue(value, value).mul(multiplicand);
 		} else {
@@ -82,10 +82,10 @@ public class DoubleValue extends Calculable  {
 	/* Specified by interface/super class. */
 	@Override
 	public final Calculable div(final Calculable divisor) {
-		if (divisor instanceof IntegerValue) {
-			return new DoubleValue(value / ((IntegerValue) divisor).value);
-		} else if (divisor instanceof DoubleValue) {
+		if (divisor instanceof DoubleValue) {
 			return new DoubleValue(value / ((DoubleValue) divisor).value);
+		} else if (divisor instanceof IntegerValue) {
+			return new DoubleValue(value / ((IntegerValue) divisor).value);
 		} else if (divisor instanceof IntervalValue) {
 			return new IntervalValue(value, value).div(divisor);
 		} else {
@@ -96,12 +96,12 @@ public class DoubleValue extends Calculable  {
 	/* Specified by interface/super class. */
 	@Override
 	public final Calculable pow(final Calculable exponent) {
-		if (exponent instanceof IntegerValue) {
-			return new DoubleValue(Math.pow(value,
-					((IntegerValue) exponent).value));
-		} else if (exponent instanceof DoubleValue) {
+		if (exponent instanceof DoubleValue) {
 			return new DoubleValue(Math.pow(value,
 					((DoubleValue) exponent).value));
+		} else if (exponent instanceof IntegerValue) {
+			return new DoubleValue(Math.pow(value,
+					((IntegerValue) exponent).value));
 		} else if (exponent instanceof IntervalValue) {
 			return new IntervalValue(value, value).pow(exponent);
 		} else {
@@ -117,18 +117,12 @@ public class DoubleValue extends Calculable  {
 
 	@Override
 	public boolean greaterThan(Calculable compare) {
-		if (compare instanceof IntegerValue) {
-			IntegerValue integerValue = (IntegerValue) compare;
-			if (this.getValue() > integerValue.getValue()) {
-				return true;
-			}
-			return false;
-		} else if (compare instanceof DoubleValue) {
+		if (compare instanceof DoubleValue) {
 			DoubleValue doubleValue = (DoubleValue) compare;
-			if (this.getValue() > doubleValue.getValue()) {
-				return true;
-			}
-			return false;
+			return (this.getValue() > doubleValue.getValue());
+		} else if (compare instanceof IntegerValue) {
+			IntegerValue integerValue = (IntegerValue) compare;
+			return (this.getValue() > integerValue.getValue());
 		} else {
 			return new IntervalValue(value, value).greaterThan(compare);
 		}
@@ -137,18 +131,12 @@ public class DoubleValue extends Calculable  {
 	/* Specified by interface/super class. */
 	@Override
 	public boolean lessThan(Calculable compare) {
-		if (compare instanceof IntegerValue) {
-			IntegerValue integerValue = (IntegerValue) compare;
-			if (this.getValue() < integerValue.getValue()) {
-				return true;
-			}
-			return false;
-		} else if (compare instanceof DoubleValue) {
+		if (compare instanceof DoubleValue) {
 			DoubleValue doubleValue = (DoubleValue) compare;
-			if (this.getValue() < doubleValue.getValue()) {
-				return true;
-			}
-			return false;
+			return (this.getValue() < doubleValue.getValue());
+		} else if (compare instanceof IntegerValue) {
+			IntegerValue integerValue = (IntegerValue) compare;
+			return (this.getValue() < integerValue.getValue());
 		} else {
 			return new IntervalValue(value, value).lessThan(compare);
 		}
@@ -198,10 +186,10 @@ public class DoubleValue extends Calculable  {
 
 	@Override
 	public boolean diffToLess(Calculable c, double limit) {
-		if (c instanceof IntegerValue) {
-			return Math.abs(value - ((IntegerValue) c).value) < limit;
-		} else if (c instanceof DoubleValue) {
+		if (c instanceof DoubleValue) {
 			return Math.abs(value - ((DoubleValue) c).value) < limit;
+		} else if (c instanceof IntegerValue) {
+			return Math.abs(value - ((IntegerValue) c).value) < limit;
 		} else if (c instanceof IntervalValue) {
 			return new IntervalValue(value, value).diffToLess(c, limit);
 		} else {
