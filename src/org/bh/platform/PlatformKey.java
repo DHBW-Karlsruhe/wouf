@@ -57,6 +57,7 @@ public enum PlatformKey{
 	POPUPREMOVE("Tremove","POPUPREMOVE"),
 	POPUPADD("Treadd", "POPUPADD"),
 	POPUPDUPLICATE("Treduplicate", "POPUPDUPLICATE"),
+	POPUPEXPORT("Treexport", "POPUPEXPORT"),
 	
 	
 	CALCSHAREHOLDERVALUE("BcalculateShareholderValue","CALCSHAREHOLDERVALUE"),

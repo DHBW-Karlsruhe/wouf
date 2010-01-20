@@ -143,29 +143,7 @@ class PlatformActionListener implements ActionListener {
 			importDialog.setVisible(true);
 			break;
 		case PROJECTEXPORT:
-			// Get selected node
-			if (bhmf.getBHTree().getSelectionPath() != null) {
-				BHTreeNode selectedNode = (BHTreeNode) bhmf.getBHTree()
-						.getSelectionPath().getPathComponent(1);
-				// Get DTOProject
-				if (selectedNode != null && selectedNode.getUserObject() instanceof DTOProject) {
-
-					// Create data exchange dialog
-					BHDataExchangeDialog dialog = new BHDataExchangeDialog(
-							bhmf, true);
-					dialog.setAction(IImportExport.EXP_PROJECT);
-					dialog.setModel((IDTO<?>) selectedNode.getUserObject());
-					dialog.setDescription(BHTranslator.getInstance().translate(
-							"DExpFileFormatSel"));
-					dialog.setVisible(true);
-
-				} else {
-					// TODO Katzor.Marcus Show Message
-				}
-			} else {
-				// TODO Katzor.Marcus Show Message
-			}
-
+			this.projectExport();
 			break;
 
 		case PROJECTREMOVE:
@@ -356,6 +334,9 @@ class PlatformActionListener implements ActionListener {
 		case POPUPDUPLICATE:
 			this.popupDuplicate();
 			break;
+		case POPUPEXPORT:
+			this.popupExport();
+			break;
 		default:
 			// TODO implementieren?
 			break;
@@ -438,6 +419,20 @@ class PlatformActionListener implements ActionListener {
 			PlatformController.getInstance().getMainFrame().getBHTree().setSelectionPath(null);
 			bhmf.setContentForm(new BHContent());
 			
+		}
+	}
+	protected void popupExport(){
+		TreePath currentSelection = bhmf.getBHTree().getSelectionPath();
+		
+		if(currentSelection != null){
+			BHTreeNode currentNode = (BHTreeNode) bhmf.getBHTree()
+					.getSelectionPath().getLastPathComponent();
+			//add a new node to data model...
+			if(currentNode.getUserObject() instanceof DTOProject){
+				this.projectExport();
+			}else {
+				
+			}
 		}
 	}
 	protected void popupDuplicate(){
@@ -762,7 +757,30 @@ class PlatformActionListener implements ActionListener {
 					true);
 		}
 	}
+	protected void projectExport(){
+		// Get selected node
+		if (bhmf.getBHTree().getSelectionPath() != null) {
+			BHTreeNode selectedNode = (BHTreeNode) bhmf.getBHTree()
+					.getSelectionPath().getLastPathComponent();
+			// Get DTOProject
+			if (selectedNode.getUserObject() instanceof DTOProject) {
 
+				// Create data exchange dialog
+				BHDataExchangeDialog dialog = new BHDataExchangeDialog(
+						bhmf, true);
+				dialog.setAction(IImportExport.EXP_PROJECT);
+				dialog.setModel((IDTO<?>) selectedNode.getUserObject());
+				dialog.setDescription(BHTranslator.getInstance().translate(
+						"DExpFileFormatSel"));
+				dialog.setVisible(true);
+
+			} else {
+				// TODO Katzor.Marcus Show Message
+			}
+		} else {
+			// TODO Katzor.Marcus Show Message
+		}
+	}
 	protected void openUserHelp(String help) {
 		log.debug("HELPUSERHELP gefeuert");
 		JDialog frame = new JDialog();

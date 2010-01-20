@@ -24,6 +24,7 @@ public class BHTreePopup extends JPopupMenu{
 		
 		this.add(new BHMenuItem(PlatformKey.POPUPADD));
 		this.add(new BHMenuItem(PlatformKey.POPUPDUPLICATE));
+		this.add(new BHMenuItem(PlatformKey.POPUPEXPORT));
 		this.addSeparator();
 		this.add(new BHMenuItem(PlatformKey.POPUPREMOVE));
 		
