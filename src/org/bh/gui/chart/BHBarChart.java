@@ -13,6 +13,7 @@ import org.jfree.chart.ChartFactory;
 import org.jfree.chart.plot.PlotOrientation;
 import org.jfree.chart.renderer.category.BarRenderer;
 import org.jfree.chart.renderer.category.CategoryItemRenderer;
+import org.jfree.chart.renderer.category.StandardBarPainter;
 import org.jfree.data.category.DefaultCategoryDataset;
 import org.jfree.data.general.Dataset;
 
@@ -55,6 +56,8 @@ import org.jfree.data.general.Dataset;
 			BarRenderer barRenderer = (BarRenderer)chart.getCategoryPlot().getRenderer();
 			barRenderer.setDrawBarOutline(false);
 			barRenderer.setMaximumBarWidth(0.1);
+			barRenderer.setBarPainter(new StandardBarPainter());
+			barRenderer.setShadowVisible(false);
 			
 			reloadText();
 			Services.addPlatformListener(this);

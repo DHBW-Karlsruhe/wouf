@@ -16,6 +16,7 @@ import org.jfree.chart.plot.PlotOrientation;
 import org.jfree.chart.renderer.category.CategoryItemRenderer;
 import org.jfree.chart.renderer.category.GroupedStackedBarRenderer;
 import org.jfree.chart.renderer.category.StackedBarRenderer;
+import org.jfree.chart.renderer.category.StandardBarPainter;
 import org.jfree.data.KeyToGroupMap;
 import org.jfree.data.category.DefaultCategoryDataset;
 import org.jfree.data.general.Dataset;
@@ -59,13 +60,18 @@ import org.jfree.data.general.Dataset;
 			CategoryItemRenderer renderer = chart.getCategoryPlot().getRenderer();
 			renderer.setBaseItemLabelGenerator(new BHChartLabelGenerator());
 			renderer.setBaseItemLabelsVisible(true);
-
+			
                         this.plot = chart.getCategoryPlot();
                         this.groupRenderer = new GroupedStackedBarRenderer();
 			
 			StackedBarRenderer barRenderer = (StackedBarRenderer)chart.getCategoryPlot().getRenderer();
 			barRenderer.setDrawBarOutline(false);
 			barRenderer.setMaximumBarWidth(0.1);
+			barRenderer.setBarPainter(new StandardBarPainter());
+			
+			barRenderer.setShadowVisible(false);
+			groupRenderer.setShadowVisible(false);
+			groupRenderer.setBarPainter(new StandardBarPainter());
 			
 			reloadText();
 			Services.addPlatformListener(this);
