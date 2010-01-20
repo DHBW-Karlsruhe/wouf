@@ -33,7 +33,6 @@ import org.bh.data.DTOScenario;
 import org.bh.platform.IPlatformListener;
 import org.bh.platform.PlatformEvent;
 import org.bh.platform.PlatformKey;
-import org.bh.platform.PlatformKeyboardListener;
 import org.bh.platform.Services;
 
 import com.jgoodies.forms.layout.CellConstraints;
@@ -111,8 +110,7 @@ public class BHTree extends JTree{
 				TreeSelectionModel.SINGLE_TREE_SELECTION);
 		this.setShowsRootHandles(true);
 		this.setCellRenderer(new BHTreeCellRenderer());
-		this.addKeyListener(new PlatformKeyboardListener());
-
+		
 		Services.addPlatformListener(new BHTreeValidationListener(this));
 		
 		//Drag and Drop
