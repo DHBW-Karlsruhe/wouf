@@ -10,6 +10,8 @@ import org.bh.platform.PlatformEvent;
 import org.bh.platform.Services;
 import org.bh.platform.PlatformEvent.Type;
 import org.jfree.chart.ChartFactory;
+import org.jfree.chart.axis.CategoryAxis;
+import org.jfree.chart.axis.CategoryLabelPositions;
 import org.jfree.chart.axis.SubCategoryAxis;
 import org.jfree.chart.labels.ItemLabelAnchor;
 import org.jfree.chart.labels.ItemLabelPosition;
@@ -64,6 +66,11 @@ import org.jfree.ui.TextAnchor;
 			renderer.setBaseItemLabelGenerator(new BHChartLabelGenerator());
 			renderer.setBaseItemLabelsVisible(true);
 			
+			//Labels im 45 Grad Winkel mit maximal 5 Zeilen anzeigen
+			final CategoryAxis domainAxis = chart.getCategoryPlot().getDomainAxis();
+			domainAxis.setMaximumCategoryLabelLines(5);
+	        domainAxis.setCategoryLabelPositions(CategoryLabelPositions.UP_45);
+			
 			final ItemLabelPosition p = new ItemLabelPosition(ItemLabelAnchor.CENTER, TextAnchor.CENTER, TextAnchor.CENTER, -Math.PI / 2.0);
 			renderer.setBasePositiveItemLabelPosition(p);
 			
@@ -85,14 +92,8 @@ import org.jfree.ui.TextAnchor;
 
 		@Override
 		public final void addValue(Number value, Comparable row, Comparable<String> columnKey) {
-			if(this.dataset.getColumnKeys().indexOf(columnKey) == -1){
-				this.dataset.addValue(value, row, columnKey);
-			}else{
-				this.dataset.addValue(value, row, columnKey+"'");
-			}
-				
-
-			chart.fireChartChanged();
+			this.dataset.addValue(value, row, columnKey);
+			//chart.fireChartChanged();
 		}
 
                 @Override

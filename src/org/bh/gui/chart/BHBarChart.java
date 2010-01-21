@@ -10,12 +10,16 @@ import org.bh.platform.PlatformEvent;
 import org.bh.platform.Services;
 import org.bh.platform.PlatformEvent.Type;
 import org.jfree.chart.ChartFactory;
+import org.jfree.chart.axis.CategoryAxis;
+import org.jfree.chart.axis.CategoryLabelPositions;
+import org.jfree.chart.labels.CategoryToolTipGenerator;
 import org.jfree.chart.labels.ItemLabelAnchor;
 import org.jfree.chart.labels.ItemLabelPosition;
 import org.jfree.chart.plot.PlotOrientation;
 import org.jfree.chart.renderer.category.BarRenderer;
 import org.jfree.chart.renderer.category.CategoryItemRenderer;
 import org.jfree.chart.renderer.category.StandardBarPainter;
+import org.jfree.data.category.CategoryDataset;
 import org.jfree.data.category.DefaultCategoryDataset;
 import org.jfree.data.general.Dataset;
 import org.jfree.ui.TextAnchor;
@@ -55,6 +59,11 @@ import org.jfree.ui.TextAnchor;
 			CategoryItemRenderer renderer = chart.getCategoryPlot().getRenderer();
 			renderer.setBaseItemLabelGenerator(new BHChartLabelGenerator());
 			
+			//Labels im 45 Grad Winkel mit maximal 5 Zeilen anzeigen
+			final CategoryAxis domainAxis = chart.getCategoryPlot().getDomainAxis();
+			domainAxis.setMaximumCategoryLabelLines(5);
+	        domainAxis.setCategoryLabelPositions(CategoryLabelPositions.UP_45);
+			
 			final ItemLabelPosition p = new ItemLabelPosition(ItemLabelAnchor.CENTER, TextAnchor.CENTER, TextAnchor.CENTER, -Math.PI / 2.0);
 			renderer.setBasePositiveItemLabelPosition(p);
 			
@@ -65,6 +74,17 @@ import org.jfree.ui.TextAnchor;
 			barRenderer.setMaximumBarWidth(0.1);
 			barRenderer.setBarPainter(new StandardBarPainter());
 			barRenderer.setShadowVisible(false);
+			
+			barRenderer.setToolTipGenerator(new CategoryToolTipGenerator() {
+
+				@Override
+				public String generateToolTip(CategoryDataset dataset, int row,
+						int column) {
+					return Services.numberToString(dataset.getValue(row, column).doubleValue());
+				}
+				
+				
+			});
 			
 			reloadText();
 			Services.addPlatformListener(this);
