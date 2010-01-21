@@ -1,15 +1,16 @@
 package org.bh.plugin.resultAnalysis;
 
+import info.clearthought.layout.TableLayout;
+import info.clearthought.layout.TableLayoutConstants;
+
 import java.awt.BorderLayout;
 import java.awt.Component;
-import java.awt.Image;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
-import javax.imageio.ImageIO;
 import javax.swing.JPanel;
 
 import org.apache.log4j.Logger;
@@ -66,21 +67,58 @@ public final class BHResultPanel extends JPanel {
 	JPanel procedurePanel = null;
 	// print Button
 	private BHButton printButton;
-	final DTOScenario scenario;
-	final Map<String, Calculable[]> result;
-        private final Map<String, Calculable> formulaValues;
-	final ITranslator translator = Services.getTranslator();
+	DTOScenario scenario;
+	 Map<String, Calculable[]> result;
+	 ITranslator translator = Services.getTranslator();
 
+	 BHFormulaPanel formulaArea;
+	 
+	public enum Keys{
+		EXPORTSCENARIO,
+		PRINTSCENARIO;
+		
+		@Override
+		public String toString() {
+			return getClass().getName() + "." + super.toString();
+		}
+	}
+	
 	/**
 	 * Constructor
 	 * 
 	 * @throws ViewException
 	 */
-	public BHResultPanel(DTOScenario scenario, Map<String, Calculable[]> result, Map<String, Calculable> formulaValues) {
-		this.scenario = scenario;
-		this.result = result;
-                this.formulaValues = formulaValues;
-		initialize();
+	public BHResultPanel() {
+		double border = 30;
+		double size[][] = {
+				{ border, TableLayoutConstants.PREFERRED, border }, // Columns
+				{ border, TableLayoutConstants.PREFERRED, border,
+					      TableLayoutConstants.PREFERRED, border,
+						  TableLayoutConstants.PREFERRED, border } };
+		setLayout(new TableLayout(size));
+		
+		JPanel exportArea = new JPanel(new BorderLayout());
+		exportButton = new BHButton(Keys.EXPORTSCENARIO);
+		exportArea.add(exportButton, BorderLayout.WEST);
+		
+		printButton = new BHButton(Keys.PRINTSCENARIO);
+		exportArea.add(printButton, BorderLayout.EAST);
+		
+		add(exportArea, "1,5");
+		//initialize();
+	}
+	
+	void setFormulaArea(BHFormulaPanel c) {
+		formulaArea = c;
+		add(formulaArea, "1,1");
+	}
+	
+	void setChartArea(Component c) {
+		add(c, "1,3");
+	}
+	
+	BHFormulaPanel getFormulaArea() {
+		return formulaArea;
 	}
 
 	/**
@@ -100,7 +138,7 @@ public final class BHResultPanel extends JPanel {
 		//
 		//
 		// this.setLayout(new TableLayout(size));
-		this.setLayout(new BorderLayout());
+		//this.setLayout(new BorderLayout());
 
 		// //this.setMaximumSize(BHMainFrame.chartsPanel.getMaximumSize());
 		// /*
@@ -275,25 +313,25 @@ public final class BHResultPanel extends JPanel {
 		// //this.add(lineChartLabel, BorderLayout.EAST);
 		//       		
 
-		if (scenario.getDCFMethod().getUniqueId().equals("fcf")) {
-			procedurePanel = new BH_FCF_ResultPanel(false, formulaValues);
-		} else if (scenario.getDCFMethod().getUniqueId().equals("apv")) {
-			procedurePanel = new BH_APV_ResultPanel(false, formulaValues);
-		} else if (scenario.getDCFMethod().getUniqueId().equals("fte")) {
-			procedurePanel = new BH_FTE_ResultPanel(false, formulaValues);
-		}else if (scenario.getDCFMethod().getUniqueId().equals("all")){
-			procedurePanel = new JPanel();
-			procedurePanel.setLayout(new BorderLayout());
-			procedurePanel.add(new BH_APV_ResultPanel(true,formulaValues), BorderLayout.NORTH);
-			procedurePanel.add(new BH_FCF_ResultPanel(true, formulaValues), BorderLayout.CENTER);
-			procedurePanel.add(new BH_FTE_ResultPanel(true, formulaValues), BorderLayout.SOUTH);
-	    }
-		this.add(procedurePanel, BorderLayout.CENTER);
-		JPanel buttons = new JPanel();
-		
-		buttons.add(exportButton, BorderLayout.WEST);
-		buttons.add(printButton, BorderLayout.EAST);
-		add(buttons, BorderLayout.SOUTH);
+//		if (scenario.getDCFMethod().getUniqueId().equals("fcf")) {
+//			procedurePanel = new BH_FCF_ResultPanel(false, formulaValues);
+//		} else if (scenario.getDCFMethod().getUniqueId().equals("apv")) {
+//			procedurePanel = new BH_APV_ResultPanel(false, formulaValues);
+//		} else if (scenario.getDCFMethod().getUniqueId().equals("fte")) {
+//			procedurePanel = new BH_FTE_ResultPanel(false, formulaValues);
+//		}else if (scenario.getDCFMethod().getUniqueId().equals("all")){
+//			procedurePanel = new JPanel();
+//			procedurePanel.setLayout(new BorderLayout());
+//			procedurePanel.add(new BH_APV_ResultPanel(true,formulaValues), BorderLayout.NORTH);
+//			procedurePanel.add(new BH_FCF_ResultPanel(true, formulaValues), BorderLayout.CENTER);
+//			procedurePanel.add(new BH_FTE_ResultPanel(true, formulaValues), BorderLayout.SOUTH);
+//	    }
+//		this.add(procedurePanel, BorderLayout.CENTER);
+//		JPanel buttons = new JPanel();
+//		
+//		buttons.add(exportButton, BorderLayout.WEST);
+//		buttons.add(printButton, BorderLayout.EAST);
+//		add(buttons, BorderLayout.SOUTH);
 
 	}
 	// /**
