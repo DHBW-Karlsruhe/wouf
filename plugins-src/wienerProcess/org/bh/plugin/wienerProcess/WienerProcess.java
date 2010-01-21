@@ -27,8 +27,8 @@ import org.bh.gui.swing.BHDescriptionLabel;
 import org.bh.gui.swing.BHTextField;
 import org.bh.platform.Services;
 import org.bh.validation.VRIsDouble;
+import org.bh.validation.VRIsGreaterThan;
 import org.bh.validation.VRIsInteger;
-import org.bh.validation.VRIsPositive;
 import org.bh.validation.VRMandatory;
 import org.bh.validation.ValidationRule;
 
@@ -206,7 +206,7 @@ public class WienerProcess implements IStochasticProcess {
 				1, 1));
 		BHTextField tf = new BHTextField(AMOUNT_OF_PERIODS);
 		ValidationRule[] rules = { VRMandatory.INSTANCE, VRIsInteger.INSTANCE,
-				VRIsPositive.INSTANCE };
+				new VRIsGreaterThan(2, true) };
 		tf.setValidationRules(rules);
 		result.add(tf, cons.xywh(4, 2, 1, 1));
 		map.put(AMOUNT_OF_PERIODS, new Integer(5));
@@ -215,7 +215,7 @@ public class WienerProcess implements IStochasticProcess {
 				1));
 		BHTextField tf1 = new BHTextField(STEPS_PER_PERIOD);
 		ValidationRule[] rules1 = { VRMandatory.INSTANCE, VRIsInteger.INSTANCE,
-				VRIsPositive.INSTANCE };
+				VRIsGreaterThan.GTZERO };
 		tf1.setValidationRules(rules1);
 		result.add(tf1, cons.xywh(4, 4, 1, 1));
 		map.put(STEPS_PER_PERIOD, new Integer(1));
@@ -223,7 +223,7 @@ public class WienerProcess implements IStochasticProcess {
 		result.add(new BHDescriptionLabel(REPETITIONS), cons.xywh(6, 2, 1, 1));
 		BHTextField tf2 = new BHTextField(REPETITIONS);
 		ValidationRule[] rules2 = { VRMandatory.INSTANCE, VRIsInteger.INSTANCE,
-				VRIsPositive.INSTANCE };
+				VRIsGreaterThan.GTZERO };
 		tf2.setValidationRules(rules2);
 		result.add(tf2, cons.xywh(8, 2, 1, 1));
 		map.put(REPETITIONS, new Integer(1));
