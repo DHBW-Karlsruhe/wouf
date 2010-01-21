@@ -26,21 +26,7 @@ import org.bh.platform.formula.IFormulaFactory;
 public class BH_FTE_ResultPanel extends JPanel {
 
     private static final Logger log = Logger.getLogger(BH_FTE_ResultPanel.class);
-//    //FTE Verfahren
-//    private BHValueLabel FTEshareholderValue;
-//    private BHDescriptionLabel FTEshareholderValueDESC;
-//    private BHValueLabel FTEpresentValueTaxShield;
-//    private BHDescriptionLabel FTEpresentValueTaxShieldDESC;
-//    private BHValueLabel FTEflowEquity;
-//    private BHDescriptionLabel FTEflowEquityDESC;
-//    private BHValueLabel FTEflowEquityTaxShield;
-//    private BHDescriptionLabel FTEflowEquityTaxShieldDESC;
-//    private BHValueLabel FTEflowToEquity;
-//    private BHDescriptionLabel FTEflowToEquityDESC;
-//    private BHValueLabel FTEdebtAmortisation;
-//    private BHDescriptionLabel FTEdebtAmortisationDESC;
-//    private BHValueLabel FTEequityReturnRate;
-//    private BHDescriptionLabel FTEequityReturnRateDESC;
+
     // formulas
     private Map<String, Calculable> formulaValues;
     private Component finiteFormula;
@@ -61,32 +47,16 @@ public class BH_FTE_ResultPanel extends JPanel {
 
         double border = 30;
         
-        double size[][] = {{border, TableLayout.PREFERRED, border, TableLayout.PREFERRED, border, TableLayout.PREFERRED, border}, // Columns
-            {border, TableLayout.PREFERRED, border, TableLayout.PREFERRED, border, TableLayout.PREFERRED, border, TableLayout.PREFERRED, 
-        	 border, TableLayout.PREFERRED, border, TableLayout.PREFERRED, border, TableLayout.PREFERRED, border, TableLayout.PREFERRED, 
-        	 border, TableLayout.PREFERRED, border, TableLayout.PREFERRED, border, TableLayout.PREFERRED, border, TableLayout.PREFERRED, 
-        	 border, TableLayout.PREFERRED, border, TableLayout.PREFERRED, border, TableLayout.PREFERRED, border, TableLayout.PREFERRED, 
-        	 border, TableLayout.PREFERRED, border, TableLayout.PREFERRED, border, TableLayout.PREFERRED, border, TableLayout.PREFERRED,
-        	 border, TableLayout.PREFERRED, border}}; // Rows
-
-
-        this.setLayout(new TableLayout(size));
-
-//        //All Labels to FTE
-//        FTEshareholderValue = new BHValueLabel("SHAREHOLDER_VALUE");
-//        FTEshareholderValueDESC = new BHDescriptionLabel("SHAREHOLDER_VALUE");
-//        FTEdebtAmortisation = new BHValueLabel("DEBT_AMORTISATION");
-//        FTEdebtAmortisationDESC = new BHDescriptionLabel("DEBT_AMORTISATION");
-//        FTEequityReturnRate = new BHValueLabel("EQUITY_RETURN_RATE_FTE");
-//        FTEequityReturnRateDESC = new BHDescriptionLabel("EQUITY_RETURN_RATE_FTE");
-//        FTEflowEquity = new BHValueLabel("FLOW_TO_EQUITY");
-//        FTEflowEquityDESC = new BHDescriptionLabel("FLOW_TO_EQUITY");
-//        FTEflowEquityTaxShield = new BHValueLabel("FLOW_TO_EQUITY_TAX_SHIELD");
-//        FTEflowEquityTaxShieldDESC = new BHDescriptionLabel("FLOW_TO_EQUITY_TAX_SHIELD");
-//        FTEflowToEquity = new BHValueLabel("LOW_TO_EQUITY_INTEREST");
-//        FTEflowToEquityDESC = new BHDescriptionLabel("FLOW_TO_EQUITY_INTEREST");
-//        FTEpresentValueTaxShield = new BHValueLabel("PRESENT_VALUE_TAX_SHIELD");
-//        FTEpresentValueTaxShieldDESC = new BHDescriptionLabel("PRESENT_VALUE_TAX_SHIELD");
+        if(!isAllSelected){
+	        double size[][] = {{border, TableLayout.PREFERRED, border, TableLayout.PREFERRED, border, TableLayout.PREFERRED, border}, // Columns
+	            {border, TableLayout.PREFERRED, border, TableLayout.PREFERRED, border, TableLayout.PREFERRED, border, TableLayout.PREFERRED, 
+	        	 border, TableLayout.PREFERRED, border, TableLayout.PREFERRED, border, TableLayout.PREFERRED}}; // Rows
+        	this.setLayout(new TableLayout(size));
+        }else{
+        	double size[][] = {{border, TableLayout.PREFERRED, border, TableLayout.PREFERRED, border, TableLayout.PREFERRED, border}, // Columns
+    	            {border, TableLayout.PREFERRED, border, TableLayout.PREFERRED}}; // Rows
+            	this.setLayout(new TableLayout(size));
+        }
 
         //Formeldarstellung
         IFormulaFactory ff = IFormulaFactory.instance;
@@ -119,10 +89,11 @@ public class BH_FTE_ResultPanel extends JPanel {
 	        this.add(finiteFormula, "3,7");
 	        this.add(valueFiniteFormula, "3,9");
 	        this.add(fteShareholderValue, "3,11");
-	        this.add(fteCapitalStructure, "3,13");
+	        //this.add(fteCapitalStructure, "3,13");
+	        this.add(fteFlowToEquity, "3,13");
+        }else{
+        	this.add(fteFlowToEquity, "3,1");
         }
-        this.add(fteFlowToEquity, "3,15");
-        
 
     }
 //    public static void main(String[] args) {

@@ -255,12 +255,12 @@ public class BHResultController extends OutputController {
             //Not necessary ct Pohl
             comp.addValue(result.get("org.bh.calculation.IShareholderValueCalculator$Result.SHAREHOLDER_VALUE")[0].parse(), translator.translate(ChartKeys.FTE_BC_SV.toString()), translator.translate(ChartKeys.FTE_BC_SV.toString()));
 
-            IBHAddValue comp2 = super.view.getBHchartComponents().get(ChartKeys.FTE_BC_CS.toString());
-            for (int i = 0; i < scenario.getChildrenSize(); i++) {
-                String name = scenario.getChildren().get(i).get(DTOPeriod.Key.NAME).toString();
-                comp2.addValue(result.get("org.bh.plugin.fte.FTECalculator$Result.PRESENT_VALUE_TAX_SHIELD")[i].parse(), translator.translate("org.bh.plugin.fte.FTECalculator$Result.PRESENT_VALUE_TAX_SHIELD"), name);
-                comp2.addValue(result.get("org.bh.calculation.IShareholderValueCalculator$Result.DEBT")[i].parse(), translator.translate("org.bh.calculation.IShareholderValueCalculator$Result.DEBT"), name);
-            }
+//            IBHAddValue comp2 = super.view.getBHchartComponents().get(ChartKeys.FTE_BC_CS.toString());
+//            for (int i = 0; i < scenario.getChildrenSize(); i++) {
+//                String name = scenario.getChildren().get(i).get(DTOPeriod.Key.NAME).toString();
+//                comp2.addValue(result.get("org.bh.plugin.fte.FTECalculator$Result.PRESENT_VALUE_TAX_SHIELD")[i].parse(), translator.translate("org.bh.plugin.fte.FTECalculator$Result.PRESENT_VALUE_TAX_SHIELD"), name);
+//                comp2.addValue(result.get("org.bh.calculation.IShareholderValueCalculator$Result.DEBT")[i].parse(), translator.translate("org.bh.calculation.IShareholderValueCalculator$Result.DEBT"), name);
+//            }
         }
         IBHAddValue comp3 = super.view.getBHchartComponents().get(ChartKeys.FTE_BC_FTE.toString());
         for (int i = 1; i < scenario.getChildrenSize(); i++) {

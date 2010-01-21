@@ -51,13 +51,19 @@ public class BH_APV_ResultPanel extends JPanel {
 
     public void initialize(boolean isAllSelected) {
         double border = 30;
-        
-        double size[][] = {{border, TableLayout.PREFERRED, border, TableLayout.PREFERRED, border, TableLayout.PREFERRED, border}, // Columns
-            {border, TableLayout.PREFERRED,border, TableLayout.PREFERRED, border, TableLayout.PREFERRED, border, TableLayout.PREFERRED, border,TableLayout.PREFERRED, 
-        	border,TableLayout.PREFERRED,border,TableLayout.PREFERRED}}; // Rows
+       
+        if(!isAllSelected){
+        	double size[][] = {{border, TableLayout.PREFERRED, border, TableLayout.PREFERRED, border, TableLayout.PREFERRED, border}, // Columns
+	            {border, TableLayout.PREFERRED,border, TableLayout.PREFERRED, border, TableLayout.PREFERRED, border, TableLayout.PREFERRED, 
+        		 border,TableLayout.PREFERRED, border,TableLayout.PREFERRED, border,TableLayout.PREFERRED}}; // Rows
+        	 this.setLayout(new TableLayout(size));
+        }else{
+        	double size[][] = {{border, TableLayout.PREFERRED, border, TableLayout.PREFERRED, border, TableLayout.PREFERRED, border}, // Columns
+                {border, TableLayout.PREFERRED,border, TableLayout.PREFERRED, border,TableLayout.PREFERRED}}; // Rows
+        	 this.setLayout(new TableLayout(size));
+        }
 
-
-        this.setLayout(new TableLayout(size));
+       
 
         //All APV Charts
         apvWFShareholderValues = BHChartFactory.getWaterfallChart(BHResultController.ChartKeys.APV_WF_SV, false, false);
@@ -100,10 +106,14 @@ public class BH_APV_ResultPanel extends JPanel {
 	        this.add(valueInfiniteFormula, "3,5");
 	        this.add(finiteFormula, "3,7");
 	        this.add(valueFiniteFormula, "3,9");
-        }
-
-        this.add(apvWFShareholderValues, "3,11");        
-        this.add(apvBCCapitalStructure, "3,13");
-        
+	        this.add(apvWFShareholderValues, "3,11");        
+	        this.add(apvBCCapitalStructure, "3,13");
+        }else{
+        	JPanel panel = new JPanel();
+	        panel.setBorder(BorderFactory.createTitledBorder(BorderFactory.createEtchedBorder(EtchedBorder.LOWERED), Services.getTranslator().translate("org.bh.plugin.pdfexport.ITextDocumentBuilder$Keys.CHARTS")));
+	    
+	        this.add(apvWFShareholderValues, "3,3");        
+	        this.add(apvBCCapitalStructure, "3,5");
+        }        
     }
 }
