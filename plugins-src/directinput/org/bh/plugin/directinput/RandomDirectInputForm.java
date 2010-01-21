@@ -29,20 +29,20 @@ public class RandomDirectInputForm extends JPanel {
      */
     public RandomDirectInputForm() {
 	
-	String rowDef = "4px,p,4px,p,4px,p,4px";
-	String colDef = "4px,right:pref,4px,150px:grow,4px,pref,4px";
+	String rowDef = "4px,p,4px,p,4px";
+	String colDef = "4px,right:pref,10px,right:pref,4px,p,4px";
 
 	FormLayout layout = new FormLayout(colDef, rowDef);
 	this.setLayout(layout);
 
 	CellConstraints cons = new CellConstraints();
 
-	this.add(this.getLfcf(), cons.xywh(2, 4, 1, 1));
-	this.add(this.getTffcf(), cons.xywh(4, 4, 1, 1));
-	this.add(this.getLcurrency1(), cons.xywh(6, 4, 1, 1));
-	this.add(this.getLliabilities(), cons.xywh(2, 6, 1, 1));
-	this.add(this.getTfliabilities(), cons.xywh(4, 6, 1, 1));
-	this.add(this.getLcurrency2(), cons.xywh(6, 6, 1, 1));
+	this.add(this.getLfcf(), cons.xywh(2, 2, 1, 1));
+	this.add(this.getTffcf(), cons.xywh(4, 2, 1, 1));
+	this.add(this.getLcurrency1(), cons.xywh(6, 2, 1, 1));
+	this.add(this.getLliabilities(), cons.xywh(2, 4, 1, 1));
+	this.add(this.getTfliabilities(), cons.xywh(4, 4, 1, 1));
+	this.add(this.getLcurrency2(), cons.xywh(6, 4, 1, 1));
     }
 
 
