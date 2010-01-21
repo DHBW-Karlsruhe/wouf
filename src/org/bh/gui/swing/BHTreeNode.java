@@ -6,6 +6,7 @@ import javax.swing.tree.DefaultMutableTreeNode;
 
 import org.bh.controller.InputController;
 import org.bh.data.DTO;
+import org.bh.data.DTOAccessException;
 import org.bh.data.DTOPeriod;
 import org.bh.data.DTOProject;
 import org.bh.data.DTOScenario;
@@ -33,11 +34,25 @@ public class BHTreeNode extends DefaultMutableTreeNode{
 	@Override
 	public String toString(){
 		if(this.getUserObject() instanceof DTOProject){
-			return ((StringValue)((DTO<?>)userObject).get(DTOProject.Key.NAME)).getString();
+			try{
+				return ((StringValue)((DTO<?>)userObject).get(DTOProject.Key.NAME)).getString();
+			}catch(DTOAccessException e){
+				return "";
+			}
+			
 		}else if(this.getUserObject() instanceof DTOScenario){
-			return ((StringValue)((DTO<?>)userObject).get(DTOScenario.Key.NAME)).getString();
+			try{
+				return ((StringValue)((DTO<?>)userObject).get(DTOScenario.Key.NAME)).getString();
+			}catch(DTOAccessException e){
+				return "";
+			}
+			
 		}else if(this.getUserObject() instanceof DTOPeriod){
-			return ((StringValue)((DTO<?>)userObject).get(DTOPeriod.Key.NAME)).getString();
+			try{
+				return ((StringValue)((DTO<?>)userObject).get(DTOPeriod.Key.NAME)).getString();
+			}catch(DTOAccessException e){
+				return "";
+			}
 		}
 		
 		return "Type not known - must be implemented in BHTreeNode";

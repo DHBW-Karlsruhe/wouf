@@ -88,15 +88,6 @@ public class BHTree extends JTree{
 			"/org/bh/images/tree/error.png", Services.getTranslator()
 					.translate("error"));
 
-	/**
-	 * Node that holds all projects (which contain scenarios). This node is not
-	 * visible on GUI. It's only technically necessary.
-	 */
-
-	protected DefaultMutableTreeNode rootNode;
-	protected DefaultTreeModel treeModel;
-
-	DefaultTreeModel model;
 	
 	/**
 	 * right-click popup for tree nodes with functions like 'remove' etc.

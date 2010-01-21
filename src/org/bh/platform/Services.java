@@ -340,33 +340,7 @@ public class Services {
 		return null;
 
 	}
-
-	public static void startPeriodEditing(DTOPeriod period) {
-		IPeriodController periodController = Services
-				.getPeriodController(period.getScenario().get(
-						DTOScenario.Key.PERIOD_TYPE).toString());
-		Component viewComponent = periodController.editDTO(period);
-		BHPeriodForm container = new BHPeriodForm();
-		try {
-			View periodView = new View(container.getPperiod(),
-					new ValidationMethods());
-			InputController controller = new InputController(periodView, period);
-			controller.loadAllToView();
-		} catch (ViewException e) {
-			// should not happen
-			log.error("Cannot create period view", e);
-		}
-
-		container.setPvalues((JPanel) viewComponent);
-		bhmf.setContentForm(container);
-	}
 	
-	//TODO Schmalzhaf.Alexander kann das weg
-	/*
-	public static JSplitPane createContentResultForm(Component chart) {
-		return bhmf.setResultForm(chart);
-	}
-	*/
 
 	/**
 	 * Checks if JRE is fulfilling the requirements for Business Horizon.

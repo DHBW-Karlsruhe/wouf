@@ -665,8 +665,6 @@ class PlatformActionListener implements ActionListener {
 					new TreePath(newPeriodNode.getPath()));
 			bhmf.getBHTree().startEditingAtPath(
 					new TreePath(newPeriodNode.getPath()));
-
-			Services.startPeriodEditing(newPeriod);
 		}
 	}
 	
