@@ -197,4 +197,9 @@ public interface IDTO<ChildT extends IDTO> extends Cloneable, Serializable, Iter
 	 * @return
 	 */
 	boolean isMeOrChild(Object checkDto);
+
+	/**
+	 * Convert all intervals to double values in this DTO and its children.
+	 */
+	public void convertIntervalToDouble();
 }

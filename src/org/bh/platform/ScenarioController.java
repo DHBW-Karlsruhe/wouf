@@ -35,7 +35,6 @@ import org.bh.gui.ValidationMethods;
 import org.bh.gui.View;
 import org.bh.gui.ViewEvent;
 import org.bh.gui.ViewException;
-import org.bh.gui.chart.BHChartFactory;
 import org.bh.gui.swing.BHButton;
 import org.bh.gui.swing.BHCheckBox;
 import org.bh.gui.swing.BHComboBox;
@@ -48,9 +47,6 @@ import org.bh.gui.swing.BHTree;
 import org.bh.gui.swing.BHTreeNode;
 import org.bh.gui.swing.IBHModelComponent;
 import org.bh.platform.PlatformEvent.Type;
-import org.bh.platform.formula.FormulaFactoryImpl;
-import org.bh.platform.formula.IFormulaFactory;
-import org.jfree.chart.ChartFactory;
 
 public class ScenarioController extends InputController {
 	protected static final BHComboBox.Item[] DCF_METHOD_ITEMS = getDcfMethodItems();
@@ -175,6 +171,9 @@ public class ScenarioController extends InputController {
 						public void compValueChanged(IBHModelComponent comp) {
 							saveToModel(comp);
 							DTOScenario scenario = (DTOScenario) getModel();
+							if (!scenario.isIntervalArithmetic()) {
+								scenario.convertIntervalToDouble();
+							}
 							((BHScenarioForm) getViewPanel())
 									.setHeadPanel(scenario
 											.isIntervalArithmetic());

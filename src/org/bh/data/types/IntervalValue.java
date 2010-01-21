@@ -425,7 +425,7 @@ public class IntervalValue extends Calculable {
 	public Number parse() {
 		// FIXME this should not be called for intervals, but we don't want the
 		// app to crash
-		return (min + max) / 2;
+		return min;
 	}
 	
 	

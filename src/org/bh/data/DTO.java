@@ -18,7 +18,9 @@ import java.util.Map;
 
 import org.apache.log4j.Logger;
 import org.bh.data.types.Calculable;
+import org.bh.data.types.DoubleValue;
 import org.bh.data.types.IValue;
+import org.bh.data.types.IntervalValue;
 import org.bh.platform.PlatformEvent;
 import org.bh.platform.PluginManager;
 import org.bh.platform.Services;
@@ -274,18 +276,18 @@ public abstract class DTO<ChildT extends IDTO> implements IDTO<ChildT> {
 		throw new DTOAccessException(
 				"The child is already assigned to this DTO!");
 	}
-	
-	public void addChildToPosition (ChildT child, int pos) {
+
+	public void addChildToPosition(ChildT child, int pos) {
 		try {
 			if (pos > children.size()) {
-				children.addLast(child);		
+				children.addLast(child);
 			} else {
 				children.add(pos, child);
 			}
 		} catch (Exception e) {
 			throw new DTOAccessException(e.toString());
 		}
-		
+
 	}
 
 	@Override
@@ -309,12 +311,12 @@ public abstract class DTO<ChildT extends IDTO> implements IDTO<ChildT> {
 	public ChildT getLastChild() {
 		return children.getLast();
 	}
-	
+
 	@Override
-	public ChildT getFirstChild(){
+	public ChildT getFirstChild() {
 		return children.getFirst();
 	}
-	
+
 	@Override
 	public ChildT removeChild(int index) throws DTOAccessException {
 		try {
@@ -486,13 +488,26 @@ public abstract class DTO<ChildT extends IDTO> implements IDTO<ChildT> {
 	public static void setThrowEvents(boolean throwEvents) {
 		DTO.throwEvents = throwEvents;
 	}
-	
-	public static void copyValues(DTO<?> source, DTO<?> target)
-	{
+
+	public static void copyValues(DTO<?> source, DTO<?> target) {
 		if (source.getClass().equals(target.getClass()))
-			for (Map.Entry<String, IValue> entry : source.values.entrySet())
-			{
+			for (Map.Entry<String, IValue> entry : source.values.entrySet()) {
 				target.put(entry.getKey(), entry.getValue());
 			}
+	}
+
+	@Override
+	public void convertIntervalToDouble() {
+		for (Map.Entry<String, IValue> entry : values.entrySet()) {
+			IValue value = entry.getValue();
+			if (value instanceof IntervalValue) {
+				values.put(entry.getKey(), new DoubleValue(
+						((IntervalValue) value).getMin()));
+			}
+		}
+		
+		for (ChildT child : children) {
+			child.convertIntervalToDouble();
+		}
 	}
 }
