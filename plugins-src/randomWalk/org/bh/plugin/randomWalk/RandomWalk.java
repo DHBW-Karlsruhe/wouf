@@ -4,6 +4,7 @@ import java.awt.Component;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Random;
 import java.util.TreeMap;
 import java.util.Map.Entry;
 
@@ -56,6 +57,7 @@ public class RandomWalk implements IStochasticProcess {
 
 	private static final String UNIQUE_ID = "randomWalk";
 	private static final String GUI_KEY = "randomWalk";
+	private static final int NUM_THREADS = Runtime.getRuntime().availableProcessors();
 
 	private DTOScenario scenario;
 	private JPanel panel;
@@ -71,54 +73,115 @@ public class RandomWalk implements IStochasticProcess {
 		List<DTOKeyPair> stochasticKeys = scenario.getPeriodStochasticKeys();
 		IShareholderValueCalculator dcfMethod = scenario.getDCFMethod();
 
-		int repetitions = map.get(REPETITIONS);
+		Countdown countdown = new Countdown(map.get(REPETITIONS));
 		int stepsPerPeriod = map.get(STEPS_PER_PERIOD);
 		int amountOfPeriods = map.get(AMOUNT_OF_PERIODS);
 
 		DTO.setThrowEvents(false);
-		DTOScenario tempScenario = new DTOScenario(true);
-		tempScenario
-				.put(DTOScenario.Key.REK, scenario.get(DTOScenario.Key.REK));
-		tempScenario
-				.put(DTOScenario.Key.RFK, scenario.get(DTOScenario.Key.RFK));
-		tempScenario.put(DTOScenario.Key.BTAX, scenario
-				.get(DTOScenario.Key.BTAX));
-		tempScenario.put(DTOScenario.Key.CTAX, scenario
-				.get(DTOScenario.Key.CTAX));
+		DTOScenario[] tempScenarios = new DTOScenario[NUM_THREADS];
+		
+		CalculationThread[] threads = new CalculationThread[NUM_THREADS];
+		for (int i = 0; i < NUM_THREADS; i++) {
+			DTOScenario tempScenario = tempScenarios[i] = new DTOScenario(true);
+			tempScenario.put(DTOScenario.Key.REK, scenario
+					.get(DTOScenario.Key.REK));
+			tempScenario.put(DTOScenario.Key.RFK, scenario
+					.get(DTOScenario.Key.RFK));
+			tempScenario.put(DTOScenario.Key.BTAX, scenario
+					.get(DTOScenario.Key.BTAX));
+			tempScenario.put(DTOScenario.Key.CTAX, scenario
+					.get(DTOScenario.Key.CTAX));
 
-		for (int i = 0; i < amountOfPeriods; i++) {
-			tempScenario.addChild((DTOPeriod) last.clone());
-		}
-
-		for (int j = 0; j < repetitions; j++) {
-			DTOPeriod previous = last.getPrevious();
-			for (DTOPeriod period : tempScenario.getChildren()) {
-				for (DTOKeyPair key : stochasticKeys) {
-					IPeriodicalValuesDTO pvdto = period
-							.getPeriodicalValuesDTO(key.getDtoId());
-					IPeriodicalValuesDTO previousDto = previous
-							.getPeriodicalValuesDTO(key.getDtoId());
-					Calculable previousValue = previousDto.getCalculable(key
-							.getKey());
-					pvdto.put(key.getKey(), this.doOneRandomWalk(previousValue,
-							stepsPerPeriod, this.internalMap.get(key.getKey()
-									+ CHANCE), this.internalMap.get(key
-									.getKey()
-									+ INCREMENT)));
-				}
-				previous = period;
+			for (int j = 0; j < amountOfPeriods; j++) {
+				tempScenario.addChild((DTOPeriod) last.clone());
 			}
 
-			Map<String, Calculable[]> dcfResult = dcfMethod.calculate(
-					tempScenario, false);
-
-			result.put(((DoubleValue) dcfResult
-					.get(IShareholderValueCalculator.Result.SHAREHOLDER_VALUE
-							.toString())[0]).getValue());
+			threads[i] = new CalculationThread(countdown,
+					stepsPerPeriod, stochasticKeys, tempScenario, result,
+					dcfMethod, last);
+			threads[i].setName("Random Walk " + (i+1));
+			threads[i].start();
 		}
+		
+		for (int i = 0; i < NUM_THREADS; i++) {
+			try {
+				threads[i].join();
+			} catch (InterruptedException e) {
+				log.error("", e);
+			}
+		}
+
 		DTO.setThrowEvents(true);
 		log.info("Random walk finished");
+
 		return result;
+	}
+
+	protected class CalculationThread extends Thread {
+		private Countdown countdown;
+		private int stepsPerPeriod;
+		private List<DTOKeyPair> stochasticKeys;
+		private DTOScenario tempScenario;
+		private DistributionMap result;
+		private IShareholderValueCalculator dcfMethod;
+		private DTOPeriod last;
+		private Random random = new Random();
+
+		public CalculationThread(Countdown countdown, int stepsPerPeriod,
+				List<DTOKeyPair> stochasticKeys, DTOScenario tempScenario,
+				DistributionMap result, IShareholderValueCalculator dcfMethod,
+				DTOPeriod last) {
+			super();
+			this.countdown = countdown;
+			this.stepsPerPeriod = stepsPerPeriod;
+			this.stochasticKeys = stochasticKeys;
+			this.tempScenario = tempScenario;
+			this.result = result;
+			this.dcfMethod = dcfMethod;
+			this.last = last;
+		}
+
+		@Override
+		public void run() {
+			while (countdown.hasRunsLeft()) {
+				DTOPeriod previous = last.getPrevious();
+				for (DTOPeriod period : tempScenario.getChildren()) {
+					for (DTOKeyPair key : stochasticKeys) {
+						IPeriodicalValuesDTO pvdto = period
+								.getPeriodicalValuesDTO(key.getDtoId());
+						IPeriodicalValuesDTO previousDto = previous
+								.getPeriodicalValuesDTO(key.getDtoId());
+						Calculable previousValue = previousDto
+								.getCalculable(key.getKey());
+						pvdto.put(key.getKey(), doOneRandomWalk(previousValue,
+								stepsPerPeriod, internalMap.get(key.getKey()
+										+ CHANCE), internalMap.get(key.getKey()
+										+ INCREMENT), random));
+					}
+					previous = period;
+				}
+
+				Map<String, Calculable[]> dcfResult = dcfMethod.calculate(
+						tempScenario, false);
+
+				result
+						.put(((DoubleValue) dcfResult
+								.get(IShareholderValueCalculator.Result.SHAREHOLDER_VALUE
+										.toString())[0]).getValue());
+			}
+		}
+	}
+
+	protected class Countdown {
+		private int runsLeft;
+
+		public Countdown(int runs) {
+			runsLeft = runs;
+		}
+
+		public synchronized boolean hasRunsLeft() {
+			return (--runsLeft >= 0);
+		}
 	}
 
 	@Override
@@ -182,12 +245,14 @@ public class RandomWalk implements IStochasticProcess {
 
 			// TODO Patrick H. Validation Rule, not all 0.0 or 1.0
 
-			BHTextField tfchance = new BHTextField(key + CHANCE, Services.numberToString(chance));
+			BHTextField tfchance = new BHTextField(key + CHANCE, Services
+					.numberToString(chance));
 			ValidationRule[] rules_chance = { VRMandatory.INSTANCE,
 					VRIsDouble.INSTANCE };
 			tfchance.setValidationRules(rules_chance);
 
-			BHTextField tfincrement = new BHTextField(key + INCREMENT, Services.numberToString(increment));
+			BHTextField tfincrement = new BHTextField(key + INCREMENT, Services
+					.numberToString(increment));
 			ValidationRule[] rules_increment = { VRMandatory.INSTANCE,
 					VRIsDouble.INSTANCE };
 			tfincrement.setValidationRules(rules_increment);
@@ -278,10 +343,10 @@ public class RandomWalk implements IStochasticProcess {
 	}
 
 	private Calculable doOneRandomWalk(Calculable lastValue, int amountOfSteps,
-			double chance, double increment) {
+			double chance, double increment, Random random) {
 		int inc = 0;
 		for (int i = 0; i < amountOfSteps; i++) {
-			if (Math.random() < chance)
+			if (random.nextDouble() < chance)
 				inc++;
 			else
 				inc--;

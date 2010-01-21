@@ -1,7 +1,6 @@
 package org.bh.data.types;
 
 import java.util.Collection;
-import java.util.Comparator;
 import java.util.Iterator;
 import java.util.Map;
 import java.util.Set;
@@ -51,16 +50,7 @@ public class DistributionMap implements Map<Double, Integer>,
 		this.amountOfValues = 0;
 		sumOfValues = 0;
 		this.tolerance = tolerance;
-		map = new TreeMap<Double, Integer>(new Comparator<Double>() {
-			public int compare(Double o1, Double o2) {
-				if (o1 < o2)
-					return -1;
-				else if (o1 > o2)
-					return 1;
-				else
-					return 0;
-			}
-		});
+		map = new TreeMap<Double, Integer>();
 	}
 
 	/**
@@ -71,7 +61,7 @@ public class DistributionMap implements Map<Double, Integer>,
 	 * @param value
 	 *            The value that should be added to the Map.
 	 */
-	public void put(double value) {
+	public synchronized void put(double value) {
 		if (tolerance == 0) {
 			if (map.containsKey(value)) {
 				int number = map.get(value);
