@@ -131,7 +131,7 @@ public class FTECalculator implements IShareholderValueCalculator {
 			LOG.debug("FTEInterest[T] (FKR * FK[T]): " + FTEInterest[T]);
 			LOG.debug("FTETaxShield[T](s * FK[T]): " + FTETaxShield[T]);
 			LOG.debug("FTE[T]: (fcf[T] + FTETaxShield[T] - FTEInterest[T]): "
-					+ FTETaxShield[T]);
+					+ FTE[T]);
 		}
 		for (int t = T - 1; t >= 1; t--) {
 			FTEDebtAmort[t] = fk[t].sub(fk[t - 1]);
@@ -181,7 +181,12 @@ public class FTECalculator implements IShareholderValueCalculator {
 			}
 			// Calculation of the enterprise value
 			// UW[T] = FTE[T] / EKrFTE[T]
+			
 			uw[T] = FTE[T].div(EKrFTE[T]);
+			if (verboseLogging && LOG.isDebugEnabled()) {
+				LOG.debug("uw[T](FTE[T] / EKrFTE[T]): " + FTE[T] + "/" + EKrFTE[T] + " = " + uw[T]  );
+			}
+			
 			for (int t = T - 1; t >= 0; t--) {
 				// UW[t] = (UW[t+1] + FTE[t+1]) / (EKrFTE[t+1] + 1)
 				uw[t] = (uw[t + 1].add(FTE[t + 1])).div(EKrFTE[t + 1]
