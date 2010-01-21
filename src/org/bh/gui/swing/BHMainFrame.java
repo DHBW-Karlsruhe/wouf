@@ -158,6 +158,7 @@ public class BHMainFrame extends JFrame implements IPlatformListener, TimingTarg
 		content = new BHContent();
 		//Create vertical split pane 
 		paneV = new JSplitPane(JSplitPane.VERTICAL_SPLIT, content, resultForm);
+		paneV.setOneTouchExpandable(true);
 		
 		// Create the horizontal split pane and put the treeBar and the content
 		// in it.
