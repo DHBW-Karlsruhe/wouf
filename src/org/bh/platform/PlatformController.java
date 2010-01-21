@@ -283,21 +283,25 @@ public class PlatformController {
 			}
 
 			if (e.getSource() instanceof DTO<?>) {
-				// check if data has changed and remove result panel from
-				// scenario then...
+				// check if data has changed and 
+				// a) remove result panel from scenario
+				// b) dashboard from project 
+				//then...
 				ArrayList<BHTreeNode> scenarioNodes = bhmf.getBHTree()
 						.getScenarioNodes();
 				if (!scenarioNodes.isEmpty()) {
 					for (BHTreeNode scenarioNode : scenarioNodes) {
 						if (((DTOScenario) scenarioNode.getUserObject())
-								.isMeOrChild(e.getSource())
-								&& scenarioNode.getResultPane() != null) {
+								.isMeOrChild(e.getSource())) {
 							scenarioNode.setResultPane(null);
-
+							
+							//throw away dashboard of corresponding project
+							((BHTreeNode)scenarioNode.getParent()).setResultPane(null);
+							
 							// throw away present screen, if scenario is on
 							// screen
 							TreePath tp = bhmf.getBHTree().getSelectionPath();
-							if (tp.getPathCount() == 3) {
+							if (tp.getPathCount() == 3 || tp.getPathCount() == 2 ) {
 								bhmf.moveOutResultForm();
 
 							}
