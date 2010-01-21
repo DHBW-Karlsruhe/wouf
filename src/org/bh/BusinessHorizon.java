@@ -61,6 +61,11 @@ public class BusinessHorizon {
 		System.setSecurityManager(null);
 		
 		PluginManager.init();
+		
+		
+		// set menu name
+		if(System.getProperty("os.name").startsWith("Mac OS X"))
+			System.setProperty("com.apple.mrj.application.apple.menu.about.name", "Business Horizon");
 
 		// set Look&Feel
 		Services.setNimbusLookAndFeel();
