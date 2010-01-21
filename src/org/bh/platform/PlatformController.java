@@ -27,6 +27,7 @@ import org.bh.data.types.StringValue;
 import org.bh.gui.ValidationMethods;
 import org.bh.gui.View;
 import org.bh.gui.ViewException;
+import org.bh.gui.chart.BHChartFactory;
 import org.bh.gui.swing.BHButton;
 import org.bh.gui.swing.BHContent;
 import org.bh.gui.swing.BHDataExchangeDialog;
@@ -40,6 +41,7 @@ import org.bh.gui.swing.BHScenarioView;
 import org.bh.gui.swing.BHTreeNode;
 import org.bh.gui.swing.IBHAction;
 import org.bh.platform.PlatformEvent.Type;
+import org.bh.platform.formula.IFormulaFactory;
 
 /**
  * The Platform Controller handles a) start up of the application b) main
@@ -109,7 +111,14 @@ public class PlatformController {
 	}
 
 	private PlatformController() {
-
+		
+		/*------------------------------------
+		 * Pre initialization of formula & charts
+		 * gains 400ms on first calculation (Core 2Duo T7500, 2GB Ram)
+		 */
+		IFormulaFactory.instance.initialInit();
+		BHChartFactory.initialInit();
+		
 		/*------------------------------------
 		 * start mainFrame
 		 * -----------------------------------

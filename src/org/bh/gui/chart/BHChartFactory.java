@@ -1,5 +1,7 @@
 package org.bh.gui.chart;
 
+import javax.swing.JPanel;
+
 import org.bh.platform.Services;
 import org.bh.platform.i18n.ITranslator;
 import org.jfree.data.category.DefaultCategoryDataset;
@@ -212,4 +214,22 @@ public class BHChartFactory {
         axes[1] = translator.translate(key.toString().concat(BHChart.DIMY));
         return axes;
     }
+    
+    public static void initialInit() {
+        JPanel initPanel = new JPanel();
+    	initPanel.add(getLineChart(init.INIT.toString()));
+    	initPanel.add(getWaterfallChart(init.INIT.toString(), true, true));
+    	initPanel.add(getBarChart(init.INIT.toString(), true, true));
+    	initPanel.add(getStackedBarChart(init.INIT.toString(), true, true));
+    	initPanel.add(getPieChart(init.INIT.toString()));
+    }
+	
+    private enum init{
+		INIT;
+		
+		@Override
+		public String toString() {
+			return getClass().getName() + "." + super.toString();
+		}
+	}
 }

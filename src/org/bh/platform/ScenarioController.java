@@ -35,6 +35,7 @@ import org.bh.gui.ValidationMethods;
 import org.bh.gui.View;
 import org.bh.gui.ViewEvent;
 import org.bh.gui.ViewException;
+import org.bh.gui.chart.BHChartFactory;
 import org.bh.gui.swing.BHButton;
 import org.bh.gui.swing.BHCheckBox;
 import org.bh.gui.swing.BHComboBox;
@@ -47,6 +48,9 @@ import org.bh.gui.swing.BHTree;
 import org.bh.gui.swing.BHTreeNode;
 import org.bh.gui.swing.IBHModelComponent;
 import org.bh.platform.PlatformEvent.Type;
+import org.bh.platform.formula.FormulaFactoryImpl;
+import org.bh.platform.formula.IFormulaFactory;
+import org.jfree.chart.ChartFactory;
 
 public class ScenarioController extends InputController {
 	protected static final BHComboBox.Item[] DCF_METHOD_ITEMS = getDcfMethodItems();
@@ -344,7 +348,10 @@ public class ScenarioController extends InputController {
 			b.setIcon(this.scCalcLoading);
 
 			Runnable r = new Runnable() {
-
+				long end;
+				long start;
+				
+				@SuppressWarnings("synthetic-access")
 				@Override
 				public void run() {
 					DTOScenario scenario = (DTOScenario) getModel();
@@ -355,6 +362,9 @@ public class ScenarioController extends InputController {
 								.getDCFMethod().calculate(scenario, true);
 
 						// FIXME selection of result analyser plugin
+						if(log.isDebugEnabled()) {
+							start =  System.currentTimeMillis();
+						}
 						panel = new JPanel();
 						for (IDeterministicResultAnalyser analyser : PluginManager
 								.getInstance().getServices(
@@ -367,6 +377,10 @@ public class ScenarioController extends InputController {
 								.getPathComponent(2);
 
 						tn.setResultPane(new JScrollPane(panel));
+						if(log.isDebugEnabled()) {
+							end = System.currentTimeMillis();
+							log.info("Result Analysis View load time: " +  (end - start) + "ms");
+						}
 					} else {
 						process.updateParameters();
 						DistributionMap result = process.calculate();

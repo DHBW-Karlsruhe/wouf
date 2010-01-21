@@ -7,6 +7,7 @@ import java.io.InputStream;
 import javax.xml.parsers.ParserConfigurationException;
 
 import net.sourceforge.jeuclid.MathMLParserSupport;
+import net.sourceforge.jeuclid.swing.JMathComponent;
 
 import org.bh.platform.expression.ExpressionException;
 import org.bh.platform.expression.IExpression;
@@ -70,8 +71,8 @@ public class FormulaFactoryImpl implements IFormulaFactory {
 
 		// first child of the formula is the equal sign and the next sibling is
 		// the left-hand side of the equation (don't forget the text nodes)
-		leftHandSideNode = formula.getFirstChild().getNextSibling()
-				.getNextSibling().getNextSibling();
+		leftHandSideNode = formula.getFirstChild().getNextSibling();
+				//.getNextSibling().getNextSibling();
 		leftHandSide = leftHandSideNode.getTextContent();
 
 		if (initExpression) {
@@ -149,5 +150,18 @@ public class FormulaFactoryImpl implements IFormulaFactory {
 	@Override
 	public IFormula createFormula(String name, File mathMlDoc) throws FormulaException {
 		return createFormula(name, mathMlDoc, true);
+	}
+
+	@Override
+	public void initialInit() {
+		try {
+			IFormula f = createFormula("init", "<math xmlns=\"http://www.w3.org/1998/Math/MathML\"><apply><eq/><ci>TEST</ci><ci>InitialLoad</ci></apply></math>", false);
+			f.getJMathComponent();
+			f.getIcon();
+		} catch (FormulaException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
 	}
 }

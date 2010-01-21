@@ -11,7 +11,7 @@ import org.w3c.dom.Document;
 public interface IFormulaFactory {
 
 	/** The instance of the currently used IFormulaFactory implementation. */
-	static IFormulaFactory instance = new FormulaFactoryImpl();
+	IFormulaFactory instance = new FormulaFactoryImpl();
 
 	/**
 	 * Creates a new IFormula object.
@@ -87,4 +87,6 @@ public interface IFormulaFactory {
 
 	IFormula createFormula(String name, File mathMlDoc, boolean initExpression)
 			throws FormulaException;
+	
+	void initialInit();
 }
