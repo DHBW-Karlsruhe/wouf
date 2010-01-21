@@ -1,9 +1,14 @@
 package org.bh.tests.junit;
 
 
+import static org.junit.Assert.*;
+
+import java.util.Map;
+
 import org.bh.calculation.IShareholderValueCalculator;
 import org.bh.data.DTOPeriod;
 import org.bh.data.DTOScenario;
+import org.bh.data.types.Calculable;
 import org.bh.data.types.DoubleValue;
 import org.bh.data.types.IntervalValue;
 import org.bh.data.types.StringValue;
@@ -32,24 +37,31 @@ public class DCFProceduresIntervalValues {
 	DTOPeriod period;
 	DTODirectInput dinp;
 
+    Map<String, Calculable[]> res;
+    Map<String, Calculable[]> res3;
+    Map<String, Calculable[]> res2;
+	private IntervalValue uw0;
+	private IntervalValue uw0_2;
+	private IntervalValue uw0_3;
+	
 	@Before
 	public void setUp() throws Exception {
 		Services.initNumberFormats();
 		
 		scenario = new DTOScenario();
 		scenario.put(DTOScenario.Key.IDENTIFIER, new StringValue("TestScenario"));
-		scenario.put(DTOScenario.Key.RFK, new DoubleValue(0.10));
-		scenario.put(DTOScenario.Key.REK, new DoubleValue(0.11));
+		scenario.put(DTOScenario.Key.RFK, new IntervalValue(0.11, 0.11));
+		scenario.put(DTOScenario.Key.REK, new IntervalValue(0.11, 0.11));
 		
-		scenario.put(DTOScenario.Key.BTAX, new DoubleValue(0.1694));
-		scenario.put(DTOScenario.Key.CTAX, new DoubleValue(0.26375));
+		scenario.put(DTOScenario.Key.BTAX, new IntervalValue(0.12, 0.12));
+		scenario.put(DTOScenario.Key.CTAX, new IntervalValue(0.12, 0.12));
 		
 		period = new DTOPeriod();
 		period.put(DTOPeriod.Key.NAME, new StringValue("2007"));
 		
 		dinp = new DTODirectInput();
-		dinp.put(DTODirectInput.Key.FCF, new IntervalValue(90, 110));
-		dinp.put(DTODirectInput.Key.LIABILITIES, new IntervalValue(900,1100));
+		dinp.put(DTODirectInput.Key.FCF, new IntervalValue(100, 110));
+		dinp.put(DTODirectInput.Key.LIABILITIES, new IntervalValue(1000,1100));
 		
 		period.addChild(dinp);		
 		
@@ -60,8 +72,8 @@ public class DCFProceduresIntervalValues {
 		period.put(DTOPeriod.Key.NAME, new StringValue("2008"));
 		
 		dinp = new DTODirectInput();
-		dinp.put(DTODirectInput.Key.FCF, new IntervalValue(100, 120));
-		dinp.put(DTODirectInput.Key.LIABILITIES, new IntervalValue(1000,1200));
+		dinp.put(DTODirectInput.Key.FCF, new IntervalValue(110, 120));
+		dinp.put(DTODirectInput.Key.LIABILITIES, new IntervalValue(1101,1200));
 		
 		period.addChild(dinp);		
 		
@@ -72,8 +84,8 @@ public class DCFProceduresIntervalValues {
 		period.put(DTOPeriod.Key.NAME, new StringValue("2009"));
 		
 		dinp = new DTODirectInput();
-		dinp.put(DTODirectInput.Key.FCF, new IntervalValue(110,130));
-		dinp.put(DTODirectInput.Key.LIABILITIES, new IntervalValue(1100,1300));
+		dinp.put(DTODirectInput.Key.FCF, new IntervalValue(120,130));
+		dinp.put(DTODirectInput.Key.LIABILITIES, new IntervalValue(1201,1300));
 		
 		period.addChild(dinp);		
 		
@@ -107,13 +119,13 @@ public class DCFProceduresIntervalValues {
 		svCalc3 = new FCFCalculator();
 		
 		//uncommented to not cause performance issues on build server
-		//res = svCalc.calculate(scenario);
-		//res2 = svCalc2.calculate(scenario);
-		//res3 = svCalc3.calculate(scenario);
-		
-		//uw0 = ((IntervalValue)res.get(IShareholderValueCalculator.SHAREHOLDER_VALUE)[0]);
-		//uw0_2 = ((IntervalValue)res2.get(IShareholderValueCalculator.SHAREHOLDER_VALUE)[0]);
-		//uw0_3 = ((IntervalValue)res3.get(IShareholderValueCalculator.SHAREHOLDER_VALUE)[0]);
+//		res = svCalc.calculate(scenario, true);
+//		res2 = svCalc2.calculate(scenario, true);
+//		res3 = svCalc3.calculate(scenario, true);
+//		
+//		uw0 = ((IntervalValue)res.get(IShareholderValueCalculator.Result.SHAREHOLDER_VALUE.toString())[0]);
+//		uw0_2 = ((IntervalValue)res2.get(IShareholderValueCalculator.Result.SHAREHOLDER_VALUE.toString())[0]);
+//		uw0_3 = ((IntervalValue)res3.get(IShareholderValueCalculator.Result.SHAREHOLDER_VALUE.toString())[0]);
 		
 		//TODO ask Mr. Ratz whether different results are okay
 		//assertTrue("Equal results for APV, FTE, FCF procedure expected. Results were " + uw0 + ", " + uw0_2 + ", " + uw0_3 + " instead.", uw0.equals(uw0_2) && uw0.equals(uw0_3));
