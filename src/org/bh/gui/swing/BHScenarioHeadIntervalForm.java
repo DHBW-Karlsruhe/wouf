@@ -363,7 +363,7 @@ public class BHScenarioHeadIntervalForm extends JPanel {
 	public BHTextField gettfbaseYear() {
 
 		if (this.tfbaseyear == null) {
-			this.tfbaseyear = new BHTextField(DTOScenario.Key.IDENTIFIER);
+			this.tfbaseyear = new BHTextField(DTOScenario.Key.IDENTIFIER, false);
 			ValidationRule[] rules = { VRMandatory.INSTANCE,
 					VRIsInteger.INSTANCE };
 			tfbaseyear.setValidationRules(rules);

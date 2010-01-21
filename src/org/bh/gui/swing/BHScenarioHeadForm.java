@@ -340,7 +340,7 @@ public class BHScenarioHeadForm extends JPanel {
 	public BHTextField gettfBase() {
 
 		if (this.tfBase == null) {
-			this.tfBase = new BHTextField(DTOScenario.Key.IDENTIFIER);
+			this.tfBase = new BHTextField(DTOScenario.Key.IDENTIFIER, false);
 			ValidationRule[] rules = { VRMandatory.INSTANCE,
 					VRIsInteger.INSTANCE };
 			tfBase.setValidationRules(rules);
