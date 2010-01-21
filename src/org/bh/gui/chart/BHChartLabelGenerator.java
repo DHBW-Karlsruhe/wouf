@@ -26,4 +26,5 @@ public class BHChartLabelGenerator extends AbstractCategoryItemLabelGenerator
 		}
 		return result;
 	}
+	
 }

@@ -9,7 +9,6 @@ import org.bh.platform.PlatformEvent;
 import org.bh.platform.Services;
 import org.bh.platform.PlatformEvent.Type;
 import org.jfree.chart.ChartFactory;
-import org.jfree.chart.plot.Plot;
 import org.jfree.chart.plot.PlotOrientation;
 import org.jfree.data.general.Dataset;
 import org.jfree.data.statistics.HistogramDataset;

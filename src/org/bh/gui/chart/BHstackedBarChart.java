@@ -92,8 +92,12 @@ import org.jfree.ui.TextAnchor;
 
 		@Override
 		public final void addValue(Number value, Comparable row, Comparable<String> columnKey) {
-			this.dataset.addValue(value, row, columnKey);
-			//chart.fireChartChanged();
+			if(this.dataset.getColumnKeys().indexOf(columnKey) == -1){
+				this.dataset.addValue(value, row, columnKey);
+			}else{
+				this.dataset.addValue(value, row, columnKey+"'");
+			}
+			chart.fireChartChanged();
 		}
 
                 @Override
