@@ -8,6 +8,7 @@ import java.io.StringWriter;
 import java.lang.reflect.Field;
 import java.net.URL;
 import java.text.NumberFormat;
+import java.text.ParsePosition;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -31,16 +32,9 @@ import org.bh.calculation.IShareholderValueCalculator;
 import org.bh.calculation.IStochasticProcess;
 import org.bh.controller.IDataExchangeController;
 import org.bh.controller.IPeriodController;
-import org.bh.controller.InputController;
 import org.bh.data.DTOKeyPair;
-import org.bh.data.DTOPeriod;
-import org.bh.data.DTOScenario;
 import org.bh.data.DTO.Stochastic;
-import org.bh.gui.ValidationMethods;
-import org.bh.gui.View;
-import org.bh.gui.ViewException;
 import org.bh.gui.swing.BHMainFrame;
-import org.bh.gui.swing.BHPeriodForm;
 import org.bh.gui.swing.BHStatusBar;
 import org.bh.gui.swing.BHTextField;
 import org.bh.platform.i18n.BHTranslator;
@@ -444,28 +438,32 @@ public class Services {
 	}
 
 	public static double stringToDouble(String string) {
-		try {
-			return doubleFormat.parse(string).doubleValue();
-		} catch (Exception e) {
+		ParsePosition pp = new ParsePosition(0);
+		Number result = doubleFormat.parse(string, pp);
+		if (result != null && string.length() == pp.getIndex())
+			return result.doubleValue();
+		else
 			return Double.NaN;
-		}
 	}
 
 	public static Integer stringToInt(String string) {
-		try {
-			return integerFormat.parse(string).intValue();
-		} catch (Exception e) {
+		ParsePosition pp = new ParsePosition(0);
+		Number result = integerFormat.parse(string, pp);
+		if (result != null && string.length() == pp.getIndex())
+			return result.intValue();
+		else
 			return null;
-		}
 	}
 	
 	public static double oldStringToDouble(String string) {
 		if (oldDoubleFormat == null)
 			return Double.NaN;
-		try {
-			return oldDoubleFormat.parse(string).doubleValue();
-		} catch (Exception e) {
+		
+		ParsePosition pp = new ParsePosition(0);
+		Number result = oldDoubleFormat.parse(string, pp);
+		if (result != null && string.length() == pp.getIndex())
+			return result.doubleValue();
+		else
 			return Double.NaN;
-		}
 	}
 }
