@@ -3,6 +3,7 @@ package org.bh.platform;
 import java.awt.Color;
 import java.awt.Component;
 import java.awt.Container;
+import java.awt.Image;
 import java.io.StringWriter;
 import java.lang.reflect.Field;
 import java.net.URL;
@@ -15,6 +16,7 @@ import java.util.ServiceLoader;
 import java.util.StringTokenizer;
 import java.util.Map.Entry;
 
+import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
 import javax.swing.JPanel;
 import javax.swing.SwingUtilities;
@@ -339,6 +341,26 @@ public class Services {
 		Logger.getLogger(Services.class).debug("Could not find icon " + path);
 		return null;
 
+	}
+	
+	/**
+	 * The setIcon method returns a icon list with the bh-logo in three different resolutions
+	 * 
+	 * @return icons for dialogs
+	 */
+	
+	public static List<Image> setIcon(){
+		try {
+			List<Image> icons = new ArrayList<Image>();
+			icons.add(ImageIO.read(Services.class.getResourceAsStream("/org/bh/images/BH-Logo-16px.png")));
+			icons.add(ImageIO.read(Services.class.getResourceAsStream("/org/bh/images/BH-Logo-32px.png")));
+			icons.add(ImageIO.read(Services.class.getResourceAsStream("/org/bh/images/BH-Logo-48px.png")));
+			return icons;
+		} catch (Exception e) {
+			log.error("Failed to load IconImage", e);
+			return null;
+		}
+		
 	}
 	
 

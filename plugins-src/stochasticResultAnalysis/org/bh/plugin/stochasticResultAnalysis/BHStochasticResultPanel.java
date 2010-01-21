@@ -49,16 +49,8 @@ public class BHStochasticResultPanel extends JPanel{
 				dialog.setModel(scenario);
 				dialog.setResults(result);
 				
-				try {
-					List<Image> icons = new ArrayList<Image>();
-					icons.add(ImageIO.read(getClass().getResourceAsStream("/org/bh/images/BH-Logo-16px.png")));
-					icons.add(ImageIO.read(getClass().getResourceAsStream("/org/bh/images/BH-Logo-32px.png")));
-					icons.add(ImageIO.read(getClass().getResourceAsStream("/org/bh/images/BH-Logo-48px.png")));
-					dialog.setIconImages(icons);
-				} catch (Exception eI) {
-					log.error("Failed to load IconImage", eI);
-				}
-				
+				dialog.setIconImages(Services.setIcon());
+								
 				List<JFreeChart> charts = new ArrayList<JFreeChart>();
 				for(Component c : mainPanel.getComponents()) {
 					if(c instanceof BHChartPanel) {

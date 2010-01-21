@@ -59,15 +59,7 @@ public class BHOptionDialog extends JDialog implements ActionListener,
 		this.setSize(400,200);
 		this.setProperties();
 		
-		try {
-			List<Image> icons = new ArrayList<Image>();
-			icons.add(ImageIO.read(getClass().getResourceAsStream("/org/bh/images/BH-Logo-16px.png")));
-			icons.add(ImageIO.read(getClass().getResourceAsStream("/org/bh/images/BH-Logo-32px.png")));
-			icons.add(ImageIO.read(getClass().getResourceAsStream("/org/bh/images/BH-Logo-48px.png")));
-			this.setIconImages(icons);
-		} catch (Exception e) {
-			System.out.println("Fehler beim ImageIcon laden für OptionDialog");;
-		}
+		this.setIconImages(Services.setIcon());
 		
 	}
 	

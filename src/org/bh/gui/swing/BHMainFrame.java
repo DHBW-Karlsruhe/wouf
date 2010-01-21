@@ -199,15 +199,8 @@ public class BHMainFrame extends JFrame implements IPlatformListener, TimingTarg
 		this.setLocationRelativeTo(null);
 		Services.addPlatformListener(this);
 		
-		try {
-			List<Image> icons = new ArrayList<Image>();
-			icons.add(ImageIO.read(getClass().getResourceAsStream("/org/bh/images/BH-Logo-16px.png")));
-			icons.add(ImageIO.read(getClass().getResourceAsStream("/org/bh/images/BH-Logo-32px.png")));
-			icons.add(ImageIO.read(getClass().getResourceAsStream("/org/bh/images/BH-Logo-48px.png")));
-			this.setIconImages(icons);
-		} catch (Exception e) {
-			log.error("Failed to load IconImage", e);
-		}
+		this.setIconImages(Services.setIcon());
+		
 		this.visible = false;
 	}
 	
