@@ -356,11 +356,6 @@ public class Services {
 			// should not happen
 			log.error("Cannot create period view", e);
 		}
-		if (viewComponent instanceof Container) {
-			// viewComponent.setFocusable(true);
-			Container cont = (Container) viewComponent;
-			setFocus(cont);
-		}
 
 		container.setPvalues((JPanel) viewComponent);
 		bhmf.setContentForm(container);
