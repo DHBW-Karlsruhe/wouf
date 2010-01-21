@@ -5,14 +5,17 @@
   <vendor>Business Horizon Project Team</vendor>
   <description></description>
   <offline-allowed/>
+  <icon href="images/icon32.png" />
+  <icon href="images/icon64.png" />
   <icon kind="splash" href="splash.jpg" />
 </information>
+<update check="always" policy="prompt-update" />
 <security>
   <all-permissions/>
 </security>
 <resources>
   <java version="1.6.0_10+" href="http://java.sun.com/products/autodl/j2se" />
-  <jar href="BH.jar"/>
+  <jar href="BH.jar" main="true" />
 </resources>
-<application-desc main-class="org.bh.BusinessHorizon" />
+<application-desc />
 </jnlp>
