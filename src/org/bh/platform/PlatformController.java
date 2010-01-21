@@ -1,43 +1,29 @@
 package org.bh.platform;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.prefs.Preferences;
 
-import javax.swing.JScrollPane;
-import javax.swing.SwingUtilities;
-import javax.swing.event.TreeSelectionEvent;
-import javax.swing.event.TreeSelectionListener;
 import javax.swing.tree.DefaultMutableTreeNode;
 import javax.swing.tree.DefaultTreeModel;
 import javax.swing.tree.TreeNode;
 import javax.swing.tree.TreePath;
 
 import org.apache.log4j.Logger;
-import org.bh.controller.InputController;
 import org.bh.data.DTO;
 import org.bh.data.DTOAccessException;
 import org.bh.data.DTOPeriod;
 import org.bh.data.DTOProject;
 import org.bh.data.DTOScenario;
-import org.bh.data.IDTO;
 import org.bh.data.IPeriodicalValuesDTO;
 import org.bh.data.types.IValue;
 import org.bh.data.types.StringValue;
-import org.bh.gui.ValidationMethods;
-import org.bh.gui.View;
-import org.bh.gui.ViewException;
 import org.bh.gui.chart.BHChartFactory;
 import org.bh.gui.swing.BHButton;
-import org.bh.gui.swing.BHContent;
 import org.bh.gui.swing.BHDataExchangeDialog;
-import org.bh.gui.swing.BHDeterministicProcessForm;
 import org.bh.gui.swing.BHMainFrame;
 import org.bh.gui.swing.BHMenuItem;
-import org.bh.gui.swing.BHProjectForm;
-import org.bh.gui.swing.BHProjectView;
-import org.bh.gui.swing.BHScenarioForm;
-import org.bh.gui.swing.BHScenarioView;
 import org.bh.gui.swing.BHTreeNode;
 import org.bh.gui.swing.BHTreeSelectionListener;
 import org.bh.gui.swing.IBHAction;
@@ -198,7 +184,12 @@ public class PlatformController {
 
 				// if periods are available - add them!
 				BHTreeNode periodNode;
-				for (DTOPeriod period : scenario.getChildren()) {
+				List<DTOPeriod> children = scenario.getChildren();
+				if (!scenario.isDeterministic()) {
+					children = new ArrayList<DTOPeriod>(children);
+					Collections.reverse(children);
+				}
+				for (DTOPeriod period : children) {
 					periodNode = new BHTreeNode(period);
 					scenarioNode.add(periodNode);
 				}
