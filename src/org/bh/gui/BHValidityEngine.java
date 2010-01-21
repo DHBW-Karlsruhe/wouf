@@ -15,6 +15,7 @@ import org.apache.log4j.Logger;
 import org.bh.gui.swing.BHStatusBar;
 import org.bh.gui.swing.IBHComponent;
 import org.bh.gui.swing.IBHModelComponent;
+import org.bh.gui.swing.ValidationResultViewFactory;
 import org.bh.platform.Services;
 import org.bh.validation.ValidationRule;
 
@@ -22,7 +23,6 @@ import com.jgoodies.validation.ValidationResult;
 import com.jgoodies.validation.ValidationResultModel;
 import com.jgoodies.validation.util.DefaultValidationResultModel;
 import com.jgoodies.validation.view.ValidationComponentUtils;
-import com.jgoodies.validation.view.ValidationResultViewFactory;
 
 /**
  *

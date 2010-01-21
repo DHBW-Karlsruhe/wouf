@@ -17,7 +17,6 @@ import org.bh.platform.i18n.ITranslator;
 
 import com.jgoodies.forms.layout.CellConstraints;
 import com.jgoodies.forms.layout.FormLayout;
-import com.jgoodies.validation.view.ValidationResultViewFactory;
 
 /**
  * 
@@ -58,11 +57,11 @@ public class BHStatusBar extends JPanel {
 		cons = new CellConstraints();
 		
 		hintLabel = new JLabel("");
-		hintLabel.setIcon(ValidationResultViewFactory.getInfoIcon());
+		hintLabel.setIcon(ValidationResultViewFactory.getLargeInfoIcon());
 		removeHint();
 		
 		errorHintLabel = new JLabel(translator.translate("errorHint"));
-		errorHintLabel.setIcon(ValidationResultViewFactory.getErrorIcon());
+		errorHintLabel.setIcon(ValidationResultViewFactory.getLargeErrorIcon());
 		errorHintLabel.addMouseListener(new BHLabelListener());
 		removeErrorHint();
 

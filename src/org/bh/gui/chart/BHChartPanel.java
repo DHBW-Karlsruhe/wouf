@@ -17,12 +17,12 @@ import javax.swing.JTextArea;
 import javax.swing.JToggleButton;
 
 import org.bh.gui.swing.IBHComponent;
+import org.bh.gui.swing.ValidationResultViewFactory;
 import org.bh.platform.Services;
 import org.jfree.chart.ChartPanel;
 import org.jfree.chart.JFreeChart;
 
 import com.jgoodies.forms.layout.FormLayout;
-import com.jgoodies.validation.view.ValidationResultViewFactory;
 
 /**
  *
@@ -57,7 +57,7 @@ public class BHChartPanel extends JPanel implements IBHComponent, IBHAddValue, I
     	JPanel panel = new JPanel(new FormLayout("pref","p,p"));
     	
     	JToggleButton info = new JToggleButton();
-    	info.setIcon(ValidationResultViewFactory.getInfoIcon());
+    	info.setIcon(ValidationResultViewFactory.getLargeInfoIcon());
     	info.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				JToggleButton button = (JToggleButton)e.getSource();
