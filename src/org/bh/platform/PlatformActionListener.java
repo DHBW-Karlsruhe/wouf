@@ -29,7 +29,6 @@ import org.bh.gui.swing.BHOptionPane;
 import org.bh.gui.swing.BHStatusBar;
 import org.bh.gui.swing.BHTreeNode;
 import org.bh.gui.swing.IBHAction;
-import org.bh.gui.swing.BHDataExchangeDialog.ImportListener;
 import org.bh.platform.PlatformController.BHTreeModel;
 import org.bh.platform.i18n.BHTranslator;
 import org.bh.platform.i18n.ITranslator;
@@ -485,10 +484,30 @@ class PlatformActionListener implements ActionListener {
 		TreePath currentSelection = bhmf.getBHTree().getSelectionPath();
 		// is a node selected?
 		if (currentSelection != null) {
-			int choice = BHOptionPane.showConfirmDialog(bhmf, Services
-					.getTranslator().translate("Pelement_delete"), Services
-					.getTranslator().translate("Pdelete"),
-					JOptionPane.YES_NO_OPTION);
+			BHTreeNode currentNodeForDesc = (BHTreeNode) bhmf.getBHTree()
+			.getSelectionPath().getLastPathComponent();
+			int choice;
+			if(currentNodeForDesc.getUserObject() instanceof DTOProject){
+				choice = BHOptionPane.showConfirmDialog(bhmf, Services
+						.getTranslator().translate("Pproject_delete"), Services
+						.getTranslator().translate("Pdelete"),
+						JOptionPane.YES_NO_OPTION);
+			} else if(currentNodeForDesc.getUserObject() instanceof DTOScenario){
+				choice = BHOptionPane.showConfirmDialog(bhmf, Services
+						.getTranslator().translate("Pscenario_delete"), Services
+						.getTranslator().translate("Pdelete"),
+						JOptionPane.YES_NO_OPTION);
+			} else if(currentNodeForDesc.getUserObject() instanceof DTOPeriod){
+				choice = BHOptionPane.showConfirmDialog(bhmf, Services
+						.getTranslator().translate("Pperiod_delete"), Services
+						.getTranslator().translate("Pdelete"),
+						JOptionPane.YES_NO_OPTION);
+			} else {
+				choice = BHOptionPane.showConfirmDialog(bhmf, Services
+						.getTranslator().translate("Pelement_delete"), Services
+						.getTranslator().translate("Pdelete"),
+						JOptionPane.YES_NO_OPTION);	
+			}
 			if (choice == JOptionPane.YES_OPTION) {
 				// find out current selected node
 				BHTreeNode currentNode = (BHTreeNode) bhmf.getBHTree()
