@@ -11,13 +11,11 @@ import java.util.Map;
 
 import org.apache.log4j.Logger;
 import org.bh.data.IPeriodicalValuesDTO;
-import org.bh.data.types.Calculable;
 import org.bh.data.types.DoubleValue;
 import org.bh.plugin.gcc.data.DTOGCCBalanceSheet;
 import org.bh.plugin.gcc.data.DTOGCCProfitLossStatementCostOfSales;
 import org.bh.plugin.gcc.data.DTOGCCProfitLossStatementTotalCost;
 import org.bh.plugin.gcc.data.DTOGCCBalanceSheet.Key;
-import org.bh.plugin.xmldataexchange.xmlimport.XMLNotValidException;
 import org.jdom.Document;
 import org.jdom.Element;
 import org.jdom.JDOMException;

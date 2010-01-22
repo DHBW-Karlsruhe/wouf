@@ -18,9 +18,7 @@ import org.bh.gui.swing.BHDataExchangeDialog;
 import org.bh.gui.swing.BHDefaultGCCImportExportPanel;
 import org.bh.gui.swing.IBHComponent;
 import org.bh.platform.IImportExport;
-import org.bh.platform.PlatformUserDialog;
 import org.bh.platform.i18n.BHTranslator;
-import org.bh.plugin.xmldataexchange.xmlimport.XMLNotValidException;
 import org.jfree.chart.JFreeChart;
 
 public class XBRLImportController implements IImportExport, ActionListener {
