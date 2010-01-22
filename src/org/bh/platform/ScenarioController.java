@@ -406,6 +406,7 @@ public class ScenarioController extends InputController {
 						.getPathComponent(2);
 						JScrollPane sp = new JScrollPane(panel);
 						sp.setWheelScrollingEnabled(true);
+						sp.getVerticalScrollBar().setUnitIncrement(10);
 						tn.setResultPane(sp);
 						//Put it onto screen
 						bhmf.moveInResultForm(tn.getResultPane());

@@ -260,16 +260,19 @@ public class BHMainFrame extends JFrame implements IPlatformListener, TimingTarg
 	}
 
 	public void setContentForm(Component content) {
+		//Achtung content != JScrollPanel
 		contentForm = new JScrollPane(content);
+		contentForm.getHorizontalScrollBar().setUnitIncrement(10);
+		contentForm.setWheelScrollingEnabled(true);
 		paneV.setTopComponent(contentForm);
 	}
 
 	public void setResultForm(Component result) {
-		resultForm = new JScrollPane(result);
-		paneV.setBottomComponent(resultForm);
+		paneV.setBottomComponent(result);
 	}
 	
-	public void moveInResultForm(Component result) {	
+	public void moveInResultForm(Component result) {
+		// Achtung result ist meist schon JScrollPanel
 		this.setResultForm(result);
 		if (PlatformController.preferences.getBoolean("animation", true)) {
 			if (animator.isRunning()) {

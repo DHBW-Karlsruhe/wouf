@@ -104,6 +104,8 @@ public class BHScenarioForm extends JPanel {
 		setHeadPanel(isIntervalArithmethic);
 		topPanel.add(this.getPprocess(type), cons.xywh(2, 4, 1, 1));
 		JScrollPane scrollPane = new JScrollPane(topPanel);
+		scrollPane.setWheelScrollingEnabled(true);
+		scrollPane.getVerticalScrollBar().setUnitIncrement(10);
 		
 		//add topPanel to ScenarioForm
 		this.add(scrollPane, cons.xywh(2, 2, 1, 1));
@@ -122,7 +124,6 @@ public class BHScenarioForm extends JPanel {
 		bottomPanel.add(this.getCannotCalculateHint(), cons.xywh(2, 2, 1, 1));
 		bottomPanel.add(this.getBcalculate(), cons.xywh(4, 2, 1, 1));
 		
-		//add topPanel to ScenarioForm
 		this.add(bottomPanel, cons.xywh(2, 4, 1, 1));
 		
 	}
