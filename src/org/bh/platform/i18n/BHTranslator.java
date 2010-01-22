@@ -20,12 +20,11 @@ import org.bh.platform.Services;
  * relevant keys in Business Horizon.
  * 
  * @author Thiele.Klaus
- * @version 0.1, 2009/12/12
- * @version 0.2, 2010/01/02
- * @version 1.0 2010/01/07
+ * @version 1.0 2010/01/22
  * 
  */
 public final class BHTranslator implements ITranslator {
+
 	/**
 	 * private Logging instance for log.
 	 */
@@ -38,7 +37,7 @@ public final class BHTranslator implements ITranslator {
 
 	/**
 	 * Available <code>Locale</code>s. Only provided if corresponding properties
-	 * file is provided.
+	 * file is provided!
 	 */
 	private static final Locale[] AVAILABLE = { Locale.ENGLISH, Locale.GERMAN };
 
@@ -48,14 +47,14 @@ public final class BHTranslator implements ITranslator {
 	private static final Locale DEFAULT = Locale.GERMAN;
 
 	/**
-	 * Locale used for translation.
-	 */
-	private Locale locale;
-
-	/**
 	 * Singleton instance.
 	 */
 	private static ITranslator instance;
+
+	/**
+	 * <code>Locale</code> used for translation.
+	 */
+	private Locale locale;
 
 	/**
 	 * <code>ResourceBundle</code> for access to the properties file.
@@ -145,12 +144,12 @@ public final class BHTranslator implements ITranslator {
 			return this.bundle.getString(key.toString());
 		} catch (MissingResourceException e) {
 			try {
-				if (key.toString().startsWith(IBHComponent.MINVALUE) ||
-						key.toString().startsWith(IBHComponent.MAXVALUE)) {
-					return this.bundle.getString(key.toString().replaceFirst("^.*_", "")); 
+				if (key.toString().startsWith(IBHComponent.MINVALUE)
+						|| key.toString().startsWith(IBHComponent.MAXVALUE)) {
+					return this.bundle.getString(key.toString().replaceFirst(
+							"^.*_", ""));
 				}
-			} 
-			catch (MissingResourceException ex) {
+			} catch (MissingResourceException ex) {
 			}
 			LOG.error("Could not translate key \"" + key + "\"", e);
 			return key.toString();
@@ -185,12 +184,12 @@ public final class BHTranslator implements ITranslator {
 			} catch (MissingResourceException e) {
 				return this.translate(key);
 			}
-			
+
 		case MNEMONIC:
 			try {
 				return this.bundle.getString(key.toString() + "_m");
 			} catch (MissingResourceException e) {
-				return "Y"; // fall back mnemonic...
+				return "Y"; // fall back mnemonic... random one
 			}
 
 		default:
@@ -214,7 +213,6 @@ public final class BHTranslator implements ITranslator {
 		JComponent.setDefaultLocale(newLocale);
 		Services.initNumberFormats();
 
-		this.bundle = null; // TODO Thiele.Klaus: Workaround still necessary?
 		this.bundle = ResourceBundle.getBundle(BHTranslator.BHGUIKEYS,
 				this.locale);
 

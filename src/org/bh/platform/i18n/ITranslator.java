@@ -8,30 +8,31 @@ import java.util.Locale;
  * used to translate keys into domain-specific <code>String</code>s.
  * 
  * @author Thiele.Klaus
- * @version 0.1, Dec 6, 2009
- * @versio 1.0, 2010/01/07
+ * @versio 1.0, 2010/01/22
  * 
  */
 public interface ITranslator {
 	/**
-	 * Parameter for short text.
+	 * Parameter for short text translation.
 	 */
 	public static final int SHORT = 0;
 	/**
-	 * Parameter for regular text.
+	 * Parameter for regular text translation.
 	 */
 	public static final int REGULAR = 1;
 	/**
-	 * Parameter for long text.
+	 * Parameter for long text translation.
 	 */
 	public static final int LONG = 2;
-	
+
 	/**
-	 * Parameter for Mnemonic Key Character
+	 * Parameter for Mnemonic Key Character.
 	 */
 	public static final int MNEMONIC = 3;
 
 	/**
+	 * Method to return currently used Locale for Translation.
+	 * 
 	 * @return currently used <code>Locale</code>
 	 */
 	Locale getLocale();
@@ -78,7 +79,6 @@ public interface ITranslator {
 	 * 
 	 * @return available languages
 	 */
-
 	Locale[] getAvailableLocales();
 
 	/**
