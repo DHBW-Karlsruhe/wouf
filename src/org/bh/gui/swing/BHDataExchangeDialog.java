@@ -29,6 +29,7 @@ import javax.swing.border.Border;
 import org.bh.data.DTOProject;
 import org.bh.data.DTOScenario;
 import org.bh.data.IDTO;
+import org.bh.data.IPeriodicalValuesDTO;
 import org.bh.data.types.Calculable;
 import org.bh.data.types.DistributionMap;
 import org.bh.gui.ViewException;
@@ -88,7 +89,7 @@ public class BHDataExchangeDialog extends JDialog implements ActionListener {
 	/**
 	 * Data to be exported / imported
 	 */
-	private IDTO<?> model = null;
+	private Object model = null;
 
 	/**
 	 * Result data to be exported
@@ -286,7 +287,7 @@ public class BHDataExchangeDialog extends JDialog implements ActionListener {
 	 */
 	public BHDefaultProjectExportPanel setDefaulExportProjectPanel(String fileDesc, String fileExt) {
 		BHDefaultProjectExportPanel result = new BHDefaultProjectExportPanel(
-				model, fileDesc, fileExt);
+				(IDTO<?>) model, fileDesc, fileExt);
 		setPluginPanel(result);
 		return result;
 	}
@@ -377,6 +378,12 @@ public class BHDataExchangeDialog extends JDialog implements ActionListener {
 					case IImportExport.IMP_BALANCE_SHEET + IImportExport.IMP_PLS_COST_OF_SALES:
 						importExportPlugin.importBSAndPLSCostOfSales(this);
 						break;
+					case IImportExport.IMP_BALANCE_SHEET + IImportExport.IMP_PLS_TOTAL_COST:
+						importExportPlugin.importBSAndPLSTotalCost(this);
+						break;
+					case IImportExport.EXP_BALANCE_SHEET + IImportExport.EXP_PLS_COST_OF_SALES:
+						importExportPlugin.exportBSAndPLSCostOfSales((List<IPeriodicalValuesDTO>) model, this);
+						break;
 					}
 					showPluginPanel();	
 					//TODO find good usage for Gui Key
@@ -416,7 +423,7 @@ public class BHDataExchangeDialog extends JDialog implements ActionListener {
 		this.pluginActionListener = pluginActionListener;
 	}
 
-	public void setModel(IDTO<?> model) {
+	public void setModel(Object model) {
 		this.model = model;
 	}
 
@@ -449,7 +456,7 @@ public class BHDataExchangeDialog extends JDialog implements ActionListener {
 	/**
 	 * Changes to the plug-in panel
 	 */
-	private void showPluginPanel() {
+	public void showPluginPanel() {
 		((CardLayout) mainPanel.getLayout()).show(mainPanel, PLUGIN_PANEL);
 		visiblePanel = PLUGIN_PANEL;
 	}

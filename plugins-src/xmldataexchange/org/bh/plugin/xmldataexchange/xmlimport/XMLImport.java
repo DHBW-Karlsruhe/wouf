@@ -92,7 +92,7 @@ public class XMLImport {
 				Document doc = saxBuilder.build(importFile);				
 				project = (DTOProject) getDTOFromXML(doc.getRootElement());				
 			} catch (JDOMException e) {				
-				log.error("Parsing exception while importing a XML documetn", e);
+				log.error("Parsing exception while importing a XML document", e);
 			} 
 		}
 		

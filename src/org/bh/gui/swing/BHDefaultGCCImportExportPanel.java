@@ -32,6 +32,7 @@ public class BHDefaultGCCImportExportPanel extends JPanel {
 	String fileDesc;
 	String fileExt;
 	boolean export = false;
+	private BHButton btnExport;
 	
 
 	public BHDefaultGCCImportExportPanel(String fileDesc, String fileExt, boolean export) {
@@ -65,13 +66,13 @@ public class BHDefaultGCCImportExportPanel extends JPanel {
 		BHButton btnCancel = new BHButton("Bcancel");
 
 		// Start export
-		BHButton btnExport = null;
+		btnExport = null;
 		if (export)
 			btnExport = new BHButton("Mexport");
 		else
-			btnExport = new BHButton("Mimport");
-		
+			btnExport = new BHButton("Mimport");		
 		btnExport.setAlignmentX(Component.RIGHT_ALIGNMENT);
+		btnExport.setEnabled(false);
 
 		buttonPanel.add(btnCancel);
 		buttonPanel.add(btnExport);
@@ -93,6 +94,7 @@ public class BHDefaultGCCImportExportPanel extends JPanel {
 		else
 			lblDescr = new BHDescriptionTextArea("DGCCImportDescription");
 		lblDescr.setFocusable(false);
+		lblDescr.setToolTipText(null);
 
 		// Create border for that textarea
 		Border marginBorder = BorderFactory.createEmptyBorder(15, 5, 15, 5);
@@ -138,8 +140,13 @@ public class BHDefaultGCCImportExportPanel extends JPanel {
 				fileSelectionPanel.setLayout(new TableLayout(size));
 
 				// Small label for instruction
-				BHDescriptionLabel lblselExportPath = new BHDescriptionLabel(
+				BHDescriptionLabel lblselExportPath;
+				if (export)
+					lblselExportPath = new BHDescriptionLabel(
 						"DExportPathSelection");
+				else
+					lblselExportPath = new BHDescriptionLabel(
+						"DImportPathSelection");
 				fileSelectionPanel.add(lblselExportPath, "0,0");
 
 				// Text field which will show the chosen path
@@ -186,6 +193,7 @@ public class BHDefaultGCCImportExportPanel extends JPanel {
 						filePath = filePath + "." + fileExt;
 					}
 					txtPath.setText(filePath);
+					btnExport.setEnabled(true);
 				}
 			}
 		}

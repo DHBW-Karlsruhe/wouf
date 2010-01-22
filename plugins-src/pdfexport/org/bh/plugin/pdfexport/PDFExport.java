@@ -359,4 +359,39 @@ public class PDFExport implements IImportExport {
 		// TODO Auto-generated method stub
 		throw new UnsupportedOperationException("This method has not been implemented");
 	}
+
+	@Override
+	public void exportBSAndPLSCostOfSales(List<IPeriodicalValuesDTO> model,
+			BHDataExchangeDialog importDialog) {
+		// TODO Auto-generated method stub
+		throw new UnsupportedOperationException("This method has not been implemented");
+	}
+
+	@Override
+	public void exportBSAndPLSTotalCost(List<IPeriodicalValuesDTO> model,
+			BHDataExchangeDialog importDialog) {
+		// TODO Auto-generated method stub
+		throw new UnsupportedOperationException("This method has not been implemented");
+	}
+
+	@Override
+	public void exportBalanceSheet(IPeriodicalValuesDTO model,
+			BHDataExchangeDialog exportDialog) {
+		// TODO Auto-generated method stub
+		throw new UnsupportedOperationException("This method has not been implemented");
+	}
+
+	@Override
+	public void exportPLSCostOfSales(IPeriodicalValuesDTO model,
+			BHDataExchangeDialog exportDialog) {
+		// TODO Auto-generated method stub
+		throw new UnsupportedOperationException("This method has not been implemented");
+	}
+
+	@Override
+	public void exportPLSTotalCost(IPeriodicalValuesDTO model,
+			BHDataExchangeDialog exportDialog) {
+		// TODO Auto-generated method stub
+		throw new UnsupportedOperationException("This method has not been implemented");
+	}
 }

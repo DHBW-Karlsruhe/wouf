@@ -42,6 +42,12 @@ public interface IImportExport extends IDisplayablePlugin {
 	 */
 	static final int IMP_PLS_COST_OF_SALES = 1 << 9;
 	
+	static final int EXP_BALANCE_SHEET = 1 << 10;
+	
+	static final int EXP_PLS_TOTAL_COST = 1 << 11;
+	
+	static final int EXP_PLS_COST_OF_SALES = 1 << 12;
+	
 	
 	IPeriodicalValuesDTO importBalanceSheet(final BHDataExchangeDialog importDialog);
 	IPeriodicalValuesDTO importPLSTotalCost(final BHDataExchangeDialog importDialog);
@@ -49,6 +55,13 @@ public interface IImportExport extends IDisplayablePlugin {
 	
 	List<IPeriodicalValuesDTO> importBSAndPLSTotalCost(final BHDataExchangeDialog importDialog);
 	List<IPeriodicalValuesDTO> importBSAndPLSCostOfSales(final BHDataExchangeDialog importDialog);
+	
+	void exportBalanceSheet(final IPeriodicalValuesDTO model, final BHDataExchangeDialog exportDialog);
+	void exportPLSTotalCost(final IPeriodicalValuesDTO model, final BHDataExchangeDialog exportDialog);
+	void exportPLSCostOfSales(final IPeriodicalValuesDTO model, final BHDataExchangeDialog exportDialog);
+	
+	void exportBSAndPLSTotalCost(final List<IPeriodicalValuesDTO> model, final BHDataExchangeDialog importDialog);
+	void exportBSAndPLSCostOfSales(final List<IPeriodicalValuesDTO> model, final BHDataExchangeDialog importDialog);
 	
 
 	/**

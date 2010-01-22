@@ -17,6 +17,7 @@ import org.bh.plugin.gcc.data.DTOGCCBalanceSheet;
 import org.bh.plugin.gcc.data.DTOGCCProfitLossStatementCostOfSales;
 import org.bh.plugin.gcc.data.DTOGCCProfitLossStatementTotalCost;
 import org.bh.plugin.gcc.data.DTOGCCBalanceSheet.Key;
+import org.bh.plugin.xmldataexchange.xmlimport.XMLNotValidException;
 import org.jdom.Document;
 import org.jdom.Element;
 import org.jdom.JDOMException;
@@ -82,7 +83,10 @@ public class XBRLImport {
 	
 	
 	
-	public IPeriodicalValuesDTO getBalanceSheetDTO(String importPath) throws IOException, XBRLNoValueFoundException
+	public IPeriodicalValuesDTO getBalanceSheetDTO(String importPath) throws 	IOException,
+																				XBRLNoValueFoundException,
+																				XMLNotValidException
+	
 	{
 		// Load file
 		File importedFile = checkFile(importPath);
@@ -117,9 +121,10 @@ public class XBRLImport {
 				result.put(dtoKey, new DoubleValue(Double.parseDouble(values.get(key))));				
 			}
 				
-		} catch (JDOMException e) {				
-			Logger.getLogger(getClass()).error("Parsing exception while importing a XML documetn", e);
-			return null;
+		} catch (JDOMException e) {		
+			Logger.getLogger(getClass()).debug("Parsing exception while importing a XML document");
+			throw new XMLNotValidException("Parsing exception while importing a XML document", e);
+			
 		} 				
 		return result;
 	}

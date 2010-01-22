@@ -20,6 +20,7 @@ import org.bh.gui.swing.IBHComponent;
 import org.bh.platform.IImportExport;
 import org.bh.platform.PlatformUserDialog;
 import org.bh.platform.i18n.BHTranslator;
+import org.bh.plugin.xmldataexchange.xmlimport.XMLNotValidException;
 import org.jfree.chart.JFreeChart;
 
 public class XBRLImportController implements IImportExport, ActionListener {
@@ -44,12 +45,31 @@ public class XBRLImportController implements IImportExport, ActionListener {
 		this.importDialog = importDialog;
 		importPanel = importDialog.setDefaultImportExportPanel(FILE_DESC, FILE_EXT, false);
 		importDialog.setPluginActionListener(this);
+		
 		importDialog.setSize((int)importDialog.getSize().getWidth(), 280);
 		return null;
-	}
+	}	
 
 	@Override
 	public List<IPeriodicalValuesDTO> importBSAndPLSTotalCost(
+			BHDataExchangeDialog importDialog) {
+		this.importDialog = importDialog;
+		importPanel = importDialog.setDefaultImportExportPanel(FILE_DESC, FILE_EXT, false);
+		importDialog.setPluginActionListener(this);
+		
+		importDialog.setSize((int)importDialog.getSize().getWidth(), 280);
+		return null;
+	}
+	
+	@Override
+	public void exportBSAndPLSCostOfSales(List<IPeriodicalValuesDTO> model,
+			BHDataExchangeDialog importDialog) {
+		// TODO Auto-generated method stub
+		throw new UnsupportedOperationException("This method has not been implemented");
+	}
+
+	@Override
+	public void exportBSAndPLSTotalCost(List<IPeriodicalValuesDTO> model,
 			BHDataExchangeDialog importDialog) {
 		// TODO Auto-generated method stub
 		throw new UnsupportedOperationException("This method has not been implemented");
@@ -169,9 +189,21 @@ public class XBRLImportController implements IImportExport, ActionListener {
 				}				
 				importDialog.fireImportListener(importedObjects);
 				importDialog.dispose();
-			} catch (IOException e1) {
-				// TODO Auto-generated catch block
-				e1.printStackTrace();
+			}
+			catch (XMLNotValidException invalidE)
+			{
+				JOptionPane.showMessageDialog(importDialog, BHTranslator.getInstance().translate("DXMLNotValid"),
+						BHTranslator.getInstance().translate("DXBRLImport"),
+						JOptionPane.WARNING_MESSAGE);
+				importPanel = importDialog.setDefaultImportExportPanel(FILE_DESC, FILE_EXT, false);
+				importDialog.showPluginPanel();
+			}
+			catch (IOException e1) {
+				JOptionPane.showMessageDialog(importDialog, BHTranslator.getInstance().translate("DImportFileError"),
+						BHTranslator.getInstance().translate("DXMLProjectImport"),
+						JOptionPane.WARNING_MESSAGE);
+				importPanel = importDialog.setDefaultImportExportPanel(FILE_DESC, FILE_EXT, false);
+				importDialog.showPluginPanel();
 			}		
 		}
 	}
@@ -292,6 +324,29 @@ public class XBRLImportController implements IImportExport, ActionListener {
 				"This method has not been implemented");
 	}
 	// [end]	
+
+	
+
+	@Override
+	public void exportBalanceSheet(IPeriodicalValuesDTO model,
+			BHDataExchangeDialog exportDialog) {
+		// TODO Auto-generated method stub
+		throw new UnsupportedOperationException("This method has not been implemented");
+	}
+
+	@Override
+	public void exportPLSCostOfSales(IPeriodicalValuesDTO model,
+			BHDataExchangeDialog exportDialog) {
+		// TODO Auto-generated method stub
+		throw new UnsupportedOperationException("This method has not been implemented");
+	}
+
+	@Override
+	public void exportPLSTotalCost(IPeriodicalValuesDTO model,
+			BHDataExchangeDialog exportDialog) {
+		// TODO Auto-generated method stub
+		throw new UnsupportedOperationException("This method has not been implemented");
+	}
 
 	
 
