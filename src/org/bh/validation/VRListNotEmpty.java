@@ -8,6 +8,13 @@ import org.bh.gui.swing.IBHModelComponent;
 
 import com.jgoodies.validation.ValidationResult;
 
+/**
+ * This class contains validation rules to check a list not being empty.
+ * 
+ * @author Robert Vollmer
+ * @version 1.0, 22.01.2010
+ * 
+ */
 public class VRListNotEmpty extends ValidationRule {
 	public static final VRListNotEmpty INSTANCE = new VRListNotEmpty();
 

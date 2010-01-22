@@ -8,6 +8,14 @@ import org.bh.platform.Services;
 
 import com.jgoodies.validation.ValidationResult;
 
+/**
+ * This class contains validation rules to check a textfield's content being greater
+ * than a value or against another textfield's value.
+ * 
+ * @author Robert Vollmer, Patrick Heinz
+ * @version 1.0, 22.01.2010
+ * 
+ */
 public class VRIsGreaterThan extends ValidationRule {
 	/** Constant to check whether a value is greater than zero. */
 	public static final VRIsGreaterThan GTZERO = new VRIsGreaterThan(0, false);

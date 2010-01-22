@@ -4,6 +4,15 @@ import org.bh.gui.swing.IBHModelComponent;
 
 import com.jgoodies.validation.ValidationResult;
 
+/**
+ * This class contains validation rules to check a textfield's value
+ * being between two other values (using validation rules VRIsGreaterThan
+ * and VRIsLowerThan).
+ * 
+ * @author Robert Vollmer, Patrick Heinz
+ * @version 1.0, 22.01.2010
+ * 
+ */
 public class VRIsBetween extends ValidationRule {
 	public static final VRIsBetween BETWEEN0AND100 = new VRIsBetween(0, 100);
 	public static final VRIsBetween BETWEEN1900AND2100 = new VRIsBetween(1900, 2100);

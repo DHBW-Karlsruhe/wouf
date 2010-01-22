@@ -8,6 +8,14 @@ import org.bh.platform.Services;
 
 import com.jgoodies.validation.ValidationResult;
 
+/**
+ * This class contains validation rules to check a textfield's content being lower
+ * than a value or against another textfield's value.
+ * 
+ * @author Robert Vollmer, Patrick Heinz
+ * @version 1.0, 22.01.2010
+ * 
+ */
 public class VRIsLowerThan extends ValidationRule {
 	/** Constant to check whether a value is lower than zero. */
 	public static final VRIsLowerThan LTZERO = new VRIsLowerThan(0, false);

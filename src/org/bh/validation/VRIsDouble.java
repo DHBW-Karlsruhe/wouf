@@ -8,6 +8,13 @@ import org.bh.platform.Services;
 
 import com.jgoodies.validation.ValidationResult;
 
+/**
+ * This class contains validation rules to check a textfield's content to be doubles.
+ * 
+ * @author Patrick Heinz
+ * @version 1.0, 22.01.2010
+ * 
+ */
 public class VRIsDouble extends ValidationRule {
 	public static final VRIsDouble INSTANCE = new VRIsDouble();
 	

@@ -3,6 +3,16 @@ package org.bh.validation;
 import java.util.Iterator;
 import java.util.Map;
 
+/**
+ * This class contains warning rules for stochastic processes.
+ * Using random walk, there shouldn't be any calculation with all chance
+ * values equal to 0.0 or all equal to 1.0. Using Wiener process, not all
+ * standard deviation and slope fields should be equal to 0.0.
+ * 
+ * @author Patrick Heinz
+ * @version 1.0, 22.01.2010
+ * 
+ */
 public class ValidateStochastic {
 
 	@SuppressWarnings("unchecked")
@@ -16,7 +26,8 @@ public class ValidateStochastic {
 
 			Map.Entry entry = (Map.Entry) iterator.next();
 			String key = (String) entry.getKey();
-
+			
+			// find chance textfields, which are build dynamicly in class "RandomWalk.java"
 			if (key.contains("chance")) {
 				double value = (Double) entry.getValue();
 				if (value == 0 && allOne == false) {
@@ -48,6 +59,8 @@ public class ValidateStochastic {
 
 			System.out.println(key);
 			
+			// find slope and standarddeviation textfields,
+			//which are build dynamicly in class "WienerProcess.java"
 			if (key.contains("slope") || key.contains("standardDeviation")) {
 				double value = (Double) entry.getValue();
 				System.out.println(value);

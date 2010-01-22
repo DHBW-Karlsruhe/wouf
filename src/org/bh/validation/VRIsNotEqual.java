@@ -8,6 +8,14 @@ import org.bh.platform.Services;
 
 import com.jgoodies.validation.ValidationResult;
 
+/**
+ * This class contains validation rules to check a textfield's content not being
+ * equal to a certain value or another textfield's content.
+ * 
+ * @author Robert Vollmer, Patrick Heinz
+ * @version 1.0, 22.01.2010
+ * 
+ */
 public class VRIsNotEqual extends ValidationRule {
 	/** Constant to compare a value against zero. */
 	public static final VRIsNotEqual ISNOTZERO = new VRIsNotEqual(0);

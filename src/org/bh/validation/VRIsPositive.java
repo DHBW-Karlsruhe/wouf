@@ -4,6 +4,13 @@ import org.bh.gui.swing.IBHModelComponent;
 
 import com.jgoodies.validation.ValidationResult;
 
+/**
+ * This class contains validation rules to check a textfield's content being positive.
+ * 
+ * @author Robert Vollmer, Patrick Heinz
+ * @version 1.0, 22.01.2010
+ * 
+ */
 public class VRIsPositive extends ValidationRule {
 	public static final VRIsPositive INSTANCE = new VRIsPositive();
 	

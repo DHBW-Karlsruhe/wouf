@@ -8,6 +8,14 @@ import org.bh.gui.swing.IBHModelComponent;
 import com.jgoodies.validation.ValidationResult;
 import com.jgoodies.validation.view.ValidationComponentUtils;
 
+/**
+ * This class contains validation rules to check, if a textfield has necessarily
+ * be filled.
+ * 
+ * @author Robert Vollmer, Patrick Heinz
+ * @version 1.0, 22.01.2010
+ * 
+ */
 public class VRMandatory extends ValidationRule {
 	public static final VRMandatory INSTANCE = new VRMandatory();
 	

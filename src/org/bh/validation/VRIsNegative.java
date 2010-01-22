@@ -4,6 +4,13 @@ import org.bh.gui.swing.IBHModelComponent;
 
 import com.jgoodies.validation.ValidationResult;
 
+/**
+ * This class contains validation rules to check a textfield's content being negative.
+ * 
+ * @author Robert Vollmer, Patrick Heinz
+ * @version 1.0, 22.01.2010
+ * 
+ */
 public class VRIsNegative extends ValidationRule {
 	public static final VRIsNegative INSTANCE = new VRIsNegative();
 	
