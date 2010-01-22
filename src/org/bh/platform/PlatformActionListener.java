@@ -773,7 +773,7 @@ class PlatformActionListener implements ActionListener {
 		// Get selected node
 		if (bhmf.getBHTree().getSelectionPath() != null) {
 			BHTreeNode selectedNode = (BHTreeNode) bhmf.getBHTree()
-					.getSelectionPath().getLastPathComponent();
+					.getSelectionPath().getPathComponent(1);
 			// Get DTOProject
 			if (selectedNode.getUserObject() instanceof DTOProject) {
 
@@ -787,6 +787,11 @@ class PlatformActionListener implements ActionListener {
 				dialog.setVisible(true);
 			} 
 		} 
+		else
+		{
+			BHStatusBar.getInstance().setHint(BHTranslator.getInstance()
+					.translate("DXMLProjectExportNoSelection"));			
+		}
 	}
 	protected void openUserHelp(String help) {
 		log.debug("HELPUSERHELP gefeuert");
