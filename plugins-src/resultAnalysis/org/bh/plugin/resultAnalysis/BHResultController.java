@@ -654,6 +654,8 @@ public class BHResultController extends OutputController {
 			    fp.setValues(getFormulaMap(scenario, result, t));
 			}
 		    }
+		    fp.revalidate();
+
 		}
 	    }
 	} catch (FormulaException fe) {

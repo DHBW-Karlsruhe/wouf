@@ -91,7 +91,7 @@ public final class BHResultPanel extends JPanel {
 	public BHResultPanel() {
 		double border = 30;
 		double size[][] = {
-				{ border, TableLayoutConstants.PREFERRED, border }, // Columns
+				{ border, 0.99, border }, // Columns
 				{ border, TableLayoutConstants.PREFERRED, border,
 					      TableLayoutConstants.PREFERRED, border,
 						  TableLayoutConstants.PREFERRED, border } };
@@ -110,6 +110,7 @@ public final class BHResultPanel extends JPanel {
 	
 	void setFormulaArea(BHFormulaPanel c) {
 		formulaArea = c;
+		System.err.println("BHResultPanel.setFormulaArea()");
 		add(formulaArea, "1,1");
 	}
 	
