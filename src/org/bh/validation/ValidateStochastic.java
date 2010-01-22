@@ -46,8 +46,11 @@ public class ValidateStochastic {
 			Map.Entry entry = (Map.Entry) iterator.next();
 			String key = (String) entry.getKey();
 
-			if (key.contains("slope") || key.contains("standard_deviation")) {
+			System.out.println(key);
+			
+			if (key.contains("slope") || key.contains("standardDeviation")) {
 				double value = (Double) entry.getValue();
+				System.out.println(value);
 				if (value == 0) {
 					allZero = true;
 				} else {
