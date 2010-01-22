@@ -5,10 +5,7 @@ import info.clearthought.layout.TableLayoutConstants;
 
 import java.awt.BorderLayout;
 import java.awt.Component;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.util.ArrayList;
-import java.util.List;
+import java.awt.Dimension;
 import java.util.Map;
 
 import javax.swing.JPanel;
@@ -17,16 +14,11 @@ import org.apache.log4j.Logger;
 import org.bh.data.DTOScenario;
 import org.bh.data.types.Calculable;
 import org.bh.gui.ViewException;
-import org.bh.gui.chart.BHChartPanel;
 import org.bh.gui.swing.BHButton;
-import org.bh.gui.swing.BHDataExchangeDialog;
 import org.bh.gui.swing.BHDescriptionTextArea;
-import org.bh.platform.IImportExport;
-import org.bh.platform.IPrint;
 import org.bh.platform.Services;
 import org.bh.platform.i18n.ITranslator;
 import org.jfree.chart.ChartPanel;
-import org.jfree.chart.JFreeChart;
 
 import com.jgoodies.forms.layout.CellConstraints;
 
@@ -50,7 +42,6 @@ import com.jgoodies.forms.layout.CellConstraints;
 public final class BHResultPanel extends JPanel {
 
 	static final Logger log = Logger.getLogger(BHResultPanel.class);
-	private final BHResultPanel me = this;
 	private JPanel panel;
 	private ChartPanel lineChartLabel;
 	private ChartPanel pieChartLabel;
@@ -97,13 +88,17 @@ public final class BHResultPanel extends JPanel {
 						  TableLayoutConstants.PREFERRED, border } };
 		setLayout(new TableLayout(size));
 		
-		JPanel exportArea = new JPanel(new BorderLayout());
+		
+		double size2[][] = {
+			{ border, TableLayoutConstants.PREFERRED, border, TableLayoutConstants.PREFERRED, border }, // Columns
+			{ border, TableLayoutConstants.PREFERRED, border} };
+		JPanel exportArea = new JPanel(new TableLayout(size2));
 		exportButton = new BHButton(Keys.EXPORTSCENARIO);
-		exportArea.add(exportButton, BorderLayout.WEST);
+		exportArea.add(exportButton, "1,1" );
 		
 		printButton = new BHButton(Keys.PRINTSCENARIO);
-		exportArea.add(printButton, BorderLayout.EAST);
-		
+		exportArea.add(printButton, "3,1");
+		exportArea.setMaximumSize(new Dimension(200, 40));
 		add(exportArea, "1,5");
 		//initialize();
 	}
@@ -179,79 +174,7 @@ public final class BHResultPanel extends JPanel {
 		 * creates the Value- and DescriptionLabels
 		 */
 
-		// exportButton
-		exportButton = new BHButton("EXPORTSCENARIO");
-		exportButton.addActionListener(new ActionListener() {
-
-			@Override
-			public void actionPerformed(ActionEvent e) {
-
-				BHDataExchangeDialog dialog = new BHDataExchangeDialog(null,
-						true);
-				dialog.setAction(IImportExport.EXP_SCENARIO_RES);
-				dialog.setModel(scenario);
-				dialog.setResults(result);
-				
-				dialog.setIconImages(Services.setIcon());
-				
-				List<JFreeChart> charts = new ArrayList<JFreeChart>();
-				for(Component c : procedurePanel.getComponents()) {
-					if(c instanceof BHChartPanel) {
-						BHChartPanel cp = (BHChartPanel) c;
-						charts.add(cp.getChart());
-					}
-				}
-				dialog.setCharts(charts);
-				
-				dialog.setVisible(true);
-
-			}
-		});
-
-		// printButton
-		printButton = new BHButton("PRINTSCENARIO");
-		printButton.addActionListener(new ActionListener() {
-
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				Map<String, IPrint> pPlugs = Services.getPrintPlugins(IPrint.PRINT_SCENARIO_RES);
-				
-				List<JFreeChart> charts = new ArrayList<JFreeChart>();
-				for(Component c : procedurePanel.getComponents()) {
-					if(c instanceof BHChartPanel) {
-						BHChartPanel cp = (BHChartPanel) c;
-						charts.add(cp.getChart());
-					}
-				}
-				((IPrint) pPlugs.values().toArray()[0]).printScenarioResults(scenario, result, charts);
-				//File temp;
-				
-//				int requiredMethods = IImportExport.BATCH_EXPORT
-//						+ IImportExport.EXP_SCENARIO_RES;
-//				Map<String, IImportExport> expPlugs = Services
-//						.getImportExportPlugins(requiredMethods);
-//				IImportExport exp = expPlugs.get("pdf");
-//				if (exp == null) {
-//					if (expPlugs.values().size() == 0) {
-//						PlatformUserDialog.getInstance().showErrorDialog(
-//								translator.translate("PRINTNOTPOSSIBLE"), " ");
-//					} else {
-//						exp = (IImportExport) expPlugs.values().toArray()[0];
-//					}
-//				} else {
-//					try {
-//						temp = File.createTempFile("bh_scneario_print", "." + exp.getFileExtension());
-//						exp.exportScenarioResults(scenario, result, temp
-//								.getAbsolutePath());
-//						Desktop.getDesktop().print(temp);
-//						temp.deleteOnExit();
-//					} catch (IOException e1) {
-//						log.debug(e1);
-//					}
-//				}
-			}
-		});
-
+		
 		/*
 		 * add Content to ResultPanel
 		 */
