@@ -54,6 +54,7 @@ public class BHTreeSelectionListener implements TreeSelectionListener {
 	public void valueChanged(final TreeSelectionEvent tse) {
 		if (tse.getNewLeadSelectionPath() == null) {
 			bhmf.setContentForm(new BHContent());
+			bhmf.removeResultForm();
 		} else {
 			// save divider location of split pane
 			BHTreeNode oldActiveNode;
@@ -62,6 +63,8 @@ public class BHTreeSelectionListener implements TreeSelectionListener {
 				oldActiveNode = (BHTreeNode) tp.getLastPathComponent();
 				oldActiveNode.setDividerLocation(bhmf.getVDividerLocation());
 			}
+			//remove resultpanel
+			bhmf.removeResultForm();
 
 			SwingUtilities.invokeLater(new Runnable() {
 				@Override
