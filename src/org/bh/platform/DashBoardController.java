@@ -46,7 +46,6 @@ public class DashBoardController extends Controller{
     	super(view);
     }
     
-    // TODO make this block fit with DashBoard chart
     @SuppressWarnings("unchecked")
 	public void setResult(Map<DTOScenario, Map<?,?>> result) {
 		ITranslator translator = Services.getTranslator();
@@ -79,23 +78,6 @@ public class DashBoardController extends Controller{
 				stackedBarChart.addValue(i.getMin(),translator.translate(ChartKeys.DB_SBC_SV), s.get(DTOScenario.Key.NAME).toString() + " (" + translator.translate("stochastic") + ")");
 				stackedBarChart.addValue(i.getMax() - i.getMin(),translator.translate(ChartKeys.DB_SBC_SV), s.get(DTOScenario.Key.NAME).toString() + " (" + translator.translate("stochastic") + ")");
 			}
-			
-//			if (scenario.getDCFMethod().getUniqueId().equals("apv")) {
-//			
-//				IBHAddValue comp = super.view.getBHchartComponents().get(ChartKeys.DB_SBC_SV.toString());
-//				comp.addValue(result.get("org.bh.plugin.apv.APVCalculator$Result.PRESENT_VALUE_FCF")[0].parse(),translator.translate(ChartKeys.DB_SBC_SV), translator.translate("org.bh.plugin.apv.APVCalculator$Result.PRESENT_VALUE_FCF"));
-//				comp.addValue(result.get("org.bh.plugin.apv.APVCalculator$Result.PRESENT_VALUE_TAX_SHIELD")[0].parse(),translator.translate(ChartKeys.DB_SBC_SV), translator.translate("org.bh.plugin.apv.APVCalculator$Result.PRESENT_VALUE_TAX_SHIELD"));
-//				comp.addValue((result.get("org.bh.calculation.IShareholderValueCalculator$Result.DEBT")[0].parse().doubleValue() * -1) ,translator.translate(ChartKeys.DB_SBC_SV), translator.translate("org.bh.calculation.IShareholderValueCalculator$Result.DEBT"));
-//				comp.addValue(result.get("org.bh.calculation.IShareholderValueCalculator$Result.SHAREHOLDER_VALUE")[0].parse(),translator.translate(ChartKeys.DB_SBC_SV), translator.translate("org.bh.calculation.IShareholderValueCalculator$Result.SHAREHOLDER_VALUE"));
-//				
-//				IBHAddValue comp2 = super.view.getBHchartComponents().get(ChartKeys.DB_SBC_SV.toString());
-//				int length = result.get("org.bh.plugin.apv.APVCalculator$Result.PRESENT_VALUE_FCF").length;
-//				for (int i = 0; i < length; i++) {
-//					String name = scenario.getChildren().get(i).get(DTOPeriod.Key.NAME).toString();
-//					comp2.addValue(result.get("org.bh.plugin.apv.APVCalculator$Result.PRESENT_VALUE_FCF")[i].parse(), translator.translate("org.bh.plugin.apv.APVCalculator$Result.PRESENT_VALUE_FCF"), name);
-//					comp2.addValue(result.get("org.bh.calculation.IShareholderValueCalculator$Result.DEBT")[i].parse(), translator.translate("org.bh.calculation.IShareholderValueCalculator$Result.DEBT"), name);
-//				}
-//			}
 		}
     }
 }

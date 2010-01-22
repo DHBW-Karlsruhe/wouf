@@ -16,7 +16,6 @@ import org.bh.data.DTOProject;
 import org.bh.data.DTOScenario;
 import org.bh.data.IDTO;
 import org.bh.data.types.Calculable;
-import org.bh.data.types.DistributionMap;
 import org.bh.gui.View;
 import org.bh.gui.ViewException;
 import org.bh.gui.swing.BHButton;
@@ -75,13 +74,15 @@ public class ProjectController extends InputController implements
 										.getDCFMethod().calculate(scenario, true);
 
 								results.put(scenario, resultsDCF);
-							} else {
-								DistributionMap resultStochastic = scenario
-										.getStochasticProcess().calculate();
 
-								results.put(scenario, resultStochastic);
-								
-								
+//							Decommented, because dashboard does not support stochastic calculation so far.
+//							Use the code below, if you want to implement stochastic calculation for dashboard.
+
+//							} else {
+//								DistributionMap resultStochastic = scenario
+//										.getStochasticProcess().calculate();
+//
+//								results.put(scenario, resultStochastic);																						
 							}
 						}
 
