@@ -8,6 +8,7 @@ import java.util.Random;
 import java.util.TreeMap;
 import java.util.Map.Entry;
 
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JSeparator;
 
@@ -24,12 +25,15 @@ import org.bh.data.types.DistributionMap;
 import org.bh.data.types.DoubleValue;
 import org.bh.data.types.IntegerValue;
 import org.bh.gui.swing.BHDescriptionLabel;
+import org.bh.gui.swing.BHMainFrame;
+import org.bh.gui.swing.BHOptionPane;
 import org.bh.gui.swing.BHTextField;
 import org.bh.platform.Services;
 import org.bh.validation.VRIsDouble;
 import org.bh.validation.VRIsGreaterThan;
 import org.bh.validation.VRIsInteger;
 import org.bh.validation.VRMandatory;
+import org.bh.validation.ValidateStochastic;
 import org.bh.validation.ValidationRule;
 
 import com.jgoodies.forms.layout.CellConstraints;
@@ -66,6 +70,8 @@ public class WienerProcess implements IStochasticProcess {
 	private HashMap<String, Double> internalMap;
 	private HashMap<String, Integer> map;
 
+	private BHMainFrame bhmf;
+
 	@Override
 	public DistributionMap calculate() {
 		log.info("Wiener Process started");
@@ -75,43 +81,57 @@ public class WienerProcess implements IStochasticProcess {
 		List<DTOKeyPair> stochasticKeys = scenario.getPeriodStochasticKeys();
 		IShareholderValueCalculator dcfMethod = scenario.getDCFMethod();
 
-		Countdown countdown = new Countdown(map.get(REPETITIONS));
-		int stepsPerPeriod = map.get(STEPS_PER_PERIOD);
-		int amountOfPeriods = map.get(AMOUNT_OF_PERIODS);
+		boolean isValid = ValidateStochastic.validateWienerProcess(internalMap);
+		int choice = 0;
 
-		DTO.setThrowEvents(false);
-		DTOScenario[] tempScenarios = new DTOScenario[NUM_THREADS];
-
-		CalculationThread[] threads = new CalculationThread[NUM_THREADS];
-		for (int i = 0; i < NUM_THREADS; i++) {
-			DTOScenario tempScenario = tempScenarios[i] = new DTOScenario(true);
-			tempScenario.put(DTOScenario.Key.REK, scenario
-					.get(DTOScenario.Key.REK));
-			tempScenario.put(DTOScenario.Key.RFK, scenario
-					.get(DTOScenario.Key.RFK));
-			tempScenario.put(DTOScenario.Key.BTAX, scenario
-					.get(DTOScenario.Key.BTAX));
-			tempScenario.put(DTOScenario.Key.CTAX, scenario
-					.get(DTOScenario.Key.CTAX));
-
-			for (int j = 0; j < amountOfPeriods; j++) {
-				tempScenario.addChild((DTOPeriod) last.clone());
-			}
-
-			threads[i] = new CalculationThread(countdown, stepsPerPeriod,
-					stochasticKeys, tempScenario, result, dcfMethod, last);
-			threads[i].setName("Wiener Process " + (i + 1));
-			threads[i].start();
+		if (isValid == false) {
+			choice = BHOptionPane.showConfirmDialog(bhmf, Services
+					.getTranslator().translate("WCalcWPMessage"), Services
+					.getTranslator().translate("WCalcWP"),
+					JOptionPane.YES_NO_OPTION);
 		}
 
-		for (int i = 0; i < NUM_THREADS; i++) {
-			try {
-				threads[i].join();
-			} catch (InterruptedException e) {
-				log.error("", e);
+		if (isValid == true || choice == JOptionPane.YES_OPTION) {
+
+			Countdown countdown = new Countdown(map.get(REPETITIONS));
+			int stepsPerPeriod = map.get(STEPS_PER_PERIOD);
+			int amountOfPeriods = map.get(AMOUNT_OF_PERIODS);
+
+			DTO.setThrowEvents(false);
+			DTOScenario[] tempScenarios = new DTOScenario[NUM_THREADS];
+
+			CalculationThread[] threads = new CalculationThread[NUM_THREADS];
+			for (int i = 0; i < NUM_THREADS; i++) {
+				DTOScenario tempScenario = tempScenarios[i] = new DTOScenario(
+						true);
+				tempScenario.put(DTOScenario.Key.REK, scenario
+						.get(DTOScenario.Key.REK));
+				tempScenario.put(DTOScenario.Key.RFK, scenario
+						.get(DTOScenario.Key.RFK));
+				tempScenario.put(DTOScenario.Key.BTAX, scenario
+						.get(DTOScenario.Key.BTAX));
+				tempScenario.put(DTOScenario.Key.CTAX, scenario
+						.get(DTOScenario.Key.CTAX));
+
+				for (int j = 0; j < amountOfPeriods; j++) {
+					tempScenario.addChild((DTOPeriod) last.clone());
+				}
+
+				threads[i] = new CalculationThread(countdown, stepsPerPeriod,
+						stochasticKeys, tempScenario, result, dcfMethod, last);
+				threads[i].setName("Wiener Process " + (i + 1));
+				threads[i].start();
+			}
+
+			for (int i = 0; i < NUM_THREADS; i++) {
+				try {
+					threads[i].join();
+				} catch (InterruptedException e) {
+					log.error("", e);
+				}
 			}
 		}
-		
+
 		DTO.setThrowEvents(true);
 		log.info("Wiener Process finished");
 
@@ -248,8 +268,6 @@ public class WienerProcess implements IStochasticProcess {
 			layout.appendRow(RowSpec.decode("p"));
 			layout.appendRow(RowSpec.decode("14px"));
 
-			// TODO Patrick H. nicht alle Werte dürfen 0 sein
-
 			BHTextField tfslope = new BHTextField(key + SLOPE, Services
 					.numberToString(slope));
 			ValidationRule[] rules_slope = { VRMandatory.INSTANCE,
@@ -321,7 +339,8 @@ public class WienerProcess implements IStochasticProcess {
 	}
 
 	private Calculable doOneWienerProcess(Calculable lastValue,
-			int amountOfSteps, double standardDeviation, double slope, Random random) {
+			int amountOfSteps, double standardDeviation, double slope,
+			Random random) {
 		double deltaT = 1.0 / amountOfSteps;
 		double deltaTsqrt = Math.sqrt(deltaT);
 		Calculable value = lastValue;

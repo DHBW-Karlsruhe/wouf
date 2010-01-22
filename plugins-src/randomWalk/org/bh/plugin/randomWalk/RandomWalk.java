@@ -2,12 +2,14 @@ package org.bh.plugin.randomWalk;
 
 import java.awt.Component;
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import java.util.Random;
 import java.util.TreeMap;
 import java.util.Map.Entry;
 
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JSeparator;
 
@@ -23,12 +25,15 @@ import org.bh.data.types.Calculable;
 import org.bh.data.types.DistributionMap;
 import org.bh.data.types.DoubleValue;
 import org.bh.gui.swing.BHDescriptionLabel;
+import org.bh.gui.swing.BHMainFrame;
+import org.bh.gui.swing.BHOptionPane;
 import org.bh.gui.swing.BHTextField;
 import org.bh.platform.Services;
 import org.bh.validation.VRIsDouble;
 import org.bh.validation.VRIsGreaterThan;
 import org.bh.validation.VRIsInteger;
 import org.bh.validation.VRMandatory;
+import org.bh.validation.ValidateStochastic;
 import org.bh.validation.ValidationRule;
 
 import com.jgoodies.forms.layout.CellConstraints;
@@ -57,13 +62,18 @@ public class RandomWalk implements IStochasticProcess {
 
 	private static final String UNIQUE_ID = "randomWalk";
 	private static final String GUI_KEY = "randomWalk";
-	private static final int NUM_THREADS = Runtime.getRuntime().availableProcessors();
+	private static final int NUM_THREADS = Runtime.getRuntime()
+			.availableProcessors();
 
 	private DTOScenario scenario;
 	private JPanel panel;
 	private HashMap<String, Double> internalMap;
 	private HashMap<String, Integer> map;
 
+	private BHMainFrame bhmf;
+
+	
+	@SuppressWarnings("static-access")
 	@Override
 	public DistributionMap calculate() {
 		log.info("Random walk started");
@@ -73,41 +83,54 @@ public class RandomWalk implements IStochasticProcess {
 		List<DTOKeyPair> stochasticKeys = scenario.getPeriodStochasticKeys();
 		IShareholderValueCalculator dcfMethod = scenario.getDCFMethod();
 
-		Countdown countdown = new Countdown(map.get(REPETITIONS));
-		int stepsPerPeriod = map.get(STEPS_PER_PERIOD);
-		int amountOfPeriods = map.get(AMOUNT_OF_PERIODS);
+		boolean isValid = ValidateStochastic.validateRandomWalk(internalMap);
+		int choice = 0;
 
-		DTO.setThrowEvents(false);
-		DTOScenario[] tempScenarios = new DTOScenario[NUM_THREADS];
-		
-		CalculationThread[] threads = new CalculationThread[NUM_THREADS];
-		for (int i = 0; i < NUM_THREADS; i++) {
-			DTOScenario tempScenario = tempScenarios[i] = new DTOScenario(true);
-			tempScenario.put(DTOScenario.Key.REK, scenario
-					.get(DTOScenario.Key.REK));
-			tempScenario.put(DTOScenario.Key.RFK, scenario
-					.get(DTOScenario.Key.RFK));
-			tempScenario.put(DTOScenario.Key.BTAX, scenario
-					.get(DTOScenario.Key.BTAX));
-			tempScenario.put(DTOScenario.Key.CTAX, scenario
-					.get(DTOScenario.Key.CTAX));
+		if (isValid == false) {
+			choice = BHOptionPane.showConfirmDialog(bhmf, Services
+					.getTranslator().translate("WCalcRWMessage"), Services
+					.getTranslator().translate("WCalcRW"),
+					JOptionPane.YES_NO_OPTION);
+		}
 
-			for (int j = 0; j < amountOfPeriods; j++) {
-				tempScenario.addChild((DTOPeriod) last.clone());
+		if (isValid == true || choice == JOptionPane.YES_OPTION) {
+
+			Countdown countdown = new Countdown(map.get(REPETITIONS));
+			int stepsPerPeriod = map.get(STEPS_PER_PERIOD);
+			int amountOfPeriods = map.get(AMOUNT_OF_PERIODS);
+
+			DTO.setThrowEvents(false);
+			DTOScenario[] tempScenarios = new DTOScenario[NUM_THREADS];
+
+			CalculationThread[] threads = new CalculationThread[NUM_THREADS];
+			for (int i = 0; i < NUM_THREADS; i++) {
+				DTOScenario tempScenario = tempScenarios[i] = new DTOScenario(
+						true);
+				tempScenario.put(DTOScenario.Key.REK, scenario
+						.get(DTOScenario.Key.REK));
+				tempScenario.put(DTOScenario.Key.RFK, scenario
+						.get(DTOScenario.Key.RFK));
+				tempScenario.put(DTOScenario.Key.BTAX, scenario
+						.get(DTOScenario.Key.BTAX));
+				tempScenario.put(DTOScenario.Key.CTAX, scenario
+						.get(DTOScenario.Key.CTAX));
+
+				for (int j = 0; j < amountOfPeriods; j++) {
+					tempScenario.addChild((DTOPeriod) last.clone());
+				}
+
+				threads[i] = new CalculationThread(countdown, stepsPerPeriod,
+						stochasticKeys, tempScenario, result, dcfMethod, last);
+				threads[i].setName("Random Walk " + (i + 1));
+				threads[i].start();
 			}
 
-			threads[i] = new CalculationThread(countdown,
-					stepsPerPeriod, stochasticKeys, tempScenario, result,
-					dcfMethod, last);
-			threads[i].setName("Random Walk " + (i+1));
-			threads[i].start();
-		}
-		
-		for (int i = 0; i < NUM_THREADS; i++) {
-			try {
-				threads[i].join();
-			} catch (InterruptedException e) {
-				log.error("", e);
+			for (int i = 0; i < NUM_THREADS; i++) {
+				try {
+					threads[i].join();
+				} catch (InterruptedException e) {
+					log.error("", e);
+				}
 			}
 		}
 
@@ -242,8 +265,6 @@ public class RandomWalk implements IStochasticProcess {
 
 			layout.appendRow(RowSpec.decode("p"));
 			layout.appendRow(RowSpec.decode("14px"));
-
-			// TODO Patrick H. Validation Rule, not all 0.0 or 1.0
 
 			BHTextField tfchance = new BHTextField(key + CHANCE, Services
 					.numberToString(chance));
