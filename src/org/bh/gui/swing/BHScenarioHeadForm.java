@@ -74,7 +74,7 @@ public class BHScenarioHeadForm extends JPanel {
 	private void initialize() {
 
 		String rowDef = "4px,p,4px,p,4px,p,4px,p,20px,p,4px,p,4px,p,20px,p,4px";
-		String colDef = "4px,4px,right:pref,4px,pref,max(80px;pref),4px,left:pref,24px:grow,pref,4px,pref,4px,right:pref,4px,pref,pref,4px,pref,4px,pref,4px";
+		String colDef = "4px,4px,right:pref,4px,pref,max(80px;default),4px,left:pref,24px,pref,4px,pref,4px,right:pref,4px,pref,pref,4px,pref,4px:grow,pref,4px,50px:grow,4px";
 
 		FormLayout layout = new FormLayout(colDef, rowDef);
 		this.setLayout(layout);
@@ -84,11 +84,11 @@ public class BHScenarioHeadForm extends JPanel {
 		CellConstraints cons = new CellConstraints();
 
 		this.add(this.getlscenName(), cons.xywh(3, 4, 1, 1));
-		this.add(this.gettfscenName(), cons.xywh(6, 4, 4, 1));
-		this.add(this.getlBase(), cons.xywh(14, 4, 1, 1));
-		this.add(this.gettfBase(), cons.xywh(17, 4, 1, 1));
+		this.add(this.gettfscenName(), cons.xywh(6, 4,12, 1));
+		this.add(this.getlBase(), cons.xywh(21, 4, 1, 1));
+		this.add(this.gettfBase(), cons.xywh(23, 4, 1, 1));
 		this.add(this.getlscenDescript(), cons.xywh(3, 6, 1, 1));
-		this.add(this.gettfscenDescript(), cons.xywh(6, 6, 12, 1));
+		this.add(this.gettfscenDescript(), cons.xywh(6, 6, 18, 1));
 
 		this.add(this.getlequityYield(), cons.xywh(3, 12, 1, 1));
 		this.add(this.getldeptYield(), cons.xywh(3, 14, 1, 1));
