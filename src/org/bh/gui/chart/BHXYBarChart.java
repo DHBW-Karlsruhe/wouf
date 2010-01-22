@@ -9,8 +9,10 @@ import org.bh.platform.PlatformEvent;
 import org.bh.platform.Services;
 import org.bh.platform.i18n.ITranslator;
 import org.jfree.chart.ChartFactory;
+import org.jfree.chart.axis.NumberAxis;
 import org.jfree.chart.labels.XYToolTipGenerator;
 import org.jfree.chart.plot.PlotOrientation;
+import org.jfree.chart.plot.XYPlot;
 import org.jfree.chart.renderer.xy.StandardXYBarPainter;
 import org.jfree.chart.renderer.xy.XYBarRenderer;
 import org.jfree.data.xy.XYDataset;
@@ -41,7 +43,6 @@ public class BHXYBarChart extends BHChart implements IBHAddValue,
 		XYBarRenderer renderer = (XYBarRenderer) chart.getXYPlot().getRenderer();		
 		renderer.setBarPainter(new StandardXYBarPainter());
 		renderer.setShadowVisible(false);
-		renderer.setMargin(0.1);
 		renderer.setDrawBarOutline(false);
 		renderer.setToolTipGenerator(new XYToolTipGenerator() {
 			
@@ -55,6 +56,9 @@ public class BHXYBarChart extends BHChart implements IBHAddValue,
 			}
 		});
 		
+		XYBarRenderer barRenderer = (XYBarRenderer)chart.getXYPlot().getRenderer();
+		
+		barRenderer.setDrawBarOutline(false);
 		reloadText();
 		Services.addPlatformListener(this);
 	}
@@ -75,6 +79,19 @@ public class BHXYBarChart extends BHChart implements IBHAddValue,
 		}
 		dataset.addSeries(series);
 		dataset.setIntervalWidth(0.0);
+		 	
+			final XYPlot plot = chart.getXYPlot();
+	        final NumberAxis axis2 = new NumberAxis(translator.translate("org.bh.plugin.stochasticResultAnalysis.BHStochasticResultController$ChartKeys.DISTRIBUTION_CHART.Y2"));
+	        double upper = (amountOfValues.doubleValue()/average);
+	        double lower = 0.0;
+	        axis2.setRange(lower, upper);
+	        
+	        plot.setRangeAxis(1, axis2);
+	        plot.mapDatasetToRangeAxis(1, 1);
+	        
+	        final NumberAxis axis = (NumberAxis) plot.getDomainAxis();
+	        axis.setAutoRange(true);
+	     
 		chart.fireChartChanged();
 	}
 
