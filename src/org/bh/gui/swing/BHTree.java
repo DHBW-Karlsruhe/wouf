@@ -412,12 +412,10 @@ public class BHTree extends JTree{
 	public void removeAllPeriods(DTOScenario tempDto) {
 
 		BHTreeNode tempNode = this.getNodeForDto(tempDto);
+		
 		// remove from TreeNode
-		for (int i = 0; i < tempNode.getChildCount(); i++) {
-			((DefaultTreeModel) this.getModel())
-					.removeNodeFromParent((BHTreeNode) tempNode.getChildAt(i));
-		}
-
+		tempNode.removeAllChildren();
+		
 		// remove from DTO
 		tempDto.removeAllChildren();
 	}
