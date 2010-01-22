@@ -5,30 +5,21 @@ import java.awt.Component;
 import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.dnd.DnDConstants;
-import java.awt.event.ActionEvent;
-import java.awt.event.KeyEvent;
-import java.awt.event.KeyListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.util.ArrayList;
 import java.util.Enumeration;
-import java.util.EventObject;
 
 import javax.swing.ImageIcon;
-import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JPopupMenu;
 import javax.swing.JTree;
 import javax.swing.SwingConstants;
 import javax.swing.UIManager;
-import javax.swing.event.CellEditorListener;
 import javax.swing.tree.DefaultMutableTreeNode;
-import javax.swing.tree.DefaultTreeCellEditor;
-import javax.swing.tree.DefaultTreeCellRenderer;
 import javax.swing.tree.DefaultTreeModel;
 import javax.swing.tree.MutableTreeNode;
-import javax.swing.tree.TreeCellEditor;
 import javax.swing.tree.TreeCellRenderer;
 import javax.swing.tree.TreePath;
 import javax.swing.tree.TreeSelectionModel;
@@ -39,7 +30,6 @@ import org.bh.data.DTOProject;
 import org.bh.data.DTOScenario;
 import org.bh.platform.IPlatformListener;
 import org.bh.platform.PlatformEvent;
-import org.bh.platform.PlatformKey;
 import org.bh.platform.Services;
 
 import com.jgoodies.forms.layout.CellConstraints;
@@ -54,8 +44,9 @@ import com.jgoodies.forms.layout.FormLayout;
  * 
  * @author Tietze.Patrick
  * @author Thiele.Klaus
+ * @author Zuckschwerdt.Lars
  * 
- * @version 0.2, 2009/12/30
+ * @version 1.0, 22.01.2010
  * 
  */
 public class BHTree extends JTree{
@@ -545,8 +536,6 @@ public class BHTree extends JTree{
 		public void mouseReleased(MouseEvent e) {
 			TreePath selPath = BHTree.this.getPathForLocation(e.getX(), e.getY());
 			if (selPath != null && e.isPopupTrigger()){
-				//BHTree.this.setSelectionPath(selPath);
-				
 				if(((BHTreeNode)selPath.getLastPathComponent()).getUserObject() instanceof DTOProject){
 					showPopup(e, BHTreePopup.Type.PROJECT);
 				}else{
