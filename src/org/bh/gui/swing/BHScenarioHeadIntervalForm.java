@@ -16,6 +16,7 @@ import org.bh.platform.i18n.ITranslator;
 import org.bh.validation.VRIsDouble;
 import org.bh.validation.VRIsGreaterThan;
 import org.bh.validation.VRIsInteger;
+import org.bh.validation.VRIsLowerThan;
 import org.bh.validation.VRIsNotEqual;
 import org.bh.validation.VRIsPositive;
 import org.bh.validation.VRMandatory;
@@ -29,7 +30,7 @@ import com.jgoodies.forms.layout.FormLayout;
  * 
  * @author Anton Kharitonov
  * @author Patrick Heinz
- * @version 0.3, 01.01.2010
+ * @version 1.0, 22.01.2010
  * 
  */
 @SuppressWarnings("serial")
@@ -141,8 +142,6 @@ public class BHScenarioHeadIntervalForm extends JPanel {
 		this.add(this.getlPeriodType(), cons.xywh(2, 16, 1, 1));
 		this.add(this.getCmbPeriodType(), cons.xywh(4, 16, 12, 1, "left, default"));
 		
-		// TODO Anton: Combobox for period type 
-		
 		Vector<Component> order = new Vector<Component>(11);
 		order.add(this.gettfscenName());
 		order.add(this.gettfbaseYear());
@@ -163,13 +162,12 @@ public class BHScenarioHeadIntervalForm extends JPanel {
 
 	}
 
-	// TODO add missing label keys etc. and translations, change hard coded
-	// values to keys
-
+	
 	public void setFocusPolicy(Vector<Component> order) {
 		this.focusPolicy = new BHFocusTraversalPolicy(order);
 	}
 
+	
 	public BHFocusTraversalPolicy getFocusPolicy() {
 		if (this.focusPolicy == null) {
 			this.focusPolicy = new BHFocusTraversalPolicy(null);
@@ -381,8 +379,7 @@ public class BHScenarioHeadIntervalForm extends JPanel {
 			this.tfminequityyield = new BHPercentTextField(IBHComponent.MINVALUE
 					+ DTOScenario.Key.REK);
 			ValidationRule[] rules = { VRMandatory.INSTANCE,
-					VRIsDouble.INSTANCE, VRIsPositive.INSTANCE,
-					VRIsNotEqual.ISNOTZERO };
+					VRIsDouble.INSTANCE, VRIsPositive.INSTANCE };
 			tfminequityyield.setValidationRules(rules);
 		}
 		return this.tfminequityyield;
@@ -398,8 +395,7 @@ public class BHScenarioHeadIntervalForm extends JPanel {
 			this.tfmindeptyield = new BHPercentTextField(IBHComponent.MINVALUE
 					+ DTOScenario.Key.RFK);
 			ValidationRule[] rules = { VRMandatory.INSTANCE,
-					VRIsDouble.INSTANCE, VRIsPositive.INSTANCE,
-					VRIsNotEqual.ISNOTZERO };
+					VRIsDouble.INSTANCE, VRIsPositive.INSTANCE };
 			tfmindeptyield.setValidationRules(rules);
 		}
 		return this.tfmindeptyield;
@@ -415,7 +411,8 @@ public class BHScenarioHeadIntervalForm extends JPanel {
 			this.tfmintradetax = new BHPercentTextField(IBHComponent.MINVALUE
 					+ DTOScenario.Key.BTAX);
 			ValidationRule[] rules = { VRMandatory.INSTANCE,
-					VRIsDouble.INSTANCE, VRIsPositive.INSTANCE };
+					VRIsDouble.INSTANCE, VRIsPositive.INSTANCE,
+					new VRIsLowerThan(100, true) };
 			tfmintradetax.setValidationRules(rules);
 		}
 		return this.tfmintradetax;
@@ -431,7 +428,8 @@ public class BHScenarioHeadIntervalForm extends JPanel {
 			this.tfmincorporatetax = new BHPercentTextField(IBHComponent.MINVALUE
 					+ DTOScenario.Key.CTAX);
 			ValidationRule[] rules = { VRMandatory.INSTANCE,
-					VRIsDouble.INSTANCE, VRIsPositive.INSTANCE };
+					VRIsDouble.INSTANCE, VRIsPositive.INSTANCE,
+					new VRIsLowerThan(100, true) };
 			tfmincorporatetax.setValidationRules(rules);
 		}
 		return this.tfmincorporatetax;
@@ -448,8 +446,7 @@ public class BHScenarioHeadIntervalForm extends JPanel {
 					+ DTOScenario.Key.REK);
 			ValidationRule[] rules = { VRMandatory.INSTANCE,
 					VRIsDouble.INSTANCE, VRIsPositive.INSTANCE,
-					new VRIsGreaterThan(gettfminequityyield(), true),
-					VRIsNotEqual.ISNOTZERO };
+					new VRIsGreaterThan(gettfminequityyield(), true) };
 			tfmaxequityyield.setValidationRules(rules);
 		}
 		return this.tfmaxequityyield;
@@ -466,8 +463,7 @@ public class BHScenarioHeadIntervalForm extends JPanel {
 					+ DTOScenario.Key.RFK);
 			ValidationRule[] rules = { VRMandatory.INSTANCE,
 					VRIsDouble.INSTANCE, VRIsPositive.INSTANCE,
-					new VRIsGreaterThan(gettfmindeptyield(), true),
-					VRIsNotEqual.ISNOTZERO };
+					new VRIsGreaterThan(gettfmindeptyield(), true) };
 			tfmaxdeptyield.setValidationRules(rules);
 		}
 		return this.tfmaxdeptyield;
@@ -484,7 +480,8 @@ public class BHScenarioHeadIntervalForm extends JPanel {
 					+ DTOScenario.Key.BTAX);
 			ValidationRule[] rules = { VRMandatory.INSTANCE,
 					VRIsDouble.INSTANCE, VRIsPositive.INSTANCE,
-					new VRIsGreaterThan(gettfmintradetax(), true) };
+					new VRIsGreaterThan(gettfmintradetax(), true),
+					new VRIsLowerThan(100, true) };
 			tfmaxtradetax.setValidationRules(rules);
 		}
 		return this.tfmaxtradetax;
@@ -501,7 +498,8 @@ public class BHScenarioHeadIntervalForm extends JPanel {
 					+ DTOScenario.Key.CTAX);
 			ValidationRule[] rules = { VRMandatory.INSTANCE,
 					VRIsDouble.INSTANCE, VRIsPositive.INSTANCE,
-					new VRIsGreaterThan(gettfmaxcorporatetax(), true) };
+					new VRIsGreaterThan(gettfmaxcorporatetax(), true),
+					new VRIsLowerThan(100, true) };
 			tfmaxcorporatetax.setValidationRules(rules);
 		}
 		return this.tfmaxcorporatetax;
@@ -611,6 +609,11 @@ public class BHScenarioHeadIntervalForm extends JPanel {
 		return this.lmaxpercentcorporate;
 	}
 	
+	/**
+	 * Getter method for component lPeriodType.
+	 * 
+	 * @return BHDescriptionLabel
+	 */
 	public BHDescriptionLabel getlPeriodType() {
 		if (lPeriodType == null) {
 			lPeriodType = new BHDescriptionLabel(DTOScenario.Key.PERIOD_TYPE);
@@ -618,6 +621,11 @@ public class BHScenarioHeadIntervalForm extends JPanel {
 		return lPeriodType;
 	}
 
+	/**
+	 * Getter method for component CmbPeriodType.
+	 * 
+	 * @return BHComboBox
+	 */
 	public BHComboBox getCmbPeriodType() {
 		if (cmbPeriodType == null) {
 			cmbPeriodType = new BHComboBox(DTOScenario.Key.PERIOD_TYPE);
@@ -665,22 +673,4 @@ public class BHScenarioHeadIntervalForm extends JPanel {
 			return order.get(0);
 		}
 	}
-
-	// TODO remove main later
-//	/**
-//	 * Test main method.
-//	 */
-//	public static void main(String args[]) {
-//
-//		JFrame test = new JFrame("Test for ViewHeadData1");
-//		test.setContentPane(new BHScenarioHeadIntervalForm());
-//		test.addWindowListener(new WindowAdapter() {
-//			@Override
-//			public void windowClosing(WindowEvent e) {
-//				System.exit(0);
-//			}
-//		});
-//		test.pack();
-//		test.show();
-//	}
 }
