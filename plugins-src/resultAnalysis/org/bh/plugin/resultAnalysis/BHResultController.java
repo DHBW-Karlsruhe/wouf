@@ -631,10 +631,10 @@ public class BHResultController extends OutputController {
 		if (fp != null) {
 		    if (scenario.getDCFMethod().getUniqueId().equals("apv")) {
 			if (t == scenario.getChildrenSize() - 1) {
-			    fp.setFormula(ff.createFormula("apv_t", getClass().getResourceAsStream("APV_SHV_t1.xml"), false));
+			    fp.setFormula(ff.createFormula("apv_t", getClass().getResourceAsStream("APV_SHV_T.xml"), false));
 			    fp.setValues(getFormulaMap(scenario, result, t));
 			} else {
-			    fp.setFormula(ff.createFormula("apv_T", getClass().getResourceAsStream("APV_SHV_T.xml"), false));
+			    fp.setFormula(ff.createFormula("apv_T", getClass().getResourceAsStream("APV_SHV_t1.xml"), false));
 			    fp.setValues(getFormulaMap(scenario, result, t));
 			}
 		    } else if (scenario.getDCFMethod().getUniqueId().equals("fcf")) {
