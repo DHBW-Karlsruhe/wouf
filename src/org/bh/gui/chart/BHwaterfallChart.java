@@ -12,105 +12,133 @@ import org.bh.platform.PlatformEvent.Type;
 import org.jfree.chart.ChartFactory;
 import org.jfree.chart.axis.CategoryAxis;
 import org.jfree.chart.axis.CategoryLabelPositions;
+import org.jfree.chart.axis.SubCategoryAxis;
+import org.jfree.chart.plot.CategoryPlot;
 import org.jfree.chart.plot.PlotOrientation;
 import org.jfree.chart.renderer.category.CategoryItemRenderer;
+import org.jfree.chart.renderer.category.GroupedStackedBarRenderer;
+import org.jfree.data.KeyToGroupMap;
 import org.jfree.data.category.DefaultCategoryDataset;
 import org.jfree.data.general.Dataset;
 
-	/**
-	 * 
-	 * BHwaterfallChart to create the waterfallChart
-	 * 
-	 * <p>
-	 * waterfallChart is created and modified
-	 * 
-	 * @author Lars
-	 * @version 0.1, 16.12.2009
-	 * 
-	 */
-	@SuppressWarnings("serial")
-	public class BHwaterfallChart extends BHChart implements IBHAddValue, IPlatformListener {
-		
-		private DefaultCategoryDataset dataset;
+/**
+ *
+ * BHwaterfallChart to create the waterfallChart
+ *
+ * <p>
+ * waterfallChart is created and modified
+ *
+ * @author Lars
+ * @version 0.1, 16.12.2009
+ *
+ */
+@SuppressWarnings("serial")
+public class BHwaterfallChart extends BHChart implements IBHAddGroupValue, IPlatformListener {
 
-		protected BHwaterfallChart(
-				final Dataset dataset, final String key, boolean legend, boolean tooltips) {
-			super(key);
-			this.dataset = (DefaultCategoryDataset) dataset;
+    private DefaultCategoryDataset dataset;
+    private GroupedStackedBarRenderer groupRenderer;
+    private KeyToGroupMap groupMap;
+    private String[] categories;
+    private CategoryPlot plot;
+    private SubCategoryAxis domainAxis;
 
-			chart = ChartFactory.createWaterfallChart(translator.translate(key)
-                                , translator.translate(key.concat(BHChart.DIMX))
-                                , translator.translate(key.concat(BHChart.DIMY))
-                                , this.dataset
-                                , PlotOrientation.VERTICAL, legend, tooltips, false);
+    protected BHwaterfallChart(
+            final Dataset dataset, final String key, boolean legend, boolean tooltips) {
+        super(key);
+        this.dataset = (DefaultCategoryDataset) dataset;
 
-			if ("Nimbus".equals(UIManager.getLookAndFeel().getName())) {
-				chart.setBackgroundPaint(UIManager.getColor("Chart.background"));
-			}
-			CategoryItemRenderer renderer = chart.getCategoryPlot().getRenderer();
-			renderer.setBaseItemLabelGenerator(new BHChartLabelGenerator());
-			renderer.setBaseItemLabelsVisible(true);
-			
-			final CategoryAxis domainAxis = chart.getCategoryPlot().getDomainAxis();
-			domainAxis.setMaximumCategoryLabelLines(5);
-	        domainAxis.setCategoryLabelPositions(CategoryLabelPositions.UP_45);
-			
-			reloadText();
-			Services.addPlatformListener(this);
-		}
+        chart = ChartFactory.createWaterfallChart(translator.translate(key), translator.translate(key.concat(BHChart.DIMX)), translator.translate(key.concat(BHChart.DIMY)), this.dataset, PlotOrientation.VERTICAL, legend, tooltips, false);
 
-		@Override
-		public final void addValue(Number value, Comparable row, Comparable<String> columnKey) {
+        if ("Nimbus".equals(UIManager.getLookAndFeel().getName())) {
+            chart.setBackgroundPaint(UIManager.getColor("Chart.background"));
+        }
+        CategoryItemRenderer renderer = chart.getCategoryPlot().getRenderer();
+        renderer.setBaseItemLabelGenerator(new BHChartLabelGenerator());
+        renderer.setBaseItemLabelsVisible(true);
 
-			this.dataset.addValue(value, row, columnKey);
-			chart.fireChartChanged();
-		}
+        final CategoryAxis domainAxis = chart.getCategoryPlot().getDomainAxis();
+        domainAxis.setMaximumCategoryLabelLines(5);
+        domainAxis.setCategoryLabelPositions(CategoryLabelPositions.UP_45);
 
-		@Override
-		public void addValues(List<?> list) {
-			Iterator<?> it = list.iterator();
+        reloadText();
+        Services.addPlatformListener(this);
+    }
 
-			for (int i = 0; i < list.size(); i++) {
-				for (int j = 0; j <= i; j++) {
-					while (it.hasNext()) {
-						this.dataset.addValue((Number) list.get(i), i,
-								(String) list.get(j));
-						chart.fireChartChanged();
-					}
-				}
-			}
-		}
+    @Override
+    public final void addValue(Number value, Comparable row, Comparable<String> columnKey) {
 
-		@Override
-		public final void addValue(Number value, Comparable<String> columnKey) {
-			// TODO Auto-generated method stub
-			throw new UnsupportedOperationException(
-					"This method has not been implemented");
-		}
+        this.dataset.addValue(value, row, columnKey);
+        chart.fireChartChanged();
+    }
 
-		@Override
-		public final void addSeries(Comparable<String> key, double[] values, int bins,
-				final double minimum, final double maximum) {
-			// TODO Auto-generated method stub
-			throw new UnsupportedOperationException(
-					"This method has not been implemented");
-		}
+    @Override
+    public void addValues(List<?> list) {
+        Iterator<?> it = list.iterator();
 
-		@Override
-		public void addSeries(Comparable<String> seriesKey, double[][] data, Integer amountOfValues, Integer average) {
-			// TODO Auto-generated method stub
-			throw new UnsupportedOperationException(
-					"This method has not been implemented");
-		}
+        for (int i = 0; i < list.size(); i++) {
+            for (int j = 0; j <= i; j++) {
+                while (it.hasNext()) {
+                    this.dataset.addValue((Number) list.get(i), i,
+                            (String) list.get(j));
+                    chart.fireChartChanged();
+                }
+            }
+        }
+    }
 
-		/**
-		 * Handle PlatformEvents
-		 */
-		@Override
-		public void platformEvent(PlatformEvent e) {
-			if(e.getEventType() == Type.LOCALE_CHANGED){
-				this.reloadText();
-			}
-		}
-		
+    public void addValue(Number value, Comparable row, Comparable<String> columnKey, int catIdx) {
+        this.addValue(value, row, columnKey);
+        groupMap.mapKeyToGroup(row, categories[catIdx]);
+        this.groupRenderer.setSeriesToGroupMap(groupMap);
+    }
+
+    public void setDefaultGroupSettings(String[] categories) {
+        this.categories = categories;
+        this.groupMap = new KeyToGroupMap(categories[0]);
+//                    String cats = "";
+//                    for(String s : categories){
+//                        cats = cats + " / " + translator.translate(s);
+//                    }
+        this.domainAxis = new SubCategoryAxis("");
+        this.domainAxis.setCategoryMargin(0.05);
+        for (String s : categories) {
+            this.domainAxis.addSubCategory(translator.translate(s));
+        }
+        //this.domainAxis.
+        this.plot.setDomainAxis(domainAxis);
+        this.groupRenderer.setItemMargin(0.0);
+        this.plot.setRenderer(groupRenderer);
+    }
+
+    @Override
+    public final void addValue(Number value, Comparable<String> columnKey) {
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException(
+                "This method has not been implemented");
+    }
+
+    @Override
+    public final void addSeries(Comparable<String> key, double[] values, int bins,
+            final double minimum, final double maximum) {
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException(
+                "This method has not been implemented");
+    }
+
+    @Override
+    public void addSeries(Comparable<String> seriesKey, double[][] data, Integer amountOfValues, Integer average) {
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException(
+                "This method has not been implemented");
+    }
+
+    /**
+     * Handle PlatformEvents
+     */
+    @Override
+    public void platformEvent(PlatformEvent e) {
+        if (e.getEventType() == Type.LOCALE_CHANGED) {
+            this.reloadText();
+        }
+    }
 }

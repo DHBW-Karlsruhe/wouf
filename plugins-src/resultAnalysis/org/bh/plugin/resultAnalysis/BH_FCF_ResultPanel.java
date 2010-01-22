@@ -21,44 +21,34 @@ import org.bh.gui.chart.BHChartPanel;
 public class BH_FCF_ResultPanel extends JPanel {
 
     private static final Logger log = Logger.getLogger(BH_FCF_ResultPanel.class);
-    
-    public BH_FCF_ResultPanel(boolean isAllSelected){
+
+    public BH_FCF_ResultPanel(boolean isAllSelected) {
         this.initialize(isAllSelected);
     }
 
     public void initialize(boolean isAllSelected) {
 
         double border = 30;
-//        if(!isAllSelected){
-//	        double size[][] = {{border, TableLayout.PREFERRED, border, TableLayout.PREFERRED, border, TableLayout.PREFERRED, border}, // Columns
-//	            {border, TableLayout.PREFERRED, border, TableLayout.PREFERRED, border, TableLayout.PREFERRED, 
-//	        	 border, TableLayout.PREFERRED, border,	TableLayout.PREFERRED, border, TableLayout.PREFERRED, 
-//	        	 border, TableLayout.PREFERRED,border, TableLayout.PREFERRED}}; // Rows
-//	        this.setLayout(new TableLayout(size));
-//        }else{
-        	double size[][] = {{border, TableLayoutConstants.PREFERRED, border, TableLayoutConstants.PREFERRED, border, TableLayoutConstants.PREFERRED, border}, // Columns
-    	            {border, TableLayoutConstants.PREFERRED, border, TableLayoutConstants.PREFERRED, border, TableLayoutConstants.PREFERRED}}; // Rows
-    	        this.setLayout(new TableLayout(size));
-  //      }
+
+        double size[][] = {{border, TableLayoutConstants.PREFERRED, border, TableLayoutConstants.PREFERRED, border, TableLayoutConstants.PREFERRED, border}, // Columns
+            {border, TableLayoutConstants.PREFERRED, border, TableLayoutConstants.PREFERRED, border, TableLayoutConstants.PREFERRED}}; // Rows
+        this.setLayout(new TableLayout(size));
+        //      }
 
         //All charts
         //TODO Schön Darstellen!!!!
-        BHChartPanel fcf_shareholderValue = BHChartFactory.getWaterfallChart( BHResultController.ChartKeys.FCF_WF_SV, false, false);
-        BHChartPanel fcf_fcf = BHChartFactory.getBarChart( BHResultController.ChartKeys.FCF_BC_FCF, false, false);
-        BHChartPanel fcf_returnRate = BHChartFactory.getBarChart( BHResultController.ChartKeys.FCF_BC_RR, true, false);        
-//        
-//        if(!isAllSelected){
-//	        this.add(infiniteFormula, "3,3");
-//	        this.add(valueInfiniteFormula, "3,5");
-//	        this.add(finiteFormula, "3,7");
-//	        this.add(valueFiniteFormula, "3,9");
-//	        this.add(fcf_shareholderValue, "3,11");
-//	        this.add(fcf_fcf, "3,13");
-//	        this.add(fcf_returnRate, "3,15");
-//        }else{
-	        this.add(fcf_shareholderValue, "3,1");
-	        this.add(fcf_fcf, "3,3");
-	        this.add(fcf_returnRate, "3,5");
+        BHChartPanel fcf_shareholderValue = BHChartFactory.getWaterfallChart(BHResultController.ChartKeys.FCF_WF_SV, false, false);
+        BHChartPanel fcf_freecashflow = BHChartFactory.getBarChart(BHResultController.ChartKeys.FCF_BC_FCF, true, false);
+        BHChartPanel fcf_returnrate = BHChartFactory.getBarChart(BHResultController.ChartKeys.FCF_BC_RR, true, false);
+        if (!isAllSelected) {
+            this.add(fcf_shareholderValue, "3,1");
+            this.add(fcf_freecashflow, "3,3");
+            this.add(fcf_returnrate, "3,5");
+        }else{
+            this.add(fcf_freecashflow, "3,1");
+            this.add(fcf_returnrate, "3,3");
+        }
+
 //        }
     }
 }
