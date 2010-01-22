@@ -374,8 +374,11 @@ public class ScenarioController extends InputController {
 
 						BHTreeNode tn = (BHTreeNode) bhTree.getSelectionPath()
 								.getPathComponent(2);
-
-						tn.setResultPane(new JScrollPane(panel));
+						
+						JScrollPane sp = new JScrollPane(panel);
+						sp.setWheelScrollingEnabled(true);
+						tn.setResultPane(sp);
+						
 						if(log.isDebugEnabled()) {
 							end = System.currentTimeMillis();
 							log.info("Result Analysis View load time: " +  (end - start) + "ms");
@@ -401,7 +404,9 @@ public class ScenarioController extends InputController {
 						
 						BHTreeNode tn = (BHTreeNode) bhTree.getSelectionPath()
 						.getPathComponent(2);
-						tn.setResultPane(new JScrollPane(panel));
+						JScrollPane sp = new JScrollPane(panel);
+						sp.setWheelScrollingEnabled(true);
+						tn.setResultPane(sp);
 						//Put it onto screen
 						bhmf.moveInResultForm(tn.getResultPane());
 						

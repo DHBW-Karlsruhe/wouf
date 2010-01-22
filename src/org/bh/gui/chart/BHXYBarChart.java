@@ -50,7 +50,6 @@ public class BHXYBarChart extends BHChart implements IBHAddValue,
 			public String generateToolTip(XYDataset dataset, int series, int item) {
 				String x = Services.numberToString(dataset.getXValue(series, item));
 				String y = Services.numberToString(dataset.getYValue(series, item));
-				
 				return translator.translate(key.concat(BHChart.DIMX)) + " " +  x + "; " + 
 						translator.translate(key.concat(BHChart.DIMY)) + " " +  y;
 			}
@@ -82,7 +81,7 @@ public class BHXYBarChart extends BHChart implements IBHAddValue,
 		 	
 			final XYPlot plot = chart.getXYPlot();
 	        final NumberAxis axis2 = new NumberAxis(translator.translate("org.bh.plugin.stochasticResultAnalysis.BHStochasticResultController$ChartKeys.DISTRIBUTION_CHART.Y2"));
-	        double upper = (amountOfValues.doubleValue()/average);
+	        double upper = (amountOfValues.doubleValue()/average) * 1.047;
 	        double lower = 0.0;
 	        axis2.setRange(lower, upper);
 	        
