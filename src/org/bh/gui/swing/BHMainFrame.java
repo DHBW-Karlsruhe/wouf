@@ -3,12 +3,8 @@ package org.bh.gui.swing;
 import java.awt.BorderLayout;
 import java.awt.Component;
 import java.awt.Dimension;
-import java.awt.Image;
-import java.util.ArrayList;
-import java.util.List;
 import java.util.prefs.BackingStoreException;
 
-import javax.imageio.ImageIO;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
@@ -123,7 +119,7 @@ public class BHMainFrame extends JFrame implements IPlatformListener, TimingTarg
 	/**
 	 * flag for direction of animation. Only used for animation.
 	 */
-	private boolean visible;
+	private boolean moveIn;
 	
 	/**
 	 * current cached position of divider. Only used for animation.
@@ -183,7 +179,7 @@ public class BHMainFrame extends JFrame implements IPlatformListener, TimingTarg
 		this.animator.setAcceleration(0.3f);
 		this.animator.setDeceleration(0.2f);
 		this.animator.setResolution(50);
-		this.visible = false; 
+		this.moveIn = false; 
 	}
 
 	/**
@@ -201,7 +197,7 @@ public class BHMainFrame extends JFrame implements IPlatformListener, TimingTarg
 		
 		this.setIconImages(Services.setIcon());
 		
-		this.visible = false;
+		this.moveIn = false;
 	}
 	
 	/**
@@ -275,10 +271,11 @@ public class BHMainFrame extends JFrame implements IPlatformListener, TimingTarg
 	
 	public void moveInResultForm(Component result) {	
 		this.setResultForm(result);
-		if (PlatformController.preferences.getBoolean("animation", true) && !visible) {
+		if (PlatformController.preferences.getBoolean("animation", true)) {
 			if (animator.isRunning()) {
 				animator.stop();
 			}
+			this.moveIn = true;
 			paneV.setDividerLocation(1.0);
 			animator.start();
 		}
@@ -287,11 +284,11 @@ public class BHMainFrame extends JFrame implements IPlatformListener, TimingTarg
 		}
 	}
 	public void moveOutResultForm() {
-		if (PlatformController.preferences.getBoolean("animation", true) && visible) {
+		if (PlatformController.preferences.getBoolean("animation", true)) {
 			if (animator.isRunning()) {
 				animator.stop();
 			}
-			visible = true;
+			this.moveIn = false;
 			animator.start();
 		}
 		else {
@@ -361,6 +358,7 @@ public class BHMainFrame extends JFrame implements IPlatformListener, TimingTarg
 	@Override
 	public void begin() {
 		this.dividerLocation = this.paneV.getDividerLocation();
+		System.err.println("begin: " + dividerLocation);
 	}
 
 	/**
@@ -368,8 +366,7 @@ public class BHMainFrame extends JFrame implements IPlatformListener, TimingTarg
 	 */
 	@Override
 	public void end() {
-		this.visible = !this.visible;
-		if (this.visible) {
+		if (this.moveIn) {
 			paneV.setDividerLocation(0.5);
 		}
 		else {
@@ -390,11 +387,11 @@ public class BHMainFrame extends JFrame implements IPlatformListener, TimingTarg
 	 */
 	@Override
 	public void timingEvent(float fraction) {
-		if (visible) {
-			paneV.setDividerLocation((int) (this.dividerLocation + (paneV.getHeight() - this.dividerLocation) * fraction));
+		if (moveIn) {
+			paneV.setDividerLocation(1 - (fraction * 0.5) );
 		}
 		else {
-			paneV.setDividerLocation(1 - (fraction * 0.5) );
+			paneV.setDividerLocation((int) (this.dividerLocation + (paneV.getHeight() - this.dividerLocation) * fraction));
 		}
 	}
 	
