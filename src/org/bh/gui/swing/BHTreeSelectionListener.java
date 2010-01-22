@@ -1,6 +1,7 @@
 package org.bh.gui.swing;
 
 import java.awt.Component;
+import java.awt.Container;
 
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
@@ -84,9 +85,18 @@ public class BHTreeSelectionListener implements TreeSelectionListener {
 								
 								selectedNode.setController(controller);
 
+								// TODO START VIEW
+								
+								Component comp = controller.getViewPanel();
+								
+								if (comp instanceof Container) {
+									Container cont = (Container) comp;
+									setFocus(cont);
+								}
 								// set content and result (=dashboard) if
 								// available
-								bhmf.setContentForm(view.getViewPanel());
+								bhmf.setContentForm(comp);
+								
 								JScrollPane resultPane;
 								if ((resultPane = selectedNode.getResultPane()) != null) {
 									bhmf.setResultForm(resultPane);
@@ -152,8 +162,15 @@ public class BHTreeSelectionListener implements TreeSelectionListener {
 
 								// set content and result panels to bhmf
 								JScrollPane resultPane;
+								
+								Component comp = controller.getViewPanel();
+								
+								if (comp instanceof Container) {
+									Container cont = (Container) comp;
+									setFocus(cont);
+								}
 
-								bhmf.setContentForm(controller.getViewPanel());
+								bhmf.setContentForm(comp);
 
 								if ((resultPane = selectedNode.getResultPane()) != null) {
 									bhmf.setResultForm(resultPane);
@@ -192,7 +209,10 @@ public class BHTreeSelectionListener implements TreeSelectionListener {
 								log.error("Cannot create period view", e);
 							}
 							
-							
+							if (viewComponent instanceof Container) {
+								Container cont = (Container) viewComponent;
+								setFocus(cont);
+							}
 							
 							container.setPvalues((JPanel) viewComponent);
 							bhmf.setContentForm(container);
@@ -202,5 +222,26 @@ public class BHTreeSelectionListener implements TreeSelectionListener {
 				}
 			});
 		}
+	}
+	
+	public static boolean setFocus(Container cont) {
+		for (Component comp : cont.getComponents()) {
+			if (comp instanceof BHTextField) {
+				final BHTextField tf = (BHTextField) comp;
+
+				SwingUtilities.invokeLater(new Runnable() {
+					public void run() {
+						tf.requestFocus();
+						tf.selectAll();
+					}
+				});
+				return true;
+			} else if (comp instanceof Container) {
+				if (setFocus((Container) comp))
+					return true;
+			}
+
+		}
+		return false;
 	}
 }
