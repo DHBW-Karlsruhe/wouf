@@ -101,8 +101,9 @@ public class PlatformController {
 		
 		/*------------------------------------
 		 * Pre initialization of formula & charts
-		 * gains 400ms on first calculation (Core 2Duo T7500, 2GB Ram)
+		 * -----------------------------------
 		 */
+		//gains 400ms on first calculation (Core 2Duo T7500, 2GB Ram)
 		IFormulaFactory.instance.initialInit();
 		BHChartFactory.initialInit();
 		
@@ -284,7 +285,7 @@ public class PlatformController {
 					for (BHTreeNode scenarioNode : scenarioNodes) {
 						if (((DTOScenario) scenarioNode.getUserObject())
 								.isMeOrChild(e.getSource())) {
-							scenarioNode.setResultPane(null);
+							
 							
 							//throw away dashboard of corresponding project
 							((BHTreeNode)scenarioNode.getParent()).setResultPane(null);
@@ -292,10 +293,10 @@ public class PlatformController {
 							// throw away present screen, if scenario is on
 							// screen
 							TreePath tp = bhmf.getBHTree().getSelectionPath();
-							if (tp.getPathCount() == 3 || tp.getPathCount() == 2 ) {
+							if (tp.getPathCount() == 3) {
 								bhmf.moveOutResultForm();
-
 							}
+							scenarioNode.setResultPane(null);
 						}
 					}
 				}

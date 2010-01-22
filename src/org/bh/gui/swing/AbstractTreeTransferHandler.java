@@ -152,21 +152,18 @@ public abstract class AbstractTreeTransferHandler implements DragGestureListener
 		if (canPerformAction(tree, draggedNode, action, pt)) {
 			
 			//get element for dragging...
-			for(Component c : tree.getComponents()){
-				
+			
+			int row = tree.getRowForLocation(dtde.getLocation().x, dtde.getLocation().y);
+			Point pos = tree.getRowBounds(row).getLocation();
+			//tree.getRootPane().add
+			if(dtde.getLocation().y < pos.y+tree.getRowBounds(row).height/2){
+				tree.getGraphics().drawLine(pos.x,pos.y-2, pos.x+120, pos.y-2 );
+			}else{
+				tree.getGraphics().drawLine(pos.x,pos.y+tree.getRowBounds(row).height+2, pos.x+120, pos.y+tree.getRowBounds(row).height+2 );
 			}
 			
-			//Component d = c.getComponentAt(dtde.getLocation());
 			
-			//CellRendererPane crp = (CellRendererPane)c.getComponentAt(dtde.getLocation());
-			
-			//System.out.println("---"+d.getComponentAt(dtde.getLocation()).getClass().getName());
-			
-				//paint a line on the drag-node
-				
-				//c.getLocation();
-				//tree.getGraphics().drawLine(d.getLocation().x,d.getLocation().y, d.getLocation().x+120, d.getLocation().y );
-			
+			//TreePath targetPath = target.getPathForLocation(location.x, location.y);
 			
 			dtde.acceptDrag(action);
 			

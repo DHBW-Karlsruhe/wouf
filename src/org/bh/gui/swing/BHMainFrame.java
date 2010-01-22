@@ -276,7 +276,7 @@ public class BHMainFrame extends JFrame implements IPlatformListener, TimingTarg
 		this.setResultForm(result);
 		if (PlatformController.preferences.getBoolean("animation", true)) {
 			if (animator.isRunning()) {
-				animator.stop();
+				animator.cancel();
 			}
 			this.moveIn = true;
 			paneV.setDividerLocation(1.0);
@@ -289,7 +289,7 @@ public class BHMainFrame extends JFrame implements IPlatformListener, TimingTarg
 	public void moveOutResultForm() {
 		if (PlatformController.preferences.getBoolean("animation", true)) {
 			if (animator.isRunning()) {
-				animator.stop();
+				animator.cancel();
 			}
 			this.moveIn = false;
 			animator.start();
@@ -361,7 +361,6 @@ public class BHMainFrame extends JFrame implements IPlatformListener, TimingTarg
 	@Override
 	public void begin() {
 		this.dividerLocation = this.paneV.getDividerLocation();
-		System.err.println("begin: " + dividerLocation);
 	}
 
 	/**

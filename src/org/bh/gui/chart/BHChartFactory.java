@@ -1,7 +1,10 @@
 package org.bh.gui.chart;
 
 import javax.swing.JPanel;
+import javax.swing.SwingUtilities;
 
+import org.apache.log4j.Logger;
+import org.bh.gui.swing.BHTreeSelectionListener;
 import org.bh.platform.Services;
 import org.bh.platform.i18n.ITranslator;
 import org.jfree.data.category.DefaultCategoryDataset;
@@ -25,7 +28,9 @@ import org.jfree.data.xy.DefaultXYDataset;
 public class BHChartFactory {
 
     static ITranslator translator = Services.getTranslator();
-
+    
+    private static final Logger log = Logger.getLogger(BHChartFactory.class);
+    
     /**
      * Method to create a LineChart
      *
@@ -216,12 +221,19 @@ public class BHChartFactory {
     }
     
     public static void initialInit() {
-        JPanel initPanel = new JPanel();
-    	initPanel.add(getLineChart(init.INIT.toString()));
-    	initPanel.add(getWaterfallChart(init.INIT.toString(), true, true));
-    	initPanel.add(getBarChart(init.INIT.toString(), true, true));
-    	initPanel.add(getStackedBarChart(init.INIT.toString(), true, true));
-    	initPanel.add(getPieChart(init.INIT.toString()));
+    	SwingUtilities.invokeLater(new Runnable() {
+			@Override
+			public void run() {
+				log.debug("initial Init of Charts started");
+				JPanel initPanel = new JPanel();
+				initPanel.add(getLineChart(init.INIT.toString()));
+				initPanel.add(getWaterfallChart(init.INIT.toString(), true, true));
+				initPanel.add(getBarChart(init.INIT.toString(), true, true));
+				initPanel.add(getStackedBarChart(init.INIT.toString(), true, true));
+				initPanel.add(getPieChart(init.INIT.toString()));
+				log.debug("initial Init of Charts completed");
+			}
+    	});
     }
 	
     private enum init{
