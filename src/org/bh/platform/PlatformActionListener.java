@@ -816,7 +816,6 @@ class PlatformActionListener implements ActionListener {
 			if (s.indexOf("" + i) < start && s.indexOf("" + i) > -1)
 				start = s.indexOf("" + i);
 		}
-		System.out.println("start " + start);
 		return start;
 
 	}

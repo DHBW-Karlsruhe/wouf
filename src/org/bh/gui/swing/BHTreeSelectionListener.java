@@ -78,8 +78,8 @@ public class BHTreeSelectionListener implements TreeSelectionListener {
 
 								IDTO<?> model = selectedDto;
 								controller = new ProjectController(view, model);
-
-								// TODO START VIEW
+								
+								selectedNode.setController(controller);
 
 								// set content and result (=dashboard) if
 								// available
