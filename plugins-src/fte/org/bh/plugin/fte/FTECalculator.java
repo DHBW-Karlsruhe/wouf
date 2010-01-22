@@ -409,4 +409,9 @@ public class FTECalculator implements IShareholderValueCalculator {
 		// }
 		return !firstValue.diffToLess(secondValue, 0.0000000001);
 	}
+
+	@Override
+	public boolean isApplicableForStochastic() {
+		return false;
+	}
 }

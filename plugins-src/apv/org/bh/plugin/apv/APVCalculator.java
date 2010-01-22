@@ -215,4 +215,9 @@ public class APVCalculator implements IShareholderValueCalculator {
 				FK[FK.length - 1]);
 		return calcPresentValueTaxShieldFinite(s, FKr, FK, PVTS);
 	}
+
+	@Override
+	public boolean isApplicableForStochastic() {
+		return true;
+	}
 }

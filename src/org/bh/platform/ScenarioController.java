@@ -46,10 +46,12 @@ import org.bh.gui.swing.BHStochasticInputForm;
 import org.bh.gui.swing.BHTree;
 import org.bh.gui.swing.BHTreeNode;
 import org.bh.gui.swing.IBHModelComponent;
+import org.bh.gui.swing.BHComboBox.Item;
 import org.bh.platform.PlatformEvent.Type;
 
 public class ScenarioController extends InputController {
 	protected static final BHComboBox.Item[] DCF_METHOD_ITEMS = getDcfMethodItems();
+	protected static final BHComboBox.Item[] DCF_STOCHASTIC_METHOD_ITEMS = getStochasticDcfMethodItems();
 	protected static final BHComboBox.Item[] PERIOD_TYPE_ITEMS = getPeriodTypeItems();
 	protected static final BHComboBox.Item[] STOCHASTIC_METHOD_ITEMS = getStochasticProcessItems();
 	private IStochasticProcess process = null;
@@ -59,13 +61,24 @@ public class ScenarioController extends InputController {
 		super(view, model);
 
 		this.bhmf = bhmf;
-
+		
+		//check whether stochastic or not
+		DTOScenario scenario = (DTOScenario) getModel();
 		BHComboBox cbDcfMethod = (BHComboBox) view
-				.getBHComponent(DTOScenario.Key.DCF_METHOD);
-		if (cbDcfMethod != null) {
-			cbDcfMethod.setSorted(true);
-			cbDcfMethod.setValueList(DCF_METHOD_ITEMS);
+		.getBHComponent(DTOScenario.Key.DCF_METHOD);
+		
+		if(scenario.isDeterministic()){
+			if (cbDcfMethod != null) {
+				cbDcfMethod.setSorted(true);
+				cbDcfMethod.setValueList(DCF_METHOD_ITEMS);
+			}
+		}else{
+			if (cbDcfMethod != null) {
+				cbDcfMethod.setSorted(true);
+				cbDcfMethod.setValueList(DCF_STOCHASTIC_METHOD_ITEMS);
+			}
 		}
+		
 
 		reloadTopPanel();
 
@@ -197,6 +210,16 @@ public class ScenarioController extends InputController {
 		loadToView(DTOScenario.Key.PERIOD_TYPE, false);
 		updateStochasticFieldsList();
 		loadAllToView();
+	}
+
+	private static Item[] getStochasticDcfMethodItems() {
+		Collection<IShareholderValueCalculator> dcfMethods = Services.getDCFMethods().values();
+		ArrayList<BHComboBox.Item> items = new ArrayList<BHComboBox.Item>();
+		for (IShareholderValueCalculator dcfMethod : dcfMethods) {
+			if(dcfMethod.isApplicableForStochastic())
+				items.add(new BHComboBox.Item(dcfMethod.getGuiKey(), new StringValue(dcfMethod.getUniqueId())));
+		}
+		return items.toArray(new BHComboBox.Item[0]);
 	}
 
 	protected void reloadTopPanel() {

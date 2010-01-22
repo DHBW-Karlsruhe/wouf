@@ -55,4 +55,11 @@ public interface IShareholderValueCalculator extends IDisplayablePlugin {
 	 * @return The unique ID.
 	 */
 	String getUniqueId();
+	
+	/**
+	 * 
+	 * @return true if applicable for stochastic Processes
+	 * 		false if not!
+	 */
+	boolean isApplicableForStochastic();
 }

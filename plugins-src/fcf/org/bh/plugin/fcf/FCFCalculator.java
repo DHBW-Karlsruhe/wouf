@@ -434,4 +434,9 @@ public class FCFCalculator implements IShareholderValueCalculator {
 		}
 		return wacc;
 	}
+
+	@Override
+	public boolean isApplicableForStochastic() {
+		return false;
+	}
 }

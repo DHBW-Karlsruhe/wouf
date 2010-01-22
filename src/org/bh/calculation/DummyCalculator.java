@@ -55,4 +55,9 @@ public class DummyCalculator implements IShareholderValueCalculator {
     public String getGuiKey() {
         return "";
     }
+
+	@Override
+	public boolean isApplicableForStochastic() {
+		return false;
+	}
 }

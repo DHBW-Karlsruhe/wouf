@@ -53,4 +53,9 @@ public class AllDCFMethodsCalculator implements IShareholderValueCalculator {
 		return GUI_KEY;
 	}
 
+	@Override
+	public boolean isApplicableForStochastic() {
+		return false;
+	}
+
 }
