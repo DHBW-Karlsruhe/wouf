@@ -75,7 +75,7 @@ public class BHScenarioHeadForm extends JPanel {
 	private void initialize() {
 
 		String rowDef = "4px,p,4px,p,4px,p,4px,p,20px,p,4px,p,4px,p,20px,p,4px";
-		String colDef = "4px,4px,right:pref,4px,pref,max(80px;default),4px,left:pref,24px,pref,4px,pref,4px,right:pref,4px,pref,pref,4px,pref,4px:grow,pref,4px,50px:grow,4px";
+		String colDef = "4px,4px,right:pref,4px,pref,max(80px;default),4px,left:pref,24px,pref,4px,pref,4px,right:pref,4px,pref,pref,4px,pref,4px:grow,pref,4px,80px,4px";
 
 		FormLayout layout = new FormLayout(colDef, rowDef);
 		this.setLayout(layout);

@@ -89,7 +89,7 @@ public class BHScenarioHeadIntervalForm extends JPanel {
 	private void initialize() {
 
 		String rowDef = "4px,p,4px,p,4px,p,4px,p,20px,p,4px,p,4px,p,20px,p,4px";
-		String colDef = "4px,right:pref,4px,max(80px;pref),4px,left:pref,4px,pref,4px,pref,4px,left:pref,24px:grow,4px,right:pref,4px,pref,4px,left:pref,4px,pref,4px,pref,4px,left:pref,4px";
+		String colDef = "4px,right:pref,4px,max(80px;pref),4px,left:pref,4px,pref,4px,pref,4px,left:pref,24px,4px,right:pref,4px,pref,4px,left:pref,4px,pref,4px,pref,4px,left:pref,4px:grow,pref,4px,80px,4px";
 
 		FormLayout layout = new FormLayout(colDef, rowDef);
 		this.setLayout(layout);
@@ -100,10 +100,10 @@ public class BHScenarioHeadIntervalForm extends JPanel {
 
 		this.add(this.getlscenName(), cons.xywh(2, 4, 1, 1));
 		this.add(this.gettfscenName(), cons.xywh(4, 4, 12, 1));
-		this.add(this.getlbaseYear(), cons.xywh(17, 4, 5, 1, "right, default"));
-		this.add(this.gettfbaseYear(), cons.xywh(23, 4, 1, 1));
+		this.add(this.getlbaseYear(), cons.xywh(27, 4, 1, 1, "right, default"));
+		this.add(this.gettfbaseYear(), cons.xywh(29, 4, 1, 1));
 		this.add(this.getlscenDescript(), cons.xywh(2, 6, 1, 1));
-		this.add(this.gettfscenDescript(), cons.xywh(4, 6, 20, 1));
+		this.add(this.gettfscenDescript(), cons.xywh(4, 6, 26, 1));
 
 		this.add(new JSeparator(SwingConstants.VERTICAL), cons
 				.xywh(8, 10, 1, 5));
