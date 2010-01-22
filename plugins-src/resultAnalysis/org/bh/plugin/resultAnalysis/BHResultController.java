@@ -5,12 +5,13 @@
 package org.bh.plugin.resultAnalysis;
 
 import java.awt.event.ActionEvent;
-import java.lang.reflect.InvocationTargetException;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
+import java.util.Map.Entry;
 
 import javax.swing.JComboBox;
-import javax.swing.SwingUtilities;
 
 import org.apache.log4j.Logger;
 import org.bh.controller.OutputController;
@@ -19,12 +20,17 @@ import org.bh.data.DTOScenario;
 import org.bh.data.types.Calculable;
 import org.bh.gui.View;
 import org.bh.gui.ViewException;
+import org.bh.gui.chart.BHChartPanel;
 import org.bh.gui.chart.IBHAddGroupValue;
 import org.bh.gui.chart.IBHAddValue;
+import org.bh.gui.swing.BHButton;
+import org.bh.gui.swing.BHDataExchangeDialog;
+import org.bh.platform.IImportExport;
 import org.bh.platform.Services;
 import org.bh.platform.formula.FormulaException;
 import org.bh.platform.formula.IFormulaFactory;
 import org.bh.platform.i18n.ITranslator;
+import org.jfree.chart.JFreeChart;
 
 /**
  * 
@@ -655,6 +661,29 @@ public class BHResultController extends OutputController {
 			}
 		    }
 		    fp.revalidate();
+		}
+	    } else if (e.getSource() instanceof BHButton) {
+		BHButton b = (BHButton) e.getSource();
+		if (b.getKey().toString().equals(BHResultPanel.Keys.EXPORTSCENARIO.toString())) {
+
+		    BHDataExchangeDialog dialog = new BHDataExchangeDialog(null, true);
+		    dialog.setAction(IImportExport.EXP_SCENARIO_RES);
+		    dialog.setModel(scenario);
+		    dialog.setResults(result);
+
+		    dialog.setIconImages(Services.setIcon());
+
+		    List<JFreeChart> charts = new ArrayList<JFreeChart>();
+		    for (Entry<String, IBHAddValue> entry : view.getBHchartComponents().entrySet()) {
+			if (entry.getValue() instanceof BHChartPanel) {
+			    BHChartPanel cp = (BHChartPanel) entry.getValue();
+			    charts.add(cp.getChart());
+			}
+		    }
+		    dialog.setCharts(charts);
+
+		    dialog.setVisible(true);
+		} else if (b.getKey().equals(BHResultPanel.Keys.PRINTSCENARIO)) {
 
 		}
 	    }
