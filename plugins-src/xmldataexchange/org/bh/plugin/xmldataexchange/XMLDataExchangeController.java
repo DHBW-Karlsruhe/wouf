@@ -1,12 +1,10 @@
 package org.bh.plugin.xmldataexchange;
 
-import org.apache.log4j.Logger;
-
-import java.awt.Container;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
@@ -14,14 +12,15 @@ import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
 import javax.swing.filechooser.FileNameExtensionFilter;
 
+import org.apache.log4j.Logger;
 import org.bh.data.DTO;
 import org.bh.data.DTOProject;
 import org.bh.data.DTOScenario;
-import org.bh.data.IDTO;
 import org.bh.data.IPeriodicalValuesDTO;
 import org.bh.data.types.Calculable;
 import org.bh.data.types.DistributionMap;
 import org.bh.gui.swing.BHDataExchangeDialog;
+import org.bh.gui.swing.BHDefaultGCCImportExportPanel;
 import org.bh.gui.swing.BHDefaultProjectExportPanel;
 import org.bh.gui.swing.BHDefaultProjectImportPanel;
 import org.bh.gui.swing.IBHComponent;
@@ -34,6 +33,8 @@ import org.bh.plugin.xmldataexchange.xmlimport.XMLNotValidException;
 import org.jfree.chart.JFreeChart;
 
 public class XMLDataExchangeController implements IImportExport, ActionListener {
+	
+	
 	/**
 	 * Logger for this class
 	 */
@@ -55,12 +56,10 @@ public class XMLDataExchangeController implements IImportExport, ActionListener 
 	
 	
 	private Object exportPanel = null;
-	
-	private Container container = null;
 
 	private BHDataExchangeDialog exportDialog;
 
-	private BHDefaultProjectImportPanel importPanel;
+	private Object importPanel;
 
 	private BHDataExchangeDialog importDialog;
 	
@@ -89,7 +88,7 @@ public class XMLDataExchangeController implements IImportExport, ActionListener 
 						boolean result = new XMLExport(((BHDefaultProjectExportPanel) exportPanel).getTxtPath().getText(), cloneProject).startExport();
 						if (result)
 						{ 
-							String msg = BHTranslator.getInstance().translate("DExportSuccessfull");
+							String msg = BHTranslator.getInstance().translate("DProjectExportSuccessfull");
 							msg = msg.replace("[PATH]", ((BHDefaultProjectExportPanel) exportPanel).getTxtPath().getText());
 							JOptionPane.showMessageDialog(exportDialog, msg,
 									BHTranslator.getInstance().translate("DXMLProjectExport"),
@@ -98,7 +97,7 @@ public class XMLDataExchangeController implements IImportExport, ActionListener 
 						}
 						else
 						{
-							JOptionPane.showMessageDialog(exportDialog, BHTranslator.getInstance().translate("DXMLExportError"),
+							JOptionPane.showMessageDialog(exportDialog, BHTranslator.getInstance().translate("DExportError"),
 									BHTranslator.getInstance().translate("DProjectExport"),
 									JOptionPane.ERROR_MESSAGE);
 						}
@@ -113,20 +112,103 @@ public class XMLDataExchangeController implements IImportExport, ActionListener 
 			}
 			else if ((exportDialog.getAction() & IImportExport.EXP_BALANCE_SHEET) == IImportExport.EXP_BALANCE_SHEET)				
 			{
-				
+				if (exportModel instanceof ArrayList)
+				{
+					DTOContainer container = new DTOContainer();
+					for (IPeriodicalValuesDTO dto : (List<IPeriodicalValuesDTO>)exportModel)					
+						container.addChild(dto);
+					
+					String filePath = ((BHDefaultGCCImportExportPanel) exportPanel).getFilePath();
+					if (!filePath.equals(""))
+					{
+						try {
+							boolean result = new XMLExport(filePath, container).startExport();
+							if (result)
+							{
+								String msg = BHTranslator.getInstance().translate("DGCCExportSuccessfull");
+								msg = msg.replace("[PATH]", filePath);
+								JOptionPane.showMessageDialog(exportDialog, msg,
+										BHTranslator.getInstance().translate("DXBRLExport"),
+										JOptionPane.INFORMATION_MESSAGE);
+								exportDialog.dispose();
+							}
+							else
+							{
+								JOptionPane.showMessageDialog(exportDialog, BHTranslator.getInstance().translate("DExportError"),
+										BHTranslator.getInstance().translate("DXBRLExport"),
+										JOptionPane.ERROR_MESSAGE);
+							}
+								
+						} catch (IOException e1) {
+							log.debug(e1);
+							JOptionPane.showMessageDialog(exportDialog, BHTranslator.getInstance().translate("DXMLExportFileError"),
+									BHTranslator.getInstance().translate("DXBRLExport"),
+									JOptionPane.WARNING_MESSAGE);
+						}
+					}
+					
+					
+				}
 			}
 		}		
 		else if (comp.getKey().equals("Mimport"))
 		{
-			((DTO<DTOScenario>) importModel).removeAllChildren();
-			for (Object sec : importPanel.getSecList().getSelectedItems())
-				((DTOProject)importModel).addChild((DTOScenario) sec);
-			PlatformController.getInstance().addProject((DTOProject) importModel);	
-			
-			//TODO Marcus -- check Norman added
+			if ((importDialog.getAction() & IImportExport.IMP_PROJECT) == IImportExport.IMP_PROJECT)
+			{
+				((DTO<DTOScenario>) importModel).removeAllChildren();
+				for (Object sec : ((BHDefaultProjectExportPanel) importPanel).getSecList().getSelectedItems())
+					((DTOProject)importModel).addChild((DTOScenario) sec);
+				PlatformController.getInstance().addProject((DTOProject) importModel);	
+			}
+			else if ((importDialog.getAction() & IImportExport.IMP_BALANCE_SHEET) == IImportExport.IMP_BALANCE_SHEET)
+			{
+				String filePath = ((BHDefaultGCCImportExportPanel) importPanel).getFilePath();
+				if (!filePath.equals(""))
+				{
+					try {
+						importModel = new XMLImport(filePath).startImport();
+						
+						if (importModel instanceof DTOContainer)
+						{
+							DTOContainer castedModel = (DTOContainer) importModel;						
+							if (castedModel.getChildrenSize() == 2)
+							{
+								List<IPeriodicalValuesDTO> importedObjects = new ArrayList<IPeriodicalValuesDTO>();
+								IPeriodicalValuesDTO child1 = castedModel.getChild(0);
+								IPeriodicalValuesDTO child2 = castedModel.getChild(1);
+								if (child1 instanceof IPeriodicalValuesDTO)							
+									importedObjects.add(child1);						
+								if (child2 instanceof IPeriodicalValuesDTO)
+									importedObjects.add(child2);			
+								
+								
+								importDialog.fireImportListener(importedObjects);
+							}
+							else
+							{
+								// TODO Marcus.Katzor Show message
+							}
+								
+						}
+						else
+						{
+							// TODO Katzor.Marcus Show message
+						}
+					} catch (XMLNotValidException e1) {
+						// TODO Auto-generated catch block
+						e1.printStackTrace();
+					} catch (IOException e1) {
+						// TODO Auto-generated catch block
+						e1.printStackTrace();
+					}
+					
+				}
+			}
+
 			importDialog.dispose();
 		}		
-		else if (comp.getKey().equals("Bbrowse") && GUI_KEY.equals(GUI_KEY_IMPORT))
+		else if (comp.getKey().equals("Bbrowse") && GUI_KEY.equals(GUI_KEY_IMPORT)
+				&& (importDialog.getAction() & IImportExport.IMP_PROJECT) == IImportExport.IMP_PROJECT)
 		{
 			
 			JFileChooser fileChooser = new JFileChooser();
@@ -151,8 +233,8 @@ public class XMLDataExchangeController implements IImportExport, ActionListener 
 					importModel = new XMLImport(fileChooser.getSelectedFile().getPath()).startImport();
 					if (importModel != null)
 					{					
-						importPanel.getSecList().setModel(((DTO<DTOScenario>) importModel).getChildren().toArray());	
-						importPanel.getBtnImport().setEnabled(true);
+						((BHDefaultProjectExportPanel) importPanel).getSecList().setModel(((DTO<DTOScenario>) importModel).getChildren().toArray());	
+						((BHDefaultProjectImportPanel) importPanel).getBtnImport().setEnabled(true);
 					}
 					else
 					{
@@ -178,12 +260,9 @@ public class XMLDataExchangeController implements IImportExport, ActionListener 
 				}				
 				
 				PlatformController.preferences.put("lastImportDirectory", fileChooser.getSelectedFile().getParent()); 
-				importPanel.getTxtPath().setText(fileChooser.getSelectedFile().getPath());			
-			}
-			
-			
-		}
-		
+				((BHDefaultProjectExportPanel) importPanel).getTxtPath().setText(fileChooser.getSelectedFile().getPath());			
+			}			
+		}		
 	}
 	
 	
@@ -206,7 +285,36 @@ public class XMLDataExchangeController implements IImportExport, ActionListener 
 		exportPanel = importDialog.setDefaultImportExportPanel(FILE_DESC, FILE_EXT, true);
 		exportDialog.setPluginActionListener(this);		
 	}
-
+	
+	@Override
+	public void exportBSAndPLSTotalCost(List<IPeriodicalValuesDTO> model,
+			BHDataExchangeDialog importDialog) {
+		GUI_KEY = GUI_KEY_EXPORT;
+		this.exportDialog = importDialog;
+		exportModel = model;
+		exportPanel = importDialog.setDefaultImportExportPanel(FILE_DESC, FILE_EXT, true);
+		exportDialog.setPluginActionListener(this);		
+	}
+	
+	@Override
+	public List<IPeriodicalValuesDTO> importBSAndPLSTotalCost(
+			BHDataExchangeDialog importDialog) {
+		GUI_KEY = GUI_KEY_IMPORT;		
+		importPanel = importDialog.setDefaultImportExportPanel(FILE_DESC, FILE_EXT, false);
+		importDialog.setPluginActionListener(this);
+		this.importDialog = importDialog;
+		return null;
+	}	
+	
+	@Override
+	public List<IPeriodicalValuesDTO> importBSAndPLSCostOfSales(
+			BHDataExchangeDialog importDialog) {
+		GUI_KEY = GUI_KEY_IMPORT;		
+		importPanel = importDialog.setDefaultImportExportPanel(FILE_DESC, FILE_EXT, false);
+		importDialog.setPluginActionListener(this);
+		this.importDialog = importDialog;
+		return null;
+	}
 
 	@Override
 	public DTOProject importProject(BHDataExchangeDialog importDialog) {
@@ -221,8 +329,34 @@ public class XMLDataExchangeController implements IImportExport, ActionListener 
 	@Override
 	public String getGuiKey() {
 		return GUI_KEY;
+	}	
+
+	@Override
+	public int getSupportedMethods() {
+		return 	IImportExport.EXP_PROJECT +
+				IImportExport.IMP_PROJECT +
+				IImportExport.EXP_BALANCE_SHEET +
+				IImportExport.EXP_PLS_COST_OF_SALES +
+				IImportExport.EXP_PLS_TOTAL_COST +
+				IImportExport.IMP_BALANCE_SHEET + 
+				IImportExport.IMP_PLS_COST_OF_SALES + 
+				IImportExport.IMP_PLS_TOTAL_COST;
 	}
 
+
+	@Override
+	public String getUniqueId() {
+		return UNIQUE_ID;
+	}
+	
+	@Override
+	public String toString() {
+		return "XML - Extensible Markup Language";
+	}
+
+	
+	// NOT SUPPORTED ACTIONS
+	
 	@Override
 	public void exportProjectResults(DTOProject project,
 			Map<String, Calculable[]> results, BHDataExchangeDialog exportDialog) {
@@ -239,7 +373,6 @@ public class XMLDataExchangeController implements IImportExport, ActionListener 
 
 
 	@Override
-
 	public void exportScenario(DTOScenario scenario, BHDataExchangeDialog exportDialog) {
 		// TODO Auto-generated method stub
 		throw new UnsupportedOperationException("This method has not been implemented");
@@ -252,27 +385,8 @@ public class XMLDataExchangeController implements IImportExport, ActionListener 
 		// TODO Auto-generated method stub
 		throw new UnsupportedOperationException("This method has not been implemented");
 	}
-
-	@Override
-	public int getSupportedMethods() {
-		return 	IImportExport.EXP_PROJECT +
-				IImportExport.IMP_PROJECT +
-				IImportExport.EXP_BALANCE_SHEET +
-				IImportExport.EXP_PLS_COST_OF_SALES +
-				IImportExport.EXP_PLS_TOTAL_COST;
-	}
-
-
-	@Override
-	public String getUniqueId() {
-		return UNIQUE_ID;
-	}
 	
-	@Override
-	public String toString() {
-		return "XML - Extensible Markup Language";
-	}
-
+	
 	@Override
 	public DTOScenario importScenario(BHDataExchangeDialog importDialog) {
 		// TODO Auto-generated method stub
@@ -362,30 +476,7 @@ public class XMLDataExchangeController implements IImportExport, ActionListener 
 		// TODO Auto-generated method stub
 		throw new UnsupportedOperationException("This method has not been implemented");
 	}
-
-	@Override
-	public List<IPeriodicalValuesDTO> importBSAndPLSCostOfSales(
-			BHDataExchangeDialog importDialog) {
-		// TODO Auto-generated method stub
-		throw new UnsupportedOperationException("This method has not been implemented");
-	}
-
-	@Override
-	public List<IPeriodicalValuesDTO> importBSAndPLSTotalCost(
-			BHDataExchangeDialog importDialog) {
-		// TODO Auto-generated method stub
-		throw new UnsupportedOperationException("This method has not been implemented");
-	}
-
 	
-
-	@Override
-	public void exportBSAndPLSTotalCost(List<IPeriodicalValuesDTO> model,
-			BHDataExchangeDialog importDialog) {
-		// TODO Auto-generated method stub
-		throw new UnsupportedOperationException("This method has not been implemented");
-	}
-
 	@Override
 	public void exportBalanceSheet(IPeriodicalValuesDTO model,
 			BHDataExchangeDialog exportDialog) {

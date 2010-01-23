@@ -164,17 +164,20 @@ public class XMLExport {
 		List<String> keys = dto.getKeys();
 		
 		List<Element> values = new ArrayList<Element>(); 
-		for (String key : keys)
+		if (keys != null)
 		{
-			// Get value and convert it into a JDOM Element
-			try
+			for (String key : keys)
 			{
-				IValue val = dto.get(key);
-				Element value = DataTypeConverter.getXMLRepresentation(key, val, bhDataNS);
-				values.add(value);
-			}
-			catch (DTOAccessException e)
-			{			
+				// Get value and convert it into a JDOM Element
+				try
+				{
+					IValue val = dto.get(key);
+					Element value = DataTypeConverter.getXMLRepresentation(key, val, bhDataNS);
+					values.add(value);
+				}
+				catch (DTOAccessException e)
+				{			
+				}
 			}
 		}
 		

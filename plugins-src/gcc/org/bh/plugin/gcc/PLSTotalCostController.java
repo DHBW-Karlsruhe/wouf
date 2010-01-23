@@ -3,6 +3,7 @@ package org.bh.plugin.gcc;
 import java.awt.Component;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
 import java.util.List;
 
 import org.apache.log4j.Logger;
@@ -87,6 +88,23 @@ public class PLSTotalCostController implements IPeriodController {
 			GCCCombinedForm combinedForm = new GCCCombinedForm(bsView.getViewPanel(), plsView.getViewPanel());
 			final IPeriodicalValuesDTO finalBS = bs;
 			final IPeriodicalValuesDTO finalPLS = pls;
+			
+			combinedForm.getBtnExport().addActionListener(new ActionListener()
+			{
+
+				@Override
+				public void actionPerformed(ActionEvent e) {
+					BHDataExchangeDialog dialog = PlatformController.getInstance().createBalanceSheetAndPLSExchangeDialog();
+					dialog.setAction(IImportExport.EXP_BALANCE_SHEET + IImportExport.EXP_PLS_TOTAL_COST);
+					List<IPeriodicalValuesDTO> model = new ArrayList<IPeriodicalValuesDTO>();
+					model.add(finalBS);
+					model.add(finalPLS);
+					dialog.setModel(model);
+					dialog.setVisible(true);
+				}
+			});
+			
+			
 			combinedForm.getBtnImport().addActionListener(new ActionListener()
 			{
 

@@ -384,7 +384,11 @@ public class BHDataExchangeDialog extends JDialog implements ActionListener {
 					case IImportExport.EXP_BALANCE_SHEET + IImportExport.EXP_PLS_COST_OF_SALES:
 						importExportPlugin.exportBSAndPLSCostOfSales((List<IPeriodicalValuesDTO>) model, this);
 						break;
+					case IImportExport.EXP_BALANCE_SHEET + IImportExport.EXP_PLS_TOTAL_COST:
+						importExportPlugin.exportBSAndPLSTotalCost((List<IPeriodicalValuesDTO>) model, this);
+						break;
 					}
+					
 					showPluginPanel();	
 					//TODO find good usage for Gui Key
 					setTitle(BHTranslator.getInstance().translate(importExportPlugin.getGuiKey()));

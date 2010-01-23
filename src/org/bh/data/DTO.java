@@ -101,10 +101,15 @@ public abstract class DTO<ChildT extends IDTO> implements IDTO<ChildT> {
 	protected Map<String, IValue> fallBackValues = new HashMap<String, IValue>();
 
 	protected static boolean throwEvents = true;
+	
+	public DTO() {
+		super();
+		enumerationName = null;
+	}
 
-	public DTO(Class<? extends Enum> enumeration) {
+	public DTO(Class<? extends Enum> enumeration) {		
 		enumerationName = enumeration.getName();
-		initKeys(enumeration);
+		initKeys(enumeration);			
 	}
 
 	private void initKeys(Class<? extends Enum> enumeration) {

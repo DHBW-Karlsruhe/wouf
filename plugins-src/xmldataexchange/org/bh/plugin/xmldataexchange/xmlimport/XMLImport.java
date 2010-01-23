@@ -15,6 +15,7 @@ import org.bh.data.DTOProject;
 import org.bh.data.IDTO;
 import org.bh.data.types.IValue;
 import org.bh.platform.PluginManager;
+import org.bh.plugin.xmldataexchange.XMLDataExchangeController;
 import org.jdom.Document;
 import org.jdom.Element;
 import org.jdom.JDOMException;
@@ -79,7 +80,7 @@ public class XMLImport {
 		}
 		
 		// Initialize result object
-		DTOProject project = null;
+		IDTO<?> result = null;
 		
 		// Validate the XML document
 		if (validateXMLInput())
@@ -90,13 +91,13 @@ public class XMLImport {
 			SAXBuilder saxBuilder = new SAXBuilder();
 			try {
 				Document doc = saxBuilder.build(importFile);				
-				project = (DTOProject) getDTOFromXML(doc.getRootElement());				
+				result = getDTOFromXML(doc.getRootElement());				
 			} catch (JDOMException e) {				
 				log.error("Parsing exception while importing a XML document", e);
 			} 
 		}
 		
-		return project;		
+		return result;		
 	}
 	
 	/**
@@ -130,10 +131,7 @@ public class XMLImport {
 					Object[] value = DataTypeConverter.getIValueRepresenation(val, bhDataNS);
 					dto.put(value[0], (IValue) value[1]);
 				}
-			}
-			
-			
-			
+			}			
 			
 			// Get a list of all child nodes
 			Element nodeChildren = node.getChild("children", bhDataNS);
