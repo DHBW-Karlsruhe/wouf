@@ -9,9 +9,10 @@ import org.bh.gui.View;
 import org.bh.gui.ViewException;
 
 /**
- * 
+ * View Component of the result plugin
  * @author Marco Hammel
  * @author Norman
+ * @version 1.0
  */
 public class ViewBHResultPanel extends View {
     public ViewBHResultPanel() throws ViewException {

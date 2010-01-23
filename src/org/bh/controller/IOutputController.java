@@ -12,7 +12,7 @@ import org.bh.data.types.Calculable;
 import org.bh.data.types.DistributionMap;
 
 /**
- *
+ * interface for all plugin controllers with an output or read exercise
  * @author Marco Hammel
  */
 public interface IOutputController extends IController{
@@ -24,5 +24,11 @@ public interface IOutputController extends IController{
      * @throws ControllerException
      */
     void setResult(Map<String, Calculable[]> result, DTOScenario scenario) throws ControllerException;
+    /**
+     * platform can hand over the result of an operation to a component by this method
+     * @param result
+     * @param scenario TODO
+     * @throws ControllerException
+     */
     void setResult(DistributionMap result, DTOScenario scenario) throws ControllerException;
 }

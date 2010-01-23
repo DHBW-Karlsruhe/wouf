@@ -37,16 +37,20 @@ import org.bh.platform.i18n.ITranslator;
 import org.jfree.chart.JFreeChart;
 
 /**
- * 
+ * controller definition for result plugin
  * @author Marco Hammel
  * @author Sebastian Scharfenberger
+ * @version 1.0
  */
 public class BHResultController extends OutputController {
 
     protected static Logger log = Logger.getLogger(BHResultController.class);
     private static final ITranslator translator = Services.getTranslator();
     IFormulaFactory ff;
-
+    /**
+     * chart keys for result to chart mapping used in <code>BH_APV_ResultPanel>/code>
+     * or <code>BH_FCF_ResultPanel>/code> or <code>BH_FTE_ResultPanel>/code>
+     */
     public static enum ChartKeys {
 
 	APV_WF_SV, APV_BC_CS, FCF_WF_SV, FCF_BC_CS, FCF_BC_FCF, FCF_BC_RR, FTE_BC_SV, FTE_BC_CS, FTE_BC_FTE, FTE_BC_RR;

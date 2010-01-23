@@ -6,8 +6,9 @@
 package org.bh.controller;
 
 /**
- *
+ * exception class for plugin exceptions
  * @author Marco Hammel
+ * @version 1.0
  */
 public class ControllerException extends RuntimeException{
 

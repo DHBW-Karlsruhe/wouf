@@ -20,9 +20,10 @@ import org.bh.gui.swing.IBHModelComponent;
 import com.jgoodies.validation.ValidationResult;
 
 /**
- * 
+ * every plugin controller with a writer exercise should be a subclass of this class
  * @author Marco Hammel
  * @author Robert
+ * @version 1.0
  */
 public class InputController extends Controller implements IInputController {
 
@@ -60,7 +61,10 @@ public class InputController extends Controller implements IInputController {
 	public void setModel(IDTO<?> model) {
 		this.model = model;
 	}
-
+        /**
+         * deliver <code>IDTO</code>
+         * @return active model
+         */
 	public IDTO<?> getModel() {
 		return model;
 	}
@@ -107,16 +111,21 @@ public class InputController extends Controller implements IInputController {
 			view.addViewListener(this);
 	}
 
-	// TODO Javadoc, exception handling
 	/*
-	 * Static methods for data transfer between model and view
+	 * method for data transfer between all view components having a binding
+         * key to the active model instance
+         * @throws DTOAccessException in case of error while saving
 	 */
 	public void saveAllToModel() throws DTOAccessException {
 		for (IBHModelComponent comp : view.getBHModelComponents().values()) {
 			saveToModel(comp);
 		}
 	}
-
+        /**
+         * for data transfer between a specific ui component with a binding key to a model component
+         * @param comp
+         * @throws DTOAccessException in case of error while saving
+         */
 	public void saveToModel(IBHModelComponent comp) throws DTOAccessException {
 		// model.setSandBoxMode(true);
 		String key = comp.getKey();
@@ -156,7 +165,6 @@ public class InputController extends Controller implements IInputController {
 
 	/**
 	 * Method to remove value from DTO e.g. necessary when validation went wrong
-	 * 
 	 * @param comp
 	 * @param model
 	 * @throws DTOAccessException
@@ -165,7 +173,11 @@ public class InputController extends Controller implements IInputController {
 			throws DTOAccessException {
 		removeFromModel(comp.getKey());
 	}
-
+        /**
+         * remove a specific value from the active model DTO
+         * @param key1 binding key of the component
+         * @throws DTOAccessException
+         */
 	public void removeFromModel(Object key1) throws DTOAccessException {
 		String key = key1.toString();
 		if (key.startsWith(IBHComponent.MINVALUE)
@@ -175,7 +187,9 @@ public class InputController extends Controller implements IInputController {
 		}
 		model.remove(key);
 	}
-
+        /**
+         * Map every value of a model DTO to ui components with a matching binding key
+         */
 	public void loadAllToView() {
 		for (String key : model.getKeys()) {
 			loadToView(key, false);
@@ -183,11 +197,22 @@ public class InputController extends Controller implements IInputController {
 		ValidationResult validationResult = view.revalidate();
 		model.setValid(!validationResult.hasErrors());
 	}
-
+        /**
+         * map a specific model DTÓ value to a matching ui component
+         * @param key1 key of the DTO component
+         * @throws DTOAccessException
+         */
 	public void loadToView(Object key1) throws DTOAccessException {
 		loadToView(key1, true);
 	}
-
+        /**
+         * map a specific model DTÓ value to a matching ui component can revalidate ui
+         * performance critical in case of revalidation.
+         * @see loadToView
+         * @param key1 key of the DTO component
+         * @param revalidate if true ui will be revalidated
+         * @throws DTOAccessException if DTO not contains a field with the key
+         */
 	public void loadToView(Object key1, boolean revalidate)
 			throws DTOAccessException {
 		String key = key1.toString();

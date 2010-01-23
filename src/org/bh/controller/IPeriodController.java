@@ -14,7 +14,8 @@ import org.bh.platform.IDisplayablePlugin;
  * with values for a single period.
  * 
  * @author Robert Vollmer
- * @version 1.1, 08.12.2009
+ * @version 0.1, 08.12.2009
+ * @version 1.0
  * 
  */
 public interface IPeriodController extends IDisplayablePlugin {

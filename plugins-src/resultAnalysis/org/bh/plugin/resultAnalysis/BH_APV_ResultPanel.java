@@ -14,8 +14,9 @@ import org.bh.gui.chart.BHChartFactory;
 import org.bh.gui.chart.BHChartPanel;
 
 /**
- * 
+ * View for APV results containing APV charts
  * @author Marco Hammel
+ * @version 1.0
  */
 @SuppressWarnings("serial")
 public class BH_APV_ResultPanel extends JPanel {

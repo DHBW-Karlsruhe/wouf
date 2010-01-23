@@ -14,8 +14,9 @@ import org.bh.gui.chart.BHChartFactory;
 import org.bh.gui.chart.BHChartPanel;
 
 /**
- *
+ * View for FTE results containing FTE charts
  * @author Marco Hammel
+ * @version 1.0
  */
 public class BH_FTE_ResultPanel extends JPanel {
 

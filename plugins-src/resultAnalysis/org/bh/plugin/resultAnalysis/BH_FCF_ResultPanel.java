@@ -14,8 +14,9 @@ import org.bh.gui.chart.BHChartFactory;
 import org.bh.gui.chart.BHChartPanel;
 
 /**
- *
+ * View for FCF results containing FCF charts
  * @author Marco Hammel
+ * @version 1.0
  */
 @SuppressWarnings("serial")
 public class BH_FCF_ResultPanel extends JPanel {

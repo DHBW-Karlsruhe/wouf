@@ -8,8 +8,9 @@ package org.bh.controller;
 import org.bh.data.IDTO;
 
 /**
- *
+ * interface for all plugin controllers with a writer excecise.
  * @author Marco Hammel
+ * @version 1.0
  */
 public interface IInputController extends IController{
 

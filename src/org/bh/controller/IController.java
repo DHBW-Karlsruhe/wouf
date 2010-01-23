@@ -11,9 +11,14 @@ import org.bh.gui.View;
 public interface IController {
 
     /**
-     * @return the view of the component; if no view is defined the method returns null
+     * deliver the active JPanel of the component if no view is defined the method returns null
+     * @return setted JPanel;
      * @throws ControllerException
      */
     JPanel getViewPanel() throws ControllerException;
+    /**
+     * active View instance of the component
+     * @return View
+     */
     View getView();
 }

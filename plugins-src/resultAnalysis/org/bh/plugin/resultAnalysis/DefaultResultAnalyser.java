@@ -9,7 +9,11 @@ import org.bh.data.types.Calculable;
 import org.bh.gui.IDeterministicResultAnalyser;
 import org.bh.gui.View;
 import org.bh.gui.ViewException;
-
+/**
+ * initialize plugin components and distribute values from the platform
+ * @author Marco Hammel
+ * @version 1.0
+ */
 public class DefaultResultAnalyser implements IDeterministicResultAnalyser {
     @Override
     public Component setResult(DTOScenario scenario, Map<String, Calculable[]> result) {
