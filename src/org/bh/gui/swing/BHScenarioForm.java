@@ -47,7 +47,9 @@ public class BHScenarioForm extends JPanel {
 		 */
 		PROCESS_DATA,
 		
-		CANNOT_CALCULATE_HINT;
+		CANNOT_CALCULATE_HINT,
+		
+		CALCULATING_IMAGE;
 
 		@Override
 		public String toString() {
@@ -59,6 +61,7 @@ public class BHScenarioForm extends JPanel {
 	private JPanel pprocess;
 	private BHButton bcalculate;
 	private BHDescriptionLabel lCannotCalculateHint;
+	private BHDescriptionLabel lCalculatingImage;
 	private JPanel topPanel;
 	private JPanel bottomPanel;
 
@@ -115,14 +118,15 @@ public class BHScenarioForm extends JPanel {
 		/*
 		 * build bottomPanel
 		 */
-		colDef = "4px,4px:grow,4px,right:pref,4px";
+		colDef = "4px,4px:grow,4px,min,4px,right:pref,4px";
 		rowDef = "4px,p,4px";
 		
 		FormLayout bottomLayout = new FormLayout(colDef, rowDef);
 		bottomPanel.setLayout(bottomLayout);
 
 		bottomPanel.add(this.getCannotCalculateHint(), cons.xywh(2, 2, 1, 1));
-		bottomPanel.add(this.getBcalculate(), cons.xywh(4, 2, 1, 1));
+		bottomPanel.add(this.getCalculatingImage(), cons.xywh(4, 2, 1, 1));
+		bottomPanel.add(this.getBcalculate(), cons.xywh(6, 2, 1, 1));
 		
 		this.add(bottomPanel, cons.xywh(2, 4, 1, 1));
 		
@@ -185,6 +189,13 @@ public class BHScenarioForm extends JPanel {
 			lCannotCalculateHint.setVisible(false);
 		}
 		return lCannotCalculateHint;
+	}
+	
+	public BHDescriptionLabel getCalculatingImage() {
+		if (lCalculatingImage == null) {
+			lCalculatingImage = new BHDescriptionLabel(Key.CALCULATING_IMAGE);
+		}
+		return lCalculatingImage;
 	}
 	
 

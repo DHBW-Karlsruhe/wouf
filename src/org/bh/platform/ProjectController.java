@@ -20,6 +20,7 @@ import org.bh.gui.View;
 import org.bh.gui.ViewException;
 import org.bh.gui.swing.BHButton;
 import org.bh.gui.swing.BHDashBoardPanelView;
+import org.bh.gui.swing.BHDescriptionLabel;
 import org.bh.gui.swing.BHProjectForm;
 import org.bh.gui.swing.BHTree;
 import org.bh.gui.swing.BHTreeNode;
@@ -61,7 +62,12 @@ public class ProjectController extends InputController implements
 
 					try {
 						JButton b = (JButton) ae.getSource();
-						b.setIcon(prCalcLoading);
+						BHDescriptionLabel calcImage = (BHDescriptionLabel) getView().getBHComponent(
+								BHProjectForm.Key.CALCULATING_IMAGE);
+						
+						b.setEnabled(false);
+						calcImage.setIcon(prCalcLoading);
+						
 						DTOProject project = (DTOProject) getModel();
 						// Give Map to DashboardController
 						Map<DTOScenario, Map<?, ?>> results = new HashMap<DTOScenario, Map<?, ?>>();
@@ -95,7 +101,9 @@ public class ProjectController extends InputController implements
 
 						tn.setResultPane(new JScrollPane(v.getViewPanel()));
 						PlatformController.getInstance().getMainFrame().moveInResultForm(tn.getResultPane());
-						b.setIcon(null);
+						
+						calcImage.setIcon(null);
+						b.setEnabled(true);
 					} catch (ViewException e) {
 						log.error(e);
 						((JButton) ae.getSource()).setIcon(null);

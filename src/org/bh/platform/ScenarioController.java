@@ -367,13 +367,16 @@ public class ScenarioController extends InputController {
 		@Override
 		public void actionPerformed(ActionEvent e) {
 			final JButton b = (JButton) e.getSource();
-			b.setIcon(this.scCalcLoading);
+			final BHDescriptionLabel calcImage = (BHDescriptionLabel) getView().getBHComponent(
+					BHScenarioForm.Key.CALCULATING_IMAGE);
+			
+			b.setEnabled(false);
+			calcImage.setIcon(this.scCalcLoading);
 
 			Runnable r = new Runnable() {
 				long end;
 				long start;
 				
-				@SuppressWarnings("synthetic-access")
 				@Override
 				public void run() {
 					DTOScenario scenario = (DTOScenario) getModel();
@@ -437,7 +440,8 @@ public class ScenarioController extends InputController {
 						
 					}
 					
-					b.setIcon(null);
+					b.setEnabled(true);
+					calcImage.setIcon(null);
 				}
 			};
 			new Thread(r, "Calculation Thread").start();
