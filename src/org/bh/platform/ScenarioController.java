@@ -41,6 +41,8 @@ import org.bh.gui.swing.BHComboBox;
 import org.bh.gui.swing.BHDescriptionLabel;
 import org.bh.gui.swing.BHMainFrame;
 import org.bh.gui.swing.BHScenarioForm;
+import org.bh.gui.swing.BHScenarioHeadForm;
+import org.bh.gui.swing.BHScenarioHeadIntervalForm;
 import org.bh.gui.swing.BHSelectionList;
 import org.bh.gui.swing.BHStochasticInputForm;
 import org.bh.gui.swing.BHTree;
@@ -178,6 +180,7 @@ public class ScenarioController extends InputController {
 		BHCheckBox chkInterval = (BHCheckBox) getView().getBHComponent(
 				DTOScenario.Key.INTERVAL_ARITHMETIC);
 		if (chkInterval != null) {
+			final View v = view;
 			chkInterval.getValueChangeManager().addCompValueChangeListener(
 					new ICompValueChangeListener() {
 						@Override
@@ -187,15 +190,30 @@ public class ScenarioController extends InputController {
 							if (!scenario.isIntervalArithmetic()) {
 								scenario.convertIntervalToDouble();
 							}
+							// ---- get selected item of the old ComboBox
+							BHComboBox cbPeriodType = (BHComboBox) v
+							.getBHComponent(DTOScenario.Key.PERIOD_TYPE);
+							Object item = cbPeriodType.getSelectedItem();
+							// ----
 							((BHScenarioForm) getViewPanel())
 									.setHeadPanel(scenario
-											.isIntervalArithmetic());
+											.isIntervalArithmetic());			
 							try {
 								reloadView();
 							} catch (ViewException e) {
 							}
 							loadAllToView();
 							reloadTopPanel();
+							
+							//---- set selected item in the new ComboBox
+							JPanel shf = ((BHScenarioForm) getViewPanel()).getScenarioHeadForm();
+							if(shf instanceof BHScenarioHeadForm){
+								((BHScenarioHeadForm)shf).getCmbPeriodType().setSelectedItem(item);
+							}else if (shf instanceof BHScenarioHeadIntervalForm){
+								((BHScenarioHeadIntervalForm)shf).getCmbPeriodType().setSelectedItem(item);
+							}
+							//----
+							
 							setCalcEnabled(getModel().isValid(true));
 						}
 					});

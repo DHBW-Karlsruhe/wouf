@@ -175,6 +175,10 @@ public class BHScenarioForm extends JPanel {
 	public JPanel getProcessForm(){
 		return pprocess;
 	}
+	
+	public JPanel getScenarioHeadForm(){
+		return pscenario;
+	}
 
 	public BHButton getBcalculate() {
 		if (this.bcalculate == null) {
@@ -199,23 +203,4 @@ public class BHScenarioForm extends JPanel {
 	}
 	
 
-	
-//	// TODO remove main later
-//	/**
-//	 * Test main method.
-//	 */
-//	@SuppressWarnings("deprecation")
-//	public static void main(String args[]) {
-//
-//		JFrame test = new JFrame("Test for ViewHeadData1");
-//		test.setContentPane(new BHScenarioHeadForm());
-//		test.addWindowListener(new WindowAdapter() {
-//			@Override
-//			public void windowClosing(WindowEvent e) {
-//				System.exit(0);
-//			}
-//		});
-//		test.pack();
-//		test.show();
-//	}
 }
