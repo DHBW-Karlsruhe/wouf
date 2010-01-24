@@ -23,6 +23,7 @@ import javax.swing.filechooser.FileNameExtensionFilter;
 import org.bh.gui.ValidationMethods;
 import org.bh.gui.ViewException;
 import org.bh.platform.PlatformController;
+import org.bh.platform.i18n.BHTranslator;
 
 public class BHDefaultGCCImportExportPanel extends JPanel {
 
@@ -33,6 +34,7 @@ public class BHDefaultGCCImportExportPanel extends JPanel {
 	String fileExt;
 	boolean export = false;
 	private BHButton btnExport;
+	private BHDescriptionTextArea lblDescr;
 	
 
 	public BHDefaultGCCImportExportPanel(String fileDesc, String fileExt, boolean export) {
@@ -64,6 +66,9 @@ public class BHDefaultGCCImportExportPanel extends JPanel {
 
 		// Cancel
 		BHButton btnCancel = new BHButton("Bcancel");
+		
+		// Back 
+		BHButton btnBack = new BHButton("Bback");
 
 		// Start export
 		btnExport = null;
@@ -75,6 +80,7 @@ public class BHDefaultGCCImportExportPanel extends JPanel {
 		btnExport.setEnabled(false);
 
 		buttonPanel.add(btnCancel);
+		buttonPanel.add(btnBack);
 		buttonPanel.add(btnExport);
 
 		actionPanel.add(buttonPanel, BorderLayout.CENTER);
@@ -88,11 +94,11 @@ public class BHDefaultGCCImportExportPanel extends JPanel {
 		panDescr.setLayout(new BorderLayout());
 
 		// Text area with description
-		BHDescriptionTextArea lblDescr = null;
+		lblDescr = null;
 		if (export)
-			lblDescr = new BHDescriptionTextArea("DGCCExportDescription");
+			lblDescr = new BHDescriptionTextArea("DGCCXMLExportDescription");
 		else
-			lblDescr = new BHDescriptionTextArea("DGCCImportDescription");
+			lblDescr = new BHDescriptionTextArea("DGCCXMLImportDescription");
 		lblDescr.setFocusable(false);
 		lblDescr.setToolTipText(null);
 
@@ -118,6 +124,11 @@ public class BHDefaultGCCImportExportPanel extends JPanel {
 
 	public boolean openAfterExport() {
 		return open.isSelected();
+	}
+	
+	public void setDescription(String key)
+	{
+		lblDescr.setText(BHTranslator.getInstance().translate(key));
 	}
 
 	public class SelectionArea extends JPanel implements ActionListener {

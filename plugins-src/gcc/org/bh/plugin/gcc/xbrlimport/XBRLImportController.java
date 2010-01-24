@@ -41,7 +41,8 @@ public class XBRLImportController implements IImportExport, ActionListener {
 	public List<IPeriodicalValuesDTO> importBSAndPLSCostOfSales(
 			BHDataExchangeDialog importDialog) {
 		this.importDialog = importDialog;
-		importPanel = importDialog.setDefaultImportExportPanel(FILE_DESC, FILE_EXT, false);
+		importPanel = importDialog.setDefaultGCCImportExportPanel(FILE_DESC, FILE_EXT, false);
+		importPanel.setDescription("DGCCXBRLImportDescription");
 		importDialog.setPluginActionListener(this);
 		
 		importDialog.setSize((int)importDialog.getSize().getWidth(), 280);
@@ -52,7 +53,8 @@ public class XBRLImportController implements IImportExport, ActionListener {
 	public List<IPeriodicalValuesDTO> importBSAndPLSTotalCost(
 			BHDataExchangeDialog importDialog) {
 		this.importDialog = importDialog;
-		importPanel = importDialog.setDefaultImportExportPanel(FILE_DESC, FILE_EXT, false);
+		importPanel = importDialog.setDefaultGCCImportExportPanel(FILE_DESC, FILE_EXT, false);
+		importPanel.setDescription("DGCCXBRLImportDescription");
 		importDialog.setPluginActionListener(this);
 		
 		importDialog.setSize((int)importDialog.getSize().getWidth(), 280);
@@ -193,14 +195,14 @@ public class XBRLImportController implements IImportExport, ActionListener {
 				JOptionPane.showMessageDialog(importDialog, BHTranslator.getInstance().translate("DXMLNotValid"),
 						BHTranslator.getInstance().translate("DXBRLImport"),
 						JOptionPane.WARNING_MESSAGE);
-				importPanel = importDialog.setDefaultImportExportPanel(FILE_DESC, FILE_EXT, false);
+				importPanel = importDialog.setDefaultGCCImportExportPanel(FILE_DESC, FILE_EXT, false);
 				importDialog.showPluginPanel();
 			}
 			catch (IOException e1) {
 				JOptionPane.showMessageDialog(importDialog, BHTranslator.getInstance().translate("DImportFileError"),
 						BHTranslator.getInstance().translate("DXMLProjectImport"),
 						JOptionPane.WARNING_MESSAGE);
-				importPanel = importDialog.setDefaultImportExportPanel(FILE_DESC, FILE_EXT, false);
+				importPanel = importDialog.setDefaultGCCImportExportPanel(FILE_DESC, FILE_EXT, false);
 				importDialog.showPluginPanel();
 			}		
 		}

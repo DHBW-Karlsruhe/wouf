@@ -308,8 +308,8 @@ public class BHDataExchangeDialog extends JDialog implements ActionListener {
 		setPluginPanel(result);
 		return result;
 	}
-	
-	public BHDefaultGCCImportExportPanel setDefaultImportExportPanel(String fileDesc, String fileExt,
+		
+	public BHDefaultGCCImportExportPanel setDefaultGCCImportExportPanel(String fileDesc, String fileExt,
 			boolean export)
 	{
 		BHDefaultGCCImportExportPanel result = new BHDefaultGCCImportExportPanel(fileDesc, fileExt, export);
@@ -401,6 +401,7 @@ public class BHDataExchangeDialog extends JDialog implements ActionListener {
 		}	
 		if (comp.getKey().equals("Bback"))
 		{
+			setSize(400, 500);
 			showFormatSelectionPanel();
 		}
 		else if (comp.getKey().equals("Bcancel"))

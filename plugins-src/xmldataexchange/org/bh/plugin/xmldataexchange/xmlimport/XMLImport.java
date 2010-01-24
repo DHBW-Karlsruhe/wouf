@@ -11,6 +11,7 @@ import javax.xml.validation.SchemaFactory;
 import javax.xml.validation.Validator;
 
 import org.apache.log4j.Logger;
+import org.bh.data.DTOAccessException;
 import org.bh.data.DTOProject;
 import org.bh.data.IDTO;
 import org.bh.data.types.IValue;
@@ -145,6 +146,8 @@ public class XMLImport {
 				}
 			}
 			
+		} catch (DTOAccessException e) {
+			log.debug("A DTO coudn't be accessed properbly");
 		} catch (InstantiationException e) {
 			log.error("A DTO could not be initialized. Maybe there is no standard constructor implemented", e);
 		} catch (IllegalAccessException e) {

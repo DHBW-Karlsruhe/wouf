@@ -45,8 +45,8 @@ public class XMLDataExchangeController implements IImportExport, ActionListener 
 	
 	private static String GUI_KEY = "xmldataexchange";
 	
-	private static final String GUI_KEY_IMPORT = "DXMLProjectImport";
-	private static final String GUI_KEY_EXPORT = "DXMLProjectExport";
+	private static final String GUI_KEY_IMPORT = "DXMLImport";
+	private static final String GUI_KEY_EXPORT = "DXMLExport";
 
 	private static final String UNIQUE_ID = "XML";
 
@@ -104,7 +104,7 @@ public class XMLDataExchangeController implements IImportExport, ActionListener 
 						
 					} catch (IOException e1) {
 						log.debug(e1);
-						JOptionPane.showMessageDialog(exportDialog, BHTranslator.getInstance().translate("DXMLExportFileError"),
+						JOptionPane.showMessageDialog(exportDialog, BHTranslator.getInstance().translate("DExportFileError"),
 								BHTranslator.getInstance().translate("DProjectExport"),
 								JOptionPane.WARNING_MESSAGE);
 					}
@@ -128,26 +128,25 @@ public class XMLDataExchangeController implements IImportExport, ActionListener 
 								String msg = BHTranslator.getInstance().translate("DGCCExportSuccessfull");
 								msg = msg.replace("[PATH]", filePath);
 								JOptionPane.showMessageDialog(exportDialog, msg,
-										BHTranslator.getInstance().translate("DXBRLExport"),
+										BHTranslator.getInstance().translate("DXMLExport"),
 										JOptionPane.INFORMATION_MESSAGE);
 								exportDialog.dispose();
 							}
 							else
 							{
 								JOptionPane.showMessageDialog(exportDialog, BHTranslator.getInstance().translate("DExportError"),
-										BHTranslator.getInstance().translate("DXBRLExport"),
+										BHTranslator.getInstance().translate("DXMLExport"),
 										JOptionPane.ERROR_MESSAGE);
+								setDefaultGCCExportPanel();
 							}
 								
-						} catch (IOException e1) {
-							log.debug(e1);
-							JOptionPane.showMessageDialog(exportDialog, BHTranslator.getInstance().translate("DXMLExportFileError"),
-									BHTranslator.getInstance().translate("DXBRLExport"),
+						} catch (IOException e1) {							
+							JOptionPane.showMessageDialog(exportDialog, BHTranslator.getInstance().translate("DExportFileError"),
+									BHTranslator.getInstance().translate("DXMLExport"),
 									JOptionPane.WARNING_MESSAGE);
+							setDefaultGCCExportPanel();
 						}
-					}
-					
-					
+					}					
 				}
 			}
 		}		
@@ -179,33 +178,41 @@ public class XMLDataExchangeController implements IImportExport, ActionListener 
 								if (child1 instanceof IPeriodicalValuesDTO)							
 									importedObjects.add(child1);						
 								if (child2 instanceof IPeriodicalValuesDTO)
-									importedObjects.add(child2);			
-								
-								
+									importedObjects.add(child2);							
 								importDialog.fireImportListener(importedObjects);
+								importDialog.dispose();
 							}
 							else
 							{
-								// TODO Marcus.Katzor Show message
+								log.debug("The container contains more than 2 IPeriodicalValueDTOs");
+								JOptionPane.showMessageDialog(importDialog, BHTranslator.getInstance().translate("DGCCXMLImportError"), 
+										BHTranslator.getInstance().translate("DXMLImport"), JOptionPane.ERROR_MESSAGE);
+								setDefaultGCCImportPanel();
 							}
 								
 						}
 						else
 						{
-							// TODO Katzor.Marcus Show message
+							log.debug("Nothing could be imported.");
+							JOptionPane.showMessageDialog(importDialog, BHTranslator.getInstance().translate("DGCCXMLImportError"), 
+									BHTranslator.getInstance().translate("DXMLImport"), JOptionPane.ERROR_MESSAGE);
+							setDefaultGCCImportPanel();
 						}
 					} catch (XMLNotValidException e1) {
-						// TODO Auto-generated catch block
-						e1.printStackTrace();
+						JOptionPane.showMessageDialog(importDialog, BHTranslator.getInstance().translate("DXMLNotValid"), 
+								BHTranslator.getInstance().translate("DXMLImport"), JOptionPane.ERROR_MESSAGE);
+						setDefaultGCCImportPanel();
 					} catch (IOException e1) {
-						// TODO Auto-generated catch block
-						e1.printStackTrace();
+						log.debug("Could not access the file.");
+						JOptionPane.showMessageDialog(importDialog, BHTranslator.getInstance().translate("DGCCXMLImportError"), 
+								BHTranslator.getInstance().translate("DXMLImport"), JOptionPane.ERROR_MESSAGE);
+						setDefaultGCCImportPanel();
 					}
 					
 				}
 			}
 
-			importDialog.dispose();
+			
 		}		
 		else if (comp.getKey().equals("Bbrowse") && GUI_KEY.equals(GUI_KEY_IMPORT)
 				&& (importDialog.getAction() & IImportExport.IMP_PROJECT) == IImportExport.IMP_PROJECT)
@@ -264,6 +271,16 @@ public class XMLDataExchangeController implements IImportExport, ActionListener 
 			}			
 		}		
 	}
+
+	private void setDefaultGCCExportPanel() {
+		exportDialog.setDefaultGCCImportExportPanel(FILE_DESC, FILE_EXT, true);
+		exportDialog.showPluginPanel();
+	}
+
+	private void setDefaultGCCImportPanel() {
+		importDialog.setDefaultGCCImportExportPanel(FILE_DESC, FILE_EXT, false);
+		importDialog.showPluginPanel();
+	}
 	
 	
 	@Override
@@ -282,7 +299,9 @@ public class XMLDataExchangeController implements IImportExport, ActionListener 
 		GUI_KEY = GUI_KEY_EXPORT;
 		this.exportDialog = importDialog;
 		exportModel = model;
-		exportPanel = importDialog.setDefaultImportExportPanel(FILE_DESC, FILE_EXT, true);
+		exportPanel = importDialog.setDefaultGCCImportExportPanel(FILE_DESC, FILE_EXT, true);
+		((BHDefaultGCCImportExportPanel)exportPanel).setDescription("DGCCXMLExportDescription");
+		this.exportDialog.setSize((int)importDialog.getSize().getWidth(), 280);
 		exportDialog.setPluginActionListener(this);		
 	}
 	
@@ -292,7 +311,9 @@ public class XMLDataExchangeController implements IImportExport, ActionListener 
 		GUI_KEY = GUI_KEY_EXPORT;
 		this.exportDialog = importDialog;
 		exportModel = model;
-		exportPanel = importDialog.setDefaultImportExportPanel(FILE_DESC, FILE_EXT, true);
+		exportPanel = importDialog.setDefaultGCCImportExportPanel(FILE_DESC, FILE_EXT, true);
+		((BHDefaultGCCImportExportPanel)exportPanel).setDescription("DGCCXMLExportDescription");
+		this.exportDialog.setSize((int)importDialog.getSize().getWidth(), 280);
 		exportDialog.setPluginActionListener(this);		
 	}
 	
@@ -300,9 +321,11 @@ public class XMLDataExchangeController implements IImportExport, ActionListener 
 	public List<IPeriodicalValuesDTO> importBSAndPLSTotalCost(
 			BHDataExchangeDialog importDialog) {
 		GUI_KEY = GUI_KEY_IMPORT;		
-		importPanel = importDialog.setDefaultImportExportPanel(FILE_DESC, FILE_EXT, false);
+		importPanel = importDialog.setDefaultGCCImportExportPanel(FILE_DESC, FILE_EXT, false);
+		((BHDefaultGCCImportExportPanel)importPanel).setDescription("DGCCXMLImportDescription");
 		importDialog.setPluginActionListener(this);
 		this.importDialog = importDialog;
+		this.importDialog.setSize((int)importDialog.getSize().getWidth(), 280);
 		return null;
 	}	
 	
@@ -310,9 +333,11 @@ public class XMLDataExchangeController implements IImportExport, ActionListener 
 	public List<IPeriodicalValuesDTO> importBSAndPLSCostOfSales(
 			BHDataExchangeDialog importDialog) {
 		GUI_KEY = GUI_KEY_IMPORT;		
-		importPanel = importDialog.setDefaultImportExportPanel(FILE_DESC, FILE_EXT, false);
+		importPanel = importDialog.setDefaultGCCImportExportPanel(FILE_DESC, FILE_EXT, false);
+		((BHDefaultGCCImportExportPanel)importPanel).setDescription("DGCCXMLImportDescription");
 		importDialog.setPluginActionListener(this);
 		this.importDialog = importDialog;
+		this.importDialog.setSize((int)importDialog.getSize().getWidth(), 280);
 		return null;
 	}
 
