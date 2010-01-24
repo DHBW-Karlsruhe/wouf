@@ -194,7 +194,11 @@ public class BHDefaultGCCImportExportPanel extends JPanel {
 				fileChooser.setFileFilter(new FileNameExtensionFilter(fileDesc,
 						fileExt));
 				fileChooser.setFileSelectionMode(JFileChooser.FILES_ONLY);
-				int returnVal = fileChooser.showSaveDialog(this);
+				int returnVal;
+				if (export)
+					returnVal = fileChooser.showSaveDialog(this);
+				else
+					returnVal = fileChooser.showOpenDialog(this);
 
 				if (returnVal == JFileChooser.APPROVE_OPTION) {
 					PlatformController.preferences.put("lastExportDirectory",
