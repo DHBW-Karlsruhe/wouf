@@ -14,11 +14,11 @@ import com.jgoodies.forms.layout.CellConstraints;
 import com.jgoodies.forms.layout.FormLayout;
 
 /**
- * This class contains the form for head-data
+ * This class contains the form for head-data.
  * 
  * @author Anton Kharitonov
  * @author Patrick Heinz
- * @version 0.4, 04.01.2010
+ * @version 1.0, 22.01.2010
  * 
  */
 @SuppressWarnings("serial")

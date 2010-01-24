@@ -62,10 +62,11 @@ public class VRIsGreaterThan extends ValidationRule {
 							+ translator.translate("EisGreater") + " '" + 
 							translator.translate(other.getKey()) + "'.");
 				}
-				else {
+				else { // (other == null)
 					validationResult.addError(translator.translate("Efield") + " '"
 							+ translator.translate(tf_toValidate.getKey()) + "' "
-							+ translator.translate("EisGreaterValue") + " " + compareValue);
+							+ translator.translate("EisGreaterValue") + " "
+							+ compareValue + ".");
 				}
 
 			}

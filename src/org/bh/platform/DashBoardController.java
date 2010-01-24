@@ -13,10 +13,22 @@ import org.bh.gui.View;
 import org.bh.gui.chart.IBHAddValue;
 import org.bh.platform.i18n.ITranslator;
 
+/**
+ * In this class a stackbarchart is created to compare the results of the
+ * scenarios. There should be a differentiation between deterministic and
+ * stochastic determined results.
+ * 
+ * @author Norman Weisenburger, Patrick Heinz
+ * @version 1.0, 22.01.2010
+ * 
+ */
 public class DashBoardController extends Controller{
 	
+	
     public static enum ChartKeys{
-    	//DashBoard_StackedBarChart_ShareholderValue
+    	/**
+    	 * DashBoard_StackedBarChart_ShareholderValue
+    	 */
     	DB_SBC_SV;
     
     	@Override
@@ -26,10 +38,21 @@ public class DashBoardController extends Controller{
     }
     
     public static enum Keys{
-    	//DashBoard_StackedBarChart_ShareholderValue
+    	/**
+    	 * Number of scenarios
+    	 */
     	NO_OF_SCENARIOS,
-    	NO_OF_SCENARIOS_DESCR,
+    	/**
+    	 * Number of scenario descriptions
+    	 */
+    	NO_OF_SCENARIOS_DESCR,  	
+    	/**
+    	 * Shareholder value range description
+    	 */
     	SV_RANGE_DESCR,
+    	/**
+    	 * Shareholder value range
+    	 */
     	SV_RANGE;
     
     	@Override
@@ -42,10 +65,20 @@ public class DashBoardController extends Controller{
     
 	private int valueAtRisk = 95;
 	
+	/**
+	 * The constructor for the dashboard controller.
+	 * 
+	 * @param view
+	 */
     public DashBoardController(View view){
     	super(view);
     }
     
+	/**
+	 * Creates a stackedbarchart to compare shareholder values.
+	 * 
+	 * @param result Map of the calculation.
+	 */
     @SuppressWarnings("unchecked")
 	public void setResult(Map<DTOScenario, Map<?,?>> result) {
 		ITranslator translator = Services.getTranslator();

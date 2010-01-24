@@ -48,9 +48,8 @@ public class VRIsNotEqual extends ValidationRule {
 			validationResult.addError(translator.translate("Efield") + " '"
 					+ translator.translate(comp.getKey()) + "' "
 					+ translator.translate("EisNotEqual") + " "
-					// TODO check where " '" and "' " for compare value (other) have to be
-					+ ((other != null) ? translator.translate(other.getKey())
-							: compareValue));
+					+ ((other != null) ? "'" + translator.translate(other.getKey() + "'.")
+							: compareValue + "."));
 		return validationResult;
 	}
 }

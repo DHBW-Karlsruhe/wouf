@@ -15,6 +15,12 @@ import java.util.Map;
  */
 public class ValidateStochastic {
 
+	/**
+	 * This method validates the chance-textfields of the RandomWalk.
+	 * 
+	 * @return false if all chance-textfields are equal to 0 or all equal to 1.
+	 *         true if there is at least one value not being equal to 0 or 1.
+	 */
 	@SuppressWarnings("unchecked")
 	public static boolean validateRandomWalk(Map<String, Double> internalMap) {
 		boolean allZero = false;
@@ -34,7 +40,7 @@ public class ValidateStochastic {
 					allZero = true;
 				} else if (value == 1 && allZero == false) {
 					allOne = true;
-				} else {
+				} else { // (value != 0 && value != 1)
 					allZero = allOne = false;
 					break;
 				}
@@ -46,6 +52,13 @@ public class ValidateStochastic {
 		return true;
 	}
 
+	/**
+	 * This method validates the slope- and standard deviation-textfields
+	 * of the Wiener process.
+	 * 
+	 * @return false if all textfields are equal to 0.
+	 *         true if there is at least one value not being equal to 0.
+	 */
 	@SuppressWarnings("unchecked")
 	public static boolean validateWienerProcess(Map<String, Double> internalMap) {
 		boolean allZero = false;
@@ -60,13 +73,13 @@ public class ValidateStochastic {
 			System.out.println(key);
 			
 			// find slope and standarddeviation textfields,
-			//which are build dynamicly in class "WienerProcess.java"
+			// which are build dynamicly in class "WienerProcess.java"
 			if (key.contains("slope") || key.contains("standardDeviation")) {
 				double value = (Double) entry.getValue();
 				System.out.println(value);
 				if (value == 0) {
 					allZero = true;
-				} else {
+				} else { // (value != 0)
 					allZero = false;
 					break;
 				}

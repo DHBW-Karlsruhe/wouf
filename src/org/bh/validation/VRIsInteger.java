@@ -11,7 +11,7 @@ import com.jgoodies.validation.ValidationResult;
 /**
  * This class contains validation rules to check a textfield's content to be integers.
  * 
- * @author Patrick Heinz
+ * @author Robert Vollmer, Patrick Heinz
  * @version 1.0, 22.01.2010
  * 
  */

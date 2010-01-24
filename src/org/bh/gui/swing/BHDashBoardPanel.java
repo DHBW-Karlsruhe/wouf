@@ -11,6 +11,14 @@ import org.bh.gui.chart.BHChartFactory;
 import org.bh.gui.chart.BHChartPanel;
 import org.bh.platform.DashBoardController;
 
+/**
+ * In this class a (panel for the) dashboard is created, to compare
+ * results of scenarios against each other.
+ * 
+ * @author Norman Weisenburger, Patrick Heinz
+ * @version 1.0, 22.01.2010
+ * 
+ */
 public class BHDashBoardPanel extends JPanel {
 
 	private BHChartPanel stackedBarChart;

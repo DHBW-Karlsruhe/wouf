@@ -12,10 +12,12 @@ import org.bh.validation.ValidationRule;
 import com.jgoodies.validation.view.ValidationComponentUtils;
 
 /**
- * This class contains the validation rules for all platform panels
+ * This class registers all textfields of a certain panel, sets InputHints
+ * and marks mandatory textfield as mandatory in the JGoodies
+ * ValidationComponentUtils class. 
  * 
  * @author Patrick Heinz
- * @version 0.3, 30.12.2009
+ * @version 1.0, 22.01.2010
  * 
  */
 
@@ -23,13 +25,18 @@ public class ValidationMethods extends BHValidityEngine {
 
 	ITranslator translator = Services.getTranslator();
 
+	/**
+	 * This method registers all components, checks for BHTextFields
+	 * and sets InputHints and mandatory fields.
+	 * 
+	 * @param Collection of all components on a panel
+	 */
 	@Override
 	public void registerComponents(Collection<IBHModelComponent> toValidate)
 			throws ViewException {
 		
 		for (IBHModelComponent comp : toValidate) {
 			if (comp instanceof BHTextField) {
-				// TODO allow validation of other components?
 				BHTextField tf_toValidate = (BHTextField) comp;
 
 				// add some kind of tooltipp to textfield

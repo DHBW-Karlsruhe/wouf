@@ -26,13 +26,26 @@ import org.bh.gui.swing.BHTree;
 import org.bh.gui.swing.BHTreeNode;
 import org.bh.platform.PlatformEvent.Type;
 
+/**
+ * This class helps to create the dashboard on projectlevel. There is the
+ * CALCDASHBOARD Button, which starts the calculation of scenario's results.
+ * 
+ * @author Norman Weisenburger, Patrick Heinz
+ * @version 1.0, 22.01.2010
+ * 
+ */
 public class ProjectController extends InputController implements
 		IPlatformListener {
 	/**
 	 * Logger for this class
 	 */
 	static final Logger log = Logger.getLogger(ProjectController.class);
-
+	
+	/**
+	 * The constructor for the distribution map.
+	 * 
+	 * @param view, IDTO<?> model
+	 */
 	public ProjectController(View view, IDTO<?> model) {
 		super(view, model);
 		Services.addPlatformListener(this);
@@ -44,6 +57,9 @@ public class ProjectController extends InputController implements
 		setCalcEnabled();
 	}
 
+	/**
+	 * Inner class calculating all shareholder values of a project's scenarios.
+	 */
 	protected class CalculationListener implements ActionListener {
 		private final ImageIcon prCalcLoading = Services.createImageIcon("/org/bh/images/loading.gif", null);
 
@@ -74,7 +90,6 @@ public class ProjectController extends InputController implements
 
 						for (DTOScenario scenario : project.getChildren()) {
 							// start calculation
-
 							if (scenario.isDeterministic()) {
 								Map<String, Calculable[]> resultsDCF = scenario
 										.getDCFMethod().calculate(scenario, true);
@@ -126,6 +141,11 @@ public class ProjectController extends InputController implements
 		}
 	}
 
+	/**
+	 * This method enables the calculation button if there are more than
+	 * 2 valid scenarios to compare. Otherwise there will be a hint that
+	 * the calculation is not possible.
+	 */
 	protected void setCalcEnabled() {
 		DTOProject project = (DTOProject) getModel();
 		int counter = 0;
