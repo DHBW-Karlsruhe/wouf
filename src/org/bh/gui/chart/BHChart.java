@@ -12,8 +12,9 @@ import org.bh.platform.i18n.ITranslator;
 import org.jfree.chart.JFreeChart;
 
 /**
- *
+ * abstract class for BHCharts. Defining central methods for semantic operations with charts
  * @author Marco Hammel
+ * @version 1.0
  */
 public abstract class BHChart implements IBHComponent {
     /**
@@ -30,11 +31,19 @@ public abstract class BHChart implements IBHComponent {
     protected static final String DESC = ".D";
 
     ITranslator translator;
-    
+    /**
+     * defined to use View mapper functionality, have to be unique in each JPanel instance
+     */
     String key;
+    /**
+     * refernce to the JFreeChart instance which is responsible for the rendering/painting of the chart
+     */
     JFreeChart chart;
     //private String inputHint;
-
+    /**
+     * create the whole semantic info of the chart
+     * @param key
+     */
     public BHChart(String key) {
         this.key = key;
         this.translator = Services.getTranslator();
@@ -51,8 +60,8 @@ public abstract class BHChart implements IBHComponent {
     }
 
     /**
-     * returns the created Chart of the <code>BHBarChart</code>
-     *
+     * returns the created Chart
+     * @see JFreeChart
      * @return JFreeChart BarChart
      */
     public JFreeChart getChart() {
@@ -60,14 +69,20 @@ public abstract class BHChart implements IBHComponent {
     }
 
     /**
-     * Set new text values in case of language change
+     * Set new text values in case of language change, will be triggered by eventing
      */
     protected void reloadText() {
         this.chart.getPlot().setNoDataMessage(translator.translate("noDataAvailable"));
         this.chart.setTitle(translator.translate(key));
         //TODO extend method for x and y title exchange
     }
-    
+    /**
+     * deliver a buffered png image of the current chart
+     * @param width in pixel
+     * @param height in pixel
+     * @return BufferedImage
+     * @see BufferedImage
+     */
     public BufferedImage getChartAsImage(int width, int height) {
     	return chart.createBufferedImage(width, height);
     }

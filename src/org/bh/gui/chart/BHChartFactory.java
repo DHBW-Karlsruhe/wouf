@@ -23,6 +23,7 @@ import org.jfree.data.xy.DefaultXYDataset;
  *
  * @author Marco Hammel
  * @version 0.2 11.01.2010
+ * @version 1.0
  * 
  */
 public class BHChartFactory {
@@ -32,10 +33,10 @@ public class BHChartFactory {
     private static final Logger log = Logger.getLogger(BHChartFactory.class);
     
     /**
-     * Method to create a LineChart
-     *
+     * create a LineChart with an empty default dataset
      * @param key
-     * @return created LineChart
+     * @return BHChartPanel contaning semantic LineChart
+     * @see BHLineChart
      */
     public static BHChartPanel getLineChart(final Object key) {
 
@@ -43,23 +44,23 @@ public class BHChartFactory {
         return new BHChartPanel(key, chart.getChart(), chart.getClass(), chart);
     }
 
-    //TODO Lars.Zuckschwerdt JavaDoc
     /**
-     *
+     * create a waterfall chart with an empty default dataset
      * @param key
-     * @return
+     * @return BHChartPanel contaning semantic WaterfallChart
+     * @see BHwaterfallChart
      */
     public static BHChartPanel getWaterfallChart( final Object key, boolean legend, boolean tooltips) {
 
         BHwaterfallChart chart = new BHwaterfallChart(dimDataset(getAxes(key)[0], getAxes(key)[1]), key.toString(), legend, tooltips);
         return new BHChartPanel(key, chart.getChart(), chart.getClass(), chart);
     }
-    //TODO Lars.Zuckschwerdt JavaDoc
 
     /**
-     *
+     * create a bar chart with an empty default dataset
      * @param key
-     * @return
+     * @return BHChartPanel contaning semantic BarChart
+     * @see BHBarChart
      */
     public static BHChartPanel getBarChart( final Object key, boolean legend, boolean tooltips) {
 
@@ -67,11 +68,11 @@ public class BHChartFactory {
         return new BHChartPanel(key, chart.getChart(), chart.getClass(), chart);
     }
 
-    //TODO Lars.Zuckschwerdt JavaDoc
     /**
-     *
+     * create a stacked bar chart with an empty default dataset
      * @param key
-     * @return
+     * @return BHChartPanel contaning semantic StackedBarChar
+     * @see BHstackedBarChart
      */
     public static BHChartPanel getStackedBarChart( final Object key, boolean legend, boolean tooltips) {
 
@@ -80,11 +81,10 @@ public class BHChartFactory {
     }
 
     /**
-     * method to create the <code>BHpieChart</code>
-     *
+     * create a stacked pie chart with an empty default dataset
      * @param key
-     * 		<code>String</code> key
-     * @return
+     * @return BHChartPanel contaning semantic PieChart
+     * @see BHPieChart
      */
     public static BHChartPanel getPieChart( final Object key) {
 
@@ -93,14 +93,12 @@ public class BHChartFactory {
     }
 
     /**
-     * method to create the <code>BHxyAreaChart</code>
-     *
-     * @param seriesKey
-     * @param data
+     * create a xy area chart
+     * @param seriesKey defining a series for the chart
+     * @param data double[][] x to y relationsship
      * @param key
-     *            <code>String</code> key
-     * @return
-     *
+     * @return BHChartPanel contaning semantic XYAreaChart
+     * @see BHxyAreaChart
      */
     public static BHChartPanel getXYAreaChart( final String seriesKey, final double[][] data, final Object key) {
 
@@ -108,7 +106,12 @@ public class BHChartFactory {
                 dimDataset(seriesKey, data), key.toString());
         return new BHChartPanel(key, chart.getChart(), chart.getClass(), chart);
     }
-    
+    /**
+     * create a XY bar chart chart with an empty default dataset
+     * @param key
+     * @return BHChartPanel contaning semantic XYBarChart
+     * @see BHXYBarChart
+     */
     public static BHChartPanel getXYBarChart(Object key) {
 
         BHXYBarChart chart = new BHXYBarChart(key.toString());   	
@@ -116,17 +119,10 @@ public class BHChartFactory {
     }
 
     /**
-     * method to create the <code>BHHistogramChart</code>
-     *
-     * @param datasetKey
-     * @param values
-     * @param bins
-     * @param minimum
-     * @param maximum
+     * create a histogramm chart with an empty default dataset
      * @param key
-     *            <code>String</code> key
-     * @return
-     *
+     * @return BHChartPanel contaning semantic HistogrammChart
+     * @see BHHistogrammChart
      */
     public static BHChartPanel getHistogramChart(final Object key) {
 
@@ -137,12 +133,6 @@ public class BHChartFactory {
         
         return new BHChartPanel(key, chart.getChart(), chart.getClass(), chart);
     }
-
-//    public static BHChartPanel getStochasticChart(final String datasetKey, final double[] values, final int bins,
-//            final double minimum, final double maximum, final Object key){
-//        //TODO Marco define Stochastic Chart
-//
-//    } 
 
     /**
      * method to create a empty DefaultCategoryDataset
@@ -202,7 +192,11 @@ public class BHChartFactory {
         //dataset.addSeries(key, values, bins, minimum, maximum);
         return dataset;
     }
-    
+    /**
+     * deliver a initial histogramm dataset
+     * @return Datasat type HistogramDataset
+     * @see HistogramDataset
+     */
     private static Dataset histogrammDataset(){
     	return new HistogramDataset();
     }
@@ -212,14 +206,20 @@ public class BHChartFactory {
 
         return dataset;
     }
-
+    /**
+     * get main axes description definition of a chart (x,y)
+     * @param key
+     * @return String[]
+     */
     private static String[] getAxes(Object key) {
         String[] axes = new String[2];
         axes[0] = translator.translate(key.toString().concat(BHChart.DIMX));
         axes[1] = translator.translate(key.toString().concat(BHChart.DIMY));
         return axes;
     }
-    
+    /**
+     * initialize chart instances for performance increasing
+     */
     public static void initialInit() {
     	SwingUtilities.invokeLater(new Runnable() {
 			@Override

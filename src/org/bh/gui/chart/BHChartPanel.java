@@ -25,16 +25,28 @@ import org.jfree.chart.JFreeChart;
 import com.jgoodies.forms.layout.FormLayout;
 
 /**
- *
+ * define and deliver central semantic information and access to a chart instance type BHChart
+ * @see JFreeChart
+ * @see BHChart
  * @author Marco Hammel
+ * @version 1.0
  */
 public class BHChartPanel extends JPanel implements IBHComponent, IBHAddValue, IBHAddGroupValue{
     private static final long serialVersionUID = -8018664370176080809L;
 
     private String key;
     private String inputHint;
+    /**
+     * type defined reference to the current semantic repräsentation chart
+     */
     private Class<? extends IBHAddValue> chartClass;
+    /**
+     * reference tio the semantic repräsentation of the chart
+     */
     private IBHAddValue chartInstance;
+    /**
+     * refernce to the current JFreeChart instance which is painted in the chartpanel
+     */
     private JFreeChart chart;
 
     public BHChartPanel(Object key, JFreeChart chart, Class<? extends IBHAddValue> chartClass, IBHAddValue chartInstance){
