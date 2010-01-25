@@ -80,11 +80,6 @@ public class BHMenuItem extends JMenuItem implements IBHComponent, IBHAction, IP
 				metakey = 0;
 			}
 			
-			if(key == PlatformKey.TOOLBARREMOVE){
-				metakey = 0;
-			}
-			
-			
 			this.setAccelerator(KeyStroke.getKeyStroke(eventKey, metakey));
 		}
 

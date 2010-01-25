@@ -65,11 +65,6 @@ public class BHMenuBar extends JMenuBar{
 		menuHelp.setMnemonic(translator.translate("Mhelp", ITranslator.MNEMONIC).charAt(0));
 		add(menuHelp);
 		
-		//DummyMenuItem to realize the function of the "delete"-Key
-		JMenu menuTemp = new JMenu();
-		add(menuTemp);
-		menuTemp.add(new BHMenuItem(PlatformKey.TOOLBARREMOVE, 127));
-
 		/**
 		 * create menu items --> file
 		 **/
