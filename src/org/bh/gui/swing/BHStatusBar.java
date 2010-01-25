@@ -1,8 +1,8 @@
 package org.bh.gui.swing;
 
 import java.awt.Color;
+import java.awt.Cursor;
 import java.awt.event.MouseEvent;
-
 import javax.swing.ImageIcon;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
@@ -11,10 +11,8 @@ import javax.swing.JScrollPane;
 import javax.swing.Popup;
 import javax.swing.PopupFactory;
 import javax.swing.event.MouseInputAdapter;
-
 import org.bh.platform.i18n.BHTranslator;
 import org.bh.platform.i18n.ITranslator;
-
 import com.jgoodies.forms.layout.CellConstraints;
 import com.jgoodies.forms.layout.FormLayout;
 
@@ -65,11 +63,6 @@ public class BHStatusBar extends JPanel {
 		errorHintLabel.addMouseListener(new BHLabelListener());
 		removeErrorHint();
 
-		// Test the Popup
-		// popupPane = new JScrollPane(new JLabel("TEST"));
-		// factory = PopupFactory.getSharedInstance();
-		// popup = factory.getPopup(this, popupPane, 500, 500);
-
 		// create BH logo label
 		bh = new JLabel(new ImageIcon(BHStatusBar.class
 				.getResource("/org/bh/images/bh-logo-2.png")));
@@ -100,24 +93,12 @@ public class BHStatusBar extends JPanel {
 		}
 		hintLabel.setVisible(true);
 
-		// popup test
-		// optionPane = new JOptionPane(new JLabel("TEST"),
-		// JOptionPane.PLAIN_MESSAGE);
-		// optionPane.createDialog(null, "Errors").setVisible(true);
 	}
 
 	public void setErrorHint(JScrollPane pane) {
-		// TODO InfoText festlegen: ob erster Fehler aus Liste oder allgemeiner
-		// Hinweis!?
-		
 		errorHintLabel.setVisible(true);
 		
 		popupPane = pane;
-
-		// factory = PopupFactory.getSharedInstance();
-		// //TODO genaue Koordniaten für das Popup bestimmen -> abhängig von
-		// MainFrame-Größe und Bidlschirmauflösung
-		// popup = factory.getPopup(this, pane, 500, 500);
 
 		// creates the popup for the error information
 		optionPane = new JOptionPane(pane, JOptionPane.PLAIN_MESSAGE);
@@ -144,6 +125,7 @@ public class BHStatusBar extends JPanel {
 	 * 
 	 * @author Tietze.Patrick
 	 * @version 1.0, 2009/12/30
+	 * @version 1.1, 2010/01/25
 	 * 
 	 */
 
@@ -153,17 +135,19 @@ public class BHStatusBar extends JPanel {
 			open = false;
 		}
 
-		@Override
 		public void mouseClicked(MouseEvent e) {
-			// if(!open){
-			// popup.show();
-			// open = true;
-			// }else if(open){
-			// popup.hide();
-			// open = false;
-			// }
 			optionPane.createDialog(null, "Errors").setVisible(true);
 		}
-
+		
+		public void mouseEntered(MouseEvent e){
+			Cursor c = new Cursor(Cursor.HAND_CURSOR);
+			setCursor(c);
+		}
+		
+		public void mouseExited(MouseEvent e){
+			Cursor c = new Cursor(Cursor.DEFAULT_CURSOR);
+			setCursor(c);
+		}
+		
 	}
 }
