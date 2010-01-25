@@ -3,6 +3,7 @@ package org.bh.gui.swing;
 import java.awt.Color;
 import java.awt.Cursor;
 import java.awt.event.MouseEvent;
+
 import javax.swing.ImageIcon;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
@@ -11,8 +12,10 @@ import javax.swing.JScrollPane;
 import javax.swing.Popup;
 import javax.swing.PopupFactory;
 import javax.swing.event.MouseInputAdapter;
+
 import org.bh.platform.i18n.BHTranslator;
 import org.bh.platform.i18n.ITranslator;
+
 import com.jgoodies.forms.layout.CellConstraints;
 import com.jgoodies.forms.layout.FormLayout;
 
@@ -61,6 +64,7 @@ public class BHStatusBar extends JPanel {
 		errorHintLabel = new JLabel(translator.translate("errorHint"));
 		errorHintLabel.setIcon(ValidationResultViewFactory.getLargeErrorIcon());
 		errorHintLabel.addMouseListener(new BHLabelListener());
+		errorHintLabel.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
 		removeErrorHint();
 
 		// create BH logo label
@@ -136,18 +140,7 @@ public class BHStatusBar extends JPanel {
 		}
 
 		public void mouseClicked(MouseEvent e) {
-			optionPane.createDialog(null, "Errors").setVisible(true);
+			optionPane.createDialog(null, translator.translate("errorsDialogTitle")).setVisible(true);
 		}
-		
-		public void mouseEntered(MouseEvent e){
-			Cursor c = new Cursor(Cursor.HAND_CURSOR);
-			setCursor(c);
-		}
-		
-		public void mouseExited(MouseEvent e){
-			Cursor c = new Cursor(Cursor.DEFAULT_CURSOR);
-			setCursor(c);
-		}
-		
 	}
 }
