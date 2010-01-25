@@ -327,6 +327,9 @@ public class ScenarioController extends InputController {
 			((Component) view
 					.getBHComponent(BHStochasticInputForm.Key.CALC_PARAMETERS))
 					.setEnabled(calculationEnabled);
+			((Component) view
+					.getBHComponent(BHScenarioForm.Key.CANNOT_CALCULATE_HINT))
+					.setVisible(!calculationEnabled);
 		}
 	}
 
