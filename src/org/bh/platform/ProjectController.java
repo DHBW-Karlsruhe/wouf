@@ -19,7 +19,7 @@ import org.bh.data.types.Calculable;
 import org.bh.gui.View;
 import org.bh.gui.ViewException;
 import org.bh.gui.swing.BHButton;
-import org.bh.gui.swing.BHDashBoardPanelView;
+import org.bh.gui.BHDashBoardPanelView;
 import org.bh.gui.swing.BHDescriptionLabel;
 import org.bh.gui.swing.BHProjectForm;
 import org.bh.gui.swing.BHTree;

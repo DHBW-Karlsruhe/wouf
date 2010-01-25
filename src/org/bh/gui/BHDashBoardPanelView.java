@@ -1,5 +1,6 @@
-package org.bh.gui.swing;
+package org.bh.gui;
 
+import org.bh.gui.swing.*;
 import org.bh.gui.View;
 import org.bh.gui.ViewException;
 

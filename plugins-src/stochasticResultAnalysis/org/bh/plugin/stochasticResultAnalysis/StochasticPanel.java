@@ -20,6 +20,7 @@ import org.bh.gui.swing.BHValueLabel;
 import org.bh.platform.i18n.ITranslator;
 
 import com.jgoodies.forms.layout.FormLayout;
+import org.bh.validation.VRIsBetween;
 import org.bh.validation.VRIsDouble;
 import org.bh.validation.ValidationRule;
 
@@ -64,7 +65,7 @@ public class StochasticPanel extends JPanel{
 	        rav.setLayout(new FormLayout ("4px:grow,right:pref,10px,pref,4px,pref,4px:grow","4px,p,4px,p,4px,p,4px"));
 	        rav.add(riskAt, "2,2");
 	        riskAtField.setPreferredSize(new Dimension(50,riskAtField.getPreferredSize().height));
-                ValidationRule[] rules = {VRIsDouble.INSTANCE};//Validation for value at risk
+                ValidationRule[] rules = {VRIsDouble.INSTANCE, VRIsBetween.BETWEEN0AND100};//Validation for value at risk
                 riskAtField.setValidationRules(rules);
 	        rav.add(riskAtField, "4,2");
 	        rav.add(new JLabel("%"), "6,2");
