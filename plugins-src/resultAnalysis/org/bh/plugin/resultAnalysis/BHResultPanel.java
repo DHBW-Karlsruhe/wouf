@@ -8,6 +8,7 @@ import java.awt.Component;
 import java.awt.Dimension;
 import java.util.Map;
 
+import javax.swing.BorderFactory;
 import javax.swing.JPanel;
 
 import org.apache.log4j.Logger;
@@ -82,7 +83,7 @@ public final class BHResultPanel extends JPanel {
 	 * @throws ViewException
 	 */
 	public BHResultPanel() {
-		double border = 30;
+		double border = 10;
 		double size[][] = {
 				{ border, 0.99, border }, // Columns
 				{ border, TableLayoutConstants.PREFERRED, border,
@@ -101,18 +102,22 @@ public final class BHResultPanel extends JPanel {
 		printButton = new BHButton(Keys.PRINTSCENARIO);
 		exportArea.add(printButton, "3,1");
 		exportArea.setMaximumSize(new Dimension(200, 40));
-		add(exportArea, "1,5");
+		
+		add(exportArea, "1,1");
 		//initialize();
 	}
 	
 	void setFormulaArea(BHFormulaPanel c) {
 		formulaArea = c;
-		System.err.println("BHResultPanel.setFormulaArea()");
-		add(formulaArea, "1,1");
+//		System.err.println("BHResultPanel.setFormulaArea()");
+		formulaArea.setBorder(BorderFactory.createTitledBorder(BorderFactory
+				.createEtchedBorder(), translator
+				.translate("formel")));
+		add(formulaArea, "1,3");
 	}
 	
 	void setChartArea(Component c) {
-		add(c, "1,3");
+		add(c, "1,5");
 	}
 	
 	BHFormulaPanel getFormulaArea() {
