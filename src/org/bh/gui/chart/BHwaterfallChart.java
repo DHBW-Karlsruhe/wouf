@@ -13,11 +13,13 @@ import org.jfree.chart.ChartFactory;
 import org.jfree.chart.axis.CategoryAxis;
 import org.jfree.chart.axis.CategoryLabelPositions;
 import org.jfree.chart.axis.SubCategoryAxis;
+import org.jfree.chart.labels.CategoryToolTipGenerator;
 import org.jfree.chart.plot.CategoryPlot;
 import org.jfree.chart.plot.PlotOrientation;
 import org.jfree.chart.renderer.category.CategoryItemRenderer;
 import org.jfree.chart.renderer.category.GroupedStackedBarRenderer;
 import org.jfree.data.KeyToGroupMap;
+import org.jfree.data.category.CategoryDataset;
 import org.jfree.data.category.DefaultCategoryDataset;
 import org.jfree.data.general.Dataset;
 
@@ -55,6 +57,13 @@ public class BHwaterfallChart extends BHChart implements IBHAddGroupValue, IPlat
         CategoryItemRenderer renderer = chart.getCategoryPlot().getRenderer();
         renderer.setBaseItemLabelGenerator(new BHChartLabelGenerator());
         renderer.setBaseItemLabelsVisible(true);
+        renderer.setToolTipGenerator(new CategoryToolTipGenerator() {
+			
+			@Override
+			public String generateToolTip(CategoryDataset dataset, int row, int column) {
+				return Services.numberToString(dataset.getValue(row, column).doubleValue());
+			}
+		});
 
         final CategoryAxis domainAxis = chart.getCategoryPlot().getDomainAxis();
         domainAxis.setMaximumCategoryLabelLines(5);

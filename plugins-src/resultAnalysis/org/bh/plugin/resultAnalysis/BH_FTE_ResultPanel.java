@@ -43,8 +43,8 @@ public class BH_FTE_ResultPanel extends JPanel {
         }
 
         //All FTE Charts
-        fteFlowToEquity = BHChartFactory.getBarChart(BHResultController.ChartKeys.FTE_BC_FTE.toString(), true, false);
-        fteReturnRate = BHChartFactory.getBarChart(BHResultController.ChartKeys.FTE_BC_RR, true, false);
+        fteFlowToEquity = BHChartFactory.getBarChart(BHResultController.ChartKeys.FTE_BC_FTE.toString(), true, true);
+        fteReturnRate = BHChartFactory.getBarChart(BHResultController.ChartKeys.FTE_BC_RR, true, true);
 
         if (!isAllSelected) {
             this.add(fteFlowToEquity, "3,1");

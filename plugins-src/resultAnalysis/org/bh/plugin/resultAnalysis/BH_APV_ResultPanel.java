@@ -38,8 +38,8 @@ public class BH_APV_ResultPanel extends JPanel {
 	this.setLayout(new TableLayout(size));
 
 	// All APV Charts
-	apvWFShareholderValues = BHChartFactory.getWaterfallChart(BHResultController.ChartKeys.APV_WF_SV, false, false);
-	apvBCCapitalStructure = BHChartFactory.getStackedBarChart(BHResultController.ChartKeys.APV_BC_CS, true, false);
+	apvWFShareholderValues = BHChartFactory.getWaterfallChart(BHResultController.ChartKeys.APV_WF_SV, false, true);
+	apvBCCapitalStructure = BHChartFactory.getStackedBarChart(BHResultController.ChartKeys.APV_BC_CS, true, true);
 
 	this.add(apvWFShareholderValues, "3,3");
 	this.add(apvBCCapitalStructure, "3,5");

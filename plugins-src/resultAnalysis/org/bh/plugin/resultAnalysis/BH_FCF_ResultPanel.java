@@ -38,9 +38,9 @@ public class BH_FCF_ResultPanel extends JPanel {
 
         //All charts
         //TODO Schön Darstellen!!!!
-        BHChartPanel fcf_shareholderValue = BHChartFactory.getWaterfallChart(BHResultController.ChartKeys.FCF_WF_SV, false, false);
-        BHChartPanel fcf_freecashflow = BHChartFactory.getBarChart(BHResultController.ChartKeys.FCF_BC_FCF, true, false);
-        BHChartPanel fcf_returnrate = BHChartFactory.getBarChart(BHResultController.ChartKeys.FCF_BC_RR, true, false);
+        BHChartPanel fcf_shareholderValue = BHChartFactory.getWaterfallChart(BHResultController.ChartKeys.FCF_WF_SV, false, true);
+        BHChartPanel fcf_freecashflow = BHChartFactory.getBarChart(BHResultController.ChartKeys.FCF_BC_FCF, true, true);
+        BHChartPanel fcf_returnrate = BHChartFactory.getBarChart(BHResultController.ChartKeys.FCF_BC_RR, true, true);
         if (!isAllSelected) {
             this.add(fcf_shareholderValue, "3,1");
             this.add(fcf_freecashflow, "3,3");

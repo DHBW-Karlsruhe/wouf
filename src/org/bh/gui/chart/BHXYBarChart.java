@@ -81,7 +81,7 @@ public class BHXYBarChart extends BHChart implements IBHAddValue,
 		 	
 			final XYPlot plot = chart.getXYPlot();
 	        final NumberAxis axis2 = new NumberAxis(translator.translate("org.bh.plugin.stochasticResultAnalysis.BHStochasticResultController$ChartKeys.DISTRIBUTION_CHART.Y2"));
-	        double upper = (amountOfValues.doubleValue()/average) * 1.047;
+	        double upper = (average / amountOfValues.doubleValue() * 100) * 1.047;
 	        double lower = 0.0;
 	        axis2.setRange(lower, upper);
 	        
