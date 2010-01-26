@@ -40,14 +40,20 @@ public class BHPLSTotalCostForm extends JPanel {
 	private BHTextField tfSBE;
 	private BHTextField tfMA;
 	private BHTextField tfPA;
+	private BHTextField tfZA;
+	private BHTextField tfAAE;
 	private BHTextField tfUEmax;
 	private BHTextField tfABSCHmax;
 	private BHTextField tfSBAmax;
 	private BHTextField tfSBEmax;
+	private BHTextField tfAAEmax;
+	private BHTextField tfAAEmin;
 	private BHTextField tfMAmin;
 	private BHTextField tfMAmax;
 	private BHTextField tfPAmin;
 	private BHTextField tfPAmax;
+	private BHTextField tfZAmin;
+	private BHTextField tfZAmax;
 	private BHTextField tfUEmin;
 	private BHTextField tfABSCHmin;
 	private BHTextField tfSBAmin;
@@ -59,6 +65,9 @@ public class BHPLSTotalCostForm extends JPanel {
 	private BHDescriptionLabel lSBE;
 	private BHDescriptionLabel lMA;
 	private BHDescriptionLabel lPA;
+	private BHDescriptionLabel lAAE;
+	private BHDescriptionLabel lZA;
+	
 
 	private JLabel lmin;
 	private JLabel lmax;
@@ -82,7 +91,7 @@ public class BHPLSTotalCostForm extends JPanel {
 	}
 
 	public void initialize(boolean intervalArithmetic) {
-		String rowDef = "4px,p,4px,p,4px,p,4px,p,4px,p,4px,p,4px";
+		String rowDef = "4px,p,4px,p,4px,p,4px,p,4px,p,4px,p,4px,p,4px,p,4px,p,4px";
 		String colDef = "4px,right:pref,4px,max(100px;pref):grow,4px,pref,4px";
 		if (intervalArithmetic) {
 			rowDef = "4px,p," + rowDef;
@@ -96,10 +105,12 @@ public class BHPLSTotalCostForm extends JPanel {
 		if (!intervalArithmetic) {
 			this.add(this.getLUE(), cons.xywh(2, 2, 1, 1));
 			this.add(this.getLSBE(), cons.xywh(2, 4, 1, 1));
-			this.add(this.getLMA(), cons.xywh(2, 6, 1, 1));
-			this.add(this.getLPA(), cons.xywh(2, 8, 1, 1));
-			this.add(this.getLABSCH(), cons.xywh(2, 10, 1, 1));
-			this.add(this.getLSBA(), cons.xywh(2, 12, 1, 1));
+			this.add(this.getLAAE(), cons.xywh(2, 6, 1, 1));
+			this.add(this.getLMA(), cons.xywh(2, 8, 1, 1));
+			this.add(this.getLPA(), cons.xywh(2, 10, 1, 1));
+			this.add(this.getLABSCH(), cons.xywh(2, 12, 1, 1));
+			this.add(this.getLSBA(), cons.xywh(2, 14, 1, 1));
+			this.add(this.getLZA(), cons.xywh(2, 16, 1, 1));
 
 			this.add(this.getTfUE(), cons.xywh(4, 2, 1, 1));
 			this.add(new JLabel(translator.translate("currency")), cons.xywh(6,
@@ -107,28 +118,36 @@ public class BHPLSTotalCostForm extends JPanel {
 			this.add(this.getTfSBE(), cons.xywh(4, 4, 1, 1));
 			this.add(new JLabel(translator.translate("currency")), cons.xywh(6,
 					4, 1, 1));
-			this.add(this.getTfMA(), cons.xywh(4, 6, 1, 1));
+			this.add(this.getTfAAE(), cons.xywh(4, 6, 1, 1));
 			this.add(new JLabel(translator.translate("currency")), cons.xywh(6,
 					6, 1, 1));
-			this.add(this.getTfPA(), cons.xywh(4, 8, 1, 1));
+			this.add(this.getTfMA(), cons.xywh(4, 8, 1, 1));
 			this.add(new JLabel(translator.translate("currency")), cons.xywh(6,
 					8, 1, 1));
-			this.add(this.getTfABSCH(), cons.xywh(4, 10, 1, 1));
+			this.add(this.getTfPA(), cons.xywh(4, 10, 1, 1));
 			this.add(new JLabel(translator.translate("currency")), cons.xywh(6,
 					10, 1, 1));
-			this.add(this.getTfSBA(), cons.xywh(4, 12, 1, 1));
+			this.add(this.getTfABSCH(), cons.xywh(4, 12, 1, 1));
 			this.add(new JLabel(translator.translate("currency")), cons.xywh(6,
 					12, 1, 1));
+			this.add(this.getTfSBA(), cons.xywh(4, 14, 1, 1));
+			this.add(new JLabel(translator.translate("currency")), cons.xywh(6,
+					14, 1, 1));
+			this.add(this.getTfZA(), cons.xywh(4, 16, 1, 1));
+			this.add(new JLabel(translator.translate("currency")), cons.xywh(6,
+					16, 1, 1));
 
 		} else {
 			layout.setColumnGroups(new int[][] { { 4, 8 } });
 
 			this.add(this.getLUE(), cons.xywh(2, 4, 1, 1));
 			this.add(this.getLSBE(), cons.xywh(2, 6, 1, 1));
-			this.add(this.getLMA(), cons.xywh(2, 8, 1, 1));
-			this.add(this.getLPA(), cons.xywh(2, 10, 1, 1));
-			this.add(this.getLABSCH(), cons.xywh(2, 12, 1, 1));
-			this.add(this.getLSBA(), cons.xywh(2, 14, 1, 1));
+			this.add(this.getLAAE(), cons.xywh(2, 8, 1, 1));
+			this.add(this.getLMA(), cons.xywh(2, 10, 1, 1));
+			this.add(this.getLPA(), cons.xywh(2, 12, 1, 1));
+			this.add(this.getLABSCH(), cons.xywh(2, 14, 1, 1));
+			this.add(this.getLSBA(), cons.xywh(2, 16, 1, 1));
+			this.add(this.getLZA(), cons.xywh(2, 18, 1, 1));
 		
 
 			// this.add(new JSeparator(SwingConstants.VERTICAL),
@@ -143,42 +162,60 @@ public class BHPLSTotalCostForm extends JPanel {
 			this.add(this.getTfSBEmin(), cons.xywh(4, 6, 1, 1));
 			this.add(new JLabel(translator.translate("currency")), cons.xywh(6,
 					6, 1, 1));
-			
-			this.add(this.getTfMAmin(), cons.xywh(4, 8, 1, 1));
+			this.add(this.getTfAAEmin(), cons.xywh(4, 8, 1, 1));
 			this.add(new JLabel(translator.translate("currency")), cons.xywh(6,
 					8, 1, 1));
-			
-			this.add(this.getTfPAmin(), cons.xywh(4, 10, 1, 1));
+			this.add(this.getTfMAmin(), cons.xywh(4, 10, 1, 1));
 			this.add(new JLabel(translator.translate("currency")), cons.xywh(6,
 					10, 1, 1));
 			
-			this.add(this.getTfABSCHmin(), cons.xywh(4, 12, 1, 1));
+			this.add(this.getTfPAmin(), cons.xywh(4, 12, 1, 1));
 			this.add(new JLabel(translator.translate("currency")), cons.xywh(6,
 					12, 1, 1));
 			
-			this.add(this.getTfSBAmin(), cons.xywh(4, 14, 1, 1));
+			this.add(this.getTfABSCHmin(), cons.xywh(4, 14, 1, 1));
 			this.add(new JLabel(translator.translate("currency")), cons.xywh(6,
 					14, 1, 1));
+			
+			this.add(this.getTfSBAmin(), cons.xywh(4, 16, 1, 1));
+			this.add(new JLabel(translator.translate("currency")), cons.xywh(6,
+					16, 1, 1));
+			
+			this.add(this.getTfZAmin(), cons.xywh(4, 18, 1, 1));
+			this.add(new JLabel(translator.translate("currency")), cons.xywh(6,
+					18, 1, 1));
 
 			this.add(this.getTfUEmax(), cons.xywh(8, 4, 1, 1));
 			this.add(new JLabel(translator.translate("currency")), cons.xywh(
 					10, 4, 1, 1));
+			
 			this.add(this.getTfSBEmax(), cons.xywh(8, 6, 1, 1));
 			this.add(new JLabel(translator.translate("currency")), cons.xywh(
 					10, 6, 1, 1));
 			
-			this.add(this.getTfMAmax(), cons.xywh(8, 8, 1, 1));
+			this.add(this.getTfAAEmax(), cons.xywh(8, 8, 1, 1));
 			this.add(new JLabel(translator.translate("currency")), cons.xywh(
 					10, 8, 1, 1));
-			this.add(this.getTfPAmax(), cons.xywh(8, 10, 1, 1));
+			
+			this.add(this.getTfMAmax(), cons.xywh(8, 10, 1, 1));
 			this.add(new JLabel(translator.translate("currency")), cons.xywh(
 					10, 10, 1, 1));
-			this.add(this.getTfABSCHmax(), cons.xywh(8, 12, 1, 1));
+			
+			this.add(this.getTfPAmax(), cons.xywh(8, 12, 1, 1));
 			this.add(new JLabel(translator.translate("currency")), cons.xywh(
 					10, 12, 1, 1));
-			this.add(this.getTfSBAmax(), cons.xywh(8, 14, 1, 1));
+			
+			this.add(this.getTfABSCHmax(), cons.xywh(8, 14, 1, 1));
 			this.add(new JLabel(translator.translate("currency")), cons.xywh(
 					10, 14, 1, 1));
+			
+			this.add(this.getTfSBAmax(), cons.xywh(8, 16, 1, 1));
+			this.add(new JLabel(translator.translate("currency")), cons.xywh(
+					10, 16, 1, 1));
+			
+			this.add(this.getTfZAmax(), cons.xywh(8, 18, 1, 1));
+			this.add(new JLabel(translator.translate("currency")), cons.xywh(
+					10, 18, 1, 1));
 		}
 
 		// TODO add handler for locale change
@@ -252,6 +289,28 @@ public class BHPLSTotalCostForm extends JPanel {
 		}
 		return tfPA;
 	}
+	
+	public BHTextField getTfAAE() {
+		if (tfAAE == null) {
+			tfAAE = new BHTextField(
+					DTOGCCProfitLossStatementTotalCost.Key.AAE);
+			ValidationRule[] rules = { VRMandatory.INSTANCE,
+					VRIsDouble.INSTANCE };
+			tfAAE.setValidationRules(rules);
+		}
+		return tfAAE;
+	}
+	
+	public BHTextField getTfZA() {
+		if (tfZA == null) {
+			tfZA = new BHTextField(
+					DTOGCCProfitLossStatementTotalCost.Key.ZA);
+			ValidationRule[] rules = { VRMandatory.INSTANCE,
+					VRIsDouble.INSTANCE };
+			tfZA.setValidationRules(rules);
+		}
+		return tfZA;
+	}
 
 	public BHTextField getTfUEmax() {
 		if (tfUEmax == null) {
@@ -301,6 +360,18 @@ public class BHPLSTotalCostForm extends JPanel {
 		return tfSBEmax;
 	}
 	
+	public BHTextField getTfAAEmax() {
+		if (tfAAEmax == null) {
+			tfAAEmax = new BHTextField(IBHComponent.MAXVALUE
+					+ DTOGCCProfitLossStatementTotalCost.Key.AAE);
+			ValidationRule[] rules = { VRMandatory.INSTANCE,
+					VRIsDouble.INSTANCE,
+					new VRIsGreaterThan(getTfAAEmin(), true) };
+			tfAAEmax.setValidationRules(rules);
+		}
+		return tfAAEmax;
+	}
+	
 	public BHTextField getTfPAmax() {
 		if (tfPAmax == null) {
 			tfPAmax = new BHTextField(IBHComponent.MAXVALUE
@@ -323,6 +394,18 @@ public class BHPLSTotalCostForm extends JPanel {
 			tfMAmax.setValidationRules(rules);
 		}
 		return tfMAmax;
+	}
+	
+	public BHTextField getTfZAmax() {
+		if (tfZAmax == null) {
+			tfZAmax = new BHTextField(IBHComponent.MAXVALUE
+					+ DTOGCCProfitLossStatementTotalCost.Key.ZA);
+			ValidationRule[] rules = { VRMandatory.INSTANCE,
+					VRIsDouble.INSTANCE,
+					new VRIsGreaterThan(getTfZAmin(), true) };
+			tfZAmax.setValidationRules(rules);
+		}
+		return tfZAmax;
 	}
 
 	public BHTextField getTfUEmin() {
@@ -368,6 +451,17 @@ public class BHPLSTotalCostForm extends JPanel {
 		}
 		return tfSBEmin;
 	}
+	
+	public BHTextField getTfAAEmin() {
+		if (tfAAEmin == null) {
+			tfAAEmin = new BHTextField(IBHComponent.MINVALUE
+					+ DTOGCCProfitLossStatementTotalCost.Key.AAE);
+			ValidationRule[] rules = { VRMandatory.INSTANCE,
+					VRIsDouble.INSTANCE };
+			tfAAEmin.setValidationRules(rules);
+		}
+		return tfAAEmin;
+	}
 
 	public BHTextField getTfPAmin() {
 		if (tfPAmin == null) {
@@ -390,6 +484,19 @@ public class BHPLSTotalCostForm extends JPanel {
 		}
 		return tfMAmin;
 	}
+	
+	public BHTextField getTfZAmin() {
+		if (tfZAmin == null) {
+			tfZAmin = new BHTextField(IBHComponent.MINVALUE
+					+ DTOGCCProfitLossStatementTotalCost.Key.ZA);
+			ValidationRule[] rules = { VRMandatory.INSTANCE,
+					VRIsDouble.INSTANCE };
+			tfZAmin.setValidationRules(rules);
+		}
+		return tfZAmin;
+	}
+	
+	
 	// Here do the getters for the labels begin
 
 	public BHDescriptionLabel getLUE() {
@@ -439,7 +546,23 @@ public class BHPLSTotalCostForm extends JPanel {
 		}
 		return lPA;
 	}
+	
+	public BHDescriptionLabel getLAAE() {
+		if (lAAE == null) {
+			lAAE = new BHDescriptionLabel(
+					DTOGCCProfitLossStatementTotalCost.Key.AAE);
+		}
+		return lAAE;
+	}
 
+	public BHDescriptionLabel getLZA() {
+		if (lZA == null) {
+			lZA = new BHDescriptionLabel(
+					DTOGCCProfitLossStatementTotalCost.Key.ZA);
+		}
+		return lZA;
+	}
+	
 	public JLabel getLmax() {
 		if (lmax == null) {
 			lmax = new BHDescriptionLabel(translator.translate("max"));
