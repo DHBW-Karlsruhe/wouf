@@ -35,7 +35,6 @@ public class BHScenarioHeadForm extends JPanel {
 	private BHDescriptionLabel ldeptyield;
 	private BHDescriptionLabel ltradetax;
 	private BHDescriptionLabel lcorporatetax;
-	private BHDescriptionLabel lbaseyear;
 
 	private BHTextField tfscenname;
 	private BHTextField tfscendescript;
@@ -45,7 +44,6 @@ public class BHScenarioHeadForm extends JPanel {
 	private BHTextField tftradetax;
 	private BHTextField tfcorporatetax;
         
-	private BHTextField tfBase;
 	private JLabel lpercentequity;
 	private JLabel lpercentdept;
 	private JLabel lpercenttrade;
@@ -82,8 +80,6 @@ public class BHScenarioHeadForm extends JPanel {
 
 		this.add(this.getlscenName(), cons.xywh(3, 4, 1, 1));
 		this.add(this.gettfscenName(), cons.xywh(6, 4,12, 1));
-		this.add(this.getlBase(), cons.xywh(21, 4, 1, 1));
-		this.add(this.gettfBase(), cons.xywh(23, 4, 1, 1));
 		this.add(this.getlscenDescript(), cons.xywh(3, 6, 1, 1));
 		this.add(this.gettfscenDescript(), cons.xywh(6, 6, 18, 1));
 
@@ -105,7 +101,6 @@ public class BHScenarioHeadForm extends JPanel {
 
 		Vector<Component> order = new Vector<Component>();
 		order.add(this.gettfscenName());
-		order.add(this.gettfBase());
 		order.add(this.gettfscenDescript());
 		order.add(this.gettfequityYield());
 		order.add(this.gettfdeptYield());
@@ -215,19 +210,7 @@ public class BHScenarioHeadForm extends JPanel {
 		return this.lcorporatetax;
 	}
 
-	/**
-	 * Getter method for component lbaseYear.
-	 * 
-	 * @return BHDescriptionLabel
-	 */
-	public BHDescriptionLabel getlBase() {
-
-		if (this.lbaseyear == null) {
-			this.lbaseyear = new BHDescriptionLabel(DTOScenario.Key.IDENTIFIER);
-		}
-
-		return this.lbaseyear;
-	}
+	
 
 	// Here do the getters for the textfields begin
 
@@ -324,22 +307,6 @@ public class BHScenarioHeadForm extends JPanel {
 			tfcorporatetax.setValidationRules(rules);
 		}
 		return this.tfcorporatetax;
-	}
-
-	/**
-	 * Getter method for component tfbaseYear.
-	 * 
-	 * @return BHTextField
-	 */
-	public BHTextField gettfBase() {
-
-		if (this.tfBase == null) {
-			this.tfBase = new BHTextField(DTOScenario.Key.IDENTIFIER, false);
-			ValidationRule[] rules = { VRMandatory.INSTANCE,
-					VRIsInteger.INSTANCE };
-			tfBase.setValidationRules(rules);
-		}
-		return this.tfBase;
 	}
 
 	/**
