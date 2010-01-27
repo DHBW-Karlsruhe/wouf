@@ -326,10 +326,10 @@ public class Services {
 	/**
 	 * Returns an ImageIcon, or null if the path was invalid.
 	 */
-	public static ImageIcon createImageIcon(String path, String description) {
+	public static ImageIcon createImageIcon(String path) {
 		URL imgURL = Services.class.getResource(path);
 		if (imgURL != null) {
-			return new ImageIcon(imgURL, description);
+			return new ImageIcon(imgURL);
 		}
 
 		Logger.getLogger(Services.class).debug("Could not find icon " + path);

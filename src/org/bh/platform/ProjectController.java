@@ -61,7 +61,7 @@ public class ProjectController extends InputController implements
 	 * Inner class calculating all shareholder values of a project's scenarios.
 	 */
 	protected class CalculationListener implements ActionListener {
-		private final ImageIcon prCalcLoading = Services.createImageIcon("/org/bh/images/loading.gif", null);
+		private final ImageIcon prCalcLoading = Services.createImageIcon("/org/bh/images/loading.gif");
 
 		private BHTree bhTree;
 

@@ -112,7 +112,7 @@ public final class BHResultPanel extends JPanel {
 //		System.err.println("BHResultPanel.setFormulaArea()");
 		formulaArea.setBorder(BorderFactory.createTitledBorder(BorderFactory
 				.createEtchedBorder(), translator
-				.translate("formel")));
+				.translate("result_headline")));
 		add(formulaArea, "1,3");
 	}
 	

@@ -55,22 +55,22 @@ public class BHTree extends JTree {
     /**
      * icon for project nodes.
      */
-    public static ImageIcon PROJECT_ICON = Services.createImageIcon("/org/bh/images/tree/project.png", Services.getTranslator().translate("project"));
+    public static ImageIcon PROJECT_ICON = Services.createImageIcon("/org/bh/images/tree/project.png");
 
     /**
      * icon for scenario nodes.
      */
-    public static ImageIcon SCENARIO_ICON = Services.createImageIcon("/org/bh/images/tree/scenario.png", Services.getTranslator().translate("scenario"));
+    public static ImageIcon SCENARIO_ICON = Services.createImageIcon("/org/bh/images/tree/scenario.png");
 
     /**
      * icon for period nodes.
      */
-    public static ImageIcon PERIOD_ICON = Services.createImageIcon("/org/bh/images/tree/period.png", Services.getTranslator().translate("period"));
+    public static ImageIcon PERIOD_ICON = Services.createImageIcon("/org/bh/images/tree/period.png");
 
     /**
      * icon for project nodes with error.
      */
-    public static ImageIcon ERROR_ICON = Services.createImageIcon("/org/bh/images/tree/error.png", Services.getTranslator().translate("error"));
+    public static ImageIcon ERROR_ICON = Services.createImageIcon("/org/bh/images/tree/error.png");
 
     /**
      * right-click popup for tree nodes with functions like 'remove' etc.

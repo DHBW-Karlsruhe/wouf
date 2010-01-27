@@ -378,7 +378,7 @@ public class ScenarioController extends InputController {
 	protected class CalculationListener implements ActionListener {
 
 		private final ImageIcon scCalcLoading = Services.createImageIcon(
-				"/org/bh/images/loading.gif", null);
+				"/org/bh/images/loading.gif");
 		private BHTree bhTree;
 
 		public CalculationListener(BHTree bhTree) {

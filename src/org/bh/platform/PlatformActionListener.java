@@ -188,11 +188,6 @@ class PlatformActionListener implements ActionListener {
 			this.duplicateScenario();
 			break;
 
-		case SCENARIOMOVE:
-			// TODO Drag&Drop
-
-			break;
-
 		case SCENARIOREMOVE:
 
 			if(((BHTreeNode) bhmf.getBHTree().getSelectionPath().getLastPathComponent()).getUserObject() instanceof DTOScenario){
@@ -268,21 +263,6 @@ class PlatformActionListener implements ActionListener {
 			}
 			break;
 
-		case BILANZGUVSHOW:
-			// TODO Prüfen und ggf. implementieren!
-			break;
-
-		case BILANZGUVCREATE:
-			// TODO Prüfen und ggf. implementieren!
-			break;
-
-		case BILANZGUVIMPORT:
-			// TODO Prüfen und ggf. implementieren!
-			break;
-
-		case BILANZGUVREMOVE:
-			// TODO Prüfen und ggf. implementieren!
-			break;
 
 		case OPTIONSCHANGE:
 			new BHOptionDialog();
@@ -548,8 +528,7 @@ class PlatformActionListener implements ActionListener {
 	protected void createProject() {
 		// Create new project
 		DTOProject newProject = new DTOProject();
-		// TODO hardgecodeder String raus! AS
-		newProject.put(DTOProject.Key.NAME, new StringValue("neues Projekt"));
+		newProject.put(DTOProject.Key.NAME, new StringValue(BHTranslator.getInstance().translate("project_new")));
 		// add it to DTO-Repository and Tree
 		PlatformController.getInstance().addProject(newProject);
 
@@ -559,12 +538,11 @@ class PlatformActionListener implements ActionListener {
 		// If a path is selected...
 		if (bhmf.getBHTree().getSelectionPath() != null) {
 			// check kind of scenario: deterministic or stochastic?
-			// TODO Schmalzhaf.Alexander: String raus!
 			ArrayList<BHComboBox.Item> itemsList = new ArrayList<BHComboBox.Item>();
 			itemsList.add(new BHComboBox.Item("deterministic", new StringValue(
-					"deterministisch")));
+					BHTranslator.getInstance().translate("deterministic"))));
 			itemsList.add(new BHComboBox.Item("stochastic", new StringValue(
-					"stochastisch")));
+				BHTranslator.getInstance().translate("stochastic"))));
 			BHComboBox.Item res = (BHComboBox.Item) JOptionPane
 					.showInputDialog(bhmf,
 							"Bitte gewünschten Szenariotyp auswählen:",
@@ -578,9 +556,8 @@ class PlatformActionListener implements ActionListener {
 			// ...create new scenario
 			DTOScenario newScenario = new DTOScenario(res.getKey()
 					.equalsIgnoreCase("deterministic"));
-			// TODO hardgecodeder String raus! AS
 			newScenario.put(DTOScenario.Key.NAME, new StringValue(
-					"neues Szenario"));
+				BHTranslator.getInstance().translate("scenario_new")));
 
 			// ...set Basis (IDENTIFIER) of scenario -> naming of periods
 			newScenario.put(DTOScenario.Key.IDENTIFIER, new StringValue(""
@@ -664,8 +641,7 @@ class PlatformActionListener implements ActionListener {
 								+ (tempNum + periodDifference);
 
 					} catch (Exception e1) {
-						// TODO Schmalzhaf.Alexander harter String raus!
-						periodName = "neue Periode";
+						periodName = BHTranslator.getInstance().translate("period_new");
 					}
 				}
 			}

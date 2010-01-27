@@ -8,79 +8,64 @@ public enum PlatformKey{
 	 * ActionKeys of PlatformMenu
 	 * -------------------------------
 	 */
-	FILENEW("Mnew","FILENEW"),
-	FILEOPEN("Mopen","FILEOPEN"),
-	FILESAVE("Msave","FILESAVE"),
-	FILESAVEAS("MsaveAs","FILESAVEAS"),
-	FILECLOSE("Mclose", "FILECLOSE"),
-	FILEQUIT("Mquit","FILEQUIT"),
-	PROJECTCREATE("Mcreate","PROJECTCREATE"),
-	PROJECTRENAME("Mrename","PROJECTRENAME"), // TODO PROJECTRENAME Still needed?
-	PROJECTDUPLICATE("Mduplicate","PROJECTDUPLICATE"),
-	PROJECTIMPORT("Mimport","PROJECTIMPORT"),
-	PROJECTEXPORT("Mexport","PROJECTEXPORT"),
-	PROJECTREMOVE("Mremove","PROJECTREMOVE"),
-	SCENARIOCREATE("Mcreate","SCENARIOCREATE"),
-	SCENARIORENAME("Mrename","SCENARIORENAME"), // TODO SCENARIORENAME Still needed?
-	SCENARIODUPLICATE("Mduplicate","SCENARIODUPLICATE"),
-	SCENARIOMOVE("Mmove","SCENARIOMOVE"), // TODO SCENARIOMOVE Still needed?
-	SCENARIOREMOVE("Mremove","SCENARIOREMOVE"),
-	PERIODCREATE("Mcreate", "PERIODCREATE"),
-	PERIODDUPLICATE("Mduplicate", "PERIODDUPLICATE"),
-	PERIODREMOVE("Mremove", "PERIODREMOVE"),
-	BILANZGUVSHOW("Mshow","BILANZGUVSHOW"), // TODO  Still needed?
-	BILANZGUVCREATE("Mcreate","BILANZGUVCREATE"), // TODO  Still needed?
-	BILANZGUVIMPORT("Mimport","BILANZGUVIMPORT"), // TODO  Still needed?
-	BILANZGUVREMOVE("Mremove","BILANZGUVREMOVE"), // TODO  Still needed?
-	OPTIONSCHANGE("Mchange","OPTIONSCHANGE"),
-	HELPUSERHELP("MuserHelp","HELPUSERHELP"),
-	HELPMATHHELP("MmathHelp","HELPMATHHELP"),
-	HELPINFO("Minfo","HELPINFO"),
-	HELPDEBUG("Mdebug","HELPDEBUG"),
+	FILENEW("Mnew"),
+	FILEOPEN("Mopen"),
+	FILESAVE("Msave"),
+	FILESAVEAS("MsaveAs"),
+	FILECLOSE("Mclose"),
+	FILEQUIT("Mquit"),
+	PROJECTCREATE("Mcreate"),
+	PROJECTDUPLICATE("Mduplicate"),
+	PROJECTIMPORT("Mimport"),
+	PROJECTEXPORT("Mexport"),
+	PROJECTREMOVE("Mremove"),
+	SCENARIOCREATE("Mcreate"),
+	SCENARIODUPLICATE("Mduplicate"),
+	SCENARIOREMOVE("Mremove"),
+	PERIODCREATE("Mcreate"),
+	PERIODDUPLICATE("Mduplicate"),
+	PERIODREMOVE("Mremove"),
+	OPTIONSCHANGE("Mchange"),
+	HELPUSERHELP("MuserHelp"),
+	HELPMATHHELP("MmathHelp"),
+	HELPINFO("Minfo"),
+	HELPDEBUG("Mdebug"),
 	
 	/*--------------------------------
 	 * ActionKeys of PlatformToolbar
 	 * -------------------------------
 	 */
-	TOOLBARNEW("TnewWorkspace","TOOLBARNEW"),
-	TOOLBAROPEN("Topen","TOOLBAROPEN"),
-	TOOLBARSAVE("Tsave","TOOLBARSAVE"),
-	TOOLBARADDPRO("TaddPro","TOOLBARADDPRO"),
-	TOOLBARADDS("TaddS","TOOLBARADDS"),
-	TOOLBARADDPER("TaddPer","TOOLBARADDPER"),
-	TOOLBARREMOVE("Tremove","TOOLBARREMOVE"),
+	TOOLBARNEW("TnewWorkspace"),
+	TOOLBAROPEN("Topen"),
+	TOOLBARSAVE("Tsave"),
+	TOOLBARADDPRO("TaddPro"),
+	TOOLBARADDS("TaddS"),
+	TOOLBARADDPER("TaddPer"),
+	TOOLBARREMOVE("Tremove"),
 	
 	/*--------------------------------
 	 * ActionKeys of Tree's Popup
 	 * -------------------------------
 	 */
-	POPUPREMOVE("Tremove","POPUPREMOVE"),
-	POPUPADD("Treadd", "POPUPADD"),
-	POPUPDUPLICATE("Treduplicate", "POPUPDUPLICATE"),
-	POPUPEXPORT("Treexport", "POPUPEXPORT"),
+	POPUPREMOVE("Tremove"),
+	POPUPADD("Treadd"),
+	POPUPDUPLICATE("Treduplicate"),
+	POPUPEXPORT("Treexport"),
 	
 	
-	CALCSHAREHOLDERVALUE("BcalculateShareholderValue","CALCSHAREHOLDERVALUE"),
-	CALCDASHBOARD("BcalculateDashBoard", "CALCDASHBOARD");
+	CALCSHAREHOLDERVALUE("BcalculateShareholderValue"),
+	CALCDASHBOARD("BcalculateDashBoard");
 	
 	String translationKey;
-	String actionKey;
 	
-	/**
-	 * 
-	 */
-	PlatformKey(String translationKey, String actionKey){
+	PlatformKey(String translationKey){
 		this.translationKey = translationKey;
-		this.actionKey = actionKey;
 	}
 	
 	@Override
 	public String toString(){
 		return translationKey;
 	}
-	
-	public String getActionKey(){
-		return this.actionKey;
-	}
+
 	
 }
