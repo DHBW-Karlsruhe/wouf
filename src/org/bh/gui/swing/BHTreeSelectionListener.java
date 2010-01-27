@@ -42,20 +42,45 @@ import org.bh.platform.Services;
  */
 public class BHTreeSelectionListener implements TreeSelectionListener {
 
-    private static final Logger log = Logger.getLogger(BHTreeSelectionListener.class);
+    protected static final Logger log = Logger.getLogger(BHTreeSelectionListener.class);
 
     private BHMainFrame bhmf;
     private PlatformController pc;
-    private InputController controller = null;
+    private InputController controller;
 
     public BHTreeSelectionListener(PlatformController pc, BHMainFrame bhmf) {
 	this.pc = pc;
 	this.bhmf = bhmf;
     }
+    
+    /*
+     * Getters and Setters for variables
+     * -> allows use in swing thread called in valueChanged method (see below)
+     */
+    protected BHMainFrame getBHMainFrame(){
+	return bhmf;
+    }
+    
+    protected InputController getController(){
+	return controller;
+    }
+    
+    protected void setController(InputController ic){
+	this.controller = ic;
+    }
+    
+    protected PlatformController getPlatformController(){
+	return pc;
+    }
+    
 
+    /**
+     * Handler for valueChanged action which is fired by new tree selection
+     */
     @Override
     public void valueChanged(final TreeSelectionEvent tse) {
 	if (tse.getNewLeadSelectionPath() == null) {
+	    //no node is selected - background must be set to "empty" and result form must be cleared
 	    bhmf.setContentForm(new BHContent());
 	    bhmf.removeResultForm();
 
@@ -68,16 +93,21 @@ public class BHTreeSelectionListener implements TreeSelectionListener {
 	    bhmf.getBHToolBar().disablePeriodButton();
 
 	} else {
-	    // save divider location of split pane
+	    //--> TIDY UP
+	    
+	    // save divider location of split pane to rebuild current state 
+	    // at a reselect of "old" node
 	    BHTreeNode oldActiveNode;
 	    if (tse.getOldLeadSelectionPath() != null) {
 		TreePath tp = tse.getOldLeadSelectionPath();
 		oldActiveNode = (BHTreeNode) tp.getLastPathComponent();
 		oldActiveNode.setDividerLocation(bhmf.getVDividerLocation());
 	    }
-	    // remove resultpanel
+	    
+	    // remove result panel
 	    bhmf.removeResultForm();
-
+	    
+	    //--> GET DATA AND FILL CONTENT AREA (RIGHT AREA)
 	    SwingUtilities.invokeLater(new Runnable() {
 		@Override
 		public void run() {
@@ -93,38 +123,36 @@ public class BHTreeSelectionListener implements TreeSelectionListener {
 			    getBHMainFrame().getBHMenuBar().disableMenuPeriodAllItems();
 
 			    // set ToolBar button disabled
-			    bhmf.getBHToolBar().disablePeriodButton();
-			    bhmf.getBHToolBar().enableScenarioButton();
+			    getBHMainFrame().getBHToolBar().disablePeriodButton();
+			    getBHMainFrame().getBHToolBar().enableScenarioButton();
 
 			    try {
 				View view = new BHProjectView(new BHProjectForm());
 
 				IDTO<?> model = selectedDto;
-				controller = new ProjectController(view, model);
+				setController(new ProjectController(view, model));
 
-				selectedNode.setController(controller);
+				selectedNode.setController(getController());
 
-				Component comp = controller.getViewPanel();
+				Component comp = getController().getViewPanel();
 
 				if (comp instanceof Container) {
 				    Container cont = (Container) comp;
 				    setFocus(cont);
 				}
-				// set content and result (=dashboard) if
+				// set content and result (that is dashboard in this case) if
 				// available
-				bhmf.setContentForm(comp);
+				getBHMainFrame().setContentForm(comp);
 
 				JScrollPane resultPane;
 				if ((resultPane = selectedNode.getResultPane()) != null) {
-				    bhmf.setResultForm(resultPane);
-				    bhmf.setVDividerLocation(selectedNode.getDividerLocation());
+				    getBHMainFrame().setResultForm(resultPane);
+				    getBHMainFrame().setVDividerLocation(selectedNode.getDividerLocation());
 				} else {
-				    bhmf.removeResultForm();
+				    getBHMainFrame().removeResultForm();
 				}
 
-				// TODO START VIEW
-
-				controller.loadAllToView();
+				getController().loadAllToView();
 
 			    } catch (ViewException e) {
 				e.printStackTrace();
@@ -133,27 +161,25 @@ public class BHTreeSelectionListener implements TreeSelectionListener {
 			} else if (selectedDto instanceof DTOScenario) {
 
 			    // set menu items enabled oder disabled
-			    bhmf.getBHMenuBar().disableMenuProjectItems();
-			    bhmf.getBHMenuBar().enableMenuScenarioItems();
-			    bhmf.getBHMenuBar().disableMenuPeriodItems();
+			    getBHMainFrame().getBHMenuBar().disableMenuProjectItems();
+			    getBHMainFrame().getBHMenuBar().enableMenuScenarioItems();
+			    getBHMainFrame().getBHMenuBar().disableMenuPeriodItems();
 
 			    // set ToolBar button enabled
-			    bhmf.getBHToolBar().enablePeriodButton();
-			    bhmf.getBHToolBar().enableScenarioButton();
+			    getBHMainFrame().getBHToolBar().enablePeriodButton();
+			    getBHMainFrame().getBHToolBar().enableScenarioButton();
 
 			    try {
 
 				DTOScenario model = (DTOScenario) selectedDto;
 
 				// check if controller is already there...
-				if ((controller = selectedNode.getController()) == null) {
-
+				if (selectedNode.getController() == null) {
+				    setController(selectedNode.getController());
 				    // if not, create view at first
 
 				    View view;
-				    // find out if stochastic process was
-				    // chosen
-				    // at init of strategy
+				    // find out if stochastic process was chosen at init of strategy
 				    if (!model.isDeterministic()) {
 					view = new BHScenarioView(new BHScenarioForm(BHScenarioForm.Type.STOCHASTIC, model.isIntervalArithmetic()), new ValidationMethods());
 				    } else {
@@ -161,34 +187,32 @@ public class BHTreeSelectionListener implements TreeSelectionListener {
 				    }
 
 				    // create controller
-				    controller = new ScenarioController(view, model, bhmf);
-				    selectedNode.setController(controller);
+				    setController(new ScenarioController(view, model, getBHMainFrame()));
+				    selectedNode.setController(getController());
 				}
 
 				if (model.isDeterministic()) {
-				    // if scenario is deterministic, an
-				    // overview
-				    // table is provided
-				    ((BHDeterministicProcessForm) ((BHScenarioForm) controller.getViewPanel()).getProcessForm()).setPeriodTable(pc.prepareScenarioTableData(model));
+				    // if scenario is deterministic, an overview table is provided
+				    ((BHDeterministicProcessForm) ((BHScenarioForm) getController().getViewPanel()).getProcessForm()).setPeriodTable(getPlatformController().prepareScenarioTableData(model));
 				}
 
 				// set content and result panels to bhmf
 				JScrollPane resultPane;
 
-				Component comp = controller.getViewPanel();
+				Component comp = getController().getViewPanel();
 
 				if (comp instanceof Container) {
 				    Container cont = (Container) comp;
 				    setFocus(cont);
 				}
 
-				bhmf.setContentForm(comp);
+				getBHMainFrame().setContentForm(comp);
 
 				if ((resultPane = selectedNode.getResultPane()) != null) {
-				    bhmf.setResultForm(resultPane);
-				    bhmf.setVDividerLocation(selectedNode.getDividerLocation());
+				    getBHMainFrame().setResultForm(resultPane);
+				    getBHMainFrame().setVDividerLocation(selectedNode.getDividerLocation());
 				} else {
-				    bhmf.removeResultForm();
+				    getBHMainFrame().removeResultForm();
 				}
 
 			    } catch (ViewException e) {
@@ -198,15 +222,15 @@ public class BHTreeSelectionListener implements TreeSelectionListener {
 			} else if (selectedDto instanceof DTOPeriod) {
 
 			    // set menu items enabled oder disabled
-			    bhmf.getBHMenuBar().disableMenuProjectItems();
-			    bhmf.getBHMenuBar().disableMenuScenarioItems();
-			    bhmf.getBHMenuBar().enableMenuPeriodItems();
+			    getBHMainFrame().getBHMenuBar().disableMenuProjectItems();
+			    getBHMainFrame().getBHMenuBar().disableMenuScenarioItems();
+			    getBHMainFrame().getBHMenuBar().enableMenuPeriodItems();
 
 			    // set ToolBar button enabled
-			    bhmf.getBHToolBar().enablePeriodButton();
-			    bhmf.getBHToolBar().enableScenarioButton();
+			    getBHMainFrame().getBHToolBar().enablePeriodButton();
+			    getBHMainFrame().getBHToolBar().enableScenarioButton();
 
-			    bhmf.removeResultForm();
+			    getBHMainFrame().removeResultForm();
 
 			    DTOPeriod period = (DTOPeriod) selectedDto;
 
@@ -230,7 +254,7 @@ public class BHTreeSelectionListener implements TreeSelectionListener {
 			    }
 
 			    container.setPvalues((JPanel) viewComponent);
-			    bhmf.setContentForm(container);
+			    getBHMainFrame().setContentForm(container);
 			}
 		    }
 
@@ -239,10 +263,8 @@ public class BHTreeSelectionListener implements TreeSelectionListener {
 	}
     }
     
-    protected BHMainFrame getBHMainFrame(){
-	return bhmf;
-    }
-
+    
+    
     public static boolean setFocus(Container cont) {
 	for (Component comp : cont.getComponents()) {
 	    if (comp instanceof BHTextField) {
