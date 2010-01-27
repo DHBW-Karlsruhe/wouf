@@ -14,7 +14,6 @@ import org.bh.gui.swing.comp.BHTextField;
 import org.bh.platform.Services;
 import org.bh.platform.i18n.ITranslator;
 import org.bh.validation.VRIsDouble;
-import org.bh.validation.VRIsInteger;
 import org.bh.validation.VRIsLowerThan;
 import org.bh.validation.VRIsPositive;
 import org.bh.validation.VRMandatory;

@@ -7,9 +7,13 @@ package org.bh.tests.apps.keyCrawler;
 
 import java.io.File;
 import java.lang.reflect.Modifier;
-import java.util.*;
-import java.util.zip.*;
-import Prog1Tools.IOTools;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Enumeration;
+import java.util.List;
+import java.util.StringTokenizer;
+import java.util.zip.ZipEntry;
+import java.util.zip.ZipFile;
 
 
 /**

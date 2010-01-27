@@ -1,7 +1,10 @@
 package org.bh.gui.swing.tree;
-import java.awt.datatransfer.*;
-import javax.swing.tree.*;
-import java.util.*;
+import java.awt.datatransfer.DataFlavor;
+import java.awt.datatransfer.Transferable;
+import java.awt.datatransfer.UnsupportedFlavorException;
+import java.util.Arrays;
+
+import javax.swing.tree.DefaultMutableTreeNode;
  
 public class TransferableNode implements Transferable {
 	public static final DataFlavor NODE_FLAVOR = new DataFlavor(DataFlavor.javaJVMLocalObjectMimeType, "Node");

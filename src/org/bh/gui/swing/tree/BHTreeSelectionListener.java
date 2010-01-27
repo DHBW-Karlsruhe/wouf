@@ -25,7 +25,6 @@ import org.bh.gui.swing.forms.BHDeterministicProcessForm;
 import org.bh.gui.swing.forms.BHPeriodForm;
 import org.bh.gui.swing.forms.BHProjectForm;
 import org.bh.gui.swing.forms.BHScenarioForm;
-import org.bh.gui.swing.forms.BHScenarioForm.Type;
 import org.bh.gui.view.BHProjectView;
 import org.bh.gui.view.BHScenarioView;
 import org.bh.gui.view.View;

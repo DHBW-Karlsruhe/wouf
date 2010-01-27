@@ -1,8 +1,8 @@
 package org.bh.plugin.xmldataexchange.xmlexport;
 
 import org.bh.data.types.DoubleValue;
-import org.bh.data.types.IntegerValue;
 import org.bh.data.types.IValue;
+import org.bh.data.types.IntegerValue;
 import org.bh.data.types.IntervalValue;
 import org.bh.data.types.StringValue;
 import org.jdom.Attribute;

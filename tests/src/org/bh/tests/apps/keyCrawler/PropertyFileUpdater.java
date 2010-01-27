@@ -2,16 +2,14 @@
 
 package org.bh.tests.apps.keyCrawler;
 
-import java.util.Properties;
-import Prog1Tools.IOTools;
 import java.io.File;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Set;
-import java.util.TreeSet;
+
+import Prog1Tools.IOTools;
 
 /**
  *

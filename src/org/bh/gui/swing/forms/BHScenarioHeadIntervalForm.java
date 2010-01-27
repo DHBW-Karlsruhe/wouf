@@ -22,7 +22,6 @@ import org.bh.validation.VRIsDouble;
 import org.bh.validation.VRIsGreaterThan;
 import org.bh.validation.VRIsInteger;
 import org.bh.validation.VRIsLowerThan;
-import org.bh.validation.VRIsNotEqual;
 import org.bh.validation.VRIsPositive;
 import org.bh.validation.VRMandatory;
 import org.bh.validation.ValidationRule;

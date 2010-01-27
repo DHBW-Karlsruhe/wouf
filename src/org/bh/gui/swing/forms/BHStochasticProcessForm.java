@@ -2,7 +2,6 @@ package org.bh.gui.swing.forms;
 
 import javax.swing.JPanel;
 
-
 import com.jgoodies.forms.layout.CellConstraints;
 import com.jgoodies.forms.layout.FormLayout;
 

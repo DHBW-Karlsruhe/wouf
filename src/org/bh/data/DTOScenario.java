@@ -1,10 +1,7 @@
 package org.bh.data;
 
 import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.LinkedList;
 import java.util.List;
-import java.util.Map;
 import java.util.TreeMap;
 
 import org.apache.log4j.Logger;
@@ -12,7 +9,6 @@ import org.bh.calculation.IShareholderValueCalculator;
 import org.bh.calculation.IStochasticProcess;
 import org.bh.data.types.Calculable;
 import org.bh.data.types.DoubleValue;
-import org.bh.data.types.IValue;
 import org.bh.data.types.IntegerValue;
 import org.bh.data.types.ObjectValue;
 import org.bh.platform.Services;

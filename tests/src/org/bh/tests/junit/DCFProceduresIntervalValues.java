@@ -1,15 +1,12 @@
 package org.bh.tests.junit;
 
 
-import static org.junit.Assert.*;
-
 import java.util.Map;
 
 import org.bh.calculation.IShareholderValueCalculator;
 import org.bh.data.DTOPeriod;
 import org.bh.data.DTOScenario;
 import org.bh.data.types.Calculable;
-import org.bh.data.types.DoubleValue;
 import org.bh.data.types.IntervalValue;
 import org.bh.data.types.StringValue;
 import org.bh.platform.Services;

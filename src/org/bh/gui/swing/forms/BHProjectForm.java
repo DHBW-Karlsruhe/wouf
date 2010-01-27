@@ -7,7 +7,6 @@ import javax.swing.border.EtchedBorder;
 
 import org.bh.gui.swing.comp.BHButton;
 import org.bh.gui.swing.comp.BHDescriptionLabel;
-import org.bh.platform.PlatformKey;
 import org.bh.platform.Services;
 import org.bh.platform.i18n.ITranslator;
 

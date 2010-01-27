@@ -5,7 +5,6 @@
 package org.bh.plugin.resultAnalysis;
 
 import java.awt.BorderLayout;
-import java.awt.Component;
 import java.awt.event.ActionEvent;
 import java.util.ArrayList;
 import java.util.HashMap;

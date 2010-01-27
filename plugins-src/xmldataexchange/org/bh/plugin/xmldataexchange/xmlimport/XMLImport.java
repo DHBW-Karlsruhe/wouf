@@ -16,7 +16,6 @@ import org.bh.data.DTOProject;
 import org.bh.data.IDTO;
 import org.bh.data.types.IValue;
 import org.bh.platform.PluginManager;
-import org.bh.plugin.xmldataexchange.XMLDataExchangeController;
 import org.jdom.Document;
 import org.jdom.Element;
 import org.jdom.JDOMException;

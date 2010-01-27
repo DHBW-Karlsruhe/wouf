@@ -7,7 +7,6 @@ import java.io.InputStream;
 import javax.xml.parsers.ParserConfigurationException;
 
 import net.sourceforge.jeuclid.MathMLParserSupport;
-import net.sourceforge.jeuclid.swing.JMathComponent;
 
 import org.bh.platform.expression.ExpressionException;
 import org.bh.platform.expression.IExpression;

@@ -16,6 +16,7 @@ import java.util.Map;
 import java.util.ServiceLoader;
 import java.util.StringTokenizer;
 import java.util.Map.Entry;
+
 import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
 import javax.swing.JPanel;
@@ -23,6 +24,7 @@ import javax.swing.SwingUtilities;
 import javax.swing.UIManager;
 import javax.swing.UIManager.LookAndFeelInfo;
 import javax.swing.event.EventListenerList;
+
 import org.apache.log4j.Logger;
 import org.apache.log4j.PatternLayout;
 import org.apache.log4j.WriterAppender;

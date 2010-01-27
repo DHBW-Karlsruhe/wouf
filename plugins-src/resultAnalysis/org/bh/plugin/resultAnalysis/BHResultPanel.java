@@ -14,13 +14,9 @@ import org.apache.log4j.Logger;
 import org.bh.data.DTOScenario;
 import org.bh.data.types.Calculable;
 import org.bh.gui.swing.comp.BHButton;
-import org.bh.gui.swing.comp.BHDescriptionTextArea;
 import org.bh.gui.view.ViewException;
 import org.bh.platform.Services;
 import org.bh.platform.i18n.ITranslator;
-import org.jfree.chart.ChartPanel;
-
-import com.jgoodies.forms.layout.CellConstraints;
 
 /**
  * 

@@ -1,7 +1,6 @@
 package org.bh.gui.swing.tree;
 
 import javax.swing.JScrollPane;
-import javax.swing.JSplitPane;
 import javax.swing.tree.DefaultMutableTreeNode;
 
 import org.bh.controller.InputController;
