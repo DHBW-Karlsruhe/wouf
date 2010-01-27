@@ -28,20 +28,11 @@ public class BHHelpSystem extends JPanel{
 		      	ClassLoader cl = BHHelpSystem.class.getClassLoader();
 		      	URL url = HelpSet.findHelpSet(cl, "jhelpset.hs");
 		      	helpViewer = new JHelp(new HelpSet(cl, url));
-		      	helpViewer.setCurrentID(ID);
-			} catch (Exception e) {
+		      	} catch (Exception e) {
 				System.err.println("API Help Set not found");
 			}
 		this.add(helpViewer);
 		this.setVisible(true);
 
 	}
-//	public static void main(String[] args0){
-//		JFrame frame = new JFrame();
-//		frame.setTitle("Hilfe zu (hier Dein Programmname)");
-//		frame.setSize(800,600);
-//		frame.getContentPane().add(new BHHelpSystem());
-//		frame.setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
-//		frame.setVisible(true);
-//	}
 }
