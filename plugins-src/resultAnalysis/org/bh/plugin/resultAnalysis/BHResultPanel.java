@@ -44,16 +44,7 @@ import com.jgoodies.forms.layout.CellConstraints;
 public final class BHResultPanel extends JPanel {
 
 	static final Logger log = Logger.getLogger(BHResultPanel.class);
-	private JPanel panel;
-	private ChartPanel lineChartLabel;
-	private ChartPanel pieChartLabel;
-	private ChartPanel barChartLabel;
-	private BHDescriptionTextArea pieChartTextArea;
-	//check Marco, Lars: Really necessary for every procedure?
-	private CellConstraints cons;
-	// formulas
-	private Component finiteFormula;
-	private Component infiniteFormula;
+	
 	// export button
 	private BHButton exportButton;
 	// probably not necessary in a later version

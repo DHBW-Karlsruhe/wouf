@@ -33,15 +33,15 @@ public class BH_APV_ResultPanel extends JPanel {
     public void initialize() {
 	double border = 30;
 
-	double size[][] = { { border, TableLayoutConstants.PREFERRED, border, TableLayoutConstants.PREFERRED, border, TableLayoutConstants.PREFERRED, border }, // Columns
-		{ border, TableLayoutConstants.PREFERRED, border, TableLayoutConstants.PREFERRED, border, TableLayoutConstants.PREFERRED } }; // Rows
+	double size[][] = { { TableLayoutConstants.PREFERRED}, // Columns
+		{ border, TableLayoutConstants.PREFERRED, border, TableLayoutConstants.PREFERRED, border} }; // Rows
 	this.setLayout(new TableLayout(size));
 
 	// All APV Charts
 	apvWFShareholderValues = BHChartFactory.getWaterfallChart(BHResultController.ChartKeys.APV_WF_SV, false, true);
 	apvBCCapitalStructure = BHChartFactory.getStackedBarChart(BHResultController.ChartKeys.APV_BC_CS, true, true);
 
-	this.add(apvWFShareholderValues, "3,3");
-	this.add(apvBCCapitalStructure, "3,5");
+	this.add(apvWFShareholderValues, "0,1");
+	this.add(apvBCCapitalStructure, "0,3");
     }
 }

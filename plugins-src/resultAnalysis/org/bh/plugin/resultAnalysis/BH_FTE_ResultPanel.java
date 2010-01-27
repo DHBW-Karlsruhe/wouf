@@ -33,11 +33,11 @@ public class BH_FTE_ResultPanel extends JPanel {
         double border = 30;
 
         if (!isAllSelected) {
-            double size[][] = {{border, TableLayoutConstants.PREFERRED, border, TableLayoutConstants.PREFERRED, border, TableLayoutConstants.PREFERRED, border}, // Columns
-                {border, TableLayoutConstants.PREFERRED, border, TableLayoutConstants.PREFERRED, border, TableLayoutConstants.PREFERRED}}; // Rows
+            double size[][] = {{TableLayoutConstants.PREFERRED}, // Columns
+                {border, TableLayoutConstants.PREFERRED, border, TableLayoutConstants.PREFERRED}}; // Rows
             this.setLayout(new TableLayout(size));
         } else {
-            double size[][] = {{border, TableLayoutConstants.PREFERRED, border, TableLayoutConstants.PREFERRED, border, TableLayoutConstants.PREFERRED, border}, // Columns
+            double size[][] = {{TableLayoutConstants.PREFERRED}, // Columns
                 {border, TableLayoutConstants.PREFERRED, border, TableLayoutConstants.PREFERRED}}; // Rows
             this.setLayout(new TableLayout(size));
         }
@@ -47,10 +47,10 @@ public class BH_FTE_ResultPanel extends JPanel {
         fteReturnRate = BHChartFactory.getBarChart(BHResultController.ChartKeys.FTE_BC_RR, true, true);
 
         if (!isAllSelected) {
-            this.add(fteFlowToEquity, "3,1");
-            this.add(fteReturnRate, "3,3");
+            this.add(fteFlowToEquity, "0,1");
+            this.add(fteReturnRate, "0,3");
         } else {
-            this.add(fteFlowToEquity, "3,1");
+            this.add(fteFlowToEquity, "0,1");
         }
 
     }

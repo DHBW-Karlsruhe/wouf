@@ -31,7 +31,7 @@ public class BH_FCF_ResultPanel extends JPanel {
 
         double border = 30;
 
-        double size[][] = {{border, TableLayoutConstants.PREFERRED, border, TableLayoutConstants.PREFERRED, border, TableLayoutConstants.PREFERRED, border}, // Columns
+        double size[][] = {{TableLayoutConstants.PREFERRED}, // Columns
             {border, TableLayoutConstants.PREFERRED, border, TableLayoutConstants.PREFERRED, border, TableLayoutConstants.PREFERRED}}; // Rows
         this.setLayout(new TableLayout(size));
     
@@ -41,12 +41,12 @@ public class BH_FCF_ResultPanel extends JPanel {
         BHChartPanel fcf_freecashflow = BHChartFactory.getBarChart(BHResultController.ChartKeys.FCF_BC_FCF, true, true);
         BHChartPanel fcf_returnrate = BHChartFactory.getBarChart(BHResultController.ChartKeys.FCF_BC_RR, true, true);
         if (!isAllSelected) {
-            this.add(fcf_shareholderValue, "3,1");
-            this.add(fcf_freecashflow, "3,3");
-            this.add(fcf_returnrate, "3,5");
+            this.add(fcf_shareholderValue, "0,1");
+            this.add(fcf_freecashflow, "0,3");
+            this.add(fcf_returnrate, "0,5");
         }else{
-            this.add(fcf_freecashflow, "3,1");
-            this.add(fcf_returnrate, "3,3");
+            this.add(fcf_freecashflow, "0,1");
+            this.add(fcf_returnrate, "0,3");
         }
     }
 }

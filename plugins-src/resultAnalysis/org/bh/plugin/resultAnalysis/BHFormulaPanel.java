@@ -36,21 +36,20 @@ public class BHFormulaPanel extends JPanel {
     }
 
     public BHFormulaPanel(ActionListener al) {
-	double border = 20;
-	double size[][] = { { border, TableLayoutConstants.PREFERRED, border, 300, TableLayoutConstants.PREFERRED, border},// columns
-		{ border, TableLayoutConstants.PREFERRED, border, // rows
-			TableLayoutConstants.PREFERRED, border, TableLayoutConstants.PREFERRED, border, } };
-	setLayout(new TableLayout(size));
+        double border = 30;
+        double size[][] = {{100, 0.05, TableLayout.FILL},// columns
+            {border, TableLayoutConstants.PREFERRED, border, // rows
+                TableLayoutConstants.PREFERRED, border, TableLayoutConstants.PREFERRED, border,}};
+        setLayout(new TableLayout(size));
 
-	add(new BHDescriptionLabel(Keys.PERIOD), "1,1");
+	add(new BHDescriptionLabel(Keys.PERIOD), "0,1");
 
 	box = new JComboBox();
 	box.addActionListener(al);
-	add(box, "3,1");
+	add(box, "2,1");
 
-	add(new BHDescriptionLabel(Keys.FORMULA), "1,3");
-	add(new BHDescriptionLabel(Keys.VALUE), "1,5");
-
+	add(new BHDescriptionLabel(Keys.FORMULA), "0,3");
+	add(new BHDescriptionLabel(Keys.VALUE), "0,5");
     }
 
     void setFormula(IFormula f) {
@@ -59,7 +58,7 @@ public class BHFormulaPanel extends JPanel {
 	    remove(formula);
 	}
 	formula = f.getJMathComponent();
-	add(formula, "3,3,4,3,left,center");
+	add(formula, "2,3,left,center");
     }
 
     void setValues(Map<String, Calculable> values) {
@@ -67,7 +66,7 @@ public class BHFormulaPanel extends JPanel {
 	    remove(value);
 	}
 	value = f.getJMathComponentForInputValues(values);
-	add(value, "3,5,4,5,left,center");
+	add(value, "2,5,left,center");
     }
 
     void addEntry(String s) {
