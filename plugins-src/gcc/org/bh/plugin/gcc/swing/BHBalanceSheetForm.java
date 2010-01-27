@@ -273,14 +273,14 @@ public class BHBalanceSheetForm extends JPanel {
 			layout.insertRow(5, RowSpec.decode("4px"));
 
 			paktiva.add(this.getlAV(), cons.xywh(2, 4, 2, 1));
-			paktiva.add(this.getTfAVmin(), cons.xywh(5, 4, 1, 1));
-			paktiva.add(this.getTfAVmax(), cons.xywh(9, 4, 1, 1));
+//			paktiva.add(this.getTfAVmin(), cons.xywh(5, 4, 1, 1));
+//			paktiva.add(this.getTfAVmax(), cons.xywh(9, 4, 1, 1));
 
 			layout.insertRow(12, RowSpec.decode("p"));
 			layout.insertRow(13, RowSpec.decode("4px"));
 			paktiva.add(this.getlUV(), cons.xywh(2, 12, 2, 1));
-			paktiva.add(this.getTfUVmin(), cons.xywh(5, 12, 1, 1));
-			paktiva.add(this.getTfUVmax(), cons.xywh(9, 12, 1, 1));
+//			paktiva.add(this.getTfUVmin(), cons.xywh(5, 12, 1, 1));
+//			paktiva.add(this.getTfUVmax(), cons.xywh(9, 12, 1, 1));
 		}
 
 		// TODO add handler for locale change
@@ -1017,24 +1017,5 @@ public class BHBalanceSheetForm extends JPanel {
 			lminpas = new BHDescriptionLabel(translator.translate("min"));
 		}
 		return lminpas;
-	}
-
-	// TODO remove main later
-	/**
-	 * Test main method.
-	 */
-	public static void main(String args[]) {
-
-		JFrame test = new JFrame("Test for ViewPeriodData1");
-		boolean intervalArithmetic = false;
-		test.setContentPane(new BHBalanceSheetForm(intervalArithmetic));
-		test.addWindowListener(new WindowAdapter() {
-			@Override
-			public void windowClosing(WindowEvent e) {
-				System.exit(0);
-			}
-		});
-		test.pack();
-		test.setVisible(true);
 	}
 }
