@@ -73,7 +73,7 @@ public abstract class BHChart implements IBHComponent {
      */
     protected void reloadText() {
         this.chart.getPlot().setNoDataMessage(translator.translate("noDataAvailable"));
-        this.chart.setTitle(translator.translate(key));
+        //this.chart.setTitle(translator.translate(key));
         //TODO extend method for x and y title exchange
     }
     /**
