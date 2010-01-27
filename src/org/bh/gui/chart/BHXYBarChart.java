@@ -5,7 +5,6 @@ import java.util.List;
 import javax.swing.UIManager;
 
 import org.apache.log4j.Logger;
-import org.apache.poi.hssf.record.formula.functions.T;
 import org.bh.platform.IPlatformListener;
 import org.bh.platform.PlatformEvent;
 import org.bh.platform.Services;
@@ -55,7 +54,7 @@ public class BHXYBarChart extends BHChart implements IBHAddValue, IPlatformListe
 
 	    @Override
 	    public String generateToolTip(XYDataset dataset, int series, int item) {
-		Comparable<T> comp = dataset.getSeriesKey(series);
+		Comparable<String> comp = dataset.getSeriesKey(series);
 		if (comp.equals(translator.translate("org.bh.plugin.stochasticResultAnalysis.BHStochasticResultController$PanelKeys.AVERAGE"))) {
 		    return translator.translate("org.bh.plugin.stochasticResultAnalysis.BHStochasticResultController$PanelKeys.AVERAGE") + ": " + Services.numberToString(dataset.getXValue(series, item));
 		} else if (comp.equals(translator.translate("org.bh.plugin.stochasticResultAnalysis.BHStochasticResultController$ChartKeys.RISK_AT_VALUE"))) {
