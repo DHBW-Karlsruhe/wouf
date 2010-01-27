@@ -551,8 +551,7 @@ class PlatformActionListener implements ActionListener {
 			// editing
 			bhmf.getBHTree().scrollPathToVisible(
 					new TreePath(newScenarioNode.getPath()));
-			bhmf.getBHTree().startEditingAtPath(
-					new TreePath(newScenarioNode.getPath()));
+			bhmf.getBHTree().setSelectionPath(new TreePath(newScenarioNode.getPath()));
 		} else {
 			BHStatusBar.getInstance().setHint(
 					BHTranslator.getInstance().translate("EisSelectProject"),
@@ -631,12 +630,10 @@ class PlatformActionListener implements ActionListener {
 			BHTreeNode newPeriodNode = bhmf.getBHTree().addPeriodAtCurrentPos(
 					newPeriod);
 
-			// last steps: unfold tree to new element, set focus and start
-			// editing
+			// last steps: unfold tree to new element, set focus 
 			bhmf.getBHTree().scrollPathToVisible(
 					new TreePath(newPeriodNode.getPath()));
-			bhmf.getBHTree().startEditingAtPath(
-					new TreePath(newPeriodNode.getPath()));
+			bhmf.getBHTree().setSelectionPath(new TreePath(newPeriodNode.getPath()));
 		}
 	}
 	
