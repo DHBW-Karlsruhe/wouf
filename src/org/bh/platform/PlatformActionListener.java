@@ -793,7 +793,7 @@ class PlatformActionListener implements ActionListener {
 		frame.setMinimumSize(new Dimension(950,700));
 		frame.getContentPane().add(new BHHelpSystem(help));
 		frame.setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
-		frame.setResizable(true);
+		frame.setResizable(false);
 		frame.setLocationRelativeTo(null);
 		frame.setVisible(true);
 	}
