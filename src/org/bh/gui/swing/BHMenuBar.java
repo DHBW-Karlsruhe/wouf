@@ -141,7 +141,7 @@ public class BHMenuBar extends JMenuBar{
 		projectDuplicate.setEnabled(false);
 		projectExport.setEnabled(false);
 		projectImport.setEnabled(false);
-		projectRemove.setEnabled(false);
+		//projectRemove.setEnabled(true);
 	}
 	
 	public void enableMenuProjectItems(){
