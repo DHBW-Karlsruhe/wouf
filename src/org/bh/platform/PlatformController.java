@@ -66,13 +66,6 @@ public class PlatformController {
 			.userNodeForPackage(PlatformController.class);
 
 	/**
-	 * Path to the properties file
-	 * 
-	 * @author Marcus Katzor
-	 */
-	private static final String propertiesFilePath = "";
-
-	/**
 	 * PlatformPersistenceManager Instance
 	 * 
 	 * @author Loeckelt.Michael
