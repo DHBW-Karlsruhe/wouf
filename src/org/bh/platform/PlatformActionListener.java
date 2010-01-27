@@ -271,7 +271,7 @@ class PlatformActionListener implements ActionListener {
 
 		case HELPUSERHELP:
 
-			openUserHelp("userhelp");
+			openUserHelp("mathe");
 			break;
 
 		case HELPMATHHELP:
@@ -793,7 +793,7 @@ class PlatformActionListener implements ActionListener {
 		log.debug("HELPUSERHELP gefeuert");
 		JDialog frame = new JDialog();
 		frame.setTitle(BHTranslator.getInstance().translate("MuserHelpDialog"));
-		frame.setMinimumSize(new Dimension(900,700));
+		frame.setMinimumSize(new Dimension(950,700));
 		frame.getContentPane().add(new BHHelpSystem(help));
 		frame.setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
 		frame.setResizable(true);

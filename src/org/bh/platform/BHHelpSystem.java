@@ -29,7 +29,7 @@ public class BHHelpSystem extends JPanel{
 		      	ClassLoader cl = BHHelpSystem.class.getClassLoader();
 		      	URL url = HelpSet.findHelpSet(cl, "jhelpset.hs");
 		      	helpViewer = new JHelp(new HelpSet(cl, url));
-		      	helpViewer.setPreferredSize(new Dimension(880,650));
+		      	helpViewer.setPreferredSize(new Dimension(930,650));
 		      	helpViewer.setCurrentID(ID);
 		      	} catch (Exception e) {
 				System.err.println("API Help Set not found");
