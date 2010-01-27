@@ -33,7 +33,7 @@ public class BHHistogramChart extends BHChart implements IBHAddValue, IPlatformL
                 super(key);
 		this.dataset = (HistogramDataset) dataset;
 
-		chart = ChartFactory.createHistogram(translator.translate(key)
+		chart = ChartFactory.createHistogram(null
                         , translator.translate(key.concat(BHChart.DIMX))
                         , translator.translate(key.concat(BHChart.DIMY))
                         , this.dataset

@@ -39,7 +39,7 @@ public class BHXYBarChart extends BHChart implements IBHAddValue, IPlatformListe
 	super(key);
 	final ITranslator translator = Services.getTranslator();
 	this.dataset = new XYSeriesCollection();
-	chart = ChartFactory.createXYBarChart(translator.translate(key), translator.translate(key.concat(BHChart.DIMX)), false, translator.translate(key.concat(BHChart.DIMY)), dataset,
+	chart = ChartFactory.createXYBarChart(null, translator.translate(key.concat(BHChart.DIMX)), false, translator.translate(key.concat(BHChart.DIMY)), dataset,
 		PlotOrientation.VERTICAL, true, true, false);
 
 	if ("Nimbus".equals(UIManager.getLookAndFeel().getName())) {

@@ -32,7 +32,7 @@ public class BHPieChart extends BHChart implements IBHAddValue, IPlatformListene
 		super(key);
 		this.dataset = (DefaultPieDataset) dataset;
 
-		chart = ChartFactory.createPieChart(translator.translate(key), this.dataset, true, true,
+		chart = ChartFactory.createPieChart(null, this.dataset, true, true,
 				false);
 		if ("Nimbus".equals(UIManager.getLookAndFeel().getName())) {
 			chart.setBackgroundPaint(UIManager.getColor("Chart.background"));

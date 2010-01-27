@@ -50,7 +50,7 @@ public class BHwaterfallChart extends BHChart implements IBHAddGroupValue,
 		super(key);
 		this.dataset = (DefaultCategoryDataset) dataset;
 
-		chart = ChartFactory.createWaterfallChart(translator.translate(key),
+		chart = ChartFactory.createWaterfallChart(null,
 				translator.translate(key.concat(BHChart.DIMX)), translator
 						.translate(key.concat(BHChart.DIMY)), this.dataset,
 				PlotOrientation.VERTICAL, legend, tooltips, false);

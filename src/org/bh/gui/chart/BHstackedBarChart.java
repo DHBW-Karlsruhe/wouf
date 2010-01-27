@@ -53,7 +53,7 @@ public class BHstackedBarChart extends BHChart implements IBHAddGroupValue,
 		super(key);
 		this.dataset = (DefaultCategoryDataset) dataset;
 
-		chart = ChartFactory.createStackedBarChart(translator.translate(key),
+		chart = ChartFactory.createStackedBarChart(null,
 				translator.translate(key.concat(BHChart.DIMX)), translator
 						.translate(key.concat(BHChart.DIMY)), this.dataset,
 				PlotOrientation.VERTICAL, legend, tooltips, false);

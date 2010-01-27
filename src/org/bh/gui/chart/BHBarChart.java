@@ -53,7 +53,7 @@ public class BHBarChart extends BHChart implements IBHAddGroupValue,
 
 		this.dataset = (DefaultCategoryDataset) dataset;
 
-		chart = ChartFactory.createBarChart(translator.translate(key),
+		chart = ChartFactory.createBarChart(null,
 				translator.translate(key.concat(BHChart.DIMX)), translator
 						.translate(key.concat(BHChart.DIMY)), this.dataset,
 				PlotOrientation.VERTICAL, legend, tooltips, false);
