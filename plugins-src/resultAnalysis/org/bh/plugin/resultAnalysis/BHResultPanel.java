@@ -84,7 +84,7 @@ public final class BHResultPanel extends JPanel {
 	public BHResultPanel() {
 		double border = 10;
 		double size[][] = {
-				{ border, 0.99, border }, // Columns
+				{ border, TableLayoutConstants.PREFERRED, border }, // Columns
 				{ border, TableLayoutConstants.PREFERRED, border,
 					      TableLayoutConstants.PREFERRED, border,
 						  TableLayoutConstants.PREFERRED, border } };

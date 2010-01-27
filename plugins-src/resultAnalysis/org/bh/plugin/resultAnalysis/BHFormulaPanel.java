@@ -36,8 +36,8 @@ public class BHFormulaPanel extends JPanel {
     }
 
     public BHFormulaPanel(ActionListener al) {
-	double border = 30;
-	double size[][] = { { 100, 0.1, 10, 550, TableLayoutConstants.PREFERRED },// columns
+	double border = 20;
+	double size[][] = { { border, TableLayoutConstants.PREFERRED, border, 300, TableLayoutConstants.PREFERRED, border},// columns
 		{ border, TableLayoutConstants.PREFERRED, border, // rows
 			TableLayoutConstants.PREFERRED, border, TableLayoutConstants.PREFERRED, border, } };
 	setLayout(new TableLayout(size));
@@ -59,7 +59,7 @@ public class BHFormulaPanel extends JPanel {
 	    remove(formula);
 	}
 	formula = f.getJMathComponent();
-	add(formula, "3,3");
+	add(formula, "3,3,4,3,left,center");
     }
 
     void setValues(Map<String, Calculable> values) {
@@ -67,7 +67,7 @@ public class BHFormulaPanel extends JPanel {
 	    remove(value);
 	}
 	value = f.getJMathComponentForInputValues(values);
-	add(value, "3,5");
+	add(value, "3,5,4,5,left,center");
     }
 
     void addEntry(String s) {
