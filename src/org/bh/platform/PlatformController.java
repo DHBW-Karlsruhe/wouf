@@ -348,8 +348,7 @@ public class PlatformController {
 	}
 
 	public IValue[][] prepareScenarioTableData(DTOScenario scenarioDto) {
-		@SuppressWarnings("unchecked")
-		List<DTOPeriod> periods = (List<DTOPeriod>) scenarioDto.getChildren();
+		List<DTOPeriod> periods = scenarioDto.getChildren();
 
 		IValue[][] periodData = new IValue[periods.size()][3];
 

@@ -1,7 +1,6 @@
 package org.bh.gui.swing;
 
 import java.awt.AlphaComposite;
-import java.awt.Component;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.Point;
@@ -34,15 +33,10 @@ import org.bh.data.DTOScenario;
 
 public class BHTreeTransferHandler implements DragGestureListener, DragSourceListener, DropTargetListener {
 
-    private DragSource dragSource; // dragsource
-
-    // TODO Patrick T. --> brauchen wir die?
-    // private DropTarget dropTarget; //droptarget
-    // private BHMainFrame bhmf;
-
+    private DragSource dragSource; 
     private static DefaultMutableTreeNode draggedNode;
     private DefaultMutableTreeNode draggedNodeParent;
-    private static BufferedImage image = null; // buff image
+    private static BufferedImage image = null;
     private boolean drawImage;
     private BHTree tree;
     private JPanel dragLine;
@@ -52,12 +46,12 @@ public class BHTreeTransferHandler implements DragGestureListener, DragSourceLis
 	drawImage = drawIcon;
 	dragSource = new DragSource();
 	dragSource.createDefaultDragGestureRecognizer(tree, action, this);
-	// TODO Patrick s.o.
-	// dropTarget = new DropTarget(tree, action, this);
+	
 	new DropTarget(tree, action, this);
 
 	// init dragLine
 	class dragLine extends JPanel {
+	    @Override
 	    public void paint(Graphics g) {
 		// dragLine consists of one bar...
 		super.paint(g);
@@ -130,35 +124,20 @@ public class BHTreeTransferHandler implements DragGestureListener, DragSourceLis
 	    draggedNode = (DefaultMutableTreeNode) path.getLastPathComponent();
 	    draggedNodeParent = (DefaultMutableTreeNode) draggedNode.getParent();
 	    if (drawImage) {
-		Rectangle pathBounds = tree.getPathBounds(path); // getpathbounds
-		// of
-		// selectionpath
+		Rectangle pathBounds = tree.getPathBounds(path);
+		
 		JComponent lbl = (JComponent) tree.getCellRenderer().getTreeCellRendererComponent(tree, draggedNode, false, tree.isExpanded(path),
-			((DefaultTreeModel) tree.getModel()).isLeaf(path.getLastPathComponent()), 0, false);// returning
-		// the
-		// label
-		lbl.setBounds(pathBounds);// setting bounds to lbl
-		image = new BufferedImage(lbl.getWidth(), lbl.getHeight(), java.awt.image.BufferedImage.TYPE_INT_ARGB_PRE);// buffered
-		// image
-		// reference
-		// passing
-		// the
-		// label's
-		// ht
-		// and
-		// width
-		Graphics2D graphics = image.createGraphics();// creating the
-		// graphics for
-		// buffered image
-		graphics.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, 0.5f)); // Sets
-		// the
-		// Composite
-		// for
-		// the
-		// Graphics2D
-		// context
+			((DefaultTreeModel) tree.getModel()).isLeaf(path.getLastPathComponent()), 0, false);
+		
+		lbl.setBounds(pathBounds);
+		image = new BufferedImage(lbl.getWidth(), lbl.getHeight(), java.awt.image.BufferedImage.TYPE_INT_ARGB_PRE);
+		
+		Graphics2D graphics = image.createGraphics();
+		
+		graphics.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, 0.5f));
+		
 		lbl.setOpaque(false);
-		lbl.paint(graphics); // painting the graphics to label
+		lbl.paint(graphics); 
 		graphics.dispose();
 	    }
 	    dragSource.startDrag(dge, DragSource.DefaultMoveNoDrop, image, new Point(0, 0), new TransferableNode(draggedNode), this);
@@ -456,7 +435,6 @@ public class BHTreeTransferHandler implements DragGestureListener, DragSourceLis
 		    // ...and from UI
 		    draggedBHNode.removeFromParent();
 
-		    // TODO
 		    // add to new UI-Node...
 		    if (((BHTreeNode) newParentNode).getUserObject() instanceof DTOProject) {
 			((DefaultTreeModel) target.getModel()).insertNodeInto(draggedBHNode, newParentNode, newParentNode.getChildCount());
