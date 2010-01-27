@@ -13,8 +13,10 @@ import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
 
+import javax.swing.BorderFactory;
 import javax.swing.JComboBox;
 import javax.swing.JPanel;
+import javax.swing.border.EtchedBorder;
 
 import org.apache.log4j.Logger;
 import org.bh.controller.OutputController;
@@ -113,9 +115,15 @@ public class BHResultController extends OutputController {
 	    }
 	} else if (scenario.getDCFMethod().getUniqueId().equals("all")) {
 	    JPanel allPanel = new JPanel(new BorderLayout());
-	    allPanel.add(new BH_APV_ResultPanel(), BorderLayout.NORTH);
-	    allPanel.add(new BH_FCF_ResultPanel(true), BorderLayout.CENTER);
-	    allPanel.add(new BH_FTE_ResultPanel(true), BorderLayout.SOUTH);
+	    BH_APV_ResultPanel apv_panel = new BH_APV_ResultPanel();
+	    apv_panel.setBorder(BorderFactory.createTitledBorder(BorderFactory.createEtchedBorder(EtchedBorder.LOWERED),translator.translate("apv")));
+	    BH_FCF_ResultPanel fcf_panel = new BH_FCF_ResultPanel(true);
+	    fcf_panel.setBorder(BorderFactory.createTitledBorder(BorderFactory.createEtchedBorder(EtchedBorder.LOWERED),translator.translate("fcf")));
+	    BH_FTE_ResultPanel fte_panel = new BH_FTE_ResultPanel(true);
+	    fte_panel.setBorder(BorderFactory.createTitledBorder(BorderFactory.createEtchedBorder(EtchedBorder.LOWERED),translator.translate("fte")));
+	    allPanel.add(apv_panel, BorderLayout.NORTH);
+	    allPanel.add(fcf_panel, BorderLayout.CENTER);
+	    allPanel.add(fte_panel, BorderLayout.SOUTH);
 	    rp.setChartArea(allPanel);
 	    try {
 		view.setViewPanel(rp);
