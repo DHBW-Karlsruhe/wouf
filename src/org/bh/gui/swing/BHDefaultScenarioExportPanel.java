@@ -220,9 +220,7 @@ class OpenExportDialogListener implements ItemListener {
     @Override
     public void itemStateChanged(ItemEvent e) {
 	JCheckBox openCB = (JCheckBox) e.getSource();
-	System.out.println(openCB.isSelected());
 	PlatformController.preferences.put("export_open_pref", openCB.isSelected() ? "true" : "false");
-	System.out.println(PlatformController.preferences.get("export_open_pref", ""));
     }
     
 }
