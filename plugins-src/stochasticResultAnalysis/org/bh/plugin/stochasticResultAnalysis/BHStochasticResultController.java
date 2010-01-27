@@ -54,6 +54,7 @@ public class BHStochasticResultController extends OutputController{
 		super.setResult(result, scenario);
 		IBHAddValue comp = super.view.getBHchartComponents().get(ChartKeys.DISTRIBUTION_CHART.toString());
 		comp.addSeries(Services.getTranslator().translate(ChartKeys.DISTRIBUTION_CHART.toString()), result.toDoubleArray(), result.getAmountOfValues(), result.getMaxAmountOfValuesInCluster());
+		comp.addSeries(Services.getTranslator().translate(PanelKeys.AVERAGE.toString()), new double[][]{{result.getAverage(),result.getMaxAmountOfValuesInCluster()}});
 		for (Map.Entry<String, IBHModelComponent> entry : view.getBHModelComponents().entrySet()) {
 			if(entry.getKey().equals(ChartKeys.STANDARD_DEVIATION.toString()))
 				entry.getValue().setValue(new DoubleValue(result.getStandardDeviation()));
@@ -62,14 +63,14 @@ public class BHStochasticResultController extends OutputController{
 			else if(entry.getKey().equals(ChartKeys.RISK_AT_VALUE.toString())){
 				if(((BHTextField)(view.getBHModelComponents().get(ChartKeys.RISK_AT_VALUE.toString()))).getValue() != null){
 					double confidence = ((DoubleValue)((BHTextField)(view.getBHModelComponents().get(ChartKeys.RISK_AT_VALUE.toString()))).getValue()).getValue();
-					calcRiskAtValue(confidence);
+					calcRiskAtValue(confidence, result.getMaxAmountOfValuesInCluster());
 				}else
-					calcRiskAtValue(null);
+					calcRiskAtValue(null, null);
 			}
 		}
 		//calcRiskAtValue(confidence);
 	}
-	public void calcRiskAtValue(Double confidence){
+	public void calcRiskAtValue(Double confidence, Integer maxAmountofValues){
 		if(confidence == null){
 			for (Map.Entry<String, IBHModelComponent> entry : view.getBHModelComponents().entrySet()) {
 				if(entry.getKey().equals(ChartKeys.RISK_AT_VALUE_MAX.toString()))
@@ -79,6 +80,10 @@ public class BHStochasticResultController extends OutputController{
 			}
 		}else{
 			IntervalValue interval = stochasticResult.valueAtRisk(confidence);
+			
+			IBHAddValue comp = super.view.getBHchartComponents().get(ChartKeys.DISTRIBUTION_CHART.toString());
+			comp.removeSeries(2);
+			comp.addSeries(Services.getTranslator().translate(ChartKeys.RISK_AT_VALUE.toString()), new double[][]{{interval.getMin(), maxAmountofValues},{ interval.getMax(),maxAmountofValues}});
 			for (Map.Entry<String, IBHModelComponent> entry : view.getBHModelComponents().entrySet()) {
 				if(entry.getKey().equals(ChartKeys.RISK_AT_VALUE_MAX.toString()))
 					entry.getValue().setValue(new DoubleValue(interval.getMax()));
@@ -93,9 +98,9 @@ public class BHStochasticResultController extends OutputController{
 		public void caretUpdate(CaretEvent e) {
 			if(((BHTextField)(view.getBHModelComponents().get(ChartKeys.RISK_AT_VALUE.toString()))).getValue() != null){
 				double confidence = ((DoubleValue)((BHTextField)(view.getBHModelComponents().get(ChartKeys.RISK_AT_VALUE.toString()))).getValue()).getValue();
-				calcRiskAtValue(confidence);
+				calcRiskAtValue(confidence, stochasticResult.getMaxAmountOfValuesInCluster());
 			}else
-				calcRiskAtValue(null);
+				calcRiskAtValue(null, stochasticResult.getMaxAmountOfValuesInCluster());
 		}		
 	}
 }

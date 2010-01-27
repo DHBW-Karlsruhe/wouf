@@ -18,11 +18,11 @@ import org.bh.gui.swing.BHDescriptionLabel;
 import org.bh.gui.swing.BHTextField;
 import org.bh.gui.swing.BHValueLabel;
 import org.bh.platform.i18n.ITranslator;
-
-import com.jgoodies.forms.layout.FormLayout;
 import org.bh.validation.VRIsBetween;
 import org.bh.validation.VRIsDouble;
 import org.bh.validation.ValidationRule;
+
+import com.jgoodies.forms.layout.FormLayout;
 
 public class StochasticPanel extends JPanel{
 	
@@ -71,8 +71,10 @@ public class StochasticPanel extends JPanel{
 	        rav.add(new JLabel("%"), "6,2");
 	        rav.add(min, "2,4");
 	        rav.add(minValue, "4,4");
+	        rav.add(new JLabel("GE"), "6,4");
 	        rav.add(max, "2,6");
 	        rav.add(maxValue, "4,6");
+	        rav.add(new JLabel("GE"), "6,6");
 	        rav.setBorder(BorderFactory.createTitledBorder(BorderFactory
 					.createEtchedBorder(EtchedBorder.LOWERED), translator
 					.translate(BHStochasticResultController.ChartKeys.RISK_AT_VALUE), TitledBorder.LEFT,
@@ -83,9 +85,11 @@ public class StochasticPanel extends JPanel{
 	        
 	        this.add(sd, "1,5");
 	        this.add(sdValue, "3,5");
+	        this.add(new JLabel("GE"), "5,5");
 	        
 	        this.add(ew, "1,7");
 	        this.add(ewValue, "3,7");
+	        this.add(new JLabel("GE"), "5,7");
 	        
 	        this.add(rav,"1,9,3,9");
 	        

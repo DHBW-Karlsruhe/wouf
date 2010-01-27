@@ -93,5 +93,17 @@ public class BHHistogramChart extends BHChart implements IBHAddValue, IPlatformL
 			this.reloadText();
 		}
 	}
+
+	@Override
+	public void addSeries(Comparable<String> seriesKey, double[][] data) {
+	    // TODO Auto-generated method stub
+	    throw new UnsupportedOperationException("This method has not been implemented");
+	}
+
+	@Override
+	public void removeSeries(int number) {
+	    // TODO Auto-generated method stub
+	    throw new UnsupportedOperationException("This method has not been implemented");
+	}
 	
 }

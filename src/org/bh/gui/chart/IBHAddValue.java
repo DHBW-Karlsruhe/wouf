@@ -61,5 +61,9 @@ public interface IBHAddValue {
 	 * @param average TODO
 	 */
 	void addSeries(Comparable<String> seriesKey, double[][] data, Integer amountOfValues, Integer average);
+	
+	void addSeries(Comparable<String> seriesKey, double[][] data);
+	
+	void removeSeries(int number);
 
 }

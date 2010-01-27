@@ -12,14 +12,11 @@ import java.util.List;
 
 import javax.swing.BorderFactory;
 import javax.swing.JPanel;
-import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
 import javax.swing.JToggleButton;
 
-import org.bh.gui.swing.BHComboBox;
 import org.bh.gui.swing.IBHComponent;
 import org.bh.gui.swing.ValidationResultViewFactory;
-import org.bh.platform.PlatformController;
 import org.bh.platform.Services;
 import org.bh.platform.i18n.ITranslator;
 import org.jfree.chart.ChartPanel;
@@ -167,6 +164,16 @@ public class BHChartPanel extends JPanel implements IBHComponent, IBHAddValue,
 			Comparable<String> columnKey, int catIdx) {
 		((IBHAddGroupValue) this.chartInstance).addValue(value, row, columnKey,
 				catIdx);
+	}
+
+	@Override
+	public void addSeries(Comparable<String> seriesKey, double[][] data) {
+	    this.chartInstance.addSeries(seriesKey, data);
+	}
+
+	@Override
+	public void removeSeries(int number) {
+	    this.chartInstance.removeSeries(number);
 	}
 
 }
