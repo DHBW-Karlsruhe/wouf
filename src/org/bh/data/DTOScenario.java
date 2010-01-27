@@ -1,7 +1,10 @@
 package org.bh.data;
 
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.LinkedList;
 import java.util.List;
+import java.util.Map;
 import java.util.TreeMap;
 
 import org.apache.log4j.Logger;
@@ -9,6 +12,7 @@ import org.bh.calculation.IShareholderValueCalculator;
 import org.bh.calculation.IStochasticProcess;
 import org.bh.data.types.Calculable;
 import org.bh.data.types.DoubleValue;
+import org.bh.data.types.IValue;
 import org.bh.data.types.IntegerValue;
 import org.bh.data.types.ObjectValue;
 import org.bh.platform.Services;
@@ -129,7 +133,15 @@ public class DTOScenario extends DTO<DTOPeriod> {
 
 	@Override
 	public DTOPeriod addChild(DTOPeriod child) throws DTOAccessException {
-		DTOPeriod result = super.addChild(child, isDeterministic());
+		DTOPeriod result = super.addChild(child, true);
+		child.scenario = this;
+		refreshPeriodReferences();
+		return result;
+	}
+	
+	@Override
+	public DTOPeriod addChild(DTOPeriod child, boolean addLast) throws DTOAccessException {
+		DTOPeriod result = super.addChild(child, addLast);
 		child.scenario = this;
 		refreshPeriodReferences();
 		return result;
@@ -162,7 +174,8 @@ public class DTOScenario extends DTO<DTOPeriod> {
 		if (previous != null)
 			previous.next = null;
 	}
-
+	
+	
 	/**
 	 * Gets tax for scenario.
 	 * 
@@ -241,6 +254,7 @@ public class DTOScenario extends DTO<DTOPeriod> {
 	 * @return
 	 */
 	public boolean isDeterministic() {
+	    	//System.out.println("---"+values.containsKey(Key.STOCHASTIC_PROCESS.toString()));
 		return !values.containsKey(Key.STOCHASTIC_PROCESS.toString());
 	}
 

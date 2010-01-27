@@ -270,8 +270,10 @@ public abstract class DTO<ChildT extends IDTO> implements IDTO<ChildT> {
 		if (!children.contains(child)) {
 			if (addLast) {
 				children.addLast(child);
+				System.out.println("---last");
 			} else {
 				children.addFirst(child);
+				System.out.println("---first");
 			}
 			if (throwEvents)
 				Services.firePlatformEvent(new PlatformEvent(this,

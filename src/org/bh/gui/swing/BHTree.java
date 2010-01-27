@@ -340,17 +340,14 @@ public class BHTree extends JTree {
 	((DefaultTreeModel) this.getModel()).insertNodeInto(newScenarioNode, parentNode, parentNode.getChildCount());
 
 	// are there Children?
+	//if yes, add them in correct order
 	for (DTOPeriod period : newScenario.getChildren()) {
-	    this.addPeriod(period, newScenarioNode);
+	    this.addPeriod(period, newScenarioNode, newScenario.isDeterministic());
 	}
-
+	this.expandRow(this.getRowForPath(new TreePath(newScenarioNode.getPath())));
 	return newScenarioNode;
-
     }
 
-    /**
-	 * 
-	 */
     public BHTreeNode addScenarioAtCurrentPos(DTOScenario newScenario) {
 	return this.addScenario(newScenario, (BHTreeNode) (this.getSelectionPath().getPathComponent(1)));
     }
@@ -364,14 +361,25 @@ public class BHTree extends JTree {
      *            BusinessHorizon MainFrame
      * @return BHTreeNode
      */
-    public BHTreeNode addPeriod(DTOPeriod newPeriod, BHTreeNode parentNode) {
+    public BHTreeNode addPeriod(DTOPeriod newPeriod, BHTreeNode parentNode){
+	return this.addPeriod(newPeriod, parentNode,true);
+    }
+    
+    public BHTreeNode addPeriod(DTOPeriod newPeriod, BHTreeNode parentNode, boolean addLast) {
 	// create new Node
 	BHTreeNode newPeriodNode = new BHTreeNode(newPeriod);
 
 	// add Node to Tree
-	((DefaultTreeModel) this.getModel()).insertNodeInto(newPeriodNode, parentNode, parentNode.getChildCount());
+	if(addLast){
+	    ((DefaultTreeModel) this.getModel()).insertNodeInto(newPeriodNode, parentNode,parentNode.getChildCount());
+	}else{
+	    ((DefaultTreeModel) this.getModel()).insertNodeInto(newPeriodNode, parentNode,0);
+	}
 	return newPeriodNode;
+	
     }
+    
+    
 
     /**
      * 
