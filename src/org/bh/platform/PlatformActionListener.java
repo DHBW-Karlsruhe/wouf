@@ -817,7 +817,7 @@ class PlatformActionListener implements ActionListener {
 		log.debug("HELPUSERHELP gefeuert");
 		JDialog frame = new JDialog();
 		frame.setTitle(BHTranslator.getInstance().translate("MuserHelpDialog"));
-		frame.setMinimumSize(new Dimension(700, 630));
+		frame.setMinimumSize(new Dimension(750, 630));
 		frame.getContentPane().add(new BHHelpSystem(help));
 		frame.setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
 		frame.setResizable(false);
