@@ -16,6 +16,9 @@ import javax.swing.ListCellRenderer;
 import javax.swing.WindowConstants;
 import javax.swing.border.EtchedBorder;
 
+import org.bh.gui.swing.comp.BHButton;
+import org.bh.gui.swing.comp.BHCheckBox;
+import org.bh.gui.swing.comp.BHDescriptionLabel;
 import org.bh.platform.IPlatformListener;
 import org.bh.platform.PlatformController;
 import org.bh.platform.PlatformEvent;
@@ -26,7 +29,7 @@ import org.bh.platform.i18n.BHTranslator;
 import com.jgoodies.forms.layout.CellConstraints;
 import com.jgoodies.forms.layout.FormLayout;
 
-public class BHOptionDialog extends JDialog implements ActionListener,
+public final class BHOptionDialog extends JDialog implements ActionListener,
 		IPlatformListener {
 
 	private CellConstraints cons;

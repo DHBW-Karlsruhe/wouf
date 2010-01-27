@@ -13,10 +13,10 @@ import javax.swing.JSeparator;
 import javax.swing.SwingConstants;
 import javax.swing.border.EtchedBorder;
 
-import org.bh.gui.swing.BHDescriptionLabel;
-import org.bh.gui.swing.BHFocusTraversalPolicy;
-import org.bh.gui.swing.BHTextField;
-import org.bh.gui.swing.IBHComponent;
+import org.bh.gui.IBHComponent;
+import org.bh.gui.swing.comp.BHDescriptionLabel;
+import org.bh.gui.swing.comp.BHTextField;
+import org.bh.gui.swing.forms.BHFocusTraversalPolicy;
 import org.bh.platform.i18n.BHTranslator;
 import org.bh.platform.i18n.ITranslator;
 import org.bh.plugin.gcc.data.DTOGCCProfitLossStatementTotalCost;

@@ -8,7 +8,7 @@ import org.bh.data.DTOScenario;
 import org.bh.data.IPeriodicalValuesDTO;
 import org.bh.data.types.Calculable;
 import org.bh.data.types.DistributionMap;
-import org.bh.gui.swing.BHDataExchangeDialog;
+import org.bh.gui.swing.importexport.BHDataExchangeDialog;
 import org.jfree.chart.JFreeChart;
 
 /**

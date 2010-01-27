@@ -13,11 +13,10 @@ import org.bh.data.DTO;
 import org.bh.data.DTOKeyPair;
 import org.bh.data.DTOPeriod;
 import org.bh.data.IPeriodicalValuesDTO;
-import org.bh.gui.ValidationMethods;
-import org.bh.gui.View;
-import org.bh.gui.ViewException;
-import org.bh.gui.swing.BHDataExchangeDialog;
-import org.bh.gui.swing.BHDataExchangeDialog.ImportListener;
+import org.bh.gui.swing.importexport.BHDataExchangeDialog;
+import org.bh.gui.swing.importexport.BHDataExchangeDialog.ImportListener;
+import org.bh.gui.view.View;
+import org.bh.gui.view.ViewException;
 import org.bh.platform.IImportExport;
 import org.bh.platform.PlatformController;
 import org.bh.platform.Services;
@@ -26,6 +25,7 @@ import org.bh.plugin.gcc.data.DTOGCCProfitLossStatementTotalCost;
 import org.bh.plugin.gcc.swing.BHBalanceSheetForm;
 import org.bh.plugin.gcc.swing.BHPLSTotalCostForm;
 import org.bh.plugin.gcc.swing.GCCCombinedForm;
+import org.bh.validation.ValidationMethods;
 
 /**
  * 

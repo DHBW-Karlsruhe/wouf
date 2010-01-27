@@ -2,7 +2,7 @@ package org.bh.gui;
 
 import javax.swing.event.EventListenerList;
 
-import org.bh.gui.swing.IBHModelComponent;
+import org.bh.gui.view.ICompValueChangeListener;
 
 public class CompValueChangeManager {
 	private final EventListenerList listeners = new EventListenerList();

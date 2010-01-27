@@ -16,15 +16,15 @@ import org.bh.data.DTOProject;
 import org.bh.data.DTOScenario;
 import org.bh.data.IDTO;
 import org.bh.data.types.Calculable;
-import org.bh.gui.View;
-import org.bh.gui.ViewException;
-import org.bh.gui.swing.BHButton;
-import org.bh.gui.BHDashBoardPanelView;
-import org.bh.gui.swing.BHDescriptionLabel;
-import org.bh.gui.swing.BHProjectForm;
-import org.bh.gui.swing.BHScenarioForm;
-import org.bh.gui.swing.BHTree;
-import org.bh.gui.swing.BHTreeNode;
+import org.bh.gui.swing.comp.BHButton;
+import org.bh.gui.swing.comp.BHDescriptionLabel;
+import org.bh.gui.swing.forms.BHProjectForm;
+import org.bh.gui.swing.forms.BHScenarioForm;
+import org.bh.gui.swing.tree.BHTree;
+import org.bh.gui.swing.tree.BHTreeNode;
+import org.bh.gui.view.BHDashBoardPanelView;
+import org.bh.gui.view.View;
+import org.bh.gui.view.ViewException;
 import org.bh.platform.PlatformEvent.Type;
 
 /**

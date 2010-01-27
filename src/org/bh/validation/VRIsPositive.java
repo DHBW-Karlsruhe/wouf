@@ -1,6 +1,6 @@
 package org.bh.validation;
 
-import org.bh.gui.swing.IBHModelComponent;
+import org.bh.gui.IBHModelComponent;
 
 import com.jgoodies.validation.ValidationResult;
 

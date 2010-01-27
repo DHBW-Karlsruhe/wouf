@@ -2,7 +2,7 @@ package org.bh.controller;
 
 import javax.swing.JPanel;
 
-import org.bh.gui.View;
+import org.bh.gui.view.View;
 
 /**
  *

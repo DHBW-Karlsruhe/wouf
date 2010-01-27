@@ -3,7 +3,7 @@ package org.bh.plugin.gcc.swing;
 import javax.swing.JPanel;
 import javax.swing.JSeparator;
 
-import org.bh.gui.swing.BHButton;
+import org.bh.gui.swing.comp.BHButton;
 
 import com.jgoodies.forms.layout.FormLayout;
 

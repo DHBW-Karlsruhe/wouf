@@ -7,6 +7,7 @@ import javax.swing.ImageIcon;
 import javax.swing.JLabel;
 import javax.swing.JToolBar;
 
+import org.bh.gui.swing.comp.BHButton;
 import org.bh.platform.PlatformController;
 import org.bh.platform.PlatformKey;
 
@@ -28,7 +29,7 @@ import com.jgoodies.forms.layout.FormLayout;
  */
 
 
-public class BHToolBar extends JToolBar implements MouseListener{
+public final class BHToolBar extends JToolBar implements MouseListener{
 
 	boolean shown = true;
 	boolean fixed = true;

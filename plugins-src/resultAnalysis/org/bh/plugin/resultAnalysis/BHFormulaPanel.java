@@ -12,7 +12,7 @@ import javax.swing.JPanel;
 import net.sourceforge.jeuclid.swing.JMathComponent;
 
 import org.bh.data.types.Calculable;
-import org.bh.gui.swing.BHDescriptionLabel;
+import org.bh.gui.swing.comp.BHDescriptionLabel;
 import org.bh.platform.formula.IFormula;
 /**
  * responsible for the visualisation of the formulas depending on selected dcf method

@@ -15,8 +15,8 @@ import javax.swing.JPanel;
 import javax.swing.JTextArea;
 import javax.swing.JToggleButton;
 
-import org.bh.gui.swing.IBHComponent;
-import org.bh.gui.swing.ValidationResultViewFactory;
+import org.bh.gui.IBHComponent;
+import org.bh.gui.swing.misc.ValidationResultViewFactory;
 import org.bh.platform.Services;
 import org.bh.platform.i18n.ITranslator;
 import org.jfree.chart.ChartPanel;

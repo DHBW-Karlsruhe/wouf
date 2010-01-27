@@ -4,7 +4,7 @@ import java.util.List;
 
 import org.bh.data.DTOKeyPair;
 import org.bh.data.types.ObjectValue;
-import org.bh.gui.swing.IBHModelComponent;
+import org.bh.gui.IBHModelComponent;
 
 import com.jgoodies.validation.ValidationResult;
 

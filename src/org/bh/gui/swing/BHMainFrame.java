@@ -3,7 +3,6 @@ package org.bh.gui.swing;
 import java.awt.BorderLayout;
 import java.awt.Component;
 import java.awt.Dimension;
-import java.awt.MenuBar;
 import java.util.prefs.BackingStoreException;
 
 import javax.swing.JFrame;
@@ -16,6 +15,7 @@ import javax.swing.WindowConstants;
 
 import org.apache.log4j.Logger;
 import org.bh.SVN;
+import org.bh.gui.swing.tree.BHTree;
 import org.bh.platform.IPlatformListener;
 import org.bh.platform.PlatformController;
 import org.bh.platform.PlatformEvent;
@@ -43,7 +43,7 @@ import org.jdesktop.animation.timing.TimingTarget;
  * 
  */
 @SuppressWarnings("serial")
-public class BHMainFrame extends JFrame implements IPlatformListener, TimingTarget {
+public final class BHMainFrame extends JFrame implements IPlatformListener, TimingTarget {
 
 	/**
 	 * logger

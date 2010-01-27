@@ -9,10 +9,10 @@ import org.bh.controller.InputController;
 import org.bh.data.DTOKeyPair;
 import org.bh.data.DTOPeriod;
 import org.bh.data.IPeriodicalValuesDTO;
-import org.bh.gui.ValidationMethods;
-import org.bh.gui.View;
-import org.bh.gui.ViewException;
+import org.bh.gui.view.View;
+import org.bh.gui.view.ViewException;
 import org.bh.platform.Services;
+import org.bh.validation.ValidationMethods;
 
 public class DirectInputController implements IPeriodController {
 	private static final String GUI_KEY = "Direct_Input";

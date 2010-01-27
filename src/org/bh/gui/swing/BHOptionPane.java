@@ -15,7 +15,7 @@ import javax.swing.JDialog;
 import javax.swing.JOptionPane;
 import javax.swing.KeyStroke;
 
-public class BHOptionPane extends JOptionPane {
+public final class BHOptionPane extends JOptionPane {
 
 	public BHOptionPane() {
 		super();

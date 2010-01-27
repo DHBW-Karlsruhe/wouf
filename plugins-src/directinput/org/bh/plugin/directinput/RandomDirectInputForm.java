@@ -5,8 +5,8 @@ import java.awt.event.WindowEvent;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 
-import org.bh.gui.swing.BHDescriptionLabel;
-import org.bh.gui.swing.BHValueLabel;
+import org.bh.gui.swing.comp.BHDescriptionLabel;
+import org.bh.gui.swing.comp.BHValueLabel;
 
 import com.jgoodies.forms.layout.CellConstraints;
 import com.jgoodies.forms.layout.FormLayout;

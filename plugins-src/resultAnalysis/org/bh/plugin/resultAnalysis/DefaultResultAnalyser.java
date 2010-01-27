@@ -6,9 +6,9 @@ import java.util.Map;
 import org.apache.log4j.Logger;
 import org.bh.data.DTOScenario;
 import org.bh.data.types.Calculable;
-import org.bh.gui.IDeterministicResultAnalyser;
-import org.bh.gui.View;
-import org.bh.gui.ViewException;
+import org.bh.gui.view.View;
+import org.bh.gui.view.ViewException;
+import org.bh.platform.IDeterministicResultAnalyser;
 /**
  * initialize plugin components and distribute values from the platform
  * @author Marco Hammel

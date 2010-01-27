@@ -5,9 +5,9 @@ import java.awt.Component;
 import org.apache.log4j.Logger;
 import org.bh.data.DTOScenario;
 import org.bh.data.types.DistributionMap;
-import org.bh.gui.IStochasticResultAnalyser;
-import org.bh.gui.View;
-import org.bh.gui.ViewException;
+import org.bh.gui.view.View;
+import org.bh.gui.view.ViewException;
+import org.bh.platform.IStochasticResultAnalyser;
 
 public class DefaultStochasticResultAnalyser implements IStochasticResultAnalyser{
 	@Override

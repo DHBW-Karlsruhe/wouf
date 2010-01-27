@@ -7,6 +7,8 @@ import java.util.List;
 import javax.swing.JMenuItem;
 import javax.swing.KeyStroke;
 
+import org.bh.gui.IBHAction;
+import org.bh.gui.IBHComponent;
 import org.bh.platform.IPlatformListener;
 import org.bh.platform.PlatformEvent;
 import org.bh.platform.PlatformKey;
@@ -26,7 +28,7 @@ import org.bh.platform.i18n.ITranslator;
  * @version 0.1, 2009/12/16
  * 
  */
-public class BHMenuItem extends JMenuItem implements IBHComponent, IBHAction, IPlatformListener{
+public final class BHMenuItem extends JMenuItem implements IBHComponent, IBHAction, IPlatformListener{
 	private static final long serialVersionUID = 457483046895655665L;
 	private PlatformKey key;
 	private String hint;

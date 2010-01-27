@@ -5,6 +5,7 @@ import java.net.URL;
 import javax.swing.ImageIcon;
 
 import org.apache.log4j.Logger;
+import org.bh.gui.swing.comp.BHButton;
 import org.bh.platform.PlatformKey;
 
 /**
@@ -23,7 +24,7 @@ import org.bh.platform.PlatformKey;
  *
  */
 
-public class BHToolButton extends BHButton{
+public final class BHToolButton extends BHButton{
 	private static final long serialVersionUID = 5224665479917197926L;
 	private static final Logger log = Logger.getLogger(BHToolButton.class);
     public String buttonName;

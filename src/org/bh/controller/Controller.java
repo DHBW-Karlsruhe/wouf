@@ -7,18 +7,18 @@ import java.util.Map;
 import javax.swing.JPanel;
 
 import org.apache.log4j.Logger;
-import org.bh.gui.BHValidityEngine;
-import org.bh.gui.IViewListener;
-import org.bh.gui.View;
-import org.bh.gui.ViewEvent;
-import org.bh.gui.ViewException;
-import org.bh.gui.swing.BHButton;
-import org.bh.gui.swing.IBHComponent;
-import org.bh.gui.swing.IBHModelComponent;
+import org.bh.gui.IBHComponent;
+import org.bh.gui.IBHModelComponent;
+import org.bh.gui.swing.comp.BHButton;
+import org.bh.gui.view.IViewListener;
+import org.bh.gui.view.View;
+import org.bh.gui.view.ViewEvent;
+import org.bh.gui.view.ViewException;
 import org.bh.platform.IPlatformListener;
 import org.bh.platform.PlatformEvent;
 import org.bh.platform.Services;
 import org.bh.platform.i18n.ITranslator;
+import org.bh.validation.BHValidityEngine;
 
 /**
  * abstract controller component every mvc based application in BusinessHorizon should

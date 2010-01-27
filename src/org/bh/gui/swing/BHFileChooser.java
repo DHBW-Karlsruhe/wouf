@@ -13,7 +13,7 @@ import org.bh.platform.Services;
  * @version 1.0, 2010/01/22
  * 
  */
-public class BHFileChooser extends JFileChooser {
+public final class BHFileChooser extends JFileChooser {
 	
 	/**
 	 * FileFilter instance.

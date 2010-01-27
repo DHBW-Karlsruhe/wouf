@@ -10,9 +10,9 @@ import javax.swing.border.EtchedBorder;
 
 import org.bh.controller.Controller;
 import org.bh.data.DTOPeriod;
-import org.bh.gui.swing.BHDescriptionLabel;
-import org.bh.gui.swing.BHTextField;
-import org.bh.gui.swing.IBHComponent;
+import org.bh.gui.IBHComponent;
+import org.bh.gui.swing.comp.BHDescriptionLabel;
+import org.bh.gui.swing.comp.BHTextField;
 import org.bh.platform.i18n.ITranslator;
 import org.bh.validation.VRIsDouble;
 import org.bh.validation.VRIsGreaterThan;

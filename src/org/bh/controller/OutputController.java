@@ -10,10 +10,10 @@ import java.util.Map;
 import org.bh.data.DTOScenario;
 import org.bh.data.types.Calculable;
 import org.bh.data.types.DistributionMap;
-import org.bh.gui.View;
+import org.bh.gui.IBHComponent;
+import org.bh.gui.IBHModelComponent;
 import org.bh.gui.chart.IBHAddValue;
-import org.bh.gui.swing.IBHComponent;
-import org.bh.gui.swing.IBHModelComponent;
+import org.bh.gui.view.View;
 import org.bh.platform.ScenarioController;
 
 /**

@@ -10,7 +10,7 @@ import java.util.ResourceBundle;
 import javax.swing.JComponent;
 
 import org.apache.log4j.Logger;
-import org.bh.gui.swing.IBHComponent;
+import org.bh.gui.IBHComponent;
 import org.bh.platform.PlatformController;
 import org.bh.platform.PlatformEvent;
 import org.bh.platform.Services;

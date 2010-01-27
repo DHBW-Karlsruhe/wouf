@@ -5,8 +5,8 @@
 
 package org.bh.plugin.resultAnalysis;
 
-import org.bh.gui.View;
-import org.bh.gui.ViewException;
+import org.bh.gui.view.View;
+import org.bh.gui.view.ViewException;
 
 /**
  * View Component of the result plugin

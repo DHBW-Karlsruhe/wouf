@@ -12,8 +12,8 @@ import org.bh.data.DTOScenario;
 import org.bh.data.types.Calculable;
 import org.bh.data.types.DistributionMap;
 import org.bh.data.types.IntervalValue;
-import org.bh.gui.View;
 import org.bh.gui.chart.IBHAddValue;
+import org.bh.gui.view.View;
 import org.bh.platform.i18n.ITranslator;
 
 /**

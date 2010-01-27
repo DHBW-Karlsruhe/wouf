@@ -1,8 +1,8 @@
 package org.bh.plugin.randomWalk;
 
-import org.bh.gui.ValidationMethods;
-import org.bh.gui.View;
-import org.bh.gui.ViewException;
+import org.bh.gui.view.View;
+import org.bh.gui.view.ViewException;
+import org.bh.validation.ValidationMethods;
 
 /**
  *

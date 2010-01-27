@@ -13,6 +13,7 @@ import javax.swing.Popup;
 import javax.swing.PopupFactory;
 import javax.swing.event.MouseInputAdapter;
 
+import org.bh.gui.swing.misc.ValidationResultViewFactory;
 import org.bh.platform.i18n.BHTranslator;
 import org.bh.platform.i18n.ITranslator;
 
@@ -30,7 +31,7 @@ import com.jgoodies.forms.layout.FormLayout;
  **/
 
 @SuppressWarnings("serial")
-public class BHStatusBar extends JPanel {
+public final class BHStatusBar extends JPanel {
 
 	private static BHStatusBar instance = null;
 	JLabel bh;

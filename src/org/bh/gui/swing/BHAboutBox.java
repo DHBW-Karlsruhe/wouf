@@ -28,7 +28,7 @@ import com.jgoodies.forms.layout.FormLayout;
  * @version 1.0, 2010/01/22
  * 
  */
-public class BHAboutBox extends JDialog implements ActionListener {
+public final class BHAboutBox extends JDialog implements ActionListener {
 
 	/**
 	 * Okay button

@@ -4,7 +4,6 @@ import javax.swing.JPanel;
 import javax.swing.SwingUtilities;
 
 import org.apache.log4j.Logger;
-import org.bh.gui.swing.BHTreeSelectionListener;
 import org.bh.platform.Services;
 import org.bh.platform.i18n.ITranslator;
 import org.jfree.data.category.DefaultCategoryDataset;

@@ -6,7 +6,7 @@ package org.bh.gui.chart;
 
 import java.awt.image.BufferedImage;
 
-import org.bh.gui.swing.IBHComponent;
+import org.bh.gui.IBHComponent;
 import org.bh.platform.Services;
 import org.bh.platform.i18n.ITranslator;
 import org.jfree.chart.JFreeChart;

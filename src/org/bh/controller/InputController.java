@@ -11,11 +11,11 @@ import org.bh.data.types.DoubleValue;
 import org.bh.data.types.IValue;
 import org.bh.data.types.IntegerValue;
 import org.bh.data.types.IntervalValue;
-import org.bh.gui.BHValidityEngine;
-import org.bh.gui.View;
-import org.bh.gui.ViewEvent;
-import org.bh.gui.swing.IBHComponent;
-import org.bh.gui.swing.IBHModelComponent;
+import org.bh.gui.IBHComponent;
+import org.bh.gui.IBHModelComponent;
+import org.bh.gui.view.View;
+import org.bh.gui.view.ViewEvent;
+import org.bh.validation.BHValidityEngine;
 
 import com.jgoodies.validation.ValidationResult;
 

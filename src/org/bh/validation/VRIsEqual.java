@@ -2,8 +2,8 @@ package org.bh.validation;
 
 import javax.swing.JTextField;
 
-import org.bh.gui.swing.BHTextField;
-import org.bh.gui.swing.IBHModelComponent;
+import org.bh.gui.IBHModelComponent;
+import org.bh.gui.swing.comp.BHTextField;
 import org.bh.platform.Services;
 
 import com.jgoodies.validation.ValidationResult;

@@ -11,8 +11,8 @@ import org.bh.data.DTOPeriod;
 import org.bh.data.IPeriodicalValuesDTO;
 import org.bh.data.types.Calculable;
 import org.bh.data.types.DoubleValue;
-import org.bh.gui.View;
-import org.bh.gui.ViewException;
+import org.bh.gui.view.View;
+import org.bh.gui.view.ViewException;
 import org.bh.platform.Services;
 
 // TODO Testklasse, wird später entfernt

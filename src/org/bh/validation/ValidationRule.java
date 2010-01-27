@@ -1,6 +1,6 @@
 package org.bh.validation;
 
-import org.bh.gui.swing.IBHModelComponent;
+import org.bh.gui.IBHModelComponent;
 import org.bh.platform.Services;
 import org.bh.platform.i18n.ITranslator;
 

@@ -33,7 +33,7 @@ import org.bh.controller.IPeriodController;
 import org.bh.data.DTOKeyPair;
 import org.bh.data.DTO.Stochastic;
 import org.bh.gui.swing.BHStatusBar;
-import org.bh.gui.swing.BHTextField;
+import org.bh.gui.swing.comp.BHTextField;
 import org.bh.platform.i18n.BHTranslator;
 import org.bh.platform.i18n.ITranslator;
 

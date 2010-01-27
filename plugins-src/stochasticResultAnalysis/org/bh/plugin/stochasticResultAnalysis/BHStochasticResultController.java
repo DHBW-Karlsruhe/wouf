@@ -11,10 +11,10 @@ import org.bh.data.types.DistributionMap;
 import org.bh.data.types.DoubleValue;
 import org.bh.data.types.IntervalValue;
 import org.bh.data.types.StringValue;
-import org.bh.gui.View;
+import org.bh.gui.IBHModelComponent;
 import org.bh.gui.chart.IBHAddValue;
-import org.bh.gui.swing.BHTextField;
-import org.bh.gui.swing.IBHModelComponent;
+import org.bh.gui.swing.comp.BHTextField;
+import org.bh.gui.view.View;
 import org.bh.platform.Services;
 
 public class BHStochasticResultController extends OutputController{
