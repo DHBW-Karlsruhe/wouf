@@ -15,11 +15,11 @@ import com.jgoodies.forms.layout.CellConstraints;
 import com.jgoodies.forms.layout.FormLayout;
 
 /**
- * This class contains the form for stochastic processes
+ * This class contains the form for stochastic processes.
  * 
  * @author Anton Kharitonov
  * @author Patrick Heinz
- * @version 0.2, 03.01.2010
+ * @version 1.0, 22.01.2010
  * 
  */
 public class BHStochasticInputForm extends JPanel {
@@ -85,9 +85,6 @@ public class BHStochasticInputForm extends JPanel {
 		this.add(this.getbResetParameters(), cons.xywh(2, 8, 8, 1));
 		this.getbResetParameters().setVisible(false);
 	}
-
-	// TODO add missing label keys and translations, change hard coded values to
-	// keys
 	
 	//TODO Overwork Javadoc
 	/**

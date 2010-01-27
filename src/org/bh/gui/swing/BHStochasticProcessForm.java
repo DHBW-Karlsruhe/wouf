@@ -5,10 +5,10 @@ import com.jgoodies.forms.layout.CellConstraints;
 import com.jgoodies.forms.layout.FormLayout;
 
 /**
- * This class contains the form for stochastic processes
+ * This class contains the form for stochastic processes.
  * 
  * @author Anton Kharitonov
- * @version 0.1, 05.01.2010
+ * @version 1.0, 22.01.2010
  * 
  */
 public class BHStochasticProcessForm extends JPanel {
