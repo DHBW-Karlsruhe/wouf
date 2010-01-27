@@ -83,7 +83,9 @@ public class PlatformController {
 	 * PlatformactionListener
 	 */
 	public PlatformActionListener pal;
-
+	
+	private DataChangedListener dcl;
+	
 	/**
 	 * Logging
 	 */
@@ -207,9 +209,12 @@ public class PlatformController {
 			bhmf.getBHTree().addTreeSelectionListener(
 					new BHTreeSelectionListener(this, bhmf));
 		}
-
-		Services.addPlatformListener(new DataChangedListener());
-
+		
+		
+		if(dcl == null){
+		    dcl = new DataChangedListener();
+		    Services.addPlatformListener(dcl);
+		}
 	}
 
 	public void addProject(DTOProject newProject) {

@@ -134,6 +134,13 @@ public class DTOScenario extends DTO<DTOPeriod> {
 		refreshPeriodReferences();
 		return result;
 	}
+	
+	@Override
+	public void addChildToPosition(DTOPeriod child, int pos){
+	    super.addChildToPosition(child, pos);
+	    child.scenario = this;
+	    refreshPeriodReferences();
+	}
 
 	@Override
 	public DTOPeriod removeChild(int index) throws DTOAccessException {
