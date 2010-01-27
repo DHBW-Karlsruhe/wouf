@@ -7,6 +7,8 @@ import java.awt.Color;
 import java.awt.Component;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.ItemEvent;
+import java.awt.event.ItemListener;
 import java.io.File;
 
 import javax.swing.BorderFactory;
@@ -31,6 +33,8 @@ public class BHDefaultScenarioExportPanel extends JPanel {
 
 	String fileDesc;
 	String fileExt;
+	
+	OpenExportDialogListener oedl = new OpenExportDialogListener();
 
 	public BHDefaultScenarioExportPanel(String fileDesc, String fileExt) {
 		this.fileDesc = fileDesc;
@@ -157,6 +161,12 @@ public class BHDefaultScenarioExportPanel extends JPanel {
 
 				// Text field which will show the chosen path
 				open = new JCheckBox();
+				
+				// Check if panel settings are already saved in preferences
+				if (PlatformController.preferences.get("export_open_pref", "true").equals("true"))
+				    open.setSelected(true);
+				
+				open.addItemListener(oedl);
 				openPanel.add(open, "1,0");
 
 				this.add(openPanel, BorderLayout.SOUTH);
@@ -180,6 +190,10 @@ public class BHDefaultScenarioExportPanel extends JPanel {
 					File defDir = new File(strDefDir);
 					fileChooser.setCurrentDirectory(defDir);
 				}
+				
+				// add dummy filename
+				File dummyFile = new File("businesshorizon_export." + fileExt);
+				fileChooser.setSelectedFile(dummyFile);
 
 				fileChooser.setFileFilter(new FileNameExtensionFilter(fileDesc,
 						fileExt));
@@ -193,9 +207,22 @@ public class BHDefaultScenarioExportPanel extends JPanel {
 					if(!filePath.endsWith("." + fileExt)) {
 						filePath = filePath + "." + fileExt;
 					}
+					 
 					txtPath.setText(filePath);
 				}
 			}
 		}
 	}
+}
+
+class OpenExportDialogListener implements ItemListener {
+
+    @Override
+    public void itemStateChanged(ItemEvent e) {
+	JCheckBox openCB = (JCheckBox) e.getSource();
+	System.out.println(openCB.isSelected());
+	PlatformController.preferences.put("export_open_pref", openCB.isSelected() ? "true" : "false");
+	System.out.println(PlatformController.preferences.get("export_open_pref", ""));
+    }
+    
 }

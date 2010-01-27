@@ -181,6 +181,10 @@ public class BHDefaultProjectExportPanel extends JPanel implements ActionListene
 			
 			fileChooser.setFileFilter(new FileNameExtensionFilter(fileDesc, fileExt));
 			
+			// add dummy filename
+			File dummyFile = new File("businesshorizon_export." + fileExt);
+			fileChooser.setSelectedFile(dummyFile);
+			
 			int returnVal = fileChooser.showSaveDialog(this);		
 			
 			if (returnVal == JFileChooser.APPROVE_OPTION)

@@ -132,8 +132,14 @@ public class PlatformPersistenceManager {
 		// if no path exists in property file or saveAs is forced, show a save dialog
 		if (PlatformController.preferences.get("path", "").equals("")
 				|| forcedSaveAs == true) {
-
-			int returnVal = bhmf.getChooser().showSaveDialog(bhmf);
+		    	
+		    
+		    JFileChooser fileChooser = new JFileChooser();
+		    File dummyFile;
+		    dummyFile = new File((PlatformController.preferences.get("path", "businesshorizon.bh")));
+		  
+		    	fileChooser.setSelectedFile(dummyFile);
+			int returnVal = fileChooser.showSaveDialog(bhmf);
 			if (returnVal == JFileChooser.APPROVE_OPTION) {
 				log.debug("You choose to save this file: "
 						+ bhmf.getChooser().getSelectedFile().getName());
