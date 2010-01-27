@@ -16,7 +16,6 @@ import java.util.Map;
 import java.util.ServiceLoader;
 import java.util.StringTokenizer;
 import java.util.Map.Entry;
-
 import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
 import javax.swing.JPanel;
@@ -24,7 +23,6 @@ import javax.swing.SwingUtilities;
 import javax.swing.UIManager;
 import javax.swing.UIManager.LookAndFeelInfo;
 import javax.swing.event.EventListenerList;
-
 import org.apache.log4j.Logger;
 import org.apache.log4j.PatternLayout;
 import org.apache.log4j.WriterAppender;
@@ -34,7 +32,6 @@ import org.bh.controller.IDataExchangeController;
 import org.bh.controller.IPeriodController;
 import org.bh.data.DTOKeyPair;
 import org.bh.data.DTO.Stochastic;
-import org.bh.gui.swing.BHMainFrame;
 import org.bh.gui.swing.BHStatusBar;
 import org.bh.gui.swing.BHTextField;
 import org.bh.platform.i18n.BHTranslator;
@@ -59,13 +56,7 @@ public class Services {
 	private static NumberFormat doubleFormat = null;
 	private static NumberFormat integerFormat = null;
 	private static NumberFormat oldDoubleFormat = null;
-
-	private static BHMainFrame bhmf = null;
 	private static StringWriter logWriter = new StringWriter();
-
-	public static void setBHMainFrame(BHMainFrame bhmf) {
-		Services.bhmf = bhmf;
-	}
 
 	/*
 	 * --------------------------------------- Platform Event Handling
@@ -164,7 +155,6 @@ public class Services {
 		}
 	}
 
-	// TODO Schmalzhaf.Alexander Testen!!!
 	public static IPeriodController getPeriodController(String id) {
 		return getPeriodControllers().get(id);
 	}
@@ -442,8 +432,8 @@ public class Services {
 		Number result = doubleFormat.parse(string, pp);
 		if (result != null && string.length() == pp.getIndex())
 			return result.doubleValue();
-		else
-			return Double.NaN;
+		
+		return Double.NaN;
 	}
 
 	public static Integer stringToInt(String string) {
@@ -451,8 +441,8 @@ public class Services {
 		Number result = integerFormat.parse(string, pp);
 		if (result != null && string.length() == pp.getIndex())
 			return result.intValue();
-		else
-			return null;
+		
+		return null;
 	}
 	
 	public static double oldStringToDouble(String string) {
@@ -463,7 +453,7 @@ public class Services {
 		Number result = oldDoubleFormat.parse(string, pp);
 		if (result != null && string.length() == pp.getIndex())
 			return result.doubleValue();
-		else
-			return Double.NaN;
+		
+		return Double.NaN;
 	}
 }

@@ -114,7 +114,6 @@ public class PlatformController {
 		 * -----------------------------------
 		 */
 		bhmf = new BHMainFrame();
-		Services.setBHMainFrame(bhmf);
 
 		// create PlatformU...
 		// TODO naming

@@ -17,7 +17,6 @@ import org.bh.controller.IDataExchangeController;
 import org.bh.data.DTOPeriod;
 import org.bh.data.DTOProject;
 import org.bh.data.DTOScenario;
-import org.bh.data.IDTO;
 import org.bh.data.types.StringValue;
 import org.bh.gui.swing.BHAboutBox;
 import org.bh.gui.swing.BHComboBox;
@@ -251,7 +250,7 @@ class PlatformActionListener implements ActionListener {
 							((BHTreeModel) bhmf.getBHTree().getModel())
 									.removeNodeFromParent(removeNode);
 							((DTOPeriod) ((BHTreeNode) removeNode.getParent())
-									.getUserObject()).remove((DTOPeriod) removeNode
+									.getUserObject()).remove( removeNode
 									.getUserObject());
 						}
 					}
@@ -330,9 +329,6 @@ class PlatformActionListener implements ActionListener {
 			break;
 		case POPUPEXPORT:
 			this.popupExport();
-			break;
-		default:
-			// TODO implementieren?
 			break;
 		}
 	}
@@ -777,7 +773,7 @@ class PlatformActionListener implements ActionListener {
 				BHDataExchangeDialog dialog = new BHDataExchangeDialog(
 						bhmf, true);
 				dialog.setAction(IImportExport.EXP_PROJECT);
-				dialog.setModel((IDTO<?>) selectedNode.getUserObject());
+				dialog.setModel( selectedNode.getUserObject());
 				dialog.setDescription(BHTranslator.getInstance().translate(
 						"DExpFileFormatSel"));
 				dialog.setVisible(true);
