@@ -73,50 +73,7 @@ public class PDFPrint implements IPrint {
 			
 			pDoc = PDDocument.load(tmpFile);
 			pDoc.print();
-			// PrintService defaultPrintService =
-			// PrintServiceLookup.lookupDefaultPrintService();
-			// DocPrintJob printerJob = defaultPrintService.createPrintJob();
-			// SimpleDoc simpleDoc = new SimpleDoc(tmpFile.toURI().toURL(),
-			// DocFlavor.URL.AUTOSENSE, null);
-			// PrinterJob p = PrinterJob.getPrinterJob();
-			// PrintRequestAttributeSet attributes = new
-			// HashPrintRequestAttributeSet();
-			// if (p.printDialog(attributes)) {
-			// Pageable p ;
-			// // p.setPageable(document)
-			// log.debug("print started");
-			// printerJob.print(simpleDoc,attributes);
-			// log.debug("print ended");
-			// }
-			// Document doc = new Document();
-			//			
-			// PdfWriter pw;
-			//			
-			// pw = PdfWriter.getInstance(doc,
-			// new FileOutputStream("test.pdf"));
-			// doc.open();
-			// doc.add(new Paragraph("Test"));
-			// doc.close();
-			// PdfContentByte cb = new PdfContentByte(db.pdfWriter);
-			// // cb.endText();
-			// FontMapper f = new DefaultFontMapper();
-			// PdfPrinterGraphics2D pg = new PdfPrinterGraphics2D(cb, 5.0f,
-			// 5.0f, f, false, true, 8, PrinterJob.getPrinterJob());
-			// PrinterJob p = pg.getPrinterJob();
-			// new TestFrame(pg);
-			//
-			//			
-			// PrintRequestAttributeSet attributes = new
-			// HashPrintRequestAttributeSet();
-			// if (p.printDialog(attributes)) {
-			// try {
-			// log.debug("print started");
-			// p.print(attributes);
-			// log.debug("print ended");
-			// } catch (PrinterException e) {
-			// log.error(e);
-			// }
-			// }
+		
 		} catch (IOException e) {
 			log.error(e);
 		} catch (PrinterException e) {

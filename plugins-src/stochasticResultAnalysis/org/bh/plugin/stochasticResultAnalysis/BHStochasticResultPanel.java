@@ -37,7 +37,7 @@ public class BHStochasticResultPanel extends JPanel{
 	}
 	private void initialize(){
 		this.setLayout(new BorderLayout());
-		exportButton = new BHButton("EXPORTSCENARIO");
+		exportButton = new BHButton(BHStochasticResultController.PanelKeys.EXPORTSCENARIO);
 		exportButton.addActionListener(new ActionListener() {
 
 			@Override
@@ -66,7 +66,7 @@ public class BHStochasticResultPanel extends JPanel{
 		});
 		
 		// printButton
-		printButton = new BHButton("PRINTSCENARIO");
+		printButton = new BHButton(BHStochasticResultController.PanelKeys.PRINTSCENARIO);
 		printButton.addActionListener(new ActionListener() {
 
 			@Override

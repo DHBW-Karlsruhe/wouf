@@ -35,8 +35,10 @@ public class BHStochasticResultController extends OutputController{
 	public static enum PanelKeys {
 		riskAtValue,
 		AVERAGE,
-		VALUE;
-
+		VALUE,
+		PRINTSCENARIO, 
+		EXPORTSCENARIO;
+		
 		@Override
 		public String toString() {
 			return getClass().getName() + "." + super.toString();
