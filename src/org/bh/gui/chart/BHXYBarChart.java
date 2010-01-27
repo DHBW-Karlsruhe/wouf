@@ -18,7 +18,17 @@ import org.jfree.chart.renderer.xy.XYBarRenderer;
 import org.jfree.data.xy.XYDataset;
 import org.jfree.data.xy.XYSeries;
 import org.jfree.data.xy.XYSeriesCollection;
-
+/**
+ * 
+ * BHXYBarChart to create a XYBarChart
+ *
+ * <p>
+ * an default BHXYBarChart is created and modified.
+ *
+ * @author Lars.Zuckschwerdt
+ * @version 1.0, 27.01.2010
+ *
+ */
 public class BHXYBarChart extends BHChart implements IBHAddValue,
 		IPlatformListener {
 	

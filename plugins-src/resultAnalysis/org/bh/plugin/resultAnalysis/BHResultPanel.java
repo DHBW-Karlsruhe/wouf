@@ -3,7 +3,6 @@ package org.bh.plugin.resultAnalysis;
 import info.clearthought.layout.TableLayout;
 import info.clearthought.layout.TableLayoutConstants;
 
-import java.awt.BorderLayout;
 import java.awt.Component;
 import java.awt.Dimension;
 import java.util.Map;
@@ -50,7 +49,7 @@ public final class BHResultPanel extends JPanel {
 	private ChartPanel pieChartLabel;
 	private ChartPanel barChartLabel;
 	private BHDescriptionTextArea pieChartTextArea;
-	// TODO check Marco, Lars: Really necessary for every procedure?
+	//check Marco, Lars: Really necessary for every procedure?
 	private CellConstraints cons;
 	// formulas
 	private Component finiteFormula;
@@ -109,7 +108,6 @@ public final class BHResultPanel extends JPanel {
 	
 	void setFormulaArea(BHFormulaPanel c) {
 		formulaArea = c;
-//		System.err.println("BHResultPanel.setFormulaArea()");
 		formulaArea.setBorder(BorderFactory.createTitledBorder(BorderFactory
 				.createEtchedBorder(), translator
 				.translate("result_headline")));

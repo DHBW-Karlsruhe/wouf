@@ -33,7 +33,7 @@ import org.jfree.ui.TextAnchor;
  *
  * @author Lars
  * @version 0.1, 16.12.2009
- * @author Marcc Hammel
+ * @author Marco Hammel
  * @version 0.2 16.01.2010
  */
 @SuppressWarnings("serial")

@@ -54,19 +54,4 @@ public class BH_FTE_ResultPanel extends JPanel {
         }
 
     }
-//    public static void main(String[] args) {
-//
-//    	JFrame test = new JFrame("Test for ResultPanel");
-//    	test.setContentPane(new BH_APV_ResultPanel());
-//    	test.addWindowListener(new WindowAdapter() {
-//
-//    	    @Override
-//    		public void windowClosing(WindowEvent e) {
-//    		System.exit(0);
-//    	    }
-//    	});
-//    	//test.pack();
-//    	test.setVisible(true);
-//
-//    }
 }

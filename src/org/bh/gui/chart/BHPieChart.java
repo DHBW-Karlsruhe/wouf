@@ -12,7 +12,17 @@ import org.bh.platform.PlatformEvent.Type;
 import org.jfree.chart.ChartFactory;
 import org.jfree.data.general.Dataset;
 import org.jfree.data.general.DefaultPieDataset;
-
+/**
+ * 
+ * BHPieChart to create a default PieChart
+ *
+ * <p>
+ * a BHPieChart is created but currently unused in Business Horizon!
+ *
+ * @author Lars.Zuckschwerdt
+ * @version 1.0, 27.01.2010
+ *
+ */
 @SuppressWarnings("serial")
 public class BHPieChart extends BHChart implements IBHAddValue, IPlatformListener {
 

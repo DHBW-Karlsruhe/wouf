@@ -34,10 +34,9 @@ public class BH_FCF_ResultPanel extends JPanel {
         double size[][] = {{border, TableLayoutConstants.PREFERRED, border, TableLayoutConstants.PREFERRED, border, TableLayoutConstants.PREFERRED, border}, // Columns
             {border, TableLayoutConstants.PREFERRED, border, TableLayoutConstants.PREFERRED, border, TableLayoutConstants.PREFERRED}}; // Rows
         this.setLayout(new TableLayout(size));
-        //      }
-
+    
         //All charts
-        //TODO Schön Darstellen!!!!
+        //Schön Darstellen!!!!
         BHChartPanel fcf_shareholderValue = BHChartFactory.getWaterfallChart(BHResultController.ChartKeys.FCF_WF_SV, false, true);
         BHChartPanel fcf_freecashflow = BHChartFactory.getBarChart(BHResultController.ChartKeys.FCF_BC_FCF, true, true);
         BHChartPanel fcf_returnrate = BHChartFactory.getBarChart(BHResultController.ChartKeys.FCF_BC_RR, true, true);
@@ -49,7 +48,5 @@ public class BH_FCF_ResultPanel extends JPanel {
             this.add(fcf_freecashflow, "3,1");
             this.add(fcf_returnrate, "3,3");
         }
-
-//        }
     }
 }

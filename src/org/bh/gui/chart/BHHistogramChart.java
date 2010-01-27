@@ -17,7 +17,7 @@ import org.jfree.data.statistics.HistogramDataset;
  * BHHistogramChart to create a Histogramchart
  * 
  * <p>
- * Histogramchart is created and modified
+ * Histogramchart is created and modified but currently unused in Business Horizon
  * 
  * @author Lars
  * @version 0.1, 17.12.2009

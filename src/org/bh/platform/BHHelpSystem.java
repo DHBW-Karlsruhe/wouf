@@ -23,6 +23,13 @@ public class BHHelpSystem extends JPanel{
 	protected BHHelpSystem(String ID){
 		this.initialise(ID);
 	}
+	/**
+	 * method to initialise the HelpFrame
+	 * @param ID
+	 * 	ID to get the choosen Help. 
+	 * 	mathe for MathHelp
+	 * 	prog for Usermanual
+	 */
 	public void initialise(String ID){
 		
 			try {
