@@ -644,8 +644,9 @@ class PlatformActionListener implements ActionListener {
 			newPeriod.put(DTOPeriod.Key.NAME, new StringValue(periodName));
 
 			// ...add it to DTO-Repository
-			((DTOScenario) ((BHTreeNode) bhmf.getBHTree().getSelectionPath()
-					.getPathComponent(2)).getUserObject()).addChild(newPeriod);
+			DTOScenario scenarioDto = (DTOScenario) ((BHTreeNode) bhmf.getBHTree().getSelectionPath()
+				.getPathComponent(2)).getUserObject();
+			scenarioDto.addChild(newPeriod,scenarioDto.isDeterministic());
 
 			// ...and insert it into GUI-Tree
 			BHTreeNode newPeriodNode = bhmf.getBHTree().addPeriodAtCurrentPos(
