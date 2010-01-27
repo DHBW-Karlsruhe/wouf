@@ -10,6 +10,7 @@ import javax.swing.JDialog;
 import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
 import javax.swing.WindowConstants;
+import javax.swing.tree.DefaultMutableTreeNode;
 import javax.swing.tree.TreePath;
 
 import org.apache.log4j.Logger;
@@ -146,37 +147,7 @@ class PlatformActionListener implements ActionListener {
 			this.projectExport();
 			break;
 		case PROJECTREMOVE:
-
-			if(((BHTreeNode) bhmf.getBHTree().getSelectionPath().getLastPathComponent()).getUserObject() instanceof DTOProject){
-				
-			
-				int pr_choice = BHOptionPane.showConfirmDialog(bhmf, Services
-						.getTranslator().translate("Pproject_delete"), Services
-						.getTranslator().translate("Pdelete"),
-						JOptionPane.YES_NO_OPTION);
-	
-				if (pr_choice == JOptionPane.YES_OPTION) {
-					TreePath currentRemoveProjectSelection = bhmf.getBHTree()
-							.getSelectionPath();
-					if (currentRemoveProjectSelection != null) {
-						BHTreeNode removeProjectNode = (BHTreeNode) bhmf
-								.getBHTree().getSelectionPath()
-								.getLastPathComponent();
-						if (removeProjectNode.getUserObject() instanceof DTOProject) {
-							((BHTreeModel) bhmf.getBHTree().getModel())
-									.removeNodeFromParent(removeProjectNode);
-							projectRepoManager
-									.removeProject((DTOProject) removeProjectNode
-											.getUserObject());
-						}
-					}
-				}
-			}
-			else {
-			BHStatusBar.getInstance().setHint(
-					BHTranslator.getInstance().translate(
-							"EisSelectProject"), true);
-			}
+		    	this.removeElement(PlatformKey.PROJECTREMOVE);
 			break;
 
 		case SCENARIOCREATE:
@@ -188,38 +159,7 @@ class PlatformActionListener implements ActionListener {
 			break;
 
 		case SCENARIOREMOVE:
-
-			if(((BHTreeNode) bhmf.getBHTree().getSelectionPath().getLastPathComponent()).getUserObject() instanceof DTOScenario){
-				
-				
-			
-				int sc_choice = BHOptionPane.showConfirmDialog(bhmf, Services
-						.getTranslator().translate("Pscenario_delete"), Services
-						.getTranslator().translate("Pdelete"),
-						JOptionPane.YES_NO_OPTION);
-	
-				if (sc_choice == JOptionPane.YES_OPTION) {
-					TreePath currentRemoveScenarioSelection = bhmf.getBHTree()
-							.getSelectionPath();
-					if (currentRemoveScenarioSelection != null) {
-						BHTreeNode removeScenarioNode = (BHTreeNode) bhmf
-								.getBHTree().getSelectionPath()
-								.getLastPathComponent();
-						if (removeScenarioNode.getUserObject() instanceof DTOScenario) {
-							((BHTreeModel) bhmf.getBHTree().getModel())
-									.removeNodeFromParent(removeScenarioNode);
-							((DTOScenario) ((BHTreeNode) removeScenarioNode
-									.getParent()).getUserObject())
-									.removeChild((DTOPeriod) removeScenarioNode
-											.getUserObject());
-						}
-					}
-				}
-			} else {
-					BHStatusBar.getInstance().setHint(
-							BHTranslator.getInstance().translate(
-									"EisSelectScenario"), true);
-			}
+		    	this.removeElement(PlatformKey.SCENARIOREMOVE);
 			break;
 
 		case PERIODCREATE:
@@ -231,37 +171,8 @@ class PlatformActionListener implements ActionListener {
 			break;
 
 		case PERIODREMOVE:
-			
-			if(((BHTreeNode) bhmf.getBHTree().getSelectionPath().getLastPathComponent()).getUserObject() instanceof DTOPeriod){
-				
-
-				int pe_choice = BHOptionPane.showConfirmDialog(bhmf, Services
-						.getTranslator().translate("Pperiod_delete"), Services
-						.getTranslator().translate("Pdelete"),
-						JOptionPane.YES_NO_OPTION);
-				
-				if (pe_choice == JOptionPane.YES_OPTION) {
-					TreePath currentRemovePeriodSelection = bhmf.getBHTree()
-							.getSelectionPath();
-					if (currentRemovePeriodSelection != null) {
-						BHTreeNode removeNode = (BHTreeNode) bhmf.getBHTree()
-								.getSelectionPath().getLastPathComponent();
-						if (removeNode.getUserObject() instanceof DTOPeriod) {
-							((BHTreeModel) bhmf.getBHTree().getModel())
-									.removeNodeFromParent(removeNode);
-							((DTOPeriod) ((BHTreeNode) removeNode.getParent())
-									.getUserObject()).remove( removeNode
-									.getUserObject());
-						}
-					}
-				}
-			} else {
-				BHStatusBar.getInstance().setHint(
-						BHTranslator.getInstance().translate(
-								"EisSelectPeriod"), true);
-			}
+			this.removeElement(PlatformKey.PERIODREMOVE);
 			break;
-
 
 		case OPTIONSCHANGE:
 			new BHOptionDialog();
@@ -315,11 +226,11 @@ class PlatformActionListener implements ActionListener {
 			break;
 
 		case TOOLBARREMOVE:
-			this.toolbarRemove();
+			this.removeElement();
 			break;
 			
 		case POPUPREMOVE:
-			this.toolbarRemove();
+			this.removeElement();
 			break;
 		case POPUPADD:
 			this.popupAdd();
@@ -457,69 +368,137 @@ class PlatformActionListener implements ActionListener {
 			this.createProject();
 		}
 	}
-	protected void toolbarRemove() {
-		TreePath currentSelection = bhmf.getBHTree().getSelectionPath();
-		// is a node selected?
-		if (currentSelection != null) {
-			BHTreeNode currentNodeForDesc = (BHTreeNode) bhmf.getBHTree()
-			.getSelectionPath().getLastPathComponent();
-			int choice;
-			if(currentNodeForDesc.getUserObject() instanceof DTOProject){
-				choice = BHOptionPane.showConfirmDialog(bhmf, Services
-						.getTranslator().translate("Pproject_delete"), Services
-						.getTranslator().translate("Pdelete"),
-						JOptionPane.YES_NO_OPTION);
-			} else if(currentNodeForDesc.getUserObject() instanceof DTOScenario){
-				choice = BHOptionPane.showConfirmDialog(bhmf, Services
-						.getTranslator().translate("Pscenario_delete"), Services
-						.getTranslator().translate("Pdelete"),
-						JOptionPane.YES_NO_OPTION);
-			} else if(currentNodeForDesc.getUserObject() instanceof DTOPeriod){
-				choice = BHOptionPane.showConfirmDialog(bhmf, Services
-						.getTranslator().translate("Pperiod_delete"), Services
-						.getTranslator().translate("Pdelete"),
-						JOptionPane.YES_NO_OPTION);
-			} else {
-				choice = BHOptionPane.showConfirmDialog(bhmf, Services
-						.getTranslator().translate("Pelement_delete"), Services
-						.getTranslator().translate("Pdelete"),
-						JOptionPane.YES_NO_OPTION);	
-			}
-			if (choice == JOptionPane.YES_OPTION) {
-				// find out current selected node
-				BHTreeNode currentNode = (BHTreeNode) bhmf.getBHTree()
-						.getSelectionPath().getLastPathComponent();
+	
+	protected void removeElement(){
+	    if(((DefaultMutableTreeNode) bhmf.getBHTree().getSelectionPath().getLastPathComponent()).getUserObject() instanceof DTOProject){
+		this.removeElement(PlatformKey.PROJECTREMOVE);
+	    } else if(((DefaultMutableTreeNode) bhmf.getBHTree().getSelectionPath().getLastPathComponent()).getUserObject() instanceof DTOScenario){
+		this.removeElement(PlatformKey.SCENARIOREMOVE);
+	    } else if(((DefaultMutableTreeNode) bhmf.getBHTree().getSelectionPath().getLastPathComponent()).getUserObject() instanceof DTOPeriod){
+		this.removeElement(PlatformKey.PERIODREMOVE);
+	    } 
+	}
+	
+	protected void removeElement(PlatformKey key){
+	    int choice;
+	    switch (key){
+	    case PROJECTREMOVE:
+		choice = BHOptionPane.showConfirmDialog(bhmf, Services
+			.getTranslator().translate("Pproject_delete"), Services
+			.getTranslator().translate("Pdelete"),
+			JOptionPane.YES_NO_OPTION);
+		
+		if (choice == JOptionPane.YES_OPTION) {
+			// find out current selected node
+			BHTreeNode currentNode = (BHTreeNode) bhmf.getBHTree()
+				.getSelectionPath().getPathComponent(1);
 
-				// remove node from data model...
-				if (currentNode.getUserObject() instanceof DTOProject) {
-					projectRepoManager.removeProject((DTOProject) currentNode
+			projectRepoManager.removeProject((DTOProject) currentNode.getUserObject());
+
+			// ... and from GUI and select other node or empty screen
+			TreePath tp = new TreePath(currentNode.getPreviousNode()
+					.getPath());
+			bhmf.getBHTree().setSelectionPath(tp);
+			
+			bhmf.getBHTree().setSelectionPath(null);
+
+			((BHTreeModel) bhmf.getBHTree().getModel())
+					.removeNodeFromParent(currentNode);
+		    }
+		break;
+		
+	    case SCENARIOREMOVE:
+		choice = BHOptionPane.showConfirmDialog(bhmf, Services
+			.getTranslator().translate("Pscenario_delete"), Services
+			.getTranslator().translate("Pdelete"),
+			JOptionPane.YES_NO_OPTION);
+		
+		if (choice == JOptionPane.YES_OPTION) {
+			// find out current selected node
+			BHTreeNode currentNode = (BHTreeNode) bhmf.getBHTree()
+					.getSelectionPath().getPathComponent(2);
+
+			((DTOProject) ((BHTreeNode) currentNode.getParent())
+						.getUserObject())
+						.removeChild((DTOScenario) currentNode
+								.getUserObject());
+
+			// ... and from GUI and select other node or empty screen
+			TreePath tp = new TreePath(currentNode.getPreviousNode()
+					.getPath());
+			bhmf.getBHTree().setSelectionPath(tp);
+			
+			((BHTreeModel) bhmf.getBHTree().getModel())
+					.removeNodeFromParent(currentNode);
+		    }
+		break;
+		
+	    case PERIODREMOVE:
+		choice = BHOptionPane.showConfirmDialog(bhmf, Services
+			.getTranslator().translate("Pperiod_delete"), Services
+			.getTranslator().translate("Pdelete"),
+			JOptionPane.YES_NO_OPTION);
+		
+		if (choice == JOptionPane.YES_OPTION) {
+			// find out current selected node
+			BHTreeNode currentNode = (BHTreeNode) bhmf.getBHTree()
+					.getSelectionPath().getPathComponent(3);
+
+			((DTOScenario) ((BHTreeNode) currentNode.getParent())
+						.getUserObject())
+						.removeChild((DTOPeriod) currentNode
+								.getUserObject());
+
+			// ... and from GUI and select other node or empty screen
+			TreePath tp = new TreePath(currentNode.getPreviousNode()
+					.getPath());
+			bhmf.getBHTree().setSelectionPath(tp);
+			
+			((BHTreeModel) bhmf.getBHTree().getModel())
+					.removeNodeFromParent(currentNode);
+		    }
+		break;
+	    }
+		
+	}   
+
+	protected void handleRemove(int choice){
+	    
+	    if (choice == JOptionPane.YES_OPTION) {
+		// find out current selected node
+		BHTreeNode currentNode = (BHTreeNode) bhmf.getBHTree()
+				.getSelectionPath().getLastPathComponent();
+
+		// remove node from data model...
+		if (currentNode.getUserObject() instanceof DTOProject) {
+			projectRepoManager.removeProject((DTOProject) currentNode
+					.getUserObject());
+
+		} else if (currentNode.getUserObject() instanceof DTOScenario) {
+			((DTOProject) ((BHTreeNode) currentNode.getParent())
+					.getUserObject())
+					.removeChild((DTOScenario) currentNode
 							.getUserObject());
 
-				} else if (currentNode.getUserObject() instanceof DTOScenario) {
-					((DTOProject) ((BHTreeNode) currentNode.getParent())
-							.getUserObject())
-							.removeChild((DTOScenario) currentNode
-									.getUserObject());
-
-				} else if (currentNode.getUserObject() instanceof DTOPeriod) {
-					((DTOScenario) ((BHTreeNode) currentNode.getParent())
-							.getUserObject())
-							.removeChild((DTOPeriod) currentNode
-									.getUserObject());
-				}
-
-				// ... and from GUI and select other node or empty screen
-				TreePath tp = new TreePath(currentNode.getPreviousNode()
-						.getPath());
-				bhmf.getBHTree().setSelectionPath(tp);
-				if (bhmf.getBHTree().getSelectionPath().getPathCount() == 1)
-					bhmf.getBHTree().setSelectionPath(null);
-
-				((BHTreeModel) bhmf.getBHTree().getModel())
-						.removeNodeFromParent(currentNode);
-			}
+		} else if (currentNode.getUserObject() instanceof DTOPeriod) {
+			((DTOScenario) ((BHTreeNode) currentNode.getParent())
+					.getUserObject())
+					.removeChild((DTOPeriod) currentNode
+							.getUserObject());
 		}
+
+		// ... and from GUI and select other node or empty screen
+		TreePath tp = new TreePath(currentNode.getPreviousNode()
+				.getPath());
+		bhmf.getBHTree().setSelectionPath(tp);
+		if (bhmf.getBHTree().getSelectionPath().getPathCount() == 1)
+			bhmf.getBHTree().setSelectionPath(null);
+
+		((BHTreeModel) bhmf.getBHTree().getModel())
+				.removeNodeFromParent(currentNode);
+	    }
 	}
+	
 
 	protected void createProject() {
 		// Create new project
