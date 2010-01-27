@@ -22,6 +22,7 @@ import org.bh.gui.swing.BHButton;
 import org.bh.gui.BHDashBoardPanelView;
 import org.bh.gui.swing.BHDescriptionLabel;
 import org.bh.gui.swing.BHProjectForm;
+import org.bh.gui.swing.BHScenarioForm;
 import org.bh.gui.swing.BHTree;
 import org.bh.gui.swing.BHTreeNode;
 import org.bh.platform.PlatformEvent.Type;
@@ -50,7 +51,7 @@ public class ProjectController extends InputController implements
 		super(view, model);
 		Services.addPlatformListener(this);
 
-		((BHButton) view.getBHComponent(PlatformKey.CALCDASHBOARD))
+		((BHButton) view.getBHComponent(BHScenarioForm.Key.CALCDASHBOARD))
 				.addActionListener(new CalculationListener(PlatformController
 						.getInstance().getMainFrame().getBHTree()));
 		
@@ -156,7 +157,7 @@ public class ProjectController extends InputController implements
 		}
 		boolean calculationEnabled = (counter >= 2);
 
-		((Component) view.getBHComponent(PlatformKey.CALCDASHBOARD))
+		((Component) view.getBHComponent(BHScenarioForm.Key.CALCDASHBOARD))
 				.setEnabled(calculationEnabled);
 		((Component) view.getBHComponent(BHProjectForm.Key.CANNOT_CALCULATE_HINT))
 				.setVisible(!calculationEnabled);

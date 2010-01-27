@@ -91,7 +91,7 @@ public class ScenarioController extends InputController {
 			cbStochasticMethod.setValueList(STOCHASTIC_METHOD_ITEMS);
 		}
 
-		((BHButton) view.getBHComponent(PlatformKey.CALCSHAREHOLDERVALUE))
+		((BHButton) view.getBHComponent(BHScenarioForm.Key.CALCSHAREHOLDERVALUE))
 				.addActionListener(new CalculationListener(PlatformController
 						.getInstance().getMainFrame().getBHTree()));
 
@@ -127,12 +127,12 @@ public class ScenarioController extends InputController {
 									boolean allValid = !view.revalidate()
 											.hasErrors();
 									((Component) getView().getBHComponent(
-											PlatformKey.CALCSHAREHOLDERVALUE))
+										BHScenarioForm.Key.CALCSHAREHOLDERVALUE))
 											.setEnabled(allValid);
 									break;
 								case VALIDATION_FAILED:
 									((Component) getView().getBHComponent(
-											PlatformKey.CALCSHAREHOLDERVALUE))
+										BHScenarioForm.Key.CALCSHAREHOLDERVALUE))
 											.setEnabled(false);
 									break;
 								}
@@ -140,7 +140,7 @@ public class ScenarioController extends InputController {
 						});
 						boolean allValid = !view.revalidate().hasErrors();
 						((Component) getView().getBHComponent(
-								PlatformKey.CALCSHAREHOLDERVALUE))
+							BHScenarioForm.Key.CALCSHAREHOLDERVALUE))
 								.setEnabled(allValid);
 					} catch (ViewException e1) {
 					}
@@ -166,7 +166,7 @@ public class ScenarioController extends InputController {
 					calcStochasticParameters.setVisible(true);
 					resetStochasticParameters.setVisible(false);
 					((Component) getView().getBHComponent(
-							PlatformKey.CALCSHAREHOLDERVALUE))
+						BHScenarioForm.Key.CALCSHAREHOLDERVALUE))
 							.setEnabled(false);
 					((Component) getView().getBHComponent(
 							DTOScenario.Key.STOCHASTIC_KEYS)).setEnabled(true);
@@ -221,7 +221,7 @@ public class ScenarioController extends InputController {
 
 		setCalcEnabled(getModel().isValid(true));
 		if (!((DTOScenario) model).isDeterministic()) {
-			((Component) view.getBHComponent(PlatformKey.CALCSHAREHOLDERVALUE))
+			((Component) view.getBHComponent(BHScenarioForm.Key.CALCSHAREHOLDERVALUE))
 					.setEnabled(false);
 		}
 
@@ -318,7 +318,7 @@ public class ScenarioController extends InputController {
 
 	protected void setCalcEnabled(boolean calculationEnabled) {
 		if (((DTOScenario) getModel()).isDeterministic()) {
-			((Component) view.getBHComponent(PlatformKey.CALCSHAREHOLDERVALUE))
+			((Component) view.getBHComponent(BHScenarioForm.Key.CALCSHAREHOLDERVALUE))
 					.setEnabled(calculationEnabled);
 			((Component) view
 					.getBHComponent(BHScenarioForm.Key.CANNOT_CALCULATE_HINT))

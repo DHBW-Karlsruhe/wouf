@@ -50,11 +50,7 @@ public enum PlatformKey{
 	POPUPREMOVE("Tremove"),
 	POPUPADD("Treadd"),
 	POPUPDUPLICATE("Treduplicate"),
-	POPUPEXPORT("Treexport"),
-	
-	
-	CALCSHAREHOLDERVALUE("BcalculateShareholderValue"),
-	CALCDASHBOARD("BcalculateDashBoard");
+	POPUPEXPORT("Treexport");
 	
 	String translationKey;
 	

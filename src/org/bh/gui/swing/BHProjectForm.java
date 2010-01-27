@@ -123,7 +123,7 @@ public class BHProjectForm extends JPanel {
 
 	public BHButton getBcalculateDashBoard() {
 		if (this.bcalculateDashBoard == null) {
-			this.bcalculateDashBoard = new BHButton(PlatformKey.CALCDASHBOARD);
+			this.bcalculateDashBoard = new BHButton(BHScenarioForm.Key.CALCDASHBOARD);
 		}
 		return bcalculateDashBoard;
 	}

@@ -47,10 +47,27 @@ public class BHScenarioForm extends JPanel {
 		 */
 		PROCESS_DATA,
 		
+		/**
+		 * 
+		 */
 		CANNOT_CALCULATE_HINT,
 		
-		CALCULATING_IMAGE;
-
+		/**
+		 * 
+		 */
+		CALCULATING_IMAGE,
+		
+		/**
+		 * 
+		 */
+		CALCSHAREHOLDERVALUE,
+		
+		/**
+		 * 
+		 */
+		CALCDASHBOARD;
+		
+		
 		@Override
 		public String toString() {
 		    return getClass().getName() + "." + super.toString();
@@ -182,7 +199,7 @@ public class BHScenarioForm extends JPanel {
 
 	public BHButton getBcalculate() {
 		if (this.bcalculate == null) {
-			this.bcalculate = new BHButton(PlatformKey.CALCSHAREHOLDERVALUE);
+			this.bcalculate = new BHButton(BHScenarioForm.Key.CALCSHAREHOLDERVALUE);
 		}
 		return bcalculate;
 	}
