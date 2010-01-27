@@ -91,6 +91,6 @@ public class BHStochasticResultPanel extends JPanel{
 		
 		buttons.add(exportButton, BorderLayout.WEST);
 		buttons.add(printButton, BorderLayout.EAST);
-		add(buttons, BorderLayout.SOUTH);
+		add(buttons, BorderLayout.NORTH);
 	}
 }
