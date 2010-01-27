@@ -51,7 +51,7 @@ public class BHBarChart extends BHChart implements IBHAddGroupValue, IPlatformLi
 
         this.dataset = (DefaultCategoryDataset) dataset;
 
-        chart = ChartFactory.createBarChart(translator.translate(key), translator.translate(key.concat(BHChart.DIMX)), translator.translate(key.concat(BHChart.DIMY)), this.dataset, PlotOrientation.VERTICAL, legend, tooltips, false);
+        chart = ChartFactory.createBarChart(null,translator.translate(key.concat(BHChart.DIMX)), translator.translate(key.concat(BHChart.DIMY)), this.dataset, PlotOrientation.VERTICAL, legend, tooltips, false);
 
         if ("Nimbus".equals(UIManager.getLookAndFeel().getName())) {
             chart.setBackgroundPaint(UIManager.getColor("Chart.background"));

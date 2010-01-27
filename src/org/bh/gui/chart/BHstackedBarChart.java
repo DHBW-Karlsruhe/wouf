@@ -52,7 +52,7 @@ public class BHstackedBarChart extends BHChart implements IBHAddGroupValue, IPla
         super(key);
         this.dataset = (DefaultCategoryDataset) dataset;
 
-        chart = ChartFactory.createStackedBarChart(translator.translate(key), translator.translate(key.concat(BHChart.DIMX)), translator.translate(key.concat(BHChart.DIMY)), this.dataset, PlotOrientation.VERTICAL, legend, tooltips, false);
+        chart = ChartFactory.createStackedBarChart(null, translator.translate(key.concat(BHChart.DIMX)), translator.translate(key.concat(BHChart.DIMY)), this.dataset, PlotOrientation.VERTICAL, legend, tooltips, false);
 
         if ("Nimbus".equals(UIManager.getLookAndFeel().getName())) {
             chart.setBackgroundPaint(UIManager.getColor("Chart.background"));

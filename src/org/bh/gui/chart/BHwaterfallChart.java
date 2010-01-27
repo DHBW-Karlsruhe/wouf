@@ -49,7 +49,7 @@ public class BHwaterfallChart extends BHChart implements IBHAddGroupValue, IPlat
         super(key);
         this.dataset = (DefaultCategoryDataset) dataset;
 
-        chart = ChartFactory.createWaterfallChart(translator.translate(key), translator.translate(key.concat(BHChart.DIMX)), translator.translate(key.concat(BHChart.DIMY)), this.dataset, PlotOrientation.VERTICAL, legend, tooltips, false);
+        chart = ChartFactory.createWaterfallChart(null, translator.translate(key.concat(BHChart.DIMX)), translator.translate(key.concat(BHChart.DIMY)), this.dataset, PlotOrientation.VERTICAL, legend, tooltips, false);
 
         if ("Nimbus".equals(UIManager.getLookAndFeel().getName())) {
             chart.setBackgroundPaint(UIManager.getColor("Chart.background"));

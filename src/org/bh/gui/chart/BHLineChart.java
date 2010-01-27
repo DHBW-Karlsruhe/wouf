@@ -34,7 +34,7 @@ public class BHLineChart extends BHChart implements IBHAddValue, IPlatformListen
 		super(key);
 		this.dataset = (DefaultCategoryDataset) dataset;
 
-		chart = ChartFactory.createLineChart(translator.translate(key)
+		chart = ChartFactory.createLineChart(null
                         , translator.translate(key.concat(BHChart.DIMX))
                         , translator.translate(key.concat(BHChart.DIMY))
                         , this.dataset

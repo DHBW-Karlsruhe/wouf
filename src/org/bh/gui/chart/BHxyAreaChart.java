@@ -10,7 +10,6 @@ import org.bh.platform.Services;
 import org.bh.platform.PlatformEvent.Type;
 import org.jfree.chart.ChartFactory;
 import org.jfree.chart.plot.PlotOrientation;
-import org.jfree.chart.plot.XYPlot;
 import org.jfree.data.general.Dataset;
 import org.jfree.data.xy.DefaultXYDataset;
 
@@ -34,7 +33,7 @@ public class BHxyAreaChart extends BHChart implements IBHAddValue, IPlatformList
 		super(key);
 		this.dataset = (DefaultXYDataset) dataset;
 
-		chart = ChartFactory.createXYAreaChart(translator.translate(key)
+		chart = ChartFactory.createXYAreaChart(null
                         , translator.translate(key.concat(BHChart.DIMX))
                         , translator.translate(key.concat(BHChart.DIMY))
                         ,this.dataset

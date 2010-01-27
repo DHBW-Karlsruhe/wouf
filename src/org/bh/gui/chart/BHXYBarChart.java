@@ -29,7 +29,7 @@ public class BHXYBarChart extends BHChart implements IBHAddValue,
 		final ITranslator translator = Services.getTranslator();
 		this.dataset = new XYSeriesCollection(new XYSeries(translator.translate(key)));
 		chart = ChartFactory.createXYBarChart(
-				translator.translate(key),
+				null,
 				translator.translate(key.concat(BHChart.DIMX)), 
 				false, 
 				translator.translate(key.concat(BHChart.DIMY)), 
