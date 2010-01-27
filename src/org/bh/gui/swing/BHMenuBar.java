@@ -28,6 +28,9 @@ public class BHMenuBar extends JMenuBar{
 
 	ITranslator translator = Services.getTranslator();
 	
+	public JMenu menuFile, menuProject, menuScenario, menuPeriod, menuOptions, menuHelp;
+	public BHMenuItem projectCreate, projectDuplicate, projectImport, projectExport, projectRemove,
+	scenarioCreate, scenarioDuplicate, scenarioRemove, periodCreate, periodDuplicate, periodRemove;
 	
 	public BHMenuBar() {
 
@@ -36,39 +39,39 @@ public class BHMenuBar extends JMenuBar{
 		 **/
 
 		// create menu --> File
-		JMenu menuFile = new JMenu(translator.translate("Mfile"));
+		menuFile = new JMenu(translator.translate("Mfile"));
 		menuFile.setMnemonic(translator.translate("Mfile", ITranslator.MNEMONIC).charAt(0));
 		add(menuFile);
 
 		// create menu --> Project
-		JMenu menuProject = new JMenu(translator.translate("Mproject"));
+		menuProject = new JMenu(translator.translate("Mproject"));
 		menuProject.setMnemonic(translator.translate("Mproject", ITranslator.MNEMONIC).charAt(0));
 		add(menuProject);
 
 		// create menu --> Scenario
-		JMenu menuScenario = new JMenu(translator.translate("Mscenario"));
+		menuScenario = new JMenu(translator.translate("Mscenario"));
 		menuScenario.setMnemonic(translator.translate("Mscenario", ITranslator.MNEMONIC).charAt(0));
 		add(menuScenario);
 
 		// create menu --> Period
-		JMenu menuPeriod = new JMenu(translator.translate("Mperiod"));
+		menuPeriod = new JMenu(translator.translate("Mperiod"));
 		menuPeriod.setMnemonic(translator.translate("Mperiod", ITranslator.MNEMONIC).charAt(0));
 		add(menuPeriod);
 
 		// create menu --> Options
-		JMenu menuOptions = new JMenu(translator.translate("Moptions"));
+		menuOptions = new JMenu(translator.translate("Moptions"));
 		menuOptions.setMnemonic(translator.translate("Moptions", ITranslator.MNEMONIC).charAt(0));
 		add(menuOptions);
 
 		// create menu --> Help
-		JMenu menuHelp = new JMenu(translator.translate("Mhelp"));
+		menuHelp = new JMenu(translator.translate("Mhelp"));
 		menuHelp.setMnemonic(translator.translate("Mhelp", ITranslator.MNEMONIC).charAt(0));
 		add(menuHelp);
 		
 		/**
 		 * create menu items --> file
 		 **/
-		menuFile.add(new BHMenuItem(PlatformKey.FILENEW, 78)); // N
+		menuFile.add(new BHMenuItem(PlatformKey.FILENEW, 78)); //N
 		menuFile.add(new BHMenuItem(PlatformKey.FILEOPEN, 79)); // O
 		menuFile.add(new BHMenuItem(PlatformKey.FILESAVE, 83)); // S
 		menuFile.add(new BHMenuItem(PlatformKey.FILESAVEAS, 83)); // S
@@ -80,30 +83,41 @@ public class BHMenuBar extends JMenuBar{
 		/**
 		 * create menu items --> project
 		 **/
-		menuProject.add(new BHMenuItem(PlatformKey.PROJECTCREATE, 114)); //F5
-		menuProject.add(new BHMenuItem(PlatformKey.PROJECTDUPLICATE));
+		projectCreate = new BHMenuItem(PlatformKey.PROJECTCREATE, 114); //F5
+		menuProject.add(projectCreate);
+		projectDuplicate = new BHMenuItem(PlatformKey.PROJECTDUPLICATE);
+		menuProject.add(projectDuplicate);
 		menuProject.addSeparator();
-		menuProject.add(new BHMenuItem(PlatformKey.PROJECTIMPORT));
-		menuProject.add(new BHMenuItem(PlatformKey.PROJECTEXPORT));
+		projectImport = new BHMenuItem(PlatformKey.PROJECTIMPORT);
+		menuProject.add(projectImport);
+		projectExport = new BHMenuItem(PlatformKey.PROJECTEXPORT);
+		menuProject.add(projectExport);
 		menuProject.addSeparator();
-		menuProject.add(new BHMenuItem(PlatformKey.PROJECTREMOVE));
+		projectRemove = new BHMenuItem(PlatformKey.PROJECTREMOVE);
+		menuProject.add(projectRemove);
 
 
 		/**
 		 * create menu items --> scenario
 		 **/
-		menuScenario.add(new BHMenuItem(PlatformKey.SCENARIOCREATE, 115)); //F6
-		menuScenario.add(new BHMenuItem(PlatformKey.SCENARIODUPLICATE));
+		scenarioCreate = new BHMenuItem(PlatformKey.SCENARIOCREATE, 115); //F6
+		menuScenario.add(scenarioCreate);
+		scenarioDuplicate = new BHMenuItem(PlatformKey.SCENARIODUPLICATE);
+		menuScenario.add(scenarioDuplicate);
 		menuScenario.addSeparator();
-		menuScenario.add(new BHMenuItem(PlatformKey.SCENARIOREMOVE));
+		scenarioRemove = new BHMenuItem(PlatformKey.SCENARIOREMOVE);
+		menuScenario.add(scenarioRemove);
 
 		/**
-		 * create menu items --> scenario
+		 * create menu items --> period
 		 **/
-		menuPeriod.add(new BHMenuItem(PlatformKey.PERIODCREATE, 116)); //F7
-		menuPeriod.add(new BHMenuItem(PlatformKey.PERIODDUPLICATE));
+		periodCreate = new BHMenuItem(PlatformKey.PERIODCREATE, 116); //F7
+		menuPeriod.add(periodCreate);
+		periodDuplicate = new BHMenuItem(PlatformKey.PERIODDUPLICATE);
+		menuPeriod.add(periodDuplicate);
 		menuPeriod.addSeparator();
-		menuPeriod.add(new BHMenuItem(PlatformKey.PERIODREMOVE));
+		periodRemove = new BHMenuItem(PlatformKey.PERIODREMOVE);
+		menuPeriod.add(periodRemove);
 		
 		
 		/**
@@ -121,5 +135,39 @@ public class BHMenuBar extends JMenuBar{
 		if (BusinessHorizon.DEBUG) 
 			menuHelp.add(new BHMenuItem(PlatformKey.HELPDEBUG));
 		menuHelp.add(new BHMenuItem(PlatformKey.HELPINFO));
+	}
+	
+	public void disableMenuProjectItems(){
+		projectDuplicate.setEnabled(false);
+		projectExport.setEnabled(false);
+		projectImport.setEnabled(false);
+		projectRemove.setEnabled(false);
+	}
+	
+	public void enableMenuProjectItems(){
+		projectDuplicate.setEnabled(true);
+		projectExport.setEnabled(true);
+		projectImport.setEnabled(true);
+		projectRemove.setEnabled(true);
+	}
+	
+	public void disableMenuScnearioItems(){
+	    	scenarioDuplicate.setEnabled(false);
+	    	scenarioRemove.setEnabled(false);
+	}
+	
+	public void enableMenuScnearioItems(){
+	    	scenarioDuplicate.setEnabled(true);
+	    	scenarioRemove.setEnabled(true);
+	}
+	
+	public void disableMenuPeriodItems(){
+	    	periodDuplicate.setEnabled(false);
+	    	periodRemove.setEnabled(false);
+	}
+	
+	public void enableMenuPeriodItems(){
+	    	periodDuplicate.setEnabled(true);
+	    	periodRemove.setEnabled(true);
 	}
 }

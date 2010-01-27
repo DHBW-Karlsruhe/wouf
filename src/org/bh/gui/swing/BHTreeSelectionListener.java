@@ -44,11 +44,13 @@ public class BHTreeSelectionListener implements TreeSelectionListener {
 	
 	private BHMainFrame bhmf;
 	private PlatformController pc;
+	private BHMenuBar bhmb;
 	private InputController controller = null;
 
-	public BHTreeSelectionListener(PlatformController pc, BHMainFrame bhmf) {
+	public BHTreeSelectionListener(PlatformController pc, BHMainFrame bhmf, BHMenuBar bhmb) {
 		this.pc = pc;
 		this.bhmf = bhmf;
+		this.bhmb = bhmb;
 	}
 
 	@Override
@@ -76,6 +78,12 @@ public class BHTreeSelectionListener implements TreeSelectionListener {
 						DTO<?> selectedDto = (DTO<?>) selectedNode
 								.getUserObject();
 						if (selectedDto instanceof DTOProject) {
+						    
+						    //set menu items enabled oder disabled
+						    bhmb.enableMenuProjectItems();
+						    bhmb.disableMenuScnearioItems();
+						    bhmb.disableMenuPeriodItems();
+						    						    
 							try {
 								View view = new BHProjectView(
 										new BHProjectForm());
@@ -115,6 +123,14 @@ public class BHTreeSelectionListener implements TreeSelectionListener {
 							}
 
 						} else if (selectedDto instanceof DTOScenario) {
+						    
+						    //set menu items enabled oder disabled
+						    bhmb.disableMenuProjectItems();
+						    bhmb.enableMenuScnearioItems();
+						    bhmb.disableMenuPeriodItems();
+						    
+						    
+						    
 							try {
 
 								DTOScenario model = (DTOScenario) selectedDto;
@@ -185,6 +201,13 @@ public class BHTreeSelectionListener implements TreeSelectionListener {
 							}
 
 						} else if (selectedDto instanceof DTOPeriod) {
+						  
+						    //set menu items enabled oder disabled
+						    bhmb.disableMenuProjectItems();
+						    bhmb.disableMenuScnearioItems();
+						    bhmb.enableMenuPeriodItems();
+						    
+						    
 							bhmf.removeResultForm();
 							
 							DTOPeriod period = (DTOPeriod)selectedDto;

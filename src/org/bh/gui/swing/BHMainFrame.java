@@ -3,6 +3,7 @@ package org.bh.gui.swing;
 import java.awt.BorderLayout;
 import java.awt.Component;
 import java.awt.Dimension;
+import java.awt.MenuBar;
 import java.util.prefs.BackingStoreException;
 
 import javax.swing.JFrame;
@@ -397,5 +398,8 @@ public class BHMainFrame extends JFrame implements IPlatformListener, TimingTarg
 		}
 	}
 	
+	public BHMenuBar getBHMenuBar(){
+	    return menuBar;
+	}
 	
 }
