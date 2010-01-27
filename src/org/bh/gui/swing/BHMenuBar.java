@@ -28,8 +28,8 @@ public class BHMenuBar extends JMenuBar{
 
 	ITranslator translator = Services.getTranslator();
 	
-	public JMenu menuFile, menuProject, menuScenario, menuPeriod, menuOptions, menuHelp;
-	public BHMenuItem projectCreate, projectDuplicate, projectImport, projectExport, projectRemove,
+	private JMenu menuFile, menuProject, menuScenario, menuPeriod, menuOptions, menuHelp;
+	private BHMenuItem projectCreate, projectDuplicate, projectImport, projectExport, projectRemove,
 	scenarioCreate, scenarioDuplicate, scenarioRemove, periodCreate, periodDuplicate, periodRemove;
 	
 	public BHMenuBar() {

@@ -402,4 +402,7 @@ public class BHMainFrame extends JFrame implements IPlatformListener, TimingTarg
 	    return menuBar;
 	}
 	
+	public BHToolBar getBHToolBar(){
+	    return toolBar;
+	}
 }

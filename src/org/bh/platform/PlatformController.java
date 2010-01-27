@@ -207,7 +207,7 @@ public class PlatformController {
 		// avoid to sum number of listeners -- done in context with ticket #85
 		if (bhmf.getBHTree().getTreeSelectionListeners().length < 3) {
 			bhmf.getBHTree().addTreeSelectionListener(
-					new BHTreeSelectionListener(this, bhmf, bhmf.getBHMenuBar()));
+					new BHTreeSelectionListener(this, bhmf));
 		}
 		
 		

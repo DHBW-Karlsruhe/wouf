@@ -15,7 +15,7 @@ import com.jgoodies.forms.layout.FormLayout;
 
 /**
  * 
- * BHToolBar offers quick access to functions
+ * BHToolBar offers quick access to the main functions of Business Horizon
  *
  * <p>
  * This class offers the user quick access to important and frequently used functions.
@@ -32,10 +32,6 @@ public class BHToolBar extends JToolBar implements MouseListener{
 	boolean shown = true;
 	boolean fixed = true;
 	
-// TODO Patrick T. - necessary?
-//	private int width;
-//	private int height;
-
 	private BHButton Bnew, Bopen, Bsave, Bproject, Bscenario, Bperiod, Bdelete; 
 	JLabel showHide;
 	private JLabel separator1, separator2;
@@ -44,37 +40,34 @@ public class BHToolBar extends JToolBar implements MouseListener{
 	
     
     public BHToolBar(int width, int height) {
-    	// TODO Patrick T. - necessary?
-//    	this.width = width;
-//    	this.height = height;
-    	addMouseListener(this);
     	
-		//paint background
-		setOpaque(true);
+	addMouseListener(this);
+    	
 		
-		//don't allow to relocate the bar
-		setFloatable(false);
+	//paint background
+	setOpaque(true);
+	
+	//don't allow to relocate the bar
+	setFloatable(false);
 		
-		//setSize(width, height);
+	//setSize(width, height);
+	String rowDef = "p";
+	String colDef = "65px,65px,65px,6px,65px,65px,65px,6px,65px,fill:0px:grow,fill:30px";
+	setLayout(new FormLayout(colDef, rowDef));
+	cons = new CellConstraints();
+	
+	if (PlatformController.preferences.get("showToolbar", "true").equals("true")) {
+		fixed = true;
+		shown = true;
+		createToolBar();
+		showToolBar();
 		
-		
-		String rowDef = "p";
-		String colDef = "65px,65px,65px,6px,65px,65px,65px,6px,65px,fill:0px:grow,fill:30px";
-		setLayout(new FormLayout(colDef, rowDef));
-		cons = new CellConstraints();
-		
-		if (PlatformController.preferences.get("showToolbar", "true").equals("true")) {
-			fixed = true;
-			shown = true;
-			createToolBar();
-			showToolBar();
-			
-		} else {
-			fixed = false;
-			shown = false;
-			createToolBar();
-			hideToolBar();
-		}
+	} else {
+		fixed = false;
+		shown = false;
+		createToolBar();
+		hideToolBar();
+	}
 		
     }
     
@@ -114,10 +107,10 @@ public class BHToolBar extends JToolBar implements MouseListener{
     
     public void createToolBar(){
     	
-    	Bnew = new BHToolButton(PlatformKey.TOOLBARNEW, 0, "BnewWorkspace");
-    	Bnew.addMouseListener(this);
-    	Bopen = new BHToolButton(PlatformKey.TOOLBAROPEN, 0, "Bopen");
-    	Bopen.addMouseListener(this);
+        	Bnew = new BHToolButton(PlatformKey.TOOLBARNEW, 0, "BnewWorkspace");
+        	Bnew.addMouseListener(this);
+        	Bopen = new BHToolButton(PlatformKey.TOOLBAROPEN, 0, "Bopen");
+        	Bopen.addMouseListener(this);
 		Bsave = new BHToolButton(PlatformKey.TOOLBARSAVE, 0,"Bsave");
 		Bsave.addMouseListener(this);
 		Bproject = new BHToolButton(PlatformKey.TOOLBARADDPRO, 113, "BnewProject");
@@ -160,7 +153,26 @@ public class BHToolBar extends JToolBar implements MouseListener{
 		addMouseListener(this);
 		
     }
-
+    
+    //methods to disable the buttons in BHToolBar
+    public void disableProjectButton(){
+	Bproject.setEnabled(false);
+    }
+    public void enableProjectButton(){
+	Bproject.setEnabled(true);
+    }
+    public void disableScenarioButton(){
+	Bscenario.setEnabled(false);
+    }
+    public void enableScenarioButton(){
+	Bscenario.setEnabled(true);
+    }
+    public void disablePeriodButton(){
+	Bperiod.setEnabled(false);
+    }
+    public void enablePeriodButton(){
+	Bperiod.setEnabled(true);
+    }
 	/**
 	 *  Listener for Sliding ToolBar
 	 */

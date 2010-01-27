@@ -47,7 +47,7 @@ public class BHTreeSelectionListener implements TreeSelectionListener {
 	private BHMenuBar bhmb;
 	private InputController controller = null;
 
-	public BHTreeSelectionListener(PlatformController pc, BHMainFrame bhmf, BHMenuBar bhmb) {
+	public BHTreeSelectionListener(PlatformController pc, BHMainFrame bhmf) {
 		this.pc = pc;
 		this.bhmf = bhmf;
 		this.bhmb = bhmb;
@@ -80,9 +80,13 @@ public class BHTreeSelectionListener implements TreeSelectionListener {
 						if (selectedDto instanceof DTOProject) {
 						    
 						    //set menu items enabled oder disabled
-						    bhmb.enableMenuProjectItems();
-						    bhmb.disableMenuScnearioItems();
-						    bhmb.disableMenuPeriodItems();
+						    bhmf.getBHMenuBar().enableMenuProjectItems();
+						    bhmf.getBHMenuBar().disableMenuScnearioItems();
+						    bhmf.getBHMenuBar().disableMenuPeriodItems();
+						    
+						    //set ToolBar button disabled
+						    bhmf.getBHToolBar().disablePeriodButton();
+							   
 						    						    
 							try {
 								View view = new BHProjectView(
@@ -125,11 +129,13 @@ public class BHTreeSelectionListener implements TreeSelectionListener {
 						} else if (selectedDto instanceof DTOScenario) {
 						    
 						    //set menu items enabled oder disabled
-						    bhmb.disableMenuProjectItems();
-						    bhmb.enableMenuScnearioItems();
-						    bhmb.disableMenuPeriodItems();
-						    
-						    
+						    bhmf.getBHMenuBar().disableMenuProjectItems();
+						    bhmf.getBHMenuBar().enableMenuScnearioItems();
+						    bhmf.getBHMenuBar().disableMenuPeriodItems();
+						 
+						    //set ToolBar button enabled
+						    bhmf.getBHToolBar().enablePeriodButton();
+						
 						    
 							try {
 
@@ -203,9 +209,12 @@ public class BHTreeSelectionListener implements TreeSelectionListener {
 						} else if (selectedDto instanceof DTOPeriod) {
 						  
 						    //set menu items enabled oder disabled
-						    bhmb.disableMenuProjectItems();
-						    bhmb.disableMenuScnearioItems();
-						    bhmb.enableMenuPeriodItems();
+						    bhmf.getBHMenuBar().disableMenuProjectItems();
+						    bhmf.getBHMenuBar().disableMenuScnearioItems();
+						    bhmf.getBHMenuBar().enableMenuPeriodItems();
+						    
+						    //set ToolBar button enabled
+						    bhmf.getBHToolBar().enablePeriodButton();
 						    
 						    
 							bhmf.removeResultForm();
