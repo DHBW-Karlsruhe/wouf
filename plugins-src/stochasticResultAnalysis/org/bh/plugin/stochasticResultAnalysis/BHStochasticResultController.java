@@ -4,6 +4,8 @@ import java.util.Map;
 
 import javax.swing.event.CaretEvent;
 import javax.swing.event.CaretListener;
+import javax.swing.event.ChangeEvent;
+import javax.swing.event.ChangeListener;
 
 import org.bh.controller.OutputController;
 import org.bh.data.DTOScenario;
@@ -13,6 +15,7 @@ import org.bh.data.types.IntervalValue;
 import org.bh.data.types.StringValue;
 import org.bh.gui.IBHModelComponent;
 import org.bh.gui.chart.IBHAddValue;
+import org.bh.gui.swing.comp.BHSlider;
 import org.bh.gui.swing.comp.BHTextField;
 import org.bh.gui.view.View;
 import org.bh.platform.Services;
@@ -47,7 +50,9 @@ public class BHStochasticResultController extends OutputController{
 	}
 	public BHStochasticResultController(View view, DistributionMap result, DTOScenario scenario){
 		super(view, result, scenario);
-		((BHTextField)(view.getBHModelComponents().get(ChartKeys.RISK_AT_VALUE.toString()))).addCaretListener(new RiskAtValueListener());
+		//((BHTextField)(view.getBHModelComponents().get(ChartKeys.RISK_AT_VALUE.toString()))).addCaretListener(new RiskAtValueListener());
+		BHSlider slider = (BHSlider)view.getBHComponent(ChartKeys.RISK_AT_VALUE.toString());
+		slider.addChangeListener(new SliderChangeListener());
 	}
 	@Override
 	public void setResult(DistributionMap result, DTOScenario scenario) {
@@ -60,14 +65,16 @@ public class BHStochasticResultController extends OutputController{
 				entry.getValue().setValue(new DoubleValue(result.getStandardDeviation()));
 			else if(entry.getKey().equals(ChartKeys.AVERAGE.toString()))
 				entry.getValue().setValue(new DoubleValue(result.getAverage()));
-			else if(entry.getKey().equals(ChartKeys.RISK_AT_VALUE.toString())){
-				if(((BHTextField)(view.getBHModelComponents().get(ChartKeys.RISK_AT_VALUE.toString()))).getValue() != null){
-					double confidence = ((DoubleValue)((BHTextField)(view.getBHModelComponents().get(ChartKeys.RISK_AT_VALUE.toString()))).getValue()).getValue();
-					calcRiskAtValue(confidence, result.getMaxAmountOfValuesInCluster());
-				}else
-					calcRiskAtValue(null, null);
-			}
+//			else if(entry.getKey().equals(ChartKeys.RISK_AT_VALUE.toString())){
+//				if(((BHTextField)(view.getBHModelComponents().get(ChartKeys.RISK_AT_VALUE.toString()))).getValue() != null){
+//					double confidence = ((DoubleValue)((BHTextField)(view.getBHModelComponents().get(ChartKeys.RISK_AT_VALUE.toString()))).getValue()).getValue();
+//					calcRiskAtValue(confidence, result.getMaxAmountOfValuesInCluster());
+//				}else
+//					calcRiskAtValue(null, null);
+//			}
 		}
+		double confidence = ((BHSlider)view.getBHComponent(ChartKeys.RISK_AT_VALUE.toString())).getValue();
+		calcRiskAtValue(confidence, stochasticResult.getMaxAmountOfValuesInCluster());
 		//calcRiskAtValue(confidence);
 	}
 	public void calcRiskAtValue(Double confidence, Integer maxAmountofValues){
@@ -102,6 +109,15 @@ public class BHStochasticResultController extends OutputController{
 			}else
 				calcRiskAtValue(null, stochasticResult.getMaxAmountOfValuesInCluster());
 		}		
+	}
+	class SliderChangeListener implements ChangeListener{
+
+	    @Override
+	    public void stateChanged(ChangeEvent e) {
+		double confidence = ((BHSlider)view.getBHComponent(ChartKeys.RISK_AT_VALUE.toString())).getValue();
+		calcRiskAtValue(confidence, stochasticResult.getMaxAmountOfValuesInCluster());
+	    }
+	    
 	}
 }
 

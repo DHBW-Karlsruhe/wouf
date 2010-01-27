@@ -15,12 +15,9 @@ import org.bh.controller.Controller;
 import org.bh.gui.chart.BHChartFactory;
 import org.bh.gui.chart.BHChartPanel;
 import org.bh.gui.swing.comp.BHDescriptionLabel;
-import org.bh.gui.swing.comp.BHTextField;
+import org.bh.gui.swing.comp.BHSlider;
 import org.bh.gui.swing.comp.BHValueLabel;
 import org.bh.platform.i18n.ITranslator;
-import org.bh.validation.VRIsBetween;
-import org.bh.validation.VRIsDouble;
-import org.bh.validation.ValidationRule;
 
 import com.jgoodies.forms.layout.FormLayout;
 
@@ -54,7 +51,9 @@ public class StochasticPanel extends JPanel{
 	        BHValueLabel ewValue = new BHValueLabel(BHStochasticResultController.ChartKeys.AVERAGE);
 	        
 	        BHDescriptionLabel riskAt = new BHDescriptionLabel(BHStochasticResultController.PanelKeys.VALUE);
-	        BHTextField riskAtField = new BHTextField(BHStochasticResultController.ChartKeys.RISK_AT_VALUE,"95", true);
+	        
+	        BHSlider slider = new BHSlider(BHStochasticResultController.ChartKeys.RISK_AT_VALUE, 0, 100, 95);
+	        //BHTextField riskAtField = new BHTextField(BHStochasticResultController.ChartKeys.RISK_AT_VALUE,"95", true);
 	        
 	        BHDescriptionLabel min = new BHDescriptionLabel("min");
 	        BHDescriptionLabel max = new BHDescriptionLabel("max");
@@ -64,10 +63,11 @@ public class StochasticPanel extends JPanel{
 	        JPanel rav = new JPanel();
 	        rav.setLayout(new FormLayout ("4px:grow,right:pref,10px,pref,4px,pref,4px:grow","4px,p,4px,p,4px,p,4px"));
 	        rav.add(riskAt, "2,2");
-	        riskAtField.setPreferredSize(new Dimension(50,riskAtField.getPreferredSize().height));
-                ValidationRule[] rules = {VRIsDouble.INSTANCE, VRIsBetween.BETWEEN0AND100};//Validation for value at risk
-                riskAtField.setValidationRules(rules);
-	        rav.add(riskAtField, "4,2");
+	        //riskAtField.setPreferredSize(new Dimension(50,riskAtField.getPreferredSize().height));
+                slider.setPreferredSize(new Dimension(200,slider.getPreferredSize().height));
+//	        ValidationRule[] rules = {VRIsDouble.INSTANCE, VRIsBetween.BETWEEN0AND100};//Validation for value at risk
+//                riskAtField.setValidationRules(rules);
+	        rav.add(slider, "4,2");
 	        rav.add(new JLabel("%"), "6,2");
 	        rav.add(min, "2,4");
 	        rav.add(minValue, "4,4");
