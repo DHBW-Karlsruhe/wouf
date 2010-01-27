@@ -32,7 +32,7 @@ public class BHToolBar extends JToolBar implements MouseListener{
 	boolean shown = true;
 	boolean fixed = true;
 	
-	private BHButton Bnew, Bopen, Bsave, Bproject, Bscenario, Bperiod, Bdelete; 
+	private BHButton Bopen, Bsave, Bproject, Bscenario, Bperiod, Bdelete; 
 	JLabel showHide;
 	private JLabel separator1, separator2;
 	
@@ -52,7 +52,7 @@ public class BHToolBar extends JToolBar implements MouseListener{
 		
 	//setSize(width, height);
 	String rowDef = "p";
-	String colDef = "65px,65px,65px,6px,65px,65px,65px,6px,65px,fill:0px:grow,fill:30px";
+	String colDef = "65px,65px,6px,65px,65px,65px,6px,65px,fill:0px:grow,fill:30px";
 	setLayout(new FormLayout(colDef, rowDef));
 	cons = new CellConstraints();
 	
@@ -73,7 +73,6 @@ public class BHToolBar extends JToolBar implements MouseListener{
     
     public void hideToolBar(){
 
-    	Bnew.setVisible(false);
     	Bopen.setVisible(false);
     	Bsave.setVisible(false);
     	separator1.setVisible(false);
@@ -90,7 +89,6 @@ public class BHToolBar extends JToolBar implements MouseListener{
     
     public void showToolBar(){
    	
-    	Bnew.setVisible(true);
     	Bopen.setVisible(true);
     	Bsave.setVisible(true);
     	separator1.setVisible(true);
@@ -107,8 +105,6 @@ public class BHToolBar extends JToolBar implements MouseListener{
     
     public void createToolBar(){
     	
-        	Bnew = new BHToolButton(PlatformKey.TOOLBARNEW, 0, "BnewWorkspace");
-        	Bnew.addMouseListener(this);
         	Bopen = new BHToolButton(PlatformKey.TOOLBAROPEN, 0, "Bopen");
         	Bopen.addMouseListener(this);
 		Bsave = new BHToolButton(PlatformKey.TOOLBARSAVE, 0,"Bsave");
@@ -139,16 +135,15 @@ public class BHToolBar extends JToolBar implements MouseListener{
 		separator2.setIcon(new ImageIcon(BHToolBar.class.getResource("/org/bh/images/buttons/Separator.png"), ""));
 		separator2.addMouseListener(this);
 		
-		add(Bnew,  cons.xywh(1, 1, 1, 1));
-		add(Bopen,  cons.xywh(2, 1, 1, 1));
-		add(Bsave,  cons.xywh(3, 1, 1, 1));
-		add(separator1,  cons.xywh(4, 1, 1, 1));
-		add(Bproject,  cons.xywh(5, 1, 1, 1));
-		add(Bscenario,  cons.xywh(6, 1, 1, 1));
-		add(Bperiod,  cons.xywh(7, 1, 1, 1));
-		add(separator2,  cons.xywh(8, 1, 1, 1));
-		add(Bdelete,  cons.xywh(9, 1, 1, 1));
-		add(showHide, cons.xywh(11, 1, 1, 1, "right,top"));
+		add(Bopen,  cons.xywh(1, 1, 1, 1));
+		add(Bsave,  cons.xywh(2, 1, 1, 1));
+		add(separator1,  cons.xywh(3, 1, 1, 1));
+		add(Bproject,  cons.xywh(4, 1, 1, 1));
+		add(Bscenario,  cons.xywh(5, 1, 1, 1));
+		add(Bperiod,  cons.xywh(6, 1, 1, 1));
+		add(separator2,  cons.xywh(7, 1, 1, 1));
+		add(Bdelete,  cons.xywh(8, 1, 1, 1));
+		add(showHide, cons.xywh(10, 1, 1, 1, "right,top"));
 				
 		addMouseListener(this);
 		
