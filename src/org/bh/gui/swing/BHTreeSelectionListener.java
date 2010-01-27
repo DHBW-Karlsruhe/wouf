@@ -44,13 +44,11 @@ public class BHTreeSelectionListener implements TreeSelectionListener {
 	
 	private BHMainFrame bhmf;
 	private PlatformController pc;
-	private BHMenuBar bhmb;
 	private InputController controller = null;
 
 	public BHTreeSelectionListener(PlatformController pc, BHMainFrame bhmf) {
 		this.pc = pc;
 		this.bhmf = bhmf;
-		this.bhmb = bhmb;
 	}
 
 	@Override
@@ -58,6 +56,16 @@ public class BHTreeSelectionListener implements TreeSelectionListener {
 		if (tse.getNewLeadSelectionPath() == null) {
 			bhmf.setContentForm(new BHContent());
 			bhmf.removeResultForm();
+			
+			System.out.println("Geht net");
+			//disable menu items
+			bhmf.getBHMenuBar().disableMenuScenarioAllItems();
+			bhmf.getBHMenuBar().disableMenuPeriodAllItems();
+						
+			//disable ToolBar buttons
+			bhmf.getBHToolBar().disableScenarioButton();
+			bhmf.getBHToolBar().disablePeriodButton();
+			
 		} else {
 			// save divider location of split pane
 			BHTreeNode oldActiveNode;
@@ -77,15 +85,17 @@ public class BHTreeSelectionListener implements TreeSelectionListener {
 								.getLastPathComponent();
 						DTO<?> selectedDto = (DTO<?>) selectedNode
 								.getUserObject();
+												
 						if (selectedDto instanceof DTOProject) {
 						    
 						    //set menu items enabled oder disabled
 						    bhmf.getBHMenuBar().enableMenuProjectItems();
-						    bhmf.getBHMenuBar().disableMenuScnearioItems();
-						    bhmf.getBHMenuBar().disableMenuPeriodItems();
+						    bhmf.getBHMenuBar().disableMenuScenarioItems();
+						    bhmf.getBHMenuBar().disableMenuPeriodAllItems();
 						    
 						    //set ToolBar button disabled
 						    bhmf.getBHToolBar().disablePeriodButton();
+						    bhmf.getBHToolBar().enableScenarioButton();
 							   
 						    						    
 							try {
@@ -130,12 +140,12 @@ public class BHTreeSelectionListener implements TreeSelectionListener {
 						    
 						    //set menu items enabled oder disabled
 						    bhmf.getBHMenuBar().disableMenuProjectItems();
-						    bhmf.getBHMenuBar().enableMenuScnearioItems();
+						    bhmf.getBHMenuBar().enableMenuScenarioItems();
 						    bhmf.getBHMenuBar().disableMenuPeriodItems();
 						 
 						    //set ToolBar button enabled
 						    bhmf.getBHToolBar().enablePeriodButton();
-						
+						    bhmf.getBHToolBar().enableScenarioButton();
 						    
 							try {
 
@@ -210,12 +220,12 @@ public class BHTreeSelectionListener implements TreeSelectionListener {
 						  
 						    //set menu items enabled oder disabled
 						    bhmf.getBHMenuBar().disableMenuProjectItems();
-						    bhmf.getBHMenuBar().disableMenuScnearioItems();
+						    bhmf.getBHMenuBar().disableMenuScenarioItems();
 						    bhmf.getBHMenuBar().enableMenuPeriodItems();
 						    
 						    //set ToolBar button enabled
 						    bhmf.getBHToolBar().enablePeriodButton();
-						    
+						    bhmf.getBHToolBar().enableScenarioButton();
 						    
 							bhmf.removeResultForm();
 							

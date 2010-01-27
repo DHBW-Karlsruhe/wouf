@@ -23,6 +23,7 @@ import com.jgoodies.forms.layout.FormLayout;
  *
  * @author Tietze.Patrick
  * @version 0.1, 2009/12/03
+ * @version 1.0, 2010/01/27
  *
  */
 
@@ -149,30 +150,32 @@ public class BHToolBar extends JToolBar implements MouseListener{
 		
     }
     
-    //methods to disable the buttons in BHToolBar
-    public void disableProjectButton(){
-	Bproject.setEnabled(false);
-    }
-    public void enableProjectButton(){
-	Bproject.setEnabled(true);
-    }
-    public void disableScenarioButton(){
-	Bscenario.setEnabled(false);
-    }
-    public void enableScenarioButton(){
-	Bscenario.setEnabled(true);
-    }
-    public void disablePeriodButton(){
-	Bperiod.setEnabled(false);
-    }
-    public void enablePeriodButton(){
-	Bperiod.setEnabled(true);
-    }
+        /**
+         * methods to disable buttons in BHToolBar
+         */
+        public void disableProjectButton(){
+    		Bproject.setEnabled(false);
+        }
+        public void enableProjectButton(){
+    		Bproject.setEnabled(true);
+        }
+        public void disableScenarioButton(){
+    		Bscenario.setEnabled(false);
+        }
+        public void enableScenarioButton(){
+    		Bscenario.setEnabled(true);
+        }
+        public void disablePeriodButton(){
+    		Bperiod.setEnabled(false);
+        }
+        public void enablePeriodButton(){
+    		Bperiod.setEnabled(true);
+        }
+        
+        
 	/**
 	 *  Listener for Sliding ToolBar
 	 */
-	
-	@Override
 	public void mouseClicked(MouseEvent arg0) {
 		// not necessary
 	}

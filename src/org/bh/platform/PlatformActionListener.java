@@ -513,7 +513,7 @@ class PlatformActionListener implements ActionListener {
 						.getPath());
 				bhmf.getBHTree().setSelectionPath(tp);
 				if (bhmf.getBHTree().getSelectionPath().getPathCount() == 1)
-					bhmf.setContentForm(new BHContent());
+					bhmf.getBHTree().setSelectionPath(null);
 
 				((BHTreeModel) bhmf.getBHTree().getModel())
 						.removeNodeFromParent(currentNode);

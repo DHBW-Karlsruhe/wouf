@@ -140,13 +140,19 @@ public class BHMainFrame extends JFrame implements IPlatformListener, TimingTarg
 		// Build MenuBar
 		menuBar = new BHMenuBar();
 		this.setJMenuBar(menuBar);
-		
+		//disable ToolBar buttons
+		menuBar.disableMenuScenarioAllItems();
+		menuBar.disableMenuPeriodAllItems();
+
 		// build GUI components
 		desktop = new JPanel();
 		desktop.setLayout(new BorderLayout());
 
 		toolBar = new BHToolBar(getWidth(), STANDARDBARHEIGHT);
-
+		//disable menu items
+		toolBar.disableScenarioButton();
+		toolBar.disablePeriodButton();
+		
 		bhTree = new BHTree();
 		
 		bhTreeScroller = new JScrollPane(bhTree);

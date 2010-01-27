@@ -151,22 +151,38 @@ public class BHMenuBar extends JMenuBar{
 		projectRemove.setEnabled(true);
 	}
 	
-	public void disableMenuScnearioItems(){
+	public void disableMenuScenarioItems(){
+	    	scenarioCreate.setEnabled(true);
 	    	scenarioDuplicate.setEnabled(false);
 	    	scenarioRemove.setEnabled(false);
 	}
 	
-	public void enableMenuScnearioItems(){
+	public void disableMenuScenarioAllItems(){
+	    	scenarioCreate.setEnabled(false);
+	    	scenarioDuplicate.setEnabled(false);
+	    	scenarioRemove.setEnabled(false);
+	}
+	
+	public void enableMenuScenarioItems(){
+	    	scenarioCreate.setEnabled(true);
 	    	scenarioDuplicate.setEnabled(true);
 	    	scenarioRemove.setEnabled(true);
 	}
 	
 	public void disableMenuPeriodItems(){
+	    	periodCreate.setEnabled(true);
+	    	periodDuplicate.setEnabled(false);
+	    	periodRemove.setEnabled(false);
+	}
+	
+	public void disableMenuPeriodAllItems(){
+	    	periodCreate.setEnabled(false);
 	    	periodDuplicate.setEnabled(false);
 	    	periodRemove.setEnabled(false);
 	}
 	
 	public void enableMenuPeriodItems(){
+	    	periodCreate.setEnabled(true);
 	    	periodDuplicate.setEnabled(true);
 	    	periodRemove.setEnabled(true);
 	}
