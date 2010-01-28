@@ -99,9 +99,6 @@ public final class BHDeterministicProcessForm extends JPanel {
 	};
 	this.tperioddata.setEnabled(false);
 	this.tperioddata.getTableHeader().setReorderingAllowed(false);
-	// TODO Thiele.Klaus Farben der Tabelle...? --> BHTableCellRender
-	// this.tperioddata.setDefaultRenderer(Object.class, new
-	// BHTableCellRenderer());
 	this.tperioddata.setGridColor(Color.RED);
 	return this.tperioddata;
     }
