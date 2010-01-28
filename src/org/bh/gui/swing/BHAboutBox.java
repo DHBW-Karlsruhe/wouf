@@ -76,8 +76,8 @@ public final class BHAboutBox extends JDialog implements ActionListener {
 		int y = (frame.getHeight() - 600) / 2;
 
 		this.add(new JLabel(image), cons.xywh(2, 2, 2, 1));
-		this.add(new JLabel("<html>" + translator.translate("website") + ": " + translator.translate("website_long") + "</html>"), cons.xy(3, 4));
-		this.add(new JLabel("<html>" + translator.translate("email") + ": " + translator.translate("email_long") + "</html>"), cons.xy(3, 6));
+		this.add(new JLabel("<html>" + translator.translate("website") + ": " + translator.translate("website", ITranslator.LONG) + "</html>"), cons.xy(3, 4));
+		this.add(new JLabel("<html>" + translator.translate("email") + ": " + translator.translate("email", ITranslator.LONG) + "</html>"), cons.xy(3, 6));
 		this.add(this.ok, cons.xywh(2, 8, 2, 1, "center, center"));
 		this.setLocation(x, y);
 		this.setResizable(false);
