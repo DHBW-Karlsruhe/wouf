@@ -19,6 +19,7 @@ import org.bh.platform.formula.IFormula;
  * @version 1.0
  * @author Marco Hammel
  */
+@SuppressWarnings("serial")
 public class BHFormulaPanel extends JPanel {
 
     JComboBox box;

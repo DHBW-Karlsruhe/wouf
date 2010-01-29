@@ -233,7 +233,6 @@ public class XBRLImport {
 			}
 			
 			List<Element> children = el.getChildren(nodeName, ns);
-			Element searchedElement = null;
 			if (children.size() == 0)
 			{
 				Logger.getLogger(getClass()).debug("No value found for key: " + key);

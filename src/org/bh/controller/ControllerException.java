@@ -11,8 +11,9 @@ package org.bh.controller;
  * @version 1.0
  */
 public class ControllerException extends RuntimeException{
-
-    public ControllerException(){
+	private static final long serialVersionUID = 8957354833027150455L;
+	
+	public ControllerException(){
         super();
     }
     public ControllerException(String arg0){

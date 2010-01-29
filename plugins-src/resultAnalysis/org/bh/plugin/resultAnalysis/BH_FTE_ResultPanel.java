@@ -18,9 +18,11 @@ import org.bh.gui.chart.BHChartPanel;
  * @author Marco Hammel
  * @version 1.0
  */
+@SuppressWarnings("serial")
 public class BH_FTE_ResultPanel extends JPanel {
 
-    private static final Logger log = Logger.getLogger(BH_FTE_ResultPanel.class);
+    @SuppressWarnings("unused")
+	private static final Logger log = Logger.getLogger(BH_FTE_ResultPanel.class);
     private BHChartPanel fteFlowToEquity;
     private BHChartPanel fteReturnRate;
 

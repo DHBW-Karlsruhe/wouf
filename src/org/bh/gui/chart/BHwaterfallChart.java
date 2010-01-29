@@ -34,7 +34,6 @@ import org.jfree.data.general.Dataset;
  * @version 0.1, 16.12.2009
  * 
  */
-@SuppressWarnings("serial")
 public class BHwaterfallChart extends BHChart implements IBHAddGroupValue,
 		IPlatformListener {
 

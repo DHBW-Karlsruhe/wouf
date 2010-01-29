@@ -26,6 +26,7 @@ import com.jgoodies.forms.layout.FormLayout;
  * @version 1.0, 22.01.2010
  * 
  */
+@SuppressWarnings("serial")
 public final class BHStochasticInputForm extends JPanel {
 
 	private BHDescriptionLabel lstochprocess;

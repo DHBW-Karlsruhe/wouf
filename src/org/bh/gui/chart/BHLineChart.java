@@ -25,7 +25,6 @@ import org.jfree.data.general.Dataset;
  * @version 0.1, 16.12.2009
  * 
  */
-@SuppressWarnings("serial")
 public class BHLineChart extends BHChart implements IBHAddValue, IPlatformListener {
 
 	private DefaultCategoryDataset dataset;

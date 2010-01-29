@@ -20,6 +20,7 @@ import org.bh.gui.swing.comp.BHDescriptionTextArea;
 import org.bh.gui.swing.comp.BHSelectionList;
 import org.bh.gui.swing.comp.BHTextField;
 
+@SuppressWarnings("serial")
 public class BHDefaultProjectImportPanel extends JPanel {
 	
 	private BHTextField txtPath = null;

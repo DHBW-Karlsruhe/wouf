@@ -13,6 +13,7 @@ import org.bh.validation.ValidationRule;
 import com.jgoodies.forms.layout.CellConstraints;
 import com.jgoodies.forms.layout.FormLayout;
 
+@SuppressWarnings("serial")
 public final class BHPeriodHeadForm extends JPanel {
 
 	private BHDescriptionLabel lperiodname;

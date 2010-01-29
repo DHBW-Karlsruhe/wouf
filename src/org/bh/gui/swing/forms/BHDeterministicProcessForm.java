@@ -29,7 +29,6 @@ import com.jgoodies.forms.layout.FormLayout;
 public final class BHDeterministicProcessForm extends JPanel {
 
     // Labels
-    private BHDescriptionLabel linterval;
     private BHDescriptionLabel ldcfMethod;
 
     // Components

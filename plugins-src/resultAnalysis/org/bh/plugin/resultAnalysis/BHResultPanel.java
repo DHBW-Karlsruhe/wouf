@@ -37,6 +37,7 @@ import org.bh.platform.i18n.ITranslator;
  *
  * @version 1.0
  */
+@SuppressWarnings("serial")
 public final class BHResultPanel extends JPanel {
 
 	static final Logger log = Logger.getLogger(BHResultPanel.class);

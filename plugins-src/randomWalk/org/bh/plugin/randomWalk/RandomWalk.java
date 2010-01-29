@@ -72,7 +72,6 @@ public class RandomWalk implements IStochasticProcess {
 	private BHMainFrame bhmf;
 
 	
-	@SuppressWarnings("static-access")
 	@Override
 	public DistributionMap calculate() {
 		log.info("Random walk started");

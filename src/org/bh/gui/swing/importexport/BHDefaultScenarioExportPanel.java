@@ -32,6 +32,7 @@ import org.bh.gui.view.ViewException;
 import org.bh.platform.PlatformController;
 import org.bh.validation.ValidationMethods;
 
+@SuppressWarnings("serial")
 public class BHDefaultScenarioExportPanel extends JPanel {
 
 	BHTextField txtPath;

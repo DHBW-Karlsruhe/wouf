@@ -116,6 +116,7 @@ public class PLSTotalCostController implements IPeriodController {
 					dialog.addImportListener(new ImportListener()
 					{
 
+						@SuppressWarnings("unchecked")
 						@Override
 						public void onImport(Object importedObject) {
 							try

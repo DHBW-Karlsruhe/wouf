@@ -19,6 +19,7 @@ import org.bh.platform.i18n.BHTranslator;
  * @version 1.0, 16.01.2010
  *
  */
+@SuppressWarnings("serial")
 public final class BHHelpDebugDialog extends JDialog {
 	
 	private JTextArea codeArea;

@@ -37,9 +37,6 @@ public class DCFProceduresIntervalValues {
     Map<String, Calculable[]> res;
     Map<String, Calculable[]> res3;
     Map<String, Calculable[]> res2;
-	private IntervalValue uw0;
-	private IntervalValue uw0_2;
-	private IntervalValue uw0_3;
 	
 	@Before
 	public void setUp() throws Exception {

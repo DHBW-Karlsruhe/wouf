@@ -37,7 +37,6 @@ import org.jfree.ui.TextAnchor;
  * @version 0.1, 16.12.2009
  * 
  */
-@SuppressWarnings("serial")
 public class BHstackedBarChart extends BHChart implements IBHAddGroupValue,
 		IPlatformListener {
 

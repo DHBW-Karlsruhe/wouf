@@ -52,6 +52,7 @@ import com.jgoodies.forms.layout.FormLayout;
  * @version 1.0, 22.01.2010
  * 
  */
+@SuppressWarnings("serial")
 public class BHTree extends JTree {
 
     /**
@@ -92,7 +93,7 @@ public class BHTree extends JTree {
 	// Drag and Drop
 	new BHTreeTransferHandler(this, DnDConstants.ACTION_COPY_OR_MOVE);
 
-	this.addMouseListener(new PopupListener(this));
+	this.addMouseListener(new PopupListener());
 
     }
 
@@ -505,12 +506,6 @@ public class BHTree extends JTree {
     }
 
     class PopupListener extends MouseAdapter {
-
-	private BHTree tree;
-
-	public PopupListener(BHTree tree) {
-	    this.tree = tree;
-	}
 
 	@Override
 	public void mouseReleased(MouseEvent e) {

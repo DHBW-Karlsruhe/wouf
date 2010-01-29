@@ -48,7 +48,8 @@ public final class BHMainFrame extends JFrame implements IPlatformListener, Timi
 	/**
 	 * logger
 	 */
-	private static Logger log = Logger.getLogger(BHMainFrame.class);
+	@SuppressWarnings("unused")
+	private static final Logger log = Logger.getLogger(BHMainFrame.class);
 	
 	/**
 	 * Standard Bar height.

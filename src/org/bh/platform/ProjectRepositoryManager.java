@@ -141,6 +141,7 @@ public class ProjectRepositoryManager {
 
 class ChangedListener implements IPlatformListener {
 	
+	@SuppressWarnings("unused")
 	private static final Logger log = Logger.getLogger(ProjectRepositoryManager.class);
 	
 	ProjectRepositoryManager projectRepositoryManager;

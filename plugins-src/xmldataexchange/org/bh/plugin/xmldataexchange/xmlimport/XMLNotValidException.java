@@ -1,6 +1,7 @@
 package org.bh.plugin.xmldataexchange.xmlimport;
 
 public class XMLNotValidException extends Exception {
+	private static final long serialVersionUID = -6171432710872935286L;
 
 	public XMLNotValidException() {
 		super();

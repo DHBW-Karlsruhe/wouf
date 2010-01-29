@@ -29,7 +29,7 @@ public class PropertyFileUpdater {
     public PropertyFileUpdater(){
         PropertyFileUpdater.version = PropertyFileUpdater.version + 1;
     }
-    @SuppressWarnings({"unchecked", "unchecked", "unchecked"})
+
     public static void main(String[] args) {
         System.out.println("<---------- Property File Updater für Business Horizon -------->");
     

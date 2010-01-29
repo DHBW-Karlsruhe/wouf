@@ -20,6 +20,7 @@ import org.bh.data.types.StringValue;
  * @version 1.0, 30.12.2009
  *
  */
+@SuppressWarnings("serial")
 public class BHTreeNode extends DefaultMutableTreeNode{
 	
 	private InputController controller;

@@ -10,8 +10,9 @@ package org.bh.gui.view;
  * @author Marco Hammel
  */
 public class ViewException extends Exception{
+	private static final long serialVersionUID = -973223327615778463L;
 
-    public ViewException(){
+	public ViewException(){
         super();
     }
 

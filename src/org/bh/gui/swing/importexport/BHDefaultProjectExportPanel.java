@@ -28,6 +28,7 @@ import org.bh.gui.swing.comp.BHSelectionList;
 import org.bh.gui.swing.comp.BHTextField;
 import org.bh.platform.PlatformController;
 
+@SuppressWarnings("serial")
 public class BHDefaultProjectExportPanel extends JPanel implements ActionListener {
 	
 	private BHSelectionList secList;

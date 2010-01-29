@@ -28,6 +28,7 @@ import com.jgoodies.forms.layout.FormLayout;
  * @version 1.0, 2010/01/22
  * 
  */
+@SuppressWarnings("serial")
 public final class BHAboutBox extends JDialog implements ActionListener {
 
 	/**

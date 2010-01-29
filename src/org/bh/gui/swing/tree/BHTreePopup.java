@@ -19,6 +19,7 @@ import org.bh.platform.PlatformKey;
  * @version 1.0, 17.01.2010
  *
  */
+@SuppressWarnings("serial")
 public class BHTreePopup extends JPopupMenu{
 	
 	public enum Type{

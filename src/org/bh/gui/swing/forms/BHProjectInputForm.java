@@ -21,6 +21,7 @@ import com.jgoodies.forms.layout.FormLayout;
  * 
  */
 
+@SuppressWarnings("serial")
 public final class BHProjectInputForm extends JPanel {
 
 	private BHDescriptionLabel lproject;

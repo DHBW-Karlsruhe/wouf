@@ -29,6 +29,7 @@ import org.bh.platform.i18n.BHTranslator;
 import com.jgoodies.forms.layout.CellConstraints;
 import com.jgoodies.forms.layout.FormLayout;
 
+@SuppressWarnings("serial")
 public final class BHOptionDialog extends JDialog implements ActionListener,
 		IPlatformListener {
 

@@ -15,8 +15,9 @@ import java.util.Vector;
  * @author Marco Hammel
  */
 public class SortedProperties extends Properties{
+	private static final long serialVersionUID = 2341273459855230572L;
 
-    /**
+	/**
    * Overrides, called by the store method.
    */
   @SuppressWarnings("unchecked")

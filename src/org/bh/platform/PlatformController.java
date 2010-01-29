@@ -314,6 +314,7 @@ public class PlatformController {
 	 * @version 1.0, 04.01.2010
 	 * 
 	 */
+	@SuppressWarnings("serial")
 	class BHTreeModel extends DefaultTreeModel {
 
 		public BHTreeModel(TreeNode root) {

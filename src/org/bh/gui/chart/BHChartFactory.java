@@ -170,28 +170,6 @@ public class BHChartFactory {
     }
 
     /**
-     * method to create a empty HistogramDataset
-     *
-     * @param key
-     *            String key
-     * @param values
-     *            double[] values
-     * @param bins
-     *            int bins
-     * @param minimum
-     *            double minimum
-     * @param maximum
-     *            double maximum
-     * @return HistogramDataset dataset
-     */
-    private static Dataset dimDataset(final java.lang.Comparable<String> key,
-            final double[] values, final int bins, final double minimum, final double maximum) {
-
-        HistogramDataset dataset = new HistogramDataset();
-        //dataset.addSeries(key, values, bins, minimum, maximum);
-        return dataset;
-    }
-    /**
      * deliver a initial histogramm dataset
      * @return Datasat type HistogramDataset
      * @see HistogramDataset

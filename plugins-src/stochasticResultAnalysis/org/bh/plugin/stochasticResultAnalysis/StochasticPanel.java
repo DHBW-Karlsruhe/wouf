@@ -21,11 +21,13 @@ import org.bh.platform.i18n.ITranslator;
 
 import com.jgoodies.forms.layout.FormLayout;
 
+@SuppressWarnings("serial")
 public class StochasticPanel extends JPanel{
 	
 	final ITranslator translator = Controller.getTranslator();
 
-	 private static final Logger log = Logger.getLogger(StochasticPanel.class);
+	 @SuppressWarnings("unused")
+	private static final Logger log = Logger.getLogger(StochasticPanel.class);
 	    //Chart
 	    private BHChartPanel distributionChart;
 	    

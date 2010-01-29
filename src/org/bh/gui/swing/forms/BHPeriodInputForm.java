@@ -28,6 +28,7 @@ import com.jgoodies.forms.layout.FormLayout;
  * @version 0.2, 03.01.2010
  * 
  */
+@SuppressWarnings("serial")
 public final class BHPeriodInputForm extends JPanel {
 
 	private BHDescriptionLabel lfcf;

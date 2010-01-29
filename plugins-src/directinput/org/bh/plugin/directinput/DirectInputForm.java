@@ -1,10 +1,6 @@
 package org.bh.plugin.directinput;
 
-import java.awt.event.WindowAdapter;
-import java.awt.event.WindowEvent;
-
 import javax.swing.BorderFactory;
-import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EtchedBorder;
 
@@ -28,6 +24,7 @@ import com.jgoodies.forms.layout.FormLayout;
  * 
  * 
  */
+@SuppressWarnings("serial")
 public class DirectInputForm extends JPanel {
 	private BHDescriptionLabel lfcf;
 	private BHTextField tffcf;
@@ -270,21 +267,21 @@ public class DirectInputForm extends JPanel {
 		}
 		return lcurrency2;
 	}
-
-	/**
-	 * Test main method.
-	 */
-	public static void main(String args[]) {
-
-		JFrame test = new JFrame("Test for ViewPeriodData1");
-		test.setContentPane(new DirectInputForm(true));
-		test.addWindowListener(new WindowAdapter() {
-			@Override
-			public void windowClosing(WindowEvent e) {
-				System.exit(0);
-			}
-		});
-		test.pack();
-		test.show();
-	}
+//
+//	/**
+//	 * Test main method.
+//	 */
+//	public static void main(String args[]) {
+//
+//		JFrame test = new JFrame("Test for ViewPeriodData1");
+//		test.setContentPane(new DirectInputForm(true));
+//		test.addWindowListener(new WindowAdapter() {
+//			@Override
+//			public void windowClosing(WindowEvent e) {
+//				System.exit(0);
+//			}
+//		});
+//		test.pack();
+//		test.show();
+//	}
 }

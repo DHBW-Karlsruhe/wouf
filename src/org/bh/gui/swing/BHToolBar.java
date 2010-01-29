@@ -29,6 +29,7 @@ import com.jgoodies.forms.layout.FormLayout;
  */
 
 
+@SuppressWarnings("serial")
 public final class BHToolBar extends JToolBar implements MouseListener{
 
 	boolean shown = true;

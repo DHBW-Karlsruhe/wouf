@@ -31,6 +31,7 @@ import org.bh.platform.PlatformController;
 import org.bh.platform.i18n.BHTranslator;
 import org.bh.validation.ValidationMethods;
 
+@SuppressWarnings("serial")
 public class BHDefaultGCCImportExportPanel extends JPanel {
 
 	BHTextField txtPath;

@@ -13,6 +13,7 @@ import org.bh.platform.Services;
  * @version 1.0, 2010/01/22
  * 
  */
+@SuppressWarnings("serial")
 public final class BHFileChooser extends JFileChooser {
 	
 	/**

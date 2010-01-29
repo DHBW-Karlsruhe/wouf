@@ -21,7 +21,8 @@ import org.bh.gui.chart.BHChartPanel;
 @SuppressWarnings("serial")
 public class BH_FCF_ResultPanel extends JPanel {
 
-    private static final Logger log = Logger.getLogger(BH_FCF_ResultPanel.class);
+    @SuppressWarnings("unused")
+	private static final Logger log = Logger.getLogger(BH_FCF_ResultPanel.class);
 
     public BH_FCF_ResultPanel(boolean isAllSelected) {
         this.initialize(isAllSelected);

@@ -23,7 +23,6 @@ import org.jfree.data.statistics.HistogramDataset;
  * @version 0.1, 17.12.2009
  * 
  */
-@SuppressWarnings("serial")
 public class BHHistogramChart extends BHChart implements IBHAddValue, IPlatformListener {
 
 	private HistogramDataset dataset;

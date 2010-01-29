@@ -19,6 +19,7 @@ import org.bh.platform.DashBoardController;
  * @version 1.0, 22.01.2010
  * 
  */
+@SuppressWarnings("serial")
 public final class BHDashBoardPanel extends JPanel {
 
 	private BHChartPanel stackedBarChart;

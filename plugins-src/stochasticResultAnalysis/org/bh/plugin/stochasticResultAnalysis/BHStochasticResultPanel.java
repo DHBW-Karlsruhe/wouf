@@ -21,6 +21,7 @@ import org.bh.platform.IPrint;
 import org.bh.platform.Services;
 import org.jfree.chart.JFreeChart;
 
+@SuppressWarnings("serial")
 public class BHStochasticResultPanel extends JPanel{
 	
 	static final Logger log = Logger.getLogger(BHStochasticResultPanel.class);

@@ -41,6 +41,7 @@ import org.bh.platform.Services;
 import org.bh.platform.i18n.BHTranslator;
 import org.jfree.chart.JFreeChart;
 
+@SuppressWarnings("serial")
 public class BHDataExchangeDialog extends JDialog implements ActionListener {
 
 	public interface ImportListener 

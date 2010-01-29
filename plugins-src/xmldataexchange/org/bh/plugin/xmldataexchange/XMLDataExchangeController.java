@@ -13,9 +13,9 @@ import javax.swing.JOptionPane;
 import javax.swing.filechooser.FileNameExtensionFilter;
 
 import org.apache.log4j.Logger;
-import org.bh.data.DTO;
 import org.bh.data.DTOProject;
 import org.bh.data.DTOScenario;
+import org.bh.data.IDTO;
 import org.bh.data.IPeriodicalValuesDTO;
 import org.bh.data.types.Calculable;
 import org.bh.data.types.DistributionMap;
@@ -41,7 +41,7 @@ public class XMLDataExchangeController implements IImportExport, ActionListener 
 	private static final Logger log = Logger.getLogger(XMLDataExchangeController.class);
 		
 	private Object exportModel = null;
-	private Object importModel = null;
+	private IDTO<?> importModel = null;
 	
 	private static String GUI_KEY = "xmldataexchange";
 	
@@ -67,6 +67,7 @@ public class XMLDataExchangeController implements IImportExport, ActionListener 
 		
 	}	
 
+	@SuppressWarnings("unchecked")
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		IBHComponent comp =  (IBHComponent) e.getSource();	
@@ -154,7 +155,7 @@ public class XMLDataExchangeController implements IImportExport, ActionListener 
 		{
 			if ((importDialog.getAction() & IImportExport.IMP_PROJECT) == IImportExport.IMP_PROJECT)
 			{
-				((DTO<DTOScenario>) importModel).removeAllChildren();
+				importModel.removeAllChildren();
 				for (Object sec : ((BHDefaultProjectExportPanel) importPanel).getSecList().getSelectedItems())
 					((DTOProject)importModel).addChild((DTOScenario) sec);
 				PlatformController.getInstance().addProject((DTOProject) importModel);	
@@ -240,7 +241,7 @@ public class XMLDataExchangeController implements IImportExport, ActionListener 
 					importModel = new XMLImport(fileChooser.getSelectedFile().getPath()).startImport();
 					if (importModel != null)
 					{					
-						((BHDefaultProjectExportPanel) importPanel).getSecList().setModel(((DTO<DTOScenario>) importModel).getChildren().toArray());	
+						((BHDefaultProjectExportPanel) importPanel).getSecList().setModel(importModel.getChildren().toArray());	
 						((BHDefaultProjectImportPanel) importPanel).getBtnImport().setEnabled(true);
 					}
 					else

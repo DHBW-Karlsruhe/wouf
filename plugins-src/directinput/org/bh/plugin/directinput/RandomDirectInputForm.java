@@ -1,8 +1,4 @@
 package org.bh.plugin.directinput;
-import java.awt.event.WindowAdapter;
-import java.awt.event.WindowEvent;
-
-import javax.swing.JFrame;
 import javax.swing.JPanel;
 
 import org.bh.gui.swing.comp.BHDescriptionLabel;
@@ -16,6 +12,7 @@ import com.jgoodies.forms.layout.FormLayout;
  * 
  * 
  */
+@SuppressWarnings("serial")
 public class RandomDirectInputForm extends JPanel {
     private BHDescriptionLabel lfcf;
     private BHValueLabel tffcf;
@@ -88,17 +85,17 @@ public class RandomDirectInputForm extends JPanel {
 	return tfliabilities;
     }
     
-    public static void main(String args[]) {
-
-    	JFrame test = new JFrame("Test for ViewPeriodData1");
-    	test.setContentPane(new RandomDirectInputForm());
-    	test.addWindowListener(new WindowAdapter() {
-    	    @Override
-    		public void windowClosing(WindowEvent e) {
-    		System.exit(0);
-    	    }
-    	});
-    	test.pack();
-    	test.show();
-        }
+//    public static void main(String args[]) {
+//
+//    	JFrame test = new JFrame("Test for ViewPeriodData1");
+//    	test.setContentPane(new RandomDirectInputForm());
+//    	test.addWindowListener(new WindowAdapter() {
+//    	    @Override
+//    		public void windowClosing(WindowEvent e) {
+//    		System.exit(0);
+//    	    }
+//    	});
+//    	test.pack();
+//    	test.show();
+//        }
 }

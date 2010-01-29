@@ -1,10 +1,9 @@
 package org.bh.gui.swing;
 
+import java.awt.AWTKeyStroke;
 import java.awt.Component;
 import java.awt.Container;
 import java.awt.KeyboardFocusManager;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.util.HashSet;
 import java.util.Set;
@@ -15,6 +14,7 @@ import javax.swing.JDialog;
 import javax.swing.JOptionPane;
 import javax.swing.KeyStroke;
 
+@SuppressWarnings("serial")
 public final class BHOptionPane extends JOptionPane {
 
 	public BHOptionPane() {
@@ -33,7 +33,7 @@ public final class BHOptionPane extends JOptionPane {
 		setListener(od);
 		setFocusTraversalKeys(od);
 		JDialog dialog = od.createDialog(parentComponent, title);
-		dialog.show();
+		dialog.setVisible(true);
 		Object selectedValue = od.getValue();
 		Object[] options = od.getOptions();
 		if (options == null) {
@@ -48,21 +48,21 @@ public final class BHOptionPane extends JOptionPane {
 
 	private static void setFocusTraversalKeys(Component component) {
 		// Change the forward focus traversal keys for a component
-		Set set = new HashSet(
+		Set<AWTKeyStroke> forward = new HashSet<AWTKeyStroke>(
 				component
 						.getFocusTraversalKeys(KeyboardFocusManager.FORWARD_TRAVERSAL_KEYS));
 		// set
-		set.add(KeyStroke.getKeyStroke(KeyEvent.VK_RIGHT, 0));
+		forward.add(KeyStroke.getKeyStroke(KeyEvent.VK_RIGHT, 0));
 		component.setFocusTraversalKeys(
-				KeyboardFocusManager.FORWARD_TRAVERSAL_KEYS, set);
+				KeyboardFocusManager.FORWARD_TRAVERSAL_KEYS, forward);
 
-		Set set2 = new HashSet(
+		Set<AWTKeyStroke> backward = new HashSet<AWTKeyStroke>(
 				component
 						.getFocusTraversalKeys(KeyboardFocusManager.BACKWARD_TRAVERSAL_KEYS));
 		// set
-		set2.add(KeyStroke.getKeyStroke(KeyEvent.VK_LEFT, 0));
+		backward.add(KeyStroke.getKeyStroke(KeyEvent.VK_LEFT, 0));
 		component.setFocusTraversalKeys(
-				KeyboardFocusManager.BACKWARD_TRAVERSAL_KEYS, set2);
+				KeyboardFocusManager.BACKWARD_TRAVERSAL_KEYS, backward);
 	}
 
 	public static void registerAction(JButton button) {
@@ -84,12 +84,6 @@ public final class BHOptionPane extends JOptionPane {
 				if (comp instanceof JButton) {
 					JButton button = (JButton) comp;
 					registerAction(button);
-					button.addActionListener(new ActionListener() {
-
-						public void actionPerformed(ActionEvent e) {
-							JButton button = (JButton) e.getSource();
-						}
-					});
 				} else if (comp instanceof Container) {
 					setListener(comp);
 				}

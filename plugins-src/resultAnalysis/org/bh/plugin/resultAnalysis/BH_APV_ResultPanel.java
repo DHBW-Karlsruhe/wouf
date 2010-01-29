@@ -21,7 +21,8 @@ import org.bh.gui.chart.BHChartPanel;
 @SuppressWarnings("serial")
 public class BH_APV_ResultPanel extends JPanel {
 
-    private static final Logger log = Logger.getLogger(BH_APV_ResultPanel.class);
+    @SuppressWarnings("unused")
+	private static final Logger log = Logger.getLogger(BH_APV_ResultPanel.class);
     // APV Charts
     private BHChartPanel apvWFShareholderValues;
     private BHChartPanel apvBCCapitalStructure;

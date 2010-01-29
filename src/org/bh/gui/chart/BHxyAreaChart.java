@@ -23,7 +23,6 @@ import org.jfree.data.xy.DefaultXYDataset;
  * @version 0.1, 17.12.2009
  * 
  */
-@SuppressWarnings("serial")
 public class BHxyAreaChart extends BHChart implements IBHAddValue, IPlatformListener {
 	
 	private DefaultXYDataset dataset;

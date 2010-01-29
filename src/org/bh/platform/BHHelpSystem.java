@@ -17,6 +17,7 @@ import javax.swing.JPanel;
  * @version 1.0, 31.12.2009
  *
  */
+@SuppressWarnings("serial")
 public class BHHelpSystem extends JPanel{
 	JHelp helpViewer = null;
 	

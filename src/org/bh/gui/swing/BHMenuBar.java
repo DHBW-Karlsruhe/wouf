@@ -24,6 +24,7 @@ import org.bh.platform.i18n.ITranslator;
  * 
  */
 
+@SuppressWarnings("serial")
 public final class BHMenuBar extends JMenuBar{
 
 	ITranslator translator = Services.getTranslator();

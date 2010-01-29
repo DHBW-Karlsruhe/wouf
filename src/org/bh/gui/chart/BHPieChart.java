@@ -23,7 +23,6 @@ import org.jfree.data.general.DefaultPieDataset;
  * @version 1.0, 27.01.2010
  *
  */
-@SuppressWarnings("serial")
 public class BHPieChart extends BHChart implements IBHAddValue, IPlatformListener {
 
 	private DefaultPieDataset dataset;

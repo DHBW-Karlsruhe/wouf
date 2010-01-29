@@ -12,6 +12,7 @@ import org.jfree.data.category.CategoryDataset;
  * @author Marco Hammel
  * @version 1.0
  */
+@SuppressWarnings("serial")
 public class BHChartLabelGenerator extends AbstractCategoryItemLabelGenerator
 									implements CategoryItemLabelGenerator{
 	

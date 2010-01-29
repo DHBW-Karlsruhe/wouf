@@ -50,6 +50,7 @@ public class BHTreeTransferHandler implements DragGestureListener, DragSourceLis
 	new DropTarget(tree, action, this);
 
 	// init dragLine
+	@SuppressWarnings("serial")
 	class dragLine extends JPanel {
 	    @Override
 	    public void paint(Graphics g) {
