@@ -134,12 +134,12 @@ public class PlatformPersistenceManager {
 				|| forcedSaveAs == true) {
 		    	
 		    
-		    JFileChooser fileChooser = new JFileChooser();
-		    File dummyFile;
-		    dummyFile = new File((PlatformController.preferences.get("path", "businesshorizon.bh")));
+//		    JFileChooser fileChooser = new JFileChooser();
+//		    File dummyFile;
+		    File dummyFile = new File((PlatformController.preferences.get("path", "businesshorizon.bh")));
 		  
-		    	fileChooser.setSelectedFile(dummyFile);
-			int returnVal = fileChooser.showSaveDialog(bhmf);
+		    	bhmf.getChooser().setSelectedFile(dummyFile);
+			int returnVal = bhmf.getChooser().showSaveDialog(bhmf);
 			if (returnVal == JFileChooser.APPROVE_OPTION) {
 				log.debug("You choose to save this file: "
 						+ bhmf.getChooser().getSelectedFile().getName());
