@@ -211,7 +211,7 @@ public class IntegerValue extends Calculable {
 	}
 
 	@Override
-	public Number parse() {
+	public Number toNumber() {
 		return value;
 	}
 	

@@ -329,7 +329,7 @@ public class RandomWalk implements IStochasticProcess {
 		double old = 0;
 		int i = 0;
 		for (Calculable c : inputValues) {
-			double value = c.parse().doubleValue();
+			double value = c.toNumber().doubleValue();
 			if (i > 0) {
 				sum += Math.abs(value - old);
 			}

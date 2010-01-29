@@ -111,7 +111,7 @@ public class DashBoardController extends Controller {
                     stackedBarChart.addValue(i.getMax() - i.getMin(), translator.translate(ChartKeys.DB_SBC_SV) + " " + translator.translate("max"),
                             scenarioName + " (" + translator.translate("interval") + ")");
                 } else { // instance of DoubleValue || IntegerValue
-                    stackedBarChart.addValue(sv.parse(), translator.translate(ChartKeys.DB_SBC_SV), scenarioName + " (" + translator.translate("deterministic") + ")");
+                    stackedBarChart.addValue(sv.toNumber(), translator.translate(ChartKeys.DB_SBC_SV), scenarioName + " (" + translator.translate("deterministic") + ")");
                 }
             } else { //stochastic scenario
                 d = (DistributionMap) e.getValue();

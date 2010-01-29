@@ -135,7 +135,7 @@ public class BHTextField extends JTextField implements IBHModelComponent, IPlatf
 	@Override
 	public void setValue(IValue value) {
 		if (value instanceof Calculable && !returnCalculable)
-			this.setText(((Calculable)value).parse().toString());
+			this.setText(((Calculable)value).toNumber().toString());
 		else if (value != null)
 			this.setText(value.toString());
 		else

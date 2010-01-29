@@ -422,7 +422,7 @@ public class IntervalValue extends Calculable {
 	}
 
 	@Override
-	public Number parse() {
+	public Number toNumber() {
 		// FIXME this should not be called for intervals, but we don't want the
 		// app to crash
 		return min;

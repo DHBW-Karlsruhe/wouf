@@ -328,70 +328,60 @@ public class PDFExport implements IImportExport {
 	@Override
 	public IPeriodicalValuesDTO importBalanceSheet(
 			BHDataExchangeDialog importDialog) {
-		// TODO Auto-generated method stub
 		throw new UnsupportedOperationException("This method has not been implemented");
 	}
 
 	@Override
 	public IPeriodicalValuesDTO importPLSCostOfSales(
 			BHDataExchangeDialog importDialog) {
-		// TODO Auto-generated method stub
 		throw new UnsupportedOperationException("This method has not been implemented");
 	}
 
 	@Override
 	public IPeriodicalValuesDTO importPLSTotalCost(
 			BHDataExchangeDialog importDialog) {
-		// TODO Auto-generated method stub
 		throw new UnsupportedOperationException("This method has not been implemented");
 	}
 
 	@Override
 	public List<IPeriodicalValuesDTO> importBSAndPLSCostOfSales(
 			BHDataExchangeDialog importDialog) {
-		// TODO Auto-generated method stub
 		throw new UnsupportedOperationException("This method has not been implemented");
 	}
 
 	@Override
 	public List<IPeriodicalValuesDTO> importBSAndPLSTotalCost(
 			BHDataExchangeDialog importDialog) {
-		// TODO Auto-generated method stub
 		throw new UnsupportedOperationException("This method has not been implemented");
 	}
 
 	@Override
 	public void exportBSAndPLSCostOfSales(List<IPeriodicalValuesDTO> model,
 			BHDataExchangeDialog importDialog) {
-		// TODO Auto-generated method stub
 		throw new UnsupportedOperationException("This method has not been implemented");
 	}
 
 	@Override
 	public void exportBSAndPLSTotalCost(List<IPeriodicalValuesDTO> model,
 			BHDataExchangeDialog importDialog) {
-		// TODO Auto-generated method stub
 		throw new UnsupportedOperationException("This method has not been implemented");
 	}
 
 	@Override
 	public void exportBalanceSheet(IPeriodicalValuesDTO model,
 			BHDataExchangeDialog exportDialog) {
-		// TODO Auto-generated method stub
 		throw new UnsupportedOperationException("This method has not been implemented");
 	}
 
 	@Override
 	public void exportPLSCostOfSales(IPeriodicalValuesDTO model,
 			BHDataExchangeDialog exportDialog) {
-		// TODO Auto-generated method stub
 		throw new UnsupportedOperationException("This method has not been implemented");
 	}
 
 	@Override
 	public void exportPLSTotalCost(IPeriodicalValuesDTO model,
 			BHDataExchangeDialog exportDialog) {
-		// TODO Auto-generated method stub
 		throw new UnsupportedOperationException("This method has not been implemented");
 	}
 }

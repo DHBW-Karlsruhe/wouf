@@ -281,13 +281,13 @@ public class BHResultController extends OutputController {
 		// Fill APV waterfall capital structure
 		if (chartKey.equals(ChartKeys.APV_WF_SV.toString())) {
 		    IBHAddValue comp = super.view.getBHchartComponents().get(ChartKeys.APV_WF_SV.toString());
-		    comp.addValue(result.get("org.bh.plugin.apv.APVCalculator$Result.PRESENT_VALUE_FCF")[0].parse(), translator.translate(ChartKeys.APV_WF_SV), translator
+		    comp.addValue(result.get("org.bh.plugin.apv.APVCalculator$Result.PRESENT_VALUE_FCF")[0].toNumber(), translator.translate(ChartKeys.APV_WF_SV), translator
 			    .translate("org.bh.plugin.apv.APVCalculator$Result.PRESENT_VALUE_FCF"));
-		    comp.addValue(result.get("org.bh.plugin.apv.APVCalculator$Result.PRESENT_VALUE_TAX_SHIELD")[0].parse(), translator.translate(ChartKeys.APV_WF_SV), translator
+		    comp.addValue(result.get("org.bh.plugin.apv.APVCalculator$Result.PRESENT_VALUE_TAX_SHIELD")[0].toNumber(), translator.translate(ChartKeys.APV_WF_SV), translator
 			    .translate("org.bh.plugin.apv.APVCalculator$Result.PRESENT_VALUE_TAX_SHIELD"));
-		    comp.addValue((result.get("org.bh.calculation.IShareholderValueCalculator$Result.DEBT")[0].parse().doubleValue() * -1), translator.translate(ChartKeys.APV_WF_SV), translator
+		    comp.addValue((result.get("org.bh.calculation.IShareholderValueCalculator$Result.DEBT")[0].toNumber().doubleValue() * -1), translator.translate(ChartKeys.APV_WF_SV), translator
 			    .translate("org.bh.calculation.IShareholderValueCalculator$Result.DEBT"));
-		    comp.addValue(result.get("org.bh.calculation.IShareholderValueCalculator$Result.SHAREHOLDER_VALUE")[0].parse(), translator.translate(ChartKeys.APV_WF_SV), translator
+		    comp.addValue(result.get("org.bh.calculation.IShareholderValueCalculator$Result.SHAREHOLDER_VALUE")[0].toNumber(), translator.translate(ChartKeys.APV_WF_SV), translator
 			    .translate("org.bh.calculation.IShareholderValueCalculator$Result.SHAREHOLDER_VALUE"));
 		}// Fill APV BarChart capital structure
 		else if (chartKey.equals(ChartKeys.APV_BC_CS.toString())) {
@@ -295,39 +295,39 @@ public class BHResultController extends OutputController {
 		    int length = scenario.getChildrenSize();
 		    for (int i = 0; i < length; i++) {
 			String name = scenario.getChildren().get(i).get(DTOPeriod.Key.NAME).toString();
-			comp.addValue(result.get("org.bh.plugin.apv.APVCalculator$Result.PRESENT_VALUE_FCF")[i].parse(), translator
+			comp.addValue(result.get("org.bh.plugin.apv.APVCalculator$Result.PRESENT_VALUE_FCF")[i].toNumber(), translator
 				.translate("org.bh.plugin.apv.APVCalculator$Result.PRESENT_VALUE_FCF"), name);
-			comp.addValue(result.get("org.bh.calculation.IShareholderValueCalculator$Result.DEBT")[i].parse(), translator
+			comp.addValue(result.get("org.bh.calculation.IShareholderValueCalculator$Result.DEBT")[i].toNumber(), translator
 				.translate("org.bh.calculation.IShareholderValueCalculator$Result.DEBT"), name);
 		    }
 		}// Fill FCF waterfall capital structure
 		else if (chartKey.equals(ChartKeys.FCF_WF_SV.toString())) {
 		    IBHAddValue comp = super.view.getBHchartComponents().get(ChartKeys.FCF_WF_SV.toString());
-		    comp.addValue(result.get("org.bh.plugin.fcf.FCFCalculator$Result.TOTAL_CAPITAL")[0].parse(), translator.translate(ChartKeys.FCF_WF_SV), translator
+		    comp.addValue(result.get("org.bh.plugin.fcf.FCFCalculator$Result.TOTAL_CAPITAL")[0].toNumber(), translator.translate(ChartKeys.FCF_WF_SV), translator
 			    .translate("org.bh.plugin.fcf.FCFCalculator$Result.TOTAL_CAPITAL"));
-		    comp.addValue(result.get("org.bh.calculation.IShareholderValueCalculator$Result.DEBT")[0].parse().doubleValue() * -1, translator.translate(ChartKeys.FCF_WF_SV.toString()),
+		    comp.addValue(result.get("org.bh.calculation.IShareholderValueCalculator$Result.DEBT")[0].toNumber().doubleValue() * -1, translator.translate(ChartKeys.FCF_WF_SV.toString()),
 			    translator.translate("org.bh.calculation.IShareholderValueCalculator$Result.DEBT"));
-		    comp.addValue(result.get("org.bh.calculation.IShareholderValueCalculator$Result.SHAREHOLDER_VALUE")[0].parse(), translator.translate(ChartKeys.FCF_WF_SV.toString()), translator
+		    comp.addValue(result.get("org.bh.calculation.IShareholderValueCalculator$Result.SHAREHOLDER_VALUE")[0].toNumber(), translator.translate(ChartKeys.FCF_WF_SV.toString()), translator
 			    .translate("org.bh.calculation.IShareholderValueCalculator$Result.SHAREHOLDER_VALUE"));
 		}// Fill FCF BarChart FreeCashFlow
 		else if (chartKey.equals(ChartKeys.FCF_BC_FCF.toString())) {
 		    IBHAddValue comp = super.view.getBHchartComponents().get(ChartKeys.FCF_BC_FCF.toString());
 		    if (result.get("org.bh.calculation.IShareholderValueCalculator$Result.FREE_CASH_FLOW")[0] != null) {
 			String name = scenario.getChildren().get(0).get(DTOPeriod.Key.NAME).toString();
-			comp.addValue(result.get("org.bh.calculation.IShareholderValueCalculator$Result.FREE_CASH_FLOW")[0].parse(), translator.translate(ChartKeys.FCF_BC_FCF.toString()), name);
+			comp.addValue(result.get("org.bh.calculation.IShareholderValueCalculator$Result.FREE_CASH_FLOW")[0].toNumber(), translator.translate(ChartKeys.FCF_BC_FCF.toString()), name);
 		    }
 		    for (int i = 1; i < scenario.getChildrenSize(); i++) {
 			String name = scenario.getChildren().get(i).get(DTOPeriod.Key.NAME).toString();
-			comp.addValue(result.get("org.bh.calculation.IShareholderValueCalculator$Result.FREE_CASH_FLOW")[i].parse(), translator.translate(ChartKeys.FCF_BC_FCF.toString()), name);
+			comp.addValue(result.get("org.bh.calculation.IShareholderValueCalculator$Result.FREE_CASH_FLOW")[i].toNumber(), translator.translate(ChartKeys.FCF_BC_FCF.toString()), name);
 		    }
 		}// Fill FCF BarChart return
 		else if (chartKey.equals(ChartKeys.FCF_BC_RR.toString())) {
 		    IBHAddValue comp = super.view.getBHchartComponents().get(ChartKeys.FCF_BC_RR.toString());
 		    for (int i = 0; i < scenario.getChildrenSize(); i++) {
 			String name = scenario.getChildren().get(i).get(DTOPeriod.Key.NAME).toString();
-			comp.addValue(result.get("org.bh.plugin.fcf.FCFCalculator$Result.EQUITY_RETURN_RATE_FCF")[i].parse().doubleValue() * 100, translator
+			comp.addValue(result.get("org.bh.plugin.fcf.FCFCalculator$Result.EQUITY_RETURN_RATE_FCF")[i].toNumber().doubleValue() * 100, translator
 				.translate("org.bh.plugin.fcf.FCFCalculator$Result.EQUITY_RETURN_RATE_FCF"), name);
-			comp.addValue(result.get("org.bh.calculation.IShareholderValueCalculator$Result.DEBT_RETURN_RATE")[0].parse().doubleValue() * 100, translator
+			comp.addValue(result.get("org.bh.calculation.IShareholderValueCalculator$Result.DEBT_RETURN_RATE")[0].toNumber().doubleValue() * 100, translator
 				.translate("org.bh.calculation.IShareholderValueCalculator$Result.DEBT_RETURN_RATE"), name);
 		    }
 		}// Not necessary ct Pohl
@@ -337,7 +337,7 @@ public class BHResultController extends OutputController {
 		    IBHAddValue comp = super.view.getBHchartComponents().get(ChartKeys.FTE_BC_FTE.toString());
 		    for (int i = 1; i < scenario.getChildrenSize(); i++) {
 			String name = scenario.getChildren().get(i).get(DTOPeriod.Key.NAME).toString();
-			comp.addValue(result.get("org.bh.plugin.fte.FTECalculator$Result.FLOW_TO_EQUITY")[i].parse(), translator.translate("org.bh.plugin.fte.FTECalculator$Result.FLOW_TO_EQUITY"),
+			comp.addValue(result.get("org.bh.plugin.fte.FTECalculator$Result.FLOW_TO_EQUITY")[i].toNumber(), translator.translate("org.bh.plugin.fte.FTECalculator$Result.FLOW_TO_EQUITY"),
 				name);
 		    }
 		}// Fill BarChart capital structure -->not in
@@ -345,18 +345,18 @@ public class BHResultController extends OutputController {
 		    IBHAddValue comp = super.view.getBHchartComponents().get(ChartKeys.FTE_BC_CS.toString());
 		    for (int i = 0; i < scenario.getChildrenSize(); i++) {
 			String name = scenario.getChildren().get(i).get(DTOPeriod.Key.NAME).toString();
-			comp.addValue(result.get("org.bh.plugin.fte.FTECalculator$Result.PRESENT_VALUE_TAX_SHIELD")[i].parse(), translator
+			comp.addValue(result.get("org.bh.plugin.fte.FTECalculator$Result.PRESENT_VALUE_TAX_SHIELD")[i].toNumber(), translator
 				.translate("org.bh.plugin.fte.FTECalculator$Result.PRESENT_VALUE_TAX_SHIELD"), name);
-			comp.addValue(result.get("org.bh.calculation.IShareholderValueCalculator$Result.DEBT")[i].parse(), translator
+			comp.addValue(result.get("org.bh.calculation.IShareholderValueCalculator$Result.DEBT")[i].toNumber(), translator
 				.translate("org.bh.calculation.IShareholderValueCalculator$Result.DEBT"), name);
 		    }
 		} else if (chartKey.equals(ChartKeys.FTE_BC_RR.toString())) {
 		    IBHAddValue comp = super.view.getBHchartComponents().get(ChartKeys.FTE_BC_RR.toString());
 		    for (int i = 1; i < scenario.getChildrenSize(); i++) {
 			String name = scenario.getChildren().get(i).get(DTOPeriod.Key.NAME).toString();
-			comp.addValue(result.get("org.bh.plugin.fte.FTECalculator$Result.EQUITY_RETURN_RATE_FTE")[i].parse(), translator
+			comp.addValue(result.get("org.bh.plugin.fte.FTECalculator$Result.EQUITY_RETURN_RATE_FTE")[i].toNumber(), translator
 				.translate("org.bh.plugin.fte.FTECalculator$Result.EQUITY_RETURN_RATE_FTE"), name);
-			comp.addValue(result.get("org.bh.calculation.IShareholderValueCalculator$Result.DEBT")[i].parse(), translator
+			comp.addValue(result.get("org.bh.calculation.IShareholderValueCalculator$Result.DEBT")[i].toNumber(), translator
 				.translate("org.bh.calculation.IShareholderValueCalculator$Result.DEBT"), name);
 		    }
 		}

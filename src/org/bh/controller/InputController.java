@@ -105,8 +105,6 @@ public class InputController extends Controller implements IInputController {
 			this.view.removeViewListener(this);
 		}
 		super.setView(view);
-		// Marcus.Katzor: A listener can only be added when the view exists
-		// TODO Vollmer.Robert: Does a controller without view make sense?
 		if (view != null)
 			view.addViewListener(this);
 	}

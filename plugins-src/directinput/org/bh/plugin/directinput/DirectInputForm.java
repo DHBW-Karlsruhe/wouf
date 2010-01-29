@@ -171,8 +171,6 @@ public class DirectInputForm extends JPanel {
 		return lcurrency6;
 	}
 
-	// TODO Decide how the values of two BHTextFields can be combined to one
-	// IntervalValue
 	public BHTextField getTfmaxliabilities() {
 		if (tfmaxliabilities == null) {
 			tfmaxliabilities = new BHTextField(IBHComponent.MAXVALUE

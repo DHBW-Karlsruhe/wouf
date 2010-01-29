@@ -12,21 +12,17 @@ public class DTOAccessException extends RuntimeException {
 
 	public DTOAccessException() {
 		super();
-		// TODO Auto-generated constructor stub
 	}
 
 	public DTOAccessException(String arg0) {
 		super(arg0);
-		// TODO Auto-generated constructor stub
 	}
 
 	public DTOAccessException(Throwable cause) {
 		super(cause);
-		// TODO Auto-generated constructor stub
 	}
 
 	public DTOAccessException(String arg0, Throwable arg1) {
 		super(arg0, arg1);
-		// TODO Auto-generated constructor stub
 	}
 }

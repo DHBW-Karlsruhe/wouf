@@ -91,7 +91,6 @@ public final class BHStochasticInputForm extends JPanel {
 		this.getbResetParameters().setVisible(false);
 	}
 	
-	//TODO Overwork Javadoc
 	/**
 	 * Getter method for component lDCFchoise.
 	 * 

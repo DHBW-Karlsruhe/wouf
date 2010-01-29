@@ -198,7 +198,7 @@ public class DoubleValue extends Calculable  {
 	}
 
 	@Override
-	public Number parse() {
+	public Number toNumber() {
 		return value;
 	}
 

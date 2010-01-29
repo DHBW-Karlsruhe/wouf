@@ -15,8 +15,6 @@ import org.bh.gui.view.View;
 import org.bh.gui.view.ViewException;
 import org.bh.platform.Services;
 
-// TODO Testklasse, wird später entfernt
-
 public class RandomDirectInputController implements IPeriodController {
 	private static final String GUI_KEY = "Random_Values";
 	private static final int PRIORITY = 0;

@@ -193,8 +193,7 @@ public abstract class Calculable implements IValue {
 	 */
 	public abstract Calculable pow(Calculable exponent);
 	
-	// TODO refactor to "toNumber()"
-	public abstract Number parse();
+	public abstract Number toNumber();
 	
 	public abstract double getMin();
 	public abstract double getMax();
@@ -246,18 +245,17 @@ public abstract class Calculable implements IValue {
 	}
 	
 	/**
-	 * TODO Scharfenberger.Sebastian Comment me, pls - i just fix
-	 * Calculates the sum of all parameters.
+	 * Calculates the difference of all parameters.
 	 * 
-	 * @param summands
-	 *            the summands
+	 * @param subtrahends
+	 *            the subtrahends
 	 * 
 	 * @return sum of all parameters as new Calculable
 	 */
-	public Calculable sub(Calculable... summands) {
+	public Calculable sub(Calculable... subtrahends) {
 		Calculable result = this;
-		for (Calculable summand : summands) {
-			result = result.sub(summand);
+		for (Calculable subtrahend : subtrahends) {
+			result = result.sub(subtrahend);
 		}
 		return result;
 	}

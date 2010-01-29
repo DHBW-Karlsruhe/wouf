@@ -253,8 +253,8 @@ public class WienerProcess implements IStochasticProcess {
 		for (Entry<DTOKeyPair, List<Calculable>> e : toBeDetermined.entrySet()) {
 			String key = e.getKey().getKey();
 			double standardDeviation = calcStandardDeviation(e.getValue())
-					.parse().doubleValue();
-			double slope = calcSlope(e.getValue()).parse().doubleValue();
+					.toNumber().doubleValue();
+			double slope = calcSlope(e.getValue()).toNumber().doubleValue();
 			internalMap.put(e.getKey().getKey() + SLOPE, slope);
 			internalMap.put(e.getKey().getKey() + STANDARD_DEVIATION,
 					standardDeviation);
