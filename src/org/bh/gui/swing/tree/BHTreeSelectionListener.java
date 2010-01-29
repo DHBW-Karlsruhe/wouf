@@ -113,8 +113,9 @@ public class BHTreeSelectionListener implements TreeSelectionListener {
 		oldActiveNode.setDividerLocation(bhmf.getVDividerLocation());
 	    }
 	    
-	    // remove result panel
+	    // remove result form
 	    bhmf.removeResultForm();
+	    
 	    
 	    //--> GET DATA AND FILL CONTENT AREA (RIGHT AREA)
 	    SwingUtilities.invokeLater(new Runnable() {
@@ -184,7 +185,6 @@ public class BHTreeSelectionListener implements TreeSelectionListener {
 
 				// check if controller is already there...
 				if (selectedNode.getController() == null) {
-				    setController(selectedNode.getController());
 				    // if not, create view at first
 
 				    View view;
@@ -198,7 +198,10 @@ public class BHTreeSelectionListener implements TreeSelectionListener {
 				    // create controller
 				    setController(new ScenarioController(view, model, getBHMainFrame()));
 				    selectedNode.setController(getController());
+				}else{
+				    setController(selectedNode.getController());
 				}
+				
 
 				if (model.isDeterministic()) {
 				    // if scenario is deterministic, an overview table is provided
