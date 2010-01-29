@@ -8,10 +8,10 @@ import org.bh.data.types.Calculable;
 import org.bh.platform.PluginManager;
 
 /**
- * Project DTO
+ * Period DTO
  * 
  * <p>
- * This DTO contains projectdata and acts as a root-element
+ * This DTO contains period data.
  * 
  * @author Michael Löckelt
  * @version 0.2, 16.12.2009

@@ -29,6 +29,7 @@ import org.bh.data.DTOPeriod;
 import org.bh.data.DTOProject;
 import org.bh.data.DTOScenario;
 import org.bh.gui.swing.BHMainFrame;
+import org.bh.gui.swing.misc.Icons;
 import org.bh.platform.IPlatformListener;
 import org.bh.platform.PlatformEvent;
 import org.bh.platform.Services;
@@ -67,11 +68,6 @@ public class BHTree extends JTree {
      * icon for period nodes.
      */
     public static ImageIcon PERIOD_ICON = Services.createImageIcon("/org/bh/images/tree/period.png");
-
-    /**
-     * icon for project nodes with error.
-     */
-    public static ImageIcon ERROR_ICON = Services.createImageIcon("/org/bh/images/tree/error.png");
 
     /**
      * right-click popup for tree nodes with functions like 'remove' etc.
@@ -205,13 +201,13 @@ public class BHTree extends JTree {
 		if (((DTOScenario) node.getUserObject()).isValid(true)) {
 		    icon = BHTree.SCENARIO_ICON;
 		} else
-		    icon = BHTree.ERROR_ICON;
+		    icon = Icons.WARNING_ICON;
 
 	    } else if (node.getUserObject() instanceof DTOPeriod) {
 		if (((DTOPeriod) node.getUserObject()).isValid(true)) {
 		    icon = BHTree.PERIOD_ICON;
 		} else
-		    icon = BHTree.ERROR_ICON;
+		    icon = Icons.WARNING_ICON;
 
 	    }
 

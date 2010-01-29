@@ -13,7 +13,7 @@ import javax.swing.Popup;
 import javax.swing.PopupFactory;
 import javax.swing.event.MouseInputAdapter;
 
-import org.bh.gui.swing.misc.ValidationResultViewFactory;
+import org.bh.gui.swing.misc.Icons;
 import org.bh.platform.i18n.BHTranslator;
 import org.bh.platform.i18n.ITranslator;
 
@@ -59,11 +59,11 @@ public final class BHStatusBar extends JPanel {
 		cons = new CellConstraints();
 		
 		hintLabel = new JLabel("");
-		hintLabel.setIcon(ValidationResultViewFactory.getLargeInfoIcon());
+		hintLabel.setIcon(Icons.INFO_ICON);
 		removeHint();
 		
 		errorHintLabel = new JLabel(translator.translate("errorHint"));
-		errorHintLabel.setIcon(ValidationResultViewFactory.getLargeErrorIcon());
+		errorHintLabel.setIcon(Icons.ERROR_ICON);
 		errorHintLabel.addMouseListener(new BHLabelListener());
 		errorHintLabel.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
 		removeErrorHint();

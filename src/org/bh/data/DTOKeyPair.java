@@ -4,7 +4,16 @@ import java.io.Serializable;
 
 import org.bh.platform.Services;
 
+/**
+ * A pair which consists of the unique ID of an {@link IPeriodicalValuesDTO} and
+ * one key in this DTO.
+ * 
+ * @author Robert
+ * @version 1.0, 29.01.2010
+ * 
+ */
 public class DTOKeyPair implements Comparable<DTOKeyPair>, Serializable {
+	private static final long serialVersionUID = -6139469450820278480L;
 	private final String dtoId;
 	private final String key;
 
@@ -12,7 +21,7 @@ public class DTOKeyPair implements Comparable<DTOKeyPair>, Serializable {
 		this.dtoId = dtoId;
 		this.key = key;
 	}
-	
+
 	public DTOKeyPair(String dtoId, Object key) {
 		this(dtoId, key.toString());
 	}
@@ -57,5 +66,5 @@ public class DTOKeyPair implements Comparable<DTOKeyPair>, Serializable {
 	public String toString() {
 		return Services.getTranslator().translate(key);
 	}
-	
+
 }

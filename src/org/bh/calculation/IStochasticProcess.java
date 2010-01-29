@@ -15,14 +15,6 @@ import org.bh.platform.IDisplayablePlugin;
  */
 public interface IStochasticProcess extends IDisplayablePlugin {
 	/**
-	 * Sets the scenario which is used in the process.
-	 * 
-	 * @param scenario
-	 *            The scenario.
-	 */
-	void setScenario(DTOScenario scenario);
-
-	/**
 	 * Uses the scenario to calculate the parameters needed for the stochastic
 	 * process.
 	 * 
@@ -66,9 +58,10 @@ public interface IStochasticProcess extends IDisplayablePlugin {
 	String getUniqueId();
 
 	/**
-	 * Creates a new instance of the same class.
+	 * Creates a new instance of the same class for a specific scenario.
 	 * 
+	 * @param The scenario used in this instance of the stochastic process.
 	 * @return A new instance of the same class.
 	 */
-	IStochasticProcess createNewInstance();
+	IStochasticProcess createNewInstance(DTOScenario scenario);
 }

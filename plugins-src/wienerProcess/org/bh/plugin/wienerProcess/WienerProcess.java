@@ -295,11 +295,6 @@ public class WienerProcess implements IStochasticProcess {
 	}
 
 	@Override
-	public void setScenario(DTOScenario scenario) {
-		this.scenario = scenario;
-	}
-
-	@Override
 	public void updateParameters() {
 		Component[] components = panel.getComponents();
 		for (int i = 0; i < components.length; i++) {
@@ -353,8 +348,10 @@ public class WienerProcess implements IStochasticProcess {
 	}
 
 	@Override
-	public IStochasticProcess createNewInstance() {
-		return new WienerProcess();
+	public IStochasticProcess createNewInstance(DTOScenario scenario) {
+		WienerProcess instance = new WienerProcess();
+		instance.scenario = scenario;
+		return instance;
 	}
 
 	@Override

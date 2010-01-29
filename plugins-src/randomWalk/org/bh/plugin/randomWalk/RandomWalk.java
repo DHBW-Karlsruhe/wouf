@@ -293,11 +293,6 @@ public class RandomWalk implements IStochasticProcess {
 	}
 
 	@Override
-	public void setScenario(DTOScenario scenario) {
-		this.scenario = scenario;
-	}
-
-	@Override
 	public void updateParameters() {
 		Component[] components = panel.getComponents();
 		for (int i = 0; i < components.length; i++) {
@@ -314,8 +309,10 @@ public class RandomWalk implements IStochasticProcess {
 	}
 
 	@Override
-	public IStochasticProcess createNewInstance() {
-		return new RandomWalk();
+	public IStochasticProcess createNewInstance(DTOScenario scenario) {
+		RandomWalk instance = new RandomWalk();
+		instance.scenario = scenario;
+		return instance;
 	}
 
 	@Override

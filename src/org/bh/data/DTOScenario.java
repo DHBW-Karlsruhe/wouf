@@ -204,7 +204,7 @@ public class DTOScenario extends DTO<DTOPeriod> {
 	 */
 	public IStochasticProcess getStochasticProcess() {
 		return Services.getStochasticProcess(get(Key.STOCHASTIC_PROCESS)
-				.toString());
+				.toString()).createNewInstance(this);
 	}
 
 	/**

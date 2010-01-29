@@ -1,14 +1,13 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
-
 package org.bh.platform;
 
 import java.util.EventObject;
 
 /**
+ * Instances of this class are used to notify {@link IPlatformListener}s about
+ * events which occured somewhere in the application and which are of importance
+ * for the whole application.
  * 
+ * @author Robert Vollmer
  * @author Marco Hammel
  */
 public class PlatformEvent extends EventObject {

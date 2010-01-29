@@ -49,6 +49,17 @@ import org.bh.gui.view.ViewException;
 import org.bh.platform.PlatformEvent.Type;
 import org.bh.validation.ValidationMethods;
 
+/**
+ * This is the controller for the scenario input form. It includes
+ * ActionListeners for the buttons which trigger the calculation of the
+ * shareholder value and parameters for stochastic processes.
+ * 
+ * @author Alexander Schmalzhaf
+ * @author Robert Vollmer
+ * @author Klaus Thiele
+ * @version 1.0, 29.01.2010
+ * 
+ */
 public class ScenarioController extends InputController {
 	protected static final BHComboBox.Item[] DCF_METHOD_ITEMS = getDcfMethodItems();
 	protected static final BHComboBox.Item[] DCF_STOCHASTIC_METHOD_ITEMS = getStochasticDcfMethodItems();
@@ -61,27 +72,24 @@ public class ScenarioController extends InputController {
 		super(view, model);
 
 		this.bhmf = bhmf;
-		
-		//check whether stochastic or not
 		DTOScenario scenario = (DTOScenario) getModel();
+
+		// populate the list of DCF methods
 		BHComboBox cbDcfMethod = (BHComboBox) view
-		.getBHComponent(DTOScenario.Key.DCF_METHOD);
-		
-		if(scenario.isDeterministic()){
-			if (cbDcfMethod != null) {
+				.getBHComponent(DTOScenario.Key.DCF_METHOD);
+		if (cbDcfMethod != null) {
+			if (scenario.isDeterministic()) {
 				cbDcfMethod.setSorted(true);
 				cbDcfMethod.setValueList(DCF_METHOD_ITEMS);
-			}
-		}else{
-			if (cbDcfMethod != null) {
+			} else {
 				cbDcfMethod.setSorted(true);
 				cbDcfMethod.setValueList(DCF_STOCHASTIC_METHOD_ITEMS);
 			}
 		}
-		
 
 		reloadTopPanel();
 
+		// populate the list of stochastic processes
 		BHComboBox cbStochasticMethod = (BHComboBox) view
 				.getBHComponent(DTOScenario.Key.STOCHASTIC_PROCESS);
 		if (cbStochasticMethod != null) {
@@ -89,10 +97,14 @@ public class ScenarioController extends InputController {
 			cbStochasticMethod.setValueList(STOCHASTIC_METHOD_ITEMS);
 		}
 
-		((BHButton) view.getBHComponent(BHScenarioForm.Key.CALCSHAREHOLDERVALUE))
+		// add ActionListener for calculation button
+		((BHButton) view
+				.getBHComponent(BHScenarioForm.Key.CALCSHAREHOLDERVALUE))
 				.addActionListener(new CalculationListener(PlatformController
 						.getInstance().getMainFrame().getBHTree()));
 
+		// add ActionListeners for calculate/reset parameters buttons for
+		// stochastic processes
 		final BHButton calcStochasticParameters = ((BHButton) view
 				.getBHComponent(BHStochasticInputForm.Key.CALC_PARAMETERS));
 		final BHButton resetStochasticParameters = ((BHButton) view
@@ -103,10 +115,10 @@ public class ScenarioController extends InputController {
 
 				@Override
 				public void actionPerformed(ActionEvent e) {
+					// calculate the parameters for the stochastic process and
+					// display a panel to change them if necessary
 					DTOScenario scenario = (DTOScenario) getModel();
-					process = scenario.getStochasticProcess()
-							.createNewInstance();
-					process.setScenario(scenario);
+					process = scenario.getStochasticProcess();
 
 					JPanel parametersPanel = process.calculateParameters();
 					BHStochasticInputForm form = (BHStochasticInputForm) ((Component) e
@@ -117,6 +129,8 @@ public class ScenarioController extends InputController {
 					try {
 						final View view = new View(parametersPanel,
 								new ValidationMethods());
+						// enable the calculation button depending on the
+						// validation status
 						view.addViewListener(new IViewListener() {
 							@Override
 							public void viewEvent(ViewEvent e) {
@@ -124,13 +138,15 @@ public class ScenarioController extends InputController {
 								case VALUE_CHANGED:
 									boolean allValid = !view.revalidate()
 											.hasErrors();
-									((Component) getView().getBHComponent(
-										BHScenarioForm.Key.CALCSHAREHOLDERVALUE))
+									((Component) getView()
+											.getBHComponent(
+													BHScenarioForm.Key.CALCSHAREHOLDERVALUE))
 											.setEnabled(allValid);
 									break;
 								case VALIDATION_FAILED:
-									((Component) getView().getBHComponent(
-										BHScenarioForm.Key.CALCSHAREHOLDERVALUE))
+									((Component) getView()
+											.getBHComponent(
+													BHScenarioForm.Key.CALCSHAREHOLDERVALUE))
 											.setEnabled(false);
 									break;
 								}
@@ -138,7 +154,7 @@ public class ScenarioController extends InputController {
 						});
 						boolean allValid = !view.revalidate().hasErrors();
 						((Component) getView().getBHComponent(
-							BHScenarioForm.Key.CALCSHAREHOLDERVALUE))
+								BHScenarioForm.Key.CALCSHAREHOLDERVALUE))
 								.setEnabled(allValid);
 					} catch (ViewException e1) {
 					}
@@ -164,7 +180,7 @@ public class ScenarioController extends InputController {
 					calcStochasticParameters.setVisible(true);
 					resetStochasticParameters.setVisible(false);
 					((Component) getView().getBHComponent(
-						BHScenarioForm.Key.CALCSHAREHOLDERVALUE))
+							BHScenarioForm.Key.CALCSHAREHOLDERVALUE))
 							.setEnabled(false);
 					((Component) getView().getBHComponent(
 							DTOScenario.Key.STOCHASTIC_KEYS)).setEnabled(true);
@@ -175,6 +191,7 @@ public class ScenarioController extends InputController {
 			});
 		}
 
+		// immediately toggle interval arithmetic on and off
 		BHCheckBox chkInterval = (BHCheckBox) getView().getBHComponent(
 				DTOScenario.Key.INTERVAL_ARITHMETIC);
 		if (chkInterval != null) {
@@ -190,28 +207,32 @@ public class ScenarioController extends InputController {
 							}
 							// ---- get selected item of the old ComboBox
 							BHComboBox cbPeriodType = (BHComboBox) v
-							.getBHComponent(DTOScenario.Key.PERIOD_TYPE);
+									.getBHComponent(DTOScenario.Key.PERIOD_TYPE);
 							Object item = cbPeriodType.getSelectedItem();
 							// ----
 							((BHScenarioForm) getViewPanel())
 									.setHeadPanel(scenario
-											.isIntervalArithmetic());			
+											.isIntervalArithmetic());
 							try {
 								reloadView();
 							} catch (ViewException e) {
 							}
 							loadAllToView();
 							reloadTopPanel();
-							
-							//---- set selected item in the new ComboBox
-							JPanel shf = ((BHScenarioForm) getViewPanel()).getScenarioHeadForm();
-							if(shf instanceof BHScenarioHeadForm){
-								((BHScenarioHeadForm)shf).getCmbPeriodType().setSelectedItem(item);
-							}else if (shf instanceof BHScenarioHeadIntervalForm){
-								((BHScenarioHeadIntervalForm)shf).getCmbPeriodType().setSelectedItem(item);
+
+							// ---- set selected item in the new ComboBox
+							JPanel shf = ((BHScenarioForm) getViewPanel())
+									.getScenarioHeadForm();
+							if (shf instanceof BHScenarioHeadForm) {
+								((BHScenarioHeadForm) shf).getCmbPeriodType()
+										.setSelectedItem(item);
+							} else if (shf instanceof BHScenarioHeadIntervalForm) {
+								((BHScenarioHeadIntervalForm) shf)
+										.getCmbPeriodType().setSelectedItem(
+												item);
 							}
-							//----
-							
+							// ----
+
 							setCalcEnabled(getModel().isValid(true));
 						}
 					});
@@ -219,7 +240,8 @@ public class ScenarioController extends InputController {
 
 		setCalcEnabled(getModel().isValid(true));
 		if (!((DTOScenario) model).isDeterministic()) {
-			((Component) view.getBHComponent(BHScenarioForm.Key.CALCSHAREHOLDERVALUE))
+			((Component) view
+					.getBHComponent(BHScenarioForm.Key.CALCSHAREHOLDERVALUE))
 					.setEnabled(false);
 		}
 
@@ -229,11 +251,13 @@ public class ScenarioController extends InputController {
 	}
 
 	private static Item[] getStochasticDcfMethodItems() {
-		Collection<IShareholderValueCalculator> dcfMethods = Services.getDCFMethods().values();
+		Collection<IShareholderValueCalculator> dcfMethods = Services
+				.getDCFMethods().values();
 		ArrayList<BHComboBox.Item> items = new ArrayList<BHComboBox.Item>();
 		for (IShareholderValueCalculator dcfMethod : dcfMethods) {
-			if(dcfMethod.isApplicableForStochastic())
-				items.add(new BHComboBox.Item(dcfMethod.getGuiKey(), new StringValue(dcfMethod.getUniqueId())));
+			if (dcfMethod.isApplicableForStochastic())
+				items.add(new BHComboBox.Item(dcfMethod.getGuiKey(),
+						new StringValue(dcfMethod.getUniqueId())));
 		}
 		return items.toArray(new BHComboBox.Item[0]);
 	}
@@ -243,6 +267,9 @@ public class ScenarioController extends InputController {
 				.getBHComponent(DTOScenario.Key.PERIOD_TYPE);
 		if (cbPeriodType != null) {
 			cbPeriodType.setValueList(PERIOD_TYPE_ITEMS);
+			// warn user that the period type cannot be changed without throwing
+			// away
+			// all existing periods in the scenario
 			cbPeriodType.getValueChangeManager().addCompValueChangeListener(
 					new ICompValueChangeListener() {
 
@@ -282,6 +309,10 @@ public class ScenarioController extends InputController {
 		}
 	}
 
+	/**
+	 * Updates the selection list for the fields which can be calculated
+	 * stochastically, based on the currently selected period type.
+	 */
 	protected void updateStochasticFieldsList() {
 		DTOScenario scenario = (DTOScenario) getModel();
 		BHComboBox cbPeriodType = (BHComboBox) view
@@ -316,7 +347,8 @@ public class ScenarioController extends InputController {
 
 	protected void setCalcEnabled(boolean calculationEnabled) {
 		if (((DTOScenario) getModel()).isDeterministic()) {
-			((Component) view.getBHComponent(BHScenarioForm.Key.CALCSHAREHOLDERVALUE))
+			((Component) view
+					.getBHComponent(BHScenarioForm.Key.CALCSHAREHOLDERVALUE))
 					.setEnabled(calculationEnabled);
 			((Component) view
 					.getBHComponent(BHScenarioForm.Key.CANNOT_CALCULATE_HINT))
@@ -373,10 +405,14 @@ public class ScenarioController extends InputController {
 		return items.toArray(new BHComboBox.Item[0]);
 	}
 
+	/**
+	 * ActionListener which starts the calculation of the shareholder value
+	 * (both deterministic and stochastic calculation).
+	 */
 	protected class CalculationListener implements ActionListener {
 
-		private final ImageIcon scCalcLoading = Services.createImageIcon(
-				"/org/bh/images/loading.gif");
+		private final ImageIcon scCalcLoading = Services
+				.createImageIcon("/org/bh/images/loading.gif");
 		private BHTree bhTree;
 
 		public CalculationListener(BHTree bhTree) {
@@ -386,16 +422,16 @@ public class ScenarioController extends InputController {
 		@Override
 		public void actionPerformed(ActionEvent e) {
 			final JButton b = (JButton) e.getSource();
-			final BHDescriptionLabel calcImage = (BHDescriptionLabel) getView().getBHComponent(
-					BHScenarioForm.Key.CALCULATING_IMAGE);
-			
+			final BHDescriptionLabel calcImage = (BHDescriptionLabel) getView()
+					.getBHComponent(BHScenarioForm.Key.CALCULATING_IMAGE);
+
 			b.setEnabled(false);
 			calcImage.setIcon(this.scCalcLoading);
 
 			Runnable r = new Runnable() {
 				long end;
 				long start;
-				
+
 				@Override
 				public void run() {
 					DTOScenario scenario = (DTOScenario) getModel();
@@ -406,8 +442,8 @@ public class ScenarioController extends InputController {
 								.getDCFMethod().calculate(scenario, true);
 
 						// FIXME selection of result analyser plugin
-						if(log.isDebugEnabled()) {
-							start =  System.currentTimeMillis();
+						if (log.isInfoEnabled()) {
+							start = System.currentTimeMillis();
 						}
 						panel = new JPanel();
 						for (IDeterministicResultAnalyser analyser : PluginManager
@@ -419,14 +455,15 @@ public class ScenarioController extends InputController {
 
 						BHTreeNode tn = (BHTreeNode) bhTree.getSelectionPath()
 								.getPathComponent(2);
-						
+
 						JScrollPane sp = new JScrollPane(panel);
 						sp.setWheelScrollingEnabled(true);
 						tn.setResultPane(sp);
-						
-						if(log.isDebugEnabled()) {
+
+						if (log.isInfoEnabled()) {
 							end = System.currentTimeMillis();
-							log.info("Result Analysis View load time: " +  (end - start) + "ms");
+							log.info("Result Analysis View load time: "
+									+ (end - start) + "ms");
 						}
 					} else {
 						process.updateParameters();
@@ -440,25 +477,22 @@ public class ScenarioController extends InputController {
 							panel = analyser.setResult(scenario, result);
 							break;
 						}
-						
-						
+
 					}
-					
-					
-					if(panel != null){
-						
+
+					if (panel != null) {
+
 						BHTreeNode tn = (BHTreeNode) bhTree.getSelectionPath()
-						.getPathComponent(2);
+								.getPathComponent(2);
 						JScrollPane sp = new JScrollPane(panel);
 						sp.setWheelScrollingEnabled(true);
 						sp.getVerticalScrollBar().setUnitIncrement(10);
 						tn.setResultPane(sp);
-						//Put it onto screen
+						// Put it onto screen
 						bhmf.moveInResultForm(tn.getResultPane());
-						
-						
+
 					}
-					
+
 					b.setEnabled(true);
 					calcImage.setIcon(null);
 				}

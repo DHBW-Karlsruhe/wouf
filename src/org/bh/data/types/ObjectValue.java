@@ -1,5 +1,13 @@
 package org.bh.data.types;
 
+/**
+ * Generic <code>IValue</code> implementation which contains a reference to an
+ * <code>Object</code>.
+ * 
+ * @author Robert
+ * @version 1.0, 29.01.2010
+ * 
+ */
 public class ObjectValue implements IValue {
 	private static final long serialVersionUID = 1392784563718846200L;
 	protected final Object object;
@@ -18,7 +26,7 @@ public class ObjectValue implements IValue {
 		}
 
 	}
-	
+
 	public Object getObject() {
 		return object;
 	}

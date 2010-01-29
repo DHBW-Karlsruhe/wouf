@@ -8,6 +8,8 @@ import java.awt.Component;
 import java.util.Collection;
 import java.util.Map;
 
+import javax.swing.DefaultListCellRenderer;
+import javax.swing.JList;
 import javax.swing.JScrollPane;
 import javax.swing.text.JTextComponent;
 
@@ -15,14 +17,16 @@ import org.apache.log4j.Logger;
 import org.bh.gui.IBHComponent;
 import org.bh.gui.IBHModelComponent;
 import org.bh.gui.swing.BHStatusBar;
-import org.bh.gui.swing.misc.ValidationResultViewFactory;
+import org.bh.gui.swing.misc.Icons;
 import org.bh.gui.view.ViewException;
 import org.bh.platform.Services;
 
+import com.jgoodies.validation.ValidationMessage;
 import com.jgoodies.validation.ValidationResult;
 import com.jgoodies.validation.ValidationResultModel;
 import com.jgoodies.validation.util.DefaultValidationResultModel;
 import com.jgoodies.validation.view.ValidationComponentUtils;
+import com.jgoodies.validation.view.ValidationResultViewFactory;
 
 /**
  *
@@ -83,8 +87,33 @@ public abstract class BHValidityEngine {
         validationResultModel.setResult(validationResult);
 
         JScrollPane resultList = (JScrollPane) ValidationResultViewFactory.createReportList(validationResultModel);
+        JList list = (JList) resultList.getViewport().getView();
+        list.setCellRenderer(new BHValidationMessageCellRenderer());
         return resultList;
     }
+    
+    @SuppressWarnings("serial")
+    protected static class BHValidationMessageCellRenderer extends DefaultListCellRenderer {
+        @Override
+        public Component getListCellRendererComponent(
+            JList list,
+            Object value,
+            int index,
+            boolean isSelected,
+            boolean cellHasFocus) {
+            super.getListCellRendererComponent(
+                list,
+                value,
+                index,
+                false,  // Ignore the selection state
+                false); // Ignore the cell focus state
+            ValidationMessage message = (ValidationMessage) value;
+            this.setIcon(Icons.getIcon(message.severity()));
+            this.setText(message.formattedText());
+            return this;
+        }
+    }
+    
     /**
      * run a validation and deliver the Result to the BHStatusBar
      *

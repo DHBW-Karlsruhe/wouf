@@ -16,7 +16,7 @@ import javax.swing.JTextArea;
 import javax.swing.JToggleButton;
 
 import org.bh.gui.IBHComponent;
-import org.bh.gui.swing.misc.ValidationResultViewFactory;
+import org.bh.gui.swing.misc.Icons;
 import org.bh.platform.Services;
 import org.bh.platform.i18n.ITranslator;
 import org.jfree.chart.ChartPanel;
@@ -74,7 +74,7 @@ public class BHChartPanel extends JPanel implements IBHComponent, IBHAddValue,
 		JPanel panel = new JPanel(new FormLayout("pref", "p,p"));
 
 		JToggleButton info = new JToggleButton();
-		info.setIcon(ValidationResultViewFactory.getLargeInfoIcon());
+		info.setIcon(Icons.INFO_ICON);
 		info.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				JToggleButton button = (JToggleButton) e.getSource();
