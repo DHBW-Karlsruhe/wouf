@@ -70,13 +70,13 @@ public class ValidateStochastic {
 			Map.Entry entry = (Map.Entry) iterator.next();
 			String key = (String) entry.getKey();
 
-			System.out.println(key);
+			//System.out.println(key);
 			
 			// find slope and standarddeviation textfields,
 			// which are build dynamicly in class "WienerProcess.java"
 			if (key.contains("slope") || key.contains("standardDeviation")) {
 				double value = (Double) entry.getValue();
-				System.out.println(value);
+				//System.out.println(value);
 				if (value == 0) {
 					allZero = true;
 				} else { // (value != 0)
