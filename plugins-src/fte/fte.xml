@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding='utf-8'?>
+<plugin>
+	<id>7</id>
+	<name>FTE Verfahren</name>	
+	<description>Mit diesem Plug-In kann der Unternehmenswert nach dem Flow to Equity Verfahren berechnet werden.</description>
+</plugin>

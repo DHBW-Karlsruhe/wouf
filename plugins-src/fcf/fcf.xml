@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding='utf-8'?>
+<plugin>
+	<id>6</id>
+	<name>FCF Verfahren</name>	
+	<description>Mit diesem Plug-In kann der Unternehmenswert nach dem Free Cash Flow Verfahren berechnet werden.</description>
+</plugin>

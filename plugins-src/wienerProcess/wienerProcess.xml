@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding='utf-8'?>
+<plugin>
+	<id>12</id>
+	<name>Wiener Prozess</name>	
+	<description>Dieses Plug-In ermöglicht die Verwendung des Wiener Prozesses als stochastischen Prozess.</description>
+</plugin>

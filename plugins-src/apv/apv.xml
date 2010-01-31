@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding='utf-8'?>
+<plugin>
+	<id>3</id>
+	<name>APV Verfahren</name>	
+	<description>Mit diesem Plug-In kann der Unternehmenswert nach dem Adjusted Present Value Verfahren berechnet werden.</description>
+</plugin>

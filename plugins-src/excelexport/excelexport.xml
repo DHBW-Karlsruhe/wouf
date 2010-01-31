@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding='utf-8'?>
+<plugin>
+	<id>5</id>
+	<name>Excel Export</name>
+	<size>177</size>
+	<description>Dieses Plug-In ermöglicht das Exportieren von Berechnungsergebnissen im Microsoft Excel-Format.</description>
+</plugin>

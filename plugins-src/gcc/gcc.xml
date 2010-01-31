@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding='utf-8'?>
+<plugin>
+	<id>8</id>
+	<name>Finanzdaten HGB</name>	
+	<description>Dieses Plug-In beinhaltet die Formulare und Methoden zur Eingabe, Verwaltung, dem Import und Export von Bilanzen und Gewinn und Verlustrechnungen.</description>
+</plugin>

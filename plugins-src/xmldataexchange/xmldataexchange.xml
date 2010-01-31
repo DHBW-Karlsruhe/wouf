@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding='utf-8'?>
+<plugin>
+	<id>1</id>
+	<name>XML Import / Export</name>
+	<size>177</size>
+	<description>Dieses Plug-In ermöglicht das Importieren von Projekten und Finanzdaten wie der Bilanz und Gewinn- und Verlustrechnung.</description>
+</plugin>

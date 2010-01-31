@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding='utf-8'?>
+<plugin>
+	<id>9</id>
+	<name>Random Walk</name>	
+	<description>Dieses Plug-In ermöglicht die Verwendung des Random Walks als stochastischen Prozess.</description>
+</plugin>

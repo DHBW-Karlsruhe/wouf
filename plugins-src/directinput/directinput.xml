@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding='utf-8'?>
+<plugin>
+	<id>4</id>
+	<name>Direktes Eingabeformular</name>	
+	<description>Ermöglicht die direkte Eingabe von Werten einer Periode.</description>
+</plugin>
