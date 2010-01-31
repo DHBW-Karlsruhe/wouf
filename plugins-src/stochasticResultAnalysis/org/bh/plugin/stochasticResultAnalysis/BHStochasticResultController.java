@@ -1,6 +1,5 @@
 package org.bh.plugin.stochasticResultAnalysis;
 
-import java.awt.Component;
 import java.awt.event.ActionEvent;
 import java.util.ArrayList;
 import java.util.List;
@@ -29,7 +28,6 @@ import org.bh.gui.view.View;
 import org.bh.platform.IImportExport;
 import org.bh.platform.IPrint;
 import org.bh.platform.Services;
-import org.bh.plugin.resultAnalysis.BHResultPanel;
 import org.jfree.chart.JFreeChart;
 
 public class BHStochasticResultController extends OutputController {
