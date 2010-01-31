@@ -106,6 +106,7 @@
             <fileset dir="${plugins.source.dir}/${plugin}">
                 <exclude name="**/*.launch"/>
                 <exclude name="**/*.java"/>
+				<exclude name="${plugin}.xml"/>
             </fileset>
         </copy>
         <javac destdir="${plugins.build.dir}/${plugin}" srcdir="${plugins.source.dir}/${plugin}" debug="${debug}" debuglevel="lines,vars,source">
@@ -125,6 +126,8 @@
         </jar>
         
         <signjar jar="${plugins.output.dir}/${plugin}.jar" keystore="${jar.store.file}" alias="${jar.store.alias}" storepass="${jar.store.pass}"/>
+		
+		<copy file="${plugins.source.dir}/${plugin}/${plugin}.xml" todir="${plugins.output.dir}" />
     </target>
 
     <target depends="compile" name="preparejar">
