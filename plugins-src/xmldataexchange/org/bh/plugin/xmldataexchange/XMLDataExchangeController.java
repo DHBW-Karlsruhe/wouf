@@ -92,7 +92,7 @@ public class XMLDataExchangeController implements IImportExport, ActionListener 
 							String msg = BHTranslator.getInstance().translate("DProjectExportSuccessfull");
 							msg = msg.replace("[PATH]", ((BHDefaultProjectExportPanel) exportPanel).getTxtPath().getText());
 							JOptionPane.showMessageDialog(exportDialog, msg,
-									BHTranslator.getInstance().translate("DXMLProjectExport"),
+									BHTranslator.getInstance().translate("DProjectExport"),
 									JOptionPane.INFORMATION_MESSAGE);
 							exportDialog.dispose();
 						}
@@ -156,9 +156,10 @@ public class XMLDataExchangeController implements IImportExport, ActionListener 
 			if ((importDialog.getAction() & IImportExport.IMP_PROJECT) == IImportExport.IMP_PROJECT)
 			{
 				importModel.removeAllChildren();
-				for (Object sec : ((BHDefaultProjectExportPanel) importPanel).getSecList().getSelectedItems())
+				for (Object sec : ((BHDefaultProjectImportPanel) importPanel).getSecList().getSelectedItems())
 					((DTOProject)importModel).addChild((DTOScenario) sec);
 				PlatformController.getInstance().addProject((DTOProject) importModel);	
+				importDialog.dispose();
 			}
 			else if ((importDialog.getAction() & IImportExport.IMP_BALANCE_SHEET) == IImportExport.IMP_BALANCE_SHEET)
 			{
@@ -212,7 +213,7 @@ public class XMLDataExchangeController implements IImportExport, ActionListener 
 					
 				}
 			}
-
+			
 			
 		}		
 		else if (comp.getKey().equals("Bbrowse") && GUI_KEY.equals(GUI_KEY_IMPORT)
@@ -241,7 +242,7 @@ public class XMLDataExchangeController implements IImportExport, ActionListener 
 					importModel = new XMLImport(fileChooser.getSelectedFile().getPath()).startImport();
 					if (importModel != null)
 					{					
-						((BHDefaultProjectExportPanel) importPanel).getSecList().setModel(importModel.getChildren().toArray());	
+						((BHDefaultProjectImportPanel) importPanel).getSecList().setModel(importModel.getChildren().toArray());	
 						((BHDefaultProjectImportPanel) importPanel).getBtnImport().setEnabled(true);
 					}
 					else
@@ -268,7 +269,7 @@ public class XMLDataExchangeController implements IImportExport, ActionListener 
 				}				
 				
 				PlatformController.preferences.put("lastImportDirectory", fileChooser.getSelectedFile().getParent()); 
-				((BHDefaultProjectExportPanel) importPanel).getTxtPath().setText(fileChooser.getSelectedFile().getPath());			
+				((BHDefaultProjectImportPanel) importPanel).getTxtPath().setText(fileChooser.getSelectedFile().getPath());			
 			}			
 		}		
 	}
