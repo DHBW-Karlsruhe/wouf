@@ -4,8 +4,11 @@ import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 
 import org.bh.BusinessHorizon;
+import org.bh.platform.IPlatformListener;
+import org.bh.platform.PlatformEvent;
 import org.bh.platform.PlatformKey;
 import org.bh.platform.Services;
+import org.bh.platform.PlatformEvent.Type;
 import org.bh.platform.i18n.ITranslator;
 
 /**
@@ -25,7 +28,7 @@ import org.bh.platform.i18n.ITranslator;
  */
 
 @SuppressWarnings("serial")
-public final class BHMenuBar extends JMenuBar{
+public final class BHMenuBar extends JMenuBar implements IPlatformListener {
 
 	ITranslator translator = Services.getTranslator();
 	
@@ -136,6 +139,8 @@ public final class BHMenuBar extends JMenuBar{
 		if (BusinessHorizon.DEBUG) 
 			menuHelp.add(new BHMenuItem(PlatformKey.HELPDEBUG));
 		menuHelp.add(new BHMenuItem(PlatformKey.HELPINFO));
+		
+		Services.addPlatformListener(this);
 	}
 	
 	public void disableMenuProjectItems(){
@@ -186,5 +191,28 @@ public final class BHMenuBar extends JMenuBar{
 	    	periodCreate.setEnabled(true);
 	    	periodDuplicate.setEnabled(true);
 	    	periodRemove.setEnabled(true);
+	}
+
+	@Override
+	public void platformEvent(PlatformEvent e) {
+		if (e.getEventType() == Type.LOCALE_CHANGED) {
+			menuFile.setText(translator.translate("Mfile"));
+			menuFile.setMnemonic(translator.translate("Mfile", ITranslator.MNEMONIC).charAt(0));
+			
+			menuHelp.setText(translator.translate("Mhelp"));
+			menuFile.setMnemonic(translator.translate("Mhelp", ITranslator.MNEMONIC).charAt(0));
+			
+			menuOptions.setText(translator.translate("Moptions"));
+			menuFile.setMnemonic(translator.translate("Moptions", ITranslator.MNEMONIC).charAt(0));
+			
+			menuPeriod.setText(translator.translate("Mperiod"));
+			menuFile.setMnemonic(translator.translate("Mperiod", ITranslator.MNEMONIC).charAt(0));
+			
+			menuProject.setText(translator.translate("Mproject"));
+			menuFile.setMnemonic(translator.translate("Mproject", ITranslator.MNEMONIC).charAt(0));
+			
+			menuScenario.setText(translator.translate("Mscenario"));
+			menuFile.setMnemonic(translator.translate("Mscenario", ITranslator.MNEMONIC).charAt(0));
+		}
 	}
 }
