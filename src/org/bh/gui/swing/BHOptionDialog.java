@@ -19,19 +19,15 @@ import javax.swing.border.EtchedBorder;
 import org.bh.gui.swing.comp.BHButton;
 import org.bh.gui.swing.comp.BHCheckBox;
 import org.bh.gui.swing.comp.BHDescriptionLabel;
-import org.bh.platform.IPlatformListener;
 import org.bh.platform.PlatformController;
-import org.bh.platform.PlatformEvent;
 import org.bh.platform.Services;
-import org.bh.platform.PlatformEvent.Type;
 import org.bh.platform.i18n.BHTranslator;
 
 import com.jgoodies.forms.layout.CellConstraints;
 import com.jgoodies.forms.layout.FormLayout;
 
 @SuppressWarnings("serial")
-public final class BHOptionDialog extends JDialog implements ActionListener,
-		IPlatformListener {
+public final class BHOptionDialog extends JDialog implements ActionListener {
 
 	private CellConstraints cons;
 
@@ -136,15 +132,6 @@ public final class BHOptionDialog extends JDialog implements ActionListener,
 		Services.getTranslator().setLocale((Locale) combo.getSelectedItem());
 		
 		this.dispose();
-	}
-
-	@Override
-	public void platformEvent(PlatformEvent e) {
-		if (e.getEventType() == Type.LOCALE_CHANGED) {
-			Services.getTranslator().translate("MoptionsDialog");
-			combo.revalidate();
-			combo.repaint();
-		}
 	}
 
 	/**
