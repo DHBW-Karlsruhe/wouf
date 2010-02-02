@@ -7,13 +7,13 @@ import java.awt.Component;
 import java.awt.Dimension;
 import java.util.Map;
 
-import javax.swing.BorderFactory;
 import javax.swing.JPanel;
 
 import org.apache.log4j.Logger;
 import org.bh.data.DTOScenario;
 import org.bh.data.types.Calculable;
 import org.bh.gui.swing.comp.BHButton;
+import org.bh.gui.swing.forms.border.BHBorderFactory;
 import org.bh.gui.view.ViewException;
 import org.bh.platform.Services;
 import org.bh.platform.i18n.ITranslator;
@@ -96,9 +96,9 @@ public final class BHResultPanel extends JPanel {
 	
 	void setFormulaArea(BHFormulaPanel c) {
 		formulaArea = c;
-		formulaArea.setBorder(BorderFactory.createTitledBorder(BorderFactory
-				.createEtchedBorder(), translator
-				.translate("result_headline")));
+		formulaArea.setBorder(BHBorderFactory.getInstacnce().createTitledBorder(BHBorderFactory.getInstacnce()
+				.createEtchedBorder(),
+				"result_headline"));
 		add(formulaArea, "1,3");
 	}
 	

@@ -4,7 +4,6 @@ import info.clearthought.layout.TableLayout;
 
 import java.awt.Dimension;
 
-import javax.swing.BorderFactory;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.border.EtchedBorder;
@@ -17,6 +16,7 @@ import org.bh.gui.chart.BHChartPanel;
 import org.bh.gui.swing.comp.BHDescriptionLabel;
 import org.bh.gui.swing.comp.BHSlider;
 import org.bh.gui.swing.comp.BHValueLabel;
+import org.bh.gui.swing.forms.border.BHBorderFactory;
 import org.bh.platform.i18n.ITranslator;
 
 import com.jgoodies.forms.layout.FormLayout;
@@ -77,9 +77,9 @@ public class StochasticPanel extends JPanel{
 	        rav.add(max, "2,6");
 	        rav.add(maxValue, "4,6");
 	        rav.add(new JLabel("GE"), "6,6");
-	        rav.setBorder(BorderFactory.createTitledBorder(BorderFactory
-					.createEtchedBorder(EtchedBorder.LOWERED), translator
-					.translate(BHStochasticResultController.ChartKeys.RISK_AT_VALUE), TitledBorder.LEFT,
+	        rav.setBorder(BHBorderFactory.getInstacnce().createTitledBorder(BHBorderFactory.getInstacnce()
+					.createEtchedBorder(EtchedBorder.LOWERED),
+					BHStochasticResultController.ChartKeys.RISK_AT_VALUE, TitledBorder.LEFT,
 					TitledBorder.DEFAULT_JUSTIFICATION));
 	        
 	        

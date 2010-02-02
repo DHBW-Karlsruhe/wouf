@@ -26,6 +26,7 @@ import org.bh.gui.chart.BHChartPanel;
 import org.bh.gui.chart.IBHAddGroupValue;
 import org.bh.gui.chart.IBHAddValue;
 import org.bh.gui.swing.comp.BHButton;
+import org.bh.gui.swing.forms.border.BHBorderFactory;
 import org.bh.gui.swing.importexport.BHDataExchangeDialog;
 import org.bh.gui.view.View;
 import org.bh.gui.view.ViewException;
@@ -115,7 +116,7 @@ public class BHResultController extends OutputController {
 	} else if (scenario.getDCFMethod().getUniqueId().equals("all")) {
 	    JPanel allPanel = new JPanel(new BorderLayout());
 	    BH_APV_ResultPanel apv_panel = new BH_APV_ResultPanel();
-	    apv_panel.setBorder(BorderFactory.createTitledBorder(BorderFactory.createEtchedBorder(EtchedBorder.LOWERED),translator.translate("apv")));
+	    apv_panel.setBorder(BHBorderFactory.getInstacnce().createTitledBorder(BHBorderFactory.getInstacnce().createEtchedBorder(EtchedBorder.LOWERED),"apv"));
 	    BH_FCF_ResultPanel fcf_panel = new BH_FCF_ResultPanel(true);
 	    fcf_panel.setBorder(BorderFactory.createTitledBorder(BorderFactory.createEtchedBorder(EtchedBorder.LOWERED),translator.translate("fcf")));
 	    BH_FTE_ResultPanel fte_panel = new BH_FTE_ResultPanel(true);

@@ -1,6 +1,5 @@
 package org.bh.gui.swing.forms;
 
-import javax.swing.BorderFactory;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.border.EtchedBorder;
@@ -8,6 +7,7 @@ import javax.swing.border.EtchedBorder;
 import org.apache.log4j.Logger;
 import org.bh.gui.swing.comp.BHButton;
 import org.bh.gui.swing.comp.BHDescriptionLabel;
+import org.bh.gui.swing.forms.border.BHBorderFactory;
 import org.bh.platform.Services;
 import org.bh.platform.i18n.ITranslator;
 
@@ -160,9 +160,8 @@ public final class BHScenarioForm extends JPanel {
 		else
 			pscenario = new BHScenarioHeadIntervalForm();
 		
-		//TODO add locale change handler
-		pscenario.setBorder(BorderFactory
-				.createTitledBorder(BorderFactory.createEtchedBorder(EtchedBorder.LOWERED),translator.translate(BHScenarioForm.Key.SCENARIO_HEADDATA)));
+		pscenario.setBorder(BHBorderFactory.getInstacnce()
+				.createTitledBorder(BHBorderFactory.getInstacnce().createEtchedBorder(EtchedBorder.LOWERED),BHScenarioForm.Key.SCENARIO_HEADDATA));
 		
 		CellConstraints cons = new CellConstraints();
 		topPanel.add(pscenario, cons.xywh(2, 2, 1, 1));
@@ -184,9 +183,9 @@ public final class BHScenarioForm extends JPanel {
 		default:
 			pprocess = new BHDeterministicProcessForm();
 		}
-		// TODO add locale change handler
-		pprocess.setBorder(BorderFactory
-				.createTitledBorder(BorderFactory.createEtchedBorder(EtchedBorder.LOWERED),translator.translate(BHScenarioForm.Key.PROCESS_DATA)));
+
+		pprocess.setBorder(BHBorderFactory.getInstacnce()
+				.createTitledBorder(BHBorderFactory.getInstacnce().createEtchedBorder(EtchedBorder.LOWERED),BHScenarioForm.Key.PROCESS_DATA));
 		return pprocess;
 	}
 	

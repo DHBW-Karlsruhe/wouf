@@ -1,6 +1,5 @@
 package org.bh.plugin.directinput;
 
-import javax.swing.BorderFactory;
 import javax.swing.JPanel;
 import javax.swing.border.EtchedBorder;
 
@@ -9,6 +8,7 @@ import org.bh.data.DTOPeriod;
 import org.bh.gui.IBHComponent;
 import org.bh.gui.swing.comp.BHDescriptionLabel;
 import org.bh.gui.swing.comp.BHTextField;
+import org.bh.gui.swing.forms.border.BHBorderFactory;
 import org.bh.platform.i18n.ITranslator;
 import org.bh.validation.VRIsDouble;
 import org.bh.validation.VRIsGreaterThan;
@@ -110,9 +110,10 @@ public class DirectInputForm extends JPanel {
 			this.add(this.getLcurrency6(), cons.xywh(10, 6, 1, 1));
 		}
 
-		this.setBorder(BorderFactory.createTitledBorder(BorderFactory
-				.createEtchedBorder(EtchedBorder.LOWERED), translator
-				.translate(DirectInputForm.Key.PERIOD_DIRECT)));
+		this.setBorder(BHBorderFactory.getInstacnce().createTitledBorder(
+				BHBorderFactory.getInstacnce().createEtchedBorder(
+						EtchedBorder.LOWERED),
+				DirectInputForm.Key.PERIOD_DIRECT));
 	}
 
 	public BHDescriptionLabel getLname() {
@@ -265,21 +266,21 @@ public class DirectInputForm extends JPanel {
 		}
 		return lcurrency2;
 	}
-//
-//	/**
-//	 * Test main method.
-//	 */
-//	public static void main(String args[]) {
-//
-//		JFrame test = new JFrame("Test for ViewPeriodData1");
-//		test.setContentPane(new DirectInputForm(true));
-//		test.addWindowListener(new WindowAdapter() {
-//			@Override
-//			public void windowClosing(WindowEvent e) {
-//				System.exit(0);
-//			}
-//		});
-//		test.pack();
-//		test.show();
-//	}
+	//
+	// /**
+	// * Test main method.
+	// */
+	// public static void main(String args[]) {
+	//
+	// JFrame test = new JFrame("Test for ViewPeriodData1");
+	// test.setContentPane(new DirectInputForm(true));
+	// test.addWindowListener(new WindowAdapter() {
+	// @Override
+	// public void windowClosing(WindowEvent e) {
+	// System.exit(0);
+	// }
+	// });
+	// test.pack();
+	// test.show();
+	// }
 }

@@ -1,7 +1,6 @@
 package org.bh.plugin.gcc.swing;
 
 
-import javax.swing.BorderFactory;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.border.EtchedBorder;
@@ -11,6 +10,7 @@ import org.bh.controller.Controller;
 import org.bh.gui.IBHComponent;
 import org.bh.gui.swing.comp.BHDescriptionLabel;
 import org.bh.gui.swing.comp.BHTextField;
+import org.bh.gui.swing.forms.border.BHBorderFactory;
 import org.bh.platform.i18n.ITranslator;
 import org.bh.plugin.gcc.data.DTOGCCBalanceSheet;
 import org.bh.validation.VRIsDouble;
@@ -139,9 +139,8 @@ public class BHBalanceSheetForm extends JPanel {
 				"fill, fill"));
 		this.add(this.getPassiva(intervalArithmetic), cons.xywh(4, 2, 1, 1,
 				"fill, fill"));
-		this.setBorder(BorderFactory.createTitledBorder(BorderFactory
-				.createEtchedBorder(EtchedBorder.LOWERED), translator
-				.translate(BHBalanceSheetForm.Key.BALANCE_SHEET)));
+		this.setBorder(BHBorderFactory.getInstacnce().createTitledBorder(BHBorderFactory.getInstacnce()
+				.createEtchedBorder(EtchedBorder.LOWERED),BHBalanceSheetForm.Key.BALANCE_SHEET));
 
 	}
 
@@ -280,9 +279,9 @@ public class BHBalanceSheetForm extends JPanel {
 		}
 
 		// TODO add handler for locale change
-		paktiva.setBorder(BorderFactory.createTitledBorder(BorderFactory
-				.createEtchedBorder(EtchedBorder.LOWERED), translator
-				.translate(BHBalanceSheetForm.Key.AKTIVA), TitledBorder.CENTER,
+		paktiva.setBorder(BHBorderFactory.getInstacnce().createTitledBorder(BHBorderFactory.getInstacnce()
+				.createEtchedBorder(EtchedBorder.LOWERED), 
+				BHBalanceSheetForm.Key.AKTIVA, TitledBorder.CENTER,
 				TitledBorder.DEFAULT_JUSTIFICATION));
 
 		return paktiva;
@@ -356,10 +355,9 @@ public class BHBalanceSheetForm extends JPanel {
 
 		layout.setRowGroups(new int[][] {{2,3,5}});
 
-		// TODO add handler for locale change
-		ppassiva.setBorder(BorderFactory.createTitledBorder(BorderFactory
-				.createEtchedBorder(EtchedBorder.LOWERED), translator
-				.translate(BHBalanceSheetForm.Key.PASSIVA),
+		ppassiva.setBorder(BHBorderFactory.getInstacnce().createTitledBorder(BHBorderFactory.getInstacnce()
+				.createEtchedBorder(EtchedBorder.LOWERED),
+				BHBalanceSheetForm.Key.PASSIVA,
 				TitledBorder.CENTER, TitledBorder.DEFAULT_JUSTIFICATION));
 
 		return ppassiva;

@@ -16,6 +16,7 @@ import javax.swing.JTextArea;
 import javax.swing.JToggleButton;
 
 import org.bh.gui.IBHComponent;
+import org.bh.gui.swing.forms.border.BHBorderFactory;
 import org.bh.gui.swing.misc.Icons;
 import org.bh.platform.Services;
 import org.bh.platform.i18n.ITranslator;
@@ -95,9 +96,8 @@ public class BHChartPanel extends JPanel implements IBHComponent, IBHAddValue,
 
 		this.add(panel, "2,1,left,top");
 		this.chart = chart;
-		this.setBorder(BorderFactory.createTitledBorder(BorderFactory
-				.createEtchedBorder(), translator
-				.translate(this.key)));
+		this.setBorder(BHBorderFactory.getInstacnce().createTitledBorder(
+				BHBorderFactory.getInstacnce().createEtchedBorder(), this.key));
 	}
 
 	/**
@@ -168,12 +168,12 @@ public class BHChartPanel extends JPanel implements IBHComponent, IBHAddValue,
 
 	@Override
 	public void addSeries(Comparable<String> seriesKey, double[][] data) {
-	    this.chartInstance.addSeries(seriesKey, data);
+		this.chartInstance.addSeries(seriesKey, data);
 	}
 
 	@Override
 	public void removeSeries(int number) {
-	    this.chartInstance.removeSeries(number);
+		this.chartInstance.removeSeries(number);
 	}
 
 }

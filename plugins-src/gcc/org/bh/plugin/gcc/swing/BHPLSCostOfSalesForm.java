@@ -3,7 +3,6 @@ package org.bh.plugin.gcc.swing;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 
-import javax.swing.BorderFactory;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
@@ -12,6 +11,7 @@ import javax.swing.border.EtchedBorder;
 import org.bh.gui.IBHComponent;
 import org.bh.gui.swing.comp.BHDescriptionLabel;
 import org.bh.gui.swing.comp.BHTextField;
+import org.bh.gui.swing.forms.border.BHBorderFactory;
 import org.bh.platform.i18n.BHTranslator;
 import org.bh.platform.i18n.ITranslator;
 import org.bh.plugin.gcc.data.DTOGCCProfitLossStatementCostOfSales;
@@ -139,10 +139,9 @@ public class BHPLSCostOfSalesForm extends JPanel {
 
 		}
 		
-		// TODO add handler for locale change
-		this.setBorder(BorderFactory.createTitledBorder(BorderFactory
-				.createEtchedBorder(EtchedBorder.LOWERED), translator
-				.translate(BHPLSCostOfSalesForm.Key.PLS_CostOfSales)));
+		this.setBorder(BHBorderFactory.getInstacnce().createTitledBorder(BHBorderFactory.getInstacnce()
+				.createEtchedBorder(EtchedBorder.LOWERED), 
+				BHPLSCostOfSalesForm.Key.PLS_CostOfSales));
 
 	}
 

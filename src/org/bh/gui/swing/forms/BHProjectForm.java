@@ -1,12 +1,12 @@
 package org.bh.gui.swing.forms;
 
-import javax.swing.BorderFactory;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.border.EtchedBorder;
 
 import org.bh.gui.swing.comp.BHButton;
 import org.bh.gui.swing.comp.BHDescriptionLabel;
+import org.bh.gui.swing.forms.border.BHBorderFactory;
 import org.bh.platform.Services;
 import org.bh.platform.i18n.ITranslator;
 
@@ -115,9 +115,8 @@ public final class BHProjectForm extends JPanel {
 	private JPanel getPproject() {
 		if (pproject == null) {
 			pproject = new BHProjectInputForm();
-			//TODO add locale change handler
-			pproject.setBorder(BorderFactory
-					.createTitledBorder(BorderFactory.createEtchedBorder(EtchedBorder.LOWERED),translator.translate(BHProjectForm.Key.PROJECT_HEADDATA)));
+			pproject.setBorder(BHBorderFactory.getInstacnce()
+					.createTitledBorder(BHBorderFactory.getInstacnce().createEtchedBorder(EtchedBorder.LOWERED),BHProjectForm.Key.PROJECT_HEADDATA));
 		}
 		return pproject;
 	}
