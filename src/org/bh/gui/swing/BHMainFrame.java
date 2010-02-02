@@ -352,6 +352,7 @@ public final class BHMainFrame extends JFrame implements IPlatformListener, Timi
 		if (e.getEventType() == Type.LOCALE_CHANGED) {
 			this.resetTitle();
 			this.chooser = new BHFileChooser();
+			this.repaint(); // enforce repaint to everybody.
 		}
 	}
 	
