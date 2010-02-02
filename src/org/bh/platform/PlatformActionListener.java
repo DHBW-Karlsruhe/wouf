@@ -181,7 +181,7 @@ class PlatformActionListener implements ActionListener {
 
 		case HELPUSERHELP:
 
-			openUserHelp("mathe");
+			openUserHelp("user");
 			break;
 
 		case HELPMATHHELP:
