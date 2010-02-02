@@ -46,6 +46,7 @@ class PlatformActionListener implements ActionListener {
 	BHMainFrame bhmf;
 	ProjectRepositoryManager projectRepoManager;
 	PlatformController pC;
+	ITranslator trans = BHTranslator.getInstance();
 
 	IDataExchangeController dataExchangeCntrl;
 
@@ -520,8 +521,8 @@ class PlatformActionListener implements ActionListener {
 				BHTranslator.getInstance().translate("stochastic"))));
 			BHComboBox.Item res = (BHComboBox.Item) JOptionPane
 					.showInputDialog(bhmf,
-							"Bitte gewünschten Szenariotyp auswählen:",
-							"Szenariotyp auswählen",
+							trans.translate("choose_scenario_type", BHTranslator.LONG),
+						    trans.translate("choose_scenario_type"),
 							JOptionPane.QUESTION_MESSAGE, null, itemsList
 									.toArray(), null);
 
