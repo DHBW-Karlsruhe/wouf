@@ -92,21 +92,21 @@ public class XMLDataExchangeController implements IImportExport, ActionListener 
 							String msg = BHTranslator.getInstance().translate("DProjectExportSuccessfull");
 							msg = msg.replace("[PATH]", ((BHDefaultProjectExportPanel) exportPanel).getTxtPath().getText());
 							JOptionPane.showMessageDialog(exportDialog, msg,
-									BHTranslator.getInstance().translate("DProjectExport"),
+									BHTranslator.getInstance().translate("DXMLExport"),
 									JOptionPane.INFORMATION_MESSAGE);
 							exportDialog.dispose();
 						}
 						else
 						{
 							JOptionPane.showMessageDialog(exportDialog, BHTranslator.getInstance().translate("DExportError"),
-									BHTranslator.getInstance().translate("DProjectExport"),
+									BHTranslator.getInstance().translate("DXMLExport"),
 									JOptionPane.ERROR_MESSAGE);
 						}
 						
 					} catch (IOException e1) {
 						log.debug(e1);
 						JOptionPane.showMessageDialog(exportDialog, BHTranslator.getInstance().translate("DExportFileError"),
-								BHTranslator.getInstance().translate("DProjectExport"),
+								BHTranslator.getInstance().translate("DXMLExport"),
 								JOptionPane.WARNING_MESSAGE);
 					}
 				}

@@ -1,9 +1,14 @@
 package org.bh.plugin.xmldataexchange.xmlexport;
 
+import java.util.ArrayList;
+
+import org.apache.log4j.Logger;
+import org.bh.data.DTOKeyPair;
 import org.bh.data.types.DoubleValue;
 import org.bh.data.types.IValue;
 import org.bh.data.types.IntegerValue;
 import org.bh.data.types.IntervalValue;
+import org.bh.data.types.ObjectValue;
 import org.bh.data.types.StringValue;
 import org.jdom.Attribute;
 import org.jdom.Element;
@@ -50,14 +55,18 @@ public class DataTypeConverter {
 			actValue = getIntervalValueInXML((IntervalValue) val, ns);
 		else if (val instanceof StringValue)
 			actValue = getStringValueInXML((StringValue) val, ns);
+		else if (val instanceof ObjectValue)
+			actValue = getObjectValueInXML((ObjectValue)val, ns);
 		
-		if (actValue == null)
+		if (actValue != null)
 		{
-			// TODO throw export exception
+			// Add actual values
+			value.addContent(actValue);
 		}				
+		else
+			Logger.getLogger(DataTypeConverter.class).debug("A value could not be converted into a XML Node. Type is: " + val.getClass().getSimpleName());
 		
-		// Add actual values
-		value.addContent(actValue);		
+				
 		
 		return value;
 		
@@ -113,6 +122,37 @@ public class DataTypeConverter {
 		Element value = new Element("stringValue", ns);
 		value.addContent(val.getString());			
 		return value;		
+	}
+	
+	/**
+	 * Converts a ObjectValue into a XML node.
+	 * @param val
+	 * @return
+	 */
+	private static Element getObjectValueInXML(ObjectValue val, Namespace ns)
+	{
+		if (val.getObject() instanceof ArrayList)
+		{
+			Element value = new Element("objectValue", ns);	
+			for(Object obj : (ArrayList)val.getObject())
+			{
+				if (obj instanceof DTOKeyPair)
+				{
+					Attribute id = new Attribute("id", ((DTOKeyPair)obj).getDtoId());
+					Attribute key = new Attribute("key", ((DTOKeyPair)obj).getKey());
+					Element keyPair = new Element("keyPair", ns);
+					keyPair.setAttribute(id);
+					keyPair.setAttribute(key);
+					value.addContent(keyPair);
+				}
+				else
+					return null;
+			}	
+
+			return value;
+		}
+		else					
+			return null;		
 	}
 	
 }
