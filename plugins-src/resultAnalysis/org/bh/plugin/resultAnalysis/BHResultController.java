@@ -32,6 +32,7 @@ import org.bh.gui.view.View;
 import org.bh.gui.view.ViewException;
 import org.bh.platform.IImportExport;
 import org.bh.platform.IPrint;
+import org.bh.platform.PlatformEvent;
 import org.bh.platform.Services;
 import org.bh.platform.formula.FormulaException;
 import org.bh.platform.formula.IFormulaFactory;
@@ -49,6 +50,8 @@ public class BHResultController extends OutputController {
     protected static Logger log = Logger.getLogger(BHResultController.class);
     private static final ITranslator translator = Services.getTranslator();
     IFormulaFactory ff;
+    Map<String, Calculable[]> result;
+    DTOScenario scenario;
     /**
      * chart keys for result to chart mapping used in <code>BH_APV_ResultPanel>/code>
      * or <code>BH_FCF_ResultPanel>/code> or <code>BH_FTE_ResultPanel>/code>
@@ -78,8 +81,23 @@ public class BHResultController extends OutputController {
     }
 
     @Override
+    public void platformEvent(PlatformEvent e) {
+        switch (e.getEventType()){
+            case LOCALE_CHANGED:
+                this.setResult(this.result, this.scenario);
+                break;
+            default:
+                break;
+        }
+    }
+
+
+    @Override
     public void setResult(Map<String, Calculable[]> result, DTOScenario scenario) {
 	super.setResult(result, scenario);
+
+        this.result = result;
+        this.scenario = scenario;
 
 	BHResultPanel rp = (BHResultPanel) view.getViewPanel();
 

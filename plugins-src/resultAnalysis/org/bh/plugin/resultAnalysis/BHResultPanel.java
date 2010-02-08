@@ -53,6 +53,7 @@ public final class BHResultPanel extends JPanel {
 	ITranslator translator = Services.getTranslator();
 
 	BHFormulaPanel formulaArea;
+        Component chartArea;
 	 
 	public enum Keys{
 		EXPORTSCENARIO,
@@ -103,7 +104,11 @@ public final class BHResultPanel extends JPanel {
 	}
 	
 	void setChartArea(Component c) {
-		add(c, "1,5");
+            if(this.chartArea != null){
+                remove(this.chartArea);
+            }
+            this.chartArea = c;
+            add(c, "1,5");
 	}
 	
 	BHFormulaPanel getFormulaArea() {
