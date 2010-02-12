@@ -77,6 +77,12 @@ public class ITextDocumentBuilder implements PdfPageEvent {
 		}
 	}
 
+	/**
+	 * Creates a new document for the given scenario
+	 * 
+	 * @param path
+	 * @param scenario
+	 */
 	void newDocument(String path, DTOScenario scenario) {
 		try {
 
@@ -101,6 +107,9 @@ public class ITextDocumentBuilder implements PdfPageEvent {
 		}
 	}
 
+	/**
+	 * finishes the pdffile creation
+	 */
 	void closeDocument() {
 		try {
 			doc.add(report);
@@ -110,6 +119,12 @@ public class ITextDocumentBuilder implements PdfPageEvent {
 		}
 	}
 
+	/**
+	 * builds the result data part of the pdf for dcf scenarios
+	 * 
+	 * @param resultMap
+	 * @param charts
+	 */
 	void buildResultDataDet(Map<String, Calculable[]> resultMap,
 			List<JFreeChart> charts) {
 		Paragraph title;
@@ -153,6 +168,12 @@ public class ITextDocumentBuilder implements PdfPageEvent {
 		}
 	}
 
+	/**
+	 * builds the chart section of the pdf
+	 * 
+	 * @param results
+	 * @param charts
+	 */
 	private void buildChartsSection(Section results, List<JFreeChart> charts) {
 		Paragraph title;
 		Image chartImage;
@@ -177,6 +198,12 @@ public class ITextDocumentBuilder implements PdfPageEvent {
 		}
 	}
 
+	/**
+	 * builds the result data part of the pdf for stochastic scenarios
+	 * 
+	 * @param distMap
+	 * @param charts
+	 */
 	void buildResultDataStoch(DistributionMap distMap, List<JFreeChart> charts) {
 		Paragraph title;
 		Section results;
@@ -201,6 +228,11 @@ public class ITextDocumentBuilder implements PdfPageEvent {
 		buildChartsSection(results, charts);
 	}
 
+	/**
+	 * builds the result head section
+	 * 
+	 * @return
+	 */
 	Section buildResultHead() {
 		Paragraph title;
 		report.newPage();
@@ -208,6 +240,11 @@ public class ITextDocumentBuilder implements PdfPageEvent {
 		return report.addSection(title, 1);
 	}
 
+	/**
+	 * builds the head section
+	 * 
+	 * @return
+	 */
 	void buildHeadData(DTOScenario scenario) {
 		Section data;
 		PdfPTable t;
@@ -218,14 +255,14 @@ public class ITextDocumentBuilder implements PdfPageEvent {
 			img.scalePercent(70f);
 			img.setAlignment(Image.MIDDLE);
 			doc.add(img);
-			
+
 			Paragraph title = new Paragraph(trans.translate(Keys.TITLE) + " - "
 					+ scenario.get(DTOScenario.Key.NAME), TITLE_FONT);
 			doc.add(new Paragraph("\n\n"));
 			doc.add(title);
 			doc.add(new Paragraph(trans.translate(Keys.CREATEDAT) + ": "
 					+ s.format(new Date()) + "\n\n"));
-			
+
 			report = new Chapter(title, 1);
 			report.setNumberDepth(0);
 			title = new Paragraph(trans.translate(Keys.SCENARIODATA),
@@ -253,6 +290,11 @@ public class ITextDocumentBuilder implements PdfPageEvent {
 		}
 	}
 
+	/**
+	 * builds the pdf section with scenario information 
+	 * 
+	 * @param scenario
+	 */
 	@SuppressWarnings("unchecked")
 	void buildScenarioData(DTOScenario scenario) {
 		Paragraph title;
@@ -371,5 +413,4 @@ public class ITextDocumentBuilder implements PdfPageEvent {
 	@Override
 	public void onStartPage(PdfWriter arg0, Document arg1) {
 	}
-
 }

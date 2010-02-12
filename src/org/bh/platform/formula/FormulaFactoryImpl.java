@@ -18,9 +18,6 @@ import org.xml.sax.SAXException;
 /**
  * Factory class for formulas. Do not instantiate formulas directly.
  * 
- * <p>
- * TODO
- * 
  * @author Norman
  * @version 0.1, 02.12.2009
  * @version 0.2, 21.12.2009

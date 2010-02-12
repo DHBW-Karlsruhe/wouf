@@ -27,7 +27,7 @@ import org.bh.platform.i18n.ITranslator;
 import org.jfree.chart.JFreeChart;
 
 /**
- * Plug-in to export certain scenarios to PDF as a kind of report
+ * Plug-in to export certain scenarios to Excel as a kind of report
  * 
  * @author Norman
  * @version 1.0, 16.01.2010

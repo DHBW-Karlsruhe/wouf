@@ -27,11 +27,16 @@ import org.bh.data.types.IValue;
 import org.bh.platform.i18n.BHTranslator;
 import org.bh.platform.i18n.ITranslator;
 
+/**
+ * Utility class for ExcelExport
+ * 
+ * @author Norman
+ * @version 1.0, 16.01.2010
+ * 
+ */
 public class XSSFDocumentBuilder {
 
-	/**
-	 * Logger for this class
-	 */
+	/** Logger for this class. */
 	private static final Logger log = Logger
 			.getLogger(XSSFDocumentBuilder.class);
 
@@ -39,6 +44,8 @@ public class XSSFDocumentBuilder {
 
 	public enum Keys {
 		TITLE, SCENARIO_SHEET, CREATEDAT, DATEFORMAT, PERIOD_SHEET, RESULT_SHEET, ;
+
+		/* Specified by interface/super class. */
 		@Override
 		public String toString() {
 			return getClass().getName() + "." + super.toString();
@@ -130,6 +137,11 @@ public class XSSFDocumentBuilder {
 		}
 	}
 
+	/**
+	 * Adds a sheet for the given period to the xlsx file
+	 * 
+	 * @param scenario
+	 */
 	@SuppressWarnings("unchecked")
 	void buildPeriodSheet(DTOScenario scenario) {
 		Sheet sheet;
@@ -180,6 +192,11 @@ public class XSSFDocumentBuilder {
 
 	}
 
+	/**
+	 * * Adds a result sheet to the xlsx file
+	 * 
+	 * @param resultMap
+	 */
 	void buildResultSheet(Map<String, Calculable[]> resultMap) {
 		Sheet sheet;
 		Row row;
@@ -191,8 +208,8 @@ public class XSSFDocumentBuilder {
 		sheet = wb.createSheet(trans.translate(Keys.RESULT_SHEET));
 		sheet.setColumnWidth(0, 6000);
 		sheet.setColumnWidth(1, 6000);
-		
-		//sheet content
+
+		// sheet content
 		row = sheet.createRow(rowCnt++);
 
 		str = crh.createRichTextString(trans.translate(Keys.RESULT_SHEET));
@@ -209,7 +226,7 @@ public class XSSFDocumentBuilder {
 				cell.setCellValue(str);
 				if (val[0] != null) {
 					str = crh.createRichTextString(val[0].toString());
-					cell= row.createCell(1);
+					cell = row.createCell(1);
 					cell.setCellStyle(std);
 					cell.setCellValue(str);
 				}
@@ -219,7 +236,7 @@ public class XSSFDocumentBuilder {
 					if (val[i] != null) {
 						row = sheet.createRow(++rowCnt);
 						str = crh.createRichTextString(val[i].toString());
-						cell= row.createCell(1);
+						cell = row.createCell(1);
 						cell.setCellStyle(std);
 						cell.setCellValue(str);
 					}
@@ -228,6 +245,11 @@ public class XSSFDocumentBuilder {
 		}
 	}
 
+	/**
+	 * Adds a result sheet to the xlsx file
+	 * 
+	 * @param distMap
+	 */
 	void buildResultSheet(DistributionMap distMap) {
 		Sheet sheet;
 		Row row;
@@ -239,7 +261,7 @@ public class XSSFDocumentBuilder {
 		sheet = wb.createSheet(trans.translate(Keys.RESULT_SHEET));
 		sheet.setColumnWidth(0, 6000);
 		sheet.setColumnWidth(1, 6000);
-		
+
 		// sheet content
 		row = sheet.createRow(rowCnt++);
 
@@ -264,6 +286,11 @@ public class XSSFDocumentBuilder {
 		}
 	}
 
+	/**
+	 * finishes the xlsx file creation
+	 * 
+	 * @param path
+	 */
 	void closeDocument(String path) {
 		FileOutputStream fos;
 		try {

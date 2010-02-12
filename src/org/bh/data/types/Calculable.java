@@ -13,7 +13,6 @@ import org.bh.platform.Services;
  * @author Norman
  * @author Robert
  * @author Alex
- * 
  * @version 0.1, 21.11.2009, Sebastian
  * @version 0.2, unknown, Robert
  * @version 0.3, 21.12.2009, Norman
@@ -22,109 +21,19 @@ import org.bh.platform.Services;
  * @version 0.6, 28.12.2009, Sebastian (added more needed functions)
  */
 public abstract class Calculable implements IValue {
+	
+	/** The Constant serialVersionUID. */
 	private static final long serialVersionUID = 1234704259997706589L;
 
-	/**
-	 * Pattern for a double value. It matches zero or one minus sign, followed
-	 * by zero or more digits (0-9), followed by a dot and one or more digits.
-	 * Leading or trailing spaces will be ignored. Instead of the dot, a comma
-	 * can be used.
-	 * 
-	 * <p>
-	 * Examples for values are:
-	 * <ul>
-	 * <li>1.2
-	 * <li>1,2
-	 * <li>12.3
-	 * <li>12.34
-	 * <li>.1
-	 * <li>1.
-	 * <li>12
-	 * <li>-1.2
-	 * <li>-.1
-	 * <li>-1
-	 * <li>&nbsp;1.2&nbsp; (spaces before and/or after the value)
-	 * </ul>
-	 * 
-	 * <p>
-	 * However, these values do not match:
-	 * <ul>
-	 * <li>(empty string)
-	 * <li>1,2
-	 * <li>- 1.2
-	 * <li>1
-	 * <li>abc
-	 * <li>a 1 b
-	 * </ul>
-	 */
+	/** Pattern for a double value. It matches zero or one minus sign, followed by zero or more digits (0-9), followed by a dot and one or more digits. Leading or trailing spaces will be ignored. Instead of the dot, a comma can be used.  <p> Examples for values are: <ul> <li>1.2 <li>1,2 <li>12.3 <li>12.34 <li>.1 <li>1. <li>12 <li>-1.2 <li>-.1 <li>-1 <li>&nbsp;1.2&nbsp; (spaces before and/or after the value) </ul>  <p> However, these values do not match: <ul> <li>(empty string) <li>1,2 <li>- 1.2 <li>1 <li>abc <li>a 1 b </ul> */
 	public static final Pattern DOUBLE_PATTERN = Pattern.compile("^\\s*"
 			+ DoubleValue.REGEX + "\\s*$");
 
-	/**
-	 * Pattern for an integer value. It matches zero or one minus sign, followed
-	 * by one or more digits. Leading or trailing spaces will be ignored.
-	 * 
-	 * <p>
-	 * Examples for values are:
-	 * <ul>
-	 * <li>1
-	 * <li>12
-	 * <li>-1
-	 * <li>&nbsp;1&nbsp; (spaces before and/or after the value)
-	 * </ul>
-	 * 
-	 * <p>
-	 * However, these values do not match:
-	 * <ul>
-	 * <li>(empty string)
-	 * <li>- 1
-	 * <li>1.
-	 * <li>.1
-	 * <li>1.2
-	 * <li>abc
-	 * <li>a 1 b
-	 * </ul>
-	 */
+	/** Pattern for an integer value. It matches zero or one minus sign, followed by one or more digits. Leading or trailing spaces will be ignored.  <p> Examples for values are: <ul> <li>1 <li>12 <li>-1 <li>&nbsp;1&nbsp; (spaces before and/or after the value) </ul>  <p> However, these values do not match: <ul> <li>(empty string) <li>- 1 <li>1. <li>.1 <li>1.2 <li>abc <li>a 1 b </ul> */
 	public static final Pattern INTEGER_PATTERN = Pattern.compile("^\\s*"
 			+ IntegerValue.REGEX + "\\s*$");
 
-	/**
-	 * Pattern for an interval. It matches two double or integer values, divided
-	 * by a semicolon (;) and enclosed by squared brackets. Spaces are allowed,
-	 * but not necessary, between the brackets and the digits, between the
-	 * digits and the semicolon as well as before and after the interval.
-	 * 
-	 * <p>
-	 * Examples for values are:
-	 * <ul>
-	 * <li>[1.2;3.4]
-	 * <li>[-1.2;3.4]
-	 * <li>[ 1.2;3.4]
-	 * <li>[1.2;3.4 ]
-	 * <li>[ 1.2 ; 3.4 ]
-	 * <li>[ 1 ; 2 ]
-	 * <li>[ 1.2 ;3 ]
-	 * <li>[&nbsp;&nbsp;1.2;3.4] (two spaces between bracket and digits)
-	 * <li>&nbsp;[ 1 ; 2 ]&nbsp; (spaces before and/or after the interval)
-	 * </ul>
-	 * 
-	 * <p>
-	 * However, these values do not match:
-	 * <ul>
-	 * <li>(empty string)
-	 * <li>1.
-	 * <li>.1
-	 * <li>1.
-	 * <li>1.2
-	 * <li>abc
-	 * <li>a 1 b
-	 * <li>[;]
-	 * <li>[1.2;]
-	 * </ul>
-	 * 
-	 * @see DoubleValue#REGEX
-	 * @see IntegerValue#REGEX
-	 */
+	/** Pattern for an interval. It matches two double or integer values, divided by a semicolon (;) and enclosed by squared brackets. Spaces are allowed, but not necessary, between the brackets and the digits, between the digits and the semicolon as well as before and after the interval.  <p> Examples for values are: <ul> <li>[1.2;3.4] <li>[-1.2;3.4] <li>[ 1.2;3.4] <li>[1.2;3.4 ] <li>[ 1.2 ; 3.4 ] <li>[ 1 ; 2 ] <li>[ 1.2 ;3 ] <li>[&nbsp;&nbsp;1.2;3.4] (two spaces between bracket and digits) <li>&nbsp;[ 1 ; 2 ]&nbsp; (spaces before and/or after the interval) </ul>  <p> However, these values do not match: <ul> <li>(empty string) <li>1. <li>.1 <li>1. <li>1.2 <li>abc <li>a 1 b <li>[;] <li>[1.2;] </ul> */
 	public static final Pattern INTERVAL_PATTERN = Pattern
 			.compile("^\\s*\\[\\s*(" + DoubleValue.REGEX + "|"
 					+ IntegerValue.REGEX + ")\\s*;\\s*(" + DoubleValue.REGEX
@@ -133,8 +42,7 @@ public abstract class Calculable implements IValue {
 	/**
 	 * Adds summand to the current Calculable.
 	 * 
-	 * @param summand
-	 *            the summand
+	 * @param summand the summand
 	 * 
 	 * @return the result as a new calculable instance
 	 */
@@ -143,8 +51,7 @@ public abstract class Calculable implements IValue {
 	/**
 	 * Subtracts the subtrahend from the current Calculable.
 	 * 
-	 * @param subtrahend
-	 *            the subtrahend
+	 * @param subtrahend the subtrahend
 	 * 
 	 * @return the result as a new calculable instance
 	 */
@@ -153,27 +60,45 @@ public abstract class Calculable implements IValue {
 	/**
 	 * Divides the current Calculable through the divisor.
 	 * 
-	 * @param divisor
-	 *            the divisor
+	 * @param divisor the divisor
 	 * 
 	 * @return the result as a new Calculable instance
 	 */
 	public abstract Calculable div(Calculable divisor);
 
+
+	/**
+	 * Checks whether this Claculable object (value) is less than the compare calculable object (value)
+	 * 
+	 * @param compare the compare
+	 * 
+	 * @return true, if this Calculable is less than the compare Calculable
+	 */
 	public abstract boolean lessThan(Calculable compare);
 
+	/**
+	 * Counterpart to lessThan
+	 * 
+	 * @param compare the compare
+	 * 
+	 * @return true, if this Calculable is grater than the compare Calculable
+	 */
 	public abstract boolean greaterThan(Calculable compare);
 
 	/**
 	 * Multiplies the current Calculable with the multiplicand.
 	 * 
-	 * @param multiplicand
-	 *            the multiplicand
+	 * @param multiplicand the multiplicand
 	 * 
 	 * @return the result as a new Calculable instance
 	 */
 	public abstract Calculable mul(Calculable multiplicand);
 
+	/**
+	 * Returns an Calculable instance with the absolute value of this instance.
+	 * 
+	 * @return the calculable
+	 */
 	public abstract Calculable abs();
 
 	/**
@@ -186,17 +111,38 @@ public abstract class Calculable implements IValue {
 	/**
 	 * Returns the power of the exponent of the current Calculable.
 	 * 
-	 * @param exponent
-	 *            the exponent
+	 * @param exponent the exponent
 	 * 
 	 * @return the result as a new Calculable instance
 	 */
 	public abstract Calculable pow(Calculable exponent);
 	
+	/**
+	 * Converts the current Calculable to an instance of java.lang.Number.
+	 * 
+	 * @return the number
+	 */
 	public abstract Number toNumber();
 	
+	/**
+	 * Gets the minimum.
+	 * 
+	 * @return the min
+	 */
 	public abstract double getMin();
+	
+	/**
+	 * Gets the maximum.
+	 * 
+	 * @return the max
+	 */
 	public abstract double getMax();
+	
+	/**
+	 * Gets the min max diff.
+	 * 
+	 * @return the min max diff
+	 */
 	public abstract double getMinMaxDiff();
 
 	/* Specified by interface/super class. */
@@ -204,10 +150,9 @@ public abstract class Calculable implements IValue {
 	public abstract Calculable clone();
 
 	/**
-	 * Parses a given String to create a new Calculable instance
+	 * Parses a given String to create a new Calculable instance.
 	 * 
-	 * @param s
-	 *            the String
+	 * @param s the String
 	 * 
 	 * @return the Calculable
 	 */
@@ -231,8 +176,7 @@ public abstract class Calculable implements IValue {
 	/**
 	 * Calculates the sum of all parameters.
 	 * 
-	 * @param summands
-	 *            the summands
+	 * @param summands the summands
 	 * 
 	 * @return Sum of all parameters as new Calculable
 	 */
@@ -247,8 +191,7 @@ public abstract class Calculable implements IValue {
 	/**
 	 * Calculates the difference of all parameters.
 	 * 
-	 * @param subtrahends
-	 *            the subtrahends
+	 * @param subtrahends the subtrahends
 	 * 
 	 * @return sum of all parameters as new Calculable
 	 */
@@ -263,8 +206,7 @@ public abstract class Calculable implements IValue {
 	/**
 	 * Calculates the product of all parameters.
 	 * 
-	 * @param factors
-	 *            the factors
+	 * @param factors the factors
 	 * 
 	 * @return Product of all parameters as new Calculable
 	 */
@@ -278,12 +220,10 @@ public abstract class Calculable implements IValue {
 
 	/**
 	 * Checks whether the (value) difference of the given calculable objects is
-	 * less than the limit
+	 * less than the limit.
 	 * 
-	 * @param c
-	 *            calculable to compare
-	 * @param limit
-	 *            the limit of difference
+	 * @param c calculable to compare
+	 * @param limit the limit of difference
 	 * 
 	 * @return true if the difference is less than the limit
 	 */
