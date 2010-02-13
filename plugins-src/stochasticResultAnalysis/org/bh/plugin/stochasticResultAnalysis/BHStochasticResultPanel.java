@@ -31,52 +31,7 @@ public class BHStochasticResultPanel extends JPanel{
 	private void initialize(){
 		this.setLayout(new BorderLayout());
 		exportButton = new BHButton(BHStochasticResultController.PanelKeys.EXPORTSCENARIO);
-//		exportButton.addActionListener(new ActionListener() {
-//
-//			@Override
-//			public void actionPerformed(ActionEvent e) {
-//
-//				BHDataExchangeDialog dialog = new BHDataExchangeDialog(null,
-//						true);
-//				dialog.setAction(IImportExport.EXP_SCENARIO_RES);
-//				dialog.setModel(scenario);
-//				dialog.setResults(result);
-//				
-//				dialog.setIconImages(Services.setIcon());
-//								
-//				List<JFreeChart> charts = new ArrayList<JFreeChart>();
-//				for(Component c : mainPanel.getComponents()) {
-//					if(c instanceof BHChartPanel) {
-//						BHChartPanel cp = (BHChartPanel) c;
-//						charts.add(cp.getChart());
-//					}
-//				}
-//				dialog.setCharts(charts);
-//				
-//				dialog.setVisible(true);
-//
-//			}
-//		});
-		
-		// printButton
 		printButton = new BHButton(BHStochasticResultController.PanelKeys.PRINTSCENARIO);
-//		printButton.addActionListener(new ActionListener() {
-//
-//			@Override
-//			public void actionPerformed(ActionEvent e) {
-//				Map<String, IPrint> pPlugs = Services.getPrintPlugins(IPrint.PRINT_SCENARIO_RES);
-//				
-//				List<JFreeChart> charts = new ArrayList<JFreeChart>();
-//				for(Component c : mainPanel.getComponents()) {
-//					if(c instanceof BHChartPanel) {
-//						BHChartPanel cp = (BHChartPanel) c;
-//						charts.add(cp.getChart());
-//					}
-//				}
-//				((IPrint) pPlugs.values().toArray()[0]).printScenarioResults(scenario, result, charts);
-//			}
-//		});
-		
 		
 		mainPanel = new StochasticPanel();
 		this.add(mainPanel, BorderLayout.CENTER);
@@ -91,11 +46,6 @@ public class BHStochasticResultPanel extends JPanel{
 		exportArea.add(printButton, "3,1");
 		exportArea.setMaximumSize(new Dimension(200, 40));
 		
-		
-//		JPanel buttons = new JPanel();
-//		
-//		buttons.add(exportButton, BorderLayout.WEST);
-//		buttons.add(printButton, BorderLayout.EAST);
 		add(exportArea, BorderLayout.NORTH);
 	}
 }

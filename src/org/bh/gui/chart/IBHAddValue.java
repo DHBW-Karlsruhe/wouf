@@ -62,8 +62,20 @@ public interface IBHAddValue {
 	 */
 	void addSeries(Comparable<String> seriesKey, double[][] data, Integer amountOfValues, Integer average);
 	
+	/**
+	 * method only used in XYBarChart for displaying value at risk and average
+	 * @param seriesKey
+	 * 			the title of the series
+	 * @param data
+	 * 			the data that should be displayed as a Bar in XYBarChart
+	 */
 	void addSeries(Comparable<String> seriesKey, double[][] data);
 	
+	/**
+	 * only used in XYBarChart to remove the value at risk series when changing the percentage slider
+	 * @param number
+	 * 			the number of the series that should be removed
+	 */
 	void removeSeries(int number);
 
 }

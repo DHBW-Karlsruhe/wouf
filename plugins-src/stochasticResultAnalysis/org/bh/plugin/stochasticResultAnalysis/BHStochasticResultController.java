@@ -70,17 +70,6 @@ public class BHStochasticResultController extends OutputController {
 		entry.getValue().setValue(new DoubleValue(result.getStandardDeviation()));
 	    else if (entry.getKey().equals(ChartKeys.AVERAGE.toString()))
 		entry.getValue().setValue(new DoubleValue(result.getAverage()));
-	    // else
-	    // if(entry.getKey().equals(ChartKeys.RISK_AT_VALUE.toString())){
-	    // if(((BHTextField)(view.getBHModelComponents().get(ChartKeys.RISK_AT_VALUE.toString()))).getValue()
-	    // != null){
-	    // double confidence =
-	    // ((DoubleValue)((BHTextField)(view.getBHModelComponents().get(ChartKeys.RISK_AT_VALUE.toString()))).getValue()).getValue();
-	    // calcRiskAtValue(confidence,
-	    // result.getMaxAmountOfValuesInCluster());
-	    // }else
-	    // calcRiskAtValue(null, null);
-	    // }
 	}
 	double confidence = ((BHSlider) view.getBHComponent(ChartKeys.RISK_AT_VALUE.toString())).getValue();
 	calcRiskAtValue(confidence, stochasticResult.getMaxAmountOfValuesInCluster());

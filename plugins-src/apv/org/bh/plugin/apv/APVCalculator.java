@@ -153,31 +153,54 @@ public class APVCalculator implements IShareholderValueCalculator {
 	public String getGuiKey() {
 		return GUI_KEY;
 	}
-
-	// Calculate PresentValue for endless period
-	// PresentValueFCF[T] = FCF[T] / EKr
-	// BarwertFreeCashFlow = FreeCashFlow / Eigenkapitalrendite
+	
+	/**
+	 * Calculate PresentValue for endless period
+	 * PresentValueFCF[T] = FCF[T] / EKr
+	 * BarwertFreeCashFlow = FreeCashFlow / Eigenkapitalrendite
+	 * @param FCF
+	 * @param EKr
+	 * @return
+	 */
 	private Calculable calcPresentValueFCFun(Calculable FCF, Calculable EKr) {
 		return FCF.div(EKr);
 	}
 
-	// Calculate PresentValue for finite period
-	// PresentValueFCF[t] = (FCF[t] + PresentValueFCF[t + 1]) / (EKr + 1)
+	/**
+	 * Calculate PresentValue for finite period
+	 * PresentValueFCF[t] = (FCF[t] + PresentValueFCF[t + 1]) / (EKr + 1)
+	 * @param presentValueFCF
+	 * @param FCF
+	 * @param EKr
+	 * @return
+	 */
 	private Calculable calcPresentValueFCFen(Calculable presentValueFCF,
 			Calculable FCF, Calculable EKr) {
 		return (FCF.add(presentValueFCF)).div(EKr.add(new DoubleValue(1)));
 	}
 
-	// UW[t] = presentValueFCF[t] + presentValueTaxShield[t] - FK[t]
-	// Unternehmenswert = WertUnverschuldetesUnternehmen +
-	// WertVerschuldetesUnternehmen - Fremdkapital
+	/**
+	 * UW[t] = presentValueFCF[t] + presentValueTaxShield[t] - FK[t]
+	 * Unternehmenswert = WertUnverschuldetesUnternehmen +
+	 * WertVerschuldetesUnternehmen - Fremdkapital
+	 * @param presentValueFCF
+	 * @param presentValueTaxShield
+	 * @param FK
+	 * @return
+	 */
 	private Calculable calcEnterpriseValue(Calculable presentValueFCF,
 			Calculable presentValueTaxShield, Calculable FK) {
 		return presentValueFCF.add(presentValueTaxShield).sub(FK);
 	}
 
-	// Calculate PresentValueTaxShield for endless period
-	// PresentValueTaxShield[T] = (s * FKr * FK[T]) / FKr
+	/**
+	 * Calculate PresentValueTaxShield for endless period
+	 * PresentValueTaxShield[T] = (s * FKr * FK[T]) / FKr
+	 * @param s
+	 * @param FKr
+	 * @param FK
+	 * @return
+	 */
 	private Calculable calcPresentValueTaxShieldEndless(Calculable s,
 			Calculable FKr, Calculable FK) {
 		// if (log.isDebugEnabled()) {
@@ -187,9 +210,16 @@ public class APVCalculator implements IShareholderValueCalculator {
 		return s.mul(FKr).mul(FK).div(FKr);
 	}
 
-	// Calculate PresentValueTaxShield for finite period
-	// PresentValueTaxShield[t] = (PresentValueTaxShield[t + 1] + (s * FKr *
-	// FK[t])) / (FKr + 1)
+	/**
+	 * Calculate PresentValueTaxShield for finite period
+	 * PresentValueTaxShield[t] = (PresentValueTaxShield[t + 1] + (s * FKr *
+	 * FK[t])) / (FKr + 1)
+	 * @param s
+	 * @param FKr
+	 * @param FK
+	 * @param PVTS
+	 * @return
+	 */
 	private Calculable[] calcPresentValueTaxShieldFinite(Calculable s,
 			Calculable FKr, Calculable[] FK, Calculable[] PVTS) {
 		for (int i = PVTS.length - 2; i >= 0; i--) {
@@ -207,8 +237,15 @@ public class APVCalculator implements IShareholderValueCalculator {
 		return PVTS;
 	}
 
-	// Calculates the value of the indebted enterprise. Used in FCF and FTE
-	// method.
+	/**
+	 * Calculates the value of the indebted enterprise. Used in FCF and FTE
+	 * method.
+	 * @param s
+	 * @param FKr
+	 * @param FK
+	 * @param PVTS
+	 * @return
+	 */
 	private Calculable[] calcPresentValueTaxShield(Calculable s,
 			Calculable FKr, Calculable[] FK, Calculable[] PVTS) {
 		PVTS[PVTS.length - 1] = calcPresentValueTaxShieldEndless(s, FKr,

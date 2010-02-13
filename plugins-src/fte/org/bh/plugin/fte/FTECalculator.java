@@ -248,8 +248,18 @@ public class FTECalculator implements IShareholderValueCalculator {
 		return GUI_KEY;
 	}
 
-	// Calculate PresentValueTaxShield for endless period
-	// PresentValueTaxShield[T] = (s * FKr * FK[T]) / FKr
+	/**
+	 * Calculate PresentValueTaxShield for endless period
+	 * PresentValueTaxShield[T] = (s * FKr * FK[T]) / FKr
+	 * @param s
+	 * 			Taxes
+	 * @param FKr
+	 * 			Entity return rate
+	 * @param FK
+	 * 			Entity
+	 * @param verboseLogging
+	 * @return
+	 */
 	private Calculable calcPresentValueTaxShieldEndless(Calculable s,
 			Calculable FKr, Calculable FK, boolean verboseLogging) {
 		if (verboseLogging && LOG.isDebugEnabled()) {
@@ -259,9 +269,23 @@ public class FTECalculator implements IShareholderValueCalculator {
 		return s.mul(FKr).mul(FK).div(FKr);
 	}
 
-	// Calculate PresentValueTaxShield for finite period
-	// PresentValueTaxShield[t] = (PresentValueTaxShield[t + 1] + (s * FKr *
-	// FK[t])) / (FKr + 1)
+	
+	/**
+	 * Calculate PresentValueTaxShield for finite period
+	 * PresentValueTaxShield[t] = (PresentValueTaxShield[t + 1] + (s * FKr *
+	 * FK[t])) / (FKr + 1)
+	 * @param s
+	 * 			Taxes
+	 * @param FKr
+	 * 			Entity return rate
+	 * @param FK
+	 * 			Entity
+	 * @param PVTS
+	 * 			self reference
+	 * @param verboseLogging
+	 * @return
+	 * 			the PresentValueTaxShield for each period
+	 */
 	private Calculable[] calcPresentValueTaxShieldFinite(Calculable s,
 			Calculable FKr, Calculable[] FK, Calculable[] PVTS, boolean verboseLogging) {
 		for (int i = PVTS.length - 2; i >= 0; i--) {
