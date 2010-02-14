@@ -29,6 +29,13 @@ public final class BHToolButton extends BHButton{
 	private static final Logger log = Logger.getLogger(BHToolButton.class);
     public String buttonName;
     
+    /**
+     * Standard constructor for <code>BHToolButton</code>.
+     * 
+     * @param key
+     * @param eventKey
+     * @param imageName
+     */
     public BHToolButton(PlatformKey key, int eventKey, String imageName){
     	super(key);
     	
@@ -46,7 +53,6 @@ public final class BHToolButton extends BHButton{
         } 
     }
 
-	@Override
 	public void setText(String text) {
 		// do not allow setting a text for this button
 	}

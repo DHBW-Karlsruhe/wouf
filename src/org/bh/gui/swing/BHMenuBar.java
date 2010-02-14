@@ -144,17 +144,17 @@ public final class BHMenuBar extends JMenuBar implements IPlatformListener {
 	}
 	
 	public void disableMenuProjectItems(){
-		projectDuplicate.setEnabled(false);
-		projectExport.setEnabled(false);
-		projectImport.setEnabled(false);
-		//projectRemove.setEnabled(true);
+			projectDuplicate.setEnabled(false);
+			projectExport.setEnabled(false);
+			projectImport.setEnabled(false);
+			//projectRemove.setEnabled(true);
 	}
 	
 	public void enableMenuProjectItems(){
-		projectDuplicate.setEnabled(true);
-		projectExport.setEnabled(true);
-		projectImport.setEnabled(true);
-		projectRemove.setEnabled(true);
+			projectDuplicate.setEnabled(true);
+			projectExport.setEnabled(true);
+			projectImport.setEnabled(true);
+			projectRemove.setEnabled(true);
 	}
 	
 	public void disableMenuScenarioItems(){
@@ -193,7 +193,6 @@ public final class BHMenuBar extends JMenuBar implements IPlatformListener {
 	    	periodRemove.setEnabled(true);
 	}
 
-	@Override
 	public void platformEvent(PlatformEvent e) {
 		if (e.getEventType() == Type.LOCALE_CHANGED) {
 			menuFile.setText(translator.translate("Mfile"));

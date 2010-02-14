@@ -85,6 +85,12 @@ public final class BHStatusBar extends JPanel {
 		return instance;
 	}
 
+	/**
+	 * Method to set a hint text from a String to the hintLabel
+	 * 
+	 * @param hintText
+	 * 
+	 */
 	public void setHint(String hintText) {
 		setHint(hintText, false);
 	}
@@ -99,6 +105,11 @@ public final class BHStatusBar extends JPanel {
 		hintLabel.setVisible(true);
 
 	}
+	/**
+	 * Method to set error hint(s) from a JScrollPane to the errorHintLabel
+	 * 
+	 * @param pane
+	 */
 
 	public void setErrorHint(JScrollPane pane) {
 		errorHintLabel.setVisible(true);

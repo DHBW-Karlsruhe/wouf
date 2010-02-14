@@ -53,7 +53,6 @@ public final class BHToolBar extends JToolBar implements MouseListener{
 	//don't allow to relocate the bar
 	setFloatable(false);
 		
-	//setSize(width, height);
 	String rowDef = "p";
 	String colDef = "65px,65px,6px,65px,65px,65px,6px,65px,fill:0px:grow,fill:30px";
 	setLayout(new FormLayout(colDef, rowDef));
@@ -108,8 +107,8 @@ public final class BHToolBar extends JToolBar implements MouseListener{
     
     public void createToolBar(){
     	
-        	Bopen = new BHToolButton(PlatformKey.TOOLBAROPEN, 0, "Bopen");
-        	Bopen.addMouseListener(this);
+        Bopen = new BHToolButton(PlatformKey.TOOLBAROPEN, 0, "Bopen");
+        Bopen.addMouseListener(this);
 		Bsave = new BHToolButton(PlatformKey.TOOLBARSAVE, 0,"Bsave");
 		Bsave.addMouseListener(this);
 		Bproject = new BHToolButton(PlatformKey.TOOLBARADDPRO, 113, "BnewProject");
@@ -216,7 +215,6 @@ public final class BHToolBar extends JToolBar implements MouseListener{
 	 *
 	 */
 	class LabelListener implements MouseListener{
-		@Override
 		public void mouseClicked(MouseEvent arg0) {
 			if(shown){
 				showHide.setIcon(new ImageIcon(BHToolBar.class.getResource("/org/bh/images/buttons/Bhide.png"), ""));
@@ -236,24 +234,20 @@ public final class BHToolBar extends JToolBar implements MouseListener{
 			}
 		}
 
-		@Override
 		public void mouseEntered(MouseEvent arg0) {
 			if(!shown)
 				showToolBar();
 		}
 
-		@Override
 		public void mouseExited(MouseEvent arg0) {
 			if(!fixed)
 				hideToolBar();
 		}
 
-		@Override
 		public void mousePressed(MouseEvent arg0) {
 			// not necessary
 		}
 
-		@Override
 		public void mouseReleased(MouseEvent arg0) {
 			// not necessary
 		}
