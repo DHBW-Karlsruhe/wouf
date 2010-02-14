@@ -105,10 +105,7 @@ public class BHTree extends JTree {
 	return new Dimension(UIManager.getInt("BHTree.minimumWidth"), super.getMinimumSize().height);
     }
 
-    public void setTreeModel(DefaultTreeModel treeModel) {
-	this.setModel(treeModel);
-	// TODO Find out, if reload is necessary...
-    }
+
 
     public BHTreeNode getNodeForDto(DTO<?> dto) {
 

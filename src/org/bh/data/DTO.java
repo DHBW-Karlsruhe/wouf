@@ -397,7 +397,6 @@ public abstract class DTO<ChildT extends IDTO> implements IDTO<ChildT> {
 			}
 			if (children != null) {
 				for (ChildT child : children) {
-					// TODO check mit Robert
 					result.addChild((ChildT) child.clone());
 				}
 			}

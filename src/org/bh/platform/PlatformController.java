@@ -194,7 +194,7 @@ public class PlatformController {
 			rootNode.add(projectNode);
 		}
 
-		bhmf.getBHTree().setTreeModel(new BHTreeModel(rootNode));
+		bhmf.getBHTree().setModel(new BHTreeModel(rootNode));
 
 		// avoid to sum number of listeners -- done in context with ticket #85
 		if (bhmf.getBHTree().getTreeSelectionListeners().length < 3) {
@@ -238,15 +238,16 @@ public class PlatformController {
 
 	
 
-	// TODO Schmalzhaf.Alexander Javadoc schreiben
 	/**
 	 * 
-	 * <short_description>
+	 * Listens to changed data and removes result panel / dashboard if necessary
 	 * 
 	 * <p>
-	 * <detailed_description>
+	 * This listener waits for platform events from DTOs with the type DATA_CHANGED and 
+	 * a) refreshes the UI
+	 * b) checks if it's necessary to empty the result panel / dashboard
 	 * 
-	 * @author 001
+	 * @author Schmalzhaf.Alexander
 	 * @version 1.0, 04.01.2010
 	 * 
 	 */
@@ -302,15 +303,13 @@ public class PlatformController {
 		}
 	}
 
-	// TODO Schmalzhaf.Alexander Javadoc schreiben
 	/**
 	 * 
-	 * <short_description>
+	 * Extends the DefaultTreeModel with a extended valueForPathChanged-Method that
+	 * helps loading data to the View
 	 * 
-	 * <p>
-	 * <detailed_description>
 	 * 
-	 * @author 001
+	 * @author Schmalzhaf.Alexander
 	 * @version 1.0, 04.01.2010
 	 * 
 	 */

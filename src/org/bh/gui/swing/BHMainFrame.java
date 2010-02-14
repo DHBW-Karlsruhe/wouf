@@ -87,7 +87,7 @@ public final class BHMainFrame extends JFrame implements IPlatformListener, Timi
 	private BHStatusBar statusBar;
 
 	/**
-	 * TODO: Javadoc
+	 * content place holder: white area with logo in background.
 	 */
 	private BHContent content;
 

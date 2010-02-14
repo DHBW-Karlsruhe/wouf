@@ -52,7 +52,6 @@ public final class BHDeterministicProcessForm extends JPanel {
      */
     private void initialize() {
 	FormLayout layout;
-	// TODO rowDef überarbeiten
 	String colDef = "4px,right:pref,4px,max(80px;pref),4px:grow(0.2),pref:grow,4px";
 	String rowDef = "4px,p,4px,p,4px,p,4px";
 
@@ -63,13 +62,10 @@ public final class BHDeterministicProcessForm extends JPanel {
 
 	this.add(this.getlDCFmethod(), cons.xywh(2, 2, 1, 1));
 	this.add(this.getcbDCFmethod(), cons.xywh(4, 2, 1, 1));
-	// this.add(this.getLinterval(), cons.xywh(2, 4, 1, 1));
 	this.add(this.getChbinterval(), cons.xywh(6, 2, 1, 1));
 
     }
 
-    // TODO add missing label keys and translations, change hard coded values to
-    // keys
 
     // public BHDescriptionLabel getLinterval() {
     // if (linterval == null) {
@@ -87,7 +83,6 @@ public final class BHDeterministicProcessForm extends JPanel {
     }
 
     public JTable getTperioddata(IValue[][] data) {
-	// TODO hartgecodete Strings raus!
 	String[] columnnames = { translator.translate("Period"), translator.translate("org.bh.data.DTOPeriod$Key.LIABILITIES"), translator.translate("org.bh.data.DTOPeriod$Key.FCF") };
 	this.tperioddata = new JTable(data, columnnames) {
 	    // always make the table as large as necessary
