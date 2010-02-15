@@ -23,7 +23,7 @@ import com.jgoodies.forms.layout.CellConstraints;
 import com.jgoodies.forms.layout.FormLayout;
 
 /**
- * This class contains the form for head-data
+ * This class contains the form for scanario head-data
  * 
  * @author Anton Kharitonov
  * @author Patrick Heinz
@@ -101,7 +101,9 @@ public final class BHScenarioHeadForm extends JPanel {
 		
 		this.add(this.getlPeriodType(), cons.xywh(3, 16, 1, 1));
 		this.add(this.getCmbPeriodType(), cons.xywh(6, 16, 12, 1, "left, default"));
-
+		/*
+		 * this Vector sets the order of focus moovement.
+		 */
 		Vector<Component> order = new Vector<Component>();
 		order.add(this.gettfscenName());
 		order.add(this.gettfscenDescript());

@@ -15,7 +15,7 @@ import com.jgoodies.forms.layout.CellConstraints;
 import com.jgoodies.forms.layout.FormLayout;
 
 /**
- * This class contains the form for head-data.
+ * This class contains the form as an container for scenario forms.
  * 
  * @author Anton Kharitonov
  * @author Patrick Heinz
@@ -218,6 +218,4 @@ public final class BHScenarioForm extends JPanel {
 		}
 		return lCalculatingImage;
 	}
-	
-
 }

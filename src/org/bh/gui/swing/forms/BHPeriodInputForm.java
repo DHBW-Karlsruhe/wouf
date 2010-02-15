@@ -21,11 +21,11 @@ import com.jgoodies.forms.layout.CellConstraints;
 import com.jgoodies.forms.layout.FormLayout;
 
 /**
- * This class contains the form for stochastic processes
+ * This class contains the form for direct input
  * 
  * @author Anton Kharitonov
  * @author Patrick Heinz
- * @version 0.2, 03.01.2010
+ * @version 0.1, 13.01.2010
  * 
  */
 @SuppressWarnings("serial")
@@ -260,22 +260,4 @@ public final class BHPeriodInputForm extends JPanel {
 		return tfliabilities;
 	}
 
-	
-	// TODO remove main later
-//	/**
-//	 * Test main method.
-//	 */
-//	public static void main(String args[]) {
-//
-//		JFrame test = new JFrame("Test for ViewPeriodData1");
-//		test.setContentPane(new BHPeriodInputForm("2009"));
-//		test.addWindowListener(new WindowAdapter() {
-//			@Override
-//			public void windowClosing(WindowEvent e) {
-//				System.exit(0);
-//			}
-//		});
-//		test.pack();
-//		test.show();
-//	}
 }

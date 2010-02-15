@@ -13,6 +13,14 @@ import org.bh.validation.ValidationRule;
 import com.jgoodies.forms.layout.CellConstraints;
 import com.jgoodies.forms.layout.FormLayout;
 
+/**
+ * This class contains the form for head-data
+ * 
+ * @author Anton Kharitonov
+ * @author Patrick Heinz
+ * @version 0.1, 13.01.2010
+ * 
+ */
 @SuppressWarnings("serial")
 public final class BHPeriodHeadForm extends JPanel {
 
@@ -63,24 +71,6 @@ public final class BHPeriodHeadForm extends JPanel {
 		return tfperiodname;
 	}
 
-
-	// TODO remove main later
-//	/**
-//	 * Test main method.
-//	 */
-//	public static void main(String args[]) {
-//
-//		JFrame test = new JFrame("Test for ViewPeriodData1");
-//		test.setContentPane(new BHPeriodHeadForm());
-//		test.addWindowListener(new WindowAdapter() {
-//			@Override
-//			public void windowClosing(WindowEvent e) {
-//				System.exit(0);
-//			}
-//		});
-//		test.pack();
-//		test.show();
-//	}
 
 }
 

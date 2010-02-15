@@ -11,7 +11,7 @@ import com.jgoodies.forms.layout.CellConstraints;
 import com.jgoodies.forms.layout.FormLayout;
 
 /**
- * This class contains the form for head-data
+ * This class contains the form for Perioddata
  * 
  * @author Anton Kharitonov
  * @author Patrick Heinz
@@ -42,8 +42,6 @@ public final class BHPeriodForm extends JPanel {
 	 * Constructor
 	 */
 	public BHPeriodForm() {
-		// super(new FormLayout("4px,pref:grow,4px",
-		// "4px,fill:200px:grow,4px,pref,4px"));
 		this.initialize();
 	}
 
@@ -94,22 +92,4 @@ public final class BHPeriodForm extends JPanel {
 		return pperiod;
 	}
 
-	// // TODO remove main later
-	// /**
-	// * Test main method.
-	// */
-	// @SuppressWarnings("deprecation")
-	// public static void main(String args[]) {
-	//
-	// JFrame test = new JFrame("Test for ViewHeadData1");
-	// test.setContentPane(new BHScenarioHeadForm());
-	// test.addWindowListener(new WindowAdapter() {
-	// @Override
-	// public void windowClosing(WindowEvent e) {
-	// System.exit(0);
-	// }
-	// });
-	// test.pack();
-	// test.show();
-	// }
 }

@@ -49,8 +49,7 @@ public final class BHStochasticInputForm extends JPanel {
 		CALC_PARAMETERS,
 		RESET_PARAMETERS,
 		NO_STOCHASTIC_KEYS;
-		
-		@Override
+
 		public String toString() {
 		    return getClass().getName() + "." + super.toString();
 		}
@@ -184,21 +183,4 @@ public final class BHStochasticInputForm extends JPanel {
 			revalidate();
 		}
 	}
-	// TODO remove
-//	/**
-//	 * Test main method.
-//	 */
-//	public static void main(String args[]) {
-//
-//		JFrame test = new JFrame("Test for ViewStochasticData3");
-//		test.setContentPane(new BHStochasticInputForm());
-//		test.addWindowListener(new WindowAdapter() {
-//			@Override
-//			public void windowClosing(WindowEvent e) {
-//				System.exit(0);
-//			}
-//		});
-//		test.pack();
-//		test.show();
-//	}
 }

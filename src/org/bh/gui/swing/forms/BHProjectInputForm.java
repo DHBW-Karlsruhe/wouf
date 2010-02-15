@@ -14,7 +14,7 @@ import com.jgoodies.forms.layout.CellConstraints;
 import com.jgoodies.forms.layout.FormLayout;
 
 /**
- * This class contains the form for stochastic processes
+ * This class contains the form for ProjectHeadData
  * 
  * @author Anton Kharitonov
  * @version 0.2, 03.01.2010
@@ -42,7 +42,6 @@ public final class BHProjectInputForm extends JPanel {
 
 		CellConstraints cons = new CellConstraints();
 
-//		this.add(this.getLproject(), cons.xywh(4, 2, 1, 1, "center, center"));
 		this.add(this.getLprojectname(), cons.xywh(2, 4, 1, 1));
 		this.add(this.getTfprojectname(), cons.xywh(4, 4, 1, 1));
 		this.add(this.getLcomment(), cons.xywh(2, 6, 1, 1));
@@ -96,23 +95,4 @@ public final class BHProjectInputForm extends JPanel {
 		}
 		return tfcomment;
 	}
-	
-	// TODO remove main later
-//	/**
-//	 * Test main method.
-//	 */
-//	public static void main(String args[]) {
-//
-//		JFrame test = new JFrame("Test for ViewPeriodData1");
-//		test.setContentPane(new BHProjectInputForm());
-//		test.addWindowListener(new WindowAdapter() {
-//			@Override
-//			public void windowClosing(WindowEvent e) {
-//				System.exit(0);
-//			}
-//		});
-//		test.pack();
-//		test.show();
-//	}
-
 }
