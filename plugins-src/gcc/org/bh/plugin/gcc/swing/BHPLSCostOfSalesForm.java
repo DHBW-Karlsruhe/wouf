@@ -112,9 +112,6 @@ public class BHPLSCostOfSalesForm extends JPanel {
 			this.add(this.getLHK(), cons.xywh(2, 8, 1, 1));
 			this.add(this.getLVVSBA(), cons.xywh(2, 10, 1, 1));
 
-			
-//			this.add(new JSeparator(SwingConstants.VERTICAL), cons.xywh(6, 2,
-//					1, 9));
 			this.add(this.getLmin(), cons.xywh(4, 2, 1, 1, "center,default"));
 			this.add(this.getLmax(), cons.xywh(8, 2, 1, 1, "center,default"));
 
@@ -327,23 +324,5 @@ public class BHPLSCostOfSalesForm extends JPanel {
 			lmin = new BHDescriptionLabel("min");
 		}
 		return lmin;
-	}
-
-	// TODO remove main later
-	/**
-	 * Test main method.
-	 */
-	public static void main(String args[]) {
-
-		JFrame test = new JFrame("Test for ViewPeriodData1");
-		boolean intervalArithmetic = true;
-		test.setContentPane(new BHPLSCostOfSalesForm(intervalArithmetic));
-		test.addWindowListener(new WindowAdapter() {
-			public void windowClosing(WindowEvent e) {
-				System.exit(0);
-			}
-		});
-		test.pack();
-		test.setVisible(true);
 	}
 }

@@ -78,9 +78,7 @@ public class BHPLSTotalCostForm extends JPanel {
 	final ITranslator translator = BHTranslator.getInstance();
 
 	public enum Key {
-		/**
-	 * 
-	 */
+
 		PLS_TotalCost;
 
 		public String toString() {
@@ -261,7 +259,9 @@ public class BHPLSTotalCostForm extends JPanel {
 			layout.insertRow(11, RowSpec.decode("4px"));
 			this.add(new JSeparator(SwingConstants.HORIZONTAL), cons.xywh(2,
 					10, 21, 1));
-
+			/*
+			 * this Vector sets the order of focus moovement.
+			 */
 			Vector<Component> order = new Vector<Component>(16);
 			order.add(this.getTfUEmin());
 			order.add(this.getTfUEmax());
