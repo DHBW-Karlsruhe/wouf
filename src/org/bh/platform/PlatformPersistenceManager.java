@@ -21,7 +21,6 @@ import org.bh.data.DTOProject;
 import org.bh.gui.swing.BHMainFrame;
 import org.bh.gui.swing.BHOptionPane;
 import org.bh.platform.i18n.ITranslator;
-import org.bh.plugin.pdfexport.PDFExport.Keys;
 
 /**
  * Platform Persistence
