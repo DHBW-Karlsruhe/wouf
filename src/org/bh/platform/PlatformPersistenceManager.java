@@ -1,5 +1,6 @@
 package org.bh.platform;
 
+import java.awt.Component;
 import java.io.EOFException;
 import java.io.File;
 import java.io.FileInputStream;
@@ -21,6 +22,7 @@ import org.bh.data.DTOProject;
 import org.bh.gui.swing.BHMainFrame;
 import org.bh.gui.swing.BHOptionPane;
 import org.bh.platform.i18n.ITranslator;
+import org.bh.plugin.pdfexport.PDFExport.Keys;
 
 /**
  * Platform Persistence
@@ -65,10 +67,10 @@ public class PlatformPersistenceManager {
 		this.bhmf = bhmf;
 		this.projectRepositoryManager = projectRepositoryManager;
 	}
-	
+
 	/**
-	 * openFile method handles all necessary operations for opening a file
-	 * it returns a arraylist with DTOProjects
+	 * openFile method handles all necessary operations for opening a file it
+	 * returns a arraylist with DTOProjects
 	 * 
 	 * @param path
 	 * @return ArrayList<DTOProject>
@@ -109,7 +111,8 @@ public class PlatformPersistenceManager {
 			log.error("File " + path + " not found!");
 			PlatformUserDialog.getInstance().showErrorDialog(
 					Services.getTranslator().translate("PfileNotFound",
-					ITranslator.LONG),Services.getTranslator().translate("PfileNotFound"));
+							ITranslator.LONG),
+					Services.getTranslator().translate("PfileNotFound"));
 		} catch (EOFException e) {
 
 			// replace ProjectRepository
@@ -129,75 +132,102 @@ public class PlatformPersistenceManager {
 			return returnRepository;
 		} catch (InvalidClassException e) {
 			log.error("InvalidClassException while opening " + path, e);
-			PlatformUserDialog.getInstance().showErrorDialog(Services.getTranslator().translate("PInvalidClassException_long"),Services.getTranslator().translate("PInvalidClassException"));
+			PlatformUserDialog.getInstance().showErrorDialog(
+					Services.getTranslator().translate(
+							"PInvalidClassException_long"),
+					Services.getTranslator()
+							.translate("PInvalidClassException"));
 		} catch (IOException e) {
-			log.error("IOException while opening " + path,e);
-			PlatformUserDialog.getInstance().showErrorDialog(e.toString(),Services.getTranslator().translate("PIOException"));
+			log.error("IOException while opening " + path, e);
+			PlatformUserDialog.getInstance().showErrorDialog(e.toString(),
+					Services.getTranslator().translate("PIOException"));
 		} catch (Exception e) {
 			log.error("Exception while opening file" + path, e);
-			PlatformUserDialog.getInstance().showErrorDialog(e.toString(),Services.getTranslator().translate("PException"));
+			PlatformUserDialog.getInstance().showErrorDialog(e.toString(),
+					Services.getTranslator().translate("PException"));
 		}
 
 		return null;
 	}
-	
+
 	/**
-	 * Prepare a path to be saved. if forcedSaveAs is used, the SaveAs dialog will be used
+	 * Prepare a path to be saved. if forcedSaveAs is used, the SaveAs dialog
+	 * will be used
 	 * 
 	 * @param forcedSaveAs
 	 * @throws Exception
 	 */
 
 	public void prepareSaveFile(boolean forcedSaveAs) throws Exception {
-		
-		// if no path exists in property file or saveAs is forced, show a save dialog
+		// if no path exists in property file or saveAs is forced, show a save
+		// dialog
 		if (PlatformController.preferences.get("path", "").equals("")
 				|| forcedSaveAs == true) {
-		    	
-		 
-		    File dummyFile = new File((PlatformController.preferences.get("path", "businesshorizon.bh")));
-		  
-		    	bhmf.getChooser().setSelectedFile(dummyFile);
+
+			File dummyFile = new File((PlatformController.preferences.get(
+					"path", "businesshorizon.bh")));
+
+			bhmf.getChooser().setSelectedFile(dummyFile);
 			int returnVal = bhmf.getChooser().showSaveDialog(bhmf);
 			if (returnVal == JFileChooser.APPROVE_OPTION) {
+				
+				path = bhmf.getChooser().getSelectedFile();
+				// force .bh data extension
+				if (!path.toString().endsWith(".bh")) {
+					path = new File(path + ".bh");
+				}
 				log.debug("You choose to save this file: "
 						+ bhmf.getChooser().getSelectedFile().getName());
-				
-				// check if file already exists
-				if (bhmf.getChooser().getSelectedFile().exists() || new File(bhmf.getChooser().getSelectedFile() + ".bh").exists()) {
-					
-					// if yes, ask if its okay to overwrite it
-					int returnConfirmVal = BHOptionPane.showConfirmDialog(bhmf, Services.getTranslator().translate("PoverwriteFile_long"), Services.getTranslator().translate("PoverwriteFile"),JOptionPane.YES_NO_OPTION);
-					
-					// if yes - do it!
-					if (returnConfirmVal == JOptionPane.YES_OPTION) {
-						this.path = bhmf.getChooser().getSelectedFile();
-					
-						// if no, try again to prepareSaveFile
-					} else {
-						this.prepareSaveFile(forcedSaveAs);
-					}
-				
-					// if file does not exist, just take it
-				} else {
-					this.path = bhmf.getChooser().getSelectedFile();
+
+				if(checkFile(path)) {
+					PlatformController.preferences.put("path", path.getAbsolutePath());
+					saveFile();
+				}else {
+					throw new Exception("save canceled");
 				}
 				
+//				// check if file already exists
+//				if (bhmf.getChooser().getSelectedFile().exists()
+//						|| new File(bhmf.getChooser().getSelectedFile() + ".bh")
+//								.exists()) {
+//
+//					// if yes, ask if its okay to overwrite it
+//					int returnConfirmVal = BHOptionPane.showConfirmDialog(bhmf,
+//							Services.getTranslator().translate(
+//									"PoverwriteFile_long"), Services
+//									.getTranslator()
+//									.translate("PoverwriteFile"),
+//							JOptionPane.YES_NO_OPTION);
+//
+//					// if yes - do it!
+//					if (returnConfirmVal == JOptionPane.YES_OPTION) {
+//						this.path = bhmf.getChooser().getSelectedFile();
+//
+//						// if no, try again to prepareSaveFile
+//					} else {
+//						this.prepareSaveFile(forcedSaveAs);
+//					}
+//
+//					// if file does not exist, just take it
+//				} else {
+//					this.path = bhmf.getChooser().getSelectedFile();
+//				}
+
 			} else {
 				throw new Exception("save canceled");
 			}
-			
-		// if path already exists in properties file and no saveAs wasnt forced, use already existing path
+
+			// if path already exists in properties file and no saveAs wasnt
+			// forced, use already existing path
 		} else {
 			File path = new File(PlatformController.preferences.get("path", ""));
 			this.path = path;
 		}
-		
+
 		this.saveFile();
 
-		
 	}
-	
+
 	/**
 	 * save the file
 	 */
@@ -206,16 +236,10 @@ public class PlatformPersistenceManager {
 
 		try {
 
-			// force .bh data extension
-			if (!path.toString().endsWith(".bh")) {
-				File newPath = new File(path + ".bh");
-				this.path = newPath;
-			}
-
 			DTOProject iteratorObject;
 			FileOutputStream fileWriter = new FileOutputStream(path);
 			ObjectOutputStream objectWriter = new ObjectOutputStream(fileWriter);
-			
+
 			Iterator<DTOProject> projectIterator = projectRepositoryManager
 					.getRepositoryList().iterator();
 
@@ -239,22 +263,52 @@ public class PlatformPersistenceManager {
 
 			// Refresh title
 			bhmf.resetTitle();
-			
+
 		} catch (FileNotFoundException e) {
-			if (e.toString().contains("not permitted")) {
+			log.error(e);
+			PlatformUserDialog.getInstance().showErrorDialog(e.toString(),
+					Services.getTranslator().translate("PfileNotFound"));
+			
+		} catch (IOException e) {
+			log.error("IOException while saving " + path, e);
+			PlatformUserDialog.getInstance().showErrorDialog(e.toString(),
+					Services.getTranslator().translate("PIOException"));
+
+		}
+	}
+	
+	protected boolean checkFile(File f) {
+		if(f == null) {
+			return false;
+		}
+		if (f.exists()) {
+			if (!f.canWrite()) {
 				PlatformUserDialog.getInstance().showErrorDialog(
 						Services.getTranslator().translate("PfileNotWritable",
-						ITranslator.LONG),Services.getTranslator().translate("PfileNotWritable"));
-			} else {
-			PlatformUserDialog.getInstance().showErrorDialog(
-					Services.getTranslator().translate("PfileNotFound",
-					ITranslator.LONG),Services.getTranslator().translate("PfileNotFound"));
+								ITranslator.LONG),
+						Services.getTranslator().translate("PfileNotWritable"));
+				return false;
 			}
-		} catch (IOException e) {
-			log.error("IOException while saving " + path,e);
-			PlatformUserDialog.getInstance().showErrorDialog(e.toString(),Services.getTranslator().translate("PIOException"));
-		
+			int res = PlatformUserDialog.getInstance().showYesNoDialog(Services.getTranslator().translate(Keys.OVERWRITE),Services.getTranslator().translate(Keys.OVERWRITETITLE));
+			if (res == JOptionPane.YES_OPTION) {
+				return true;
+			}
+			return false;
 		}
+		// f does not exist
+		try {
+			f.createNewFile();
+		} catch (IOException e) {
+			// no write rights 
+			PlatformUserDialog.getInstance().showErrorDialog(
+					Services.getTranslator().translate("PfileNotWritable",
+							ITranslator.LONG),
+					Services.getTranslator().translate("PfileNotWritable"));
+			return false;
+		}
+		// can write
+		f.delete();
+		return true;
 	}
 
 	/**
@@ -284,9 +338,9 @@ public class PlatformPersistenceManager {
 }
 
 class SaveActionListener implements IPlatformListener {
-	
+
 	private static final Logger log = Logger
-	.getLogger(PlatformPersistenceManager.class);
+			.getLogger(PlatformPersistenceManager.class);
 
 	public SaveActionListener() {
 		Services.addPlatformListener(this);
@@ -303,7 +357,8 @@ class SaveActionListener implements IPlatformListener {
 			}
 		} else if (PlatformEvent.Type.SAVEAS == e.getEventType()) {
 			try {
-				PlatformController.platformPersistenceManager.prepareSaveFile(true);
+				PlatformController.platformPersistenceManager
+						.prepareSaveFile(true);
 			} catch (Exception e1) {
 				log.debug("User canceled save operation");
 			}
