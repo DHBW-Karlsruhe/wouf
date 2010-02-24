@@ -1,6 +1,5 @@
 package org.bh.platform;
 
-import java.awt.Component;
 import java.io.EOFException;
 import java.io.File;
 import java.io.FileInputStream;
@@ -289,7 +288,7 @@ public class PlatformPersistenceManager {
 						Services.getTranslator().translate("PfileNotWritable"));
 				return false;
 			}
-			int res = PlatformUserDialog.getInstance().showYesNoDialog(Services.getTranslator().translate(Keys.OVERWRITE),Services.getTranslator().translate(Keys.OVERWRITETITLE));
+			int res = PlatformUserDialog.getInstance().showYesNoDialog(Services.getTranslator().translate("PoverwriteFile",ITranslator.LONG),Services.getTranslator().translate("PoverwriteFile"));
 			if (res == JOptionPane.YES_OPTION) {
 				return true;
 			}
