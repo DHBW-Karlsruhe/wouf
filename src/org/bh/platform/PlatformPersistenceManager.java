@@ -29,7 +29,7 @@ import org.bh.platform.i18n.ITranslator;
  * Handling open and save functions
  * 
  * @author Michael Löckelt
- * @version 0.1, 26.12.2009
+ * @version 1.0, 26.12.2009
  * 
  */
 public class PlatformPersistenceManager {
@@ -54,11 +54,25 @@ public class PlatformPersistenceManager {
 
 	public static SaveActionListener sAL = new SaveActionListener();
 
+	/**
+	 * initialize the persistence manager
+	 * 
+	 * @param bhmf
+	 * @param projectRepositoryManager
+	 */
 	public PlatformPersistenceManager(BHMainFrame bhmf,
 			ProjectRepositoryManager projectRepositoryManager) {
 		this.bhmf = bhmf;
 		this.projectRepositoryManager = projectRepositoryManager;
 	}
+	
+	/**
+	 * openFile method handles all necessary operations for opening a file
+	 * it returns a arraylist with DTOProjects
+	 * 
+	 * @param path
+	 * @return ArrayList<DTOProject>
+	 */
 
 	public ArrayList<DTOProject> openFile(File path) {
 		if (!path.toString().endsWith(".bh"))
@@ -126,6 +140,13 @@ public class PlatformPersistenceManager {
 
 		return null;
 	}
+	
+	/**
+	 * Prepare a path to be saved. if forcedSaveAs is used, the SaveAs dialog will be used
+	 * 
+	 * @param forcedSaveAs
+	 * @throws Exception
+	 */
 
 	public void prepareSaveFile(boolean forcedSaveAs) throws Exception {
 		
@@ -133,9 +154,7 @@ public class PlatformPersistenceManager {
 		if (PlatformController.preferences.get("path", "").equals("")
 				|| forcedSaveAs == true) {
 		    	
-		    
-//		    JFileChooser fileChooser = new JFileChooser();
-//		    File dummyFile;
+		 
 		    File dummyFile = new File((PlatformController.preferences.get("path", "businesshorizon.bh")));
 		  
 		    	bhmf.getChooser().setSelectedFile(dummyFile);
@@ -178,6 +197,10 @@ public class PlatformPersistenceManager {
 
 		
 	}
+	
+	/**
+	 * save the file
+	 */
 
 	public void saveFile() {
 
@@ -228,12 +251,8 @@ public class PlatformPersistenceManager {
 		}
 	}
 
-	/*
+	/**
 	 * last edited file dialog
-	 * 
-	 * @author Thiele.Klaus (UI)
-	 * 
-	 * @author Loeckelt.Michael (persistence logic)
 	 */
 	public void lastEditedFile() {
 		String lastFile = PlatformController.preferences.get("path", "");
