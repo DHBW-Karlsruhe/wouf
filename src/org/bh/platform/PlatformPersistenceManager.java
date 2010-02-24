@@ -215,7 +215,7 @@ public class PlatformPersistenceManager {
 			DTOProject iteratorObject;
 			FileOutputStream fileWriter = new FileOutputStream(path);
 			ObjectOutputStream objectWriter = new ObjectOutputStream(fileWriter);
-
+			
 			Iterator<DTOProject> projectIterator = projectRepositoryManager
 					.getRepositoryList().iterator();
 
@@ -239,11 +239,17 @@ public class PlatformPersistenceManager {
 
 			// Refresh title
 			bhmf.resetTitle();
-
+			
 		} catch (FileNotFoundException e) {
+			if (e.toString().contains("not permitted")) {
+				PlatformUserDialog.getInstance().showErrorDialog(
+						Services.getTranslator().translate("PfileNotWritable",
+						ITranslator.LONG),Services.getTranslator().translate("PfileNotWritable"));
+			} else {
 			PlatformUserDialog.getInstance().showErrorDialog(
 					Services.getTranslator().translate("PfileNotFound",
 					ITranslator.LONG),Services.getTranslator().translate("PfileNotFound"));
+			}
 		} catch (IOException e) {
 			log.error("IOException while saving " + path,e);
 			PlatformUserDialog.getInstance().showErrorDialog(e.toString(),Services.getTranslator().translate("PIOException"));
