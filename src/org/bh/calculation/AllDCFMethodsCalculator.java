@@ -8,6 +8,7 @@ import org.bh.data.types.Calculable;
 import org.bh.platform.Services;
 
 /**
+ * AW TEST
  * Shareholder value calculator which uses all other calculators and combines
  * their results.
  * 
