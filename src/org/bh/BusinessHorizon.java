@@ -10,7 +10,7 @@ import org.bh.platform.PlatformController;
 import org.bh.platform.PluginManager;
 import org.bh.platform.Services;
 import org.bh.platform.i18n.ITranslator;
-
+//Testkommentar
 /**
  * 
  * This is the entry class for Business Horizon.
