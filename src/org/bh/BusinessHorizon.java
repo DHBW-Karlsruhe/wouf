@@ -45,7 +45,7 @@ public class BusinessHorizon {
 				log.error("Uncaught exception", e);
 			}
 		});
-		giglkn
+
 		if (SVN.isRevisionSet())
 			log.info("SVN Revision is " + SVN.getRevision());
 		
