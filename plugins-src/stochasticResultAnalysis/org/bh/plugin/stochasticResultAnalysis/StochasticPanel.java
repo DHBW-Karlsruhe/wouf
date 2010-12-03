@@ -3,6 +3,7 @@ package org.bh.plugin.stochasticResultAnalysis;
 import info.clearthought.layout.TableLayout;
 
 import java.awt.Dimension;
+import java.awt.GridLayout;
 
 import javax.swing.JLabel;
 import javax.swing.JPanel;
@@ -48,9 +49,9 @@ public class StochasticPanel extends JPanel{
 	        
 	        
 	        BHDescriptionLabel sd = new BHDescriptionLabel("standardDeviation");
-	        BHDescriptionLabel ew = new BHDescriptionLabel(BHStochasticResultController.PanelKeys.AVERAGE);
-	        BHValueLabel sdValue = new BHValueLabel(BHStochasticResultController.ChartKeys.STANDARD_DEVIATION);
-	        BHValueLabel ewValue = new BHValueLabel(BHStochasticResultController.ChartKeys.AVERAGE);
+	        BHDescriptionLabel ew = new BHDescriptionLabel((BHStochasticResultController.PanelKeys.AVERAGE));
+	        BHValueLabel sdValue = new BHValueLabel((BHStochasticResultController.ChartKeys.STANDARD_DEVIATION));
+	        BHValueLabel ewValue = new BHValueLabel((BHStochasticResultController.ChartKeys.AVERAGE).toString());
 	        
 	        BHDescriptionLabel riskAt = new BHDescriptionLabel(BHStochasticResultController.PanelKeys.VALUE);
 	        
@@ -61,7 +62,7 @@ public class StochasticPanel extends JPanel{
 	        BHDescriptionLabel max = new BHDescriptionLabel("max");
 	        BHValueLabel minValue = new BHValueLabel(BHStochasticResultController.ChartKeys.RISK_AT_VALUE_MIN);
 	        BHValueLabel maxValue = new BHValueLabel(BHStochasticResultController.ChartKeys.RISK_AT_VALUE_MAX);
-	        
+
 	        JPanel rav = new JPanel();
 	        rav.setLayout(new FormLayout ("4px:grow,right:pref,10px,pref,4px,pref,4px:grow","4px,p,4px,p,4px,p,4px"));
 	        rav.add(riskAt, "2,2");
@@ -73,25 +74,45 @@ public class StochasticPanel extends JPanel{
 	        rav.add(new JLabel("%"), "6,2");
 	        rav.add(min, "2,4");
 	        rav.add(minValue, "4,4");
-	        rav.add(new JLabel("GE"), "6,4");
+	        rav.add(new BHDescriptionLabel("currency"), "6,4"); //AWussler replaced: 3.12.2010: Now its translatable
 	        rav.add(max, "2,6");
 	        rav.add(maxValue, "4,6");
-	        rav.add(new JLabel("GE"), "6,6");
+	        rav.add(new BHDescriptionLabel("currency"), "6,6"); //AWussler replaced: 3.12.2010: Now its translatable
 	        rav.setBorder(BHBorderFactory.getInstacnce().createTitledBorder(BHBorderFactory.getInstacnce()
 					.createEtchedBorder(EtchedBorder.LOWERED),
 					BHStochasticResultController.ChartKeys.RISK_AT_VALUE, TitledBorder.LEFT,
 					TitledBorder.DEFAULT_JUSTIFICATION));
-	        
+
 	        
 	        this.add(distributionChart, "1,3,5,3"); 
 	        
+	        /**
+	         * AWussler added: 3.12.2010
+	         * put sd and ew (standardabweichung, erwartungswert) in a panel box:
+	         */
+	        JPanel p_sd_ew = new JPanel();
+	        p_sd_ew.setLayout(new GridLayout(2, 3)); //Gridlayout: 2 rows, 3 columns
+	        //add first row:
+	        p_sd_ew.add(sd);
+	        p_sd_ew.add(sdValue);
+	        p_sd_ew.add(new BHDescriptionLabel("currency"));
+	        //add second row:
+	        p_sd_ew.add(ew);
+	        p_sd_ew.add(ewValue);
+	        p_sd_ew.add(new BHDescriptionLabel("currency"));
+	        p_sd_ew.setBorder(BHBorderFactory.getInstacnce().createEtchedBorder(EtchedBorder.LOWERED));//set untitled Border
+	        //end: AWussler added: 3.12.2010
+	        
+	        /* AWussler removed and replaced: 3.12.2010: instead of adding each Label add the new panel containing all labels:
 	        this.add(sd, "1,5");
 	        this.add(sdValue, "3,5");
 	        this.add(new JLabel("GE"), "5,5");
 	        
 	        this.add(ew, "1,7");
 	        this.add(ewValue, "3,7");
-	        this.add(new JLabel("GE"), "5,7");
+	        this.add(new JLabel("GE"), "5,7");*/
+	        this.add(p_sd_ew, "1,5,3,7");//first and second number: coordinate (x,y) of upper left corner, first and second number: coordinate (x,y) of under right corner
+	        //end: AWussler removed and replaced: 3.12.2010
 	        
 	        this.add(rav,"1,9,3,9");
 	        
