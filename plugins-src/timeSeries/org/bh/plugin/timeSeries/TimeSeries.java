@@ -4,22 +4,16 @@ import java.awt.BorderLayout;
 import java.util.HashMap;
 import java.util.List;
 import java.util.TreeMap;
-
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
-
 import org.apache.log4j.Logger;
 import org.bh.calculation.IStochasticProcess;
 import org.bh.data.DTOKeyPair;
 import org.bh.data.DTOScenario;
 import org.bh.data.types.Calculable;
 import org.bh.data.types.DistributionMap;
-import org.bh.plugin.wienerProcess.WienerProcess;
-
-import com.jgoodies.forms.layout.CellConstraints;
-import com.jgoodies.forms.layout.FormLayout;
 
 /**
  * 
