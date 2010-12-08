@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding='utf-8'?>
+<plugin>
+	<id>11</id>
+	<name>Time Series</name>
+	<description>Dieses Plug-In ermöglicht die Zeitreihenanalyseberechnung</description>
+</plugin>
