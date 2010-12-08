@@ -1,10 +1,12 @@
 package org.bh.plugin.timeSeries;
 
+import java.awt.BorderLayout;
 import java.util.HashMap;
 import java.util.List;
 import java.util.TreeMap;
 
 import javax.swing.JFrame;
+import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
@@ -24,7 +26,7 @@ import com.jgoodies.forms.layout.FormLayout;
  * TODO plugin not finally implemented. 
  *
  *
- * @author Vito Masiello, Andreas Wußler
+ * @author Vito Masiello, Andreas Wussler
  * @version 1.0, 08.12.2010
  *
  */
@@ -36,7 +38,6 @@ public class TimeSeries implements IStochasticProcess {
 	private static final String GUI_KEY = "timeSeries";
 	
 	private DTOScenario scenario;
-	private JPanel panel;
 	private HashMap<String, Double> internalMap;
 	private HashMap<String, Integer> map;
 
@@ -46,25 +47,18 @@ public class TimeSeries implements IStochasticProcess {
 	}
 
 	@Override
+	/**
+	 * if button calculate is pressed
+	 */
 	public JPanel calculateParameters() {
-		if(false){//TODO calculate Parameters
-			internalMap = new HashMap<String, Double>();
-			map = new HashMap<String, Integer>();
-			TreeMap<DTOKeyPair, List<Calculable>> toBeDetermined = scenario.getPeriodStochasticKeysAndValues();
-			
-			JPanel result = new JPanel();
-
-			String rowDef = "4px,p,4px,p,4px,p,4px,p,4px";
-			String colDef = "4px,right:pref,4px,60px:grow,8px:grow,right:pref,4px,max(35px;pref):grow,4px:grow";
-			FormLayout layout = new FormLayout(colDef, rowDef);
-			result.setLayout(layout);
-			layout.setColumnGroups(new int[][] { { 4, 8 } });
-			CellConstraints cons = new CellConstraints();
-		}
-		// Print Not yet implemented error
-		String message = "\"Noch nicht vollständig implementiert calculateParameters()\"";
-		JOptionPane.showMessageDialog(new JFrame(), message, "Error", JOptionPane.ERROR_MESSAGE);
-		return null;
+		internalMap = new HashMap<String, Double>();
+		map = new HashMap<String, Integer>();
+		TreeMap<DTOKeyPair, List<Calculable>> toBeDetermined = scenario.getPeriodStochasticKeysAndValues();
+		JPanel result = new JPanel();
+		//TODO ....
+		result.setLayout(new BorderLayout());
+		result.add(new JLabel("Zeitreihenanalyse: Cashflows:"+toBeDetermined.firstEntry().toString()));
+		return result;
 	}
 
 	@Override
@@ -89,6 +83,9 @@ public class TimeSeries implements IStochasticProcess {
 		return UNIQUE_ID;
 	}
 	
+	/**
+	 * Initaliasing: at first use
+	 */
 	@Override
 	public TimeSeries createNewInstance(DTOScenario scenario) {
 		TimeSeries instance = new TimeSeries(); //new TimeSeries instance
