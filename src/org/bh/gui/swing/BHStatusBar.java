@@ -14,6 +14,10 @@ import javax.swing.PopupFactory;
 import javax.swing.event.MouseInputAdapter;
 
 import org.bh.gui.swing.misc.Icons;
+import org.bh.platform.IPlatformListener;
+import org.bh.platform.PlatformEvent;
+import org.bh.platform.Services;
+import org.bh.platform.PlatformEvent.Type;
 import org.bh.platform.i18n.BHTranslator;
 import org.bh.platform.i18n.ITranslator;
 
@@ -24,9 +28,10 @@ import com.jgoodies.forms.layout.FormLayout;
  * 
  * BHStatusBar to display a status bar on the bottom of the screen
  * 
- * @author Tietze.Patrick
+ * @author Tietze.Patrick, Maisel.Patrick
  * @version 0.1, 2009/12/05
  * @version 0.2, 2009/12/29
+ * @version 0.3, 2010/12/15
  * 
  **/
 
@@ -57,26 +62,30 @@ public final class BHStatusBar extends JPanel {
 		layout.setColumnGroups(new int[][] { { 2, 6 } });
 		setLayout(layout);
 		cons = new CellConstraints();
-		
+
 		hintLabel = new JLabel("");
 		hintLabel.setIcon(Icons.INFO_ICON);
 		removeHint();
-		
+
 		errorHintLabel = new JLabel(translator.translate("errorHint"));
 		errorHintLabel.setIcon(Icons.ERROR_ICON);
 		errorHintLabel.addMouseListener(new BHLabelListener());
-		errorHintLabel.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+		errorHintLabel
+				.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
 		removeErrorHint();
 
 		// create BH logo label
-		bh = new JLabel(new ImageIcon(BHStatusBar.class
-				.getResource("/org/bh/images/bh-logo-2.png")));
+		bh = new JLabel(new ImageIcon(
+				BHStatusBar.class.getResource("/org/bh/images/bh-logo-2.png")));
 
 		// add components to panel
 		add(hintLabel, new CellConstraints().xywh(2, 1, 1, 1));
 		add(bh, cons.xywh(4, 1, 1, 1));
-		add(errorHintLabel, new CellConstraints().xywh(6, 1, 1, 1,"right,center"));
+		add(errorHintLabel,
+				new CellConstraints().xywh(6, 1, 1, 1, "right,center"));
 	}
+
+
 
 	public static BHStatusBar getInstance() {
 		if (instance == null) {
@@ -105,6 +114,7 @@ public final class BHStatusBar extends JPanel {
 		hintLabel.setVisible(true);
 
 	}
+
 	/**
 	 * Method to set error hint(s) from a JScrollPane to the errorHintLabel
 	 * 
@@ -113,7 +123,8 @@ public final class BHStatusBar extends JPanel {
 
 	public void setErrorHint(JScrollPane pane) {
 		errorHintLabel.setVisible(true);
-		
+		// Fehlerhinweis wird jetzt übersetzt 15.12.2010
+		errorHintLabel.setText(translator.translate("errorHint"));
 		popupPane = pane;
 
 		// creates the popup for the error information
@@ -152,7 +163,8 @@ public final class BHStatusBar extends JPanel {
 		}
 
 		public void mouseClicked(MouseEvent e) {
-			optionPane.createDialog(null, translator.translate("errorsDialogTitle")).setVisible(true);
+			optionPane.createDialog(null,
+					translator.translate("errorsDialogTitle")).setVisible(true);
 		}
 	}
 }
