@@ -56,7 +56,9 @@ public class BHCheckBox extends JCheckBox implements IBHModelComponent,
 	public BHCheckBox(final Object key) {
 		super();
 		this.key = key.toString();
-		reloadText();
+		reloadText(); //unnötiger doppelter Aufruf entfernt, da es Probleme in
+		// mit der Anzeige in den Einstellungen gab, was den Text der
+		// chbanimation gab
 		Services.addPlatformListener(this);
 		addItemListener(new ItemListener() {
 			@Override
@@ -127,6 +129,7 @@ public class BHCheckBox extends JCheckBox implements IBHModelComponent,
 	protected void reloadText() {
 		hint = Services.getTranslator().translate(key, ITranslator.LONG);
 		setToolTipText(hint);
+		setText(translator.translate(key));
 	}
 
 	@Override
