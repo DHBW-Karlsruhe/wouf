@@ -1,6 +1,5 @@
 package org.bh.plugin.gcc.swing;
 
-
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.border.EtchedBorder;
@@ -11,6 +10,7 @@ import org.bh.gui.IBHComponent;
 import org.bh.gui.swing.comp.BHDescriptionLabel;
 import org.bh.gui.swing.comp.BHTextField;
 import org.bh.gui.swing.forms.border.BHBorderFactory;
+import org.bh.platform.Services;
 import org.bh.platform.i18n.ITranslator;
 import org.bh.plugin.gcc.data.DTOGCCBalanceSheet;
 import org.bh.validation.VRIsDouble;
@@ -95,6 +95,10 @@ public class BHBalanceSheetForm extends JPanel {
 	private BHDescriptionLabel lmaxpas;
 	private BHDescriptionLabel lminpas;
 
+	// Hilfslabel ... wird ständig überschrieben, aber ist nicht kritisch, da es
+	// nur für die Anzeige auf dem Panel wichtig ist
+	private BHDescriptionLabel MU;
+
 	ITranslator translator = Controller.getTranslator();
 
 	public enum Key {
@@ -135,12 +139,14 @@ public class BHBalanceSheetForm extends JPanel {
 
 		CellConstraints cons = new CellConstraints();
 
-		this.add(this.getAktiva(intervalArithmetic), cons.xywh(2, 2, 1, 1,
-				"fill, fill"));
-		this.add(this.getPassiva(intervalArithmetic), cons.xywh(4, 2, 1, 1,
-				"fill, fill"));
-		this.setBorder(BHBorderFactory.getInstacnce().createTitledBorder(BHBorderFactory.getInstacnce()
-				.createEtchedBorder(EtchedBorder.LOWERED),BHBalanceSheetForm.Key.BALANCE_SHEET));
+		this.add(this.getAktiva(intervalArithmetic),
+				cons.xywh(2, 2, 1, 1, "fill, fill"));
+		this.add(this.getPassiva(intervalArithmetic),
+				cons.xywh(4, 2, 1, 1, "fill, fill"));
+		this.setBorder(BHBorderFactory.getInstacnce().createTitledBorder(
+				BHBorderFactory.getInstacnce().createEtchedBorder(
+						EtchedBorder.LOWERED),
+				BHBalanceSheetForm.Key.BALANCE_SHEET));
 
 	}
 
@@ -168,28 +174,24 @@ public class BHBalanceSheetForm extends JPanel {
 			paktiva.add(this.getLWP(), cons.xywh(2, 12, 1, 1));
 			paktiva.add(this.getLKBGGKS(), cons.xywh(2, 14, 1, 1));
 
+			// Das Adden von JLabels für die Währungsanzeige wurde durch die
+			// Methode getMU() ersetzt. Dadurch wird das Formular übersetzbar
+
 			paktiva.add(this.getTfIVG(), cons.xywh(4, 2, 1, 1));
-			paktiva.add(new JLabel(translator.translate("currency")), cons
-					.xywh(6, 2, 1, 1));
+			paktiva.add(this.getMU(), cons.xywh(6, 2, 1, 1));
 			paktiva.add(this.getTfSA(), cons.xywh(4, 4, 1, 1));
-			paktiva.add(new JLabel(translator.translate("currency")), cons
-					.xywh(6, 4, 1, 1));
+			paktiva.add(this.getMU(), cons.xywh(6, 4, 1, 1));
 			paktiva.add(this.getTfFA(), cons.xywh(4, 6, 1, 1));
-			paktiva.add(new JLabel(translator.translate("currency")), cons
-					.xywh(6, 6, 1, 1));
+			paktiva.add(this.getMU(), cons.xywh(6, 6, 1, 1));
 			paktiva.add(this.getTfVOR(), cons.xywh(4, 8, 1, 1));
-			paktiva.add(new JLabel(translator.translate("currency")), cons
-					.xywh(6, 8, 1, 1));
+			paktiva.add(this.getMU(), cons.xywh(6, 8, 1, 1));
 			paktiva.add(this.getTfFSVG(), cons.xywh(4, 10, 1, 1));
-			paktiva.add(new JLabel(translator.translate("currency")), cons
-					.xywh(6, 10, 1, 1));
+			paktiva.add(this.getMU(), cons.xywh(6, 10, 1, 1));
 			paktiva.add(this.getTfWP(), cons.xywh(4, 12, 1, 1));
-			paktiva.add(new JLabel(translator.translate("currency")), cons
-					.xywh(6, 12, 1, 1));
+			paktiva.add(this.getMU(), cons.xywh(6, 12, 1, 1));
 			paktiva.add(this.getTfKBGGKS(), cons.xywh(4, 14, 1, 1));
-			paktiva.add(new JLabel(translator.translate("currency")), cons
-					.xywh(6, 14, 1, 1));
-			
+			paktiva.add(this.getMU(), cons.xywh(6, 14, 1, 1));
+
 			layout.insertColumn(2, ColumnSpec.decode("20px"));
 			layout.insertRow(2, RowSpec.decode("p"));
 			layout.insertRow(3, RowSpec.decode("4px"));
@@ -200,7 +202,7 @@ public class BHBalanceSheetForm extends JPanel {
 			layout.insertRow(11, RowSpec.decode("4px"));
 			paktiva.add(this.getlUV(), cons.xywh(2, 10, 2, 1));
 			// paktiva.add(this.getTfUV(), cons.xywh(5, 10, 1, 1));
-			
+
 		} else {
 			layout.setColumnGroups(new int[][] { { 4, 8 } });
 
@@ -214,76 +216,61 @@ public class BHBalanceSheetForm extends JPanel {
 
 			// paktiva.add(new JSeparator(SwingConstants.VERTICAL), cons.xywh(6,
 			// 2, 1, 15));
-			paktiva.add(this.getLminakt(), cons.xywh(4, 2, 1, 1,
-					"center,default"));
-			paktiva.add(this.getLmaxakt(), cons.xywh(8, 2, 1, 1,
-					"center,default"));
+			paktiva.add(this.getLminakt(),
+					cons.xywh(4, 2, 1, 1, "center,default"));
+			paktiva.add(this.getLmaxakt(),
+					cons.xywh(8, 2, 1, 1, "center,default"));
 
 			paktiva.add(this.getTfIVGmin(), cons.xywh(4, 4, 1, 1));
-			paktiva.add(new JLabel(translator.translate("currency")), cons
-					.xywh(6, 4, 1, 1));
+			paktiva.add(this.getMU(), cons.xywh(6, 4, 1, 1));
 			paktiva.add(this.getTfSAmin(), cons.xywh(4, 6, 1, 1));
-			paktiva.add(new JLabel(translator.translate("currency")), cons
-					.xywh(6, 6, 1, 1));
+			paktiva.add(this.getMU(), cons.xywh(6, 6, 1, 1));
 			paktiva.add(this.getTfFAmin(), cons.xywh(4, 8, 1, 1));
-			paktiva.add(new JLabel(translator.translate("currency")), cons
-					.xywh(6, 8, 1, 1));
+			paktiva.add(this.getMU(), cons.xywh(6, 8, 1, 1));
 			paktiva.add(this.getTfVORmin(), cons.xywh(4, 10, 1, 1));
-			paktiva.add(new JLabel(translator.translate("currency")), cons
-					.xywh(6, 10, 1, 1));
+			paktiva.add(this.getMU(), cons.xywh(6, 10, 1, 1));
 			paktiva.add(this.getTfFSVGmin(), cons.xywh(4, 12, 1, 1));
-			paktiva.add(new JLabel(translator.translate("currency")), cons
-					.xywh(6, 12, 1, 1));
+			paktiva.add(this.getMU(), cons.xywh(6, 12, 1, 1));
 			paktiva.add(this.getTfWPmin(), cons.xywh(4, 14, 1, 1));
-			paktiva.add(new JLabel(translator.translate("currency")), cons
-					.xywh(6, 14, 1, 1));
+			paktiva.add(this.getMU(), cons.xywh(6, 14, 1, 1));
 			paktiva.add(this.getTfKBGGKSmin(), cons.xywh(4, 16, 1, 1));
-			paktiva.add(new JLabel(translator.translate("currency")), cons
-					.xywh(6, 16, 1, 1));
+			paktiva.add(this.getMU(), cons.xywh(6, 16, 1, 1));
 
 			paktiva.add(this.getTfIVGmax(), cons.xywh(8, 4, 1, 1));
-			paktiva.add(new JLabel(translator.translate("currency")), cons
-					.xywh(10, 4, 1, 1));
+			paktiva.add(this.getMU(), cons.xywh(10, 4, 1, 1));
 			paktiva.add(this.getTfSAmax(), cons.xywh(8, 6, 1, 1));
-			paktiva.add(new JLabel(translator.translate("currency")), cons
-					.xywh(10, 6, 1, 1));
+			paktiva.add(this.getMU(), cons.xywh(10, 6, 1, 1));
 			paktiva.add(this.getTfFAmax(), cons.xywh(8, 8, 1, 1));
-			paktiva.add(new JLabel(translator.translate("currency")), cons
-					.xywh(10, 8, 1, 1));
+			paktiva.add(this.getMU(), cons.xywh(10, 8, 1, 1));
 			paktiva.add(this.getTfVORmax(), cons.xywh(8, 10, 1, 1));
-			paktiva.add(new JLabel(translator.translate("currency")), cons
-					.xywh(10, 10, 1, 1));
+			paktiva.add(this.getMU(), cons.xywh(10, 10, 1, 1));
 			paktiva.add(this.getTfFSVGmax(), cons.xywh(8, 12, 1, 1));
-			paktiva.add(new JLabel(translator.translate("currency")), cons
-					.xywh(10, 12, 1, 1));
+			paktiva.add(this.getMU(), cons.xywh(10, 12, 1, 1));
 			paktiva.add(this.getTfWPmax(), cons.xywh(8, 14, 1, 1));
-			paktiva.add(new JLabel(translator.translate("currency")), cons
-					.xywh(10, 14, 1, 1));
+			paktiva.add(this.getMU(), cons.xywh(10, 14, 1, 1));
 			paktiva.add(this.getTfKBGGKSmax(), cons.xywh(8, 16, 1, 1));
-			paktiva.add(new JLabel(translator.translate("currency")), cons
-					.xywh(10, 16, 1, 1));
+			paktiva.add(this.getMU(), cons.xywh(10, 16, 1, 1));
 
 			layout.insertColumn(2, ColumnSpec.decode("20px"));
 			layout.insertRow(4, RowSpec.decode("p"));
 			layout.insertRow(5, RowSpec.decode("4px"));
 
 			paktiva.add(this.getlAV(), cons.xywh(2, 4, 2, 1));
-//			paktiva.add(this.getTfAVmin(), cons.xywh(5, 4, 1, 1));
-//			paktiva.add(this.getTfAVmax(), cons.xywh(9, 4, 1, 1));
+			// paktiva.add(this.getTfAVmin(), cons.xywh(5, 4, 1, 1));
+			// paktiva.add(this.getTfAVmax(), cons.xywh(9, 4, 1, 1));
 
 			layout.insertRow(12, RowSpec.decode("p"));
 			layout.insertRow(13, RowSpec.decode("4px"));
 			paktiva.add(this.getlUV(), cons.xywh(2, 12, 2, 1));
-//			paktiva.add(this.getTfUVmin(), cons.xywh(5, 12, 1, 1));
-//			paktiva.add(this.getTfUVmax(), cons.xywh(9, 12, 1, 1));
+			// paktiva.add(this.getTfUVmin(), cons.xywh(5, 12, 1, 1));
+			// paktiva.add(this.getTfUVmax(), cons.xywh(9, 12, 1, 1));
 		}
 
-		// TODO add handler for locale change
-		paktiva.setBorder(BHBorderFactory.getInstacnce().createTitledBorder(BHBorderFactory.getInstacnce()
-				.createEtchedBorder(EtchedBorder.LOWERED), 
-				BHBalanceSheetForm.Key.AKTIVA, TitledBorder.CENTER,
-				TitledBorder.DEFAULT_JUSTIFICATION));
-
+		// TODO add handler for locale change für AKTIVA und PASSIVA
+		paktiva.setBorder(BHBorderFactory.getInstacnce().createTitledBorder(
+				BHBorderFactory.getInstacnce().createEtchedBorder(
+						EtchedBorder.LOWERED), BHBalanceSheetForm.Key.AKTIVA,
+				TitledBorder.CENTER, TitledBorder.DEFAULT_JUSTIFICATION));
 		return paktiva;
 	}
 
@@ -308,14 +295,11 @@ public class BHBalanceSheetForm extends JPanel {
 			ppassiva.add(this.getLVB(), cons.xywh(2, 6, 1, 1));
 
 			ppassiva.add(this.getTfEK(), cons.xywh(4, 2, 1, 1));
-			ppassiva.add(new JLabel(translator.translate("currency")), cons
-					.xywh(6, 2, 1, 1));
+			ppassiva.add(this.getMU(), cons.xywh(6, 2, 1, 1));
 			ppassiva.add(this.getTfRS(), cons.xywh(4, 4, 1, 1));
-			ppassiva.add(new JLabel(translator.translate("currency")), cons
-					.xywh(6, 4, 1, 1));
+			ppassiva.add(this.getMU(), cons.xywh(6, 4, 1, 1));
 			ppassiva.add(this.getTfVB(), cons.xywh(4, 6, 1, 1));
-			ppassiva.add(new JLabel(translator.translate("currency")), cons
-					.xywh(6, 6, 1, 1));
+			ppassiva.add(this.getMU(), cons.xywh(6, 6, 1, 1));
 		} else {
 			layout.setColumnGroups(new int[][] { { 4, 8 } });
 
@@ -326,38 +310,32 @@ public class BHBalanceSheetForm extends JPanel {
 			// ppassiva.add(new JSeparator(SwingConstants.VERTICAL),
 			// cons.xywh(6,
 			// 2, 1, 7));
-			ppassiva.add(this.getLminpas(), cons.xywh(4, 2, 1, 1,
-					"center,default"));
-			ppassiva.add(this.getLmaxpas(), cons.xywh(8, 2, 1, 1,
-					"center,default"));
+			ppassiva.add(this.getLminpas(),
+					cons.xywh(4, 2, 1, 1, "center,default"));
+			ppassiva.add(this.getLmaxpas(),
+					cons.xywh(8, 2, 1, 1, "center,default"));
 
 			ppassiva.add(this.getTfEKmin(), cons.xywh(4, 4, 1, 1));
-			ppassiva.add(new JLabel(translator.translate("currency")), cons
-					.xywh(6, 4, 1, 1));
+			ppassiva.add(this.getMU(), cons.xywh(6, 4, 1, 1));
 			ppassiva.add(this.getTfRSmin(), cons.xywh(4, 6, 1, 1));
-			ppassiva.add(new JLabel(translator.translate("currency")), cons
-					.xywh(6, 6, 1, 1));
+			ppassiva.add(this.getMU(), cons.xywh(6, 6, 1, 1));
 			ppassiva.add(this.getTfVBmin(), cons.xywh(4, 8, 1, 1));
-			ppassiva.add(new JLabel(translator.translate("currency")), cons
-					.xywh(6, 8, 1, 1));
+			ppassiva.add(this.getMU(), cons.xywh(6, 8, 1, 1));
 
 			ppassiva.add(this.getTfEKmax(), cons.xywh(8, 4, 1, 1));
-			ppassiva.add(new JLabel(translator.translate("currency")), cons
-					.xywh(10, 4, 1, 1));
+			ppassiva.add(this.getMU(), cons.xywh(10, 4, 1, 1));
 			ppassiva.add(this.getTfRSmax(), cons.xywh(8, 6, 1, 1));
-			ppassiva.add(new JLabel(translator.translate("currency")), cons
-					.xywh(10, 6, 1, 1));
+			ppassiva.add(this.getMU(), cons.xywh(10, 6, 1, 1));
 			ppassiva.add(this.getTfVBmax(), cons.xywh(8, 8, 1, 1));
-			ppassiva.add(new JLabel(translator.translate("currency")), cons
-					.xywh(10, 8, 1, 1));
+			ppassiva.add(this.getMU(), cons.xywh(10, 8, 1, 1));
 
 		}
 
-		layout.setRowGroups(new int[][] {{2,3,5}});
+		layout.setRowGroups(new int[][] { { 2, 3, 5 } });
 
-		ppassiva.setBorder(BHBorderFactory.getInstacnce().createTitledBorder(BHBorderFactory.getInstacnce()
-				.createEtchedBorder(EtchedBorder.LOWERED),
-				BHBalanceSheetForm.Key.PASSIVA,
+		ppassiva.setBorder(BHBorderFactory.getInstacnce().createTitledBorder(
+				BHBorderFactory.getInstacnce().createEtchedBorder(
+						EtchedBorder.LOWERED), BHBalanceSheetForm.Key.PASSIVA,
 				TitledBorder.CENTER, TitledBorder.DEFAULT_JUSTIFICATION));
 
 		return ppassiva;
@@ -983,6 +961,15 @@ public class BHBalanceSheetForm extends JPanel {
 			tfVBmin.setValidationRules(rules);
 		}
 		return tfVBmin;
+	}
+
+	// description of getter-methods for the labels
+
+	// Getter-Methode, damit die Währungslabels dynamisch übersetzbar werden
+	public BHDescriptionLabel getMU() {
+		MU = new BHDescriptionLabel("currency");
+
+		return MU;
 	}
 
 	public BHDescriptionLabel getLmaxakt() {

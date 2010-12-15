@@ -32,8 +32,11 @@ import com.jgoodies.forms.layout.RowSpec;
  * 
  * @author Anton Kharitonov
  * @author Patrick Heinz
+ * @author Patrick Maisel
  * @version 0.1, 08.01.2010
+ * @version 0.2, 16.12.2010
  * 
+ *          Form wurde komplett übersetzbar gemacht von Patrick Maisel
  */
 @SuppressWarnings("serial")
 public class BHPLSTotalCostForm extends JPanel {
@@ -71,6 +74,9 @@ public class BHPLSTotalCostForm extends JPanel {
 	private BHDescriptionLabel lPA;
 	private BHDescriptionLabel lAAE;
 	private BHDescriptionLabel lZA;
+	// Hilfslabel ... wird ständig überschrieben, aber ist nicht kritisch, da es
+	// nur für die Anzeige auf dem Panel wichtig ist
+	private BHDescriptionLabel MU;
 
 	private JLabel lmin;
 	private JLabel lmax;
@@ -116,41 +122,34 @@ public class BHPLSTotalCostForm extends JPanel {
 			this.add(this.getLABSCH(), cons.xywh(8, 6, 1, 1));
 			this.add(this.getLSBA(), cons.xywh(2, 8, 1, 1));
 			this.add(this.getLZA(), cons.xywh(2, 10, 1, 1));
-
+			// Das Adden von JLabels für die Währungsanzeige wurde durch die
+			// Methode getMU() ersetzt. Dadurch wird das Formular übersetzbar
 			this.add(this.getTfUE(), cons.xywh(4, 2, 1, 1));
-			this.add(new JLabel(translator.translate("currency")), cons.xywh(6,
-					2, 1, 1));
+			this.add(this.getMU(), cons.xywh(6, 2, 1, 1));
 			this.add(this.getTfSBE(), cons.xywh(4, 4, 1, 1));
-			this.add(new JLabel(translator.translate("currency")), cons.xywh(6,
-					4, 1, 1));
+			this.add(this.getMU(), cons.xywh(6, 4, 1, 1));
 			this.add(this.getTfAAE(), cons.xywh(4, 6, 1, 1));
-			this.add(new JLabel(translator.translate("currency")), cons.xywh(6,
-					6, 1, 1));
+			this.add(this.getMU(), cons.xywh(6, 6, 1, 1));
 			this.add(this.getTfMA(), cons.xywh(10, 2, 1, 1));
-			this.add(new JLabel(translator.translate("currency")), cons.xywh(
-					12, 2, 1, 1));
+			this.add(this.getMU(), cons.xywh(12, 2, 1, 1));
 			this.add(this.getTfPA(), cons.xywh(10, 4, 1, 1));
-			this.add(new JLabel(translator.translate("currency")), cons.xywh(
-					12, 4, 1, 1));
+			this.add(this.getMU(), cons.xywh(12, 4, 1, 1));
 			this.add(this.getTfABSCH(), cons.xywh(10, 6, 1, 1));
-			this.add(new JLabel(translator.translate("currency")), cons.xywh(
-					12, 6, 1, 1));
+			this.add(this.getMU(), cons.xywh(12, 6, 1, 1));
 			this.add(this.getTfSBA(), cons.xywh(4, 8, 1, 1, "fill, default"));
-			this.add(new JLabel(translator.translate("currency")), cons.xywh(6,
-					8, 1, 1));
+			this.add(this.getMU(), cons.xywh(6, 8, 1, 1));
 			this.add(this.getTfZA(), cons.xywh(4, 10, 1, 1, "fill, default"));
-			this.add(new JLabel(translator.translate("currency")), cons.xywh(6,
-					10, 1, 1));
+			this.add(this.getMU(), cons.xywh(6, 10, 1, 1));
 
 			layout.insertColumn(8, ColumnSpec.decode("10px"));
 			layout.insertColumn(9, ColumnSpec.decode("4px"));
-			this.add(new JSeparator(SwingConstants.VERTICAL), cons.xywh(8, 2,
-					1, 5));
+			this.add(new JSeparator(SwingConstants.VERTICAL),
+					cons.xywh(8, 2, 1, 5));
 
 			layout.insertRow(8, RowSpec.decode("10px"));
 			layout.insertRow(9, RowSpec.decode("4px"));
-			this.add(new JSeparator(SwingConstants.HORIZONTAL), cons.xywh(2, 8,
-					13, 1));
+			this.add(new JSeparator(SwingConstants.HORIZONTAL),
+					cons.xywh(2, 8, 13, 1));
 
 			Vector<Component> order = new Vector<Component>(16);
 			order.add(this.getTfUE());
@@ -184,81 +183,65 @@ public class BHPLSTotalCostForm extends JPanel {
 			// 1, 9));
 			this.add(this.getLmin(), cons.xywh(4, 2, 1, 1, "center,default"));
 			this.add(this.getLmax(), cons.xywh(8, 2, 1, 1, "center,default"));
-			this.add(new JLabel(translator.translate("min")), cons.xywh(14, 2,
-					1, 1, "center,default"));
-			this.add(new JLabel(translator.translate("max")), cons.xywh(18, 2,
-					1, 1, "center,default"));
+			this.add(new JLabel(translator.translate("min")),
+					cons.xywh(14, 2, 1, 1, "center,default"));
+			this.add(new JLabel(translator.translate("max")),
+					cons.xywh(18, 2, 1, 1, "center,default"));
 
 			this.add(this.getTfUEmin(), cons.xywh(4, 4, 1, 1));
-			this.add(new JLabel(translator.translate("currency")), cons.xywh(6,
-					4, 1, 1));
+			this.add(this.getMU(), cons.xywh(6, 4, 1, 1));
 			this.add(this.getTfSBEmin(), cons.xywh(4, 6, 1, 1));
-			this.add(new JLabel(translator.translate("currency")), cons.xywh(6,
-					6, 1, 1));
+			this.add(this.getMU(), cons.xywh(6, 6, 1, 1));
 			this.add(this.getTfAAEmin(), cons.xywh(4, 8, 1, 1));
-			this.add(new JLabel(translator.translate("currency")), cons.xywh(6,
-					8, 1, 1));
+			this.add(this.getMU(), cons.xywh(6, 8, 1, 1));
 			this.add(this.getTfMAmin(), cons.xywh(14, 4, 1, 1));
-			this.add(new JLabel(translator.translate("currency")), cons.xywh(
-					16, 4, 1, 1));
+			this.add(this.getMU(), cons.xywh(16, 4, 1, 1));
 
 			this.add(this.getTfPAmin(), cons.xywh(14, 6, 1, 1));
-			this.add(new JLabel(translator.translate("currency")), cons.xywh(
-					16, 6, 1, 1));
+			this.add(this.getMU(), cons.xywh(16, 6, 1, 1));
 
 			this.add(this.getTfABSCHmin(), cons.xywh(14, 8, 1, 1));
-			this.add(new JLabel(translator.translate("currency")), cons.xywh(
-					16, 8, 1, 1));
+			this.add(this.getMU(), cons.xywh(16, 8, 1, 1));
 
 			this.add(this.getTfSBAmin(), cons.xywh(4, 10, 1, 1));
-			this.add(new JLabel(translator.translate("currency")), cons.xywh(6,
-					10, 1, 1));
+			this.add(this.getMU(), cons.xywh(6, 10, 1, 1));
 
 			this.add(this.getTfZAmin(), cons.xywh(4, 12, 1, 1));
-			this.add(new JLabel(translator.translate("currency")), cons.xywh(6,
-					12, 1, 1));
+			this.add(this.getMU(), cons.xywh(6, 12, 1, 1));
 
 			this.add(this.getTfUEmax(), cons.xywh(8, 4, 1, 1));
-			this.add(new JLabel(translator.translate("currency")), cons.xywh(
-					10, 4, 1, 1));
+			this.add(this.getMU(), cons.xywh(10, 4, 1, 1));
 
 			this.add(this.getTfSBEmax(), cons.xywh(8, 6, 1, 1));
-			this.add(new JLabel(translator.translate("currency")), cons.xywh(
-					10, 6, 1, 1));
+			this.add(this.getMU(), cons.xywh(10, 6, 1, 1));
 
 			this.add(this.getTfAAEmax(), cons.xywh(8, 8, 1, 1));
-			this.add(new JLabel(translator.translate("currency")), cons.xywh(
-					10, 8, 1, 1));
+			this.add(this.getMU(), cons.xywh(10, 8, 1, 1));
 
 			this.add(this.getTfMAmax(), cons.xywh(18, 4, 1, 1));
-			this.add(new JLabel(translator.translate("currency")), cons.xywh(
-					20, 4, 1, 1));
+			this.add(this.getMU(), cons.xywh(20, 4, 1, 1));
 
 			this.add(this.getTfPAmax(), cons.xywh(18, 6, 1, 1));
-			this.add(new JLabel(translator.translate("currency")), cons.xywh(
-					20, 6, 1, 1));
+			this.add(this.getMU(), cons.xywh(20, 6, 1, 1));
 
 			this.add(this.getTfABSCHmax(), cons.xywh(18, 8, 1, 1));
-			this.add(new JLabel(translator.translate("currency")), cons.xywh(
-					20, 8, 1, 1));
+			this.add(this.getMU(), cons.xywh(20, 8, 1, 1));
 
 			this.add(this.getTfSBAmax(), cons.xywh(8, 10, 1, 1));
-			this.add(new JLabel(translator.translate("currency")), cons.xywh(
-					10, 10, 1, 1));
+			this.add(this.getMU(), cons.xywh(10, 10, 1, 1));
 
 			this.add(this.getTfZAmax(), cons.xywh(8, 12, 1, 1));
-			this.add(new JLabel(translator.translate("currency")), cons.xywh(
-					10, 12, 1, 1));
+			this.add(this.getMU(), cons.xywh(10, 12, 1, 1));
 
 			layout.insertColumn(12, ColumnSpec.decode("10px"));
 			layout.insertColumn(13, ColumnSpec.decode("4px"));
-			this.add(new JSeparator(SwingConstants.VERTICAL), cons.xywh(12, 4,
-					1, 5));
+			this.add(new JSeparator(SwingConstants.VERTICAL),
+					cons.xywh(12, 4, 1, 5));
 
 			layout.insertRow(10, RowSpec.decode("10px"));
 			layout.insertRow(11, RowSpec.decode("4px"));
-			this.add(new JSeparator(SwingConstants.HORIZONTAL), cons.xywh(2,
-					10, 21, 1));
+			this.add(new JSeparator(SwingConstants.HORIZONTAL),
+					cons.xywh(2, 10, 21, 1));
 			/*
 			 * this Vector sets the order of focus moovement.
 			 */
@@ -560,6 +543,13 @@ public class BHPLSTotalCostForm extends JPanel {
 	}
 
 	// Here do the getters for the labels begin
+
+	// Getter-Methode, damit die Währungslabels dynamisch übersetzbar werden
+	public BHDescriptionLabel getMU() {
+		MU = new BHDescriptionLabel("currency");
+
+		return MU;
+	}
 
 	public BHDescriptionLabel getLUE() {
 		if (lUE == null) {
