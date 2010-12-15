@@ -4,6 +4,11 @@
  */
 package org.bh.plugin.resultAnalysis;
 
+
+import java.awt.GridBagConstraints;
+import java.awt.GridBagLayout;
+import java.awt.Insets;
+
 import info.clearthought.layout.TableLayout;
 import info.clearthought.layout.TableLayoutConstants;
 
@@ -34,13 +39,9 @@ public class BH_APV_ResultPanel extends JPanel {
 	}
 
 	public void initialize() {
-		double border = 30;
-
-		double size[][] = {
-				{ TableLayoutConstants.PREFERRED }, // Columns
-				{ border, TableLayoutConstants.PREFERRED, border,
-						TableLayoutConstants.PREFERRED, border } }; // Rows
-		this.setLayout(new TableLayout(size));
+		
+		this.setLayout(new GridBagLayout());
+		GridBagConstraints c = new GridBagConstraints();
 
 		// All APV Charts
 		apvWFShareholderValues = BHChartFactory.getWaterfallChart(
@@ -48,7 +49,19 @@ public class BH_APV_ResultPanel extends JPanel {
 		apvBCCapitalStructure = BHChartFactory.getStackedBarChart(
 				BHResultController.ChartKeys.APV_BC_CS, true, true);
 
-		this.add(apvWFShareholderValues, "0,1");
-		this.add(apvBCCapitalStructure, "0,3");
+		//add components to ResultPane
+		c.fill = GridBagConstraints.HORIZONTAL;
+		c.gridx = 0;
+		c.gridy = 0;
+		c.insets = new Insets(30,0,0,0); //border top 30
+		c.weightx = 1.0;
+		this.add(apvWFShareholderValues, c);
+		
+		c.fill = GridBagConstraints.HORIZONTAL;
+		c.insets = new Insets(30,0,30,0); //border top 30, border bottom 30	
+		c.gridx = 0;
+		c.gridy = 1;
+		c.weightx = 1.0;
+		this.add(apvBCCapitalStructure, c);
 	}
 }
