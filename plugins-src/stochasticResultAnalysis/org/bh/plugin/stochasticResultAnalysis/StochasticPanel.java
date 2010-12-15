@@ -1,9 +1,13 @@
 package org.bh.plugin.stochasticResultAnalysis;
 
-import info.clearthought.layout.TableLayout;
+
+
 
 import java.awt.Dimension;
+import java.awt.GridBagConstraints;
+import java.awt.GridBagLayout;
 import java.awt.GridLayout;
+import java.awt.Insets;
 
 import javax.swing.JLabel;
 import javax.swing.JPanel;
@@ -26,6 +30,8 @@ import com.jgoodies.forms.layout.FormLayout;
 public class StochasticPanel extends JPanel{
 	
 	final ITranslator translator = Controller.getTranslator();
+	GridBagConstraints d;
+	JLabel space;
 
 	 @SuppressWarnings("unused")
 	private static final Logger log = Logger.getLogger(StochasticPanel.class);
@@ -37,13 +43,9 @@ public class StochasticPanel extends JPanel{
 	    }
 
 	    public void initialize() {
-	        double border = 10;
-	        double size[][] = {{border, TableLayout.MINIMUM, border, TableLayout.MINIMUM, border, TableLayout.PREFERRED, border}, // Columns
-	            {border, TableLayout.PREFERRED, border, TableLayout.PREFERRED, border, TableLayout.PREFERRED, border, TableLayout.PREFERRED, border,TableLayout.PREFERRED, 
-	        	border,TableLayout.PREFERRED,border,TableLayout.PREFERRED}}; // Rows
 
-
-	        this.setLayout(new TableLayout(size));
+	        this.setLayout(new GridBagLayout());
+			d = new GridBagConstraints();
 
 	        distributionChart = BHChartFactory.getXYBarChart(BHStochasticResultController.ChartKeys.DISTRIBUTION_CHART);
 	        
@@ -83,8 +85,12 @@ public class StochasticPanel extends JPanel{
 					BHStochasticResultController.ChartKeys.RISK_AT_VALUE, TitledBorder.LEFT,
 					TitledBorder.DEFAULT_JUSTIFICATION));
 
-	        
-	        this.add(distributionChart, "1,3,5,3"); 
+	        d.fill = GridBagConstraints.HORIZONTAL;
+			d.gridx = 0;
+			d.gridy = 0;
+			d.insets = new Insets(30,10,0,0);
+	        this.add(distributionChart, d); 
+	       // this.add(distributionChart, "1,3,5,3");
 	        
 	        /**
 	         * AWussler added: 3.12.2010
@@ -111,10 +117,27 @@ public class StochasticPanel extends JPanel{
 	        this.add(ew, "1,7");
 	        this.add(ewValue, "3,7");
 	        this.add(new JLabel("GE"), "5,7");*/
-	        this.add(p_sd_ew, "1,5,3,7");//first and second number: coordinate (x,y) of upper left corner, first and second number: coordinate (x,y) of under right corner
+	        d.fill = GridBagConstraints.HORIZONTAL;
+			d.gridx = 0;
+			d.gridy = 1;
+			d.insets = new Insets(10,10,0,0);
+	        this.add(p_sd_ew, d);
+	       // this.add(p_sd_ew, "1,5,3,7");//first and second number: coordinate (x,y) of upper left corner, first and second number: coordinate (x,y) of under right corner
 	        //end: AWussler removed and replaced: 3.12.2010
+	        d.fill = GridBagConstraints.HORIZONTAL;
+			d.gridx = 0;
+			d.gridy = 2;
+			d.insets = new Insets(10,10,30,0);
+	        this.add(rav,d);
 	        
-	        this.add(rav,"1,9,3,9");
+	        space = new JLabel();
+	        d.fill = GridBagConstraints.HORIZONTAL;
+			d.gridx = 1;
+			d.gridy = 0;
+			d.weightx = 1.0;
+			d.insets = new Insets(0,0,0,0);
+			this.add(space,d);
+	        //this.add(p_sd_ew, "1,5,3,7");
 	        
 	    }
 	}

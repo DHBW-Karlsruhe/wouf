@@ -4,6 +4,11 @@
  */
 package org.bh.plugin.resultAnalysis;
 
+
+import java.awt.GridBagConstraints;
+import java.awt.GridBagLayout;
+import java.awt.Insets;
+
 import info.clearthought.layout.TableLayout;
 import info.clearthought.layout.TableLayoutConstants;
 
@@ -32,27 +37,35 @@ public class BH_FTE_ResultPanel extends JPanel {
 
     public void initialize(boolean isAllSelected) {
 
-        double border = 30;
-
-        if (!isAllSelected) {
-            double size[][] = {{TableLayoutConstants.PREFERRED}, // Columns
-                {border, TableLayoutConstants.PREFERRED, border, TableLayoutConstants.PREFERRED}}; // Rows
-            this.setLayout(new TableLayout(size));
-        } else {
-            double size[][] = {{TableLayoutConstants.PREFERRED}, // Columns
-                {border, TableLayoutConstants.PREFERRED, border, TableLayoutConstants.PREFERRED}}; // Rows
-            this.setLayout(new TableLayout(size));
-        }
+    	this.setLayout(new GridBagLayout());
+ 		GridBagConstraints c = new GridBagConstraints();
 
         //All FTE Charts
         fteFlowToEquity = BHChartFactory.getBarChart(BHResultController.ChartKeys.FTE_BC_FTE.toString(), true, true);
         fteReturnRate = BHChartFactory.getBarChart(BHResultController.ChartKeys.FTE_BC_RR, true, true);
 
+        //add components to Result Pane
         if (!isAllSelected) {
-            this.add(fteFlowToEquity, "0,1");
-            this.add(fteReturnRate, "0,3");
+        	c.fill = GridBagConstraints.HORIZONTAL;
+    		c.gridx = 0;
+    		c.gridy = 0;
+    		c.insets = new Insets(30,0,0,0); //border top 30
+    		c.weightx = 1.0;
+            this.add(fteFlowToEquity, c);
+            
+            c.fill = GridBagConstraints.HORIZONTAL;
+    		c.gridx = 0;
+    		c.gridy = 1;
+    		c.insets = new Insets(30,0,30,0); //border top 30 border bottom 30
+    		c.weightx = 1.0;
+            this.add(fteReturnRate, c);
         } else {
-            this.add(fteFlowToEquity, "0,1");
+        	c.fill = GridBagConstraints.HORIZONTAL;
+    		c.gridx = 0;
+    		c.gridy = 0;
+    		c.insets = new Insets(30,0,30,0); //border top 30
+    		c.weightx = 1.0;
+            this.add(fteFlowToEquity, c);
         }
 
     }

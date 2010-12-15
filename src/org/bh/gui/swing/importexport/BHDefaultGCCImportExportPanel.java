@@ -5,6 +5,8 @@ import info.clearthought.layout.TableLayout;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Component;
+import java.awt.GridBagConstraints;
+import java.awt.GridBagLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
@@ -155,8 +157,9 @@ public class BHDefaultGCCImportExportPanel extends JPanel {
 						0, 0));
 				// 2 columns, 2 rows
 				double size[][] = { { 0.7, 0.3 }, { 0.5, 0.5 } };
-				fileSelectionPanel.setLayout(new TableLayout(size));
-
+				fileSelectionPanel.setLayout(new GridBagLayout());
+				GridBagConstraints d = new GridBagConstraints();
+				this.setBackground(Color.blue);
 				// Small label for instruction
 				BHDescriptionLabel lblselExportPath;
 				if (export)
@@ -165,17 +168,34 @@ public class BHDefaultGCCImportExportPanel extends JPanel {
 				else
 					lblselExportPath = new BHDescriptionLabel(
 						"DImportPathSelection");
-				fileSelectionPanel.add(lblselExportPath, "0,0");
+				d.fill = GridBagConstraints.HORIZONTAL;
+				d.gridx = 0;
+				d.gridy = 0;
+				d.weightx = 0.7;
+				d.weighty = 0.5;
+				d.ipady = 10;
+				fileSelectionPanel.add(lblselExportPath, d);
 
 				// Text field which will show the chosen path
 				txtPath = new BHTextField("DTxtExportImportPath", "");
 				txtPath.setEditable(false);
-				fileSelectionPanel.add(txtPath, "0,1");
+				d.fill = GridBagConstraints.HORIZONTAL;
+				d.gridx = 0;
+				d.gridy = 1;
+				d.weightx = 0.7;
+				d.weighty = 0.5;
+				d.ipady = 0;
+				fileSelectionPanel.add(txtPath, d);
 
 				// Button to start the file choosing dialog
 				BHButton btnChooseFile = new BHButton("Bbrowse");
 				btnChooseFile.addActionListener(this);
-				fileSelectionPanel.add(btnChooseFile, "1,1");
+				d.fill = GridBagConstraints.HORIZONTAL;
+				d.gridx = 1;
+				d.gridy = 1;
+				d.weightx = 0.3;
+				d.weighty = 0.5;
+				fileSelectionPanel.add(btnChooseFile, d);
 
 				this.add(fileSelectionPanel, BorderLayout.NORTH);				
 			} catch (ViewException e) {

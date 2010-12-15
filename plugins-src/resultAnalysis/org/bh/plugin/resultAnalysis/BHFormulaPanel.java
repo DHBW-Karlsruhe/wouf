@@ -1,12 +1,17 @@
 package org.bh.plugin.resultAnalysis;
 
-import info.clearthought.layout.TableLayout;
-import info.clearthought.layout.TableLayoutConstants;
 
+
+
+
+import java.awt.GridBagConstraints;
+import java.awt.GridBagLayout;
+import java.awt.Insets;
 import java.awt.event.ActionListener;
 import java.util.Map;
 
 import javax.swing.JComboBox;
+import javax.swing.JLabel;
 import javax.swing.JPanel;
 
 import net.sourceforge.jeuclid.swing.JMathComponent;
@@ -26,6 +31,8 @@ public class BHFormulaPanel extends JPanel {
     IFormula f;
     JMathComponent formula;
     JMathComponent value;
+    GridBagConstraints c;
+    JLabel space;
 
     public enum Keys {
 	PERIOD, FORMULA, VALUE;
@@ -37,20 +44,64 @@ public class BHFormulaPanel extends JPanel {
     }
 
     public BHFormulaPanel(ActionListener al) {
-        double border = 30;
-        double size[][] = {{100, 0.05, TableLayout.FILL},// columns
-            {border, TableLayoutConstants.PREFERRED, border, // rows
-                TableLayoutConstants.PREFERRED, border, TableLayoutConstants.PREFERRED, border,}};
-        setLayout(new TableLayout(size));
 
-	add(new BHDescriptionLabel(Keys.PERIOD), "0,1");
+    	space = new JLabel();
+        this.setLayout(new GridBagLayout());
+ 		c = new GridBagConstraints();
+ 		
+ 	//Period textLabel
+ 	c.fill = GridBagConstraints.NONE;
+ 	c.ipadx = 80;
+ 	c.gridx = 0;
+ 	c.gridy = 0;
+ 	c.insets = new Insets(30,0,0,0);
+ 	c.anchor = GridBagConstraints.WEST;
+	add(new BHDescriptionLabel(Keys.PERIOD), c);
 
 	box = new JComboBox();
 	box.addActionListener(al);
-	add(box, "2,1");
 
-	add(new BHDescriptionLabel(Keys.FORMULA), "0,3");
-	add(new BHDescriptionLabel(Keys.VALUE), "0,5");
+	//Period Box
+ 	c.gridx = 1;
+ 	c.gridy = 0;
+ 	c.insets = new Insets(30,40,0,0);
+ 	c.anchor = GridBagConstraints.WEST;
+	add(box, c);
+	
+	//Forumla textLabel
+	//c.fill = GridBagConstraints.NONE;
+ 	c.ipadx = 80;
+ 	c.gridx = 0;
+ 	c.gridy = 1;
+ 	c.insets = new Insets(30,0,0,0);
+ 	c.anchor = GridBagConstraints.WEST;
+	add(new BHDescriptionLabel(Keys.FORMULA), c);
+	
+	//Value textLabel
+	//c.fill = GridBagConstraints.HORIZONTAL;
+ 	c.ipadx = 80;
+ 	c.gridx = 0;
+ 	c.gridy = 2;
+ 	c.insets = new Insets(30,0,30,0);
+ 	c.anchor = GridBagConstraints.WEST;
+	add(new BHDescriptionLabel(Keys.VALUE), c);
+	
+	
+	
+	c.gridx = 2;
+ 	c.gridy = 0;
+ 	c.weightx = 1.0;
+ 	add(space, c);
+ 	c.gridx = 2;
+ 	c.gridy = 1;
+ 	c.weightx = 1.0;
+ 	add(space, c);
+ 	c.gridx = 2;
+ 	c.gridy = 2;
+ 	c.weightx = 1.0;
+ 	add(space, c);
+	
+	
     }
 
     void setFormula(IFormula f) {
@@ -59,7 +110,17 @@ public class BHFormulaPanel extends JPanel {
 	    remove(formula);
 	}
 	formula = f.getJMathComponent();
-	add(formula, "2,3,left,center");
+	
+	//Formula Label
+	//c.fill = GridBagConstraints.HORIZONTAL;
+	c.anchor = GridBagConstraints.WEST;
+	//c.weighty = 1.0;
+ 	c.gridx = 1;
+ 	c.gridy = 1;
+ 	c.insets = new Insets(30,0,0,0);
+ 	
+	//add(formula, "2,3,left,center");
+ 	add(formula, c);
     }
 
     void setValues(Map<String, Calculable> values) {
@@ -67,7 +128,16 @@ public class BHFormulaPanel extends JPanel {
 	    remove(value);
 	}
 	value = f.getJMathComponentForInputValues(values);
-	add(value, "2,5,left,center");
+
+	//Value Label
+	//c.fill = GridBagConstraints.HORIZONTAL;
+	//c.weighty = 1.0;
+ 	c.gridx = 1;
+ 	c.gridy = 2;
+ 	c.insets = new Insets(30,0,30,0);
+ 	c.anchor = GridBagConstraints.WEST;
+	add(value, c);
+	//add(value, "2,5,left,center");
     }
 
     void addEntry(String s) {

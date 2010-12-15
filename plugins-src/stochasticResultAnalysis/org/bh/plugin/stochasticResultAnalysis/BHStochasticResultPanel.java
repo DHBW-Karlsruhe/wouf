@@ -1,11 +1,16 @@
 package org.bh.plugin.stochasticResultAnalysis;
 
-import info.clearthought.layout.TableLayout;
-import info.clearthought.layout.TableLayoutConstants;
+
+
 
 import java.awt.BorderLayout;
-import java.awt.Dimension;
 
+import java.awt.Dimension;
+import java.awt.GridBagConstraints;
+import java.awt.GridBagLayout;
+import java.awt.Insets;
+
+import javax.swing.JLabel;
 import javax.swing.JPanel;
 
 import org.apache.log4j.Logger;
@@ -22,6 +27,8 @@ public class BHStochasticResultPanel extends JPanel{
 	private BHButton exportButton;
 	private BHButton printButton;
 	JPanel mainPanel = null;
+	GridBagConstraints d;
+	JLabel space;
 	
 	public BHStochasticResultPanel(DTOScenario scenario, DistributionMap result) {
 		this.scenario = scenario;
@@ -36,14 +43,27 @@ public class BHStochasticResultPanel extends JPanel{
 		mainPanel = new StochasticPanel();
 		this.add(mainPanel, BorderLayout.CENTER);
 		
-		double border = 10;
-		double size2[][] = {
-			{ border, TableLayoutConstants.PREFERRED, border, TableLayoutConstants.PREFERRED, border }, // Columns
-			{ border, TableLayoutConstants.PREFERRED, border} };
-		JPanel exportArea = new JPanel(new TableLayout(size2));
-		exportArea.add(exportButton, "1,1" );
+		JPanel exportArea = new JPanel(new GridBagLayout());
+		d = new GridBagConstraints();
+
 		
-		exportArea.add(printButton, "3,1");
+		d.fill = GridBagConstraints.HORIZONTAL;
+		d.gridx = 0;
+		d.gridy = 0;
+		d.insets = new Insets(10,10,10,0);
+		exportArea.add(exportButton, d );
+		
+		d.fill = GridBagConstraints.HORIZONTAL;
+		d.gridx = 1;
+		d.gridy = 0;
+		d.insets = new Insets(10,10,10,10);
+		exportArea.add(printButton, d);
+		
+		space = new JLabel();
+		d.gridx = 2;
+		d.gridy = 0;
+		d.weightx = 1.0;
+		exportArea.add(space, d);
 		exportArea.setMaximumSize(new Dimension(200, 40));
 		
 		add(exportArea, BorderLayout.NORTH);

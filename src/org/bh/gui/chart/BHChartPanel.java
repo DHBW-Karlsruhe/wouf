@@ -5,6 +5,7 @@
 
 package org.bh.gui.chart;
 
+
 import java.awt.Component;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -57,6 +58,7 @@ public class BHChartPanel extends JPanel implements IBHComponent, IBHAddValue,
 
 	public BHChartPanel(Object key, JFreeChart chart,
 			Class<? extends IBHAddValue> chartClass, IBHAddValue chartInstance) {
+		
 		this.key = key.toString();
 		this.chartClass = chartClass;
 		this.chartInstance = chartInstance;

@@ -4,6 +4,12 @@
  */
 package org.bh.plugin.resultAnalysis;
 
+
+
+import java.awt.GridBagConstraints;
+import java.awt.GridBagLayout;
+import java.awt.Insets;
+
 import info.clearthought.layout.TableLayout;
 import info.clearthought.layout.TableLayoutConstants;
 
@@ -29,25 +35,52 @@ public class BH_FCF_ResultPanel extends JPanel {
     }
 
     public void initialize(boolean isAllSelected) {
-
-        double border = 30;
-
-        double size[][] = {{TableLayoutConstants.PREFERRED}, // Columns
-            {border, TableLayoutConstants.PREFERRED, border, TableLayoutConstants.PREFERRED, border, TableLayoutConstants.PREFERRED}}; // Rows
-        this.setLayout(new TableLayout(size));
+      
+        this.setLayout(new GridBagLayout());
+		GridBagConstraints c = new GridBagConstraints();
     
         //All charts
         //Schön Darstellen!!!!
         BHChartPanel fcf_shareholderValue = BHChartFactory.getWaterfallChart(BHResultController.ChartKeys.FCF_WF_SV, false, true);
         BHChartPanel fcf_freecashflow = BHChartFactory.getBarChart(BHResultController.ChartKeys.FCF_BC_FCF, true, true);
         BHChartPanel fcf_returnrate = BHChartFactory.getBarChart(BHResultController.ChartKeys.FCF_BC_RR, true, true);
+       
+        //add components to Result Pane
         if (!isAllSelected) {
-            this.add(fcf_shareholderValue, "0,1");
-            this.add(fcf_freecashflow, "0,3");
-            this.add(fcf_returnrate, "0,5");
+        	c.fill = GridBagConstraints.HORIZONTAL;
+    		c.gridx = 0;
+    		c.gridy = 0;
+    		c.insets = new Insets(30,0,0,0); //border top 30
+    		c.weightx = 1.0;
+            this.add(fcf_shareholderValue, c);
+            
+            c.fill = GridBagConstraints.HORIZONTAL;
+    		c.gridx = 0;
+    		c.gridy = 1;
+    		c.insets = new Insets(30,0,0,0); //border top 30
+    		c.weightx = 1.0;
+            this.add(fcf_freecashflow, c);
+            
+            c.fill = GridBagConstraints.HORIZONTAL;
+    		c.gridx = 0;
+    		c.gridy = 2;
+    		c.insets = new Insets(30,0,30,0); //border top 30 border bottom 30
+    		c.weightx = 1.0;
+            this.add(fcf_returnrate, c);
         }else{
-            this.add(fcf_freecashflow, "0,1");
-            this.add(fcf_returnrate, "0,3");
+        	c.fill = GridBagConstraints.HORIZONTAL;
+    		c.gridx = 0;
+    		c.gridy = 0;
+    		c.insets = new Insets(30,0,0,0); //border top 30
+    		c.weightx = 1.0;
+            this.add(fcf_freecashflow, c);
+            
+            c.fill = GridBagConstraints.HORIZONTAL;
+    		c.gridx = 0;
+    		c.gridy = 1;
+    		c.insets = new Insets(30,0,30,0); //border top 30 border bottom 30
+    		c.weightx = 1.0;
+            this.add(fcf_returnrate, c);
         }
     }
 }

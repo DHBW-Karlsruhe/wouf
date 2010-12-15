@@ -1,11 +1,12 @@
 package org.bh.gui.swing.importexport;
 
-import info.clearthought.layout.TableLayout;
+
 
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Component;
-
+import java.awt.GridBagConstraints;
+import java.awt.GridBagLayout;
 import javax.swing.BorderFactory;
 import javax.swing.Box;
 import javax.swing.BoxLayout;
@@ -28,7 +29,7 @@ public class BHDefaultProjectImportPanel extends JPanel {
 	private BHSelectionList secList = null;
 
 	private BHButton btnImport;	
-		
+	GridBagConstraints d;
 	public BHDefaultProjectImportPanel() {
 		super();
 		setLayout(new BorderLayout());	
@@ -94,22 +95,37 @@ public class BHDefaultProjectImportPanel extends JPanel {
 		// An extra panel for file selection
 		JPanel fileSelectionPanel = new JPanel();	
 		fileSelectionPanel.setBorder(BorderFactory.createEmptyBorder(0,0,7,0));
-		// 2 columns, 2 rows
-		double size[][] = 
-		{{0.7, 0.3}, {0.5, 0.5}};
-		fileSelectionPanel.setLayout(new TableLayout(size));
-			
+		fileSelectionPanel.setLayout(new GridBagLayout());
+		d = new GridBagConstraints();
 		// Small label for instruction
-		BHDescriptionLabel lblselImportPath = new BHDescriptionLabel("DImportPathSelection");		
-		fileSelectionPanel.add(lblselImportPath, "0,0");
+		BHDescriptionLabel lblselImportPath = new BHDescriptionLabel("DImportPathSelection");	
+		
+		d.fill = GridBagConstraints.HORIZONTAL;
+		d.gridx = 0;
+		d.gridy = 0;
+		d.weightx = 0.7;
+		d.weighty = 0.5;
+		d.ipady = 10;
+		fileSelectionPanel.add(lblselImportPath, d);
 		
 		// Text field which will show the chosen path
 		txtPath = new BHTextField("DTxtExportImportPath", "");
-		fileSelectionPanel.add(txtPath, "0,1");
+		d.fill = GridBagConstraints.HORIZONTAL;
+		d.gridx = 0;
+		d.gridy = 1;
+		d.weightx = 0.7;
+		d.weighty = 0.5;
+		d.ipady = 0;
+		fileSelectionPanel.add(txtPath, d);
 		
 		// Button to start the file choosing dialog
-		BHButton btnChooseFile = new BHButton("Bbrowse");		
-		fileSelectionPanel.add(btnChooseFile, "1,1");		
+		BHButton btnChooseFile = new BHButton("Bbrowse");	
+		d.fill = GridBagConstraints.HORIZONTAL;
+		d.gridx = 1;
+		d.gridy = 1;
+		d.weightx = 0.3;
+		d.weighty = 0.5;
+		fileSelectionPanel.add(btnChooseFile, d);	
 		
 		listPanel.add(fileSelectionPanel, BorderLayout.NORTH);
 		listPanel.add(secList, BorderLayout.CENTER);

@@ -1,5 +1,9 @@
 package org.bh.gui.swing.comp;
 
+
+
+
+
 import javax.swing.JLabel;
 
 import org.bh.gui.IBHComponent;
@@ -33,7 +37,6 @@ public class BHDescriptionLabel extends JLabel implements IBHComponent, IPlatfor
 	 */
 	public BHDescriptionLabel(Object key) {
 		this.key = key.toString();
-		
 		reloadText();
 		Services.addPlatformListener(this);
 	}

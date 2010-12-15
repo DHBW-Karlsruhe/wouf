@@ -5,6 +5,7 @@
 package org.bh.plugin.resultAnalysis;
 
 
+import java.awt.Color;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.Insets;
@@ -39,7 +40,6 @@ public class BH_APV_ResultPanel extends JPanel {
 	}
 
 	public void initialize() {
-		
 		this.setLayout(new GridBagLayout());
 		GridBagConstraints c = new GridBagConstraints();
 

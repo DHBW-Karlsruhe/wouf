@@ -1,12 +1,15 @@
 package org.bh.plugin.resultAnalysis;
 
-import info.clearthought.layout.TableLayout;
-import info.clearthought.layout.TableLayoutConstants;
+
 
 import java.awt.Component;
 import java.awt.Dimension;
+import java.awt.GridBagConstraints;
+import java.awt.GridBagLayout;
+import java.awt.Insets;
 import java.util.Map;
 
+import javax.swing.JLabel;
 import javax.swing.JPanel;
 
 import org.apache.log4j.Logger;
@@ -44,6 +47,8 @@ public final class BHResultPanel extends JPanel {
 	
 	// export button
 	private BHButton exportButton;
+	GridBagConstraints d;
+	JLabel space;
 	// probably not necessary in a later version
 	JPanel procedurePanel = null;
 	// print Button
@@ -71,28 +76,45 @@ public final class BHResultPanel extends JPanel {
 	 * @throws ViewException
 	 */
 	public BHResultPanel() {
-		double border = 10;
-		double size[][] = {
-				{ border, TableLayoutConstants.PREFERRED, border }, // Columns
-				{ border, TableLayoutConstants.PREFERRED, border,
-					      TableLayoutConstants.PREFERRED, border,
-						  TableLayoutConstants.PREFERRED, border } };
-		setLayout(new TableLayout(size));
+
+		setLayout(new GridBagLayout());
+		d = new GridBagConstraints();
 		
-		
-		double size2[][] = {
-			{ border, TableLayoutConstants.PREFERRED, border, TableLayoutConstants.PREFERRED, border }, // Columns
-			{ border, TableLayoutConstants.PREFERRED, border} };
-		JPanel exportArea = new JPanel(new TableLayout(size2));
+		JPanel exportArea = new JPanel(new GridBagLayout());
 		exportButton = new BHButton(Keys.EXPORTSCENARIO);
-		exportArea.add(exportButton, "1,1" );
+		
+		d.fill = GridBagConstraints.HORIZONTAL;
+		d.gridx = 0;
+		d.gridy = 0;
+		d.insets = new Insets(10,10,10,0); //border top 30
+		//c.weightx = 1.0;
+		exportArea.add(exportButton, d);
 		
 		printButton = new BHButton(Keys.PRINTSCENARIO);
-		exportArea.add(printButton, "3,1");
-		exportArea.setMaximumSize(new Dimension(200, 40));
+		d.fill = GridBagConstraints.HORIZONTAL;
+		d.gridx = 1;
+		d.gridy = 0;
+		d.insets = new Insets(10,10,10,10); //border top 30
+		exportArea.add(printButton, d);
 		
-		add(exportArea, "1,1");
+		
+		space = new JLabel();
+		d.gridx = 2;
+		d.gridy = 0;
+		d.weightx = 1.0;
+		exportArea.add(space, d);
+		
+		exportArea.setMaximumSize(new Dimension(200, 40));
+		d.gridx = 1;
+		d.gridy = 1;
+		add(exportArea, d);
+		//add(exportArea, "1,1");
 		//initialize();
+		space = new JLabel();
+		d.gridx = 2;
+		d.gridy = 0;
+		d.weightx = 1.0;
+		add(space, d);
 	}
 	
 	void setFormulaArea(BHFormulaPanel c) {
@@ -100,7 +122,9 @@ public final class BHResultPanel extends JPanel {
 		formulaArea.setBorder(BHBorderFactory.getInstacnce().createTitledBorder(BHBorderFactory.getInstacnce()
 				.createEtchedBorder(),
 				"result_headline"));
-		add(formulaArea, "1,3");
+		d.gridx = 1;
+		d.gridy = 3;
+		add(formulaArea, d);
 	}
 	
 	void setChartArea(Component c) {
@@ -108,7 +132,9 @@ public final class BHResultPanel extends JPanel {
                 remove(this.chartArea);
             }
             this.chartArea = c;
-            add(c, "1,5");
+            d.gridx = 1;
+    		d.gridy = 5;
+            add(c, d);
 	}
 	
 	BHFormulaPanel getFormulaArea() {
