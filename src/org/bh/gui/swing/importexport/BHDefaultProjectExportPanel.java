@@ -5,6 +5,8 @@ import info.clearthought.layout.TableLayout;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Component;
+import java.awt.GridBagConstraints;
+import java.awt.GridBagLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
@@ -112,23 +114,35 @@ public class BHDefaultProjectExportPanel extends JPanel implements ActionListene
 		JPanel fileSelectionPanel = new JPanel();	
 		fileSelectionPanel.setBorder(BorderFactory.createEmptyBorder(7,0,0,0));
 		// 2 columns, 2 rows
-		double size[][] = 
-		{{0.7, 0.3}, {0.5, 0.5}};
-		fileSelectionPanel.setLayout(new TableLayout(size));
-			
+		//double size[][] = {{0.7, 0.3}, {0.5, 0.5}};
+		//fileSelectionPanel.setLayout(new TableLayout(size));
+		fileSelectionPanel.setLayout(new GridBagLayout());
 		// Small label for instruction
+		GridBagConstraints c = new GridBagConstraints();
+		c.gridx = 0;
+		c.gridy = 0;
+		c.fill = GridBagConstraints.HORIZONTAL;
+		c.weightx = 1.0;
 		BHDescriptionLabel lblselExportPath = new BHDescriptionLabel("DExportPathSelection");		
-		fileSelectionPanel.add(lblselExportPath, "0,0");
+		fileSelectionPanel.add(lblselExportPath, c);
 		
 		// Text field which will show the chosen path
+		c = new GridBagConstraints();
+		c.gridx = 0;
+		c.gridy = 1;
+		c.fill = GridBagConstraints.HORIZONTAL;
+		c.weightx = 1.0;
 		txtPath = new BHTextField("DTxtExportImportPath", "");
 		txtPath.setEditable(false);
-		fileSelectionPanel.add(txtPath, "0,1");
+		fileSelectionPanel.add(txtPath, c);
 		
 		// Button to start the file choosing dialog
+		c = new GridBagConstraints();
+		c.gridx = 1;
+		c.gridy = 1;
 		BHButton btnChooseFile = new BHButton("Bbrowse");
 		btnChooseFile.addActionListener(this);
-		fileSelectionPanel.add(btnChooseFile, "1,1");
+		fileSelectionPanel.add(btnChooseFile, c);
 		
 		listPanel.add(secList, BorderLayout.CENTER);
 		listPanel.add(fileSelectionPanel, BorderLayout.SOUTH);
