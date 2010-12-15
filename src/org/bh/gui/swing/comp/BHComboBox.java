@@ -33,6 +33,7 @@ public class BHComboBox extends JComboBox implements IBHModelComponent,
 	public BHComboBox(Object key) {
 		this.key = key.toString();
 		reloadText();
+		Services.addPlatformListener(this);
 		addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
