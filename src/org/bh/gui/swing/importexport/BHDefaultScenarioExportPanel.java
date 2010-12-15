@@ -1,7 +1,5 @@
 package org.bh.gui.swing.importexport;
 
-import info.clearthought.layout.TableLayout;
-
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Component;
