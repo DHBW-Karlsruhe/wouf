@@ -5,6 +5,8 @@ import info.clearthought.layout.TableLayout;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Component;
+import java.awt.GridBagConstraints;
+import java.awt.GridBagLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.ItemEvent;
@@ -16,6 +18,7 @@ import javax.swing.Box;
 import javax.swing.BoxLayout;
 import javax.swing.JCheckBox;
 import javax.swing.JFileChooser;
+import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JSeparator;
 import javax.swing.UIManager;
@@ -134,23 +137,39 @@ public class BHDefaultScenarioExportPanel extends JPanel {
 				fileSelectionPanel.setBorder(BorderFactory.createEmptyBorder(7, 0,
 						0, 0));
 				// 2 columns, 2 rows
-				double size[][] = { { 0.7, 0.3 }, { 0.5, 0.5 } };
-				fileSelectionPanel.setLayout(new TableLayout(size));
+				//double size[][] = { { 0.7, 0.3 }, { 0.5, 0.5 } };
+				//fileSelectionPanel.setLayout(new TableLayout(size));
+				fileSelectionPanel.setLayout(new GridBagLayout());
+				GridBagConstraints c = new GridBagConstraints();
 
 				// Small label for instruction
 				BHDescriptionLabel lblselExportPath = new BHDescriptionLabel(
 						"DExportPathSelection");
-				fileSelectionPanel.add(lblselExportPath, "0,0");
+				c = new GridBagConstraints();
+				c.gridx = 0;
+				c.gridy = 0;
+				c.fill = GridBagConstraints.HORIZONTAL;
+				c.weightx = 0.7;
+				fileSelectionPanel.add(lblselExportPath, c);
 
 				// Text field which will show the chosen path
 				txtPath = new BHTextField("DTxtExportImportPath", "");
 				txtPath.setEditable(false);
-				fileSelectionPanel.add(txtPath, "0,1");
+				c = new GridBagConstraints();
+				c.gridx = 0;
+				c.gridy = 1;
+				c.fill = GridBagConstraints.HORIZONTAL;
+				c.weightx = 0.7;
+				fileSelectionPanel.add(txtPath, c);
 
 				// Button to start the file choosing dialog
 				BHButton btnChooseFile = new BHButton("Bbrowse");
 				btnChooseFile.addActionListener(this);
-				fileSelectionPanel.add(btnChooseFile, "1,1");
+				c = new GridBagConstraints();
+				c.gridx = 1;
+				c.gridy = 1;
+				c.weightx = 0.3;
+				fileSelectionPanel.add(btnChooseFile, c);
 
 				this.add(fileSelectionPanel, BorderLayout.NORTH);
 
@@ -158,13 +177,18 @@ public class BHDefaultScenarioExportPanel extends JPanel {
 				JPanel openPanel = new JPanel();
 				openPanel.setBorder(BorderFactory.createEmptyBorder(7, 0, 0, 0));
 				// 2 columns, 1 row
-				double size2[][] = { { 0.5, 0.5 }, { 0.5 } };
-				openPanel.setLayout(new TableLayout(size2));
+				//double size2[][] = { { 0.5, 0.5 }, { 0.5 } };
+				//openPanel.setLayout(new TableLayout(size2));
+				openPanel.setLayout(new GridBagLayout());
+				GridBagConstraints c2 = new GridBagConstraints();
 
 				// Small label for instruction
 				BHDescriptionLabel lblOpen = new BHDescriptionLabel(
 						"DOpenSelection");
-				openPanel.add(lblOpen, "0,0");
+				c = new GridBagConstraints();
+				c.gridx = 0;
+				c.gridy = 0;
+				openPanel.add(lblOpen, c);
 
 				// Text field which will show the chosen path
 				open = new JCheckBox();
@@ -174,7 +198,12 @@ public class BHDefaultScenarioExportPanel extends JPanel {
 				    open.setSelected(true);
 				
 				open.addItemListener(oedl);
-				openPanel.add(open, "1,0");
+				c = new GridBagConstraints();
+				c.gridx = 1;
+				c.gridy = 0;
+				c.weightx = 1;
+				c.fill = GridBagConstraints.HORIZONTAL;
+				openPanel.add(open, c);
 
 				this.add(openPanel, BorderLayout.SOUTH);
 				
