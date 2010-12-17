@@ -9,6 +9,7 @@ import java.util.Locale;
 import javax.swing.BorderFactory;
 import javax.swing.JComboBox;
 import javax.swing.JDialog;
+import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JList;
 import javax.swing.JPanel;
@@ -40,9 +41,10 @@ public final class BHOptionDialog extends JDialog implements ActionListener {
 	private JPanel elements;
 	private JPanel buttons;
 
-	public BHOptionDialog() {
+	public BHOptionDialog(JFrame owner, boolean modal) {
+		super(owner);
+		this.setModal(modal);
 		
-
 		String rowDef = "4px:grow,p,4px,p,4px:grow";
 		String colDef = "4px,fill:p:grow,4px";
 		

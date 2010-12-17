@@ -177,8 +177,7 @@ class PlatformActionListener implements ActionListener {
 			break;
 
 		case OPTIONSCHANGE:
-			new BHOptionDialog();
-
+			new BHOptionDialog(bhmf, false);
 			break;
 
 		case HELPUSERHELP:
