@@ -8,6 +8,7 @@ import java.util.Calendar;
 
 import javax.swing.JDialog;
 import javax.swing.JFileChooser;
+import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.WindowConstants;
 import javax.swing.tree.DefaultMutableTreeNode;
@@ -765,8 +766,9 @@ class PlatformActionListener implements ActionListener {
 	}
 	protected void openUserHelp(String help) {
 		log.debug("HELPUSERHELP gefeuert");
-		JDialog frame = new JDialog();
+		JFrame frame = new JFrame();
 		frame.setTitle(BHTranslator.getInstance().translate("MuserHelpDialog"));
+		frame.setIconImage(bhmf.getIconImage());
 		frame.setMinimumSize(new Dimension(950,700));
 		frame.getContentPane().add(new BHHelpSystem(help));
 		frame.setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
