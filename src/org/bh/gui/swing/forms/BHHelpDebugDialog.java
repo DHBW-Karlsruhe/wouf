@@ -1,6 +1,7 @@
 package org.bh.gui.swing.forms;
 
 import javax.swing.JDialog;
+import javax.swing.JFrame;
 import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
 import javax.swing.ScrollPaneConstants;
@@ -25,7 +26,10 @@ public final class BHHelpDebugDialog extends JDialog {
 	private JTextArea codeArea;
 	private JScrollPane scrollPane;
 
-	public BHHelpDebugDialog () {
+	public BHHelpDebugDialog (JFrame owner, boolean modal) {
+		super(owner);
+		this.setModal(modal);
+		
 		this.setProperties();
 		
 		codeArea = new JTextArea();
@@ -45,7 +49,7 @@ public final class BHHelpDebugDialog extends JDialog {
 		this.setSize(900, 600);
 		this.setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
 		this.setLocationRelativeTo(null);
-		this.setResizable(false);
+		this.setResizable(true);
 		this.setVisible(true);
 	}
 

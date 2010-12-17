@@ -195,7 +195,7 @@ class PlatformActionListener implements ActionListener {
 			break;
 		
 		case HELPDEBUG:
-			new BHHelpDebugDialog();
+			new BHHelpDebugDialog(bhmf, false);
 			break;
 
 		case TOOLBARNEW:
