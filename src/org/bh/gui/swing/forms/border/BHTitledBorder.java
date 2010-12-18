@@ -12,29 +12,31 @@ import org.bh.platform.i18n.ITranslator;
 public class BHTitledBorder extends TitledBorder implements IPlatformListener {
 
 	static ITranslator trans = BHTranslator.getInstance();
-	
+
 	Object key;
-	
+
 	public BHTitledBorder(Border border, Object key) {
 		super(border);
 		setTitle(key);
-		
+
 	}
-	
+
+	// TODO Konstruktor so anpassen, dass Übersetzbarkeit gewährleistet ist (z.B
+	// im BHBalanceSheetForm.java)
 	public BHTitledBorder(Border createEtchedBorder, Object key, int position,
 			int justification) {
 		this(createEtchedBorder, key);
 		setTitleJustification(justification);
 		setTitlePosition(position);
-		
+
 	}
 
 	public void setTitle(Object key) {
 		this.key = key;
 		setTitle();
 	}
-	
-	private void setTitle(){
+
+	private void setTitle() {
 		setTitle(trans.translate(key));
 	}
 
