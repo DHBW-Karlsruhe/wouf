@@ -36,7 +36,7 @@ import com.jgoodies.forms.layout.RowSpec;
  * @version 0.1, 08.01.2010
  * @version 0.2, 16.12.2010
  * 
- *          Form wurde komplett übersetzbar gemacht von Patrick Maisel
+ *          0.2: Form wurde komplett übersetzbar gemacht von Patrick Maisel
  */
 @SuppressWarnings("serial")
 public class BHPLSTotalCostForm extends JPanel {

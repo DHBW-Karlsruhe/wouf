@@ -28,8 +28,11 @@ import com.jgoodies.forms.layout.FormLayout;
  * 
  * @author Anton Kharitonov
  * @author Patrick Heinz
+ * @author Patrick Maisel
  * @version 0.1, 08.01.2010
+ * @version 0.2, 18.12.2010
  * 
+ *          0.2: Form wurde komplett übersetzbar gemacht von Patrick Maisel
  */
 @SuppressWarnings("serial")
 public class BHPLSCostOfSalesForm extends JPanel {
@@ -56,6 +59,10 @@ public class BHPLSCostOfSalesForm extends JPanel {
 
 	private JLabel lmin;
 	private JLabel lmax;
+
+	// Hilfslabel ... wird ständig überschrieben, aber ist nicht kritisch, da es
+	// nur für die Anzeige auf dem Panel wichtig ist
+	private BHDescriptionLabel MU;
 
 	final ITranslator translator = BHTranslator.getInstance();
 
@@ -94,19 +101,20 @@ public class BHPLSCostOfSalesForm extends JPanel {
 			this.add(this.getLSBE(), cons.xywh(2, 4, 1, 1));
 			this.add(this.getLHK(), cons.xywh(2, 6, 1, 1));
 			this.add(this.getLVVSBA(), cons.xywh(2, 8, 1, 1));
-		
+			// Das Adden von JLabels für die Währungsanzeige wurde durch die
+			// Methode getMU() ersetzt. Dadurch wird das Formular übersetzbar
 			this.add(this.getTfUE(), cons.xywh(4, 2, 1, 1));
-			this.add(new JLabel(translator.translate("currency")), cons.xywh(6, 2, 1, 1));
+			this.add(this.getMU(), cons.xywh(6, 2, 1, 1));
 			this.add(this.getTfSBE(), cons.xywh(4, 4, 1, 1));
-			this.add(new JLabel(translator.translate("currency")), cons.xywh(6, 4, 1, 1));
+			this.add(this.getMU(), cons.xywh(6, 4, 1, 1));
 			this.add(this.getTfHK(), cons.xywh(4, 6, 1, 1));
-			this.add(new JLabel(translator.translate("currency")), cons.xywh(6, 6, 1, 1));
+			this.add(this.getMU(), cons.xywh(6, 6, 1, 1));
 			this.add(this.getTfVVSBA(), cons.xywh(4, 8, 1, 1));
-			this.add(new JLabel(translator.translate("currency")), cons.xywh(6, 8, 1, 1));
+			this.add(this.getMU(), cons.xywh(6, 8, 1, 1));
 
 		} else {
 			layout.setColumnGroups(new int[][] { { 4, 8 } });
-			
+
 			this.add(this.getLUE(), cons.xywh(2, 4, 1, 1));
 			this.add(this.getLSBE(), cons.xywh(2, 6, 1, 1));
 			this.add(this.getLHK(), cons.xywh(2, 8, 1, 1));
@@ -116,34 +124,34 @@ public class BHPLSCostOfSalesForm extends JPanel {
 			this.add(this.getLmax(), cons.xywh(8, 2, 1, 1, "center,default"));
 
 			this.add(this.getTfUEmin(), cons.xywh(4, 4, 1, 1));
-			this.add(new JLabel(translator.translate("currency")), cons.xywh(6, 4, 1, 1));
+			this.add(this.getMU(), cons.xywh(6, 4, 1, 1));
 			this.add(this.getTfSBEmin(), cons.xywh(4, 6, 1, 1));
-			this.add(new JLabel(translator.translate("currency")), cons.xywh(6, 6, 1, 1));
+			this.add(this.getMU(), cons.xywh(6, 6, 1, 1));
 			this.add(this.getTfHKmin(), cons.xywh(4, 8, 1, 1));
-			this.add(new JLabel(translator.translate("currency")), cons.xywh(6, 8, 1, 1));
+			this.add(this.getMU(), cons.xywh(6, 8, 1, 1));
 			this.add(this.getTfVVSBAmin(), cons.xywh(4, 10, 1, 1));
-			this.add(new JLabel(translator.translate("currency")), cons.xywh(6, 10, 1, 1));
-
+			this.add(this.getMU(), cons.xywh(6, 10, 1, 1));
 
 			this.add(this.getTfUEmax(), cons.xywh(8, 4, 1, 1));
-			this.add(new JLabel(translator.translate("currency")), cons.xywh(10, 4, 1, 1));
+			this.add(this.getMU(), cons.xywh(10, 4, 1, 1));
 			this.add(this.getTfSBEmax(), cons.xywh(8, 6, 1, 1));
-			this.add(new JLabel(translator.translate("currency")), cons.xywh(10, 6, 1, 1));
+			this.add(this.getMU(), cons.xywh(10, 6, 1, 1));
 			this.add(this.getTfHKmax(), cons.xywh(8, 8, 1, 1));
-			this.add(new JLabel(translator.translate("currency")), cons.xywh(10, 8, 1, 1));
+			this.add(this.getMU(), cons.xywh(10, 8, 1, 1));
 			this.add(this.getTfVVSBAmax(), cons.xywh(8, 10, 1, 1));
-			this.add(new JLabel(translator.translate("currency")), cons.xywh(10, 10, 1, 1));
+			this.add(this.getMU(), cons.xywh(10, 10, 1, 1));
 
 		}
-		
-		this.setBorder(BHBorderFactory.getInstacnce().createTitledBorder(BHBorderFactory.getInstacnce()
-				.createEtchedBorder(EtchedBorder.LOWERED), 
+
+		this.setBorder(BHBorderFactory.getInstacnce().createTitledBorder(
+				BHBorderFactory.getInstacnce().createEtchedBorder(
+						EtchedBorder.LOWERED),
 				BHPLSCostOfSalesForm.Key.PLS_CostOfSales));
 
 	}
 
 	// Here do the getters for the textfields begin
-	
+
 	public BHTextField getTfUE() {
 		if (tfUE == null) {
 			tfUE = new BHTextField(DTOGCCProfitLossStatementCostOfSales.Key.UE);
@@ -324,5 +332,12 @@ public class BHPLSCostOfSalesForm extends JPanel {
 			lmin = new BHDescriptionLabel("min");
 		}
 		return lmin;
+	}
+
+	// Getter-Methode, damit die Währungslabels dynamisch übersetzbar werden
+	public BHDescriptionLabel getMU() {
+		MU = new BHDescriptionLabel("currency");
+
+		return MU;
 	}
 }
