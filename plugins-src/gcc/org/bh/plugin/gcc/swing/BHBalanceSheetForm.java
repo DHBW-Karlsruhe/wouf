@@ -32,7 +32,7 @@ import com.jgoodies.forms.layout.RowSpec;
  * @author Patrick Maisel
  * @version 0.4, 04.01.2010
  * @version 0.5, 18.12.2010 0.5: Panels paktiva und ppassiva Borders angepasst,
- *          damit der Text übersetzbar ist; TODO angefügt
+ *          damit der Text übersetzbar ist
  * 
  * 
  */
@@ -270,18 +270,18 @@ public class BHBalanceSheetForm extends JPanel {
 			// paktiva.add(this.getTfUVmax(), cons.xywh(9, 12, 1, 1));
 		}
 
-		// TODO Text wird nun übersetzt, aber ist nicht mehr auf der der Boarder
+		// Text wird nun übersetzt, aber ist nicht mehr auf der der Boarder
 		// Linie, liegt vermutlich an einem Konstruktor in der
 		// BHTitledBorder.java - kann man ändern wenn man Zeit und Muse hat
-		paktiva.setBorder(BHBorderFactory.getInstacnce().createTitledBorder(
-				BHBorderFactory.getInstacnce().createEtchedBorder(
-						EtchedBorder.LOWERED), BHBalanceSheetForm.Key.AKTIVA));
-
-		// ursprünglicher Code
 		// paktiva.setBorder(BHBorderFactory.getInstacnce().createTitledBorder(
 		// BHBorderFactory.getInstacnce().createEtchedBorder(
-		// EtchedBorder.LOWERED), BHBalanceSheetForm.Key.AKTIVA,
-		// TitledBorder.CENTER, TitledBorder.DEFAULT_JUSTIFICATION));
+		// EtchedBorder.LOWERED), BHBalanceSheetForm.Key.AKTIVA));
+
+		// ursprünglicher Code und nun auch übersetzbar
+		paktiva.setBorder(BHBorderFactory.getInstacnce().createTitledBorder(
+				BHBorderFactory.getInstacnce().createEtchedBorder(
+						EtchedBorder.LOWERED), BHBalanceSheetForm.Key.AKTIVA,
+				TitledBorder.CENTER, TitledBorder.DEFAULT_JUSTIFICATION));
 		return paktiva;
 	}
 
@@ -344,17 +344,18 @@ public class BHBalanceSheetForm extends JPanel {
 
 		layout.setRowGroups(new int[][] { { 2, 3, 5 } });
 
-		// TODO Text wird nun übersetzt, aber ist nicht mehr auf der der Boarder
+		// Text wird nun übersetzt, aber ist nicht mehr auf der der Boarder
 		// Linie, liegt vermutlich an einem Konstruktor in der
 		// BHTitledBorder.java - kann man ändern wenn man Zeit und Muse hat
-		ppassiva.setBorder(BHBorderFactory.getInstacnce().createTitledBorder(
-				BHBorderFactory.getInstacnce().createEtchedBorder(
-						EtchedBorder.LOWERED), BHBalanceSheetForm.Key.PASSIVA));
-		// ursprünglicher Code
 		// ppassiva.setBorder(BHBorderFactory.getInstacnce().createTitledBorder(
 		// BHBorderFactory.getInstacnce().createEtchedBorder(
-		// EtchedBorder.LOWERED), BHBalanceSheetForm.Key.PASSIVA,
-		// TitledBorder.CENTER, TitledBorder.DEFAULT_JUSTIFICATION));
+		// EtchedBorder.LOWERED), BHBalanceSheetForm.Key.PASSIVA));
+
+		// ursprünglicher Code und nun auch übersetbar
+		ppassiva.setBorder(BHBorderFactory.getInstacnce().createTitledBorder(
+				BHBorderFactory.getInstacnce().createEtchedBorder(
+						EtchedBorder.LOWERED), BHBalanceSheetForm.Key.PASSIVA,
+				TitledBorder.CENTER, TitledBorder.DEFAULT_JUSTIFICATION));
 
 		return ppassiva;
 	}
