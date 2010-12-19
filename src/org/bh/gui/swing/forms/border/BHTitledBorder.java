@@ -21,14 +21,13 @@ public class BHTitledBorder extends TitledBorder implements IPlatformListener {
 
 	}
 
-	// TODO Konstruktor so anpassen, dass Übersetzbarkeit gewährleistet ist (z.B
-	// im BHBalanceSheetForm.java)
+
 	public BHTitledBorder(Border createEtchedBorder, Object key, int position,
 			int justification) {
 		this(createEtchedBorder, key);
 		setTitleJustification(justification);
 		setTitlePosition(position);
-
+	
 	}
 
 	public void setTitle(Object key) {
