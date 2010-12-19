@@ -26,17 +26,27 @@ public class BHBorderFactory {
 		Services.addPlatformListener(tb);
 		return tb;
 	}
-	
-	public Border createEtchedBorder(int type)    {
+
+	public Border createEtchedBorder(int type) {
 		return BorderFactory.createEtchedBorder(type);
 	}
-	
-	public Border createEtchedBorder()    {
+
+	public Border createEtchedBorder() {
 		return BorderFactory.createEtchedBorder();
 	}
 
-	public Border createTitledBorder(Border border,
-			Object key, int position, int justification) {
-		return new BHTitledBorder(border, key, position,justification);
+	// durch das adden des PlatformListeners ist die mit dem Konstruktor
+	// erstellte Border nun übersetzbar
+	public Border createTitledBorder(Border border, Object key, int position,
+			int justification) {
+		// das ist der alte Code
+		// return new BHTitledBorder(border, key, position,justification);
+
+		// neuer Code und damit übersetzbar
+		BHTitledBorder tb = new BHTitledBorder(border, key, position,
+				justification);
+		Services.addPlatformListener(tb);
+		return tb;
+
 	}
 }
