@@ -33,9 +33,6 @@ public class BHTable extends JTable implements IPlatformListener {
 
 	public BHTable(Object[][] data, final String[] key) {
 		super(data, key);
-		for (int i = 0; i <= this.length - 1; i++) {
-			key[i] = translator.translate(key[i]);
-		}
 		this.data = data;
 		this.key = key;
 		this.length = key.length;
@@ -51,7 +48,6 @@ public class BHTable extends JTable implements IPlatformListener {
 	}
 
 	protected void reloadText() {
-		// TODO muss noch ausprogrammiert werden
 		for (int i = 0; i <= this.length - 1; i++) {
 			this.getColumnModel().getColumn(i)
 					.setHeaderValue(translator.translate(this.key[i]));
