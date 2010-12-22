@@ -14,6 +14,7 @@ import javax.swing.JSeparator;
 
 import org.apache.log4j.Logger;
 import org.bh.calculation.IStochasticProcess;
+import org.bh.calculation.ITimeSeriesProcess;
 import org.bh.data.DTOKeyPair;
 import org.bh.data.DTOScenario;
 import org.bh.data.types.Calculable;
@@ -44,7 +45,7 @@ import com.jgoodies.forms.layout.RowSpec;
  *
  */
 
-public class TimeSeries implements IStochasticProcess {
+public class TimeSeries implements ITimeSeriesProcess {
 	private static final Logger log = Logger.getLogger(TimeSeries.class);
 	
 	//new variables
@@ -69,14 +70,14 @@ public class TimeSeries implements IStochasticProcess {
 		return GUI_KEY;
 	}
 
-	@Override
+	//@Override
 	/**
 	 * update Vito Masiello 
 	 * After clicking calculate, Textfields will be shown.
 	 * Textfields are the ones from WienerProcess
 	 * new Code ends at //-------------------------
 	 */
-	public JPanel calculateParameters() {
+	/*public JPanel calculateParameters() {
 		internalMap = new HashMap<String, Double>();
 		map = new HashMap<String, Integer>();
 		TreeMap<DTOKeyPair, List<Calculable>> toBeDetermined = scenario
@@ -202,7 +203,7 @@ public class TimeSeries implements IStochasticProcess {
 		String message = "\"Noch nicht vollständig implementiert calculate()\"";
 		JOptionPane.showMessageDialog(new JFrame(), message, "Error", JOptionPane.ERROR_MESSAGE);
 		return null;
-	}
+	}*/
 
 	@Override
 	public String getUniqueId() {
@@ -211,12 +212,12 @@ public class TimeSeries implements IStochasticProcess {
 	
 	/**
 	 * Initaliasing: at first use
-	 */
+	 *//*
 	@Override
 	public TimeSeries createNewInstance(DTOScenario scenario) {
 		TimeSeries instance = new TimeSeries(); //new TimeSeries instance
 		instance.scenario = scenario; //give instance the reference to scenario
 		return instance; //return new instance
-	}
+	}*/
 
 }
