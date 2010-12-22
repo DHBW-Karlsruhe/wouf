@@ -84,6 +84,11 @@ public class DTOScenario extends DTO<DTOPeriod> {
 		STOCHASTIC_PROCESS,
 		
 		/**
+		 * TimeSeries process
+		 */
+		TIMESERIES_PROCESS,
+		
+		/**
 		 * Period type
 		 */
 		PERIOD_TYPE,

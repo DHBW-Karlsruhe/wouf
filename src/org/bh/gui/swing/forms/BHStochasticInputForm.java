@@ -7,6 +7,7 @@ import javax.swing.JScrollPane;
 
 import org.bh.data.DTOScenario;
 import org.bh.gui.swing.comp.BHButton;
+import org.bh.gui.swing.comp.BHCheckBox;
 import org.bh.gui.swing.comp.BHComboBox;
 import org.bh.gui.swing.comp.BHDescriptionLabel;
 import org.bh.gui.swing.comp.BHSelectionList;
@@ -34,6 +35,7 @@ public final class BHStochasticInputForm extends JPanel {
 	
 	private BHComboBox cbstochprocess;
 	private BHComboBox cbdcfMethod;
+	private BHCheckBox cbtimeSeriesProcess;
 	
 	private BHDescriptionLabel lStochasticKeys;
 	private BHSelectionList liStochasticKeys;
@@ -42,6 +44,7 @@ public final class BHStochasticInputForm extends JPanel {
 	private BHButton bCalcParameters;
 	private BHButton bResetParameters;
 	private Component pParameters;
+	private Component timeSeriesParameters;
 	
 	ITranslator translator = Services.getTranslator();
 	
@@ -67,7 +70,7 @@ public final class BHStochasticInputForm extends JPanel {
 	 */
 	private void initialize() {
 
-		String colDef = "4px,p,4px,p,4px,p,4px,p,0px:grow,4px";
+		String colDef = "4px,p,4px,p,4px,p,4px,p,0px:grow,4px,p";
 		String rowDef = "4px,p,4px,p,4px,80px,10px,p,4px,p,4px";
 		
 
@@ -80,6 +83,7 @@ public final class BHStochasticInputForm extends JPanel {
 		this.add(this.getcbDCFmethod(), cons.xywh(4, 2, 1, 1));
 		this.add(this.getlstochProcess(), cons.xywh(6, 2, 1, 1));
 		this.add(this.getcbstochProcess(), cons.xywh(8, 2, 1, 1));
+		this.add(this.getcbtimeSeriesProcess(), cons.xywh(11, 2, 1, 1));
 		
 		this.add(this.getlStochasticKeysList(), cons.xywh(2, 4, 8, 1));
 		this.add(new JScrollPane(this.getliStochasticKeysList()), cons.xywh(2, 6, 8, 1));
@@ -116,6 +120,16 @@ public final class BHStochasticInputForm extends JPanel {
 		}
 		return this.cbstochprocess;
 	}
+	
+	public BHCheckBox getcbtimeSeriesProcess() {
+		if (this.cbtimeSeriesProcess == null) {
+			this.cbtimeSeriesProcess = new BHCheckBox(DTOScenario.Key.TIMESERIES_PROCESS);
+			this.cbtimeSeriesProcess.setVisible(false);
+			
+		}
+		return this.cbtimeSeriesProcess;
+	}
+	
 	/**
 	 * Getter method for component lstochProcess.
 	 * 
@@ -180,6 +194,29 @@ public final class BHStochasticInputForm extends JPanel {
 	public void removeParametersPanel() {
 		if (pParameters != null) {
 			remove(pParameters);
+			revalidate();
+		}
+	}
+	
+	/**
+	 * Wird vom ScenarioController ausgefuehrt, wenn auf die Checkbox fuer die Zeitreihenanalyse geklickt wird.
+	 * Fuegt eine neue Komponte (Panel mit Textfeldern für Parameter) hinzu.
+	 * @param component
+	 */
+	public void setTimeSeriesParametersPanel(Component component){
+		removeTimeSeriesParametersPanel();
+		timeSeriesParameters = component;
+		CellConstraints cons = new CellConstraints();
+		add(timeSeriesParameters, cons.xywh(2, 10, 8, 1));
+		revalidate();
+	}
+	
+	/**
+	 * Entfernt das Panel das von setTimeSeriesParametersPanel() hinzugefügt wurde
+	 */
+	public void removeTimeSeriesParametersPanel(){
+		if(this.timeSeriesParameters != null){
+			remove(this.timeSeriesParameters);
 			revalidate();
 		}
 	}

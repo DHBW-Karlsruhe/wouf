@@ -19,6 +19,7 @@ import javax.swing.JScrollPane;
 
 import org.bh.calculation.IShareholderValueCalculator;
 import org.bh.calculation.IStochasticProcess;
+import org.bh.calculation.ITimeSeriesProcess;
 import org.bh.controller.IPeriodController;
 import org.bh.controller.InputController;
 import org.bh.data.DTOKeyPair;
@@ -93,6 +94,18 @@ public class ScenarioController extends InputController {
 	if (cbStochasticMethod != null) {
 	    cbStochasticMethod.setSorted(true);
 	    cbStochasticMethod.setValueList(STOCHASTIC_METHOD_ITEMS);
+	}
+	
+	// populate the list of TimeSeriesProcess
+	BHCheckBox cbTimeSeriesMethod = (BHCheckBox) view.getBHComponent(DTOScenario.Key.TIMESERIES_PROCESS);
+	if (cbTimeSeriesMethod != null && Services.check4TimeSeriesPlugin()) {
+		cbTimeSeriesMethod.setVisible(true);
+		cbTimeSeriesMethod.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				
+			}
+		});
 	}
 
 	// add ActionListener for calculation button
@@ -313,6 +326,8 @@ public class ScenarioController extends InputController {
 	return items.toArray(new BHComboBox.Item[0]);
 
     }
+    
+
 
     protected static BHComboBox.Item[] getPeriodTypeItems() {
 	IPeriodController[] periodTypes = Services.getPeriodControllers().values().toArray(new IPeriodController[0]);

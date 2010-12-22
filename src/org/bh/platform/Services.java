@@ -30,6 +30,7 @@ import org.apache.log4j.PatternLayout;
 import org.apache.log4j.WriterAppender;
 import org.bh.calculation.IShareholderValueCalculator;
 import org.bh.calculation.IStochasticProcess;
+import org.bh.calculation.ITimeSeriesProcess;
 import org.bh.controller.IDataExchangeController;
 import org.bh.controller.IPeriodController;
 import org.bh.data.DTOKeyPair;
@@ -156,6 +157,21 @@ public class Services {
 			stochasticProcesses.put(process.getUniqueId(), process);
 		}
 	}
+	
+	/**
+	 * Überprüft, ob das TimeSeriesPlugin installiert und geladen ist
+	 * @return true falls ja, false falls nein
+	 */
+	public static boolean check4TimeSeriesPlugin() {
+		boolean isLoaded = false;
+		ServiceLoader<ITimeSeriesProcess> timeSeriesPlugins = PluginManager
+				.getInstance().getServices(ITimeSeriesProcess.class);
+		for (ITimeSeriesProcess timeSeriesPlugin : timeSeriesPlugins) {
+			isLoaded = true; break;
+		}
+		return isLoaded;
+	}
+	
 
 	public static IPeriodController getPeriodController(String id) {
 		return getPeriodControllers().get(id);
