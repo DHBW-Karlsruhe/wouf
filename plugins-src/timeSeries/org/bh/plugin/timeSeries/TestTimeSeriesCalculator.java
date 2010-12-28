@@ -24,8 +24,7 @@ public class TestTimeSeriesCalculator {
 		//TimeSeriesCalculator erstellen
 		TimeSeriesCalculator calculator = new TimeSeriesCalculator(2, cashflows);
 		calculator.calculateNextPeriod();
-		boolean ka = true;
-		assertTrue(ka);
+		//assertTrue(ka);
 	}
 
 }
