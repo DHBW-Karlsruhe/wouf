@@ -1,41 +1,26 @@
 package org.bh.plugin.timeSeries;
 
-import java.awt.BorderLayout;
 import java.awt.Component;
 import java.util.HashMap;
 import java.util.List;
 import java.util.TreeMap;
 import java.util.Map.Entry;
-
-import javax.swing.JFrame;
-import javax.swing.JLabel;
-import javax.swing.JOptionPane;
 import javax.swing.JPanel;
-import javax.swing.JSeparator;
-
 import org.apache.log4j.Logger;
-import org.bh.calculation.IStochasticProcess;
 import org.bh.calculation.ITimeSeriesProcess;
 import org.bh.data.DTOKeyPair;
 import org.bh.data.DTOScenario;
 import org.bh.data.types.Calculable;
-import org.bh.data.types.DistributionMap;
 import org.bh.data.types.DoubleValue;
-import org.bh.data.types.IValue;
-import org.bh.data.types.IntegerValue;
 import org.bh.gui.swing.comp.BHDescriptionLabel;
 import org.bh.gui.swing.comp.BHTextField;
 import org.bh.platform.Services;
-import org.bh.plugin.wienerProcess.WienerProcess;
-import org.bh.validation.VRIsDouble;
 import org.bh.validation.VRIsGreaterThan;
 import org.bh.validation.VRIsInteger;
 import org.bh.validation.VRMandatory;
 import org.bh.validation.ValidationRule;
-
 import com.jgoodies.forms.layout.CellConstraints;
 import com.jgoodies.forms.layout.FormLayout;
-import com.jgoodies.forms.layout.RowSpec;
 
 /**
  * 
