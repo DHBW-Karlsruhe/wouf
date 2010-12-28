@@ -1,4 +1,4 @@
-package org.bh.plugin.timeSeries;
+package org.bh.tests.junit;
 
 import static org.junit.Assert.assertTrue;
 
@@ -6,8 +6,9 @@ import java.util.LinkedList;
 import java.util.List;
 import org.junit.Test;
 import org.bh.data.types.*;
+import org.bh.plugin.timeSeries.TimeSeriesCalculator;
 
-public class TestTimeSeriesCalculator {
+public class TimeSeriesCalculatorUnitTests {
 
 	@Test
 	public void testTest() {
