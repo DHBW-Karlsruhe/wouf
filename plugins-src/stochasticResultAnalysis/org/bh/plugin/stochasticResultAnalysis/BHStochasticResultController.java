@@ -40,7 +40,7 @@ import org.jfree.chart.JFreeChart;
 
 public class BHStochasticResultController extends OutputController {
     public static enum ChartKeys {
-	DISTRIBUTION_CHART, STANDARD_DEVIATION, AVERAGE, RISK_AT_VALUE, RISK_AT_VALUE_MIN, RISK_AT_VALUE_MAX, CASHFLOW_CHART;
+	DISTRIBUTION_CHART, STANDARD_DEVIATION, AVERAGE, RISK_AT_VALUE, RISK_AT_VALUE_MIN, RISK_AT_VALUE_MAX, CASHFLOW_CHART, CASHFLOW_CHART_COMPARE;
 
 	@Override
 	public String toString() {
@@ -94,6 +94,12 @@ public class BHStochasticResultController extends OutputController {
     public void setResultTimeSeries(DistributionMap result, DTOScenario scenario){
     	IBHAddValue comp2 = super.view.getBHchartComponents().get(ChartKeys.CASHFLOW_CHART.toString());
     	comp2.addSeries(Services.getTranslator().translate(PanelKeys.CASHFLOW.toString()),result.toDoubleArrayTS());
+    	
+    	IBHAddValue comp3 = super.view.getBHchartComponents().get(ChartKeys.CASHFLOW_CHART_COMPARE.toString());
+    	//erste Kurce
+    	comp3.addSeries(Services.getTranslator().translate(PanelKeys.CASHFLOW.toString()),result.toDoubleArrayTS());
+    	//zweite Kurve
+    	comp3.addSeries(Services.getTranslator().translate(PanelKeys.CASHFLOW.toString()),result.toDoubleArrayTS());
     	    	
     }
 

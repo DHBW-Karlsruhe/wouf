@@ -43,6 +43,7 @@ public class StochasticPanel extends JPanel{
 	    //Chart
 	    private BHChartPanel distributionChart;
 	    private BHChartPanel cashflowChart;
+	    private BHChartPanel cashflowChartCompare;
 	    
 	    public StochasticPanel(){
 	        this.initialize();
@@ -55,6 +56,7 @@ public class StochasticPanel extends JPanel{
 
 	        distributionChart = BHChartFactory.getXYBarChart(BHStochasticResultController.ChartKeys.DISTRIBUTION_CHART);
 	        cashflowChart = BHChartFactory.getLineChart(BHStochasticResultController.ChartKeys.CASHFLOW_CHART);
+	        cashflowChartCompare = BHChartFactory.getLineChart(BHStochasticResultController.ChartKeys.CASHFLOW_CHART_COMPARE);
 	     
 	        
 	        
@@ -74,7 +76,7 @@ public class StochasticPanel extends JPanel{
 	        BHValueLabel maxValue = new BHValueLabel(BHStochasticResultController.ChartKeys.RISK_AT_VALUE_MAX);
 
 	        JPanel rav = new JPanel();
-	        rav.setLayout(new FormLayout ("4px:grow,right:pref,10px,pref,4px,pref,4px:grow","4px,p,4px,p,4px,p,4px"));
+	        rav.setLayout(new FormLayout ("4px:grow,right:pref,10px,pref,4px,pref,4px:grow","4px,p,4px,p,4px,p,4px,p,4px"));
 	        rav.add(riskAt, "2,2");
 	        //riskAtField.setPreferredSize(new Dimension(50,riskAtField.getPreferredSize().height));
                 slider.setPreferredSize(new Dimension(200,slider.getPreferredSize().height));
@@ -157,5 +159,11 @@ public class StochasticPanel extends JPanel{
 			d.gridy = 3;
 			d.insets = new Insets(30,10,30,0);
 		    this.add(cashflowChart, d);
+		    
+		    d.fill = GridBagConstraints.HORIZONTAL;
+			d.gridx = 0;
+			d.gridy = 4;
+			d.insets = new Insets(30,10,30,0);
+		    this.add(cashflowChartCompare, d);
 	    }
 	}

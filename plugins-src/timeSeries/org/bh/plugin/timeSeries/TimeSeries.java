@@ -185,6 +185,7 @@ public class TimeSeries implements ITimeSeriesProcess {
 
 	@Override
 	public TreeMap<Integer, Integer> calculate() {
+		//Berechnung für den Cashflow-Chart Vergangenheit bis in die Zukunft
 		TreeMap<Integer, Integer> result = new TreeMap();
 		
 		TreeMap<DTOKeyPair, List<Calculable>> toBeDetermined = scenario.getPeriodStochasticKeysAndValues();
@@ -201,6 +202,15 @@ public class TimeSeries implements ITimeSeriesProcess {
     	}
     	result.put(2011, 15066633);
 		return result;
+	}
+	
+	public TreeMap<Integer, Integer>  calculateCompare(){
+		// gibt den IST-Cashflow zurück und die Progone mit abhängigem P
+		
+		// Eine Kurve Ist Cashflow 
+		// Eine Kurve Prognose in einer TreeMap!?
+		return null;
+		
 	}
 	
 

@@ -37,6 +37,7 @@ public class DistributionMap implements Map<Double, Integer>,
 	//only for displaying purpose
 	private int maxAmountOfValuesInCluster;
 	private TreeMap<Integer, Integer> TimeSeriesMap;
+	private TreeMap<Integer, Integer> TimeSeriesMapCompare;
 	private boolean TimeSeries;
 
 	/**
@@ -325,6 +326,11 @@ public class DistributionMap implements Map<Double, Integer>,
 	public void setTimeSeries(TreeMap<Integer, Integer> tsMap){
 		TimeSeries = true;
 		this.TimeSeriesMap = tsMap;
+	}
+	
+	public void setTimeSeriesCompare(TreeMap<Integer, Integer> tsMap2){
+		TimeSeries = true;
+		this.TimeSeriesMapCompare = tsMap2;
 	}
 	
 	public boolean isTimeSeries(){
