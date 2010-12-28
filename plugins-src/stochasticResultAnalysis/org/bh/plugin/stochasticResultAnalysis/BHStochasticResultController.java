@@ -1,9 +1,12 @@
 package org.bh.plugin.stochasticResultAnalysis;
 
 import java.awt.event.ActionEvent;
+
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
+import java.util.TreeMap;
 import java.util.Map.Entry;
 
 import javax.swing.event.CaretEvent;
@@ -12,7 +15,9 @@ import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
 
 import org.bh.controller.OutputController;
+import org.bh.data.DTOKeyPair;
 import org.bh.data.DTOScenario;
+import org.bh.data.types.Calculable;
 import org.bh.data.types.DistributionMap;
 import org.bh.data.types.DoubleValue;
 import org.bh.data.types.IntervalValue;
@@ -21,6 +26,7 @@ import org.bh.gui.IBHModelComponent;
 import org.bh.gui.chart.BHChartPanel;
 import org.bh.gui.chart.IBHAddValue;
 import org.bh.gui.swing.comp.BHButton;
+import org.bh.gui.swing.comp.BHCheckBox;
 import org.bh.gui.swing.comp.BHSlider;
 import org.bh.gui.swing.comp.BHTextField;
 import org.bh.gui.swing.importexport.BHDataExchangeDialog;
@@ -30,9 +36,11 @@ import org.bh.platform.IPrint;
 import org.bh.platform.Services;
 import org.jfree.chart.JFreeChart;
 
+// @update 23.12.2010 Timo Klein
+
 public class BHStochasticResultController extends OutputController {
     public static enum ChartKeys {
-	DISTRIBUTION_CHART, STANDARD_DEVIATION, AVERAGE, RISK_AT_VALUE, RISK_AT_VALUE_MIN, RISK_AT_VALUE_MAX;
+	DISTRIBUTION_CHART, STANDARD_DEVIATION, AVERAGE, RISK_AT_VALUE, RISK_AT_VALUE_MIN, RISK_AT_VALUE_MAX, CASHFLOW_CHART;
 
 	@Override
 	public String toString() {
@@ -42,7 +50,7 @@ public class BHStochasticResultController extends OutputController {
     }
 
     public static enum PanelKeys {
-	riskAtValue, AVERAGE, VALUE, PRINTSCENARIO, EXPORTSCENARIO;
+	riskAtValue, AVERAGE, VALUE, PRINTSCENARIO, EXPORTSCENARIO, CASHFLOW;
 
 	@Override
 	public String toString() {
@@ -57,6 +65,11 @@ public class BHStochasticResultController extends OutputController {
 	// RiskAtValueListener());
 	BHSlider slider = (BHSlider) view.getBHComponent(ChartKeys.RISK_AT_VALUE.toString());
 	slider.addChangeListener(new SliderChangeListener());
+	
+		if(result.isTimeSeries()){
+			setResultTimeSeries(result, scenario);
+		}
+		
     }
 
     @Override
@@ -65,6 +78,8 @@ public class BHStochasticResultController extends OutputController {
 	IBHAddValue comp = super.view.getBHchartComponents().get(ChartKeys.DISTRIBUTION_CHART.toString());
 	comp.addSeries(Services.getTranslator().translate(ChartKeys.DISTRIBUTION_CHART.toString()), result.toDoubleArray(), result.getAmountOfValues(), result.getMaxAmountOfValuesInCluster());
 	comp.addSeries(Services.getTranslator().translate(PanelKeys.AVERAGE.toString()), new double[][] { { result.getAverage(), result.getMaxAmountOfValuesInCluster() } });
+	//componenten für LineChart (Zeitreihenanalyse)
+	
 	for (Map.Entry<String, IBHModelComponent> entry : view.getBHModelComponents().entrySet()) {
 	    if (entry.getKey().equals(ChartKeys.STANDARD_DEVIATION.toString()))
 		entry.getValue().setValue(new DoubleValue(result.getStandardDeviation()));
@@ -74,6 +89,12 @@ public class BHStochasticResultController extends OutputController {
 	double confidence = ((BHSlider) view.getBHComponent(ChartKeys.RISK_AT_VALUE.toString())).getValue();
 	calcRiskAtValue(confidence, stochasticResult.getMaxAmountOfValuesInCluster());
 	// calcRiskAtValue(confidence);
+    }
+    
+    public void setResultTimeSeries(DistributionMap result, DTOScenario scenario){
+    	IBHAddValue comp2 = super.view.getBHchartComponents().get(ChartKeys.CASHFLOW_CHART.toString());
+    	comp2.addSeries(Services.getTranslator().translate(PanelKeys.CASHFLOW.toString()),result.toDoubleArrayTS());
+    	    	
     }
 
     public void calcRiskAtValue(Double confidence, Integer maxAmountofValues) {

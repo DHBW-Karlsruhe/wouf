@@ -40,7 +40,11 @@ public class BHStochasticResultPanel extends JPanel{
 		exportButton = new BHButton(BHStochasticResultController.PanelKeys.EXPORTSCENARIO);
 		printButton = new BHButton(BHStochasticResultController.PanelKeys.PRINTSCENARIO);
 		
-		mainPanel = new StochasticPanel();
+		StochasticPanel mainStochastic = new StochasticPanel();
+		if(result.isTimeSeries()){
+			mainStochastic.addTimeSeries();
+		}
+		mainPanel = mainStochastic;
 		this.add(mainPanel, BorderLayout.CENTER);
 		
 		JPanel exportArea = new JPanel(new GridBagLayout());

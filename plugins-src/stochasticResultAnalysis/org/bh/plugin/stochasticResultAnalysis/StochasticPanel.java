@@ -3,6 +3,7 @@ package org.bh.plugin.stochasticResultAnalysis;
 
 
 
+import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
@@ -16,8 +17,10 @@ import javax.swing.border.TitledBorder;
 
 import org.apache.log4j.Logger;
 import org.bh.controller.Controller;
+import org.bh.data.DTOScenario;
 import org.bh.gui.chart.BHChartFactory;
 import org.bh.gui.chart.BHChartPanel;
+import org.bh.gui.swing.comp.BHCheckBox;
 import org.bh.gui.swing.comp.BHDescriptionLabel;
 import org.bh.gui.swing.comp.BHSlider;
 import org.bh.gui.swing.comp.BHValueLabel;
@@ -25,6 +28,8 @@ import org.bh.gui.swing.forms.border.BHBorderFactory;
 import org.bh.platform.i18n.ITranslator;
 
 import com.jgoodies.forms.layout.FormLayout;
+
+// @update 23.12.2010 Timo Klein
 
 @SuppressWarnings("serial")
 public class StochasticPanel extends JPanel{
@@ -37,6 +42,7 @@ public class StochasticPanel extends JPanel{
 	private static final Logger log = Logger.getLogger(StochasticPanel.class);
 	    //Chart
 	    private BHChartPanel distributionChart;
+	    private BHChartPanel cashflowChart;
 	    
 	    public StochasticPanel(){
 	        this.initialize();
@@ -48,6 +54,8 @@ public class StochasticPanel extends JPanel{
 			d = new GridBagConstraints();
 
 	        distributionChart = BHChartFactory.getXYBarChart(BHStochasticResultController.ChartKeys.DISTRIBUTION_CHART);
+	        cashflowChart = BHChartFactory.getLineChart(BHStochasticResultController.ChartKeys.CASHFLOW_CHART);
+	     
 	        
 	        
 	        BHDescriptionLabel sd = new BHDescriptionLabel("standardDeviation");
@@ -92,6 +100,8 @@ public class StochasticPanel extends JPanel{
 	        this.add(distributionChart, d); 
 	       // this.add(distributionChart, "1,3,5,3");
 	        
+	        
+	        
 	        /**
 	         * AWussler added: 3.12.2010
 	         * put sd and ew (standardabweichung, erwartungswert) in a panel box:
@@ -127,7 +137,7 @@ public class StochasticPanel extends JPanel{
 	        d.fill = GridBagConstraints.HORIZONTAL;
 			d.gridx = 0;
 			d.gridy = 2;
-			d.insets = new Insets(10,10,30,0);
+			d.insets = new Insets(10,10,0,0);
 	        this.add(rav,d);
 	        
 	        space = new JLabel();
@@ -139,5 +149,13 @@ public class StochasticPanel extends JPanel{
 			this.add(space,d);
 	        //this.add(p_sd_ew, "1,5,3,7");
 	        
+	    }
+	    
+	    public void addTimeSeries(){
+	    	d.fill = GridBagConstraints.HORIZONTAL;
+			d.gridx = 0;
+			d.gridy = 3;
+			d.insets = new Insets(30,10,30,0);
+		    this.add(cashflowChart, d);
 	    }
 	}

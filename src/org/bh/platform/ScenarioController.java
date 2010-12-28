@@ -27,6 +27,7 @@ import org.bh.data.DTOScenario;
 import org.bh.data.IDTO;
 import org.bh.data.types.Calculable;
 import org.bh.data.types.DistributionMap;
+import org.bh.data.types.IValue;
 import org.bh.data.types.StringValue;
 import org.bh.gui.IBHModelComponent;
 import org.bh.gui.swing.BHMainFrame;
@@ -59,6 +60,7 @@ import org.bh.validation.ValidationMethods;
  * @author Robert Vollmer
  * @author Klaus Thiele
  * @version 1.0, 29.01.2010
+ * @update 23.12.2010 Timo Klein
  * 
  */
 public class ScenarioController extends InputController {
@@ -67,6 +69,7 @@ public class ScenarioController extends InputController {
     protected static final BHComboBox.Item[] PERIOD_TYPE_ITEMS = getPeriodTypeItems();
     protected static final BHComboBox.Item[] STOCHASTIC_METHOD_ITEMS = getStochasticProcessItems();
     private IStochasticProcess process = null;
+    private ITimeSeriesProcess TSprocess = null;
     private final BHMainFrame bhmf;
 
     public ScenarioController(View view, IDTO<?> model, final BHMainFrame bhmf) {
@@ -96,17 +99,7 @@ public class ScenarioController extends InputController {
 	    cbStochasticMethod.setValueList(STOCHASTIC_METHOD_ITEMS);
 	}
 	
-	// populate the list of TimeSeriesProcess
-	BHCheckBox cbTimeSeriesMethod = (BHCheckBox) view.getBHComponent(DTOScenario.Key.TIMESERIES_PROCESS);
-	if (cbTimeSeriesMethod != null && Services.check4TimeSeriesPlugin()) {
-		cbTimeSeriesMethod.setVisible(true);
-		cbTimeSeriesMethod.addActionListener(new ActionListener() {
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				
-			}
-		});
-	}
+	
 
 	// add ActionListener for calculation button
 	((BHButton) view.getBHComponent(BHScenarioForm.Key.CALCSHAREHOLDERVALUE)).addActionListener(new CalculationListener(PlatformController.getInstance().getMainFrame().getBHTree()));
@@ -176,6 +169,59 @@ public class ScenarioController extends InputController {
 	    });
 	}
 
+	// populate the list of TimeSeriesProcess
+	BHCheckBox cbTimeSeriesMethod = (BHCheckBox) view.getBHComponent(DTOScenario.Key.TIMESERIES_PROCESS);
+	if (cbTimeSeriesMethod != null && Services.check4TimeSeriesPlugin()) {
+		cbTimeSeriesMethod.setVisible(true);
+		cbTimeSeriesMethod.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				
+				BHCheckBox from = (BHCheckBox) e.getSource();
+				BHStochasticInputForm form = (BHStochasticInputForm) ((Component) e.getSource()).getParent();
+				if(from.isSelected()){				
+					DTOScenario scenario = (DTOScenario) getModel();
+				    TSprocess = scenario.getTimeSeriesProcess();
+	
+				    JPanel parametersPanel = TSprocess.calculateParameters();				   
+				    form.setTimeSeriesParametersPanel(parametersPanel);
+				    if (parametersPanel instanceof Container)
+						Services.setFocus((Container) parametersPanel);
+					    try {
+						final View view = new View(parametersPanel, new ValidationMethods());
+						// enable the calculation button depending on the
+						// validation status
+						view.addViewListener(new IViewListener() {
+						    @Override
+						    public void viewEvent(ViewEvent e) {
+							switch (e.getEventType()) {
+							case VALUE_CHANGED:
+							    boolean allValid = !view.revalidate().hasErrors();
+							    if(resetStochasticParameters.isVisible())
+							    ((Component) getView().getBHComponent(BHScenarioForm.Key.CALCSHAREHOLDERVALUE)).setEnabled(allValid);
+							    break;
+							case VALIDATION_FAILED:
+							    ((Component) getView().getBHComponent(BHScenarioForm.Key.CALCSHAREHOLDERVALUE)).setEnabled(false);
+							    break;
+							}
+						    }
+						});
+						view.revalidate();
+						boolean allValid = !view.revalidate().hasErrors();
+						((Component) getView().getBHComponent(BHScenarioForm.Key.CALCSHAREHOLDERVALUE)).setEnabled(allValid);
+					    } catch (ViewException e1) {
+					    }
+				    
+				}
+				else{
+					form.removeTimeSeriesParametersPanel();
+				}
+				
+				
+			}
+		});
+	}
+	
 	// immediately toggle interval arithmetic on and off
 	BHCheckBox chkInterval = (BHCheckBox) getView().getBHComponent(DTOScenario.Key.INTERVAL_ARITHMETIC);
 	if (chkInterval != null) {
@@ -402,6 +448,13 @@ public class ScenarioController extends InputController {
 		    } else {
 			process.updateParameters();
 			DistributionMap result = process.calculate();
+			
+			BHCheckBox timeSeries = (BHCheckBox) view.getBHComponent(DTOScenario.Key.TIMESERIES_PROCESS);
+			if(timeSeries.isSelected()){
+				result.setTimeSeries(TSprocess.calculate());
+				TSprocess.updateParameters();
+				TSprocess.print(scenario);
+			}
 
 			// FIXME selection of result analyser plugin
 			panel = new JPanel();
@@ -409,6 +462,9 @@ public class ScenarioController extends InputController {
 			    panel = analyser.setResult(scenario, result);
 			    break;
 			}
+			
+				
+			  
 
 		    }
 

@@ -7,6 +7,7 @@ import java.util.TreeMap;
 import org.apache.log4j.Logger;
 import org.bh.calculation.IShareholderValueCalculator;
 import org.bh.calculation.IStochasticProcess;
+import org.bh.calculation.ITimeSeriesProcess;
 import org.bh.data.types.Calculable;
 import org.bh.data.types.DoubleValue;
 import org.bh.data.types.IntegerValue;
@@ -23,7 +24,7 @@ import org.bh.platform.Services;
  * @author Michael Löckelt
  * @author Marcus Katzor
  * @version 0.4, 25.12.2009
- * 
+ * @update 23.12.2010 Timo Klein
  */
 
 public class DTOScenario extends DTO<DTOPeriod> {
@@ -209,9 +210,20 @@ public class DTOScenario extends DTO<DTOPeriod> {
 	 * @return Reference to the stochastic process.
 	 */
 	public IStochasticProcess getStochasticProcess() {
-		return Services.getStochasticProcess(get(Key.STOCHASTIC_PROCESS)
+		return Services.getStochasticProcess(get(Key.STOCHASTIC_PROCESS).toString()
 				.toString()).createNewInstance(this);
 	}
+	
+	/**
+	 * Returns a reference to the time series process.
+	 * 
+	 * @return Reference to the time series process.
+	 */
+	public ITimeSeriesProcess getTimeSeriesProcess() {
+		return Services.getTimeSeriesProcess().createNewInstance(this);
+	}
+	
+	
 
 	/**
 	 * Returns all keys whose values have to be determined stochastically.

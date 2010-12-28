@@ -25,6 +25,7 @@ import com.jgoodies.forms.layout.FormLayout;
  * @author Anton Kharitonov
  * @author Patrick Heinz
  * @version 1.0, 22.01.2010
+ * @update 23.12.2010 Timo Klein
  * 
  */
 @SuppressWarnings("serial")
@@ -70,8 +71,8 @@ public final class BHStochasticInputForm extends JPanel {
 	 */
 	private void initialize() {
 
-		String colDef = "4px,p,4px,p,4px,p,4px,p,0px:grow,4px,p";
-		String rowDef = "4px,p,4px,p,4px,80px,10px,p,4px,p,4px";
+		String colDef = "4px,p,4px,p,4px,p,4px,p,120px,p,0px:grow,4px";
+		String rowDef = "4px,p,4px,p,4px,80px,10px,p,4px,p,4px,p,4px";
 		
 
 		FormLayout layout = new FormLayout(colDef, rowDef);
@@ -83,14 +84,14 @@ public final class BHStochasticInputForm extends JPanel {
 		this.add(this.getcbDCFmethod(), cons.xywh(4, 2, 1, 1));
 		this.add(this.getlstochProcess(), cons.xywh(6, 2, 1, 1));
 		this.add(this.getcbstochProcess(), cons.xywh(8, 2, 1, 1));
-		this.add(this.getcbtimeSeriesProcess(), cons.xywh(11, 2, 1, 1));
+		this.add(this.getcbtimeSeriesProcess(), cons.xywh(10, 2, 1, 1));
 		
-		this.add(this.getlStochasticKeysList(), cons.xywh(2, 4, 8, 1));
-		this.add(new JScrollPane(this.getliStochasticKeysList()), cons.xywh(2, 6, 8, 1));
-		this.add(this.getlNoStochasticKeys(), cons.xywh(2, 6, 8, 1));
+		this.add(this.getlStochasticKeysList(), cons.xywh(2, 4, 10, 1));
+		this.add(new JScrollPane(this.getliStochasticKeysList()), cons.xywh(2, 6, 10, 1));
+		this.add(this.getlNoStochasticKeys(), cons.xywh(2, 6, 10, 1));
 		
-		this.add(this.getbCalcParameters(), cons.xywh(2, 8, 8, 1));
-		this.add(this.getbResetParameters(), cons.xywh(2, 8, 8, 1));
+		this.add(this.getbCalcParameters(), cons.xywh(2, 10, 10, 1));
+		this.add(this.getbResetParameters(), cons.xywh(2, 10, 10, 1));
 		this.getbResetParameters().setVisible(false);
 	}
 	
@@ -187,7 +188,7 @@ public final class BHStochasticInputForm extends JPanel {
 		removeParametersPanel();
 		pParameters = component;
 		CellConstraints cons = new CellConstraints();
-		add(pParameters, cons.xywh(2, 10, 8, 1));
+		add(pParameters, cons.xywh(2, 12, 10, 1));
 		revalidate();
 	}
 	
@@ -198,6 +199,7 @@ public final class BHStochasticInputForm extends JPanel {
 		}
 	}
 	
+	
 	/**
 	 * Wird vom ScenarioController ausgefuehrt, wenn auf die Checkbox fuer die Zeitreihenanalyse geklickt wird.
 	 * Fuegt eine neue Komponte (Panel mit Textfeldern für Parameter) hinzu.
@@ -207,7 +209,7 @@ public final class BHStochasticInputForm extends JPanel {
 		removeTimeSeriesParametersPanel();
 		timeSeriesParameters = component;
 		CellConstraints cons = new CellConstraints();
-		add(timeSeriesParameters, cons.xywh(2, 10, 8, 1));
+		add(timeSeriesParameters, cons.xywh(2, 8, 10, 1));
 		revalidate();
 	}
 	

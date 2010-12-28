@@ -4,6 +4,8 @@ import javax.swing.JPanel;
 import javax.swing.SwingUtilities;
 
 import org.apache.log4j.Logger;
+import org.bh.data.DTOScenario;
+import org.bh.gui.swing.comp.BHCheckBox;
 import org.bh.platform.Services;
 import org.bh.platform.i18n.ITranslator;
 import org.jfree.data.category.DefaultCategoryDataset;
@@ -23,6 +25,7 @@ import org.jfree.data.xy.DefaultXYDataset;
  * @author Marco Hammel
  * @version 0.2 11.01.2010
  * @version 1.0
+ * @update 23.12.2010 Timo Klein
  * 
  */
 public class BHChartFactory {
