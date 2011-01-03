@@ -115,7 +115,7 @@ public class TimeSeriesCalculatorUnitTests {
 		cashflows.add(cashfolw_t1); System.out.println(cashfolw_t1.toNumber() + " zur Cashflowliste hinzufügen");
 		cashflows.add(cashfolw_t0); System.out.println(cashfolw_t0.toNumber() + " zur Cashflowliste hinzufügen");
 		cashflows.add(cashfolw_tm1);System.out.println(cashfolw_tm1.toNumber() + " zur Cashflowliste hinzufügen");
-		
+		 
 		//TimeSeriesCalculator erstellen
 		TimeSeriesCalculator calculator = new TimeSeriesCalculator(p, cashflows);
 		List <Calculable> cashflows_inkl_prognostizierte = new LinkedList<Calculable>();
