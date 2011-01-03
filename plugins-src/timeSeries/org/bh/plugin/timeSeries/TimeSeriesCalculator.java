@@ -1,5 +1,6 @@
 package org.bh.plugin.timeSeries;
 
+import java.util.Collections;
 import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
@@ -39,10 +40,10 @@ public class TimeSeriesCalculator {
 	}
 	
 	/**
-	 * Berechne anhand des YULE-Walkers-Verfahren den nächsten Cashflow
-	 * @return prognoszierte Cashflow in Abhängigkeit von p
+	 * Berechne anhand des YULE-Walkers-Verfahren Y(Gamma)
+	 * @return berechnet Y(Gamma) von Cashflows
 	 */
-	public double calculateNextPeriod(){
+	public double get_Ygamma_for_cashflowlist(List<Calculable> cashflows){
 		//schritt 1: mü für p berechnen
 		double mue = -1;
 		int counter = 0;
@@ -71,17 +72,79 @@ public class TimeSeriesCalculator {
 		counter = 0;
 		while (iterator.hasNext()){ //Yt_m_p_m_mue_liste durchlaufen
 			Yt_m_p_m_mue =  (Double) iterator.next(); //element holen
-			System.out.println(Yt_m_p_m_mue);
+//			System.out.println(Yt_m_p_m_mue);
 			Y_Gamma = Y_Gamma + Yt_m_p_m_mue * (Double) iterator.next(); 
 		}
-		Y_Gamma = Y_Gamma/p;
+		Y_Gamma = Math.abs(Y_Gamma/p);
 		System.out.println("TimeSeriesCalculator: Y(Gamma)="+Y_Gamma);
-		//Schritt 4:
-		
-		//TODO
-		
-		//ergebnis zurückliefern..
-		return -1;
+		//Ergebnis zurückgeben
+		return Y_Gamma;
+	}
+	
+	/**
+	 * Berechnet Y(Gamma) für alle Cashflows
+	 * @return List<DoubleValue>, welche alle "Y(Gamma)"s beinhaltet
+	 */
+	public List<DoubleValue> getYgammaList (){
+		List <DoubleValue> y_gammas = new LinkedList<DoubleValue>();
+		List<Calculable> nach_p_getrennte_cashflows = new LinkedList<Calculable>();
+		Collections.reverse(this.cashflows);//Liste umdrehen
+		Iterator i_cashflows = this.cashflows.iterator();
+		Iterator i_cashflows_hilf = this.cashflows.iterator();
+		int counter = 0;//schleifen zaehler
+		double y_gamma;
+		while(i_cashflows.hasNext()){
+			nach_p_getrennte_cashflows = new LinkedList<Calculable>();
+			i_cashflows_hilf = this.cashflows.iterator();//hilfsiterator zurücksetzen
+			for(int i=1; i<= counter; i++){//hilfsiterator auf den gleich stand bringen wie iterator -- ersetzt fehlende kopierfunktion von iterator
+				i_cashflows_hilf.next();
+			}
+			for(int i=1; i<= this.p; i++){
+				if(i_cashflows.hasNext() && i_cashflows_hilf.hasNext()){
+					DoubleValue cashflow = (DoubleValue) i_cashflows_hilf.next();
+					System.out.println(cashflow.toNumber() + " zu getrennte liste hinzufügen");
+					nach_p_getrennte_cashflows.add(cashflow);
+				}
+			}
+			if(nach_p_getrennte_cashflows.size() == this.p){
+				y_gamma = get_Ygamma_for_cashflowlist(nach_p_getrennte_cashflows);
+//				System.out.println("y(gamma)="+y_gamma);
+				y_gammas.add(new DoubleValue(y_gamma) );
+			}
+			i_cashflows.next();
+			counter++;
+		}
+		Collections.reverse(this.cashflows);//Liste wieder zurückdrehen
+		return y_gammas;
+	}
+	
+	/**
+	 * Liefert eine Liste mit gefaketen Cashflows
+	 * @param anzahl_der_zu_prognostizierenden_cashflows anzahl der gefakten cashflows
+	 * @return List<Calculable>
+	 */
+	public List<Calculable> getDummyNextCashflows(int anzahl_der_zu_prognostizierenden_cashflows){
+		List<Calculable> cashflow_mit_prognostizierung = new LinkedList<Calculable>();
+		double summe = 0;
+		for(Calculable cashflow : this.cashflows){//Liste kopieren
+			cashflow_mit_prognostizierung.add(cashflow);
+			summe = summe + cashflow.toNumber().doubleValue();
+		}
+		double mittelwert = summe/(cashflow_mit_prognostizierung.size());
+//		System.out.println("Mittelwert= "+mittelwert);
+		double zufallsabweichung;
+		for(int i= 1; i<= anzahl_der_zu_prognostizierenden_cashflows; i++){
+			zufallsabweichung = ((Math.random() * (2 - 1)) + 1)/10;
+			if(Math.random() > 0.5){
+				zufallsabweichung = zufallsabweichung +1;
+			}else{
+				zufallsabweichung = 1-zufallsabweichung;
+			}
+//			System.out.println(zufallsabweichung);
+//			System.out.println("Dummywert= " + (mittelwert*zufallsabweichung));
+			cashflow_mit_prognostizierung.add(0, new DoubleValue(mittelwert*zufallsabweichung));
+		}
+		return cashflow_mit_prognostizierung;
 	}
 	
 	/**
