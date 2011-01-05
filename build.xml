@@ -17,6 +17,8 @@
 	<property name="plugins.build.dir" value="plugins-bin"/>
 	<property name="unittests.build.dir" value="tests/bin"/>
 	<property name="jar.dir" value="jar"/>
+	<property name="helpen.dir" value="helpen"/>
+	<property name="helpde.dir" value="helpde"/>
 	<property name="plugins.jar.dir" value="plugins"/>
 	
 	
@@ -132,7 +134,8 @@
 
     <target depends="compile" name="preparejar">
         <mkdir dir="${jar.dir}"/>
-    	<mkdir dir="${help.dir}"/>
+    	<mkdir dir="${helpen.dir}"/>
+    	<mkdir dir="${helpde.dir}"/>
         <unzip dest="${jar.dir}">
             <fileset dir="${lib.dir}">
 				<include name="*.jar" />
@@ -163,6 +166,12 @@
         <copy todir="${jar.dir}">
             <fileset dir="${build.dir}"/>
         </copy>
+    	<copy todir="${helpde.dir}">
+    	            <fileset dir="${build.dir}"/>
+    	        </copy>
+    	<copy todir="${helpen.dir}">
+    	            <fileset dir="${build.dir}"/>
+    	        </copy>
     </target>
 	
 	<target depends="compile" name="preparepluginjar">
