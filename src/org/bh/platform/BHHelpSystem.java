@@ -8,6 +8,8 @@ import javax.help.HelpSet;
 import javax.help.JHelp;
 import javax.swing.JPanel;
 
+import org.apache.log4j.Logger;
+
 /**
  * 
  * method to create the helpSystem
@@ -41,10 +43,13 @@ public class BHHelpSystem extends JPanel {
 			ClassLoader cl = BHHelpSystem.class.getClassLoader();
 			Locale l = Services.getTranslator().getLocale();
 			URL url = HelpSet.findHelpSet(cl, "jhelpset.hs");
+			Logger log = Logger.getLogger(BHHelpSystem.class);
+			log.info(url.toString());
 			System.out.println(url.toString());
 			// URL wird hier geändert, damit die richtige Hilfedatei anhand der
 			// Locale gewählt wird
 		//	int urlsize = url.toString().length();
+			//String urlold = url.toString().substring(0, urlsize - 19);
 			//String urlold = url.toString().substring(0, urlsize - 19);
 			//System.out.println(urlold);
 			//String urlnew = (urlold + l.toString() + ".jar!/jhelpset.hs");
