@@ -1,291 +1,268 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <project basedir="." default="build" name="Business Horizon">
-    <taskdef resource="net/sf/antcontrib/antcontrib.properties" classpath="lib/build_lib/ant-contrib-1.0b3.jar" />
-	
-    <property environment="env"/>
-	
-	<!-- source dirs -->
-    <property name="source.dir" value="src"/>
-	<property name="plugins.source.dir" value="plugins-src"/>
-	<property name="unittests.source.dir" value="tests/src"/>
-	<property name="unittests.includes" value="org/bh/tests/junit/**"/>
+	<taskdef resource="net/sf/antcontrib/antcontrib.properties" classpath="lib/build_lib/ant-contrib-1.0b3.jar" />
 
-	
+	<property environment="env" />
+
+	<!-- source dirs -->
+	<property name="source.dir" value="src" />
+	<property name="plugins.source.dir" value="plugins-src" />
+	<property name="unittests.source.dir" value="tests/src" />
+	<property name="unittests.includes" value="org/bh/tests/junit/**" />
+
+
 	<!-- build dirs -->
-	<property name="build.dir" value="bin"/>
-    <property name="lib.dir" value="lib"/>
-	<property name="plugins.build.dir" value="plugins-bin"/>
-	<property name="unittests.build.dir" value="tests/bin"/>
-	<property name="jar.dir" value="jar"/>
-	<property name="helpen.dir" value="helpen"/>
-	<property name="helpde.dir" value="helpde"/>
-	<property name="plugins.jar.dir" value="plugins"/>
-	
-	
+	<property name="build.dir" value="bin" />
+	<property name="lib.dir" value="lib" />
+	<property name="plugins.build.dir" value="plugins-bin" />
+	<property name="unittests.build.dir" value="tests/bin" />
+	<property name="jar.dir" value="jar" />
+	<property name="plugins.jar.dir" value="plugins" />
+	<property name="helpen.dir" value="helpen" />
+	<property name="helpde.dir" value="helpde" />
+
 	<!-- build result dirs -->
-	<property name="output.dir" value="output"/>
-	<property name="plugins.output.dir" value="${output.dir}/plugins"/>
-	<property name="javadoc.dir" value="${output.dir}/javadoc"/>
-	<property name="junit.dir" value="${output.dir}/junit"/>
-	
-	
+	<property name="output.dir" value="output" />
+	<property name="plugins.output.dir" value="${output.dir}/plugins" />
+	<property name="javadoc.dir" value="${output.dir}/javadoc" />
+	<property name="junit.dir" value="${output.dir}/junit" />
+
+
 	<!-- miscellaneous -->
-	<property name="jar.name.core" value="${output.dir}/BH.jar"/>
-    <property name="jar.name.bundled" value="${output.dir}/BH.bundled.jar"/>
-    <property name="jar.mainclass" value="org.bh.BusinessHorizon"/>
-    <property name="jar.store.pass" value="ZDpPydacPvJXJpY4SmqN"/>
-    <property name="jar.store.file" value="jarsign.keystore"/>
-    <property name="jar.store.alias" value="bhjar"/>
-	<property name="plugins.list" value="gcc,apv,directinput,fcf,fte,resultAnalysis,xmldataexchange,randomWalk,wienerProcess,pdfexport,excelexport,stochasticResultAnalysis,timeSeries"/>
-	<property name="debug" value="true"/>
-    
-	
+	<property name="jar.name.core" value="${output.dir}/BH.jar" />
+	<property name="jar.name.bundled" value="${output.dir}/BH.bundled.jar" />
+	<property name="jar.mainclass" value="org.bh.BusinessHorizon" />
+	<property name="jar.store.pass" value="ZDpPydacPvJXJpY4SmqN" />
+	<property name="jar.store.file" value="jarsign.keystore" />
+	<property name="jar.store.alias" value="bhjar" />
+	<property name="plugins.list" value="gcc,apv,directinput,fcf,fte,resultAnalysis,xmldataexchange,randomWalk,wienerProcess,pdfexport,excelexport,stochasticResultAnalysis,timeSeries" />
+	<property name="debug" value="true" />
+
+
 	<!-- classpathes -->
 	<path id="BH.core.classpath">
-        <fileset dir="${lib.dir}">
+		<fileset dir="${lib.dir}">
 			<include name="*.jar" />
 			<include name="formula/**/*.jar" />
 		</fileset>
-    </path>
-	
+	</path>
+
 	<path id="BH.plugin.classpath">
-		<path refid="BH.core.classpath"/>
-        <pathelement location="${build.dir}"/>
-        <fileset dir="${lib.dir}">
+		<path refid="BH.core.classpath" />
+		<pathelement location="${build.dir}" />
+		<fileset dir="${lib.dir}">
 			<include name="plugins/${plugin}/**/*.jar" />
 		</fileset>
-    </path>
-	
+	</path>
+
 	<path id="BH.combined.classpath">
-		<path refid="BH.core.classpath"/>
+		<path refid="BH.core.classpath" />
 		<fileset dir="${lib.dir}">
 			<include name="plugins/**/*.jar" />
 		</fileset>
 	</path>
-	
+
 	<path id="junit.classpath">
-		<pathelement location="${build.dir}"/>
-        <pathelement location="${unittests.build.dir}"/>
-	    <dirset dir="${plugins.build.dir}" includes="*"/>
-	    <fileset dir="${lib.dir}" includes="**/*.jar"/>
+		<pathelement location="${build.dir}" />
+		<pathelement location="${unittests.build.dir}" />
+		<dirset dir="${plugins.build.dir}" includes="*" />
+		<fileset dir="${lib.dir}" includes="**/*.jar" />
 	</path>
 
-	
-	<!-- targets -->
-	
-    <target name="clean">
-        <delete dir="${build.dir}"/>
-        <delete dir="${plugins.build.dir}"/>
-        <delete dir="${jar.dir}"/>
-        <delete dir="${plugins.jar.dir}"/>
-        <delete dir="${output.dir}"/>
-    </target>
-    <target depends="clean, cleanunittests" name="cleanall"/>
-    
-    <target name="compile">
-        <mkdir dir="${build.dir}"/>
-        <mkdir dir="${plugins.build.dir}"/>
-        <mkdir dir="${output.dir}"/>
-        
-        <copy includeemptydirs="false" todir="${build.dir}">
-            <fileset dir="${source.dir}">
-                <exclude name="**/*.launch"/>
-                <exclude name="**/*.java"/>
-            </fileset>
-        </copy>
-        
-        <javac destdir="${build.dir}" srcdir="${source.dir}" debug="${debug}" debuglevel="lines,vars,source">
-            <exclude name="**/.svn/"/>
-            <classpath refid="BH.core.classpath"/>
-        </javac>
-        
-        <foreach target="compileplugin" param="plugin" list="${plugins.list}"/>
-    </target>
-    
-    <target name="compileplugin">
-        <mkdir dir="${plugins.build.dir}/${plugin}"/>
-        <copy includeemptydirs="false" todir="${plugins.build.dir}/${plugin}">
-            <fileset dir="${plugins.source.dir}/${plugin}">
-                <exclude name="**/*.launch"/>
-                <exclude name="**/*.java"/>
-				<exclude name="${plugin}.xml"/>
-            </fileset>
-        </copy>
-        <javac destdir="${plugins.build.dir}/${plugin}" srcdir="${plugins.source.dir}/${plugin}" debug="${debug}" debuglevel="lines,vars,source">
-            <exclude name="**/.svn/"/>
-            <classpath refid="BH.plugin.classpath"/>
-        </javac>
-    </target>
-    
-    <target depends="preparepluginsjars" name="createpluginsjars">
-        <mkdir dir="${plugins.output.dir}"/>
-        <foreach target="createpluginjar" param="plugin" list="${plugins.list}"/>
-    </target>
-    
-    <target depends="compile" name="createpluginjar">
-        <jar destfile="${plugins.output.dir}/${plugin}.jar">
-            <fileset dir="${plugins.jar.dir}/${plugin}"/>
-        </jar>
-        
-        <signjar jar="${plugins.output.dir}/${plugin}.jar" keystore="${jar.store.file}" alias="${jar.store.alias}" storepass="${jar.store.pass}"/>
-		
-		<copy file="${plugins.source.dir}/${plugin}/${plugin}.xml" todir="${plugins.output.dir}" />
-    </target>
 
-    <target depends="compile" name="preparejar">
-        <mkdir dir="${jar.dir}"/>
-    	<mkdir dir="${helpen.dir}"/>
-    	<mkdir dir="${helpde.dir}"/>
-        <unzip dest="${jar.dir}">
-            <fileset dir="${lib.dir}">
+	<!-- targets -->
+
+	<target name="clean">
+		<delete dir="${build.dir}" />
+		<delete dir="${plugins.build.dir}" />
+		<delete dir="${jar.dir}" />
+		<delete dir="${plugins.jar.dir}" />
+		<delete dir="${output.dir}" />
+		<delete dir="${helpde.dir}" />
+		<delete dir="${helpen.dir}" />
+
+	</target>
+	<target depends="clean, cleanunittests" name="cleanall" />
+
+	<target name="compile">
+		<mkdir dir="${build.dir}" />
+		<mkdir dir="${plugins.build.dir}" />
+		<mkdir dir="${output.dir}" />
+
+		<copy includeemptydirs="false" todir="${build.dir}">
+			<fileset dir="${source.dir}">
+				<exclude name="**/*.launch" />
+				<exclude name="**/*.java" />
+			</fileset>
+		</copy>
+
+		<javac destdir="${build.dir}" srcdir="${source.dir}" debug="${debug}" debuglevel="lines,vars,source">
+			<exclude name="**/.svn/" />
+			<classpath refid="BH.core.classpath" />
+		</javac>
+
+		<foreach target="compileplugin" param="plugin" list="${plugins.list}" />
+	</target>
+
+	<target name="compileplugin">
+		<mkdir dir="${plugins.build.dir}/${plugin}" />
+		<copy includeemptydirs="false" todir="${plugins.build.dir}/${plugin}">
+			<fileset dir="${plugins.source.dir}/${plugin}">
+				<exclude name="**/*.launch" />
+				<exclude name="**/*.java" />
+				<exclude name="${plugin}.xml" />
+			</fileset>
+		</copy>
+		<javac destdir="${plugins.build.dir}/${plugin}" srcdir="${plugins.source.dir}/${plugin}" debug="${debug}" debuglevel="lines,vars,source">
+			<exclude name="**/.svn/" />
+			<classpath refid="BH.plugin.classpath" />
+		</javac>
+	</target>
+
+	<target depends="preparepluginsjars" name="createpluginsjars">
+		<mkdir dir="${plugins.output.dir}" />
+		<foreach target="createpluginjar" param="plugin" list="${plugins.list}" />
+	</target>
+
+	<target depends="compile" name="createpluginjar">
+		<jar destfile="${plugins.output.dir}/${plugin}.jar">
+			<fileset dir="${plugins.jar.dir}/${plugin}" />
+		</jar>
+
+		<signjar jar="${plugins.output.dir}/${plugin}.jar" keystore="${jar.store.file}" alias="${jar.store.alias}" storepass="${jar.store.pass}" />
+
+		<copy file="${plugins.source.dir}/${plugin}/${plugin}.xml" todir="${plugins.output.dir}" />
+	</target>
+
+	<target depends="compile" name="preparejar">
+		<mkdir dir="${jar.dir}" />
+		<unzip dest="${jar.dir}">
+			<fileset dir="${lib.dir}">
 				<include name="*.jar" />
 				<include name="formula/**/*.jar" />
 			</fileset>
-        </unzip>
-    	 <unzip dest="${helpde.dir}">
-    	            <fileset dir="${lib.dir}">
-    					<include name="*de.zip" />
-    				</fileset>
-    	        </unzip>
-    	<unzip dest="${helpen.dir}">
-    	    	            <fileset dir="${lib.dir}">
-    	    					<include name="*en.zip" />
-    	    				</fileset>
-    	    	        </unzip>
-    	
-        <delete>
-            <fileset dir="${jar.dir}" defaultexcludes="false">
-                <include name="META-INF/*.RSA"/>
-                <include name="META-INF/*.SF"/>
-                <include name="META-INF/MANIFEST.MF"/>
-                <include name="META-INF/LICENSE*"/>
-                <include name="META-INF/NOTICE*"/>
-            </fileset>
-        </delete>
+		</unzip>
 
-        <copy todir="${jar.dir}">
-            <fileset dir="${build.dir}"/>
-        </copy>
-    	<copy todir="${helpde.dir}">
-    	            <fileset dir="${build.dir}"/>
-    	        </copy>
-    	<copy todir="${helpen.dir}">
-    	            <fileset dir="${build.dir}"/>
-    	        </copy>
-    </target>
-	
+		<delete>
+			<fileset dir="${jar.dir}" defaultexcludes="false">
+				<include name="META-INF/*.RSA" />
+				<include name="META-INF/*.SF" />
+				<include name="META-INF/MANIFEST.MF" />
+				<include name="META-INF/LICENSE*" />
+				<include name="META-INF/NOTICE*" />
+			</fileset>
+		</delete>
+
+		<copy todir="${jar.dir}">
+			<fileset dir="${build.dir}" />
+		</copy>
+	</target>
+
 	<target depends="compile" name="preparepluginjar">
-        <mkdir dir="${plugins.jar.dir}/${plugin}"/>
+		<mkdir dir="${plugins.jar.dir}/${plugin}" />
 
-        <unzip dest="${plugins.jar.dir}/${plugin}">
-            <fileset dir="${lib.dir}">
+		<unzip dest="${plugins.jar.dir}/${plugin}">
+			<fileset dir="${lib.dir}">
 				<include name="plugins/${plugin}/**/*.jar" />
 			</fileset>
-        </unzip>
+		</unzip>
 
-        <delete>
-            <fileset dir="${plugins.jar.dir}/${plugin}" defaultexcludes="false">
-                <include name="META-INF/*.RSA"/>
-                <include name="META-INF/*.SF"/>
-                <include name="META-INF/MANIFEST.MF"/>
-                <include name="META-INF/LICENSE*"/>
-                <include name="META-INF/NOTICE*"/>
-            </fileset>
-        </delete>
+		<delete>
+			<fileset dir="${plugins.jar.dir}/${plugin}" defaultexcludes="false">
+				<include name="META-INF/*.RSA" />
+				<include name="META-INF/*.SF" />
+				<include name="META-INF/MANIFEST.MF" />
+				<include name="META-INF/LICENSE*" />
+				<include name="META-INF/NOTICE*" />
+			</fileset>
+		</delete>
 
-        <copy todir="${plugins.jar.dir}/${plugin}">
-            <fileset dir="${plugins.build.dir}/${plugin}"/>
-        </copy>
-    </target>
-	
+		<copy todir="${plugins.jar.dir}/${plugin}">
+			<fileset dir="${plugins.build.dir}/${plugin}" />
+		</copy>
+	</target>
+
 	<target depends="compile" name="preparepluginsjars">
-        <mkdir dir="${plugins.jar.dir}"/>
-        <foreach target="preparepluginjar" param="plugin" list="${plugins.list}"/>
-    </target>
+		<mkdir dir="${plugins.jar.dir}" />
+		<foreach target="preparepluginjar" param="plugin" list="${plugins.list}" />
+	</target>
 
-    <target depends="preparejar" name="createcorejar">
-        <jar destfile="${jar.name.core}">
-            <manifest>
-                <attribute name="Main-Class" value="${jar.mainclass}"/>
-                <attribute name="Class-Path" value="."/>
-                <attribute name="SplashScreen-Image" value="org/bh/images/SplashScreen.jpg"/>
-            </manifest>
-            <fileset dir="${jar.dir}"/>
-        </jar>
-        
-        <signjar jar="${jar.name.core}" keystore="${jar.store.file}" alias="${jar.store.alias}" storepass="${jar.store.pass}"/>
-    </target>
-    
-    <target depends="preparejar" name="createbundledjar">
-        <jar destfile="${jar.name.bundled}" duplicate="preserve">
-            <manifest>
-                <attribute name="Main-Class" value="${jar.mainclass}"/>
-                <attribute name="Class-Path" value="."/>
-                <attribute name="SplashScreen-Image" value="org/bh/images/SplashScreen.jpg"/>
-            </manifest>
-            <fileset dir="${jar.dir}"/>
-            <fileset dir="." includes="${plugins.jar.dir}/**" />
-        </jar>
-        
-        <signjar jar="${jar.name.bundled}" keystore="${jar.store.file}" alias="${jar.store.alias}" storepass="${jar.store.pass}"/>
-    </target>
-    
-    <target depends="compile" name="javadoc">
-        <javadoc
-         destdir="${javadoc.dir}"
-         author="true"
-         version="true"
-         use="true"
-         charset="UTF-8"
-         classpathref="BH.combined.classpath"
-         windowtitle="Business Horizon">
-         
-            <sourcepath>
-                <path location="${source.dir}" />
-                <dirset dir="${plugins.source.dir}" includes="*" />
-            </sourcepath>
-            
-            <doctitle>
-                <![CDATA[<h1>Business Horizon</h1>]]>
+	<target depends="preparejar" name="createcorejar">
+		<jar destfile="${jar.name.core}">
+			<manifest>
+				<attribute name="Main-Class" value="${jar.mainclass}" />
+				<attribute name="Class-Path" value="." />
+				<attribute name="SplashScreen-Image" value="org/bh/images/SplashScreen.jpg" />
+			</manifest>
+			<fileset dir="${jar.dir}" />
+		</jar>
+
+		<signjar jar="${jar.name.core}" keystore="${jar.store.file}" alias="${jar.store.alias}" storepass="${jar.store.pass}" />
+	</target>
+
+	<target depends="preparejar" name="createbundledjar">
+		<jar destfile="${jar.name.bundled}" duplicate="preserve">
+			<manifest>
+				<attribute name="Main-Class" value="${jar.mainclass}" />
+				<attribute name="Class-Path" value="." />
+				<attribute name="SplashScreen-Image" value="org/bh/images/SplashScreen.jpg" />
+			</manifest>
+			<fileset dir="${jar.dir}" />
+			<fileset dir="." includes="${plugins.jar.dir}/**" />
+		</jar>
+
+		<signjar jar="${jar.name.bundled}" keystore="${jar.store.file}" alias="${jar.store.alias}" storepass="${jar.store.pass}" />
+	</target>
+
+	<target depends="compile" name="javadoc">
+		<javadoc destdir="${javadoc.dir}" author="true" version="true" use="true" charset="UTF-8" classpathref="BH.combined.classpath" windowtitle="Business Horizon">
+
+			<sourcepath>
+				<path location="${source.dir}" />
+				<dirset dir="${plugins.source.dir}" includes="*" />
+			</sourcepath>
+
+			<doctitle>
+				<![CDATA[<h1>Business Horizon</h1>]]>
             </doctitle>
-            <bottom>
-                <![CDATA[<i>Copyright &#169; 2009-2010 Business Horizon Project Team. All Rights Reserved.</i>]]>
+		<bottom>
+			<![CDATA[<i>Copyright &#169; 2009-2010 Business Horizon Project Team. All Rights Reserved.</i>]]>
             </bottom>
-            <tag name="todo" scope="all" description="To do:"/>
-        </javadoc>
-    </target>
-    
-    <target depends="createcorejar, createpluginsjars, createbundledjar" name="build"/>
-	
-	<!-- unittest targets -->	
-	<target depends="compile, compileunittests" name="unittests">
-	    <mkdir dir="${junit.dir}/results/raw"/>
+	<tag name="todo" scope="all" description="To do:" />
+</javadoc>
+</target>
 
-		<junit printsummary="true" failureproperty="junit.failure">
-	    	<classpath refid="junit.classpath"/>
-	    	<batchtest todir="${junit.dir}/results/raw">
-	        	<fileset dir="${unittests.build.dir}"/>
-	        	<formatter type="xml"/>
-	    	</batchtest>
-	    </junit>
+<target depends="createcorejar, createpluginsjars, createbundledjar" name="build" />
 
-		<junitreport todir="${junit.dir}/results">
-	      <fileset dir="${junit.dir}/results/raw"/>
-	      <report todir="${junit.dir}/reports"/>
-	    </junitreport>
-	</target>
-	
-	<target name="compileunittests">
-	    <mkdir dir="${unittests.build.dir}"/>
-		<javac destdir="${unittests.build.dir}" srcdir="${unittests.source.dir}" debug="${debug}" debuglevel="lines,vars,source">
-				<include name="${unittests.includes}"/>
-	            <exclude name="**/.svn/"/>
-	            <classpath refid="junit.classpath"/>
-	        </javac>
-	</target>
-	
-	<target name="cleanunittests">
-		  <delete dir="${unittests.build.dir}"/>
-	      <delete dir="${junit.dir}"/>
-	</target>
+<!-- unittest targets -->
+<target depends="compile, compileunittests" name="unittests">
+<mkdir dir="${junit.dir}/results/raw" />
+
+<junit printsummary="true" failureproperty="junit.failure">
+	<classpath refid="junit.classpath" />
+	<batchtest todir="${junit.dir}/results/raw">
+		<fileset dir="${unittests.build.dir}" />
+		<formatter type="xml" />
+	</batchtest>
+</junit>
+
+<junitreport todir="${junit.dir}/results">
+	<fileset dir="${junit.dir}/results/raw" />
+	<report todir="${junit.dir}/reports" />
+</junitreport>
+</target>
+
+<target name="compileunittests">
+<mkdir dir="${unittests.build.dir}" />
+<javac destdir="${unittests.build.dir}" srcdir="${unittests.source.dir}" debug="${debug}" debuglevel="lines,vars,source">
+	<include name="${unittests.includes}" />
+	<exclude name="**/.svn/" />
+	<classpath refid="junit.classpath" />
+</javac>
+</target>
+
+<target name="cleanunittests">
+<delete dir="${unittests.build.dir}" />
+<delete dir="${junit.dir}" />
+</target>
 </project>
