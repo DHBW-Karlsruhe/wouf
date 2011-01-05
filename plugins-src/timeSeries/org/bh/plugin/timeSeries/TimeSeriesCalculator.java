@@ -64,17 +64,26 @@ public class TimeSeriesCalculator {
 		for (int i = 0; i< p ; i++){
 			Yt_m_p_m_mue = cashflows.get(i).toNumber().doubleValue() - mue;
 			Yt_m_p_m_mue_liste.add(Yt_m_p_m_mue);
-			System.out.println("TimeSeriesCalculator: Yt-"+(i+1)+"-mü ="+Yt_m_p_m_mue);
+			System.out.println("TimeSeriesCalculator: Yt-"+(p-(i))+"-mü ="+Yt_m_p_m_mue);//umgedreht ausgeben, da liste später umgedreht wird
 		}
+		Collections.reverse(Yt_m_p_m_mue_liste);
 		//Schritt 3: Y(Gamma) aus (Yt-1-µ)*(Yt-2-µ) + (Yt-2-µ)*(Yt-3-µ) + ... berechnen
 		Iterator iterator = Yt_m_p_m_mue_liste.iterator();
 		double Y_Gamma = 0;
+		double Yt_m_p1_m_mue = 0; //Yt-(p+1)-µ
 		counter = 0;
 		while (iterator.hasNext()){ //Yt_m_p_m_mue_liste durchlaufen
-			Yt_m_p_m_mue =  (Double) iterator.next(); //element holen
-//			System.out.println(Yt_m_p_m_mue);
-			Y_Gamma = Y_Gamma + Yt_m_p_m_mue * (Double) iterator.next(); 
+			iterator = Yt_m_p_m_mue_liste.iterator();//iterator neu initalisieren
+			for(int i=0; i<counter; i++){//iterator "zurückspulen" ersetzt reverse option von iterator
+				iterator.next();
+			}
+			Yt_m_p_m_mue =  (Double) iterator.next(); //nächstes element holen
+			Yt_m_p1_m_mue =  (Double) iterator.next(); //übernächstes element holen
+			System.out.println("TimeSeriesCalculator: Yt_m_p_m_mue="+Yt_m_p_m_mue+ " Yt_m_p1_m_mue="+Yt_m_p1_m_mue+ " multiplizieren ergibt:"+(Yt_m_p_m_mue * Yt_m_p1_m_mue));
+			Y_Gamma = Y_Gamma + (Yt_m_p_m_mue * Yt_m_p1_m_mue);
+			counter++;
 		}
+		counter = 0;
 		Y_Gamma = Math.abs(Y_Gamma/p);
 		System.out.println("TimeSeriesCalculator: Y(Gamma)="+Y_Gamma);
 		//Ergebnis zurückgeben
