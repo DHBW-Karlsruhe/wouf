@@ -78,8 +78,6 @@
 		<delete dir="${jar.dir}" />
 		<delete dir="${plugins.jar.dir}" />
 		<delete dir="${output.dir}" />
-		<delete dir="${helpde.dir}" />
-		<delete dir="${helpen.dir}" />
 
 	</target>
 	<target depends="clean, cleanunittests" name="cleanall" />
@@ -140,6 +138,7 @@
 			<fileset dir="${lib.dir}">
 				<include name="*.jar" />
 				<include name="formula/**/*.jar" />
+				<exclude name="BH_Hilfe_en.jar"/>
 			</fileset>
 		</unzip>
 
