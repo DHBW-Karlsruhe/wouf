@@ -31,6 +31,9 @@ import org.jfree.chart.JFreeChart;
  * 
  * @author Norman
  * @version 1.0, 16.01.2010
+ * @update Vito Masiello 05.01.2011
+ * @version 1.1
+ * @comment Anpassung für die XLS Ausgabe
  * 
  */
 public class ExcelExport implements IImportExport {
@@ -40,11 +43,11 @@ public class ExcelExport implements IImportExport {
 	static final Logger log = Logger.getLogger(ExcelExport.class);
 	ITranslator trans = BHTranslator.getInstance();
 
-	private static final String UNIQUE_ID = "xlsx";
-	private static final String GUI_KEY = "XLSX";
+	private static final String UNIQUE_ID = "xls";
+	private static final String GUI_KEY = "XLS";
 
-	private static final String FILE_DESC = "Office Open XML Workbook (Excel 2007)";
-	private static final String FILE_EXT = "xlsx";
+	private static final String FILE_DESC = "XLS Workbook (Excel 2003)";
+	private static final String FILE_EXT = "xls";
 
 	public enum Keys {
 		OVERWRITE, OVERWRITETITLE, NOWRITE, NOWRITETITLE;

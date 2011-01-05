@@ -9,6 +9,7 @@ import java.util.Map;
 import java.util.Map.Entry;
 
 import org.apache.log4j.Logger;
+import org.apache.poi.hssf.usermodel.HSSFWorkbook;
 import org.apache.poi.ss.usermodel.Cell;
 import org.apache.poi.ss.usermodel.CellStyle;
 import org.apache.poi.ss.usermodel.CreationHelper;
@@ -16,8 +17,9 @@ import org.apache.poi.ss.usermodel.Font;
 import org.apache.poi.ss.usermodel.RichTextString;
 import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.ss.usermodel.Sheet;
-import org.apache.poi.ss.usermodel.Workbook;
-import org.apache.poi.xssf.usermodel.XSSFWorkbook;
+// imports für xlsx
+//import org.apache.poi.ss.usermodel.Workbook;
+//import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import org.bh.data.DTOPeriod;
 import org.bh.data.DTOScenario;
 import org.bh.data.IPeriodicalValuesDTO;
@@ -32,7 +34,9 @@ import org.bh.platform.i18n.ITranslator;
  * 
  * @author Norman
  * @version 1.0, 16.01.2010
- * 
+ * @update Vito Masiello 05.01.2011
+ * @version 1.1
+ * @comment XLS-Format wird ausgegeben
  */
 public class XSSFDocumentBuilder {
 
@@ -52,7 +56,7 @@ public class XSSFDocumentBuilder {
 		}
 	}
 
-	Workbook wb;
+	HSSFWorkbook wb;
 	CreationHelper crh;
 
 	Font titleFont;
@@ -61,7 +65,7 @@ public class XSSFDocumentBuilder {
 	CellStyle std;
 
 	public void newDocument() {
-		wb = new XSSFWorkbook();
+		wb = new HSSFWorkbook();
 		crh = wb.getCreationHelper();
 
 		titleFont = wb.createFont();
