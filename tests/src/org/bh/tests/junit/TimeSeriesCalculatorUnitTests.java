@@ -74,7 +74,7 @@ public class TimeSeriesCalculatorUnitTests {
 		Calculable cashfolw_t5 = new DoubleValue(11060);
 		Calculable cashfolw_t6 = new DoubleValue(11032);
 		Calculable cashfolw_t7 = new DoubleValue(14337);
-		Calculable cashfolw_t8 = new DoubleValue(13088);
+		Calculable cashfolw_t8 = new DoubleValue(13088); 
 
 		//Cashflowliste anlegen + füllen
 		List <Calculable> cashflows = new LinkedList<Calculable>();
