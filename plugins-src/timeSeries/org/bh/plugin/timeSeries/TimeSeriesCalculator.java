@@ -151,7 +151,7 @@ public class TimeSeriesCalculator {
 			}
 //			System.out.println(zufallsabweichung);
 //			System.out.println("Dummywert= " + (mittelwert*zufallsabweichung));
-			cashflow_mit_prognostizierung.add(0, new DoubleValue(mittelwert*zufallsabweichung));
+			cashflow_mit_prognostizierung.add(new DoubleValue(mittelwert*zufallsabweichung));
 		}
 		return cashflow_mit_prognostizierung;
 	}
