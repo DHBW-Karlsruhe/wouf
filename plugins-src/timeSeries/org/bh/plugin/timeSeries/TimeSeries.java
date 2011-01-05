@@ -169,9 +169,9 @@ public class TimeSeries implements ITimeSeriesProcess {
 	}
 
 	@Override
-	public TreeMap<Integer, Integer> calculate() {
+	public TreeMap<Integer, Double> calculate() {
 		//Berechnung für den Cashflow-Chart Vergangenheit bis in die Zukunft
-		TreeMap<Integer, Integer> result = new TreeMap();
+		TreeMap<Integer, Double> result = new TreeMap();
 	
 		TreeMap<DTOKeyPair, List<Calculable>> toBeDetermined = scenario.getPeriodStochasticKeysAndValues();
     	Entry<DTOKeyPair, List<Calculable>> drei = toBeDetermined.firstEntry();
@@ -181,15 +181,26 @@ public class TimeSeries implements ITimeSeriesProcess {
     	int f = map.get(AMOUNT_OF_PERIODS_FUTURE);
     	TimeSeriesCalculator calc = new TimeSeriesCalculator(p, funf);
     	List<Calculable> vier = calc.getDummyNextCashflows(f);
-    	int[][] data = new int[vier.size()][2];
-    	for(int i = 0;i<vier.size();i++){
-    		DoubleValue cashflow = (DoubleValue) vier.get(i);
-    		data[i][0] = new Double(i-f).intValue();
-    		data[i][1] = new Double(cashflow.getValue()).intValue();
+    	int counter = 1;
+    	for(Calculable cashflow : vier){
+    		int key = -(vier.size()-f)+counter;
+    		double value = cashflow.toNumber().doubleValue();
+    		result.put(key, value);
+    		counter ++;
+    		
     	}
-    	for(int i =0;i<data.length;i++){
-    		result.put(data[i][0],data[i][1]);
-    	}
+    	
+    	
+    	
+//    	int[][] data = new int[vier.size()][2];
+//    	for(int i = 0;i<vier.size();i++){
+//    		DoubleValue cashflow = (DoubleValue) vier.get(i);
+//    		data[i][0] = new Double(-(vier.size()-f)+i+1).intValue();
+//    		data[i][1] = new Double(cashflow.getValue()).intValue();
+//    	}
+//    	for(int i =0;i<data.length;i++){
+//    		result.put(data[i][0],data[i][1]);
+//    	}
 		return result;
 	}
 	

@@ -40,7 +40,7 @@ public interface ITimeSeriesProcess extends IDisplayablePlugin{
 
 	void updateParameters();
 
-	TreeMap<Integer, Integer> calculate();
+	TreeMap<Integer, Double> calculate();
 	
 	TreeMap<Integer, Integer>  calculateCompare();
 
