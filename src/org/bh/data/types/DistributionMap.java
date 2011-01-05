@@ -36,7 +36,7 @@ public class DistributionMap implements Map<Double, Integer>,
 	private int amountOfDifferentValues;
 	//only for displaying purpose
 	private int maxAmountOfValuesInCluster;
-	private TreeMap<Integer, Integer> TimeSeriesMap;
+	private TreeMap<Integer, Double> TimeSeriesMap;
 	private TreeMap<Integer, Integer> TimeSeriesMapCompare;
 	private boolean TimeSeries;
 
@@ -323,7 +323,7 @@ public class DistributionMap implements Map<Double, Integer>,
 	
 	// Methoden für die Zeitreihenanalyse
 	
-	public void setTimeSeries(TreeMap<Integer, Integer> tsMap){
+	public void setTimeSeries(TreeMap<Integer, Double> tsMap){
 		TimeSeries = true;
 		this.TimeSeriesMap = tsMap;
 	}
@@ -340,12 +340,12 @@ public class DistributionMap implements Map<Double, Integer>,
 	public double[][] toDoubleArrayTS(){
 		double[][] result2 = new double[TimeSeriesMap.keySet().size()][2];
 		int j = 0;
-		for(Entry<Integer, Integer> e : TimeSeriesMap.entrySet()){
+		for(Entry<Integer, Double> e : TimeSeriesMap.entrySet()){
 			result2[j][0] = e.getKey();
-			int value = e.getValue();
+			double value = e.getValue();
 			result2[j][1] = value;
 			if(value > maxAmountOfValuesInCluster)
-				maxAmountOfValuesInCluster = value;
+				maxAmountOfValuesInCluster = (int)value;
 			j++;
 		}
 		return result2;
