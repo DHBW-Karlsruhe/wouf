@@ -44,16 +44,17 @@ public class BHHelpSystem extends JPanel {
 			System.out.println(url.toString());
 			// URL wird hier geändert, damit die richtige Hilfedatei anhand der
 			// Locale gewählt wird
-			int urlsize = url.toString().length();
-			String urlold = url.toString().substring(0, urlsize - 19);
-			System.out.println(urlold);
-			String urlnew = (urlold + l.toString() + ".jar!/jhelpset.hs");
-			System.out.println(urlnew);
-			URL urlnewurl = new URL(urlnew);
-			System.out.println(urlnewurl.toString());
+		//	int urlsize = url.toString().length();
+			//String urlold = url.toString().substring(0, urlsize - 19);
+			//System.out.println(urlold);
+			//String urlnew = (urlold + l.toString() + ".jar!/jhelpset.hs");
+			//String urlnew = (urlold + l.toString() + ".jar/jhelpset.hs");
+			//System.out.println(urlnew);
+			//URL urlnewurl = new URL(urlnew);
+			//System.out.println(urlnewurl.toString());
 			// URL verändert
 
-			helpViewer = new JHelp(new HelpSet(cl, urlnewurl));
+			helpViewer = new JHelp(new HelpSet(cl, url));
 			helpViewer.setPreferredSize(new Dimension(930, 650));
 			helpViewer.setCurrentID(ID);
 
