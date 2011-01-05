@@ -46,6 +46,5 @@
 	<classpathentry kind="lib" path="lib/plugins/excelexport/poi-3.6-20091214.jar"/>
 	<classpathentry kind="lib" path="lib/plugins/excelexport/xmlbeans-2.3.0.jar"/>
 	<classpathentry kind="lib" path="lib/plugins/excelexport/poi-ooxml-schemas-3.6-20091214.jar"/>
-	<classpathentry kind="lib" path="lib/plugins/excelexport/dom4j-1.6.1.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>
