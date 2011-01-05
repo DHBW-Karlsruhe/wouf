@@ -14,8 +14,8 @@ public class TimeSeriesCalculatorUnitTests {
 	public void get_Ygamma_for_cashflowlist_Test() {
 		boolean alle_tests_erfolgreich = false;
 		//Parameter
-		System.out.println("---- TimeSeriesCalculatorUnitTests: get_Ygamma_for_cashflowlist_Test ----");
 		int p = 2;
+		System.out.println("---- TimeSeriesCalculatorUnitTests: get_Ygamma_for_cashflowlist_Test p="+p+"----");
 		Calculable cashfolw_tm1 = new DoubleValue(16681);
 		Calculable cashfolw_t0 = new DoubleValue(18023);
 		Calculable cashfolw_t1 = new DoubleValue(16017);
@@ -62,15 +62,29 @@ public class TimeSeriesCalculatorUnitTests {
 	public void getYgammaList_Test() {
 		boolean fehler_gefunden = false;
 		//Parameter
-		System.out.println("---- TimeSeriesCalculatorUnitTests: getYgammaList_Test ----");
 		int p = 2;
+		System.out.println("---- TimeSeriesCalculatorUnitTests: getYgammaList_Test p="+p+"----");
+		
 		Calculable cashfolw_tm1 = new DoubleValue(16681);
 		Calculable cashfolw_t0 = new DoubleValue(18023);
 		Calculable cashfolw_t1 = new DoubleValue(16017);
 		Calculable cashfolw_t2 = new DoubleValue(15944);
+		Calculable cashfolw_t3 = new DoubleValue(15909);
+		Calculable cashfolw_t4 = new DoubleValue(13826);
+		Calculable cashfolw_t5 = new DoubleValue(11060);
+		Calculable cashfolw_t6 = new DoubleValue(11032);
+		Calculable cashfolw_t7 = new DoubleValue(14337);
+		Calculable cashfolw_t8 = new DoubleValue(13088);
+
 		//Cashflowliste anlegen + füllen
 		List <Calculable> cashflows = new LinkedList<Calculable>();
 		System.out.println("--Test1--");
+		cashflows.add(cashfolw_t8);System.out.println(cashfolw_t8.toNumber() + " zur Cashflowliste hinzufügen");
+		cashflows.add(cashfolw_t7);System.out.println(cashfolw_t7.toNumber() + " zur Cashflowliste hinzufügen");
+		cashflows.add(cashfolw_t6);System.out.println(cashfolw_t6.toNumber() + " zur Cashflowliste hinzufügen");
+		cashflows.add(cashfolw_t5);System.out.println(cashfolw_t5.toNumber() + " zur Cashflowliste hinzufügen");
+		cashflows.add(cashfolw_t4);System.out.println(cashfolw_t4.toNumber() + " zur Cashflowliste hinzufügen");
+		cashflows.add(cashfolw_t3);System.out.println(cashfolw_t3.toNumber() + " zur Cashflowliste hinzufügen");
 		cashflows.add(cashfolw_t2);System.out.println(cashfolw_t2.toNumber() + " zur Cashflowliste hinzufügen");
 		cashflows.add(cashfolw_t1); System.out.println(cashfolw_t1.toNumber() + " zur Cashflowliste hinzufügen");
 		cashflows.add(cashfolw_t0); System.out.println(cashfolw_t0.toNumber() + " zur Cashflowliste hinzufügen");
