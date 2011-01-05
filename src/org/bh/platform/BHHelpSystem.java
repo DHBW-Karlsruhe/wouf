@@ -40,14 +40,18 @@ public class BHHelpSystem extends JPanel {
 			ClassLoader cl = BHHelpSystem.class.getClassLoader();
 			Locale l = Services.getTranslator().getLocale();
 			URL url = HelpSet.findHelpSet(cl, "jhelpset.hs");
-			
-			// URL wird hier geändert, damit die richtige Hilfedatei anhand der Locale gewählt wird
+			System.out.println(url.toString());
+			// URL wird hier geändert, damit die richtige Hilfedatei anhand der
+			// Locale gewählt wird
 			int urlsize = url.toString().length();
 			String urlold = url.toString().substring(0, urlsize - 19);
+			System.out.println(urlold);
 			String urlnew = (urlold + l.toString() + ".jar!/jhelpset.hs");
+			System.out.println(urlnew);
 			URL urlnewurl = new URL(urlnew);
+			System.out.println(urlnewurl.toString());
 			// URL verändert
-			
+
 			helpViewer = new JHelp(new HelpSet(cl, urlnewurl));
 			helpViewer.setPreferredSize(new Dimension(930, 650));
 			helpViewer.setCurrentID(ID);
