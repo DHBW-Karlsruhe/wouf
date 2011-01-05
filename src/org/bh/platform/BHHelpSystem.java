@@ -40,25 +40,30 @@ public class BHHelpSystem extends JPanel {
 
 		try {
 			ClassLoader cl = BHHelpSystem.class.getClassLoader();
-			Locale l = Services.getTranslator().getLocale();
-			URL url = HelpSet.findHelpSet(cl, "jhelpset.hs");
 			Logger log = Logger.getLogger(BHHelpSystem.class);
-			log.info(url.toString());
+
+			// Dieser Code muss aktiviert werden, damit die Software von Hudson
+			// kompiliert läuft
+			URL url = HelpSet.findHelpSet(cl, "jhelpset.hs");
+			// ----------------------------------------------------------------
+
+			// Dieser Code muss aktiviert werden, wenn die Software unabhängig
+			// von Hudson kompiliert wird
+
 			// URL wird hier geändert, damit die richtige Hilfedatei anhand der
 			// Locale gewählt wird
+			// Locale l = Services.getTranslator().getLocale();
 			// int urlsize = url.toString().length();
-
 			// String urlold = url.toString().substring(0, urlsize - 19);
-			// String urlold = url.toString().substring(0, urlsize - 17);
+			// TODO Pfadlänge checken und anpassen
 			// log.info(urlold);
 			// String urlnew = (urlold + l.toString() + ".jar!/jhelpset.hs");
-			// String urlnew = (urlold + "_Hilfe_" + l.toString() +
-			// ".jar!/jhelpset.hs");
 			// log.info(urlnew);
 			// URL urlnewurl = new URL(urlnew);
 			// log.info(urlnewurl.toString());
-			// URL verändert
+			// -----------------------------------------------------------------
 
+			log.info(url.toString());
 			helpViewer = new JHelp(new HelpSet(cl, url));
 			helpViewer.setPreferredSize(new Dimension(930, 650));
 			helpViewer.setCurrentID(ID);
