@@ -36,7 +36,6 @@
 	<classpathentry kind="lib" path="lib/TimingFramework-1.0.jar" sourcepath="lib/src/TimingFramework-1.0-src.zip"/>
 	<classpathentry kind="lib" path="lib/jdom.jar"/>
 	<classpathentry kind="lib" path="lib/BH_Hilfe_de.jar"/>
-	<classpathentry kind="lib" path="lib/BH_Hilfe_en.jar"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.junit.JUNIT_CONTAINER/4"/>
 	<classpathentry kind="lib" path="lib/build_lib/ia_math.jar"/>
 	<classpathentry kind="lib" path="lib/jh.jar"/>
