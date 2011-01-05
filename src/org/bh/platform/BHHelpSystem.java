@@ -37,6 +37,7 @@ public class BHHelpSystem extends JPanel {
 	public void initialise(String ID) {
 
 		try {
+			System.out.println("HIER GEHTS NOCH");
 			ClassLoader cl = BHHelpSystem.class.getClassLoader();
 			Locale l = Services.getTranslator().getLocale();
 			URL url = HelpSet.findHelpSet(cl, "jhelpset.hs");
