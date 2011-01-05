@@ -451,8 +451,8 @@ public class ScenarioController extends InputController {
 			
 			BHCheckBox timeSeries = (BHCheckBox) view.getBHComponent(DTOScenario.Key.TIMESERIES_PROCESS);
 			if(timeSeries.isSelected()){
-				result.setTimeSeries(TSprocess.calculate());
 				TSprocess.updateParameters();
+				result.setTimeSeries(TSprocess.calculate());
 				TSprocess.print(scenario);
 			}
 
