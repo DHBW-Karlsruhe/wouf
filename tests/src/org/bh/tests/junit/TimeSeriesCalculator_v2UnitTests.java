@@ -69,42 +69,6 @@ public class TimeSeriesCalculator_v2UnitTests {
 	}
 	
 	@Test
-	public void getDummyNextCashflows_Test() {
-		boolean fehler_gefunden = false;
-		//Parameter
-		System.out.println("---- TimeSeriesCalculatorUnitTests: getDummyNextCashflows_Test ----");
-		//TimeSeriesCalculator erstellen
-		TimeSeriesCalculator_v2 calculator = new TimeSeriesCalculator_v2(cashflows);
-		List <Calculable> cashflows_inkl_prognostizierte = new LinkedList<Calculable>();
-		cashflows_inkl_prognostizierte = calculator.getDummyNextCashflows(3);
-		System.out.println("--neue Cashflowliste:");
-		for (Calculable cashflow : cashflows_inkl_prognostizierte){
-			System.out.println("-- "+cashflow.toNumber());
-		}
-		System.out.println("---- TimeSeriesCalculatorUnitTests: getDummyNextCashflows_Test beendet----");
-		assertTrue(!fehler_gefunden);
-	}
-	
-	
-	
-	
-	@Test
-	public void calculateCashflows_Test(){
-		boolean fehler_gefunden = false;
-		System.out.println("---- TimeSeriesCalculatorUnitTests: calculateCashflows_Test p="+p+" p_future="+p_future+"----");
-		
-		//TimeSeriesCalculator erstellen
-		TimeSeriesCalculator_v2 calculator = new TimeSeriesCalculator_v2(cashflows);
-		List <Calculable> cashflows_inkl_prognostizierte = new LinkedList<Calculable>();
-		cashflows_inkl_prognostizierte = calculator.calculateCashflows(p_future, p);
-		
-		for (Calculable cashflow : cashflows_inkl_prognostizierte){
-			System.out.println("-- "+cashflow.toNumber());
-		}
-		System.out.println("---- TimeSeriesCalculatorUnitTests: calculateCashflows_Test p="+p+" p_future="+p_future+" beendet----");
-	}
-	
-	@Test
 	public void kalkuliere_differenz_rechnung_test(){
 		boolean fehler_gefunden = false;
 		System.out.println("---- TimeSeriesCalculatorUnitTests: kalkuliere_differenz_rechnung_Test ----");
@@ -226,6 +190,42 @@ public class TimeSeriesCalculator_v2UnitTests {
 		double nextCashflow = calculator.kalkuliere_NextCashfolw(c0c1c2, cashflows);
 		System.out.println("nächster Cashflow ist "+nextCashflow);
 		System.out.println("---- TimeSeriesCalculatorUnitTests: kalkuliere_NextCashfolw_Testauft beendet----");
+	}
+	
+	@Test
+	public void getDummyNextCashflows_Test() {
+		boolean fehler_gefunden = false;
+		//Parameter
+		System.out.println("---- TimeSeriesCalculatorUnitTests: getDummyNextCashflows_Test ----");
+		//TimeSeriesCalculator erstellen
+		TimeSeriesCalculator_v2 calculator = new TimeSeriesCalculator_v2(cashflows);
+		List <Calculable> cashflows_inkl_prognostizierte = new LinkedList<Calculable>();
+		cashflows_inkl_prognostizierte = calculator.getDummyNextCashflows(3);
+		System.out.println("--neue Cashflowliste:");
+		for (Calculable cashflow : cashflows_inkl_prognostizierte){
+			System.out.println("-- "+cashflow.toNumber());
+		}
+		System.out.println("---- TimeSeriesCalculatorUnitTests: getDummyNextCashflows_Test beendet----");
+		assertTrue(!fehler_gefunden);
+	}
+	
+	
+	
+	
+	@Test
+	public void calculateCashflows_Test(){
+		boolean fehler_gefunden = false;
+		System.out.println("---- TimeSeriesCalculatorUnitTests: calculateCashflows_Test p="+p+" p_future="+p_future+"----");
+		
+		//TimeSeriesCalculator erstellen
+		TimeSeriesCalculator_v2 calculator = new TimeSeriesCalculator_v2(cashflows);
+		List <Calculable> cashflows_inkl_prognostizierte = new LinkedList<Calculable>();
+		cashflows_inkl_prognostizierte = calculator.calculateCashflows(p_future, p);
+		
+		for (Calculable cashflow : cashflows_inkl_prognostizierte){
+			System.out.println("-- "+cashflow.toNumber());
+		}
+		System.out.println("---- TimeSeriesCalculatorUnitTests: calculateCashflows_Test p="+p+" p_future="+p_future+" beendet----");
 	}
 
 }
