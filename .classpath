@@ -35,8 +35,8 @@
 	<classpathentry exported="true" kind="lib" path="lib/tests/Prog1Tools.zip"/>
 	<classpathentry exported="true" kind="lib" path="lib/TimingFramework-1.0.jar" sourcepath="lib/src/TimingFramework-1.0-src.zip"/>
 	<classpathentry exported="true" kind="lib" path="lib/jdom.jar"/>
-	<classpathentry exported="true" kind="lib" path="lib/BH_Hilfe_de.jar"/>
-	<classpathentry exported="true" kind="lib" path="lib/BH_Hilfe_en.jar"/>
+	<classpathentry kind="lib" path="C:/Users/Pati/Documents/DH/MWI workspace/Business Horizon/lib/BH_Hilfe_de.zip"/>
+	<classpathentry kind="lib" path="C:/Users/Pati/Documents/DH/MWI workspace/Business Horizon/lib/BH_Hilfe_en.zip"/>
 	<classpathentry exported="true" kind="con" path="org.eclipse.jdt.junit.JUNIT_CONTAINER/4"/>
 	<classpathentry exported="true" kind="lib" path="lib/build_lib/ia_math.jar"/>
 	<classpathentry exported="true" kind="lib" path="lib/jh.jar"/>

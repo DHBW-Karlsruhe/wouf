@@ -132,14 +132,24 @@
 
     <target depends="compile" name="preparejar">
         <mkdir dir="${jar.dir}"/>
-
+    	<mkdir dir="${help.dir}"/>
         <unzip dest="${jar.dir}">
             <fileset dir="${lib.dir}">
 				<include name="*.jar" />
 				<include name="formula/**/*.jar" />
 			</fileset>
         </unzip>
-
+    	 <unzip dest="${helpde.dir}">
+    	            <fileset dir="${lib.dir}">
+    					<include name="*de.zip" />
+    				</fileset>
+    	        </unzip>
+    	<unzip dest="${helpen.dir}">
+    	    	            <fileset dir="${lib.dir}">
+    	    					<include name="*en.zip" />
+    	    				</fileset>
+    	    	        </unzip>
+    	
         <delete>
             <fileset dir="${jar.dir}" defaultexcludes="false">
                 <include name="META-INF/*.RSA"/>
