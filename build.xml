@@ -18,8 +18,6 @@
 	<property name="unittests.build.dir" value="tests/bin" />
 	<property name="jar.dir" value="jar" />
 	<property name="plugins.jar.dir" value="plugins" />
-	<property name="helpen.dir" value="${build.dir}/helpen" />
-	<property name="helpde.dir" value="${build.dir}/helpde" />
 
 	<!-- build result dirs -->
 	<property name="output.dir" value="output" />
@@ -36,7 +34,6 @@
 	<property name="jar.store.file" value="jarsign.keystore" />
 	<property name="jar.store.alias" value="bhjar" />
 	<property name="plugins.list" value="gcc,apv,directinput,fcf,fte,resultAnalysis,xmldataexchange,randomWalk,wienerProcess,pdfexport,excelexport,stochasticResultAnalysis,timeSeries" />
-	<property name="help.list" value="BH_Hilfe_de.jar,BH_Hilfe_en.jar" />
 	<property name="debug" value="true" />
 
 
@@ -79,8 +76,6 @@
 		<delete dir="${jar.dir}" />
 		<delete dir="${plugins.jar.dir}" />
 		<delete dir="${output.dir}" />
-		<delete dir="${helpde.dir}" />
-		<delete dir="${helpen.dir}" />
 
 	</target>
 	<target depends="clean, cleanunittests" name="cleanall" />
@@ -137,33 +132,6 @@
 		<copy file="${plugins.source.dir}/${plugin}/${plugin}.xml" todir="${plugins.output.dir}" />
 	</target>
 
-
-
-	<target depends="compile" name="preparehelpde">
-		<mkdir dir="${helpde.dir}" />
-		<unzip dest="${helpde.dir}">
-			<fileset dir="${lib.dir}">
-				<include name="**/*BH_Hilfe_de.jar" />
-			</fileset>
-		</unzip>
-		<copy todir="${helpde.dir}">
-			<fileset dir="${build.dir}" />
-		</copy>
-	</target>
-	<target depends="compile" name="preparehelpen">
-			<mkdir dir="${helpen.dir}" />
-			<unzip dest="${helpen.dir}">
-				<fileset dir="${lib.dir}">
-					<include name="**/*BH_Hilfe_en.jar" />
-				</fileset>
-			</unzip>
-			<copy todir="${helpen.dir}">
-				<fileset dir="${build.dir}" />
-			</copy>
-		</target>
-
-
-
 	<target depends="compile" name="preparejar">
 		<mkdir dir="${jar.dir}" />
 		<unzip dest="${jar.dir}">
@@ -171,7 +139,6 @@
 				<include name="*.jar" />
 				<include name="formula/**/*.jar" />
 				<exclude name="BH_Hilfe_en.jar" />
-				<exclude name="BH_Hilfe_de.jar" />
 			</fileset>
 		</unzip>
 
@@ -264,7 +231,7 @@
 </javadoc>
 </target>
 
-<target depends="createcorejar, createpluginsjars, createbundledjar, preparehelpen, preparehelpde" name="build" />
+<target depends="createcorejar, createpluginsjars, createbundledjar" name="build" />
 
 <!-- unittest targets -->
 <target depends="compile, compileunittests" name="unittests">
