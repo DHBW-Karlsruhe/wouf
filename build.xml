@@ -18,8 +18,8 @@
 	<property name="unittests.build.dir" value="tests/bin" />
 	<property name="jar.dir" value="jar" />
 	<property name="plugins.jar.dir" value="plugins" />
-	<property name="helpen.dir" value="helpen" />
-	<property name="helpde.dir" value="helpde" />
+	<property name="helpen.dir" value="${build.dir}/helpen" />
+	<property name="helpde.dir" value="${build.dir}/helpde" />
 
 	<!-- build result dirs -->
 	<property name="output.dir" value="output" />
@@ -36,6 +36,7 @@
 	<property name="jar.store.file" value="jarsign.keystore" />
 	<property name="jar.store.alias" value="bhjar" />
 	<property name="plugins.list" value="gcc,apv,directinput,fcf,fte,resultAnalysis,xmldataexchange,randomWalk,wienerProcess,pdfexport,excelexport,stochasticResultAnalysis,timeSeries" />
+	<property name="help.list" value="BH_Hilfe_de.jar,BH_Hilfe_en.jar" />
 	<property name="debug" value="true" />
 
 
@@ -119,6 +120,8 @@
 		</javac>
 	</target>
 
+
+
 	<target depends="preparepluginsjars" name="createpluginsjars">
 		<mkdir dir="${plugins.output.dir}" />
 		<foreach target="createpluginjar" param="plugin" list="${plugins.list}" />
@@ -134,33 +137,33 @@
 		<copy file="${plugins.source.dir}/${plugin}/${plugin}.xml" todir="${plugins.output.dir}" />
 	</target>
 
-	
-	
-	
-	
-	
-	<target name="compilehelp">
-			<mkdir dir="${plugins.build.dir}/${helpde.dir}" />
-		<mkdir dir="${plugins.build.dir}/${helpen.dir}" />
-			<copy includeemptydirs="false" todir="${plugins.build.dir}/${helpde.dir}">
-				<fileset dir="${plugins.source.dir}/${plugin}">
-					<include name="**/*BH_Hilfe_de.jar" />
+
+
+	<target depends="compile" name="preparehelpde">
+		<mkdir dir="${helpde.dir}" />
+		<unzip dest="${helpde.dir}">
+			<fileset dir="${lib.dir}">
+				<include name="**/*BH_Hilfe_de.jar" />
+			</fileset>
+		</unzip>
+		<copy todir="${helpde.dir}">
+			<fileset dir="${build.dir}" />
+		</copy>
+	</target>
+	<target depends="compile" name="preparehelpen">
+			<mkdir dir="${helpen.dir}" />
+			<unzip dest="${helpen.dir}">
+				<fileset dir="${lib.dir}">
+					<include name="**/*BH_Hilfe_en.jar" />
 				</fileset>
+			</unzip>
+			<copy todir="${helpen.dir}">
+				<fileset dir="${build.dir}" />
 			</copy>
-		<copy includeemptydirs="false" todir="${plugins.build.dir}/${helpen.dir}">
-						<fileset dir="${plugins.source.dir}/${plugin}">
-							<include name="**/*BH_Hilfe_en.jar" />
-						</fileset>
-					</copy>
-			<javac destdir="${plugins.build.dir}/${helpde.dir}" srcdir="${plugins.source.dir}/${plugin}" debug="${debug}" debuglevel="lines,vars,source">
-				<exclude name="**/.svn/" />
-				<classpath refid="BH.plugin.classpath" />
-			</javac>
 		</target>
-	
-	
-	
-	
+
+
+
 	<target depends="compile" name="preparejar">
 		<mkdir dir="${jar.dir}" />
 		<unzip dest="${jar.dir}">
