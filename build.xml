@@ -264,7 +264,7 @@
 </javadoc>
 </target>
 
-<target depends="createcorejar, createpluginsjars, createbundledjar" name="build" />
+<target depends="createcorejar, createpluginsjars, createbundledjar, preparehelpen, preparehelpde" name="build" />
 
 <!-- unittest targets -->
 <target depends="compile, compileunittests" name="unittests">
