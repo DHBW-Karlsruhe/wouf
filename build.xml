@@ -78,6 +78,8 @@
 		<delete dir="${jar.dir}" />
 		<delete dir="${plugins.jar.dir}" />
 		<delete dir="${output.dir}" />
+		<delete dir="${helpde.dir}" />
+		<delete dir="${helpen.dir}" />
 
 	</target>
 	<target depends="clean, cleanunittests" name="cleanall" />
@@ -132,13 +134,41 @@
 		<copy file="${plugins.source.dir}/${plugin}/${plugin}.xml" todir="${plugins.output.dir}" />
 	</target>
 
+	
+	
+	
+	
+	
+	<target name="compilehelp">
+			<mkdir dir="${plugins.build.dir}/${helpde.dir}" />
+		<mkdir dir="${plugins.build.dir}/${helpen.dir}" />
+			<copy includeemptydirs="false" todir="${plugins.build.dir}/${helpde.dir}">
+				<fileset dir="${plugins.source.dir}/${plugin}">
+					<include name="**/*BH_Hilfe_de.jar" />
+				</fileset>
+			</copy>
+		<copy includeemptydirs="false" todir="${plugins.build.dir}/${helpen.dir}">
+						<fileset dir="${plugins.source.dir}/${plugin}">
+							<include name="**/*BH_Hilfe_en.jar" />
+						</fileset>
+					</copy>
+			<javac destdir="${plugins.build.dir}/${helpde.dir}" srcdir="${plugins.source.dir}/${plugin}" debug="${debug}" debuglevel="lines,vars,source">
+				<exclude name="**/.svn/" />
+				<classpath refid="BH.plugin.classpath" />
+			</javac>
+		</target>
+	
+	
+	
+	
 	<target depends="compile" name="preparejar">
 		<mkdir dir="${jar.dir}" />
 		<unzip dest="${jar.dir}">
 			<fileset dir="${lib.dir}">
 				<include name="*.jar" />
 				<include name="formula/**/*.jar" />
-				<exclude name="BH_Hilfe_en.jar"/>
+				<exclude name="BH_Hilfe_en.jar" />
+				<exclude name="BH_Hilfe_de.jar" />
 			</fileset>
 		</unzip>
 
