@@ -66,8 +66,60 @@ public class TimeSeriesCalculator_v2 {
 		return cashflow_mit_prognostizierung;
 	}
 	
-	
-	
+	/**
+	 * Kalkulierungstest für p (Berücksichtigung der Perioden der Vergangenheit)<br>
+	 * Prognostiziert die bereits bekannten Cashflows, indem für die Vergangenheit prognostiziert wird.
+	 * @param periods_to_history Faktor p (Berücksichtigung der Perioden der Vergangenheit)
+	 * @param puffer Anzahl der vergangen Perioden, die nicht prognostiziert werden sollen. => puffer-1 muss >= periods_to_history sein
+	 * @return  Liste mit Test-Prognostizierungen für die Vergangenheit
+	 */
+	public List<Calculable> calcultionTest_4_periods_to_history(int periods_to_history, int puffer) throws NumberFormatException{
+		if(puffer-1 < periods_to_history){
+			System.out.println("Fehler puffer-1 muss >= periods_to_history sein puffer="+puffer+" periods_to_history="+periods_to_history);
+			throw new NumberFormatException("Fehler puffer-1 muss >= periods_to_history sein puffer="+puffer+" periods_to_history="+periods_to_history);
+		}
+		
+		List<Calculable> cashflows_beruecksichtigt = new LinkedList<Calculable>(); //Liste mit berücksichtigten Cashflows
+		List<Calculable> cashflows_nicht_beruecksichtig = new LinkedList<Calculable>(); //Liste mit noch nicht berücksichtigten Cashflows
+		List<Calculable> cashflows_calculationTest = new LinkedList<Calculable>(); //Liste mit kalkulations-Test (Rückgabe-Wert)
+		int counter =1;
+		boolean puffer_uebergelaufen = false;
+		for(Calculable cashflow : this.cashflows){//original Liste in zu manipulierende Liste kopieren, bis puffer erreicht ist
+			if(!puffer_uebergelaufen){//falls puffer nicht übergelaufen
+				cashflows_beruecksichtigt.add(cashflow);
+				cashflows_calculationTest.add(cashflow);
+//				System.out.println("add to cashflows manipuliert "+cashflow.toNumber().doubleValue());
+			}else{//falls puffer übergelaufen
+				cashflows_nicht_beruecksichtig.add(cashflow);
+//				System.out.println("add to cashflows nicht beruecksichtig "+cashflow.toNumber().doubleValue());
+			}
+			if(counter >= puffer && counter >= periods_to_history){//puffer checken
+				puffer_uebergelaufen = true;
+			}
+			counter++;
+		}
+		
+		ListIterator lI_cashflows_n_beruecks = cashflows_nicht_beruecksichtig.listIterator();
+		//Vorinitalisierung
+		double nextCashflow = 0;
+		List<DoubleValue> differenz_rechnung = null;
+		double my = 0;
+		List <DoubleValue> yt_m_my = null; //Yt-µ
+		List <DoubleValue> abcdef = null;
+		List <DoubleValue> c0c1c2 = null;
+		Calculable cashflow_unberuecksichtigt = null;
+		while(lI_cashflows_n_beruecks.hasNext()){//Liste der noch nicht berücksichtigten Cashflows durchlaufen..
+			//prognostiziere Cashflow
+			nextCashflow = calulateNextCashflow(cashflows_beruecksichtigt, periods_to_history);
+			//nicht berücksichtigten Cashflow holen und speichern
+			cashflow_unberuecksichtigt = (Calculable) lI_cashflows_n_beruecks.next(); 
+			//prognostizierter Cashflow KalkulationsTest-Liste hinzufügen
+			cashflows_calculationTest.add(new DoubleValue(nextCashflow));
+			//realer unberücksichtigter Cashfolw der Liste "berücksichtigt" hinzufügen
+			cashflows_beruecksichtigt.add(cashflow_unberuecksichtigt);
+		}
+		return cashflows_calculationTest;
+	}
 	
 	
 	/**
@@ -91,16 +143,30 @@ public class TimeSeriesCalculator_v2 {
 		
 		//Iteratives Berechnen der Cashflows..
 		for(int i=0; i<periods_calc_to_future; i++){
-			differenz_rechnung = kalkuliere_differenz_rechnung(cashflows_manipuliert); //Differenzen zwischen den Cashflows der einzelnen Perioden
-			my = kalkuliere_my(differenz_rechnung); // µ
-			yt_m_my = kalkuliere_Yt_m_My(my, differenz_rechnung, periods_calc_to_history); //Yt-µ
-			abcdef = kalkuliere_abcdef(yt_m_my, my, periods_calc_to_history, differenz_rechnung, cashflows_manipuliert);
-			c0c1c2 = kalkuliere_c0_bis_cx(abcdef);
-			nextCashflow = kalkuliere_NextCashfolw(c0c1c2, cashflows_manipuliert);
+			nextCashflow = calulateNextCashflow(cashflows_manipuliert, periods_calc_to_history);
 			cashflows_manipuliert.add(new DoubleValue(nextCashflow));
 		}
 
 		return cashflows_manipuliert;
+	}
+	
+	public double calulateNextCashflow(List<Calculable> cashflow_liste, int periods_calc_to_history){
+		
+		List<DoubleValue> differenz_rechnung = null;
+		double my = 0;
+		List <DoubleValue> yt_m_my = null; //Yt-µ
+		List <DoubleValue> abcdef = null;
+		List <DoubleValue> c0c1c2 = null;
+		double nextCashflow = 0 ;
+		
+		differenz_rechnung = kalkuliere_differenz_rechnung(cashflow_liste); //Differenzen zwischen den Cashflows der einzelnen Perioden
+		my = kalkuliere_my(differenz_rechnung); // µ
+		yt_m_my = kalkuliere_Yt_m_My(my, differenz_rechnung, periods_calc_to_history); //Yt-µ
+		abcdef = kalkuliere_abcdef(yt_m_my, my, periods_calc_to_history, differenz_rechnung, cashflow_liste);
+		c0c1c2 = kalkuliere_c0_bis_cx(abcdef);
+		nextCashflow = kalkuliere_NextCashfolw(c0c1c2, cashflow_liste);
+		
+		return nextCashflow;
 	}
 	
 	/**
