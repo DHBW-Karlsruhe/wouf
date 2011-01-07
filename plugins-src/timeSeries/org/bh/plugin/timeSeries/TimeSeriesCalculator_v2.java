@@ -123,7 +123,7 @@ public class TimeSeriesCalculator_v2 {
 	
 	
 	/**
-	 * @param periods_calc_to_future
+	 * @param periods_calc_to_future Anzahl der für die Zukunft zu prognostizierenden Cashflows
 	 * @param periods_calc_to_history steht für die Anzahl der zu berücksichtigenden vergangenen Perioden (auch mit p abgekuerzt)
 	 * @return Cashflowliste mit prognostizierten Cashflows
 	 */
