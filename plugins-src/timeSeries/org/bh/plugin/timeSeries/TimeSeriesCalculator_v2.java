@@ -174,7 +174,6 @@ public class TimeSeriesCalculator_v2 {
 	/**
 	 * kalkuliert a, b, c, d, e, ... (falls p=2 exisitert a, b; falls p=3 exisitert a, b, c; usw)<br>
 	 * a= Mittelwert(Yt-µ * (Yt-1-µ)) ; b = Mittelwert(Yt-µ * (Yt-2-µ)) ; c = Mittelwert(Yt-µ * (Yt-3-µ))  ; usw.
-	 * TODO sollte mit unterschiedlichen p-Werten getestet werden
 	 * @param yt_m_My vorher kalkulierte Yt-µ Liste als List mit DoubleValue
 	 * @param my vorher vorher kalkuliertes µ als double-Wert
 	 * @param p steht für die Anzahl der zu berücksichtigenden vergangenen Perioden (periods_calc_to_history)
@@ -193,18 +192,20 @@ public class TimeSeriesCalculator_v2 {
 		double multiplikation = 0;
 		double multiplikation_summiert = 0;
 		int counter = 0;
+		int index_of_differenz_gleichung = 0;
 		
 		for(int i=0; i<p; i++){//durchlaufe p => 0=a, 1=b, 2=c, usw...
 			yt_m_My_listIterator = yt_m_My.listIterator();//hole ListIterator der "Yt-µ"-Liste
-			cashflows_listIterator = cashflows_manipuliert.listIterator(p-1);//hole ListIterator der "Cashflow"-Liste beginnend beim Index p-1
-			differenz_Gleichung_listIterator = differenz_Gleichung.listIterator(p-2); //hole ListIterator der Differenzgleichung beim Index p-2
 			counter = 0; //counter zurücksetzen
-			while(yt_m_My_listIterator.hasNext() && cashflows_listIterator.hasNext()){
-				yt_m_My_Wert = ((DoubleValue)yt_m_My_listIterator.next()).toNumber().doubleValue();
-				if(counter < i ){
+			multiplikation_summiert = 0; //zurücksetzen
+			while(yt_m_My_listIterator.hasNext()){//summiere multiplikationen: (Yt-µ)*(Yt-1-µ) für a bzw. (Yt-µ)*(Yt-2-µ) für b
+				yt_m_My_Wert = ((DoubleValue)yt_m_My_listIterator.next()).toNumber().doubleValue(); //hole Yt-µ-Wert
+				index_of_differenz_gleichung = (p-i-1 +counter); //p-i-1 ergibt startwert, counter dazu addiert ergibt index
+//				System.out.println("index_of_differenz_gleichung= "+index_of_differenz_gleichung);
+				if(index_of_differenz_gleichung < 1 ){//falls index kleiner als 1
 					yt_m_x_m_My_Wert = 0-my;
-				}else{
-					yt_m_x_m_My_Wert = (((DoubleValue)differenz_Gleichung_listIterator.next()).toNumber().doubleValue())-my;
+				}else{//ansonsten
+					yt_m_x_m_My_Wert = (((DoubleValue)differenz_Gleichung.get(index_of_differenz_gleichung-1)).toNumber().doubleValue())-my;
 				}
 				multiplikation = yt_m_My_Wert * yt_m_x_m_My_Wert;
 				multiplikation_summiert = multiplikation_summiert + multiplikation;
@@ -254,5 +255,26 @@ public class TimeSeriesCalculator_v2 {
 //			System.out.println("Cashflow= "+cashflow + " * cx="+cx);
 		}
 		return nextCashflow;
+	}
+	
+	
+	/*
+	 * Getter- & Setter-Methoden
+	 */
+	
+	/**
+	 * Getter-Methode für cashflows
+	 * @return cashflows
+	 */
+	public List<Calculable> getCashflows() {
+		return cashflows;
+	}
+	
+	/**
+	 * Setter-Methode für Cashflows
+	 * @param cashflows
+	 */
+	public void setCashflows(List<Calculable> cashflows) {
+		this.cashflows = cashflows;
 	}
 }
