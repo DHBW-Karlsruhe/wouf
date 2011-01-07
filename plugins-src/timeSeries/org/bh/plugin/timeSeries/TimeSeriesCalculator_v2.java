@@ -27,7 +27,7 @@ public class TimeSeriesCalculator_v2 {
 	
 	/**
 	 * Standardkonstruktor
-	 * @param cashflows Liste mit den Cashflows, sortiert nach Perioden
+	 * @param cashflows Liste mit den Cashflows, sortiert nach Perioden (Vergangenheit nach Zukunft)
 	 */
 	public TimeSeriesCalculator_v2(List<Calculable> cashflows){
 		this.cashflows = new LinkedList<Calculable>();//initalisiere this.cashflows
