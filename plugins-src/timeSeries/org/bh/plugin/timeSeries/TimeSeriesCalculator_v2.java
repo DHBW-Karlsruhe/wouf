@@ -16,7 +16,7 @@ import org.bh.data.types.DoubleValue;
  * TODO NOT finally implemented
  * @author Andreas Wussler
  * @since 1.0, 28.12.2010
- * @version 2.0, 05.01.2011
+ * @version 2.0, 07.01.2011
  *
  */
 public class TimeSeriesCalculator_v2 {
