@@ -324,5 +324,25 @@ public class TimeSeriesCalculator_v2UnitTests {
 		System.out.println("---- TimeSeriesCalculatorUnitTests: calculateCashflows_Test beendet----");
 		assertTrue(keine_fehler);
 	}
+	
+	@Test
+	public void calcultionTest_4_periods_to_history_Test(){
+		boolean keine_fehler = true;
+		System.out.println("---- TimeSeriesCalculatorUnitTests: calcultionTest_4_periods_to_history_Test ----");
+		
+		//TimeSeriesCalculator erstellen
+		TimeSeriesCalculator_v2 calculator = new TimeSeriesCalculator_v2(cashflows);
+		List <Calculable> cashflows_kalkulations_test = new LinkedList<Calculable>();
+		
+		cashflows_kalkulations_test = calculator.calcultionTest_4_periods_to_history(2, 3);
+		
+		//Ausgabe
+		for (Calculable cashflow : cashflows_kalkulations_test){
+			System.out.println("-- p=2 -- "+cashflow.toNumber());
+		}
+		
+		System.out.println("---- TimeSeriesCalculatorUnitTests: calcultionTest_4_periods_to_history_Test beendet----");
+		assertTrue(keine_fehler);
+	}
 
 }
