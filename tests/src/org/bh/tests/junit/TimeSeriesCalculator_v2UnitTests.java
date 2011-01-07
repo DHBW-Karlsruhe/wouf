@@ -2,6 +2,8 @@ package org.bh.tests.junit;
 
 import static org.junit.Assert.assertTrue;
 
+import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Method;
 import java.util.LinkedList;
 import java.util.List;
 import org.junit.Before;
@@ -65,7 +67,7 @@ public class TimeSeriesCalculator_v2UnitTests {
 	}
 	
 	@Test
-	public void kalkuliere_differenz_rechnung_test(){
+	public void kalkuliere_differenz_rechnung_test() throws SecurityException, NoSuchMethodException, IllegalArgumentException, IllegalAccessException, InvocationTargetException{
 		boolean fehler_gefunden = false;
 		System.out.println("---- TimeSeriesCalculatorUnitTests: kalkuliere_differenz_rechnung_Test ----");
 		
