@@ -185,8 +185,6 @@ public class TimeSeriesCalculator_v2 {
 		List<DoubleValue> abcdef = new LinkedList<DoubleValue>(); //Liste a, b, c, d, ... beinhalten soll (return-Wert)
 		
 		ListIterator yt_m_My_listIterator = null; //deklariere ListIterator der "Yt-µ"-Liste
-		ListIterator cashflows_listIterator = null; //deklariere ListIterator der "Cashflow"-Liste
-		ListIterator differenz_Gleichung_listIterator = null; //deklariere ListIterator der "Differenz-Gleichung"-Liste
 		double yt_m_My_Wert = 0;
 		double yt_m_x_m_My_Wert = 0;
 		double multiplikation = 0;
