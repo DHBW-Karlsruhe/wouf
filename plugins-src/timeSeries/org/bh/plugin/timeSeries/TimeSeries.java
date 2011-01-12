@@ -129,7 +129,7 @@ public class TimeSeries implements ITimeSeriesProcess {
 		
 		result.add(new BHDescriptionLabel(AMOUNT_OF_PERIODS_BACK), cons.xywh(2, 2,1, 1));
 		BHTextField tf3 = new BHTextField(AMOUNT_OF_PERIODS_BACK);
-		ValidationRule[] rules3 = { VRMandatory.INSTANCE, VRIsInteger.INSTANCE, VRIsGreaterThan.GTZERO};
+		ValidationRule[] rules3 = { VRMandatory.INSTANCE, VRIsInteger.INSTANCE, VRIsGreaterThan.GTETWO};
 		tf3.setValidationRules(rules3);
 		result.add(tf3, cons.xywh(4, 2, 1, 1));
 		
@@ -179,8 +179,8 @@ public class TimeSeries implements ITimeSeriesProcess {
     	List<Calculable> funf = drei.getValue();
     	int p = map.get(AMOUNT_OF_PERIODS_BACK);
     	int f = map.get(AMOUNT_OF_PERIODS_FUTURE);
-    	TimeSeriesCalculator calc = new TimeSeriesCalculator(p, funf);
-    	List<Calculable> vier = calc.getDummyNextCashflows(f);
+    	TimeSeriesCalculator_v2 calc = new TimeSeriesCalculator_v2(funf);
+    	List<Calculable> vier = calc.calculateCashflows(f,p);
     	int counter = 1;
     	for(Calculable cashflow : vier){
     		int key = -(vier.size()-f)+counter;
@@ -189,18 +189,6 @@ public class TimeSeries implements ITimeSeriesProcess {
     		counter ++;
     		
     	}
-    	
-    	
-    	
-//    	int[][] data = new int[vier.size()][2];
-//    	for(int i = 0;i<vier.size();i++){
-//    		DoubleValue cashflow = (DoubleValue) vier.get(i);
-//    		data[i][0] = new Double(-(vier.size()-f)+i+1).intValue();
-//    		data[i][1] = new Double(cashflow.getValue()).intValue();
-//    	}
-//    	for(int i =0;i<data.length;i++){
-//    		result.put(data[i][0],data[i][1]);
-//    	}
 		return result;
 	}
 	
