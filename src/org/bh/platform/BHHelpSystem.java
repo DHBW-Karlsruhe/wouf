@@ -42,29 +42,25 @@ public class BHHelpSystem extends JPanel {
 			ClassLoader cl = BHHelpSystem.class.getClassLoader();
 			Logger log = Logger.getLogger(BHHelpSystem.class);
 
-			// Dieser Code muss aktiviert werden, damit die Software von Hudson
-			// kompiliert läuft
-			URL url = HelpSet.findHelpSet(cl, "jhelpset.hs");
-			// ----------------------------------------------------------------
-
-			// Dieser Code muss aktiviert werden, wenn die Software unabhängig
-			// von Hudson kompiliert wird
-
+			// Standardpfad für Hilfe-Datei wird gewählt
+			URL url = HelpSet.findHelpSet(cl, "de/jhelpset.hs");
+		
 			// URL wird hier geändert, damit die richtige Hilfedatei anhand der
 			// Locale gewählt wird
-			// Locale l = Services.getTranslator().getLocale();
-			// int urlsize = url.toString().length();
-			// String urlold = url.toString().substring(0, urlsize - 19);
+			Locale l = Services.getTranslator().getLocale();
+			int urlsize = url.toString().length();
+			String urlold = url.toString().substring(0, urlsize - 20);
 			// TODO Pfadlänge checken und anpassen
+			log.info("Hilfedatei gefunden: " + url);
 			// log.info(urlold);
-			// String urlnew = (urlold + l.toString() + ".jar!/jhelpset.hs");
-			// log.info(urlnew);
-			// URL urlnewurl = new URL(urlnew);
-			// log.info(urlnewurl.toString());
+			String urlnew = (urlold + ".jar!/" + l + "/jhelpset.hs");
+			log.info(urlnew);
+			URL urlnewurl = new URL(urlnew);
+			log.info("Benutzte Hilfedatei: " + urlnewurl.toString());
 			// -----------------------------------------------------------------
 
-			log.info(url.toString());
-			helpViewer = new JHelp(new HelpSet(cl, url));
+			//log.info(urlnewurl.toString());
+			helpViewer = new JHelp(new HelpSet(cl, urlnewurl));
 			helpViewer.setPreferredSize(new Dimension(930, 650));
 			helpViewer.setCurrentID(ID);
 
