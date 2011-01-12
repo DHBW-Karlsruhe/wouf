@@ -351,4 +351,19 @@ public class DistributionMap implements Map<Double, Integer>,
 		return result2;
 		
 	}
+	
+	public Object[][] toObjectArrayTS(){
+		Object[][] result2 = new Object[TimeSeriesMap.keySet().size()][2];
+		int j = 0;
+		for(Entry<Integer, Double> e : TimeSeriesMap.entrySet()){
+			result2[j][0] = e.getKey();
+			double value = e.getValue();
+			result2[j][1] = value;
+			if(value > maxAmountOfValuesInCluster)
+				maxAmountOfValuesInCluster = (int)value;
+			j++;
+		}
+		return result2;
+		
+	}
 }

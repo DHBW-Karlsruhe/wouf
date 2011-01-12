@@ -107,7 +107,7 @@ public class DTOScenario extends DTO<DTOPeriod> {
 		/**
 		 * Parameters for the stochastic process
 		 */
-		STOCHASTIC_PARAMETERS;
+		STOCHASTIC_PARAMETERS, DETERMINISTIC_PERIODS;
 
 		@Override
 		public String toString() {

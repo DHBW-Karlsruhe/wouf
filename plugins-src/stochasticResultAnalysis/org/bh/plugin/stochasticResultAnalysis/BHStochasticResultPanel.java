@@ -5,6 +5,7 @@ package org.bh.plugin.stochasticResultAnalysis;
 
 import java.awt.BorderLayout;
 
+import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
@@ -46,11 +47,9 @@ public class BHStochasticResultPanel extends JPanel{
 		}
 		mainPanel = mainStochastic;
 		this.add(mainPanel, BorderLayout.CENTER);
-		
 		JPanel exportArea = new JPanel(new GridBagLayout());
 		d = new GridBagConstraints();
 
-		
 		d.fill = GridBagConstraints.HORIZONTAL;
 		d.gridx = 0;
 		d.gridy = 0;

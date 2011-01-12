@@ -28,6 +28,15 @@ public class BHSlider extends JSlider implements IBHComponent {
 		this.setPaintTicks(true);
 		this.setPaintLabels(true);
 	}
+	
+	public BHSlider(Object key){
+		super(SwingConstants.HORIZONTAL);
+		this.key = key.toString();
+		this.setMajorTickSpacing(10);
+		this.setMinorTickSpacing(2);
+		this.setPaintTicks(true);
+		this.setPaintLabels(true);
+	}
 
 	@Override
 	public String getHint() {

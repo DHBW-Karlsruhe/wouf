@@ -13,6 +13,7 @@ import javax.swing.event.CaretEvent;
 import javax.swing.event.CaretListener;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
+import javax.swing.table.DefaultTableModel;
 
 import org.bh.controller.OutputController;
 import org.bh.data.DTOKeyPair;
@@ -28,6 +29,7 @@ import org.bh.gui.chart.IBHAddValue;
 import org.bh.gui.swing.comp.BHButton;
 import org.bh.gui.swing.comp.BHCheckBox;
 import org.bh.gui.swing.comp.BHSlider;
+import org.bh.gui.swing.comp.BHTable;
 import org.bh.gui.swing.comp.BHTextField;
 import org.bh.gui.swing.importexport.BHDataExchangeDialog;
 import org.bh.gui.view.View;
@@ -40,7 +42,7 @@ import org.jfree.chart.JFreeChart;
 
 public class BHStochasticResultController extends OutputController {
     public static enum ChartKeys {
-	DISTRIBUTION_CHART, STANDARD_DEVIATION, AVERAGE, RISK_AT_VALUE, RISK_AT_VALUE_MIN, RISK_AT_VALUE_MAX, CASHFLOW_CHART, CASHFLOW_CHART_COMPARE;
+	DISTRIBUTION_CHART, STANDARD_DEVIATION, AVERAGE, RISK_AT_VALUE, RISK_AT_VALUE_MIN, RISK_AT_VALUE_MAX, CASHFLOW_CHART, CASHFLOW_CHART_COMPARE, CASHFLOW_COMPARE_SLIDER;
 
 	@Override
 	public String toString() {
@@ -50,7 +52,7 @@ public class BHStochasticResultController extends OutputController {
     }
 
     public static enum PanelKeys {
-	riskAtValue, AVERAGE, VALUE, PRINTSCENARIO, EXPORTSCENARIO, CASHFLOW;
+	riskAtValue, AVERAGE, VALUE, PRINTSCENARIO, EXPORTSCENARIO, CASHFLOW, CASHFLOW_TABLE, COMPARE_P;
 
 	@Override
 	public String toString() {
@@ -58,6 +60,7 @@ public class BHStochasticResultController extends OutputController {
 	}
 
     }
+    
 
     public BHStochasticResultController(View view, DistributionMap result, DTOScenario scenario) {
 	super(view, result, scenario);
@@ -68,6 +71,7 @@ public class BHStochasticResultController extends OutputController {
 	
 		if(result.isTimeSeries()){
 			setResultTimeSeries(result, scenario);
+			
 		}
 		
     }
@@ -92,14 +96,26 @@ public class BHStochasticResultController extends OutputController {
     }
     
     public void setResultTimeSeries(DistributionMap result, DTOScenario scenario){
+    	
+    	BHSlider sliderCompare = (BHSlider) view.getBHComponent(ChartKeys.CASHFLOW_COMPARE_SLIDER.toString());
+		sliderCompare.addChangeListener(new SliderChangeListener());
+		
     	IBHAddValue comp2 = super.view.getBHchartComponents().get(ChartKeys.CASHFLOW_CHART.toString());
     	comp2.addSeries(Services.getTranslator().translate(PanelKeys.CASHFLOW.toString()),result.toDoubleArrayTS());
     	
     	IBHAddValue comp3 = super.view.getBHchartComponents().get(ChartKeys.CASHFLOW_CHART_COMPARE.toString());
-    	//erste Kurce
+    	//erste Kurve
     	comp3.addSeries(Services.getTranslator().translate(PanelKeys.CASHFLOW.toString()),result.toDoubleArrayTS());
     	//zweite Kurve
     	comp3.addSeries(Services.getTranslator().translate(PanelKeys.CASHFLOW.toString()),result.toDoubleArrayTS());
+    	
+    	String TableKey = PanelKeys.CASHFLOW_TABLE.toString();
+    	BHTable cashTable = ((BHTable) view.getBHComponent(TableKey));
+    	Object[][] data = result.toObjectArrayTS();
+    	sliderCompare.setMaximum(data[0].length-1);
+    	String[] headers = {"Periode", "Cashflow"};
+    	DefaultTableModel tableModel = new DefaultTableModel(data, headers);
+    	cashTable.setTableModel(tableModel);
     	    	
     }
 
@@ -143,8 +159,17 @@ public class BHStochasticResultController extends OutputController {
 
 	@Override
 	public void stateChanged(ChangeEvent e) {
-	    double confidence = ((BHSlider) view.getBHComponent(ChartKeys.RISK_AT_VALUE.toString())).getValue();
-	    calcRiskAtValue(confidence, stochasticResult.getMaxAmountOfValuesInCluster());
+		String key = ((BHSlider)e.getSource()).getKey();
+		String keyCompare = ChartKeys.RISK_AT_VALUE.toString();
+		if(key.equals(keyCompare)){
+		    double confidence = ((BHSlider) view.getBHComponent(ChartKeys.RISK_AT_VALUE.toString())).getValue();
+		    calcRiskAtValue(confidence, stochasticResult.getMaxAmountOfValuesInCluster());
+		}
+		keyCompare = ChartKeys.CASHFLOW_COMPARE_SLIDER.toString();
+		if(key.equals(keyCompare)){
+			// hier die neuberechnung bei verändertem P
+		}
+		
 	}
 
     }

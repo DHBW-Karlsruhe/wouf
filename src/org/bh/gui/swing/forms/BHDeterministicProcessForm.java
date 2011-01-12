@@ -6,6 +6,7 @@ import java.awt.Dimension;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
+import javax.swing.table.DefaultTableModel;
 
 import org.bh.data.DTOScenario;
 import org.bh.data.types.IValue;
@@ -95,7 +96,9 @@ public final class BHDeterministicProcessForm extends JPanel {
 				"org.bh.data.DTOPeriod$Key.FCF" };
 		// this.tperioddata = new JTable(data, columnnames) {
 		// wird jetzt als BHTable erstellt, damit ist es nun übersetzbar
-		this.tperioddata = new BHTable(data, columnnames) {
+		DefaultTableModel tableModel = new DefaultTableModel(data, columnnames);
+		
+		this.tperioddata = new BHTable(tableModel, DTOScenario.Key.DETERMINISTIC_PERIODS){
 			// always make the table as large as necessary
 			@Override
 			public Dimension getPreferredScrollableViewportSize() {
