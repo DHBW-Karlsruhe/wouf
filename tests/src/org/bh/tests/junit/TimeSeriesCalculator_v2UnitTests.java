@@ -29,16 +29,16 @@ public class TimeSeriesCalculator_v2UnitTests {
 	/*
 	 * Cashflow liste
 	 */
-	final Calculable cashfolw_tm1 = new DoubleValue(16681);
-	final Calculable cashfolw_t0 = new DoubleValue(18023);
-	final Calculable cashfolw_t1 = new DoubleValue(16017);
-	final Calculable cashfolw_t2 = new DoubleValue(15944);
-	final Calculable cashfolw_t3 = new DoubleValue(15909);
-	final Calculable cashfolw_t4 = new DoubleValue(13826);
-	final Calculable cashfolw_t5 = new DoubleValue(11060);
-	final Calculable cashfolw_t6 = new DoubleValue(11032);
-	final Calculable cashfolw_t7 = new DoubleValue(14337);
-	final Calculable cashfolw_t8 = new DoubleValue(13088); 
+	final Calculable cashfolw_tm9 = new DoubleValue(16681);
+	final Calculable cashfolw_tm8 = new DoubleValue(18023);
+	final Calculable cashfolw_tm7 = new DoubleValue(16017);
+	final Calculable cashfolw_tm6 = new DoubleValue(15944);
+	final Calculable cashfolw_tm5 = new DoubleValue(15909);
+	final Calculable cashfolw_tm4 = new DoubleValue(13826);
+	final Calculable cashfolw_tm3 = new DoubleValue(11060);
+	final Calculable cashfolw_tm2 = new DoubleValue(11032);
+	final Calculable cashfolw_tm1 = new DoubleValue(14337);
+	final Calculable cashfolw_t0 = new DoubleValue(13088); 
 	
 	/**
 	 * Cashflow-Liste
@@ -48,16 +48,16 @@ public class TimeSeriesCalculator_v2UnitTests {
 	@Before
 	public void setUp() {
 		System.out.println("---- TimeSeriesCalculatorUnitTests: setUp() ----");
+		cashflows.add(cashfolw_tm9);
+		cashflows.add(cashfolw_tm8);
+		cashflows.add(cashfolw_tm7);
+		cashflows.add(cashfolw_tm6);
+		cashflows.add(cashfolw_tm5);
+		cashflows.add(cashfolw_tm4);
+		cashflows.add(cashfolw_tm3);
+		cashflows.add(cashfolw_tm2);
 		cashflows.add(cashfolw_tm1);
 		cashflows.add(cashfolw_t0);
-		cashflows.add(cashfolw_t1);
-		cashflows.add(cashfolw_t2);
-		cashflows.add(cashfolw_t3);
-		cashflows.add(cashfolw_t4);
-		cashflows.add(cashfolw_t5);
-		cashflows.add(cashfolw_t6);
-		cashflows.add(cashfolw_t7);
-		cashflows.add(cashfolw_t8);
 		
 		for(Calculable cashflow : cashflows){
 			System.out.println("Cashflow: "+cashflow.toNumber().doubleValue());
