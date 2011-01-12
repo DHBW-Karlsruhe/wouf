@@ -5,6 +5,7 @@ package org.bh.plugin.stochasticResultAnalysis;
 
 import java.awt.Color;
 import java.awt.Dimension;
+import java.awt.Font;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.GridLayout;
@@ -30,6 +31,11 @@ import org.bh.gui.swing.comp.BHTable;
 import org.bh.gui.swing.comp.BHValueLabel;
 import org.bh.gui.swing.forms.border.BHBorderFactory;
 import org.bh.platform.i18n.ITranslator;
+import org.jfree.chart.plot.IntervalMarker;
+import org.jfree.chart.plot.XYPlot;
+import org.jfree.ui.Layer;
+import org.jfree.ui.RectangleAnchor;
+import org.jfree.ui.TextAnchor;
 
 import com.jgoodies.forms.layout.FormLayout;
 
@@ -64,7 +70,15 @@ public class StochasticPanel extends JPanel{
 	        distributionChart = BHChartFactory.getXYBarChart(BHStochasticResultController.ChartKeys.DISTRIBUTION_CHART);
 	        cashflowChart = BHChartFactory.getLineChart(BHStochasticResultController.ChartKeys.CASHFLOW_CHART);
 	        cashflowChartCompare = BHChartFactory.getLineChart(BHStochasticResultController.ChartKeys.CASHFLOW_CHART_COMPARE);
-	     
+	        XYPlot plot = cashflowChart.getChart().getXYPlot();
+	        IntervalMarker target = new IntervalMarker(0.0, 500.0);
+			target.setLabel("Prognostiziert");
+	        target.setLabelAnchor(RectangleAnchor.BOTTOM);
+	        target.setLabelTextAnchor(TextAnchor.BOTTOM_CENTER);
+	        target.setLabelFont(new Font("SansSerif", Font.ITALIC, 20));
+			target.setPaint(new Color(222, 222, 255, 128));
+			plot.addDomainMarker(target, Layer.BACKGROUND);
+	 
 
 	        BHDescriptionLabel sd = new BHDescriptionLabel("standardDeviation");
 	        BHDescriptionLabel ew = new BHDescriptionLabel((BHStochasticResultController.PanelKeys.AVERAGE));

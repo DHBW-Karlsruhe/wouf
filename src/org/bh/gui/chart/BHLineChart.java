@@ -1,7 +1,6 @@
 package org.bh.gui.chart;
 
 import java.awt.Color;
-import java.util.Iterator;
 import java.util.List;
 
 import javax.swing.UIManager;
@@ -16,9 +15,7 @@ import org.jfree.chart.axis.NumberAxis;
 import org.jfree.chart.axis.NumberTickUnit;
 import org.jfree.chart.plot.PlotOrientation;
 import org.jfree.chart.plot.XYPlot;
-import org.jfree.data.category.DefaultCategoryDataset;
 import org.jfree.data.general.Dataset;
-import org.jfree.data.xy.XYDataset;
 import org.jfree.data.xy.XYSeries;
 import org.jfree.data.xy.XYSeriesCollection;
 
@@ -49,6 +46,7 @@ public class BHLineChart extends BHChart implements IBHAddValue, IPlatformListen
                         , translator.translate(key.concat(BHChart.DIMY))
                         , this.dataset
                         , PlotOrientation.VERTICAL, true, true, false);
+		
 		
 		final XYPlot plot = chart.getXYPlot();
 		final NumberAxis rangeAxis = (NumberAxis) plot.getDomainAxis();
