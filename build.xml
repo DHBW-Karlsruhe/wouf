@@ -138,7 +138,6 @@
 			<fileset dir="${lib.dir}">
 				<include name="*.jar" />
 				<include name="formula/**/*.jar" />
-				<exclude name="BH_Hilfe_en.jar" />
 			</fileset>
 		</unzip>
 
