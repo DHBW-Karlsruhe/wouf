@@ -3,6 +3,7 @@ package org.bh.plugin.xmldataexchange.xmlimport;
 import java.io.File;
 import java.io.IOException;
 import java.net.URL;
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.xml.XMLConstants;
@@ -16,19 +17,18 @@ import org.bh.data.DTOProject;
 import org.bh.data.IDTO;
 import org.bh.data.types.IValue;
 import org.bh.platform.PluginManager;
-import org.jdom.Document;
-import org.jdom.Element;
-import org.jdom.JDOMException;
-import org.jdom.Namespace;
-import org.jdom.input.SAXBuilder;
 import org.xml.sax.SAXException;
+
+import nu.xom.*;
 
 /**
  * This class provides the functionality to import a {@link DTOProject} from
  * a XML document.
  * <p> 
  * @author Marcus Katzor
- * @version 1.0, 27.12.2009
+ * @version 1.1, 12.01.2011
+ * @update Vito Masiello, Patrick Maisel
+ * Klasse wurde an die XOM Library angepasst 
  *
  */
 public class XMLImport {
@@ -46,7 +46,7 @@ public class XMLImport {
 	/**
 	 * Namespace for all Business Horizon elements in the XML document.
 	 */
-	private Namespace bhDataNS = Namespace.getNamespace("http://www.bh.org/dataexchange");
+	private String bhDataNS = "http://www.bh.org/dataexchange";
 	
 	/**
 	 * For logging.
@@ -88,11 +88,11 @@ public class XMLImport {
 			// Parse XML Document
 			
 			// Create a SAX builder object to parse the xml document
-			SAXBuilder saxBuilder = new SAXBuilder();
+			Builder Builder = new Builder();
 			try {
-				Document doc = saxBuilder.build(importFile);				
+				Document doc = Builder.build(importFile);				
 				result = getDTOFromXML(doc.getRootElement());				
-			} catch (JDOMException e) {				
+			} catch (ParsingException e) {				
 				log.error("Parsing exception while importing a XML document", e);
 			} 
 		}
@@ -121,12 +121,16 @@ public class XMLImport {
 			dto = (IDTO) Class.forName(className).newInstance();
 			
 			// Get a list of all value nodes
-			Element valuesNode = node.getChild("values", bhDataNS);
+			Element valuesNode = node.getFirstChildElement("values", bhDataNS);
+			ArrayList<Element> listElement = new ArrayList<Element>();
 			if (valuesNode != null)
 			{
-				List<Element> values =  valuesNode.getChildren("value", bhDataNS);
+				Elements values =  valuesNode.getChildElements("value", bhDataNS);
+				for(int i=0; i< values.size();i++){
+						listElement.add(values.get(i));
+				}
 				// Put all values into the DTO
-				for (Element val : values)
+				for (Element val : listElement)
 				{				
 					Object[] value = DataTypeConverter.getIValueRepresenation(val, bhDataNS);
 					dto.put(value[0], (IValue) value[1]);
@@ -134,11 +138,15 @@ public class XMLImport {
 			}			
 			
 			// Get a list of all child nodes
-			Element nodeChildren = node.getChild("children", bhDataNS);
+			Element nodeChildren = node.getFirstChildElement("children", bhDataNS);
 			if (nodeChildren != null)
 			{
-				List<Element> children = nodeChildren.getChildren();
-				for (Element child : children)
+				Elements children = nodeChildren.getChildElements();
+				ArrayList<Element> listChildren = new ArrayList<Element>();
+				for(int i=0; i< children.size();i++){
+					listChildren.add(children.get(i));
+			}
+				for (Element child : listChildren)
 				{
 					IDTO iChild = getDTOFromXML(child);
 					dto.addChild(iChild);
