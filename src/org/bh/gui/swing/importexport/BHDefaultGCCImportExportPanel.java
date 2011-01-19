@@ -170,7 +170,6 @@ public class BHDefaultGCCImportExportPanel extends JPanel {
 				double size[][] = { { 0.7, 0.3 }, { 0.5, 0.5 } };
 				fileSelectionPanel.setLayout(new GridBagLayout());
 				GridBagConstraints d = new GridBagConstraints();
-				this.setBackground(Color.blue);
 				// Small label for instruction
 				BHDescriptionLabel lblselExportPath;
 				if (export)
