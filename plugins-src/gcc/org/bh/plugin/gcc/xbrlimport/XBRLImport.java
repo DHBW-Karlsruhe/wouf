@@ -1,10 +1,12 @@
 package org.bh.plugin.gcc.xbrlimport;
 
 import java.io.BufferedReader;
+
 import java.io.File;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.net.URL;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -16,13 +18,17 @@ import org.bh.plugin.gcc.data.DTOGCCBalanceSheet;
 import org.bh.plugin.gcc.data.DTOGCCProfitLossStatementCostOfSales;
 import org.bh.plugin.gcc.data.DTOGCCProfitLossStatementTotalCost;
 import org.bh.plugin.gcc.data.DTOGCCBalanceSheet.Key;
-import org.jdom.Document;
-import org.jdom.Element;
-import org.jdom.JDOMException;
-import org.jdom.Namespace;
-import org.jdom.input.SAXBuilder;
+import nu.xom.*;
 
+/**
+ *
+ * @author Vito Masiello
+ * @version 1.0, 13.01.2011
+ * XBRL Import wurde auf Basis der XOM Library angepasst.
+ *
+ */
 public class XBRLImport {
+	
 	
 	private static XBRLImport instance = null;	
 	
@@ -39,7 +45,7 @@ public class XBRLImport {
 	private final static String[] profitLossTotalCostKeys =
 	{"UE", "SBE", "MA", "PA", "ABSCH", "SBA"};
 	
-	private final static Namespace ns = Namespace.getNamespace("de-gaap-ci", "http://www.xbrl.de/de/fr/gaap/ci/2006-12-01");
+	private final static String ns = "http://www.xbrl.de/de/fr/gaap/ci/2006-12-01";
 	
 	
 	private XBRLImport()
@@ -101,25 +107,37 @@ public class XBRLImport {
 		}
 		
 		// Create a SAX builder object to parse the xml document
-		SAXBuilder saxBuilder = new SAXBuilder();
+		Builder Builder = new Builder();
+		Document doc;
 		try {
-			Document doc = saxBuilder.build(importedFile);		
-			// Get all necessary values for the balance sheet
-			Map<String, String> values = getValues(doc.getRootElement(), balanceSheetKeys);
-			
-			// If no values were found then throw a expcetion
-			if (values.size() == 0)		
-				throw new XBRLNoValueFoundException();				
-			
-			
-			// Put all values into the DTO
-			for (String key : balanceSheetKeys)
-			{
-				Key dtoKey = Enum.valueOf(DTOGCCBalanceSheet.Key.ABET.getDeclaringClass(), key);
-				result.put(dtoKey, new DoubleValue(Double.parseDouble(values.get(key))));				
-			}
+			try {
+	
 				
-		} catch (JDOMException e) {		
+				doc = Builder.build(importedFile);
+				
+				// Get all necessary values for the balance sheet
+				Map<String, String> values = getValues(doc.getRootElement(), balanceSheetKeys);
+				
+				
+				// If no values were found then throw a expcetion
+				if (values.size() == 0)		
+					throw new XBRLNoValueFoundException();	
+				
+				// Put all values into the DTO
+				for (String key : balanceSheetKeys)
+				{
+					Key dtoKey = Enum.valueOf(DTOGCCBalanceSheet.Key.ABET.getDeclaringClass(), key);
+					result.put(dtoKey, new DoubleValue(Double.parseDouble(values.get(key))));				
+				}
+			} catch (ValidityException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			} catch (ParsingException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}		
+				
+		} catch (XMLException e) {		
 			Logger.getLogger(getClass()).debug("Parsing exception while importing a XML document");
 			throw new XMLNotValidException("Parsing exception while importing a XML document", e);
 			
@@ -144,9 +162,9 @@ public class XBRLImport {
 		}
 		
 		// Create a SAX builder object to parse the xml document
-		SAXBuilder saxBuilder = new SAXBuilder();
+		Builder Builder = new Builder();
 		try {
-			Document doc = saxBuilder.build(importedFile);		
+			Document doc = Builder.build(importedFile);		
 			// Get all necessary values for the balance sheet
 			Map<String, String> values = getValues(doc.getRootElement(), profitLossCostOfSalesKeys);
 			
@@ -161,7 +179,7 @@ public class XBRLImport {
 				result.put(dtoKey, new DoubleValue(Double.parseDouble(values.get(key))));				
 			}
 				
-		} catch (JDOMException e) {				
+		} catch (ParsingException e) {				
 			Logger.getLogger(getClass()).error("Parsing exception while importing the XML document.", e);
 			return null;
 		} 				
@@ -186,9 +204,9 @@ public class XBRLImport {
 		}
 		
 		// Create a SAX builder object to parse the xml document
-		SAXBuilder saxBuilder = new SAXBuilder();
+		Builder Builder = new Builder();
 		try {
-			Document doc = saxBuilder.build(importedFile);		
+			Document doc = Builder.build(importedFile);		
 			// Get all necessary values for the balance sheet
 			Map<String, String> values = getValues(doc.getRootElement(), profitLossTotalCostKeys);
 			
@@ -203,7 +221,7 @@ public class XBRLImport {
 				result.put(dtoKey, new DoubleValue(Double.parseDouble(values.get(key))));				
 			}
 				
-		} catch (JDOMException e) {				
+		} catch (ParsingException e) {				
 			Logger.getLogger(getClass()).error("Parsing exception while importing the XML document.", e);
 			return null;
 		} 				
@@ -232,7 +250,12 @@ public class XBRLImport {
 				continue;
 			}
 			
-			List<Element> children = el.getChildren(nodeName, ns);
+			Elements children = el.getChildElements(nodeName, ns);
+			ArrayList<Element> alChildren = new ArrayList<Element>();
+			
+			for(int i=0;i<children.size();i++){
+				alChildren.add(children.get(i));
+			}
 			if (children.size() == 0)
 			{
 				Logger.getLogger(getClass()).debug("No value found for key: " + key);
@@ -240,7 +263,7 @@ public class XBRLImport {
 			}	
 			else if (children.size() > 1)
 			{
-				for (Element childEl : children)
+				for (Element childEl : alChildren)
 				{
 					if (childEl.getAttributeValue("id").contains("AktuellesJahr"))
 					{
@@ -261,8 +284,15 @@ public class XBRLImport {
 	
 	private String getValue(Element el, String nodeName)
 	{		
+		
+		
+		Elements children = el.getChildElements(nodeName, ns);
+		ArrayList<Element> alChildren = new ArrayList<Element>();
+		
+		for(int i=0;i<children.size();i++){
+			alChildren.add(children.get(i));
+		}
 			
-			List<Element> children = el.getChildren(nodeName, ns);
 			String value = null;
 			if (children.size() == 0)
 			{
@@ -270,7 +300,7 @@ public class XBRLImport {
 			}	
 			else if (children.size() > 1)
 			{
-				for (Element childEl : children)
+				for (Element childEl : alChildren)
 				{
 					if (childEl.getAttributeValue("id").contains("AktuellesJahr"))
 					{
