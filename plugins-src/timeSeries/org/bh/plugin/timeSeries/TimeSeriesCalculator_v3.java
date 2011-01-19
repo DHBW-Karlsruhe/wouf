@@ -13,10 +13,14 @@
  *******************************************************************************/
 package org.bh.plugin.timeSeries;
 
+import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.ListIterator;
 import Jama.*;
+
+import org.apache.commons.math.MathException;
+import org.apache.commons.math.distribution.NormalDistributionImpl;
 import org.bh.data.types.Calculable;
 import org.bh.data.types.DoubleValue;
 
@@ -134,25 +138,60 @@ public class TimeSeriesCalculator_v3 {
 	/**
 	 * prognostiziert eine beliebige Anzahl von Cashflows in die Zukunft
 	 * @param periods_calc_to_future Anzahl der für die Zukunft zu prognostizierenden Cashflows
+	 * @param weissesRauschenISon Weißes Rauschen ein bzw. ausschalten
 	 * @param periods_calc_to_history steht für die Anzahl der zu berücksichtigenden vergangenen Perioden (auch mit p abgekuerzt)
+	 * @param anzahlWiederholungen Anzahl der Prognostizierungs-Versuche, guter Wert ist 1000
 	 * @return Cashflowliste-Kopie mit hinzugefügten prognostizierten Cashflows
 	 */
-	public List<Calculable> calculateCashflows (int periods_calc_to_future, int periods_calc_to_history){
+	public List<Calculable> calculateCashflows (int periods_calc_to_future, int periods_calc_to_history, boolean weissesRauschenISon, int anzahlWiederholungen){
 		List<Calculable> cashflows_manipuliert = new LinkedList<Calculable>(); //zu manipulierende Liste initalisieren
 		for(Calculable cashflow : this.cashflows){//original Liste in zu manipulierende Liste kopieren
 			cashflows_manipuliert.add(cashflow);
 		}
 		
-		//Berechnung weißes Rauschen
-		List<DoubleValue> weisses_Rauschen = kalkuliere_weisses_Rauschen(periods_calc_to_future);
+		HashMap<Integer, Double> cashflow_prognos_MW_sammlung = new HashMap<Integer, Double>();
+		for(int i= 0; i<periods_calc_to_future; i++){//vorinitalisieren
+			cashflow_prognos_MW_sammlung.put(i, 0.);
+		}
+		double varianz = kalkuliereTrendbereinigungVarianz(cashflows_manipuliert, kalkuliereStriche(cashflows_manipuliert));
+		List<Calculable> weisses_Rauschen = null;
+		double nextCashflow = 0;
 		
-		//Vorinitalisierung
-		double nextCashflow = 0 ;
+		//Wiederholungen kalkulieren
+		for(int counter = 0; counter<anzahlWiederholungen; counter++){
+			//Variablen leeren
+			weisses_Rauschen = null;
+			nextCashflow = 0;
+			
+			//cashflows_manipuliert zurückgesetzen
+			
+			//Berechnung weißes Rauschen
+			if(weissesRauschenISon){
+				weisses_Rauschen = kalkuliere_weisses_Rauschen(periods_calc_to_future, varianz, 12);
+//				System.out.println("weißes rauschen size "+ weisses_Rauschen.size());
+			}
+			
+			//Iteratives Berechnen der Cashflows..
+			for(int i=0; i<periods_calc_to_future; i++){
+				nextCashflow = calulateNextCashflow(cashflows_manipuliert, periods_calc_to_history);
+				if(weissesRauschenISon){
+					nextCashflow = nextCashflow + ((DoubleValue)weisses_Rauschen.get(i)).toNumber().doubleValue();
+				}
+				cashflows_manipuliert.add(new DoubleValue(nextCashflow));
+				cashflow_prognos_MW_sammlung.put(i, (cashflow_prognos_MW_sammlung.get(i)+nextCashflow));
+			}
+			System.out.println("step "+counter);
+			
+			//cashflows_manipuliert zurücksetzen
+			cashflows_manipuliert = new LinkedList<Calculable>(); //zu manipulierende Liste initalisieren
+			for(Calculable cashflow : this.cashflows){//original Liste in zu manipulierende Liste kopieren
+				cashflows_manipuliert.add(cashflow);
+			}
+		}
 		
-		//Iteratives Berechnen der Cashflows..
-		for(int i=0; i<periods_calc_to_future; i++){
-			nextCashflow = calulateNextCashflow(cashflows_manipuliert, periods_calc_to_history);
-			cashflows_manipuliert.add(new DoubleValue(nextCashflow));
+		//Durchschnittliche Cashflows berechneni
+		for(int i = 0; i<periods_calc_to_future; i++){
+			cashflows_manipuliert.add(new DoubleValue(cashflow_prognos_MW_sammlung.get(i)/anzahlWiederholungen));
 		}
 
 		return cashflows_manipuliert;
@@ -165,7 +204,8 @@ public class TimeSeriesCalculator_v3 {
 	 * @return prognostizierter Cashflow
 	 */
 	private double calulateNextCashflow(List<Calculable> cashflow_liste, int periods_calc_to_history){
-		List<Calculable> bereinigte_Zeitreihe = kalkuliereTrendberechnung(cashflow_liste);
+		double[] striche = kalkuliereStriche(cashflow_liste);
+		List<Calculable> bereinigte_Zeitreihe = kalkuliereTrendberechnung(cashflow_liste, striche);
 		List<Calculable> gamma_Liste = kalkuliereGammaListe(bereinigte_Zeitreihe, periods_calc_to_history);
 		List<Calculable> cListe = kalkuliere_cListe(gamma_Liste, periods_calc_to_history);
 		double aR_Berechnung = kalkuliere_AR_Modell(cListe, cashflow_liste, periods_calc_to_history);
@@ -173,11 +213,11 @@ public class TimeSeriesCalculator_v3 {
 	}
 	
 	/**
-	 * Trenntberechnung auf Basis "2010-01-11 Trendbereinigung Linear.xlsx" 
+	 * Methode zum kalkulieren von tStrich_hoch2, xStrich, txStrich_mittelwert, tStrich
 	 * @param cashflow_liste Cashflow Liste
-	 * @return Liste mit bereinigter Zeitreihe
+	 * @return striche[0]=tStrich_hoch2, striche[1]=xStrich, striche[2]=txStrich_mittelwert, striche[3]=tStrich
 	 */
-	private List<Calculable> kalkuliereTrendberechnung(List<Calculable> cashflow_liste){
+	private double[] kalkuliereStriche(List<Calculable> cashflow_liste){
 		/*
 		 * Initalisierung
 		 */
@@ -187,12 +227,6 @@ public class TimeSeriesCalculator_v3 {
 		double tStrich_hoch2 = 0;
 		double xStrich = 0;
 		double txStrich_mittelwert = 0;
-		double betaDach2 = 0;
-		double betaDach1 = 0;
-		double trendGerade_mt = 0;
-		double bereinigte_Zeitreihe_Wert = 0;
-		double summe_bereinigte_Zeitreihe = 0;
-		List<Calculable>  bereinigte_Zeitreihe = new LinkedList<Calculable>(); //return-Liste
 		
 		/*
 		 * Berechnung von tStrich/tStrich_hoch2/xStrich/txStrich_mittelwert/betaDach2/betaDach1
@@ -214,7 +248,33 @@ public class TimeSeriesCalculator_v3 {
 		tStrich_hoch2 = (tStrich_hoch2)/(counter-1);
 		xStrich = (xStrich)/(counter-1);
 		txStrich_mittelwert = (txStrich_mittelwert)/(counter-1);
+		
 //		System.out.println("tStrich = "+tStrich+" tStrich^2= "+tStrich_hoch2+" xStrich="+xStrich+" txStrich_Mittelwert="+txStrich_mittelwert);
+		//Ergebnis zurückgeben
+		return new double[]{tStrich_hoch2, xStrich, txStrich_mittelwert, tStrich};
+	}
+	
+	/**
+	 * Trenntberechnung auf Basis "2010-01-11 Trendbereinigung Linear.xlsx" 
+	 * @param cashflow_liste Cashflow Liste
+	 * @return Liste mit bereinigter Zeitreihe
+	 */
+	private List<Calculable> kalkuliereTrendberechnung(List<Calculable> cashflow_liste, double[] striche){
+		/*
+		 * Initalisierung
+		 */
+		int counter = 1;
+		//striche[0]=tStrich_hoch2, striche[1]=xStrich, striche[2]=txStrich_mittelwert, striche[3]= tStrich
+		double tStrich = striche[3];
+		double tStrich_hoch2 = striche[0];
+		double xStrich = striche[1];
+		double txStrich_mittelwert = striche[2];
+		
+		double betaDach2 = 0;
+		double betaDach1 = 0;
+		double trendGerade_mt = 0;
+		double bereinigte_Zeitreihe_Wert = 0;
+		List<Calculable>  bereinigte_Zeitreihe = new LinkedList<Calculable>(); //return-Liste
 		
 		//betaDach2/betaDach1 Berechnung
 		betaDach2 = (txStrich_mittelwert - (tStrich*xStrich)) / (tStrich_hoch2 -(Math.pow(tStrich, 2)));
@@ -347,9 +407,60 @@ public class TimeSeriesCalculator_v3 {
 		return aR;
 	}
 	
-	private List<DoubleValue> kalkuliere_weisses_Rauschen(int periods_calc_to_future){
-		System.out.println("weißes rauschen....");
-		return null;
+	/**
+	 * Methode zum Kalkulieren der Varianz der bereinigten Zeitreihe
+	 * @param cashflow_liste Cashflowliste
+	 * @param striche Array mit diesem Inhalt: striche[0]=tStrich_hoch2, striche[1]=xStrich, striche[2]=txStrich_mittelwert, striche[3]=tStrich
+	 * @return Varianz der bereinigten Zeitreihe
+	 */
+	private double kalkuliereTrendbereinigungVarianz(List<Calculable> cashflow_liste, double[] striche){
+		double varianz = 0;
+		double xStrich = striche[1];
+//		System.out.println("xStrich = "+xStrich);
+		for(Calculable cashflow : cashflow_liste){
+			varianz = varianz + Math.pow((cashflow.toNumber().doubleValue() - xStrich), 2);
+		}
+		varianz = Math.sqrt(varianz);
+//		System.out.println("Varianz = "+varianz);
+		return varianz;
+	}
+	
+	
+	private List<Calculable> kalkuliere_weisses_Rauschen(int periods_calc_to_future, double varianz, int anzahl_zufalls_zahlen){
+		/*
+		 * Initalisierung
+		 */
+		List<Calculable> weisses_Rauschen = new LinkedList<Calculable>();
+		final double deltaT_mal_Sigma = varianz/anzahl_zufalls_zahlen;
+		double zufallszahl = 0;
+		NormalDistributionImpl normInv = new NormalDistributionImpl();
+		normInv.setMean(0); //Mittelwert auf 0 setzen
+		normInv.setStandardDeviation(deltaT_mal_Sigma); //Standardabweichung
+		double normInv_wert = 0;
+		double weisses_rauschen_vor_wert = 0;
+		double summe = 0;
+//		System.out.println("deltaT*Sigma "+deltaT_mal_Sigma);
+		try{
+			for(int outer_counter = 0; outer_counter<periods_calc_to_future; outer_counter++){
+				summe = 0;
+				for(int inner_counter =0; inner_counter<anzahl_zufalls_zahlen; inner_counter++){
+					zufallszahl = Math.random();
+					normInv_wert = normInv.inverseCumulativeProbability(zufallszahl);
+//					System.out.println("zufallszahl "+(inner_counter+1)+" :"+zufallszahl + " ; normalverteilung = "+normInv_wert);
+//					System.out.println(zufallszahl);
+					summe = summe + normInv_wert;
+				}
+//				System.out.println("Summe der NV "+summe);
+//				System.out.println("Weißes Rauschen "+(outer_counter+1)+" : "+(summe+weisses_rauschen_vor_wert));
+				weisses_Rauschen.add(new DoubleValue(summe+weisses_rauschen_vor_wert));
+				weisses_rauschen_vor_wert = summe+weisses_rauschen_vor_wert;
+			}
+		}
+		catch(MathException e){
+			e.printStackTrace();
+		}
+
+		return weisses_Rauschen;
 	}
 	
 	

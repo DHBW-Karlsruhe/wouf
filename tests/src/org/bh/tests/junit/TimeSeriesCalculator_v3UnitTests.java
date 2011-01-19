@@ -89,7 +89,7 @@ public class TimeSeriesCalculator_v3UnitTests {
 		
 		//TimeSeriesCalculator erstellen & berechnen
 		TimeSeriesCalculator_v3 calculator = new TimeSeriesCalculator_v3(cashflows);
-		List<Calculable> cashflows_prognostiziert = calculator.calculateCashflows(3, 3);
+		List<Calculable> cashflows_prognostiziert = calculator.calculateCashflows(10, 3, true, 100);
 		
 		//Ausgabe
 		System.out.println("--neue Cashflowliste:");

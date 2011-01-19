@@ -195,7 +195,7 @@ public class TimeSeries implements ITimeSeriesProcess {
     	int p = map.get(AMOUNT_OF_PERIODS_BACK);
     	int f = map.get(AMOUNT_OF_PERIODS_FUTURE);
     	calc = new TimeSeriesCalculator_v3(cashValues);
-    	List<Calculable> cashCalc = calc.calculateCashflows(f,p);
+    	List<Calculable> cashCalc = calc.calculateCashflows(f,p,true,100);
     	int counter = 1;
     	for(Calculable cashflow : cashCalc){
     		int key = -(cashCalc.size()-f)+counter;
