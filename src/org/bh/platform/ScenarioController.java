@@ -48,6 +48,7 @@ import org.bh.gui.swing.comp.BHButton;
 import org.bh.gui.swing.comp.BHCheckBox;
 import org.bh.gui.swing.comp.BHComboBox;
 import org.bh.gui.swing.comp.BHDescriptionLabel;
+import org.bh.gui.swing.comp.BHProgressBar;
 import org.bh.gui.swing.comp.BHSelectionList;
 import org.bh.gui.swing.comp.BHComboBox.Item;
 import org.bh.gui.swing.forms.BHScenarioForm;
@@ -464,6 +465,8 @@ public class ScenarioController extends InputController {
 			
 			BHCheckBox timeSeries = (BHCheckBox) view.getBHComponent(DTOScenario.Key.TIMESERIES_PROCESS);
 			if(timeSeries.isSelected()){
+				((BHScenarioForm) getViewPanel()).addProgressBar();
+				TSprocess.setProgressB((BHProgressBar) getView().getBHComponent(BHScenarioForm.Key.PROGRESSBAR));
 				TSprocess.updateParameters();
 				result.setTimeSeries(TSprocess, TSprocess.calculate(), TSprocess.calculateCompare(2));
 				TSprocess.print(scenario);

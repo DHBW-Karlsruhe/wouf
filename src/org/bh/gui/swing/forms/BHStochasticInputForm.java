@@ -13,6 +13,7 @@
  *******************************************************************************/
 package org.bh.gui.swing.forms;
 
+import java.awt.Color;
 import java.awt.Component;
 
 import javax.swing.JPanel;
@@ -92,7 +93,6 @@ public final class BHStochasticInputForm extends JPanel {
 		this.setLayout(layout);
 
 		CellConstraints cons = new CellConstraints();
-
 		this.add(this.getlDCFmethod(), cons.xywh(2, 2, 1, 1));
 		this.add(this.getcbDCFmethod(), cons.xywh(4, 2, 1, 1));
 		this.add(this.getlstochProcess(), cons.xywh(6, 2, 1, 1));

@@ -26,6 +26,7 @@ import org.bh.data.DTOScenario;
 import org.bh.data.types.Calculable;
 import org.bh.data.types.DoubleValue;
 import org.bh.gui.swing.comp.BHDescriptionLabel;
+import org.bh.gui.swing.comp.BHProgressBar;
 import org.bh.gui.swing.comp.BHTextField;
 import org.bh.platform.Services;
 import org.bh.validation.VRIsGreaterThan;
@@ -67,6 +68,7 @@ public class TimeSeries implements ITimeSeriesProcess {
 	private HashMap<String, Double> internalMap;
 	private HashMap<String, Integer> map;
 	private TimeSeriesCalculator_v3 calc;
+	private BHProgressBar progressB;
 
 	@Override
 	public String getGuiKey() {
@@ -195,6 +197,7 @@ public class TimeSeries implements ITimeSeriesProcess {
     	int p = map.get(AMOUNT_OF_PERIODS_BACK);
     	int f = map.get(AMOUNT_OF_PERIODS_FUTURE);
     	calc = new TimeSeriesCalculator_v3(cashValues);
+    	calc.setProgressBar(progressB);
     	List<Calculable> cashCalc = calc.calculateCashflows(f,p,true,100);
     	int counter = 1;
     	for(Calculable cashflow : cashCalc){
@@ -231,6 +234,12 @@ public class TimeSeries implements ITimeSeriesProcess {
 	    		counter ++;    		
 	    	}
 		return result;
+		
+	}
+
+	@Override
+	public void setProgressB(BHProgressBar progressB) {
+		this.progressB = progressB;
 		
 	}
 	

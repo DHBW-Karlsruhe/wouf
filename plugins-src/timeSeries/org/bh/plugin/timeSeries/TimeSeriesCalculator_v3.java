@@ -23,6 +23,7 @@ import org.apache.commons.math.MathException;
 import org.apache.commons.math.distribution.NormalDistributionImpl;
 import org.bh.data.types.Calculable;
 import org.bh.data.types.DoubleValue;
+import org.bh.gui.swing.comp.BHProgressBar;
 
 /**
  * Diese Klasse stellt die Berechnung für die Zeitreihenanalyse bereit
@@ -42,6 +43,7 @@ public class TimeSeriesCalculator_v3 {
 	 * Liste mit den Cashflows, sortiert nach Perioden
 	 */
 	private List<Calculable> cashflows = null;
+	private BHProgressBar progressB;
 	
 	/**
 	 * Standardkonstruktor, kopiert die übergebene Cashflowliste in den Objektspeicher
@@ -166,6 +168,7 @@ public class TimeSeriesCalculator_v3 {
 		//Wiederholungen durchkalkulieren
 		for(int counter = 0; counter<anzahlWiederholungen; counter++){
 			//Variablen leeren
+			progressB.setValue(counter);
 			weisses_Rauschen = null;
 			nextCashflow = 0;
 						
@@ -198,6 +201,8 @@ public class TimeSeriesCalculator_v3 {
 			cashflows_manipuliert.add(new DoubleValue(cashflow_prognos_MW_sammlung.get(i)/anzahlWiederholungen));
 		}
 
+		
+		
 		return cashflows_manipuliert;
 	}
 	
@@ -510,6 +515,10 @@ public class TimeSeriesCalculator_v3 {
 		for(Calculable cashflow : cashflows){//kopiere parametisierte Liste in Objektspeicher
 			this.cashflows.add(cashflow);
 		}
+	}
+	
+	public void setProgressBar(BHProgressBar progressB){
+		this.progressB = progressB;
 	}
 
 }

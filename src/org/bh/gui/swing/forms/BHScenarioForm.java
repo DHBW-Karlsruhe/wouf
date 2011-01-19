@@ -13,6 +13,8 @@
  *******************************************************************************/
 package org.bh.gui.swing.forms;
 
+import java.awt.Color;
+
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.border.EtchedBorder;
@@ -20,6 +22,7 @@ import javax.swing.border.EtchedBorder;
 import org.apache.log4j.Logger;
 import org.bh.gui.swing.comp.BHButton;
 import org.bh.gui.swing.comp.BHDescriptionLabel;
+import org.bh.gui.swing.comp.BHProgressBar;
 import org.bh.gui.swing.forms.border.BHBorderFactory;
 import org.bh.platform.Services;
 import org.bh.platform.i18n.ITranslator;
@@ -79,7 +82,12 @@ public final class BHScenarioForm extends JPanel {
 		/**
 		 * 
 		 */
-		CALCDASHBOARD;
+		CALCDASHBOARD,
+		
+		/**
+		 * Progressbar for time series calculation
+		 */
+		PROGRESSBAR;
 		
 		
 		@Override
@@ -95,9 +103,11 @@ public final class BHScenarioForm extends JPanel {
 	private BHDescriptionLabel lCalculatingImage;
 	private JPanel topPanel;
 	private JPanel bottomPanel;
+	private BHProgressBar progressB;
 
 
 	ITranslator translator = Services.getTranslator();
+	CellConstraints cons;
 
 	/**
 	 * Constructor
@@ -129,11 +139,10 @@ public final class BHScenarioForm extends JPanel {
 		 */
 		String colDef = "4px,pref:grow,4px";
 		String rowDef = "4px,p,14px,p,4px";
-		
 		FormLayout topLayout = new FormLayout(colDef, rowDef);
 		topPanel.setLayout(topLayout);
 
-		CellConstraints cons = new CellConstraints();
+		cons = new CellConstraints();
 		
 		setHeadPanel(isIntervalArithmethic);
 		topPanel.add(this.getPprocess(type), cons.xywh(2, 4, 1, 1));
@@ -150,7 +159,7 @@ public final class BHScenarioForm extends JPanel {
 		 * build bottomPanel
 		 */
 		colDef = "4px,4px:grow,4px,min,4px,right:pref,4px";
-		rowDef = "4px,p,4px";
+		rowDef = "4px,p,4px,p,4px";
 		
 		FormLayout bottomLayout = new FormLayout(colDef, rowDef);
 		bottomPanel.setLayout(bottomLayout);
@@ -158,7 +167,9 @@ public final class BHScenarioForm extends JPanel {
 		bottomPanel.add(this.getCannotCalculateHint(), cons.xywh(2, 2, 1, 1));
 		bottomPanel.add(this.getCalculatingImage(), cons.xywh(4, 2, 1, 1));
 		bottomPanel.add(this.getBcalculate(), cons.xywh(6, 2, 1, 1));
-		
+		progressB = new BHProgressBar(Key.PROGRESSBAR, 0, 100);
+		bottomPanel.add(progressB, cons.xywh(2, 4, 5, 1));
+		progressB.setVisible(false);
 		this.add(bottomPanel, cons.xywh(2, 4, 1, 1));
 		
 	}
@@ -230,5 +241,9 @@ public final class BHScenarioForm extends JPanel {
 			lCalculatingImage = new BHDescriptionLabel(Key.CALCULATING_IMAGE);
 		}
 		return lCalculatingImage;
+	}
+	
+	public void addProgressBar(){		
+		progressB.setVisible(true);
 	}
 }

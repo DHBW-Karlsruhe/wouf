@@ -18,6 +18,7 @@ import java.util.TreeMap;
 import javax.swing.JPanel;
 
 import org.bh.data.DTOScenario;
+import org.bh.gui.swing.comp.BHProgressBar;
 import org.bh.platform.IDisplayablePlugin;
 
 /**
@@ -56,5 +57,7 @@ public interface ITimeSeriesProcess extends IDisplayablePlugin{
 	TreeMap<Integer, Double> calculate();
 	
 	TreeMap<Integer, Double>[]  calculateCompare(int p);
+
+	void setProgressB(BHProgressBar bhComponent);
 
 }
