@@ -36,9 +36,9 @@ import org.jfree.chart.JFreeChart;
  * 
  */
 public class PDFPrint implements IPrint {
-	
+
 	private static final Logger log = Logger.getLogger(PDFPrint.class);
-	
+
 	ITextDocumentBuilder db = new ITextDocumentBuilder();
 
 	@Override
@@ -62,6 +62,7 @@ public class PDFPrint implements IPrint {
 
 			pDoc = PDDocument.load(tmpFile);
 			pDoc.print();
+			tmpFile.deleteOnExit();
 		} catch (IOException e) {
 			log.debug(e);
 		} catch (PrinterException e) {
@@ -75,18 +76,19 @@ public class PDFPrint implements IPrint {
 		try {
 			PDDocument pDoc;
 			File tmpFile;
-			
+
 			tmpFile = File.createTempFile("bh_print", "pdf");
-			
+
 			db.newDocument(tmpFile.getAbsolutePath(), scenario);
 			db.buildHeadData(scenario);
 			db.buildScenarioData(scenario);
 			db.buildResultDataDet(results, charts);
 			db.closeDocument();
-			
+
 			pDoc = PDDocument.load(tmpFile);
 			pDoc.print();
-		
+			tmpFile.deleteOnExit();
+
 		} catch (IOException e) {
 			log.error(e);
 		} catch (PrinterException e) {
@@ -95,7 +97,7 @@ public class PDFPrint implements IPrint {
 	}
 
 	@Override
-	public void printScenarioResults(DTOScenario scenario, 
+	public void printScenarioResults(DTOScenario scenario,
 			DistributionMap results, List<JFreeChart> charts) {
 		try {
 			PDDocument pDoc;
@@ -111,7 +113,7 @@ public class PDFPrint implements IPrint {
 
 			pDoc = PDDocument.load(tmpFile);
 			pDoc.print();
-			
+
 			tmpFile.deleteOnExit();
 		} catch (IOException e) {
 			log.debug(e);
