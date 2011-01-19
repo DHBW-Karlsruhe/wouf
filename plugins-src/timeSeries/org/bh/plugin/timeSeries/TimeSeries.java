@@ -213,7 +213,7 @@ public class TimeSeries implements ITimeSeriesProcess {
 			result[0] = new TreeMap<Integer, Double>(); //Ist Cashflows
 			result[1] = new TreeMap<Integer, Double>(); //Vergleichs Cashflows
 			
-			List<Calculable> cashProg = calc.calcultionTest_4_periods_to_history(p, p+1);
+			List<Calculable> cashProg = calc.calcultionTest_4_periods_to_history(p, p+1, 100, true);
 			List<Calculable> cashIs = calc.getCashflows();
 			int counter = 1;
 			

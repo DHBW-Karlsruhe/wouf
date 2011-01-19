@@ -89,9 +89,11 @@ public class TimeSeriesCalculator_v3 {
 	 * Prognostiziert die bereits bekannten Cashflows, indem für die Vergangenheit prognostiziert wird.
 	 * @param periods_to_history Faktor p (Berücksichtigung der Perioden der Vergangenheit)
 	 * @param puffer Anzahl der vergangen Perioden, die nicht prognostiziert werden sollen. => puffer-1 muss >= periods_to_history sein
+	 * @param anzahlWiederholungen Anzahl der Prognostizierungs-Versuche, guter Wert ist 1000
+	 * @param weissesRauschenISon Weißes Rauschen ein bzw. ausschalten
 	 * @return  Liste mit Test-Prognostizierungen für die Vergangenheit
 	 */
-	public List<Calculable> calcultionTest_4_periods_to_history(int periods_to_history, int puffer) throws NumberFormatException{
+	public List<Calculable> calcultionTest_4_periods_to_history(int periods_to_history, int puffer, int anzahlWiederholungen, boolean weissesRauschenISon) throws NumberFormatException{
 		if(puffer-1 < periods_to_history){
 			System.out.println("Fehler puffer-1 muss >= periods_to_history sein puffer="+puffer+" periods_to_history="+periods_to_history);
 			throw new NumberFormatException("Fehler puffer-1 muss >= periods_to_history sein puffer="+puffer+" periods_to_history="+periods_to_history);
@@ -121,9 +123,12 @@ public class TimeSeriesCalculator_v3 {
 		//Vorinitalisierung
 		double nextCashflow = 0;
 		Calculable cashflow_unberuecksichtigt = null;
+		List<Calculable> nextCashflows = null;
 		while(lI_cashflows_n_beruecks.hasNext()){//Liste der noch nicht berücksichtigten Cashflows durchlaufen..
 			//prognostiziere Cashflow
-			nextCashflow = calulateNextCashflow(cashflows_beruecksichtigt, periods_to_history);
+			nextCashflows = calculateCashflows(1, periods_to_history, weissesRauschenISon, 100);
+			nextCashflow = ((DoubleValue)nextCashflows.get(nextCashflows.size()-1)).toNumber().doubleValue();
+//			nextCashflow = calulateNextCashflow(cashflows_beruecksichtigt, periods_to_history);
 			//nicht berücksichtigten Cashflow holen und speichern
 			cashflow_unberuecksichtigt = (Calculable) lI_cashflows_n_beruecks.next(); 
 			//prognostizierter Cashflow KalkulationsTest-Liste hinzufügen
@@ -149,22 +154,21 @@ public class TimeSeriesCalculator_v3 {
 			cashflows_manipuliert.add(cashflow);
 		}
 		
-		HashMap<Integer, Double> cashflow_prognos_MW_sammlung = new HashMap<Integer, Double>();
+		HashMap<Integer, Double> cashflow_prognos_MW_sammlung = new HashMap<Integer, Double>();//Hashmap zum sammeln der prognostizierten Cashflows mal Anzahl der Wdhn.
 		for(int i= 0; i<periods_calc_to_future; i++){//vorinitalisieren
 			cashflow_prognos_MW_sammlung.put(i, 0.);
 		}
+		
 		double varianz = kalkuliereTrendbereinigungVarianz(cashflows_manipuliert, kalkuliereStriche(cashflows_manipuliert));
 		List<Calculable> weisses_Rauschen = null;
 		double nextCashflow = 0;
 		
-		//Wiederholungen kalkulieren
+		//Wiederholungen durchkalkulieren
 		for(int counter = 0; counter<anzahlWiederholungen; counter++){
 			//Variablen leeren
 			weisses_Rauschen = null;
 			nextCashflow = 0;
-			
-			//cashflows_manipuliert zurückgesetzen
-			
+						
 			//Berechnung weißes Rauschen
 			if(weissesRauschenISon){
 				weisses_Rauschen = kalkuliere_weisses_Rauschen(periods_calc_to_future, varianz, 12);
@@ -189,7 +193,7 @@ public class TimeSeriesCalculator_v3 {
 			}
 		}
 		
-		//Durchschnittliche Cashflows berechneni
+		//Durchschnittliche Cashflows berechnen
 		for(int i = 0; i<periods_calc_to_future; i++){
 			cashflows_manipuliert.add(new DoubleValue(cashflow_prognos_MW_sammlung.get(i)/anzahlWiederholungen));
 		}
@@ -198,7 +202,7 @@ public class TimeSeriesCalculator_v3 {
 	}
 	
 	/**
-	 * kalkuliert den nächsten Cashflow anhand der übergebenen Cashflowliste
+	 * kalkuliert den nächsten Cashflow anhand der übergebenen Cashflowliste ohne Berücksichtigung des Weißen Rauschens
 	 * @param cashflow_liste Cashflow-Liste
 	 * @param periods_calc_to_history Anzahl der vergangenen Perioden, die berücksichtigt werden sollen
 	 * @return prognostizierter Cashflow
