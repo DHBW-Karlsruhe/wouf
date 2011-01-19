@@ -3,6 +3,7 @@ package org.bh.plugin.stochasticResultAnalysis;
 
 
 
+import java.awt.BasicStroke;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Font;
@@ -10,6 +11,8 @@ import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.GridLayout;
 import java.awt.Insets;
+import java.util.Dictionary;
+import java.util.Hashtable;
 
 import javax.swing.JLabel;
 import javax.swing.JPanel;
@@ -33,6 +36,7 @@ import org.bh.gui.swing.forms.border.BHBorderFactory;
 import org.bh.platform.i18n.ITranslator;
 import org.jfree.chart.plot.IntervalMarker;
 import org.jfree.chart.plot.XYPlot;
+import org.jfree.chart.renderer.xy.DeviationRenderer;
 import org.jfree.ui.Layer;
 import org.jfree.ui.RectangleAnchor;
 import org.jfree.ui.TextAnchor;
@@ -78,6 +82,12 @@ public class StochasticPanel extends JPanel{
 	        target.setLabelFont(new Font("SansSerif", Font.ITALIC, 20));
 			target.setPaint(new Color(222, 222, 255, 128));
 			plot.addDomainMarker(target, Layer.BACKGROUND);
+
+			XYPlot plot2 = cashflowChartCompare.getChart().getXYPlot();
+			plot2.getRenderer().setSeriesPaint(0, Color.red);
+			plot2.getRenderer().setSeriesPaint(1, Color.blue);
+			
+			
 	 
 
 	        BHDescriptionLabel sd = new BHDescriptionLabel("standardDeviation");
@@ -90,6 +100,11 @@ public class StochasticPanel extends JPanel{
 	        BHSlider slider = new BHSlider(BHStochasticResultController.ChartKeys.RISK_AT_VALUE, 0, 100, 95);
 	        BHSlider slider_cashflow = new BHSlider(BHStochasticResultController.ChartKeys.CASHFLOW_COMPARE_SLIDER);
 	        slider_cashflow.setMinimum(2);
+	        slider_cashflow.setValue(2);
+	        slider_cashflow.setMajorTickSpacing(2);
+	        slider_cashflow.setMinorTickSpacing(1);
+	        slider_cashflow.setPaintTicks( true );
+	        slider_cashflow.setPaintLabels(true);
 	        //BHTextField riskAtField = new BHTextField(BHStochasticResultController.ChartKeys.RISK_AT_VALUE,"95", true);
 	        
 	        BHDescriptionLabel min = new BHDescriptionLabel("min");
@@ -123,7 +138,7 @@ public class StochasticPanel extends JPanel{
 	        compare_p.setLayout(new GridBagLayout());
 	        compare_p.setBorder(BHBorderFactory.getInstacnce().createTitledBorder(BHBorderFactory.getInstacnce()
 					.createEtchedBorder(EtchedBorder.LOWERED),
-					BHStochasticResultController.ChartKeys.RISK_AT_VALUE, TitledBorder.LEFT,
+					BHStochasticResultController.ChartKeys.COMPARE_P_HEAD, TitledBorder.LEFT,
 					TitledBorder.DEFAULT_JUSTIFICATION));
 	        
 	        d.gridx = 0;
@@ -218,7 +233,10 @@ public class StochasticPanel extends JPanel{
 		    d.fill = GridBagConstraints.HORIZONTAL;
 			d.gridx = 0;
 			d.gridy = 4;
-			d.insets = new Insets(30,10,30,0);
+			d.insets = new Insets(30,10,0,0);
+			System.out.println("prefered"+tablePane.getPreferredSize());
+			System.out.println("Maximum"+tablePane.getMaximumSize());
+			tablePane.setPreferredSize(new Dimension(456,250));
 			this.add(tablePane,d);
 		    
 		    d.fill = GridBagConstraints.HORIZONTAL;
@@ -231,7 +249,7 @@ public class StochasticPanel extends JPanel{
 		    d.fill = GridBagConstraints.HORIZONTAL;
 			d.gridx = 0;
 			d.gridy = 6;
-			d.insets = new Insets(30,10,0,0);
+			d.insets = new Insets(30,10,30,0);
 		    this.add(compare_p, d);
 		    
 		   

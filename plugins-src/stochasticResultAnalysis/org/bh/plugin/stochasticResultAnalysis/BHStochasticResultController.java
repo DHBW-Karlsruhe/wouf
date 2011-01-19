@@ -1,20 +1,25 @@
 package org.bh.plugin.stochasticResultAnalysis;
 
+import java.awt.Color;
 import java.awt.event.ActionEvent;
 
 
 import java.util.ArrayList;
+import java.util.Dictionary;
+import java.util.Hashtable;
 import java.util.List;
 import java.util.Map;
 import java.util.TreeMap;
 import java.util.Map.Entry;
 
+import javax.swing.JLabel;
 import javax.swing.event.CaretEvent;
 import javax.swing.event.CaretListener;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
 import javax.swing.table.DefaultTableModel;
 
+import org.bh.calculation.ITimeSeriesProcess;
 import org.bh.controller.OutputController;
 import org.bh.data.DTOKeyPair;
 import org.bh.data.DTOScenario;
@@ -36,13 +41,14 @@ import org.bh.gui.view.View;
 import org.bh.platform.IImportExport;
 import org.bh.platform.IPrint;
 import org.bh.platform.Services;
+import org.bh.plugin.timeSeries.TimeSeries;
 import org.jfree.chart.JFreeChart;
 
 // @update 23.12.2010 Timo Klein
 
 public class BHStochasticResultController extends OutputController {
     public static enum ChartKeys {
-	DISTRIBUTION_CHART, STANDARD_DEVIATION, AVERAGE, RISK_AT_VALUE, RISK_AT_VALUE_MIN, RISK_AT_VALUE_MAX, CASHFLOW_CHART, CASHFLOW_CHART_COMPARE, CASHFLOW_COMPARE_SLIDER;
+	DISTRIBUTION_CHART, STANDARD_DEVIATION, AVERAGE, RISK_AT_VALUE, RISK_AT_VALUE_MIN, RISK_AT_VALUE_MAX, CASHFLOW_CHART, CASHFLOW_CHART_COMPARE, CASHFLOW_COMPARE_SLIDER, COMPARE_P_HEAD;
 
 	@Override
 	public String toString() {
@@ -52,7 +58,7 @@ public class BHStochasticResultController extends OutputController {
     }
 
     public static enum PanelKeys {
-	riskAtValue, AVERAGE, VALUE, PRINTSCENARIO, EXPORTSCENARIO, CASHFLOW, CASHFLOW_TABLE, COMPARE_P;
+	riskAtValue, AVERAGE, VALUE, PRINTSCENARIO, EXPORTSCENARIO, CASHFLOW, CASHFLOW_TABLE, COMPARE_P, CASHFLOW_IS, CASHFLOW_FORECAST;
 
 	@Override
 	public String toString() {
@@ -104,19 +110,34 @@ public class BHStochasticResultController extends OutputController {
     	comp2.addSeries(Services.getTranslator().translate(PanelKeys.CASHFLOW.toString()),result.toDoubleArrayTS());
     	
     	IBHAddValue comp3 = super.view.getBHchartComponents().get(ChartKeys.CASHFLOW_CHART_COMPARE.toString());
-    	//erste Kurve
-    	comp3.addSeries(Services.getTranslator().translate(PanelKeys.CASHFLOW.toString()),result.toDoubleArrayTS());
-    	//zweite Kurve
-    	comp3.addSeries(Services.getTranslator().translate(PanelKeys.CASHFLOW.toString()),result.toDoubleArrayTS());
+    	comp3.addSeries(Services.getTranslator().translate(PanelKeys.CASHFLOW_IS.toString()),result.getIsCashflow());
+    	comp3.addSeries(Services.getTranslator().translate(PanelKeys.CASHFLOW_FORECAST.toString()),result.getCompareCashflow());
     	
     	String TableKey = PanelKeys.CASHFLOW_TABLE.toString();
     	BHTable cashTable = ((BHTable) view.getBHComponent(TableKey));
     	Object[][] data = result.toObjectArrayTS();
-    	sliderCompare.setMaximum(data[0].length-1);
+    	int länge = result.getIsCashflow().length;
+    	sliderCompare.setMaximum(länge-1);
+    	Dictionary map = new Hashtable();
+    	for(int i =0;i<=länge;i++){
+    		if((i%2)==0)
+    		 map.put(i, new JLabel(""+i));
+    	}
+        sliderCompare.setLabelTable(map);
     	String[] headers = {"Periode", "Cashflow"};
     	DefaultTableModel tableModel = new DefaultTableModel(data, headers);
     	cashTable.setTableModel(tableModel);
     	    	
+    }
+    
+    public void calcNewComparison(int p){
+    	ITimeSeriesProcess TSprocess = stochasticResult.getTimeSeriesProcess();
+    	TreeMap<Integer, Double>[] compareResults = TSprocess.calculateCompare(p);
+	    	stochasticResult.setTimeSeriesCompare(compareResults);
+	    	IBHAddValue comp3 = super.view.getBHchartComponents().get(ChartKeys.CASHFLOW_CHART_COMPARE.toString());
+	    	comp3.removeSeries(1);
+	    	comp3.addSeries(Services.getTranslator().translate(PanelKeys.CASHFLOW_FORECAST.toString()),stochasticResult.getCompareCashflow());
+	   
     }
 
     public void calcRiskAtValue(Double confidence, Integer maxAmountofValues) {
@@ -160,14 +181,13 @@ public class BHStochasticResultController extends OutputController {
 	@Override
 	public void stateChanged(ChangeEvent e) {
 		String key = ((BHSlider)e.getSource()).getKey();
-		String keyCompare = ChartKeys.RISK_AT_VALUE.toString();
-		if(key.equals(keyCompare)){
+		if(key.equals(ChartKeys.RISK_AT_VALUE.toString())){
 		    double confidence = ((BHSlider) view.getBHComponent(ChartKeys.RISK_AT_VALUE.toString())).getValue();
 		    calcRiskAtValue(confidence, stochasticResult.getMaxAmountOfValuesInCluster());
 		}
-		keyCompare = ChartKeys.CASHFLOW_COMPARE_SLIDER.toString();
-		if(key.equals(keyCompare)){
-			// hier die neuberechnung bei verändertem P
+		if(key.equals(ChartKeys.CASHFLOW_COMPARE_SLIDER.toString())){
+			int p = ((BHSlider) view.getBHComponent(ChartKeys.CASHFLOW_COMPARE_SLIDER.toString())).getValue();
+			calcNewComparison(p);
 		}
 		
 	}

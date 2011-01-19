@@ -53,6 +53,7 @@ public class TimeSeries implements ITimeSeriesProcess {
 	private DTOScenario scenario;
 	private HashMap<String, Double> internalMap;
 	private HashMap<String, Integer> map;
+	private TimeSeriesCalculator_v3 calc;
 
 	@Override
 	public String getGuiKey() {
@@ -173,17 +174,18 @@ public class TimeSeries implements ITimeSeriesProcess {
 		//Berechnung für den Cashflow-Chart Vergangenheit bis in die Zukunft
 		TreeMap<Integer, Double> result = new TreeMap();
 	
-		TreeMap<DTOKeyPair, List<Calculable>> toBeDetermined = scenario.getPeriodStochasticKeysAndValues();
-    	Entry<DTOKeyPair, List<Calculable>> drei = toBeDetermined.firstEntry();
+	
+		TreeMap<DTOKeyPair, List<Calculable>> periods = scenario.getPeriodStochasticKeysAndValues();
+    	Entry<DTOKeyPair, List<Calculable>> cashfl = periods.firstEntry();
 		
-    	List<Calculable> funf = drei.getValue();
+    	List<Calculable> cashValues = cashfl.getValue();
     	int p = map.get(AMOUNT_OF_PERIODS_BACK);
     	int f = map.get(AMOUNT_OF_PERIODS_FUTURE);
-    	TimeSeriesCalculator_v2 calc = new TimeSeriesCalculator_v2(funf);
-    	List<Calculable> vier = calc.calculateCashflows(f,p);
+    	calc = new TimeSeriesCalculator_v3(cashValues);
+    	List<Calculable> cashCalc = calc.calculateCashflows(f,p);
     	int counter = 1;
-    	for(Calculable cashflow : vier){
-    		int key = -(vier.size()-f)+counter;
+    	for(Calculable cashflow : cashCalc){
+    		int key = -(cashCalc.size()-f)+counter;
     		double value = cashflow.toNumber().doubleValue();
     		result.put(key, value);
     		counter ++;
@@ -193,12 +195,29 @@ public class TimeSeries implements ITimeSeriesProcess {
 	}
 	
 	
-	public TreeMap<Integer, Integer>  calculateCompare(){
-		// gibt den IST-Cashflow zurück und die Progone mit abhängigem P
-		
-		// Eine Kurve Ist Cashflow 
-		// Eine Kurve Prognose in einer TreeMap!?
-		return null;
+	public TreeMap<Integer, Double>[]  calculateCompare(int p){
+		TreeMap<Integer, Double> result[] = new TreeMap[2];
+			result[0] = new TreeMap<Integer, Double>(); //Ist Cashflows
+			result[1] = new TreeMap<Integer, Double>(); //Vergleichs Cashflows
+			
+			List<Calculable> cashProg = calc.calcultionTest_4_periods_to_history(p, p+1);
+			List<Calculable> cashIs = calc.getCashflows();
+			int counter = 1;
+			
+			for(Calculable cashflow : cashProg){
+	    		int key = -(cashProg.size())+counter;
+	    		double value = cashflow.toNumber().doubleValue();
+	    		result[1].put(key, value);
+	    		counter ++;    		
+	    	}
+			counter = 1;
+			for(Calculable cashflow : cashIs){
+	    		int key = -(cashProg.size())+counter;
+	    		double value = cashflow.toNumber().doubleValue();
+	    		result[0].put(key, value);
+	    		counter ++;    		
+	    	}
+		return result;
 		
 	}
 	

@@ -1,5 +1,6 @@
 package org.bh.data.types;
 
+import java.text.DecimalFormat;
 import java.util.Collection;
 import java.util.Iterator;
 import java.util.Map;
@@ -8,6 +9,7 @@ import java.util.TreeMap;
 import java.util.Map.Entry;
 
 import org.apache.log4j.Logger;
+import org.bh.calculation.ITimeSeriesProcess;
 
 /**
  * 
@@ -37,7 +39,8 @@ public class DistributionMap implements Map<Double, Integer>,
 	//only for displaying purpose
 	private int maxAmountOfValuesInCluster;
 	private TreeMap<Integer, Double> TimeSeriesMap;
-	private TreeMap<Integer, Integer> TimeSeriesMapCompare;
+	private TreeMap<Integer, Double>[] TimeSeriesMapCompare;
+	private ITimeSeriesProcess TSprocess;
 	private boolean TimeSeries;
 
 	/**
@@ -323,14 +326,20 @@ public class DistributionMap implements Map<Double, Integer>,
 	
 	// Methoden für die Zeitreihenanalyse
 	
-	public void setTimeSeries(TreeMap<Integer, Double> tsMap){
+	public void setTimeSeries(ITimeSeriesProcess TSprocess, TreeMap<Integer, Double> tsMap, TreeMap<Integer, Double>[] tsMapCompare){
 		TimeSeries = true;
 		this.TimeSeriesMap = tsMap;
+		this.TimeSeriesMapCompare = tsMapCompare;
+		this.TSprocess = TSprocess;
 	}
 	
-	public void setTimeSeriesCompare(TreeMap<Integer, Integer> tsMap2){
+	public void setTimeSeriesCompare(TreeMap<Integer, Double>[] tsMapCompare){
 		TimeSeries = true;
-		this.TimeSeriesMapCompare = tsMap2;
+		this.TimeSeriesMapCompare = tsMapCompare;
+	}
+	
+	public ITimeSeriesProcess getTimeSeriesProcess(){
+		return TSprocess;
 	}
 	
 	public boolean isTimeSeries(){
@@ -355,7 +364,37 @@ public class DistributionMap implements Map<Double, Integer>,
 	public Object[][] toObjectArrayTS(){
 		Object[][] result2 = new Object[TimeSeriesMap.keySet().size()][2];
 		int j = 0;
+		DecimalFormat f = new DecimalFormat("#0.00");
 		for(Entry<Integer, Double> e : TimeSeriesMap.entrySet()){
+			result2[j][0] = e.getKey();
+			double value = Math.round((e.getValue()*100)/100);
+			result2[j][1] = value;
+			if(value > maxAmountOfValuesInCluster)
+				maxAmountOfValuesInCluster = (int)value;
+			j++;
+		}
+		return result2;
+		
+	}
+	
+	public double[][] getIsCashflow(){
+		double[][] result2 = new double[TimeSeriesMapCompare[0].keySet().size()][2];
+		int j = 0;
+		for(Entry<Integer, Double> e : TimeSeriesMapCompare[0].entrySet()){
+			result2[j][0] = e.getKey();
+			double value = e.getValue();
+			result2[j][1] = value;
+			if(value > maxAmountOfValuesInCluster)
+				maxAmountOfValuesInCluster = (int)value;
+			j++;
+		}
+		return result2;
+		
+	}
+	public double[][] getCompareCashflow(){
+		double[][] result2 = new double[TimeSeriesMapCompare[1].keySet().size()][2];
+		int j = 0;
+		for(Entry<Integer, Double> e : TimeSeriesMapCompare[1].entrySet()){
 			result2[j][0] = e.getKey();
 			double value = e.getValue();
 			result2[j][1] = value;

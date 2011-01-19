@@ -42,6 +42,6 @@ public interface ITimeSeriesProcess extends IDisplayablePlugin{
 
 	TreeMap<Integer, Double> calculate();
 	
-	TreeMap<Integer, Integer>  calculateCompare();
+	TreeMap<Integer, Double>[]  calculateCompare(int p);
 
 }

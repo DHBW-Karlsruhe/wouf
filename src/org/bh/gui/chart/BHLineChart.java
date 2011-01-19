@@ -1,5 +1,6 @@
 package org.bh.gui.chart;
 
+import java.awt.BasicStroke;
 import java.awt.Color;
 import java.util.List;
 
@@ -15,6 +16,7 @@ import org.jfree.chart.axis.NumberAxis;
 import org.jfree.chart.axis.NumberTickUnit;
 import org.jfree.chart.plot.PlotOrientation;
 import org.jfree.chart.plot.XYPlot;
+import org.jfree.chart.renderer.xy.DeviationRenderer;
 import org.jfree.data.general.Dataset;
 import org.jfree.data.xy.XYSeries;
 import org.jfree.data.xy.XYSeriesCollection;
@@ -50,9 +52,15 @@ public class BHLineChart extends BHChart implements IBHAddValue, IPlatformListen
 		
 		final XYPlot plot = chart.getXYPlot();
 		final NumberAxis rangeAxis = (NumberAxis) plot.getDomainAxis();
-       rangeAxis.setTickUnit(new NumberTickUnit(1.0));
-       plot.getRenderer().setSeriesPaint(0, Color.RED);
-                
+		rangeAxis.setTickUnit(new NumberTickUnit(1.0));
+		rangeAxis.setAutoRangeStickyZero(false);
+        plot.getRenderer().setSeriesPaint(0, Color.RED);
+         
+        NumberAxis numberaxis = (NumberAxis)plot.getRangeAxis(); 
+        numberaxis.setAutoRangeIncludesZero(false);
+        numberaxis.setAutoRange(true);
+        numberaxis.setStandardTickUnits(NumberAxis.createIntegerTickUnits()); 
+       
 		if ("Nimbus".equals(UIManager.getLookAndFeel().getName())) {
 			chart.setBackgroundPaint(UIManager.getColor("Chart.background"));
 		}
