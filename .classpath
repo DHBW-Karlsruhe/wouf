@@ -38,11 +38,11 @@
 	<classpathentry kind="lib" path="lib/Jama-1.0.2.jar"/>
 	<classpathentry kind="lib" path="lib/commons-math-2.1.jar"/>
 	<classpathentry kind="lib" path="lib/xom-1.2.6.jar"/>
+	<classpathentry kind="lib" path="lib/plugins/pdfexport/pdfbox-app-1.4.0.jar"/>
 	<classpathentry exported="true" kind="con" path="org.eclipse.jdt.junit.JUNIT_CONTAINER/4"/>
 	<classpathentry exported="true" kind="lib" path="lib/build_lib/ia_math.jar"/>
 	<classpathentry exported="true" kind="lib" path="lib/jh.jar"/>
 	<classpathentry exported="true" kind="lib" path="lib/plugins/pdfexport/iText.jar"/>
-	<classpathentry exported="true" kind="lib" path="lib/plugins/pdfexport/pdfbox-0.8.0-incubating.jar"/>
 	<classpathentry exported="true" kind="lib" path="lib/plugins/pdfexport/fontbox-0.8.0-incubating.jar"/>
 	<classpathentry exported="true" kind="lib" path="lib/plugins/excelexport/poi-ooxml-3.6-20091214.jar"/>
 	<classpathentry exported="true" kind="lib" path="lib/plugins/excelexport/poi-3.6-20091214.jar"/>
