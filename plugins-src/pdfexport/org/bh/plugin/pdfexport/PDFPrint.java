@@ -53,7 +53,7 @@ public class PDFPrint implements IPrint {
 			PDDocument pDoc;
 			File tmpFile;
 
-			tmpFile = File.createTempFile("bh_print", "pdf");
+			tmpFile = File.createTempFile("bh_print", ".pdf");
 
 			db.newDocument(tmpFile.getAbsolutePath(), scenario);
 			db.buildHeadData(scenario);
@@ -77,7 +77,7 @@ public class PDFPrint implements IPrint {
 			PDDocument pDoc;
 			File tmpFile;
 
-			tmpFile = File.createTempFile("bh_print", "pdf");
+			tmpFile = File.createTempFile("bh_print", ".pdf");
 
 			db.newDocument(tmpFile.getAbsolutePath(), scenario);
 			db.buildHeadData(scenario);
