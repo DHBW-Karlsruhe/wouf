@@ -27,7 +27,7 @@ public class TimeSeriesCalculator_v3 {
 	private List<Calculable> cashflows = null;
 	
 	/**
-	 * Standardkonstruktor
+	 * Standardkonstruktor, kopiert die übergebene Cashflowliste in den Objektspeicher
 	 * @param cashflows Liste mit den Cashflows, sortiert nach Perioden (Vergangenheit nach Zukunft)
 	 */
 	public TimeSeriesCalculator_v3(List<Calculable> cashflows){
@@ -119,9 +119,10 @@ public class TimeSeriesCalculator_v3 {
 	
 	
 	/**
+	 * prognostiziert eine beliebige Anzahl von Cashflows in die Zukunft
 	 * @param periods_calc_to_future Anzahl der für die Zukunft zu prognostizierenden Cashflows
 	 * @param periods_calc_to_history steht für die Anzahl der zu berücksichtigenden vergangenen Perioden (auch mit p abgekuerzt)
-	 * @return Cashflowliste mit prognostizierten Cashflows
+	 * @return Cashflowliste-Kopie mit hinzugefügten prognostizierten Cashflows
 	 */
 	public List<Calculable> calculateCashflows (int periods_calc_to_future, int periods_calc_to_history){
 		List<Calculable> cashflows_manipuliert = new LinkedList<Calculable>(); //zu manipulierende Liste initalisieren
@@ -141,7 +142,12 @@ public class TimeSeriesCalculator_v3 {
 		return cashflows_manipuliert;
 	}
 	
-	
+	/**
+	 * kalkuliert den nächsten Cashflow anhand der übergebenen Cashflowliste
+	 * @param cashflow_liste Cashflow-Liste
+	 * @param periods_calc_to_history Anzahl der vergangenen Perioden, die berücksichtigt werden sollen
+	 * @return prognostizierter Cashflow
+	 */
 	public double calulateNextCashflow(List<Calculable> cashflow_liste, int periods_calc_to_history){
 		double nextCashflow = 0;
 		List<Calculable> bereinigte_Zeitreihe = kalkuliereTrendberechnung(cashflow_liste);
@@ -256,7 +262,7 @@ public class TimeSeriesCalculator_v3 {
 			}
 			gamma_Wert = gamma_Wert/inner_counter;
 			gammaListe.add(new DoubleValue(gamma_Wert));
-			System.out.println("gammaWert "+(counter)+"= "+gamma_Wert);
+//			System.out.println("gammaWert "+(counter)+"= "+gamma_Wert);
 			
 		}
 		return gammaListe;
@@ -297,12 +303,19 @@ public class TimeSeriesCalculator_v3 {
 		Matrix matrixC = matrixA.solve(matrixB);
 		arrayLoesung = (matrixC.getArray());
 		for(int counter=0; counter<arrayLoesung.length; counter++){
-			System.out.println("c "+(counter+1)+" = "+arrayLoesung[counter][0]);
+//			System.out.println("c "+(counter+1)+" = "+arrayLoesung[counter][0]);
 			cListe.add(new DoubleValue(arrayLoesung[counter][0]));
 		}
 		return cListe;
 	}
 	
+	/**
+	 * kalkuliert AR-Modell-Summe, d.h. einen Cashflow ohne Berücksichtigung des "Weißen-Rauschens" 
+	 * @param cListe vorher kalkulierte Liste mit c1, c2, c3, ...
+	 * @param cashflow_liste Cashflowliste
+	 * @param periods_calc_to_history Anzahl der vergangenen Perioden, die berücksichtigt werden sollen
+	 * @return AR-Modell-Summe entspricht einem prognostiziertem Cashflow ohne Berücksichtigung des "Weißen-Rauschens"
+	 */
 	private double kalkuliere_AR_Modell(List<Calculable> cListe, List<Calculable> cashflow_liste, int periods_calc_to_history){
 		double aR = 0;
 		double c_Wert = 0;
@@ -311,7 +324,7 @@ public class TimeSeriesCalculator_v3 {
 		for(int i=1; i<= periods_calc_to_history && li_cListe.hasNext(); i++){
 			c_Wert = ((DoubleValue)li_cListe.next()).toNumber().doubleValue();
 			y_tmx = ((DoubleValue)cashflow_liste.get(cashflow_liste.size()-(i))).toNumber().doubleValue();
-			System.out.println("c"+i+" = "+c_Wert+" y(t-"+i+") = "+ y_tmx);
+//			System.out.println("c"+i+" = "+c_Wert+" y(t-"+i+") = "+ y_tmx);
 			aR = aR + (c_Wert * y_tmx);
 		}
 		System.out.println("aR = "+ aR);
@@ -327,7 +340,7 @@ public class TimeSeriesCalculator_v3 {
 	 */
 	
 	/**
-	 * Getter-Methode für cashflows
+	 * Getter-Methode für cashflows, Referenz-Methode
 	 * @return cashflows
 	 */
 	public List<Calculable> getCashflows() {
@@ -335,11 +348,35 @@ public class TimeSeriesCalculator_v3 {
 	}
 	
 	/**
-	 * Setter-Methode für Cashflows
+	 * Getter-Methode für cashflows, Kopier-Methode
+	 * @return
+	 */
+	public List<Calculable> getCashflowsCopy(){
+		List<Calculable> cashflows = null;
+		cashflows = new LinkedList<Calculable>();//initalisiere this.cashflows
+		for(Calculable cashflow : cashflows){//kopiere parametisierte Liste in Objektspeicher
+			this.cashflows.add(cashflow);
+		}
+		return cashflows;
+	}
+	
+	/**
+	 * Setter-Methode für Cashflows, Referenz-Methode
 	 * @param cashflows
 	 */
 	public void setCashflows(List<Calculable> cashflows) {
 		this.cashflows = cashflows;
+	}
+	
+	/**
+	 * Setter-Methode für Cashflows, Kopier-Methode
+	 * @param cashflows
+	 */
+	public void setCashflowsByMakingCopy(List<Calculable> cashflows){
+		this.cashflows = new LinkedList<Calculable>();//initalisiere this.cashflows
+		for(Calculable cashflow : cashflows){//kopiere parametisierte Liste in Objektspeicher
+			this.cashflows.add(cashflow);
+		}
 	}
 
 }
