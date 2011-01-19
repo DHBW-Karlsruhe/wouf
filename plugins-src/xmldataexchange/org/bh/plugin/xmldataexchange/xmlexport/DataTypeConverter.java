@@ -10,9 +10,7 @@ import org.bh.data.types.IntegerValue;
 import org.bh.data.types.IntervalValue;
 import org.bh.data.types.ObjectValue;
 import org.bh.data.types.StringValue;
-import org.jdom.Attribute;
-import org.jdom.Element;
-import org.jdom.Namespace;
+import nu.xom.*;
 
 /**
  * DataTypeConverter provides static methods to convert BH data types
@@ -21,17 +19,18 @@ import org.jdom.Namespace;
  * <p> 
  *
  * @author Marcus Katzor
- * @version 1.0, 25.12.2009
- *
+ * @version 1.1, 12.01.2011
+ * @update Vito Masiello, Patrick Maisel
+ * Klasse wurde an die XOM Library angepasst  
  */
 public class DataTypeConverter {
 	
 	/**
 	 * Converts an IValue into a XML node. 
 	 * @param val - Value to be converted
-	 * @return JDOM Element
+	 * @return XOM Element
 	 */
-	public static Element getXMLRepresentation(String key, IValue val, Namespace ns)
+	public static Element getXMLRepresentation(String key, IValue val, String ns)
 	{
 		// Value node
 		Element value = new Element("value", ns);
@@ -41,8 +40,8 @@ public class DataTypeConverter {
 		Attribute attrSimpleClass = new Attribute("type", val.getClass().getSimpleName());		
 		
 		// Add attributes
-		value.setAttribute(attrKey);		
-		value.setAttribute(attrSimpleClass);
+		value.addAttribute(attrKey);		
+		value.addAttribute(attrSimpleClass);
 		
 		// Get actual value as node
 		Element actValue = null;
@@ -61,7 +60,7 @@ public class DataTypeConverter {
 		if (actValue != null)
 		{
 			// Add actual values
-			value.addContent(actValue);
+			value.appendChild(actValue);
 		}				
 		else
 			Logger.getLogger(DataTypeConverter.class).debug("A value could not be converted into a XML Node. Type is: " + val.getClass().getSimpleName());
@@ -77,10 +76,10 @@ public class DataTypeConverter {
 	 * @param val
 	 * @return
 	 */
-	private static Element getDoubleValueInXML(DoubleValue val, Namespace ns)
+	private static Element getDoubleValueInXML(DoubleValue val, String ns)
 	{
 		Element value = new Element("doubleValue", ns);
-		value.addContent(val.getValue()+"");				
+		value.appendChild(val.getValue()+"");				
 		return value;
 		
 	}
@@ -90,10 +89,10 @@ public class DataTypeConverter {
 	 * @param val
 	 * @return
 	 */
-	private static Element getIntegerValueInXML(IntegerValue val, Namespace ns)
+	private static Element getIntegerValueInXML(IntegerValue val, String ns)
 	{
 		Element value = new Element("integerValue", ns);
-		value.addContent(val.getValue()+"");				
+		value.appendChild(val.getValue()+"");				
 		return value;		
 	}
 	
@@ -102,13 +101,13 @@ public class DataTypeConverter {
 	 * @param val
 	 * @return
 	 */
-	private static Element getIntervalValueInXML(IntervalValue val, Namespace ns)
+	private static Element getIntervalValueInXML(IntervalValue val, String ns)
 	{
 		Element value = new Element("intervalValue", ns);
 		Attribute attrMin = new Attribute("minValue", val.getMin() + "");
 		Attribute attrMax = new Attribute("maxValue", val.getMax() + "");		
-		value.setAttribute(attrMin);
-		value.setAttribute(attrMax);		
+		value.addAttribute(attrMin);
+		value.addAttribute(attrMax);		
 		return value;		
 	}
 	
@@ -117,10 +116,10 @@ public class DataTypeConverter {
 	 * @param val
 	 * @return
 	 */
-	private static Element getStringValueInXML(StringValue val, Namespace ns)
+	private static Element getStringValueInXML(StringValue val, String ns)
 	{
 		Element value = new Element("stringValue", ns);
-		value.addContent(val.getString());			
+		value.appendChild(val.getString());			
 		return value;		
 	}
 	
@@ -129,7 +128,7 @@ public class DataTypeConverter {
 	 * @param val
 	 * @return
 	 */
-	private static Element getObjectValueInXML(ObjectValue val, Namespace ns)
+	private static Element getObjectValueInXML(ObjectValue val, String ns)
 	{
 		if (val.getObject() instanceof ArrayList)
 		{
@@ -141,9 +140,9 @@ public class DataTypeConverter {
 					Attribute id = new Attribute("id", ((DTOKeyPair)obj).getDtoId());
 					Attribute key = new Attribute("key", ((DTOKeyPair)obj).getKey());
 					Element keyPair = new Element("keyPair", ns);
-					keyPair.setAttribute(id);
-					keyPair.setAttribute(key);
-					value.addContent(keyPair);
+					keyPair.addAttribute(id);
+					keyPair.addAttribute(key);
+					value.appendChild(keyPair);
 				}
 				else
 					return null;
