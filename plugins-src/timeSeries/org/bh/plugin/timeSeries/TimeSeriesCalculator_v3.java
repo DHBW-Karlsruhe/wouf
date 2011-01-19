@@ -143,6 +143,9 @@ public class TimeSeriesCalculator_v3 {
 			cashflows_manipuliert.add(cashflow);
 		}
 		
+		//Berechnung weißes Rauschen
+		List<DoubleValue> weisses_Rauschen = kalkuliere_weisses_Rauschen(periods_calc_to_future);
+		
 		//Vorinitalisierung
 		double nextCashflow = 0 ;
 		
@@ -161,8 +164,7 @@ public class TimeSeriesCalculator_v3 {
 	 * @param periods_calc_to_history Anzahl der vergangenen Perioden, die berücksichtigt werden sollen
 	 * @return prognostizierter Cashflow
 	 */
-	public double calulateNextCashflow(List<Calculable> cashflow_liste, int periods_calc_to_history){
-		double nextCashflow = 0;
+	private double calulateNextCashflow(List<Calculable> cashflow_liste, int periods_calc_to_history){
 		List<Calculable> bereinigte_Zeitreihe = kalkuliereTrendberechnung(cashflow_liste);
 		List<Calculable> gamma_Liste = kalkuliereGammaListe(bereinigte_Zeitreihe, periods_calc_to_history);
 		List<Calculable> cListe = kalkuliere_cListe(gamma_Liste, periods_calc_to_history);
@@ -340,12 +342,15 @@ public class TimeSeriesCalculator_v3 {
 //			System.out.println("c"+i+" = "+c_Wert+" y(t-"+i+") = "+ y_tmx);
 			aR = aR + (c_Wert * y_tmx);
 		}
-		System.out.println("aR = "+ aR);
+//		System.out.println("aR = "+ aR);
 		
 		return aR;
 	}
 	
-	
+	private List<DoubleValue> kalkuliere_weisses_Rauschen(int periods_calc_to_future){
+		System.out.println("weißes rauschen....");
+		return null;
+	}
 	
 	
 	/*

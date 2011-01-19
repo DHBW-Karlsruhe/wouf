@@ -54,7 +54,6 @@ import org.bh.gui.view.View;
 import org.bh.platform.IImportExport;
 import org.bh.platform.IPrint;
 import org.bh.platform.Services;
-import org.bh.plugin.timeSeries.TimeSeries;
 import org.jfree.chart.JFreeChart;
 
 // @update 23.12.2010 Timo Klein

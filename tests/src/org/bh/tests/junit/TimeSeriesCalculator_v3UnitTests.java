@@ -83,14 +83,20 @@ public class TimeSeriesCalculator_v3UnitTests {
 	
 	
 	@Test
-	public void calulateNextCashflow_Test(){
+	public void calculateCashflows_Test(){
 		boolean fehler_gefunden = false;
-		System.out.println("---- TimeSeriesCalculatorUnitTests: calulateNextCashflow_Test ----");
+		System.out.println("---- TimeSeriesCalculatorUnitTests: calculateCashflows_Test ----");
 		
-		//TimeSeriesCalculator erstellen
+		//TimeSeriesCalculator erstellen & berechnen
 		TimeSeriesCalculator_v3 calculator = new TimeSeriesCalculator_v3(cashflows);
-		double nextCashflow = 0;
-		nextCashflow = calculator.calulateNextCashflow(cashflows, 3);
+		List<Calculable> cashflows_prognostiziert = calculator.calculateCashflows(3, 3);
+		
+		//Ausgabe
+		System.out.println("--neue Cashflowliste:");
+		for (Calculable cashflow : cashflows_prognostiziert){
+			System.out.println("-- "+cashflow.toNumber());
+		}
+		System.out.println("---- TimeSeriesCalculatorUnitTests: calculateCashflows_Test beendet----");
 	}
 	
 	@Test
