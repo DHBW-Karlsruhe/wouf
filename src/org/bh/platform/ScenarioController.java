@@ -460,28 +460,24 @@ public class ScenarioController extends InputController {
 			    log.info("Result Analysis View load time: " + (end - start) + "ms");
 			}
 		    } else {
-			process.updateParameters();
-			DistributionMap result = process.calculate();
-			
-			BHCheckBox timeSeries = (BHCheckBox) view.getBHComponent(DTOScenario.Key.TIMESERIES_PROCESS);
-			if(timeSeries.isSelected()){
-				((BHScenarioForm) getViewPanel()).addProgressBar();
-				TSprocess.setProgressB((BHProgressBar) getView().getBHComponent(BHScenarioForm.Key.PROGRESSBAR));
-				TSprocess.updateParameters();
-				result.setTimeSeries(TSprocess, TSprocess.calculate(), TSprocess.calculateCompare(2));
-				TSprocess.print(scenario);
-			}
-
-			// FIXME selection of result analyser plugin
-			panel = new JPanel();
-			for (IStochasticResultAnalyser analyser : PluginManager.getInstance().getServices(IStochasticResultAnalyser.class)) {
-			    panel = analyser.setResult(scenario, result);
-			    break;
-			}
-			
+				process.updateParameters();
+				DistributionMap result = process.calculate();
 				
-			  
-
+				BHCheckBox timeSeries = (BHCheckBox) view.getBHComponent(DTOScenario.Key.TIMESERIES_PROCESS);
+				if(timeSeries.isSelected()){
+					((BHScenarioForm) getViewPanel()).addProgressBar();
+					TSprocess.setProgressB((BHProgressBar) getView().getBHComponent(BHScenarioForm.Key.PROGRESSBAR));
+					TSprocess.updateParameters();
+					result.setTimeSeries(TSprocess, TSprocess.calculate(), TSprocess.calculateCompare(2));
+					TSprocess.print(scenario);
+				}
+	
+				// FIXME selection of result analyser plugin
+				panel = new JPanel();
+				for (IStochasticResultAnalyser analyser : PluginManager.getInstance().getServices(IStochasticResultAnalyser.class)) {
+				    panel = analyser.setResult(scenario, result);
+				    break;
+				}
 		    }
 
 		    if (panel != null) {

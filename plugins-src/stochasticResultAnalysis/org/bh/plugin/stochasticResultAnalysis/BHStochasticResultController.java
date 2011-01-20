@@ -189,19 +189,24 @@ public class BHStochasticResultController extends OutputController {
     }
 
     class SliderChangeListener implements ChangeListener {
-
-	@Override
-	public void stateChanged(ChangeEvent e) {
-		String key = ((BHSlider)e.getSource()).getKey();
-		if(key.equals(ChartKeys.RISK_AT_VALUE.toString())){
-		    double confidence = ((BHSlider) view.getBHComponent(ChartKeys.RISK_AT_VALUE.toString())).getValue();
-		    calcRiskAtValue(confidence, stochasticResult.getMaxAmountOfValuesInCluster());
+    	boolean erstes_mal = true;//siehe F I X M E un
+		@Override
+		public void stateChanged(ChangeEvent e) {
+			
+			String key = ((BHSlider)e.getSource()).getKey();
+			if(key.equals(ChartKeys.RISK_AT_VALUE.toString())){
+			    double confidence = ((BHSlider) view.getBHComponent(ChartKeys.RISK_AT_VALUE.toString())).getValue();
+			    calcRiskAtValue(confidence, stochasticResult.getMaxAmountOfValuesInCluster());
+			}
+			if(key.equals(ChartKeys.CASHFLOW_COMPARE_SLIDER.toString())){
+				int p = ((BHSlider) view.getBHComponent(ChartKeys.CASHFLOW_COMPARE_SLIDER.toString())).getValue();
+				if(erstes_mal){//FIXME Notlösung: wird beim erstellen der grafiken bzw. des slieder schon automatisch aufgerufen, was mit dieser boolean variable verhindert wird, schlechte lösung !!! siehe konsolen kommentar "Das sollte nicht erscheinen"
+					erstes_mal = false;
+				}
+				else{
+					calcNewComparison(p);
+				}
 		}
-		if(key.equals(ChartKeys.CASHFLOW_COMPARE_SLIDER.toString())){
-			int p = ((BHSlider) view.getBHComponent(ChartKeys.CASHFLOW_COMPARE_SLIDER.toString())).getValue();
-			calcNewComparison(p);
-		}
-		
 	}
 
     }

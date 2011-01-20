@@ -188,24 +188,23 @@ public class TimeSeries implements ITimeSeriesProcess {
 	public TreeMap<Integer, Double> calculate() {
 		//Berechnung für den Cashflow-Chart Vergangenheit bis in die Zukunft
 		TreeMap<Integer, Double> result = new TreeMap();
-	
-	
+		
 		TreeMap<DTOKeyPair, List<Calculable>> periods = scenario.getPeriodStochasticKeysAndValues();
     	Entry<DTOKeyPair, List<Calculable>> cashfl = periods.firstEntry();
 		
     	List<Calculable> cashValues = cashfl.getValue();
     	int p = map.get(AMOUNT_OF_PERIODS_BACK);
     	int f = map.get(AMOUNT_OF_PERIODS_FUTURE);
-    	calc = new TimeSeriesCalculator_v3(cashValues);
-    	calc.setProgressBar(progressB);
-    	List<Calculable> cashCalc = calc.calculateCashflows(f,p,true,100);
+    	calc = new TimeSeriesCalculator_v3(cashValues, progressB);
+    	System.out.println("TimeSeries: call calculate cashflows");
+    	List<Calculable> cashCalc = calc.calculateCashflows(f,p,true,100,true);
+    	System.out.println("TimeSeries: call calculate cashflows beendet");
     	int counter = 1;
     	for(Calculable cashflow : cashCalc){
     		int key = -(cashCalc.size()-f)+counter;
     		double value = cashflow.toNumber().doubleValue();
     		result.put(key, value);
     		counter ++;
-    		
     	}
 		return result;
 	}
@@ -213,10 +212,12 @@ public class TimeSeries implements ITimeSeriesProcess {
 	
 	public TreeMap<Integer, Double>[]  calculateCompare(int p){
 		TreeMap<Integer, Double> result[] = new TreeMap[2];
-			result[0] = new TreeMap<Integer, Double>(); //Ist Cashflows
-			result[1] = new TreeMap<Integer, Double>(); //Vergleichs Cashflows
+		result[0] = new TreeMap<Integer, Double>(); //Ist Cashflows
+		result[1] = new TreeMap<Integer, Double>(); //Vergleichs Cashflows
 			
+			System.out.println("TimeSeries: call calcultionTest_4_periods_to_history");
 			List<Calculable> cashProg = calc.calcultionTest_4_periods_to_history(p, p+1, 100, true);
+			System.out.println("TimeSeries: call calcultionTest_4_periods_to_history beendet");
 			List<Calculable> cashIs = calc.getCashflows();
 			int counter = 1;
 			
