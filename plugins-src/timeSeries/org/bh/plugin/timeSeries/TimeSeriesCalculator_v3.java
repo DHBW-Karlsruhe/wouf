@@ -140,11 +140,15 @@ public class TimeSeriesCalculator_v3 {
 			counter++;
 		}
 		
-		ListIterator lI_cashflows_n_beruecks = cashflows_nicht_beruecksichtig.listIterator();
+		//Für die ProgressBAR:
 		int cashflows_n_beruecks_size = cashflows_nicht_beruecksichtig.size();
-		int progressbar_haelfte = progressB.getValue();
+		int progressbar_haelfte = 0;
+		if(progressB != null){
+			progressbar_haelfte = progressB.getValue();
+		}
 		counter = 1;
 		//Vorinitalisierung
+		ListIterator lI_cashflows_n_beruecks = cashflows_nicht_beruecksichtig.listIterator();
 		double nextCashflow = 0;
 		Calculable cashflow_unberuecksichtigt = null;
 		List<Calculable> nextCashflows = null;
@@ -181,7 +185,7 @@ public class TimeSeriesCalculator_v3 {
 	 * @return Cashflowliste-Kopie mit hinzugefügten prognostizierten Cashflows
 	 */
 	public List<Calculable> calculateCashflows (int periods_calc_to_future, int periods_calc_to_history, boolean weissesRauschenISon, int anzahlWiederholungen, boolean progressBarSetzen){
-		System.out.println("TimeSeriesCalculator_v3: called calculateCashflows...");
+//		System.out.println("TimeSeriesCalculator_v3: called calculateCashflows...");
 		List<Calculable> cashflows_manipuliert = new LinkedList<Calculable>(); //zu manipulierende Liste initalisieren
 		for(Calculable cashflow : this.cashflows){//original Liste in zu manipulierende Liste kopieren
 			cashflows_manipuliert.add(cashflow);
