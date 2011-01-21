@@ -144,7 +144,7 @@ public class TimeSeriesCalculator_v3 {
 		int cashflows_n_beruecks_size = cashflows_nicht_beruecksichtig.size();
 		int progressbar_haelfte = 0;
 		if(progressB != null){
-			progressbar_haelfte = progressB.getValue();
+			progressbar_haelfte = progressB.getMaximum()/2;
 		}
 		counter = 1;
 		//Vorinitalisierung
@@ -204,7 +204,7 @@ public class TimeSeriesCalculator_v3 {
 		for(int counter = 0; counter<anzahlWiederholungen; counter++){
 			//ProgressBar, falls verfügbar und erwünscht, aktualisieren
 			if(progressB != null && progressBarSetzen == true){
-				progressB.setValue((counter+1)/2);
+				progressB.setValue((int) (((progressB.getMaximum()/2.0)/anzahlWiederholungen)*(counter+1.0)));
 			}
 			
 			//Variablen leeren
