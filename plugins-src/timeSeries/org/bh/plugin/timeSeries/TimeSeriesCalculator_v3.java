@@ -36,7 +36,7 @@ import org.bh.gui.swing.comp.BHProgressBar;
  * 
  * <p>
  * TODO NOT finally implemented
- * @author Andreas Wussler
+ * @author Andreas Wussler, Timo Klein
  * @since 1.0, 28.12.2010
  * @version 3.0, 12.01.2011
  *
@@ -154,7 +154,7 @@ public class TimeSeriesCalculator_v3 {
 		List<Calculable> nextCashflows = null;
 		while(lI_cashflows_n_beruecks.hasNext()){//Liste der noch nicht berücksichtigten Cashflows durchlaufen..
 			//prognostiziere Cashflow
-			nextCashflows = calculateCashflows(1, periods_to_history, weissesRauschenISon, 100, false);
+			nextCashflows = calculateCashflows(1, periods_to_history, weissesRauschenISon, anzahlWiederholungen, false);
 			nextCashflow = ((DoubleValue)nextCashflows.get(nextCashflows.size()-1)).toNumber().doubleValue();
 //			nextCashflow = calulateNextCashflow(cashflows_beruecksichtigt, periods_to_history);
 			//nicht berücksichtigten Cashflow holen und speichern
