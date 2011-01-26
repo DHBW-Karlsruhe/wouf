@@ -71,7 +71,7 @@ public class BHHelpSystem extends JPanel {
 				log.info("Hilfedatei gefunden: " + url);
 				// log.info(urlold);
 				String urlnew = (urlold + ".jar!/" + "en" + "/jhelpset.hs");
-				log.info(urlnew);
+				//log.info(urlnew);
 				URL urlnewurl = new URL(urlnew);
 				log.info("Benutzte Hilfedatei: " + urlnewurl.toString());
 				helpViewer = new JHelp(new HelpSet(cl, urlnewurl));
@@ -83,7 +83,7 @@ public class BHHelpSystem extends JPanel {
 				log.info("Hilfedatei gefunden: " + url);
 				// log.info(urlold);
 				String urlnew = (urlold + ".jar!/" + l + "/jhelpset.hs");
-				log.info(urlnew);
+				//log.info(urlnew);
 				URL urlnewurl = new URL(urlnew);
 				log.info("Benutzte Hilfedatei: " + urlnewurl.toString());
 				helpViewer = new JHelp(new HelpSet(cl, urlnewurl));
