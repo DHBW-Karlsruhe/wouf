@@ -115,64 +115,101 @@ public class TimeSeriesCalculator_v3 {
 	 * @return  Liste mit Test-Prognostizierungen für die Vergangenheit
 	 */
 	public List<Calculable> calcultionTest_4_periods_to_history(int periods_to_history, int puffer, int anzahlWiederholungen, boolean weissesRauschenISon) throws NumberFormatException{
-		if(puffer-1 < periods_to_history){
-			System.out.println("Fehler puffer-1 muss >= periods_to_history sein puffer="+puffer+" periods_to_history="+periods_to_history);
-			throw new NumberFormatException("Fehler puffer-1 muss >= periods_to_history sein puffer="+puffer+" periods_to_history="+periods_to_history);
-		}
-		
+//		if(puffer-1 < periods_to_history){
+//			System.out.println("Fehler puffer-1 muss >= periods_to_history sein puffer="+puffer+" periods_to_history="+periods_to_history);
+//			throw new NumberFormatException("Fehler puffer-1 muss >= periods_to_history sein puffer="+puffer+" periods_to_history="+periods_to_history);
+//		}
+//		
+//		List<Calculable> cashflows_beruecksichtigt = new LinkedList<Calculable>(); //Liste mit berücksichtigten Cashflows
+//		List<Calculable> cashflows_nicht_beruecksichtig = new LinkedList<Calculable>(); //Liste mit noch nicht berücksichtigten Cashflows
+//		List<Calculable> cashflows_calculationTest = new LinkedList<Calculable>(); //Liste mit kalkulations-Test (Rückgabe-Wert)
+//		int counter =1;
+//		boolean puffer_uebergelaufen = false;
+//		for(Calculable cashflow : this.cashflows){//original Liste in zu manipulierende Liste kopieren, bis puffer erreicht ist
+//			if(!puffer_uebergelaufen){//falls puffer nicht übergelaufen
+//				cashflows_beruecksichtigt.add(cashflow);
+//				cashflows_calculationTest.add(cashflow);
+////				System.out.println("add to cashflows manipuliert "+cashflow.toNumber().doubleValue());
+//			}else{//falls puffer übergelaufen
+//				cashflows_nicht_beruecksichtig.add(cashflow);
+////				System.out.println("add to cashflows nicht beruecksichtig "+cashflow.toNumber().doubleValue());
+//			}
+//			if(counter >= puffer && counter >= periods_to_history){//puffer checken
+//				puffer_uebergelaufen = true;
+//			}
+//			counter++;
+//		}
+//		
+//		//Für die ProgressBAR:
+//		int cashflows_n_beruecks_size = cashflows_nicht_beruecksichtig.size();
+//		int progressbar_haelfte = 0;
+//		if(progressB != null){
+//			progressbar_haelfte = progressB.getMaximum()/2;
+//		}
+//		counter = 1;
+//		//Vorinitalisierung
+//		ListIterator lI_cashflows_n_beruecks = cashflows_nicht_beruecksichtig.listIterator();
+//		double nextCashflow = 0;
+//		Calculable cashflow_unberuecksichtigt = null;
+//		List<Calculable> nextCashflows = null;
+//		while(lI_cashflows_n_beruecks.hasNext()){//Liste der noch nicht berücksichtigten Cashflows durchlaufen..
+//			//prognostiziere Cashflow
+//			nextCashflows = calculateCashflows(1, periods_to_history, weissesRauschenISon, anzahlWiederholungen, false);
+//			nextCashflow = ((DoubleValue)nextCashflows.get(nextCashflows.size()-1)).toNumber().doubleValue();
+////			nextCashflow = calulateNextCashflow(cashflows_beruecksichtigt, periods_to_history);
+//			//nicht berücksichtigten Cashflow holen und speichern
+//			cashflow_unberuecksichtigt = (Calculable) lI_cashflows_n_beruecks.next(); 
+//			//prognostizierter Cashflow KalkulationsTest-Liste hinzufügen
+//			cashflows_calculationTest.add(new DoubleValue(nextCashflow));
+//			//realer unberücksichtigter Cashfolw der Liste "berücksichtigt" hinzufügen
+//			cashflows_beruecksichtigt.add(cashflow_unberuecksichtigt);
+//			
+//			if(progressB != null){
+//				progressB.setValue(progressbar_haelfte+(progressbar_haelfte/cashflows_n_beruecks_size)*counter);
+//			}
+//			counter++;
+//		}
+//		if(progressB != null){//zur Sicherheit...
+//			progressB.setValue(progressB.getMaximum());
+//		}
+//		return cashflows_calculationTest;
+		return new LinkedList<Calculable>();
+	}
+	
+	/**
+	 * Kalkulierungstest für p (Berücksichtigung der Perioden der Vergangenheit)<br>
+	 * Prognostiziert die bereits bekannten Cashflows, indem für die Vergangenheit prognostiziert wird.
+	 * @param periods_to_history Faktor p (Berücksichtigung der Perioden der Vergangenheit)
+	 * @param anzahlWiederholungen Anzahl der Prognostizierungs-Versuche, guter Wert ist 1000
+	 * @param weissesRauschenISon Weißes Rauschen ein bzw. ausschalten
+	 * @return  Liste mit Test-Prognostizierungen für die Vergangenheit
+	 */
+	public List<Calculable> calcultionTest_4_periods_to_history_v2(int periods_to_history, int anzahlWiederholungen, boolean weissesRauschenISon){
 		List<Calculable> cashflows_beruecksichtigt = new LinkedList<Calculable>(); //Liste mit berücksichtigten Cashflows
-		List<Calculable> cashflows_nicht_beruecksichtig = new LinkedList<Calculable>(); //Liste mit noch nicht berücksichtigten Cashflows
-		List<Calculable> cashflows_calculationTest = new LinkedList<Calculable>(); //Liste mit kalkulations-Test (Rückgabe-Wert)
 		int counter =1;
-		boolean puffer_uebergelaufen = false;
-		for(Calculable cashflow : this.cashflows){//original Liste in zu manipulierende Liste kopieren, bis puffer erreicht ist
-			if(!puffer_uebergelaufen){//falls puffer nicht übergelaufen
-				cashflows_beruecksichtigt.add(cashflow);
-				cashflows_calculationTest.add(cashflow);
-//				System.out.println("add to cashflows manipuliert "+cashflow.toNumber().doubleValue());
-			}else{//falls puffer übergelaufen
-				cashflows_nicht_beruecksichtig.add(cashflow);
-//				System.out.println("add to cashflows nicht beruecksichtig "+cashflow.toNumber().doubleValue());
-			}
-			if(counter >= puffer && counter >= periods_to_history){//puffer checken
-				puffer_uebergelaufen = true;
+		for(Calculable cashflow : this.cashflows){//original Liste in cashflow-Liste berücksichtig kopieren
+			cashflows_beruecksichtigt.add(cashflow);
+			if(counter == periods_to_history+1 && counter >= 4){// p+1 cashflows sammeln, aber mindestens 4
+				break;
 			}
 			counter++;
 		}
 		
+		/*
+		for(Calculable cashflow : cashflows_beruecksichtigt){//original Liste in cashflow-Liste berücksichtig kopieren
+			System.out.println("kopiert: "+cashflow.toNumber().doubleValue());
+		}*/
+		
 		//Für die ProgressBAR:
-		int cashflows_n_beruecks_size = cashflows_nicht_beruecksichtig.size();
+		int cashflows_n_beruecks_size = cashflows_beruecksichtigt.size();
 		int progressbar_haelfte = 0;
 		if(progressB != null){
 			progressbar_haelfte = progressB.getMaximum()/2;
 		}
-		counter = 1;
-		//Vorinitalisierung
-		ListIterator lI_cashflows_n_beruecks = cashflows_nicht_beruecksichtig.listIterator();
-		double nextCashflow = 0;
-		Calculable cashflow_unberuecksichtigt = null;
-		List<Calculable> nextCashflows = null;
-		while(lI_cashflows_n_beruecks.hasNext()){//Liste der noch nicht berücksichtigten Cashflows durchlaufen..
-			//prognostiziere Cashflow
-			nextCashflows = calculateCashflows(1, periods_to_history, weissesRauschenISon, anzahlWiederholungen, false);
-			nextCashflow = ((DoubleValue)nextCashflows.get(nextCashflows.size()-1)).toNumber().doubleValue();
-//			nextCashflow = calulateNextCashflow(cashflows_beruecksichtigt, periods_to_history);
-			//nicht berücksichtigten Cashflow holen und speichern
-			cashflow_unberuecksichtigt = (Calculable) lI_cashflows_n_beruecks.next(); 
-			//prognostizierter Cashflow KalkulationsTest-Liste hinzufügen
-			cashflows_calculationTest.add(new DoubleValue(nextCashflow));
-			//realer unberücksichtigter Cashfolw der Liste "berücksichtigt" hinzufügen
-			cashflows_beruecksichtigt.add(cashflow_unberuecksichtigt);
-			
-			if(progressB != null){
-				progressB.setValue(progressbar_haelfte+(progressbar_haelfte/cashflows_n_beruecks_size)*counter);
-			}
-			counter++;
-		}
-		if(progressB != null){//zur Sicherheit...
-			progressB.setValue(progressB.getMaximum());
-		}
-		return cashflows_calculationTest;
+		
+		System.out.println("size berücksichtig= "+cashflows_beruecksichtigt.size()+" size cashflows= "+this.cashflows.size());
+		
+		return calculateCashflows(this.cashflows.size()-cashflows_beruecksichtigt.size(), periods_to_history, weissesRauschenISon, anzahlWiederholungen, false, cashflows_beruecksichtigt);
 	}
 	
 	
@@ -182,14 +219,23 @@ public class TimeSeriesCalculator_v3 {
 	 * @param weissesRauschenISon Weißes Rauschen ein bzw. ausschalten
 	 * @param periods_calc_to_history steht für die Anzahl der zu berücksichtigenden vergangenen Perioden (auch mit p abgekuerzt)
 	 * @param anzahlWiederholungen Anzahl der Prognostizierungs-Versuche, guter Wert ist 1000
+	 * @param cashflows optional cashflow-Liste, falls null wird die vorher im Konstruktor angegebene Cashflowliste genommen..
 	 * @return Cashflowliste-Kopie mit hinzugefügten prognostizierten Cashflows
 	 */
-	public List<Calculable> calculateCashflows (int periods_calc_to_future, int periods_calc_to_history, boolean weissesRauschenISon, int anzahlWiederholungen, boolean progressBarSetzen){
+	public List<Calculable> calculateCashflows (int periods_calc_to_future, int periods_calc_to_history, boolean weissesRauschenISon, int anzahlWiederholungen, boolean progressBarSetzen, List<Calculable> cashflows){
 //		System.out.println("TimeSeriesCalculator_v3: called calculateCashflows...");
 		List<Calculable> cashflows_manipuliert = new LinkedList<Calculable>(); //zu manipulierende Liste initalisieren
-		for(Calculable cashflow : this.cashflows){//original Liste in zu manipulierende Liste kopieren
-			cashflows_manipuliert.add(cashflow);
+		if(cashflows == null){//falls keine Cashflowliste übergeben wurde
+			for(Calculable cashflow : this.cashflows){//original Liste in zu manipulierende Liste kopieren
+				cashflows_manipuliert.add(cashflow);
+			}
 		}
+		else{
+			for(Calculable cashflow : cashflows){//übergebene Liste in zu manipulierende Liste kopieren
+				cashflows_manipuliert.add(cashflow);
+			}
+		}
+
 		
 		HashMap<Integer, Double> cashflow_prognos_MW_sammlung = new HashMap<Integer, Double>();//Hashmap zum sammeln der prognostizierten Cashflows mal Anzahl der Wdhn.
 		for(int i= 0; i<periods_calc_to_future; i++){//vorinitalisieren
@@ -200,11 +246,15 @@ public class TimeSeriesCalculator_v3 {
 		List<Calculable> weisses_Rauschen = null;
 		double nextCashflow = 0;
 		
+		if(weissesRauschenISon == false){//falls weißes rauschen augeschaltet ist, setze die anzahl der wdhs auf 1
+			anzahlWiederholungen = 1;
+		}
+		
 		//Wiederholungen durchkalkulieren
 		for(int counter = 0; counter<anzahlWiederholungen; counter++){
 			//ProgressBar, falls verfügbar und erwünscht, aktualisieren
 			if(progressB != null && progressBarSetzen == true){
-				progressB.setValue((int) (((progressB.getMaximum()/2.0)/anzahlWiederholungen)*(counter+1.0)));
+				progressB.setValue((int) (((progressB.getMaximum()/1.0)/anzahlWiederholungen)*(counter+1.0)));
 			}
 			
 			//Variablen leeren
@@ -224,14 +274,22 @@ public class TimeSeriesCalculator_v3 {
 					nextCashflow = nextCashflow + ((DoubleValue)weisses_Rauschen.get(i)).toNumber().doubleValue();
 				}
 				cashflows_manipuliert.add(new DoubleValue(nextCashflow));
+				System.out.println("add nextCashflow ");
 				cashflow_prognos_MW_sammlung.put(i, (cashflow_prognos_MW_sammlung.get(i)+nextCashflow));
 			}
 //			System.out.println("step "+counter);
 			
 			//cashflows_manipuliert zurücksetzen
 			cashflows_manipuliert = new LinkedList<Calculable>(); //zu manipulierende Liste initalisieren
-			for(Calculable cashflow : this.cashflows){//original Liste in zu manipulierende Liste kopieren
-				cashflows_manipuliert.add(cashflow);
+			if(cashflows == null){//falls keine Cashflowliste übergeben wurde
+				for(Calculable cashflow : this.cashflows){//original Liste in zu manipulierende Liste kopieren
+					cashflows_manipuliert.add(cashflow);
+				}
+			}
+			else{
+				for(Calculable cashflow : cashflows){//übergebene Liste in zu manipulierende Liste kopieren
+					cashflows_manipuliert.add(cashflow);
+				}
 			}
 		}
 		
@@ -240,7 +298,9 @@ public class TimeSeriesCalculator_v3 {
 			cashflows_manipuliert.add(new DoubleValue(cashflow_prognos_MW_sammlung.get(i)/anzahlWiederholungen));
 		}
 
-		
+		if(progressB != null && progressBarSetzen == true){//progressbar wert auf abweeichung prüfen und korrigieren
+			progressB.setValue(progressB.getMaximum());
+		}
 		
 		return cashflows_manipuliert;
 	}
@@ -301,8 +361,8 @@ public class TimeSeriesCalculator_v3 {
 		double betaDach2 = (txStrich_mittelwert - (tStrich*xStrich)) / (tStrich_hoch2 -(Math.pow(tStrich, 2)));
 		double betaDach1 = xStrich - (betaDach2 * tStrich);
 		
-//		System.out.println("tStrich = "+tStrich+" tStrich^2= "+tStrich_hoch2+" xStrich="+xStrich+" txStrich_Mittelwert="+txStrich_mittelwert);
-//		System.out.println("betaDach2= "+betaDach2+ " betaDach1 ="+ betaDach1);
+		System.out.println("tStrich = "+tStrich+" tStrich^2= "+tStrich_hoch2+" xStrich="+xStrich+" txStrich_Mittelwert="+txStrich_mittelwert);
+		System.out.println("betaDach2= "+betaDach2+ " betaDach1 ="+ betaDach1);
 		
 		//Ergebnis zurückgeben
 		return new double[]{tStrich_hoch2, xStrich, txStrich_mittelwert, tStrich, betaDach1, betaDach2};
@@ -363,8 +423,6 @@ public class TimeSeriesCalculator_v3 {
 		/*
 		 * Berechnung
 		 */
-		//y(0) hinzufügen
-		//gammaListe.add(new DoubleValue(1));
 		for(int counter = 0; counter <= periods_calc_to_history; counter++){//durchlaufe 1..p um Gamma_1 bis Gamma_p zu erhalten
 			li_bereinigteZeitreihe = bereinigteZeitreihe.listIterator();
 			li_bereinigteZeitreihe_mt = bereinigteZeitreihe.listIterator(counter);
@@ -380,7 +438,7 @@ public class TimeSeriesCalculator_v3 {
 			}
 			gamma_Wert = gamma_Wert/inner_counter;
 			gammaListe.add(new DoubleValue(gamma_Wert));
-//			System.out.println("gammaWert "+(counter)+"= "+gamma_Wert);
+			System.out.println("gammaWert "+(counter)+"= "+gamma_Wert);
 			
 		}
 		return gammaListe;

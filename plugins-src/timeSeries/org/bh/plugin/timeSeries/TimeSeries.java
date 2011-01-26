@@ -195,9 +195,13 @@ public class TimeSeries implements ITimeSeriesProcess {
     	List<Calculable> cashValues = cashfl.getValue();
     	int p = map.get(AMOUNT_OF_PERIODS_BACK);
     	int f = map.get(AMOUNT_OF_PERIODS_FUTURE);
+    	if(p > cashValues.size()-1){
+    		p = periods.size();
+    		System.out.println("p>size()-1");
+    	}
     	calc = new TimeSeriesCalculator_v3(cashValues, progressB);
     	System.out.println("TimeSeries: call calculate cashflows");
-    	List<Calculable> cashCalc = calc.calculateCashflows(f,p,true,100,true);
+    	List<Calculable> cashCalc = calc.calculateCashflows(f,p,true,1000,true,null);
     	System.out.println("TimeSeries: call calculate cashflows beendet");
     	int counter = 1;
     	for(Calculable cashflow : cashCalc){
@@ -216,7 +220,7 @@ public class TimeSeries implements ITimeSeriesProcess {
 		result[1] = new TreeMap<Integer, Double>(); //Vergleichs Cashflows
 			
 			System.out.println("TimeSeries: call calcultionTest_4_periods_to_history");
-			List<Calculable> cashProg = calc.calcultionTest_4_periods_to_history(p, p+1, 50, true);
+			List<Calculable> cashProg = calc.calcultionTest_4_periods_to_history_v2(p, 1000, false);
 			System.out.println("TimeSeries: call calcultionTest_4_periods_to_history beendet");
 			List<Calculable> cashIs = calc.getCashflows();
 			int counter = 1;

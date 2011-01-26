@@ -103,7 +103,7 @@ public class TimeSeriesCalculator_v3UnitTests {
 		
 		//TimeSeriesCalculator erstellen & berechnen
 		TimeSeriesCalculator_v3 calculator = new TimeSeriesCalculator_v3(cashflows);
-		List<Calculable> cashflows_prognostiziert = calculator.calculateCashflows(100, 3, false, 1, false);
+		List<Calculable> cashflows_prognostiziert = calculator.calculateCashflows(100, 3, false, 1, false, null);
 		
 		//Ausgabe
 		System.out.println("--neue Cashflowliste:");
@@ -144,7 +144,7 @@ public class TimeSeriesCalculator_v3UnitTests {
 		TimeSeriesCalculator_v3 calculator = new TimeSeriesCalculator_v3(cashflows);
 		List <Calculable> cashflows_kalkulations_test = new LinkedList<Calculable>();
 		
-		cashflows_kalkulations_test = calculator.calcultionTest_4_periods_to_history(3, 4, 100, true);
+		cashflows_kalkulations_test = calculator.calcultionTest_4_periods_to_history_v2(3, 1, false);
 		
 		//Ausgabe
 		for (Calculable cashflow : cashflows_kalkulations_test){
