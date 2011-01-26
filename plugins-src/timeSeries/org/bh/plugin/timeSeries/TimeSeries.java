@@ -158,16 +158,6 @@ public class TimeSeries implements ITimeSeriesProcess {
 		this.panel = result;
 		return result;
 	}
-
-	@Override
-	public void print(DTOScenario scenario) {
-		System.out.println("ich bin im neuen Interface");
-		TreeMap<DTOKeyPair, List<Calculable>> toBeDetermined = scenario.getPeriodStochasticKeysAndValues();
-		System.out.println("Zeitreihenanalyse: Cashflows:"+toBeDetermined.firstEntry().toString());
-		
-		System.out.println("vergangen " + map.get(AMOUNT_OF_PERIODS_BACK));
-		System.out.println("zukünftig " + map.get(AMOUNT_OF_PERIODS_FUTURE));
-	}
 	
 	public void updateParameters() {
 		Component[] components = panel.getComponents();
@@ -200,9 +190,9 @@ public class TimeSeries implements ITimeSeriesProcess {
     		System.out.println("p>size()-1");
     	}
     	calc = new TimeSeriesCalculator_v3(cashValues, progressB);
-    	System.out.println("TimeSeries: call calculate cashflows");
+//    	System.out.println("TimeSeries: call calculate cashflows");
     	List<Calculable> cashCalc = calc.calculateCashflows(f,p,true,1000,true,null);
-    	System.out.println("TimeSeries: call calculate cashflows beendet");
+//    	System.out.println("TimeSeries: call calculate cashflows beendet");
     	int counter = 1;
     	for(Calculable cashflow : cashCalc){
     		int key = -(cashCalc.size()-f)+counter;
@@ -219,9 +209,9 @@ public class TimeSeries implements ITimeSeriesProcess {
 		result[0] = new TreeMap<Integer, Double>(); //Ist Cashflows
 		result[1] = new TreeMap<Integer, Double>(); //Vergleichs Cashflows
 			
-			System.out.println("TimeSeries: call calcultionTest_4_periods_to_history");
+//			System.out.println("TimeSeries: call calcultionTest_4_periods_to_history");
 			List<Calculable> cashProg = calc.calcultionTest_4_periods_to_history_v2(p, 1000, false);
-			System.out.println("TimeSeries: call calcultionTest_4_periods_to_history beendet");
+//			System.out.println("TimeSeries: call calcultionTest_4_periods_to_history beendet");
 			List<Calculable> cashIs = calc.getCashflows();
 			int counter = 1;
 			
