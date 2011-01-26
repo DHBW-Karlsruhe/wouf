@@ -256,14 +256,14 @@ public class TimeSeriesCalculator_v3 {
 		List<Calculable> bereinigte_Zeitreihe = kalkuliereTrendberechnung(cashflow_liste, striche);
 		List<Calculable> gamma_Liste = kalkuliereGammaListe(bereinigte_Zeitreihe, periods_calc_to_history);
 		List<Calculable> cListe = kalkuliere_cListe(gamma_Liste, periods_calc_to_history);
-		double aR_Berechnung = kalkuliere_AR_Modell(cListe, cashflow_liste, periods_calc_to_history);
+		double aR_Berechnung = kalkuliere_AR_Modell(cListe, bereinigte_Zeitreihe, striche);
 		return aR_Berechnung;
 	}
 	
 	/**
-	 * Methode zum kalkulieren von tStrich_hoch2, xStrich, txStrich_mittelwert, tStrich
+	 * Methode zum kalkulieren von tStrich_hoch2, xStrich, txStrich_mittelwert, tStrich, betaDach1, betaDach2
 	 * @param cashflow_liste Cashflow Liste
-	 * @return striche[0]=tStrich_hoch2, striche[1]=xStrich, striche[2]=txStrich_mittelwert, striche[3]=tStrich
+	 * @return striche[0]=tStrich_hoch2, striche[1]=xStrich, striche[2]=txStrich_mittelwert, striche[3]=tStrich, strich[4]=betaDach1, strich[5]=betaDach2
 	 */
 	private double[] kalkuliereStriche(List<Calculable> cashflow_liste){
 		/*
@@ -297,9 +297,15 @@ public class TimeSeriesCalculator_v3 {
 		xStrich = (xStrich)/(counter-1);
 		txStrich_mittelwert = (txStrich_mittelwert)/(counter-1);
 		
+		//Beta dach
+		double betaDach2 = (txStrich_mittelwert - (tStrich*xStrich)) / (tStrich_hoch2 -(Math.pow(tStrich, 2)));
+		double betaDach1 = xStrich - (betaDach2 * tStrich);
+		
 //		System.out.println("tStrich = "+tStrich+" tStrich^2= "+tStrich_hoch2+" xStrich="+xStrich+" txStrich_Mittelwert="+txStrich_mittelwert);
+//		System.out.println("betaDach2= "+betaDach2+ " betaDach1 ="+ betaDach1);
+		
 		//Ergebnis zurückgeben
-		return new double[]{tStrich_hoch2, xStrich, txStrich_mittelwert, tStrich};
+		return new double[]{tStrich_hoch2, xStrich, txStrich_mittelwert, tStrich, betaDach1, betaDach2};
 	}
 	
 	/**
@@ -312,22 +318,12 @@ public class TimeSeriesCalculator_v3 {
 		 * Initalisierung
 		 */
 		int counter = 1;
-		//striche[0]=tStrich_hoch2, striche[1]=xStrich, striche[2]=txStrich_mittelwert, striche[3]= tStrich
-		double tStrich = striche[3];
-		double tStrich_hoch2 = striche[0];
-		double xStrich = striche[1];
-		double txStrich_mittelwert = striche[2];
 		
-		double betaDach2 = 0;
-		double betaDach1 = 0;
+		double betaDach1 =  striche[4];
+		double betaDach2 = striche[5];
 		double trendGerade_mt = 0;
 		double bereinigte_Zeitreihe_Wert = 0;
 		List<Calculable>  bereinigte_Zeitreihe = new LinkedList<Calculable>(); //return-Liste
-		
-		//betaDach2/betaDach1 Berechnung
-		betaDach2 = (txStrich_mittelwert - (tStrich*xStrich)) / (tStrich_hoch2 -(Math.pow(tStrich, 2)));
-		betaDach1 = xStrich - (betaDach2 * tStrich);
-//		System.out.println("betaDach2= "+betaDach2+ " betaDach1 ="+ betaDach1);
 		
 		/*
 		 * Berechnung von trendGerade_mt & bereinigte Zeitreihe
@@ -337,7 +333,6 @@ public class TimeSeriesCalculator_v3 {
 			trendGerade_mt = betaDach1 + (betaDach2 * counter);
 			bereinigte_Zeitreihe_Wert = trendGerade_mt - cashflow.toNumber().doubleValue();
 			bereinigte_Zeitreihe.add(new DoubleValue(bereinigte_Zeitreihe_Wert));
-//			summe_bereinigte_Zeitreihe = summe_bereinigte_Zeitreihe + bereinigte_Zeitreihe_Wert;
 //			System.out.println("Trendgerade mt "+counter+" ="+trendGerade_mt+" bereinigt Zeitreihe Wert "+counter+"="+bereinigte_Zeitreihe_Wert);
 			
 			counter++;
@@ -370,7 +365,7 @@ public class TimeSeriesCalculator_v3 {
 		 */
 		//y(0) hinzufügen
 		//gammaListe.add(new DoubleValue(1));
-		for(int counter = 1; counter <= periods_calc_to_history+1; counter++){//durchlaufe 1..p um Gamma_1 bis Gamma_p zu erhalten
+		for(int counter = 0; counter <= periods_calc_to_history; counter++){//durchlaufe 1..p um Gamma_1 bis Gamma_p zu erhalten
 			li_bereinigteZeitreihe = bereinigteZeitreihe.listIterator();
 			li_bereinigteZeitreihe_mt = bereinigteZeitreihe.listIterator(counter);
 			inner_counter = 0;
@@ -435,23 +430,30 @@ public class TimeSeriesCalculator_v3 {
 	/**
 	 * kalkuliert AR-Modell-Summe, d.h. einen Cashflow ohne Berücksichtigung des "Weißen-Rauschens" 
 	 * @param cListe vorher kalkulierte Liste mit c1, c2, c3, ...
-	 * @param cashflow_liste Cashflowliste
-	 * @param periods_calc_to_history Anzahl der vergangenen Perioden, die berücksichtigt werden sollen
+	 * @param bereinigteZeitreihe im Vorraus berechnete bereinigte Zeitreihe
+	 * @param striche mit diesen bereits errechneten werten: strich[4]=betaDach1, strich[5]=betaDach2
 	 * @return AR-Modell-Summe entspricht einem prognostiziertem Cashflow ohne Berücksichtigung des "Weißen-Rauschens"
 	 */
-	private double kalkuliere_AR_Modell(List<Calculable> cListe, List<Calculable> cashflow_liste, int periods_calc_to_history){
+	private double kalkuliere_AR_Modell(List<Calculable> cListe, List<Calculable> bereinigteZeitreihe, double[] striche){
 		double aR = 0;
-		double c_Wert = 0;
-		double y_tmx = 0; //Wert von y(t-x); 
-		ListIterator li_cListe = cListe.listIterator();
-		for(int i=1; i<= periods_calc_to_history && li_cListe.hasNext(); i++){
-			c_Wert = ((DoubleValue)li_cListe.next()).toNumber().doubleValue();
-			y_tmx = ((DoubleValue)cashflow_liste.get(cashflow_liste.size()-(i))).toNumber().doubleValue();
-//			System.out.println("c"+i+" = "+c_Wert+" y(t-"+i+") = "+ y_tmx);
-			aR = aR + (c_Wert * y_tmx);
-		}
-//		System.out.println("aR = "+ aR);
 		
+		//cListe minus mal bereinigte Zeitreihe ergibt bereinigter ci wert, aufsummiert ergibt bereinigt_ci_summe
+		ListIterator li_cListe = cListe.listIterator(cListe.size());
+		ListIterator li_bereinigteZeitreihe = bereinigteZeitreihe.listIterator(bereinigteZeitreihe.size());
+		double bereinigter_ci_Wert = 0;
+		double bereinigt_ci_summe = 0;
+		while(li_cListe.hasPrevious() && li_bereinigteZeitreihe.hasPrevious()){//rückwärts durchlaufen, bis komplette cListe durchlaufen wurde, die bereinigte Zeitreihe sollte dabei nich ans Ende der Liste stoßen
+			bereinigter_ci_Wert = ((DoubleValue)li_cListe.previous()).toNumber().doubleValue() * ((DoubleValue)li_bereinigteZeitreihe.previous()).toNumber().doubleValue();
+//			System.out.println("bereinigtes c="+bereinigter_ci_Wert);
+			bereinigt_ci_summe = bereinigt_ci_summe + bereinigter_ci_Wert;
+		}
+//		System.out.println("summe über alle bereinigte c : "+bereinigt_ci_summe + "bereinigte zeitreihe große "+bereinigteZeitreihe.size());
+		
+		double bereinigte_Zeitreihe_tplus1 = striche[4] + striche[5] * (bereinigteZeitreihe.size() + 1);//beta^1 + beta^2 * (t+1)
+//		System.out.println("bereinigte_Zeitriehe_t+1 "+bereinigte_Zeitreihe_tplus1);
+		
+		aR = bereinigte_Zeitreihe_tplus1 - bereinigt_ci_summe; //neuer Cashflow ergibt sich aus bereinigte_Zeitreihe bei t+1 minus die Summe über alle bereinigten c-Werte
+		System.out.println("nächster AR-Cashflow = "+aR);
 		return aR;
 	}
 	

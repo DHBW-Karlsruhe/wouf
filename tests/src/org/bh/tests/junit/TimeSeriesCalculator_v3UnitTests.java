@@ -41,18 +41,32 @@ public class TimeSeriesCalculator_v3UnitTests {
 	int p_future = 3;
 	
 	/*
-	 * Cashflow liste
+	 * Cashflow liste SAP
 	 */
-	final Calculable cashfolw_tm9 = new DoubleValue(16681);
-	final Calculable cashfolw_tm8 = new DoubleValue(18023);
-	final Calculable cashfolw_tm7 = new DoubleValue(16017);
-	final Calculable cashfolw_tm6 = new DoubleValue(15944);
-	final Calculable cashfolw_tm5 = new DoubleValue(15909);
-	final Calculable cashfolw_tm4 = new DoubleValue(13826);
-	final Calculable cashfolw_tm3 = new DoubleValue(11060);
-	final Calculable cashfolw_tm2 = new DoubleValue(11032);
-	final Calculable cashfolw_tm1 = new DoubleValue(14337);
-	final Calculable cashfolw_t0 = new DoubleValue(13088); 
+	final Calculable cashfolw_tm9 = new DoubleValue(638.065);
+	final Calculable cashfolw_tm8 = new DoubleValue(680.011);
+	final Calculable cashfolw_tm7 = new DoubleValue(988.846);
+	final Calculable cashfolw_tm6 = new DoubleValue(1686.701);
+	final Calculable cashfolw_tm5 = new DoubleValue(1504.916);
+	final Calculable cashfolw_tm4 = new DoubleValue(1826.945);
+	final Calculable cashfolw_tm3 = new DoubleValue(1607.9);
+	final Calculable cashfolw_tm2 = new DoubleValue(1846.815);
+	final Calculable cashfolw_tm1 = new DoubleValue(1950);
+	final Calculable cashfolw_t0 = new DoubleValue(2158); 
+	
+	/*
+	 * Cashflow liste 2
+	 */
+	final Calculable cashfolw2_tm9 = new DoubleValue(16681);
+	final Calculable cashfolw2_tm8 = new DoubleValue(18023);
+	final Calculable cashfolw2_tm7 = new DoubleValue(16017);
+	final Calculable cashfolw2_tm6 = new DoubleValue(15944);
+	final Calculable cashfolw2_tm5 = new DoubleValue(15909);
+	final Calculable cashfolw2_tm4 = new DoubleValue(13826);
+	final Calculable cashfolw2_tm3 = new DoubleValue(11060);
+	final Calculable cashfolw2_tm2 = new DoubleValue(11032);
+	final Calculable cashfolw2_tm1 = new DoubleValue(14337);
+	final Calculable cashfolw2_t0 = new DoubleValue(13088); 
 	
 	/**
 	 * Cashflow-Liste
@@ -89,7 +103,7 @@ public class TimeSeriesCalculator_v3UnitTests {
 		
 		//TimeSeriesCalculator erstellen & berechnen
 		TimeSeriesCalculator_v3 calculator = new TimeSeriesCalculator_v3(cashflows);
-		List<Calculable> cashflows_prognostiziert = calculator.calculateCashflows(100, 3, false, 100, false);
+		List<Calculable> cashflows_prognostiziert = calculator.calculateCashflows(100, 3, false, 1, false);
 		
 		//Ausgabe
 		System.out.println("--neue Cashflowliste:");
