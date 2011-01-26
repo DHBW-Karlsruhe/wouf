@@ -46,6 +46,7 @@ import org.bh.gui.swing.comp.BHSlider;
 import org.bh.gui.swing.comp.BHTable;
 import org.bh.gui.swing.comp.BHValueLabel;
 import org.bh.gui.swing.forms.border.BHBorderFactory;
+import org.bh.platform.Services;
 import org.bh.platform.i18n.ITranslator;
 import org.jfree.chart.plot.IntervalMarker;
 import org.jfree.chart.plot.XYPlot;
@@ -89,7 +90,7 @@ public class StochasticPanel extends JPanel{
 	        cashflowChartCompare = BHChartFactory.getLineChart(BHStochasticResultController.ChartKeys.CASHFLOW_CHART_COMPARE);
 	        XYPlot plot = cashflowChart.getChart().getXYPlot();
 	        IntervalMarker target = new IntervalMarker(0.0, 500.0);
-			target.setLabel("Prognostiziert");
+			target.setLabel(Services.getTranslator().translate(BHStochasticResultController.ChartKeys.CASHFLOW_FORECAST));
 	        target.setLabelAnchor(RectangleAnchor.BOTTOM);
 	        target.setLabelTextAnchor(TextAnchor.BOTTOM_CENTER);
 	        target.setLabelFont(new Font("SansSerif", Font.ITALIC, 20));
@@ -112,8 +113,8 @@ public class StochasticPanel extends JPanel{
 	        
 	        BHSlider slider = new BHSlider(BHStochasticResultController.ChartKeys.RISK_AT_VALUE, 0, 100, 95);
 	        BHSlider slider_cashflow = new BHSlider(BHStochasticResultController.ChartKeys.CASHFLOW_COMPARE_SLIDER);
-	        slider_cashflow.setMinimum(2);
-	        slider_cashflow.setValue(2);
+	        slider_cashflow.setMinimum(3);
+	        slider_cashflow.setValue(3);
 	        slider_cashflow.setMajorTickSpacing(2);
 	        slider_cashflow.setMinorTickSpacing(1);
 	        slider_cashflow.setPaintTicks( true );

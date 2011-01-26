@@ -60,7 +60,7 @@ import org.jfree.chart.JFreeChart;
 
 public class BHStochasticResultController extends OutputController {
     public static enum ChartKeys {
-	DISTRIBUTION_CHART, STANDARD_DEVIATION, AVERAGE, RISK_AT_VALUE, RISK_AT_VALUE_MIN, RISK_AT_VALUE_MAX, CASHFLOW_CHART, CASHFLOW_CHART_COMPARE, CASHFLOW_COMPARE_SLIDER, COMPARE_P_HEAD;
+	DISTRIBUTION_CHART, STANDARD_DEVIATION, AVERAGE, RISK_AT_VALUE, RISK_AT_VALUE_MIN, RISK_AT_VALUE_MAX, CASHFLOW_CHART, CASHFLOW_CHART_COMPARE, CASHFLOW_COMPARE_SLIDER, COMPARE_P_HEAD, CASHFLOW_FORECAST;
 
 	@Override
 	public String toString() {
@@ -68,7 +68,7 @@ public class BHStochasticResultController extends OutputController {
 	}
 
     }
-
+    int pAlt = 0;
     public static enum PanelKeys {
 	riskAtValue, AVERAGE, VALUE, PRINTSCENARIO, EXPORTSCENARIO, CASHFLOW, CASHFLOW_TABLE, COMPARE_P, CASHFLOW_IS, CASHFLOW_FORECAST;
 
@@ -129,7 +129,7 @@ public class BHStochasticResultController extends OutputController {
     	BHTable cashTable = ((BHTable) view.getBHComponent(TableKey));
     	Object[][] data = result.toObjectArrayTS();
     	int länge = result.getIsCashflow().length;
-    	sliderCompare.setMaximum(länge-1);
+    	sliderCompare.setMaximum(länge-2);
     	Dictionary map = new Hashtable();
     	for(int i =0;i<=länge;i++){
     		if((i%2)==0)
@@ -190,7 +190,7 @@ public class BHStochasticResultController extends OutputController {
 
     class SliderChangeListener implements ChangeListener {
     	boolean erstes_mal = true;//siehe F I X M E un
-		@Override
+    	
 		public void stateChanged(ChangeEvent e) {
 			
 			String key = ((BHSlider)e.getSource()).getKey();
@@ -200,12 +200,10 @@ public class BHStochasticResultController extends OutputController {
 			}
 			if(key.equals(ChartKeys.CASHFLOW_COMPARE_SLIDER.toString())){
 				int p = ((BHSlider) view.getBHComponent(ChartKeys.CASHFLOW_COMPARE_SLIDER.toString())).getValue();
-				if(erstes_mal){//FIXME Notlösung: wird beim erstellen der grafiken bzw. des slieder schon automatisch aufgerufen, was mit dieser boolean variable verhindert wird, schlechte lösung !!! siehe konsolen kommentar "Das sollte nicht erscheinen"
-					erstes_mal = false;
-				}
-				else{
-					calcNewComparison(p);
-				}
+				if(!(pAlt == p)){   
+					pAlt = p;
+                    calcNewComparison(p); 
+                }
 		}
 	}
 
