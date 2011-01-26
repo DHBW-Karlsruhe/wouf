@@ -248,8 +248,6 @@ public class StochasticPanel extends JPanel{
 			d.gridx = 0;
 			d.gridy = 4;
 			d.insets = new Insets(30,10,0,0);
-			System.out.println("prefered"+tablePane.getPreferredSize());
-			System.out.println("Maximum"+tablePane.getMaximumSize());
 			tablePane.setPreferredSize(new Dimension(456,250));
 			this.add(tablePane,d);
 		    

@@ -187,7 +187,6 @@ public class ScenarioController extends InputController {
 	BHCheckBox cbTimeSeriesMethod = (BHCheckBox) view.getBHComponent(DTOScenario.Key.TIMESERIES_PROCESS);
 	if (cbTimeSeriesMethod != null && Services.check4TimeSeriesPlugin()) {
 		cbTimeSeriesMethod.setVisible(true);
-		System.out.println("erstellung der Checkbox");
 		cbTimeSeriesMethod.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
@@ -235,10 +234,6 @@ public class ScenarioController extends InputController {
 				
 			}
 		});
-		if(cbTimeSeriesMethod.isSelected()){
-			System.out.println("is schon gecheckt");
-			cbTimeSeriesMethod.getActionListeners()[0].actionPerformed(new ActionEvent(this, 0, "is set"));
-		}
 	}
 	
 	// immediately toggle interval arithmetic on and off

@@ -187,7 +187,6 @@ public class TimeSeries implements ITimeSeriesProcess {
     	int f = map.get(AMOUNT_OF_PERIODS_FUTURE);
     	if(p > cashValues.size()-1){
     		p = periods.size();
-    		System.out.println("p>size()-1");
     	}
     	calc = new TimeSeriesCalculator_v3(cashValues, progressB);
 //    	System.out.println("TimeSeries: call calculate cashflows");
