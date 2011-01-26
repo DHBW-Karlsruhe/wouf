@@ -511,7 +511,7 @@ public class TimeSeriesCalculator_v3 {
 //		System.out.println("bereinigte_Zeitriehe_t+1 "+bereinigte_Zeitreihe_tplus1);
 		
 		aR = bereinigte_Zeitreihe_tplus1 - bereinigt_ci_summe; //neuer Cashflow ergibt sich aus bereinigte_Zeitreihe bei t+1 minus die Summe über alle bereinigten c-Werte
-		System.out.println("nächster AR-Cashflow = "+aR);
+//		System.out.println("nächster AR-Cashflow = "+aR);
 		return aR;
 	}
 	
