@@ -141,7 +141,6 @@ public final class BHScenarioForm extends JPanel {
 		String rowDef = "4px,p,14px,p,4px";
 		FormLayout topLayout = new FormLayout(colDef, rowDef);
 		topPanel.setLayout(topLayout);
-
 		cons = new CellConstraints();
 		
 		setHeadPanel(isIntervalArithmethic);
@@ -149,7 +148,6 @@ public final class BHScenarioForm extends JPanel {
 		JScrollPane scrollPane = new JScrollPane(topPanel);
 		scrollPane.setWheelScrollingEnabled(true);
 		scrollPane.getVerticalScrollBar().setUnitIncrement(10);
-		
 		//add topPanel to ScenarioForm
 		this.add(scrollPane, cons.xywh(2, 2, 1, 1));
 

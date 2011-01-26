@@ -168,7 +168,11 @@ public class InputController extends Controller implements IInputController {
 				max = ((DoubleValue) maxValue).getValue();
 
 			model.put(baseKey, new IntervalValue(min, max));
-		} else {
+		}
+		else if(key.startsWith("org.bh.data.DTOScenario$Key.TIMESERIES_PROCESS")){
+			//Timeseriesperiod checkbox sould not be saved!
+		}
+		else {
 			// "normal" value
 			model.put(key, comp.getValue());
 		}

@@ -50,7 +50,6 @@ public interface ITimeSeriesProcess extends IDisplayablePlugin{
 
 	JPanel calculateParameters();
 
-	void print(DTOScenario scenario);
 
 	void updateParameters();
 

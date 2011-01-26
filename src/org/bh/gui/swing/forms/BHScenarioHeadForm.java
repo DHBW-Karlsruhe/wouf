@@ -13,6 +13,7 @@
  *******************************************************************************/
 package org.bh.gui.swing.forms;
 
+import java.awt.Color;
 import java.awt.Component;
 import java.util.Vector;
 
@@ -93,7 +94,6 @@ public final class BHScenarioHeadForm extends JPanel {
 		layout.setColumnGroups(new int[][] { { 6, 17 } });
 
 		CellConstraints cons = new CellConstraints();
-
 		this.add(this.getlscenName(), cons.xywh(3, 4, 1, 1));
 		this.add(this.gettfscenName(), cons.xywh(6, 4,12, 1));
 		this.add(this.getlscenDescript(), cons.xywh(3, 6, 1, 1));

@@ -88,10 +88,8 @@ public final class BHStochasticInputForm extends JPanel {
 		String colDef = "4px,p,4px,p,4px,p,4px,p,120px,p,0px:grow,4px";
 		String rowDef = "4px,p,4px,p,4px,80px,10px,p,4px,p,4px,p,4px";
 		
-
 		FormLayout layout = new FormLayout(colDef, rowDef);
 		this.setLayout(layout);
-
 		CellConstraints cons = new CellConstraints();
 		this.add(this.getlDCFmethod(), cons.xywh(2, 2, 1, 1));
 		this.add(this.getcbDCFmethod(), cons.xywh(4, 2, 1, 1));

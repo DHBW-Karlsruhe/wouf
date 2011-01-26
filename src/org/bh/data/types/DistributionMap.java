@@ -366,8 +366,6 @@ public class DistributionMap implements Map<Double, Integer>,
 			result2[j][0] = e.getKey();
 			double value = e.getValue();
 			result2[j][1] = value;
-			if(value > maxAmountOfValuesInCluster)
-				maxAmountOfValuesInCluster = (int)value;
 			j++;
 		}
 		return result2;
@@ -382,8 +380,6 @@ public class DistributionMap implements Map<Double, Integer>,
 			result2[j][0] = e.getKey();
 			double value = Math.round((e.getValue()*100)/100);
 			result2[j][1] = value;
-			if(value > maxAmountOfValuesInCluster)
-				maxAmountOfValuesInCluster = (int)value;
 			j++;
 		}
 		return result2;
@@ -397,8 +393,6 @@ public class DistributionMap implements Map<Double, Integer>,
 			result2[j][0] = e.getKey();
 			double value = e.getValue();
 			result2[j][1] = value;
-			if(value > maxAmountOfValuesInCluster)
-				maxAmountOfValuesInCluster = (int)value;
 			j++;
 		}
 		return result2;
@@ -411,8 +405,6 @@ public class DistributionMap implements Map<Double, Integer>,
 			result2[j][0] = e.getKey();
 			double value = e.getValue();
 			result2[j][1] = value;
-			if(value > maxAmountOfValuesInCluster)
-				maxAmountOfValuesInCluster = (int)value;
 			j++;
 		}
 		return result2;
