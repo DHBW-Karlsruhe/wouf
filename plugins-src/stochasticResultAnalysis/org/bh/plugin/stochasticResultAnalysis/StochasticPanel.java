@@ -255,7 +255,6 @@ public class StochasticPanel extends JPanel{
 		    
 		    d.fill = GridBagConstraints.HORIZONTAL;
 			d.gridx = 0;
-			 System.out.println("Das sollte nicht erscheinen");
 			d.gridy = 5;
 			d.insets = new Insets(30,10,0,0);
 		    this.add(cashflowChartCompare, d);
