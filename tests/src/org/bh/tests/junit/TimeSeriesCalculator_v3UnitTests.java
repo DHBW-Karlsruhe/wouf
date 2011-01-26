@@ -19,9 +19,13 @@ import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.util.LinkedList;
 import java.util.List;
+
+import javax.swing.JProgressBar;
+
 import org.junit.Before;
 import org.junit.Test;
 import org.bh.data.types.*;
+import org.bh.gui.swing.comp.BHProgressBar;
 import org.bh.plugin.timeSeries.TimeSeriesCalculator_v2;
 import org.bh.plugin.timeSeries.TimeSeriesCalculator_v3;
 
@@ -152,6 +156,41 @@ public class TimeSeriesCalculator_v3UnitTests {
 		}
 		
 		System.out.println("---- TimeSeriesCalculatorUnitTests: calcultionTest_4_periods_to_history_Test beendet----");
+		assertTrue(keine_fehler);
+	}
+	
+	@Test
+	public void Getter_Setter_test(){
+		
+		
+
+		boolean keine_fehler = true;
+		System.out.println("---- TimeSeriesCalculatorUnitTests: Getter_Setter_test ----");
+		
+		TimeSeriesCalculator_v3 calculator = new TimeSeriesCalculator_v3(cashflows);
+		TimeSeriesCalculator_v3 calculator2 = new TimeSeriesCalculator_v3(cashflows, null);
+		calculator.setCashflows(new LinkedList<Calculable>());
+		calculator.setCashflowsByMakingCopy(new LinkedList<Calculable>());
+		calculator.getCashflows();
+		calculator.getCashflowsCopy();
+		calculator.setProgressBar(new BHProgressBar("", 0, 0));
+
+		System.out.println("---- TimeSeriesCalculatorUnitTests: Getter_Setter_test beendet----");
+		assertTrue(keine_fehler);
+	}
+	
+	@Test
+	public void weisses_Rauschen(){
+		
+		
+
+		boolean keine_fehler = true;
+		System.out.println("---- TimeSeriesCalculatorUnitTests: weisses_Rauschen ----");
+		
+		TimeSeriesCalculator_v3 calculator = new TimeSeriesCalculator_v3(cashflows);
+		calculator.calculateCashflows(1, 3, true, 10, false, null);
+
+		System.out.println("---- TimeSeriesCalculatorUnitTests: weisses_Rauschen beendet----");
 		assertTrue(keine_fehler);
 	}
 
