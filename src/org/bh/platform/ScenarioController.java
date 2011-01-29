@@ -414,6 +414,9 @@ public class ScenarioController extends InputController {
 
 	private final ImageIcon scCalcLoading = Services.createImageIcon("/org/bh/images/loading.gif");
 	private BHTree bhTree;
+	Thread calcThread;
+	boolean notInterrupted;
+	BHProgressBar progressBar;
 
 	public CalculationListener(BHTree bhTree) {
 	    this.bhTree = bhTree;
@@ -424,13 +427,13 @@ public class ScenarioController extends InputController {
 	    final JButton b = (JButton) e.getSource();
 	    final BHDescriptionLabel calcImage = (BHDescriptionLabel) getView().getBHComponent(BHScenarioForm.Key.CALCULATING_IMAGE);
 
-	    b.setEnabled(false);
+//	    b.setEnabled(false);
+	    b.setText(Services.getTranslator().translate(BHScenarioForm.Key.ABORT));
 	    calcImage.setIcon(this.scCalcLoading);
-
+	    notInterrupted = true;
 	    Runnable r = new Runnable() {
 		long end;
 		long start;
-
 		@Override
 		public void run() {
 		    DTOScenario scenario = (DTOScenario) getModel();
@@ -466,9 +469,14 @@ public class ScenarioController extends InputController {
 				BHCheckBox timeSeries = (BHCheckBox) view.getBHComponent(DTOScenario.Key.TIMESERIES_PROCESS);
 				if(timeSeries.isSelected()){
 					((BHScenarioForm) getViewPanel()).addProgressBar();
-					TSprocess.setProgressB((BHProgressBar) getView().getBHComponent(BHScenarioForm.Key.PROGRESSBAR));
+					progressBar = (BHProgressBar) getView().getBHComponent(BHScenarioForm.Key.PROGRESSBAR);
+					progressBar.setVisible(true);
+					TSprocess.setProgressB(progressBar);
 					TSprocess.updateParameters();
 					result.setTimeSeries(TSprocess, TSprocess.calculate(), TSprocess.calculateCompare(3));
+					
+
+					
 				}
 	
 				// FIXME selection of result analyser plugin
@@ -479,8 +487,9 @@ public class ScenarioController extends InputController {
 				}
 		    }
 
-		    if (panel != null) {
-
+		    if (panel != null & notInterrupted) {
+		    if(progressBar!=null){
+		    progressBar.setVisible(false);}
 			BHTreeNode tn = (BHTreeNode) bhTree.getSelectionPath().getPathComponent(2);
 			JScrollPane sp = new JScrollPane(panel);
 			sp.setWheelScrollingEnabled(true);
@@ -490,12 +499,34 @@ public class ScenarioController extends InputController {
 			bhmf.moveInResultForm(tn.getResultPane());
 
 		    }
-
-		    b.setEnabled(true);
+		    b.setText(Services.getTranslator().translate(BHScenarioForm.Key.CALCSHAREHOLDERVALUE));
+//		    b.setEnabled(true);
 		    calcImage.setIcon(null);
 		}
 	    };
-	    new Thread(r, "Calculation Thread").start();
+	    
+	    // Prozedur zum Abrechen der Berechnung
+	    if(calcThread!=null){
+	    	if(calcThread.isAlive()){
+	    		notInterrupted = false;
+	    		if(progressBar!=null){
+	    		progressBar.setVisible(false);
+	    		TSprocess.setInterrupted();
+	    		}
+	    		b.setText(Services.getTranslator().translate(BHScenarioForm.Key.CALCSHAREHOLDERVALUE));
+	    	}
+	    	else{
+	    	notInterrupted = true;
+	    	if(progressBar!=null){
+	    	progressBar.setVisible(true);}
+	    	calcThread = new Thread(r, "Calculation Thread");
+	    	calcThread.start();
+	    	}
+	    }
+	    else{
+	    calcThread = new Thread(r, "Calculation Thread");
+	    calcThread.start();
+	    }
 	}
     }
 }

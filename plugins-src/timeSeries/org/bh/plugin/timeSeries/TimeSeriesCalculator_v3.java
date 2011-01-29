@@ -50,6 +50,7 @@ public class TimeSeriesCalculator_v3 {
 	 * Referenz zu einer Progressbar, diese wird falls vorhanden, den Status der Berechnung übermittelt
 	 */
 	private BHProgressBar progressB = null;
+	private boolean interrupted;
 	
 	/**
 	 * Standardkonstruktor, kopiert die übergebene Cashflowliste in den Objektspeicher
@@ -154,6 +155,7 @@ public class TimeSeriesCalculator_v3 {
 	 */
 	public List<Calculable> calculateCashflows (int periods_calc_to_future, int periods_calc_to_history, boolean weissesRauschenISon, int anzahlWiederholungen, boolean progressBarSetzen, List<Calculable> cashflows){
 //		System.out.println("TimeSeriesCalculator_v3: called calculateCashflows...");
+		interrupted = false;
 		List<Calculable> cashflows_manipuliert = new LinkedList<Calculable>(); //zu manipulierende Liste initalisieren
 		if(cashflows == null){//falls keine Cashflowliste übergeben wurde
 			for(Calculable cashflow : this.cashflows){//original Liste in zu manipulierende Liste kopieren
@@ -183,6 +185,9 @@ public class TimeSeriesCalculator_v3 {
 		//Wiederholungen durchkalkulieren
 		for(int counter = 0; counter<anzahlWiederholungen; counter++){
 			//ProgressBar, falls verfügbar und erwünscht, aktualisieren
+			if(interrupted){
+				counter = anzahlWiederholungen;
+			}
 			if(progressB != null && progressBarSetzen == true){
 				progressB.setValue((int) (((progressB.getMaximum()/1.0)/anzahlWiederholungen)*(counter+1.0)));
 			}
@@ -552,6 +557,10 @@ public class TimeSeriesCalculator_v3 {
 	 */
 	public void setProgressBar(BHProgressBar progressB){
 		this.progressB = progressB;
+	}
+
+	public void setInterrupted() {
+		this.interrupted = true;
 	}
 
 }

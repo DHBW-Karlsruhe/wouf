@@ -34,6 +34,8 @@ public class VRIsLowerThan extends ValidationRule {
 	public static final VRIsLowerThan LTZERO = new VRIsLowerThan(0, false);
 	/** Constant to check whether a value is lower than or equal to zero. */
 	public static final VRIsLowerThan LTEZERO = new VRIsLowerThan(0, true);
+	/** Constant to check whether a value is lower than or equal to zero. */
+	public static final VRIsLowerThan LTEHUNDRED = new VRIsLowerThan(100, true);
 	
 	private IBHModelComponent other = null;
 	private double compareValue;

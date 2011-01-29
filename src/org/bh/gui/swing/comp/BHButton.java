@@ -98,6 +98,10 @@ public class BHButton extends JButton implements IBHComponent, IBHAction, IPlatf
 	public String getKey() {
 		return key;
 	}
+	
+	public void setKey(Object Key) {
+		this.key = key;
+	}
 
 	@Override
 	public PlatformKey getPlatformKey() {

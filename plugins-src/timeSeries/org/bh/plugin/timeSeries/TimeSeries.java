@@ -31,6 +31,7 @@ import org.bh.gui.swing.comp.BHTextField;
 import org.bh.platform.Services;
 import org.bh.validation.VRIsGreaterThan;
 import org.bh.validation.VRIsInteger;
+import org.bh.validation.VRIsLowerThan;
 import org.bh.validation.VRMandatory;
 import org.bh.validation.ValidationRule;
 import com.jgoodies.forms.layout.CellConstraints;
@@ -151,7 +152,7 @@ public class TimeSeries implements ITimeSeriesProcess {
 		
 		result.add(new BHDescriptionLabel(AMOUNT_OF_PERIODS_FUTURE), cons.xywh(6, 2,1, 1));
 		BHTextField tf2 = new BHTextField(AMOUNT_OF_PERIODS_FUTURE);
-		ValidationRule[] rules2 = { VRMandatory.INSTANCE, VRIsInteger.INSTANCE, VRIsGreaterThan.GTZERO};
+		ValidationRule[] rules2 = { VRMandatory.INSTANCE, VRIsInteger.INSTANCE, VRIsGreaterThan.GTZERO, VRIsLowerThan.LTEHUNDRED};
 		tf2.setValidationRules(rules2);
 		result.add(tf2, cons.xywh(8, 2, 1, 1));		
 		
@@ -235,6 +236,11 @@ public class TimeSeries implements ITimeSeriesProcess {
 	public void setProgressB(BHProgressBar progressB) {
 		this.progressB = progressB;
 		
+	}
+
+	@Override
+	public void setInterrupted() {
+		calc.setInterrupted();
 	}
 	
 

@@ -87,7 +87,11 @@ public final class BHScenarioForm extends JPanel {
 		/**
 		 * Progressbar for time series calculation
 		 */
-		PROGRESSBAR;
+		PROGRESSBAR,
+		/**
+		 * Abort-button for calculation
+		 */
+		ABORT;
 		
 		
 		@Override

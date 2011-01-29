@@ -59,4 +59,6 @@ public interface ITimeSeriesProcess extends IDisplayablePlugin{
 
 	void setProgressB(BHProgressBar bhComponent);
 
+	void setInterrupted();
+
 }
