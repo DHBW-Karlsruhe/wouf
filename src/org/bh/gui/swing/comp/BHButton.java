@@ -99,8 +99,9 @@ public class BHButton extends JButton implements IBHComponent, IBHAction, IPlatf
 		return key;
 	}
 	
-	public void setKey(Object Key) {
-		this.key = key;
+	public void changeText(Object key) {
+		this.key = key.toString();
+		reloadText();
 	}
 
 	@Override
@@ -133,6 +134,7 @@ public class BHButton extends JButton implements IBHComponent, IBHAction, IPlatf
 	protected void reloadText() {
 		this.setText(translator.translate(key));
 		hint = translator.translate(key, ITranslator.LONG);
+		System.out.println("hint ist " + hint);
 		setToolTipText(hint);
 	}
 

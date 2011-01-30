@@ -424,11 +424,11 @@ public class ScenarioController extends InputController {
 
 	@Override
 	public void actionPerformed(ActionEvent e) {
-	    final JButton b = (JButton) e.getSource();
+	    final BHButton b = (BHButton) e.getSource();
 	    final BHDescriptionLabel calcImage = (BHDescriptionLabel) getView().getBHComponent(BHScenarioForm.Key.CALCULATING_IMAGE);
 
 //	    b.setEnabled(false);
-	    b.setText(Services.getTranslator().translate(BHScenarioForm.Key.ABORT));
+	    b.changeText(BHScenarioForm.Key.ABORT);
 	    calcImage.setIcon(this.scCalcLoading);
 	    notInterrupted = true;
 	    Runnable r = new Runnable() {
@@ -499,8 +499,7 @@ public class ScenarioController extends InputController {
 			bhmf.moveInResultForm(tn.getResultPane());
 
 		    }
-		    b.setText(Services.getTranslator().translate(BHScenarioForm.Key.CALCSHAREHOLDERVALUE));
-//		    b.setEnabled(true);
+		    b.changeText(BHScenarioForm.Key.CALCSHAREHOLDERVALUE);
 		    calcImage.setIcon(null);
 		}
 	    };
@@ -513,7 +512,7 @@ public class ScenarioController extends InputController {
 	    		progressBar.setVisible(false);
 	    		TSprocess.setInterrupted();
 	    		}
-	    		b.setText(Services.getTranslator().translate(BHScenarioForm.Key.CALCSHAREHOLDERVALUE));
+	    		b.changeText(BHScenarioForm.Key.CALCSHAREHOLDERVALUE);	    	
 	    	}
 	    	else{
 	    	notInterrupted = true;
