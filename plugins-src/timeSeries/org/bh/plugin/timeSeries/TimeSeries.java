@@ -146,7 +146,7 @@ public class TimeSeries implements ITimeSeriesProcess {
 		
 		result.add(new BHDescriptionLabel(AMOUNT_OF_PERIODS_BACK), cons.xywh(2, 2,1, 1));
 		BHTextField tf3 = new BHTextField(AMOUNT_OF_PERIODS_BACK);
-		ValidationRule[] rules3 = { VRMandatory.INSTANCE, VRIsInteger.INSTANCE, VRIsGreaterThan.GTETWO};
+		ValidationRule[] rules3 = { VRMandatory.INSTANCE, VRIsInteger.INSTANCE, VRIsGreaterThan.GTETWO, VRIsLowerThan.LTEHUNDRED};
 		tf3.setValidationRules(rules3);
 		result.add(tf3, cons.xywh(4, 2, 1, 1));
 		
