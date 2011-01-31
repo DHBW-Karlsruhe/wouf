@@ -112,6 +112,7 @@ public class BHStochasticResultController extends OutputController {
 
 	@Override
 	public void setResult(DistributionMap result, DTOScenario scenario) {
+		System.out.println("Distribution Chart "+ ChartKeys.DISTRIBUTION_CHART.toString());
 		super.setResult(result, scenario);
 		IBHAddValue comp = super.view.getBHchartComponents().get(
 				ChartKeys.DISTRIBUTION_CHART.toString());

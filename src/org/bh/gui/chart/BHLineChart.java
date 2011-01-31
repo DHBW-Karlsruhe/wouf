@@ -194,47 +194,47 @@ public class BHLineChart extends BHChart implements IBHAddValue, IPlatformListen
 	}
 	
 	public void reloadText(){
-		/**
-		 * Da für die Charts leider keine Keys verwendet wurden, 
-		 * sondern gleich die Strings übergeben wurden, kann hier
-		 * nicht auf sie zugegriffen werden.
-		 * Daher die statische Programmierung
-		 */
-		for(int i =0;i<dataset.getSeriesCount();i++){
-			String key = (String) dataset.getSeriesKey(i);
-			XYSeries series = dataset.getSeries(i);
-			if(key.equals("Ist-Cashflow")|key.equals("Is-Cashflow")){
-				series.setKey(Services.getTranslator().translate(
-						org.bh.plugin.stochasticResultAnalysis.BHStochasticResultController.PanelKeys.CASHFLOW_IS));
-			}
-			if(key.equals("expected-Cashflow")|key.equals("Prognose-Cashflow")){
-				series.setKey(Services.getTranslator().translate(
-						org.bh.plugin.stochasticResultAnalysis.BHStochasticResultController.PanelKeys.CASHFLOW_FORECAST));
-			}
-			
-		}
-		
-		XYPlot plot = chart.getXYPlot();
-//		plot.getDomainMarkers(layer)
-		ValueAxis axe = plot.getRangeAxis();
-		String range = axe.getLabel();
-		if(range.equals("Cashflow in GE")|range.equals("Cashflow in MU")){
-			axe.setLabel(Services.getTranslator().translate(
-					org.bh.plugin.stochasticResultAnalysis.BHStochasticResultController.ChartKeys.CASHFLOW_CHART+".Y"));
-		}
-		
-		Collection target = plot.getDomainMarkers(Layer.BACKGROUND);
-		if(target!=null){
-			Iterator<Marker> it = target.iterator();
-			while(it.hasNext()){
-				Marker m = it.next();
-				String interval = m.getLabel();
-				if(interval.equals("Prognose")|interval.equals("forecast")){
-					m.setLabel(Services.getTranslator().translate(
-							org.bh.plugin.stochasticResultAnalysis.BHStochasticResultController.ChartKeys.CASHFLOW_FORECAST));
-				}
-			}
-		}
+//		/**
+//		 * Da für die Charts leider keine Keys verwendet wurden, 
+//		 * sondern gleich die Strings übergeben wurden, kann hier
+//		 * nicht auf sie zugegriffen werden.
+//		 * Daher die statische Programmierung
+//		 */
+//		for(int i =0;i<dataset.getSeriesCount();i++){
+//			String key = (String) dataset.getSeriesKey(i);
+//			XYSeries series = dataset.getSeries(i);
+//			if(key.equals("Ist-Cashflow")|key.equals("Is-Cashflow")){
+//				series.setKey(Services.getTranslator().translate(
+//						org.bh.plugin.stochasticResultAnalysis.BHStochasticResultController.PanelKeys.CASHFLOW_IS));
+//			}
+//			if(key.equals("expected-Cashflow")|key.equals("Prognose-Cashflow")){
+//				series.setKey(Services.getTranslator().translate(
+//						org.bh.plugin.stochasticResultAnalysis.BHStochasticResultController.PanelKeys.CASHFLOW_FORECAST));
+//			}
+//			
+//		}
+//		
+//		XYPlot plot = chart.getXYPlot();
+////		plot.getDomainMarkers(layer)
+//		ValueAxis axe = plot.getRangeAxis();
+//		String range = axe.getLabel();
+//		if(range.equals("Cashflow in GE")|range.equals("Cashflow in MU")){
+//			axe.setLabel(Services.getTranslator().translate(
+//					org.bh.plugin.stochasticResultAnalysis.BHStochasticResultController.ChartKeys.CASHFLOW_CHART+".Y"));
+//		}
+//		
+//		Collection target = plot.getDomainMarkers(Layer.BACKGROUND);
+//		if(target!=null){
+//			Iterator<Marker> it = target.iterator();
+//			while(it.hasNext()){
+//				Marker m = it.next();
+//				String interval = m.getLabel();
+//				if(interval.equals("Prognose")|interval.equals("forecast")){
+//					m.setLabel(Services.getTranslator().translate(
+//							org.bh.plugin.stochasticResultAnalysis.BHStochasticResultController.ChartKeys.CASHFLOW_FORECAST));
+//				}
+//			}
+//		}
 
 	}
 
