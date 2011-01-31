@@ -102,8 +102,7 @@ public class BHStochasticResultController extends OutputController {
 	public void platformEvent(PlatformEvent e) {
 		switch (e.getEventType()) {
 		case LOCALE_CHANGED:
-			log.info("DA BIN ICH!!BHSRC");
-			// hier müssten dann die Schaubilder neu gezeichnet werden
+
 			break;
 		default:
 			break;
@@ -112,7 +111,7 @@ public class BHStochasticResultController extends OutputController {
 
 	@Override
 	public void setResult(DistributionMap result, DTOScenario scenario) {
-		System.out.println("Distribution Chart "+ ChartKeys.DISTRIBUTION_CHART.toString());
+		log.info("Distribution Chart "+ ChartKeys.DISTRIBUTION_CHART.toString());
 		super.setResult(result, scenario);
 		IBHAddValue comp = super.view.getBHchartComponents().get(
 				ChartKeys.DISTRIBUTION_CHART.toString());
