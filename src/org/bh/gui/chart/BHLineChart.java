@@ -205,11 +205,11 @@ public class BHLineChart extends BHChart implements IBHAddValue, IPlatformListen
 			XYSeries series = dataset.getSeries(i);
 			if(key.equals("Ist-Cashflow")|key.equals("Is-Cashflow")){
 				series.setKey(Services.getTranslator().translate(
-						org.bh.plugin.stochasticResultAnalysis.BHStochasticResultController.PanelKeys.CASHFLOW_IS.toString()));
+						org.bh.plugin.stochasticResultAnalysis.BHStochasticResultController.PanelKeys.CASHFLOW_IS));
 			}
 			if(key.equals("expected-Cashflow")|key.equals("Prognose-Cashflow")){
 				series.setKey(Services.getTranslator().translate(
-						org.bh.plugin.stochasticResultAnalysis.BHStochasticResultController.PanelKeys.CASHFLOW_FORECAST.toString()));
+						org.bh.plugin.stochasticResultAnalysis.BHStochasticResultController.PanelKeys.CASHFLOW_FORECAST));
 			}
 			
 		}
@@ -220,7 +220,7 @@ public class BHLineChart extends BHChart implements IBHAddValue, IPlatformListen
 		String range = axe.getLabel();
 		if(range.equals("Cashflow in GE")|range.equals("Cashflow in MU")){
 			axe.setLabel(Services.getTranslator().translate(
-					org.bh.plugin.stochasticResultAnalysis.BHStochasticResultController.ChartKeys.CASHFLOW_CHART.toString()+".Y"));
+					org.bh.plugin.stochasticResultAnalysis.BHStochasticResultController.ChartKeys.CASHFLOW_CHART+".Y"));
 		}
 		
 		Collection target = plot.getDomainMarkers(Layer.BACKGROUND);
@@ -231,7 +231,7 @@ public class BHLineChart extends BHChart implements IBHAddValue, IPlatformListen
 				String interval = m.getLabel();
 				if(interval.equals("Prognose")|interval.equals("forecast")){
 					m.setLabel(Services.getTranslator().translate(
-							org.bh.plugin.stochasticResultAnalysis.BHStochasticResultController.ChartKeys.CASHFLOW_FORECAST.toString()));
+							org.bh.plugin.stochasticResultAnalysis.BHStochasticResultController.ChartKeys.CASHFLOW_FORECAST));
 				}
 			}
 		}

@@ -213,15 +213,15 @@ public class BHXYBarChart extends BHChart implements IBHAddValue,
 			XYSeries series = dataset.getSeries(i);
 			if(key.equals("Verteilung der Unternehmenswerte")|key.equals("Distribution of the shareholder values")){
 				series.setKey(Services.getTranslator().translate(
-						org.bh.plugin.stochasticResultAnalysis.BHStochasticResultController.ChartKeys.DISTRIBUTION_CHART.toString()));
+						org.bh.plugin.stochasticResultAnalysis.BHStochasticResultController.ChartKeys.DISTRIBUTION_CHART));
 			}
 			else if(key.equals("Erwartungswert")|key.equals("Expected value")){
 				series.setKey(Services.getTranslator().translate(
-						org.bh.plugin.stochasticResultAnalysis.BHStochasticResultController.PanelKeys.AVERAGE.toString()));
+						org.bh.plugin.stochasticResultAnalysis.BHStochasticResultController.PanelKeys.AVERAGE));
 			}
 			else if(key.equals("Wert im Risiko")|key.equals("Value at Risk")){
 				series.setKey(Services.getTranslator().translate(
-						org.bh.plugin.stochasticResultAnalysis.BHStochasticResultController.ChartKeys.RISK_AT_VALUE.toString()));
+						org.bh.plugin.stochasticResultAnalysis.BHStochasticResultController.ChartKeys.RISK_AT_VALUE));
 			}
 		
 			
@@ -232,20 +232,20 @@ public class BHXYBarChart extends BHChart implements IBHAddValue,
 		String range = axe.getLabel();
 		if(range.equals("Absolute frequency")|range.equals("absolute Häufigkeit")){
 			axe.setLabel(Services.getTranslator().translate(
-					org.bh.plugin.stochasticResultAnalysis.BHStochasticResultController.ChartKeys.DISTRIBUTION_CHART.toString()+".Y"));
+					org.bh.plugin.stochasticResultAnalysis.BHStochasticResultController.ChartKeys.DISTRIBUTION_CHART+".Y"));
 		}
 		ValueAxis axe2 = plot.getDomainAxis();
 		String domain = axe2.getLabel();
 		if(domain.equals("Shareholder value in MU")|domain.equals("Unternehmenswert in GE")){
 			axe2.setLabel(Services.getTranslator().translate(
-					org.bh.plugin.stochasticResultAnalysis.BHStochasticResultController.ChartKeys.DISTRIBUTION_CHART.toString()+".X"));
+					org.bh.plugin.stochasticResultAnalysis.BHStochasticResultController.ChartKeys.DISTRIBUTION_CHART+".X"));
 		}
 		ValueAxis axe3 = plot.getRangeAxis(1);
 		if(axe3!=null){
 			String range2 = axe3.getLabel();
 			if(range2.equals("Per cent")|range2.equals("Prozent")){
 				axe3.setLabel(Services.getTranslator().translate(
-						org.bh.plugin.stochasticResultAnalysis.BHStochasticResultController.ChartKeys.DISTRIBUTION_CHART.toString()+".Y2"));
+						org.bh.plugin.stochasticResultAnalysis.BHStochasticResultController.ChartKeys.DISTRIBUTION_CHART+".Y2"));
 			}
 		}
 		
