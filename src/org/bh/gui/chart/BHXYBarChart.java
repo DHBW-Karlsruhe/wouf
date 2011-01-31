@@ -13,6 +13,8 @@
  *******************************************************************************/
 package org.bh.gui.chart;
 
+import java.util.Collection;
+import java.util.Iterator;
 import java.util.List;
 
 import javax.swing.UIManager;
@@ -24,7 +26,9 @@ import org.bh.platform.Services;
 import org.bh.platform.i18n.ITranslator;
 import org.jfree.chart.ChartFactory;
 import org.jfree.chart.axis.NumberAxis;
+import org.jfree.chart.axis.ValueAxis;
 import org.jfree.chart.labels.XYToolTipGenerator;
+import org.jfree.chart.plot.Marker;
 import org.jfree.chart.plot.PlotOrientation;
 import org.jfree.chart.plot.XYPlot;
 import org.jfree.chart.renderer.xy.StandardXYBarPainter;
@@ -32,6 +36,7 @@ import org.jfree.chart.renderer.xy.XYBarRenderer;
 import org.jfree.data.xy.XYDataset;
 import org.jfree.data.xy.XYSeries;
 import org.jfree.data.xy.XYSeriesCollection;
+import org.jfree.ui.Layer;
 
 /**
  * 
@@ -171,6 +176,7 @@ public class BHXYBarChart extends BHChart implements IBHAddValue,
 
 	@Override
 	public void platformEvent(PlatformEvent e) {
+		reloadText();
 	}
 	
 	@Override
@@ -192,6 +198,57 @@ public class BHXYBarChart extends BHChart implements IBHAddValue,
 		} catch (IllegalArgumentException e) {
 			log.info(number + " not in Series List");
 		}
+
+	}
+	
+	public void reloadText(){
+		/**
+		 * Da für die Charts leider keine Keys verwendet wurden, 
+		 * sondern gleich die Strings übergeben wurden, kann hier
+		 * nicht auf sie zugegriffen werden.
+		 * Daher die statische Programmierung
+		 */
+		for(int i =0;i<dataset.getSeriesCount();i++){
+			String key = (String) dataset.getSeriesKey(i);
+			XYSeries series = dataset.getSeries(i);
+			if(key.equals("Verteilung der Unternehmenswerte")|key.equals("Distribution of the shareholder values")){
+				series.setKey(Services.getTranslator().translate(
+						org.bh.plugin.stochasticResultAnalysis.BHStochasticResultController.ChartKeys.DISTRIBUTION_CHART.toString()));
+			}
+			else if(key.equals("Erwartungswert")|key.equals("Expected value")){
+				series.setKey(Services.getTranslator().translate(
+						org.bh.plugin.stochasticResultAnalysis.BHStochasticResultController.PanelKeys.AVERAGE.toString()));
+			}
+			else if(key.equals("Wert im Risiko")|key.equals("Value at Risk")){
+				series.setKey(Services.getTranslator().translate(
+						org.bh.plugin.stochasticResultAnalysis.BHStochasticResultController.ChartKeys.RISK_AT_VALUE.toString()));
+			}
+		
+			
+		}
+		
+		XYPlot plot = chart.getXYPlot();
+		ValueAxis axe = plot.getRangeAxis();
+		String range = axe.getLabel();
+		if(range.equals("Absolute frequency")|range.equals("absolute Häufigkeit")){
+			axe.setLabel(Services.getTranslator().translate(
+					org.bh.plugin.stochasticResultAnalysis.BHStochasticResultController.ChartKeys.DISTRIBUTION_CHART.toString()+".Y"));
+		}
+		ValueAxis axe2 = plot.getDomainAxis();
+		String domain = axe2.getLabel();
+		if(domain.equals("Shareholder value in MU")|domain.equals("Unternehmenswert in GE")){
+			axe2.setLabel(Services.getTranslator().translate(
+					org.bh.plugin.stochasticResultAnalysis.BHStochasticResultController.ChartKeys.DISTRIBUTION_CHART.toString()+".X"));
+		}
+		ValueAxis axe3 = plot.getRangeAxis(1);
+		if(axe3!=null){
+			String range2 = axe3.getLabel();
+			if(range2.equals("Per cent")|range2.equals("Prozent")){
+				axe3.setLabel(Services.getTranslator().translate(
+						org.bh.plugin.stochasticResultAnalysis.BHStochasticResultController.ChartKeys.DISTRIBUTION_CHART.toString()+".Y2"));
+			}
+		}
+		
 
 	}
 }

@@ -35,7 +35,10 @@ import javax.swing.JToggleButton;
 import org.bh.gui.IBHComponent;
 import org.bh.gui.swing.forms.border.BHBorderFactory;
 import org.bh.gui.swing.misc.Icons;
+import org.bh.platform.IPlatformListener;
+import org.bh.platform.PlatformEvent;
 import org.bh.platform.Services;
+import org.bh.platform.PlatformEvent.Type;
 import org.bh.platform.i18n.ITranslator;
 import org.jfree.chart.ChartPanel;
 import org.jfree.chart.JFreeChart;
@@ -51,12 +54,13 @@ import com.jgoodies.forms.layout.FormLayout;
  * @author Marco Hammel
  * @version 1.0
  */
-public class BHChartPanel extends JPanel implements IBHComponent, IBHAddValue,
+public class BHChartPanel extends JPanel implements IBHComponent, IPlatformListener, IBHAddValue,
 		IBHAddGroupValue {
 	private static final long serialVersionUID = -8018664370176080809L;
 
 	private String key;
 	private String inputHint;
+	private JTextArea description;
 	final ITranslator translator = Services.getTranslator();
 	/**
 	 * type defined reference to the current semantic repräsentation chart
@@ -80,7 +84,7 @@ public class BHChartPanel extends JPanel implements IBHComponent, IBHAddValue,
 		this.chartInstance = chartInstance;
 		this.setLayout(new FormLayout("pref,pref,4px", "p"));
 		this.add(new ChartPanel(chart), "1,1");
-		JTextArea description = new JTextArea(1, 20);
+		description = new JTextArea(1, 20);
 		description.setText(Services.getTranslator().translate(
 				key + BHChart.DESC));
 		description.setEditable(false);
@@ -103,6 +107,7 @@ public class BHChartPanel extends JPanel implements IBHComponent, IBHAddValue,
 						ta = (JTextArea) comp;
 				}
 				if (button.isSelected()) {
+					reloadText();
 					ta.setVisible(true);
 				} else {
 					ta.setVisible(false);
@@ -117,7 +122,16 @@ public class BHChartPanel extends JPanel implements IBHComponent, IBHAddValue,
 		this.setBorder(BHBorderFactory.getInstacnce().createTitledBorder(
 				BHBorderFactory.getInstacnce().createEtchedBorder(), this.key));
 	}
-
+	
+	/**
+	 * Handle PlatformEvents
+	 */
+	public void platformEvent(PlatformEvent e) {
+		if(e.getEventType() == Type.LOCALE_CHANGED){
+			this.reloadText();
+		}
+	}
+	
 	/**
 	 * get the semantic object for the chart by changing dataset at runtime
 	 * 
@@ -144,9 +158,8 @@ public class BHChartPanel extends JPanel implements IBHComponent, IBHAddValue,
 	}
 
 	protected void reloadText() {
-		// inputHint = Services.getTranslator().translate(key,
-		// ITranslator.LONG);
-		// setToolTipText(inputHint);
+		description.setText(Services.getTranslator().translate(
+				key + BHChart.DESC));
 	}
 
 	public void addSeries(Comparable<String> key, double[] values, int bins,

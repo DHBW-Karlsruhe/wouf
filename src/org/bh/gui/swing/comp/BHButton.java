@@ -134,7 +134,6 @@ public class BHButton extends JButton implements IBHComponent, IBHAction, IPlatf
 	protected void reloadText() {
 		this.setText(translator.translate(key));
 		hint = translator.translate(key, ITranslator.LONG);
-		System.out.println("hint ist " + hint);
 		setToolTipText(hint);
 	}
 

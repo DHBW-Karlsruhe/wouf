@@ -177,7 +177,7 @@ public class BHStochasticResultController extends OutputController {
 				map.put(i, new JLabel("" + i));
 		}
 		sliderCompare.setLabelTable(map);
-		String[] headers = { "Periode", "Cashflow" };
+		String[] headers = { "t", "Cashflow" };
 		DefaultTableModel tableModel = new DefaultTableModel(data, headers);
 		cashTable.setTableModel(tableModel);
 

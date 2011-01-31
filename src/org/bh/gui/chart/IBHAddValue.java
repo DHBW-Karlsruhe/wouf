@@ -84,6 +84,7 @@ public interface IBHAddValue {
 	 */
 	void addSeries(Comparable<String> seriesKey, double[][] data);
 	
+	
 	/**
 	 * only used in XYBarChart to remove the value at risk series when changing the percentage slider
 	 * @param number

@@ -23,6 +23,8 @@ import org.bh.gui.IBHComponent;
 import org.bh.platform.Services;
 import org.bh.platform.i18n.ITranslator;
 import org.jfree.chart.JFreeChart;
+import org.jfree.chart.plot.Plot;
+import org.jfree.chart.plot.XYPlot;
 
 /**
  * abstract class for BHCharts. Defining central methods for semantic operations with charts
