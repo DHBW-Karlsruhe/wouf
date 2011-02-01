@@ -378,7 +378,8 @@ public class DistributionMap implements Map<Double, Integer>,
 		DecimalFormat f = new DecimalFormat("#0.00");
 		for(Entry<Integer, Double> e : TimeSeriesMap.entrySet()){
 			result2[j][0] = e.getKey();
-			double value = Math.round((e.getValue()*100)/100);
+//			double value = Math.round((e.getValue()*100)/100);
+			int value = new Double(e.getValue()).intValue();
 			result2[j][1] = value;
 			j++;
 		}

@@ -426,9 +426,9 @@ public class ScenarioController extends InputController {
 	public void actionPerformed(ActionEvent e) {
 	    final BHButton b = (BHButton) e.getSource();
 	    final BHDescriptionLabel calcImage = (BHDescriptionLabel) getView().getBHComponent(BHScenarioForm.Key.CALCULATING_IMAGE);
-
-//	    b.setEnabled(false);
-	    b.changeText(BHScenarioForm.Key.ABORT);
+	    progressBar = (BHProgressBar) getView().getBHComponent(BHScenarioForm.Key.PROGRESSBAR);
+	    progressBar.setValue(0);
+	    b.setEnabled(false);
 	    calcImage.setIcon(this.scCalcLoading);
 	    notInterrupted = true;
 	    Runnable r = new Runnable() {
@@ -457,7 +457,7 @@ public class ScenarioController extends InputController {
 			JScrollPane sp = new JScrollPane(panel);
 			sp.setWheelScrollingEnabled(true);
 			tn.setResultPane(sp);
-
+			
 			if (log.isInfoEnabled()) {
 			    end = System.currentTimeMillis();
 			    log.info("Result Analysis View load time: " + (end - start) + "ms");
@@ -467,10 +467,13 @@ public class ScenarioController extends InputController {
 				DistributionMap result = process.calculate();
 				
 				BHCheckBox timeSeries = (BHCheckBox) view.getBHComponent(DTOScenario.Key.TIMESERIES_PROCESS);
+				
+				
 				if(timeSeries.isSelected()){
 					((BHScenarioForm) getViewPanel()).addProgressBar();
-					progressBar = (BHProgressBar) getView().getBHComponent(BHScenarioForm.Key.PROGRESSBAR);
 					progressBar.setVisible(true);
+					b.setEnabled(true);
+					b.changeText(BHScenarioForm.Key.ABORT);
 					TSprocess.setProgressB(progressBar);
 					TSprocess.updateParameters();
 					result.setTimeSeries(TSprocess, TSprocess.calculate(), TSprocess.calculateCompare(3));
@@ -490,6 +493,7 @@ public class ScenarioController extends InputController {
 		    if (panel != null & notInterrupted) {
 		    if(progressBar!=null){
 		    progressBar.setVisible(false);}
+		    
 			BHTreeNode tn = (BHTreeNode) bhTree.getSelectionPath().getPathComponent(2);
 			JScrollPane sp = new JScrollPane(panel);
 			sp.setWheelScrollingEnabled(true);
@@ -499,6 +503,7 @@ public class ScenarioController extends InputController {
 			bhmf.moveInResultForm(tn.getResultPane());
 
 		    }
+		    b.setEnabled(true);
 		    b.changeText(BHScenarioForm.Key.CALCSHAREHOLDERVALUE);
 		    calcImage.setIcon(null);
 		}
@@ -509,15 +514,15 @@ public class ScenarioController extends InputController {
 	    	if(calcThread.isAlive()){
 	    		notInterrupted = false;
 	    		if(progressBar!=null){
-	    		progressBar.setVisible(false);
-	    		TSprocess.setInterrupted();
+		    		progressBar.setVisible(false);
+		    		TSprocess.setInterrupted();
 	    		}
 	    		b.changeText(BHScenarioForm.Key.CALCSHAREHOLDERVALUE);	    	
 	    	}
 	    	else{
 	    	notInterrupted = true;
-	    	if(progressBar!=null){
-	    	progressBar.setVisible(true);}
+//	    	if(progressBar!=null){
+//	    	progressBar.setVisible(true);}
 	    	calcThread = new Thread(r, "Calculation Thread");
 	    	calcThread.start();
 	    	}
