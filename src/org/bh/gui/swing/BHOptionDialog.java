@@ -92,6 +92,7 @@ public final class BHOptionDialog extends JDialog implements ActionListener {
 		combo.setPreferredSize(new Dimension(100,25));
 		
 		chbanimation = new BHCheckBox ("Chbanimation");
+		chbanimation.setLabel("");
 		chbanimation.setSelected(PlatformController.preferences.getBoolean("animation", true));
 		
 		// add components
