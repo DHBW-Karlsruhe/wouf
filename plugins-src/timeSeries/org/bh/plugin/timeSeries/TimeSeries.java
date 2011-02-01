@@ -39,13 +39,11 @@ import com.jgoodies.forms.layout.FormLayout;
 
 /**
  * 
- * TODO plugin not finally implemented. 
+ * TimeSeries Hauptklasse. Liefert alle GUI-Elemente. Verwendet die CalculatorKlasse der Version 3
  *
  *
- * @author Vito Masiello, Andreas Wussler
- * @version 1.0, 08.12.2010
- * @update 09.12.2010 Vito Masiello
- * @update 23.12.2010 Timo Klein
+ * @author Timo Klein, Andreas Wussler, Vito Masiello
+ * @version 1.0, 1.2.2011
  */
 
 public class TimeSeries implements ITimeSeriesProcess {
@@ -75,49 +73,6 @@ public class TimeSeries implements ITimeSeriesProcess {
 	public String getGuiKey() {
 		return GUI_KEY;
 	}
-
-	//@Override
-	/**
-	 * update Vito Masiello 
-	 * After clicking calculate, Textfields will be shown.
-	 * Textfields are the ones from WienerProcess
-	 * new Code ends at //-------------------------
-	 */
-	
-	/*
-	private Calculable calcSlope(List<Calculable> inputValues) {
-		// d = 1/n(X0 - X-n)
-		Calculable result = (inputValues.get(inputValues.size() - 1)
-				.sub(inputValues.get(0))).div(new IntegerValue(inputValues
-				.size()));
-		return result;
-	}
-	
-	private Calculable calcStandardDeviation(List<Calculable> inputValues) {
-		Calculable d = calcSlope(inputValues);
-		Calculable sum = new DoubleValue(0);
-		for (int i = 0; i < inputValues.size() - 1; i++) {
-			Calculable x = inputValues.get(i + 1).sub(inputValues.get(i))
-					.sub(d).pow(new IntegerValue(2));
-			sum = sum.add(x);
-			// sum = sum.add(inputValues.get(i +
-			// 1).sub(inputValues.get(i)).sub(d));
-		}
-		Calculable result = (sum.div(new IntegerValue(inputValues.size())))
-				.sqrt();
-		return result;
-	}
-	//-------------------------------------------------------
-
-
-	@Override
-	public DistributionMap calculate() {
-		// TODO Auto-generated method stub
-		//throw new UnsupportedOperationException("This method has not been implemented");
-		String message = "\"Noch nicht vollständig implementiert calculate()\"";
-		JOptionPane.showMessageDialog(new JFrame(), message, "Error", JOptionPane.ERROR_MESSAGE);
-		return null;
-	}*/
 
 	@Override
 	public String getUniqueId() {

@@ -30,15 +30,8 @@ import org.bh.gui.swing.comp.BHProgressBar;
 
 /**
  * Diese Klasse stellt die Berechnung für die Zeitreihenanalyse bereit
- *
- * <p>
- * <detailed_description>
- * 
- * <p>
- * TODO NOT finally implemented
  * @author Andreas Wussler, Timo Klein
- * @since 1.0, 28.12.2010
- * @version 3.0, 12.01.2011
+ * @version 3.0, 01.02.2011
  *
  */
 public class TimeSeriesCalculator_v3 {
