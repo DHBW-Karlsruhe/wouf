@@ -16,6 +16,10 @@
 package org.bh.gui.swing.comp;
 
 import javax.swing.JTextField;
+
+
+import java.util.*;
+
 import javax.swing.text.AbstractDocument;
 import javax.swing.text.AttributeSet;
 import javax.swing.text.BadLocationException;
@@ -137,9 +141,18 @@ public class BHTextField extends JTextField implements IBHModelComponent, IPlatf
 
 	@Override
 	public IValue getValue() {
-		if (returnCalculable)
-			return Calculable.parseCalculable(this.getText());
-		return new StringValue(this.getText());
+		//Bugfix Bug 226 Bug entstand durch unterschiedliche Nummernformatierung durch sprachenabhängige Dezimaltrennzeichen.
+		String numvalue = this.getText();
+		 if( getLocale() == Locale.GERMAN)
+		 	 	numvalue.replaceAll(".", "");
+		 if( getLocale() == Locale.ENGLISH)
+		 	 	numvalue.replaceAll(",", "");
+		if (returnCalculable){
+		
+		
+			return Calculable.parseCalculable(numvalue);
+		}
+		return new StringValue(numvalue);
 	}
 
 	@Override
