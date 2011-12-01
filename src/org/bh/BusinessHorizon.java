@@ -15,15 +15,22 @@
  *******************************************************************************/
 package org.bh;
 
+import java.awt.AlphaComposite;
+import java.awt.Color;
+import java.awt.Graphics2D;
+import java.awt.SplashScreen;
 import java.lang.Thread.UncaughtExceptionHandler;
 
 import javax.swing.JOptionPane;
 import javax.swing.SwingUtilities;
 
 import org.apache.log4j.Logger;
+import org.bh.platform.IPlatformListener;
 import org.bh.platform.PlatformController;
+import org.bh.platform.PlatformEvent;
 import org.bh.platform.PluginManager;
 import org.bh.platform.Services;
+import org.bh.platform.PlatformEvent.Type;
 import org.bh.platform.i18n.ITranslator;
 
 /**
@@ -38,9 +45,12 @@ import org.bh.platform.i18n.ITranslator;
  * 
  */
 
-public class BusinessHorizon {
+public class BusinessHorizon implements IPlatformListener{
 	public static final boolean DEBUG = true;
 	private static final Logger log = Logger.getLogger(BusinessHorizon.class);
+
+	private static Graphics2D graphics;
+	private static final SplashScreen splash = SplashScreen.getSplashScreen();
 
 	/**
 	 * @param args
@@ -48,13 +58,27 @@ public class BusinessHorizon {
 	 * @throws Exception
 	 */
 	public static void main(String[] args) throws Exception {
+		// Get Splash Screen from jar signing
+		if (splash == null) {
+			System.out.println("Could not get the splash screen");
+		} else {
+
+			graphics = splash.createGraphics();
+			if (graphics == null) {
+				System.out
+						.println("Could not create Graphics for Splash screen.");
+			}
+		}
+
+		updateSplash("Loading Logger...");
+		// End splash screen
+
 		if (DEBUG)
 			Services.setupLogger();
-		
+
 		log.info("Business Horizon is starting...");
-		
-		Thread
-		.setDefaultUncaughtExceptionHandler(new UncaughtExceptionHandler() {
+
+		Thread.setDefaultUncaughtExceptionHandler(new UncaughtExceptionHandler() {
 			@Override
 			public void uncaughtException(Thread t, Throwable e) {
 				log.error("Uncaught exception", e);
@@ -63,28 +87,39 @@ public class BusinessHorizon {
 
 		if (SVN.isRevisionSet())
 			log.info("SVN Revision is " + SVN.getRevision());
+
+		updateSplash("Check java version...");
 		
 		// Check if JRE is Java 6 Update 10, else quit.
-		if (!Services.jreFulfillsRequirements()) {	
-			String message = Services.getTranslator().translate("PjreRequirement", ITranslator.LONG);
-			String title = Services.getTranslator().translate("PjreRequirement");
+		if (!Services.jreFulfillsRequirements()) {
+			String message = Services.getTranslator().translate(
+					"PjreRequirement", ITranslator.LONG);
+			String title = Services.getTranslator()
+					.translate("PjreRequirement");
 			log.error(message);
-			JOptionPane.showMessageDialog(null, message, title, JOptionPane.ERROR_MESSAGE);
+			JOptionPane.showMessageDialog(null, message, title,
+					JOptionPane.ERROR_MESSAGE);
 			System.exit(1);
 		}
+
+		updateSplash("Set security manager...");
 		
 		System.setSecurityManager(null);
 		
-		PluginManager.init();
-		
-		
-		// set menu name
-		if(System.getProperty("os.name").startsWith("Mac OS X"))
-			System.setProperty("com.apple.mrj.application.apple.menu.about.name", "Business Horizon");
+		updateSplash("Initialize plugins...");
 
+		PluginManager.init();
+
+		// set menu name
+		if (System.getProperty("os.name").startsWith("Mac OS X"))
+			System.setProperty(
+					"com.apple.mrj.application.apple.menu.about.name",
+					"Business Horizon");
+
+		updateSplash("Set Look&Feel...");
 		// set Look&Feel
 		Services.setNimbusLookAndFeel();
-		
+
 		// Invoke start of BHMainFrame
 		SwingUtilities.invokeLater(new Runnable() {
 			@Override
@@ -92,5 +127,44 @@ public class BusinessHorizon {
 				PlatformController.getInstance();
 			}
 		});
+
+		Services.addPlatformListener(new BusinessHorizon());
+		
+		Thread.sleep(100); // The other Thread is loading in this time anyway.
+		                   //Create the impression of something dynamic.
+		updateSplash("Loading Plattform...");
+	}
+	
+	/**
+	 * This method updates the string displayed on the splashScreen.
+	 * The User should receive immediate Feedback on what is happening in the backend.
+	 * @param text The text you want to display on the splash screen.
+	 */
+	public static void updateSplash(String text){
+		if (graphics != null) {
+			//Revert former changes
+			graphics.setComposite(AlphaComposite.Clear);
+			graphics.fillRect(1, 1, 477, 229);
+			
+			//Paint new string
+			graphics.setPaintMode();
+			graphics.setColor(Color.BLACK);
+			graphics.setFont(graphics.getFont().deriveFont(18F));
+			graphics.drawString(text, 13, 215);
+		
+			//Update 2D graphic
+			splash.update();
+		}
+	}
+
+	@Override
+	public void platformEvent(PlatformEvent e) {
+		//Handle Platform loaded event and close splash (everything is done)
+		if(e.getEventType() == Type.PLATFORM_LOADING_COMPLETED){
+			if(splash != null){
+				splash.close();
+			}
+		}
+		Services.removePlatformListener(this);
 	}
 }

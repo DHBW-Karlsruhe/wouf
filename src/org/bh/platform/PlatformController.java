@@ -123,8 +123,7 @@ public class PlatformController {
 		 */
 		bhmf = new BHMainFrame();
 
-		// create PlatformU...
-		// TODO naming
+		// create PlatformUserDialog
 		PlatformUserDialog.init(bhmf);
 
 		/*------------------------------------
