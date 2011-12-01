@@ -15,6 +15,11 @@
  *******************************************************************************/
 package org.bh.gui.swing.forms;
 
+import java.awt.AWTException;
+import java.awt.Robot;
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
+
 import javax.swing.JPanel;
 
 import org.bh.data.DTOProject;
@@ -24,9 +29,9 @@ import org.bh.platform.Services;
 import org.bh.platform.i18n.ITranslator;
 import org.bh.validation.VRMandatory;
 import org.bh.validation.ValidationRule;
-
 import com.jgoodies.forms.layout.CellConstraints;
 import com.jgoodies.forms.layout.FormLayout;
+
 
 /**
  * This class contains the form for ProjectHeadData
@@ -37,7 +42,7 @@ import com.jgoodies.forms.layout.FormLayout;
  */
 
 @SuppressWarnings("serial")
-public final class BHProjectInputForm extends JPanel {
+public final class BHProjectInputForm extends JPanel implements KeyListener{
 
 	private BHDescriptionLabel lproject;
 	private BHDescriptionLabel lprojectname;
@@ -93,6 +98,7 @@ public final class BHProjectInputForm extends JPanel {
 	public BHTextField getTfprojectname() {
 		if (tfprojectname == null) {
 			tfprojectname = new BHTextField(DTOProject.Key.NAME, false);
+			tfprojectname.addKeyListener(this);
 			ValidationRule[] rules = { VRMandatory.INSTANCE };
 			tfprojectname.setValidationRules(rules);
 		}
@@ -107,7 +113,43 @@ public final class BHProjectInputForm extends JPanel {
 	public BHTextField getTfcomment() {
 		if (tfcomment == null) {
 			tfcomment = new BHTextField(DTOProject.Key.COMMENT, false);
+			tfcomment.addKeyListener(this);
 		}
 		return tfcomment;
+	}
+	
+	/**
+	 * 01.12.2011, D. Roster
+	 * KeyEvents für das Erstellen eines Szenarios durch "ENTER-Taste": 
+	 * Enter im Feld Projektname sprint zu Kommentarfeld,
+	 * Enter im Feld Kommentar ruft die Methode für ein neues Szenario auf,
+	 * indem ein Tastendruck auf "F4" simuliert wird.
+	 */
+	
+	public void keyReleased(KeyEvent evt) {
+	}
+
+	public void keyTyped(KeyEvent evt) {
+	}
+
+	public void keyPressed(KeyEvent evt) {
+
+		if (evt.getKeyCode()==KeyEvent.VK_ENTER) {
+			  if (evt.getSource() == tfprojectname){
+				  tfcomment.requestFocusInWindow();
+
+			  }
+			  if (evt.getSource() == tfcomment){
+				 Robot robot;
+				try {
+					robot = new Robot();
+					robot.keyPress(KeyEvent.VK_F4);
+				} catch (AWTException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+				 
+			  }
+			}
 	}
 }
