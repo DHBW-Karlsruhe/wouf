@@ -60,7 +60,7 @@ public class BusinessHorizon implements IPlatformListener{
 	public static void main(String[] args) throws Exception {
 		// Get Splash Screen from jar signing
 		if (splash == null) {
-			System.out.println("Could not get the splash screen");
+			System.out.println("Could not get the splash screen. The application might not be started from the \".jar\"");
 		} else {
 
 			graphics = splash.createGraphics();
