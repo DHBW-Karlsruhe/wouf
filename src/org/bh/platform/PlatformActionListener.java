@@ -824,7 +824,7 @@ class PlatformActionListener implements ActionListener {
 	
 	/** Method for printing a document
 	 * 
-	 * @author Denis Roster
+	 * @author  Denis Roster
 	 */
 	private void filePrint(){
 		BHResultPanel.printButton.doClick();
