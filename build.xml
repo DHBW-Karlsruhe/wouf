@@ -32,7 +32,7 @@
 	<property name="jar.store.pass" value="ZDpPydacPvJXJpY4SmqN" />
 	<property name="jar.store.file" value="jarsign.keystore" />
 	<property name="jar.store.alias" value="bhjar" />
-	<property name="plugins.list" value="gcc,apv,directinput,fcf,fte,resultAnalysis,xmldataexchange,randomWalk,wienerProcess,pdfexport,excelexport,stochasticResultAnalysis,timeSeries" />
+	<property name="plugins.list" value="gcc,apv,directinput,fcf,fte,resultAnalysis,xmldataexchange,randomWalk,wienerProcess,pdfexport,excelexport,stochasticResultAnalysis,timeSeries,branchSpecificRepresentative" />
 	<property name="debug" value="true" />
 
 
