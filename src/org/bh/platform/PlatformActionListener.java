@@ -49,7 +49,6 @@ import org.bh.gui.swing.tree.BHTreeNode;
 import org.bh.platform.PlatformController.BHTreeModel;
 import org.bh.platform.i18n.BHTranslator;
 import org.bh.platform.i18n.ITranslator;
-import org.bh.plugin.resultAnalysis.*;
 
 /**
  * The PlatformActionListener handles all actions that are fired by a button
@@ -827,6 +826,6 @@ class PlatformActionListener implements ActionListener {
 	 * @author  Denis Roster
 	 */
 	private void filePrint(){
-		BHResultPanel.printButton.doClick();
+//		BHResultPanel.printButton.doClick();
 	}
 }
