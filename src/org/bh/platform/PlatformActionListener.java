@@ -49,6 +49,7 @@ import org.bh.gui.swing.tree.BHTreeNode;
 import org.bh.platform.PlatformController.BHTreeModel;
 import org.bh.platform.i18n.BHTranslator;
 import org.bh.platform.i18n.ITranslator;
+import org.bh.plugin.resultAnalysis.*;
 
 /**
  * The PlatformActionListener handles all actions that are fired by a button
@@ -125,6 +126,16 @@ class PlatformActionListener implements ActionListener {
 			log.debug("handling FILESAVEAS event");
 			Services.firePlatformEvent(new PlatformEvent(
 					PlatformActionListener.class, PlatformEvent.Type.SAVEAS));
+			break;
+		
+		/**
+		 * print a calculated scenario
+		 * 
+		 * @author Denis Roster
+		 */
+		case FILEPRINT:
+			log.debug("handling FILEPRINT event");
+			this.filePrint();
 			break;
 
 		/*
@@ -809,5 +820,13 @@ class PlatformActionListener implements ActionListener {
 		}
 		return start;
 
+	}
+	
+	/** Method for printing a document
+	 * 
+	 * @author Denis Roster
+	 */
+	private void filePrint(){
+		BHResultPanel.printButton.doClick();
 	}
 }

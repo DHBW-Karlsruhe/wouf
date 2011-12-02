@@ -65,7 +65,8 @@ public final class BHResultPanel extends JPanel {
 	// probably not necessary in a later version
 	JPanel procedurePanel = null;
 	// print Button
-	private BHButton printButton;
+	// private BHButton printButton
+	public static BHButton printButton;
 	DTOScenario scenario;
 	Map<String, Calculable[]> result;
 	ITranslator translator = Services.getTranslator();
