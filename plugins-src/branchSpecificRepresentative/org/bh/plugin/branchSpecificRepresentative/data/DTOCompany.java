@@ -37,7 +37,7 @@ public class DTOCompany extends DTOScenario {
 	 */
 	private static final long serialVersionUID = 5619460732252658937L;
 
-	public enum Key{
+	public enum Keys{
 		BRANCH
 	}
 }
