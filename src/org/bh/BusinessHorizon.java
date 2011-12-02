@@ -41,6 +41,7 @@ import org.bh.platform.i18n.ITranslator;
  * 
  * @author Robert Vollmer
  * @version 0.2, 20.12.2009
+ * @update 02.12.2011, Yannick Rödl
  * 
  * 
  */
