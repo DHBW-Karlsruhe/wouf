@@ -483,6 +483,8 @@ public class ScenarioController extends InputController {
 
 					
 				}
+				
+				
 	
 				// FIXME selection of result analyser plugin
 				panel = new JPanel();
@@ -491,6 +493,9 @@ public class ScenarioController extends InputController {
 				    break;
 				}
 		    }
+		    
+		    // set scenario calculated
+		    scenario.setCalculated(true);
 
 		    if (panel != null & notInterrupted) {
 		    if(progressBar!=null){
