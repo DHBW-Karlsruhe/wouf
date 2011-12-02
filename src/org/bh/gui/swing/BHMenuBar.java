@@ -25,7 +25,6 @@ import org.bh.platform.PlatformKey;
 import org.bh.platform.Services;
 import org.bh.platform.PlatformEvent.Type;
 import org.bh.platform.i18n.ITranslator;
-import org.bh.plugin.stochasticResultAnalysis.BHStochasticResultController;
 
 /**
  * BHMenuBar to display a menu bar in screen.
