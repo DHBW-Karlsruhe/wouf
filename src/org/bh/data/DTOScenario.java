@@ -27,6 +27,7 @@ import org.bh.data.types.Calculable;
 import org.bh.data.types.DoubleValue;
 import org.bh.data.types.IntegerValue;
 import org.bh.data.types.ObjectValue;
+import org.bh.gui.swing.BHMenuBar;
 import org.bh.platform.Services;
 
 /**
@@ -46,6 +47,7 @@ public class DTOScenario extends DTO<DTOPeriod> {
 	private static final long serialVersionUID = -2952168332645683235L;
 	@SuppressWarnings("unused")
 	private static final Logger log = Logger.getLogger(DTOScenario.class);
+	private boolean isCalculated = false;
 
 	public enum Key {
 		/**
@@ -311,6 +313,19 @@ public class DTOScenario extends DTO<DTOPeriod> {
 
 	public boolean isIntervalArithmetic() {
 		return new IntegerValue(1).equals(values.get(Key.INTERVAL_ARITHMETIC.toString()));
+	}
+	
+	/**
+	 * check if the object is calculated
+	 */
+	public void setCalculated (boolean b){
+		isCalculated = b;
+		BHMenuBar.enableFilePrint();
+		
+	}
+	
+	public boolean isCalculated (){
+		return isCalculated;
 	}
 
 }

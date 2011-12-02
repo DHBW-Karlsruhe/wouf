@@ -25,6 +25,7 @@ import org.bh.platform.PlatformKey;
 import org.bh.platform.Services;
 import org.bh.platform.PlatformEvent.Type;
 import org.bh.platform.i18n.ITranslator;
+import org.bh.plugin.stochasticResultAnalysis.BHStochasticResultController;
 
 /**
  * BHMenuBar to display a menu bar in screen.
@@ -50,7 +51,7 @@ public final class BHMenuBar extends JMenuBar implements IPlatformListener {
 	private JMenu menuFile, menuProject, menuScenario, menuPeriod, menuOptions, menuHelp;
 	private BHMenuItem projectCreate, projectDuplicate, projectImport, projectExport, projectRemove,
 	scenarioCreate, scenarioDuplicate, scenarioRemove, periodCreate, periodDuplicate, periodRemove;
-	
+	private static BHMenuItem filePrint;
 	public BHMenuBar() {
 
 		/**
@@ -95,8 +96,13 @@ public final class BHMenuBar extends JMenuBar implements IPlatformListener {
 		menuFile.add(new BHMenuItem(PlatformKey.FILESAVE, 83)); // S
 		menuFile.add(new BHMenuItem(PlatformKey.FILESAVEAS, 83)); // S
 		menuFile.addSeparator();
-		menuFile.add(new BHMenuItem(PlatformKey.FILEPRINT, 80)); // P
+		
+		// neue Funktion "Drucken" falls Auswertungen vorhanden sind, default = inaktiv
+		filePrint = new BHMenuItem(PlatformKey.FILEPRINT, 80);
+		filePrint.setEnabled(false);
+		menuFile.add(filePrint); // P
 		menuFile.addSeparator();
+		
 		menuFile.add(new BHMenuItem(PlatformKey.FILECLOSE, 87)); // W
 		menuFile.add(new BHMenuItem(PlatformKey.FILEQUIT, 81));  // Q
 
@@ -208,6 +214,19 @@ public final class BHMenuBar extends JMenuBar implements IPlatformListener {
 	    	periodCreate.setEnabled(true);
 	    	periodDuplicate.setEnabled(true);
 	    	periodRemove.setEnabled(true);
+	}
+	
+	/**
+	 * 02.12.2011, D. Roster
+	 * deactivate and activate the print function in menu
+	 */
+	
+	public static void enableFilePrint(){
+		filePrint.setEnabled(true);
+	}
+	
+	public static void disableFilePrint(){
+		filePrint.setEnabled(false);
 	}
 
 	public void platformEvent(PlatformEvent e) {

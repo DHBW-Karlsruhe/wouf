@@ -193,11 +193,20 @@ public class BHTreeSelectionListener implements TreeSelectionListener {
 			    // set ToolBar button enabled
 			    getBHMainFrame().getBHToolBar().enablePeriodButton();
 			    getBHMainFrame().getBHToolBar().enableScenarioButton();
+			    
+			    
 
 			    try {
 
 				DTOScenario model = (DTOScenario) selectedDto;
-
+				
+				//print function deactivate/activate in menu
+				if(model.isCalculated()){
+			    getBHMainFrame().getBHMenuBar().enableFilePrint();
+				}else{
+					getBHMainFrame().getBHMenuBar().disableFilePrint();
+				}
+			    
 				// check if controller is already there...
 				if (selectedNode.getController() == null) {
 				    // if not, create view at first
