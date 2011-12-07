@@ -22,11 +22,8 @@ package org.bh.gui.chart;
 
 
 import java.awt.Component;
-import java.awt.Graphics2D;
-import java.awt.Rectangle;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.geom.Rectangle2D;
 import java.util.List;
 
 import javax.swing.BorderFactory;
@@ -39,8 +36,8 @@ import org.bh.gui.swing.forms.border.BHBorderFactory;
 import org.bh.gui.swing.misc.Icons;
 import org.bh.platform.IPlatformListener;
 import org.bh.platform.PlatformEvent;
-import org.bh.platform.Services;
 import org.bh.platform.PlatformEvent.Type;
+import org.bh.platform.Services;
 import org.bh.platform.i18n.ITranslator;
 import org.jfree.chart.ChartPanel;
 import org.jfree.chart.JFreeChart;
@@ -55,6 +52,7 @@ import com.jgoodies.forms.layout.FormLayout;
  * @see BHChart
  * @author Marco Hammel
  * @version 1.0
+ * @update Yannick Rödl, 07.12.2011
  */
 public class BHChartPanel extends JPanel implements IBHComponent, IPlatformListener, IBHAddValue,
 		IBHAddGroupValue {
@@ -123,6 +121,9 @@ public class BHChartPanel extends JPanel implements IBHComponent, IPlatformListe
 		this.chart = chart;
 		this.setBorder(BHBorderFactory.getInstacnce().createTitledBorder(
 				BHBorderFactory.getInstacnce().createEtchedBorder(), this.key));
+		
+		//Add as a Plattform Listener, because we want to hear when locale is changed to reoad the text.
+		Services.addPlatformListener(this);
 	}
 	
 	/**
