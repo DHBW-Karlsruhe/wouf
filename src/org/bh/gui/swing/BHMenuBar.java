@@ -50,7 +50,7 @@ public final class BHMenuBar extends JMenuBar implements IPlatformListener {
 	private JMenu menuFile, menuProject, menuScenario, menuPeriod, menuOptions, menuHelp;
 	private BHMenuItem projectCreate, projectDuplicate, projectImport, projectExport, projectRemove,
 	scenarioCreate, scenarioDuplicate, scenarioRemove, periodCreate, periodDuplicate, periodRemove;
-	private static BHMenuItem filePrint;
+	public static BHMenuItem filePrint;
 	public BHMenuBar() {
 
 		/**

@@ -20,6 +20,8 @@ import java.awt.Dimension;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.Insets;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.util.Map;
 
 import javax.swing.JLabel;
@@ -28,6 +30,7 @@ import javax.swing.JPanel;
 import org.apache.log4j.Logger;
 import org.bh.data.DTOScenario;
 import org.bh.data.types.Calculable;
+import org.bh.gui.swing.BHMenuBar;
 import org.bh.gui.swing.comp.BHButton;
 import org.bh.gui.swing.forms.border.BHBorderFactory;
 import org.bh.gui.view.ViewException;
@@ -65,8 +68,8 @@ public final class BHResultPanel extends JPanel {
 	// probably not necessary in a later version
 	JPanel procedurePanel = null;
 	// print Button
-	// private BHButton printButton
-	public static BHButton printButton;
+	private BHButton printButton;
+	/// public static BHButton printButton;
 	DTOScenario scenario;
 	Map<String, Calculable[]> result;
 	ITranslator translator = Services.getTranslator();
@@ -105,6 +108,14 @@ public final class BHResultPanel extends JPanel {
 		exportArea.add(exportButton, d);
 		
 		printButton = new BHButton(Keys.PRINTSCENARIO);
+		
+		// ActionListener for print-function (menu)
+		BHMenuBar.filePrint.addActionListener(new ActionListener(){
+			public void actionPerformed(ActionEvent e){ 
+				printButton.doClick();
+	    	}
+	    });
+		
 		d.fill = GridBagConstraints.HORIZONTAL;
 		d.gridx = 1;
 		d.gridy = 0;

@@ -126,16 +126,6 @@ class PlatformActionListener implements ActionListener {
 			Services.firePlatformEvent(new PlatformEvent(
 					PlatformActionListener.class, PlatformEvent.Type.SAVEAS));
 			break;
-		
-		/**
-		 * print a calculated scenario
-		 * 
-		 * @author Denis Roster
-		 */
-		case FILEPRINT:
-			log.debug("handling FILEPRINT event");
-			this.filePrint();
-			break;
 
 		/*
 		 * Clear workspace - same like filenew
@@ -820,12 +810,5 @@ class PlatformActionListener implements ActionListener {
 		return start;
 
 	}
-	
-	/** Method for printing a document
-	 * 
-	 * @author  Denis Roster
-	 */
-	private void filePrint(){
-//		BHResultPanel.printButton.doClick();
-	}
+
 }
