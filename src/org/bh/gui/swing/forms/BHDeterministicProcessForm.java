@@ -147,7 +147,7 @@ public final class BHDeterministicProcessForm extends JPanel {
 
 	public BHComboBox getcbDCFmethod() {
 		if (this.cbdcfMethod == null) {
-			this.cbdcfMethod = new BHComboBox(DTOScenario.Key.DCF_METHOD);
+			this.cbdcfMethod = new BHComboBox(DTOScenario.Key.DCF_METHOD, new Object[]{DTOScenario.Key.TOOLTIP_APV,DTOScenario.Key.TOOLTIP_FCF, DTOScenario.Key.TOOLTIP_FTE, DTOScenario.Key.TOOLTIP_ALL});
 		}
 		return this.cbdcfMethod;
 	}

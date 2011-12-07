@@ -95,6 +95,8 @@ public class DTOScenario extends DTO<DTOPeriod> {
 		 * DCF method
 		 */
 		DCF_METHOD,
+		
+		DCF_METHOD_long,
 
 		/**
 		 * Stochastic process
@@ -124,7 +126,17 @@ public class DTOScenario extends DTO<DTOPeriod> {
 		/**
 		 * Parameters for the stochastic process
 		 */
-		STOCHASTIC_PARAMETERS, DETERMINISTIC_PERIODS;
+		STOCHASTIC_PARAMETERS, DETERMINISTIC_PERIODS,
+		
+		/**
+		 * 
+		 * Tooltips
+		 */
+		TOOLTIP_APV,
+		TOOLTIP_FCF,
+		TOOLTIP_FTE,
+		TOOLTIP_DCF,
+		TOOLTIP_ALL;
 
 		@Override
 		public String toString() {

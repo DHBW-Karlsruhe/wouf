@@ -122,7 +122,8 @@ public final class BHStochasticInputForm extends JPanel {
 	
 	public BHComboBox getcbDCFmethod() {
 		if (this.cbdcfMethod == null) {
-			this.cbdcfMethod = new BHComboBox(DTOScenario.Key.DCF_METHOD);
+			this.cbdcfMethod = new BHComboBox(DTOScenario.Key.DCF_METHOD, new Object[]{DTOScenario.Key.TOOLTIP_APV});
+			
 		}
 		return this.cbdcfMethod;
 	}

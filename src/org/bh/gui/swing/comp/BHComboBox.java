@@ -15,6 +15,7 @@
  *******************************************************************************/
 package org.bh.gui.swing.comp;
 
+import java.awt.Component;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.Arrays;
@@ -22,6 +23,8 @@ import java.util.Comparator;
 
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JComboBox;
+import javax.swing.JList;
+import javax.swing.plaf.basic.BasicComboBoxRenderer;
 
 import org.bh.data.types.IValue;
 import org.bh.gui.CompValueChangeManager;
@@ -45,6 +48,23 @@ public class BHComboBox extends JComboBox implements IBHModelComponent,
 	final CompValueChangeManager valueChangeManager = new CompValueChangeManager();
 	boolean changeListenerEnabled = true;
 
+	public BHComboBox(Object key, Object[] tooltips) {
+		this.key = key.toString();
+		reloadText();
+		Services.addPlatformListener(this);
+		this.setRenderer(new BHBoxRenderer(tooltips));
+		addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				if (changeListenerEnabled)
+					valueChangeManager
+							.fireCompValueChangeEvent(BHComboBox.this);
+				
+			}
+			
+		});
+		
+	}
 	public BHComboBox(Object key) {
 		this.key = key.toString();
 		reloadText();
@@ -194,3 +214,28 @@ public class BHComboBox extends JComboBox implements IBHModelComponent,
 
 	
 }
+class BHBoxRenderer extends BasicComboBoxRenderer {
+	Object[] tooltip;
+	public BHBoxRenderer(Object[] tooltip){
+		this.tooltip = tooltip;
+	}
+    public Component getListCellRendererComponent(JList list, Object value,
+        int index, boolean isSelected, boolean cellHasFocus) {
+      if (isSelected) {
+        setBackground(list.getSelectionBackground());
+        setForeground(list.getSelectionForeground());
+        if (index > -1) {
+        	String text = Services.getTranslator().translate(tooltip[index], ITranslator.LONG);
+          list.setToolTipText(text);
+          
+        }
+      } else {
+        setBackground(list.getBackground());
+        setForeground(list.getForeground());
+      }
+      setFont(list.getFont());
+      setText((value == null) ? "" : value.toString());
+      return this;
+    }
+  }
+
