@@ -23,6 +23,8 @@ import java.awt.Dimension;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.Insets;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 import javax.swing.JLabel;
 import javax.swing.JPanel;
@@ -30,6 +32,7 @@ import javax.swing.JPanel;
 import org.apache.log4j.Logger;
 import org.bh.data.DTOScenario;
 import org.bh.data.types.DistributionMap;
+import org.bh.gui.swing.BHMenuBar;
 import org.bh.gui.swing.comp.BHButton;
 
 @SuppressWarnings("serial")
@@ -53,6 +56,13 @@ public class BHStochasticResultPanel extends JPanel{
 		this.setLayout(new BorderLayout());
 		exportButton = new BHButton(BHStochasticResultController.PanelKeys.EXPORTSCENARIO);
 		printButton = new BHButton(BHStochasticResultController.PanelKeys.PRINTSCENARIO);
+		
+		// ActionListener for print-function (menu)
+		BHMenuBar.filePrint.addActionListener(new ActionListener(){
+			public void actionPerformed(ActionEvent e){ 
+				printButton.doClick();
+	    	}
+	    });
 		
 		StochasticPanel mainStochastic = new StochasticPanel();
 		if(result.isTimeSeries()){
