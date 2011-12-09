@@ -210,71 +210,7 @@ public class ScenarioController extends InputController {
 			});
 		}
 
-		// populate the list of TimeSeriesProcess
-		BHCheckBox cbTimeSeriesMethod = (BHCheckBox) view
-				.getBHComponent(DTOScenario.Key.TIMESERIES_PROCESS);
-		if (cbTimeSeriesMethod != null && Services.check4TimeSeriesPlugin()) {
-			cbTimeSeriesMethod.setVisible(true);
-			cbTimeSeriesMethod.addActionListener(new ActionListener() {
-				@Override
-				public void actionPerformed(ActionEvent e) {
-
-					BHCheckBox from = (BHCheckBox) e.getSource();
-					BHStochasticInputForm form = (BHStochasticInputForm) ((Component) e
-							.getSource()).getParent();
-					if (from.isSelected()) {
-						DTOScenario scenario = (DTOScenario) getModel();
-						TSprocess = scenario.getTimeSeriesProcess();
-
-						JPanel parametersPanel = TSprocess
-								.calculateParameters();
-						form.setTimeSeriesParametersPanel(parametersPanel);
-						if (parametersPanel instanceof Container)
-							Services.setFocus((Container) parametersPanel);
-						try {
-							final View view = new View(parametersPanel,
-									new ValidationMethods());
-							// enable the calculation button depending on the
-							// validation status
-							view.addViewListener(new IViewListener() {
-								@Override
-								public void viewEvent(ViewEvent e) {
-									
-									switch (e.getEventType()) {
-									case VALUE_CHANGED:
-										boolean allValid = !view.revalidate()
-												.hasErrors();
-										if (resetStochasticParameters
-												.isVisible())
-											((Component) getView()
-													.getBHComponent(
-															BHScenarioForm.Key.CALCSHAREHOLDERVALUE))
-													.setEnabled(allValid);
-										break;
-									case VALIDATION_FAILED:
-										((Component) getView()
-												.getBHComponent(
-														BHScenarioForm.Key.CALCSHAREHOLDERVALUE))
-												.setEnabled(false);
-										break;
-									}
-								}
-							});
-							view.revalidate();
-							boolean allValid = !view.revalidate().hasErrors();
-							((Component) getView().getBHComponent(
-									BHScenarioForm.Key.CALCSHAREHOLDERVALUE))
-									.setEnabled(allValid);
-						} catch (ViewException e1) {
-						}
-
-					} else {
-						form.removeTimeSeriesParametersPanel();
-					}
-
-				}
-			});
-		}
+		addTimeSeriesFunctionality(view, resetStochasticParameters);
 
 		// immediately toggle interval arithmetic on and off
 		BHCheckBox chkInterval = (BHCheckBox) getView().getBHComponent(
@@ -333,6 +269,86 @@ public class ScenarioController extends InputController {
 		loadToView(DTOScenario.Key.PERIOD_TYPE, false);
 		updateStochasticFieldsList();
 		loadAllToView();
+	}
+	
+	private void addTimeSeriesFunctionality(final View view, final BHButton resetStochasticParameters){
+		// populate the list of TimeSeriesProcess
+		BHCheckBox cbTimeSeriesMethod = (BHCheckBox) view
+				.getBHComponent(DTOScenario.Key.TIMESERIES_PROCESS);
+		if (cbTimeSeriesMethod != null && Services.check4TimeSeriesPlugin()) {
+			cbTimeSeriesMethod.setVisible(true);
+			cbTimeSeriesMethod.addActionListener(new ActionListener() {
+				@Override
+				public void actionPerformed(ActionEvent e) {
+
+					BHCheckBox from = (BHCheckBox) e.getSource();
+					BHStochasticInputForm form = (BHStochasticInputForm) ((Component) e
+							.getSource()).getParent();
+					
+					//For branch specific representative
+					BHCheckBox cbBranchSpecificRepresentative = (BHCheckBox) view.getBHComponent(DTOScenario.Key.BRANCH_SPECIFIC);
+					
+					if (from.isSelected()) {
+						//Branch specific representative
+						if(cbBranchSpecificRepresentative != null){
+							cbBranchSpecificRepresentative.setVisible(true);
+						}
+						
+						//Time series related
+						DTOScenario scenario = (DTOScenario) getModel();
+						TSprocess = scenario.getTimeSeriesProcess();
+
+						JPanel parametersPanel = TSprocess
+								.calculateParameters();
+						form.setTimeSeriesParametersPanel(parametersPanel);
+						if (parametersPanel instanceof Container)
+							Services.setFocus((Container) parametersPanel);
+						try {
+							final View view = new View(parametersPanel,
+									new ValidationMethods());
+							// enable the calculation button depending on the
+							// validation status
+							view.addViewListener(new IViewListener() {
+								@Override
+								public void viewEvent(ViewEvent e) {
+									
+									switch (e.getEventType()) {
+									case VALUE_CHANGED:
+										boolean allValid = !view.revalidate()
+												.hasErrors();
+										if (resetStochasticParameters
+												.isVisible())
+											((Component) getView()
+													.getBHComponent(
+															BHScenarioForm.Key.CALCSHAREHOLDERVALUE))
+													.setEnabled(allValid);
+										break;
+									case VALIDATION_FAILED:
+										((Component) getView()
+												.getBHComponent(
+														BHScenarioForm.Key.CALCSHAREHOLDERVALUE))
+												.setEnabled(false);
+										break;
+									}
+								}
+							});
+							view.revalidate();
+							boolean allValid = !view.revalidate().hasErrors();
+							((Component) getView().getBHComponent(
+									BHScenarioForm.Key.CALCSHAREHOLDERVALUE))
+									.setEnabled(allValid);
+						} catch (ViewException e1) {
+						}
+
+					} else {
+						cbBranchSpecificRepresentative.setVisible(false);
+						
+						form.removeTimeSeriesParametersPanel();
+					}
+
+				}
+			});
+		}
 	}
 
 	private static Item[] getStochasticDcfMethodItems() {

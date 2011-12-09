@@ -148,11 +148,26 @@ public final class BHStochasticInputForm extends JPanel {
 		return this.cbtimeSeriesProcess;
 	}
 	
+	/**
+	 * This method returns a checkbox for a branch specific representative.
+	 * The checkbox is only displayed, when the checkbox {@link cbtimeSeriesProcess }
+	 * is selected.
+	 * 
+	 * @return a checkbox whether you want to include the calculation with
+	 * a branch specific representative.
+	 */
 	public BHCheckBox getcbbranchSpecificRepresentative(){
 		if(this.cbbranchSpecificRepresentative == null){
 			this.cbbranchSpecificRepresentative = new BHCheckBox(DTOScenario.Key.BRANCH_SPECIFIC);
-			this.cbbranchSpecificRepresentative.setVisible(true);
 		}
+		
+		//If time series analysis is selected, then we want to show this checkbox as well
+		if(this.getcbtimeSeriesProcess().isSelected()){
+			this.cbbranchSpecificRepresentative.setVisible(true);
+		} else {
+			this.cbbranchSpecificRepresentative.setVisible(false);
+		}
+		
 		return this.cbbranchSpecificRepresentative;
 	}
 	
