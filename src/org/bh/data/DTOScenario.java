@@ -109,6 +109,12 @@ public class DTOScenario extends DTO<DTOPeriod> {
 		TIMESERIES_PROCESS,
 		
 		/**
+		 * This scenario is calculated branch specific. So we have
+		 * to take care of all that data here.
+		 */
+		BRANCH_SPECIFIC,
+		
+		/**
 		 * Period type
 		 */
 		PERIOD_TYPE,

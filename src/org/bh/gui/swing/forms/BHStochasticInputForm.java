@@ -15,7 +15,6 @@
  *******************************************************************************/
 package org.bh.gui.swing.forms;
 
-import java.awt.Color;
 import java.awt.Component;
 
 import javax.swing.JPanel;
@@ -42,6 +41,7 @@ import com.jgoodies.forms.layout.FormLayout;
  * @author Patrick Heinz
  * @version 1.0, 22.01.2010
  * @update 23.12.2010 Timo Klein
+ * @update 09.12.2011 Yannick Rödl
  * 
  */
 @SuppressWarnings("serial")
@@ -53,6 +53,7 @@ public final class BHStochasticInputForm extends JPanel {
 	private BHComboBox cbstochprocess;
 	private BHComboBox cbdcfMethod;
 	private BHCheckBox cbtimeSeriesProcess;
+	private BHCheckBox cbbranchSpecificRepresentative;
 	
 	private BHDescriptionLabel lStochasticKeys;
 	private BHSelectionList liStochasticKeys;
@@ -99,7 +100,9 @@ public final class BHStochasticInputForm extends JPanel {
 		this.add(this.getcbstochProcess(), cons.xywh(8, 2, 1, 1));
 		this.add(this.getcbtimeSeriesProcess(), cons.xywh(10, 2, 1, 1));
 		
-		this.add(this.getlStochasticKeysList(), cons.xywh(2, 4, 10, 1));
+		this.add(this.getlStochasticKeysList(), cons.xywh(2, 4, 8, 1));
+		this.add(this.getcbbranchSpecificRepresentative(), cons.xywh(10, 4, 1, 1));
+		
 		this.add(new JScrollPane(this.getliStochasticKeysList()), cons.xywh(2, 6, 10, 1));
 		this.add(this.getlNoStochasticKeys(), cons.xywh(2, 6, 10, 1));
 		
@@ -143,6 +146,14 @@ public final class BHStochasticInputForm extends JPanel {
 			
 		}
 		return this.cbtimeSeriesProcess;
+	}
+	
+	public BHCheckBox getcbbranchSpecificRepresentative(){
+		if(this.cbbranchSpecificRepresentative == null){
+			this.cbbranchSpecificRepresentative = new BHCheckBox(DTOScenario.Key.BRANCH_SPECIFIC);
+			this.cbbranchSpecificRepresentative.setVisible(true);
+		}
+		return this.cbbranchSpecificRepresentative;
 	}
 	
 	/**

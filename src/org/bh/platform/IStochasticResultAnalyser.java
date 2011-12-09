@@ -19,7 +19,40 @@ import java.awt.Component;
 
 import org.bh.data.DTOScenario;
 import org.bh.data.types.DistributionMap;
-
+/**
+ * 
+ * This interface is used to load analyser for stochastic processes
+ *
+ * <p>
+ * This interface should be implemented by every plug-in trying to analyse a 
+ * stochastic result.
+ *
+ * @author Unknown
+ * @version 1.0, 09.12.2011
+ * @update 09.12.2011 Yannick Rödl
+ *
+ */
 public interface IStochasticResultAnalyser {
+	
+	public enum Keys{
+		DEFAULT,
+		
+		BRANCH_SPECIFIC
+	}
+	
+	/**
+	 * This method is called, when you want to set a result view for
+	 * a stochastic result analysis.
+	 * @param scenario
+	 * @param result
+	 * @return
+	 */
 	public Component setResult(DTOScenario scenario, DistributionMap result);
+	
+	/**
+	 * This method should return a unique ID making it easier to identify which analyser
+	 * should be loaded.
+	 * @return
+	 */
+	public String getUniqueID();
 }

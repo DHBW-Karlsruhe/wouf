@@ -1,1 +1,2 @@
 org.bh.plugin.stochasticResultAnalysis.DefaultStochasticResultAnalyser
+org.bh.plugin.stochasticResultAnalysis.branchSpecific.BranchSpecificStochasticResultAnalyser

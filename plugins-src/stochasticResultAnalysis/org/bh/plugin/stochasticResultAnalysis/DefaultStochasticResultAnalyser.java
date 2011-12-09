@@ -23,16 +23,23 @@ import org.bh.gui.view.ViewException;
 import org.bh.platform.IStochasticResultAnalyser;
 
 public class DefaultStochasticResultAnalyser implements IStochasticResultAnalyser{
+	
 	@Override
 	public Component setResult(DTOScenario scenario, DistributionMap result) {
 		try {
 			View view = new ViewBHStochasticResultPanel(scenario, result);
 			new BHStochasticResultController(view, result, scenario);
+			Logger.getLogger(DefaultStochasticResultAnalyser.class).info("Loaded default stochastic result analyser.");
 			return view.getViewPanel();
 		} catch (ViewException e) {
 			Logger.getLogger(DefaultStochasticResultAnalyser.class).error("Cannot create view", e);
 			return null;
 		}
+	}
+
+	@Override
+	public String getUniqueID() {
+		return IStochasticResultAnalyser.Keys.DEFAULT.toString();
 	}
 
 }
