@@ -212,6 +212,7 @@ public class ScenarioController extends InputController {
 
 		addTimeSeriesFunctionality(view, resetStochasticParameters);
 
+		//Here seems to start the deterministic data.
 		// immediately toggle interval arithmetic on and off
 		BHCheckBox chkInterval = (BHCheckBox) getView().getBHComponent(
 				DTOScenario.Key.INTERVAL_ARITHMETIC);
@@ -342,6 +343,7 @@ public class ScenarioController extends InputController {
 
 					} else {
 						cbBranchSpecificRepresentative.setVisible(false);
+						cbBranchSpecificRepresentative.setSelected(false);
 						
 						form.removeTimeSeriesParametersPanel();
 					}
