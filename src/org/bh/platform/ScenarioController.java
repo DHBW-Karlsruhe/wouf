@@ -31,6 +31,7 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 
+import org.apache.log4j.Logger;
 import org.bh.calculation.IShareholderValueCalculator;
 import org.bh.calculation.IStochasticProcess;
 import org.bh.calculation.ITimeSeriesProcess;
@@ -44,6 +45,7 @@ import org.bh.data.types.DistributionMap;
 import org.bh.data.types.StringValue;
 import org.bh.gui.IBHModelComponent;
 import org.bh.gui.swing.BHMainFrame;
+import org.bh.gui.swing.BHOptionPane;
 import org.bh.gui.swing.comp.BHButton;
 import org.bh.gui.swing.comp.BHCheckBox;
 import org.bh.gui.swing.comp.BHComboBox;
@@ -615,9 +617,16 @@ public class ScenarioController extends InputController {
 						b.changeText(BHScenarioForm.Key.ABORT);
 						TSprocess.setProgressB(progressBar);
 						TSprocess.updateParameters();
-						result.setTimeSeries(TSprocess,
+						try{
+							result.setTimeSeries(TSprocess,
 								TSprocess.calculate(),
 								TSprocess.calculateCompare(3));
+						} catch (RuntimeException re){
+							Logger.getLogger(getClass()).fatal("Calculation of matrix in time series failed!", re);
+							b.doClick(); //Simulate interrupt click
+							BHOptionPane.showConfirmDialog(bhTree, "A fatal error occured. Please inform the project team. Maybe you selected more periods in the past than you maintained.", "Fatal error", JOptionPane.NO_OPTION, JOptionPane.ERROR_MESSAGE);
+							return new JPanel();
+						}
 
 					}
 
