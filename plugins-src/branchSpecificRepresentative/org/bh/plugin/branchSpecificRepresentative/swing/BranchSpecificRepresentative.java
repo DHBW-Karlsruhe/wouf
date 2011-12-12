@@ -68,9 +68,10 @@ public class BranchSpecificRepresentative implements ITimeSeriesProcess {
 		
 		BHButton bShowDeviationAnalysis = new BHButton(Elements.POPUP_GOODNESS_BRANCH_SPECIFIC_REPRESENTATIVE);
 		bShowDeviationAnalysis.setToolTipText(translator.translate(Elements.POPUP_GOODNESS_BRANCH_SPECIFIC_REPRESENTATIVE, ITranslator.LONG));
+		bShowDeviationAnalysis.addActionListener(new DeviationAnalysisListener());
 		
 		// add components to panel
-		result.add(dlGoodnessDescription, cons.xywh(2, 2, 1, 1));
+		result.add( dlGoodnessDescription, cons.xywh(2, 2, 1, 1));
 		result.add( tfBranchSpecGoodness,
 				cons.xywh(4, 2, 1, 1));
 		result.add( bShowDeviationAnalysis,
