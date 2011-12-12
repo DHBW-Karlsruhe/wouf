@@ -68,7 +68,7 @@ public class Services {
 	private static EventListenerList platformListeners = new EventListenerList();
 	private static HashMap<String, IShareholderValueCalculator> dcfMethods;
 	private static HashMap<String, IStochasticProcess> stochasticProcesses;
-	private static HashMap<String, ITimeSeriesProcess> TimeSeriesProcesses;
+	private static HashMap<String, ITimeSeriesProcess> timeSeriesProcesses;
 	private static HashMap<String, IPeriodController> periodControllers;
 	private static HashMap<String, IDataExchangeController> dataExchangeController;
 	private static HashMap<String, IImportExport> importExport;
@@ -188,20 +188,41 @@ public class Services {
 		}
 		return isLoaded;
 	}
-	// added by Timo Klein 23.12.10
+	
+	/**
+	 * Loads a list of time series processes and returns them as a map.
+	 * The Unique ID is the key here.
+	 * 
+	 * @return
+	 */
+	public static Map<String, ITimeSeriesProcess> getTimeSeriesProcesses(){
+		if(timeSeriesProcesses == null){
+			loadTimeSeriesProcesses();
+		}
+		return timeSeriesProcesses;
+	}
+	
 	/**
 	 * Returns a reference to a time series process.
 	 * 
+	 * @author Timo Klein 23.12.2010
+	 * @update Yannick Rödl, 12.12.2011
 	 * @return The reference to the time series process, or null if not found.
 	 */
-	public static ITimeSeriesProcess getTimeSeriesProcess() {
-		TimeSeriesProcesses = new HashMap<String, ITimeSeriesProcess>();
+	public static ITimeSeriesProcess getTimeSeriesProcess(String id) {
+		return getTimeSeriesProcesses().get(id);
+	}
+	
+	/**
+	 * Loads every given plugin for a time series.
+	 */
+	private static void loadTimeSeriesProcesses(){
+		timeSeriesProcesses = new HashMap<String, ITimeSeriesProcess>();
 		ServiceLoader<ITimeSeriesProcess> processes = PluginManager
 				.getInstance().getServices(ITimeSeriesProcess.class);
 		for (ITimeSeriesProcess process : processes) {
-			return process;
+			timeSeriesProcesses.put(process.getUniqueId(), process);
 		}
-		return null;
 	}
 
 	

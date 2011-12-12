@@ -254,8 +254,8 @@ public class DTOScenario extends DTO<DTOPeriod> {
 	 * 
 	 * @return Reference to the time series process.
 	 */
-	public ITimeSeriesProcess getTimeSeriesProcess() {
-		return Services.getTimeSeriesProcess().createNewInstance(this);
+	public ITimeSeriesProcess getTimeSeriesProcess(String id) {
+		return Services.getTimeSeriesProcess(id).createNewInstance(this);
 	}
 	
 	

@@ -86,6 +86,8 @@ public class ScenarioController extends InputController {
 	private IStochasticProcess process = null;
 	private ITimeSeriesProcess TSprocess = null;
 	private final BHMainFrame bhmf;
+	
+	private static final String TIME_SERIES_ID = "timeSeries";
 
 	public ScenarioController(View view, IDTO<?> model, final BHMainFrame bhmf) {
 		super(view, model);
@@ -143,6 +145,7 @@ public class ScenarioController extends InputController {
 					BHStochasticInputForm form = (BHStochasticInputForm) ((Component) e
 							.getSource()).getParent();
 					form.setParametersPanel(parametersPanel);
+					
 					if (parametersPanel instanceof Container)
 						Services.setFocus((Container) parametersPanel);
 					try {
@@ -297,7 +300,7 @@ public class ScenarioController extends InputController {
 						
 						//Time series related
 						DTOScenario scenario = (DTOScenario) getModel();
-						TSprocess = scenario.getTimeSeriesProcess();
+						TSprocess = scenario.getTimeSeriesProcess(ScenarioController.TIME_SERIES_ID);
 
 						JPanel parametersPanel = TSprocess
 								.calculateParameters();
