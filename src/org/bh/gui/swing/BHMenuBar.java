@@ -39,6 +39,7 @@ import org.bh.platform.i18n.ITranslator;
  * 
  * @author Tietze.Patrick
  * @version 0.1, 2009/12/16
+ * @update Hesse.Guenter, 2011/12/12
  * 
  */
 
@@ -149,7 +150,7 @@ public final class BHMenuBar extends JMenuBar implements IPlatformListener {
 		/**
 		 * create menu items --> options
 		 **/
-		menuOptions.add(new BHMenuItem(PlatformKey.OPTIONSCHANGE, 80));
+		menuOptions.add(new BHMenuItem(PlatformKey.OPTIONSCHANGE, 123)); //F12
 		
 		
 		/**
