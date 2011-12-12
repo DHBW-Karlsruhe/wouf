@@ -88,7 +88,6 @@ public class ScenarioController extends InputController {
 	private final BHMainFrame bhmf;
 	
 	private static final String TIME_SERIES_ID = "timeSeries";
-	private static final String BRANCH_SPECIFIC_TIME_SERIES = "branchSpecificRepresentative";
 
 	public ScenarioController(View view, IDTO<?> model, final BHMainFrame bhmf) {
 		super(view, model);
@@ -151,8 +150,8 @@ public class ScenarioController extends InputController {
 							.getSource()).getParent();
 					form.setParametersPanel(parametersPanel);
 					//BranchSpecificRepresentative specific code.
-					if(cbBranchSpecificRepresentative.isSelected()){
-						ITimeSeriesProcess timeSeriesProcess = scenario.getTimeSeriesProcess(ScenarioController.BRANCH_SPECIFIC_TIME_SERIES);
+					if(cbBranchSpecificRepresentative.isSelected() && cbBranchSpecificRepresentative.isVisible()){
+						ITimeSeriesProcess timeSeriesProcess = scenario.getTimeSeriesProcess(ITimeSeriesProcess.Key.BRANCH_SPECIFIC_REPRESENTATIVE.toString());
 						JPanel timeSeriesPanel = timeSeriesProcess.calculateParameters();
 						form.setBranchSpecificRepresentativePanel(timeSeriesPanel);
 					}

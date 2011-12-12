@@ -33,6 +33,15 @@ import org.bh.platform.IDisplayablePlugin;
  */
 public interface ITimeSeriesProcess extends IDisplayablePlugin{
 	
+	public enum Key{
+		TIME_SERIES,
+		BRANCH_SPECIFIC_REPRESENTATIVE;
+		
+		@Override
+        public String toString() {
+            return getClass().getName() + "." + super.toString();
+        }
+	};
 	
 	/**
 	 * Defines a unique string which identifies this timeSeries process.

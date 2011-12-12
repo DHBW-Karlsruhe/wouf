@@ -10,7 +10,8 @@ import org.bh.gui.swing.comp.BHButton;
 import org.bh.gui.swing.comp.BHDescriptionLabel;
 import org.bh.gui.swing.comp.BHProgressBar;
 import org.bh.gui.swing.comp.BHTextField;
-import org.bh.platform.ScenarioController;
+import org.bh.platform.i18n.BHTranslator;
+import org.bh.platform.i18n.ITranslator;
 
 import com.jgoodies.forms.layout.CellConstraints;
 import com.jgoodies.forms.layout.FormLayout;
@@ -28,11 +29,15 @@ import com.jgoodies.forms.layout.FormLayout;
  */
 public class BranchSpecificRepresentative implements ITimeSeriesProcess {
 
-	private static final String BRANCH_SPECIFIC_REPRESENTATIVE_GOODNESS = "goodnessBranchSpecificRepresentative";
-	private static final String POPUP_GOODNESS_BRANCH_SPECIFIC_REPRESENTATIVE = "popup_goodness";
-
-	private static final String UNIQUE_ID = "branchSpecificRepresentative";
-	private static final String GUI_KEY = "branchSpecificRepresentative";
+	private enum Elements{
+		BRANCH_SPECIFIC_REPRESENTATIVE_GOODNESS,
+		POPUP_GOODNESS_BRANCH_SPECIFIC_REPRESENTATIVE;
+		
+		@Override
+	    public String toString() {
+	        return getClass().getName() + "." + super.toString();
+	    }
+	}
 	
 	private DTOScenario scenario;
 	
@@ -40,6 +45,7 @@ public class BranchSpecificRepresentative implements ITimeSeriesProcess {
 	public JPanel calculateParameters() {
 		JPanel result = new JPanel();
 		
+		//create layout
 		String rowDef = "4px,p";
 		String colDef = "4px,right:pref,4px,60px:grow,8px:grow,right:pref,4px,max(35px;pref):grow,4px:grow";
 		FormLayout layout = new FormLayout(colDef, rowDef);
@@ -47,29 +53,42 @@ public class BranchSpecificRepresentative implements ITimeSeriesProcess {
 		layout.setColumnGroups(new int[][] { { 4, 8 } });
 		CellConstraints cons = new CellConstraints();
 		
-		result.add(new BHDescriptionLabel(
-				BRANCH_SPECIFIC_REPRESENTATIVE_GOODNESS), cons.xywh(2, 2, 1, 1));
-		result.add(new BHTextField(BRANCH_SPECIFIC_REPRESENTATIVE_GOODNESS),
+		//get translator
+		ITranslator translator = BHTranslator.getInstance();
+		
+		//create goodness field
+		BHTextField tfBranchSpecGoodness = new BHTextField(Elements.BRANCH_SPECIFIC_REPRESENTATIVE_GOODNESS);
+		tfBranchSpecGoodness.setEditable(false);
+		tfBranchSpecGoodness.setToolTipText(translator.translate(Elements.BRANCH_SPECIFIC_REPRESENTATIVE_GOODNESS, ITranslator.LONG));
+		tfBranchSpecGoodness.setText("10 %");
+		
+		BHDescriptionLabel dlGoodnessDescription = new BHDescriptionLabel(
+				Elements.BRANCH_SPECIFIC_REPRESENTATIVE_GOODNESS); 
+		dlGoodnessDescription.setToolTipText(translator.translate(Elements.BRANCH_SPECIFIC_REPRESENTATIVE_GOODNESS, ITranslator.LONG));
+		
+		BHButton bShowDeviationAnalysis = new BHButton(Elements.POPUP_GOODNESS_BRANCH_SPECIFIC_REPRESENTATIVE);
+		bShowDeviationAnalysis.setToolTipText(translator.translate(Elements.POPUP_GOODNESS_BRANCH_SPECIFIC_REPRESENTATIVE, ITranslator.LONG));
+		
+		// add components to panel
+		result.add(dlGoodnessDescription, cons.xywh(2, 2, 1, 1));
+		result.add( tfBranchSpecGoodness,
 				cons.xywh(4, 2, 1, 1));
-		result.add(new BHButton(POPUP_GOODNESS_BRANCH_SPECIFIC_REPRESENTATIVE),
+		result.add( bShowDeviationAnalysis,
 				cons.xywh(6, 2, 1, 1));
 		
 		return result;
 	}
 
-	/* Specified by interface/super class. */
 	@Override
 	public String getGuiKey() {
-		return BranchSpecificRepresentative.GUI_KEY;
+		return ITimeSeriesProcess.Key.BRANCH_SPECIFIC_REPRESENTATIVE.toString();
 	}
 
-	/* Specified by interface/super class. */
 	@Override
 	public String getUniqueId() {
-		return BranchSpecificRepresentative.UNIQUE_ID;
+		return ITimeSeriesProcess.Key.BRANCH_SPECIFIC_REPRESENTATIVE.toString();
 	}
 
-	/* Specified by interface/super class. */
 	@Override
 	public ITimeSeriesProcess createNewInstance(DTOScenario scenario) {
 		BranchSpecificRepresentative instance = new BranchSpecificRepresentative();
@@ -77,35 +96,30 @@ public class BranchSpecificRepresentative implements ITimeSeriesProcess {
 		return instance;
 	}
 
-	/* Specified by interface/super class. */
 	@Override
 	public void updateParameters() {
 		// TODO Auto-generated method stub
 		throw new UnsupportedOperationException("This method has not been implemented");
 	}
 
-	/* Specified by interface/super class. */
 	@Override
 	public TreeMap<Integer, Double> calculate() {
 		// TODO Auto-generated method stub
 		throw new UnsupportedOperationException("This method has not been implemented");
 	}
 
-	/* Specified by interface/super class. */
 	@Override
 	public TreeMap<Integer, Double>[] calculateCompare(int p) {
 		// TODO Auto-generated method stub
 		throw new UnsupportedOperationException("This method has not been implemented");
 	}
 
-	/* Specified by interface/super class. */
 	@Override
 	public void setProgressB(BHProgressBar bhComponent) {
 		// TODO Auto-generated method stub
 		throw new UnsupportedOperationException("This method has not been implemented");
 	}
 
-	/* Specified by interface/super class. */
 	@Override
 	public void setInterrupted() {
 		// TODO Auto-generated method stub
