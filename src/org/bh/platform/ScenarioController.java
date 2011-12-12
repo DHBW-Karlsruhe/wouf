@@ -88,6 +88,7 @@ public class ScenarioController extends InputController {
 	private final BHMainFrame bhmf;
 	
 	private static final String TIME_SERIES_ID = "timeSeries";
+	private static final String BRANCH_SPECIFIC_TIME_SERIES = "branchSpecificRepresentative";
 
 	public ScenarioController(View view, IDTO<?> model, final BHMainFrame bhmf) {
 		super(view, model);
@@ -117,13 +118,15 @@ public class ScenarioController extends InputController {
 			cbStochasticMethod.setSorted(true);
 			cbStochasticMethod.setValueList(STOCHASTIC_METHOD_ITEMS);
 		}
+		
+		final BHCheckBox cbBranchSpecificRepresentative = (BHCheckBox) view.getBHComponent(DTOScenario.Key.BRANCH_SPECIFIC);
 
 		// add ActionListener for calculation button
 		((BHButton) view
 				.getBHComponent(BHScenarioForm.Key.CALCSHAREHOLDERVALUE))
 				.addActionListener(new CalculationListener(PlatformController
 						.getInstance().getMainFrame().getBHTree()));
-
+		
 		// add ActionListeners for calculate/reset parameters buttons for
 		// stochastic processes
 		final BHButton calcStochasticParameters = ((BHButton) view
@@ -140,12 +143,20 @@ public class ScenarioController extends InputController {
 					// display a panel to change them if necessary
 					DTOScenario scenario = (DTOScenario) getModel();
 					process = scenario.getStochasticProcess();
-
+					
+						
+					//Original parameters code
 					JPanel parametersPanel = process.calculateParameters();
 					BHStochasticInputForm form = (BHStochasticInputForm) ((Component) e
 							.getSource()).getParent();
 					form.setParametersPanel(parametersPanel);
-					
+					//BranchSpecificRepresentative specific code.
+					if(cbBranchSpecificRepresentative.isSelected()){
+						ITimeSeriesProcess timeSeriesProcess = scenario.getTimeSeriesProcess(ScenarioController.BRANCH_SPECIFIC_TIME_SERIES);
+						JPanel timeSeriesPanel = timeSeriesProcess.calculateParameters();
+						form.setBranchSpecificRepresentativePanel(timeSeriesPanel);
+					}
+						
 					if (parametersPanel instanceof Container)
 						Services.setFocus((Container) parametersPanel);
 					try {
@@ -197,8 +208,12 @@ public class ScenarioController extends InputController {
 				public void actionPerformed(ActionEvent e) {
 					BHStochasticInputForm form = (BHStochasticInputForm) ((Component) e
 							.getSource()).getParent();
+					
 					process = null;
+					
 					form.removeParametersPanel();
+					form.removeBranchSpecificRepresentativePanel();
+					
 					calcStochasticParameters.setVisible(true);
 					resetStochasticParameters.setVisible(false);
 					((Component) getView().getBHComponent(

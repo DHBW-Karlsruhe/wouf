@@ -61,8 +61,10 @@ public final class BHStochasticInputForm extends JPanel {
 	
 	private BHButton bCalcParameters;
 	private BHButton bResetParameters;
+	
 	private Component pParameters;
 	private Component timeSeriesParameters;
+	private Component branchSpecificRepresentativeParameters;
 	
 	ITranslator translator = Services.getTranslator();
 	
@@ -89,7 +91,7 @@ public final class BHStochasticInputForm extends JPanel {
 	private void initialize() {
 
 		String colDef = "4px,p,4px,p,4px,p,4px,p,120px,p,0px:grow,4px";
-		String rowDef = "4px,p,4px,p,4px,80px,10px,p,4px,p,4px,p,4px";
+		String rowDef = "4px,p,4px,p,4px,80px,10px,p,4px,p,4px,p,4px,p,4px";
 		
 		FormLayout layout = new FormLayout(colDef, rowDef);
 		this.setLayout(layout);
@@ -228,13 +230,36 @@ public final class BHStochasticInputForm extends JPanel {
 		removeParametersPanel();
 		pParameters = component;
 		CellConstraints cons = new CellConstraints();
-		add(pParameters, cons.xywh(2, 12, 10, 1));
+		add(pParameters, cons.xywh(2, 14, 10, 1));
 		revalidate();
 	}
 	
 	public void removeParametersPanel() {
 		if (pParameters != null) {
 			remove(pParameters);
+			revalidate();
+		}
+	}
+	
+	/**
+	 * This method sets some space on the UI for the branch specific representative.
+	 * Here for example the goodness and the button for the popup are displayed.
+	 * @param component containing the panel which should be displayed.
+	 */
+	public void setBranchSpecificRepresentativePanel(Component component){
+		removeBranchSpecificRepresentativePanel();
+		branchSpecificRepresentativeParameters = component;
+		CellConstraints cons = new CellConstraints();
+		add(branchSpecificRepresentativeParameters, cons.xywh(2, 12, 10, 1));
+		revalidate();
+	}
+	
+	/**
+	 * Removes the currently active panel for branch specific representative data
+	 */
+	public void removeBranchSpecificRepresentativePanel(){
+		if(this.branchSpecificRepresentativeParameters != null){
+			remove(this.branchSpecificRepresentativeParameters);
 			revalidate();
 		}
 	}
