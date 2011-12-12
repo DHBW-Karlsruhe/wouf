@@ -56,7 +56,11 @@ import org.bh.platform.PlatformEvent;
 import org.bh.platform.Services;
 import org.jfree.chart.JFreeChart;
 
-// @update 23.12.2010 Timo Klein
+/**
+ * @author unknown
+ * @update 23.12.2010 Timo Klein
+ * @update 12.12.2011 Guenter Hesse
+ */
 
 public class BHStochasticResultController extends OutputController {
 	public static enum ChartKeys {

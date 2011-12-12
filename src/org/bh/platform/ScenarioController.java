@@ -76,7 +76,7 @@ import org.bh.validation.ValidationMethods;
  * @version 1.0, 29.01.2010
  * @update 23.12.2010 Timo Klein
  * @update 09.12.2011 Yannick Rödl
- * 
+ * @update 12.12.2011 Guenter Hesse
  */
 public class ScenarioController extends InputController {
 	protected static final BHComboBox.Item[] DCF_METHOD_ITEMS = getDcfMethodItems();
@@ -598,7 +598,11 @@ public class ScenarioController extends InputController {
 					
 					process.updateParameters();
 					DistributionMap result = process.calculate();
-
+                    
+					// 12.12.2011: checks wether we got a result or not
+					if ( (result.getAmountOfValues()) == 0)
+						return null;
+					
 					BHCheckBox timeSeries = (BHCheckBox) view
 							.getBHComponent(DTOScenario.Key.TIMESERIES_PROCESS);
 					
