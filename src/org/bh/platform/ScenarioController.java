@@ -386,6 +386,9 @@ public class ScenarioController extends InputController {
 					//For branch specific representative
 					BHComboBox cbindustry = (BHComboBox) view.getBHComponent(DTOScenario.Key.INDUSTRY);
 					BHComboBox cbrepresentative = (BHComboBox) view.getBHComponent(DTOScenario.Key.REPRESENTATIVE);
+					//BHDescriptionLabel lrepresentative = (BHDescriptionLabel) view.getBHComponent(DTOScenario.Key.REPRESENTATIVE);
+					//BHDescriptionLabel lindustry = (BHDescriptionLabel) view.getBHComponent(DTOScenario.Key.INDUSTRY);
+
 					
 					if (from.isSelected()) {
 						if(cbindustry != null){
@@ -394,6 +397,12 @@ public class ScenarioController extends InputController {
 						if(cbrepresentative != null){
 							cbrepresentative.setVisible(true);
 						}
+						//if (lrepresentative != null){
+						//	lrepresentative.setVisible(true);
+						//}
+						//if (lindustry != null){
+						//	lindustry.setVisible(true);
+						//}
 					} else {
 						if(cbindustry != null){
 							cbindustry.setVisible(false);

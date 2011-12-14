@@ -49,6 +49,8 @@ public final class BHStochasticInputForm extends JPanel {
 
 	private BHDescriptionLabel lstochprocess;
 	private BHDescriptionLabel ldcfMethod;
+	private BHDescriptionLabel lindustry;
+	private BHDescriptionLabel lrepresentative;
 	
 	private BHComboBox cbstochprocess;
 	private BHComboBox cbdcfMethod;
@@ -92,8 +94,8 @@ public final class BHStochasticInputForm extends JPanel {
 	 */
 	private void initialize() {
 
-		String colDef = "4px,p,4px,p,4px,p,4px,p,120px,p,0px:grow,4px";
-		String rowDef = "4px,p,4px,p,4px,80px,10px,p,4px,p,4px,p,4px,p,4px";
+		String colDef = "4px,p,4px,p,4px,p,4px,p,120px,p,4px,p,0px:grow,4px";
+		String rowDef = "4px,p,4px,p,4px,p,4px,80px,10px,p,4px,p,4px,p,4px";
 		
 		FormLayout layout = new FormLayout(colDef, rowDef);
 		this.setLayout(layout);
@@ -103,19 +105,21 @@ public final class BHStochasticInputForm extends JPanel {
 		this.add(this.getlstochProcess(), cons.xywh(6, 2, 1, 1));
 		this.add(this.getcbstochProcess(), cons.xywh(8, 2, 1, 1));
 		this.add(this.getcbtimeSeriesProcess(), cons.xywh(10, 2, 1, 1));
-		this.add(this.getcbindustry(), cons.xywh(11, 2, 1, 1));
-
+		this.add(this.getcbbranchSpecificRepresentative(), cons.xywh(12, 2, 2, 1));
 		
-		this.add(this.getlStochasticKeysList(), cons.xywh(2, 4, 8, 1));
-		this.add(this.getcbbranchSpecificRepresentative(), cons.xywh(10, 4, 1, 1));
-		this.add(this.getcbrepresentative(), cons.xywh(11, 4, 1, 1));
-
+		this.add(this.getlindustry(), cons.xywh(2, 4, 1, 1));
+		this.add(this.getcbindustry(), cons.xywh(4, 4, 1, 1));
+		this.add(this.getlrepresentative(), cons.xywh(6, 4, 1, 1));
+		this.add(this.getcbrepresentative(), cons.xywh(8, 4, 1, 1));
 		
-		this.add(new JScrollPane(this.getliStochasticKeysList()), cons.xywh(2, 6, 10, 1));
-		this.add(this.getlNoStochasticKeys(), cons.xywh(2, 6, 10, 1));
+		this.add(this.getlStochasticKeysList(), cons.xywh(2, 6, 8, 1));
 		
-		this.add(this.getbCalcParameters(), cons.xywh(2, 10, 10, 1));
-		this.add(this.getbResetParameters(), cons.xywh(2, 10, 10, 1));
+		
+		this.add(new JScrollPane(this.getliStochasticKeysList()), cons.xywh(2, 8, 12, 1));
+		this.add(this.getlNoStochasticKeys(), cons.xywh(2, 8, 10, 1));
+		
+		this.add(this.getbCalcParameters(), cons.xywh(2, 12, 12, 1));
+		this.add(this.getbResetParameters(), cons.xywh(2, 12, 12, 1));
 		this.getbResetParameters().setVisible(false);
 	}
 	
@@ -128,6 +132,34 @@ public final class BHStochasticInputForm extends JPanel {
 		if (this.ldcfMethod == null)
 			this.ldcfMethod = new BHDescriptionLabel(DTOScenario.Key.DCF_METHOD);
 		return this.ldcfMethod;
+	}
+	
+	public BHDescriptionLabel getlindustry() {
+		if (this.lindustry == null)
+			this.lindustry = new BHDescriptionLabel(DTOScenario.Key.INDUSTRY);
+		
+		//If branchSpecificRepresentative is selected, then we want to show this checkbox as well
+		if(this.getcbbranchSpecificRepresentative().isSelected()){
+			this.lindustry.setVisible(true);
+		} else {
+			this.lindustry.setVisible(false);
+		}
+		
+		return this.lindustry;
+	}
+	
+	public BHDescriptionLabel getlrepresentative() {
+		if (this.lrepresentative == null)
+			this.lrepresentative = new BHDescriptionLabel(DTOScenario.Key.REPRESENTATIVE);
+		
+		//If branchSpecificRepresentative is selected, then we want to show this checkbox as well
+		if(this.getcbbranchSpecificRepresentative().isSelected()){
+			this.lrepresentative.setVisible(true);
+		} else {
+			this.lrepresentative.setVisible(false);
+		}
+		
+		return this.lrepresentative;
 	}
 	
 	
@@ -310,7 +342,7 @@ public final class BHStochasticInputForm extends JPanel {
 		removeTimeSeriesParametersPanel();
 		timeSeriesParameters = component;
 		CellConstraints cons = new CellConstraints();
-		add(timeSeriesParameters, cons.xywh(2, 8, 10, 1));
+		add(timeSeriesParameters, cons.xywh(2, 10, 10, 1));
 		revalidate();
 	}
 	
