@@ -51,7 +51,7 @@ public final class BHMenuBar extends JMenuBar implements IPlatformListener {
 	private JMenu menuFile, menuProject, menuScenario, menuPeriod, menuOptions, menuHelp;
 	private BHMenuItem projectCreate, projectDuplicate, projectImport, projectExport, projectRemove,
 	scenarioCreate, scenarioDuplicate, scenarioRemove, periodCreate, periodDuplicate, periodRemove;
-	public static BHMenuItem filePrint;
+	public static BHMenuItem filePrint, scenarioExport;
 	public BHMenuBar() {
 
 		/**
@@ -101,6 +101,12 @@ public final class BHMenuBar extends JMenuBar implements IPlatformListener {
 		filePrint = new BHMenuItem(PlatformKey.FILEPRINT, 80);
 		filePrint.setEnabled(false);
 		menuFile.add(filePrint); // P
+
+		
+		// neue Funktion "Drucken" falls Auswertungen vorhanden sind, default = inaktiv
+		scenarioExport = new BHMenuItem(PlatformKey.FILESCEXP);
+		scenarioExport.setEnabled(false);
+		menuFile.add(scenarioExport); 
 		menuFile.addSeparator();
 		
 		menuFile.add(new BHMenuItem(PlatformKey.FILECLOSE, 87)); // W
@@ -228,6 +234,20 @@ public final class BHMenuBar extends JMenuBar implements IPlatformListener {
 	public static void disableFilePrint(){
 		filePrint.setEnabled(false);
 	}
+	
+	/**
+	 * @author Denis Roster
+	 * deactivate and activate the export function for scenario in menu
+	 */
+	
+	public static void enableSceExport(){
+		scenarioExport.setEnabled(true);
+	}
+	
+	public static void disableSceExport(){
+		scenarioExport.setEnabled(false);
+	}
+	
 
 	public void platformEvent(PlatformEvent e) {
 		if (e.getEventType() == Type.LOCALE_CHANGED) {
