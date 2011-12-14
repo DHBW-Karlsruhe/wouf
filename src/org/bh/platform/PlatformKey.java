@@ -28,6 +28,7 @@ public enum PlatformKey{
 	FILESAVE("Msave"),
 	FILESAVEAS("MsaveAs"),
 	FILEPRINT("Mprint"),
+	FILESCEXP("Mscexp"),
 	FILECLOSE("Mclose"),
 	FILEQUIT("Mquit"),
 	PROJECTCREATE("Mcreate"),
