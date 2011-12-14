@@ -340,6 +340,7 @@ public class DTOScenario extends DTO<DTOPeriod> {
 	public void setCalculated (boolean b){
 		isCalculated = b;
 		BHMenuBar.enableFilePrint();
+		BHMenuBar.enableSceExport();
 		
 	}
 	
