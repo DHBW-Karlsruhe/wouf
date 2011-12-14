@@ -71,6 +71,10 @@ public class BHStochasticResultPanel extends JPanel{
 	    	}
 	    });
 		
+		// deactivate Print- and Export-Button
+		exportButton.setVisible(false);
+		printButton.setVisible(false);
+		
 		StochasticPanel mainStochastic = new StochasticPanel();
 		if(result.isTimeSeries()){
 			mainStochastic.addTimeSeries();
