@@ -64,11 +64,15 @@ public class DTOScenario extends DTO<DTOPeriod> {
 		 * corporate income tax
 		 */
 		CTAX,
+		
+		CTAX_description,
 
 		/**
 		 * business tax
 		 */
 		BTAX,
+		
+		BTAX_description,
 
 		/**
 		 * summed tax

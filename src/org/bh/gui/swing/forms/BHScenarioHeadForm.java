@@ -210,7 +210,7 @@ public final class BHScenarioHeadForm extends JPanel {
 	public BHDescriptionLabel getltradeTax() {
 
 		if (this.ltradetax == null) {
-			this.ltradetax = new BHDescriptionLabel(DTOScenario.Key.BTAX);
+			this.ltradetax = new BHDescriptionLabel(DTOScenario.Key.BTAX,DTOScenario.Key.BTAX_description);
 		}
 
 		return this.ltradetax;
@@ -224,7 +224,7 @@ public final class BHScenarioHeadForm extends JPanel {
 	public BHDescriptionLabel getlcorporateTax() {
 
 		if (this.lcorporatetax == null) {
-			this.lcorporatetax = new BHDescriptionLabel(DTOScenario.Key.CTAX);
+			this.lcorporatetax = new BHDescriptionLabel(DTOScenario.Key.CTAX,DTOScenario.Key.CTAX_description);
 		}
 
 		return this.lcorporatetax;

@@ -26,6 +26,7 @@ import org.bh.platform.IPlatformListener;
 import org.bh.platform.PlatformEvent;
 import org.bh.platform.Services;
 import org.bh.platform.PlatformEvent.Type;
+import org.bh.platform.i18n.ITranslator;
 
 /**
  * Label which displays the translation of a key.
@@ -38,11 +39,13 @@ import org.bh.platform.PlatformEvent.Type;
  */
 public class BHDescriptionLabel extends JLabel implements IBHComponent, IPlatformListener {
 	private static final long serialVersionUID = 2194119858505365723L;
+	static final ITranslator translator = Services.getTranslator();
 	
 	/**
 	 * unique key to identify Label.
 	 */
 	private String key;
+	private String tooltip;
 
 	/**
 	 * Constructor to create new <code>BHLabel</code>.
@@ -53,6 +56,14 @@ public class BHDescriptionLabel extends JLabel implements IBHComponent, IPlatfor
 	public BHDescriptionLabel(Object key) {
 		this.key = key.toString();
 		reloadText();
+		Services.addPlatformListener(this);
+	}
+	
+	public BHDescriptionLabel(Object key, Object tooltip) {
+		this.key = key.toString();
+		this.tooltip = tooltip.toString();
+		reloadText();
+		
 		Services.addPlatformListener(this);
 	}
 
@@ -86,5 +97,7 @@ public class BHDescriptionLabel extends JLabel implements IBHComponent, IPlatfor
 	 */
 	protected void reloadText() {
 		this.setText(Services.getTranslator().translate(key));
+		if (this.tooltip!=null)
+			this.setToolTipText(Services.getTranslator().translate(tooltip));
 	}
 }
