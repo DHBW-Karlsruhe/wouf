@@ -370,6 +370,41 @@ public class ScenarioController extends InputController {
 				}
 			});
 		}
+		
+		// populate the ComboBox for branch specific representative
+		BHCheckBox cbbranchSpecificRepresentative = (BHCheckBox) view
+		.getBHComponent(DTOScenario.Key.BRANCH_SPECIFIC);
+		
+		if(cbbranchSpecificRepresentative != null){
+			cbbranchSpecificRepresentative.addActionListener(new ActionListener() {
+				@Override
+				public void actionPerformed(ActionEvent e) {
+					BHCheckBox from = (BHCheckBox) e.getSource();
+					BHStochasticInputForm form = (BHStochasticInputForm) ((Component) e
+							.getSource()).getParent();
+					
+					//For branch specific representative
+					BHComboBox cbindustry = (BHComboBox) view.getBHComponent(DTOScenario.Key.INDUSTRY);
+					BHComboBox cbrepresentative = (BHComboBox) view.getBHComponent(DTOScenario.Key.REPRESENTATIVE);
+					
+					if (from.isSelected()) {
+						if(cbindustry != null){
+							cbindustry.setVisible(true);
+						}
+						if(cbrepresentative != null){
+							cbrepresentative.setVisible(true);
+						}
+					} else {
+						if(cbindustry != null){
+							cbindustry.setVisible(false);
+						}
+						if(cbrepresentative != null){
+							cbrepresentative.setVisible(false);
+						}
+					}
+				}
+			});
+		}
 	}
 
 	private static Item[] getStochasticDcfMethodItems() {

@@ -52,6 +52,8 @@ public final class BHStochasticInputForm extends JPanel {
 	
 	private BHComboBox cbstochprocess;
 	private BHComboBox cbdcfMethod;
+	private BHComboBox cbindustry;
+	private BHComboBox cbrepresentative;
 	private BHCheckBox cbtimeSeriesProcess;
 	private BHCheckBox cbbranchSpecificRepresentative;
 	
@@ -101,9 +103,13 @@ public final class BHStochasticInputForm extends JPanel {
 		this.add(this.getlstochProcess(), cons.xywh(6, 2, 1, 1));
 		this.add(this.getcbstochProcess(), cons.xywh(8, 2, 1, 1));
 		this.add(this.getcbtimeSeriesProcess(), cons.xywh(10, 2, 1, 1));
+		this.add(this.getcbindustry(), cons.xywh(11, 2, 1, 1));
+
 		
 		this.add(this.getlStochasticKeysList(), cons.xywh(2, 4, 8, 1));
 		this.add(this.getcbbranchSpecificRepresentative(), cons.xywh(10, 4, 1, 1));
+		this.add(this.getcbrepresentative(), cons.xywh(11, 4, 1, 1));
+
 		
 		this.add(new JScrollPane(this.getliStochasticKeysList()), cons.xywh(2, 6, 10, 1));
 		this.add(this.getlNoStochasticKeys(), cons.xywh(2, 6, 10, 1));
@@ -139,6 +145,36 @@ public final class BHStochasticInputForm extends JPanel {
 			this.cbstochprocess = new BHComboBox(DTOScenario.Key.STOCHASTIC_PROCESS);
 		}
 		return this.cbstochprocess;
+	}
+	
+	public BHComboBox getcbindustry() {
+		if (this.cbindustry == null) {
+			this.cbindustry = new BHComboBox(DTOScenario.Key.INDUSTRY);
+		}
+		
+		//If time branchSpecificRepresentative is selected, then we want to show this checkbox as well
+		if(this.getcbbranchSpecificRepresentative().isSelected()){
+			this.cbindustry.setVisible(true);
+		} else {
+			this.cbindustry.setVisible(false);
+		}
+		
+		return this.cbindustry;
+	}
+	
+	public BHComboBox getcbrepresentative() {
+		if (this.cbrepresentative == null) {
+			this.cbrepresentative = new BHComboBox(DTOScenario.Key.REPRESENTATIVE);
+		}
+		
+		//If time branchSpecificRepresentative is selected, then we want to show this checkbox as well
+		if(this.getcbbranchSpecificRepresentative().isSelected()){
+			this.cbrepresentative.setVisible(true);
+		} else {
+			this.cbrepresentative.setVisible(false);
+		}
+		
+		return this.cbrepresentative;
 	}
 	
 	public BHCheckBox getcbtimeSeriesProcess() {
