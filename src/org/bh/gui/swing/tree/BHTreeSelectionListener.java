@@ -206,6 +206,13 @@ public class BHTreeSelectionListener implements TreeSelectionListener {
 				}else{
 					getBHMainFrame().getBHMenuBar().disableFilePrint();
 				}
+				
+				//export scenario function deactivate/activate in menu
+				if(model.isCalculated()){
+			    getBHMainFrame().getBHMenuBar().enableSceExport();
+				}else{
+					getBHMainFrame().getBHMenuBar().disableSceExport();
+				}
 			    
 				// check if controller is already there...
 				if (selectedNode.getController() == null) {
