@@ -64,6 +64,13 @@ public class BHStochasticResultPanel extends JPanel{
 	    	}
 	    });
 		
+		// ActionListener for export-function (menu)
+		BHMenuBar.scenarioExport.addActionListener(new ActionListener(){
+			public void actionPerformed(ActionEvent e){ 
+				exportButton.doClick();
+	    	}
+	    });
+		
 		StochasticPanel mainStochastic = new StochasticPanel();
 		if(result.isTimeSeries()){
 			mainStochastic.addTimeSeries();
