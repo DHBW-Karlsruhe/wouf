@@ -119,6 +119,9 @@ public class DTOScenario extends DTO<DTOPeriod> {
 		BRANCH_SPECIFIC,
 		INDUSTRY,
 		REPRESENTATIVE,
+		LINDUSTRY,
+		LREPRESENTATIVE,
+		
 		/**
 		 * Period type
 		 */

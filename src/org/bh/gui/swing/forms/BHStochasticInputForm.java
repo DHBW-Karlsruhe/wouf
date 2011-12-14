@@ -136,7 +136,7 @@ public final class BHStochasticInputForm extends JPanel {
 	
 	public BHDescriptionLabel getlindustry() {
 		if (this.lindustry == null)
-			this.lindustry = new BHDescriptionLabel(DTOScenario.Key.INDUSTRY);
+			this.lindustry = new BHDescriptionLabel(DTOScenario.Key.LINDUSTRY);
 		
 		//If branchSpecificRepresentative is selected, then we want to show this checkbox as well
 		if(this.getcbbranchSpecificRepresentative().isSelected()){
@@ -150,7 +150,7 @@ public final class BHStochasticInputForm extends JPanel {
 	
 	public BHDescriptionLabel getlrepresentative() {
 		if (this.lrepresentative == null)
-			this.lrepresentative = new BHDescriptionLabel(DTOScenario.Key.REPRESENTATIVE);
+			this.lrepresentative = new BHDescriptionLabel(DTOScenario.Key.LREPRESENTATIVE);
 		
 		//If branchSpecificRepresentative is selected, then we want to show this checkbox as well
 		if(this.getcbbranchSpecificRepresentative().isSelected()){
