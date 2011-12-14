@@ -15,11 +15,14 @@
  *******************************************************************************/
 package org.bh.validation;
 
+import java.util.Locale;
+
 import javax.swing.JTextField;
 
 import org.bh.gui.IBHModelComponent;
 import org.bh.gui.swing.comp.BHTextField;
 import org.bh.platform.Services;
+import org.bh.platform.i18n.BHTranslator;
 
 import com.jgoodies.validation.ValidationResult;
 
@@ -42,7 +45,16 @@ public class VRIsDouble extends ValidationRule {
 		if (comp instanceof JTextField || comp instanceof BHTextField) {
 			BHTextField tf_toValidate = (BHTextField) comp;
 			double value = Services.stringToDouble(tf_toValidate.getText());
-			if (Double.isNaN(value)) {
+			if (tf_toValidate.getText().contains(".") && BHTranslator.getLoc() == Locale.GERMAN)
+				validationResult.addError(translator.translate("Efield") + " '"
+						+ translator.translate(tf_toValidate.getKey()) + "' "
+						+ translator.translate("EisDouble"));
+			
+			else if (tf_toValidate.getText().contains(",") && BHTranslator.getLoc()  == Locale.ENGLISH)
+			validationResult.addError(translator.translate("Efield") + " '"
+					+ translator.translate(tf_toValidate.getKey()) + "' "
+					+ translator.translate("EisDouble"));
+			else if (Double.isNaN(value)) {
 				validationResult.addError(translator.translate("Efield") + " '"
 						+ translator.translate(tf_toValidate.getKey()) + "' "
 						+ translator.translate("EisDouble"));

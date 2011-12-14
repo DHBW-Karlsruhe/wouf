@@ -49,7 +49,11 @@ public interface ITranslator {
 	 * Method to return currently used Locale for Translation.
 	 * 
 	 * @return currently used <code>Locale</code>
+	 * 
+	 * 
 	 */
+	
+	
 	Locale getLocale();
 
 	/**

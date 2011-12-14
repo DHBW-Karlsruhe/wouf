@@ -69,7 +69,7 @@ public final class BHTranslator implements ITranslator {
 	/**
 	 * <code>Locale</code> used for translation.
 	 */
-	private Locale locale;
+	private  static Locale locale;
 
 	/**
 	 * <code>ResourceBundle</code> for access to the properties file.
@@ -303,5 +303,8 @@ public final class BHTranslator implements ITranslator {
 		}
 		Services.firePlatformEvent(new PlatformEvent(BHTranslator.class,
 				PlatformEvent.Type.LOCALE_CHANGED));
+	}
+	public static Locale getLoc(){
+		return BHTranslator.locale;
 	}
 }
