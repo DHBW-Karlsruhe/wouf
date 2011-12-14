@@ -116,6 +116,13 @@ public final class BHResultPanel extends JPanel {
 	    	}
 	    });
 		
+		// ActionListener for scenario-export-function (menu)
+		BHMenuBar.scenarioExport.addActionListener(new ActionListener(){
+			public void actionPerformed(ActionEvent e){ 
+				exportButton.doClick();
+	    	}
+	    });
+		
 		d.fill = GridBagConstraints.HORIZONTAL;
 		d.gridx = 1;
 		d.gridy = 0;
