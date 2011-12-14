@@ -123,6 +123,10 @@ public final class BHResultPanel extends JPanel {
 	    	}
 	    });
 		
+		// deactivate Print- and Export-Button
+		exportButton.setVisible(false);
+		printButton.setVisible(false);
+		
 		d.fill = GridBagConstraints.HORIZONTAL;
 		d.gridx = 1;
 		d.gridy = 0;
