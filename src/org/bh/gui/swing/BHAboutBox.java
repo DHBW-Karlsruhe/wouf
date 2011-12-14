@@ -46,6 +46,9 @@ import com.jgoodies.forms.layout.FormLayout;
 @SuppressWarnings("serial")
 public final class BHAboutBox extends JDialog implements ActionListener {
 
+	private static final String IT_AUTHORS = "it_authors";
+	private static final String BWL_AUTHORS = "bwl_authors";
+	
 	/**
 	 * Okay button
 	 */
@@ -72,8 +75,9 @@ public final class BHAboutBox extends JDialog implements ActionListener {
 	 * @param frame main frame.
 	 */
 	private void initialize(JFrame frame) {
-		String rowDef = "2px,p,4px,p,8px,p,14px,p,4px";
-		String colDef = "2px,40px,p:grow,2px";
+		String rowDef = "p:grow,p:grow,1px,p:grow,1px,40px,1px,130px"; //
+		String colDef = "2px,p:grow,p:grow,2px";			//Spaltendefinition
+		
 
 		FormLayout layout = new FormLayout(colDef, rowDef);
 
@@ -87,11 +91,23 @@ public final class BHAboutBox extends JDialog implements ActionListener {
 		this.ok.addActionListener(this);
 
 		ImageIcon image = new ImageIcon(BHAboutBox.class
-				.getResource("/org/bh/images/AboutBox.jpg"));
+				.getResource("/org/bh/images/Aboutbox2.jpg"));
 		int x = (frame.getWidth() - 480) / 2;
 		int y = (frame.getHeight() - 600) / 2;
-
-		this.add(new JLabel(image), cons.xywh(2, 2, 2, 1));
+		
+		JLabel frame_2 = new JLabel(image);
+		
+		//frame_2.add(new JLabel("<html>" + translator.translate("it_authors") + ": " + translator.translate(IT_AUTHORS, ITranslator.LONG).toString() + "</html>"));
+		
+		//translator.translate(IT_AUTHORS, ITranslator.LONG)
+		
+		this.add(new JLabel("<html>" + translator.translate("it_authors") + ": " + translator.translate(IT_AUTHORS, ITranslator.LONG) +"<br\\><br\\>"
+				  + translator.translate("bwl_authors") + ": " + translator.translate(BWL_AUTHORS, ITranslator.LONG) + "</html>"), cons.xywh(2, 2, 2, 7));
+		//this.add(new JLabel("<html>" + translator.translate("bwl_authors") + ": " + translator.translate(BWL_AUTHORS, ITranslator.LONG) + "</html>"), cons.xywh(2, 2, 2, 3));
+		
+		
+		this.add(frame_2, cons.xywh(2, 2, 2, 1));
+		
 		this.add(new JLabel("<html>" + translator.translate("website") + ": " + translator.translate("website", ITranslator.LONG) + "</html>"), cons.xy(3, 4));
 		this.add(new JLabel("<html>" + translator.translate("email") + ": " + translator.translate("email", ITranslator.LONG) + "</html>"), cons.xy(3, 6));
 		this.add(this.ok, cons.xywh(2, 8, 2, 1, "center, center"));
