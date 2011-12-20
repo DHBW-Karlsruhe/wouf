@@ -32,7 +32,7 @@ import org.bh.gui.view.View;
 import org.bh.platform.ScenarioController;
 
 /**
- * every plugin controller with a output exercise should be a subclass of this class
+ * every plugin controller with an output exercise should be a subclass of this class
  * @author Marco Hammel
  * @version 1.0
  */
