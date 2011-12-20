@@ -307,8 +307,9 @@ public class ScenarioController extends InputController {
 					
 					//For branch specific representative
 					BHCheckBox cbBranchSpecificRepresentative = (BHCheckBox) view.getBHComponent(DTOScenario.Key.BRANCH_SPECIFIC);
-					
-					if (from.isSelected()) {
+					BHComboBox cmbPeriodType = (BHComboBox) view.getBHComponent(DTOScenario.Key.PERIOD_TYPE);
+									
+					if (from.isSelected() && (cmbPeriodType.getSelectedIndex() == 0)){
 						//Branch specific representative
 						if(cbBranchSpecificRepresentative != null){
 							cbBranchSpecificRepresentative.setVisible(true);
@@ -361,6 +362,15 @@ public class ScenarioController extends InputController {
 						}
 
 					} else {
+						//For branch specific representative
+						BHComboBox cbindustry = (BHComboBox) view.getBHComponent(DTOScenario.Key.INDUSTRY);
+						BHComboBox cbrepresentative = (BHComboBox) view.getBHComponent(DTOScenario.Key.REPRESENTATIVE);
+						BHDescriptionLabel lrepresentative = (BHDescriptionLabel) view.getBHComponent(DTOScenario.Key.LREPRESENTATIVE);
+						BHDescriptionLabel lindustry = (BHDescriptionLabel) view.getBHComponent(DTOScenario.Key.LINDUSTRY);
+						cbindustry.setVisible(false);
+						cbrepresentative.setVisible(false);
+						lrepresentative.setVisible(false);
+						lindustry.setVisible(false);
 						cbBranchSpecificRepresentative.setVisible(false);
 						cbBranchSpecificRepresentative.setSelected(false);
 						
