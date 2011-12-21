@@ -15,30 +15,26 @@
  *******************************************************************************/
 package org.bh.gui.swing;
 
+import java.awt.Desktop;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-
+import java.io.IOException;
+import java.net.URI;
+import java.net.URISyntaxException;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JDialog;
+import javax.swing.JEditorPane;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.WindowConstants;
-
+import javax.swing.event.HyperlinkEvent;
+import javax.swing.event.HyperlinkListener;
 import org.bh.platform.PlatformKey;
 import org.bh.platform.Services;
 import org.bh.platform.i18n.ITranslator;
-
 import com.jgoodies.forms.layout.CellConstraints;
 import com.jgoodies.forms.layout.FormLayout;
-
-import java.awt.BorderLayout;
-import java.awt.Desktop;
-import java.io.IOException;
-import java.net.MalformedURLException;
-import java.net.URI;
-import java.net.URISyntaxException;
-import java.net.URL;
 
 /**
  * About Box.
@@ -106,8 +102,38 @@ public final class BHAboutBox extends JDialog implements ActionListener {
 		this.add(new JLabel("<html>" + translator.translate("it_authors")  + translator.translate(IT_AUTHORS, ITranslator.LONG) +"<br\\><br\\>"
 				  + translator.translate("bwl_authors") + translator.translate(BWL_AUTHORS, ITranslator.LONG) + "<br\\></html>"), cons.xywh(2, 2, 2, 2, "left, bottom"));
 		this.add(frame_2, cons.xywh(2, 2, 2, 1));
-		this.add(new JLabel("<html>" + translator.translate("website") + ": " + translator.translate("website", ITranslator.LONG) + "</html>"), cons.xy(2, 4, "left, center"));
-		this.add(new JLabel("<html>" + translator.translate("email") + ": " + translator.translate("email", ITranslator.LONG) + "</html>"), cons.xy(2, 6, "left, center"));
+		
+		
+		//this.add(new JLabel("<html>" + translator.translate("website") + ": " + translator.translate("website", ITranslator.LONG) + "</html>"), cons.xy(2, 4, "left, center"));
+		//this.add(new JLabel("<html>" + translator.translate("email") + ": " + translator.translate("email", ITranslator.LONG) + "</html>"), cons.xy(2, 6, "left, center"));
+		
+		JEditorPane jep = new JEditorPane("text/html", translator.translate("website") + ": " + translator.translate("website", ITranslator.LONG));
+		jep.setEditable(false);
+        jep.setOpaque(false);
+            jep.addHyperlinkListener(new HyperlinkListener() {
+                public void hyperlinkUpdate(HyperlinkEvent hle) {
+                      Desktop desk = Desktop.getDesktop();
+                      if (HyperlinkEvent.EventType.ACTIVATED.equals(hle.getEventType())) {
+                           try {
+                                 desk.browse(new URI("http://www.businesshorizon.de"));
+                           } catch (IOException e) {
+                                 // TODO Auto-generated catch block
+                                 e.printStackTrace();
+                           } 
+                           catch (URISyntaxException e) {
+                                 // TODO Auto-generated catch block
+                          	 e.printStackTrace();
+                           }
+                           System.out.println(hle.getURL());
+                      }
+                }
+            });       
+		this.add(jep,  cons.xy(2, 4, "center, center"));
+		
+		JEditorPane jep_2 = new JEditorPane("text/html", translator.translate("email") + ": " + translator.translate("email", ITranslator.LONG));
+		this.add(jep_2,  cons.xy(2, 6, "center, center"));
+		
+		
 		this.add(this.ok, cons.xywh(2, 8, 2, 1, "center, center"));
 		this.setLocation(x, y);
 		this.setResizable(false);
