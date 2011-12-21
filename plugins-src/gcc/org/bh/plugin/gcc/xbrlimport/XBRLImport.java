@@ -86,8 +86,7 @@ public class XBRLImport {
 			}
 			
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			Logger.getLogger(XBRLImport.class).error("XBRL import failed", e);
 		}	
 	}
 	
@@ -100,6 +99,7 @@ public class XBRLImport {
 	
 	
 	
+	@SuppressWarnings("unused")
 	public IPeriodicalValuesDTO getBalanceSheetDTO(String importPath) throws 	IOException,
 																				XBRLNoValueFoundException,
 																				XMLNotValidException
@@ -113,8 +113,7 @@ public class XBRLImport {
 		
 		// Create new DTO
 		DTOGCCBalanceSheet result = new DTOGCCBalanceSheet();			
-		if (result == null)
-		{
+		if (result == null){
 			Logger.getLogger(getClass()).debug("Could not create a DTOGCCBalanceSheet object!");
 			return null;
 		}
@@ -143,11 +142,9 @@ public class XBRLImport {
 					result.put(dtoKey, new DoubleValue(Double.parseDouble(values.get(key))));				
 				}
 			} catch (ValidityException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
+				Logger.getLogger(XBRLImport.class).error("XBRL import failed", e);
 			} catch (ParsingException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
+				Logger.getLogger(XBRLImport.class).error("XBRL import failed", e);
 			}		
 				
 		} catch (XMLException e) {		
@@ -158,6 +155,7 @@ public class XBRLImport {
 		return result;
 	}
 	
+	@SuppressWarnings("unused")
 	public IPeriodicalValuesDTO getProfitLossStatementCostOfSalesDTO(String importPath) throws IOException, XBRLNoValueFoundException
 	{
 		// Load file
@@ -168,8 +166,7 @@ public class XBRLImport {
 		
 		// Create new DTO
 		DTOGCCProfitLossStatementCostOfSales result = new DTOGCCProfitLossStatementCostOfSales();			
-		if (result == null)
-		{
+		if (result == null){
 			Logger.getLogger(getClass()).debug("Could not create a DTOGCCBalanceSheet object!");
 			return null;
 		}
@@ -200,6 +197,7 @@ public class XBRLImport {
 	}
 	
 	
+	@SuppressWarnings("unused")
 	public IPeriodicalValuesDTO getProfitLossStatementTotalCostDTO(String importPath) throws IOException, XBRLNoValueFoundException
 	{
 		// Load file
@@ -210,8 +208,7 @@ public class XBRLImport {
 		
 		// Create new DTO
 		DTOGCCProfitLossStatementTotalCost result = new DTOGCCProfitLossStatementTotalCost();			
-		if (result == null)
-		{
+		if (result == null){
 			Logger.getLogger(getClass()).debug("Could not create a DTOGCCBalanceSheet object!");
 			return null;
 		}
