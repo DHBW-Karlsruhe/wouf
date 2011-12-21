@@ -32,6 +32,14 @@ import org.bh.platform.i18n.ITranslator;
 import com.jgoodies.forms.layout.CellConstraints;
 import com.jgoodies.forms.layout.FormLayout;
 
+import java.awt.BorderLayout;
+import java.awt.Desktop;
+import java.io.IOException;
+import java.net.MalformedURLException;
+import java.net.URI;
+import java.net.URISyntaxException;
+import java.net.URL;
+
 /**
  * About Box.
  * <p>
@@ -94,12 +102,9 @@ public final class BHAboutBox extends JDialog implements ActionListener {
 				.getResource("/org/bh/images/Aboutbox2.jpg"));
 		int x = (frame.getWidth() - 480) / 2;
 		int y = (frame.getHeight() - 600) / 2;
-		
 		JLabel frame_2 = new JLabel(image);
-		
-
-		this.add(new JLabel("<html>" + translator.translate("it_authors") + ": " + translator.translate(IT_AUTHORS, ITranslator.LONG) +"<br\\><br\\>"
-				  + translator.translate("bwl_authors") + ": " + translator.translate(BWL_AUTHORS, ITranslator.LONG) + "<br\\><br\\><br\\></html>"), cons.xywh(2, 2, 2, 2, "left, bottom"));
+		this.add(new JLabel("<html>" + translator.translate("it_authors")  + translator.translate(IT_AUTHORS, ITranslator.LONG) +"<br\\><br\\>"
+				  + translator.translate("bwl_authors") + translator.translate(BWL_AUTHORS, ITranslator.LONG) + "<br\\></html>"), cons.xywh(2, 2, 2, 2, "left, bottom"));
 		this.add(frame_2, cons.xywh(2, 2, 2, 1));
 		this.add(new JLabel("<html>" + translator.translate("website") + ": " + translator.translate("website", ITranslator.LONG) + "</html>"), cons.xy(2, 4, "left, center"));
 		this.add(new JLabel("<html>" + translator.translate("email") + ": " + translator.translate("email", ITranslator.LONG) + "</html>"), cons.xy(2, 6, "left, center"));
