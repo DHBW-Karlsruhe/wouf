@@ -100,14 +100,8 @@ public final class BHAboutBox extends JDialog implements ActionListener {
 		int y = (frame.getHeight() - 600) / 2;
 		JLabel frame_2 = new JLabel(image);
 		this.add(new JLabel("<html>" + translator.translate("it_authors")  + translator.translate(IT_AUTHORS, ITranslator.LONG) +"<br\\><br\\>"
-				  + translator.translate("bwl_authors") + translator.translate(BWL_AUTHORS, ITranslator.LONG) + "<br\\></html>"), cons.xywh(2, 2, 2, 2, "center, bottom"));
+				  + translator.translate("bwl_authors") + translator.translate(BWL_AUTHORS, ITranslator.LONG) + "<br\\><br\\><br\\></html>"), cons.xywh(2, 2, 2, 2, "center, bottom"));
 		this.add(frame_2, cons.xywh(2, 2, 2, 1));
-		
-		
-		//this.add(new JLabel("<html>" + translator.translate("website") + ": " + translator.translate("website", ITranslator.LONG) + "</html>"), cons.xy(2, 4, "left, center"));
-		//this.add(new JLabel("<html>" + translator.translate("email") + ": " + translator.translate("email", ITranslator.LONG) + "</html>"), cons.xy(2, 6, "left, center"));
-		
-		
 		
 		JEditorPane jep = new JEditorPane("text/html", translator.translate("website") + ": " + translator.translate("website", ITranslator.LONG));
 		
@@ -120,11 +114,9 @@ public final class BHAboutBox extends JDialog implements ActionListener {
                            try {
                                  desk.browse(new URI("http://www.businesshorizon.de"));
                            } catch (IOException e) {
-                                 // TODO Auto-generated catch block
                                  e.printStackTrace();
                            } 
                            catch (URISyntaxException e) {
-                                 // TODO Auto-generated catch block
                           	 e.printStackTrace();
                            }
                            System.out.println(hle.getURL());
@@ -144,11 +136,9 @@ public final class BHAboutBox extends JDialog implements ActionListener {
                            try {
                                  desk.browse(new URI("mailto:info@businesshorizon.de"));
                            } catch (IOException e) {
-                                 // TODO Auto-generated catch block
                                  e.printStackTrace();
                            } 
                            catch (URISyntaxException e) {
-                                 // TODO Auto-generated catch block
                           	 e.printStackTrace();
                            }
                            System.out.println(hle.getURL());
