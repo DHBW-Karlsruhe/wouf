@@ -39,7 +39,7 @@ import com.jgoodies.forms.layout.CellConstraints;
 import com.jgoodies.forms.layout.FormLayout;
 
 /**
- * This class contains the form for stochastic processes
+ * This class contains the form for deterministic processes
  * 
  * @author Anton Kharitonov
  * @author Patrick Maisel

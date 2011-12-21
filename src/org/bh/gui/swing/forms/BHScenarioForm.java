@@ -128,7 +128,7 @@ public final class BHScenarioForm extends JPanel {
 	 */
 	private void initialize(BHScenarioForm.Type type, boolean isIntervalArithmethic) {
 		
-		/*
+		/**
 		 * Structure of ScenarioForm:
 		 * The scenario form consists of 2 areas: 
 		 * a big one top which shows all fields and a smaller one bottom

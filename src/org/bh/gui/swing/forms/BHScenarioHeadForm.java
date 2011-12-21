@@ -331,7 +331,7 @@ public final class BHScenarioHeadForm extends JPanel {
 
 	/**
 	 * Getter method for component lpercentEquity.
-	 * 
+	 * Equity = Eigenkapital
 	 * @return JLabel
 	 */
 	public JLabel getlpercentEquity() {
@@ -344,7 +344,7 @@ public final class BHScenarioHeadForm extends JPanel {
 
 	/**
 	 * Getter method for component lpercentDept.
-	 * 
+	 * Dept = Fremdkapital
 	 * @return JLabel
 	 */
 	public JLabel getlpercentDept() {
