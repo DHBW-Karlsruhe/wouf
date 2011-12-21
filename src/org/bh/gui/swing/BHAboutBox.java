@@ -43,6 +43,7 @@ import com.jgoodies.forms.layout.FormLayout;
  * 
  * @author Thiele.Klaus
  * @author Karithonov.Anton
+ * @author Pfaff.Patrick
  * 
  * @version 1.0, 2010/01/22
  * 
