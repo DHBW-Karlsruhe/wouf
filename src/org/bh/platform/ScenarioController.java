@@ -309,9 +309,9 @@ public class ScenarioController extends InputController {
 					BHCheckBox cbBranchSpecificRepresentative = (BHCheckBox) view.getBHComponent(DTOScenario.Key.BRANCH_SPECIFIC);
 					BHComboBox cmbPeriodType = (BHComboBox) view.getBHComponent(DTOScenario.Key.PERIOD_TYPE);
 									
-					if (from.isSelected() && (cmbPeriodType.getSelectedIndex() == 0)){
+					if (from.isSelected()){
 						//Branch specific representative
-						if(cbBranchSpecificRepresentative != null){
+						if(cbBranchSpecificRepresentative != null && (cmbPeriodType.getSelectedIndex() == 0)){
 							cbBranchSpecificRepresentative.setVisible(true);
 						}
 						
