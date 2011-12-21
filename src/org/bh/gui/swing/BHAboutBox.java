@@ -79,6 +79,9 @@ public final class BHAboutBox extends JDialog implements ActionListener {
 	 * @param frame main frame.
 	 */
 	private void initialize(JFrame frame) {
+		/**
+		 * These Parameters are used for the size of the AboutBox Frame.
+		 */
 		String rowDef = "p:grow,p:grow,p:grow,p:grow,p:grow,40px,20px,20px"; //
 		String colDef = "2px,p:grow,p:grow,2px";			//Spaltendefinition
 
@@ -86,23 +89,40 @@ public final class BHAboutBox extends JDialog implements ActionListener {
 		FormLayout layout = new FormLayout(colDef, rowDef);
 
 		CellConstraints cons = new CellConstraints();
-
+		/**
+		 * Initialices the Frame and what should happen when you're clicking on close
+		 */
 		this.setLayout(layout);
 		this.setTitle(this.translator.translate(PlatformKey.HELPINFO));
 		this.setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
 
-		this.ok = new JButton(this.translator.translate("Bokay"));
+		this.ok = new JButton(this.translator.translate("Bokay"));/**  Sets the button to the frame */
 		this.ok.addActionListener(this);
-
+		/**
+		 * This defines the backgroundimage of the frame.
+		 */
 		ImageIcon image = new ImageIcon(BHAboutBox.class
 				.getResource("/org/bh/images/Aboutbox2.jpg"));
 		int x = (frame.getWidth() - 480) / 2;
 		int y = (frame.getHeight() - 600) / 2;
+		/**
+		 * this part adds the backgroundpicture to the frame with the size x and y.
+		 */
 		JLabel frame_2 = new JLabel(image);
+		/**
+		 * This part adds the name of the teammates, seperated by the two teams.
+		 * The class 'translator' takes the defined Names from the file /META-INF/BHGUIKeys_de.properties and the english pendant.
+		 * In the end there's defined where the text should be placed.
+		 */
 		this.add(new JLabel("<html>" + translator.translate("it_authors")  + translator.translate(IT_AUTHORS, ITranslator.LONG) +"<br\\><br\\>"
 				  + translator.translate("bwl_authors") + translator.translate(BWL_AUTHORS, ITranslator.LONG) + "<br\\><br\\><br\\></html>"), cons.xywh(2, 2, 2, 2, "center, bottom"));
+		/**
+		 * This defines the place where the picture should be placed.
+		 */
 		this.add(frame_2, cons.xywh(2, 2, 2, 1));
-		
+		/**
+		 * In the next part the hyperlinks are defined and it will be possible to klick on it
+		 */
 		JEditorPane jep = new JEditorPane("text/html", translator.translate("website") + ": " + translator.translate("website", ITranslator.LONG));
 		
 		jep.setEditable(false);
