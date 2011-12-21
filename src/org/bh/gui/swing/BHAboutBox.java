@@ -100,16 +100,19 @@ public final class BHAboutBox extends JDialog implements ActionListener {
 		int y = (frame.getHeight() - 600) / 2;
 		JLabel frame_2 = new JLabel(image);
 		this.add(new JLabel("<html>" + translator.translate("it_authors")  + translator.translate(IT_AUTHORS, ITranslator.LONG) +"<br\\><br\\>"
-				  + translator.translate("bwl_authors") + translator.translate(BWL_AUTHORS, ITranslator.LONG) + "<br\\></html>"), cons.xywh(2, 2, 2, 2, "left, bottom"));
+				  + translator.translate("bwl_authors") + translator.translate(BWL_AUTHORS, ITranslator.LONG) + "<br\\></html>"), cons.xywh(2, 2, 2, 2, "center, bottom"));
 		this.add(frame_2, cons.xywh(2, 2, 2, 1));
 		
 		
 		//this.add(new JLabel("<html>" + translator.translate("website") + ": " + translator.translate("website", ITranslator.LONG) + "</html>"), cons.xy(2, 4, "left, center"));
 		//this.add(new JLabel("<html>" + translator.translate("email") + ": " + translator.translate("email", ITranslator.LONG) + "</html>"), cons.xy(2, 6, "left, center"));
 		
+		
+		
 		JEditorPane jep = new JEditorPane("text/html", translator.translate("website") + ": " + translator.translate("website", ITranslator.LONG));
+		
 		jep.setEditable(false);
-        jep.setOpaque(false);
+        jep.setOpaque(true);
             jep.addHyperlinkListener(new HyperlinkListener() {
                 public void hyperlinkUpdate(HyperlinkEvent hle) {
                       Desktop desk = Desktop.getDesktop();
@@ -128,13 +131,34 @@ public final class BHAboutBox extends JDialog implements ActionListener {
                       }
                 }
             });       
-		this.add(jep,  cons.xy(2, 4, "center, center"));
+		this.add(jep,  cons.xy(2, 4, "left, center"));
 		
 		JEditorPane jep_2 = new JEditorPane("text/html", translator.translate("email") + ": " + translator.translate("email", ITranslator.LONG));
-		this.add(jep_2,  cons.xy(2, 6, "center, center"));
+		
+		jep_2.setEditable(false);
+        jep_2.setOpaque(true);
+            jep_2.addHyperlinkListener(new HyperlinkListener() {
+                public void hyperlinkUpdate(HyperlinkEvent hle) {
+                      Desktop desk = Desktop.getDesktop();
+                      if (HyperlinkEvent.EventType.ACTIVATED.equals(hle.getEventType())) {
+                           try {
+                                 desk.browse(new URI("mailto:info@businesshorizon.de"));
+                           } catch (IOException e) {
+                                 // TODO Auto-generated catch block
+                                 e.printStackTrace();
+                           } 
+                           catch (URISyntaxException e) {
+                                 // TODO Auto-generated catch block
+                          	 e.printStackTrace();
+                           }
+                           System.out.println(hle.getURL());
+                      }
+                }
+            });
+		this.add(jep_2,  cons.xy(2, 6, "left, center"));
 		
 		
-		this.add(this.ok, cons.xywh(2, 8, 2, 1, "center, center"));
+		this.add(this.ok, cons.xywh(2, 8, 2, 1, "center, top"));
 		this.setLocation(x, y);
 		this.setResizable(false);
 		this.pack();
