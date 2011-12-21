@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<classpath>
+	<classpathentry excluding="**/.svn/" including="**" kind="src" path="src"/>
+	<classpathentry excluding="**/.svn/" kind="src" output="plugins/resultAnalysis" path="plugins-src/resultAnalysis"/>
+	<classpathentry excluding="**/.svn/" kind="src" output="tests/bin" path="tests/src"/>
+	<classpathentry excluding="**/.svn/" kind="src" output="plugins/gcc" path="plugins-src/gcc"/>
+	<classpathentry excluding="**/.svn/" kind="src" output="plugins/fcf" path="plugins-src/fcf"/>
+	<classpathentry excluding="**/.svn/" kind="src" output="plugins/fte" path="plugins-src/fte"/>
+	<classpathentry excluding="**/.svn/" kind="src" output="plugins/apv" path="plugins-src/apv"/>
+	<classpathentry excluding="**/.svn/" kind="src" output="plugins/randomWalk" path="plugins-src/randomWalk"/>
+	<classpathentry excluding="**/.svn/" kind="src" output="plugins/wienerProcess" path="plugins-src/wienerProcess"/>
+	<classpathentry excluding="**/.svn/" kind="src" output="plugins/directinput" path="plugins-src/directinput"/>
+	<classpathentry excluding="**/.svn/" kind="src" output="plugins/pdfexport" path="plugins-src/pdfexport"/>
+	<classpathentry excluding="**/.svn/" kind="src" output="plugins/excelexport" path="plugins-src/excelexport"/>
+	<classpathentry excluding="**/.svn/" kind="src" output="plugins/stochasticResultAnalysis" path="plugins-src/stochasticResultAnalysis"/>
+	<classpathentry excluding="**/.svn/" kind="src" output="plugins/xmldataexchange" path="plugins-src/xmldataexchange"/>
+	<classpathentry excluding="**/.svn/" kind="src" output="plugins/timeSeries" path="plugins-src/timeSeries"/>
+	<classpathentry excluding="src/" kind="src" path="lib"/>
+	<classpathentry kind="src" output="plugins/branchSpecificRepresentative" path="plugins-src/branchSpecificRepresentative"/>
+	<classpathentry exported="true" kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER/org.eclipse.jdt.internal.debug.ui.launcher.StandardVMType/JavaSE-1.6"/>
+	<classpathentry exported="true" kind="lib" path="lib/log4j-1.2.15.jar"/>
+	<classpathentry exported="true" kind="lib" path="lib/forms-1.2.0.jar" sourcepath="lib/src/forms"/>
+	<classpathentry exported="true" kind="lib" path="lib/jcommon-1.0.16.jar"/>
+	<classpathentry exported="true" kind="lib" path="lib/jfreechart-1.0.13.jar" sourcepath="lib/src/jfreechart"/>
+	<classpathentry exported="true" kind="lib" path="lib/binding-2.0.3.jar"/>
+	<classpathentry exported="true" kind="lib" path="lib/validation-2.0.1.jar" sourcepath="lib/src/validation"/>
+	<classpathentry exported="true" kind="lib" path="lib/formula/batik-dom-1.7.jar"/>
+	<classpathentry exported="true" kind="lib" path="lib/formula/batik-ext-1.7.jar"/>
+	<classpathentry exported="true" kind="lib" path="lib/formula/batik-util-1.7.jar"/>
+	<classpathentry exported="true" kind="lib" path="lib/formula/batik-xml-1.7.jar"/>
+	<classpathentry exported="true" kind="lib" path="lib/formula/commons-io-1.3.1.jar"/>
+	<classpathentry exported="true" kind="lib" path="lib/formula/commons-logging-1.1.1.jar"/>
+	<classpathentry exported="true" kind="lib" path="lib/formula/jeuclid-core-3.1.8.jar"/>
+	<classpathentry exported="true" kind="lib" path="lib/formula/mathmlc2p.diff"/>
+	<classpathentry exported="true" kind="lib" path="lib/formula/xmlgraphics-commons-1.3.1.jar"/>
+	<classpathentry exported="true" kind="lib" path="lib/tests/Prog1Tools.zip"/>
+	<classpathentry exported="true" kind="lib" path="lib/TimingFramework-1.0.jar" sourcepath="lib/src/TimingFramework-1.0-src.zip"/>
+	<classpathentry kind="lib" path="lib/BH_Hilfe.jar"/>
+	<classpathentry kind="lib" path="lib/Jama-1.0.2.jar"/>
+	<classpathentry kind="lib" path="lib/commons-math-2.1.jar"/>
+	<classpathentry kind="lib" path="lib/xom-1.2.6.jar"/>
+	<classpathentry kind="lib" path="lib/plugins/pdfexport/pdfbox-app-1.4.0.jar"/>
+	<classpathentry exported="true" kind="con" path="org.eclipse.jdt.junit.JUNIT_CONTAINER/4"/>
+	<classpathentry exported="true" kind="lib" path="lib/build_lib/ia_math.jar"/>
+	<classpathentry exported="true" kind="lib" path="lib/jh.jar"/>
+	<classpathentry exported="true" kind="lib" path="lib/plugins/pdfexport/iText.jar"/>
+	<classpathentry exported="true" kind="lib" path="lib/plugins/pdfexport/fontbox-0.8.0-incubating.jar"/>
+	<classpathentry exported="true" kind="lib" path="lib/plugins/excelexport/poi-ooxml-3.6-20091214.jar"/>
+	<classpathentry exported="true" kind="lib" path="lib/plugins/excelexport/poi-3.6-20091214.jar"/>
+	<classpathentry exported="true" kind="lib" path="lib/plugins/excelexport/xmlbeans-2.3.0.jar"/>
+	<classpathentry exported="true" kind="lib" path="lib/plugins/excelexport/poi-ooxml-schemas-3.6-20091214.jar"/>
+	<classpathentry kind="lib" path="lib/jxl.jar"/>
+	<classpathentry kind="output" path="bin"/>
+</classpath>
