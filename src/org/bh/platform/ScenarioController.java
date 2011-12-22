@@ -65,6 +65,7 @@ import org.bh.gui.view.View;
 import org.bh.gui.view.ViewEvent;
 import org.bh.gui.view.ViewException;
 import org.bh.platform.PlatformEvent.Type;
+import org.bh.platform.i18n.BHTranslator;
 import org.bh.validation.ValidationMethods;
 
 /**
@@ -390,8 +391,8 @@ public class ScenarioController extends InputController {
 				@Override
 				public void actionPerformed(ActionEvent e) {
 					BHCheckBox from = (BHCheckBox) e.getSource();
-					BHStochasticInputForm form = (BHStochasticInputForm) ((Component) e
-							.getSource()).getParent();
+//					BHStochasticInputForm form = (BHStochasticInputForm) ((Component) e
+//							.getSource()).getParent();
 					
 					//For branch specific representative
 					BHComboBox cbindustry = (BHComboBox) view.getBHComponent(DTOScenario.Key.INDUSTRY);
@@ -684,7 +685,7 @@ public class ScenarioController extends InputController {
 						} catch (RuntimeException re){
 							Logger.getLogger(getClass()).fatal("Calculation of matrix in time series failed!", re);
 							b.doClick(); //Simulate interrupt click
-							BHOptionPane.showConfirmDialog(bhTree, "A fatal error occured. Please inform the project team. Maybe you selected more periods in the past than you maintained.", "Fatal error", JOptionPane.NO_OPTION, JOptionPane.ERROR_MESSAGE);
+							BHOptionPane.showMessageDialog(bhTree, BHTranslator.getInstance().translate("ExTimeSeriesAnalysisSingularMatrix"), "Error", JOptionPane.ERROR_MESSAGE);
 							return new JPanel();
 						}
 
