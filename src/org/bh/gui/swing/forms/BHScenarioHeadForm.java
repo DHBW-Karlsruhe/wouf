@@ -48,20 +48,20 @@ import com.jgoodies.forms.layout.FormLayout;
  */
 @SuppressWarnings("serial")
 public final class BHScenarioHeadForm extends JPanel {
-	private BHDescriptionLabel lscenname;
-	private BHDescriptionLabel lscendescript;
-	private BHDescriptionLabel lequityyield;
-	private BHDescriptionLabel ldeptyield;
-	private BHDescriptionLabel ltradetax;
-	private BHDescriptionLabel lcorporatetax;
+	private BHDescriptionLabel lscenname;		//Szenarioname
+	private BHDescriptionLabel lscendescript;	//Kommentar
+	private BHDescriptionLabel lequityyield;	//Renditeforderung Eigenkapital
+	private BHDescriptionLabel ldeptyield;		//Renditeforderung Fremdkapital
+	private BHDescriptionLabel ltradetax;		//Gewerbesteuer???
+	private BHDescriptionLabel lcorporatetax;	//Körperschaftssteuer & Solidaritätszuschlag???
 
-	private BHTextField tfscenname;
-	private BHTextField tfscendescript;
+	private BHTextField tfscenname;				//Szenarioname
+	private BHTextField tfscendescript;			//Kommentar
 	//fields show percentage as %
-	private BHTextField tfequityyield;
-	private BHTextField tfdeptyield;
-	private BHTextField tftradetax;
-	private BHTextField tfcorporatetax;
+	private BHTextField tfequityyield;			//Renditeforderung Eigenkapital
+	private BHTextField tfdeptyield;			//Renditeforderung Fremdkapital
+	private BHTextField tftradetax;				//Gewerbesteuer???
+	private BHTextField tfcorporatetax;			//Körperschaftssteuer & Solidaritätszuschlag???
         
 	private JLabel lpercentequity;
 	private JLabel lpercentdept;
