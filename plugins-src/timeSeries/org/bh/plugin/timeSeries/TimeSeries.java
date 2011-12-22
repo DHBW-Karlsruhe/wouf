@@ -44,6 +44,7 @@ import com.jgoodies.forms.layout.FormLayout;
  *
  * @author Timo Klein, Andreas Wussler, Vito Masiello
  * @version 1.0, 1.2.2011
+ * @update Yannick Rödl, 22.12.2011
  */
 
 public class TimeSeries implements ITimeSeriesProcess {
@@ -133,24 +134,30 @@ public class TimeSeries implements ITimeSeriesProcess {
 	@Override
 	public TreeMap<Integer, Double> calculate() {
 		//Berechnung für den Cashflow-Chart Vergangenheit bis in die Zukunft
-		TreeMap<Integer, Double> result = new TreeMap();
+		TreeMap<Integer, Double> result = new TreeMap<Integer, Double>();
 		
 		TreeMap<DTOKeyPair, List<Calculable>> periods = scenario.getPeriodStochasticKeysAndValues();
     	Entry<DTOKeyPair, List<Calculable>> cashfl = periods.firstEntry();
 		
     	List<Calculable> cashValues = cashfl.getValue();
-    	int p = map.get(AMOUNT_OF_PERIODS_BACK);
-    	int f = map.get(AMOUNT_OF_PERIODS_FUTURE);
-    	if(p > cashValues.size()-1){
-    		p = periods.size();
+    	int periodsInPast = map.get(AMOUNT_OF_PERIODS_BACK);
+    	int periodsInFuture = map.get(AMOUNT_OF_PERIODS_FUTURE);
+    	if(periodsInPast > cashValues.size()-1){
+    		periodsInPast = cashValues.size() - 1;
+    		/*
+    		 * Changed from periods.size() See #259
+    		 * 
+    		 * periods.size() contains all values like debt, 
+    		 * ... and not only the cashflows; For calculation we just need the cashflows
+    		 */
     	}
     	calc = new TimeSeriesCalculator_v3(cashValues, progressB);
 //    	System.out.println("TimeSeries: call calculate cashflows");
-    	List<Calculable> cashCalc = calc.calculateCashflows(f,p,true,1000,true,null);
+    	List<Calculable> cashCalc = calc.calculateCashflows(periodsInFuture,periodsInPast,true,1000,true,null);
 //    	System.out.println("TimeSeries: call calculate cashflows beendet");
     	int counter = 1;
     	for(Calculable cashflow : cashCalc){
-    		int key = -(cashCalc.size()-f)+counter;
+    		int key = -(cashCalc.size()-periodsInFuture)+counter;
     		double value = cashflow.toNumber().doubleValue();
     		result.put(key, value);
     		counter ++;

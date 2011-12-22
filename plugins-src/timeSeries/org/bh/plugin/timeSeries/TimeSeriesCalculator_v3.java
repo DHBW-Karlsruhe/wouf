@@ -18,15 +18,13 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.ListIterator;
 
-import javax.swing.JProgressBar;
-
-import Jama.*;
-
 import org.apache.commons.math.MathException;
 import org.apache.commons.math.distribution.NormalDistributionImpl;
 import org.bh.data.types.Calculable;
 import org.bh.data.types.DoubleValue;
 import org.bh.gui.swing.comp.BHProgressBar;
+
+import Jama.Matrix;
 
 /**
  * Diese Klasse stellt die Berechnung für die Zeitreihenanalyse bereit
