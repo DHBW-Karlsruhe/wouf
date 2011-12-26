@@ -34,6 +34,8 @@ import org.bh.controller.IDataExchangeController;
 import org.bh.data.DTOPeriod;
 import org.bh.data.DTOProject;
 import org.bh.data.DTOScenario;
+import org.bh.data.types.DoubleValue;
+import org.bh.data.types.IntegerValue;
 import org.bh.data.types.StringValue;
 import org.bh.gui.IBHAction;
 import org.bh.gui.swing.BHAboutBox;
@@ -549,6 +551,19 @@ class PlatformActionListener implements ActionListener {
 					.equalsIgnoreCase("deterministic"));
 			newScenario.put(DTOScenario.Key.NAME, new StringValue(
 				BHTranslator.getInstance().translate("scenario_new")));
+			
+			/**
+			 * Here are the default values for a new scenario
+			 */
+			newScenario.put(DTOScenario.Key.REK, new DoubleValue(0.10));
+								
+			newScenario.put(DTOScenario.Key.RFK, new DoubleValue(0.12));
+								
+			newScenario.put(DTOScenario.Key.BTAX, new DoubleValue(0.035));
+					
+			newScenario.put(DTOScenario.Key.CTAX, new DoubleValue(0.15));
+					
+
 
 			// ...set Basis (IDENTIFIER) of scenario -> naming of periods
 			newScenario.put(DTOScenario.Key.IDENTIFIER, new StringValue(""

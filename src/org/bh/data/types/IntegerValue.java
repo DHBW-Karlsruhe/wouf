@@ -28,7 +28,7 @@ import org.bh.platform.Services;
  * @version 0.1, 21.11.2009, Sebastian
  * @version 0.3, 21.12.2009, Norman
  */
-public class IntegerValue extends Calculable {
+public class IntegerValue extends Calculable implements IValue{
 	private static final long serialVersionUID = -1099799716306283566L;
 	public static final String REGEX = "-?[0-9]+";
 

@@ -23,11 +23,13 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 
 import org.bh.data.DTOScenario;
+import org.bh.data.types.*;
 import org.bh.gui.swing.comp.BHComboBox;
 import org.bh.gui.swing.comp.BHDescriptionLabel;
 import org.bh.gui.swing.comp.BHPercentTextField;
 import org.bh.gui.swing.comp.BHTextField;
 import org.bh.platform.Services;
+import org.bh.platform.i18n.BHTranslator;
 import org.bh.platform.i18n.ITranslator;
 import org.bh.validation.VRIsDouble;
 import org.bh.validation.VRIsLowerThan;
@@ -62,7 +64,9 @@ public final class BHScenarioHeadForm extends JPanel {
 	private BHTextField tfdeptyield;			//Renditeforderung Fremdkapital
 	private BHTextField tftradetax;				//Gewerbesteuer???
 	private BHTextField tfcorporatetax;			//Körperschaftssteuer & Solidaritätszuschlag???
-        
+    
+	private IntegerValue vequity;
+	
 	private JLabel lpercentequity;
 	private JLabel lpercentdept;
 	private JLabel lpercenttrade;
@@ -89,18 +93,21 @@ public final class BHScenarioHeadForm extends JPanel {
 
 		String rowDef = "4px,p,4px,p,4px,p,4px,p,20px,p,4px,p,4px,p,20px,p,4px";
 		String colDef = "4px,4px,right:pref,4px,pref,max(80px;default),4px,left:pref,24px,pref,4px,pref,4px,right:pref,4px,pref,pref,4px,pref,4px:grow,pref,4px,80px,4px";
-
+		int i = 19;
+		vequity = new IntegerValue(i);
+		
 		FormLayout layout = new FormLayout(colDef, rowDef);
 		this.setLayout(layout);
 
 		layout.setColumnGroups(new int[][] { { 6, 17 } });
-
+		
 		CellConstraints cons = new CellConstraints();
 		this.add(this.getlscenName(), cons.xywh(3, 4, 1, 1));
 		this.add(this.gettfscenName(), cons.xywh(6, 4,12, 1));
 		this.add(this.getlscenDescript(), cons.xywh(3, 6, 1, 1));
 		this.add(this.gettfscenDescript(), cons.xywh(6, 6, 18, 1));
-
+		this.add(new JLabel(BHTranslator.getInstance().translate("scenario_default_value_description")), cons.xywh(3, 10,12, 1));
+		
 		this.add(this.getlequityYield(), cons.xywh(3, 12, 1, 1));
 		this.add(this.getldeptYield(), cons.xywh(3, 14, 1, 1));
 		this.add(this.getltradeTax(), cons.xywh(14, 12, 1, 1));
@@ -269,13 +276,16 @@ public final class BHScenarioHeadForm extends JPanel {
 	 * @return BHTextField
 	 */
 	public BHTextField gettfequityYield() {
-
+		/**
+		 * The defaultvalue is defined in class "org.bh.platform.PlatformActionListen"
+		 */
 		if (this.tfequityyield == null) {
 			this.tfequityyield = new BHPercentTextField(DTOScenario.Key.REK);
 			ValidationRule[] rules = { VRMandatory.INSTANCE,
 					VRIsDouble.INSTANCE, VRIsPositive.INSTANCE };
 			tfequityyield.setValidationRules(rules);
 		}
+		tfequityyield.setValue(vequity);
 		return this.tfequityyield;
 	}
 
@@ -285,7 +295,9 @@ public final class BHScenarioHeadForm extends JPanel {
 	 * @return BHTextField
 	 */
 	public BHTextField gettfdeptYield() {
-
+		/**
+		 * The defaultvalue is defined in class "org.bh.platform.PlatformActionListen"
+		 */
 		if (this.tfdeptyield == null) {
 			this.tfdeptyield = new BHPercentTextField(DTOScenario.Key.RFK);
 			ValidationRule[] rules = { VRMandatory.INSTANCE,
@@ -301,7 +313,9 @@ public final class BHScenarioHeadForm extends JPanel {
 	 * @return BHTextField
 	 */
 	public BHTextField gettftradeTax() {
-
+		/**
+		 * The defaultvalue is defined in class "org.bh.platform.PlatformActionListen"
+		 */
 		if (this.tftradetax == null) {
 			this.tftradetax = new BHPercentTextField(DTOScenario.Key.BTAX);
 			ValidationRule[] rules = { VRMandatory.INSTANCE,
@@ -318,7 +332,9 @@ public final class BHScenarioHeadForm extends JPanel {
 	 * @return BHTextField
 	 */
 	public BHTextField gettfcorporateTax() {
-
+		/**
+		 * The defaultvalue is defined in class "org.bh.platform.PlatformActionListen"
+		 */
 		if (this.tfcorporatetax == null) {
 			this.tfcorporatetax = new BHPercentTextField(DTOScenario.Key.CTAX);
 			ValidationRule[] rules = { VRMandatory.INSTANCE,
