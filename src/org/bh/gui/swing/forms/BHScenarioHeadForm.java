@@ -15,7 +15,7 @@
  *******************************************************************************/
 package org.bh.gui.swing.forms;
 
-import java.awt.Color;
+
 import java.awt.Component;
 import java.util.Vector;
 

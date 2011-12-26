@@ -15,7 +15,7 @@
  *******************************************************************************/
 package org.bh.gui.swing.forms;
 
-import java.awt.Color;
+
 
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;

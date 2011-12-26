@@ -29,10 +29,9 @@ import org.bh.gui.swing.comp.BHCheckBox;
 import org.bh.gui.swing.comp.BHComboBox;
 import org.bh.gui.swing.comp.BHDescriptionLabel;
 import org.bh.gui.swing.comp.BHTable;
-import org.bh.platform.IPlatformListener;
-import org.bh.platform.PlatformEvent;
+
 import org.bh.platform.Services;
-import org.bh.platform.PlatformEvent.Type;
+
 import org.bh.platform.i18n.ITranslator;
 
 import com.jgoodies.forms.layout.CellConstraints;
