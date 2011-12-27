@@ -40,6 +40,7 @@ import org.bh.platform.i18n.ITranslator;
  * @author Tietze.Patrick
  * @version 0.1, 2009/12/16
  * @update Hesse.Guenter, 2011/12/12
+ * @update Yannick Rödl, 27.12.2012
  * 
  */
 
@@ -168,6 +169,11 @@ public final class BHMenuBar extends JMenuBar implements IPlatformListener {
 		if (BusinessHorizon.DEBUG) 
 			menuHelp.add(new BHMenuItem(PlatformKey.HELPDEBUG));
 		menuHelp.add(new BHMenuItem(PlatformKey.HELPINFO));
+		
+		if(Services.doesBranchSpecificRepresentativePluginExist()){
+			BHPopupFrame frame = (BHPopupFrame) Services.getPopUpFrame(BHPopupFrame.ID.MAINTAIN_COMPANIES.toString());
+			frame.setAdditionalMenuEntriesInMainFrame(this);
+		}
 		
 		Services.addPlatformListener(this);
 	}

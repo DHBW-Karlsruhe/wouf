@@ -15,6 +15,14 @@ import javax.swing.JFrame;
 
 @SuppressWarnings("serial")
 public abstract class BHPopupFrame extends JFrame {
+	
+	public enum ID{
+		MAINTAIN_COMPANIES;
+		
+		public String toString(){
+			return getClass().getName() + "." + super.toString();
+		}
+	}
 
 	public BHPopupFrame(){
 		super();
@@ -22,4 +30,8 @@ public abstract class BHPopupFrame extends JFrame {
 		this.setSize(400, 400);
 		this.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
 	}
+	
+	public void setAdditionalMenuEntriesInMainFrame(BHMenuBar mainFrameMenuBar){}
+	
+	public String getUniqueId(){ return null; }
 }

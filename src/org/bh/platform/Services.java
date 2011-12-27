@@ -28,9 +28,9 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Map.Entry;
 import java.util.ServiceLoader;
 import java.util.StringTokenizer;
-import java.util.Map.Entry;
 
 import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
@@ -48,8 +48,9 @@ import org.bh.calculation.IStochasticProcess;
 import org.bh.calculation.ITimeSeriesProcess;
 import org.bh.controller.IDataExchangeController;
 import org.bh.controller.IPeriodController;
-import org.bh.data.DTOKeyPair;
 import org.bh.data.DTO.Stochastic;
+import org.bh.data.DTOKeyPair;
+import org.bh.gui.swing.BHPopupFrame;
 import org.bh.gui.swing.BHStatusBar;
 import org.bh.gui.swing.comp.BHTextField;
 import org.bh.platform.i18n.BHTranslator;
@@ -73,6 +74,7 @@ public class Services {
 	private static HashMap<String, IDataExchangeController> dataExchangeController;
 	private static HashMap<String, IImportExport> importExport;
 	private static HashMap<String, IPrint> print;
+	private static HashMap<String, BHPopupFrame> popUpFrames;
 	private static NumberFormat doubleFormat = null;
 	private static NumberFormat integerFormat = null;
 	private static NumberFormat oldDoubleFormat = null;
@@ -200,6 +202,56 @@ public class Services {
 			loadTimeSeriesProcesses();
 		}
 		return timeSeriesProcesses;
+	}
+	
+	/**
+	 * Checks whether plugin for branch specific representative plugin
+	 * is loaded and exists.
+	 * @return true if yes, false if no
+	 */
+	public static boolean doesBranchSpecificRepresentativePluginExist() {
+		boolean isLoaded = false;
+		ServiceLoader<BHPopupFrame> popUpFrames = PluginManager
+				.getInstance().getServices(BHPopupFrame.class);
+		if(popUpFrames.iterator().hasNext()){
+			isLoaded = true;
+		}
+		return isLoaded;
+	}
+	
+	/**
+	 * Loads a list of popups and returns them as a map.
+	 * The Unique ID is the key here.
+	 * 
+	 * @return
+	 */
+	public static Map<String, BHPopupFrame> getPopUpFrames(){
+		if(popUpFrames == null){
+			loadPopUpFrames();
+		}
+		return popUpFrames;
+	}
+	
+	/**
+	 * Returns a reference to a popup frame.
+	 * 
+	 * @author Yannick Rödl, 27.12.2011
+	 * @return The reference to the popup frames, or null if not found.
+	 */
+	public static BHPopupFrame getPopUpFrame(String id) {
+		return getPopUpFrames().get(id);
+	}
+	
+	/**
+	 * Loads every given plugin for a time series.
+	 */
+	private static void loadPopUpFrames(){
+		popUpFrames = new HashMap<String, BHPopupFrame>();
+		ServiceLoader<BHPopupFrame> frames = PluginManager
+				.getInstance().getServices(BHPopupFrame.class);
+		for (BHPopupFrame frame : frames) {
+			popUpFrames.put(frame.getUniqueId(), frame);
+		}
 	}
 	
 	/**

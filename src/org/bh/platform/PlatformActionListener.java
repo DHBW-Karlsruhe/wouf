@@ -152,7 +152,6 @@ class PlatformActionListener implements ActionListener {
 			this.duplicateProject();
 			break;
 
-		// TODO Katzor.Marcus
 		case PROJECTIMPORT:
 
 			BHDataExchangeDialog importDialog = new BHDataExchangeDialog(bhmf,
@@ -258,6 +257,9 @@ class PlatformActionListener implements ActionListener {
 			break;
 		case POPUPEXPORT:
 			this.popupExport();
+			break;
+		case MAINTAIN_COMPANY_DATA:
+			//Do nothing; should be handled by plugin.
 			break;
 		}
 	}
