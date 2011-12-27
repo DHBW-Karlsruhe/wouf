@@ -250,11 +250,16 @@ public final class BHMainFrame extends JFrame implements IPlatformListener, Timi
 	 */
 	@Override
 	public void dispose() {
-		// TODO Michael Löckelt: Kommentieren, Save Dialog
-		// TODO Dispose evtl noch auslagern
+		// Data has been changed.
 		if (ProjectRepositoryManager.isChanged()) {
 			
+			/*
+			 * Show the user a dialog to decide, whether he really wants to exit the application
+			 */
 			int i = BHOptionPane.showConfirmDialog(this, Services.getTranslator().translate("PsaveEnd_long"), Services.getTranslator().translate("PsaveEnd"),JOptionPane.YES_NO_CANCEL_OPTION);
+			/*
+			 * The user wants to save all changed data.
+			 */
 			if (i == JOptionPane.YES_OPTION) {
 			
 				/**
@@ -271,11 +276,13 @@ public final class BHMainFrame extends JFrame implements IPlatformListener, Timi
 				
 				super.dispose();
 				
+				//Exiting application without saving the changed data
 			} else if (i == JOptionPane.NO_OPTION) {
 				Logger.getLogger(getClass()).debug("Existing changes but no save wish - exiting app");
 				super.dispose();
 			}
 			
+			//No changes were made. We can directly exit the application.
 		} else { 
 			Logger.getLogger(getClass()).debug("No changes - exiting app");
 			super.dispose();
@@ -309,6 +316,7 @@ public final class BHMainFrame extends JFrame implements IPlatformListener, Timi
 			paneV.setDividerLocation(0.5);
 		}
 	}
+	
 	public void moveOutResultForm() {
 		if (PlatformController.preferences.getBoolean("animation", true)) {
 			if (animator.isRunning()) {
