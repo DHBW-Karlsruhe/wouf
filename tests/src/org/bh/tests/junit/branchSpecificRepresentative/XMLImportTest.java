@@ -8,7 +8,6 @@ import org.bh.data.DTOBusinessData;
 import org.bh.data.DTOPeriod;
 import org.bh.plugin.branchSpecificRepresentative.data.DTOBranch;
 import org.bh.plugin.branchSpecificRepresentative.data.DTOCompany;
-import org.bh.plugin.branchSpecificRepresentative.excelImport.ExcelImport;
 import org.bh.plugin.xmldataexchange.xmlimport.XMLImport;
 import org.bh.plugin.xmldataexchange.xmlimport.XMLNotValidException;
 
