@@ -24,9 +24,7 @@ import junit.framework.TestCase;
  *
  */
 
-public class XMLImportTest extends TestCase {
-	
-	ExcelImport myImportClass;	
+public class XMLImportTest extends TestCase {	
 	
 	public void testImport()
 	{		
