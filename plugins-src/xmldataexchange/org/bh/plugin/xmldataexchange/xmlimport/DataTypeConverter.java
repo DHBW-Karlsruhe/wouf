@@ -13,13 +13,13 @@
  *******************************************************************************/
 package org.bh.plugin.xmldataexchange.xmlimport;
 
-import java.security.KeyPair;
-
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 import org.bh.data.DTOKeyPair;
 import org.bh.data.types.DoubleValue;
+import org.bh.data.types.HashValue;
 import org.bh.data.types.IValue;
 import org.bh.data.types.IntegerValue;
 import org.bh.data.types.IntervalValue;
@@ -32,7 +32,7 @@ import nu.xom.*;
  *
  * @author Vito
  * @version 1.0, 12.01.2011
- * @update Vito Masiello, Patrick Maisel
+ * @update Vito Masiello, Patrick Maisel, Lukas Lochner
  * Klasse wurde an die XOM Library angepasst 
  *
  */
@@ -67,6 +67,26 @@ public class DataTypeConverter {
 			String minValue = child.getAttributeValue("minValue");
 			String maxValue = child.getAttributeValue("maxValue");
 			val = new IntervalValue(Double.parseDouble(minValue), Double.parseDouble(maxValue));
+		}
+		else if (type.equals("HashValue"))
+		{
+			// Get all childs of hashValue
+			Element hashValueChild = node.getFirstChildElement("hashValue", ns);			
+			Elements hashElementChilds = hashValueChild.getChildElements("hashElement", ns);
+	
+			// create return HashMap
+			HashMap<String, String> hashMap = new HashMap<String, String>();			
+			
+			// iterate all elements in node
+			for(int i = 0; i < hashElementChilds.size(); i++)
+			{
+				Element currElement = hashElementChilds.get(i);
+				String hashContent = currElement.getValue();
+				String hashKey = currElement.getAttributeValue("key");				
+				hashMap.put(hashKey, hashContent);				
+			}
+			
+			val = new HashValue(hashMap);
 		}
 		else if (type.equals("ObjectValue"))
 		{
