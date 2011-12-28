@@ -15,7 +15,10 @@
  *******************************************************************************/
 package org.bh.plugin.branchSpecificRepresentative.data;
 
-import org.bh.data.DTOScenario;
+import org.apache.log4j.Logger;
+import org.bh.data.DTO;
+import org.bh.data.DTOPeriod;
+
 /**
  * 
  * DTO for storing company data
@@ -26,18 +29,28 @@ import org.bh.data.DTOScenario;
  * company is related to a branch and therefore has to keep this relation. As well
  * the company has a specific name, which we can reuse from the {@link org.bh.data.DTOScenario}.
  *
- * @author Yannick Rödl
- * @version 1.0, 02.12.2011
+ * @author Yannick Rödl, Lukas Locner
+ * @version 1.0, 21.12.2011
  *
  */
-public class DTOCompany extends DTOScenario {
+public class DTOCompany extends  DTO<DTOPeriod> {
 
 	/**
 	 * Generated <code>serialVersionUID</code>
 	 */
 	private static final long serialVersionUID = 5619460732252658937L;
+	private static final Logger log = Logger.getLogger(DTOPeriod.class);	
 
-	public enum Keys{
-		BRANCH
+	public enum Key {
+		NAME
 	}
+
+    /**
+     * initialize key and method list
+     */
+
+	public DTOCompany() {
+		super(Key.class);		
+		log.debug("Company Object created!");
+	}	
 }
