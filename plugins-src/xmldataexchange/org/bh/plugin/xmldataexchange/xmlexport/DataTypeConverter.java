@@ -14,10 +14,12 @@
 package org.bh.plugin.xmldataexchange.xmlexport;
 
 import java.util.ArrayList;
+import java.util.Map;
 
 import org.apache.log4j.Logger;
 import org.bh.data.DTOKeyPair;
 import org.bh.data.types.DoubleValue;
+import org.bh.data.types.HashValue;
 import org.bh.data.types.IValue;
 import org.bh.data.types.IntegerValue;
 import org.bh.data.types.IntervalValue;
@@ -67,6 +69,8 @@ public class DataTypeConverter {
 			actValue = getIntervalValueInXML((IntervalValue) val, ns);
 		else if (val instanceof StringValue)
 			actValue = getStringValueInXML((StringValue) val, ns);
+		else if (val instanceof HashValue)
+			actValue = getHashValueInXML((HashValue) val, ns);
 		else if (val instanceof ObjectValue)
 			actValue = getObjectValueInXML((ObjectValue)val, ns);
 		
@@ -85,6 +89,28 @@ public class DataTypeConverter {
 	}
 	
 	/**
+	 * Converts a HashValue into a XML node.
+	 * Added 27.12.2011
+	 * @param val
+	 * @return
+	 */
+	private static Element getHashValueInXML(HashValue val, String ns)
+	{
+		Element value = new Element("hashValue", ns);		
+				
+        Map<Object,Object> myMap = val.getHashMap();
+        for(Map.Entry<Object, Object> entry : myMap.entrySet()){        
+			Element valueInner = new Element("hashElement", ns);	
+			valueInner.addAttribute(new Attribute("key", entry.getKey().toString()));
+			valueInner.appendChild(entry.getValue().toString());
+			value.appendChild(valueInner);                        
+        }	
+
+		return value;		
+	}
+		
+	
+	/**
 	 * Converts a DoubleValue into a XML node.
 	 * @param val
 	 * @return
@@ -93,8 +119,7 @@ public class DataTypeConverter {
 	{
 		Element value = new Element("doubleValue", ns);
 		value.appendChild(val.getValue()+"");				
-		return value;
-		
+		return value;	
 	}
 	
 	/**
