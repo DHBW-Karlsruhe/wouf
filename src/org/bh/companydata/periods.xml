@@ -1,0 +1,754 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<businessdata class="org.bh.data.DTOBusinessData" xsi:schemaLocation="http://newsgymson.de/Marcus/BHDataExchange.xsd" xmlns="http://www.bh.org/dataexchange" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+ <children>
+  <branch class="org.bh.plugin.branchSpecificRepresentative.data.DTOBranch">
+   <values>
+    <value key="BRANCH_KEY" type="StringValue">
+     <stringValue>10–33</stringValue>
+    </value>
+    <value key="BRANCH" type="HashValue">
+     <hashValue>
+      <hashElement key="EN">Manufacturing Companies</hashElement>
+      <hashElement key="DE">Verarbeitendes Gewerbe/Herstellung von Waren</hashElement>
+      <hashElement key="SP">Spanish Translation</hashElement>      
+     </hashValue>
+    </value>
+   </values>
+   <children>
+    <company class="org.bh.plugin.branchSpecificRepresentative.data.DTOCompany">
+     <values>
+      <value key="NAME" type="StringValue">
+       <stringValue>Solarworld</stringValue>
+      </value>
+     </values>
+     <children>
+      <period class="org.bh.data.DTOPeriod">
+       <values>
+        <value key="org.bh.data.DTOPeriod$Key.NAME" type="StringValue">
+         <stringValue>2010</stringValue>
+        </value>
+        <value key="org.bh.data.DTOPeriod$Key.LIABILITIES" type="StringValue">
+         <stringValue>1712453000</stringValue>
+        </value>
+        <value key="org.bh.data.DTOPeriod$Key.FCF" type="StringValue">
+         <stringValue>254175000</stringValue>
+        </value>
+       </values>
+      </period>
+      <period class="org.bh.data.DTOPeriod">
+       <values>
+        <value key="org.bh.data.DTOPeriod$Key.NAME" type="StringValue">
+         <stringValue>2009</stringValue>
+        </value>
+        <value key="org.bh.data.DTOPeriod$Key.LIABILITIES" type="StringValue">
+         <stringValue>1351588000</stringValue>
+        </value>
+        <value key="org.bh.data.DTOPeriod$Key.FCF" type="StringValue">
+         <stringValue>-32997000</stringValue>
+        </value>
+       </values>
+      </period>
+      <period class="org.bh.data.DTOPeriod">
+       <values>
+        <value key="org.bh.data.DTOPeriod$Key.NAME" type="StringValue">
+         <stringValue>2008</stringValue>
+        </value>
+        <value key="org.bh.data.DTOPeriod$Key.LIABILITIES" type="StringValue">
+         <stringValue>1279547000</stringValue>
+        </value>
+        <value key="org.bh.data.DTOPeriod$Key.FCF" type="StringValue">
+         <stringValue>320463000</stringValue>
+        </value>
+       </values>
+      </period>
+      <period class="org.bh.data.DTOPeriod">
+       <values>
+        <value key="org.bh.data.DTOPeriod$Key.NAME" type="StringValue">
+         <stringValue>2007</stringValue>
+        </value>
+        <value key="org.bh.data.DTOPeriod$Key.LIABILITIES" type="StringValue">
+         <stringValue>1012920000</stringValue>
+        </value>
+        <value key="org.bh.data.DTOPeriod$Key.FCF" type="StringValue">
+         <stringValue>244026000</stringValue>
+        </value>
+       </values>
+      </period>
+      <period class="org.bh.data.DTOPeriod">
+       <values>
+        <value key="org.bh.data.DTOPeriod$Key.NAME" type="StringValue">
+         <stringValue>2006</stringValue>
+        </value>
+        <value key="org.bh.data.DTOPeriod$Key.LIABILITIES" type="StringValue">
+         <stringValue>407089000</stringValue>
+        </value>
+        <value key="org.bh.data.DTOPeriod$Key.FCF" type="StringValue">
+         <stringValue>-94100000</stringValue>
+        </value>
+       </values>
+      </period>
+     </children>
+    </company>
+    <company class="org.bh.plugin.branchSpecificRepresentative.data.DTOCompany">
+     <values>
+      <value key="NAME" type="StringValue">
+       <stringValue>Q-Cells</stringValue>
+      </value>
+     </values>
+     <children>
+      <period class="org.bh.data.DTOPeriod">
+       <values>
+        <value key="org.bh.data.DTOPeriod$Key.NAME" type="StringValue">
+         <stringValue>2010</stringValue>
+        </value>
+        <value key="org.bh.data.DTOPeriod$Key.LIABILITIES" type="StringValue">
+         <stringValue>1084500000</stringValue>
+        </value>
+        <value key="org.bh.data.DTOPeriod$Key.FCF" type="StringValue">
+         <stringValue>48000000</stringValue>
+        </value>
+       </values>
+      </period>
+      <period class="org.bh.data.DTOPeriod">
+       <values>
+        <value key="org.bh.data.DTOPeriod$Key.NAME" type="StringValue">
+         <stringValue>2009</stringValue>
+        </value>
+        <value key="org.bh.data.DTOPeriod$Key.LIABILITIES" type="StringValue">
+         <stringValue>1273000000</stringValue>
+        </value>
+        <value key="org.bh.data.DTOPeriod$Key.FCF" type="StringValue">
+         <stringValue>-64500000</stringValue>
+        </value>
+       </values>
+      </period>
+      <period class="org.bh.data.DTOPeriod">
+       <values>
+        <value key="org.bh.data.DTOPeriod$Key.NAME" type="StringValue">
+         <stringValue>2008</stringValue>
+        </value>
+        <value key="org.bh.data.DTOPeriod$Key.LIABILITIES" type="StringValue">
+         <stringValue>828000000</stringValue>
+        </value>
+        <value key="org.bh.data.DTOPeriod$Key.FCF" type="StringValue">
+         <stringValue>-482200000</stringValue>
+        </value>
+       </values>
+      </period>
+      <period class="org.bh.data.DTOPeriod">
+       <values>
+        <value key="org.bh.data.DTOPeriod$Key.NAME" type="StringValue">
+         <stringValue>2007</stringValue>
+        </value>
+        <value key="org.bh.data.DTOPeriod$Key.LIABILITIES" type="StringValue">
+         <stringValue>624400000</stringValue>
+        </value>
+        <value key="org.bh.data.DTOPeriod$Key.FCF" type="StringValue">
+         <stringValue>-217300000</stringValue>
+        </value>
+       </values>
+      </period>
+      <period class="org.bh.data.DTOPeriod">
+       <values>
+        <value key="org.bh.data.DTOPeriod$Key.NAME" type="StringValue">
+         <stringValue>2006</stringValue>
+        </value>
+        <value key="org.bh.data.DTOPeriod$Key.LIABILITIES" type="StringValue">
+         <stringValue>91201700</stringValue>
+        </value>
+        <value key="org.bh.data.DTOPeriod$Key.FCF" type="StringValue">
+         <stringValue>-33400000</stringValue>
+        </value>
+       </values>
+      </period>
+     </children>
+    </company>
+    <company class="org.bh.plugin.branchSpecificRepresentative.data.DTOCompany">
+     <values>
+      <value key="NAME" type="StringValue">
+       <stringValue>Phoenix Solar</stringValue>
+      </value>
+     </values>
+     <children>
+      <period class="org.bh.data.DTOPeriod">
+       <values>
+        <value key="org.bh.data.DTOPeriod$Key.NAME" type="StringValue">
+         <stringValue>2010</stringValue>
+        </value>
+        <value key="org.bh.data.DTOPeriod$Key.LIABILITIES" type="StringValue">
+         <stringValue>163823000</stringValue>
+        </value>
+        <value key="org.bh.data.DTOPeriod$Key.FCF" type="StringValue">
+         <stringValue>-84498000</stringValue>
+        </value>
+       </values>
+      </period>
+      <period class="org.bh.data.DTOPeriod">
+       <values>
+        <value key="org.bh.data.DTOPeriod$Key.NAME" type="StringValue">
+         <stringValue>2009</stringValue>
+        </value>
+        <value key="org.bh.data.DTOPeriod$Key.LIABILITIES" type="StringValue">
+         <stringValue>80104000</stringValue>
+        </value>
+        <value key="org.bh.data.DTOPeriod$Key.FCF" type="StringValue">
+         <stringValue>21583000</stringValue>
+        </value>
+       </values>
+      </period>
+      <period class="org.bh.data.DTOPeriod">
+       <values>
+        <value key="org.bh.data.DTOPeriod$Key.NAME" type="StringValue">
+         <stringValue>2008</stringValue>
+        </value>
+        <value key="org.bh.data.DTOPeriod$Key.LIABILITIES" type="StringValue">
+         <stringValue>36701000</stringValue>
+        </value>
+        <value key="org.bh.data.DTOPeriod$Key.FCF" type="StringValue">
+         <stringValue>-23628000</stringValue>
+        </value>
+       </values>
+      </period>
+      <period class="org.bh.data.DTOPeriod">
+       <values>
+        <value key="org.bh.data.DTOPeriod$Key.NAME" type="StringValue">
+         <stringValue>2007</stringValue>
+        </value>
+        <value key="org.bh.data.DTOPeriod$Key.LIABILITIES" type="StringValue">
+         <stringValue>25480000</stringValue>
+        </value>
+        <value key="org.bh.data.DTOPeriod$Key.FCF" type="StringValue">
+         <stringValue>4788000</stringValue>
+        </value>
+       </values>
+      </period>
+      <period class="org.bh.data.DTOPeriod">
+       <values>
+        <value key="org.bh.data.DTOPeriod$Key.NAME" type="StringValue">
+         <stringValue>2006</stringValue>
+        </value>
+        <value key="org.bh.data.DTOPeriod$Key.LIABILITIES" type="StringValue">
+         <stringValue>19411399,3</stringValue>
+        </value>
+        <value key="org.bh.data.DTOPeriod$Key.FCF" type="StringValue">
+         <stringValue>-14907000</stringValue>
+        </value>
+       </values>
+      </period>
+     </children>
+    </company>
+    <company class="org.bh.plugin.branchSpecificRepresentative.data.DTOCompany">
+     <values>
+      <value key="NAME" type="StringValue">
+       <stringValue>SMA Solar</stringValue>
+      </value>
+     </values>
+     <children>
+      <period class="org.bh.data.DTOPeriod">
+       <values>
+        <value key="org.bh.data.DTOPeriod$Key.NAME" type="StringValue">
+         <stringValue>2010</stringValue>
+        </value>
+        <value key="org.bh.data.DTOPeriod$Key.LIABILITIES" type="StringValue">
+         <stringValue>342409000</stringValue>
+        </value>
+        <value key="org.bh.data.DTOPeriod$Key.FCF" type="StringValue">
+         <stringValue>128800000</stringValue>
+        </value>
+       </values>
+      </period>
+      <period class="org.bh.data.DTOPeriod">
+       <values>
+        <value key="org.bh.data.DTOPeriod$Key.NAME" type="StringValue">
+         <stringValue>2009</stringValue>
+        </value>
+        <value key="org.bh.data.DTOPeriod$Key.LIABILITIES" type="StringValue">
+         <stringValue>234222000</stringValue>
+        </value>
+        <value key="org.bh.data.DTOPeriod$Key.FCF" type="StringValue">
+         <stringValue>-16100000</stringValue>
+        </value>
+       </values>
+      </period>
+      <period class="org.bh.data.DTOPeriod">
+       <values>
+        <value key="org.bh.data.DTOPeriod$Key.NAME" type="StringValue">
+         <stringValue>2008</stringValue>
+        </value>
+        <value key="org.bh.data.DTOPeriod$Key.LIABILITIES" type="StringValue">
+         <stringValue>148460000</stringValue>
+        </value>
+        <value key="org.bh.data.DTOPeriod$Key.FCF" type="StringValue">
+         <stringValue>187600000</stringValue>
+        </value>
+       </values>
+      </period>
+      <period class="org.bh.data.DTOPeriod">
+       <values>
+        <value key="org.bh.data.DTOPeriod$Key.NAME" type="StringValue">
+         <stringValue>2007</stringValue>
+        </value>
+        <value key="org.bh.data.DTOPeriod$Key.LIABILITIES" type="StringValue">
+         <stringValue>82212000</stringValue>
+        </value>
+        <value key="org.bh.data.DTOPeriod$Key.FCF" type="StringValue">
+         <stringValue>19400000</stringValue>
+        </value>
+       </values>
+      </period>
+      <period class="org.bh.data.DTOPeriod">
+       <values>
+        <value key="org.bh.data.DTOPeriod$Key.NAME" type="StringValue">
+         <stringValue>2006</stringValue>
+        </value>
+        <value key="org.bh.data.DTOPeriod$Key.LIABILITIES" type="StringValue">
+         <stringValue>58074000</stringValue>
+        </value>
+        <value key="org.bh.data.DTOPeriod$Key.FCF" type="StringValue">
+         <stringValue>-1500000</stringValue>
+        </value>
+       </values>
+      </period>
+     </children>
+    </company>
+   </children>
+  </branch>
+  <branch class="org.bh.plugin.branchSpecificRepresentative.data.DTOBranch">
+   <values>
+    <value key="BRANCH_KEY" type="StringValue">
+     <stringValue>10–34</stringValue>
+    </value>
+    <value key="BRANCH" type="HashValue">
+     <hashValue>
+      <hashElement key="EN">Building Companies</hashElement>
+      <hashElement key="DE">Baugewerbe/Bau</hashElement>
+     </hashValue>
+    </value>
+   </values>
+   <children>
+    <company class="org.bh.plugin.branchSpecificRepresentative.data.DTOCompany">
+     <values>
+      <value key="NAME" type="StringValue">
+       <stringValue>Bilfinger Berger</stringValue>
+      </value>
+     </values>
+     <children>
+      <period class="org.bh.data.DTOPeriod">
+       <values>
+        <value key="org.bh.data.DTOPeriod$Key.NAME" type="StringValue">
+         <stringValue>2010</stringValue>
+        </value>
+        <value key="org.bh.data.DTOPeriod$Key.LIABILITIES" type="StringValue">
+         <stringValue>4989200000</stringValue>
+        </value>
+        <value key="org.bh.data.DTOPeriod$Key.FCF" type="StringValue">
+         <stringValue>245000000</stringValue>
+        </value>
+       </values>
+      </period>
+      <period class="org.bh.data.DTOPeriod">
+       <values>
+        <value key="org.bh.data.DTOPeriod$Key.NAME" type="StringValue">
+         <stringValue>2009</stringValue>
+        </value>
+        <value key="org.bh.data.DTOPeriod$Key.LIABILITIES" type="StringValue">
+         <stringValue>5262700000</stringValue>
+        </value>
+        <value key="org.bh.data.DTOPeriod$Key.FCF" type="StringValue">
+         <stringValue>368000000</stringValue>
+        </value>
+       </values>
+      </period>
+      <period class="org.bh.data.DTOPeriod">
+       <values>
+        <value key="org.bh.data.DTOPeriod$Key.NAME" type="StringValue">
+         <stringValue>2008</stringValue>
+        </value>
+        <value key="org.bh.data.DTOPeriod$Key.LIABILITIES" type="StringValue">
+         <stringValue>4776600000</stringValue>
+        </value>
+        <value key="org.bh.data.DTOPeriod$Key.FCF" type="StringValue">
+         <stringValue>357000000</stringValue>
+        </value>
+       </values>
+      </period>
+      <period class="org.bh.data.DTOPeriod">
+       <values>
+        <value key="org.bh.data.DTOPeriod$Key.NAME" type="StringValue">
+         <stringValue>2007</stringValue>
+        </value>
+        <value key="org.bh.data.DTOPeriod$Key.LIABILITIES" type="StringValue">
+         <stringValue>4056000000</stringValue>
+        </value>
+        <value key="org.bh.data.DTOPeriod$Key.FCF" type="StringValue">
+         <stringValue>325000000</stringValue>
+        </value>
+       </values>
+      </period>
+      <period class="org.bh.data.DTOPeriod">
+       <values>
+        <value key="org.bh.data.DTOPeriod$Key.NAME" type="StringValue">
+         <stringValue>2006</stringValue>
+        </value>
+        <value key="org.bh.data.DTOPeriod$Key.LIABILITIES" type="StringValue">
+         <stringValue>3168000000</stringValue>
+        </value>
+        <value key="org.bh.data.DTOPeriod$Key.FCF" type="StringValue">
+         <stringValue>207000000</stringValue>
+        </value>
+       </values>
+      </period>
+     </children>
+    </company>
+    <company class="org.bh.plugin.branchSpecificRepresentative.data.DTOCompany">
+     <values>
+      <value key="NAME" type="StringValue">
+       <stringValue>Bauer AG</stringValue>
+      </value>
+     </values>
+     <children>
+      <period class="org.bh.data.DTOPeriod">
+       <values>
+        <value key="org.bh.data.DTOPeriod$Key.NAME" type="StringValue">
+         <stringValue>2010</stringValue>
+        </value>
+        <value key="org.bh.data.DTOPeriod$Key.LIABILITIES" type="StringValue">
+         <stringValue>859701000</stringValue>
+        </value>
+        <value key="org.bh.data.DTOPeriod$Key.FCF" type="StringValue">
+         <stringValue>45000000</stringValue>
+        </value>
+       </values>
+      </period>
+      <period class="org.bh.data.DTOPeriod">
+       <values>
+        <value key="org.bh.data.DTOPeriod$Key.NAME" type="StringValue">
+         <stringValue>2009</stringValue>
+        </value>
+        <value key="org.bh.data.DTOPeriod$Key.LIABILITIES" type="StringValue">
+         <stringValue>754897000</stringValue>
+        </value>
+        <value key="org.bh.data.DTOPeriod$Key.FCF" type="StringValue">
+         <stringValue>50000000</stringValue>
+        </value>
+       </values>
+      </period>
+      <period class="org.bh.data.DTOPeriod">
+       <values>
+        <value key="org.bh.data.DTOPeriod$Key.NAME" type="StringValue">
+         <stringValue>2008</stringValue>
+        </value>
+        <value key="org.bh.data.DTOPeriod$Key.LIABILITIES" type="StringValue">
+         <stringValue>638413000</stringValue>
+        </value>
+        <value key="org.bh.data.DTOPeriod$Key.FCF" type="StringValue">
+         <stringValue>121000000</stringValue>
+        </value>
+       </values>
+      </period>
+      <period class="org.bh.data.DTOPeriod">
+       <values>
+        <value key="org.bh.data.DTOPeriod$Key.NAME" type="StringValue">
+         <stringValue>2007</stringValue>
+        </value>
+        <value key="org.bh.data.DTOPeriod$Key.LIABILITIES" type="StringValue">
+         <stringValue>512186000</stringValue>
+        </value>
+        <value key="org.bh.data.DTOPeriod$Key.FCF" type="StringValue">
+         <stringValue>67000000</stringValue>
+        </value>
+       </values>
+      </period>
+      <period class="org.bh.data.DTOPeriod">
+       <values>
+        <value key="org.bh.data.DTOPeriod$Key.NAME" type="StringValue">
+         <stringValue>2006</stringValue>
+        </value>
+        <value key="org.bh.data.DTOPeriod$Key.LIABILITIES" type="StringValue">
+         <stringValue>393936000</stringValue>
+        </value>
+        <value key="org.bh.data.DTOPeriod$Key.FCF" type="StringValue">
+         <stringValue>39000000</stringValue>
+        </value>
+       </values>
+      </period>
+     </children>
+    </company>
+    <company class="org.bh.plugin.branchSpecificRepresentative.data.DTOCompany">
+     <values>
+      <value key="NAME" type="StringValue">
+       <stringValue>Hochtief AG</stringValue>
+      </value>
+     </values>
+     <children>
+      <period class="org.bh.data.DTOPeriod">
+       <values>
+        <value key="org.bh.data.DTOPeriod$Key.NAME" type="StringValue">
+         <stringValue>2010</stringValue>
+        </value>
+        <value key="org.bh.data.DTOPeriod$Key.LIABILITIES" type="StringValue">
+         <stringValue>9218944000</stringValue>
+        </value>
+        <value key="org.bh.data.DTOPeriod$Key.FCF" type="StringValue">
+         <stringValue>65000000</stringValue>
+        </value>
+       </values>
+      </period>
+      <period class="org.bh.data.DTOPeriod">
+       <values>
+        <value key="org.bh.data.DTOPeriod$Key.NAME" type="StringValue">
+         <stringValue>2009</stringValue>
+        </value>
+        <value key="org.bh.data.DTOPeriod$Key.LIABILITIES" type="StringValue">
+         <stringValue>7923482000</stringValue>
+        </value>
+        <value key="org.bh.data.DTOPeriod$Key.FCF" type="StringValue">
+         <stringValue>101000000</stringValue>
+        </value>
+       </values>
+      </period>
+      <period class="org.bh.data.DTOPeriod">
+       <values>
+        <value key="org.bh.data.DTOPeriod$Key.NAME" type="StringValue">
+         <stringValue>2008</stringValue>
+        </value>
+        <value key="org.bh.data.DTOPeriod$Key.LIABILITIES" type="StringValue">
+         <stringValue>8087823000</stringValue>
+        </value>
+        <value key="org.bh.data.DTOPeriod$Key.FCF" type="StringValue">
+         <stringValue>-635000000</stringValue>
+        </value>
+       </values>
+      </period>
+      <period class="org.bh.data.DTOPeriod">
+       <values>
+        <value key="org.bh.data.DTOPeriod$Key.NAME" type="StringValue">
+         <stringValue>2007</stringValue>
+        </value>
+        <value key="org.bh.data.DTOPeriod$Key.LIABILITIES" type="StringValue">
+         <stringValue>6555567000</stringValue>
+        </value>
+        <value key="org.bh.data.DTOPeriod$Key.FCF" type="StringValue">
+         <stringValue>-945000000</stringValue>
+        </value>
+       </values>
+      </period>
+      <period class="org.bh.data.DTOPeriod">
+       <values>
+        <value key="org.bh.data.DTOPeriod$Key.NAME" type="StringValue">
+         <stringValue>2006</stringValue>
+        </value>
+        <value key="org.bh.data.DTOPeriod$Key.LIABILITIES" type="StringValue">
+         <stringValue>4991048000</stringValue>
+        </value>
+        <value key="org.bh.data.DTOPeriod$Key.FCF" type="StringValue">
+         <stringValue>486000000</stringValue>
+        </value>
+       </values>
+      </period>
+     </children>
+    </company>
+    <company class="org.bh.plugin.branchSpecificRepresentative.data.DTOCompany">
+     <values>
+      <value key="NAME" type="StringValue">
+       <stringValue>Lindner AG</stringValue>
+      </value>
+     </values>
+     <children>
+      <period class="org.bh.data.DTOPeriod">
+       <values>
+        <value key="org.bh.data.DTOPeriod$Key.NAME" type="StringValue">
+         <stringValue>2009</stringValue>
+        </value>
+        <value key="org.bh.data.DTOPeriod$Key.LIABILITIES" type="StringValue">
+         <stringValue>83300633</stringValue>
+        </value>
+        <value key="org.bh.data.DTOPeriod$Key.FCF" type="StringValue">
+         <stringValue>46300000</stringValue>
+        </value>
+       </values>
+      </period>
+      <period class="org.bh.data.DTOPeriod">
+       <values>
+        <value key="org.bh.data.DTOPeriod$Key.NAME" type="StringValue">
+         <stringValue>2008</stringValue>
+        </value>
+        <value key="org.bh.data.DTOPeriod$Key.LIABILITIES" type="StringValue">
+         <stringValue>72932000</stringValue>
+        </value>
+        <value key="org.bh.data.DTOPeriod$Key.FCF" type="StringValue">
+         <stringValue>54800000</stringValue>
+        </value>
+       </values>
+      </period>
+      <period class="org.bh.data.DTOPeriod">
+       <values>
+        <value key="org.bh.data.DTOPeriod$Key.NAME" type="StringValue">
+         <stringValue>2007</stringValue>
+        </value>
+        <value key="org.bh.data.DTOPeriod$Key.LIABILITIES" type="StringValue">
+         <stringValue>71372954</stringValue>
+        </value>
+        <value key="org.bh.data.DTOPeriod$Key.FCF" type="StringValue">
+         <stringValue>20300000</stringValue>
+        </value>
+       </values>
+      </period>
+      <period class="org.bh.data.DTOPeriod">
+       <values>
+        <value key="org.bh.data.DTOPeriod$Key.NAME" type="StringValue">
+         <stringValue>2006</stringValue>
+        </value>
+        <value key="org.bh.data.DTOPeriod$Key.LIABILITIES" type="StringValue">
+         <stringValue>66340000</stringValue>
+        </value>
+        <value key="org.bh.data.DTOPeriod$Key.FCF" type="StringValue">
+         <stringValue>45200000</stringValue>
+        </value>
+       </values>
+      </period>
+      <period class="org.bh.data.DTOPeriod">
+       <values>
+        <value key="org.bh.data.DTOPeriod$Key.NAME" type="StringValue">
+         <stringValue>2005</stringValue>
+        </value>
+        <value key="org.bh.data.DTOPeriod$Key.LIABILITIES" type="StringValue">
+         <stringValue>58191315</stringValue>
+        </value>
+        <value key="org.bh.data.DTOPeriod$Key.FCF" type="StringValue">
+         <stringValue>47100000</stringValue>
+        </value>
+       </values>
+      </period>
+     </children>
+    </company>
+   </children>
+  </branch>
+  <branch class="org.bh.plugin.branchSpecificRepresentative.data.DTOBranch">
+   <values>
+    <value key="BRANCH_KEY" type="StringValue">
+     <stringValue>10–35</stringValue>
+    </value>
+    <value key="BRANCH" type="HashValue">
+     <hashValue>
+      <hashElement key="EN">Internet Services</hashElement>
+      <hashElement key="DE">Internetdienstleistungen</hashElement>
+     </hashValue>
+    </value>
+   </values>
+   <children>
+    <company class="org.bh.plugin.branchSpecificRepresentative.data.DTOCompany">
+     <values>
+      <value key="NAME" type="StringValue">
+       <stringValue>QSC</stringValue>
+      </value>
+     </values>
+     <children>
+      <period class="org.bh.data.DTOPeriod">
+       <values>
+        <value key="org.bh.data.DTOPeriod$Key.NAME" type="StringValue">
+         <stringValue>2010</stringValue>
+        </value>
+        <value key="org.bh.data.DTOPeriod$Key.LIABILITIES" type="StringValue">
+         <stringValue>68851000</stringValue>
+        </value>
+        <value key="org.bh.data.DTOPeriod$Key.FCF" type="StringValue">
+         <stringValue>27700000</stringValue>
+        </value>
+       </values>
+      </period>
+      <period class="org.bh.data.DTOPeriod">
+       <values>
+        <value key="org.bh.data.DTOPeriod$Key.NAME" type="StringValue">
+         <stringValue>2009</stringValue>
+        </value>
+        <value key="org.bh.data.DTOPeriod$Key.LIABILITIES" type="StringValue">
+         <stringValue>131979000</stringValue>
+        </value>
+        <value key="org.bh.data.DTOPeriod$Key.FCF" type="StringValue">
+         <stringValue>12900000</stringValue>
+        </value>
+       </values>
+      </period>
+      <period class="org.bh.data.DTOPeriod">
+       <values>
+        <value key="org.bh.data.DTOPeriod$Key.NAME" type="StringValue">
+         <stringValue>2008</stringValue>
+        </value>
+        <value key="org.bh.data.DTOPeriod$Key.LIABILITIES" type="StringValue">
+         <stringValue>198768000</stringValue>
+        </value>
+        <value key="org.bh.data.DTOPeriod$Key.FCF" type="StringValue">
+         <stringValue>-32300000</stringValue>
+        </value>
+       </values>
+      </period>
+      <period class="org.bh.data.DTOPeriod">
+       <values>
+        <value key="org.bh.data.DTOPeriod$Key.NAME" type="StringValue">
+         <stringValue>2007</stringValue>
+        </value>
+        <value key="org.bh.data.DTOPeriod$Key.LIABILITIES" type="StringValue">
+         <stringValue>211249000</stringValue>
+        </value>
+        <value key="org.bh.data.DTOPeriod$Key.FCF" type="StringValue">
+         <stringValue>-57800000</stringValue>
+        </value>
+       </values>
+      </period>
+      <period class="org.bh.data.DTOPeriod">
+       <values>
+        <value key="org.bh.data.DTOPeriod$Key.NAME" type="StringValue">
+         <stringValue>2006</stringValue>
+        </value>
+        <value key="org.bh.data.DTOPeriod$Key.LIABILITIES" type="StringValue">
+         <stringValue/>
+        </value>
+        <value key="org.bh.data.DTOPeriod$Key.FCF" type="StringValue">
+         <stringValue>-7800000</stringValue>
+        </value>
+       </values>
+      </period>
+     </children>
+    </company>
+   </children>
+  </branch>
+  <branch class="org.bh.plugin.branchSpecificRepresentative.data.DTOBranch">
+   <values>
+    <value key="BRANCH_KEY" type="StringValue">
+     <stringValue>11-00</stringValue>
+    </value>
+    <value key="BRANCH" type="HashValue">
+     <hashValue>
+      <hashElement key="EN">Automotive Companies</hashElement>
+      <hashElement key="DE">Automotive</hashElement>
+     </hashValue>
+    </value>
+   </values>
+   <children>
+    <company class="org.bh.plugin.branchSpecificRepresentative.data.DTOCompany">
+     <values>
+      <value key="NAME" type="StringValue">
+       <stringValue>Daimler AG</stringValue>
+      </value>
+     </values>
+     <children>
+      <period class="org.bh.data.DTOPeriod">
+       <values>
+        <value key="org.bh.data.DTOPeriod$Key.NAME" type="StringValue">
+         <stringValue>2010</stringValue>
+        </value>
+        <value key="org.bh.data.DTOPeriod$Key.LIABILITIES" type="StringValue">
+         <stringValue>31932000000</stringValue>
+        </value>
+        <value key="org.bh.data.DTOPeriod$Key.FCF" type="StringValue">
+         <stringValue/>
+        </value>
+       </values>
+      </period>
+     </children>
+    </company>
+   </children>
+  </branch>
+ </children>
+</businessdata>
