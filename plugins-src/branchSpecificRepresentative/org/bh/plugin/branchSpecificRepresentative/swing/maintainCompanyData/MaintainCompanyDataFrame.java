@@ -27,6 +27,15 @@ import org.bh.platform.i18n.ITranslator;
  */
 public class MaintainCompanyDataFrame extends BHPopupFrame implements ActionListener {
 
+	public enum GUI_KEYS{
+		TITLE;
+		
+		@Override
+        public String toString() {
+            return getClass().getName() + "." + super.toString();
+        }
+	}
+	
 	public enum MenuBar{
 		MENU_EXTRAS;
 		
@@ -70,8 +79,16 @@ public class MaintainCompanyDataFrame extends BHPopupFrame implements ActionList
 		this.setVisible(true);
 	}
 	
+	
 	@Override
 	public void dispose(){
+		super.dispose();
 		//TODO We have to do something with the data here.
+	}
+
+	/* Specified by interface/super class. */
+	@Override
+	public String getTitleKey() {
+		return MaintainCompanyDataFrame.GUI_KEYS.TITLE.toString();
 	}
 }
