@@ -16,7 +16,6 @@
 package org.bh.data;
 
 import org.apache.log4j.Logger;
-import org.bh.plugin.branchSpecificRepresentative.data.DTOBranch;
 
 /**
  * Project DTO
