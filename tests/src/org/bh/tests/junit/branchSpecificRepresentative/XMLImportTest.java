@@ -4,10 +4,10 @@ import java.io.IOException;
 import java.util.Iterator;
 import java.util.List;
 
+import org.bh.data.DTOBranch;
 import org.bh.data.DTOBusinessData;
+import org.bh.data.DTOCompany;
 import org.bh.data.DTOPeriod;
-import org.bh.plugin.branchSpecificRepresentative.data.DTOBranch;
-import org.bh.plugin.branchSpecificRepresentative.data.DTOCompany;
 import org.bh.plugin.xmldataexchange.xmlimport.XMLImport;
 import org.bh.plugin.xmldataexchange.xmlimport.XMLNotValidException;
 
