@@ -3,13 +3,13 @@ package org.bh.plugin.branchSpecificRepresentative.swing;
 import java.awt.BorderLayout;
 import java.awt.Dimension;
 
-import javax.swing.JComboBox;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 
 import org.bh.gui.chart.BHChartFactory;
 import org.bh.gui.chart.BHChartPanel;
 import org.bh.gui.swing.BHPopupFrame;
+import org.bh.gui.swing.comp.BHComboBox;
 import org.bh.gui.swing.comp.BHDescriptionLabel;
 
 import com.jgoodies.forms.layout.CellConstraints;
@@ -47,7 +47,7 @@ public class BHDeviationAnalysisFrame extends BHPopupFrame {
 	}
 	
 	private BHChartPanel chartPanel;
-	private JComboBox cbAvailableAlgorithms, cbNorming;
+	private BHComboBox cbAvailableAlgorithms, cbNorming;
 	
 	/**
 	 * Automatically generated <code>serialVersionUID</code>.
@@ -117,9 +117,9 @@ public class BHDeviationAnalysisFrame extends BHPopupFrame {
 	 * to norm the data, we got for each business.
 	 * @return
 	 */
-	public JComboBox getComboBoxAvailableNorming(){
+	public BHComboBox getComboBoxAvailableNorming(){
 		if(cbNorming == null){
-			cbNorming = new JComboBox();
+			cbNorming = new BHComboBox("PSEUDO");
 		}
 		return cbNorming;
 	}
@@ -129,9 +129,9 @@ public class BHDeviationAnalysisFrame extends BHPopupFrame {
 	 * to calculate the industry specific representative.
 	 * @return
 	 */
-	public JComboBox getComboBoxAvailableAlgorithms(){
+	public BHComboBox getComboBoxAvailableAlgorithms(){
 		if(cbAvailableAlgorithms == null){
-			cbAvailableAlgorithms = new JComboBox();
+			cbAvailableAlgorithms = new BHComboBox("PSEUDO");
 		}
 		return cbAvailableAlgorithms;
 	}

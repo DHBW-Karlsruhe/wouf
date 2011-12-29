@@ -79,6 +79,11 @@ public class BHComboBox extends JComboBox implements IBHModelComponent,
 		});
 	}
 
+	/**
+	 * Use this method to set all available items in the ComboBox.
+	 * We can select entries afterwards via their key or index.
+	 * @param items All available items.
+	 */
 	public void setValueList(Item[] items) {
 		this.items = items;
 		if (sorted) {
@@ -125,6 +130,9 @@ public class BHComboBox extends JComboBox implements IBHModelComponent,
 		return key;
 	}
 
+	/**
+	 * Reloads the texts in the combo box. In case the language is changed.
+	 */
 	protected void reloadText() {
 		hint = Services.getTranslator().translate(key, ITranslator.LONG);
 		setToolTipText(hint);
@@ -215,6 +223,10 @@ public class BHComboBox extends JComboBox implements IBHModelComponent,
 	
 }
 class BHBoxRenderer extends BasicComboBoxRenderer {
+	/**
+	 * Comment for <code>serialVersionUID</code>
+	 */
+	private static final long serialVersionUID = 4422058255837522856L;
 	Object[] tooltip;
 	public BHBoxRenderer(Object[] tooltip){
 		this.tooltip = tooltip;
