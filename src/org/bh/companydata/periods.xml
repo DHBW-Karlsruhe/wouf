@@ -1,7 +1,7 @@
-<?xml version="1.0" encoding="UTF-8"?>
+﻿<?xml version="1.0" encoding="UTF-8"?>
 <businessdata class="org.bh.data.DTOBusinessData" xsi:schemaLocation="http://newsgymson.de/Marcus/BHDataExchange.xsd" xmlns="http://www.bh.org/dataexchange" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
  <children>
-  <branch class="org.bh.plugin.branchSpecificRepresentative.data.DTOBranch">
+  <branch class="org.bh.data.DTOBranch">
    <values>
     <value key="BRANCH_KEY" type="StringValue">
      <stringValue>10–33</stringValue>
@@ -15,7 +15,7 @@
     </value>
    </values>
    <children>
-    <company class="org.bh.plugin.branchSpecificRepresentative.data.DTOCompany">
+    <company class="org.bh.data.DTOCompany">
      <values>
       <value key="NAME" type="StringValue">
        <stringValue>Solarworld</stringValue>
@@ -89,7 +89,7 @@
       </period>
      </children>
     </company>
-    <company class="org.bh.plugin.branchSpecificRepresentative.data.DTOCompany">
+    <company class="org.bh.data.DTOCompany">
      <values>
       <value key="NAME" type="StringValue">
        <stringValue>Q-Cells</stringValue>
@@ -163,7 +163,7 @@
       </period>
      </children>
     </company>
-    <company class="org.bh.plugin.branchSpecificRepresentative.data.DTOCompany">
+    <company class="org.bh.data.DTOCompany">
      <values>
       <value key="NAME" type="StringValue">
        <stringValue>Phoenix Solar</stringValue>
@@ -237,7 +237,7 @@
       </period>
      </children>
     </company>
-    <company class="org.bh.plugin.branchSpecificRepresentative.data.DTOCompany">
+    <company class="org.bh.data.DTOCompany">
      <values>
       <value key="NAME" type="StringValue">
        <stringValue>SMA Solar</stringValue>
@@ -313,7 +313,7 @@
     </company>
    </children>
   </branch>
-  <branch class="org.bh.plugin.branchSpecificRepresentative.data.DTOBranch">
+  <branch class="org.bh.data.DTOBranch">
    <values>
     <value key="BRANCH_KEY" type="StringValue">
      <stringValue>10–34</stringValue>
@@ -326,7 +326,7 @@
     </value>
    </values>
    <children>
-    <company class="org.bh.plugin.branchSpecificRepresentative.data.DTOCompany">
+    <company class="org.bh.data.DTOCompany">
      <values>
       <value key="NAME" type="StringValue">
        <stringValue>Bilfinger Berger</stringValue>
@@ -400,7 +400,7 @@
       </period>
      </children>
     </company>
-    <company class="org.bh.plugin.branchSpecificRepresentative.data.DTOCompany">
+    <company class="org.bh.data.DTOCompany">
      <values>
       <value key="NAME" type="StringValue">
        <stringValue>Bauer AG</stringValue>
@@ -474,7 +474,7 @@
       </period>
      </children>
     </company>
-    <company class="org.bh.plugin.branchSpecificRepresentative.data.DTOCompany">
+    <company class="org.bh.data.DTOCompany">
      <values>
       <value key="NAME" type="StringValue">
        <stringValue>Hochtief AG</stringValue>
@@ -548,7 +548,7 @@
       </period>
      </children>
     </company>
-    <company class="org.bh.plugin.branchSpecificRepresentative.data.DTOCompany">
+    <company class="org.bh.data.DTOCompany">
      <values>
       <value key="NAME" type="StringValue">
        <stringValue>Lindner AG</stringValue>
@@ -624,7 +624,7 @@
     </company>
    </children>
   </branch>
-  <branch class="org.bh.plugin.branchSpecificRepresentative.data.DTOBranch">
+  <branch class="org.bh.data.DTOBranch">
    <values>
     <value key="BRANCH_KEY" type="StringValue">
      <stringValue>10–35</stringValue>
@@ -637,7 +637,7 @@
     </value>
    </values>
    <children>
-    <company class="org.bh.plugin.branchSpecificRepresentative.data.DTOCompany">
+    <company class="org.bh.data.DTOCompany">
      <values>
       <value key="NAME" type="StringValue">
        <stringValue>QSC</stringValue>
@@ -713,7 +713,7 @@
     </company>
    </children>
   </branch>
-  <branch class="org.bh.plugin.branchSpecificRepresentative.data.DTOBranch">
+  <branch class="org.bh.data.DTOBranch">
    <values>
     <value key="BRANCH_KEY" type="StringValue">
      <stringValue>11-00</stringValue>
@@ -726,7 +726,7 @@
     </value>
    </values>
    <children>
-    <company class="org.bh.plugin.branchSpecificRepresentative.data.DTOCompany">
+    <company class="org.bh.data.DTOCompany">
      <values>
       <value key="NAME" type="StringValue">
        <stringValue>Daimler AG</stringValue>
