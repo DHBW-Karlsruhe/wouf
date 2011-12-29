@@ -95,7 +95,7 @@ public final class BHStochasticInputForm extends JPanel {
 	private void initialize() {
 
 		String colDef = "4px,p,4px,p,4px,p,4px,p,120px,p,4px,p,0px:grow,4px";
-		String rowDef = "4px,p,4px,p,4px,p,4px,80px,10px,p,4px,p,4px,p,4px";
+		String rowDef = "4px,p,4px,p,4px,p,4px,80px,10px,p,4px,p,4px,p,4px,p,4px";
 		
 		FormLayout layout = new FormLayout(colDef, rowDef);
 		this.setLayout(layout);
@@ -298,7 +298,7 @@ public final class BHStochasticInputForm extends JPanel {
 		removeParametersPanel();
 		pParameters = component;
 		CellConstraints cons = new CellConstraints();
-		add(pParameters, cons.xywh(2, 14, 10, 1));
+		add(pParameters, cons.xywh(2, 16, 10, 1));
 		revalidate();
 	}
 	
@@ -318,7 +318,7 @@ public final class BHStochasticInputForm extends JPanel {
 		removeBranchSpecificRepresentativePanel();
 		branchSpecificRepresentativeParameters = component;
 		CellConstraints cons = new CellConstraints();
-		add(branchSpecificRepresentativeParameters, cons.xywh(2, 12, 10, 1));
+		add(branchSpecificRepresentativeParameters, cons.xywh(2, 14, 10, 1));
 		revalidate();
 	}
 	
