@@ -132,11 +132,16 @@ public class APVCalculator implements IShareholderValueCalculator {
 								+ uw[t]);
 			}
 		}
+		
+		//Prepare APV result:
+		//Fremdkapital
 		Map<String, Calculable[]> result = new HashMap<String, Calculable[]>();
 		result.put(IShareholderValueCalculator.Result.DEBT.toString(), fk);
+		//FCF
 		result.put(
 				IShareholderValueCalculator.Result.FREE_CASH_FLOW.toString(),
 				fcf);
+		//Shareholder Value
 		result.put(IShareholderValueCalculator.Result.SHAREHOLDER_VALUE
 				.toString(), uw);
 		result.put(IShareholderValueCalculator.Result.EQUITY_RETURN_RATE

@@ -52,7 +52,7 @@ public class GCCTotalCost implements ICalculationPreparer {
 				plsNow.getCalculable(DTOGCCProfitLossStatementTotalCost.Key.SBE),
 				plsNow.getCalculable(DTOGCCProfitLossStatementTotalCost.Key.AAE));
 		
-		// expensis
+		// expenses
 		ebit = ebit.sub(plsNow.getCalculable(DTOGCCProfitLossStatementTotalCost.Key.MA),
 				plsNow.getCalculable(DTOGCCProfitLossStatementTotalCost.Key.PA),
 				plsNow.getCalculable(DTOGCCProfitLossStatementTotalCost.Key.ABSCH),
