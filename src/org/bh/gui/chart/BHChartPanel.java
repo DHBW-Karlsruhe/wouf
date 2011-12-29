@@ -67,7 +67,7 @@ public class BHChartPanel extends JPanel implements IBHComponent, IPlatformListe
 	 */
 	private Class<? extends IBHAddValue> chartClass;
 	/**
-	 * reference tio the semantic repräsentation of the chart
+	 * reference to the semantic representation of the chart
 	 */
 	private IBHAddValue chartInstance;
 	/**
@@ -122,7 +122,7 @@ public class BHChartPanel extends JPanel implements IBHComponent, IPlatformListe
 		this.setBorder(BHBorderFactory.getInstacnce().createTitledBorder(
 				BHBorderFactory.getInstacnce().createEtchedBorder(), this.key));
 		
-		//Add as a Plattform Listener, because we want to hear when locale is changed to reoad the text.
+		//Add as a Plattform Listener, because we want to hear when locale is changed to reload the text.
 		Services.addPlatformListener(this);
 	}
 	
