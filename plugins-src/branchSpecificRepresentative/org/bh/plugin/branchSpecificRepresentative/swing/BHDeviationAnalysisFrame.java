@@ -1,6 +1,19 @@
 package org.bh.plugin.branchSpecificRepresentative.swing;
 
+import java.awt.BorderLayout;
+import java.awt.Dimension;
+
+import javax.swing.JComboBox;
+import javax.swing.JPanel;
+import javax.swing.JScrollPane;
+
+import org.bh.gui.chart.BHChartFactory;
+import org.bh.gui.chart.BHChartPanel;
 import org.bh.gui.swing.BHPopupFrame;
+import org.bh.gui.swing.comp.BHDescriptionLabel;
+
+import com.jgoodies.forms.layout.CellConstraints;
+import com.jgoodies.forms.layout.FormLayout;
 
 /**
  * Popup for deviation analysis.
@@ -14,19 +27,27 @@ import org.bh.gui.swing.BHPopupFrame;
  * than all the other entries. So it should be added last.
  *
  * @author Yannick Rödl
- * @version 1.0, 12.12.2011
+ * @version 0.1, 12.12.2011
+ * @author Yannick Rödl
+ * @version 0.2, 29.12.2011
  *
  */
 
 public class BHDeviationAnalysisFrame extends BHPopupFrame {
 
 	public enum GUI_KEYS{
-		TITLE;
+		TITLE,
+		LINE_CHART_DEVIATION_ANALYSIS,
+		NORMING,
+		ALGORITHM_REPRESENTATIVE;
 		
 		public String toString(){
 			return getClass().getName() + "." + super.toString();
 		}
 	}
+	
+	private BHChartPanel chartPanel;
+	private JComboBox cbAvailableAlgorithms, cbNorming;
 	
 	/**
 	 * Automatically generated <code>serialVersionUID</code>.
@@ -39,11 +60,22 @@ public class BHDeviationAnalysisFrame extends BHPopupFrame {
 	public BHDeviationAnalysisFrame(){
 		super();
 		
+		this.setSize(1000, 700); //We need more space.
+		
 		//Chart to display the deviation analysis
+		chartPanel = BHChartFactory.getLineChart(BHDeviationAnalysisFrame.GUI_KEYS.LINE_CHART_DEVIATION_ANALYSIS);
+		chartPanel.addSeries("BMW", new double[][]{{2005.0, 100.0}, {2006.0, 110.2}, {2007, 120}});
+		chartPanel.addSeries("Mercedes", new double[][]{{2005.0, 100.0}, {2006.0, 87.5}, {2007, 120}});
+		chartPanel.addSeries("VW", new double[][]{{2005, 100.0}, {2006.0, 98.2}, {2007, 120}});
+		chartPanel.addSeries("Peugeot", new double[][]{{2005.0, 100.0}, {2006.0, 115}, {2007, 120}});
+		chartPanel.addSeries("Renault", new double[][]{{2005.0, 100.0}, {2006, 113.2}, {2007, 120}});
 		
-		//If possible: ComboBox to switch between algorithms
+		JScrollPane scrollPane = new JScrollPane(chartPanel);
 		
-		
+		this.setLayout(new BorderLayout());
+		this.add(scrollPane, BorderLayout.CENTER);
+		this.add(this.getFurtherAnalysisOptionsPanel(), BorderLayout.EAST);
+//		this.add(chartPanel);
 		this.setVisible(true);
 	}
 	
@@ -52,5 +84,56 @@ public class BHDeviationAnalysisFrame extends BHPopupFrame {
 		return BHDeviationAnalysisFrame.GUI_KEYS.TITLE.toString();
 	}
 	
+	/**
+	 * This method returns a JPanel providing further ComboBoxes to select
+	 * a specific algorithm for one of the three calculation possibilities.
+	 * 1. Norming of the data
+	 * 2. Calculating representative
+	 * 3. Calculation of goodness of industry specific representative
+	 * 
+	 * @return
+	 */
+	public JPanel getFurtherAnalysisOptionsPanel(){
+		JPanel panel = new JPanel();
+		panel.setMaximumSize(new Dimension(200,800));
+		
+		String colDef = "4px,p,4px";
+		String rowDef = "4px,p,4px,p,4px,p,4px,p,4px";
+		
+		FormLayout layout = new FormLayout(colDef, rowDef);
+		panel.setLayout(layout);
+		CellConstraints cons = new CellConstraints();
+		
+		panel.add(new BHDescriptionLabel(BHDeviationAnalysisFrame.GUI_KEYS.NORMING), cons.xywh(2, 2, 1, 1));
+		panel.add(getComboBoxAvailableNorming(), cons.xywh(2, 4, 1, 1));
+		panel.add(new BHDescriptionLabel(BHDeviationAnalysisFrame.GUI_KEYS.ALGORITHM_REPRESENTATIVE), cons.xywh(2, 6, 1, 1));
+		panel.add(getComboBoxAvailableAlgorithms(), cons.xywh(2, 8, 1, 1));
+		
+		return panel;
+	}
+	
+	/**
+	 * Returns a comboBox providing all available algorithms
+	 * to norm the data, we got for each business.
+	 * @return
+	 */
+	public JComboBox getComboBoxAvailableNorming(){
+		if(cbNorming == null){
+			cbNorming = new JComboBox();
+		}
+		return cbNorming;
+	}
+	
+	/**
+	 * Returns a comboBox providing all available algorithms
+	 * to calculate the industry specific representative.
+	 * @return
+	 */
+	public JComboBox getComboBoxAvailableAlgorithms(){
+		if(cbAvailableAlgorithms == null){
+			cbAvailableAlgorithms = new JComboBox();
+		}
+		return cbAvailableAlgorithms;
+	}
 
 }
