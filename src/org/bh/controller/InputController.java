@@ -171,8 +171,8 @@ public class InputController extends Controller implements IInputController {
 
 			model.put(baseKey, new IntervalValue(min, max));
 		}
-		else if(key.startsWith("org.bh.data.DTOScenario$Key.TIMESERIES_PROCESS")){
-			//Timeseriesperiod checkbox sould not be saved!
+		else if(key.startsWith("org.bh.data.DTOScenario$Key.TIMESERIES_PROCESS") || key.startsWith("org.bh.data.DTOScenario$Key.BRANCH_SPECIFIC")){
+			//Timeseriesperiod and dependent branch specific checkbox sould not be saved!
 		}
 		else {
 			// "normal" value
