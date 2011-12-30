@@ -22,7 +22,7 @@ public interface IBranchSpecificCalculator {
 	 * @return normed Value
 	 */
 	
-	DTOBranch[] getNormedCFValue(String choice, DTOBranch[] cashflow);
+	DTOBusinessData getNormedCFValue(String choice, DTOBusinessData businessData);
 	
 	/**
 	 * This method calculates the arithmetic average.
@@ -30,7 +30,7 @@ public interface IBranchSpecificCalculator {
 	 * @return arithmetic average
 	 */
 	
-	DTOBranch[] getArithmeticAverage(String choice, DTOBranch[] cashflows);
+	DTOBranchSpecificRep[] getArithmeticAverage(String choice, DTOBusinessData businessDataNormed);
 	
 	/**
 	 * This method calculates the rating of the branch.
