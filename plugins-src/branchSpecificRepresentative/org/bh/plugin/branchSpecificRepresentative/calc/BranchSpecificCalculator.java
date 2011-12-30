@@ -1,6 +1,6 @@
 package org.bh.plugin.branchSpecificRepresentative.calc;
 
-import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
@@ -11,8 +11,6 @@ import org.bh.data.DTOBusinessData;
 import org.bh.data.DTOCompany;
 import org.bh.data.DTOPeriod;
 import org.bh.data.types.DoubleValue;
-import org.bh.data.types.IValue;
-
 
 /**
  * <short_description>
@@ -47,18 +45,17 @@ public class BranchSpecificCalculator implements IBranchSpecificCalculator {
 				// echo them
 				System.out.println("----"
 						+ currCompany.get(DTOCompany.Key.NAME));
-				
+
 				// Norm all FCF-Period-Values
 				getNormedCFValue("", currCompany);
-				
-				
 
 			}
 		}
-		
+
 		// mit normierter BusinessData die Mittelwerte berechnen
-		DTOBranchSpecificRep[] dtoBSRaverage = getArithmeticAverage("",businessData);
-		
+		ArrayList<DTOBranchSpecificRep> dtoBSRaverage = getArithmeticAverage("",
+				businessData);
+
 		return businessData;
 
 	}
@@ -73,39 +70,92 @@ public class BranchSpecificCalculator implements IBranchSpecificCalculator {
 		DoubleValue helpFCF = null;
 		double helpDouble = 0;
 		DoubleValue normedFCF;
-		if(PeriodItr.hasNext()){
+		if (PeriodItr.hasNext()) {
 			DTOPeriod firstPeriod = PeriodItr.next();
-			firstFCF = (DoubleValue)firstPeriod.get(DTOPeriod.Key.FCF);
+			firstFCF = (DoubleValue) firstPeriod.get(DTOPeriod.Key.FCF);
 			firstDouble = firstFCF.getValue();
 		}
 		while (PeriodItr.hasNext()) {
 			DTOPeriod currPeriod = PeriodItr.next();
 
-			
-			System.out.println("---------" + currPeriod.get(DTOPeriod.Key.FCF));
-			helpFCF = (DoubleValue)currPeriod.get(DTOPeriod.Key.FCF);
+			helpFCF = (DoubleValue) currPeriod.get(DTOPeriod.Key.FCF);
 			helpDouble = helpFCF.getValue();
-			if(firstDouble < 0){
-				normedFCF = new DoubleValue(((helpDouble / firstDouble) * (-1)) + 1);
-	///			DTOPeriod.Key.FCF = normedFCF;
-				
-			}else{
-				normedFCF = new DoubleValue(((helpDouble / firstDouble) -1));
-	///			DTOPeriod.Key.FCF = normedFCF;
-				
-				
-			}
-			
-		}
+			if (firstDouble < 0) {
+				normedFCF = new DoubleValue(
+						((helpDouble / firstDouble) * (-1)) + 1);
+				currPeriod.put(DTOPeriod.Key.FCF, normedFCF);
 
+			} else {
+				normedFCF = new DoubleValue(((helpDouble / firstDouble) - 1));
+				currPeriod.put(DTOPeriod.Key.FCF, normedFCF);
+
+			}
+
+		}
 
 	}
 
-	public DTOBranchSpecificRep[] getArithmeticAverage(String choice,
+	public ArrayList<DTOBranchSpecificRep> getArithmeticAverage(String choice,
 			DTOBusinessData businessDataNormed) {
-		DTOBranchSpecificRep[] array = null;
+
+		ArrayList<DTOBranchSpecificRep> blub = new ArrayList<DTOBranchSpecificRep>();
+
+		List<DTOBranch> branchList = businessDataNormed.getChildren();
+		double avgFCF[] = null;
+
+		// Iterate all Company DTOs
+		Iterator<DTOBranch> itr = branchList.iterator();
+		while (itr.hasNext()) {
+			DTOBranch currBranch = itr.next();
+
+			// echos the branch keys
+			System.out.println(currBranch.get(DTOBranch.Key.BRANCH_KEY));
+
+			//
+			// Do the Branch has Companies?
+			List<DTOCompany> companyList = currBranch.getChildren();
+			Iterator<DTOCompany> CompanyItr = companyList.iterator();
+			int counter = 0;
+			while (CompanyItr.hasNext()) {
+				DTOCompany currCompany = CompanyItr.next();
+				counter++;
+
+				// echo them
+				System.out.println("----"
+						+ currCompany.get(DTOCompany.Key.NAME));
+
+				//
+				// Do the Company has any Periods?
+				List<DTOPeriod> periodList = currCompany.getChildren();
+				Iterator<DTOPeriod> PeriodItr = periodList.iterator();
+				double sumFCF = 0;
+				DoubleValue helper = null;
+				int innerCounter = 0;
+				while (PeriodItr.hasNext()) {
+					DTOPeriod currPeriod = PeriodItr.next();
+
+					// echo the name of the Period
+					System.out.println("---------"
+							+ currPeriod.get(DTOPeriod.Key.NAME));
+					helper = (DoubleValue) currPeriod.get(DTOPeriod.Key.FCF);
+					sumFCF = sumFCF + helper.getValue();
+					innerCounter++;
+				}
+				avgFCF[counter] = sumFCF / innerCounter;
+
+			}
+			double avgBranchFCF = 0;
+			//Durchschnittlicher FCF für eine Branche berechnen
+			for(int i = 0;i <= avgFCF.length; i++){
+				avgBranchFCF = avgBranchFCF + avgFCF[i];
+			}
+			avgBranchFCF = avgBranchFCF / avgFCF.length;
+			
+			blub.add(new DTOBranchSpecificRep(""+ currBranch.get(DTOBranch.Key.BRANCH), avgBranchFCF));
 		
-		return array;
+		}
+
+		return blub;
 
 	}
 

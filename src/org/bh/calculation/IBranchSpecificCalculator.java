@@ -1,5 +1,7 @@
 package org.bh.calculation;
 
+import java.util.ArrayList;
+
 import org.bh.data.*;
 
 
@@ -32,7 +34,7 @@ public interface IBranchSpecificCalculator {
 	 * @return arithmetic average
 	 */
 	
-	DTOBranchSpecificRep[] getArithmeticAverage(String choice, DTOBusinessData businessDataNormed);
+	ArrayList<DTOBranchSpecificRep> getArithmeticAverage(String choice, DTOBusinessData businessDataNormed);
 	
 	/**
 	 * This method calculates the rating of the branch.
