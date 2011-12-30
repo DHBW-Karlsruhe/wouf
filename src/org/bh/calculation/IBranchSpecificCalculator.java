@@ -15,6 +15,8 @@ import org.bh.data.*;
 
 public interface IBranchSpecificCalculator {
 	
+	DTOBusinessData calculateBSR(DTOBusinessData businessData);
+	
 	/**
 	 * This method calculates the normed value of the cashflows based on the 
 	 * first cashflow value.
@@ -22,7 +24,7 @@ public interface IBranchSpecificCalculator {
 	 * @return normed Value
 	 */
 	
-	DTOBusinessData getNormedCFValue(String choice, DTOBusinessData businessData);
+	void getNormedCFValue(String choice, DTOCompany currCompany);
 	
 	/**
 	 * This method calculates the arithmetic average.
