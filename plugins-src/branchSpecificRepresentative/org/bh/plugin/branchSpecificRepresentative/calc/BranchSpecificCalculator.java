@@ -12,7 +12,7 @@ import org.bh.data.DTOCompany;
 import org.bh.data.DTOPeriod;
 import org.bh.data.types.DoubleValue;
 import org.bh.data.types.IValue;
-import org.bh.plugin.xmldataexchange.xmlimport.XMLNotValidException;
+
 
 /**
  * <short_description>
