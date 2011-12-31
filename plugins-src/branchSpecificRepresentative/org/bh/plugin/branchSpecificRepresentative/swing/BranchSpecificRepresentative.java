@@ -1,15 +1,20 @@
 package org.bh.plugin.branchSpecificRepresentative.swing;
 
+import java.util.ServiceLoader;
 import java.util.TreeMap;
 
 import javax.swing.JPanel;
 
+import org.apache.log4j.Logger;
+import org.bh.calculation.IBranchSpecificCalculator;
 import org.bh.calculation.ITimeSeriesProcess;
+import org.bh.data.DTOBranch;
 import org.bh.data.DTOScenario;
 import org.bh.gui.swing.comp.BHButton;
 import org.bh.gui.swing.comp.BHDescriptionLabel;
 import org.bh.gui.swing.comp.BHProgressBar;
 import org.bh.gui.swing.comp.BHTextField;
+import org.bh.platform.PluginManager;
 import org.bh.platform.i18n.BHTranslator;
 import org.bh.platform.i18n.ITranslator;
 
@@ -56,11 +61,14 @@ public class BranchSpecificRepresentative implements ITimeSeriesProcess {
 		//get translator
 		ITranslator translator = BHTranslator.getInstance();
 		
+		//calculate goodness
+		double goodness = getGoodness();
+		
 		//create goodness field
 		BHTextField tfBranchSpecGoodness = new BHTextField(Elements.BRANCH_SPECIFIC_REPRESENTATIVE_GOODNESS);
 		tfBranchSpecGoodness.setEditable(false);
 		tfBranchSpecGoodness.setToolTipText(translator.translate(Elements.BRANCH_SPECIFIC_REPRESENTATIVE_GOODNESS, ITranslator.LONG));
-		tfBranchSpecGoodness.setText("10 %");
+		tfBranchSpecGoodness.setText("" + goodness + " %");
 		
 		BHDescriptionLabel dlGoodnessDescription = new BHDescriptionLabel(
 				Elements.BRANCH_SPECIFIC_REPRESENTATIVE_GOODNESS); 
@@ -78,6 +86,36 @@ public class BranchSpecificRepresentative implements ITimeSeriesProcess {
 				cons.xywh(6, 2, 1, 1));
 		
 		return result;
+	}
+	
+	/**
+	 * This method calculates the (best) goodness of the branch
+	 * specific representative and returns the value of it.
+	 * 
+	 * @return goodness of branch specific representative
+	 */
+	private double getGoodness(){
+		//TODO integrate goodness calculation here - use all the business data we have and
+		// calculate with all available variations
+		double goodness = 9999999999999.99; //we're searching minimum.
+		
+		//Load every Calculator Plugin
+		ServiceLoader<IBranchSpecificCalculator> calculators = PluginManager
+		.getInstance().getServices(IBranchSpecificCalculator.class);
+		
+		for(IBranchSpecificCalculator calculator : calculators){
+			//Try calculating the goodness
+			try{
+				DTOBranch[] branch = new DTOBranch[4];
+				double tempGoodness = calculator.getRating(branch);
+				if(tempGoodness < goodness){
+					goodness = tempGoodness;
+				}
+			} catch (Exception e){
+				Logger.getLogger(BranchSpecificRepresentative.class).error("Error calculating branch specific representative", e);
+			}
+		}
+		return goodness;
 	}
 
 	@Override
