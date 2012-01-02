@@ -1,17 +1,16 @@
-﻿<?xml version="1.0" encoding="UTF-8"?>
+<?xml version="1.0" encoding="UTF-8"?>
 <businessdata class="org.bh.data.DTOBusinessData" xsi:schemaLocation="http://newsgymson.de/Marcus/BHDataExchange.xsd" xmlns="http://www.bh.org/dataexchange" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
  <children>
   <branch class="org.bh.data.DTOBranch">
    <values>
-    <value key="BRANCH_KEY" type="StringValue">
-     <stringValue>10–33</stringValue>
+    <value key="BRANCH_KEY_MAIN_CATEGORY" type="StringValue">
+     <stringValue>M</stringValue>
     </value>
-    <value key="BRANCH" type="HashValue">
-     <hashValue>
-      <hashElement key="EN">Manufacturing Companies</hashElement>
-      <hashElement key="DE">Verarbeitendes Gewerbe/Herstellung von Waren</hashElement>
-      <hashElement key="SP">Spanish Translation</hashElement>      
-     </hashValue>
+    <value key="BRANCH_KEY_MID_CATEGORY" type="StringValue">
+     <stringValue>10</stringValue>
+    </value>
+    <value key="BRANCH_KEY_SUB_CATEGORY" type="StringValue">
+     <stringValue>33</stringValue>
     </value>
    </values>
    <children>
@@ -315,14 +314,14 @@
   </branch>
   <branch class="org.bh.data.DTOBranch">
    <values>
-    <value key="BRANCH_KEY" type="StringValue">
-     <stringValue>10–34</stringValue>
+    <value key="BRANCH_KEY_MAIN_CATEGORY" type="StringValue">
+     <stringValue>M</stringValue>
     </value>
-    <value key="BRANCH" type="HashValue">
-     <hashValue>
-      <hashElement key="EN">Building Companies</hashElement>
-      <hashElement key="DE">Baugewerbe/Bau</hashElement>
-     </hashValue>
+    <value key="BRANCH_KEY_MID_CATEGORY" type="StringValue">
+     <stringValue>10</stringValue>
+    </value>
+    <value key="BRANCH_KEY_SUB_CATEGORY" type="StringValue">
+     <stringValue>34</stringValue>
     </value>
    </values>
    <children>
@@ -626,14 +625,14 @@
   </branch>
   <branch class="org.bh.data.DTOBranch">
    <values>
-    <value key="BRANCH_KEY" type="StringValue">
-     <stringValue>10–35</stringValue>
+    <value key="BRANCH_KEY_MAIN_CATEGORY" type="StringValue">
+     <stringValue>M</stringValue>
     </value>
-    <value key="BRANCH" type="HashValue">
-     <hashValue>
-      <hashElement key="EN">Internet Services</hashElement>
-      <hashElement key="DE">Internetdienstleistungen</hashElement>
-     </hashValue>
+    <value key="BRANCH_KEY_MID_CATEGORY" type="StringValue">
+     <stringValue>10</stringValue>
+    </value>
+    <value key="BRANCH_KEY_SUB_CATEGORY" type="StringValue">
+     <stringValue>35</stringValue>
     </value>
    </values>
    <children>
@@ -715,14 +714,14 @@
   </branch>
   <branch class="org.bh.data.DTOBranch">
    <values>
-    <value key="BRANCH_KEY" type="StringValue">
-     <stringValue>11-00</stringValue>
+    <value key="BRANCH_KEY_MAIN_CATEGORY" type="StringValue">
+     <stringValue>M</stringValue>
     </value>
-    <value key="BRANCH" type="HashValue">
-     <hashValue>
-      <hashElement key="EN">Automotive Companies</hashElement>
-      <hashElement key="DE">Automotive</hashElement>
-     </hashValue>
+    <value key="BRANCH_KEY_MID_CATEGORY" type="StringValue">
+     <stringValue>11</stringValue>
+    </value>
+    <value key="BRANCH_KEY_SUB_CATEGORY" type="StringValue">
+     <stringValue>45</stringValue>
     </value>
    </values>
    <children>
