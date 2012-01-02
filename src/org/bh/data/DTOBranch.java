@@ -21,8 +21,9 @@ public class DTOBranch extends DTO<DTOCompany> {
 	private static final Logger log = Logger.getLogger(DTOPeriod.class);	
 
 	public enum Key{
-		BRANCH_KEY,
-		BRANCH
+		BRANCH_KEY_MAIN_CATEGORY,
+		BRANCH_KEY_MID_CATEGORY,
+		BRANCH_KEY_SUB_CATEGORY
 	}
 	
     /**
