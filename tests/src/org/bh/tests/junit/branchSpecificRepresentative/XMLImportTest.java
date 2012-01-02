@@ -45,7 +45,9 @@ public class XMLImportTest extends TestCase {
 	    		DTOBranch currBranch = itr.next();			
 	    			
 	    		// echos the branch keys
-	    		System.out.println(currBranch.get(DTOBranch.Key.BRANCH_KEY));
+	    		System.out.print(currBranch.get(DTOBranch.Key.BRANCH_KEY_MAIN_CATEGORY));
+	    		System.out.print(currBranch.get(DTOBranch.Key.BRANCH_KEY_MID_CATEGORY));
+	    		System.out.println(currBranch.get(DTOBranch.Key.BRANCH_KEY_SUB_CATEGORY));	    		
 	    		
 	    		//
 	    		// Do the Branch has Companies?	    		
