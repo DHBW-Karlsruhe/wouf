@@ -53,8 +53,8 @@ public class BranchSpecificCalculator implements IBranchSpecificCalculator {
 		}
 
 		// mit normierter BusinessData die Mittelwerte berechnen
-		ArrayList<DTOBranchSpecificRep> dtoBSRaverage = getArithmeticAverage("",
-				businessData);
+		ArrayList<DTOBranchSpecificRep> dtoBSRaverage = getArithmeticAverage(
+				"", businessData);
 
 		return businessData;
 
@@ -98,7 +98,7 @@ public class BranchSpecificCalculator implements IBranchSpecificCalculator {
 	public ArrayList<DTOBranchSpecificRep> getArithmeticAverage(String choice,
 			DTOBusinessData businessDataNormed) {
 
-		ArrayList<DTOBranchSpecificRep> blub = new ArrayList<DTOBranchSpecificRep>();
+		ArrayList<DTOBranchSpecificRep> arithmeticAverage = new ArrayList<DTOBranchSpecificRep>();
 
 		List<DTOBranch> branchList = businessDataNormed.getChildren();
 		double avgFCF[] = null;
@@ -144,18 +144,42 @@ public class BranchSpecificCalculator implements IBranchSpecificCalculator {
 				avgFCF[counter] = sumFCF / innerCounter;
 
 			}
+
 			double avgBranchFCF = 0;
-			//Durchschnittlicher FCF für eine Branche berechnen
-			for(int i = 0;i <= avgFCF.length; i++){
-				avgBranchFCF = avgBranchFCF + avgFCF[i];
+
+			// Durchschnittlicher FCF für eine Branche berechnen
+
+			if (choice == "") {
+				for (int i = 0; i <= avgFCF.length; i++) {
+					avgBranchFCF = avgBranchFCF + avgFCF[i];
+				}
+				avgBranchFCF = avgBranchFCF / avgFCF.length;
+				
+			} else {
+				// else-Routine --> gestutzter Mittelwert
+				
+				// neues Array, da kleinster und größter Wert aus avgFCF "gelöscht" werden
+				double[] avgFCFcuted = new double[avgFCF.length-2];
+								
+				// avgFCF-Array aufsteigend sortieren
+				java.util.Arrays.sort(avgFCF);
+				
+				// kleinster und größter Wert weglassen und neues Array befüllen
+				for(int i = 0; i < avgFCF.length-2;i++){
+					avgFCFcuted[i] = avgFCF[i+1];
+					avgBranchFCF = avgBranchFCF + avgFCFcuted[i];
+				}
+				
+				avgBranchFCF = avgBranchFCF / avgFCFcuted.length;
+
 			}
-			avgBranchFCF = avgBranchFCF / avgFCF.length;
-			
-			blub.add(new DTOBranchSpecificRep(""+ currBranch.get(DTOBranch.Key.BRANCH), avgBranchFCF));
-		
+
+			arithmeticAverage.add(new DTOBranchSpecificRep(""
+					+ currBranch.get(DTOBranch.Key.BRANCH), avgBranchFCF));
+
 		}
 
-		return blub;
+		return arithmeticAverage;
 
 	}
 
