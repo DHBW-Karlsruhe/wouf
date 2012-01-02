@@ -33,7 +33,7 @@ public class BranchSpecificCalculator implements IBranchSpecificCalculator {
 			DTOBranch currBranch = itr.next();
 
 			// echos the branch keys
-			System.out.println(currBranch.get(DTOBranch.Key.BRANCH_KEY));
+			System.out.println(currBranch.get(DTOBranch.Key.BRANCH_KEY_MAIN_CATEGORY));
 
 			//
 			// Do the Branch has Companies?
@@ -109,7 +109,7 @@ public class BranchSpecificCalculator implements IBranchSpecificCalculator {
 			DTOBranch currBranch = itr.next();
 
 			// echos the branch keys
-			System.out.println(currBranch.get(DTOBranch.Key.BRANCH_KEY));
+			System.out.println(currBranch.get(DTOBranch.Key.BRANCH_KEY_MAIN_CATEGORY));
 
 			//
 			// Do the Branch has Companies?
@@ -175,7 +175,7 @@ public class BranchSpecificCalculator implements IBranchSpecificCalculator {
 			}
 
 			arithmeticAverage.add(new DTOBranchSpecificRep(""
-					+ currBranch.get(DTOBranch.Key.BRANCH), avgBranchFCF));
+					+ currBranch.get(DTOBranch.Key.BRANCH_KEY_MAIN_CATEGORY), avgBranchFCF));
 
 		}
 
