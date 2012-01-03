@@ -27,11 +27,13 @@ import java.io.ObjectOutputStream;
 import java.io.ObjectStreamClass;
 import java.util.ArrayList;
 import java.util.Iterator;
+import java.util.Map;
 
 import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
 
 import org.apache.log4j.Logger;
+import org.bh.data.DTOBusinessData;
 import org.bh.data.DTOProject;
 import org.bh.gui.swing.BHMainFrame;
 import org.bh.gui.swing.BHOptionPane;
@@ -268,8 +270,10 @@ public class PlatformPersistenceManager {
 
 			log.debug("ProjectRepository successfully saved to " + path);
 
-			//TODO save DTOBusinessData
-			saveDTOBusinessData();
+			//save DTOBusinessData
+			if(!saveDTOBusinessData()){
+				throw new IOException();
+			}
 			
 			// Set isChanged
 			ProjectRepositoryManager.setChanged(false);
@@ -293,9 +297,40 @@ public class PlatformPersistenceManager {
 		}
 	}
 	
+	/**
+	 * This method saves the Business data into a location on the local filesystem.
+	 * The path cannot be altered by the user. We plan to hide the file here.
+	 * @return boolean whether it was successful or not.
+	 */
 	public boolean saveDTOBusinessData(){
-		//TODO implement
-		PlatformController.preferences.put("branches", "");
+		//generate path to save file;
+		String savePath = Services.generateBranchDataFilePath();
+		log.debug("Save path for company data: " + savePath);
+//		checkFile(new File(savePath));
+		
+		//Get right plugin
+		Map<String, IImportExport> plugins = Services.getImportExportPlugins(IImportExport.EXP_PROJECT);
+		
+		IImportExport plugin = plugins.get("XML");
+		
+		
+		try{
+			//Get businessDataDTO
+			PlatformController platformController = PlatformController.getInstance();
+			DTOBusinessData dtoBusinessData = platformController.getBusinessDataDTO();
+			
+			//Trigger export
+			plugin.setFileAndModel(savePath, dtoBusinessData);
+			plugin.startExport();
+		
+		} catch (IOException ioe){
+			//Wrong filepath?
+			log.error("Failed to write into XML", ioe);
+			return false;
+		}
+		
+		PlatformController.preferences.put("branches", savePath);
+		
 		return true;
 	}
 	

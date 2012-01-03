@@ -206,4 +206,17 @@ public interface IImportExport extends IDisplayablePlugin {
 	 */
 	IDTO<?> startImport() throws IOException, RuntimeException;
 
+	/**
+	 * Do not use!!!
+	 * @param filename Name of file to write in
+	 * @param model DTO to export
+	 */
+	void setFileAndModel(String filename, IDTO<?> model);
+	
+	/**
+	 * Starts export of DTO into file.
+	 * @return true if everything went well
+	 * @throws IOException
+	 */
+	boolean startExport() throws IOException;
 }

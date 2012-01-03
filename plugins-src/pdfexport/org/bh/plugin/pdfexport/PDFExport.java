@@ -408,4 +408,16 @@ public class PDFExport implements IImportExport {
 	public IDTO<?> startImport() throws IOException, RuntimeException {
 		throw new UnsupportedOperationException("This method has not been implemented");
 	}
+
+	/* Specified by interface/super class. */
+	@Override
+	public void setFileAndModel(String filename, IDTO<?> model) {
+		throw new UnsupportedOperationException("This method has not been implemented");
+	}
+
+	/* Specified by interface/super class. */
+	@Override
+	public boolean startExport() throws IOException {
+		throw new UnsupportedOperationException("This method has not been implemented");
+	}
 }

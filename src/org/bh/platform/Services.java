@@ -19,6 +19,8 @@ import java.awt.Color;
 import java.awt.Component;
 import java.awt.Container;
 import java.awt.Image;
+import java.io.File;
+import java.io.IOException;
 import java.io.StringWriter;
 import java.lang.reflect.Field;
 import java.net.URL;
@@ -499,6 +501,7 @@ public class Services {
 			plugin.setFile(Services.IMPORT_PATH_BRANCHES_DEFAULT);
 		} else {
 			plugin.setFile(xmlBranchesName);
+			log.info("Loading branch XML from path: " + xmlBranchesName);
 		}
 		
 		DTOBusinessData bd = null;
@@ -541,6 +544,47 @@ public class Services {
 			//Loaded data should not imply that the user changed something.
 			ProjectRepositoryManager.setChanged(false);
 		}
+	}
+	
+	/**
+	 * This method generates the path to the xml file, where the branch data
+	 * is stored. This path is created hidden, so the user should not see it, and
+	 * should therefore not be able to modify it.
+	 * @return generated path to the place, where the xml should be stored.
+	 */
+	public static String generateBranchDataFilePath(){
+		String filePath = System.getProperty("user.home");
+		filePath = filePath + File.separator;
+		if(!System.getProperty("os.name").startsWith("Windows")){
+			filePath += ".";
+		}
+		
+		filePath += "BusinessHorizon";
+		
+		//Check if filePath exists
+		File f = new File(filePath);
+		if(!f.exists()){
+			f.mkdir();
+			
+			//Hide folder in windows
+			if(System.getProperty("os.name").startsWith("Windows")){
+				try {
+					Runtime.getRuntime().exec("attrib +H " + filePath);
+				} catch (IOException e) {
+					log.error("Could not hide folder", e);
+				}
+			}
+		}
+		
+		filePath = filePath + File.separator;
+		
+		//Windows uses other things to hide file Path.
+		if(!System.getProperty("os.name").startsWith("Windows")){
+			filePath += ".";
+		}
+		
+		filePath += "BH_Unternehmensdaten.xml";
+		return filePath;
 	}
 
 	/**

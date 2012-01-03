@@ -54,6 +54,7 @@ public class XMLDataExchangeController implements IImportExport, ActionListener 
 	private static final Logger log = Logger.getLogger(XMLDataExchangeController.class);
 	
 	private XMLImport importXMLBSR;
+	private XMLExport exportXMLBSR;
 	
 	private Object exportModel = null;
 	private IDTO<?> importModel = null;
@@ -553,6 +554,18 @@ public class XMLDataExchangeController implements IImportExport, ActionListener 
 			log.error("Could not load XML", e);
 			throw new RuntimeException(e);
 		}
+	}
+
+	/* Specified by interface/super class. */
+	@Override
+	public void setFileAndModel(String filename, IDTO<?> model) {
+		exportXMLBSR = new XMLExport(filename, model);
+	}
+
+	/* Specified by interface/super class. */
+	@Override
+	public boolean startExport() throws IOException {
+		return exportXMLBSR.startExport();
 	}
 
 
