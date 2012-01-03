@@ -20,22 +20,18 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
 import java.util.Calendar;
-
-import javax.swing.JDialog;
 import javax.swing.JFileChooser;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.WindowConstants;
 import javax.swing.tree.DefaultMutableTreeNode;
 import javax.swing.tree.TreePath;
-
 import org.apache.log4j.Logger;
 import org.bh.controller.IDataExchangeController;
 import org.bh.data.DTOPeriod;
 import org.bh.data.DTOProject;
 import org.bh.data.DTOScenario;
 import org.bh.data.types.DoubleValue;
-import org.bh.data.types.IntegerValue;
 import org.bh.data.types.StringValue;
 import org.bh.gui.IBHAction;
 import org.bh.gui.swing.BHAboutBox;
@@ -567,6 +563,9 @@ class PlatformActionListener implements ActionListener {
 			
 			newScenario.put(DTOScenario.Key.DEFAULT, new 
 					StringValue(BHTranslator.getInstance().translate("scenario_default_value_description")));
+			
+			newScenario.put(DTOScenario.Key.AVERAGEV, new 
+					StringValue(BHTranslator.getInstance().translate("scenario_average_description")));
 					
 
 

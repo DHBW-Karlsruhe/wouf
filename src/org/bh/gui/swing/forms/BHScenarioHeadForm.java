@@ -18,10 +18,8 @@ package org.bh.gui.swing.forms;
 
 import java.awt.Component;
 import java.util.Vector;
-
 import javax.swing.JLabel;
 import javax.swing.JPanel;
-
 import org.bh.data.DTOScenario;
 import org.bh.data.types.IntegerValue;
 import org.bh.gui.swing.comp.BHComboBox;
@@ -35,7 +33,6 @@ import org.bh.validation.VRIsLowerThan;
 import org.bh.validation.VRIsPositive;
 import org.bh.validation.VRMandatory;
 import org.bh.validation.ValidationRule;
-
 import com.jgoodies.forms.layout.CellConstraints;
 import com.jgoodies.forms.layout.FormLayout;
 
@@ -56,6 +53,10 @@ public final class BHScenarioHeadForm extends JPanel{
 	private BHDescriptionLabel ldeptyield;					//Renditeforderung Fremdkapital
 	private BHDescriptionLabel ltradetax;					//Gewerbesteuer
 	private BHDescriptionLabel lcorporatetax;				//Körperschaftssteuer & Solidaritätszuschlag
+	private BHDescriptionLabel lpercentequity;
+	private BHDescriptionLabel lpercentdept;
+	private BHDescriptionLabel lpercenttrade;
+	private BHDescriptionLabel lpercentcorporate;
 
 	private BHTextField tfscenname;							//Szenarioname
 	private BHTextField tfscendescript;						//Kommentar für ein Szenario
@@ -67,11 +68,6 @@ public final class BHScenarioHeadForm extends JPanel{
 	private BHTextField tfcorporatetax;						//Körperschaftssteuer & Solidaritätszuschlag
     
 	private IntegerValue vequity;
-	
-	private JLabel lpercentequity;
-	private JLabel lpercentdept;
-	private JLabel lpercenttrade;
-	private JLabel lpercentcorporate;
 	
 	private BHDescriptionLabel lPeriodType;
 	private BHComboBox cmbPeriodType;
@@ -361,7 +357,7 @@ public final class BHScenarioHeadForm extends JPanel{
 	public JLabel getlpercentEquity() {
 
 		if (this.lpercentequity == null) {
-			this.lpercentequity = new JLabel("%  (14)");
+			this.lpercentequity = new BHDescriptionLabel("%  (14)", DTOScenario.Key.AVERAGEV);
 		}
 		return this.lpercentequity;
 	}
@@ -374,7 +370,7 @@ public final class BHScenarioHeadForm extends JPanel{
 	public JLabel getlpercentDept() {
 
 		if (this.lpercentdept == null) {
-			this.lpercentdept = new JLabel("%  (10)");
+			this.lpercentdept = new BHDescriptionLabel("%  (10)", DTOScenario.Key.AVERAGEV);
 		}
 		return this.lpercentdept;
 	}
@@ -387,7 +383,7 @@ public final class BHScenarioHeadForm extends JPanel{
 	public JLabel getlpercentTrade() {
 
 		if (this.lpercenttrade == null) {
-			this.lpercenttrade = new JLabel("%  (3,5)");
+			this.lpercenttrade = new BHDescriptionLabel("%  (3,5)", DTOScenario.Key.AVERAGEV);
 		}
 		return this.lpercenttrade;
 	}
@@ -400,7 +396,7 @@ public final class BHScenarioHeadForm extends JPanel{
 	public JLabel getlpercentCorporate() {
 
 		if (this.lpercentcorporate == null) {
-			this.lpercentcorporate = new JLabel("%  (15)");
+			this.lpercentcorporate = new BHDescriptionLabel("%  (15)", DTOScenario.Key.AVERAGEV);
 		}
 		return this.lpercentcorporate;
 	}

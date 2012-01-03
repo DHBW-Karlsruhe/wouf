@@ -66,6 +66,11 @@ public class DTOScenario extends DTO<DTOPeriod> {
 		DEFAULT,
 		
 		/**
+		 * average Value description
+		 */
+		AVERAGEV,
+		
+		/**
 		 * corporate income tax
 		 */
 		CTAX,
