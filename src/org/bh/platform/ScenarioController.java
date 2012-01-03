@@ -25,6 +25,7 @@ import java.util.Collection;
 import java.util.Comparator;
 import java.util.List;
 import java.util.Map;
+import java.util.ServiceLoader;
 
 import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
@@ -32,11 +33,13 @@ import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 
 import org.apache.log4j.Logger;
+import org.bh.calculation.IBranchSpecificCalculator;
 import org.bh.calculation.IShareholderValueCalculator;
 import org.bh.calculation.IStochasticProcess;
 import org.bh.calculation.ITimeSeriesProcess;
 import org.bh.controller.IPeriodController;
 import org.bh.controller.InputController;
+import org.bh.data.DTOBusinessData;
 import org.bh.data.DTOKeyPair;
 import org.bh.data.DTOScenario;
 import org.bh.data.IDTO;
@@ -66,6 +69,7 @@ import org.bh.gui.view.ViewEvent;
 import org.bh.gui.view.ViewException;
 import org.bh.platform.PlatformEvent.Type;
 import org.bh.platform.i18n.BHTranslator;
+import org.bh.plugin.branchSpecificRepresentative.calc.BranchSpecificCalculator;
 import org.bh.validation.ValidationMethods;
 
 /**
@@ -157,6 +161,15 @@ public class ScenarioController extends InputController {
 						ITimeSeriesProcess timeSeriesProcess = scenario.getTimeSeriesProcess(ITimeSeriesProcess.Key.BRANCH_SPECIFIC_REPRESENTATIVE.toString());
 						JPanel timeSeriesPanel = timeSeriesProcess.calculateParameters();
 						form.setBranchSpecificRepresentativePanel(timeSeriesPanel);
+						// get business data for the calculation below (branch specific values)
+						DTOBusinessData businessData = (PlatformController.getInstance()).getBusinessDataDTO();
+						//Load Calculator Plugin(s) - should be one
+						ServiceLoader<IBranchSpecificCalculator> calculators = PluginManager
+						.getInstance().getServices(IBranchSpecificCalculator.class);
+						// calculate branch specific values
+						for(IBranchSpecificCalculator calculator : calculators){
+							businessData = calculator.calculateBSR(businessData);		
+						}
 					}
 						
 					if (parametersPanel instanceof Container)
@@ -692,6 +705,10 @@ public class ScenarioController extends InputController {
 					}
 
 					Component panel = new JPanel();
+					//
+					DistributionMap testResult = process.calculate();
+					testResult.put(1.5);
+					//
 					
 					for (IStochasticResultAnalyser analyser : PluginManager
 							.getInstance().getServices(
@@ -700,13 +717,13 @@ public class ScenarioController extends InputController {
 						//branchSpecificRepresentative is only calculated in time series mode.
 						if(timeSeries.isSelected() && cbBranchSpecific.isSelected()){
 							if(analyser.getUniqueID().equals(IStochasticResultAnalyser.Keys.BRANCH_SPECIFIC.toString())){
-								panel = analyser.setResult(scenario, result);
+								panel = analyser.setResult(scenario, result, testResult);
 								break;
 							}
 							
 						} else {
 							if(analyser.getUniqueID().equals(IStochasticResultAnalyser.Keys.DEFAULT.toString())){
-								panel = analyser.setResult(scenario, result);
+								panel = analyser.setResult(scenario, result, testResult);
 								break;
 							}
 						}
