@@ -69,7 +69,6 @@ import org.bh.gui.view.ViewEvent;
 import org.bh.gui.view.ViewException;
 import org.bh.platform.PlatformEvent.Type;
 import org.bh.platform.i18n.BHTranslator;
-import org.bh.plugin.branchSpecificRepresentative.calc.BranchSpecificCalculator;
 import org.bh.validation.ValidationMethods;
 
 /**
