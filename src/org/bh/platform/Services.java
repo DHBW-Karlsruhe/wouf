@@ -29,6 +29,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
+import java.util.prefs.Preferences;
 import java.util.ServiceLoader;
 import java.util.StringTokenizer;
 
@@ -488,17 +489,25 @@ public class Services {
 		
 		plugin.setFile(Services.IMPORT_PATH_BRANCHES_DEFAULT);
 		
-		//TODO ausweichen auf gespeicherte Implementierung. --> Versteckter Ordner?
+		//TODO ausweichen auf gespeicherte Implementierung. --> Versteckter Ordner? PlatformController
+//		public static Preferences preferences = Preferences
+//		.userNodeForPackage(PlatformController.class);
+		
+		//Get PlatformController
+		PlatformController platformController = PlatformController.getInstance();
 		
 		try{
 			//TODO Debugging kurzfristig ausschalten
 			//TODO Platform DATA_CHANGED Ausschalten
 			
 			DTOBusinessData bd = (DTOBusinessData) plugin.startImport();
+			platformController.setBusinessDataDTO(bd);
+			
 		} catch (Exception exc){
-			//TODO
+			log.error("Could not load branches.", exc);
 			
-			
+			//Default BusinessDataDTO
+			platformController.setBusinessDataDTO(new DTOBusinessData());
 		}
 	}
 

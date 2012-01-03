@@ -28,6 +28,7 @@ import javax.swing.tree.TreePath;
 import org.apache.log4j.Logger;
 import org.bh.data.DTO;
 import org.bh.data.DTOAccessException;
+import org.bh.data.DTOBusinessData;
 import org.bh.data.DTOPeriod;
 import org.bh.data.DTOProject;
 import org.bh.data.DTOScenario;
@@ -70,7 +71,8 @@ public class PlatformController {
 	private ProjectRepositoryManager projectRepoManager = ProjectRepositoryManager
 			.getInstance();
 
-	
+	private DTOBusinessData businessDataDTO;
+	private boolean alreadyStoredBusinessData = false;
 
 	/**
 	 * Reference to a preference object which allows platform independent
@@ -394,5 +396,24 @@ public class PlatformController {
 		}
 
 		return periodData;
+	}
+
+	/**
+	 * is called once while initialisation to store branches for calculation.
+	 * @param businessDataDTO
+	 */
+	public void setBusinessDataDTO(DTOBusinessData businessDataDTO) {
+		if(!alreadyStoredBusinessData){
+			this.businessDataDTO = businessDataDTO;
+			alreadyStoredBusinessData = true;
+		}
+	}
+
+	/**
+	 * Get all branches to calculate branch specific representatives.
+	 * @return
+	 */
+	public DTOBusinessData getBusinessDataDTO() {
+		return businessDataDTO;
 	}
 }
