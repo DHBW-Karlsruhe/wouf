@@ -272,7 +272,7 @@ public class RandomWalk implements IStochasticProcess {
 			layout.appendRow(RowSpec.decode("4px"));
 
 			result.add(new BHDescriptionLabel(key), cons.xywh(2, layout
-					.getRowCount() - 1, 1, 1));
+					.getRowCount() - 1, 8, 1));
 
 			layout.appendRow(RowSpec.decode("p"));
 			layout.appendRow(RowSpec.decode("14px"));
