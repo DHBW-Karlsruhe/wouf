@@ -60,6 +60,10 @@ public class DTOScenario extends DTO<DTOPeriod> {
 		 */
 		RFK,
 		
+		/**
+		 * Defualt Value
+		 */
+		DEFAULT,
 		
 		/**
 		 * corporate income tax

@@ -564,6 +564,9 @@ class PlatformActionListener implements ActionListener {
 			newScenario.put(DTOScenario.Key.BTAX, new DoubleValue(0.035));
 					
 			newScenario.put(DTOScenario.Key.CTAX, new DoubleValue(0.15));
+			
+			newScenario.put(DTOScenario.Key.DEFAULT, new 
+					StringValue(BHTranslator.getInstance().translate("scenario_default_value_description")));
 					
 
 

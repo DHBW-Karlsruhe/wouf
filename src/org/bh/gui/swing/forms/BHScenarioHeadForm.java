@@ -23,13 +23,12 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 
 import org.bh.data.DTOScenario;
-import org.bh.data.types.*;
+import org.bh.data.types.IntegerValue;
 import org.bh.gui.swing.comp.BHComboBox;
 import org.bh.gui.swing.comp.BHDescriptionLabel;
 import org.bh.gui.swing.comp.BHPercentTextField;
 import org.bh.gui.swing.comp.BHTextField;
 import org.bh.platform.Services;
-import org.bh.platform.i18n.BHTranslator;
 import org.bh.platform.i18n.ITranslator;
 import org.bh.validation.VRIsDouble;
 import org.bh.validation.VRIsLowerThan;
@@ -49,7 +48,7 @@ import com.jgoodies.forms.layout.FormLayout;
  * 
  */
 @SuppressWarnings("serial")
-public final class BHScenarioHeadForm extends JPanel {
+public final class BHScenarioHeadForm extends JPanel{
 	private BHDescriptionLabel lscenname;		//Szenarioname
 	private BHDescriptionLabel lscendescript;	//Kommentar
 	private BHDescriptionLabel lscendefaultdescription; 	//Defaultbeschreibung
@@ -120,7 +119,6 @@ public final class BHScenarioHeadForm extends JPanel {
 		this.add(this.getlpercentDept(), cons.xywh(8, 14, 1, 1));
 		this.add(this.getlpercentTrade(), cons.xywh(19, 12, 1, 1));
 		this.add(this.getlpercentCorporate(), cons.xywh(19, 14, 1, 1));
-		
 		this.add(this.getlPeriodType(), cons.xywh(3, 16, 1, 1));
 		this.add(this.getCmbPeriodType(), cons.xywh(6, 16, 12, 1, "left, default"));
 		/*
@@ -169,9 +167,9 @@ public final class BHScenarioHeadForm extends JPanel {
 	
 	public BHDescriptionLabel getlscenDefVal() {
 
-		//if (this.lscendefaultdescription == null) {
-			this.lscendefaultdescription = new BHDescriptionLabel(translator.translate("scenario_default_value_description"));
-		//}
+		if (this.lscendefaultdescription == null) {
+			this.lscendefaultdescription = new BHDescriptionLabel(DTOScenario.Key.DEFAULT, true);
+		}
 
 		return this.lscendefaultdescription;
 	}
