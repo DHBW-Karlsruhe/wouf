@@ -24,6 +24,7 @@ import javax.swing.JOptionPane;
 
 import org.bh.data.DTOProject;
 import org.bh.data.DTOScenario;
+import org.bh.data.IDTO;
 import org.bh.data.IPeriodicalValuesDTO;
 import org.bh.data.types.Calculable;
 import org.bh.data.types.DistributionMap;
@@ -336,6 +337,18 @@ public class XBRLImportController implements IImportExport, ActionListener {
 	@Override
 	public void exportPLSTotalCost(IPeriodicalValuesDTO model,
 			BHDataExchangeDialog exportDialog) {
+		throw new UnsupportedOperationException("This method has not been implemented");
+	}
+
+	/* Specified by interface/super class. */
+	@Override
+	public void setFile(String filename) {
+		throw new UnsupportedOperationException("This method has not been implemented");
+	}
+
+	/* Specified by interface/super class. */
+	@Override
+	public IDTO<?> startImport() throws IOException, RuntimeException {
 		throw new UnsupportedOperationException("This method has not been implemented");
 	}
 

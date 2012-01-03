@@ -10,6 +10,7 @@ import org.bh.calculation.IBranchSpecificCalculator;
 import org.bh.calculation.ITimeSeriesProcess;
 import org.bh.data.DTOBranch;
 import org.bh.data.DTOScenario;
+import org.bh.data.types.IValue;
 import org.bh.gui.swing.comp.BHButton;
 import org.bh.gui.swing.comp.BHDescriptionLabel;
 import org.bh.gui.swing.comp.BHProgressBar;
@@ -106,6 +107,8 @@ public class BranchSpecificRepresentative implements ITimeSeriesProcess {
 		for(IBranchSpecificCalculator calculator : calculators){
 			//Try calculating the goodness
 			try{
+				//use the industry to calculate branch specific representative
+				IValue branchValue = scenario.get(DTOScenario.Key.INDUSTRY);
 				DTOBranch[] branch = new DTOBranch[4];
 				double tempGoodness = calculator.getRating(branch);
 				if(tempGoodness < goodness){

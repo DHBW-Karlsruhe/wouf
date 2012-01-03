@@ -15,11 +15,13 @@
  *******************************************************************************/
 package org.bh.platform;
 
+import java.io.IOException;
 import java.util.List;
 import java.util.Map;
 
 import org.bh.data.DTOProject;
 import org.bh.data.DTOScenario;
+import org.bh.data.IDTO;
 import org.bh.data.IPeriodicalValuesDTO;
 import org.bh.data.types.Calculable;
 import org.bh.data.types.DistributionMap;
@@ -189,5 +191,19 @@ public interface IImportExport extends IDisplayablePlugin {
 	String getFileDescription();
 
 	String getUniqueId();
+	
+	/**
+	 * Do not use!!!
+	 * @param filename
+	 */
+	void setFile(String filename);
+	
+	/**
+	 * Do not use!!!
+	 * @return
+	 * @throws IOException
+	 * @throws RuntimeException
+	 */
+	IDTO<?> startImport() throws IOException, RuntimeException;
 
 }

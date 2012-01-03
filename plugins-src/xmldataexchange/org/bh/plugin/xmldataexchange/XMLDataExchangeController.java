@@ -52,7 +52,9 @@ public class XMLDataExchangeController implements IImportExport, ActionListener 
 	 * Logger for this class
 	 */
 	private static final Logger log = Logger.getLogger(XMLDataExchangeController.class);
-		
+	
+	private XMLImport importXMLBSR;
+	
 	private Object exportModel = null;
 	private IDTO<?> importModel = null;
 	
@@ -536,6 +538,21 @@ public class XMLDataExchangeController implements IImportExport, ActionListener 
 			BHDataExchangeDialog exportDialog) {
 		// TODO Auto-generated method stub
 		throw new UnsupportedOperationException("This method has not been implemented");
+	}
+
+	@Override
+	public void setFile(String filename) {
+		importXMLBSR = new XMLImport(filename);
+	}
+
+	@Override
+	public IDTO<?> startImport() throws IOException, RuntimeException {
+		try {
+			return importXMLBSR.startImport();
+		} catch (XMLNotValidException e) {
+			log.error("Could not load XML", e);
+			throw new RuntimeException(e);
+		}
 	}
 
 

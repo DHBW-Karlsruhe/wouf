@@ -49,10 +49,12 @@ import org.bh.calculation.ITimeSeriesProcess;
 import org.bh.controller.IDataExchangeController;
 import org.bh.controller.IPeriodController;
 import org.bh.data.DTO.Stochastic;
+import org.bh.data.DTOBusinessData;
 import org.bh.data.DTOKeyPair;
 import org.bh.gui.swing.BHPopupFrame;
 import org.bh.gui.swing.BHStatusBar;
 import org.bh.gui.swing.comp.BHTextField;
+import org.bh.gui.swing.importexport.BHDataExchangeDialog;
 import org.bh.platform.i18n.BHTranslator;
 import org.bh.platform.i18n.ITranslator;
 
@@ -80,6 +82,8 @@ public class Services {
 	private static NumberFormat oldDoubleFormat = null;
 	private static StringWriter logWriter = new StringWriter();
 
+	private static final String IMPORT_PATH_BRANCHES_DEFAULT = "src/org/bh/companydata/periods.xml";
+	
 	/*
 	 * --------------------------------------- Platform Event Handling
 	 * ---------------------------------------
@@ -472,6 +476,31 @@ public class Services {
 		
 	}
 	
+	/**
+	 * This method loads all the branch data, we need to calculate with industry specific
+	 * representatives. This is necessary to calculate the branch specific representative
+	 * in a faster way and to prefill ComboBoxes with values.
+	 */
+	public static void loadBranches(){
+		Map<String, IImportExport> plugins = getImportExportPlugins(IImportExport.IMP_PROJECT);
+		
+		IImportExport plugin = plugins.get("XML");
+		
+		plugin.setFile(Services.IMPORT_PATH_BRANCHES_DEFAULT);
+		
+		//TODO ausweichen auf gespeicherte Implementierung. --> Versteckter Ordner?
+		
+		try{
+			//TODO Debugging kurzfristig ausschalten
+			//TODO Platform DATA_CHANGED Ausschalten
+			
+			DTOBusinessData bd = (DTOBusinessData) plugin.startImport();
+		} catch (Exception exc){
+			//TODO
+			
+			
+		}
+	}
 
 	/**
 	 * Checks if JRE is fulfilling the requirements for Business Horizon.

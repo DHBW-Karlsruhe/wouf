@@ -42,7 +42,7 @@ import org.bh.platform.i18n.ITranslator;
  * @author Robert Vollmer
  * @version 0.2, 20.12.2009
  * @update 02.12.2011, Yannick Rödl
- * 
+ * @update 03.01.2012, Yannick Rödl
  * 
  */
 
@@ -120,6 +120,11 @@ public class BusinessHorizon implements IPlatformListener{
 		updateSplash("Set Look&Feel...");
 		// set Look&Feel
 		Services.setNimbusLookAndFeel();
+		
+		updateSplash("Loading branches");
+		//Load branches from XML and store them in central access point
+		Services.loadBranches();
+		
 
 		// Invoke start of BHMainFrame
 		SwingUtilities.invokeLater(new Runnable() {
@@ -131,7 +136,7 @@ public class BusinessHorizon implements IPlatformListener{
 
 		Services.addPlatformListener(new BusinessHorizon());
 		
-		Thread.sleep(100); // The other Thread is loading in this time anyway.
+//		Thread.sleep(100); // The other Thread is loading in this time anyway.
 		                   //Create the impression of something dynamic.
 		updateSplash("Loading Plattform...");
 	}
