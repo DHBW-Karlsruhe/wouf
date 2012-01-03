@@ -121,9 +121,11 @@ public class BusinessHorizon implements IPlatformListener{
 		// set Look&Feel
 		Services.setNimbusLookAndFeel();
 		
+		log.info("Start loading branches");
 		updateSplash("Loading branches");
 		//Load branches from XML and store them in central access point
 		Services.loadBranches();
+		log.info("Finished loading branches");
 		
 
 		// Invoke start of BHMainFrame

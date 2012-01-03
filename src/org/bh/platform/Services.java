@@ -488,27 +488,55 @@ public class Services {
 		
 		IImportExport plugin = plugins.get("XML");
 		
-		plugin.setFile(Services.IMPORT_PATH_BRANCHES_DEFAULT);
+		//Hole den Dateipfad aus den Preferences. Ist gespeichert in der Variable "branches".
+		String xmlBranchesName = PlatformController.preferences.get("branches", null);
 		
-		//TODO ausweichen auf gespeicherte Implementierung. --> Versteckter Ordner? PlatformController
-//		public static Preferences preferences = Preferences
-//		.userNodeForPackage(PlatformController.class);
+		//Did we get a default location
+		if(xmlBranchesName == null){
+			plugin.setFile(Services.IMPORT_PATH_BRANCHES_DEFAULT);
+		} else {
+			plugin.setFile(xmlBranchesName);
+		}
 		
-		//Get PlatformController
-		PlatformController platformController = PlatformController.getInstance();
+		DTOBusinessData bd = null;
 		
 		try{
-			DTOBusinessData bd = (DTOBusinessData) plugin.startImport();
+			//Load data from default path
+			bd = (DTOBusinessData) plugin.startImport();
+			
+		} catch (Exception exc){
+			
+			log.error("Could not load branches.", exc);
+			
+			if(xmlBranchesName != null){
+				//Fallback to default data
+				log.info("Fallback to default data of branch specific representative.");
+				plugin.setFile(Services.IMPORT_PATH_BRANCHES_DEFAULT);
+				try{
+					
+					bd = (DTOBusinessData) plugin.startImport();
+					
+				} catch (Exception exc2){
+					//Fallback to no data
+					log.error("Could not load branches.", exc2);
+					
+					//Create new DTO
+					bd = new DTOBusinessData();
+				}
+				
+			} else {
+				//Create new DTO
+				bd = new DTOBusinessData();
+			}
+		} finally {
+			//Get PlatformController to store data
+			PlatformController platformController = PlatformController.getInstance();
+			
+			//Default BusinessDataDTO
+			platformController.setBusinessDataDTO(bd);
 			
 			//Loaded data should not imply that the user changed something.
 			ProjectRepositoryManager.setChanged(false);
-			
-			platformController.setBusinessDataDTO(bd); //Debugging wieder einschalten
-		} catch (Exception exc){
-			log.error("Could not load branches.", exc);
-			
-			//Default BusinessDataDTO
-			platformController.setBusinessDataDTO(new DTOBusinessData());
 		}
 	}
 
