@@ -150,6 +150,9 @@ public class BusinessHorizon implements IPlatformListener{
 	 */
 	public static void updateSplash(String text){
 		if (graphics != null) {
+			
+			log.info(text);
+			
 			//Revert former changes
 			graphics.setComposite(AlphaComposite.Clear);
 			graphics.fillRect(1, 1, 477, 229);
