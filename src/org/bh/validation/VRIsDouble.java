@@ -45,12 +45,12 @@ public class VRIsDouble extends ValidationRule {
 		if (comp instanceof JTextField || comp instanceof BHTextField) {
 			BHTextField tf_toValidate = (BHTextField) comp;
 			double value = Services.stringToDouble(tf_toValidate.getText());
-			if (tf_toValidate.getText().contains(".") && BHTranslator.getLoc() == Locale.GERMAN && ! tf_toValidate.getText().matches("(([1-9]\\d{0,2})(.\\d{3})*)")&& !tf_toValidate.getText().contains(","))
+			if (tf_toValidate.getText().contains(".") && BHTranslator.getLoc() == Locale.GERMAN && ! tf_toValidate.getText().matches("((-?)([1-9]\\d{0,2})(.\\d{3})*)")&& !tf_toValidate.getText().contains(","))
 				validationResult.addError(translator.translate("Efield") + " '"
 						+ translator.translate(tf_toValidate.getKey()) + "' "
 						+ translator.translate("EisDouble"));
 			
-			else if (tf_toValidate.getText().contains(",") && BHTranslator.getLoc()  == Locale.ENGLISH && ! tf_toValidate.getText().matches("(([1-9]\\d{0,2})(,\\d{3})*)")&& !tf_toValidate.getText().contains("."))
+			else if (tf_toValidate.getText().contains(",") && BHTranslator.getLoc()  == Locale.ENGLISH && ! tf_toValidate.getText().matches("((-?)([1-9]\\d{0,2})(,\\d{3})*)")&& !tf_toValidate.getText().contains("."))
 			validationResult.addError(translator.translate("Efield") + " '"
 					+ translator.translate(tf_toValidate.getKey()) + "' "
 					+ translator.translate("EisDouble"));
