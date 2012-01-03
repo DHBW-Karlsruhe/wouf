@@ -557,9 +557,9 @@ class PlatformActionListener implements ActionListener {
 			/**
 			 * Here are the default values for a new scenario
 			 */
-			newScenario.put(DTOScenario.Key.REK, new DoubleValue(0.10));
+			newScenario.put(DTOScenario.Key.REK, new DoubleValue(0.14));
 								
-			newScenario.put(DTOScenario.Key.RFK, new DoubleValue(0.12));
+			newScenario.put(DTOScenario.Key.RFK, new DoubleValue(0.10));
 								
 			newScenario.put(DTOScenario.Key.BTAX, new DoubleValue(0.035));
 					
