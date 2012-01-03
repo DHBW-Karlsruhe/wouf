@@ -268,6 +268,9 @@ public class PlatformPersistenceManager {
 
 			log.debug("ProjectRepository successfully saved to " + path);
 
+			//TODO save DTOBusinessData
+			saveDTOBusinessData();
+			
 			// Set isChanged
 			ProjectRepositoryManager.setChanged(false);
 
@@ -288,6 +291,12 @@ public class PlatformPersistenceManager {
 					Services.getTranslator().translate("PIOException"));
 
 		}
+	}
+	
+	public boolean saveDTOBusinessData(){
+		//TODO implement
+		PlatformController.preferences.put("branches", "");
+		return true;
 	}
 	
 	protected boolean checkFile(File f) {
