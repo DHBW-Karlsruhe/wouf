@@ -18,13 +18,13 @@ import org.bh.data.types.DoubleValue;
  * <p>
  * <detailed_description>
  * 
- * @author Denis
+ * @author Denis Roster, Tim Herzenstiel, Sebastian Schumacher
  * @version 1.0, 21.12.2011
  * 
  */
 public class BranchSpecificCalculator implements IBranchSpecificCalculator {
 
-	public DTOBusinessData calculateBSR(DTOBusinessData businessData) {
+	public ArrayList<DTOBranchSpecificRep> calculateBSR(DTOBusinessData businessData) {
 		List<DTOBranch> branchList = businessData.getChildren();
 
 		// Iterate all Company DTOs
@@ -53,10 +53,11 @@ public class BranchSpecificCalculator implements IBranchSpecificCalculator {
 		}
 
 		// mit normierter BusinessData die Mittelwerte berechnen
-		ArrayList<DTOBranchSpecificRep> dtoBSRaverage = getArithmeticAverage(
-				"", businessData);
+		ArrayList<DTOBranchSpecificRep> dtoBSRaverage = new ArrayList<DTOBranchSpecificRep>();
+		
+		dtoBSRaverage = getArithmeticAverage("", businessData);
 
-		return businessData;
+		return dtoBSRaverage;
 
 	}
 

@@ -17,7 +17,7 @@ import org.bh.data.*;
 
 public interface IBranchSpecificCalculator {
 	
-	DTOBusinessData calculateBSR(DTOBusinessData businessData);
+	ArrayList<DTOBranchSpecificRep> calculateBSR(DTOBusinessData businessData);
 	
 	/**
 	 * This method calculates the normed value of the cashflows based on the 
