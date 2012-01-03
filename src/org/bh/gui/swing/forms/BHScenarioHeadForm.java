@@ -15,13 +15,11 @@
  *******************************************************************************/
 package org.bh.gui.swing.forms;
 
-
 import java.awt.Component;
 import java.util.Vector;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import org.bh.data.DTOScenario;
-import org.bh.data.types.IntegerValue;
 import org.bh.gui.swing.comp.BHComboBox;
 import org.bh.gui.swing.comp.BHDescriptionLabel;
 import org.bh.gui.swing.comp.BHPercentTextField;
@@ -46,6 +44,23 @@ import com.jgoodies.forms.layout.FormLayout;
  */
 @SuppressWarnings("serial")
 public final class BHScenarioHeadForm extends JPanel{
+	
+	/**
+	 *  @author Patrick Pfaff 03.01.2012
+	 * The defaultvalue is defined in class "org.bh.platform.PlatformActionListen" between around line 500 and 600
+	 * 
+	 * Um einen Text im Programm z.B. vor einem Eingabefeld anzuzeigen muss/ sollte man die Klasse BHDescriptionlabel benutzen.
+	 * Dadurch wird gewährleistet dass der Text bei einer Sprachänderung auch geändert werden kann.
+	 * 
+	 * Die Klasse BHTextField ist für ein Eingabefeld erforderlich.
+	 * 
+	 * Für jedes Discriptionlabel bzw. Textfield gibt es eine Methode. Diese ist wichtig wegen dem Übersetzen.
+	 * In der Methode wird ein Key welcher in der Methode "org.bh.data.DTOScenario" definiert ist.
+	 * Möchte man eine neue Beschriftung hinzufügen muss man in der DTOScenario einen neuen Key definieren + 
+	 * in der Klasse "org.bh.platform.PlatformActionListen" eine neue Übersetzung starten (siehe bisherige Übersetzungen in der Klasse) + 
+	 * in den Klassen "BHGUIKeys_de" und "BHGUIKeys_en" einen Wert, jeweils in Deutsch und Englisch, definieren.
+	 */
+	
 	private BHDescriptionLabel lscenname;					//Szenarioname
 	private BHDescriptionLabel lscendescript;				//Kommentar
 	private BHDescriptionLabel lscendefaultdescription; 	//Defaultbeschreibung
@@ -53,10 +68,10 @@ public final class BHScenarioHeadForm extends JPanel{
 	private BHDescriptionLabel ldeptyield;					//Renditeforderung Fremdkapital
 	private BHDescriptionLabel ltradetax;					//Gewerbesteuer
 	private BHDescriptionLabel lcorporatetax;				//Körperschaftssteuer & Solidaritätszuschlag
-	private BHDescriptionLabel lpercentequity;
-	private BHDescriptionLabel lpercentdept;
-	private BHDescriptionLabel lpercenttrade;
-	private BHDescriptionLabel lpercentcorporate;
+	private BHDescriptionLabel lpercentequity;				//Prozentzeichen + Standardwert für EK
+	private BHDescriptionLabel lpercentdept;				//Prozentzeichen + Standardwert für FK
+	private BHDescriptionLabel lpercenttrade;				//Prozentzeichen + Standardwert für Gewerbesteuer
+	private BHDescriptionLabel lpercentcorporate;			//Prozentzeichen + Standardwert für Körperschaftssteur & Solidaritätszuschlag
 
 	private BHTextField tfscenname;							//Szenarioname
 	private BHTextField tfscendescript;						//Kommentar für ein Szenario
@@ -66,9 +81,7 @@ public final class BHScenarioHeadForm extends JPanel{
 	private BHTextField tfdeptyield;						//Renditeforderung Fremdkapital
 	private BHTextField tftradetax;							//Gewerbesteuer
 	private BHTextField tfcorporatetax;						//Körperschaftssteuer & Solidaritätszuschlag
-    
-	private IntegerValue vequity;
-	
+
 	private BHDescriptionLabel lPeriodType;
 	private BHComboBox cmbPeriodType;
 
@@ -90,8 +103,6 @@ public final class BHScenarioHeadForm extends JPanel{
 
 		String rowDef = "4px,p,4px,p,4px,p,4px,p,20px,p,4px,p,4px,p,20px,p,4px";
 		String colDef = "4px,4px,right:pref,4px,pref,max(80px;default),4px,left:pref,24px,pref,4px,pref,4px,right:pref,4px,pref,pref,4px,pref,4px:grow,pref,4px,80px,4px";
-		int i = 19;
-		vequity = new IntegerValue(i);
 		
 		FormLayout layout = new FormLayout(colDef, rowDef);
 		this.setLayout(layout);
@@ -118,7 +129,7 @@ public final class BHScenarioHeadForm extends JPanel{
 		this.add(this.getlpercentCorporate(), cons.xywh(19, 14, 1, 1));
 		this.add(this.getlPeriodType(), cons.xywh(3, 16, 1, 1));
 		this.add(this.getCmbPeriodType(), cons.xywh(6, 16, 12, 1, "left, default"));
-		/*
+		/**
 		 * this Vector sets the order of focus moovement.
 		 */
 		Vector<Component> order = new Vector<Component>();
@@ -241,7 +252,6 @@ public final class BHScenarioHeadForm extends JPanel{
 		return this.lcorporatetax;
 	}
 
-	
 
 	// Here do the getters for the textfields begin
 
@@ -289,7 +299,7 @@ public final class BHScenarioHeadForm extends JPanel{
 					VRIsDouble.INSTANCE, VRIsPositive.INSTANCE };
 			tfequityyield.setValidationRules(rules);
 		}
-		tfequityyield.setValue(vequity);
+
 		return this.tfequityyield;
 	}
 
@@ -336,9 +346,7 @@ public final class BHScenarioHeadForm extends JPanel{
 	 * @return BHTextField
 	 */
 	public BHTextField gettfcorporateTax() {
-		/**
-		 * The defaultvalue is defined in class "org.bh.platform.PlatformActionListen"
-		 */
+		
 		if (this.tfcorporatetax == null) {
 			this.tfcorporatetax = new BHPercentTextField(DTOScenario.Key.CTAX);
 			ValidationRule[] rules = { VRMandatory.INSTANCE,
