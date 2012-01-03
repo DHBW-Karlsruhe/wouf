@@ -482,6 +482,9 @@ public class Services {
 	 * This method loads all the branch data, we need to calculate with industry specific
 	 * representatives. This is necessary to calculate the branch specific representative
 	 * in a faster way and to prefill ComboBoxes with values.
+	 * 
+	 * The default is to load the data from a previously exported company data file. If
+	 * this one is not accessible, the default one from the .jar is loaded.
 	 */
 	public static void loadBranches(){
 		Map<String, IImportExport> plugins = getImportExportPlugins(IImportExport.IMP_PROJECT);
