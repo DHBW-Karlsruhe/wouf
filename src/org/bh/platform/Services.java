@@ -41,6 +41,7 @@ import javax.swing.UIManager;
 import javax.swing.UIManager.LookAndFeelInfo;
 import javax.swing.event.EventListenerList;
 
+import org.apache.log4j.Level;
 import org.apache.log4j.Logger;
 import org.apache.log4j.PatternLayout;
 import org.apache.log4j.WriterAppender;
@@ -497,12 +498,12 @@ public class Services {
 		PlatformController platformController = PlatformController.getInstance();
 		
 		try{
-			//TODO Debugging kurzfristig ausschalten
-			//TODO Platform DATA_CHANGED Ausschalten
-			
 			DTOBusinessData bd = (DTOBusinessData) plugin.startImport();
-			platformController.setBusinessDataDTO(bd);
 			
+			//Loaded data should not imply that the user changed something.
+			ProjectRepositoryManager.setChanged(false);
+			
+			platformController.setBusinessDataDTO(bd); //Debugging wieder einschalten
 		} catch (Exception exc){
 			log.error("Could not load branches.", exc);
 			
