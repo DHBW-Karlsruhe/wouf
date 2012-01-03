@@ -46,19 +46,21 @@ import com.jgoodies.forms.layout.FormLayout;
 public final class BHScenarioHeadForm extends JPanel{
 	
 	/**
-	 *  @author Patrick Pfaff 03.01.2012
-	 * The defaultvalue is defined in class "org.bh.platform.PlatformActionListen" between around line 500 and 600
+	 * @author Patrick Pfaff 03.01.2012
 	 * 
 	 * Um einen Text im Programm z.B. vor einem Eingabefeld anzuzeigen muss/ sollte man die Klasse BHDescriptionlabel benutzen.
 	 * Dadurch wird gewährleistet dass der Text bei einer Sprachänderung auch geändert werden kann.
 	 * 
 	 * Die Klasse BHTextField ist für ein Eingabefeld erforderlich.
+	 * Die dazugehörigen Standardwerte sind in der Klasse "org.bh.platform.PlatformActionListen" ca. zwischen den Zeilen 500 und 600 definiert.
 	 * 
 	 * Für jedes Discriptionlabel bzw. Textfield gibt es eine Methode. Diese ist wichtig wegen dem Übersetzen.
 	 * In der Methode wird ein Key welcher in der Methode "org.bh.data.DTOScenario" definiert ist.
 	 * Möchte man eine neue Beschriftung hinzufügen muss man in der DTOScenario einen neuen Key definieren + 
 	 * in der Klasse "org.bh.platform.PlatformActionListen" eine neue Übersetzung starten (siehe bisherige Übersetzungen in der Klasse) + 
 	 * in den Klassen "BHGUIKeys_de" und "BHGUIKeys_en" einen Wert, jeweils in Deutsch und Englisch, definieren.
+	 * Zusätzlich müssen in den Klassen "BHGUIKeys_de" und "BHGUIKeys_en" ca. zwischen de Zeilen 318 und 345 das entsprechende Pendant geschrieben werden.
+	 * 
 	 */
 	
 	private BHDescriptionLabel lscenname;					//Szenarioname
