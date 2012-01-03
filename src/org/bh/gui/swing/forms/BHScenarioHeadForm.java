@@ -49,21 +49,22 @@ import com.jgoodies.forms.layout.FormLayout;
  */
 @SuppressWarnings("serial")
 public final class BHScenarioHeadForm extends JPanel{
-	private BHDescriptionLabel lscenname;		//Szenarioname
-	private BHDescriptionLabel lscendescript;	//Kommentar
+	private BHDescriptionLabel lscenname;					//Szenarioname
+	private BHDescriptionLabel lscendescript;				//Kommentar
 	private BHDescriptionLabel lscendefaultdescription; 	//Defaultbeschreibung
-	private BHDescriptionLabel lequityyield;	//Renditeforderung Eigenkapital
-	private BHDescriptionLabel ldeptyield;		//Renditeforderung Fremdkapital
-	private BHDescriptionLabel ltradetax;		//Gewerbesteuer???
-	private BHDescriptionLabel lcorporatetax;	//Körperschaftssteuer & Solidaritätszuschlag???
+	private BHDescriptionLabel lequityyield;				//Renditeforderung Eigenkapital
+	private BHDescriptionLabel ldeptyield;					//Renditeforderung Fremdkapital
+	private BHDescriptionLabel ltradetax;					//Gewerbesteuer
+	private BHDescriptionLabel lcorporatetax;				//Körperschaftssteuer & Solidaritätszuschlag
 
-	private BHTextField tfscenname;				//Szenarioname
-	private BHTextField tfscendescript;			//Kommentar
-	//fields show percentage as %
-	private BHTextField tfequityyield;			//Renditeforderung Eigenkapital
-	private BHTextField tfdeptyield;			//Renditeforderung Fremdkapital
-	private BHTextField tftradetax;				//Gewerbesteuer???
-	private BHTextField tfcorporatetax;			//Körperschaftssteuer & Solidaritätszuschlag???
+	private BHTextField tfscenname;							//Szenarioname
+	private BHTextField tfscendescript;						//Kommentar für ein Szenario
+	
+	//following fields show percentage as %
+	private BHTextField tfequityyield;						//Renditeforderung Eigenkapital
+	private BHTextField tfdeptyield;						//Renditeforderung Fremdkapital
+	private BHTextField tftradetax;							//Gewerbesteuer
+	private BHTextField tfcorporatetax;						//Körperschaftssteuer & Solidaritätszuschlag
     
 	private IntegerValue vequity;
 	
@@ -168,7 +169,7 @@ public final class BHScenarioHeadForm extends JPanel{
 	public BHDescriptionLabel getlscenDefVal() {
 
 		if (this.lscendefaultdescription == null) {
-			this.lscendefaultdescription = new BHDescriptionLabel(DTOScenario.Key.DEFAULT, true);
+			this.lscendefaultdescription = new BHDescriptionLabel(DTOScenario.Key.DEFAULT);
 		}
 
 		return this.lscendefaultdescription;
