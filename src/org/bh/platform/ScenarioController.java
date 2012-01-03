@@ -705,8 +705,8 @@ public class ScenarioController extends InputController {
 
 					Component panel = new JPanel();
 					//
-					DistributionMap testResult = process.calculate();
-					testResult.put(1.5);
+					//DistributionMap testResult = process.calculate();
+					//testResult.put(1.5);
 					//
 					
 					for (IStochasticResultAnalyser analyser : PluginManager
@@ -716,13 +716,15 @@ public class ScenarioController extends InputController {
 						//branchSpecificRepresentative is only calculated in time series mode.
 						if(timeSeries.isSelected() && cbBranchSpecific.isSelected()){
 							if(analyser.getUniqueID().equals(IStochasticResultAnalyser.Keys.BRANCH_SPECIFIC.toString())){
-								panel = analyser.setResult(scenario, result, testResult);
+								//panel = analyser.setResult(scenario, result, testResult);
+								panel = analyser.setResult(scenario, result);
 								break;
 							}
 							
 						} else {
 							if(analyser.getUniqueID().equals(IStochasticResultAnalyser.Keys.DEFAULT.toString())){
-								panel = analyser.setResult(scenario, result, testResult);
+								//panel = analyser.setResult(scenario, result, testResult);
+								panel = analyser.setResult(scenario, result);
 								break;
 							}
 						}
