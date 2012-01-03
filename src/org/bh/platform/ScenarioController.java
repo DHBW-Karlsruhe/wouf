@@ -167,7 +167,7 @@ public class ScenarioController extends InputController {
 						.getInstance().getServices(IBranchSpecificCalculator.class);
 						// calculate branch specific values
 						for(IBranchSpecificCalculator calculator : calculators){
-							businessData = calculator.calculateBSR(businessData);		
+// TODO							businessData = calculator.calculateBSR(businessData);		
 						}
 					}
 						
