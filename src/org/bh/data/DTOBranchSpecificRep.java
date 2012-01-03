@@ -33,6 +33,8 @@ import org.apache.log4j.Logger;
  */
 public class DTOBranchSpecificRep{
 
+
+
 	/**
 	 * Generated <code>serialVersionUID</code>
 	 */
@@ -71,6 +73,10 @@ public class DTOBranchSpecificRep{
 
 	public void setValue(double value) {
 		this.value = value;
+	}
+	
+	public String toString() {
+		return "DTOBranchSpecificRep [name=" + name + ", value=" + value + "]";
 	}
 
 /*	public String getName (Key k){
