@@ -248,7 +248,7 @@ public class BranchSpecificCalculator implements IBranchSpecificCalculator {
 		return null;
 	}
 
-	public double getRating(DTOBranch[] branchRating) {
+	public double getRating() {
 		return BranchSpecificCalculator.ratingBSR;
 	}
 

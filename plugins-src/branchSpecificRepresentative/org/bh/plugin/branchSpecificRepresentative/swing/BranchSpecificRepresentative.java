@@ -110,8 +110,7 @@ public class BranchSpecificRepresentative implements ITimeSeriesProcess {
 			//Try calculating the goodness
 			try{
 				//use the industry to calculate branch specific representative
-				DTOBranch[] branch = new DTOBranch[4];
-				double tempGoodness = calculator.getRating(branch);
+				double tempGoodness = calculator.getRating();
 				if(tempGoodness < goodness){
 					goodness_calculated = true;
 					goodness = tempGoodness;
