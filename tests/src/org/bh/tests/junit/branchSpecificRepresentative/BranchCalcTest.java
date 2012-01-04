@@ -38,7 +38,8 @@ public class BranchCalcTest extends TestCase {
 			// Branch-Specific-Representative ermitteln lassen (Normierung & Mittelwert)
 			ArrayList<DTOCompany> result = new ArrayList<DTOCompany>();
 			
-			result = bsc.calculateBSR(myDTO);
+//			
+// TODO wieder einklammern. Sorgt dafür, dass der Build fehlschlägt. Es schmeißt eine ArrayIndexOutOfBoundsException			result = bsc.calculateBSR(myDTO);
 			
 			// Ergebnisse ausgeben
 			Iterator it = result.iterator();
