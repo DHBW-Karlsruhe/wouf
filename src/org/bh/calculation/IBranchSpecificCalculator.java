@@ -40,6 +40,6 @@ public interface IBranchSpecificCalculator {
 	 * This method calculates the rating of the branch.
 	 *
 	 */
-	double getRating(DTOBranch[] branchRating);
+	double getRating();
 
 }
