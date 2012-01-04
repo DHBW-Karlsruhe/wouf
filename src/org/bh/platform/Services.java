@@ -48,6 +48,7 @@ import org.apache.log4j.WriterAppender;
 import org.bh.calculation.IShareholderValueCalculator;
 import org.bh.calculation.IStochasticProcess;
 import org.bh.calculation.ITimeSeriesProcess;
+import org.bh.companydata.importExport.INACEImport;
 import org.bh.controller.IDataExchangeController;
 import org.bh.controller.IPeriodController;
 import org.bh.data.DTO;
@@ -356,6 +357,18 @@ public class Services {
 		}
 	}
 
+	/**
+	 * ServiceLoader to get the first available plugin to read the NACE XML in two different languages.
+	 * @return INACEImport interface to read NACE data.
+	 */
+	public static INACEImport getNACEReader(){
+		ServiceLoader<INACEImport> importXML = PluginManager.getInstance().getServices(INACEImport.class);
+		for(INACEImport plugin: importXML){
+			return plugin.createNewInstance();
+		}
+		return null;
+	}
+	
 	/**
 	 * Returns the references to all import export plug-ins.
 	 * 

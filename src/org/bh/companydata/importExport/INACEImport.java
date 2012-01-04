@@ -12,7 +12,7 @@ import java.util.HashMap;
  * @version 1.0, 04.01.2012
  *
  */
-public interface IImportExport {
+public interface INACEImport {
 	
 	/**
 	 * 
@@ -32,5 +32,5 @@ public interface IImportExport {
 	 * 
 	 * @return
 	 */
-	IImportExport createNewInstance();
+	INACEImport createNewInstance();
 }

@@ -13,7 +13,7 @@ import nu.xom.Elements;
 import nu.xom.ParsingException;
 import nu.xom.ValidityException;
 
-import org.bh.companydata.importExport.IImportExport;
+import org.bh.companydata.importExport.INACEImport;
 import org.bh.platform.IPlatformListener;
 import org.bh.platform.PlatformEvent;
 import org.bh.platform.Services;
@@ -31,7 +31,7 @@ import org.bh.platform.i18n.BHTranslator;
  * @version 1.0, 02.01.2012
  * 
  */
-public class ReadNACE implements IImportExport, IPlatformListener{
+public class ReadNACE implements INACEImport, IPlatformListener{
 
 	private String translatedBranch, idValue, idLevelValue, branchName, branchIdentifier, lastLevelOne, lastLevelTwo;
 	private File importFile = null;
@@ -163,7 +163,7 @@ public class ReadNACE implements IImportExport, IPlatformListener{
 
 	/* Specified by interface/super class. */
 	@Override
-	public IImportExport createNewInstance() {
+	public INACEImport createNewInstance() {
 		return new ReadNACE();
 	}
 
