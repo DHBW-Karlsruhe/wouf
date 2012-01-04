@@ -150,6 +150,7 @@ public class ScenarioController extends InputController {
 					process = scenario.getStochasticProcess();
 					
 						
+					//TODO calculate Parameters with BSR here or later.
 					//Original parameters code
 					JPanel parametersPanel = process.calculateParameters();
 					BHStochasticInputForm form = (BHStochasticInputForm) ((Component) e
@@ -157,15 +158,23 @@ public class ScenarioController extends InputController {
 					form.setParametersPanel(parametersPanel);
 					//BranchSpecificRepresentative specific code.
 					if(cbBranchSpecificRepresentative.isSelected() && cbBranchSpecificRepresentative.isVisible()){
+						
+						//TODO Calculate BSR parameters before we set the panel here
 						ITimeSeriesProcess timeSeriesProcess = scenario.getTimeSeriesProcess(ITimeSeriesProcess.Key.BRANCH_SPECIFIC_REPRESENTATIVE.toString());
+						
 						JPanel timeSeriesPanel = timeSeriesProcess.calculateParameters();
+						
 						form.setBranchSpecificRepresentativePanel(timeSeriesPanel);
+						
+						//TODO we should store the BSR in the scenario!
 						// get business data for the calculation below (branch specific values)
 						DTOBusinessData businessData = (PlatformController.getInstance()).getBusinessDataDTO();
+						
 						//Load Calculator Plugin(s) - should be one
 						ServiceLoader<IBranchSpecificCalculator> calculators = PluginManager
 						.getInstance().getServices(IBranchSpecificCalculator.class);
 						// calculate branch specific values
+						
 						for(IBranchSpecificCalculator calculator : calculators){
 // TODO							businessData = calculator.calculateBSR(businessData);		
 						}
@@ -218,6 +227,8 @@ public class ScenarioController extends InputController {
 
 			resetStochasticParameters.addActionListener(new ActionListener() {
 
+				//TODO Do we have to delete data here?
+				
 				@Override
 				public void actionPerformed(ActionEvent e) {
 					BHStochasticInputForm form = (BHStochasticInputForm) ((Component) e
@@ -375,6 +386,8 @@ public class ScenarioController extends InputController {
 						}
 
 					} else {
+						
+						//TODO Store the selected industry somewhere and tell us!
 						//For branch specific representative
 						BHComboBox cbindustry = (BHComboBox) view.getBHComponent(DTOScenario.Key.INDUSTRY);
 						BHComboBox cbrepresentative = (BHComboBox) view.getBHComponent(DTOScenario.Key.REPRESENTATIVE);
@@ -671,6 +684,7 @@ public class ScenarioController extends InputController {
 						start = System.currentTimeMillis();
 					}
 					
+					//TODO Check whether we have to calculate here with BSR data
 					process.updateParameters();
 					DistributionMap result = process.calculate();
                     
@@ -691,6 +705,7 @@ public class ScenarioController extends InputController {
 						TSprocess.setProgressB(progressBar);
 						TSprocess.updateParameters();
 						try{
+							//TODO calculate CF with BSR here
 							result.setTimeSeries(TSprocess,
 								TSprocess.calculate(),
 								TSprocess.calculateCompare(3));
