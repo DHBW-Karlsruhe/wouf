@@ -23,6 +23,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.Comparator;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import java.util.ServiceLoader;
@@ -39,6 +40,7 @@ import org.bh.calculation.IStochasticProcess;
 import org.bh.calculation.ITimeSeriesProcess;
 import org.bh.controller.IPeriodController;
 import org.bh.controller.InputController;
+import org.bh.data.DTOBranch;
 import org.bh.data.DTOBranchSpecificRep;
 import org.bh.data.DTOBusinessData;
 import org.bh.data.DTOKeyPair;
@@ -439,6 +441,25 @@ public class ScenarioController extends InputController {
 						}
 						if (lindustry != null){
 							lindustry.setVisible(true);
+						}
+						
+						//cbindustry und cbrepresentative mit Daten befüllen
+						PlatformController platformController = PlatformController.getInstance();
+						DTOBusinessData businessData = platformController.getBusinessDataDTO();
+						List<DTOBranch> branchList = businessData.getChildren();
+						Iterator<DTOBranch> itr = branchList.iterator(); 
+						while(itr.hasNext()) {
+				    		DTOBranch currBranch = itr.next();			
+				    			
+				    		System.out.print(currBranch.get(DTOBranch.Key.BRANCH_KEY_MAIN_CATEGORY));
+				    		System.out.print(currBranch.get(DTOBranch.Key.BRANCH_KEY_MID_CATEGORY));
+				    		System.out.println(currBranch.get(DTOBranch.Key.BRANCH_KEY_SUB_CATEGORY));
+				    		
+				    		Item industry = new Item(currBranch.get(DTOBranch.Key.BRANCH_KEY_MAIN_CATEGORY).toString(), currBranch.get(DTOBranch.Key.BRANCH_KEY_MAIN_CATEGORY));
+				    		Item representative = new Item(currBranch.get(DTOBranch.Key.BRANCH_KEY_MID_CATEGORY).toString(), currBranch.get(DTOBranch.Key.BRANCH_KEY_MID_CATEGORY));
+				    		
+				    		cbindustry.addItem(industry);
+				    		cbrepresentative.addItem(representative);
 						}
 					} else {
 						if(cbindustry != null){
