@@ -10,7 +10,6 @@ import org.bh.calculation.IBranchSpecificCalculator;
 import org.bh.calculation.ITimeSeriesProcess;
 import org.bh.data.DTOBranch;
 import org.bh.data.DTOScenario;
-import org.bh.data.types.IValue;
 import org.bh.gui.swing.comp.BHButton;
 import org.bh.gui.swing.comp.BHDescriptionLabel;
 import org.bh.gui.swing.comp.BHProgressBar;
@@ -37,7 +36,8 @@ public class BranchSpecificRepresentative implements ITimeSeriesProcess {
 
 	private enum Elements{
 		BRANCH_SPECIFIC_REPRESENTATIVE_GOODNESS,
-		POPUP_GOODNESS_BRANCH_SPECIFIC_REPRESENTATIVE;
+		POPUP_GOODNESS_BRANCH_SPECIFIC_REPRESENTATIVE,
+		NO_GOODNESS;
 		
 		@Override
 	    public String toString() {
@@ -46,6 +46,12 @@ public class BranchSpecificRepresentative implements ITimeSeriesProcess {
 	}
 	
 	private DTOScenario scenario;
+	
+	private boolean goodness_calculated;
+	
+	private ITranslator translator = BHTranslator.getInstance();
+	
+	private BHTextField tfBranchSpecGoodness;
 	
 	@Override
 	public JPanel calculateParameters() {
@@ -59,18 +65,6 @@ public class BranchSpecificRepresentative implements ITimeSeriesProcess {
 		layout.setColumnGroups(new int[][] { { 4, 8 } });
 		CellConstraints cons = new CellConstraints();
 		
-		//get translator
-		ITranslator translator = BHTranslator.getInstance();
-		
-		//calculate goodness
-		double goodness = getGoodness();
-		
-		//create goodness field
-		BHTextField tfBranchSpecGoodness = new BHTextField(Elements.BRANCH_SPECIFIC_REPRESENTATIVE_GOODNESS);
-		tfBranchSpecGoodness.setEditable(false);
-		tfBranchSpecGoodness.setToolTipText(translator.translate(Elements.BRANCH_SPECIFIC_REPRESENTATIVE_GOODNESS, ITranslator.LONG));
-		tfBranchSpecGoodness.setText("" + goodness + " %");
-		
 		BHDescriptionLabel dlGoodnessDescription = new BHDescriptionLabel(
 				Elements.BRANCH_SPECIFIC_REPRESENTATIVE_GOODNESS); 
 		dlGoodnessDescription.setToolTipText(translator.translate(Elements.BRANCH_SPECIFIC_REPRESENTATIVE_GOODNESS, ITranslator.LONG));
@@ -81,7 +75,7 @@ public class BranchSpecificRepresentative implements ITimeSeriesProcess {
 		
 		// add components to panel
 		result.add( dlGoodnessDescription, cons.xywh(2, 2, 1, 1));
-		result.add( tfBranchSpecGoodness,
+		result.add( getBranchSpecGoodness(),
 				cons.xywh(4, 2, 1, 1));
 		result.add( bShowDeviationAnalysis,
 				cons.xywh(6, 2, 1, 1));
@@ -95,9 +89,17 @@ public class BranchSpecificRepresentative implements ITimeSeriesProcess {
 	 * 
 	 * @return goodness of branch specific representative
 	 */
-	private double getGoodness(){
+	private BHTextField getBranchSpecGoodness(){
+		//create goodness field
+		if(tfBranchSpecGoodness == null){
+			tfBranchSpecGoodness = new BHTextField(Elements.BRANCH_SPECIFIC_REPRESENTATIVE_GOODNESS);
+		}
+		tfBranchSpecGoodness.setEditable(false);
+		tfBranchSpecGoodness.setToolTipText(translator.translate(Elements.BRANCH_SPECIFIC_REPRESENTATIVE_GOODNESS, ITranslator.LONG));
+		
 		//TODO integrate goodness calculation here - use all the business data we have and
 		// calculate with all available variations
+		goodness_calculated = false;//to know whether we got a result.
 		double goodness = 9999999999999.99; //we're searching minimum.
 		
 		//Load every Calculator Plugin
@@ -108,17 +110,24 @@ public class BranchSpecificRepresentative implements ITimeSeriesProcess {
 			//Try calculating the goodness
 			try{
 				//use the industry to calculate branch specific representative
-				IValue branchValue = scenario.get(DTOScenario.Key.INDUSTRY);
 				DTOBranch[] branch = new DTOBranch[4];
 				double tempGoodness = calculator.getRating(branch);
 				if(tempGoodness < goodness){
+					goodness_calculated = true;
 					goodness = tempGoodness;
 				}
 			} catch (Exception e){
 				Logger.getLogger(BranchSpecificRepresentative.class).error("Error calculating branch specific representative", e);
 			}
 		}
-		return goodness;
+		
+		if(goodness_calculated){
+			tfBranchSpecGoodness.setText("" + goodness + " %");
+		} else {
+			tfBranchSpecGoodness.setText("N/A");
+		}
+		
+		return tfBranchSpecGoodness;
 	}
 
 	@Override
