@@ -256,7 +256,7 @@ public class BHStochasticResultController extends OutputController {
 	}
 
 	class SliderChangeListener implements ChangeListener {
-		boolean erstes_mal = true;// siehe F I X M E un
+		boolean erstes_mal = true;
 
 		public void stateChanged(ChangeEvent e) {
 

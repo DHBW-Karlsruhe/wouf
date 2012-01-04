@@ -24,6 +24,6 @@ import org.bh.validation.ValidationMethods;
 public class ViewRandomWalk extends View {
 
     public ViewRandomWalk() throws ViewException{
-        super(new RandomWalk().calculateParameters(), new ValidationMethods());
+        super(new RandomWalk().calculateParameters(false), new ValidationMethods());
     }
 }

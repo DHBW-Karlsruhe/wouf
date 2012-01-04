@@ -41,8 +41,8 @@ import org.bh.calculation.ITimeSeriesProcess;
 import org.bh.controller.IPeriodController;
 import org.bh.controller.InputController;
 import org.bh.data.DTOBranch;
-import org.bh.data.DTOBranchSpecificRep;
 import org.bh.data.DTOBusinessData;
+import org.bh.data.DTOCompany;
 import org.bh.data.DTOKeyPair;
 import org.bh.data.DTOScenario;
 import org.bh.data.IDTO;
@@ -152,26 +152,9 @@ public class ScenarioController extends InputController {
 					DTOScenario scenario = (DTOScenario) getModel();
 					process = scenario.getStochasticProcess();
 					
-					//calculate branch specific representative
-					// get business data for the calculation below (branch specific values)
-					DTOBusinessData businessData = (PlatformController.getInstance()).getBusinessDataDTO();
-					
-					//Load Calculator Plugin(s) - should be one
-					ServiceLoader<IBranchSpecificCalculator> calculators = PluginManager
-					.getInstance().getServices(IBranchSpecificCalculator.class);
-					// calculate branch specific values
-					
-					ArrayList<DTOBranchSpecificRep> branchSpecificRep = null;
-					for(IBranchSpecificCalculator calculator : calculators){
-							branchSpecificRep = calculator.calculateBSR(businessData);		
-					}
-					scenario.setBranchSpecificRep(branchSpecificRep);
-					
-					//Original parameters code
-					JPanel parametersPanel = process.calculateParameters();
 					BHStochasticInputForm form = (BHStochasticInputForm) ((Component) e
 							.getSource()).getParent();
-					form.setParametersPanel(parametersPanel);
+					
 					//BranchSpecificRepresentative specific code.
 					if(cbBranchSpecificRepresentative.isSelected() && cbBranchSpecificRepresentative.isVisible()){
 						
@@ -180,8 +163,28 @@ public class ScenarioController extends InputController {
 						JPanel timeSeriesPanel = timeSeriesProcess.calculateParameters();
 						
 						form.setBranchSpecificRepresentativePanel(timeSeriesPanel);
+						
+						//calculate branch specific representative
+						// get business data for the calculation below (branch specific values)
+						DTOBusinessData businessData = (PlatformController.getInstance()).getBusinessDataDTO();
+						
+						//Load Calculator Plugin(s) - should be one
+						ServiceLoader<IBranchSpecificCalculator> calculators = PluginManager
+						.getInstance().getServices(IBranchSpecificCalculator.class);
+						// calculate branch specific values
+						
+						DTOCompany branchSpecificRep = null;
+						for(IBranchSpecificCalculator calculator : calculators){
+//								branchSpecificRep = calculator.calculateBSR(businessData);		
+						}
+						scenario.setBranchSpecificRep(branchSpecificRep);
 
 					}
+					
+					//Original parameters code
+					JPanel parametersPanel = process.calculateParameters(false);
+					
+					form.setParametersPanel(parametersPanel);
 						
 					if (parametersPanel instanceof Container)
 						Services.setFocus((Container) parametersPanel);
@@ -229,8 +232,6 @@ public class ScenarioController extends InputController {
 			});
 
 			resetStochasticParameters.addActionListener(new ActionListener() {
-
-				//TODO Do we have to delete data here?
 				
 				@Override
 				public void actionPerformed(ActionEvent e) {
@@ -390,7 +391,6 @@ public class ScenarioController extends InputController {
 
 					} else {
 						
-						//TODO Store the selected industry somewhere and tell us!
 						//For branch specific representative
 						BHComboBox cbindustry = (BHComboBox) view.getBHComponent(DTOScenario.Key.INDUSTRY);
 						BHComboBox cbrepresentative = (BHComboBox) view.getBHComponent(DTOScenario.Key.REPRESENTATIVE);
@@ -706,8 +706,8 @@ public class ScenarioController extends InputController {
 						start = System.currentTimeMillis();
 					}
 					
+					process.updateParameters();//This one only writes the GUI Keys into internal keys
 					//TODO Check whether we have to calculate here with BSR data
-					process.updateParameters();
 					DistributionMap result = process.calculate();
                     
 					// 12.12.2011: checks wether we got a result or not
@@ -718,7 +718,17 @@ public class ScenarioController extends InputController {
 							.getBHComponent(DTOScenario.Key.TIMESERIES_PROCESS);
 					
 					BHCheckBox cbBranchSpecific = (BHCheckBox) view.getBHComponent(DTOScenario.Key.BRANCH_SPECIFIC);
-
+					
+					
+					
+					if(cbBranchSpecific.isSelected()){
+						//The Panel contains all data necessary such as slope and standard deviation.
+						//TODO use the results
+						//TODO maybe manipulate data here, because it is normalized?!
+						process.calculateParameters(true);
+						DistributionMap resultBranchSpecificData = process.calculate();
+					}
+					
 					if (timeSeries.isSelected()) {
 						((BHScenarioForm) getViewPanel()).addProgressBar();
 						progressBar.setVisible(true);
@@ -741,10 +751,6 @@ public class ScenarioController extends InputController {
 					}
 
 					Component panel = new JPanel();
-					//
-					//DistributionMap testResult = process.calculate();
-					//testResult.put(1.5);
-					//
 					
 					for (IStochasticResultAnalyser analyser : PluginManager
 							.getInstance().getServices(

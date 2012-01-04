@@ -89,11 +89,13 @@ public class WienerProcess implements IStochasticProcess {
 	public DistributionMap calculate() {
 		log.info("Wiener Process started");
 
+		//Create new result map
 		DistributionMap result = new DistributionMap(1);
 		DTOPeriod last = scenario.getLastChild();
 		List<DTOKeyPair> stochasticKeys = scenario.getPeriodStochasticKeys();
 		IShareholderValueCalculator dcfMethod = scenario.getDCFMethod();
 
+		//Validate user input data
 		boolean isValid = ValidateStochastic.validateWienerProcess(internalMap);
 		int choice = 0;
 
@@ -105,18 +107,25 @@ public class WienerProcess implements IStochasticProcess {
 		}
 
 		if (isValid == true || choice == JOptionPane.YES_OPTION) {
-
+			
+			//Get input data from user. Steps per period. Number of periods and number of repetitiions
 			Countdown countdown = new Countdown(map.get(REPETITIONS));
 			int stepsPerPeriod = map.get(STEPS_PER_PERIOD);
 			int amountOfPeriods = map.get(AMOUNT_OF_PERIODS);
 
-			DTO.setThrowEvents(false);
-			DTOScenario[] tempScenarios = new DTOScenario[NUM_THREADS];
+			DTO.setThrowEvents(false); //NO DATA_CHANGED events - working on temporary data
+			DTOScenario[] tempScenarios = new DTOScenario[NUM_THREADS]; //Num_Threads is number of available processors
 
 			CalculationThread[] threads = new CalculationThread[NUM_THREADS];
 			for (int i = 0; i < NUM_THREADS; i++) {
-				DTOScenario tempScenario = tempScenarios[i] = new DTOScenario(
-						true);
+				//Create new temporary scenario
+				DTOScenario tempScenario =  new DTOScenario(true);
+				tempScenarios[i] = tempScenario;
+				
+				/*
+				 * Write Return on equity and all the other scenario data
+				 * like tax in temporary scenario 
+				 */
 				tempScenario.put(DTOScenario.Key.REK, scenario
 						.get(DTOScenario.Key.REK));
 				tempScenario.put(DTOScenario.Key.RFK, scenario
@@ -126,10 +135,12 @@ public class WienerProcess implements IStochasticProcess {
 				tempScenario.put(DTOScenario.Key.CTAX, scenario
 						.get(DTOScenario.Key.CTAX));
 
+				//Write initial number of periods
 				for (int j = 0; j < amountOfPeriods; j++) {
 					tempScenario.addChild((DTOPeriod) last.clone());
 				}
 
+				//Start calculation
 				threads[i] = new CalculationThread(countdown, stepsPerPeriod,
 						stochasticKeys, tempScenario, result, dcfMethod, last);
 				threads[i].setName("Wiener Process " + (i + 1));
@@ -145,6 +156,7 @@ public class WienerProcess implements IStochasticProcess {
 			}
 		}
 
+		//Throw data changed events again.
 		DTO.setThrowEvents(true);
 		log.info("Wiener Process finished");
 
@@ -220,11 +232,11 @@ public class WienerProcess implements IStochasticProcess {
 	}
 
 	@Override
-	public JPanel calculateParameters() {
+	public JPanel calculateParameters(boolean branchSpecific) {
 		internalMap = new HashMap<String, Double>();
 		map = new HashMap<String, Integer>();
 		TreeMap<DTOKeyPair, List<Calculable>> toBeDetermined = scenario
-				.getPeriodStochasticKeysAndValues();
+				.getPeriodStochasticKeysAndValues(false);
 
 		JPanel result = new JPanel();
 

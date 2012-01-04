@@ -41,9 +41,10 @@ import com.jgoodies.forms.layout.FormLayout;
 
 /**
  * 
- * TimeSeries Hauptklasse. Liefert alle GUI-Elemente. Verwendet die CalculatorKlasse der Version 3
- *
- *
+ * TimeSeries Hauptklasse. Liefert alle GUI-Elemente. Verwendet die
+ * CalculatorKlasse der Version 3
+ * 
+ * 
  * @author Timo Klein, Andreas Wussler, Vito Masiello
  * @version 1.0, 1.2.2011
  * @update Yannick Rödl, 22.12.2011
@@ -51,8 +52,8 @@ import com.jgoodies.forms.layout.FormLayout;
 
 public class TimeSeries implements ITimeSeriesProcess {
 	private static final Logger log = Logger.getLogger(TimeSeries.class);
-	
-	//new variables
+
+	// new variables
 	// new Code ends at //-------------------------
 	private static final String SLOPE = "slope";
 	private static final String STANDARD_DEVIATION = "standardDeviation";
@@ -61,11 +62,11 @@ public class TimeSeries implements ITimeSeriesProcess {
 	private static final String AMOUNT_OF_PERIODS_BACK = "amountOfPeriodsBack";
 	private static final String AMOUNT_OF_PERIODS_FUTURE = "amountOfPeriodsFuture";
 	private JPanel panel;
-	//-------------------------------------------------------
+	// -------------------------------------------------------
 
 	private static final String UNIQUE_ID = "timeSeries";
 	private static final String GUI_KEY = "timeSeries";
-	
+
 	private DTOScenario scenario;
 	private HashMap<String, Double> internalMap;
 	private HashMap<String, Integer> map;
@@ -94,30 +95,34 @@ public class TimeSeries implements ITimeSeriesProcess {
 		internalMap = new HashMap<String, Double>();
 		map = new HashMap<String, Integer>();
 		JPanel result = new JPanel();
-		
+
 		String rowDef = "4px,p,4px";
 		String colDef = "4px,right:pref,4px,60px:grow,8px:grow,right:pref,4px,max(35px;pref):grow,4px:grow";
 		FormLayout layout = new FormLayout(colDef, rowDef);
 		result.setLayout(layout);
 		layout.setColumnGroups(new int[][] { { 4, 8 } });
 		CellConstraints cons = new CellConstraints();
-		
-		result.add(new BHDescriptionLabel(AMOUNT_OF_PERIODS_BACK), cons.xywh(2, 2,1, 1));
+
+		result.add(new BHDescriptionLabel(AMOUNT_OF_PERIODS_BACK),
+				cons.xywh(2, 2, 1, 1));
 		BHTextField tf3 = new BHTextField(AMOUNT_OF_PERIODS_BACK);
-		ValidationRule[] rules3 = { VRMandatory.INSTANCE, VRIsInteger.INSTANCE, VRIsGreaterThan.GTETWO, VRIsLowerThan.LTEHUNDRED};
+		ValidationRule[] rules3 = { VRMandatory.INSTANCE, VRIsInteger.INSTANCE,
+				VRIsGreaterThan.GTETWO, VRIsLowerThan.LTEHUNDRED };
 		tf3.setValidationRules(rules3);
 		result.add(tf3, cons.xywh(4, 2, 1, 1));
-		
-		result.add(new BHDescriptionLabel(AMOUNT_OF_PERIODS_FUTURE), cons.xywh(6, 2,1, 1));
+
+		result.add(new BHDescriptionLabel(AMOUNT_OF_PERIODS_FUTURE),
+				cons.xywh(6, 2, 1, 1));
 		BHTextField tf2 = new BHTextField(AMOUNT_OF_PERIODS_FUTURE);
-		ValidationRule[] rules2 = { VRMandatory.INSTANCE, VRIsInteger.INSTANCE, VRIsGreaterThan.GTZERO, VRIsLowerThan.LTEHUNDRED};
+		ValidationRule[] rules2 = { VRMandatory.INSTANCE, VRIsInteger.INSTANCE,
+				VRIsGreaterThan.GTZERO, VRIsLowerThan.LTEHUNDRED };
 		tf2.setValidationRules(rules2);
-		result.add(tf2, cons.xywh(8, 2, 1, 1));		
-		
+		result.add(tf2, cons.xywh(8, 2, 1, 1));
+
 		this.panel = result;
 		return result;
 	}
-	
+
 	public void updateParameters() {
 		Component[] components = panel.getComponents();
 		for (int i = 0; i < components.length; i++) {
@@ -135,77 +140,80 @@ public class TimeSeries implements ITimeSeriesProcess {
 
 	@Override
 	public TreeMap<Integer, Double> calculate() {
-		//Berechnung für den Cashflow-Chart Vergangenheit bis in die Zukunft
+		// Berechnung für den Cashflow-Chart Vergangenheit bis in die Zukunft
 		TreeMap<Integer, Double> result = new TreeMap<Integer, Double>();
-		
-		TreeMap<DTOKeyPair, List<Calculable>> periods = scenario.getPeriodStochasticKeysAndValues();
-    	Entry<DTOKeyPair, List<Calculable>> cashfl = periods.firstEntry();
-		
-    	List<Calculable> cashValues = cashfl.getValue();
-    	int periodsInPast = map.get(AMOUNT_OF_PERIODS_BACK);
-    	int periodsInFuture = map.get(AMOUNT_OF_PERIODS_FUTURE);
-    	if(periodsInPast > cashValues.size()-1){
-    		periodsInPast = cashValues.size() - 1;
-    		/*
-    		 * Changed from periods.size() See #259
-    		 * 
-    		 * periods.size() contains all values like debt, 
-    		 * ... and not only the cashflows; For calculation we just need the cashflows
-    		 */
-    	}
-    	calc = new TimeSeriesCalculator_v3(cashValues, progressB);
-//    	System.out.println("TimeSeries: call calculate cashflows");
-    	List<Calculable> cashCalc = calc.calculateCashflows(periodsInFuture,periodsInPast,true,1000,true,null);
-//    	System.out.println("TimeSeries: call calculate cashflows beendet");
-    	int counter = 1;
-    	for(Calculable cashflow : cashCalc){
-    		int key = -(cashCalc.size()-periodsInFuture)+counter;
-    		double value = cashflow.toNumber().doubleValue();
-    		result.put(key, value);
-    		counter ++;
-    	}
+
+		TreeMap<DTOKeyPair, List<Calculable>> periods = scenario
+				.getPeriodStochasticKeysAndValues(false);
+		Entry<DTOKeyPair, List<Calculable>> cashfl = periods.firstEntry();
+
+		List<Calculable> cashValues = cashfl.getValue();
+		int periodsInPast = map.get(AMOUNT_OF_PERIODS_BACK);
+		int periodsInFuture = map.get(AMOUNT_OF_PERIODS_FUTURE);
+		if (periodsInPast > cashValues.size() - 1) {
+			periodsInPast = cashValues.size() - 1;
+			/*
+			 * Changed from periods.size() See #259
+			 * 
+			 * periods.size() contains all values like debt, ... and not only
+			 * the cashflows; For calculation we just need the cashflows
+			 */
+		}
+		calc = new TimeSeriesCalculator_v3(cashValues, progressB);
+		// System.out.println("TimeSeries: call calculate cashflows");
+		List<Calculable> cashCalc = calc.calculateCashflows(periodsInFuture,
+				periodsInPast, true, 1000, true, null);
+		// System.out.println("TimeSeries: call calculate cashflows beendet");
+		int counter = 1;
+		for (Calculable cashflow : cashCalc) {
+			int key = -(cashCalc.size() - periodsInFuture) + counter;
+			double value = cashflow.toNumber().doubleValue();
+			result.put(key, value);
+			counter++;
+		}
 		return result;
 	}
-	
-	
-	public TreeMap<Integer, Double>[]  calculateCompare(int p){
+
+	public TreeMap<Integer, Double>[] calculateCompare(int p) {
 		TreeMap<Integer, Double> result[] = new TreeMap[2];
-		result[0] = new TreeMap<Integer, Double>(); //Ist Cashflows
-		result[1] = new TreeMap<Integer, Double>(); //Vergleichs Cashflows
-			
-//			System.out.println("TimeSeries: call calcultionTest_4_periods_to_history");
-			List<Calculable> cashProg = calc.calcultionTest_4_periods_to_history_v2(p, 1000, false);
-//			System.out.println("TimeSeries: call calcultionTest_4_periods_to_history beendet");
-			List<Calculable> cashIs = calc.getCashflows();
-			int counter = 1;
-			
-			for(Calculable cashflow : cashProg){
-	    		int key = -(cashProg.size())+counter;
-	    		double value = cashflow.toNumber().doubleValue();
-	    		result[1].put(key, value);
-	    		counter ++;    		
-	    	}
-			counter = 1;
-			for(Calculable cashflow : cashIs){
-	    		int key = -(cashProg.size())+counter;
-	    		double value = cashflow.toNumber().doubleValue();
-	    		result[0].put(key, value);
-	    		counter ++;    		
-	    	}
-		return result;
+		result[0] = new TreeMap<Integer, Double>(); // Ist Cashflows
+		result[1] = new TreeMap<Integer, Double>(); // Vergleichs Cashflows
+
+		// System.out.println("TimeSeries: call calcultionTest_4_periods_to_history");
+		List<Calculable> cashProg = calc
+				.calcultionTest_4_periods_to_history_v2(p, 1000, false);
+		// System.out.println("TimeSeries: call calcultionTest_4_periods_to_history beendet");
+		List<Calculable> cashIs = calc.getCashflows();
+		int counter = 1;
+
+		for (Calculable cashflow : cashProg) {
+			int key = -(cashProg.size()) + counter;
+			double value = cashflow.toNumber().doubleValue();
+			result[1].put(key, value);
+			counter++;
+		}
 		
+		counter = 1;
+		for (Calculable cashflow : cashIs) {
+			int key = -(cashProg.size()) + counter;
+			double value = cashflow.toNumber().doubleValue();
+			result[0].put(key, value);
+			counter++;
+		}
+		
+		return result;
+
 	}
 
 	@Override
 	public void setProgressB(BHProgressBar progressB) {
 		this.progressB = progressB;
-		
+
 	}
 
 	@Override
 	public void setInterrupted() {
 		calc.setInterrupted();
 	}
-	
 
 }

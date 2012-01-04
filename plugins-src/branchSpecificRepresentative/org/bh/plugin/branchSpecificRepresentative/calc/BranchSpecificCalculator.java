@@ -4,9 +4,8 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
-import org.bh.calculation.*;
+import org.bh.calculation.IBranchSpecificCalculator;
 import org.bh.data.DTOBranch;
-import org.bh.data.DTOBranchSpecificRep;
 import org.bh.data.DTOBusinessData;
 import org.bh.data.DTOCompany;
 import org.bh.data.DTOPeriod;
@@ -29,7 +28,7 @@ public class BranchSpecificCalculator implements IBranchSpecificCalculator {
 	private static double ratingBSR;
 	private static DTOBranch selectedBranch = null;
 
-	public ArrayList<DTOBranchSpecificRep> calculateBSR(
+	public ArrayList<DTOCompany> calculateBSR(
 			DTOBusinessData businessData) {
 		DTOBranch currBranch = getSelectedBranch(businessData);
 
@@ -52,7 +51,7 @@ public class BranchSpecificCalculator implements IBranchSpecificCalculator {
 		}
 
 		// mit normierter BusinessData die Mittelwerte berechnen
-		ArrayList<DTOBranchSpecificRep> dtoBSRaverage = new ArrayList<DTOBranchSpecificRep>();
+		ArrayList<DTOCompany> dtoBSRaverage = new ArrayList<DTOCompany>();
 
 		dtoBSRaverage = getArithmeticAverage("", businessData);
 
@@ -97,12 +96,10 @@ public class BranchSpecificCalculator implements IBranchSpecificCalculator {
 
 	}
 
-	public ArrayList<DTOBranchSpecificRep> getArithmeticAverage(String choice,
+	public ArrayList<DTOCompany> getArithmeticAverage(String choice,
 			DTOBusinessData businessDataNormed) {
 
-		ArrayList<DTOBranchSpecificRep> arithmeticAverage = new ArrayList<DTOBranchSpecificRep>();
-
-		double avgFCF[] = null;
+		ArrayList<DTOCompany> arithmeticAverage = new ArrayList<DTOCompany>();
 
 		// Iterate all Company DTOs
 		DTOBranch currBranch = getSelectedBranch(businessDataNormed);
@@ -116,6 +113,7 @@ public class BranchSpecificCalculator implements IBranchSpecificCalculator {
 		List<DTOCompany> companyList = currBranch.getChildren();
 		Iterator<DTOCompany> CompanyItr = companyList.iterator();
 		int counter = 0;
+		double avgFCF[] = new double[companyList.size()];
 		while (CompanyItr.hasNext()) {
 			DTOCompany currCompany = CompanyItr.next();
 			counter++;
@@ -174,15 +172,16 @@ public class BranchSpecificCalculator implements IBranchSpecificCalculator {
 
 		}
 
-		arithmeticAverage.add(new DTOBranchSpecificRep(""
-				+ currBranch.get(DTOBranch.Key.BRANCH_KEY_MAIN_CATEGORY),
-				avgBranchFCF));
+		//TODO uncomment!!!
+//		arithmeticAverage.add(new DTOCompany(""
+//				+ currBranch.get(DTOBranch.Key.BRANCH_KEY_MAIN_CATEGORY),
+//				avgBranchFCF));
 
 		return arithmeticAverage;
 
 	}
 
-	private void computeRating(ArrayList<DTOBranchSpecificRep> branchSpecificRepresentative,DTOBusinessData businessData){
+	private void computeRating(ArrayList<DTOCompany> branchSpecificRepresentative,DTOBusinessData businessData){
 			
 		DTOBranch currBranch = getSelectedBranch(businessData);
 
@@ -249,8 +248,10 @@ public class BranchSpecificCalculator implements IBranchSpecificCalculator {
 		return null;
 	}
 
-	public double getRating() {
+	public double getRating(DTOBranch[] branchRating) {
 		return BranchSpecificCalculator.ratingBSR;
 	}
+
+
 
 }

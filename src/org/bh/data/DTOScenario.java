@@ -48,7 +48,7 @@ public class DTOScenario extends DTO<DTOPeriod> {
 	@SuppressWarnings("unused")
 	private static final Logger log = Logger.getLogger(DTOScenario.class);
 	private boolean isCalculated = false;
-	private transient ArrayList<DTOBranchSpecificRep> branchSpecificRep;
+	private transient DTOCompany branchSpecificRep;
 
 	public enum Key {
 		/**
@@ -293,21 +293,32 @@ public class DTOScenario extends DTO<DTOPeriod> {
 	 * This method returns the keys whose values are determined stochastically
 	 * together with their values in the past periods.
 	 * 
+	 * @update Yannick Rödl, 04.01.2012
+	 * 
 	 * @see #getPeriodStochasticKeys()
 	 * @return Keys and past values.
 	 */
-	public TreeMap<DTOKeyPair, List<Calculable>> getPeriodStochasticKeysAndValues() {
+	public TreeMap<DTOKeyPair, List<Calculable>> getPeriodStochasticKeysAndValues(boolean branchSpecific) {
 		List<DTOKeyPair> keys = getPeriodStochasticKeys();
 		TreeMap<DTOKeyPair, List<Calculable>> map = new TreeMap<DTOKeyPair, List<Calculable>>();
 		
-		//TODO Michaael - check whether lastPeriod is needed
-		//DTOPeriod lastPeriod = children.getLast();
 		
 		for (DTOKeyPair key : keys) {
 			List<Calculable> pastValues = new ArrayList<Calculable>();
+			
+			//retrieve all children
+			List<DTOPeriod> children = null;
+			
+			//Determine whether the children are branch specific or global
+			if(!branchSpecific){
+				children = this.children;	
+			} else {
+				children = getBranchSpecificRep().getChildren();
+			}
+			
 			for (DTOPeriod period : children) {
 				IPeriodicalValuesDTO periodValuesDto = period
-						.getPeriodicalValuesDTO(key.getDtoId());
+					.getPeriodicalValuesDTO(key.getDtoId());
 				pastValues.add(periodValuesDto.getCalculable(key.getKey()));
 			}
 			map.put(key, pastValues);
@@ -366,12 +377,21 @@ public class DTOScenario extends DTO<DTOPeriod> {
 		return isCalculated;
 	}
 
-	public ArrayList<DTOBranchSpecificRep> getBranchSpecificRep() {
+	/**
+	 * Retrieve the branch specific representative from the scenario.
+	 * It is stored as a local transient variable and will therefore not be 
+	 * persisted.
+	 * @return ArrayList with DTOBranchSpecificRep
+	 */
+	public DTOCompany getBranchSpecificRep() {
 		return branchSpecificRep;
 	}
 
-	public void setBranchSpecificRep(
-			ArrayList<DTOBranchSpecificRep> branchSpecificRep) {
+	/**
+	 * Set the branch specific representative for the scenario.
+	 * @param branchSpecificRep
+	 */
+	public void setBranchSpecificRep(DTOCompany branchSpecificRep) {
 		this.branchSpecificRep = branchSpecificRep;
 	}
 }

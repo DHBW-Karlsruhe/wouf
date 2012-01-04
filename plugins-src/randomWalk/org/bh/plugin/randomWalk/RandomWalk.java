@@ -219,12 +219,12 @@ public class RandomWalk implements IStochasticProcess {
 	}
 
 	@Override
-	public JPanel calculateParameters() {
+	public JPanel calculateParameters(boolean branchSpecific) {
 		internalMap = new HashMap<String, Double>();
 		map = new HashMap<String, Integer>();
 
 		TreeMap<DTOKeyPair, List<Calculable>> toBeDetermined = scenario
-				.getPeriodStochasticKeysAndValues();
+				.getPeriodStochasticKeysAndValues(false);
 
 		JPanel result = new JPanel();
 

@@ -3,18 +3,14 @@ package org.bh.tests.junit.branchSpecificRepresentative;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Iterator;
-import java.util.List;
 
-import org.bh.data.DTOBranch;
-import org.bh.data.DTOBranchSpecificRep;
+import junit.framework.TestCase;
+
 import org.bh.data.DTOBusinessData;
 import org.bh.data.DTOCompany;
-import org.bh.data.DTOPeriod;
 import org.bh.plugin.branchSpecificRepresentative.calc.BranchSpecificCalculator;
 import org.bh.plugin.xmldataexchange.xmlimport.XMLImport;
 import org.bh.plugin.xmldataexchange.xmlimport.XMLNotValidException;
-
-import junit.framework.TestCase;
 
 
 /**
@@ -40,7 +36,7 @@ public class BranchCalcTest extends TestCase {
 			BranchSpecificCalculator bsc = new BranchSpecificCalculator();
 			
 			// Branch-Specific-Representative ermitteln lassen (Normierung & Mittelwert)
-			ArrayList<DTOBranchSpecificRep> result = new ArrayList<DTOBranchSpecificRep>();
+			ArrayList<DTOCompany> result = new ArrayList<DTOCompany>();
 			
 			result = bsc.calculateBSR(myDTO);
 			

@@ -42,7 +42,7 @@ public interface IStochasticProcess extends IDisplayablePlugin {
 	 * @see DTOScenario#getPeriodStochasticKeysAndValues()
 	 * @return The GUI or null.
 	 */
-	JPanel calculateParameters();
+	JPanel calculateParameters(boolean branchSpecific);
 
 	/**
 	 * This function will be called when the user confirmed the parameters,
