@@ -31,7 +31,6 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
-import java.util.prefs.Preferences;
 import java.util.ServiceLoader;
 import java.util.StringTokenizer;
 
@@ -43,7 +42,6 @@ import javax.swing.UIManager;
 import javax.swing.UIManager.LookAndFeelInfo;
 import javax.swing.event.EventListenerList;
 
-import org.apache.log4j.Level;
 import org.apache.log4j.Logger;
 import org.apache.log4j.PatternLayout;
 import org.apache.log4j.WriterAppender;
@@ -52,13 +50,13 @@ import org.bh.calculation.IStochasticProcess;
 import org.bh.calculation.ITimeSeriesProcess;
 import org.bh.controller.IDataExchangeController;
 import org.bh.controller.IPeriodController;
+import org.bh.data.DTO;
 import org.bh.data.DTO.Stochastic;
 import org.bh.data.DTOBusinessData;
 import org.bh.data.DTOKeyPair;
 import org.bh.gui.swing.BHPopupFrame;
 import org.bh.gui.swing.BHStatusBar;
 import org.bh.gui.swing.comp.BHTextField;
-import org.bh.gui.swing.importexport.BHDataExchangeDialog;
 import org.bh.platform.i18n.BHTranslator;
 import org.bh.platform.i18n.ITranslator;
 
@@ -505,7 +503,7 @@ public class Services {
 		}
 		
 		DTOBusinessData bd = null;
-		
+		DTO.setThrowEvents(false); //Don't throw events.
 		try{
 			//Load data from default path
 			bd = (DTOBusinessData) plugin.startImport();
@@ -541,8 +539,7 @@ public class Services {
 			//Default BusinessDataDTO
 			platformController.setBusinessDataDTO(bd);
 			
-			//Loaded data should not imply that the user changed something.
-			ProjectRepositoryManager.setChanged(false);
+			DTO.setThrowEvents(true);
 		}
 	}
 	
