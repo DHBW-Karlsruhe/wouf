@@ -26,65 +26,382 @@
         <value key="org.bh.data.DTOPeriod$Key.NAME" type="StringValue">
          <stringValue>2010</stringValue>
         </value>
-        <value key="org.bh.data.DTOPeriod$Key.LIABILITIES" type="StringValue">
-         <stringValue>1712453000</stringValue>
+        <value key="org.bh.data.DTOPeriod$Key.LIABILITIES" type="DoubleValue">
+         <doubleValue>1.712453E9</doubleValue>
         </value>
-        <value key="org.bh.data.DTOPeriod$Key.FCF" type="StringValue">
-         <stringValue>254175000</stringValue>
+        <value key="org.bh.data.DTOPeriod$Key.FCF" type="DoubleValue">
+         <doubleValue>2.54175E8</doubleValue>
         </value>
        </values>
+       <children>
+        <gccbalancesheet class="org.bh.plugin.gcc.data.DTOGCCBalanceSheet">
+         <values>
+          <value key="org.bh.plugin.gcc.data.DTOGCCBalanceSheet$Key.AV" type="DoubleValue">
+           <doubleValue>1.389891E9</doubleValue>
+          </value>
+          <value key="org.bh.plugin.gcc.data.DTOGCCBalanceSheet$Key.IVG" type="DoubleValue">
+           <doubleValue>3.9607E7</doubleValue>
+          </value>
+          <value key="org.bh.plugin.gcc.data.DTOGCCBalanceSheet$Key.SA" type="DoubleValue">
+           <doubleValue>9.51856E8</doubleValue>
+          </value>
+          <value key="org.bh.plugin.gcc.data.DTOGCCBalanceSheet$Key.FA" type="DoubleValue">
+           <doubleValue>3.98428E8</doubleValue>
+          </value>
+          <value key="org.bh.plugin.gcc.data.DTOGCCBalanceSheet$Key.VOR" type="DoubleValue">
+           <doubleValue>3.3737E8</doubleValue>
+          </value>
+          <value key="org.bh.plugin.gcc.data.DTOGCCBalanceSheet$Key.FSVG" type="DoubleValue">
+           <doubleValue>2.88975E8</doubleValue>
+          </value>
+          <value key="org.bh.plugin.gcc.data.DTOGCCBalanceSheet$Key.WP" type="DoubleValue">
+           <doubleValue>0.0</doubleValue>
+          </value>
+          <value key="org.bh.plugin.gcc.data.DTOGCCBalanceSheet$Key.KBGGKS" type="DoubleValue">
+           <doubleValue>6.13473E8</doubleValue>
+          </value>
+          <value key="org.bh.plugin.gcc.data.DTOGCCBalanceSheet$Key.EK" type="DoubleValue">
+           <doubleValue>9.22879E8</doubleValue>
+          </value>
+          <value key="org.bh.plugin.gcc.data.DTOGCCBalanceSheet$Key.RS" type="DoubleValue">
+           <doubleValue>3.4202E7</doubleValue>
+          </value>
+          <value key="org.bh.plugin.gcc.data.DTOGCCBalanceSheet$Key.VB" type="DoubleValue">
+           <doubleValue>1.712453E9</doubleValue>
+          </value>
+         </values>
+        </gccbalancesheet>
+        <gccprofitlossstatementtotalcost class="org.bh.plugin.gcc.data.DTOGCCProfitLossStatementTotalCost">
+         <values>
+          <value key="org.bh.plugin.gcc.data.DTOGCCProfitLossStatementTotalCost$Key.UE" type="DoubleValue">
+           <doubleValue>1.304674E9</doubleValue>
+          </value>
+          <value key="org.bh.plugin.gcc.data.DTOGCCProfitLossStatementTotalCost$Key.SBE" type="DoubleValue">
+           <doubleValue>1.0079E8</doubleValue>
+          </value>
+          <value key="org.bh.plugin.gcc.data.DTOGCCProfitLossStatementTotalCost$Key.MA" type="DoubleValue">
+           <doubleValue>8.34781E8</doubleValue>
+          </value>
+          <value key="org.bh.plugin.gcc.data.DTOGCCProfitLossStatementTotalCost$Key.PA" type="DoubleValue">
+           <doubleValue>1.26282E8</doubleValue>
+          </value>
+          <value key="org.bh.plugin.gcc.data.DTOGCCProfitLossStatementTotalCost$Key.ABSCH" type="DoubleValue">
+           <doubleValue>8.8503E7</doubleValue>
+          </value>
+         </values>
+        </gccprofitlossstatementtotalcost>
+       </children>
       </period>
       <period class="org.bh.data.DTOPeriod">
        <values>
         <value key="org.bh.data.DTOPeriod$Key.NAME" type="StringValue">
          <stringValue>2009</stringValue>
         </value>
-        <value key="org.bh.data.DTOPeriod$Key.LIABILITIES" type="StringValue">
-         <stringValue>1351588000</stringValue>
+        <value key="org.bh.data.DTOPeriod$Key.LIABILITIES" type="DoubleValue">
+         <doubleValue>1.351588E9</doubleValue>
         </value>
-        <value key="org.bh.data.DTOPeriod$Key.FCF" type="StringValue">
-         <stringValue>-32997000</stringValue>
+        <value key="org.bh.data.DTOPeriod$Key.FCF" type="DoubleValue">
+         <doubleValue>-3.2997E7</doubleValue>
         </value>
        </values>
+       <children>
+        <gccbalancesheet class="org.bh.plugin.gcc.data.DTOGCCBalanceSheet">
+         <values>
+          <value key="org.bh.plugin.gcc.data.DTOGCCBalanceSheet$Key.AV" type="DoubleValue">
+           <doubleValue>1.205572E9</doubleValue>
+          </value>
+          <value key="org.bh.plugin.gcc.data.DTOGCCBalanceSheet$Key.IVG" type="DoubleValue">
+           <doubleValue>3.7297E7</doubleValue>
+          </value>
+          <value key="org.bh.plugin.gcc.data.DTOGCCBalanceSheet$Key.SA" type="DoubleValue">
+           <doubleValue>7.87536E8</doubleValue>
+          </value>
+          <value key="org.bh.plugin.gcc.data.DTOGCCBalanceSheet$Key.FA" type="DoubleValue">
+           <doubleValue>3.80739E8</doubleValue>
+          </value>
+          <value key="org.bh.plugin.gcc.data.DTOGCCBalanceSheet$Key.VOR" type="DoubleValue">
+           <doubleValue>2.68507E8</doubleValue>
+          </value>
+          <value key="org.bh.plugin.gcc.data.DTOGCCBalanceSheet$Key.FSVG" type="DoubleValue">
+           <doubleValue>3.06826E8</doubleValue>
+          </value>
+          <value key="org.bh.plugin.gcc.data.DTOGCCBalanceSheet$Key.WP" type="DoubleValue">
+           <doubleValue>0.0</doubleValue>
+          </value>
+          <value key="org.bh.plugin.gcc.data.DTOGCCBalanceSheet$Key.KBGGKS" type="DoubleValue">
+           <doubleValue>4.28089E8</doubleValue>
+          </value>
+          <value key="org.bh.plugin.gcc.data.DTOGCCBalanceSheet$Key.EK" type="DoubleValue">
+           <doubleValue>8.65462E8</doubleValue>
+          </value>
+          <value key="org.bh.plugin.gcc.data.DTOGCCBalanceSheet$Key.RS" type="DoubleValue">
+           <doubleValue>2.9449E7</doubleValue>
+          </value>
+          <value key="org.bh.plugin.gcc.data.DTOGCCBalanceSheet$Key.VB" type="DoubleValue">
+           <doubleValue>1.351588E9</doubleValue>
+          </value>
+         </values>
+        </gccbalancesheet>
+        <gccprofitlossstatementtotalcost class="org.bh.plugin.gcc.data.DTOGCCProfitLossStatementTotalCost">
+         <values>
+          <value key="org.bh.plugin.gcc.data.DTOGCCProfitLossStatementTotalCost$Key.UE" type="DoubleValue">
+           <doubleValue>1.012575E9</doubleValue>
+          </value>
+          <value key="org.bh.plugin.gcc.data.DTOGCCProfitLossStatementTotalCost$Key.AAE" type="DoubleValue">
+           <doubleValue>3117000.0</doubleValue>
+          </value>
+          <value key="org.bh.plugin.gcc.data.DTOGCCProfitLossStatementTotalCost$Key.SBE" type="DoubleValue">
+           <doubleValue>5.0653E7</doubleValue>
+          </value>
+          <value key="org.bh.plugin.gcc.data.DTOGCCProfitLossStatementTotalCost$Key.MA" type="DoubleValue">
+           <doubleValue>6.91062E8</doubleValue>
+          </value>
+          <value key="org.bh.plugin.gcc.data.DTOGCCProfitLossStatementTotalCost$Key.PA" type="DoubleValue">
+           <doubleValue>6.91062E8</doubleValue>
+          </value>
+          <value key="org.bh.plugin.gcc.data.DTOGCCProfitLossStatementTotalCost$Key.ABSCH" type="DoubleValue">
+           <doubleValue>6.3659E7</doubleValue>
+          </value>
+          <value key="org.bh.plugin.gcc.data.DTOGCCProfitLossStatementTotalCost$Key.SBA" type="DoubleValue">
+           <doubleValue>1.08865E8</doubleValue>
+          </value>
+         </values>
+        </gccprofitlossstatementtotalcost>
+       </children>
       </period>
       <period class="org.bh.data.DTOPeriod">
        <values>
         <value key="org.bh.data.DTOPeriod$Key.NAME" type="StringValue">
          <stringValue>2008</stringValue>
         </value>
-        <value key="org.bh.data.DTOPeriod$Key.LIABILITIES" type="StringValue">
-         <stringValue>1279547000</stringValue>
+        <value key="org.bh.data.DTOPeriod$Key.LIABILITIES" type="DoubleValue">
+         <doubleValue>1.279547E9</doubleValue>
         </value>
-        <value key="org.bh.data.DTOPeriod$Key.FCF" type="StringValue">
-         <stringValue>320463000</stringValue>
+        <value key="org.bh.data.DTOPeriod$Key.FCF" type="DoubleValue">
+         <doubleValue>3.20463E8</doubleValue>
         </value>
        </values>
+       <children>
+        <gccbalancesheet class="org.bh.plugin.gcc.data.DTOGCCBalanceSheet">
+         <values>
+          <value key="org.bh.plugin.gcc.data.DTOGCCBalanceSheet$Key.AV" type="DoubleValue">
+           <doubleValue>1.339594E9</doubleValue>
+          </value>
+          <value key="org.bh.plugin.gcc.data.DTOGCCBalanceSheet$Key.IVG" type="DoubleValue">
+           <doubleValue>3.3861E8</doubleValue>
+          </value>
+          <value key="org.bh.plugin.gcc.data.DTOGCCBalanceSheet$Key.SA" type="DoubleValue">
+           <doubleValue>5.75406E8</doubleValue>
+          </value>
+          <value key="org.bh.plugin.gcc.data.DTOGCCBalanceSheet$Key.FA" type="DoubleValue">
+           <doubleValue>4.25578E8</doubleValue>
+          </value>
+          <value key="org.bh.plugin.gcc.data.DTOGCCBalanceSheet$Key.VOR" type="DoubleValue">
+           <doubleValue>5.23766E8</doubleValue>
+          </value>
+          <value key="org.bh.plugin.gcc.data.DTOGCCBalanceSheet$Key.FSVG" type="DoubleValue">
+           <doubleValue>4.75633E8</doubleValue>
+          </value>
+          <value key="org.bh.plugin.gcc.data.DTOGCCBalanceSheet$Key.WP" type="DoubleValue">
+           <doubleValue>0.0</doubleValue>
+          </value>
+          <value key="org.bh.plugin.gcc.data.DTOGCCBalanceSheet$Key.KBGGKS" type="DoubleValue">
+           <doubleValue>4.31689E8</doubleValue>
+          </value>
+          <value key="org.bh.plugin.gcc.data.DTOGCCBalanceSheet$Key.EK" type="DoubleValue">
+           <doubleValue>8.41075E8</doubleValue>
+          </value>
+          <value key="org.bh.plugin.gcc.data.DTOGCCBalanceSheet$Key.RS" type="DoubleValue">
+           <doubleValue>2.8958E7</doubleValue>
+          </value>
+          <value key="org.bh.plugin.gcc.data.DTOGCCBalanceSheet$Key.VB" type="DoubleValue">
+           <doubleValue>1.279547E9</doubleValue>
+          </value>
+         </values>
+        </gccbalancesheet>
+        <gccprofitlossstatementtotalcost class="org.bh.plugin.gcc.data.DTOGCCProfitLossStatementTotalCost">
+         <values>
+          <value key="org.bh.plugin.gcc.data.DTOGCCProfitLossStatementTotalCost$Key.UE" type="DoubleValue">
+           <doubleValue>9.00311E8</doubleValue>
+          </value>
+          <value key="org.bh.plugin.gcc.data.DTOGCCProfitLossStatementTotalCost$Key.AAE" type="DoubleValue">
+           <doubleValue>7740000.0</doubleValue>
+          </value>
+          <value key="org.bh.plugin.gcc.data.DTOGCCProfitLossStatementTotalCost$Key.SBE" type="DoubleValue">
+           <doubleValue>3.6841E7</doubleValue>
+          </value>
+          <value key="org.bh.plugin.gcc.data.DTOGCCProfitLossStatementTotalCost$Key.MA" type="DoubleValue">
+           <doubleValue>4.5406E8</doubleValue>
+          </value>
+          <value key="org.bh.plugin.gcc.data.DTOGCCProfitLossStatementTotalCost$Key.PA" type="DoubleValue">
+           <doubleValue>9.013E7</doubleValue>
+          </value>
+          <value key="org.bh.plugin.gcc.data.DTOGCCProfitLossStatementTotalCost$Key.ABSCH" type="DoubleValue">
+           <doubleValue>5.5166E7</doubleValue>
+          </value>
+          <value key="org.bh.plugin.gcc.data.DTOGCCProfitLossStatementTotalCost$Key.SBA" type="DoubleValue">
+           <doubleValue>9.9883E8</doubleValue>
+          </value>
+          <value key="org.bh.plugin.gcc.data.DTOGCCProfitLossStatementTotalCost$Key.ZA" type="DoubleValue">
+           <doubleValue>4.906E7</doubleValue>
+          </value>
+         </values>
+        </gccprofitlossstatementtotalcost>
+       </children>
       </period>
       <period class="org.bh.data.DTOPeriod">
        <values>
         <value key="org.bh.data.DTOPeriod$Key.NAME" type="StringValue">
          <stringValue>2007</stringValue>
         </value>
-        <value key="org.bh.data.DTOPeriod$Key.LIABILITIES" type="StringValue">
-         <stringValue>1012920000</stringValue>
+        <value key="org.bh.data.DTOPeriod$Key.LIABILITIES" type="DoubleValue">
+         <doubleValue>1.01292E9</doubleValue>
         </value>
-        <value key="org.bh.data.DTOPeriod$Key.FCF" type="StringValue">
-         <stringValue>244026000</stringValue>
+        <value key="org.bh.data.DTOPeriod$Key.FCF" type="DoubleValue">
+         <doubleValue>2.44026E8</doubleValue>
         </value>
        </values>
+       <children>
+        <gccbalancesheet class="org.bh.plugin.gcc.data.DTOGCCBalanceSheet">
+         <values>
+          <value key="org.bh.plugin.gcc.data.DTOGCCBalanceSheet$Key.AV" type="DoubleValue">
+           <doubleValue>9.16271E8</doubleValue>
+          </value>
+          <value key="org.bh.plugin.gcc.data.DTOGCCBalanceSheet$Key.IVG" type="DoubleValue">
+           <doubleValue>3.2675E7</doubleValue>
+          </value>
+          <value key="org.bh.plugin.gcc.data.DTOGCCBalanceSheet$Key.SA" type="DoubleValue">
+           <doubleValue>3.49602E8</doubleValue>
+          </value>
+          <value key="org.bh.plugin.gcc.data.DTOGCCBalanceSheet$Key.FA" type="DoubleValue">
+           <doubleValue>5.33994E8</doubleValue>
+          </value>
+          <value key="org.bh.plugin.gcc.data.DTOGCCBalanceSheet$Key.VOR" type="DoubleValue">
+           <doubleValue>3.50053E8</doubleValue>
+          </value>
+          <value key="org.bh.plugin.gcc.data.DTOGCCBalanceSheet$Key.FSVG" type="DoubleValue">
+           <doubleValue>6.41917E8</doubleValue>
+          </value>
+          <value key="org.bh.plugin.gcc.data.DTOGCCBalanceSheet$Key.WP" type="DoubleValue">
+           <doubleValue>0.0</doubleValue>
+          </value>
+          <value key="org.bh.plugin.gcc.data.DTOGCCBalanceSheet$Key.KBGGKS" type="DoubleValue">
+           <doubleValue>2.63862E8</doubleValue>
+          </value>
+          <value key="org.bh.plugin.gcc.data.DTOGCCBalanceSheet$Key.EK" type="DoubleValue">
+           <doubleValue>6.91546E8</doubleValue>
+          </value>
+          <value key="org.bh.plugin.gcc.data.DTOGCCBalanceSheet$Key.RS" type="DoubleValue">
+           <doubleValue>2.2874E7</doubleValue>
+          </value>
+          <value key="org.bh.plugin.gcc.data.DTOGCCBalanceSheet$Key.VB" type="DoubleValue">
+           <doubleValue>1.01292E9</doubleValue>
+          </value>
+         </values>
+        </gccbalancesheet>
+        <gccprofitlossstatementtotalcost class="org.bh.plugin.gcc.data.DTOGCCProfitLossStatementTotalCost">
+         <values>
+          <value key="org.bh.plugin.gcc.data.DTOGCCProfitLossStatementTotalCost$Key.UE" type="DoubleValue">
+           <doubleValue>6.89588E8</doubleValue>
+          </value>
+          <value key="org.bh.plugin.gcc.data.DTOGCCProfitLossStatementTotalCost$Key.AAE" type="DoubleValue">
+           <doubleValue>542000.0</doubleValue>
+          </value>
+          <value key="org.bh.plugin.gcc.data.DTOGCCProfitLossStatementTotalCost$Key.SBE" type="DoubleValue">
+           <doubleValue>5.7253E7</doubleValue>
+          </value>
+          <value key="org.bh.plugin.gcc.data.DTOGCCProfitLossStatementTotalCost$Key.MA" type="DoubleValue">
+           <doubleValue>3.33654E8</doubleValue>
+          </value>
+          <value key="org.bh.plugin.gcc.data.DTOGCCProfitLossStatementTotalCost$Key.PA" type="DoubleValue">
+           <doubleValue>7.5004E7</doubleValue>
+          </value>
+          <value key="org.bh.plugin.gcc.data.DTOGCCProfitLossStatementTotalCost$Key.ABSCH" type="DoubleValue">
+           <doubleValue>4.2054E7</doubleValue>
+          </value>
+          <value key="org.bh.plugin.gcc.data.DTOGCCProfitLossStatementTotalCost$Key.SBA" type="DoubleValue">
+           <doubleValue>8.0129E8</doubleValue>
+          </value>
+          <value key="org.bh.plugin.gcc.data.DTOGCCProfitLossStatementTotalCost$Key.ZA" type="DoubleValue">
+           <doubleValue>3.8449E7</doubleValue>
+          </value>
+         </values>
+        </gccprofitlossstatementtotalcost>
+       </children>
       </period>
       <period class="org.bh.data.DTOPeriod">
        <values>
         <value key="org.bh.data.DTOPeriod$Key.NAME" type="StringValue">
          <stringValue>2006</stringValue>
         </value>
-        <value key="org.bh.data.DTOPeriod$Key.LIABILITIES" type="StringValue">
-         <stringValue>407089000</stringValue>
+        <value key="org.bh.data.DTOPeriod$Key.LIABILITIES" type="DoubleValue">
+         <doubleValue>4.07089E8</doubleValue>
         </value>
-        <value key="org.bh.data.DTOPeriod$Key.FCF" type="StringValue">
-         <stringValue>-94100000</stringValue>
+        <value key="org.bh.data.DTOPeriod$Key.FCF" type="DoubleValue">
+         <doubleValue>-9.41E7</doubleValue>
         </value>
        </values>
+       <children>
+        <gccbalancesheet class="org.bh.plugin.gcc.data.DTOGCCBalanceSheet">
+         <values>
+          <value key="org.bh.plugin.gcc.data.DTOGCCBalanceSheet$Key.IVG" type="DoubleValue">
+           <doubleValue>3.4498E7</doubleValue>
+          </value>
+          <value key="org.bh.plugin.gcc.data.DTOGCCBalanceSheet$Key.SA" type="DoubleValue">
+           <doubleValue>2.90646E8</doubleValue>
+          </value>
+          <value key="org.bh.plugin.gcc.data.DTOGCCBalanceSheet$Key.VOR" type="DoubleValue">
+           <doubleValue>2.41989E8</doubleValue>
+          </value>
+          <value key="org.bh.plugin.gcc.data.DTOGCCBalanceSheet$Key.FSVG" type="DoubleValue">
+           <doubleValue>9.39E7</doubleValue>
+          </value>
+          <value key="org.bh.plugin.gcc.data.DTOGCCBalanceSheet$Key.WP" type="DoubleValue">
+           <doubleValue>9.8573E7</doubleValue>
+          </value>
+          <value key="org.bh.plugin.gcc.data.DTOGCCBalanceSheet$Key.KBGGKS" type="DoubleValue">
+           <doubleValue>2.04655E8</doubleValue>
+          </value>
+          <value key="org.bh.plugin.gcc.data.DTOGCCBalanceSheet$Key.EK" type="DoubleValue">
+           <doubleValue>5.97321E8</doubleValue>
+          </value>
+          <value key="org.bh.plugin.gcc.data.DTOGCCBalanceSheet$Key.RS" type="DoubleValue">
+           <doubleValue>1.9307E7</doubleValue>
+          </value>
+          <value key="org.bh.plugin.gcc.data.DTOGCCBalanceSheet$Key.VB" type="DoubleValue">
+           <doubleValue>4.07089E8</doubleValue>
+          </value>
+         </values>
+        </gccbalancesheet>
+        <gccprofitlossstatementtotalcost class="org.bh.plugin.gcc.data.DTOGCCProfitLossStatementTotalCost">
+         <values>
+          <value key="org.bh.plugin.gcc.data.DTOGCCProfitLossStatementTotalCost$Key.UE" type="DoubleValue">
+           <doubleValue>5.15246E8</doubleValue>
+          </value>
+          <value key="org.bh.plugin.gcc.data.DTOGCCProfitLossStatementTotalCost$Key.AAE" type="DoubleValue">
+           <doubleValue>590000.0</doubleValue>
+          </value>
+          <value key="org.bh.plugin.gcc.data.DTOGCCProfitLossStatementTotalCost$Key.SBE" type="DoubleValue">
+           <doubleValue>9.8053E7</doubleValue>
+          </value>
+          <value key="org.bh.plugin.gcc.data.DTOGCCProfitLossStatementTotalCost$Key.MA" type="DoubleValue">
+           <doubleValue>3.04008E8</doubleValue>
+          </value>
+          <value key="org.bh.plugin.gcc.data.DTOGCCProfitLossStatementTotalCost$Key.PA" type="DoubleValue">
+           <doubleValue>5.7786E7</doubleValue>
+          </value>
+          <value key="org.bh.plugin.gcc.data.DTOGCCProfitLossStatementTotalCost$Key.ABSCH" type="DoubleValue">
+           <doubleValue>4.2612E7</doubleValue>
+          </value>
+          <value key="org.bh.plugin.gcc.data.DTOGCCProfitLossStatementTotalCost$Key.SBA" type="DoubleValue">
+           <doubleValue>6.1306E7</doubleValue>
+          </value>
+          <value key="org.bh.plugin.gcc.data.DTOGCCProfitLossStatementTotalCost$Key.ZA" type="DoubleValue">
+           <doubleValue>9653000.0</doubleValue>
+          </value>
+         </values>
+        </gccprofitlossstatementtotalcost>
+       </children>
       </period>
      </children>
     </company>
@@ -100,65 +417,400 @@
         <value key="org.bh.data.DTOPeriod$Key.NAME" type="StringValue">
          <stringValue>2010</stringValue>
         </value>
-        <value key="org.bh.data.DTOPeriod$Key.LIABILITIES" type="StringValue">
-         <stringValue>1084500000</stringValue>
+        <value key="org.bh.data.DTOPeriod$Key.LIABILITIES" type="DoubleValue">
+         <doubleValue>1.0845E9</doubleValue>
         </value>
-        <value key="org.bh.data.DTOPeriod$Key.FCF" type="StringValue">
-         <stringValue>48000000</stringValue>
+        <value key="org.bh.data.DTOPeriod$Key.FCF" type="DoubleValue">
+         <doubleValue>4.8E7</doubleValue>
         </value>
        </values>
+       <children>
+        <gccbalancesheet class="org.bh.plugin.gcc.data.DTOGCCBalanceSheet">
+         <values>
+          <value key="org.bh.plugin.gcc.data.DTOGCCBalanceSheet$Key.AV" type="DoubleValue">
+           <doubleValue>9.566E8</doubleValue>
+          </value>
+          <value key="org.bh.plugin.gcc.data.DTOGCCBalanceSheet$Key.IVG" type="DoubleValue">
+           <doubleValue>1.42E7</doubleValue>
+          </value>
+          <value key="org.bh.plugin.gcc.data.DTOGCCBalanceSheet$Key.SA" type="DoubleValue">
+           <doubleValue>8.802E8</doubleValue>
+          </value>
+          <value key="org.bh.plugin.gcc.data.DTOGCCBalanceSheet$Key.FA" type="DoubleValue">
+           <doubleValue>6.22E7</doubleValue>
+          </value>
+          <value key="org.bh.plugin.gcc.data.DTOGCCBalanceSheet$Key.VOR" type="DoubleValue">
+           <doubleValue>3.657E8</doubleValue>
+          </value>
+          <value key="org.bh.plugin.gcc.data.DTOGCCBalanceSheet$Key.FSVG" type="DoubleValue">
+           <doubleValue>2.54E8</doubleValue>
+          </value>
+          <value key="org.bh.plugin.gcc.data.DTOGCCBalanceSheet$Key.WP" type="DoubleValue">
+           <doubleValue>0.0</doubleValue>
+          </value>
+          <value key="org.bh.plugin.gcc.data.DTOGCCBalanceSheet$Key.KBGGKS" type="DoubleValue">
+           <doubleValue>4.739E8</doubleValue>
+          </value>
+          <value key="org.bh.plugin.gcc.data.DTOGCCBalanceSheet$Key.EK" type="DoubleValue">
+           <doubleValue>8.827E8</doubleValue>
+          </value>
+          <value key="org.bh.plugin.gcc.data.DTOGCCBalanceSheet$Key.RS" type="DoubleValue">
+           <doubleValue>7.34E7</doubleValue>
+          </value>
+          <value key="org.bh.plugin.gcc.data.DTOGCCBalanceSheet$Key.VB" type="DoubleValue">
+           <doubleValue>1.0845E9</doubleValue>
+          </value>
+         </values>
+        </gccbalancesheet>
+        <gccprofitlossstatementtotalcost class="org.bh.plugin.gcc.data.DTOGCCProfitLossStatementTotalCost">
+         <values>
+          <value key="org.bh.plugin.gcc.data.DTOGCCProfitLossStatementTotalCost$Key.UE" type="DoubleValue">
+           <doubleValue>1.3542E9</doubleValue>
+          </value>
+          <value key="org.bh.plugin.gcc.data.DTOGCCProfitLossStatementTotalCost$Key.AAE" type="DoubleValue">
+           <doubleValue>100000.0</doubleValue>
+          </value>
+          <value key="org.bh.plugin.gcc.data.DTOGCCProfitLossStatementTotalCost$Key.SBE" type="DoubleValue">
+           <doubleValue>7.61E7</doubleValue>
+          </value>
+          <value key="org.bh.plugin.gcc.data.DTOGCCProfitLossStatementTotalCost$Key.MA" type="DoubleValue">
+           <doubleValue>1.1578E9</doubleValue>
+          </value>
+          <value key="org.bh.plugin.gcc.data.DTOGCCProfitLossStatementTotalCost$Key.PA" type="DoubleValue">
+           <doubleValue>1.091E8</doubleValue>
+          </value>
+          <value key="org.bh.plugin.gcc.data.DTOGCCProfitLossStatementTotalCost$Key.ABSCH" type="DoubleValue">
+           <doubleValue>9.99E7</doubleValue>
+          </value>
+          <value key="org.bh.plugin.gcc.data.DTOGCCProfitLossStatementTotalCost$Key.SBA" type="DoubleValue">
+           <doubleValue>1.517E8</doubleValue>
+          </value>
+          <value key="org.bh.plugin.gcc.data.DTOGCCProfitLossStatementTotalCost$Key.ZA" type="DoubleValue">
+           <doubleValue>6.11E7</doubleValue>
+          </value>
+         </values>
+        </gccprofitlossstatementtotalcost>
+       </children>
       </period>
       <period class="org.bh.data.DTOPeriod">
        <values>
         <value key="org.bh.data.DTOPeriod$Key.NAME" type="StringValue">
          <stringValue>2009</stringValue>
         </value>
-        <value key="org.bh.data.DTOPeriod$Key.LIABILITIES" type="StringValue">
-         <stringValue>1273000000</stringValue>
+        <value key="org.bh.data.DTOPeriod$Key.LIABILITIES" type="DoubleValue">
+         <doubleValue>1.273E9</doubleValue>
         </value>
-        <value key="org.bh.data.DTOPeriod$Key.FCF" type="StringValue">
-         <stringValue>-64500000</stringValue>
+        <value key="org.bh.data.DTOPeriod$Key.FCF" type="DoubleValue">
+         <doubleValue>-6.45E7</doubleValue>
         </value>
        </values>
+       <children>
+        <gccbalancesheet class="org.bh.plugin.gcc.data.DTOGCCBalanceSheet">
+         <values>
+          <value key="org.bh.plugin.gcc.data.DTOGCCBalanceSheet$Key.AV" type="DoubleValue">
+           <doubleValue>9.511E8</doubleValue>
+          </value>
+          <value key="org.bh.plugin.gcc.data.DTOGCCBalanceSheet$Key.IVG" type="DoubleValue">
+           <doubleValue>1.46E7</doubleValue>
+          </value>
+          <value key="org.bh.plugin.gcc.data.DTOGCCBalanceSheet$Key.SA" type="DoubleValue">
+           <doubleValue>8.436E8</doubleValue>
+          </value>
+          <value key="org.bh.plugin.gcc.data.DTOGCCBalanceSheet$Key.FA" type="DoubleValue">
+           <doubleValue>9.29E7</doubleValue>
+          </value>
+          <value key="org.bh.plugin.gcc.data.DTOGCCBalanceSheet$Key.VOR" type="DoubleValue">
+           <doubleValue>3.021E8</doubleValue>
+          </value>
+          <value key="org.bh.plugin.gcc.data.DTOGCCBalanceSheet$Key.FSVG" type="DoubleValue">
+           <doubleValue>2.974E8</doubleValue>
+          </value>
+          <value key="org.bh.plugin.gcc.data.DTOGCCBalanceSheet$Key.WP" type="DoubleValue">
+           <doubleValue>0.0</doubleValue>
+          </value>
+          <value key="org.bh.plugin.gcc.data.DTOGCCBalanceSheet$Key.KBGGKS" type="DoubleValue">
+           <doubleValue>4.119E8</doubleValue>
+          </value>
+          <value key="org.bh.plugin.gcc.data.DTOGCCBalanceSheet$Key.EK" type="DoubleValue">
+           <doubleValue>7.37E8</doubleValue>
+          </value>
+          <value key="org.bh.plugin.gcc.data.DTOGCCBalanceSheet$Key.RS" type="DoubleValue">
+           <doubleValue>1.235E8</doubleValue>
+          </value>
+          <value key="org.bh.plugin.gcc.data.DTOGCCBalanceSheet$Key.VB" type="DoubleValue">
+           <doubleValue>1.273E9</doubleValue>
+          </value>
+         </values>
+        </gccbalancesheet>
+        <gccprofitlossstatementtotalcost class="org.bh.plugin.gcc.data.DTOGCCProfitLossStatementTotalCost">
+         <values>
+          <value key="org.bh.plugin.gcc.data.DTOGCCProfitLossStatementTotalCost$Key.UE" type="DoubleValue">
+           <doubleValue>7.904E8</doubleValue>
+          </value>
+          <value key="org.bh.plugin.gcc.data.DTOGCCProfitLossStatementTotalCost$Key.AAE" type="DoubleValue">
+           <doubleValue>700000.0</doubleValue>
+          </value>
+          <value key="org.bh.plugin.gcc.data.DTOGCCProfitLossStatementTotalCost$Key.SBE" type="DoubleValue">
+           <doubleValue>7.38E7</doubleValue>
+          </value>
+          <value key="org.bh.plugin.gcc.data.DTOGCCProfitLossStatementTotalCost$Key.MA" type="DoubleValue">
+           <doubleValue>7.836E8</doubleValue>
+          </value>
+          <value key="org.bh.plugin.gcc.data.DTOGCCProfitLossStatementTotalCost$Key.PA" type="DoubleValue">
+           <doubleValue>9.42E7</doubleValue>
+          </value>
+          <value key="org.bh.plugin.gcc.data.DTOGCCProfitLossStatementTotalCost$Key.ABSCH" type="DoubleValue">
+           <doubleValue>1.535E8</doubleValue>
+          </value>
+          <value key="org.bh.plugin.gcc.data.DTOGCCProfitLossStatementTotalCost$Key.SBA" type="DoubleValue">
+           <doubleValue>2.386E8</doubleValue>
+          </value>
+          <value key="org.bh.plugin.gcc.data.DTOGCCProfitLossStatementTotalCost$Key.ZA" type="DoubleValue">
+           <doubleValue>8.33E7</doubleValue>
+          </value>
+         </values>
+        </gccprofitlossstatementtotalcost>
+       </children>
       </period>
       <period class="org.bh.data.DTOPeriod">
        <values>
         <value key="org.bh.data.DTOPeriod$Key.NAME" type="StringValue">
          <stringValue>2008</stringValue>
         </value>
-        <value key="org.bh.data.DTOPeriod$Key.LIABILITIES" type="StringValue">
-         <stringValue>828000000</stringValue>
+        <value key="org.bh.data.DTOPeriod$Key.LIABILITIES" type="DoubleValue">
+         <doubleValue>8.28E8</doubleValue>
         </value>
-        <value key="org.bh.data.DTOPeriod$Key.FCF" type="StringValue">
-         <stringValue>-482200000</stringValue>
+        <value key="org.bh.data.DTOPeriod$Key.FCF" type="DoubleValue">
+         <doubleValue>-4.822E8</doubleValue>
         </value>
        </values>
+       <children>
+        <gccbalancesheet class="org.bh.plugin.gcc.data.DTOGCCBalanceSheet">
+         <values>
+          <value key="org.bh.plugin.gcc.data.DTOGCCBalanceSheet$Key.AV" type="DoubleValue">
+           <doubleValue>1.838E9</doubleValue>
+          </value>
+          <value key="org.bh.plugin.gcc.data.DTOGCCBalanceSheet$Key.IVG" type="DoubleValue">
+           <doubleValue>4.84E7</doubleValue>
+          </value>
+          <value key="org.bh.plugin.gcc.data.DTOGCCBalanceSheet$Key.SA" type="DoubleValue">
+           <doubleValue>6.646E8</doubleValue>
+          </value>
+          <value key="org.bh.plugin.gcc.data.DTOGCCBalanceSheet$Key.FA" type="DoubleValue">
+           <doubleValue>1.125E9</doubleValue>
+          </value>
+          <value key="org.bh.plugin.gcc.data.DTOGCCBalanceSheet$Key.VOR" type="DoubleValue">
+           <doubleValue>2.168E8</doubleValue>
+          </value>
+          <value key="org.bh.plugin.gcc.data.DTOGCCBalanceSheet$Key.FSVG" type="DoubleValue">
+           <doubleValue>3.471E8</doubleValue>
+          </value>
+          <value key="org.bh.plugin.gcc.data.DTOGCCBalanceSheet$Key.WP" type="DoubleValue">
+           <doubleValue>0.0</doubleValue>
+          </value>
+          <value key="org.bh.plugin.gcc.data.DTOGCCBalanceSheet$Key.KBGGKS" type="DoubleValue">
+           <doubleValue>1.766E8</doubleValue>
+          </value>
+          <value key="org.bh.plugin.gcc.data.DTOGCCBalanceSheet$Key.EK" type="DoubleValue">
+           <doubleValue>1.8767E9</doubleValue>
+          </value>
+          <value key="org.bh.plugin.gcc.data.DTOGCCBalanceSheet$Key.RS" type="DoubleValue">
+           <doubleValue>8200000.0</doubleValue>
+          </value>
+          <value key="org.bh.plugin.gcc.data.DTOGCCBalanceSheet$Key.VB" type="DoubleValue">
+           <doubleValue>8.28E8</doubleValue>
+          </value>
+         </values>
+        </gccbalancesheet>
+        <gccprofitlossstatementtotalcost class="org.bh.plugin.gcc.data.DTOGCCProfitLossStatementTotalCost">
+         <values>
+          <value key="org.bh.plugin.gcc.data.DTOGCCProfitLossStatementTotalCost$Key.UE" type="DoubleValue">
+           <doubleValue>1.1951E9</doubleValue>
+          </value>
+          <value key="org.bh.plugin.gcc.data.DTOGCCProfitLossStatementTotalCost$Key.AAE" type="DoubleValue">
+           <doubleValue>5400000.0</doubleValue>
+          </value>
+          <value key="org.bh.plugin.gcc.data.DTOGCCProfitLossStatementTotalCost$Key.SBE" type="DoubleValue">
+           <doubleValue>3.87E7</doubleValue>
+          </value>
+          <value key="org.bh.plugin.gcc.data.DTOGCCProfitLossStatementTotalCost$Key.MA" type="DoubleValue">
+           <doubleValue>8.956E8</doubleValue>
+          </value>
+          <value key="org.bh.plugin.gcc.data.DTOGCCProfitLossStatementTotalCost$Key.PA" type="DoubleValue">
+           <doubleValue>9.31E7</doubleValue>
+          </value>
+          <value key="org.bh.plugin.gcc.data.DTOGCCProfitLossStatementTotalCost$Key.ABSCH" type="DoubleValue">
+           <doubleValue>4.57E7</doubleValue>
+          </value>
+          <value key="org.bh.plugin.gcc.data.DTOGCCProfitLossStatementTotalCost$Key.SBA" type="DoubleValue">
+           <doubleValue>1.064E8</doubleValue>
+          </value>
+          <value key="org.bh.plugin.gcc.data.DTOGCCProfitLossStatementTotalCost$Key.ZA" type="DoubleValue">
+           <doubleValue>3.23E7</doubleValue>
+          </value>
+         </values>
+        </gccprofitlossstatementtotalcost>
+       </children>
       </period>
       <period class="org.bh.data.DTOPeriod">
        <values>
         <value key="org.bh.data.DTOPeriod$Key.NAME" type="StringValue">
          <stringValue>2007</stringValue>
         </value>
-        <value key="org.bh.data.DTOPeriod$Key.LIABILITIES" type="StringValue">
-         <stringValue>624400000</stringValue>
+        <value key="org.bh.data.DTOPeriod$Key.LIABILITIES" type="DoubleValue">
+         <doubleValue>6.244E8</doubleValue>
         </value>
-        <value key="org.bh.data.DTOPeriod$Key.FCF" type="StringValue">
-         <stringValue>-217300000</stringValue>
+        <value key="org.bh.data.DTOPeriod$Key.FCF" type="DoubleValue">
+         <doubleValue>-2.173E8</doubleValue>
         </value>
        </values>
+       <children>
+        <gccbalancesheet class="org.bh.plugin.gcc.data.DTOGCCBalanceSheet">
+         <values>
+          <value key="org.bh.plugin.gcc.data.DTOGCCBalanceSheet$Key.AV" type="DoubleValue">
+           <doubleValue>1.6141E9</doubleValue>
+          </value>
+          <value key="org.bh.plugin.gcc.data.DTOGCCBalanceSheet$Key.IVG" type="DoubleValue">
+           <doubleValue>4.04E7</doubleValue>
+          </value>
+          <value key="org.bh.plugin.gcc.data.DTOGCCBalanceSheet$Key.SA" type="DoubleValue">
+           <doubleValue>3.664E8</doubleValue>
+          </value>
+          <value key="org.bh.plugin.gcc.data.DTOGCCBalanceSheet$Key.FA" type="DoubleValue">
+           <doubleValue>1.2073E9</doubleValue>
+          </value>
+          <value key="org.bh.plugin.gcc.data.DTOGCCBalanceSheet$Key.VOR" type="DoubleValue">
+           <doubleValue>9.44E7</doubleValue>
+          </value>
+          <value key="org.bh.plugin.gcc.data.DTOGCCBalanceSheet$Key.FSVG" type="DoubleValue">
+           <doubleValue>1.868E8</doubleValue>
+          </value>
+          <value key="org.bh.plugin.gcc.data.DTOGCCBalanceSheet$Key.WP" type="DoubleValue">
+           <doubleValue>1.865E8</doubleValue>
+          </value>
+          <value key="org.bh.plugin.gcc.data.DTOGCCBalanceSheet$Key.KBGGKS" type="DoubleValue">
+           <doubleValue>4.141E8</doubleValue>
+          </value>
+          <value key="org.bh.plugin.gcc.data.DTOGCCBalanceSheet$Key.EK" type="DoubleValue">
+           <doubleValue>1.8338E9</doubleValue>
+          </value>
+          <value key="org.bh.plugin.gcc.data.DTOGCCBalanceSheet$Key.RS" type="DoubleValue">
+           <doubleValue>7400000.0</doubleValue>
+          </value>
+          <value key="org.bh.plugin.gcc.data.DTOGCCBalanceSheet$Key.VB" type="DoubleValue">
+           <doubleValue>6.244E8</doubleValue>
+          </value>
+         </values>
+        </gccbalancesheet>
+        <gccprofitlossstatementtotalcost class="org.bh.plugin.gcc.data.DTOGCCProfitLossStatementTotalCost">
+         <values>
+          <value key="org.bh.plugin.gcc.data.DTOGCCProfitLossStatementTotalCost$Key.UE" type="DoubleValue">
+           <doubleValue>8.589E8</doubleValue>
+          </value>
+          <value key="org.bh.plugin.gcc.data.DTOGCCProfitLossStatementTotalCost$Key.AAE" type="DoubleValue">
+           <doubleValue>4900000.0</doubleValue>
+          </value>
+          <value key="org.bh.plugin.gcc.data.DTOGCCProfitLossStatementTotalCost$Key.SBE" type="DoubleValue">
+           <doubleValue>1.38E7</doubleValue>
+          </value>
+          <value key="org.bh.plugin.gcc.data.DTOGCCProfitLossStatementTotalCost$Key.MA" type="DoubleValue">
+           <doubleValue>5.345E8</doubleValue>
+          </value>
+          <value key="org.bh.plugin.gcc.data.DTOGCCProfitLossStatementTotalCost$Key.PA" type="DoubleValue">
+           <doubleValue>6.64E7</doubleValue>
+          </value>
+          <value key="org.bh.plugin.gcc.data.DTOGCCProfitLossStatementTotalCost$Key.ABSCH" type="DoubleValue">
+           <doubleValue>2.5E7</doubleValue>
+          </value>
+          <value key="org.bh.plugin.gcc.data.DTOGCCProfitLossStatementTotalCost$Key.SBA" type="DoubleValue">
+           <doubleValue>5.44E7</doubleValue>
+          </value>
+          <value key="org.bh.plugin.gcc.data.DTOGCCProfitLossStatementTotalCost$Key.ZA" type="DoubleValue">
+           <doubleValue>2.48E7</doubleValue>
+          </value>
+         </values>
+        </gccprofitlossstatementtotalcost>
+       </children>
       </period>
       <period class="org.bh.data.DTOPeriod">
        <values>
         <value key="org.bh.data.DTOPeriod$Key.NAME" type="StringValue">
          <stringValue>2006</stringValue>
         </value>
-        <value key="org.bh.data.DTOPeriod$Key.LIABILITIES" type="StringValue">
-         <stringValue>91201700</stringValue>
+        <value key="org.bh.data.DTOPeriod$Key.LIABILITIES" type="DoubleValue">
+         <doubleValue>9.12017E7</doubleValue>
         </value>
-        <value key="org.bh.data.DTOPeriod$Key.FCF" type="StringValue">
-         <stringValue>-33400000</stringValue>
+        <value key="org.bh.data.DTOPeriod$Key.FCF" type="DoubleValue">
+         <doubleValue>-3.34E7</doubleValue>
         </value>
        </values>
+       <children>
+        <gccbalancesheet class="org.bh.plugin.gcc.data.DTOGCCBalanceSheet">
+         <values>
+          <value key="org.bh.plugin.gcc.data.DTOGCCBalanceSheet$Key.AV" type="DoubleValue">
+           <doubleValue>2.097085E8</doubleValue>
+          </value>
+          <value key="org.bh.plugin.gcc.data.DTOGCCBalanceSheet$Key.IVG" type="DoubleValue">
+           <doubleValue>2.73818E7</doubleValue>
+          </value>
+          <value key="org.bh.plugin.gcc.data.DTOGCCBalanceSheet$Key.SA" type="DoubleValue">
+           <doubleValue>1.441469E8</doubleValue>
+          </value>
+          <value key="org.bh.plugin.gcc.data.DTOGCCBalanceSheet$Key.FA" type="DoubleValue">
+           <doubleValue>3.81798E7</doubleValue>
+          </value>
+          <value key="org.bh.plugin.gcc.data.DTOGCCBalanceSheet$Key.VOR" type="DoubleValue">
+           <doubleValue>7.87282E7</doubleValue>
+          </value>
+          <value key="org.bh.plugin.gcc.data.DTOGCCBalanceSheet$Key.FSVG" type="DoubleValue">
+           <doubleValue>9.94755E7</doubleValue>
+          </value>
+          <value key="org.bh.plugin.gcc.data.DTOGCCBalanceSheet$Key.WP" type="DoubleValue">
+           <doubleValue>2.21827E7</doubleValue>
+          </value>
+          <value key="org.bh.plugin.gcc.data.DTOGCCBalanceSheet$Key.KBGGKS" type="DoubleValue">
+           <doubleValue>1.574E8</doubleValue>
+          </value>
+          <value key="org.bh.plugin.gcc.data.DTOGCCBalanceSheet$Key.EK" type="DoubleValue">
+           <doubleValue>4.4E8</doubleValue>
+          </value>
+          <value key="org.bh.plugin.gcc.data.DTOGCCBalanceSheet$Key.RS" type="DoubleValue">
+           <doubleValue>5578400.0</doubleValue>
+          </value>
+          <value key="org.bh.plugin.gcc.data.DTOGCCBalanceSheet$Key.VB" type="DoubleValue">
+           <doubleValue>9.12017E7</doubleValue>
+          </value>
+         </values>
+        </gccbalancesheet>
+        <gccprofitlossstatementtotalcost class="org.bh.plugin.gcc.data.DTOGCCProfitLossStatementTotalCost">
+         <values>
+          <value key="org.bh.plugin.gcc.data.DTOGCCProfitLossStatementTotalCost$Key.UE" type="DoubleValue">
+           <doubleValue>5.395E8</doubleValue>
+          </value>
+          <value key="org.bh.plugin.gcc.data.DTOGCCProfitLossStatementTotalCost$Key.AAE" type="DoubleValue">
+           <doubleValue>1696600.0</doubleValue>
+          </value>
+          <value key="org.bh.plugin.gcc.data.DTOGCCProfitLossStatementTotalCost$Key.SBE" type="DoubleValue">
+           <doubleValue>1.09482E7</doubleValue>
+          </value>
+          <value key="org.bh.plugin.gcc.data.DTOGCCProfitLossStatementTotalCost$Key.MA" type="DoubleValue">
+           <doubleValue>3.482156E8</doubleValue>
+          </value>
+          <value key="org.bh.plugin.gcc.data.DTOGCCProfitLossStatementTotalCost$Key.PA" type="DoubleValue">
+           <doubleValue>4.34622E7</doubleValue>
+          </value>
+          <value key="org.bh.plugin.gcc.data.DTOGCCProfitLossStatementTotalCost$Key.ABSCH" type="DoubleValue">
+           <doubleValue>1.78211E7</doubleValue>
+          </value>
+          <value key="org.bh.plugin.gcc.data.DTOGCCProfitLossStatementTotalCost$Key.SBA" type="DoubleValue">
+           <doubleValue>3.19663E7</doubleValue>
+          </value>
+          <value key="org.bh.plugin.gcc.data.DTOGCCProfitLossStatementTotalCost$Key.ZA" type="DoubleValue">
+           <doubleValue>3276900.0</doubleValue>
+          </value>
+         </values>
+        </gccprofitlossstatementtotalcost>
+       </children>
       </period>
      </children>
     </company>
@@ -174,65 +826,400 @@
         <value key="org.bh.data.DTOPeriod$Key.NAME" type="StringValue">
          <stringValue>2010</stringValue>
         </value>
-        <value key="org.bh.data.DTOPeriod$Key.LIABILITIES" type="StringValue">
-         <stringValue>163823000</stringValue>
+        <value key="org.bh.data.DTOPeriod$Key.LIABILITIES" type="DoubleValue">
+         <doubleValue>1.63823E8</doubleValue>
         </value>
-        <value key="org.bh.data.DTOPeriod$Key.FCF" type="StringValue">
-         <stringValue>-84498000</stringValue>
+        <value key="org.bh.data.DTOPeriod$Key.FCF" type="DoubleValue">
+         <doubleValue>-8.4498E7</doubleValue>
         </value>
        </values>
+       <children>
+        <gccbalancesheet class="org.bh.plugin.gcc.data.DTOGCCBalanceSheet">
+         <values>
+          <value key="org.bh.plugin.gcc.data.DTOGCCBalanceSheet$Key.AV" type="DoubleValue">
+           <doubleValue>6999000.0</doubleValue>
+          </value>
+          <value key="org.bh.plugin.gcc.data.DTOGCCBalanceSheet$Key.IVG" type="DoubleValue">
+           <doubleValue>3471000.0</doubleValue>
+          </value>
+          <value key="org.bh.plugin.gcc.data.DTOGCCBalanceSheet$Key.SA" type="DoubleValue">
+           <doubleValue>3110000.0</doubleValue>
+          </value>
+          <value key="org.bh.plugin.gcc.data.DTOGCCBalanceSheet$Key.FA" type="DoubleValue">
+           <doubleValue>418000.0</doubleValue>
+          </value>
+          <value key="org.bh.plugin.gcc.data.DTOGCCBalanceSheet$Key.VOR" type="DoubleValue">
+           <doubleValue>1.49536E8</doubleValue>
+          </value>
+          <value key="org.bh.plugin.gcc.data.DTOGCCBalanceSheet$Key.FSVG" type="DoubleValue">
+           <doubleValue>1.14055E8</doubleValue>
+          </value>
+          <value key="org.bh.plugin.gcc.data.DTOGCCBalanceSheet$Key.WP" type="DoubleValue">
+           <doubleValue>725000.0</doubleValue>
+          </value>
+          <value key="org.bh.plugin.gcc.data.DTOGCCBalanceSheet$Key.KBGGKS" type="DoubleValue">
+           <doubleValue>9588000.0</doubleValue>
+          </value>
+          <value key="org.bh.plugin.gcc.data.DTOGCCBalanceSheet$Key.EK" type="DoubleValue">
+           <doubleValue>1.42445E8</doubleValue>
+          </value>
+          <value key="org.bh.plugin.gcc.data.DTOGCCBalanceSheet$Key.RS" type="DoubleValue">
+           <doubleValue>3889000.0</doubleValue>
+          </value>
+          <value key="org.bh.plugin.gcc.data.DTOGCCBalanceSheet$Key.VB" type="DoubleValue">
+           <doubleValue>1.63823E8</doubleValue>
+          </value>
+         </values>
+        </gccbalancesheet>
+        <gccprofitlossstatementtotalcost class="org.bh.plugin.gcc.data.DTOGCCProfitLossStatementTotalCost">
+         <values>
+          <value key="org.bh.plugin.gcc.data.DTOGCCProfitLossStatementTotalCost$Key.UE" type="DoubleValue">
+           <doubleValue>6.35676E8</doubleValue>
+          </value>
+          <value key="org.bh.plugin.gcc.data.DTOGCCProfitLossStatementTotalCost$Key.AAE" type="DoubleValue">
+           <doubleValue>0.0</doubleValue>
+          </value>
+          <value key="org.bh.plugin.gcc.data.DTOGCCProfitLossStatementTotalCost$Key.SBE" type="DoubleValue">
+           <doubleValue>4848000.0</doubleValue>
+          </value>
+          <value key="org.bh.plugin.gcc.data.DTOGCCProfitLossStatementTotalCost$Key.MA" type="DoubleValue">
+           <doubleValue>5.54372E8</doubleValue>
+          </value>
+          <value key="org.bh.plugin.gcc.data.DTOGCCProfitLossStatementTotalCost$Key.PA" type="DoubleValue">
+           <doubleValue>2.3586E7</doubleValue>
+          </value>
+          <value key="org.bh.plugin.gcc.data.DTOGCCProfitLossStatementTotalCost$Key.ABSCH" type="DoubleValue">
+           <doubleValue>1094000.0</doubleValue>
+          </value>
+          <value key="org.bh.plugin.gcc.data.DTOGCCProfitLossStatementTotalCost$Key.SBA" type="DoubleValue">
+           <doubleValue>2.5293E7</doubleValue>
+          </value>
+          <value key="org.bh.plugin.gcc.data.DTOGCCProfitLossStatementTotalCost$Key.ZA" type="DoubleValue">
+           <doubleValue>2483000.0</doubleValue>
+          </value>
+         </values>
+        </gccprofitlossstatementtotalcost>
+       </children>
       </period>
       <period class="org.bh.data.DTOPeriod">
        <values>
         <value key="org.bh.data.DTOPeriod$Key.NAME" type="StringValue">
          <stringValue>2009</stringValue>
         </value>
-        <value key="org.bh.data.DTOPeriod$Key.LIABILITIES" type="StringValue">
-         <stringValue>80104000</stringValue>
+        <value key="org.bh.data.DTOPeriod$Key.LIABILITIES" type="DoubleValue">
+         <doubleValue>8.0104E7</doubleValue>
         </value>
-        <value key="org.bh.data.DTOPeriod$Key.FCF" type="StringValue">
-         <stringValue>21583000</stringValue>
+        <value key="org.bh.data.DTOPeriod$Key.FCF" type="DoubleValue">
+         <doubleValue>2.1583E7</doubleValue>
         </value>
        </values>
+       <children>
+        <gccbalancesheet class="org.bh.plugin.gcc.data.DTOGCCBalanceSheet">
+         <values>
+          <value key="org.bh.plugin.gcc.data.DTOGCCBalanceSheet$Key.AV" type="DoubleValue">
+           <doubleValue>5181000.0</doubleValue>
+          </value>
+          <value key="org.bh.plugin.gcc.data.DTOGCCBalanceSheet$Key.IVG" type="DoubleValue">
+           <doubleValue>2072000.0</doubleValue>
+          </value>
+          <value key="org.bh.plugin.gcc.data.DTOGCCBalanceSheet$Key.SA" type="DoubleValue">
+           <doubleValue>2705000.0</doubleValue>
+          </value>
+          <value key="org.bh.plugin.gcc.data.DTOGCCBalanceSheet$Key.FA" type="DoubleValue">
+           <doubleValue>404000.0</doubleValue>
+          </value>
+          <value key="org.bh.plugin.gcc.data.DTOGCCBalanceSheet$Key.VOR" type="DoubleValue">
+           <doubleValue>6.9185E7</doubleValue>
+          </value>
+          <value key="org.bh.plugin.gcc.data.DTOGCCBalanceSheet$Key.FSVG" type="DoubleValue">
+           <doubleValue>9.0727E7</doubleValue>
+          </value>
+          <value key="org.bh.plugin.gcc.data.DTOGCCBalanceSheet$Key.WP" type="DoubleValue">
+           <doubleValue>1444000.0</doubleValue>
+          </value>
+          <value key="org.bh.plugin.gcc.data.DTOGCCBalanceSheet$Key.KBGGKS" type="DoubleValue">
+           <doubleValue>2.4461E7</doubleValue>
+          </value>
+          <value key="org.bh.plugin.gcc.data.DTOGCCBalanceSheet$Key.EK" type="DoubleValue">
+           <doubleValue>9.7264E7</doubleValue>
+          </value>
+          <value key="org.bh.plugin.gcc.data.DTOGCCBalanceSheet$Key.RS" type="DoubleValue">
+           <doubleValue>3350000.0</doubleValue>
+          </value>
+          <value key="org.bh.plugin.gcc.data.DTOGCCBalanceSheet$Key.VB" type="DoubleValue">
+           <doubleValue>8.0104E7</doubleValue>
+          </value>
+         </values>
+        </gccbalancesheet>
+        <gccprofitlossstatementtotalcost class="org.bh.plugin.gcc.data.DTOGCCProfitLossStatementTotalCost">
+         <values>
+          <value key="org.bh.plugin.gcc.data.DTOGCCProfitLossStatementTotalCost$Key.UE" type="DoubleValue">
+           <doubleValue>4.73032E8</doubleValue>
+          </value>
+          <value key="org.bh.plugin.gcc.data.DTOGCCProfitLossStatementTotalCost$Key.AAE" type="DoubleValue">
+           <doubleValue>0.0</doubleValue>
+          </value>
+          <value key="org.bh.plugin.gcc.data.DTOGCCProfitLossStatementTotalCost$Key.SBE" type="DoubleValue">
+           <doubleValue>3897000.0</doubleValue>
+          </value>
+          <value key="org.bh.plugin.gcc.data.DTOGCCProfitLossStatementTotalCost$Key.MA" type="DoubleValue">
+           <doubleValue>4.14371E8</doubleValue>
+          </value>
+          <value key="org.bh.plugin.gcc.data.DTOGCCProfitLossStatementTotalCost$Key.PA" type="DoubleValue">
+           <doubleValue>1.6017E7</doubleValue>
+          </value>
+          <value key="org.bh.plugin.gcc.data.DTOGCCProfitLossStatementTotalCost$Key.ABSCH" type="DoubleValue">
+           <doubleValue>667000.0</doubleValue>
+          </value>
+          <value key="org.bh.plugin.gcc.data.DTOGCCProfitLossStatementTotalCost$Key.SBA" type="DoubleValue">
+           <doubleValue>1.6844E7</doubleValue>
+          </value>
+          <value key="org.bh.plugin.gcc.data.DTOGCCProfitLossStatementTotalCost$Key.ZA" type="DoubleValue">
+           <doubleValue>1660000.0</doubleValue>
+          </value>
+         </values>
+        </gccprofitlossstatementtotalcost>
+       </children>
       </period>
       <period class="org.bh.data.DTOPeriod">
        <values>
         <value key="org.bh.data.DTOPeriod$Key.NAME" type="StringValue">
          <stringValue>2008</stringValue>
         </value>
-        <value key="org.bh.data.DTOPeriod$Key.LIABILITIES" type="StringValue">
-         <stringValue>36701000</stringValue>
+        <value key="org.bh.data.DTOPeriod$Key.LIABILITIES" type="DoubleValue">
+         <doubleValue>3.6701E7</doubleValue>
         </value>
-        <value key="org.bh.data.DTOPeriod$Key.FCF" type="StringValue">
-         <stringValue>-23628000</stringValue>
+        <value key="org.bh.data.DTOPeriod$Key.FCF" type="DoubleValue">
+         <doubleValue>-2.3628E7</doubleValue>
         </value>
        </values>
+       <children>
+        <gccbalancesheet class="org.bh.plugin.gcc.data.DTOGCCBalanceSheet">
+         <values>
+          <value key="org.bh.plugin.gcc.data.DTOGCCBalanceSheet$Key.AV" type="DoubleValue">
+           <doubleValue>2634000.0</doubleValue>
+          </value>
+          <value key="org.bh.plugin.gcc.data.DTOGCCBalanceSheet$Key.IVG" type="DoubleValue">
+           <doubleValue>547000.0</doubleValue>
+          </value>
+          <value key="org.bh.plugin.gcc.data.DTOGCCBalanceSheet$Key.SA" type="DoubleValue">
+           <doubleValue>1651000.0</doubleValue>
+          </value>
+          <value key="org.bh.plugin.gcc.data.DTOGCCBalanceSheet$Key.FA" type="DoubleValue">
+           <doubleValue>436000.0</doubleValue>
+          </value>
+          <value key="org.bh.plugin.gcc.data.DTOGCCBalanceSheet$Key.VOR" type="DoubleValue">
+           <doubleValue>7.5975E7</doubleValue>
+          </value>
+          <value key="org.bh.plugin.gcc.data.DTOGCCBalanceSheet$Key.FSVG" type="DoubleValue">
+           <doubleValue>2.6074E7</doubleValue>
+          </value>
+          <value key="org.bh.plugin.gcc.data.DTOGCCBalanceSheet$Key.WP" type="DoubleValue">
+           <doubleValue>160000.0</doubleValue>
+          </value>
+          <value key="org.bh.plugin.gcc.data.DTOGCCBalanceSheet$Key.KBGGKS" type="DoubleValue">
+           <doubleValue>7535000.0</doubleValue>
+          </value>
+          <value key="org.bh.plugin.gcc.data.DTOGCCBalanceSheet$Key.EK" type="DoubleValue">
+           <doubleValue>8.9311E7</doubleValue>
+          </value>
+          <value key="org.bh.plugin.gcc.data.DTOGCCBalanceSheet$Key.RS" type="DoubleValue">
+           <doubleValue>2990000.0</doubleValue>
+          </value>
+          <value key="org.bh.plugin.gcc.data.DTOGCCBalanceSheet$Key.VB" type="DoubleValue">
+           <doubleValue>3.6701E7</doubleValue>
+          </value>
+         </values>
+        </gccbalancesheet>
+        <gccprofitlossstatementtotalcost class="org.bh.plugin.gcc.data.DTOGCCProfitLossStatementTotalCost">
+         <values>
+          <value key="org.bh.plugin.gcc.data.DTOGCCProfitLossStatementTotalCost$Key.UE" type="DoubleValue">
+           <doubleValue>4.02494E8</doubleValue>
+          </value>
+          <value key="org.bh.plugin.gcc.data.DTOGCCProfitLossStatementTotalCost$Key.AAE" type="DoubleValue">
+           <doubleValue>0.0</doubleValue>
+          </value>
+          <value key="org.bh.plugin.gcc.data.DTOGCCProfitLossStatementTotalCost$Key.SBE" type="DoubleValue">
+           <doubleValue>3699000.0</doubleValue>
+          </value>
+          <value key="org.bh.plugin.gcc.data.DTOGCCProfitLossStatementTotalCost$Key.MA" type="DoubleValue">
+           <doubleValue>3.56492E8</doubleValue>
+          </value>
+          <value key="org.bh.plugin.gcc.data.DTOGCCProfitLossStatementTotalCost$Key.PA" type="DoubleValue">
+           <doubleValue>1.2478E7</doubleValue>
+          </value>
+          <value key="org.bh.plugin.gcc.data.DTOGCCProfitLossStatementTotalCost$Key.ABSCH" type="DoubleValue">
+           <doubleValue>425000.0</doubleValue>
+          </value>
+          <value key="org.bh.plugin.gcc.data.DTOGCCProfitLossStatementTotalCost$Key.SBA" type="DoubleValue">
+           <doubleValue>1.9867E7</doubleValue>
+          </value>
+          <value key="org.bh.plugin.gcc.data.DTOGCCProfitLossStatementTotalCost$Key.ZA" type="DoubleValue">
+           <doubleValue>1088000.0</doubleValue>
+          </value>
+         </values>
+        </gccprofitlossstatementtotalcost>
+       </children>
       </period>
       <period class="org.bh.data.DTOPeriod">
        <values>
         <value key="org.bh.data.DTOPeriod$Key.NAME" type="StringValue">
          <stringValue>2007</stringValue>
         </value>
-        <value key="org.bh.data.DTOPeriod$Key.LIABILITIES" type="StringValue">
-         <stringValue>25480000</stringValue>
+        <value key="org.bh.data.DTOPeriod$Key.LIABILITIES" type="DoubleValue">
+         <doubleValue>2.548E7</doubleValue>
         </value>
-        <value key="org.bh.data.DTOPeriod$Key.FCF" type="StringValue">
-         <stringValue>4788000</stringValue>
+        <value key="org.bh.data.DTOPeriod$Key.FCF" type="DoubleValue">
+         <doubleValue>4788000.0</doubleValue>
         </value>
        </values>
+       <children>
+        <gccbalancesheet class="org.bh.plugin.gcc.data.DTOGCCBalanceSheet">
+         <values>
+          <value key="org.bh.plugin.gcc.data.DTOGCCBalanceSheet$Key.AV" type="DoubleValue">
+           <doubleValue>3018000.0</doubleValue>
+          </value>
+          <value key="org.bh.plugin.gcc.data.DTOGCCBalanceSheet$Key.IVG" type="DoubleValue">
+           <doubleValue>809000.0</doubleValue>
+          </value>
+          <value key="org.bh.plugin.gcc.data.DTOGCCBalanceSheet$Key.SA" type="DoubleValue">
+           <doubleValue>1218000.0</doubleValue>
+          </value>
+          <value key="org.bh.plugin.gcc.data.DTOGCCBalanceSheet$Key.FA" type="DoubleValue">
+           <doubleValue>991000.0</doubleValue>
+          </value>
+          <value key="org.bh.plugin.gcc.data.DTOGCCBalanceSheet$Key.VOR" type="DoubleValue">
+           <doubleValue>2.5442E7</doubleValue>
+          </value>
+          <value key="org.bh.plugin.gcc.data.DTOGCCBalanceSheet$Key.FSVG" type="DoubleValue">
+           <doubleValue>2.8113E7</doubleValue>
+          </value>
+          <value key="org.bh.plugin.gcc.data.DTOGCCBalanceSheet$Key.WP" type="DoubleValue">
+           <doubleValue>160000.0</doubleValue>
+          </value>
+          <value key="org.bh.plugin.gcc.data.DTOGCCBalanceSheet$Key.KBGGKS" type="DoubleValue">
+           <doubleValue>1.4E7</doubleValue>
+          </value>
+          <value key="org.bh.plugin.gcc.data.DTOGCCBalanceSheet$Key.EK" type="DoubleValue">
+           <doubleValue>4.7326E7</doubleValue>
+          </value>
+          <value key="org.bh.plugin.gcc.data.DTOGCCBalanceSheet$Key.RS" type="DoubleValue">
+           <doubleValue>1437000.0</doubleValue>
+          </value>
+          <value key="org.bh.plugin.gcc.data.DTOGCCBalanceSheet$Key.VB" type="DoubleValue">
+           <doubleValue>2.548E7</doubleValue>
+          </value>
+         </values>
+        </gccbalancesheet>
+        <gccprofitlossstatementtotalcost class="org.bh.plugin.gcc.data.DTOGCCProfitLossStatementTotalCost">
+         <values>
+          <value key="org.bh.plugin.gcc.data.DTOGCCProfitLossStatementTotalCost$Key.UE" type="DoubleValue">
+           <doubleValue>2.60118E8</doubleValue>
+          </value>
+          <value key="org.bh.plugin.gcc.data.DTOGCCProfitLossStatementTotalCost$Key.AAE" type="DoubleValue">
+           <doubleValue>0.0</doubleValue>
+          </value>
+          <value key="org.bh.plugin.gcc.data.DTOGCCProfitLossStatementTotalCost$Key.SBE" type="DoubleValue">
+           <doubleValue>1144000.0</doubleValue>
+          </value>
+          <value key="org.bh.plugin.gcc.data.DTOGCCProfitLossStatementTotalCost$Key.MA" type="DoubleValue">
+           <doubleValue>2.20881E8</doubleValue>
+          </value>
+          <value key="org.bh.plugin.gcc.data.DTOGCCProfitLossStatementTotalCost$Key.PA" type="DoubleValue">
+           <doubleValue>7956000.0</doubleValue>
+          </value>
+          <value key="org.bh.plugin.gcc.data.DTOGCCProfitLossStatementTotalCost$Key.ABSCH" type="DoubleValue">
+           <doubleValue>313000.0</doubleValue>
+          </value>
+          <value key="org.bh.plugin.gcc.data.DTOGCCProfitLossStatementTotalCost$Key.SBA" type="DoubleValue">
+           <doubleValue>9908000.0</doubleValue>
+          </value>
+          <value key="org.bh.plugin.gcc.data.DTOGCCProfitLossStatementTotalCost$Key.ZA" type="DoubleValue">
+           <doubleValue>1101000.0</doubleValue>
+          </value>
+         </values>
+        </gccprofitlossstatementtotalcost>
+       </children>
       </period>
       <period class="org.bh.data.DTOPeriod">
        <values>
         <value key="org.bh.data.DTOPeriod$Key.NAME" type="StringValue">
          <stringValue>2006</stringValue>
         </value>
-        <value key="org.bh.data.DTOPeriod$Key.LIABILITIES" type="StringValue">
-         <stringValue>19411399,3</stringValue>
+        <value key="org.bh.data.DTOPeriod$Key.LIABILITIES" type="DoubleValue">
+         <doubleValue>1.9411399E7</doubleValue>
         </value>
-        <value key="org.bh.data.DTOPeriod$Key.FCF" type="StringValue">
-         <stringValue>-14907000</stringValue>
+        <value key="org.bh.data.DTOPeriod$Key.FCF" type="DoubleValue">
+         <doubleValue>-1.4907E7</doubleValue>
         </value>
        </values>
+       <children>
+        <gccbalancesheet class="org.bh.plugin.gcc.data.DTOGCCBalanceSheet">
+         <values>
+          <value key="org.bh.plugin.gcc.data.DTOGCCBalanceSheet$Key.AV" type="DoubleValue">
+           <doubleValue>2189832.0</doubleValue>
+          </value>
+          <value key="org.bh.plugin.gcc.data.DTOGCCBalanceSheet$Key.IVG" type="DoubleValue">
+           <doubleValue>396073.0</doubleValue>
+          </value>
+          <value key="org.bh.plugin.gcc.data.DTOGCCBalanceSheet$Key.SA" type="DoubleValue">
+           <doubleValue>810507.0</doubleValue>
+          </value>
+          <value key="org.bh.plugin.gcc.data.DTOGCCBalanceSheet$Key.FA" type="DoubleValue">
+           <doubleValue>983252.0</doubleValue>
+          </value>
+          <value key="org.bh.plugin.gcc.data.DTOGCCBalanceSheet$Key.VOR" type="DoubleValue">
+           <doubleValue>2.0670863E7</doubleValue>
+          </value>
+          <value key="org.bh.plugin.gcc.data.DTOGCCBalanceSheet$Key.FSVG" type="DoubleValue">
+           <doubleValue>1.6548909E7</doubleValue>
+          </value>
+          <value key="org.bh.plugin.gcc.data.DTOGCCBalanceSheet$Key.WP" type="DoubleValue">
+           <doubleValue>0.0</doubleValue>
+          </value>
+          <value key="org.bh.plugin.gcc.data.DTOGCCBalanceSheet$Key.KBGGKS" type="DoubleValue">
+           <doubleValue>1.1169088E7</doubleValue>
+          </value>
+          <value key="org.bh.plugin.gcc.data.DTOGCCBalanceSheet$Key.EK" type="DoubleValue">
+           <doubleValue>3.3346E7</doubleValue>
+          </value>
+          <value key="org.bh.plugin.gcc.data.DTOGCCBalanceSheet$Key.RS" type="DoubleValue">
+           <doubleValue>1097343.0</doubleValue>
+          </value>
+          <value key="org.bh.plugin.gcc.data.DTOGCCBalanceSheet$Key.VB" type="DoubleValue">
+           <doubleValue>1.9411399E7</doubleValue>
+          </value>
+         </values>
+        </gccbalancesheet>
+        <gccprofitlossstatementtotalcost class="org.bh.plugin.gcc.data.DTOGCCProfitLossStatementTotalCost">
+         <values>
+          <value key="org.bh.plugin.gcc.data.DTOGCCProfitLossStatementTotalCost$Key.UE" type="DoubleValue">
+           <doubleValue>1.18994217E8</doubleValue>
+          </value>
+          <value key="org.bh.plugin.gcc.data.DTOGCCProfitLossStatementTotalCost$Key.AAE" type="DoubleValue">
+           <doubleValue>0.0</doubleValue>
+          </value>
+          <value key="org.bh.plugin.gcc.data.DTOGCCProfitLossStatementTotalCost$Key.SBE" type="DoubleValue">
+           <doubleValue>1134380.0</doubleValue>
+          </value>
+          <value key="org.bh.plugin.gcc.data.DTOGCCProfitLossStatementTotalCost$Key.MA" type="DoubleValue">
+           <doubleValue>1.0314648E8</doubleValue>
+          </value>
+          <value key="org.bh.plugin.gcc.data.DTOGCCProfitLossStatementTotalCost$Key.PA" type="DoubleValue">
+           <doubleValue>4832878.0</doubleValue>
+          </value>
+          <value key="org.bh.plugin.gcc.data.DTOGCCProfitLossStatementTotalCost$Key.ABSCH" type="DoubleValue">
+           <doubleValue>236370.0</doubleValue>
+          </value>
+          <value key="org.bh.plugin.gcc.data.DTOGCCProfitLossStatementTotalCost$Key.SBA" type="DoubleValue">
+           <doubleValue>7143294.0</doubleValue>
+          </value>
+          <value key="org.bh.plugin.gcc.data.DTOGCCProfitLossStatementTotalCost$Key.ZA" type="DoubleValue">
+           <doubleValue>250999.0</doubleValue>
+          </value>
+         </values>
+        </gccprofitlossstatementtotalcost>
+       </children>
       </period>
      </children>
     </company>
@@ -248,65 +1235,340 @@
         <value key="org.bh.data.DTOPeriod$Key.NAME" type="StringValue">
          <stringValue>2010</stringValue>
         </value>
-        <value key="org.bh.data.DTOPeriod$Key.LIABILITIES" type="StringValue">
-         <stringValue>342409000</stringValue>
+        <value key="org.bh.data.DTOPeriod$Key.LIABILITIES" type="DoubleValue">
+         <doubleValue>3.42409E8</doubleValue>
         </value>
-        <value key="org.bh.data.DTOPeriod$Key.FCF" type="StringValue">
-         <stringValue>128800000</stringValue>
+        <value key="org.bh.data.DTOPeriod$Key.FCF" type="DoubleValue">
+         <doubleValue>1.288E8</doubleValue>
         </value>
        </values>
+       <children>
+        <gccbalancesheet class="org.bh.plugin.gcc.data.DTOGCCBalanceSheet">
+         <values>
+          <value key="org.bh.plugin.gcc.data.DTOGCCBalanceSheet$Key.AV" type="DoubleValue">
+           <doubleValue>2.97822E8</doubleValue>
+          </value>
+          <value key="org.bh.plugin.gcc.data.DTOGCCBalanceSheet$Key.IVG" type="DoubleValue">
+           <doubleValue>2.9242E7</doubleValue>
+          </value>
+          <value key="org.bh.plugin.gcc.data.DTOGCCBalanceSheet$Key.SA" type="DoubleValue">
+           <doubleValue>2.68507E8</doubleValue>
+          </value>
+          <value key="org.bh.plugin.gcc.data.DTOGCCBalanceSheet$Key.FA" type="DoubleValue">
+           <doubleValue>73000.0</doubleValue>
+          </value>
+          <value key="org.bh.plugin.gcc.data.DTOGCCBalanceSheet$Key.VOR" type="DoubleValue">
+           <doubleValue>2.37838E8</doubleValue>
+          </value>
+          <value key="org.bh.plugin.gcc.data.DTOGCCBalanceSheet$Key.FSVG" type="DoubleValue">
+           <doubleValue>1.3733E8</doubleValue>
+          </value>
+          <value key="org.bh.plugin.gcc.data.DTOGCCBalanceSheet$Key.WP" type="DoubleValue">
+           <doubleValue>1.95688E8</doubleValue>
+          </value>
+          <value key="org.bh.plugin.gcc.data.DTOGCCBalanceSheet$Key.KBGGKS" type="DoubleValue">
+           <doubleValue>3.54083E8</doubleValue>
+          </value>
+          <value key="org.bh.plugin.gcc.data.DTOGCCBalanceSheet$Key.EK" type="DoubleValue">
+           <doubleValue>7.284E8</doubleValue>
+          </value>
+          <value key="org.bh.plugin.gcc.data.DTOGCCBalanceSheet$Key.RS" type="DoubleValue">
+           <doubleValue>1.67337E8</doubleValue>
+          </value>
+          <value key="org.bh.plugin.gcc.data.DTOGCCBalanceSheet$Key.VB" type="DoubleValue">
+           <doubleValue>3.42409E8</doubleValue>
+          </value>
+         </values>
+        </gccbalancesheet>
+        <gccprofitlossstatementcostofsales class="org.bh.plugin.gcc.data.DTOGCCProfitLossStatementCostOfSales">
+         <values>
+          <value key="org.bh.plugin.gcc.data.DTOGCCProfitLossStatementCostOfSales$Key.UE" type="DoubleValue">
+           <doubleValue>1.9201E9</doubleValue>
+          </value>
+          <value key="org.bh.plugin.gcc.data.DTOGCCProfitLossStatementCostOfSales$Key.HK" type="DoubleValue">
+           <doubleValue>1.226914E9</doubleValue>
+          </value>
+          <value key="org.bh.plugin.gcc.data.DTOGCCProfitLossStatementCostOfSales$Key.SBE" type="DoubleValue">
+           <doubleValue>1.6445E7</doubleValue>
+          </value>
+          <value key="org.bh.plugin.gcc.data.DTOGCCProfitLossStatementCostOfSales$Key.VVSBA" type="DoubleValue">
+           <doubleValue>1.92842E8</doubleValue>
+          </value>
+         </values>
+        </gccprofitlossstatementcostofsales>
+       </children>
       </period>
       <period class="org.bh.data.DTOPeriod">
        <values>
         <value key="org.bh.data.DTOPeriod$Key.NAME" type="StringValue">
          <stringValue>2009</stringValue>
         </value>
-        <value key="org.bh.data.DTOPeriod$Key.LIABILITIES" type="StringValue">
-         <stringValue>234222000</stringValue>
+        <value key="org.bh.data.DTOPeriod$Key.LIABILITIES" type="DoubleValue">
+         <doubleValue>2.34222E8</doubleValue>
         </value>
-        <value key="org.bh.data.DTOPeriod$Key.FCF" type="StringValue">
-         <stringValue>-16100000</stringValue>
+        <value key="org.bh.data.DTOPeriod$Key.FCF" type="DoubleValue">
+         <doubleValue>-1.61E7</doubleValue>
         </value>
        </values>
+       <children>
+        <gccbalancesheet class="org.bh.plugin.gcc.data.DTOGCCBalanceSheet">
+         <values>
+          <value key="org.bh.plugin.gcc.data.DTOGCCBalanceSheet$Key.AV" type="DoubleValue">
+           <doubleValue>3.02912E8</doubleValue>
+          </value>
+          <value key="org.bh.plugin.gcc.data.DTOGCCBalanceSheet$Key.IVG" type="DoubleValue">
+           <doubleValue>1.5372E8</doubleValue>
+          </value>
+          <value key="org.bh.plugin.gcc.data.DTOGCCBalanceSheet$Key.SA" type="DoubleValue">
+           <doubleValue>1.49119E8</doubleValue>
+          </value>
+          <value key="org.bh.plugin.gcc.data.DTOGCCBalanceSheet$Key.FA" type="DoubleValue">
+           <doubleValue>73000.0</doubleValue>
+          </value>
+          <value key="org.bh.plugin.gcc.data.DTOGCCBalanceSheet$Key.VOR" type="DoubleValue">
+           <doubleValue>1.12569E8</doubleValue>
+          </value>
+          <value key="org.bh.plugin.gcc.data.DTOGCCBalanceSheet$Key.FSVG" type="DoubleValue">
+           <doubleValue>6.2052E7</doubleValue>
+          </value>
+          <value key="org.bh.plugin.gcc.data.DTOGCCBalanceSheet$Key.WP" type="DoubleValue">
+           <doubleValue>1.45389E8</doubleValue>
+          </value>
+          <value key="org.bh.plugin.gcc.data.DTOGCCBalanceSheet$Key.KBGGKS" type="DoubleValue">
+           <doubleValue>2.2501E8</doubleValue>
+          </value>
+          <value key="org.bh.plugin.gcc.data.DTOGCCBalanceSheet$Key.EK" type="DoubleValue">
+           <doubleValue>4.076E8</doubleValue>
+          </value>
+          <value key="org.bh.plugin.gcc.data.DTOGCCBalanceSheet$Key.RS" type="DoubleValue">
+           <doubleValue>7.1696E7</doubleValue>
+          </value>
+          <value key="org.bh.plugin.gcc.data.DTOGCCBalanceSheet$Key.VB" type="DoubleValue">
+           <doubleValue>2.34222E8</doubleValue>
+          </value>
+         </values>
+        </gccbalancesheet>
+        <gccprofitlossstatementcostofsales class="org.bh.plugin.gcc.data.DTOGCCProfitLossStatementCostOfSales">
+         <values>
+          <value key="org.bh.plugin.gcc.data.DTOGCCProfitLossStatementCostOfSales$Key.UE" type="DoubleValue">
+           <doubleValue>9.343E8</doubleValue>
+          </value>
+          <value key="org.bh.plugin.gcc.data.DTOGCCProfitLossStatementCostOfSales$Key.HK" type="DoubleValue">
+           <doubleValue>5.93013E8</doubleValue>
+          </value>
+          <value key="org.bh.plugin.gcc.data.DTOGCCProfitLossStatementCostOfSales$Key.SBE" type="DoubleValue">
+           <doubleValue>9428000.0</doubleValue>
+          </value>
+          <value key="org.bh.plugin.gcc.data.DTOGCCProfitLossStatementCostOfSales$Key.VVSBA" type="DoubleValue">
+           <doubleValue>1.22355E8</doubleValue>
+          </value>
+         </values>
+        </gccprofitlossstatementcostofsales>
+       </children>
       </period>
       <period class="org.bh.data.DTOPeriod">
        <values>
         <value key="org.bh.data.DTOPeriod$Key.NAME" type="StringValue">
          <stringValue>2008</stringValue>
         </value>
-        <value key="org.bh.data.DTOPeriod$Key.LIABILITIES" type="StringValue">
-         <stringValue>148460000</stringValue>
+        <value key="org.bh.data.DTOPeriod$Key.LIABILITIES" type="DoubleValue">
+         <doubleValue>1.4846E8</doubleValue>
         </value>
-        <value key="org.bh.data.DTOPeriod$Key.FCF" type="StringValue">
-         <stringValue>187600000</stringValue>
+        <value key="org.bh.data.DTOPeriod$Key.FCF" type="DoubleValue">
+         <doubleValue>1.876E8</doubleValue>
         </value>
        </values>
+       <children>
+        <gccbalancesheet class="org.bh.plugin.gcc.data.DTOGCCBalanceSheet">
+         <values>
+          <value key="org.bh.plugin.gcc.data.DTOGCCBalanceSheet$Key.AV" type="DoubleValue">
+           <doubleValue>9.9757E7</doubleValue>
+          </value>
+          <value key="org.bh.plugin.gcc.data.DTOGCCBalanceSheet$Key.IVG" type="DoubleValue">
+           <doubleValue>5538000.0</doubleValue>
+          </value>
+          <value key="org.bh.plugin.gcc.data.DTOGCCBalanceSheet$Key.SA" type="DoubleValue">
+           <doubleValue>9.4149E7</doubleValue>
+          </value>
+          <value key="org.bh.plugin.gcc.data.DTOGCCBalanceSheet$Key.FA" type="DoubleValue">
+           <doubleValue>70000.0</doubleValue>
+          </value>
+          <value key="org.bh.plugin.gcc.data.DTOGCCBalanceSheet$Key.VOR" type="DoubleValue">
+           <doubleValue>7.5275E7</doubleValue>
+          </value>
+          <value key="org.bh.plugin.gcc.data.DTOGCCBalanceSheet$Key.FSVG" type="DoubleValue">
+           <doubleValue>2.7774E7</doubleValue>
+          </value>
+          <value key="org.bh.plugin.gcc.data.DTOGCCBalanceSheet$Key.WP" type="DoubleValue">
+           <doubleValue>2.3559E7</doubleValue>
+          </value>
+          <value key="org.bh.plugin.gcc.data.DTOGCCBalanceSheet$Key.KBGGKS" type="DoubleValue">
+           <doubleValue>2.40682E8</doubleValue>
+          </value>
+          <value key="org.bh.plugin.gcc.data.DTOGCCBalanceSheet$Key.EK" type="DoubleValue">
+           <doubleValue>2.808E8</doubleValue>
+          </value>
+          <value key="org.bh.plugin.gcc.data.DTOGCCBalanceSheet$Key.RS" type="DoubleValue">
+           <doubleValue>3.7822E7</doubleValue>
+          </value>
+          <value key="org.bh.plugin.gcc.data.DTOGCCBalanceSheet$Key.VB" type="DoubleValue">
+           <doubleValue>1.4846E8</doubleValue>
+          </value>
+         </values>
+        </gccbalancesheet>
+        <gccprofitlossstatementcostofsales class="org.bh.plugin.gcc.data.DTOGCCProfitLossStatementCostOfSales">
+         <values>
+          <value key="org.bh.plugin.gcc.data.DTOGCCProfitLossStatementCostOfSales$Key.UE" type="DoubleValue">
+           <doubleValue>6.816E8</doubleValue>
+          </value>
+          <value key="org.bh.plugin.gcc.data.DTOGCCProfitLossStatementCostOfSales$Key.HK" type="DoubleValue">
+           <doubleValue>4.27823E8</doubleValue>
+          </value>
+          <value key="org.bh.plugin.gcc.data.DTOGCCProfitLossStatementCostOfSales$Key.SBE" type="DoubleValue">
+           <doubleValue>1.2604E7</doubleValue>
+          </value>
+          <value key="org.bh.plugin.gcc.data.DTOGCCProfitLossStatementCostOfSales$Key.VVSBA" type="DoubleValue">
+           <doubleValue>9.8979E7</doubleValue>
+          </value>
+         </values>
+        </gccprofitlossstatementcostofsales>
+       </children>
       </period>
       <period class="org.bh.data.DTOPeriod">
        <values>
         <value key="org.bh.data.DTOPeriod$Key.NAME" type="StringValue">
          <stringValue>2007</stringValue>
         </value>
-        <value key="org.bh.data.DTOPeriod$Key.LIABILITIES" type="StringValue">
-         <stringValue>82212000</stringValue>
+        <value key="org.bh.data.DTOPeriod$Key.LIABILITIES" type="DoubleValue">
+         <doubleValue>8.2212E7</doubleValue>
         </value>
-        <value key="org.bh.data.DTOPeriod$Key.FCF" type="StringValue">
-         <stringValue>19400000</stringValue>
+        <value key="org.bh.data.DTOPeriod$Key.FCF" type="DoubleValue">
+         <doubleValue>1.94E7</doubleValue>
         </value>
        </values>
+       <children>
+        <gccbalancesheet class="org.bh.plugin.gcc.data.DTOGCCBalanceSheet">
+         <values>
+          <value key="org.bh.plugin.gcc.data.DTOGCCBalanceSheet$Key.AV" type="DoubleValue">
+           <doubleValue>3.3264E7</doubleValue>
+          </value>
+          <value key="org.bh.plugin.gcc.data.DTOGCCBalanceSheet$Key.IVG" type="DoubleValue">
+           <doubleValue>1859000.0</doubleValue>
+          </value>
+          <value key="org.bh.plugin.gcc.data.DTOGCCBalanceSheet$Key.SA" type="DoubleValue">
+           <doubleValue>3.1335E7</doubleValue>
+          </value>
+          <value key="org.bh.plugin.gcc.data.DTOGCCBalanceSheet$Key.FA" type="DoubleValue">
+           <doubleValue>70000.0</doubleValue>
+          </value>
+          <value key="org.bh.plugin.gcc.data.DTOGCCBalanceSheet$Key.VOR" type="DoubleValue">
+           <doubleValue>4.7598E7</doubleValue>
+          </value>
+          <value key="org.bh.plugin.gcc.data.DTOGCCBalanceSheet$Key.FSVG" type="DoubleValue">
+           <doubleValue>2.6738E7</doubleValue>
+          </value>
+          <value key="org.bh.plugin.gcc.data.DTOGCCBalanceSheet$Key.WP" type="DoubleValue">
+           <doubleValue>1626000.0</doubleValue>
+          </value>
+          <value key="org.bh.plugin.gcc.data.DTOGCCBalanceSheet$Key.KBGGKS" type="DoubleValue">
+           <doubleValue>5.2847E7</doubleValue>
+          </value>
+          <value key="org.bh.plugin.gcc.data.DTOGCCBalanceSheet$Key.EK" type="DoubleValue">
+           <doubleValue>6.44E7</doubleValue>
+          </value>
+          <value key="org.bh.plugin.gcc.data.DTOGCCBalanceSheet$Key.RS" type="DoubleValue">
+           <doubleValue>1.5238E7</doubleValue>
+          </value>
+          <value key="org.bh.plugin.gcc.data.DTOGCCBalanceSheet$Key.VB" type="DoubleValue">
+           <doubleValue>8.2212E7</doubleValue>
+          </value>
+         </values>
+        </gccbalancesheet>
+        <gccprofitlossstatementcostofsales class="org.bh.plugin.gcc.data.DTOGCCProfitLossStatementCostOfSales">
+         <values>
+          <value key="org.bh.plugin.gcc.data.DTOGCCProfitLossStatementCostOfSales$Key.UE" type="DoubleValue">
+           <doubleValue>3.273E8</doubleValue>
+          </value>
+          <value key="org.bh.plugin.gcc.data.DTOGCCProfitLossStatementCostOfSales$Key.HK" type="DoubleValue">
+           <doubleValue>2.04277E8</doubleValue>
+          </value>
+          <value key="org.bh.plugin.gcc.data.DTOGCCProfitLossStatementCostOfSales$Key.SBE" type="DoubleValue">
+           <doubleValue>2947000.0</doubleValue>
+          </value>
+          <value key="org.bh.plugin.gcc.data.DTOGCCProfitLossStatementCostOfSales$Key.VVSBA" type="DoubleValue">
+           <doubleValue>6.6719E7</doubleValue>
+          </value>
+         </values>
+        </gccprofitlossstatementcostofsales>
+       </children>
       </period>
       <period class="org.bh.data.DTOPeriod">
        <values>
         <value key="org.bh.data.DTOPeriod$Key.NAME" type="StringValue">
          <stringValue>2006</stringValue>
         </value>
-        <value key="org.bh.data.DTOPeriod$Key.LIABILITIES" type="StringValue">
-         <stringValue>58074000</stringValue>
+        <value key="org.bh.data.DTOPeriod$Key.LIABILITIES" type="DoubleValue">
+         <doubleValue>5.8074E7</doubleValue>
         </value>
-        <value key="org.bh.data.DTOPeriod$Key.FCF" type="StringValue">
-         <stringValue>-1500000</stringValue>
+        <value key="org.bh.data.DTOPeriod$Key.FCF" type="DoubleValue">
+         <doubleValue>-1500000.0</doubleValue>
         </value>
        </values>
+       <children>
+        <gccbalancesheet class="org.bh.plugin.gcc.data.DTOGCCBalanceSheet">
+         <values>
+          <value key="org.bh.plugin.gcc.data.DTOGCCBalanceSheet$Key.AV" type="DoubleValue">
+           <doubleValue>3.1908E7</doubleValue>
+          </value>
+          <value key="org.bh.plugin.gcc.data.DTOGCCBalanceSheet$Key.IVG" type="DoubleValue">
+           <doubleValue>4913000.0</doubleValue>
+          </value>
+          <value key="org.bh.plugin.gcc.data.DTOGCCBalanceSheet$Key.SA" type="DoubleValue">
+           <doubleValue>2.6925E7</doubleValue>
+          </value>
+          <value key="org.bh.plugin.gcc.data.DTOGCCBalanceSheet$Key.FA" type="DoubleValue">
+           <doubleValue>70000.0</doubleValue>
+          </value>
+          <value key="org.bh.plugin.gcc.data.DTOGCCBalanceSheet$Key.VOR" type="DoubleValue">
+           <doubleValue>2.8715E7</doubleValue>
+          </value>
+          <value key="org.bh.plugin.gcc.data.DTOGCCBalanceSheet$Key.FSVG" type="DoubleValue">
+           <doubleValue>1.6719E7</doubleValue>
+          </value>
+          <value key="org.bh.plugin.gcc.data.DTOGCCBalanceSheet$Key.WP" type="DoubleValue">
+           <doubleValue>413000.0</doubleValue>
+          </value>
+          <value key="org.bh.plugin.gcc.data.DTOGCCBalanceSheet$Key.KBGGKS" type="DoubleValue">
+           <doubleValue>3.3518E7</doubleValue>
+          </value>
+          <value key="org.bh.plugin.gcc.data.DTOGCCBalanceSheet$Key.EK" type="DoubleValue">
+           <doubleValue>4.07E7</doubleValue>
+          </value>
+          <value key="org.bh.plugin.gcc.data.DTOGCCBalanceSheet$Key.RS" type="DoubleValue">
+           <doubleValue>1.1719E7</doubleValue>
+          </value>
+          <value key="org.bh.plugin.gcc.data.DTOGCCBalanceSheet$Key.VB" type="DoubleValue">
+           <doubleValue>5.8074E7</doubleValue>
+          </value>
+         </values>
+        </gccbalancesheet>
+        <gccprofitlossstatementcostofsales class="org.bh.plugin.gcc.data.DTOGCCProfitLossStatementCostOfSales">
+         <values>
+          <value key="org.bh.plugin.gcc.data.DTOGCCProfitLossStatementCostOfSales$Key.UE" type="DoubleValue">
+           <doubleValue>1.929E8</doubleValue>
+          </value>
+          <value key="org.bh.plugin.gcc.data.DTOGCCProfitLossStatementCostOfSales$Key.HK" type="DoubleValue">
+           <doubleValue>1.18301E8</doubleValue>
+          </value>
+          <value key="org.bh.plugin.gcc.data.DTOGCCProfitLossStatementCostOfSales$Key.SBE" type="DoubleValue">
+           <doubleValue>2350000.0</doubleValue>
+          </value>
+          <value key="org.bh.plugin.gcc.data.DTOGCCProfitLossStatementCostOfSales$Key.VVSBA" type="DoubleValue">
+           <doubleValue>4.4148E7</doubleValue>
+          </value>
+         </values>
+        </gccprofitlossstatementcostofsales>
+       </children>
       </period>
      </children>
     </company>
@@ -337,65 +1599,340 @@
         <value key="org.bh.data.DTOPeriod$Key.NAME" type="StringValue">
          <stringValue>2010</stringValue>
         </value>
-        <value key="org.bh.data.DTOPeriod$Key.LIABILITIES" type="StringValue">
-         <stringValue>4989200000</stringValue>
+        <value key="org.bh.data.DTOPeriod$Key.LIABILITIES" type="DoubleValue">
+         <doubleValue>4.9892E9</doubleValue>
         </value>
-        <value key="org.bh.data.DTOPeriod$Key.FCF" type="StringValue">
-         <stringValue>245000000</stringValue>
+        <value key="org.bh.data.DTOPeriod$Key.FCF" type="DoubleValue">
+         <doubleValue>2.45E8</doubleValue>
         </value>
        </values>
+       <children>
+        <gccbalancesheet class="org.bh.plugin.gcc.data.DTOGCCBalanceSheet">
+         <values>
+          <value key="org.bh.plugin.gcc.data.DTOGCCBalanceSheet$Key.AV" type="DoubleValue">
+           <doubleValue>5.481E9</doubleValue>
+          </value>
+          <value key="org.bh.plugin.gcc.data.DTOGCCBalanceSheet$Key.IVG" type="DoubleValue">
+           <doubleValue>4.4599E9</doubleValue>
+          </value>
+          <value key="org.bh.plugin.gcc.data.DTOGCCBalanceSheet$Key.SA" type="DoubleValue">
+           <doubleValue>6.625E8</doubleValue>
+          </value>
+          <value key="org.bh.plugin.gcc.data.DTOGCCBalanceSheet$Key.FA" type="DoubleValue">
+           <doubleValue>3.586E8</doubleValue>
+          </value>
+          <value key="org.bh.plugin.gcc.data.DTOGCCBalanceSheet$Key.VOR" type="DoubleValue">
+           <doubleValue>1.991E8</doubleValue>
+          </value>
+          <value key="org.bh.plugin.gcc.data.DTOGCCBalanceSheet$Key.FSVG" type="DoubleValue">
+           <doubleValue>3.4209E9</doubleValue>
+          </value>
+          <value key="org.bh.plugin.gcc.data.DTOGCCBalanceSheet$Key.WP" type="DoubleValue">
+           <doubleValue>0.0</doubleValue>
+          </value>
+          <value key="org.bh.plugin.gcc.data.DTOGCCBalanceSheet$Key.KBGGKS" type="DoubleValue">
+           <doubleValue>5.375E8</doubleValue>
+          </value>
+          <value key="org.bh.plugin.gcc.data.DTOGCCBalanceSheet$Key.EK" type="DoubleValue">
+           <doubleValue>1.8122E9</doubleValue>
+          </value>
+          <value key="org.bh.plugin.gcc.data.DTOGCCBalanceSheet$Key.RS" type="DoubleValue">
+           <doubleValue>3.842E8</doubleValue>
+          </value>
+          <value key="org.bh.plugin.gcc.data.DTOGCCBalanceSheet$Key.VB" type="DoubleValue">
+           <doubleValue>4.9892E9</doubleValue>
+          </value>
+         </values>
+        </gccbalancesheet>
+        <gccprofitlossstatementcostofsales class="org.bh.plugin.gcc.data.DTOGCCProfitLossStatementCostOfSales">
+         <values>
+          <value key="org.bh.plugin.gcc.data.DTOGCCProfitLossStatementCostOfSales$Key.UE" type="DoubleValue">
+           <doubleValue>8.0067E9</doubleValue>
+          </value>
+          <value key="org.bh.plugin.gcc.data.DTOGCCProfitLossStatementCostOfSales$Key.HK" type="DoubleValue">
+           <doubleValue>6.9654E9</doubleValue>
+          </value>
+          <value key="org.bh.plugin.gcc.data.DTOGCCProfitLossStatementCostOfSales$Key.SBE" type="DoubleValue">
+           <doubleValue>1.344E8</doubleValue>
+          </value>
+          <value key="org.bh.plugin.gcc.data.DTOGCCProfitLossStatementCostOfSales$Key.VVSBA" type="DoubleValue">
+           <doubleValue>8.55E8</doubleValue>
+          </value>
+         </values>
+        </gccprofitlossstatementcostofsales>
+       </children>
       </period>
       <period class="org.bh.data.DTOPeriod">
        <values>
         <value key="org.bh.data.DTOPeriod$Key.NAME" type="StringValue">
          <stringValue>2009</stringValue>
         </value>
-        <value key="org.bh.data.DTOPeriod$Key.LIABILITIES" type="StringValue">
-         <stringValue>5262700000</stringValue>
+        <value key="org.bh.data.DTOPeriod$Key.LIABILITIES" type="DoubleValue">
+         <doubleValue>5.2627E9</doubleValue>
         </value>
-        <value key="org.bh.data.DTOPeriod$Key.FCF" type="StringValue">
-         <stringValue>368000000</stringValue>
+        <value key="org.bh.data.DTOPeriod$Key.FCF" type="DoubleValue">
+         <doubleValue>3.68E8</doubleValue>
         </value>
        </values>
+       <children>
+        <gccbalancesheet class="org.bh.plugin.gcc.data.DTOGCCBalanceSheet">
+         <values>
+          <value key="org.bh.plugin.gcc.data.DTOGCCBalanceSheet$Key.AV" type="DoubleValue">
+           <doubleValue>5.9262E9</doubleValue>
+          </value>
+          <value key="org.bh.plugin.gcc.data.DTOGCCBalanceSheet$Key.IVG" type="DoubleValue">
+           <doubleValue>4.9144E9</doubleValue>
+          </value>
+          <value key="org.bh.plugin.gcc.data.DTOGCCBalanceSheet$Key.SA" type="DoubleValue">
+           <doubleValue>7.959E8</doubleValue>
+          </value>
+          <value key="org.bh.plugin.gcc.data.DTOGCCBalanceSheet$Key.FA" type="DoubleValue">
+           <doubleValue>2.159E8</doubleValue>
+          </value>
+          <value key="org.bh.plugin.gcc.data.DTOGCCBalanceSheet$Key.VOR" type="DoubleValue">
+           <doubleValue>2.699E8</doubleValue>
+          </value>
+          <value key="org.bh.plugin.gcc.data.DTOGCCBalanceSheet$Key.FSVG" type="DoubleValue">
+           <doubleValue>4.0328E9</doubleValue>
+          </value>
+          <value key="org.bh.plugin.gcc.data.DTOGCCBalanceSheet$Key.WP" type="DoubleValue">
+           <doubleValue>0.0</doubleValue>
+          </value>
+          <value key="org.bh.plugin.gcc.data.DTOGCCBalanceSheet$Key.KBGGKS" type="DoubleValue">
+           <doubleValue>7.984E8</doubleValue>
+          </value>
+          <value key="org.bh.plugin.gcc.data.DTOGCCBalanceSheet$Key.EK" type="DoubleValue">
+           <doubleValue>1.5614E9</doubleValue>
+          </value>
+          <value key="org.bh.plugin.gcc.data.DTOGCCBalanceSheet$Key.RS" type="DoubleValue">
+           <doubleValue>3.71E8</doubleValue>
+          </value>
+          <value key="org.bh.plugin.gcc.data.DTOGCCBalanceSheet$Key.VB" type="DoubleValue">
+           <doubleValue>5.2627E9</doubleValue>
+          </value>
+         </values>
+        </gccbalancesheet>
+        <gccprofitlossstatementcostofsales class="org.bh.plugin.gcc.data.DTOGCCProfitLossStatementCostOfSales">
+         <values>
+          <value key="org.bh.plugin.gcc.data.DTOGCCProfitLossStatementCostOfSales$Key.UE" type="DoubleValue">
+           <doubleValue>7.3815E9</doubleValue>
+          </value>
+          <value key="org.bh.plugin.gcc.data.DTOGCCProfitLossStatementCostOfSales$Key.HK" type="DoubleValue">
+           <doubleValue>6.5333E9</doubleValue>
+          </value>
+          <value key="org.bh.plugin.gcc.data.DTOGCCProfitLossStatementCostOfSales$Key.SBE" type="DoubleValue">
+           <doubleValue>7.41E7</doubleValue>
+          </value>
+          <value key="org.bh.plugin.gcc.data.DTOGCCProfitLossStatementCostOfSales$Key.VVSBA" type="DoubleValue">
+           <doubleValue>7.654E8</doubleValue>
+          </value>
+         </values>
+        </gccprofitlossstatementcostofsales>
+       </children>
       </period>
       <period class="org.bh.data.DTOPeriod">
        <values>
         <value key="org.bh.data.DTOPeriod$Key.NAME" type="StringValue">
          <stringValue>2008</stringValue>
         </value>
-        <value key="org.bh.data.DTOPeriod$Key.LIABILITIES" type="StringValue">
-         <stringValue>4776600000</stringValue>
+        <value key="org.bh.data.DTOPeriod$Key.LIABILITIES" type="DoubleValue">
+         <doubleValue>4.7766E9</doubleValue>
         </value>
-        <value key="org.bh.data.DTOPeriod$Key.FCF" type="StringValue">
-         <stringValue>357000000</stringValue>
+        <value key="org.bh.data.DTOPeriod$Key.FCF" type="DoubleValue">
+         <doubleValue>3.57E8</doubleValue>
         </value>
        </values>
+       <children>
+        <gccbalancesheet class="org.bh.plugin.gcc.data.DTOGCCBalanceSheet">
+         <values>
+          <value key="org.bh.plugin.gcc.data.DTOGCCBalanceSheet$Key.AV" type="DoubleValue">
+           <doubleValue>4.8631E9</doubleValue>
+          </value>
+          <value key="org.bh.plugin.gcc.data.DTOGCCBalanceSheet$Key.IVG" type="DoubleValue">
+           <doubleValue>3.9643E9</doubleValue>
+          </value>
+          <value key="org.bh.plugin.gcc.data.DTOGCCBalanceSheet$Key.SA" type="DoubleValue">
+           <doubleValue>5.993E8</doubleValue>
+          </value>
+          <value key="org.bh.plugin.gcc.data.DTOGCCBalanceSheet$Key.FA" type="DoubleValue">
+           <doubleValue>2.995E8</doubleValue>
+          </value>
+          <value key="org.bh.plugin.gcc.data.DTOGCCBalanceSheet$Key.VOR" type="DoubleValue">
+           <doubleValue>2.164E8</doubleValue>
+          </value>
+          <value key="org.bh.plugin.gcc.data.DTOGCCBalanceSheet$Key.FSVG" type="DoubleValue">
+           <doubleValue>3.509E9</doubleValue>
+          </value>
+          <value key="org.bh.plugin.gcc.data.DTOGCCBalanceSheet$Key.WP" type="DoubleValue">
+           <doubleValue>0.0</doubleValue>
+          </value>
+          <value key="org.bh.plugin.gcc.data.DTOGCCBalanceSheet$Key.KBGGKS" type="DoubleValue">
+           <doubleValue>7.202E8</doubleValue>
+          </value>
+          <value key="org.bh.plugin.gcc.data.DTOGCCBalanceSheet$Key.EK" type="DoubleValue">
+           <doubleValue>1.141E9</doubleValue>
+          </value>
+          <value key="org.bh.plugin.gcc.data.DTOGCCBalanceSheet$Key.RS" type="DoubleValue">
+           <doubleValue>2.874E8</doubleValue>
+          </value>
+          <value key="org.bh.plugin.gcc.data.DTOGCCBalanceSheet$Key.VB" type="DoubleValue">
+           <doubleValue>4.7766E9</doubleValue>
+          </value>
+         </values>
+        </gccbalancesheet>
+        <gccprofitlossstatementcostofsales class="org.bh.plugin.gcc.data.DTOGCCProfitLossStatementCostOfSales">
+         <values>
+          <value key="org.bh.plugin.gcc.data.DTOGCCProfitLossStatementCostOfSales$Key.UE" type="DoubleValue">
+           <doubleValue>9.7571E9</doubleValue>
+          </value>
+          <value key="org.bh.plugin.gcc.data.DTOGCCProfitLossStatementCostOfSales$Key.HK" type="DoubleValue">
+           <doubleValue>8.6845E9</doubleValue>
+          </value>
+          <value key="org.bh.plugin.gcc.data.DTOGCCProfitLossStatementCostOfSales$Key.SBE" type="DoubleValue">
+           <doubleValue>2.048E8</doubleValue>
+          </value>
+          <value key="org.bh.plugin.gcc.data.DTOGCCProfitLossStatementCostOfSales$Key.VVSBA" type="DoubleValue">
+           <doubleValue>9.793E8</doubleValue>
+          </value>
+         </values>
+        </gccprofitlossstatementcostofsales>
+       </children>
       </period>
       <period class="org.bh.data.DTOPeriod">
        <values>
         <value key="org.bh.data.DTOPeriod$Key.NAME" type="StringValue">
          <stringValue>2007</stringValue>
         </value>
-        <value key="org.bh.data.DTOPeriod$Key.LIABILITIES" type="StringValue">
-         <stringValue>4056000000</stringValue>
+        <value key="org.bh.data.DTOPeriod$Key.LIABILITIES" type="DoubleValue">
+         <doubleValue>4.056E9</doubleValue>
         </value>
-        <value key="org.bh.data.DTOPeriod$Key.FCF" type="StringValue">
-         <stringValue>325000000</stringValue>
+        <value key="org.bh.data.DTOPeriod$Key.FCF" type="DoubleValue">
+         <doubleValue>3.25E8</doubleValue>
         </value>
        </values>
+       <children>
+        <gccbalancesheet class="org.bh.plugin.gcc.data.DTOGCCBalanceSheet">
+         <values>
+          <value key="org.bh.plugin.gcc.data.DTOGCCBalanceSheet$Key.AV" type="DoubleValue">
+           <doubleValue>3.8875E9</doubleValue>
+          </value>
+          <value key="org.bh.plugin.gcc.data.DTOGCCBalanceSheet$Key.IVG" type="DoubleValue">
+           <doubleValue>3.139E9</doubleValue>
+          </value>
+          <value key="org.bh.plugin.gcc.data.DTOGCCBalanceSheet$Key.SA" type="DoubleValue">
+           <doubleValue>5.812E8</doubleValue>
+          </value>
+          <value key="org.bh.plugin.gcc.data.DTOGCCBalanceSheet$Key.FA" type="DoubleValue">
+           <doubleValue>1.673E8</doubleValue>
+          </value>
+          <value key="org.bh.plugin.gcc.data.DTOGCCBalanceSheet$Key.VOR" type="DoubleValue">
+           <doubleValue>1.537E8</doubleValue>
+          </value>
+          <value key="org.bh.plugin.gcc.data.DTOGCCBalanceSheet$Key.FSVG" type="DoubleValue">
+           <doubleValue>3.3838E9</doubleValue>
+          </value>
+          <value key="org.bh.plugin.gcc.data.DTOGCCBalanceSheet$Key.WP" type="DoubleValue">
+           <doubleValue>0.0</doubleValue>
+          </value>
+          <value key="org.bh.plugin.gcc.data.DTOGCCBalanceSheet$Key.KBGGKS" type="DoubleValue">
+           <doubleValue>7.96E8</doubleValue>
+          </value>
+          <value key="org.bh.plugin.gcc.data.DTOGCCBalanceSheet$Key.EK" type="DoubleValue">
+           <doubleValue>1.3319E9</doubleValue>
+          </value>
+          <value key="org.bh.plugin.gcc.data.DTOGCCBalanceSheet$Key.RS" type="DoubleValue">
+           <doubleValue>2.244E8</doubleValue>
+          </value>
+          <value key="org.bh.plugin.gcc.data.DTOGCCBalanceSheet$Key.VB" type="DoubleValue">
+           <doubleValue>4.056E9</doubleValue>
+          </value>
+         </values>
+        </gccbalancesheet>
+        <gccprofitlossstatementcostofsales class="org.bh.plugin.gcc.data.DTOGCCProfitLossStatementCostOfSales">
+         <values>
+          <value key="org.bh.plugin.gcc.data.DTOGCCProfitLossStatementCostOfSales$Key.UE" type="DoubleValue">
+           <doubleValue>8.6337E9</doubleValue>
+          </value>
+          <value key="org.bh.plugin.gcc.data.DTOGCCProfitLossStatementCostOfSales$Key.HK" type="DoubleValue">
+           <doubleValue>7.6228E9</doubleValue>
+          </value>
+          <value key="org.bh.plugin.gcc.data.DTOGCCProfitLossStatementCostOfSales$Key.SBE" type="DoubleValue">
+           <doubleValue>7.59E7</doubleValue>
+          </value>
+          <value key="org.bh.plugin.gcc.data.DTOGCCProfitLossStatementCostOfSales$Key.VVSBA" type="DoubleValue">
+           <doubleValue>8.576E8</doubleValue>
+          </value>
+         </values>
+        </gccprofitlossstatementcostofsales>
+       </children>
       </period>
       <period class="org.bh.data.DTOPeriod">
        <values>
         <value key="org.bh.data.DTOPeriod$Key.NAME" type="StringValue">
          <stringValue>2006</stringValue>
         </value>
-        <value key="org.bh.data.DTOPeriod$Key.LIABILITIES" type="StringValue">
-         <stringValue>3168000000</stringValue>
+        <value key="org.bh.data.DTOPeriod$Key.LIABILITIES" type="DoubleValue">
+         <doubleValue>3.168E9</doubleValue>
         </value>
-        <value key="org.bh.data.DTOPeriod$Key.FCF" type="StringValue">
-         <stringValue>207000000</stringValue>
+        <value key="org.bh.data.DTOPeriod$Key.FCF" type="DoubleValue">
+         <doubleValue>2.07E8</doubleValue>
         </value>
        </values>
+       <children>
+        <gccbalancesheet class="org.bh.plugin.gcc.data.DTOGCCBalanceSheet">
+         <values>
+          <value key="org.bh.plugin.gcc.data.DTOGCCBalanceSheet$Key.AV" type="DoubleValue">
+           <doubleValue>3.1427E9</doubleValue>
+          </value>
+          <value key="org.bh.plugin.gcc.data.DTOGCCBalanceSheet$Key.IVG" type="DoubleValue">
+           <doubleValue>2.4512E9</doubleValue>
+          </value>
+          <value key="org.bh.plugin.gcc.data.DTOGCCBalanceSheet$Key.SA" type="DoubleValue">
+           <doubleValue>6.073E8</doubleValue>
+          </value>
+          <value key="org.bh.plugin.gcc.data.DTOGCCBalanceSheet$Key.FA" type="DoubleValue">
+           <doubleValue>8.42E7</doubleValue>
+          </value>
+          <value key="org.bh.plugin.gcc.data.DTOGCCBalanceSheet$Key.VOR" type="DoubleValue">
+           <doubleValue>1.217E8</doubleValue>
+          </value>
+          <value key="org.bh.plugin.gcc.data.DTOGCCBalanceSheet$Key.FSVG" type="DoubleValue">
+           <doubleValue>2.6355E9</doubleValue>
+          </value>
+          <value key="org.bh.plugin.gcc.data.DTOGCCBalanceSheet$Key.WP" type="DoubleValue">
+           <doubleValue>0.0</doubleValue>
+          </value>
+          <value key="org.bh.plugin.gcc.data.DTOGCCBalanceSheet$Key.KBGGKS" type="DoubleValue">
+           <doubleValue>7.827E8</doubleValue>
+          </value>
+          <value key="org.bh.plugin.gcc.data.DTOGCCBalanceSheet$Key.EK" type="DoubleValue">
+           <doubleValue>1.2062E9</doubleValue>
+          </value>
+          <value key="org.bh.plugin.gcc.data.DTOGCCBalanceSheet$Key.RS" type="DoubleValue">
+           <doubleValue>2.592E8</doubleValue>
+          </value>
+          <value key="org.bh.plugin.gcc.data.DTOGCCBalanceSheet$Key.VB" type="DoubleValue">
+           <doubleValue>3.168E9</doubleValue>
+          </value>
+         </values>
+        </gccbalancesheet>
+        <gccprofitlossstatementcostofsales class="org.bh.plugin.gcc.data.DTOGCCProfitLossStatementCostOfSales">
+         <values>
+          <value key="org.bh.plugin.gcc.data.DTOGCCProfitLossStatementCostOfSales$Key.UE" type="DoubleValue">
+           <doubleValue>7.5273E9</doubleValue>
+          </value>
+          <value key="org.bh.plugin.gcc.data.DTOGCCProfitLossStatementCostOfSales$Key.HK" type="DoubleValue">
+           <doubleValue>6.6683E9</doubleValue>
+          </value>
+          <value key="org.bh.plugin.gcc.data.DTOGCCProfitLossStatementCostOfSales$Key.SBE" type="DoubleValue">
+           <doubleValue>1.488E8</doubleValue>
+          </value>
+          <value key="org.bh.plugin.gcc.data.DTOGCCProfitLossStatementCostOfSales$Key.VVSBA" type="DoubleValue">
+           <doubleValue>8.278E8</doubleValue>
+          </value>
+         </values>
+        </gccprofitlossstatementcostofsales>
+       </children>
       </period>
      </children>
     </company>
@@ -411,65 +1948,400 @@
         <value key="org.bh.data.DTOPeriod$Key.NAME" type="StringValue">
          <stringValue>2010</stringValue>
         </value>
-        <value key="org.bh.data.DTOPeriod$Key.LIABILITIES" type="StringValue">
-         <stringValue>859701000</stringValue>
+        <value key="org.bh.data.DTOPeriod$Key.LIABILITIES" type="DoubleValue">
+         <doubleValue>8.59701E8</doubleValue>
         </value>
-        <value key="org.bh.data.DTOPeriod$Key.FCF" type="StringValue">
-         <stringValue>45000000</stringValue>
+        <value key="org.bh.data.DTOPeriod$Key.FCF" type="DoubleValue">
+         <doubleValue>4.5E7</doubleValue>
         </value>
        </values>
+       <children>
+        <gccbalancesheet class="org.bh.plugin.gcc.data.DTOGCCBalanceSheet">
+         <values>
+          <value key="org.bh.plugin.gcc.data.DTOGCCBalanceSheet$Key.AV" type="DoubleValue">
+           <doubleValue>4.79418E8</doubleValue>
+          </value>
+          <value key="org.bh.plugin.gcc.data.DTOGCCBalanceSheet$Key.IVG" type="DoubleValue">
+           <doubleValue>2.3261E7</doubleValue>
+          </value>
+          <value key="org.bh.plugin.gcc.data.DTOGCCBalanceSheet$Key.SA" type="DoubleValue">
+           <doubleValue>4.41737E8</doubleValue>
+          </value>
+          <value key="org.bh.plugin.gcc.data.DTOGCCBalanceSheet$Key.FA" type="DoubleValue">
+           <doubleValue>1.442E7</doubleValue>
+          </value>
+          <value key="org.bh.plugin.gcc.data.DTOGCCBalanceSheet$Key.VOR" type="DoubleValue">
+           <doubleValue>4.20417E8</doubleValue>
+          </value>
+          <value key="org.bh.plugin.gcc.data.DTOGCCBalanceSheet$Key.FSVG" type="DoubleValue">
+           <doubleValue>3.29109E8</doubleValue>
+          </value>
+          <value key="org.bh.plugin.gcc.data.DTOGCCBalanceSheet$Key.WP" type="DoubleValue">
+           <doubleValue>0.0</doubleValue>
+          </value>
+          <value key="org.bh.plugin.gcc.data.DTOGCCBalanceSheet$Key.KBGGKS" type="DoubleValue">
+           <doubleValue>2.7613E7</doubleValue>
+          </value>
+          <value key="org.bh.plugin.gcc.data.DTOGCCBalanceSheet$Key.EK" type="DoubleValue">
+           <doubleValue>4.43866E8</doubleValue>
+          </value>
+          <value key="org.bh.plugin.gcc.data.DTOGCCBalanceSheet$Key.RS" type="DoubleValue">
+           <doubleValue>8.1562E7</doubleValue>
+          </value>
+          <value key="org.bh.plugin.gcc.data.DTOGCCBalanceSheet$Key.VB" type="DoubleValue">
+           <doubleValue>8.59701E8</doubleValue>
+          </value>
+         </values>
+        </gccbalancesheet>
+        <gccprofitlossstatementtotalcost class="org.bh.plugin.gcc.data.DTOGCCProfitLossStatementTotalCost">
+         <values>
+          <value key="org.bh.plugin.gcc.data.DTOGCCProfitLossStatementTotalCost$Key.UE" type="DoubleValue">
+           <doubleValue>1.131673E9</doubleValue>
+          </value>
+          <value key="org.bh.plugin.gcc.data.DTOGCCProfitLossStatementTotalCost$Key.AAE" type="DoubleValue">
+           <doubleValue>3.0349E7</doubleValue>
+          </value>
+          <value key="org.bh.plugin.gcc.data.DTOGCCProfitLossStatementTotalCost$Key.SBE" type="DoubleValue">
+           <doubleValue>5.7357E7</doubleValue>
+          </value>
+          <value key="org.bh.plugin.gcc.data.DTOGCCProfitLossStatementTotalCost$Key.MA" type="DoubleValue">
+           <doubleValue>6.26952E8</doubleValue>
+          </value>
+          <value key="org.bh.plugin.gcc.data.DTOGCCProfitLossStatementTotalCost$Key.PA" type="DoubleValue">
+           <doubleValue>2.82506E8</doubleValue>
+          </value>
+          <value key="org.bh.plugin.gcc.data.DTOGCCProfitLossStatementTotalCost$Key.ABSCH" type="DoubleValue">
+           <doubleValue>7.7162E7</doubleValue>
+          </value>
+          <value key="org.bh.plugin.gcc.data.DTOGCCProfitLossStatementTotalCost$Key.SBA" type="DoubleValue">
+           <doubleValue>1.80625E8</doubleValue>
+          </value>
+          <value key="org.bh.plugin.gcc.data.DTOGCCProfitLossStatementTotalCost$Key.ZA" type="DoubleValue">
+           <doubleValue>3.64E7</doubleValue>
+          </value>
+         </values>
+        </gccprofitlossstatementtotalcost>
+       </children>
       </period>
       <period class="org.bh.data.DTOPeriod">
        <values>
         <value key="org.bh.data.DTOPeriod$Key.NAME" type="StringValue">
          <stringValue>2009</stringValue>
         </value>
-        <value key="org.bh.data.DTOPeriod$Key.LIABILITIES" type="StringValue">
-         <stringValue>754897000</stringValue>
+        <value key="org.bh.data.DTOPeriod$Key.LIABILITIES" type="DoubleValue">
+         <doubleValue>7.54897E8</doubleValue>
         </value>
-        <value key="org.bh.data.DTOPeriod$Key.FCF" type="StringValue">
-         <stringValue>50000000</stringValue>
+        <value key="org.bh.data.DTOPeriod$Key.FCF" type="DoubleValue">
+         <doubleValue>5.0E7</doubleValue>
         </value>
        </values>
+       <children>
+        <gccbalancesheet class="org.bh.plugin.gcc.data.DTOGCCBalanceSheet">
+         <values>
+          <value key="org.bh.plugin.gcc.data.DTOGCCBalanceSheet$Key.AV" type="DoubleValue">
+           <doubleValue>4.55989E8</doubleValue>
+          </value>
+          <value key="org.bh.plugin.gcc.data.DTOGCCBalanceSheet$Key.IVG" type="DoubleValue">
+           <doubleValue>2.1839E7</doubleValue>
+          </value>
+          <value key="org.bh.plugin.gcc.data.DTOGCCBalanceSheet$Key.SA" type="DoubleValue">
+           <doubleValue>4.19887E8</doubleValue>
+          </value>
+          <value key="org.bh.plugin.gcc.data.DTOGCCBalanceSheet$Key.FA" type="DoubleValue">
+           <doubleValue>1.4263E7</doubleValue>
+          </value>
+          <value key="org.bh.plugin.gcc.data.DTOGCCBalanceSheet$Key.VOR" type="DoubleValue">
+           <doubleValue>3.66675E8</doubleValue>
+          </value>
+          <value key="org.bh.plugin.gcc.data.DTOGCCBalanceSheet$Key.FSVG" type="DoubleValue">
+           <doubleValue>2.85764E8</doubleValue>
+          </value>
+          <value key="org.bh.plugin.gcc.data.DTOGCCBalanceSheet$Key.WP" type="DoubleValue">
+           <doubleValue>0.0</doubleValue>
+          </value>
+          <value key="org.bh.plugin.gcc.data.DTOGCCBalanceSheet$Key.KBGGKS" type="DoubleValue">
+           <doubleValue>3.7053E7</doubleValue>
+          </value>
+          <value key="org.bh.plugin.gcc.data.DTOGCCBalanceSheet$Key.EK" type="DoubleValue">
+           <doubleValue>4.01884E8</doubleValue>
+          </value>
+          <value key="org.bh.plugin.gcc.data.DTOGCCBalanceSheet$Key.RS" type="DoubleValue">
+           <doubleValue>7.3163E7</doubleValue>
+          </value>
+          <value key="org.bh.plugin.gcc.data.DTOGCCBalanceSheet$Key.VB" type="DoubleValue">
+           <doubleValue>7.54897E8</doubleValue>
+          </value>
+         </values>
+        </gccbalancesheet>
+        <gccprofitlossstatementtotalcost class="org.bh.plugin.gcc.data.DTOGCCProfitLossStatementTotalCost">
+         <values>
+          <value key="org.bh.plugin.gcc.data.DTOGCCProfitLossStatementTotalCost$Key.UE" type="DoubleValue">
+           <doubleValue>1.096543E9</doubleValue>
+          </value>
+          <value key="org.bh.plugin.gcc.data.DTOGCCProfitLossStatementTotalCost$Key.AAE" type="DoubleValue">
+           <doubleValue>7.1128E7</doubleValue>
+          </value>
+          <value key="org.bh.plugin.gcc.data.DTOGCCProfitLossStatementTotalCost$Key.SBE" type="DoubleValue">
+           <doubleValue>3.7632E7</doubleValue>
+          </value>
+          <value key="org.bh.plugin.gcc.data.DTOGCCProfitLossStatementTotalCost$Key.MA" type="DoubleValue">
+           <doubleValue>6.42008E8</doubleValue>
+          </value>
+          <value key="org.bh.plugin.gcc.data.DTOGCCProfitLossStatementTotalCost$Key.PA" type="DoubleValue">
+           <doubleValue>2.62975E8</doubleValue>
+          </value>
+          <value key="org.bh.plugin.gcc.data.DTOGCCProfitLossStatementTotalCost$Key.ABSCH" type="DoubleValue">
+           <doubleValue>7.3005E7</doubleValue>
+          </value>
+          <value key="org.bh.plugin.gcc.data.DTOGCCProfitLossStatementTotalCost$Key.SBA" type="DoubleValue">
+           <doubleValue>1.6369E8</doubleValue>
+          </value>
+          <value key="org.bh.plugin.gcc.data.DTOGCCProfitLossStatementTotalCost$Key.ZA" type="DoubleValue">
+           <doubleValue>3.073E7</doubleValue>
+          </value>
+         </values>
+        </gccprofitlossstatementtotalcost>
+       </children>
       </period>
       <period class="org.bh.data.DTOPeriod">
        <values>
         <value key="org.bh.data.DTOPeriod$Key.NAME" type="StringValue">
          <stringValue>2008</stringValue>
         </value>
-        <value key="org.bh.data.DTOPeriod$Key.LIABILITIES" type="StringValue">
-         <stringValue>638413000</stringValue>
+        <value key="org.bh.data.DTOPeriod$Key.LIABILITIES" type="DoubleValue">
+         <doubleValue>6.38413E8</doubleValue>
         </value>
-        <value key="org.bh.data.DTOPeriod$Key.FCF" type="StringValue">
-         <stringValue>121000000</stringValue>
+        <value key="org.bh.data.DTOPeriod$Key.FCF" type="DoubleValue">
+         <doubleValue>1.21E8</doubleValue>
         </value>
        </values>
+       <children>
+        <gccbalancesheet class="org.bh.plugin.gcc.data.DTOGCCBalanceSheet">
+         <values>
+          <value key="org.bh.plugin.gcc.data.DTOGCCBalanceSheet$Key.AV" type="DoubleValue">
+           <doubleValue>3.65161E8</doubleValue>
+          </value>
+          <value key="org.bh.plugin.gcc.data.DTOGCCBalanceSheet$Key.IVG" type="DoubleValue">
+           <doubleValue>1.7815E7</doubleValue>
+          </value>
+          <value key="org.bh.plugin.gcc.data.DTOGCCBalanceSheet$Key.SA" type="DoubleValue">
+           <doubleValue>3.34636E8</doubleValue>
+          </value>
+          <value key="org.bh.plugin.gcc.data.DTOGCCBalanceSheet$Key.FA" type="DoubleValue">
+           <doubleValue>1.271E7</doubleValue>
+          </value>
+          <value key="org.bh.plugin.gcc.data.DTOGCCBalanceSheet$Key.VOR" type="DoubleValue">
+           <doubleValue>3.24819E8</doubleValue>
+          </value>
+          <value key="org.bh.plugin.gcc.data.DTOGCCBalanceSheet$Key.FSVG" type="DoubleValue">
+           <doubleValue>2.84457E8</doubleValue>
+          </value>
+          <value key="org.bh.plugin.gcc.data.DTOGCCBalanceSheet$Key.WP" type="DoubleValue">
+           <doubleValue>0.0</doubleValue>
+          </value>
+          <value key="org.bh.plugin.gcc.data.DTOGCCBalanceSheet$Key.KBGGKS" type="DoubleValue">
+           <doubleValue>3.6868E7</doubleValue>
+          </value>
+          <value key="org.bh.plugin.gcc.data.DTOGCCBalanceSheet$Key.EK" type="DoubleValue">
+           <doubleValue>3.72637E8</doubleValue>
+          </value>
+          <value key="org.bh.plugin.gcc.data.DTOGCCBalanceSheet$Key.RS" type="DoubleValue">
+           <doubleValue>7.2914E7</doubleValue>
+          </value>
+          <value key="org.bh.plugin.gcc.data.DTOGCCBalanceSheet$Key.VB" type="DoubleValue">
+           <doubleValue>6.38413E8</doubleValue>
+          </value>
+         </values>
+        </gccbalancesheet>
+        <gccprofitlossstatementtotalcost class="org.bh.plugin.gcc.data.DTOGCCProfitLossStatementTotalCost">
+         <values>
+          <value key="org.bh.plugin.gcc.data.DTOGCCProfitLossStatementTotalCost$Key.UE" type="DoubleValue">
+           <doubleValue>1.29081E9</doubleValue>
+          </value>
+          <value key="org.bh.plugin.gcc.data.DTOGCCProfitLossStatementTotalCost$Key.AAE" type="DoubleValue">
+           <doubleValue>7.8879E7</doubleValue>
+          </value>
+          <value key="org.bh.plugin.gcc.data.DTOGCCProfitLossStatementTotalCost$Key.SBE" type="DoubleValue">
+           <doubleValue>1.10165E8</doubleValue>
+          </value>
+          <value key="org.bh.plugin.gcc.data.DTOGCCProfitLossStatementTotalCost$Key.MA" type="DoubleValue">
+           <doubleValue>8.15615E8</doubleValue>
+          </value>
+          <value key="org.bh.plugin.gcc.data.DTOGCCProfitLossStatementTotalCost$Key.PA" type="DoubleValue">
+           <doubleValue>2.50765E8</doubleValue>
+          </value>
+          <value key="org.bh.plugin.gcc.data.DTOGCCProfitLossStatementTotalCost$Key.ABSCH" type="DoubleValue">
+           <doubleValue>6.0907E7</doubleValue>
+          </value>
+          <value key="org.bh.plugin.gcc.data.DTOGCCProfitLossStatementTotalCost$Key.SBA" type="DoubleValue">
+           <doubleValue>1.60549E8</doubleValue>
+          </value>
+          <value key="org.bh.plugin.gcc.data.DTOGCCProfitLossStatementTotalCost$Key.ZA" type="DoubleValue">
+           <doubleValue>2.7361E7</doubleValue>
+          </value>
+         </values>
+        </gccprofitlossstatementtotalcost>
+       </children>
       </period>
       <period class="org.bh.data.DTOPeriod">
        <values>
         <value key="org.bh.data.DTOPeriod$Key.NAME" type="StringValue">
          <stringValue>2007</stringValue>
         </value>
-        <value key="org.bh.data.DTOPeriod$Key.LIABILITIES" type="StringValue">
-         <stringValue>512186000</stringValue>
+        <value key="org.bh.data.DTOPeriod$Key.LIABILITIES" type="DoubleValue">
+         <doubleValue>5.12186E8</doubleValue>
         </value>
-        <value key="org.bh.data.DTOPeriod$Key.FCF" type="StringValue">
-         <stringValue>67000000</stringValue>
+        <value key="org.bh.data.DTOPeriod$Key.FCF" type="DoubleValue">
+         <doubleValue>6.7E7</doubleValue>
         </value>
        </values>
+       <children>
+        <gccbalancesheet class="org.bh.plugin.gcc.data.DTOGCCBalanceSheet">
+         <values>
+          <value key="org.bh.plugin.gcc.data.DTOGCCBalanceSheet$Key.AV" type="DoubleValue">
+           <doubleValue>2.71577E8</doubleValue>
+          </value>
+          <value key="org.bh.plugin.gcc.data.DTOGCCBalanceSheet$Key.IVG" type="DoubleValue">
+           <doubleValue>1.4198E7</doubleValue>
+          </value>
+          <value key="org.bh.plugin.gcc.data.DTOGCCBalanceSheet$Key.SA" type="DoubleValue">
+           <doubleValue>2.45815E8</doubleValue>
+          </value>
+          <value key="org.bh.plugin.gcc.data.DTOGCCBalanceSheet$Key.FA" type="DoubleValue">
+           <doubleValue>1.1564E7</doubleValue>
+          </value>
+          <value key="org.bh.plugin.gcc.data.DTOGCCBalanceSheet$Key.VOR" type="DoubleValue">
+           <doubleValue>2.18978E8</doubleValue>
+          </value>
+          <value key="org.bh.plugin.gcc.data.DTOGCCBalanceSheet$Key.FSVG" type="DoubleValue">
+           <doubleValue>2.6876E8</doubleValue>
+          </value>
+          <value key="org.bh.plugin.gcc.data.DTOGCCBalanceSheet$Key.WP" type="DoubleValue">
+           <doubleValue>0.0</doubleValue>
+          </value>
+          <value key="org.bh.plugin.gcc.data.DTOGCCBalanceSheet$Key.KBGGKS" type="DoubleValue">
+           <doubleValue>3.3082E7</doubleValue>
+          </value>
+          <value key="org.bh.plugin.gcc.data.DTOGCCBalanceSheet$Key.EK" type="DoubleValue">
+           <doubleValue>2.7913E8</doubleValue>
+          </value>
+          <value key="org.bh.plugin.gcc.data.DTOGCCBalanceSheet$Key.RS" type="DoubleValue">
+           <doubleValue>6.6517E7</doubleValue>
+          </value>
+          <value key="org.bh.plugin.gcc.data.DTOGCCBalanceSheet$Key.VB" type="DoubleValue">
+           <doubleValue>5.12186E8</doubleValue>
+          </value>
+         </values>
+        </gccbalancesheet>
+        <gccprofitlossstatementtotalcost class="org.bh.plugin.gcc.data.DTOGCCProfitLossStatementTotalCost">
+         <values>
+          <value key="org.bh.plugin.gcc.data.DTOGCCProfitLossStatementTotalCost$Key.UE" type="DoubleValue">
+           <doubleValue>1.032961E9</doubleValue>
+          </value>
+          <value key="org.bh.plugin.gcc.data.DTOGCCProfitLossStatementTotalCost$Key.AAE" type="DoubleValue">
+           <doubleValue>6.9629E7</doubleValue>
+          </value>
+          <value key="org.bh.plugin.gcc.data.DTOGCCProfitLossStatementTotalCost$Key.SBE" type="DoubleValue">
+           <doubleValue>9.5117E7</doubleValue>
+          </value>
+          <value key="org.bh.plugin.gcc.data.DTOGCCProfitLossStatementTotalCost$Key.MA" type="DoubleValue">
+           <doubleValue>6.32714E8</doubleValue>
+          </value>
+          <value key="org.bh.plugin.gcc.data.DTOGCCProfitLossStatementTotalCost$Key.PA" type="DoubleValue">
+           <doubleValue>2.1486E8</doubleValue>
+          </value>
+          <value key="org.bh.plugin.gcc.data.DTOGCCProfitLossStatementTotalCost$Key.ABSCH" type="DoubleValue">
+           <doubleValue>5.3596E7</doubleValue>
+          </value>
+          <value key="org.bh.plugin.gcc.data.DTOGCCProfitLossStatementTotalCost$Key.SBA" type="DoubleValue">
+           <doubleValue>1.26397E8</doubleValue>
+          </value>
+          <value key="org.bh.plugin.gcc.data.DTOGCCProfitLossStatementTotalCost$Key.ZA" type="DoubleValue">
+           <doubleValue>2.2666E7</doubleValue>
+          </value>
+         </values>
+        </gccprofitlossstatementtotalcost>
+       </children>
       </period>
       <period class="org.bh.data.DTOPeriod">
        <values>
         <value key="org.bh.data.DTOPeriod$Key.NAME" type="StringValue">
          <stringValue>2006</stringValue>
         </value>
-        <value key="org.bh.data.DTOPeriod$Key.LIABILITIES" type="StringValue">
-         <stringValue>393936000</stringValue>
+        <value key="org.bh.data.DTOPeriod$Key.LIABILITIES" type="DoubleValue">
+         <doubleValue>3.93936E8</doubleValue>
         </value>
-        <value key="org.bh.data.DTOPeriod$Key.FCF" type="StringValue">
-         <stringValue>39000000</stringValue>
+        <value key="org.bh.data.DTOPeriod$Key.FCF" type="DoubleValue">
+         <doubleValue>3.9E7</doubleValue>
         </value>
        </values>
+       <children>
+        <gccbalancesheet class="org.bh.plugin.gcc.data.DTOGCCBalanceSheet">
+         <values>
+          <value key="org.bh.plugin.gcc.data.DTOGCCBalanceSheet$Key.AV" type="DoubleValue">
+           <doubleValue>2.05652E8</doubleValue>
+          </value>
+          <value key="org.bh.plugin.gcc.data.DTOGCCBalanceSheet$Key.IVG" type="DoubleValue">
+           <doubleValue>1.1245E7</doubleValue>
+          </value>
+          <value key="org.bh.plugin.gcc.data.DTOGCCBalanceSheet$Key.SA" type="DoubleValue">
+           <doubleValue>1.84855E8</doubleValue>
+          </value>
+          <value key="org.bh.plugin.gcc.data.DTOGCCBalanceSheet$Key.FA" type="DoubleValue">
+           <doubleValue>9552000.0</doubleValue>
+          </value>
+          <value key="org.bh.plugin.gcc.data.DTOGCCBalanceSheet$Key.VOR" type="DoubleValue">
+           <doubleValue>1.56356E8</doubleValue>
+          </value>
+          <value key="org.bh.plugin.gcc.data.DTOGCCBalanceSheet$Key.FSVG" type="DoubleValue">
+           <doubleValue>2.37207E8</doubleValue>
+          </value>
+          <value key="org.bh.plugin.gcc.data.DTOGCCBalanceSheet$Key.WP" type="DoubleValue">
+           <doubleValue>0.0</doubleValue>
+          </value>
+          <value key="org.bh.plugin.gcc.data.DTOGCCBalanceSheet$Key.KBGGKS" type="DoubleValue">
+           <doubleValue>1.7143E7</doubleValue>
+          </value>
+          <value key="org.bh.plugin.gcc.data.DTOGCCBalanceSheet$Key.EK" type="DoubleValue">
+           <doubleValue>2.22581E9</doubleValue>
+          </value>
+          <value key="org.bh.plugin.gcc.data.DTOGCCBalanceSheet$Key.RS" type="DoubleValue">
+           <doubleValue>6.2403E7</doubleValue>
+          </value>
+          <value key="org.bh.plugin.gcc.data.DTOGCCBalanceSheet$Key.VB" type="DoubleValue">
+           <doubleValue>3.93936E8</doubleValue>
+          </value>
+         </values>
+        </gccbalancesheet>
+        <gccprofitlossstatementtotalcost class="org.bh.plugin.gcc.data.DTOGCCProfitLossStatementTotalCost">
+         <values>
+          <value key="org.bh.plugin.gcc.data.DTOGCCProfitLossStatementTotalCost$Key.UE" type="DoubleValue">
+           <doubleValue>8.35351E8</doubleValue>
+          </value>
+          <value key="org.bh.plugin.gcc.data.DTOGCCProfitLossStatementTotalCost$Key.AAE" type="DoubleValue">
+           <doubleValue>3.6566E7</doubleValue>
+          </value>
+          <value key="org.bh.plugin.gcc.data.DTOGCCProfitLossStatementTotalCost$Key.SBE" type="DoubleValue">
+           <doubleValue>6.0207E7</doubleValue>
+          </value>
+          <value key="org.bh.plugin.gcc.data.DTOGCCProfitLossStatementTotalCost$Key.MA" type="DoubleValue">
+           <doubleValue>5.169E8</doubleValue>
+          </value>
+          <value key="org.bh.plugin.gcc.data.DTOGCCProfitLossStatementTotalCost$Key.PA" type="DoubleValue">
+           <doubleValue>1.75069E8</doubleValue>
+          </value>
+          <value key="org.bh.plugin.gcc.data.DTOGCCProfitLossStatementTotalCost$Key.ABSCH" type="DoubleValue">
+           <doubleValue>5.0206E7</doubleValue>
+          </value>
+          <value key="org.bh.plugin.gcc.data.DTOGCCProfitLossStatementTotalCost$Key.SBA" type="DoubleValue">
+           <doubleValue>9.904E7</doubleValue>
+          </value>
+          <value key="org.bh.plugin.gcc.data.DTOGCCProfitLossStatementTotalCost$Key.ZA" type="DoubleValue">
+           <doubleValue>2.109E7</doubleValue>
+          </value>
+         </values>
+        </gccprofitlossstatementtotalcost>
+       </children>
       </period>
      </children>
     </company>
@@ -485,65 +2357,400 @@
         <value key="org.bh.data.DTOPeriod$Key.NAME" type="StringValue">
          <stringValue>2010</stringValue>
         </value>
-        <value key="org.bh.data.DTOPeriod$Key.LIABILITIES" type="StringValue">
-         <stringValue>9218944000</stringValue>
+        <value key="org.bh.data.DTOPeriod$Key.LIABILITIES" type="DoubleValue">
+         <doubleValue>9.218944E9</doubleValue>
         </value>
-        <value key="org.bh.data.DTOPeriod$Key.FCF" type="StringValue">
-         <stringValue>65000000</stringValue>
+        <value key="org.bh.data.DTOPeriod$Key.FCF" type="DoubleValue">
+         <doubleValue>6.5E7</doubleValue>
         </value>
        </values>
+       <children>
+        <gccbalancesheet class="org.bh.plugin.gcc.data.DTOGCCBalanceSheet">
+         <values>
+          <value key="org.bh.plugin.gcc.data.DTOGCCBalanceSheet$Key.AV" type="DoubleValue">
+           <doubleValue>4.925091E9</doubleValue>
+          </value>
+          <value key="org.bh.plugin.gcc.data.DTOGCCBalanceSheet$Key.IVG" type="DoubleValue">
+           <doubleValue>5.82879E8</doubleValue>
+          </value>
+          <value key="org.bh.plugin.gcc.data.DTOGCCBalanceSheet$Key.SA" type="DoubleValue">
+           <doubleValue>1.807472E9</doubleValue>
+          </value>
+          <value key="org.bh.plugin.gcc.data.DTOGCCBalanceSheet$Key.FA" type="DoubleValue">
+           <doubleValue>2.53474E9</doubleValue>
+          </value>
+          <value key="org.bh.plugin.gcc.data.DTOGCCBalanceSheet$Key.VOR" type="DoubleValue">
+           <doubleValue>1.268333E9</doubleValue>
+          </value>
+          <value key="org.bh.plugin.gcc.data.DTOGCCBalanceSheet$Key.FSVG" type="DoubleValue">
+           <doubleValue>5.403964E9</doubleValue>
+          </value>
+          <value key="org.bh.plugin.gcc.data.DTOGCCBalanceSheet$Key.WP" type="DoubleValue">
+           <doubleValue>9.3764E8</doubleValue>
+          </value>
+          <value key="org.bh.plugin.gcc.data.DTOGCCBalanceSheet$Key.KBGGKS" type="DoubleValue">
+           <doubleValue>2.451057E9</doubleValue>
+          </value>
+          <value key="org.bh.plugin.gcc.data.DTOGCCBalanceSheet$Key.EK" type="DoubleValue">
+           <doubleValue>4.264172E9</doubleValue>
+          </value>
+          <value key="org.bh.plugin.gcc.data.DTOGCCBalanceSheet$Key.RS" type="DoubleValue">
+           <doubleValue>1.502969E9</doubleValue>
+          </value>
+          <value key="org.bh.plugin.gcc.data.DTOGCCBalanceSheet$Key.VB" type="DoubleValue">
+           <doubleValue>9.218944E9</doubleValue>
+          </value>
+         </values>
+        </gccbalancesheet>
+        <gccprofitlossstatementtotalcost class="org.bh.plugin.gcc.data.DTOGCCProfitLossStatementTotalCost">
+         <values>
+          <value key="org.bh.plugin.gcc.data.DTOGCCProfitLossStatementTotalCost$Key.UE" type="DoubleValue">
+           <doubleValue>2.0159286E10</doubleValue>
+          </value>
+          <value key="org.bh.plugin.gcc.data.DTOGCCProfitLossStatementTotalCost$Key.AAE" type="DoubleValue">
+           <doubleValue>0.0</doubleValue>
+          </value>
+          <value key="org.bh.plugin.gcc.data.DTOGCCProfitLossStatementTotalCost$Key.SBE" type="DoubleValue">
+           <doubleValue>4.78756E8</doubleValue>
+          </value>
+          <value key="org.bh.plugin.gcc.data.DTOGCCProfitLossStatementTotalCost$Key.MA" type="DoubleValue">
+           <doubleValue>1.3763981E10</doubleValue>
+          </value>
+          <value key="org.bh.plugin.gcc.data.DTOGCCProfitLossStatementTotalCost$Key.PA" type="DoubleValue">
+           <doubleValue>4.080859E9</doubleValue>
+          </value>
+          <value key="org.bh.plugin.gcc.data.DTOGCCProfitLossStatementTotalCost$Key.ABSCH" type="DoubleValue">
+           <doubleValue>6.78543E8</doubleValue>
+          </value>
+          <value key="org.bh.plugin.gcc.data.DTOGCCProfitLossStatementTotalCost$Key.SBA" type="DoubleValue">
+           <doubleValue>1.553665E9</doubleValue>
+          </value>
+          <value key="org.bh.plugin.gcc.data.DTOGCCProfitLossStatementTotalCost$Key.ZA" type="DoubleValue">
+           <doubleValue>2.63041E8</doubleValue>
+          </value>
+         </values>
+        </gccprofitlossstatementtotalcost>
+       </children>
       </period>
       <period class="org.bh.data.DTOPeriod">
        <values>
         <value key="org.bh.data.DTOPeriod$Key.NAME" type="StringValue">
          <stringValue>2009</stringValue>
         </value>
-        <value key="org.bh.data.DTOPeriod$Key.LIABILITIES" type="StringValue">
-         <stringValue>7923482000</stringValue>
+        <value key="org.bh.data.DTOPeriod$Key.LIABILITIES" type="DoubleValue">
+         <doubleValue>7.923482E9</doubleValue>
         </value>
-        <value key="org.bh.data.DTOPeriod$Key.FCF" type="StringValue">
-         <stringValue>101000000</stringValue>
+        <value key="org.bh.data.DTOPeriod$Key.FCF" type="DoubleValue">
+         <doubleValue>1.01E8</doubleValue>
         </value>
        </values>
+       <children>
+        <gccbalancesheet class="org.bh.plugin.gcc.data.DTOGCCBalanceSheet">
+         <values>
+          <value key="org.bh.plugin.gcc.data.DTOGCCBalanceSheet$Key.AV" type="DoubleValue">
+           <doubleValue>4.285399E9</doubleValue>
+          </value>
+          <value key="org.bh.plugin.gcc.data.DTOGCCBalanceSheet$Key.IVG" type="DoubleValue">
+           <doubleValue>5.03701E8</doubleValue>
+          </value>
+          <value key="org.bh.plugin.gcc.data.DTOGCCBalanceSheet$Key.SA" type="DoubleValue">
+           <doubleValue>1.492327E9</doubleValue>
+          </value>
+          <value key="org.bh.plugin.gcc.data.DTOGCCBalanceSheet$Key.FA" type="DoubleValue">
+           <doubleValue>2.289371E9</doubleValue>
+          </value>
+          <value key="org.bh.plugin.gcc.data.DTOGCCBalanceSheet$Key.VOR" type="DoubleValue">
+           <doubleValue>1.115742E9</doubleValue>
+          </value>
+          <value key="org.bh.plugin.gcc.data.DTOGCCBalanceSheet$Key.FSVG" type="DoubleValue">
+           <doubleValue>4.291173E9</doubleValue>
+          </value>
+          <value key="org.bh.plugin.gcc.data.DTOGCCBalanceSheet$Key.WP" type="DoubleValue">
+           <doubleValue>8.07739E8</doubleValue>
+          </value>
+          <value key="org.bh.plugin.gcc.data.DTOGCCBalanceSheet$Key.KBGGKS" type="DoubleValue">
+           <doubleValue>1.769644E9</doubleValue>
+          </value>
+          <value key="org.bh.plugin.gcc.data.DTOGCCBalanceSheet$Key.EK" type="DoubleValue">
+           <doubleValue>3.264129E9</doubleValue>
+          </value>
+          <value key="org.bh.plugin.gcc.data.DTOGCCBalanceSheet$Key.RS" type="DoubleValue">
+           <doubleValue>1.314866E9</doubleValue>
+          </value>
+          <value key="org.bh.plugin.gcc.data.DTOGCCBalanceSheet$Key.VB" type="DoubleValue">
+           <doubleValue>7.923482E9</doubleValue>
+          </value>
+         </values>
+        </gccbalancesheet>
+        <gccprofitlossstatementtotalcost class="org.bh.plugin.gcc.data.DTOGCCProfitLossStatementTotalCost">
+         <values>
+          <value key="org.bh.plugin.gcc.data.DTOGCCProfitLossStatementTotalCost$Key.UE" type="DoubleValue">
+           <doubleValue>1.8166081E10</doubleValue>
+          </value>
+          <value key="org.bh.plugin.gcc.data.DTOGCCProfitLossStatementTotalCost$Key.AAE" type="DoubleValue">
+           <doubleValue>0.0</doubleValue>
+          </value>
+          <value key="org.bh.plugin.gcc.data.DTOGCCProfitLossStatementTotalCost$Key.SBE" type="DoubleValue">
+           <doubleValue>2.25107E8</doubleValue>
+          </value>
+          <value key="org.bh.plugin.gcc.data.DTOGCCProfitLossStatementTotalCost$Key.MA" type="DoubleValue">
+           <doubleValue>1.2562542E10</doubleValue>
+          </value>
+          <value key="org.bh.plugin.gcc.data.DTOGCCProfitLossStatementTotalCost$Key.PA" type="DoubleValue">
+           <doubleValue>3.501085E9</doubleValue>
+          </value>
+          <value key="org.bh.plugin.gcc.data.DTOGCCProfitLossStatementTotalCost$Key.ABSCH" type="DoubleValue">
+           <doubleValue>5.0137E8</doubleValue>
+          </value>
+          <value key="org.bh.plugin.gcc.data.DTOGCCProfitLossStatementTotalCost$Key.SBA" type="DoubleValue">
+           <doubleValue>1.333123E9</doubleValue>
+          </value>
+          <value key="org.bh.plugin.gcc.data.DTOGCCProfitLossStatementTotalCost$Key.ZA" type="DoubleValue">
+           <doubleValue>2.34521E8</doubleValue>
+          </value>
+         </values>
+        </gccprofitlossstatementtotalcost>
+       </children>
       </period>
       <period class="org.bh.data.DTOPeriod">
        <values>
         <value key="org.bh.data.DTOPeriod$Key.NAME" type="StringValue">
          <stringValue>2008</stringValue>
         </value>
-        <value key="org.bh.data.DTOPeriod$Key.LIABILITIES" type="StringValue">
-         <stringValue>8087823000</stringValue>
+        <value key="org.bh.data.DTOPeriod$Key.LIABILITIES" type="DoubleValue">
+         <doubleValue>8.087823E9</doubleValue>
         </value>
-        <value key="org.bh.data.DTOPeriod$Key.FCF" type="StringValue">
-         <stringValue>-635000000</stringValue>
+        <value key="org.bh.data.DTOPeriod$Key.FCF" type="DoubleValue">
+         <doubleValue>-6.35E8</doubleValue>
         </value>
        </values>
+       <children>
+        <gccbalancesheet class="org.bh.plugin.gcc.data.DTOGCCBalanceSheet">
+         <values>
+          <value key="org.bh.plugin.gcc.data.DTOGCCBalanceSheet$Key.AV" type="DoubleValue">
+           <doubleValue>3.720157E9</doubleValue>
+          </value>
+          <value key="org.bh.plugin.gcc.data.DTOGCCBalanceSheet$Key.IVG" type="DoubleValue">
+           <doubleValue>4.8266E8</doubleValue>
+          </value>
+          <value key="org.bh.plugin.gcc.data.DTOGCCBalanceSheet$Key.SA" type="DoubleValue">
+           <doubleValue>1.120393E9</doubleValue>
+          </value>
+          <value key="org.bh.plugin.gcc.data.DTOGCCBalanceSheet$Key.FA" type="DoubleValue">
+           <doubleValue>2.117104E9</doubleValue>
+          </value>
+          <value key="org.bh.plugin.gcc.data.DTOGCCBalanceSheet$Key.VOR" type="DoubleValue">
+           <doubleValue>9.34597E8</doubleValue>
+          </value>
+          <value key="org.bh.plugin.gcc.data.DTOGCCBalanceSheet$Key.FSVG" type="DoubleValue">
+           <doubleValue>4.767801E9</doubleValue>
+          </value>
+          <value key="org.bh.plugin.gcc.data.DTOGCCBalanceSheet$Key.WP" type="DoubleValue">
+           <doubleValue>8.09396E8</doubleValue>
+          </value>
+          <value key="org.bh.plugin.gcc.data.DTOGCCBalanceSheet$Key.KBGGKS" type="DoubleValue">
+           <doubleValue>1.787713E9</doubleValue>
+          </value>
+          <value key="org.bh.plugin.gcc.data.DTOGCCBalanceSheet$Key.EK" type="DoubleValue">
+           <doubleValue>2.790763E9</doubleValue>
+          </value>
+          <value key="org.bh.plugin.gcc.data.DTOGCCBalanceSheet$Key.RS" type="DoubleValue">
+           <doubleValue>1.151078E9</doubleValue>
+          </value>
+          <value key="org.bh.plugin.gcc.data.DTOGCCBalanceSheet$Key.VB" type="DoubleValue">
+           <doubleValue>8.087823E9</doubleValue>
+          </value>
+         </values>
+        </gccbalancesheet>
+        <gccprofitlossstatementtotalcost class="org.bh.plugin.gcc.data.DTOGCCProfitLossStatementTotalCost">
+         <values>
+          <value key="org.bh.plugin.gcc.data.DTOGCCProfitLossStatementTotalCost$Key.UE" type="DoubleValue">
+           <doubleValue>1.9102985E10</doubleValue>
+          </value>
+          <value key="org.bh.plugin.gcc.data.DTOGCCProfitLossStatementTotalCost$Key.AAE" type="DoubleValue">
+           <doubleValue>0.0</doubleValue>
+          </value>
+          <value key="org.bh.plugin.gcc.data.DTOGCCProfitLossStatementTotalCost$Key.SBE" type="DoubleValue">
+           <doubleValue>3.75889E8</doubleValue>
+          </value>
+          <value key="org.bh.plugin.gcc.data.DTOGCCProfitLossStatementTotalCost$Key.MA" type="DoubleValue">
+           <doubleValue>1.4250593E10</doubleValue>
+          </value>
+          <value key="org.bh.plugin.gcc.data.DTOGCCProfitLossStatementTotalCost$Key.PA" type="DoubleValue">
+           <doubleValue>3.265768E9</doubleValue>
+          </value>
+          <value key="org.bh.plugin.gcc.data.DTOGCCProfitLossStatementTotalCost$Key.ABSCH" type="DoubleValue">
+           <doubleValue>3.92306E8</doubleValue>
+          </value>
+          <value key="org.bh.plugin.gcc.data.DTOGCCProfitLossStatementTotalCost$Key.SBA" type="DoubleValue">
+           <doubleValue>1.259676E9</doubleValue>
+          </value>
+          <value key="org.bh.plugin.gcc.data.DTOGCCProfitLossStatementTotalCost$Key.ZA" type="DoubleValue">
+           <doubleValue>2.14085E8</doubleValue>
+          </value>
+         </values>
+        </gccprofitlossstatementtotalcost>
+       </children>
       </period>
       <period class="org.bh.data.DTOPeriod">
        <values>
         <value key="org.bh.data.DTOPeriod$Key.NAME" type="StringValue">
          <stringValue>2007</stringValue>
         </value>
-        <value key="org.bh.data.DTOPeriod$Key.LIABILITIES" type="StringValue">
-         <stringValue>6555567000</stringValue>
+        <value key="org.bh.data.DTOPeriod$Key.LIABILITIES" type="DoubleValue">
+         <doubleValue>6.555567E9</doubleValue>
         </value>
-        <value key="org.bh.data.DTOPeriod$Key.FCF" type="StringValue">
-         <stringValue>-945000000</stringValue>
+        <value key="org.bh.data.DTOPeriod$Key.FCF" type="DoubleValue">
+         <doubleValue>-9.45E8</doubleValue>
         </value>
        </values>
+       <children>
+        <gccbalancesheet class="org.bh.plugin.gcc.data.DTOGCCBalanceSheet">
+         <values>
+          <value key="org.bh.plugin.gcc.data.DTOGCCBalanceSheet$Key.AV" type="DoubleValue">
+           <doubleValue>3.592098E9</doubleValue>
+          </value>
+          <value key="org.bh.plugin.gcc.data.DTOGCCBalanceSheet$Key.IVG" type="DoubleValue">
+           <doubleValue>5.05145E8</doubleValue>
+          </value>
+          <value key="org.bh.plugin.gcc.data.DTOGCCBalanceSheet$Key.SA" type="DoubleValue">
+           <doubleValue>1.02764E9</doubleValue>
+          </value>
+          <value key="org.bh.plugin.gcc.data.DTOGCCBalanceSheet$Key.FA" type="DoubleValue">
+           <doubleValue>2.059313E9</doubleValue>
+          </value>
+          <value key="org.bh.plugin.gcc.data.DTOGCCBalanceSheet$Key.VOR" type="DoubleValue">
+           <doubleValue>1.20088E8</doubleValue>
+          </value>
+          <value key="org.bh.plugin.gcc.data.DTOGCCBalanceSheet$Key.FSVG" type="DoubleValue">
+           <doubleValue>4.110287E9</doubleValue>
+          </value>
+          <value key="org.bh.plugin.gcc.data.DTOGCCBalanceSheet$Key.WP" type="DoubleValue">
+           <doubleValue>7.66384E8</doubleValue>
+          </value>
+          <value key="org.bh.plugin.gcc.data.DTOGCCBalanceSheet$Key.KBGGKS" type="DoubleValue">
+           <doubleValue>1.402527E9</doubleValue>
+          </value>
+          <value key="org.bh.plugin.gcc.data.DTOGCCBalanceSheet$Key.EK" type="DoubleValue">
+           <doubleValue>3.00082E9</doubleValue>
+          </value>
+          <value key="org.bh.plugin.gcc.data.DTOGCCBalanceSheet$Key.RS" type="DoubleValue">
+           <doubleValue>1.10055E9</doubleValue>
+          </value>
+          <value key="org.bh.plugin.gcc.data.DTOGCCBalanceSheet$Key.VB" type="DoubleValue">
+           <doubleValue>6.555567E9</doubleValue>
+          </value>
+         </values>
+        </gccbalancesheet>
+        <gccprofitlossstatementtotalcost class="org.bh.plugin.gcc.data.DTOGCCProfitLossStatementTotalCost">
+         <values>
+          <value key="org.bh.plugin.gcc.data.DTOGCCProfitLossStatementTotalCost$Key.UE" type="DoubleValue">
+           <doubleValue>1.6451752E10</doubleValue>
+          </value>
+          <value key="org.bh.plugin.gcc.data.DTOGCCProfitLossStatementTotalCost$Key.AAE" type="DoubleValue">
+           <doubleValue>0.0</doubleValue>
+          </value>
+          <value key="org.bh.plugin.gcc.data.DTOGCCProfitLossStatementTotalCost$Key.SBE" type="DoubleValue">
+           <doubleValue>2.30795E8</doubleValue>
+          </value>
+          <value key="org.bh.plugin.gcc.data.DTOGCCProfitLossStatementTotalCost$Key.MA" type="DoubleValue">
+           <doubleValue>1.2326831E10</doubleValue>
+          </value>
+          <value key="org.bh.plugin.gcc.data.DTOGCCProfitLossStatementTotalCost$Key.PA" type="DoubleValue">
+           <doubleValue>2.806801E9</doubleValue>
+          </value>
+          <value key="org.bh.plugin.gcc.data.DTOGCCProfitLossStatementTotalCost$Key.ABSCH" type="DoubleValue">
+           <doubleValue>3.1249E8</doubleValue>
+          </value>
+          <value key="org.bh.plugin.gcc.data.DTOGCCProfitLossStatementTotalCost$Key.SBA" type="DoubleValue">
+           <doubleValue>1.113357E9</doubleValue>
+          </value>
+          <value key="org.bh.plugin.gcc.data.DTOGCCProfitLossStatementTotalCost$Key.ZA" type="DoubleValue">
+           <doubleValue>1.06482E8</doubleValue>
+          </value>
+         </values>
+        </gccprofitlossstatementtotalcost>
+       </children>
       </period>
       <period class="org.bh.data.DTOPeriod">
        <values>
         <value key="org.bh.data.DTOPeriod$Key.NAME" type="StringValue">
          <stringValue>2006</stringValue>
         </value>
-        <value key="org.bh.data.DTOPeriod$Key.LIABILITIES" type="StringValue">
-         <stringValue>4991048000</stringValue>
+        <value key="org.bh.data.DTOPeriod$Key.LIABILITIES" type="DoubleValue">
+         <doubleValue>4.991048E9</doubleValue>
         </value>
-        <value key="org.bh.data.DTOPeriod$Key.FCF" type="StringValue">
-         <stringValue>486000000</stringValue>
+        <value key="org.bh.data.DTOPeriod$Key.FCF" type="DoubleValue">
+         <doubleValue>4.86E8</doubleValue>
         </value>
        </values>
+       <children>
+        <gccbalancesheet class="org.bh.plugin.gcc.data.DTOGCCBalanceSheet">
+         <values>
+          <value key="org.bh.plugin.gcc.data.DTOGCCBalanceSheet$Key.AV" type="DoubleValue">
+           <doubleValue>2.146051E9</doubleValue>
+          </value>
+          <value key="org.bh.plugin.gcc.data.DTOGCCBalanceSheet$Key.IVG" type="DoubleValue">
+           <doubleValue>3.96958E8</doubleValue>
+          </value>
+          <value key="org.bh.plugin.gcc.data.DTOGCCBalanceSheet$Key.SA" type="DoubleValue">
+           <doubleValue>7.51794E8</doubleValue>
+          </value>
+          <value key="org.bh.plugin.gcc.data.DTOGCCBalanceSheet$Key.FA" type="DoubleValue">
+           <doubleValue>9.97299E8</doubleValue>
+          </value>
+          <value key="org.bh.plugin.gcc.data.DTOGCCBalanceSheet$Key.VOR" type="DoubleValue">
+           <doubleValue>7.2572E7</doubleValue>
+          </value>
+          <value key="org.bh.plugin.gcc.data.DTOGCCBalanceSheet$Key.FSVG" type="DoubleValue">
+           <doubleValue>3.774583E9</doubleValue>
+          </value>
+          <value key="org.bh.plugin.gcc.data.DTOGCCBalanceSheet$Key.WP" type="DoubleValue">
+           <doubleValue>9.31034E8</doubleValue>
+          </value>
+          <value key="org.bh.plugin.gcc.data.DTOGCCBalanceSheet$Key.KBGGKS" type="DoubleValue">
+           <doubleValue>1.397012E9</doubleValue>
+          </value>
+          <value key="org.bh.plugin.gcc.data.DTOGCCBalanceSheet$Key.EK" type="DoubleValue">
+           <doubleValue>2.345703E9</doubleValue>
+          </value>
+          <value key="org.bh.plugin.gcc.data.DTOGCCBalanceSheet$Key.RS" type="DoubleValue">
+           <doubleValue>1.018761E9</doubleValue>
+          </value>
+          <value key="org.bh.plugin.gcc.data.DTOGCCBalanceSheet$Key.VB" type="DoubleValue">
+           <doubleValue>4.991048E9</doubleValue>
+          </value>
+         </values>
+        </gccbalancesheet>
+        <gccprofitlossstatementtotalcost class="org.bh.plugin.gcc.data.DTOGCCProfitLossStatementTotalCost">
+         <values>
+          <value key="org.bh.plugin.gcc.data.DTOGCCProfitLossStatementTotalCost$Key.UE" type="DoubleValue">
+           <doubleValue>1.5508024E10</doubleValue>
+          </value>
+          <value key="org.bh.plugin.gcc.data.DTOGCCProfitLossStatementTotalCost$Key.AAE" type="DoubleValue">
+           <doubleValue>0.0</doubleValue>
+          </value>
+          <value key="org.bh.plugin.gcc.data.DTOGCCProfitLossStatementTotalCost$Key.SBE" type="DoubleValue">
+           <doubleValue>2.29147E8</doubleValue>
+          </value>
+          <value key="org.bh.plugin.gcc.data.DTOGCCProfitLossStatementTotalCost$Key.MA" type="DoubleValue">
+           <doubleValue>1.1682304E10</doubleValue>
+          </value>
+          <value key="org.bh.plugin.gcc.data.DTOGCCProfitLossStatementTotalCost$Key.PA" type="DoubleValue">
+           <doubleValue>2.583858E9</doubleValue>
+          </value>
+          <value key="org.bh.plugin.gcc.data.DTOGCCProfitLossStatementTotalCost$Key.ABSCH" type="DoubleValue">
+           <doubleValue>3.24544E8</doubleValue>
+          </value>
+          <value key="org.bh.plugin.gcc.data.DTOGCCProfitLossStatementTotalCost$Key.SBA" type="DoubleValue">
+           <doubleValue>9.24608E8</doubleValue>
+          </value>
+          <value key="org.bh.plugin.gcc.data.DTOGCCProfitLossStatementTotalCost$Key.ZA" type="DoubleValue">
+           <doubleValue>1.03496E8</doubleValue>
+          </value>
+         </values>
+        </gccprofitlossstatementtotalcost>
+       </children>
       </period>
      </children>
     </company>
@@ -559,65 +2766,400 @@
         <value key="org.bh.data.DTOPeriod$Key.NAME" type="StringValue">
          <stringValue>2009</stringValue>
         </value>
-        <value key="org.bh.data.DTOPeriod$Key.LIABILITIES" type="StringValue">
-         <stringValue>83300633</stringValue>
+        <value key="org.bh.data.DTOPeriod$Key.LIABILITIES" type="DoubleValue">
+         <doubleValue>8.3300633E7</doubleValue>
         </value>
-        <value key="org.bh.data.DTOPeriod$Key.FCF" type="StringValue">
-         <stringValue>46300000</stringValue>
+        <value key="org.bh.data.DTOPeriod$Key.FCF" type="DoubleValue">
+         <doubleValue>4.63E7</doubleValue>
         </value>
        </values>
+       <children>
+        <gccbalancesheet class="org.bh.plugin.gcc.data.DTOGCCBalanceSheet">
+         <values>
+          <value key="org.bh.plugin.gcc.data.DTOGCCBalanceSheet$Key.AV" type="DoubleValue">
+           <doubleValue>1.53664065E8</doubleValue>
+          </value>
+          <value key="org.bh.plugin.gcc.data.DTOGCCBalanceSheet$Key.IVG" type="DoubleValue">
+           <doubleValue>1164808.0</doubleValue>
+          </value>
+          <value key="org.bh.plugin.gcc.data.DTOGCCBalanceSheet$Key.SA" type="DoubleValue">
+           <doubleValue>1.14319887E8</doubleValue>
+          </value>
+          <value key="org.bh.plugin.gcc.data.DTOGCCBalanceSheet$Key.FA" type="DoubleValue">
+           <doubleValue>3.817937E7</doubleValue>
+          </value>
+          <value key="org.bh.plugin.gcc.data.DTOGCCBalanceSheet$Key.VOR" type="DoubleValue">
+           <doubleValue>0.0</doubleValue>
+          </value>
+          <value key="org.bh.plugin.gcc.data.DTOGCCBalanceSheet$Key.FSVG" type="DoubleValue">
+           <doubleValue>9.0026567E7</doubleValue>
+          </value>
+          <value key="org.bh.plugin.gcc.data.DTOGCCBalanceSheet$Key.WP" type="DoubleValue">
+           <doubleValue>4.153762E7</doubleValue>
+          </value>
+          <value key="org.bh.plugin.gcc.data.DTOGCCBalanceSheet$Key.KBGGKS" type="DoubleValue">
+           <doubleValue>1.3844631E8</doubleValue>
+          </value>
+          <value key="org.bh.plugin.gcc.data.DTOGCCBalanceSheet$Key.EK" type="DoubleValue">
+           <doubleValue>2.28304694E8</doubleValue>
+          </value>
+          <value key="org.bh.plugin.gcc.data.DTOGCCBalanceSheet$Key.RS" type="DoubleValue">
+           <doubleValue>1.13365946E8</doubleValue>
+          </value>
+          <value key="org.bh.plugin.gcc.data.DTOGCCBalanceSheet$Key.VB" type="DoubleValue">
+           <doubleValue>8.3300633E7</doubleValue>
+          </value>
+         </values>
+        </gccbalancesheet>
+        <gccprofitlossstatementtotalcost class="org.bh.plugin.gcc.data.DTOGCCProfitLossStatementTotalCost">
+         <values>
+          <value key="org.bh.plugin.gcc.data.DTOGCCProfitLossStatementTotalCost$Key.UE" type="DoubleValue">
+           <doubleValue>7.68831831E8</doubleValue>
+          </value>
+          <value key="org.bh.plugin.gcc.data.DTOGCCProfitLossStatementTotalCost$Key.AAE" type="DoubleValue">
+           <doubleValue>344959.0</doubleValue>
+          </value>
+          <value key="org.bh.plugin.gcc.data.DTOGCCProfitLossStatementTotalCost$Key.SBE" type="DoubleValue">
+           <doubleValue>2.3615612E7</doubleValue>
+          </value>
+          <value key="org.bh.plugin.gcc.data.DTOGCCProfitLossStatementTotalCost$Key.MA" type="DoubleValue">
+           <doubleValue>4.29415072E8</doubleValue>
+          </value>
+          <value key="org.bh.plugin.gcc.data.DTOGCCProfitLossStatementTotalCost$Key.PA" type="DoubleValue">
+           <doubleValue>1.48230044E8</doubleValue>
+          </value>
+          <value key="org.bh.plugin.gcc.data.DTOGCCProfitLossStatementTotalCost$Key.ABSCH" type="DoubleValue">
+           <doubleValue>1.8969541E7</doubleValue>
+          </value>
+          <value key="org.bh.plugin.gcc.data.DTOGCCProfitLossStatementTotalCost$Key.SBA" type="DoubleValue">
+           <doubleValue>1.07849549E8</doubleValue>
+          </value>
+          <value key="org.bh.plugin.gcc.data.DTOGCCProfitLossStatementTotalCost$Key.ZA" type="DoubleValue">
+           <doubleValue>1797397.0</doubleValue>
+          </value>
+         </values>
+        </gccprofitlossstatementtotalcost>
+       </children>
       </period>
       <period class="org.bh.data.DTOPeriod">
        <values>
         <value key="org.bh.data.DTOPeriod$Key.NAME" type="StringValue">
          <stringValue>2008</stringValue>
         </value>
-        <value key="org.bh.data.DTOPeriod$Key.LIABILITIES" type="StringValue">
-         <stringValue>72932000</stringValue>
+        <value key="org.bh.data.DTOPeriod$Key.LIABILITIES" type="DoubleValue">
+         <doubleValue>7.2932E7</doubleValue>
         </value>
-        <value key="org.bh.data.DTOPeriod$Key.FCF" type="StringValue">
-         <stringValue>54800000</stringValue>
+        <value key="org.bh.data.DTOPeriod$Key.FCF" type="DoubleValue">
+         <doubleValue>5.48E7</doubleValue>
         </value>
        </values>
+       <children>
+        <gccbalancesheet class="org.bh.plugin.gcc.data.DTOGCCBalanceSheet">
+         <values>
+          <value key="org.bh.plugin.gcc.data.DTOGCCBalanceSheet$Key.AV" type="DoubleValue">
+           <doubleValue>2.04466E8</doubleValue>
+          </value>
+          <value key="org.bh.plugin.gcc.data.DTOGCCBalanceSheet$Key.IVG" type="DoubleValue">
+           <doubleValue>2083000.0</doubleValue>
+          </value>
+          <value key="org.bh.plugin.gcc.data.DTOGCCBalanceSheet$Key.SA" type="DoubleValue">
+           <doubleValue>1.05759E8</doubleValue>
+          </value>
+          <value key="org.bh.plugin.gcc.data.DTOGCCBalanceSheet$Key.FA" type="DoubleValue">
+           <doubleValue>9.6624E7</doubleValue>
+          </value>
+          <value key="org.bh.plugin.gcc.data.DTOGCCBalanceSheet$Key.VOR" type="DoubleValue">
+           <doubleValue>0.0</doubleValue>
+          </value>
+          <value key="org.bh.plugin.gcc.data.DTOGCCBalanceSheet$Key.FSVG" type="DoubleValue">
+           <doubleValue>7.9456E7</doubleValue>
+          </value>
+          <value key="org.bh.plugin.gcc.data.DTOGCCBalanceSheet$Key.WP" type="DoubleValue">
+           <doubleValue>2.6255E7</doubleValue>
+          </value>
+          <value key="org.bh.plugin.gcc.data.DTOGCCBalanceSheet$Key.KBGGKS" type="DoubleValue">
+           <doubleValue>9.7688E7</doubleValue>
+          </value>
+          <value key="org.bh.plugin.gcc.data.DTOGCCBalanceSheet$Key.EK" type="DoubleValue">
+           <doubleValue>2.27754E8</doubleValue>
+          </value>
+          <value key="org.bh.plugin.gcc.data.DTOGCCBalanceSheet$Key.RS" type="DoubleValue">
+           <doubleValue>1.0866E8</doubleValue>
+          </value>
+          <value key="org.bh.plugin.gcc.data.DTOGCCBalanceSheet$Key.VB" type="DoubleValue">
+           <doubleValue>7.2932E7</doubleValue>
+          </value>
+         </values>
+        </gccbalancesheet>
+        <gccprofitlossstatementtotalcost class="org.bh.plugin.gcc.data.DTOGCCProfitLossStatementTotalCost">
+         <values>
+          <value key="org.bh.plugin.gcc.data.DTOGCCProfitLossStatementTotalCost$Key.UE" type="DoubleValue">
+           <doubleValue>6.10431E8</doubleValue>
+          </value>
+          <value key="org.bh.plugin.gcc.data.DTOGCCProfitLossStatementTotalCost$Key.AAE" type="DoubleValue">
+           <doubleValue>293000.0</doubleValue>
+          </value>
+          <value key="org.bh.plugin.gcc.data.DTOGCCProfitLossStatementTotalCost$Key.SBE" type="DoubleValue">
+           <doubleValue>3.3065E7</doubleValue>
+          </value>
+          <value key="org.bh.plugin.gcc.data.DTOGCCProfitLossStatementTotalCost$Key.MA" type="DoubleValue">
+           <doubleValue>4.65041E8</doubleValue>
+          </value>
+          <value key="org.bh.plugin.gcc.data.DTOGCCProfitLossStatementTotalCost$Key.PA" type="DoubleValue">
+           <doubleValue>1.51403E8</doubleValue>
+          </value>
+          <value key="org.bh.plugin.gcc.data.DTOGCCProfitLossStatementTotalCost$Key.ABSCH" type="DoubleValue">
+           <doubleValue>1.8383E7</doubleValue>
+          </value>
+          <value key="org.bh.plugin.gcc.data.DTOGCCProfitLossStatementTotalCost$Key.SBA" type="DoubleValue">
+           <doubleValue>1.02019E8</doubleValue>
+          </value>
+          <value key="org.bh.plugin.gcc.data.DTOGCCProfitLossStatementTotalCost$Key.ZA" type="DoubleValue">
+           <doubleValue>2143000.0</doubleValue>
+          </value>
+         </values>
+        </gccprofitlossstatementtotalcost>
+       </children>
       </period>
       <period class="org.bh.data.DTOPeriod">
        <values>
         <value key="org.bh.data.DTOPeriod$Key.NAME" type="StringValue">
          <stringValue>2007</stringValue>
         </value>
-        <value key="org.bh.data.DTOPeriod$Key.LIABILITIES" type="StringValue">
-         <stringValue>71372954</stringValue>
+        <value key="org.bh.data.DTOPeriod$Key.LIABILITIES" type="DoubleValue">
+         <doubleValue>7.1372954E7</doubleValue>
         </value>
-        <value key="org.bh.data.DTOPeriod$Key.FCF" type="StringValue">
-         <stringValue>20300000</stringValue>
+        <value key="org.bh.data.DTOPeriod$Key.FCF" type="DoubleValue">
+         <doubleValue>2.03E7</doubleValue>
         </value>
        </values>
+       <children>
+        <gccbalancesheet class="org.bh.plugin.gcc.data.DTOGCCBalanceSheet">
+         <values>
+          <value key="org.bh.plugin.gcc.data.DTOGCCBalanceSheet$Key.AV" type="DoubleValue">
+           <doubleValue>9.6707592E7</doubleValue>
+          </value>
+          <value key="org.bh.plugin.gcc.data.DTOGCCBalanceSheet$Key.IVG" type="DoubleValue">
+           <doubleValue>2167663.0</doubleValue>
+          </value>
+          <value key="org.bh.plugin.gcc.data.DTOGCCBalanceSheet$Key.SA" type="DoubleValue">
+           <doubleValue>8.6510975E7</doubleValue>
+          </value>
+          <value key="org.bh.plugin.gcc.data.DTOGCCBalanceSheet$Key.FA" type="DoubleValue">
+           <doubleValue>8028954.0</doubleValue>
+          </value>
+          <value key="org.bh.plugin.gcc.data.DTOGCCBalanceSheet$Key.VOR" type="DoubleValue">
+           <doubleValue>7553676.0</doubleValue>
+          </value>
+          <value key="org.bh.plugin.gcc.data.DTOGCCBalanceSheet$Key.FSVG" type="DoubleValue">
+           <doubleValue>1.01029305E8</doubleValue>
+          </value>
+          <value key="org.bh.plugin.gcc.data.DTOGCCBalanceSheet$Key.WP" type="DoubleValue">
+           <doubleValue>2.7159611E7</doubleValue>
+          </value>
+          <value key="org.bh.plugin.gcc.data.DTOGCCBalanceSheet$Key.KBGGKS" type="DoubleValue">
+           <doubleValue>2.7159611E7</doubleValue>
+          </value>
+          <value key="org.bh.plugin.gcc.data.DTOGCCBalanceSheet$Key.EK" type="DoubleValue">
+           <doubleValue>2.00998818E8</doubleValue>
+          </value>
+          <value key="org.bh.plugin.gcc.data.DTOGCCBalanceSheet$Key.RS" type="DoubleValue">
+           <doubleValue>9.5898142E7</doubleValue>
+          </value>
+          <value key="org.bh.plugin.gcc.data.DTOGCCBalanceSheet$Key.VB" type="DoubleValue">
+           <doubleValue>7.1372954E7</doubleValue>
+          </value>
+         </values>
+        </gccbalancesheet>
+        <gccprofitlossstatementtotalcost class="org.bh.plugin.gcc.data.DTOGCCProfitLossStatementTotalCost">
+         <values>
+          <value key="org.bh.plugin.gcc.data.DTOGCCProfitLossStatementTotalCost$Key.UE" type="DoubleValue">
+           <doubleValue>6.29200022E8</doubleValue>
+          </value>
+          <value key="org.bh.plugin.gcc.data.DTOGCCProfitLossStatementTotalCost$Key.AAE" type="DoubleValue">
+           <doubleValue>1048460.0</doubleValue>
+          </value>
+          <value key="org.bh.plugin.gcc.data.DTOGCCProfitLossStatementTotalCost$Key.SBE" type="DoubleValue">
+           <doubleValue>1.6899855E7</doubleValue>
+          </value>
+          <value key="org.bh.plugin.gcc.data.DTOGCCProfitLossStatementTotalCost$Key.MA" type="DoubleValue">
+           <doubleValue>4.25414214E8</doubleValue>
+          </value>
+          <value key="org.bh.plugin.gcc.data.DTOGCCProfitLossStatementTotalCost$Key.PA" type="DoubleValue">
+           <doubleValue>1.36048269E8</doubleValue>
+          </value>
+          <value key="org.bh.plugin.gcc.data.DTOGCCProfitLossStatementTotalCost$Key.ABSCH" type="DoubleValue">
+           <doubleValue>1.6840307E7</doubleValue>
+          </value>
+          <value key="org.bh.plugin.gcc.data.DTOGCCProfitLossStatementTotalCost$Key.SBA" type="DoubleValue">
+           <doubleValue>9.7429634E7</doubleValue>
+          </value>
+          <value key="org.bh.plugin.gcc.data.DTOGCCProfitLossStatementTotalCost$Key.ZA" type="DoubleValue">
+           <doubleValue>4243799.0</doubleValue>
+          </value>
+         </values>
+        </gccprofitlossstatementtotalcost>
+       </children>
       </period>
       <period class="org.bh.data.DTOPeriod">
        <values>
         <value key="org.bh.data.DTOPeriod$Key.NAME" type="StringValue">
          <stringValue>2006</stringValue>
         </value>
-        <value key="org.bh.data.DTOPeriod$Key.LIABILITIES" type="StringValue">
-         <stringValue>66340000</stringValue>
+        <value key="org.bh.data.DTOPeriod$Key.LIABILITIES" type="DoubleValue">
+         <doubleValue>6.634E7</doubleValue>
         </value>
-        <value key="org.bh.data.DTOPeriod$Key.FCF" type="StringValue">
-         <stringValue>45200000</stringValue>
+        <value key="org.bh.data.DTOPeriod$Key.FCF" type="DoubleValue">
+         <doubleValue>4.52E7</doubleValue>
         </value>
        </values>
+       <children>
+        <gccbalancesheet class="org.bh.plugin.gcc.data.DTOGCCBalanceSheet">
+         <values>
+          <value key="org.bh.plugin.gcc.data.DTOGCCBalanceSheet$Key.AV" type="DoubleValue">
+           <doubleValue>1.60814E8</doubleValue>
+          </value>
+          <value key="org.bh.plugin.gcc.data.DTOGCCBalanceSheet$Key.IVG" type="DoubleValue">
+           <doubleValue>1279000.0</doubleValue>
+          </value>
+          <value key="org.bh.plugin.gcc.data.DTOGCCBalanceSheet$Key.SA" type="DoubleValue">
+           <doubleValue>7.605E7</doubleValue>
+          </value>
+          <value key="org.bh.plugin.gcc.data.DTOGCCBalanceSheet$Key.FA" type="DoubleValue">
+           <doubleValue>8.3485E7</doubleValue>
+          </value>
+          <value key="org.bh.plugin.gcc.data.DTOGCCBalanceSheet$Key.VOR" type="DoubleValue">
+           <doubleValue>2.3547E7</doubleValue>
+          </value>
+          <value key="org.bh.plugin.gcc.data.DTOGCCBalanceSheet$Key.FSVG" type="DoubleValue">
+           <doubleValue>9.0207E7</doubleValue>
+          </value>
+          <value key="org.bh.plugin.gcc.data.DTOGCCBalanceSheet$Key.WP" type="DoubleValue">
+           <doubleValue>2.6951E7</doubleValue>
+          </value>
+          <value key="org.bh.plugin.gcc.data.DTOGCCBalanceSheet$Key.KBGGKS" type="DoubleValue">
+           <doubleValue>5.45E7</doubleValue>
+          </value>
+          <value key="org.bh.plugin.gcc.data.DTOGCCBalanceSheet$Key.EK" type="DoubleValue">
+           <doubleValue>1.88893E8</doubleValue>
+          </value>
+          <value key="org.bh.plugin.gcc.data.DTOGCCBalanceSheet$Key.RS" type="DoubleValue">
+           <doubleValue>1.01483E8</doubleValue>
+          </value>
+          <value key="org.bh.plugin.gcc.data.DTOGCCBalanceSheet$Key.VB" type="DoubleValue">
+           <doubleValue>6.634E7</doubleValue>
+          </value>
+         </values>
+        </gccbalancesheet>
+        <gccprofitlossstatementtotalcost class="org.bh.plugin.gcc.data.DTOGCCProfitLossStatementTotalCost">
+         <values>
+          <value key="org.bh.plugin.gcc.data.DTOGCCProfitLossStatementTotalCost$Key.UE" type="DoubleValue">
+           <doubleValue>5.93833E8</doubleValue>
+          </value>
+          <value key="org.bh.plugin.gcc.data.DTOGCCProfitLossStatementTotalCost$Key.AAE" type="DoubleValue">
+           <doubleValue>269000.0</doubleValue>
+          </value>
+          <value key="org.bh.plugin.gcc.data.DTOGCCProfitLossStatementTotalCost$Key.SBE" type="DoubleValue">
+           <doubleValue>2.7334E7</doubleValue>
+          </value>
+          <value key="org.bh.plugin.gcc.data.DTOGCCProfitLossStatementTotalCost$Key.MA" type="DoubleValue">
+           <doubleValue>3.93405E8</doubleValue>
+          </value>
+          <value key="org.bh.plugin.gcc.data.DTOGCCProfitLossStatementTotalCost$Key.PA" type="DoubleValue">
+           <doubleValue>1.18206E8</doubleValue>
+          </value>
+          <value key="org.bh.plugin.gcc.data.DTOGCCProfitLossStatementTotalCost$Key.ABSCH" type="DoubleValue">
+           <doubleValue>1.3454E7</doubleValue>
+          </value>
+          <value key="org.bh.plugin.gcc.data.DTOGCCProfitLossStatementTotalCost$Key.SBA" type="DoubleValue">
+           <doubleValue>8.4819E7</doubleValue>
+          </value>
+          <value key="org.bh.plugin.gcc.data.DTOGCCProfitLossStatementTotalCost$Key.ZA" type="DoubleValue">
+           <doubleValue>803000.0</doubleValue>
+          </value>
+         </values>
+        </gccprofitlossstatementtotalcost>
+       </children>
       </period>
       <period class="org.bh.data.DTOPeriod">
        <values>
         <value key="org.bh.data.DTOPeriod$Key.NAME" type="StringValue">
          <stringValue>2005</stringValue>
         </value>
-        <value key="org.bh.data.DTOPeriod$Key.LIABILITIES" type="StringValue">
-         <stringValue>58191315</stringValue>
+        <value key="org.bh.data.DTOPeriod$Key.LIABILITIES" type="DoubleValue">
+         <doubleValue>5.8191315E7</doubleValue>
         </value>
-        <value key="org.bh.data.DTOPeriod$Key.FCF" type="StringValue">
-         <stringValue>47100000</stringValue>
+        <value key="org.bh.data.DTOPeriod$Key.FCF" type="DoubleValue">
+         <doubleValue>4.71E7</doubleValue>
         </value>
        </values>
+       <children>
+        <gccbalancesheet class="org.bh.plugin.gcc.data.DTOGCCBalanceSheet">
+         <values>
+          <value key="org.bh.plugin.gcc.data.DTOGCCBalanceSheet$Key.AV" type="DoubleValue">
+           <doubleValue>1.58318248E8</doubleValue>
+          </value>
+          <value key="org.bh.plugin.gcc.data.DTOGCCBalanceSheet$Key.IVG" type="DoubleValue">
+           <doubleValue>937703.0</doubleValue>
+          </value>
+          <value key="org.bh.plugin.gcc.data.DTOGCCBalanceSheet$Key.SA" type="DoubleValue">
+           <doubleValue>6.1296566E7</doubleValue>
+          </value>
+          <value key="org.bh.plugin.gcc.data.DTOGCCBalanceSheet$Key.FA" type="DoubleValue">
+           <doubleValue>9.6083979E7</doubleValue>
+          </value>
+          <value key="org.bh.plugin.gcc.data.DTOGCCBalanceSheet$Key.VOR" type="DoubleValue">
+           <doubleValue>2755210.0</doubleValue>
+          </value>
+          <value key="org.bh.plugin.gcc.data.DTOGCCBalanceSheet$Key.FSVG" type="DoubleValue">
+           <doubleValue>8.4049602E7</doubleValue>
+          </value>
+          <value key="org.bh.plugin.gcc.data.DTOGCCBalanceSheet$Key.WP" type="DoubleValue">
+           <doubleValue>2.6739327E7</doubleValue>
+          </value>
+          <value key="org.bh.plugin.gcc.data.DTOGCCBalanceSheet$Key.KBGGKS" type="DoubleValue">
+           <doubleValue>4.6098286E7</doubleValue>
+          </value>
+          <value key="org.bh.plugin.gcc.data.DTOGCCBalanceSheet$Key.EK" type="DoubleValue">
+           <doubleValue>1.68758877E8</doubleValue>
+          </value>
+          <value key="org.bh.plugin.gcc.data.DTOGCCBalanceSheet$Key.RS" type="DoubleValue">
+           <doubleValue>9.1309535E7</doubleValue>
+          </value>
+          <value key="org.bh.plugin.gcc.data.DTOGCCBalanceSheet$Key.VB" type="DoubleValue">
+           <doubleValue>5.8191315E7</doubleValue>
+          </value>
+         </values>
+        </gccbalancesheet>
+        <gccprofitlossstatementtotalcost class="org.bh.plugin.gcc.data.DTOGCCProfitLossStatementTotalCost">
+         <values>
+          <value key="org.bh.plugin.gcc.data.DTOGCCProfitLossStatementTotalCost$Key.UE" type="DoubleValue">
+           <doubleValue>5.21092636E8</doubleValue>
+          </value>
+          <value key="org.bh.plugin.gcc.data.DTOGCCProfitLossStatementTotalCost$Key.AAE" type="DoubleValue">
+           <doubleValue>304697.0</doubleValue>
+          </value>
+          <value key="org.bh.plugin.gcc.data.DTOGCCProfitLossStatementTotalCost$Key.SBE" type="DoubleValue">
+           <doubleValue>3.0750073E7</doubleValue>
+          </value>
+          <value key="org.bh.plugin.gcc.data.DTOGCCProfitLossStatementTotalCost$Key.MA" type="DoubleValue">
+           <doubleValue>2.27679227E8</doubleValue>
+          </value>
+          <value key="org.bh.plugin.gcc.data.DTOGCCProfitLossStatementTotalCost$Key.PA" type="DoubleValue">
+           <doubleValue>1.0093166E8</doubleValue>
+          </value>
+          <value key="org.bh.plugin.gcc.data.DTOGCCProfitLossStatementTotalCost$Key.ABSCH" type="DoubleValue">
+           <doubleValue>1.2068598E7</doubleValue>
+          </value>
+          <value key="org.bh.plugin.gcc.data.DTOGCCProfitLossStatementTotalCost$Key.SBA" type="DoubleValue">
+           <doubleValue>8.368438E7</doubleValue>
+          </value>
+          <value key="org.bh.plugin.gcc.data.DTOGCCProfitLossStatementTotalCost$Key.ZA" type="DoubleValue">
+           <doubleValue>736974.0</doubleValue>
+          </value>
+         </values>
+        </gccprofitlossstatementtotalcost>
+       </children>
       </period>
      </children>
     </company>
@@ -648,65 +3190,331 @@
         <value key="org.bh.data.DTOPeriod$Key.NAME" type="StringValue">
          <stringValue>2010</stringValue>
         </value>
-        <value key="org.bh.data.DTOPeriod$Key.LIABILITIES" type="StringValue">
-         <stringValue>68851000</stringValue>
+        <value key="org.bh.data.DTOPeriod$Key.LIABILITIES" type="DoubleValue">
+         <doubleValue>6.8851E7</doubleValue>
         </value>
-        <value key="org.bh.data.DTOPeriod$Key.FCF" type="StringValue">
-         <stringValue>27700000</stringValue>
+        <value key="org.bh.data.DTOPeriod$Key.FCF" type="DoubleValue">
+         <doubleValue>2.77E7</doubleValue>
         </value>
        </values>
+       <children>
+        <gccbalancesheet class="org.bh.plugin.gcc.data.DTOGCCBalanceSheet">
+         <values>
+          <value key="org.bh.plugin.gcc.data.DTOGCCBalanceSheet$Key.AV" type="DoubleValue">
+           <doubleValue>1.34152E8</doubleValue>
+          </value>
+          <value key="org.bh.plugin.gcc.data.DTOGCCBalanceSheet$Key.IVG" type="DoubleValue">
+           <doubleValue>2.2959E7</doubleValue>
+          </value>
+          <value key="org.bh.plugin.gcc.data.DTOGCCBalanceSheet$Key.SA" type="DoubleValue">
+           <doubleValue>1.08087E8</doubleValue>
+          </value>
+          <value key="org.bh.plugin.gcc.data.DTOGCCBalanceSheet$Key.FA" type="DoubleValue">
+           <doubleValue>3106000.0</doubleValue>
+          </value>
+          <value key="org.bh.plugin.gcc.data.DTOGCCBalanceSheet$Key.VOR" type="DoubleValue">
+           <doubleValue>1045000.0</doubleValue>
+          </value>
+          <value key="org.bh.plugin.gcc.data.DTOGCCBalanceSheet$Key.FSVG" type="DoubleValue">
+           <doubleValue>8.9642E7</doubleValue>
+          </value>
+          <value key="org.bh.plugin.gcc.data.DTOGCCBalanceSheet$Key.WP" type="DoubleValue">
+           <doubleValue>0.0</doubleValue>
+          </value>
+          <value key="org.bh.plugin.gcc.data.DTOGCCBalanceSheet$Key.KBGGKS" type="DoubleValue">
+           <doubleValue>4.6233E7</doubleValue>
+          </value>
+          <value key="org.bh.plugin.gcc.data.DTOGCCBalanceSheet$Key.EK" type="DoubleValue">
+           <doubleValue>1.84048E8</doubleValue>
+          </value>
+          <value key="org.bh.plugin.gcc.data.DTOGCCBalanceSheet$Key.RS" type="DoubleValue">
+           <doubleValue>5367000.0</doubleValue>
+          </value>
+          <value key="org.bh.plugin.gcc.data.DTOGCCBalanceSheet$Key.VB" type="DoubleValue">
+           <doubleValue>6.8851E7</doubleValue>
+          </value>
+         </values>
+        </gccbalancesheet>
+        <gccprofitlossstatementtotalcost class="org.bh.plugin.gcc.data.DTOGCCProfitLossStatementTotalCost">
+         <values>
+          <value key="org.bh.plugin.gcc.data.DTOGCCProfitLossStatementTotalCost$Key.UE" type="DoubleValue">
+           <doubleValue>4.22106E8</doubleValue>
+          </value>
+          <value key="org.bh.plugin.gcc.data.DTOGCCProfitLossStatementTotalCost$Key.AAE" type="DoubleValue">
+           <doubleValue>0.0</doubleValue>
+          </value>
+          <value key="org.bh.plugin.gcc.data.DTOGCCProfitLossStatementTotalCost$Key.SBE" type="DoubleValue">
+           <doubleValue>684000.0</doubleValue>
+          </value>
+          <value key="org.bh.plugin.gcc.data.DTOGCCProfitLossStatementTotalCost$Key.PA" type="DoubleValue">
+           <doubleValue>1.2444E7</doubleValue>
+          </value>
+          <value key="org.bh.plugin.gcc.data.DTOGCCProfitLossStatementTotalCost$Key.ABSCH" type="DoubleValue">
+           <doubleValue>4.1657E7</doubleValue>
+          </value>
+          <value key="org.bh.plugin.gcc.data.DTOGCCProfitLossStatementTotalCost$Key.SBA" type="DoubleValue">
+           <doubleValue>1168000.0</doubleValue>
+          </value>
+          <value key="org.bh.plugin.gcc.data.DTOGCCProfitLossStatementTotalCost$Key.ZA" type="DoubleValue">
+           <doubleValue>2294000.0</doubleValue>
+          </value>
+         </values>
+        </gccprofitlossstatementtotalcost>
+       </children>
       </period>
       <period class="org.bh.data.DTOPeriod">
        <values>
         <value key="org.bh.data.DTOPeriod$Key.NAME" type="StringValue">
          <stringValue>2009</stringValue>
         </value>
-        <value key="org.bh.data.DTOPeriod$Key.LIABILITIES" type="StringValue">
-         <stringValue>131979000</stringValue>
+        <value key="org.bh.data.DTOPeriod$Key.LIABILITIES" type="DoubleValue">
+         <doubleValue>1.31979E8</doubleValue>
         </value>
-        <value key="org.bh.data.DTOPeriod$Key.FCF" type="StringValue">
-         <stringValue>12900000</stringValue>
+        <value key="org.bh.data.DTOPeriod$Key.FCF" type="DoubleValue">
+         <doubleValue>1.29E7</doubleValue>
         </value>
        </values>
+       <children>
+        <gccbalancesheet class="org.bh.plugin.gcc.data.DTOGCCBalanceSheet">
+         <values>
+          <value key="org.bh.plugin.gcc.data.DTOGCCBalanceSheet$Key.AV" type="DoubleValue">
+           <doubleValue>1.64714E8</doubleValue>
+          </value>
+          <value key="org.bh.plugin.gcc.data.DTOGCCBalanceSheet$Key.IVG" type="DoubleValue">
+           <doubleValue>3.3658E7</doubleValue>
+          </value>
+          <value key="org.bh.plugin.gcc.data.DTOGCCBalanceSheet$Key.SA" type="DoubleValue">
+           <doubleValue>1.26187E8</doubleValue>
+          </value>
+          <value key="org.bh.plugin.gcc.data.DTOGCCBalanceSheet$Key.FA" type="DoubleValue">
+           <doubleValue>4869000.0</doubleValue>
+          </value>
+          <value key="org.bh.plugin.gcc.data.DTOGCCBalanceSheet$Key.VOR" type="DoubleValue">
+           <doubleValue>2372000.0</doubleValue>
+          </value>
+          <value key="org.bh.plugin.gcc.data.DTOGCCBalanceSheet$Key.FSVG" type="DoubleValue">
+           <doubleValue>5.3595E7</doubleValue>
+          </value>
+          <value key="org.bh.plugin.gcc.data.DTOGCCBalanceSheet$Key.WP" type="DoubleValue">
+           <doubleValue>0.0</doubleValue>
+          </value>
+          <value key="org.bh.plugin.gcc.data.DTOGCCBalanceSheet$Key.KBGGKS" type="DoubleValue">
+           <doubleValue>4.0952E7</doubleValue>
+          </value>
+          <value key="org.bh.plugin.gcc.data.DTOGCCBalanceSheet$Key.EK" type="DoubleValue">
+           <doubleValue>1.59712E8</doubleValue>
+          </value>
+          <value key="org.bh.plugin.gcc.data.DTOGCCBalanceSheet$Key.RS" type="DoubleValue">
+           <doubleValue>2778000.0</doubleValue>
+          </value>
+          <value key="org.bh.plugin.gcc.data.DTOGCCBalanceSheet$Key.VB" type="DoubleValue">
+           <doubleValue>1.31979E8</doubleValue>
+          </value>
+         </values>
+        </gccbalancesheet>
+        <gccprofitlossstatementtotalcost class="org.bh.plugin.gcc.data.DTOGCCProfitLossStatementTotalCost">
+         <values>
+          <value key="org.bh.plugin.gcc.data.DTOGCCProfitLossStatementTotalCost$Key.UE" type="DoubleValue">
+           <doubleValue>4.20546E8</doubleValue>
+          </value>
+          <value key="org.bh.plugin.gcc.data.DTOGCCProfitLossStatementTotalCost$Key.AAE" type="DoubleValue">
+           <doubleValue>0.0</doubleValue>
+          </value>
+          <value key="org.bh.plugin.gcc.data.DTOGCCProfitLossStatementTotalCost$Key.SBE" type="DoubleValue">
+           <doubleValue>1849000.0</doubleValue>
+          </value>
+          <value key="org.bh.plugin.gcc.data.DTOGCCProfitLossStatementTotalCost$Key.PA" type="DoubleValue">
+           <doubleValue>1.4802E7</doubleValue>
+          </value>
+          <value key="org.bh.plugin.gcc.data.DTOGCCProfitLossStatementTotalCost$Key.ABSCH" type="DoubleValue">
+           <doubleValue>4.7209E7</doubleValue>
+          </value>
+          <value key="org.bh.plugin.gcc.data.DTOGCCProfitLossStatementTotalCost$Key.SBA" type="DoubleValue">
+           <doubleValue>1380000.0</doubleValue>
+          </value>
+          <value key="org.bh.plugin.gcc.data.DTOGCCProfitLossStatementTotalCost$Key.ZA" type="DoubleValue">
+           <doubleValue>3256000.0</doubleValue>
+          </value>
+         </values>
+        </gccprofitlossstatementtotalcost>
+       </children>
       </period>
       <period class="org.bh.data.DTOPeriod">
        <values>
         <value key="org.bh.data.DTOPeriod$Key.NAME" type="StringValue">
          <stringValue>2008</stringValue>
         </value>
-        <value key="org.bh.data.DTOPeriod$Key.LIABILITIES" type="StringValue">
-         <stringValue>198768000</stringValue>
+        <value key="org.bh.data.DTOPeriod$Key.LIABILITIES" type="DoubleValue">
+         <doubleValue>1.98768E8</doubleValue>
         </value>
-        <value key="org.bh.data.DTOPeriod$Key.FCF" type="StringValue">
-         <stringValue>-32300000</stringValue>
+        <value key="org.bh.data.DTOPeriod$Key.FCF" type="DoubleValue">
+         <doubleValue>-3.23E7</doubleValue>
         </value>
        </values>
+       <children>
+        <gccbalancesheet class="org.bh.plugin.gcc.data.DTOGCCBalanceSheet">
+         <values>
+          <value key="org.bh.plugin.gcc.data.DTOGCCBalanceSheet$Key.AV" type="DoubleValue">
+           <doubleValue>1.86363E8</doubleValue>
+          </value>
+          <value key="org.bh.plugin.gcc.data.DTOGCCBalanceSheet$Key.IVG" type="DoubleValue">
+           <doubleValue>4.5008E7</doubleValue>
+          </value>
+          <value key="org.bh.plugin.gcc.data.DTOGCCBalanceSheet$Key.SA" type="DoubleValue">
+           <doubleValue>1.41028E8</doubleValue>
+          </value>
+          <value key="org.bh.plugin.gcc.data.DTOGCCBalanceSheet$Key.FA" type="DoubleValue">
+           <doubleValue>327000.0</doubleValue>
+          </value>
+          <value key="org.bh.plugin.gcc.data.DTOGCCBalanceSheet$Key.VOR" type="DoubleValue">
+           <doubleValue>3690000.0</doubleValue>
+          </value>
+          <value key="org.bh.plugin.gcc.data.DTOGCCBalanceSheet$Key.FSVG" type="DoubleValue">
+           <doubleValue>5.788E7</doubleValue>
+          </value>
+          <value key="org.bh.plugin.gcc.data.DTOGCCBalanceSheet$Key.WP" type="DoubleValue">
+           <doubleValue>0.0</doubleValue>
+          </value>
+          <value key="org.bh.plugin.gcc.data.DTOGCCBalanceSheet$Key.KBGGKS" type="DoubleValue">
+           <doubleValue>4.8823E7</doubleValue>
+          </value>
+          <value key="org.bh.plugin.gcc.data.DTOGCCBalanceSheet$Key.EK" type="DoubleValue">
+           <doubleValue>1.544E8</doubleValue>
+          </value>
+          <value key="org.bh.plugin.gcc.data.DTOGCCBalanceSheet$Key.RS" type="DoubleValue">
+           <doubleValue>1924000.0</doubleValue>
+          </value>
+          <value key="org.bh.plugin.gcc.data.DTOGCCBalanceSheet$Key.VB" type="DoubleValue">
+           <doubleValue>1.98768E8</doubleValue>
+          </value>
+         </values>
+        </gccbalancesheet>
+        <gccprofitlossstatementtotalcost class="org.bh.plugin.gcc.data.DTOGCCProfitLossStatementTotalCost">
+         <values>
+          <value key="org.bh.plugin.gcc.data.DTOGCCProfitLossStatementTotalCost$Key.UE" type="DoubleValue">
+           <doubleValue>4.133E8</doubleValue>
+          </value>
+          <value key="org.bh.plugin.gcc.data.DTOGCCProfitLossStatementTotalCost$Key.AAE" type="DoubleValue">
+           <doubleValue>0.0</doubleValue>
+          </value>
+          <value key="org.bh.plugin.gcc.data.DTOGCCProfitLossStatementTotalCost$Key.SBE" type="DoubleValue">
+           <doubleValue>2749000.0</doubleValue>
+          </value>
+          <value key="org.bh.plugin.gcc.data.DTOGCCProfitLossStatementTotalCost$Key.PA" type="DoubleValue">
+           <doubleValue>1.1683E7</doubleValue>
+          </value>
+          <value key="org.bh.plugin.gcc.data.DTOGCCProfitLossStatementTotalCost$Key.ABSCH" type="DoubleValue">
+           <doubleValue>5023000.0</doubleValue>
+          </value>
+          <value key="org.bh.plugin.gcc.data.DTOGCCProfitLossStatementTotalCost$Key.SBA" type="DoubleValue">
+           <doubleValue>1862000.0</doubleValue>
+          </value>
+          <value key="org.bh.plugin.gcc.data.DTOGCCProfitLossStatementTotalCost$Key.ZA" type="DoubleValue">
+           <doubleValue>3631000.0</doubleValue>
+          </value>
+         </values>
+        </gccprofitlossstatementtotalcost>
+       </children>
       </period>
       <period class="org.bh.data.DTOPeriod">
        <values>
         <value key="org.bh.data.DTOPeriod$Key.NAME" type="StringValue">
          <stringValue>2007</stringValue>
         </value>
-        <value key="org.bh.data.DTOPeriod$Key.LIABILITIES" type="StringValue">
-         <stringValue>211249000</stringValue>
+        <value key="org.bh.data.DTOPeriod$Key.LIABILITIES" type="DoubleValue">
+         <doubleValue>2.11249E8</doubleValue>
         </value>
-        <value key="org.bh.data.DTOPeriod$Key.FCF" type="StringValue">
-         <stringValue>-57800000</stringValue>
+        <value key="org.bh.data.DTOPeriod$Key.FCF" type="DoubleValue">
+         <doubleValue>-5.78E7</doubleValue>
         </value>
        </values>
+       <children>
+        <gccbalancesheet class="org.bh.plugin.gcc.data.DTOGCCBalanceSheet">
+         <values>
+          <value key="org.bh.plugin.gcc.data.DTOGCCBalanceSheet$Key.AV" type="DoubleValue">
+           <doubleValue>1.59783E8</doubleValue>
+          </value>
+          <value key="org.bh.plugin.gcc.data.DTOGCCBalanceSheet$Key.IVG" type="DoubleValue">
+           <doubleValue>2.4701E7</doubleValue>
+          </value>
+          <value key="org.bh.plugin.gcc.data.DTOGCCBalanceSheet$Key.SA" type="DoubleValue">
+           <doubleValue>1.31224E8</doubleValue>
+          </value>
+          <value key="org.bh.plugin.gcc.data.DTOGCCBalanceSheet$Key.FA" type="DoubleValue">
+           <doubleValue>3858000.0</doubleValue>
+          </value>
+          <value key="org.bh.plugin.gcc.data.DTOGCCBalanceSheet$Key.VOR" type="DoubleValue">
+           <doubleValue>6204000.0</doubleValue>
+          </value>
+          <value key="org.bh.plugin.gcc.data.DTOGCCBalanceSheet$Key.FSVG" type="DoubleValue">
+           <doubleValue>6.4944E7</doubleValue>
+          </value>
+          <value key="org.bh.plugin.gcc.data.DTOGCCBalanceSheet$Key.WP" type="DoubleValue">
+           <doubleValue>0.0</doubleValue>
+          </value>
+          <value key="org.bh.plugin.gcc.data.DTOGCCBalanceSheet$Key.KBGGKS" type="DoubleValue">
+           <doubleValue>7.4132E7</doubleValue>
+          </value>
+          <value key="org.bh.plugin.gcc.data.DTOGCCBalanceSheet$Key.EK" type="DoubleValue">
+           <doubleValue>1.52207E8</doubleValue>
+          </value>
+          <value key="org.bh.plugin.gcc.data.DTOGCCBalanceSheet$Key.VB" type="DoubleValue">
+           <doubleValue>2.11249E8</doubleValue>
+          </value>
+         </values>
+        </gccbalancesheet>
+        <gccprofitlossstatementtotalcost class="org.bh.plugin.gcc.data.DTOGCCProfitLossStatementTotalCost">
+         <values>
+          <value key="org.bh.plugin.gcc.data.DTOGCCProfitLossStatementTotalCost$Key.UE" type="DoubleValue">
+           <doubleValue>3.352E8</doubleValue>
+          </value>
+          <value key="org.bh.plugin.gcc.data.DTOGCCProfitLossStatementTotalCost$Key.AAE" type="DoubleValue">
+           <doubleValue>0.0</doubleValue>
+          </value>
+          <value key="org.bh.plugin.gcc.data.DTOGCCProfitLossStatementTotalCost$Key.SBE" type="DoubleValue">
+           <doubleValue>1674000.0</doubleValue>
+          </value>
+          <value key="org.bh.plugin.gcc.data.DTOGCCProfitLossStatementTotalCost$Key.PA" type="DoubleValue">
+           <doubleValue>1.3672E7</doubleValue>
+          </value>
+          <value key="org.bh.plugin.gcc.data.DTOGCCProfitLossStatementTotalCost$Key.ABSCH" type="DoubleValue">
+           <doubleValue>7218000.0</doubleValue>
+          </value>
+          <value key="org.bh.plugin.gcc.data.DTOGCCProfitLossStatementTotalCost$Key.SBA" type="DoubleValue">
+           <doubleValue>785000.0</doubleValue>
+          </value>
+          <value key="org.bh.plugin.gcc.data.DTOGCCProfitLossStatementTotalCost$Key.ZA" type="DoubleValue">
+           <doubleValue>3865000.0</doubleValue>
+          </value>
+         </values>
+        </gccprofitlossstatementtotalcost>
+       </children>
       </period>
       <period class="org.bh.data.DTOPeriod">
        <values>
         <value key="org.bh.data.DTOPeriod$Key.NAME" type="StringValue">
          <stringValue>2006</stringValue>
         </value>
-        <value key="org.bh.data.DTOPeriod$Key.LIABILITIES" type="StringValue">
-         <stringValue/>
-        </value>
-        <value key="org.bh.data.DTOPeriod$Key.FCF" type="StringValue">
-         <stringValue>-7800000</stringValue>
+        <value key="org.bh.data.DTOPeriod$Key.FCF" type="DoubleValue">
+         <doubleValue>-7800000.0</doubleValue>
         </value>
        </values>
+       <children>
+        <gccbalancesheet class="org.bh.plugin.gcc.data.DTOGCCBalanceSheet">
+         <values>
+          <value key="org.bh.plugin.gcc.data.DTOGCCBalanceSheet$Key.EK" type="DoubleValue">
+           <doubleValue>1.606E8</doubleValue>
+          </value>
+         </values>
+        </gccbalancesheet>
+        <gccprofitlossstatementtotalcost class="org.bh.plugin.gcc.data.DTOGCCProfitLossStatementTotalCost">
+         <values>
+          <value key="org.bh.plugin.gcc.data.DTOGCCProfitLossStatementTotalCost$Key.UE" type="DoubleValue">
+           <doubleValue>2.625E8</doubleValue>
+          </value>
+         </values>
+        </gccprofitlossstatementtotalcost>
+       </children>
       </period>
      </children>
     </company>
@@ -737,13 +3545,65 @@
         <value key="org.bh.data.DTOPeriod$Key.NAME" type="StringValue">
          <stringValue>2010</stringValue>
         </value>
-        <value key="org.bh.data.DTOPeriod$Key.LIABILITIES" type="StringValue">
-         <stringValue>31932000000</stringValue>
-        </value>
-        <value key="org.bh.data.DTOPeriod$Key.FCF" type="StringValue">
-         <stringValue/>
+        <value key="org.bh.data.DTOPeriod$Key.LIABILITIES" type="DoubleValue">
+         <doubleValue>3.1932E10</doubleValue>
         </value>
        </values>
+       <children>
+        <gccbalancesheet class="org.bh.plugin.gcc.data.DTOGCCBalanceSheet">
+         <values>
+          <value key="org.bh.plugin.gcc.data.DTOGCCBalanceSheet$Key.AV" type="DoubleValue">
+           <doubleValue>3.9151E10</doubleValue>
+          </value>
+          <value key="org.bh.plugin.gcc.data.DTOGCCBalanceSheet$Key.IVG" type="DoubleValue">
+           <doubleValue>2.78E8</doubleValue>
+          </value>
+          <value key="org.bh.plugin.gcc.data.DTOGCCBalanceSheet$Key.SA" type="DoubleValue">
+           <doubleValue>6.835E9</doubleValue>
+          </value>
+          <value key="org.bh.plugin.gcc.data.DTOGCCBalanceSheet$Key.FA" type="DoubleValue">
+           <doubleValue>3.2038E10</doubleValue>
+          </value>
+          <value key="org.bh.plugin.gcc.data.DTOGCCBalanceSheet$Key.VOR" type="DoubleValue">
+           <doubleValue>5.574E9</doubleValue>
+          </value>
+          <value key="org.bh.plugin.gcc.data.DTOGCCBalanceSheet$Key.FSVG" type="DoubleValue">
+           <doubleValue>2.4884E10</doubleValue>
+          </value>
+          <value key="org.bh.plugin.gcc.data.DTOGCCBalanceSheet$Key.WP" type="DoubleValue">
+           <doubleValue>1.239E9</doubleValue>
+          </value>
+          <value key="org.bh.plugin.gcc.data.DTOGCCBalanceSheet$Key.KBGGKS" type="DoubleValue">
+           <doubleValue>5.753E9</doubleValue>
+          </value>
+          <value key="org.bh.plugin.gcc.data.DTOGCCBalanceSheet$Key.EK" type="DoubleValue">
+           <doubleValue>2.8271E10</doubleValue>
+          </value>
+          <value key="org.bh.plugin.gcc.data.DTOGCCBalanceSheet$Key.RS" type="DoubleValue">
+           <doubleValue>1.549E10</doubleValue>
+          </value>
+          <value key="org.bh.plugin.gcc.data.DTOGCCBalanceSheet$Key.VB" type="DoubleValue">
+           <doubleValue>3.1932E10</doubleValue>
+          </value>
+         </values>
+        </gccbalancesheet>
+        <gccprofitlossstatementcostofsales class="org.bh.plugin.gcc.data.DTOGCCProfitLossStatementCostOfSales">
+         <values>
+          <value key="org.bh.plugin.gcc.data.DTOGCCProfitLossStatementCostOfSales$Key.UE" type="DoubleValue">
+           <doubleValue>6.3002E10</doubleValue>
+          </value>
+          <value key="org.bh.plugin.gcc.data.DTOGCCProfitLossStatementCostOfSales$Key.HK" type="DoubleValue">
+           <doubleValue>5.4241E10</doubleValue>
+          </value>
+          <value key="org.bh.plugin.gcc.data.DTOGCCProfitLossStatementCostOfSales$Key.SBE" type="DoubleValue">
+           <doubleValue>1.439E9</doubleValue>
+          </value>
+          <value key="org.bh.plugin.gcc.data.DTOGCCProfitLossStatementCostOfSales$Key.VVSBA" type="DoubleValue">
+           <doubleValue>7.617E9</doubleValue>
+          </value>
+         </values>
+        </gccprofitlossstatementcostofsales>
+       </children>
       </period>
      </children>
     </company>
