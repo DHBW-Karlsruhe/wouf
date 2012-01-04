@@ -39,6 +39,7 @@ import org.bh.calculation.IStochasticProcess;
 import org.bh.calculation.ITimeSeriesProcess;
 import org.bh.controller.IPeriodController;
 import org.bh.controller.InputController;
+import org.bh.data.DTOBranchSpecificRep;
 import org.bh.data.DTOBusinessData;
 import org.bh.data.DTOKeyPair;
 import org.bh.data.DTOScenario;
@@ -149,8 +150,21 @@ public class ScenarioController extends InputController {
 					DTOScenario scenario = (DTOScenario) getModel();
 					process = scenario.getStochasticProcess();
 					
-						
-					//TODO calculate Parameters with BSR here or later.
+					//calculate branch specific representative
+					// get business data for the calculation below (branch specific values)
+					DTOBusinessData businessData = (PlatformController.getInstance()).getBusinessDataDTO();
+					
+					//Load Calculator Plugin(s) - should be one
+					ServiceLoader<IBranchSpecificCalculator> calculators = PluginManager
+					.getInstance().getServices(IBranchSpecificCalculator.class);
+					// calculate branch specific values
+					
+					ArrayList<DTOBranchSpecificRep> branchSpecificRep = null;
+					for(IBranchSpecificCalculator calculator : calculators){
+							branchSpecificRep = calculator.calculateBSR(businessData);		
+					}
+					scenario.setBranchSpecificRep(branchSpecificRep);
+					
 					//Original parameters code
 					JPanel parametersPanel = process.calculateParameters();
 					BHStochasticInputForm form = (BHStochasticInputForm) ((Component) e
@@ -159,25 +173,12 @@ public class ScenarioController extends InputController {
 					//BranchSpecificRepresentative specific code.
 					if(cbBranchSpecificRepresentative.isSelected() && cbBranchSpecificRepresentative.isVisible()){
 						
-						//TODO Calculate BSR parameters before we set the panel here
 						ITimeSeriesProcess timeSeriesProcess = scenario.getTimeSeriesProcess(ITimeSeriesProcess.Key.BRANCH_SPECIFIC_REPRESENTATIVE.toString());
 						
 						JPanel timeSeriesPanel = timeSeriesProcess.calculateParameters();
 						
 						form.setBranchSpecificRepresentativePanel(timeSeriesPanel);
-						
-						//TODO we should store the BSR in the scenario!
-						// get business data for the calculation below (branch specific values)
-						DTOBusinessData businessData = (PlatformController.getInstance()).getBusinessDataDTO();
-						
-						//Load Calculator Plugin(s) - should be one
-						ServiceLoader<IBranchSpecificCalculator> calculators = PluginManager
-						.getInstance().getServices(IBranchSpecificCalculator.class);
-						// calculate branch specific values
-						
-						for(IBranchSpecificCalculator calculator : calculators){
-// TODO							businessData = calculator.calculateBSR(businessData);		
-						}
+
 					}
 						
 					if (parametersPanel instanceof Container)

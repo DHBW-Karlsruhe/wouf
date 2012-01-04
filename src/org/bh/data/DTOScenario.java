@@ -48,6 +48,7 @@ public class DTOScenario extends DTO<DTOPeriod> {
 	@SuppressWarnings("unused")
 	private static final Logger log = Logger.getLogger(DTOScenario.class);
 	private boolean isCalculated = false;
+	private transient ArrayList<DTOBranchSpecificRep> branchSpecificRep;
 
 	public enum Key {
 		/**
@@ -365,4 +366,12 @@ public class DTOScenario extends DTO<DTOPeriod> {
 		return isCalculated;
 	}
 
+	public ArrayList<DTOBranchSpecificRep> getBranchSpecificRep() {
+		return branchSpecificRep;
+	}
+
+	public void setBranchSpecificRep(
+			ArrayList<DTOBranchSpecificRep> branchSpecificRep) {
+		this.branchSpecificRep = branchSpecificRep;
+	}
 }
