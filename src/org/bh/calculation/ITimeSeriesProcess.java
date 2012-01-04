@@ -64,7 +64,7 @@ public interface ITimeSeriesProcess extends IDisplayablePlugin{
 
 	void updateParameters();
 
-	TreeMap<Integer, Double> calculate();
+	TreeMap<Integer, Double> calculate(boolean branchSpecific);
 	
 	TreeMap<Integer, Double>[]  calculateCompare(int p);
 

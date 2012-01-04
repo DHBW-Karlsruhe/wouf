@@ -154,7 +154,7 @@ public class BranchSpecificRepresentative implements ITimeSeriesProcess {
 	}
 
 	@Override
-	public TreeMap<Integer, Double> calculate() {
+	public TreeMap<Integer, Double> calculate(boolean branchSpecific) {
 		// TODO Auto-generated method stub
 		throw new UnsupportedOperationException("This method has not been implemented");
 	}

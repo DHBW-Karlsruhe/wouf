@@ -15,13 +15,12 @@
  *******************************************************************************/
 package org.bh.data.types;
 
-import java.text.DecimalFormat;
 import java.util.Collection;
 import java.util.Iterator;
 import java.util.Map;
+import java.util.Map.Entry;
 import java.util.Set;
 import java.util.TreeMap;
-import java.util.Map.Entry;
 
 import org.apache.log4j.Logger;
 import org.bh.calculation.ITimeSeriesProcess;
@@ -47,7 +46,7 @@ public class DistributionMap implements Map<Double, Integer>,
 	private final int MAXIMUM_AMOUNT_OF_DIFFERENT_VALUES = 50; 
 	private double tolerance;
 	private TreeMap<Double, Integer> map;
-	
+
 	private int amountOfValues;
 	private double sumOfValues;
 	private int amountOfDifferentValues;
@@ -58,6 +57,17 @@ public class DistributionMap implements Map<Double, Integer>,
 	private ITimeSeriesProcess TSprocess;
 	private boolean TimeSeries;
 
+	
+	//TODO evaluate whether this is the right way to do this.
+	private TreeMap<Double, Integer> mapBSR;
+//	private int amountOfValuesBSR;
+//	private double sumOfValuesBSR;
+//	private int amountOfDifferentValuesBSR;
+	//only for displaying purpose
+	private int maxAmountOfValuesInClusterBSR;
+	private TreeMap<Integer, Double> TimeSeriesMapBSR;
+	private TreeMap<Integer, Double>[] TimeSeriesMapCompareBSR;
+//	private ITimeSeriesProcess TSprocessBSR;
 	/**
 	 * The constructor for the distribution map.
 	 * 
@@ -377,7 +387,9 @@ public class DistributionMap implements Map<Double, Integer>,
 	public Object[][] toObjectArrayTS(){
 		Object[][] result2 = new Object[TimeSeriesMap.keySet().size()][2];
 		int j = 0;
-		DecimalFormat f = new DecimalFormat("#0.00");
+		
+//		DecimalFormat f = new DecimalFormat("#0.00");
+		
 		for(Entry<Integer, Double> e : TimeSeriesMap.entrySet()){
 			result2[j][0] = e.getKey();
 //			double value = Math.round((e.getValue()*100)/100);
@@ -412,5 +424,52 @@ public class DistributionMap implements Map<Double, Integer>,
 		}
 		return result2;
 		
+	}
+
+	//TODO newly added... new functionality needed?
+	
+	public TreeMap<Double, Integer> getMapBSR() {
+		return mapBSR;
+	}
+
+	public void setMapBSR(TreeMap<Double, Integer> mapBSR) {
+		this.mapBSR = mapBSR;
+	}
+
+	public int getMaxAmountOfValuesInClusterBSR() {
+		return maxAmountOfValuesInClusterBSR;
+	}
+
+	public void setMaxAmountOfValuesInClusterBSR(int maxAmountOfValuesInClusterBSR) {
+		this.maxAmountOfValuesInClusterBSR = maxAmountOfValuesInClusterBSR;
+	}
+
+	public TreeMap<Integer, Double> getTimeSeriesMapBSR() {
+		return TimeSeriesMapBSR;
+	}
+
+	public void setTimeSeriesMapBSR(TreeMap<Integer, Double> timeSeriesMapBSR) {
+		TimeSeriesMapBSR = timeSeriesMapBSR;
+	}
+
+	public TreeMap<Integer, Double>[] getTimeSeriesMapCompareBSR() {
+		return TimeSeriesMapCompareBSR;
+	}
+
+	public void setTimeSeriesMapCompareBSR(
+			TreeMap<Integer, Double>[] timeSeriesMapCompareBSR) {
+		TimeSeriesMapCompareBSR = timeSeriesMapCompareBSR;
+	}
+	
+	public TreeMap<Double, Integer> getMap() {
+		return map;
+	}
+
+	public TreeMap<Integer, Double> getTimeSeriesMap() {
+		return TimeSeriesMap;
+	}
+
+	public TreeMap<Integer, Double>[] getTimeSeriesMapCompare() {
+		return TimeSeriesMapCompare;
 	}
 }

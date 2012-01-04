@@ -175,7 +175,8 @@ public class ScenarioController extends InputController {
 						
 						DTOCompany branchSpecificRep = null;
 						for(IBranchSpecificCalculator calculator : calculators){
-//								branchSpecificRep = calculator.calculateBSR(businessData);		
+							//TODO anpassen?
+//								branchSpecificRep = calculator.calculateBSR(businessData).get(1);		
 						}
 						scenario.setBranchSpecificRep(branchSpecificRep);
 
@@ -707,7 +708,6 @@ public class ScenarioController extends InputController {
 					}
 					
 					process.updateParameters();//This one only writes the GUI Keys into internal keys
-					//TODO Check whether we have to calculate here with BSR data
 					DistributionMap result = process.calculate();
                     
 					// 12.12.2011: checks wether we got a result or not
@@ -725,8 +725,29 @@ public class ScenarioController extends InputController {
 						//The Panel contains all data necessary such as slope and standard deviation.
 						//TODO use the results
 						//TODO maybe manipulate data here, because it is normalized?!
+						
+						//TODO calculate CF with BSR here
 						process.calculateParameters(true);
 						DistributionMap resultBranchSpecificData = process.calculate();
+						
+						//Do branch specific calculation
+						TSprocess.updateParameters();
+						try{
+							
+							resultBranchSpecificData.setTimeSeries(TSprocess,
+								TSprocess.calculate(true),
+								TSprocess.calculateCompare(3));
+							
+							result.setMapBSR(resultBranchSpecificData.getMap());
+							result.setMaxAmountOfValuesInClusterBSR(resultBranchSpecificData.getMaxAmountOfValuesInCluster());
+							result.setTimeSeriesMapBSR(resultBranchSpecificData.getTimeSeriesMap());
+							result.setTimeSeriesMapCompareBSR(result.getTimeSeriesMapCompare());
+						} catch (RuntimeException re){
+							Logger.getLogger(getClass()).fatal("Calculation of matrix in time series failed!", re);
+							b.doClick(); //Simulate interrupt click
+							BHOptionPane.showMessageDialog(bhTree, BHTranslator.getInstance().translate("ExTimeSeriesAnalysisSingularMatrix"), "Error", JOptionPane.ERROR_MESSAGE);
+							return new JPanel();
+						}
 					}
 					
 					if (timeSeries.isSelected()) {
@@ -737,9 +758,8 @@ public class ScenarioController extends InputController {
 						TSprocess.setProgressB(progressBar);
 						TSprocess.updateParameters();
 						try{
-							//TODO calculate CF with BSR here
 							result.setTimeSeries(TSprocess,
-								TSprocess.calculate(),
+								TSprocess.calculate(false),
 								TSprocess.calculateCompare(3));
 						} catch (RuntimeException re){
 							Logger.getLogger(getClass()).fatal("Calculation of matrix in time series failed!", re);

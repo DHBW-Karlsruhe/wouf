@@ -224,7 +224,7 @@ public class RandomWalk implements IStochasticProcess {
 		map = new HashMap<String, Integer>();
 
 		TreeMap<DTOKeyPair, List<Calculable>> toBeDetermined = scenario
-				.getPeriodStochasticKeysAndValues(false);
+				.getPeriodStochasticKeysAndValues(branchSpecific);
 
 		JPanel result = new JPanel();
 

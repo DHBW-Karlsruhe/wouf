@@ -139,12 +139,12 @@ public class TimeSeries implements ITimeSeriesProcess {
 	}
 
 	@Override
-	public TreeMap<Integer, Double> calculate() {
+	public TreeMap<Integer, Double> calculate(boolean branchSpecific) {
 		// Berechnung für den Cashflow-Chart Vergangenheit bis in die Zukunft
 		TreeMap<Integer, Double> result = new TreeMap<Integer, Double>();
 
 		TreeMap<DTOKeyPair, List<Calculable>> periods = scenario
-				.getPeriodStochasticKeysAndValues(false);
+				.getPeriodStochasticKeysAndValues(branchSpecific);
 		Entry<DTOKeyPair, List<Calculable>> cashfl = periods.firstEntry();
 
 		List<Calculable> cashValues = cashfl.getValue();

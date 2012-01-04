@@ -236,7 +236,7 @@ public class WienerProcess implements IStochasticProcess {
 		internalMap = new HashMap<String, Double>();
 		map = new HashMap<String, Integer>();
 		TreeMap<DTOKeyPair, List<Calculable>> toBeDetermined = scenario
-				.getPeriodStochasticKeysAndValues(false);
+				.getPeriodStochasticKeysAndValues(branchSpecific);
 
 		JPanel result = new JPanel();
 
