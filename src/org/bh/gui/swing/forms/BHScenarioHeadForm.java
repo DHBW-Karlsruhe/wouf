@@ -367,7 +367,9 @@ public final class BHScenarioHeadForm extends JPanel{
 	public JLabel getlpercentEquity() {
 
 		if (this.lpercentequity == null) {
-			this.lpercentequity = new BHDescriptionLabel("%  (14)", DTOScenario.Key.AVERAGEV);
+			this.lpercentequity = new BHDescriptionLabel(DTOScenario.Key.AVERAGEV);
+			this.lpercentequity.setText("%  (14)");
+			this.lpercentequity.setToolTipText(translator.translate(DTOScenario.Key.AVERAGEV));
 		}
 		return this.lpercentequity;
 	}
@@ -380,7 +382,9 @@ public final class BHScenarioHeadForm extends JPanel{
 	public JLabel getlpercentDept() {
 
 		if (this.lpercentdept == null) {
-			this.lpercentdept = new BHDescriptionLabel("%  (10)", DTOScenario.Key.AVERAGEV);
+			this.lpercentdept = new BHDescriptionLabel(DTOScenario.Key.AVERAGEV);
+			this.lpercentdept.setText("%  (10)");
+			this.lpercentdept.setToolTipText(translator.translate(DTOScenario.Key.AVERAGEV));
 		}
 		return this.lpercentdept;
 	}
@@ -393,7 +397,9 @@ public final class BHScenarioHeadForm extends JPanel{
 	public JLabel getlpercentTrade() {
 
 		if (this.lpercenttrade == null) {
-			this.lpercenttrade = new BHDescriptionLabel("%  (3,5)", DTOScenario.Key.AVERAGEV);
+			this.lpercenttrade = new BHDescriptionLabel(DTOScenario.Key.AVERAGEV);
+			this.lpercenttrade.setText("%  (3,5)");
+			this.lpercenttrade.setToolTipText(translator.translate(DTOScenario.Key.AVERAGEV));
 		}
 		return this.lpercenttrade;
 	}
@@ -406,7 +412,9 @@ public final class BHScenarioHeadForm extends JPanel{
 	public JLabel getlpercentCorporate() {
 
 		if (this.lpercentcorporate == null) {
-			this.lpercentcorporate = new BHDescriptionLabel("%  (15)", DTOScenario.Key.AVERAGEV);
+			this.lpercentcorporate = new BHDescriptionLabel(DTOScenario.Key.AVERAGEV);
+			this.lpercentcorporate.setText("%  (15)");
+			this.lpercentcorporate.setToolTipText(translator.translate(DTOScenario.Key.AVERAGEV));
 		}
 		return this.lpercentcorporate;
 	}
