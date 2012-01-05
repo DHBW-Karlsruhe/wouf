@@ -206,6 +206,8 @@ public final class BHStochasticInputForm extends JPanel {
 			this.cbrepresentative.setVisible(false);
 		}
 		
+		this.cbrepresentative.setPreferredSize(new Dimension(450,25));
+		
 		return this.cbrepresentative;
 	}
 	

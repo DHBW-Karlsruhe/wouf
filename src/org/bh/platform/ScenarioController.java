@@ -17,6 +17,7 @@ package org.bh.platform;
 
 import java.awt.Component;
 import java.awt.Container;
+import java.awt.Dimension;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.ItemEvent;
@@ -34,6 +35,8 @@ import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
+import javax.swing.event.PopupMenuEvent;
+import javax.swing.event.PopupMenuListener;
 
 import org.apache.log4j.Logger;
 import org.bh.calculation.IBranchSpecificCalculator;
@@ -421,7 +424,7 @@ public class ScenarioController extends InputController {
 		if(cbrepresentative != null){
 			ItemListener itemListener = new ItemListener() {
 			      public void itemStateChanged(ItemEvent itemEvent) {
-			    	//save chosen branche
+			    	//save selected branch
 			    	  if (itemEvent.getStateChange() == ItemEvent.SELECTED) {
 						DTOScenario scenario = (DTOScenario) getModel();
 						StringValue industry;
@@ -432,9 +435,7 @@ public class ScenarioController extends InputController {
 			      }
 			    };
 			    cbrepresentative.addItemListener(itemListener);
-			
 		}
-		
 		
 		// populate the ComboBoxes for branch specific representative
 		BHCheckBox cbbranchSpecificRepresentative = (BHCheckBox) view
@@ -487,14 +488,14 @@ public class ScenarioController extends InputController {
 							
 						}
 						
-						//save chosen branche
+						//save selected branch
 						DTOScenario scenario = (DTOScenario) getModel();
 						StringValue industry;
 						industry = new StringValue(cbrepresentative.getSelectedItem().toString());
 						scenario.put(DTOScenario.Key.INDUSTRY, industry);
 						
-						
-						/*PlatformController platformController = PlatformController.getInstance();
+						/*
+						PlatformController platformController = PlatformController.getInstance();
 						DTOBusinessData businessData = platformController.getBusinessDataDTO();
 						List<DTOBranch> branchList = businessData.getChildren();
 						Iterator<DTOBranch> itr = branchList.iterator(); 
@@ -505,11 +506,11 @@ public class ScenarioController extends InputController {
 				    		System.out.print(currBranch.get(DTOBranch.Key.BRANCH_KEY_MID_CATEGORY));
 				    		System.out.println(currBranch.get(DTOBranch.Key.BRANCH_KEY_SUB_CATEGORY));
 				    		
-				    		Item industry = new Item(currBranch.get(DTOBranch.Key.BRANCH_KEY_MAIN_CATEGORY).toString(), currBranch.get(DTOBranch.Key.BRANCH_KEY_MAIN_CATEGORY));
-				    		Item representative = new Item(currBranch.get(DTOBranch.Key.BRANCH_KEY_MID_CATEGORY).toString(), currBranch.get(DTOBranch.Key.BRANCH_KEY_MID_CATEGORY));
+				    		//Item industry = new Item(currBranch.get(DTOBranch.Key.BRANCH_KEY_MAIN_CATEGORY).toString(), currBranch.get(DTOBranch.Key.BRANCH_KEY_MAIN_CATEGORY));
+				    		//Item representative = new Item(currBranch.get(DTOBranch.Key.BRANCH_KEY_MID_CATEGORY).toString(), currBranch.get(DTOBranch.Key.BRANCH_KEY_MID_CATEGORY));
 				    		
-				    		cbindustry.addItem(industry);
-				    		cbrepresentative.addItem(representative);
+				    		//cbindustry.addItem(industry);
+				    		//cbrepresentative.addItem(representative);
 						}
 						*/
 					} else {
