@@ -13,6 +13,7 @@ import org.bh.data.DTOCompany;
 import org.bh.data.DTOPeriod;
 import org.bh.data.DTOScenario;
 import org.bh.data.types.DoubleValue;
+import org.bh.data.types.StringValue;
 
 /**
  * <short_description>
@@ -33,9 +34,16 @@ public class BranchSpecificCalculator implements IBranchSpecificCalculator {
 	public DTOCompany calculateBSR(DTOBusinessData businessData) {
 		DTOBranch currBranch = getSelectedBranch(businessData);
 
-		// echos the branch keys
-		System.out.println(currBranch
-				.get(DTOBranch.Key.BRANCH_KEY_MAIN_CATEGORY));
+		// ----------------------------------------------------------------------------
+		// !!!!!!!ACHTUNG !!!!!! zu Testzwecken die currBranche auf "M1033"
+		// setzen
+		currBranch.put(DTOBranch.Key.BRANCH_KEY_MAIN_CATEGORY, new StringValue(
+				"M"));
+		currBranch.put(DTOBranch.Key.BRANCH_KEY_MID_CATEGORY, new StringValue(
+				"10"));
+		currBranch.put(DTOBranch.Key.BRANCH_KEY_SUB_CATEGORY, new StringValue(
+				"33"));
+		// ----------------------------------------------------------------------------
 
 		// Do the Branch has Companies?
 		List<DTOCompany> companyList = currBranch.getChildren();
@@ -43,9 +51,6 @@ public class BranchSpecificCalculator implements IBranchSpecificCalculator {
 
 		while (CompanyItr.hasNext()) {
 			DTOCompany currCompany = CompanyItr.next();
-
-			// echo them
-			System.out.println("----" + currCompany.get(DTOCompany.Key.NAME));
 
 			// Norm all FCF-Period-Values
 			getNormedCFValue("", currCompany);
@@ -70,24 +75,26 @@ public class BranchSpecificCalculator implements IBranchSpecificCalculator {
 		DoubleValue helpFCF = null;
 		double helpDouble = 0;
 		double firstDouble = 0;
+		boolean firstPeriod = true;
 
 		// Do the Company has any Periods?
 		List<DTOPeriod> periodList = currCompany.getChildren();
 		Iterator<DTOPeriod> PeriodItr = periodList.iterator();
 
-		if (PeriodItr.hasNext()) {
-			DTOPeriod firstPeriod = PeriodItr.next();
-
-			// !!!! HERE: Insert a function to convert the CF and FCF
-			/*
-			 * 
-			 */
-
-			firstFCF = (DoubleValue) firstPeriod.get(DTOPeriod.Key.FCF);
-			firstDouble = firstFCF.getValue();
-		}
 		while (PeriodItr.hasNext()) {
 			DTOPeriod currPeriod = PeriodItr.next();
+			if (firstPeriod) {
+
+				// !!!! HERE: Insert a function to convert the CF and FCF
+				/*
+				 * 
+				 */
+
+				firstFCF = (DoubleValue) currPeriod.get(DTOPeriod.Key.FCF);
+				firstDouble = firstFCF.getValue();
+				firstPeriod = false;
+
+			}
 
 			// !!!! HERE: Insert a function to convert the CF and FCF
 			/*
@@ -108,7 +115,7 @@ public class BranchSpecificCalculator implements IBranchSpecificCalculator {
 			}
 
 		}
-
+		firstPeriod = true;
 	}
 
 	public DTOCompany getArithmeticAverage(String choice,
@@ -120,8 +127,11 @@ public class BranchSpecificCalculator implements IBranchSpecificCalculator {
 		double[] avgValues = new double[companiesAndPeriods[0].length];
 
 		// set name of branch
-		arithmeticAverage.put(DTOCompany.Key.NAME,
-				currNormedBranch.get(DTOBranch.Key.BRANCH_KEY_MID_CATEGORY));
+		String currKey = ""
+				+ (currNormedBranch.get(DTOBranch.Key.BRANCH_KEY_MAIN_CATEGORY))
+				+ (currNormedBranch.get(DTOBranch.Key.BRANCH_KEY_MID_CATEGORY))
+				+ (currNormedBranch.get(DTOBranch.Key.BRANCH_KEY_SUB_CATEGORY));
+		arithmeticAverage.put(DTOCompany.Key.NAME, new StringValue(currKey));
 
 		// Do the Branch has Companies?
 		List<DTOCompany> companyList = currNormedBranch.getChildren();
@@ -232,10 +242,6 @@ public class BranchSpecificCalculator implements IBranchSpecificCalculator {
 
 		DTOBranch currBranch = getSelectedBranch(businessData);
 
-		// echos the branch keys
-		System.out.println(currBranch
-				.get(DTOBranch.Key.BRANCH_KEY_MAIN_CATEGORY));
-
 		// Do the Branch has Companies?
 		List<DTOCompany> companyList = currBranch.getChildren();
 		Iterator<DTOCompany> CompanyItr = companyList.iterator();
@@ -248,8 +254,9 @@ public class BranchSpecificCalculator implements IBranchSpecificCalculator {
 			// echo them
 			System.out.println("----" + currCompany.get(DTOCompany.Key.NAME));
 
-			// Norm all FCF-Period-Values
-			getNormedCFValue("", currCompany);
+			// Norm all FCF-Period-Values !!! AUSKOMMENTIERT, da CFs bereits
+			// normiert sind !!! --> ansonsten Fehler!!!
+			// getNormedCFValue("", currCompany);
 
 			List<DTOPeriod> periodList = currCompany.getChildren();
 			Iterator<DTOPeriod> periodItr = periodList.iterator();
@@ -306,7 +313,6 @@ public class BranchSpecificCalculator implements IBranchSpecificCalculator {
 	private double[][] getNumberOfCompaniesAndPeriods(DTOBranch currNormedBranch) {
 		int companyCounter = 0, periodCounter = 0;
 
-
 		List<DTOCompany> companyList = currNormedBranch.getChildren();
 		Iterator<DTOCompany> CompanyItr = companyList.iterator();
 		companyCounter = companyList.size();
@@ -315,9 +321,7 @@ public class BranchSpecificCalculator implements IBranchSpecificCalculator {
 		List<DTOPeriod> periodList = currCompany.getChildren();
 		periodCounter = periodList.size();
 
-
 		return new double[companyCounter][periodCounter];
 	}
-	
 
 }
