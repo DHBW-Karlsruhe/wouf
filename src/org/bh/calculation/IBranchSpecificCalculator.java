@@ -17,7 +17,7 @@ import org.bh.data.*;
 
 public interface IBranchSpecificCalculator {
 	
-	ArrayList<DTOCompany> calculateBSR(DTOBusinessData businessData);
+	DTOCompany calculateBSR(DTOBusinessData businessData);
 	
 	/**
 	 * This method calculates the normed value of the cashflows based on the 
@@ -34,12 +34,13 @@ public interface IBranchSpecificCalculator {
 	 * @return arithmetic average
 	 */
 	
-	ArrayList<DTOCompany> getArithmeticAverage(String choice, DTOBusinessData businessDataNormed);
+	DTOCompany getArithmeticAverage(String choice, DTOBranch currNormedBranch);
 	
 	/**
 	 * This method calculates the rating of the branch.
 	 *
 	 */
 	double getRating();
+	
 
 }

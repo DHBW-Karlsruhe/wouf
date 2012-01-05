@@ -1,6 +1,8 @@
 package org.bh.plugin.branchSpecificRepresentative.calc;
 
-import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Calendar;
+import java.util.GregorianCalendar;
 import java.util.Iterator;
 import java.util.List;
 
@@ -28,8 +30,7 @@ public class BranchSpecificCalculator implements IBranchSpecificCalculator {
 	private static double ratingBSR;
 	private static DTOBranch selectedBranch = null;
 
-	public ArrayList<DTOCompany> calculateBSR(
-			DTOBusinessData businessData) {
+	public DTOCompany calculateBSR(DTOBusinessData businessData) {
 		DTOBranch currBranch = getSelectedBranch(businessData);
 
 		// echos the branch keys
@@ -39,6 +40,7 @@ public class BranchSpecificCalculator implements IBranchSpecificCalculator {
 		// Do the Branch has Companies?
 		List<DTOCompany> companyList = currBranch.getChildren();
 		Iterator<DTOCompany> CompanyItr = companyList.iterator();
+
 		while (CompanyItr.hasNext()) {
 			DTOCompany currCompany = CompanyItr.next();
 
@@ -51,9 +53,9 @@ public class BranchSpecificCalculator implements IBranchSpecificCalculator {
 		}
 
 		// mit normierter BusinessData die Mittelwerte berechnen
-		ArrayList<DTOCompany> dtoBSRaverage = new ArrayList<DTOCompany>();
+		DTOCompany dtoBSRaverage = new DTOCompany();
 
-		dtoBSRaverage = getArithmeticAverage("", businessData);
+		dtoBSRaverage = getArithmeticAverage("", currBranch);
 
 		computeRating(dtoBSRaverage, businessData);
 
@@ -63,21 +65,34 @@ public class BranchSpecificCalculator implements IBranchSpecificCalculator {
 
 	public void getNormedCFValue(String choice, DTOCompany currCompany) {
 
+		DoubleValue firstFCF = null;
+		DoubleValue normedFCF = null;
+		DoubleValue helpFCF = null;
+		double helpDouble = 0;
+		double firstDouble = 0;
+
 		// Do the Company has any Periods?
 		List<DTOPeriod> periodList = currCompany.getChildren();
 		Iterator<DTOPeriod> PeriodItr = periodList.iterator();
-		DoubleValue firstFCF = null;
-		double firstDouble = 0;
-		DoubleValue helpFCF = null;
-		double helpDouble = 0;
-		DoubleValue normedFCF;
+
 		if (PeriodItr.hasNext()) {
 			DTOPeriod firstPeriod = PeriodItr.next();
+
+			// !!!! HERE: Insert a function to convert the CF and FCF
+			/*
+			 * 
+			 */
+
 			firstFCF = (DoubleValue) firstPeriod.get(DTOPeriod.Key.FCF);
 			firstDouble = firstFCF.getValue();
 		}
 		while (PeriodItr.hasNext()) {
 			DTOPeriod currPeriod = PeriodItr.next();
+
+			// !!!! HERE: Insert a function to convert the CF and FCF
+			/*
+			 * 
+			 */
 
 			helpFCF = (DoubleValue) currPeriod.get(DTOPeriod.Key.FCF);
 			helpDouble = helpFCF.getValue();
@@ -96,93 +111,125 @@ public class BranchSpecificCalculator implements IBranchSpecificCalculator {
 
 	}
 
-	public ArrayList<DTOCompany> getArithmeticAverage(String choice,
-			DTOBusinessData businessDataNormed) {
+	public DTOCompany getArithmeticAverage(String choice,
+			DTOBranch currNormedBranch) {
 
-		ArrayList<DTOCompany> arithmeticAverage = new ArrayList<DTOCompany>();
+		double[][] companiesAndPeriods = getNumberOfCompaniesAndPeriods(currNormedBranch);
+		DTOCompany arithmeticAverage = new DTOCompany();
+		double rowSum = 0;
+		double[] avgValues = new double[companiesAndPeriods[0].length];
 
-		// Iterate all Company DTOs
-		DTOBranch currBranch = getSelectedBranch(businessDataNormed);
+		// set name of branch
+		arithmeticAverage.put(DTOCompany.Key.NAME,
+				currNormedBranch.get(DTOBranch.Key.BRANCH_KEY_MID_CATEGORY));
 
-		// echos the branch keys
-		System.out.println(currBranch
-				.get(DTOBranch.Key.BRANCH_KEY_MAIN_CATEGORY));
-
-		//
 		// Do the Branch has Companies?
-		List<DTOCompany> companyList = currBranch.getChildren();
+		List<DTOCompany> companyList = currNormedBranch.getChildren();
 		Iterator<DTOCompany> CompanyItr = companyList.iterator();
-		int counter = 0;
-		double avgFCF[] = new double[companyList.size()];
+		int innerCompanyCounter = 0;
+
 		while (CompanyItr.hasNext()) {
 			DTOCompany currCompany = CompanyItr.next();
-			counter++;
 
-			// echo them
-			System.out.println("----" + currCompany.get(DTOCompany.Key.NAME));
-
-			//
 			// Do the Company has any Periods?
 			List<DTOPeriod> periodList = currCompany.getChildren();
 			Iterator<DTOPeriod> PeriodItr = periodList.iterator();
-			double sumFCF = 0;
 			DoubleValue helper = null;
-			int innerCounter = 0;
+			int innerPeriodCounter = 0;
+
 			while (PeriodItr.hasNext()) {
 				DTOPeriod currPeriod = PeriodItr.next();
 
-				// echo the name of the Period
-				System.out.println("---------"
-						+ currPeriod.get(DTOPeriod.Key.NAME));
 				helper = (DoubleValue) currPeriod.get(DTOPeriod.Key.FCF);
-				sumFCF = sumFCF + helper.getValue();
-				innerCounter++;
+				companiesAndPeriods[innerCompanyCounter][innerPeriodCounter] = helper
+						.getValue();
+				innerPeriodCounter++;
+
 			}
-			avgFCF[counter] = sumFCF / innerCounter;
+
+			innerCompanyCounter++;
 
 		}
-
-		double avgBranchFCF = 0;
-
-		// Durchschnittlicher FCF für eine Branche berechnen
 
 		if (choice == "") {
-			for (int i = 0; i <= avgFCF.length; i++) {
-				avgBranchFCF = avgBranchFCF + avgFCF[i];
+
+			for (int j = 0; j < companiesAndPeriods[0].length; j++) {
+
+				for (int i = 0; i < companiesAndPeriods.length; i++) {
+					rowSum = rowSum + companiesAndPeriods[i][j];
+				}
+
+				avgValues[j] = rowSum;
+
 			}
-			avgBranchFCF = avgBranchFCF / avgFCF.length;
+
+			// Mittelwert berechnen für einzelne Perioden
+
+			for (int i = 0; i < avgValues.length; i++) {
+				avgValues[i] = avgValues[i] / companiesAndPeriods.length;
+			}
 
 		} else {
-			// else-Routine --> gestutzter Mittelwert
 
-			// neues Array, da kleinster und größter Wert aus avgFCF
-			// "gelöscht" werden
-			double[] avgFCFcuted = new double[avgFCF.length - 2];
+			double[] helpSort = new double[companiesAndPeriods.length];
 
-			// avgFCF-Array aufsteigend sortieren
-			java.util.Arrays.sort(avgFCF);
+			// Werte in Zeile von klein nach groß sortieren
 
-			// kleinster und größter Wert weglassen und neues Array befüllen
-			for (int i = 0; i < avgFCF.length - 2; i++) {
-				avgFCFcuted[i] = avgFCF[i + 1];
-				avgBranchFCF = avgBranchFCF + avgFCFcuted[i];
+			for (int i = 0; i < companiesAndPeriods[0].length; i++) {
+
+				for (int j = 0; j < companiesAndPeriods.length; j++) {
+					helpSort[j] = companiesAndPeriods[j][i];
+				}
+
+				Arrays.sort(helpSort);
+
+				for (int j = 0; j < companiesAndPeriods.length; j++) {
+					companiesAndPeriods[j][i] = helpSort[j];
+				}
+
 			}
 
-			avgBranchFCF = avgBranchFCF / avgFCFcuted.length;
+			// Zeilenwerte addieren
+
+			for (int j = 0; j < companiesAndPeriods[0].length; j++) {
+
+				for (int i = 1; i < companiesAndPeriods.length - 1; i++) {
+					rowSum = rowSum + companiesAndPeriods[i][j];
+				}
+
+				avgValues[j] = rowSum;
+
+			}
+
+			// Mittelwert berechnen für einzelne Perioden
+
+			for (int i = 0; i < avgValues.length; i++) {
+				avgValues[i] = avgValues[i] / companiesAndPeriods.length - 2;
+			}
 
 		}
 
-		//TODO uncomment!!!
-//		arithmeticAverage.add(new DTOCompany(""
-//				+ currBranch.get(DTOBranch.Key.BRANCH_KEY_MAIN_CATEGORY),
-//				avgBranchFCF));
+		// Werte der DTOPeriods im DTOCompany setzen
+
+		DTOPeriod[] periods = new DTOPeriod[companiesAndPeriods[0].length];
+
+		Calendar cal = new GregorianCalendar();
+		int year = cal.get(Calendar.YEAR) - 2;
+
+		for (int i = 0; i < periods.length; i++) {
+			periods[i] = new DTOPeriod();
+			periods[i].put(DTOPeriod.Key.NAME, new DoubleValue(year - i));
+			periods[i].put(DTOPeriod.Key.FCF, new DoubleValue(avgValues[i]));
+			arithmeticAverage.addChild(periods[i]);
+		}
 
 		return arithmeticAverage;
 
 	}
 
-	private void computeRating(ArrayList<DTOCompany> branchSpecificRepresentative,DTOBusinessData businessData){
-			
+	private void computeRating(DTOCompany branchSpecificRepresentative,
+			DTOBusinessData businessData) {
+
 		DTOBranch currBranch = getSelectedBranch(businessData);
 
 		// echos the branch keys
@@ -192,9 +239,9 @@ public class BranchSpecificCalculator implements IBranchSpecificCalculator {
 		// Do the Branch has Companies?
 		List<DTOCompany> companyList = currBranch.getChildren();
 		Iterator<DTOCompany> CompanyItr = companyList.iterator();
-		
+
 		double result = 0;
-		
+
 		while (CompanyItr.hasNext()) {
 			DTOCompany currCompany = CompanyItr.next();
 
@@ -203,24 +250,28 @@ public class BranchSpecificCalculator implements IBranchSpecificCalculator {
 
 			// Norm all FCF-Period-Values
 			getNormedCFValue("", currCompany);
-			
+
 			List<DTOPeriod> periodList = currCompany.getChildren();
 			Iterator<DTOPeriod> periodItr = periodList.iterator();
-			
-			// iteriert über die einzelnen Perioden der Unternehmen der selektierten Branche
-			// zur Güteberechnung des vorher berechneten, branchenspezifischen Vertreters
-			for (int count = 0; periodItr.hasNext(); count++){
+
+			// iteriert über die einzelnen Perioden der Unternehmen der
+			// selektierten Branche
+			// zur Güteberechnung des vorher berechneten, branchenspezifischen
+			// Vertreters
+			for (int count = 0; periodItr.hasNext(); count++) {
 				DTOPeriod currPeriod = periodItr.next();
-				
-				DoubleValue normedCFforPeriod = (DoubleValue) currPeriod.get(DTOPeriod.Key.FCF);
-				
-				//result = result + ( (normedCFforPeriod - [count]) * (normedCFforPeriod - BSR[count]) ); 
-				
+
+				DoubleValue normedCFforPeriod = (DoubleValue) currPeriod
+						.get(DTOPeriod.Key.FCF);
+
+				// result = result + ( (normedCFforPeriod - [count]) *
+				// (normedCFforPeriod - BSR[count]) );
+
 			}
 
 		}
 		result = result / (companyList.size());
-}
+	}
 
 	private DTOBranch getSelectedBranch(DTOBusinessData businessData) {
 		if (this.selectedBranch != null)
@@ -252,6 +303,21 @@ public class BranchSpecificCalculator implements IBranchSpecificCalculator {
 		return BranchSpecificCalculator.ratingBSR;
 	}
 
+	private double[][] getNumberOfCompaniesAndPeriods(DTOBranch currNormedBranch) {
+		int companyCounter = 0, periodCounter = 0;
 
+
+		List<DTOCompany> companyList = currNormedBranch.getChildren();
+		Iterator<DTOCompany> CompanyItr = companyList.iterator();
+		companyCounter = companyList.size();
+
+		DTOCompany currCompany = CompanyItr.next();
+		List<DTOPeriod> periodList = currCompany.getChildren();
+		periodCounter = periodList.size();
+
+
+		return new double[companyCounter][periodCounter];
+	}
+	
 
 }
