@@ -49,12 +49,11 @@ public final class BHStochasticInputForm extends JPanel {
 
 	private BHDescriptionLabel lstochprocess;
 	private BHDescriptionLabel ldcfMethod;
-	private BHDescriptionLabel lindustry;
+	//private BHDescriptionLabel lindustry;
 	private BHDescriptionLabel lrepresentative;
 	
 	private BHComboBox cbstochprocess;
 	private BHComboBox cbdcfMethod;
-	private BHComboBox cbindustry;
 	private BHComboBox cbrepresentative;
 	private BHCheckBox cbtimeSeriesProcess;
 	private BHCheckBox cbbranchSpecificRepresentative;
@@ -107,10 +106,8 @@ public final class BHStochasticInputForm extends JPanel {
 		this.add(this.getcbtimeSeriesProcess(), cons.xywh(10, 2, 1, 1));
 		this.add(this.getcbbranchSpecificRepresentative(), cons.xywh(12, 2, 2, 1));
 		
-		this.add(this.getlindustry(), cons.xywh(2, 4, 1, 1));
-		this.add(this.getcbindustry(), cons.xywh(4, 4, 1, 1));
-		this.add(this.getlrepresentative(), cons.xywh(6, 4, 1, 1));
-		this.add(this.getcbrepresentative(), cons.xywh(8, 4, 1, 1));
+		this.add(this.getlrepresentative(), cons.xywh(2, 4, 1, 1));
+		this.add(this.getcbrepresentative(), cons.xywh(4, 4, 1, 1));
 		
 		this.add(this.getlStochasticKeysList(), cons.xywh(2, 6, 8, 1));
 		
@@ -134,7 +131,7 @@ public final class BHStochasticInputForm extends JPanel {
 		return this.ldcfMethod;
 	}
 	
-	public BHDescriptionLabel getlindustry() {
+	/*public BHDescriptionLabel getlindustry() {
 		if (this.lindustry == null)
 			this.lindustry = new BHDescriptionLabel(DTOScenario.Key.LINDUSTRY);
 		
@@ -147,6 +144,7 @@ public final class BHStochasticInputForm extends JPanel {
 		
 		return this.lindustry;
 	}
+	*/
 	
 	public BHDescriptionLabel getlrepresentative() {
 		if (this.lrepresentative == null)
@@ -179,7 +177,7 @@ public final class BHStochasticInputForm extends JPanel {
 		return this.cbstochprocess;
 	}
 	
-	public BHComboBox getcbindustry() {
+	/*public BHComboBox getcbindustry() {
 		if (this.cbindustry == null) {
 			this.cbindustry = new BHComboBox(DTOScenario.Key.INDUSTRY);
 		}
@@ -192,7 +190,8 @@ public final class BHStochasticInputForm extends JPanel {
 		}
 		
 		return this.cbindustry;
-	}
+	}*/
+	
 	
 	public BHComboBox getcbrepresentative() {
 		if (this.cbrepresentative == null) {
@@ -208,6 +207,7 @@ public final class BHStochasticInputForm extends JPanel {
 		
 		return this.cbrepresentative;
 	}
+	
 	
 	public BHCheckBox getcbtimeSeriesProcess() {
 		if (this.cbtimeSeriesProcess == null) {

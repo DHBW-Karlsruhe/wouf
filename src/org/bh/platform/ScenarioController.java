@@ -38,6 +38,7 @@ import org.bh.calculation.IBranchSpecificCalculator;
 import org.bh.calculation.IShareholderValueCalculator;
 import org.bh.calculation.IStochasticProcess;
 import org.bh.calculation.ITimeSeriesProcess;
+import org.bh.companydata.importExport.INACEImport;
 import org.bh.controller.IPeriodController;
 import org.bh.controller.InputController;
 import org.bh.data.DTOBranch;
@@ -411,7 +412,7 @@ public class ScenarioController extends InputController {
 			});
 		}
 		
-		// populate the ComboBox for branch specific representative
+		// populate the ComboBoxes for branch specific representative
 		BHCheckBox cbbranchSpecificRepresentative = (BHCheckBox) view
 		.getBHComponent(DTOScenario.Key.BRANCH_SPECIFIC);
 		
@@ -424,28 +425,45 @@ public class ScenarioController extends InputController {
 //							.getSource()).getParent();
 					
 					//For branch specific representative
-					BHComboBox cbindustry = (BHComboBox) view.getBHComponent(DTOScenario.Key.INDUSTRY);
 					BHComboBox cbrepresentative = (BHComboBox) view.getBHComponent(DTOScenario.Key.REPRESENTATIVE);
 					BHDescriptionLabel lrepresentative = (BHDescriptionLabel) view.getBHComponent(DTOScenario.Key.LREPRESENTATIVE);
-					BHDescriptionLabel lindustry = (BHDescriptionLabel) view.getBHComponent(DTOScenario.Key.LINDUSTRY);
 
 					
 					if (from.isSelected()) {
-						if(cbindustry != null){
-							cbindustry.setVisible(true);
-						}
 						if(cbrepresentative != null){
 							cbrepresentative.setVisible(true);
 						}
 						if (lrepresentative != null){
 							lrepresentative.setVisible(true);
 						}
-						if (lindustry != null){
-							lindustry.setVisible(true);
-						}
 						
 						//cbindustry und cbrepresentative mit Daten befüllen
-						PlatformController platformController = PlatformController.getInstance();
+						INACEImport naceReader = Services.getNACEReader();
+						Map<String, String> branches = naceReader.getBranch();
+						
+						cbrepresentative.removeAllItems();
+						for (Map.Entry<String, String> entry : branches.entrySet()) {
+							if(entry.getKey().length() == 1){
+								cbrepresentative.addItem(entry.getKey() + ": " + entry.getValue());
+								
+								for (Map.Entry<String, String> entry1 : branches.entrySet()) {
+									if(entry1.getKey().length() == 4 && entry1.getKey().substring(0, 1).equals(entry.getKey())){
+										cbrepresentative.addItem("-" + entry1.getKey() + ": " + entry1.getValue());
+										
+										for (Map.Entry<String, String> entry2 : branches.entrySet()) {
+											if(entry2.getKey().length() > 4 && entry2.getKey().substring(0, 4).equals(entry1.getKey())){
+												cbrepresentative.addItem("--" + entry2.getKey() + ": " + entry2.getValue());
+											}
+											
+										}
+									}
+									
+								}
+							}
+							
+						}
+						
+						/*PlatformController platformController = PlatformController.getInstance();
 						DTOBusinessData businessData = platformController.getBusinessDataDTO();
 						List<DTOBranch> branchList = businessData.getChildren();
 						Iterator<DTOBranch> itr = branchList.iterator(); 
@@ -462,23 +480,19 @@ public class ScenarioController extends InputController {
 				    		cbindustry.addItem(industry);
 				    		cbrepresentative.addItem(representative);
 						}
+						*/
 					} else {
-						if(cbindustry != null){
-							cbindustry.setVisible(false);
-						}
 						if(cbrepresentative != null){
 							cbrepresentative.setVisible(false);
 						}
 						if (lrepresentative != null){
 							lrepresentative.setVisible(false);
 						}
-						if (lindustry != null){
-							lindustry.setVisible(false);
-						}
 					}
 				}
 			});
 		}
+		
 	}
 
 	private static Item[] getStochasticDcfMethodItems() {
