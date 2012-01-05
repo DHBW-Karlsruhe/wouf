@@ -3,34 +3,32 @@ package org.bh.companydata.importExport;
 import java.util.HashMap;
 
 /**
- * <short_description>
+ * 
+ * Interface for the branch import and the branch translation task
  *
- * <p>
- * <detailed_description>
- *
- * @author Matze
+ * @author Matthias Beste
  * @version 1.0, 04.01.2012
  *
  */
 public interface INACEImport {
 	
 	/**
-	 * 
-	 * @param midCat
-	 * @param subCat
-	 * @return
+	 * get the translation for a specific branch
+	 * @param midCat branch key e.g. "AA"
+	 * @param subCat branch key e.g. "01"
+	 * @return translated branch name
 	 */
 	String getName(String firstCat, String midCat, String subCat);
 
 	/**
-	 * 
-	 * @return
+	 * provides all branches of the first three NACE-level.
+	 * @return hashmap with branch id as key and branch name as value
 	 */
 	HashMap<String, String> getBranch();
 	
 	/**
 	 * 
-	 * @return
+	 * @return instance of INACEImport
 	 */
 	INACEImport createNewInstance();
 }

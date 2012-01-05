@@ -21,13 +21,14 @@ import org.bh.platform.i18n.BHTranslator;
 
 /**
  * <short_description>
- * 
+ * Provides a translation for a given branch.
+ * Provides all branches of the first three NACE-level.
  * <p>
  * <detailed_description>
- * This class provides the functionality to read out the name of a branch from a conveyed branch id
- * out of a provided XML file. There are files in English and German for the translation functionality. 
- * Additionally you can read out all branches belonging to a specific NACE-level.
- * @author Matze
+ * This class provides the functionality to read the name of a branch identified by category keys
+ * out of a provided XML file. There are XML files in English and German for the translation functionality. 
+ * Additionally you can read out all branches belonging to the first three NACE-level.
+ * @author Matthias Beste
  * @version 1.0, 02.01.2012
  * 
  */
@@ -43,17 +44,20 @@ public class ReadNACE implements INACEImport, IPlatformListener{
 	private static String DE_FILE = "src/org/bh/companydata/nace/de.xml";
 	private static String EN_FILE = "src/org/bh/companydata/nace/en.xml";
 	
+//	add a platform listener
 	public ReadNACE(){
 		Services.addPlatformListener(this);
 	}
+	
 	
 	public ReadNACE(String importFilePath) {
 		super();
 		this.importFile = new File(importFilePath);
 	}
 
-	// Parse XML Document
-	// Create a SAX builder object to parse the xml document
+//	Parse XML Document
+//	Create a SAX builder object to parse the xml document
+//	get the current language and define the required xml file
 	public void parseXML() {
 		if(locale == null){
 			locale = BHTranslator.getLoc();
@@ -83,23 +87,23 @@ public class ReadNACE implements INACEImport, IPlatformListener{
 	}
 	
 	@Override
+//	get the translation for a given branch
 	public String getName(String firstCat, String midCat, String subCat){
 
 		parseXML();
-		
 		branchIdentifier = midCat + "."+ subCat;
 		
 		classification = claset.getFirstChildElement("Classification");
 		if (classification != null)
 		{
-			
+//		get all branches
 			Elements Item = classification.getChildElements("Item");
 			int anzahl = Item.size();
 			for (int i=0; i<anzahl; i++) {
 				anItem = (Element) Item.get(i);
 				idValue = anItem.getAttributeValue("id");
 				
-				
+//				compare the branches' id's with the branchIdentifier
 				if(idValue.equals(branchIdentifier)){
 					label = anItem.getFirstChildElement("Label");
 					labelText = label.getFirstChildElement("LabelText");
@@ -124,6 +128,8 @@ public class ReadNACE implements INACEImport, IPlatformListener{
 		{
 //			first String: branch id, second String: branch name
 			hirarchicalItems = new HashMap<String, String>();
+			
+//			get all branches
 			Elements Item = classification.getChildElements("Item");
 			int count = Item.size();
 			
@@ -132,8 +138,10 @@ public class ReadNACE implements INACEImport, IPlatformListener{
 				idValue = anItem.getAttributeValue("id");
 				idLevelValue = anItem.getAttributeValue("idLevel");
 				
+//				only read the first three level
 				if(idLevelValue.equals("1") | idLevelValue.equals("2") |idLevelValue.equals("3")){
 				
+//					produce a hierarchical structure like in the xml
 					switch(Integer.parseInt(idLevelValue))
 						{
 						case 1:
@@ -150,8 +158,11 @@ public class ReadNACE implements INACEImport, IPlatformListener{
 				
 					label = anItem.getFirstChildElement("Label");
 					labelText = label.getFirstChildElement("LabelText");
+					
+//					get the name of the branch without leading spaces
 					branchName = labelText.getValue().trim();
 					
+//					save in the hashmap
 					hirarchicalItems.put(idValue, branchName);
 				}	
 					

@@ -21,7 +21,7 @@ public class NaceTest extends TestCase {
 		
 		ReadNACE naceobj = new ReadNACE("src/org/bh/companydata/nace/de.xml");
 		naceobj.parseXML();
-//		System.out.println("!" + naceobj.getName("01.11"));
+//		System.out.println(naceobj.getName("", "", "01"));
 		System.out.println(naceobj.getBranch());
 	}
 
