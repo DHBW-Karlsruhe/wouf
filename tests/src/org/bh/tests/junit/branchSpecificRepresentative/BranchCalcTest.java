@@ -36,10 +36,12 @@ public class BranchCalcTest extends TestCase {
 			BranchSpecificCalculator bsc = new BranchSpecificCalculator();
 			
 			// Branch-Specific-Representative ermitteln lassen (Normierung & Mittelwert)
-			ArrayList<DTOCompany> result = new ArrayList<DTOCompany>();
+			DTOCompany result = new DTOCompany();
 			
 //			
-// TODO wieder einklammern. Sorgt dafür, dass der Build fehlschlägt. Es schmeißt eine ArrayIndexOutOfBoundsException			result = bsc.calculateBSR(myDTO);
+// TODO wieder einklammern. Sorgt dafür, dass der Build fehlschlägt. Es schmeißt eine ArrayIndexOutOfBoundsException			
+			
+			result = bsc.calculateBSR(myDTO);
 			
 			// Ergebnisse ausgeben
 			Iterator it = result.iterator();
