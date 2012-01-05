@@ -16,6 +16,7 @@
 package org.bh.gui.swing.forms;
 
 import java.awt.Component;
+import java.awt.Dimension;
 
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;

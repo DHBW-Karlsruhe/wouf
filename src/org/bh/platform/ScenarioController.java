@@ -392,6 +392,8 @@ public class ScenarioController extends InputController {
 									.setEnabled(allValid);
 						} catch (ViewException e1) {
 						}
+						BHComboBox cbrepresentative1 = (BHComboBox) view.getBHComponent(DTOScenario.Key.REPRESENTATIVE);
+						cbrepresentative1.addItem(" ");
 
 					} else {
 						
@@ -413,6 +415,26 @@ public class ScenarioController extends InputController {
 				}
 			});
 		}
+		
+		BHComboBox cbrepresentative = (BHComboBox) view.getBHComponent(DTOScenario.Key.REPRESENTATIVE);
+		
+		if(cbrepresentative != null){
+			ItemListener itemListener = new ItemListener() {
+			      public void itemStateChanged(ItemEvent itemEvent) {
+			    	//save chosen branche
+			    	  if (itemEvent.getStateChange() == ItemEvent.SELECTED) {
+						DTOScenario scenario = (DTOScenario) getModel();
+						StringValue industry;
+						BHComboBox cbrepresentative = (BHComboBox) view.getBHComponent(DTOScenario.Key.REPRESENTATIVE);
+						industry = new StringValue(cbrepresentative.getSelectedItem().toString());
+						scenario.put(DTOScenario.Key.INDUSTRY, industry);
+			    	  }
+			      }
+			    };
+			    cbrepresentative.addItemListener(itemListener);
+			
+		}
+		
 		
 		// populate the ComboBoxes for branch specific representative
 		BHCheckBox cbbranchSpecificRepresentative = (BHCheckBox) view
@@ -502,22 +524,7 @@ public class ScenarioController extends InputController {
 			});
 		}
 		
-BHComboBox cbrepresentative = (BHComboBox) view.getBHComponent(DTOScenario.Key.REPRESENTATIVE);
-		
-		if(cbrepresentative != null){
-			ItemListener itemListener = new ItemListener() {
-			      public void itemStateChanged(ItemEvent itemEvent) {
-			    	//save chosen branche
-						DTOScenario scenario = (DTOScenario) getModel();
-						StringValue industry;
-						BHComboBox cbrepresentative = (BHComboBox) view.getBHComponent(DTOScenario.Key.REPRESENTATIVE);
-						industry = new StringValue(cbrepresentative.getSelectedItem().toString());
-						scenario.put(DTOScenario.Key.INDUSTRY, industry);
-			      }
-			    };
-			    cbrepresentative.addItemListener(itemListener);
-			
-		}
+
 		
 	}
 
