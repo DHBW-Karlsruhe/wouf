@@ -19,6 +19,8 @@ import java.awt.Component;
 import java.awt.Container;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.ItemEvent;
+import java.awt.event.ItemListener;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
@@ -463,6 +465,13 @@ public class ScenarioController extends InputController {
 							
 						}
 						
+						//save chosen branche
+						DTOScenario scenario = (DTOScenario) getModel();
+						StringValue industry;
+						industry = new StringValue(cbrepresentative.getSelectedItem().toString());
+						scenario.put(DTOScenario.Key.INDUSTRY, industry);
+						
+						
 						/*PlatformController platformController = PlatformController.getInstance();
 						DTOBusinessData businessData = platformController.getBusinessDataDTO();
 						List<DTOBranch> branchList = businessData.getChildren();
@@ -491,6 +500,23 @@ public class ScenarioController extends InputController {
 					}
 				}
 			});
+		}
+		
+BHComboBox cbrepresentative = (BHComboBox) view.getBHComponent(DTOScenario.Key.REPRESENTATIVE);
+		
+		if(cbrepresentative != null){
+			ItemListener itemListener = new ItemListener() {
+			      public void itemStateChanged(ItemEvent itemEvent) {
+			    	//save chosen branche
+						DTOScenario scenario = (DTOScenario) getModel();
+						StringValue industry;
+						BHComboBox cbrepresentative = (BHComboBox) view.getBHComponent(DTOScenario.Key.REPRESENTATIVE);
+						industry = new StringValue(cbrepresentative.getSelectedItem().toString());
+						scenario.put(DTOScenario.Key.INDUSTRY, industry);
+			      }
+			    };
+			    cbrepresentative.addItemListener(itemListener);
+			
 		}
 		
 	}
