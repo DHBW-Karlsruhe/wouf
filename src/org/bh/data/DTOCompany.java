@@ -15,6 +15,8 @@
  *******************************************************************************/
 package org.bh.data;
 
+import java.util.List;
+
 import org.apache.log4j.Logger;
 
 /**
@@ -46,6 +48,27 @@ public class DTOCompany extends  DTO<DTOPeriod> {
     /**
      * initialize key and method list
      */
+	
+	/**
+	 * We have to set all the previous references here! This is needed for the internal
+	 * calculation of the FCF
+	 * We also need to update the reference to the scenario here, to get all
+	 * the taxes within the calculation.
+	 */
+	public void updateReferences(DTOScenario scenario){
+		List<DTOPeriod> periods = getChildren();
+		
+		DTOPeriod current = null;
+		for(DTOPeriod period : periods){
+			if(current != null){
+				period.previous = current;
+			}
+			
+			period.scenario = scenario;
+			
+			current = period;
+		}
+	}
 
 	public DTOCompany() {
 		super(Key.class);		

@@ -46,6 +46,7 @@ import org.bh.calculation.ITimeSeriesProcess;
 import org.bh.companydata.importExport.INACEImport;
 import org.bh.controller.IPeriodController;
 import org.bh.controller.InputController;
+import org.bh.data.DTO;
 import org.bh.data.DTOBranch;
 import org.bh.data.DTOBusinessData;
 import org.bh.data.DTOCompany;
@@ -181,8 +182,9 @@ public class ScenarioController extends InputController {
 						
 						DTOCompany branchSpecificRep = null;
 						for(IBranchSpecificCalculator calculator : calculators){
-							//TODO anpassen?
-//								branchSpecificRep = calculator.calculateBSR(businessData).get(1);		
+							DTO.setThrowEvents(false);
+							branchSpecificRep = calculator.calculateBSR(businessData, scenario);		
+							DTO.setThrowEvents(true);
 						}
 						scenario.setBranchSpecificRep(branchSpecificRep);
 

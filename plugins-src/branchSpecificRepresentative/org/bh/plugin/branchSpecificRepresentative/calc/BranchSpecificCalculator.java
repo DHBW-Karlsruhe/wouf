@@ -6,7 +6,9 @@ import java.util.GregorianCalendar;
 import java.util.Iterator;
 import java.util.List;
 
+import org.apache.log4j.Logger;
 import org.bh.calculation.IBranchSpecificCalculator;
+import org.bh.data.DTOAccessException;
 import org.bh.data.DTOBranch;
 import org.bh.data.DTOBusinessData;
 import org.bh.data.DTOCompany;
@@ -30,10 +32,13 @@ public class BranchSpecificCalculator implements IBranchSpecificCalculator {
 
 	private static double ratingBSR;
 	private static DTOBranch selectedBranch = null;
+	private DTOScenario scenario = null;
 
-	public DTOCompany calculateBSR(DTOBusinessData businessData) {
+	public DTOCompany calculateBSR(DTOBusinessData businessData, DTOScenario scenario) {
 		DTOBranch currBranch = getSelectedBranch(businessData);
 
+		this.scenario = scenario;
+		
 		// ----------------------------------------------------------------------------
 		// !!!!!!!ACHTUNG !!!!!! zu Testzwecken die currBranche auf "M1033"
 		// setzen
@@ -77,29 +82,35 @@ public class BranchSpecificCalculator implements IBranchSpecificCalculator {
 		double firstDouble = 0;
 		boolean firstPeriod = true;
 
+		//update References in company.
+		currCompany.updateReferences(scenario);
+		
 		// Do the Company has any Periods?
 		List<DTOPeriod> periodList = currCompany.getChildren();
 		Iterator<DTOPeriod> PeriodItr = periodList.iterator();
 
+		int i = 0;
 		while (PeriodItr.hasNext()) {
 			DTOPeriod currPeriod = PeriodItr.next();
+			
+			// Berechnung der richtigen Unternehmensdaten
+			try{
+				currPeriod.put(DTOPeriod.Key.FCF, currPeriod.getFCF());
+			} catch (DTOAccessException dtoaccess){
+				if(i > 0){
+					Logger.getLogger(BranchSpecificCalculator.class).error("Period not readable " + currCompany.get(DTOCompany.Key.NAME) + " year: " + currPeriod.get(DTOPeriod.Key.NAME), dtoaccess);
+					currPeriod.put(DTOPeriod.Key.FCF, new DoubleValue(0.0));
+				}
+			}
+			currPeriod.put(DTOPeriod.Key.LIABILITIES, currPeriod.getLiabilities());
+			
 			if (firstPeriod) {
-
-				// !!!! HERE: Insert a function to convert the CF and FCF
-				/*
-				 * 
-				 */
 
 				firstFCF = (DoubleValue) currPeriod.get(DTOPeriod.Key.FCF);
 				firstDouble = firstFCF.getValue();
 				firstPeriod = false;
 
 			}
-
-			// !!!! HERE: Insert a function to convert the CF and FCF
-			/*
-			 * 
-			 */
 
 			helpFCF = (DoubleValue) currPeriod.get(DTOPeriod.Key.FCF);
 			helpDouble = helpFCF.getValue();
@@ -113,8 +124,10 @@ public class BranchSpecificCalculator implements IBranchSpecificCalculator {
 				currPeriod.put(DTOPeriod.Key.FCF, normedFCF);
 
 			}
-
+			
+			i++;
 		}
+		
 		firstPeriod = true;
 	}
 

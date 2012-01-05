@@ -58,7 +58,7 @@ public class BranchCalcTest extends TestCase {
 
 			// Branchspezifischen Vertreter ermitteln (= normieren der CFs &
 			// Mittelwertsberechnung (normal/gestutzt))
-			result = bsc.calculateBSR(myDTO);
+			result = bsc.calculateBSR(myDTO, null);
 
 		} catch (XMLNotValidException e) {
 			e.printStackTrace();

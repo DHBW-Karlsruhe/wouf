@@ -319,6 +319,10 @@ public class DTOScenario extends DTO<DTOPeriod> {
 			for (DTOPeriod period : children) {
 				IPeriodicalValuesDTO periodValuesDto = period
 					.getPeriodicalValuesDTO(key.getDtoId());
+				if(periodValuesDto == null && branchSpecific == true){
+					log.error("Fehler bei CashFlow - Analyse; Periode: " + period.get(DTOPeriod.Key.NAME));
+					continue;
+				}
 				pastValues.add(periodValuesDto.getCalculable(key.getKey()));
 			}
 			map.put(key, pastValues);

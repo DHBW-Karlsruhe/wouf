@@ -235,6 +235,12 @@ public class TimeSeriesCalculator_v3 {
 
 		double varianz = kalkuliereTrendbereinigungVarianz(
 				cashflows_manipuliert, kalkuliereStriche(cashflows_manipuliert));
+		
+		//TODO This is just a QUICK FIX REMOVE! FIND BETTER SOLUTION!
+		if(varianz == 0.0){
+			varianz = 0.01;
+		}
+		
 		List<Calculable> weisses_Rauschen = null;
 		double nextCashflow = 0;
 
