@@ -47,7 +47,9 @@ public enum PlatformKey{
 	HELPMATHHELP("MmathHelp"),
 	HELPINFO("Minfo"),
 	HELPDEBUG("Mdebug"),
-	MAINTAIN_COMPANY_DATA("MMaintainCompData"),
+	MAINTAIN_COMPANY_DATA("MmaintainCompData"),
+	EXPORT_COMPANY_DATA("MexportCompanyData"), 
+	IMPORT_COMPANY_DATA("MimportCompanyData"),
 	
 	/*--------------------------------
 	 * ActionKeys of PlatformToolbar
