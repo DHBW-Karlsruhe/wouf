@@ -22,6 +22,7 @@ import java.util.ListIterator;
 
 import org.apache.commons.math.MathException;
 import org.apache.commons.math.distribution.NormalDistributionImpl;
+import org.apache.log4j.Logger;
 import org.bh.data.types.Calculable;
 import org.bh.data.types.DoubleValue;
 import org.bh.gui.swing.comp.BHProgressBar;
@@ -235,11 +236,6 @@ public class TimeSeriesCalculator_v3 {
 
 		double varianz = kalkuliereTrendbereinigungVarianz(
 				cashflows_manipuliert, kalkuliereStriche(cashflows_manipuliert));
-		
-		//TODO This is just a QUICK FIX REMOVE! FIND BETTER SOLUTION!
-		if(varianz == 0.0){
-			varianz = 0.01;
-		}
 		
 		List<Calculable> weisses_Rauschen = null;
 		double nextCashflow = 0;
@@ -521,6 +517,7 @@ public class TimeSeriesCalculator_v3 {
 		 * Initalisierung
 		 */
 		List<Calculable> cListe = new LinkedList<Calculable>(); //return-Liste
+//		Logger.getLogger(TimeSeriesCalculator_v3.class).debug("Periods in history: " + periods_calc_to_history);
 		double[][] arrayA = new  double[periods_calc_to_history][periods_calc_to_history];
 		double[] arrayB = new double [periods_calc_to_history];
 		double[][] arrayLoesung = null;

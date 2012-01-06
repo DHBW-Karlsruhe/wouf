@@ -317,13 +317,22 @@ public class DTOScenario extends DTO<DTOPeriod> {
 			}
 			
 			for (DTOPeriod period : children) {
-				IPeriodicalValuesDTO periodValuesDto = period
+				if(!branchSpecific){
+					IPeriodicalValuesDTO periodValuesDto = period
 					.getPeriodicalValuesDTO(key.getDtoId());
-				if(periodValuesDto == null && branchSpecific == true){
-					log.error("Fehler bei CashFlow - Analyse; Periode: " + period.get(DTOPeriod.Key.NAME));
-					continue;
+					pastValues.add(periodValuesDto.getCalculable(key.getKey()));
+				} else {
+					if(key.getKey().endsWith("FCF")){
+						pastValues.add(((Calculable) period.get(DTOPeriod.Key.FCF) ));
+					} else {
+						log.debug("Wrong key!!! " + key.getKey());
+					}
 				}
-				pastValues.add(periodValuesDto.getCalculable(key.getKey()));
+//				if(periodValuesDto == null && branchSpecific == true){
+//					log.error("Fehler bei CashFlow - Analyse; Periode: " + period.get(DTOPeriod.Key.NAME));
+//					continue;
+//				}
+				
 			}
 			map.put(key, pastValues);
 		}
