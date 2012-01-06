@@ -5,12 +5,10 @@ import org.bh.plugin.branchSpecificRepresentative.nace.ReadNACE;
 import junit.framework.TestCase;
 
 /**
- * <short_description>
+ * This is just a test!
+ * DO NOT USE! THIS IS NOT A UNIT TEST!
  *
- * <p>
- * <detailed_description>
- *
- * @author Matze
+ * @author Matthias Beste
  * @version 1.0, 03.01.2012
  *
  */
@@ -21,8 +19,9 @@ public class NaceTest extends TestCase {
 		
 		ReadNACE naceobj = new ReadNACE("src/org/bh/companydata/nace/de.xml");
 		naceobj.parseXML();
-//		System.out.println(naceobj.getName("", "", "01"));
-		System.out.println(naceobj.getBranch());
+//		two of the following parameters need to have an empty String
+		System.out.println(naceobj.getName("", "", "05"));
+//		System.out.println(naceobj.getBranch());
 	}
 
 }

@@ -91,7 +91,15 @@ public class ReadNACE implements INACEImport, IPlatformListener{
 	public String getName(String firstCat, String midCat, String subCat){
 
 		parseXML();
-		branchIdentifier = midCat + "."+ subCat;
+//		two categories need to have an empty String
+		if(midCat.equals("") & subCat.equals(""))
+			branchIdentifier = firstCat;
+		else if(firstCat.equals("") & subCat.equals(""))
+			branchIdentifier = midCat;
+		else if(firstCat.equals("") & midCat.equals(""))
+			branchIdentifier = subCat;
+		else
+			return null;
 		
 		classification = claset.getFirstChildElement("Classification");
 		if (classification != null)
