@@ -108,7 +108,7 @@ public final class BHStochasticInputForm extends JPanel {
 		this.add(this.getcbbranchSpecificRepresentative(), cons.xywh(12, 2, 2, 1));
 		
 		this.add(this.getlrepresentative(), cons.xywh(2, 4, 1, 1));
-		this.add(this.getcbrepresentative(), cons.xywh(4, 4, 1, 1));
+		this.add(this.getcbrepresentative(), cons.xywh(4, 4, 8, 1));
 		
 		this.add(this.getlStochasticKeysList(), cons.xywh(2, 6, 8, 1));
 		
