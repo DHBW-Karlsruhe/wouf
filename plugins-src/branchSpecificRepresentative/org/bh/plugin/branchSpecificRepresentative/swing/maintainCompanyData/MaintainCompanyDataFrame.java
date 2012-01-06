@@ -50,13 +50,13 @@ public class MaintainCompanyDataFrame extends BHPopupFrame implements ActionList
 	 */
 	private static final long serialVersionUID = -6127674860072304710L;
 
-//	private MaintainCompanyBar menuBar;
+	private MaintainCompanyBar menuBar;
 	
 	public MaintainCompanyDataFrame(){
 		super();
 		
-//		menuBar = new MaintainCompanyBar();
-//		this.setJMenuBar(menuBar);
+		menuBar = new MaintainCompanyBar();
+		this.setJMenuBar(menuBar);
 		
 	}
 	
