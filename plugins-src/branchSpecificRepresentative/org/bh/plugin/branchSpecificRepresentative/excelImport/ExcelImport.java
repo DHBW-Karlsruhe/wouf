@@ -12,7 +12,7 @@
  * You should have received a copy of the GNU General Public License along with this program.  If not, see <http://www.gnu.org/licenses/>.
  *******************************************************************************/
 package org.bh.plugin.branchSpecificRepresentative.excelImport;
-
+/*
 import java.io.File;
 import java.io.IOException;
 import java.util.HashSet;
@@ -38,17 +38,21 @@ import org.bh.platform.Services;
 import org.bh.plugin.gcc.data.DTOGCCBalanceSheet;
 import org.bh.plugin.gcc.data.DTOGCCProfitLossStatementCostOfSales;
 import org.bh.plugin.gcc.data.DTOGCCProfitLossStatementTotalCost;
-
+*/
 
 /**
  * Class for importing company data (branch and period data) from given Excel files
  * The method importData() should be called one after or while the program starts,
  * for generating the business data for further calculations.
  * 
+ * THIS SHOULD BE CALLED ONCE FOR CONVERTING THE EXCEL TO XML!
+ * 
  * @author Lukas Lochner
  * @version 1.0, 02.12.2011
  * 
  */
+
+/*
 
 public class ExcelImport {
 
@@ -441,3 +445,5 @@ public class ExcelImport {
 	}	
 	
 }
+
+*/
