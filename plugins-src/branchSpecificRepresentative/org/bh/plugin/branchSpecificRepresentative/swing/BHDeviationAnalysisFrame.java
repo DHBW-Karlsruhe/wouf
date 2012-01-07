@@ -68,6 +68,8 @@ public class BHDeviationAnalysisFrame extends BHPopupFrame {
 	 */
 	public BHDeviationAnalysisFrame(DTOScenario scenario){
 		super();
+		
+		log.debug("Create Frame for deviation analysis");
 
 		this.scenario = scenario;
 		
@@ -89,6 +91,8 @@ public class BHDeviationAnalysisFrame extends BHPopupFrame {
 //		this.add(this.getFurtherAnalysisOptionsPanel(), BorderLayout.EAST);
 //		this.add(chartPanel);
 		this.setVisible(true);
+		
+		log.debug("Deviation analysis frame is visible");
 	}
 	
 	@Override
