@@ -35,7 +35,6 @@ import org.bh.data.types.StringValue;
 import org.bh.data.DTOBranch;
 import org.bh.data.DTOCompany;
 import org.bh.platform.Services;
-import org.bh.plugin.branchSpecificRepresentative.excelImport.exceptions.BranchNotFoundException;
 import org.bh.plugin.gcc.data.DTOGCCBalanceSheet;
 import org.bh.plugin.gcc.data.DTOGCCProfitLossStatementCostOfSales;
 import org.bh.plugin.gcc.data.DTOGCCProfitLossStatementTotalCost;
@@ -92,7 +91,7 @@ public class ExcelImport {
     			String[] branchKey = branch.getContents().split("\\.");            	
             	currBranchDTO = this.getBranchOutOfBusinessDataDTO(businessData, branchKey[0], branchKey[1], branchKey[2]);
             	// if not found, throw exception
-            	if(currBranchDTO == null) throw new BranchNotFoundException();
+            	if(currBranchDTO == null)  log.error("Could't find Branch! ");       
             	            	
             	
             	// Second Step => check if Branch has a Company Child that is currently given
@@ -297,10 +296,6 @@ public class ExcelImport {
         			
 		}
 		
-		catch(BranchNotFoundException e)
-		{
-        	log.error("Could't find Branch! ", e);        
-		}
         catch(IOException e)
         {
         	log.error("Could't find File! ", e);        	
