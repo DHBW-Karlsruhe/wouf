@@ -3,6 +3,8 @@ package org.bh.plugin.branchSpecificRepresentative.swing;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
+import org.bh.data.DTOScenario;
+
 /**
  * Listener for the deviation analysis
  *
@@ -16,13 +18,16 @@ import java.awt.event.ActionListener;
  */
 public class DeviationAnalysisListener implements ActionListener {
 
-	public DeviationAnalysisListener(){
+	private DTOScenario scenario;
+	
+	public DeviationAnalysisListener(DTOScenario scenario){
 		super();
+		this.scenario = scenario;
 	}
 
 	@Override
 	public void actionPerformed(ActionEvent ae) {
-		new BHDeviationAnalysisFrame();
+		new BHDeviationAnalysisFrame(scenario);
 	}
 
 }

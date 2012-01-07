@@ -2,15 +2,22 @@ package org.bh.plugin.branchSpecificRepresentative.swing;
 
 import java.awt.BorderLayout;
 import java.awt.Dimension;
+import java.util.List;
+import java.util.logging.Logger;
 
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 
+import org.bh.data.DTOCompany;
+import org.bh.data.DTOPeriod;
+import org.bh.data.DTOScenario;
+import org.bh.data.types.DoubleValue;
 import org.bh.gui.chart.BHChartFactory;
 import org.bh.gui.chart.BHChartPanel;
 import org.bh.gui.swing.BHPopupFrame;
 import org.bh.gui.swing.comp.BHComboBox;
 import org.bh.gui.swing.comp.BHDescriptionLabel;
+import org.bh.platform.i18n.BHTranslator;
 
 import com.jgoodies.forms.layout.CellConstraints;
 import com.jgoodies.forms.layout.FormLayout;
@@ -48,6 +55,7 @@ public class BHDeviationAnalysisFrame extends BHPopupFrame {
 	
 	private BHChartPanel chartPanel;
 	private BHComboBox cbAvailableAlgorithms, cbNorming;
+	private DTOScenario scenario;
 	
 	/**
 	 * Automatically generated <code>serialVersionUID</code>.
@@ -57,24 +65,27 @@ public class BHDeviationAnalysisFrame extends BHPopupFrame {
 	/**
 	 * Standard constructor initializing the chart and all the comboBoxes needed.
 	 */
-	public BHDeviationAnalysisFrame(){
+	public BHDeviationAnalysisFrame(DTOScenario scenario){
 		super();
+
+		this.scenario = scenario;
 		
 		this.setSize(1000, 700); //We need more space.
 		
 		//Chart to display the deviation analysis
 		chartPanel = BHChartFactory.getLineChart(BHDeviationAnalysisFrame.GUI_KEYS.LINE_CHART_DEVIATION_ANALYSIS);
-		chartPanel.addSeries("BMW", new double[][]{{2005.0, 100.0}, {2006.0, 110.2}, {2007, 120}});
-		chartPanel.addSeries("Mercedes", new double[][]{{2005.0, 100.0}, {2006.0, 87.5}, {2007, 120}});
-		chartPanel.addSeries("VW", new double[][]{{2005, 100.0}, {2006.0, 98.2}, {2007, 120}});
-		chartPanel.addSeries("Peugeot", new double[][]{{2005.0, 100.0}, {2006.0, 115}, {2007, 120}});
-		chartPanel.addSeries("Renault", new double[][]{{2005.0, 100.0}, {2006, 113.2}, {2007, 120}});
+		fillChartPanel();
+//		chartPanel.addSeries("BMW", new double[][]{{2005, 100.0}, {2006, 110.2}, {2007, 120}});
+//		chartPanel.addSeries("Mercedes", new double[][]{{2005, 100.0}, {2006, 87.5}, {2007, 120}});
+//		chartPanel.addSeries("VW", new double[][]{{2005, 100.0}, {2006.0, 98.2}, {2007, 120}});
+//		chartPanel.addSeries("Peugeot", new double[][]{{2005.0, 100.0}, {2006.0, 115}, {2007, 120}});
+//		chartPanel.addSeries("Renault", new double[][]{{2005.0, 100.0}, {2006, 113.2}, {2007, 120}});
 		
 		JScrollPane scrollPane = new JScrollPane(chartPanel);
 		
 		this.setLayout(new BorderLayout());
 		this.add(scrollPane, BorderLayout.CENTER);
-		this.add(this.getFurtherAnalysisOptionsPanel(), BorderLayout.EAST);
+//		this.add(this.getFurtherAnalysisOptionsPanel(), BorderLayout.EAST);
 //		this.add(chartPanel);
 		this.setVisible(true);
 	}
@@ -136,4 +147,29 @@ public class BHDeviationAnalysisFrame extends BHPopupFrame {
 		return cbAvailableAlgorithms;
 	}
 
+	/**
+	 * This method fills the Chart with all relevant data, meaning all periods of the
+	 * branch specific representative and accordingly all data for every company, which was used
+	 * in the analysis.
+	 */
+	private void fillChartPanel(){
+		DTOCompany branchSpecRep = scenario.getBranchSpecificRep();
+		
+		List<DTOPeriod> periods = branchSpecRep.getChildren();
+		
+		double[][] chartData = new double[periods.size()][2];
+		
+		int i = periods.size() -1;
+		
+		for(DTOPeriod period: periods){
+			chartData[i][0] = ((DoubleValue) (period.get(DTOPeriod.Key.NAME))).getValue();
+			chartData[i][1] = ((DoubleValue) (period.get(DTOPeriod.Key.FCF))).getValue();
+			Logger.getAnonymousLogger().info("" + chartData[i][0]);
+			Logger.getAnonymousLogger().info("" + chartData[i][1]);
+			i--;
+		}
+		
+		chartPanel.addSeries(BHTranslator.getInstance().translate(DTOScenario.Key.REPRESENTATIVE), chartData);
+	}
+	
 }
