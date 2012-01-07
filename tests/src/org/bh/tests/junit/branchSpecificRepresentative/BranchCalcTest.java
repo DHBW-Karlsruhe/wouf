@@ -1,33 +1,18 @@
 package org.bh.tests.junit.branchSpecificRepresentative;
 
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.Iterator;
 
 import junit.framework.TestCase;
 
+import org.bh.data.DTO;
 import org.bh.data.DTOBusinessData;
 import org.bh.data.DTOCompany;
 import org.bh.platform.Services;
 import org.bh.plugin.branchSpecificRepresentative.calc.BranchSpecificCalculator;
 import org.bh.plugin.xmldataexchange.xmlimport.XMLImport;
 import org.bh.plugin.xmldataexchange.xmlimport.XMLNotValidException;
-import java.io.IOException;
-import java.util.Iterator;
-import java.util.List;
-
-import org.bh.data.DTOBranch;
-import org.bh.data.DTOBusinessData;
-import org.bh.data.DTOCompany;
-import org.bh.data.DTOPeriod;
-import org.bh.data.IPeriodicalValuesDTO;
-import org.bh.data.types.Calculable;
-import org.bh.platform.Services;
-import org.bh.plugin.gcc.data.DTOGCCBalanceSheet;
-import org.bh.plugin.gcc.data.DTOGCCProfitLossStatementCostOfSales;
-import org.bh.plugin.gcc.data.DTOGCCProfitLossStatementTotalCost;
-import org.bh.plugin.xmldataexchange.xmlimport.XMLImport;
-import org.bh.plugin.xmldataexchange.xmlimport.XMLNotValidException;
+import org.junit.After;
+import org.junit.Before;
 
 /**
  * This is just a test! DO NOT USE! THIS IS NOT A UNIT TEST!
@@ -35,10 +20,21 @@ import org.bh.plugin.xmldataexchange.xmlimport.XMLNotValidException;
  * @author Denis Roster, Sebastian Schumacher
  * @version 1.0, 03.01.2012
  * 
+ * @update Yannick Rödl, 07.01.2012; Change Events schmeißen ausgeschaltet.
  */
 
 public class BranchCalcTest extends TestCase {
 
+	@Before
+	public void setUp(){
+		DTO.setThrowEvents(false); //Damit die Logfiles nicht so groß werden.
+	}
+	
+	@After
+	public void tearDown(){
+		DTO.setThrowEvents(true);
+	}
+	
 	public void testBranchCalculator() {
 
 		// Init Number Serices

@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.util.Iterator;
 import java.util.List;
 
+import org.bh.data.DTO;
 import org.bh.data.DTOBranch;
 import org.bh.data.DTOBusinessData;
 import org.bh.data.DTOCompany;
@@ -16,6 +17,8 @@ import org.bh.plugin.gcc.data.DTOGCCProfitLossStatementCostOfSales;
 import org.bh.plugin.gcc.data.DTOGCCProfitLossStatementTotalCost;
 import org.bh.plugin.xmldataexchange.xmlimport.XMLImport;
 import org.bh.plugin.xmldataexchange.xmlimport.XMLNotValidException;
+import org.junit.After;
+import org.junit.Before;
 
 import junit.framework.TestCase;
 
@@ -30,6 +33,16 @@ import junit.framework.TestCase;
  */
 
 public class XMLImportTest extends TestCase {	
+	
+	@Before
+	public void setUp(){
+		DTO.setThrowEvents(false); //Damit die Logfiles nicht so groß werden.
+	}
+	
+	@After
+	public void tearDown(){
+		DTO.setThrowEvents(true);
+	}
 	
 	public void testImport()
 	{		
