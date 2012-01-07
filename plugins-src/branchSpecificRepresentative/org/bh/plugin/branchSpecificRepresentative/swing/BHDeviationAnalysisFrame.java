@@ -3,11 +3,11 @@ package org.bh.plugin.branchSpecificRepresentative.swing;
 import java.awt.BorderLayout;
 import java.awt.Dimension;
 import java.util.List;
-import java.util.logging.Logger;
 
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 
+import org.apache.log4j.Logger;
 import org.bh.data.DTOCompany;
 import org.bh.data.DTOPeriod;
 import org.bh.data.DTOScenario;
@@ -56,6 +56,7 @@ public class BHDeviationAnalysisFrame extends BHPopupFrame {
 	private BHChartPanel chartPanel;
 	private BHComboBox cbAvailableAlgorithms, cbNorming;
 	private DTOScenario scenario;
+	private Logger log = Logger.getLogger(BHDeviationAnalysisFrame.class);
 	
 	/**
 	 * Automatically generated <code>serialVersionUID</code>.
@@ -164,8 +165,8 @@ public class BHDeviationAnalysisFrame extends BHPopupFrame {
 		for(DTOPeriod period: periods){
 			chartData[i][0] = ((DoubleValue) (period.get(DTOPeriod.Key.NAME))).getValue();
 			chartData[i][1] = ((DoubleValue) (period.get(DTOPeriod.Key.FCF))).getValue();
-			Logger.getAnonymousLogger().info("" + chartData[i][0]);
-			Logger.getAnonymousLogger().info("" + chartData[i][1]);
+//			log.debug("" + chartData[i][0]);
+//			log.debug("" + chartData[i][1]);
 			i--;
 		}
 		
