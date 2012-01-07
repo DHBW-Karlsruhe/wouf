@@ -62,6 +62,7 @@ public class DTOCompany extends  DTO<DTOPeriod> {
 		for(DTOPeriod period : periods){
 			if(current != null){
 				period.previous = current;
+				current.next = period;
 			}
 			
 			period.scenario = scenario;
