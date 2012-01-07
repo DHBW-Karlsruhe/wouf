@@ -33,6 +33,7 @@ public class BranchSpecificCalculator implements IBranchSpecificCalculator {
 	private static double ratingBSR;
 	private static DTOBranch selectedBranch = null;
 	private DTOScenario scenario = null;
+	private Logger log = Logger.getLogger(BranchSpecificCalculator.class);
 
 	public DTOCompany calculateBSR(DTOBusinessData businessData, DTOScenario scenario) {
 		DTOBranch currBranch = getSelectedBranch(businessData);
@@ -98,11 +99,16 @@ public class BranchSpecificCalculator implements IBranchSpecificCalculator {
 				currPeriod.put(DTOPeriod.Key.FCF, currPeriod.getFCF());
 			} catch (DTOAccessException dtoaccess){
 				if(i > 0){
-					Logger.getLogger(BranchSpecificCalculator.class).error("Period not readable " + currCompany.get(DTOCompany.Key.NAME) + " year: " + currPeriod.get(DTOPeriod.Key.NAME), dtoaccess);
+					log.error("Period not readable " + currCompany.get(DTOCompany.Key.NAME) + " year: " + currPeriod.get(DTOPeriod.Key.NAME), dtoaccess);
 					currPeriod.put(DTOPeriod.Key.FCF, new DoubleValue(0.0));
 				}
 			}
-			currPeriod.put(DTOPeriod.Key.LIABILITIES, currPeriod.getLiabilities());
+			try{
+				currPeriod.put(DTOPeriod.Key.LIABILITIES, currPeriod.getLiabilities());
+			} catch (DTOAccessException dtoaccess){
+				log.error("Period not readable: " + currCompany.get(DTOCompany.Key.NAME) + " year: " + currPeriod.get(DTOPeriod.Key.NAME), dtoaccess);
+				currPeriod.put(DTOPeriod.Key.LIABILITIES, new DoubleValue(0.0));
+			}
 			
 			if (firstPeriod) {
 
