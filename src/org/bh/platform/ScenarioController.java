@@ -329,6 +329,53 @@ public class ScenarioController extends InputController {
 	}
 	
 	private void addTimeSeriesFunctionality(final View view, final BHButton resetStochasticParameters){
+		//cbrepresentative mit Daten befüllen
+		BHComboBox cbrepresentative = (BHComboBox) view.getBHComponent(DTOScenario.Key.REPRESENTATIVE);
+		INACEImport naceReader = Services.getNACEReader();
+		Map<String, String> branches = naceReader.getBranch();
+		
+		Item item;
+		StringValue value;
+		String key;
+		
+		cbrepresentative.removeAllItems();
+		for (Map.Entry<String, String> entry : branches.entrySet()) {
+			if(entry.getKey().length() == 1){
+				
+				key = entry.getKey();
+				key = key.replace(".", "");
+				value = new StringValue(entry.getKey() + ": " + entry.getValue());
+				item = new Item(key, value);
+				cbrepresentative.addItem(item);
+				
+				for (Map.Entry<String, String> entry1 : branches.entrySet()) {
+					if(entry1.getKey().length() == 4 && entry1.getKey().substring(0, 1).equals(entry.getKey())){
+						
+						key = entry1.getKey();
+						key = key.replace(".", "");
+						value = new StringValue(entry1.getKey() + ": " + entry1.getValue());
+						item = new Item(key, value);
+						cbrepresentative.addItem(item);
+						
+						for (Map.Entry<String, String> entry2 : branches.entrySet()) {
+							if(entry2.getKey().length() > 4 && entry2.getKey().substring(0, 4).equals(entry1.getKey())){
+								
+								key = entry2.getKey();
+								key = key.replace(".", "");
+								value = new StringValue(entry2.getKey() + ": " + entry2.getValue());
+								item = new Item(key, value);
+								cbrepresentative.addItem(item);
+							}
+							
+						}
+					}
+					
+				}
+			}
+			
+		}
+		
+		
 		// populate the list of TimeSeriesProcess
 		BHCheckBox cbTimeSeriesMethod = (BHCheckBox) view
 				.getBHComponent(DTOScenario.Key.TIMESERIES_PROCESS);
@@ -421,7 +468,7 @@ public class ScenarioController extends InputController {
 			});
 		}
 		
-		BHComboBox cbrepresentative = (BHComboBox) view.getBHComponent(DTOScenario.Key.REPRESENTATIVE);
+		//BHComboBox cbrepresentative = (BHComboBox) view.getBHComponent(DTOScenario.Key.REPRESENTATIVE);
 		
 		if(cbrepresentative != null){
 			ItemListener itemListener = new ItemListener() {
@@ -464,31 +511,6 @@ public class ScenarioController extends InputController {
 							lrepresentative.setVisible(true);
 						}
 						
-						//cbindustry und cbrepresentative mit Daten befüllen
-						INACEImport naceReader = Services.getNACEReader();
-						Map<String, String> branches = naceReader.getBranch();
-						
-						cbrepresentative.removeAllItems();
-						for (Map.Entry<String, String> entry : branches.entrySet()) {
-							if(entry.getKey().length() == 1){
-								cbrepresentative.addItem(entry.getKey() + ": " + entry.getValue());
-								
-								for (Map.Entry<String, String> entry1 : branches.entrySet()) {
-									if(entry1.getKey().length() == 4 && entry1.getKey().substring(0, 1).equals(entry.getKey())){
-										cbrepresentative.addItem("-" + entry1.getKey() + ": " + entry1.getValue());
-										
-										for (Map.Entry<String, String> entry2 : branches.entrySet()) {
-											if(entry2.getKey().length() > 4 && entry2.getKey().substring(0, 4).equals(entry1.getKey())){
-												cbrepresentative.addItem("--" + entry2.getKey() + ": " + entry2.getValue());
-											}
-											
-										}
-									}
-									
-								}
-							}
-							
-						}
 						
 						//save selected branch
 						DTOScenario scenario = (DTOScenario) getModel();

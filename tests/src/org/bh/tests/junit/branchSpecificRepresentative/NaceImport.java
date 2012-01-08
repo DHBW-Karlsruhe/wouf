@@ -41,7 +41,7 @@ public class NaceImport extends TestCase {
 				
 				text = entry.getKey();
 				text = text.replace(".", "");
-				key = "org.bh.data.DTOScenario$Key." + text + " = " + entry.getValue();
+				key = text + " = " + text +": " +entry.getValue();
 				System.out.println(key);
 				bf.write(key);
 				bf.newLine();
@@ -51,7 +51,7 @@ public class NaceImport extends TestCase {
 						
 						text = entry1.getKey();
 						text = text.replace(".", "");
-						key = "org.bh.data.DTOScenario$Key." + text + " = " + entry1.getValue();
+						key = text + " = " + "-" + text +": " +entry1.getValue();
 						System.out.println(key);
 						bf.write(key);
 						bf.newLine();
@@ -61,7 +61,7 @@ public class NaceImport extends TestCase {
 								
 								text = entry2.getKey();
 								text = text.replace(".", "");
-								key = "org.bh.data.DTOScenario$Key." + text + " = " + entry2.getValue();
+								key = text + " = " + "--" + text +": " +entry1.getValue();
 								System.out.println(key);
 								bf.write(key);
 								bf.newLine();
