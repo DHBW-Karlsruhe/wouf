@@ -17,25 +17,30 @@ package org.bh.plugin.timeSeries;
 
 import java.awt.Component;
 import java.util.HashMap;
+import java.util.LinkedList;
 import java.util.List;
-import java.util.TreeMap;
 import java.util.Map.Entry;
+import java.util.TreeMap;
+
 import javax.swing.JPanel;
+
 import org.apache.log4j.Logger;
 import org.bh.calculation.ITimeSeriesProcess;
 import org.bh.data.DTOKeyPair;
+import org.bh.data.DTOPeriod;
 import org.bh.data.DTOScenario;
 import org.bh.data.types.Calculable;
-import org.bh.data.types.DoubleValue;
 import org.bh.gui.swing.comp.BHDescriptionLabel;
 import org.bh.gui.swing.comp.BHProgressBar;
 import org.bh.gui.swing.comp.BHTextField;
 import org.bh.platform.Services;
+import org.bh.platform.i18n.BHTranslator;
 import org.bh.validation.VRIsGreaterThan;
 import org.bh.validation.VRIsInteger;
 import org.bh.validation.VRIsLowerThan;
 import org.bh.validation.VRMandatory;
 import org.bh.validation.ValidationRule;
+
 import com.jgoodies.forms.layout.CellConstraints;
 import com.jgoodies.forms.layout.FormLayout;
 
@@ -147,7 +152,26 @@ public class TimeSeries implements ITimeSeriesProcess {
 				.getPeriodStochasticKeysAndValues(branchSpecific);
 		Entry<DTOKeyPair, List<Calculable>> cashfl = periods.firstEntry();
 
-		List<Calculable> cashValues = cashfl.getValue();
+		List<Calculable> cashValues = null;
+		
+//		log.debug("First entry in periods: " + cashfl.getKey());
+//		log.debug("FCF Key " + BHTranslator.getInstance().translate("org.bh.plugin.directinput.DTODirectInput$Key.FCF"));
+		//We have the Free Cash Flow only in Direct Input Scenario.
+		if(cashfl.getKey().toString().equals(BHTranslator.getInstance().translate("org.bh.plugin.directinput.DTODirectInput$Key.FCF"))){
+			cashValues = cashfl.getValue();
+			
+		} else {
+			// We have to calculate the cashvalues manually
+			int i = 0;
+			cashValues = new LinkedList<Calculable>();
+			for(DTOPeriod period: scenario.getChildren()){
+				if(i > 0){ //First Period produces DTOAccessExceptions
+					cashValues.add(period.getFCF());
+				}
+				i++;
+			}
+		}
+		
 		int periodsInPast = map.get(AMOUNT_OF_PERIODS_BACK);
 		int periodsInFuture = map.get(AMOUNT_OF_PERIODS_FUTURE);
 		if (periodsInPast > cashValues.size() - 1) {
