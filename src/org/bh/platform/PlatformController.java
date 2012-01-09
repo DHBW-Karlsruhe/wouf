@@ -72,7 +72,6 @@ public class PlatformController {
 			.getInstance();
 
 	private DTOBusinessData businessDataDTO;
-	private boolean alreadyStoredBusinessData = false;
 
 	/**
 	 * Reference to a preference object which allows platform independent
@@ -403,10 +402,7 @@ public class PlatformController {
 	 * @param businessDataDTO
 	 */
 	public void setBusinessDataDTO(DTOBusinessData businessDataDTO) {
-		if(!alreadyStoredBusinessData){
-			this.businessDataDTO = businessDataDTO;
-			alreadyStoredBusinessData = true;
-		}
+		this.businessDataDTO = businessDataDTO;
 	}
 
 	/**
