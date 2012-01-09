@@ -30,6 +30,7 @@ import org.bh.data.types.DistributionMap;
  * @author Unknown
  * @version 1.0, 09.12.2011
  * @update 09.12.2011 Yannick Rödl
+ * @update 09.01.2012 Yannick Rödl
  *
  */
 public interface IStochasticResultAnalyser {
@@ -48,6 +49,18 @@ public interface IStochasticResultAnalyser {
 	 * @return
 	 */
 	public Component setResult(DTOScenario scenario, DistributionMap result);
+	
+	/**
+	 * This method is called, when you want to set a result view for a stochastic
+	 * result analysis and need additional data from the calculation of a branch specific
+	 * representative. This data is readable in the same way as the normal data is.
+	 * 
+	 * @param scenario
+	 * @param result
+	 * @param resultBranchSpecific
+	 * @return Panel for result analysis
+	 */
+	public Component setResult(DTOScenario scenario, DistributionMap result, DistributionMap resultBranchSpecific);
 	
 	/**
 	 * This method should return a unique ID making it easier to identify which analyser

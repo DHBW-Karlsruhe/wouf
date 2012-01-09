@@ -17,7 +17,6 @@ package org.bh.platform;
 
 import java.awt.Component;
 import java.awt.Container;
-import java.awt.Dimension;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.ItemEvent;
@@ -26,7 +25,6 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.Comparator;
-import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import java.util.ServiceLoader;
@@ -35,8 +33,6 @@ import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
-import javax.swing.event.PopupMenuEvent;
-import javax.swing.event.PopupMenuListener;
 
 import org.apache.log4j.Logger;
 import org.bh.calculation.IBranchSpecificCalculator;
@@ -47,7 +43,6 @@ import org.bh.companydata.importExport.INACEImport;
 import org.bh.controller.IPeriodController;
 import org.bh.controller.InputController;
 import org.bh.data.DTO;
-import org.bh.data.DTOBranch;
 import org.bh.data.DTOBusinessData;
 import org.bh.data.DTOCompany;
 import org.bh.data.DTOKeyPair;
@@ -792,6 +787,7 @@ public class ScenarioController extends InputController {
 					BHCheckBox cbBranchSpecific = (BHCheckBox) view.getBHComponent(DTOScenario.Key.BRANCH_SPECIFIC);
 					
 					
+					DistributionMap resultBranchSpecificData = null;
 					
 					if(cbBranchSpecific.isSelected()){
 						//The Panel contains all data necessary such as slope and standard deviation.
@@ -800,7 +796,7 @@ public class ScenarioController extends InputController {
 						
 						//TODO calculate CF with BSR here
 						process.calculateParameters(true);
-						DistributionMap resultBranchSpecificData = process.calculate();
+						resultBranchSpecificData = process.calculate();
 						
 						//Do branch specific calculation
 						TSprocess.updateParameters();
@@ -852,7 +848,7 @@ public class ScenarioController extends InputController {
 						if(timeSeries.isSelected() && cbBranchSpecific.isSelected()){
 							if(analyser.getUniqueID().equals(IStochasticResultAnalyser.Keys.BRANCH_SPECIFIC.toString())){
 								//panel = analyser.setResult(scenario, result, testResult);
-								panel = analyser.setResult(scenario, result);
+								panel = analyser.setResult(scenario, result, resultBranchSpecificData);
 								break;
 							}
 							

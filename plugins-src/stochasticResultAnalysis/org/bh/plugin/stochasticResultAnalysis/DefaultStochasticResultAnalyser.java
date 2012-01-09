@@ -41,5 +41,11 @@ public class DefaultStochasticResultAnalyser implements IStochasticResultAnalyse
 	public String getUniqueID() {
 		return IStochasticResultAnalyser.Keys.DEFAULT.toString();
 	}
+	
+	@Override
+	public Component setResult(DTOScenario scenario, DistributionMap result,
+			DistributionMap resultBranchSpecific) {
+		throw new UnsupportedOperationException("This method has not been implemented");
+	}
 
 }

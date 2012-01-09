@@ -45,4 +45,10 @@ public class BranchSpecificStochasticResultAnalyser implements
 		return IStochasticResultAnalyser.Keys.BRANCH_SPECIFIC.toString();
 	}
 
+	@Override
+	public Component setResult(DTOScenario scenario, DistributionMap result,
+			DistributionMap resultBranchSpecific) {
+		throw new UnsupportedOperationException("This method has not been implemented");
+	}
+
 }
