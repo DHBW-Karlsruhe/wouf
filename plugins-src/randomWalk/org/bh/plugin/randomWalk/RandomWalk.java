@@ -84,6 +84,7 @@ public class RandomWalk implements IStochasticProcess {
 
 	private BHMainFrame bhmf;
 
+	private boolean branchSpecific = false;
 	
 	@Override
 	public DistributionMap calculate() {
@@ -97,7 +98,7 @@ public class RandomWalk implements IStochasticProcess {
 		boolean isValid = ValidateStochastic.validateRandomWalk(internalMap);
 		int choice = 0;
 
-		if (isValid == false) {
+		if (isValid == false && !branchSpecific) {
 			choice = BHOptionPane.showConfirmDialog(bhmf, Services
 					.getTranslator().translate("WCalcRWMessage"), Services
 					.getTranslator().translate("WCalcRW"),
@@ -148,6 +149,8 @@ public class RandomWalk implements IStochasticProcess {
 		DTO.setThrowEvents(true);
 		log.info("Random walk finished");
 
+		branchSpecific = false;
+		
 		return result;
 	}
 
@@ -220,6 +223,7 @@ public class RandomWalk implements IStochasticProcess {
 
 	@Override
 	public JPanel calculateParameters(boolean branchSpecific) {
+		this.branchSpecific = branchSpecific;
 		internalMap = new HashMap<String, Double>();
 		map = new HashMap<String, Integer>();
 

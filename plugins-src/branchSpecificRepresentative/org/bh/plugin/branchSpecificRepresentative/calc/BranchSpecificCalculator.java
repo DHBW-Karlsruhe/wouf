@@ -110,6 +110,9 @@ public class BranchSpecificCalculator implements IBranchSpecificCalculator {
 				currPeriod.put(DTOPeriod.Key.LIABILITIES, new DoubleValue(0.0));
 			}
 			
+			//TODO Überlegen, ob wir hier mit einer Periode weniger arbeiten, weil interne Berechnung fehl schlägt!
+			// Sollte dies nicht gewählt werden, bitte Rücksprache mit Yannick
+			
 			if (firstPeriod) {
 
 				firstFCF = (DoubleValue) currPeriod.get(DTOPeriod.Key.FCF);

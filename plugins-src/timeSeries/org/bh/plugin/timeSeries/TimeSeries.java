@@ -159,6 +159,7 @@ public class TimeSeries implements ITimeSeriesProcess {
 		//We have the Free Cash Flow only in Direct Input Scenario.
 		if(cashfl.getKey().toString().equals(BHTranslator.getInstance().translate("org.bh.plugin.directinput.DTODirectInput$Key.FCF"))){
 			cashValues = cashfl.getValue();
+			log.debug("Default TimeSeries Cashflow: " + cashfl.getValue());
 			
 		} else {
 			// We have to calculate the cashvalues manually
@@ -167,6 +168,7 @@ public class TimeSeries implements ITimeSeriesProcess {
 			for(DTOPeriod period: scenario.getChildren()){
 				if(i > 0){ //First Period produces DTOAccessExceptions
 					cashValues.add(period.getFCF());
+					log.debug("Manually calculated cashflow: " + period.getFCF());
 				}
 				i++;
 			}

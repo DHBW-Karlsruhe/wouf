@@ -84,6 +84,8 @@ public class WienerProcess implements IStochasticProcess {
 	private HashMap<String, Integer> map;
 
 	private BHMainFrame bhmf;
+	
+	private boolean branchSpecific = false;
 
 	@Override
 	public DistributionMap calculate() {
@@ -99,7 +101,7 @@ public class WienerProcess implements IStochasticProcess {
 		boolean isValid = ValidateStochastic.validateWienerProcess(internalMap);
 		int choice = 0;
 
-		if (isValid == false) {
+		if (isValid == false && !branchSpecific) {
 			choice = BHOptionPane.showConfirmDialog(bhmf, Services
 					.getTranslator().translate("WCalcWPMessage"), Services
 					.getTranslator().translate("WCalcWP"),
@@ -154,6 +156,8 @@ public class WienerProcess implements IStochasticProcess {
 					log.error("", e);
 				}
 			}
+			
+			branchSpecific = false;
 		}
 
 		//Throw data changed events again.
@@ -233,6 +237,7 @@ public class WienerProcess implements IStochasticProcess {
 
 	@Override
 	public JPanel calculateParameters(boolean branchSpecific) {
+		this.branchSpecific = branchSpecific;
 		internalMap = new HashMap<String, Double>();
 		map = new HashMap<String, Integer>();
 		TreeMap<DTOKeyPair, List<Calculable>> toBeDetermined = scenario

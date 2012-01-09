@@ -766,10 +766,12 @@ public class ScenarioController extends InputController {
 					
 					DistributionMap resultBranchSpecificData = null;
 					
-					if(cbBranchSpecific.isSelected()){
+					if(cbBranchSpecific.isSelected() && notInterrupted){
 						//The Panel contains all data necessary such as slope and standard deviation.
-						//TODO maybe manipulate data here, because it is normalized?!
 						progressBar.setVisible(true);
+						b.setEnabled(true);
+						b.changeText(BHScenarioForm.Key.ABORT);
+						TSprocess.setProgressB(progressBar);
 						
 						process.calculateParameters(true);
 						resultBranchSpecificData = process.calculate();
@@ -789,7 +791,7 @@ public class ScenarioController extends InputController {
 						}
 					}
 					
-					if (timeSeries.isSelected()) {
+					if (timeSeries.isSelected() && notInterrupted) {
 						((BHScenarioForm) getViewPanel()).addProgressBar();
 						progressBar.setVisible(true);
 						b.setEnabled(true);
@@ -810,24 +812,25 @@ public class ScenarioController extends InputController {
 					}
 
 					Component panel = new JPanel();
-					
-					for (IStochasticResultAnalyser analyser : PluginManager
-							.getInstance().getServices(
-									IStochasticResultAnalyser.class)) {
+					if(notInterrupted){
+						for (IStochasticResultAnalyser analyser : PluginManager
+								.getInstance().getServices(
+										IStochasticResultAnalyser.class)) {
 						
-						//branchSpecificRepresentative is only calculated in time series mode.
-						if(timeSeries.isSelected() && cbBranchSpecific.isSelected()){
-							if(analyser.getUniqueID().equals(IStochasticResultAnalyser.Keys.BRANCH_SPECIFIC.toString())){
-								//panel = analyser.setResult(scenario, result, testResult);
-								panel = analyser.setResult(scenario, result, resultBranchSpecificData);
-								break;
-							}
+							//branchSpecificRepresentative is only calculated in time series mode.
+							if(timeSeries.isSelected() && cbBranchSpecific.isSelected()){
+								if(analyser.getUniqueID().equals(IStochasticResultAnalyser.Keys.BRANCH_SPECIFIC.toString())){
+									//panel = analyser.setResult(scenario, result, testResult);
+									panel = analyser.setResult(scenario, result, resultBranchSpecificData);
+									break;
+								}
 							
-						} else {
-							if(analyser.getUniqueID().equals(IStochasticResultAnalyser.Keys.DEFAULT.toString())){
-								//panel = analyser.setResult(scenario, result, testResult);
-								panel = analyser.setResult(scenario, result);
-								break;
+							} else {
+								if(analyser.getUniqueID().equals(IStochasticResultAnalyser.Keys.DEFAULT.toString())){
+									//panel = analyser.setResult(scenario, result, testResult);
+									panel = analyser.setResult(scenario, result);
+									break;
+								}
 							}
 						}
 					}
@@ -884,9 +887,19 @@ public class ScenarioController extends InputController {
 					notInterrupted = false;
 					if (progressBar != null) {
 						progressBar.setVisible(false);
-						TSprocess.setInterrupted();
+						try{
+							TSprocess.setInterrupted();
+						} catch (NullPointerException ne){}
 					}
 					b.changeText(BHScenarioForm.Key.CALCSHAREHOLDERVALUE);
+					
+					BHCheckBox cbBranchSpecific = (BHCheckBox) view.getBHComponent(DTOScenario.Key.BRANCH_SPECIFIC);
+					if(cbBranchSpecific != null && cbBranchSpecific.isSelected()){
+						BHButton resetStochasticParameters = ((BHButton) view
+								.getBHComponent(BHStochasticInputForm.Key.RESET_PARAMETERS));
+						resetStochasticParameters.doClick();
+						calcImage.setIcon(null);
+					}
 				} else {
 					notInterrupted = true;
 					// if(progressBar!=null){

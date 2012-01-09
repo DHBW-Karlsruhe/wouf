@@ -309,11 +309,14 @@ public class DTOScenario extends DTO<DTOPeriod> {
 			//retrieve all children
 			List<DTOPeriod> children = null;
 			
+			double streckungsfaktor = 0.0;
+			
 			//Determine whether the children are branch specific or global
 			if(!branchSpecific){
 				children = this.children;	
 			} else {
 				children = getBranchSpecificRep().getChildren();
+				streckungsfaktor = getStreckungsfaktor();
 			}
 			
 			for (DTOPeriod period : children) {
@@ -323,7 +326,9 @@ public class DTOScenario extends DTO<DTOPeriod> {
 					pastValues.add(periodValuesDto.getCalculable(key.getKey()));
 				} else {
 					if(key.getKey().endsWith("FCF")){
-						pastValues.add(((Calculable) period.get(DTOPeriod.Key.FCF) ));
+						//Anpassung des Cashflows an "normale" Werte
+						double cf = ((DoubleValue) period.get(DTOPeriod.Key.FCF)).getValue();
+						pastValues.add(new DoubleValue(cf * streckungsfaktor));
 					} else {
 						log.debug("Wrong key!!! " + key.getKey());
 					}
@@ -406,5 +411,44 @@ public class DTOScenario extends DTO<DTOPeriod> {
 	 */
 	public void setBranchSpecificRep(DTOCompany branchSpecificRep) {
 		this.branchSpecificRep = branchSpecificRep;
+	}
+	
+	private double getStreckungsfaktor(){
+		/*
+		 * Anpassung der Daten an die Daten des Unternehmens
+		 * Streckungsfaktor = Cashflow neueste Unternehmensperiode/Cashflow neueste BSR Periode
+		 * 
+		 * Je Periode des BSR: CF in Periode * Streckungsfaktor
+		 */
+		double unternehmensCashflow = 0.0;
+		double normedBSRCashflow = 0.0;
+		int unternehmensCounter = 0;
+		
+		//Ermittle neuesten CF des Unternehmens
+		for(DTOPeriod unternehmensperiode: this.getChildren()){
+			try{
+				unternehmensCounter++;
+				unternehmensCashflow = ((DoubleValue) unternehmensperiode.getFCF()).getValue();
+				break;
+			} catch(DTOAccessException dto){
+				continue;
+			}
+		}
+		
+		//Wir starten die Berechnung bei der zweiten Periode
+		if(unternehmensCounter == 1){
+			//Eventuell müssen wir dies später mal anpassen.
+			unternehmensCounter++;
+		}
+		for(DTOPeriod bsrPeriode: branchSpecificRep.getChildren()){
+			unternehmensCounter--;
+			
+			//Gleiche Periode :)
+			if(unternehmensCounter == 0){
+				normedBSRCashflow = ((DoubleValue) bsrPeriode.get(DTOPeriod.Key.FCF)).getValue();
+			}
+		}
+		
+		return unternehmensCashflow / normedBSRCashflow;
 	}
 }
