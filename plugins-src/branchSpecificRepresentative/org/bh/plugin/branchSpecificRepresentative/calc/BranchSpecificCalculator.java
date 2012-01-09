@@ -35,11 +35,12 @@ public class BranchSpecificCalculator implements IBranchSpecificCalculator {
 	private DTOScenario scenario = null;
 	private Logger log = Logger.getLogger(BranchSpecificCalculator.class);
 
-	public DTOCompany calculateBSR(DTOBusinessData businessData, DTOScenario scenario) {
+	public DTOCompany calculateBSR(DTOBusinessData businessData,
+			DTOScenario scenario) {
 		DTOBranch currBranch = getSelectedBranch(businessData);
 
 		this.scenario = scenario;
-		
+
 		// ----------------------------------------------------------------------------
 		// !!!!!!!ACHTUNG !!!!!! zu Testzwecken die currBranche auf "M1033"
 		// setzen
@@ -83,9 +84,9 @@ public class BranchSpecificCalculator implements IBranchSpecificCalculator {
 		double firstDouble = 0;
 		boolean firstPeriod = true;
 
-		//update References in company.
+		// update References in company.
 		currCompany.updateReferences(scenario);
-		
+
 		// Do the Company has any Periods?
 		List<DTOPeriod> periodList = currCompany.getChildren();
 		Iterator<DTOPeriod> PeriodItr = periodList.iterator();
@@ -93,23 +94,33 @@ public class BranchSpecificCalculator implements IBranchSpecificCalculator {
 		int i = 0;
 		while (PeriodItr.hasNext()) {
 			DTOPeriod currPeriod = PeriodItr.next();
-			
+
 			// Berechnung der richtigen Unternehmensdaten
-			try{
+			try {
 				currPeriod.put(DTOPeriod.Key.FCF, currPeriod.getFCF());
-			} catch (DTOAccessException dtoaccess){
-				if(i > 0){
-					log.error("Period not readable " + currCompany.get(DTOCompany.Key.NAME) + " year: " + currPeriod.get(DTOPeriod.Key.NAME), dtoaccess);
+			} catch (DTOAccessException dtoaccess) {
+				if (i > 0) {
+					log.error(
+							"Period not readable "
+									+ currCompany.get(DTOCompany.Key.NAME)
+									+ " year: "
+									+ currPeriod.get(DTOPeriod.Key.NAME),
+							dtoaccess);
 					currPeriod.put(DTOPeriod.Key.FCF, new DoubleValue(0.0));
 				}
 			}
-			try{
-				currPeriod.put(DTOPeriod.Key.LIABILITIES, currPeriod.getLiabilities());
-			} catch (DTOAccessException dtoaccess){
-				log.error("Period not readable: " + currCompany.get(DTOCompany.Key.NAME) + " year: " + currPeriod.get(DTOPeriod.Key.NAME), dtoaccess);
+			try {
+				currPeriod.put(DTOPeriod.Key.LIABILITIES,
+						currPeriod.getLiabilities());
+			} catch (DTOAccessException dtoaccess) {
+				log.error(
+						"Period not readable: "
+								+ currCompany.get(DTOCompany.Key.NAME)
+								+ " year: "
+								+ currPeriod.get(DTOPeriod.Key.NAME), dtoaccess);
 				currPeriod.put(DTOPeriod.Key.LIABILITIES, new DoubleValue(0.0));
 			}
-			
+
 			//TODO Überlegen, ob wir hier mit einer Periode weniger arbeiten, weil interne Berechnung fehl schlägt!
 			// Sollte dies nicht gewählt werden, bitte Rücksprache mit Yannick
 			
@@ -133,10 +144,10 @@ public class BranchSpecificCalculator implements IBranchSpecificCalculator {
 				currPeriod.put(DTOPeriod.Key.FCF, normedFCF);
 
 			}
-			
+
 			i++;
 		}
-		
+
 		firstPeriod = true;
 	}
 
@@ -262,6 +273,9 @@ public class BranchSpecificCalculator implements IBranchSpecificCalculator {
 	private void computeRating(DTOCompany branchSpecificRepresentative,
 			DTOBusinessData businessData) {
 
+		DoubleValue normedCFforPeriod = null;
+		DoubleValue bsrCF = null;
+		DTOPeriod currPeriod = null;
 		DTOBranch currBranch = getSelectedBranch(businessData);
 
 		// Do the Branch has Companies?
@@ -276,10 +290,6 @@ public class BranchSpecificCalculator implements IBranchSpecificCalculator {
 			// echo them
 			System.out.println("----" + currCompany.get(DTOCompany.Key.NAME));
 
-			// Norm all FCF-Period-Values !!! AUSKOMMENTIERT, da CFs bereits
-			// normiert sind !!! --> ansonsten Fehler!!!
-			// getNormedCFValue("", currCompany);
-
 			List<DTOPeriod> periodList = currCompany.getChildren();
 			Iterator<DTOPeriod> periodItr = periodList.iterator();
 
@@ -288,18 +298,36 @@ public class BranchSpecificCalculator implements IBranchSpecificCalculator {
 			// zur Güteberechnung des vorher berechneten, branchenspezifischen
 			// Vertreters
 			for (int count = 0; periodItr.hasNext(); count++) {
-				DTOPeriod currPeriod = periodItr.next();
+				currPeriod = periodItr.next();
 
-				DoubleValue normedCFforPeriod = (DoubleValue) currPeriod
+				normedCFforPeriod = (DoubleValue) currPeriod
 						.get(DTOPeriod.Key.FCF);
 
-				// result = result + ( (normedCFforPeriod - [count]) *
-				// (normedCFforPeriod - BSR[count]) );
+				bsrCF = getBSRCFforPeriod(count, branchSpecificRepresentative);
+
+				result = result
+						+ ((normedCFforPeriod.getValue() - bsrCF.getValue()) * (normedCFforPeriod
+								.getValue() - bsrCF.getValue()));
 
 			}
 
 		}
 		result = result / (companyList.size());
+	}
+
+	private DoubleValue getBSRCFforPeriod(int period,
+			DTOCompany branchSpecificRepresentative) {
+		DTOPeriod currPeriod = null;
+
+		List<DTOPeriod> periodList = branchSpecificRepresentative.getChildren();
+		Iterator<DTOPeriod> periodItr = periodList.iterator();
+
+		for (int count = 0; periodItr.hasNext();) {
+			currPeriod = periodItr.next();
+			if(count == period)
+				break;
+		}
+		return ((DoubleValue) currPeriod.get(DTOPeriod.Key.FCF));
 	}
 
 	private DTOBranch getSelectedBranch(DTOBusinessData businessData) {
