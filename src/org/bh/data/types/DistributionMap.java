@@ -57,17 +57,6 @@ public class DistributionMap implements Map<Double, Integer>,
 	private ITimeSeriesProcess TSprocess;
 	private boolean TimeSeries;
 
-	
-	//TODO evaluate whether this is the right way to do this.
-	private TreeMap<Double, Integer> mapBSR;
-//	private int amountOfValuesBSR;
-//	private double sumOfValuesBSR;
-//	private int amountOfDifferentValuesBSR;
-	//only for displaying purpose
-	private int maxAmountOfValuesInClusterBSR;
-	private TreeMap<Integer, Double> TimeSeriesMapBSR;
-	private TreeMap<Integer, Double>[] TimeSeriesMapCompareBSR;
-//	private ITimeSeriesProcess TSprocessBSR;
 	/**
 	 * The constructor for the distribution map.
 	 * 
@@ -424,52 +413,5 @@ public class DistributionMap implements Map<Double, Integer>,
 		}
 		return result2;
 		
-	}
-
-	//TODO newly added... new functionality needed?
-	
-	public TreeMap<Double, Integer> getMapBSR() {
-		return mapBSR;
-	}
-
-	public void setMapBSR(TreeMap<Double, Integer> mapBSR) {
-		this.mapBSR = mapBSR;
-	}
-
-	public int getMaxAmountOfValuesInClusterBSR() {
-		return maxAmountOfValuesInClusterBSR;
-	}
-
-	public void setMaxAmountOfValuesInClusterBSR(int maxAmountOfValuesInClusterBSR) {
-		this.maxAmountOfValuesInClusterBSR = maxAmountOfValuesInClusterBSR;
-	}
-
-	public TreeMap<Integer, Double> getTimeSeriesMapBSR() {
-		return TimeSeriesMapBSR;
-	}
-
-	public void setTimeSeriesMapBSR(TreeMap<Integer, Double> timeSeriesMapBSR) {
-		TimeSeriesMapBSR = timeSeriesMapBSR;
-	}
-
-	public TreeMap<Integer, Double>[] getTimeSeriesMapCompareBSR() {
-		return TimeSeriesMapCompareBSR;
-	}
-
-	public void setTimeSeriesMapCompareBSR(
-			TreeMap<Integer, Double>[] timeSeriesMapCompareBSR) {
-		TimeSeriesMapCompareBSR = timeSeriesMapCompareBSR;
-	}
-	
-	public TreeMap<Double, Integer> getMap() {
-		return map;
-	}
-
-	public TreeMap<Integer, Double> getTimeSeriesMap() {
-		return TimeSeriesMap;
-	}
-
-	public TreeMap<Integer, Double>[] getTimeSeriesMapCompare() {
-		return TimeSeriesMapCompare;
 	}
 }

@@ -791,10 +791,9 @@ public class ScenarioController extends InputController {
 					
 					if(cbBranchSpecific.isSelected()){
 						//The Panel contains all data necessary such as slope and standard deviation.
-						//TODO use the results
 						//TODO maybe manipulate data here, because it is normalized?!
+						progressBar.setVisible(true);
 						
-						//TODO calculate CF with BSR here
 						process.calculateParameters(true);
 						resultBranchSpecificData = process.calculate();
 						
@@ -805,11 +804,6 @@ public class ScenarioController extends InputController {
 							resultBranchSpecificData.setTimeSeries(TSprocess,
 								TSprocess.calculate(true),
 								TSprocess.calculateCompare(3));
-							
-							result.setMapBSR(resultBranchSpecificData.getMap());
-							result.setMaxAmountOfValuesInClusterBSR(resultBranchSpecificData.getMaxAmountOfValuesInCluster());
-							result.setTimeSeriesMapBSR(resultBranchSpecificData.getTimeSeriesMap());
-							result.setTimeSeriesMapCompareBSR(result.getTimeSeriesMapCompare());
 						} catch (RuntimeException re){
 							Logger.getLogger(getClass()).fatal("Calculation of matrix in time series failed!", re);
 							b.doClick(); //Simulate interrupt click
