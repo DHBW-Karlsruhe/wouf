@@ -139,6 +139,7 @@ public class TimeSeries implements ITimeSeriesProcess {
 
 	@Override
 	public TreeMap<Integer, Double> calculate(boolean branchSpecific) {
+		log.info("Start time series analysis");
 		// Berechnung für den Cashflow-Chart Vergangenheit bis in die Zukunft
 		TreeMap<Integer, Double> result = new TreeMap<Integer, Double>();
 
@@ -170,20 +171,19 @@ public class TimeSeries implements ITimeSeriesProcess {
 		
 		int periodsInPast = map.get(AMOUNT_OF_PERIODS_BACK);
 		int periodsInFuture = map.get(AMOUNT_OF_PERIODS_FUTURE);
+		
 		if (periodsInPast > cashValues.size() - 1) {
 			periodsInPast = cashValues.size() - 1;
-			/*
-			 * Changed from periods.size() See #259
-			 * 
-			 * periods.size() contains all values like debt, ... and not only
-			 * the cashflows; For calculation we just need the cashflows
-			 */
 		}
+		
 		calc = new TimeSeriesCalculator_v3(cashValues, progressB);
-		// System.out.println("TimeSeries: call calculate cashflows");
+
+		//Start calculation
 		List<Calculable> cashCalc = calc.calculateCashflows(periodsInFuture,
 				periodsInPast, true, 1000, true, null);
-		// System.out.println("TimeSeries: call calculate cashflows beendet");
+		//End calculation
+		
+		//Calculate arithmetic average
 		int counter = 1;
 		for (Calculable cashflow : cashCalc) {
 			int key = -(cashCalc.size() - periodsInFuture) + counter;
@@ -191,10 +191,13 @@ public class TimeSeries implements ITimeSeriesProcess {
 			result.put(key, value);
 			counter++;
 		}
+		
+		log.info("Time series analysis finished.");
 		return result;
 	}
 
 	public TreeMap<Integer, Double>[] calculateCompare(int p) {
+		@SuppressWarnings("unchecked")
 		TreeMap<Integer, Double> result[] = new TreeMap[2];
 		result[0] = new TreeMap<Integer, Double>(); // Ist Cashflows
 		result[1] = new TreeMap<Integer, Double>(); // Vergleichs Cashflows

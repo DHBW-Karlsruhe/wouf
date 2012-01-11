@@ -56,12 +56,28 @@ public interface ITimeSeriesProcess extends IDisplayablePlugin{
 	 * @param The scenario used in this instance of the time series process.
 	 * @return A new instance of the same class.
 	 */
-	
 	ITimeSeriesProcess createNewInstance(DTOScenario scenario);
 
+	/**
+	 * Uses the scenario to calculate the parameters needed for the stochastic
+	 * process.
+	 * 
+	 * <p>
+	 * The plugin has to care about storing these parameters internally. If the
+	 * plugin needs to display a GUI for changing these parameters or the like,
+	 * it returns a JPanel.
+	 * 
+	 * @see DTOScenario#getPeriodStochasticKeys()
+	 * @see DTOScenario#getPeriodStochasticKeysAndValues()
+	 * @return The GUI or null.
+	 */
 	JPanel calculateParameters();
 
-
+	/**
+	 * This function will be called when the user confirmed the parameters,
+	 * right before starting the calculation. The plugin should then write the
+	 * parameters back from the GUI to its internal data structures.
+	 */
 	void updateParameters();
 
 	TreeMap<Integer, Double> calculate(boolean branchSpecific);
