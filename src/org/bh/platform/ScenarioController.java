@@ -332,6 +332,9 @@ public class ScenarioController extends InputController {
 		Item item;
 		StringValue value;
 		String key;
+		if (cbrepresentative == null){
+			return; // If we have no representative checkbox, there is no stochastic scenario, so no time series as well
+		}
 		
 		cbrepresentative.removeAllItems();
 		for (Map.Entry<String, String> entry : branches.entrySet()) {
