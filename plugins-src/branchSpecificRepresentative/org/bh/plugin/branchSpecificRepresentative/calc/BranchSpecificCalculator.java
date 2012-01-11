@@ -139,7 +139,7 @@ public class BranchSpecificCalculator implements IBranchSpecificCalculator {
 						((helpDouble / firstDouble) * (-1)) + 1);
 				currPeriod.put(DTOPeriod.Key.FCF, normedFCF);
 
-			} else {
+			} else if(firstDouble > 0) {
 				normedFCF = new DoubleValue(((helpDouble / firstDouble) - 1));
 				currPeriod.put(DTOPeriod.Key.FCF, normedFCF);
 
