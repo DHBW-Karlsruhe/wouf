@@ -1,5 +1,7 @@
 package org.bh.gui.swing;
 
+import java.awt.Image;
+
 import javax.swing.JFrame;
 
 import org.bh.platform.IPlatformListener;
@@ -42,6 +44,7 @@ public abstract class BHPopupFrame extends JFrame implements IPlatformListener {
 		this.setSize(400, 400);
 		this.setAlwaysOnTop(true);
 		this.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
+		this.setIconImages(Services.setIcon());
 	}
 	
 	public void setAdditionalMenuEntriesInMainFrame(BHMenuBar mainFrameMenuBar){}

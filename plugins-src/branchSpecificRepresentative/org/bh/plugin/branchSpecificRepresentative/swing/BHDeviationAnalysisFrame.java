@@ -2,8 +2,10 @@ package org.bh.plugin.branchSpecificRepresentative.swing;
 
 import java.awt.BorderLayout;
 import java.awt.Dimension;
+import java.awt.Image;
 import java.util.List;
 
+import javax.swing.ImageIcon;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 
@@ -14,9 +16,11 @@ import org.bh.data.DTOScenario;
 import org.bh.data.types.DoubleValue;
 import org.bh.gui.chart.BHChartFactory;
 import org.bh.gui.chart.BHChartPanel;
+import org.bh.gui.swing.BHAboutBox;
 import org.bh.gui.swing.BHPopupFrame;
 import org.bh.gui.swing.comp.BHComboBox;
 import org.bh.gui.swing.comp.BHDescriptionLabel;
+import org.bh.platform.Services;
 import org.bh.platform.i18n.BHTranslator;
 
 import com.jgoodies.forms.layout.CellConstraints;
@@ -91,6 +95,8 @@ public class BHDeviationAnalysisFrame extends BHPopupFrame {
 //		this.add(this.getFurtherAnalysisOptionsPanel(), BorderLayout.EAST);
 //		this.add(chartPanel);
 		this.setVisible(true);
+		
+		this.setIconImages(Services.setIcon());
 		
 		log.debug("Deviation analysis frame is visible");
 	}
