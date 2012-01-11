@@ -41,17 +41,6 @@ public class BranchSpecificCalculator implements IBranchSpecificCalculator {
 
 		this.scenario = scenario;
 
-		// ----------------------------------------------------------------------------
-		// !!!!!!!ACHTUNG !!!!!! zu Testzwecken die currBranche auf "M1033"
-		// setzen
-		currBranch.put(DTOBranch.Key.BRANCH_KEY_MAIN_CATEGORY, new StringValue(
-				"M"));
-		currBranch.put(DTOBranch.Key.BRANCH_KEY_MID_CATEGORY, new StringValue(
-				"10"));
-		currBranch.put(DTOBranch.Key.BRANCH_KEY_SUB_CATEGORY, new StringValue(
-				"33"));
-		// ----------------------------------------------------------------------------
-
 		// Do the Branch has Companies?
 		List<DTOCompany> companyList = currBranch.getChildren();
 		Iterator<DTOCompany> CompanyItr = companyList.iterator();
