@@ -91,7 +91,7 @@ public class BranchSpecificCalculator_v2 implements IBranchSpecificCalculator {
 
 		// computeRating(dtoBSRaverage, businessData);
 
-		// this.scenario.setBsrCalculatorWithRating(this);
+		 this.scenario.setBsrCalculatorWithRating(this);
 
 		return dtoBSRaverage;
 
