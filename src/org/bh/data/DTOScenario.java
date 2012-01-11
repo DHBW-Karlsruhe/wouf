@@ -20,6 +20,7 @@ import java.util.List;
 import java.util.TreeMap;
 
 import org.apache.log4j.Logger;
+import org.bh.calculation.IBranchSpecificCalculator;
 import org.bh.calculation.IShareholderValueCalculator;
 import org.bh.calculation.IStochasticProcess;
 import org.bh.calculation.ITimeSeriesProcess;
@@ -50,7 +51,7 @@ public class DTOScenario extends DTO<DTOPeriod> {
 	private static final Logger log = Logger.getLogger(DTOScenario.class);
 	private boolean isCalculated = false;
 	private transient DTOCompany branchSpecificRep;
-	private transient BranchSpecificCalculator bsrCalculatorWithRating;
+	private transient IBranchSpecificCalculator bsrCalculatorWithRating;
 
 	public enum Key {
 		/**
