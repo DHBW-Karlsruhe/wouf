@@ -30,8 +30,8 @@ public class BranchSpecificStochasticResultAnalyser implements
 	@Override
 	public Component setResult(DTOScenario scenario, DistributionMap result) {
 		try {
-			View view = new ViewBHStochasticResultPanel(scenario, result);
-			new BHStochasticResultController(view, result, scenario);
+			View view = new ViewBHBSRStochasticResultPanel(scenario, result);
+			new BHBSRStochasticResultController(view, result, scenario);
 			Logger.getLogger(BranchSpecificStochasticResultAnalyser.class).info("Loaded branch specific stochastic result analyser.");
 			return view.getViewPanel();
 		} catch (ViewException e) {
