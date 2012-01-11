@@ -188,7 +188,7 @@ public class TimeSeries implements ITimeSeriesProcess {
 		//Start calculation
 		DTO.setThrowEvents(false);
 		List<Calculable> cashCalc = calc.calculateCashflows(periodsInFuture,
-				periodsInPast, true, 1000, true, null);
+				periodsInPast, true, 1000, true, null, true);
 		DTO.setThrowEvents(true);
 		//End calculation
 		
@@ -205,9 +205,7 @@ public class TimeSeries implements ITimeSeriesProcess {
 		
 		log.info("Time series analysis finished.");
 		
-		//TODO
-		resultMap.setTimeSeries(this, averageCashflows, null);
-//		resultMap.setTimeSeries(this, averageCashflows, calculateCompare(4));
+		resultMap.setTimeSeries(this, averageCashflows, calculateCompare(3));
 		
 		return resultMap;
 	}
@@ -218,10 +216,6 @@ public class TimeSeries implements ITimeSeriesProcess {
 		TreeMap<Integer, Double> result[] = new TreeMap[2];
 		result[0] = new TreeMap<Integer, Double>(); // Ist Cashflows
 		result[1] = new TreeMap<Integer, Double>(); // Vergleichs Cashflows
-
-		if(p < 4){
-			return null;
-		}
 		
 		// System.out.println("TimeSeries: call calcultionTest_4_periods_to_history");
 		List<Calculable> cashProg = calc

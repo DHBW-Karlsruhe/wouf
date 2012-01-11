@@ -43,8 +43,10 @@ import Jama.Matrix;
 /**
  * Diese Klasse stellt die Berechnung für die Zeitreihenanalyse bereit.
  * 
+ * Sie unterstützt jetzt auch die Berechnung des Unternehmenswertes auf Basis der errechneten CashFlows der Zeitreihenanalyse.
+ * 
  * @author Andreas Wussler, Timo Klein
- * @version 3.0, 01.02.2011
+ * @version 3.2, 01.02.2011
  * @update Yannick Rödl, 22.12.2011
  */
 public class TimeSeriesCalculator_v3 {
@@ -165,7 +167,7 @@ public class TimeSeriesCalculator_v3 {
 													// cashflow-Liste
 													// berücksichtig kopieren
 			cashflows_beruecksichtigt.add(cashflow);
-			if (counter == periods_to_history + 1 && counter >= 4 && this.cashflows.size() - cashflows_beruecksichtigt.size() - 3 >= 0 ) {// p+1
+			if (counter == periods_to_history + 1 && counter >= 4 ) {// p+1
 																	// cashflows
 																	// sammeln,
 																	// aber
@@ -195,7 +197,7 @@ public class TimeSeriesCalculator_v3 {
 		result = calculateCashflows(this.cashflows.size()
 				- cashflows_beruecksichtigt.size(), periods_to_history,
 				weissesRauschenISon, anzahlWiederholungen, false,
-				cashflows_beruecksichtigt);
+				cashflows_beruecksichtigt, false);
 		DTO.setThrowEvents(true);
 		return result;
 	}
@@ -215,12 +217,14 @@ public class TimeSeriesCalculator_v3 {
 	 * @param cashflows
 	 *            optional cashflow-Liste, falls null wird die vorher im
 	 *            Konstruktor angegebene Cashflowliste genommen..
+	 * @param initialCalculation - Determines whether we have to recalculate the shareholder value
 	 * @return Cashflowliste-Kopie mit hinzugefügten prognostizierten Cashflows
+	 * 
 	 */
 	public List<Calculable> calculateCashflows(int periods_calc_to_future,
 			int periods_calc_to_history, boolean weissesRauschenISon,
 			int anzahlWiederholungen, boolean progressBarSetzen,
-			List<Calculable> cashflows) {
+			List<Calculable> cashflows, boolean initialCalculation) {
 		
 		// System.out.println("TimeSeriesCalculator_v3: called calculateCashflows...");
 		interrupted = false;
@@ -253,13 +257,16 @@ public class TimeSeriesCalculator_v3 {
 		IShareholderValueCalculator dcfMethod = scenario.getDCFMethod();
 		
 		List<DTOKeyPair> stochasticKeys = scenario.getPeriodStochasticKeys();
+		DTOScenario tempScenario = null;
 		
 		// Wiederholungen durchkalkulieren
 		for (int counter = 0; counter < anzahlWiederholungen; counter++) {
 			
-			//Erzeuge ein temporäres Szenario
-			DTOScenario tempScenario =  getTempScenario(periods_calc_to_future);
-			
+			if(initialCalculation){
+				//Erzeuge ein temporäres Szenario
+				tempScenario =  getTempScenario(periods_calc_to_future);
+			}
+				
 			// ProgressBar, falls verfügbar und erwünscht, aktualisieren
 			if (interrupted) {
 				counter = anzahlWiederholungen;
@@ -294,25 +301,23 @@ public class TimeSeriesCalculator_v3 {
 				
 				log.info( i + " " + nextCashflow);
 				
-				DTOPeriod period = tempScenario.getChildren().get(i);
-				for(DTOKeyPair key: stochasticKeys){
-					IPeriodicalValuesDTO pvdto = period
-					.getPeriodicalValuesDTO(key.getDtoId());
-					if(key.getKey().toString().equals(DTODirectInput.Key.FCF.toString())){
-						pvdto.put(key.getKey(), new DoubleValue(nextCashflow));
-					}
+				if(initialCalculation){
+					DTOPeriod period = tempScenario.getChildren().get(i);
+					IPeriodicalValuesDTO pvdto = period.getPeriodicalValuesDTO("directinput");
+					pvdto.put(DTODirectInput.Key.FCF, new DoubleValue(nextCashflow));
 					pvdto.put(DTODirectInput.Key.LIABILITIES, new DoubleValue(0));
 				}
-				
 				//Cashflow Wert neu und alten Wert addieren
 				cashflow_prognos_MW_sammlung.put(i,
 						(cashflow_prognos_MW_sammlung.get(i) + nextCashflow));
 			}
 			
-			Map<String, Calculable[]> dcfResult = dcfMethod.calculate(
-					tempScenario, false);
+			if(initialCalculation){
+				Map<String, Calculable[]> dcfResult = dcfMethod.calculate( tempScenario, false);
 
-			resultMap.put(((DoubleValue) dcfResult.get(IShareholderValueCalculator.Result.SHAREHOLDER_VALUE.toString())[0]).getValue());
+				resultMap.put(((DoubleValue) dcfResult.get(IShareholderValueCalculator.Result.SHAREHOLDER_VALUE.toString())[0]).getValue());
+			
+			}
 			
 			// cashflows_manipuliert zurücksetzen
 			cashflows_manipuliert = getManipulierteCashflows(cashflows);
@@ -336,6 +341,11 @@ public class TimeSeriesCalculator_v3 {
 		return cashflows_manipuliert;
 	}
 	
+	/**
+	 * Create a temporary scenario for the calculation of the shareholder value
+	 * @param periods_calc_to_future
+	 * @return
+	 */
 	private DTOScenario getTempScenario(int periods_calc_to_future){
 		DTOScenario tempScenario = new DTOScenario(true);
 		
@@ -352,16 +362,17 @@ public class TimeSeriesCalculator_v3 {
 		tempScenario.put(DTOScenario.Key.CTAX, scenario
 				.get(DTOScenario.Key.CTAX));
 
+		DTOPeriod dto = new DTOPeriod();
 		ServiceLoader<IPeriodicalValuesDTO> periods = PluginManager.getInstance().getServices(IPeriodicalValuesDTO.class);
 		for (IPeriodicalValuesDTO period : periods) {
 			if(period.getUniqueId().equals("directinput")){
-				//Write initial number of periods
-				for (int j = 0; j < periods_calc_to_future; j++) {
-					DTOPeriod dto = new DTOPeriod();
-					dto.addChild((IPeriodicalValuesDTO) period.clone());
-					tempScenario.addChild(dto);
-				}
+				dto.addChild((IPeriodicalValuesDTO) period.clone());
 			}
+		}
+		
+		//Write initial number of periods
+		for (int j = 0; j < periods_calc_to_future; j++) {
+			tempScenario.addChild((DTOPeriod) dto.clone());
 		}
 
 		

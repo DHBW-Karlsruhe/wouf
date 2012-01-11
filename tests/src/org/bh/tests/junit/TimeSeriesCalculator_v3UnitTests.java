@@ -102,7 +102,7 @@ public class TimeSeriesCalculator_v3UnitTests {
 		
 		//TimeSeriesCalculator erstellen & berechnen
 		TimeSeriesCalculator_v3 calculator = new TimeSeriesCalculator_v3(cashflows);
-		List<Calculable> cashflows_prognostiziert = calculator.calculateCashflows(10, 3, false, 1, false, null);
+		List<Calculable> cashflows_prognostiziert = calculator.calculateCashflows(10, 3, false, 1, false, null, true);
 		
 		//Ausgabe
 		System.out.println("--neue Cashflowliste:");
@@ -182,7 +182,7 @@ public class TimeSeriesCalculator_v3UnitTests {
 		System.out.println("---- TimeSeriesCalculatorUnitTests: weisses_Rauschen ----");
 		
 		TimeSeriesCalculator_v3 calculator = new TimeSeriesCalculator_v3(cashflows);
-		calculator.calculateCashflows(1, 3, true, 10, false, null);
+		calculator.calculateCashflows(1, 3, true, 10, false, null, true);
 
 		System.out.println("---- TimeSeriesCalculatorUnitTests: weisses_Rauschen beendet----");
 		assertTrue(keine_fehler);
