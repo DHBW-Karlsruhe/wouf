@@ -30,8 +30,8 @@ import org.bh.data.types.StringValue;
  */
 public class BranchSpecificCalculator implements IBranchSpecificCalculator {
 
-	private static double ratingBSR;
-	private static DTOBranch selectedBranch = null;
+	private double ratingBSR;
+	private DTOBranch selectedBranch = null;
 	private DTOScenario scenario = null;
 	private Logger log = Logger.getLogger(BranchSpecificCalculator.class);
 
@@ -59,6 +59,8 @@ public class BranchSpecificCalculator implements IBranchSpecificCalculator {
 		dtoBSRaverage = getArithmeticAverage("", currBranch);
 
 		computeRating(dtoBSRaverage, businessData);
+		
+		this.scenario.setBsrCalculatorWithRating(this);
 
 		return dtoBSRaverage;
 
@@ -301,7 +303,7 @@ public class BranchSpecificCalculator implements IBranchSpecificCalculator {
 			}
 
 		}
-		result = result / (companyList.size());
+		this.ratingBSR = result / (companyList.size());
 	}
 
 	private DoubleValue getBSRCFforPeriod(int period,
@@ -346,7 +348,7 @@ public class BranchSpecificCalculator implements IBranchSpecificCalculator {
 	}
 
 	public double getRating() {
-		return BranchSpecificCalculator.ratingBSR;
+		return this.ratingBSR;
 	}
 
 	private double[][] getNumberOfCompaniesAndPeriods(DTOBranch currNormedBranch) {

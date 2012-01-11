@@ -29,6 +29,7 @@ import org.bh.data.types.IntegerValue;
 import org.bh.data.types.ObjectValue;
 import org.bh.gui.swing.BHMenuBar;
 import org.bh.platform.Services;
+import org.bh.plugin.branchSpecificRepresentative.calc.BranchSpecificCalculator;
 
 /**
  * Scenario DTO
@@ -49,6 +50,7 @@ public class DTOScenario extends DTO<DTOPeriod> {
 	private static final Logger log = Logger.getLogger(DTOScenario.class);
 	private boolean isCalculated = false;
 	private transient DTOCompany branchSpecificRep;
+	private transient BranchSpecificCalculator bsrCalculatorWithRating;
 
 	public enum Key {
 		/**
@@ -411,6 +413,18 @@ public class DTOScenario extends DTO<DTOPeriod> {
 	 */
 	public void setBranchSpecificRep(DTOCompany branchSpecificRep) {
 		this.branchSpecificRep = branchSpecificRep;
+	}
+	
+	public BranchSpecificCalculator getBsrCalculatorWithRating() {
+		return bsrCalculatorWithRating;
+	}
+	/**
+	 * Set the branch specific representative calculator for the scenario.
+	 * @param bsrCalculatorWithRating
+	 */
+	public void setBsrCalculatorWithRating(
+			BranchSpecificCalculator bsrCalculatorWithRating) {
+		this.bsrCalculatorWithRating = bsrCalculatorWithRating;
 	}
 	
 	private double getStreckungsfaktor(){
