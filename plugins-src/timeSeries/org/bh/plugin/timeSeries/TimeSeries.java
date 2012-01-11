@@ -26,6 +26,7 @@ import javax.swing.JPanel;
 
 import org.apache.log4j.Logger;
 import org.bh.calculation.ITimeSeriesProcess;
+import org.bh.data.DTO;
 import org.bh.data.DTOKeyPair;
 import org.bh.data.DTOPeriod;
 import org.bh.data.DTOScenario;
@@ -94,6 +95,7 @@ public class TimeSeries implements ITimeSeriesProcess {
 	@Override
 	public JPanel calculateParameters(boolean branchSpecific) {
 		this.branchSpecific = branchSpecific;
+		
 		internalMap = new HashMap<String, Double>();
 		map = new HashMap<String, Integer>();
 		JPanel result = new JPanel();
@@ -181,11 +183,13 @@ public class TimeSeries implements ITimeSeriesProcess {
 			periodsInPast = cashValues.size() - 1;
 		}
 		
-		calc = new TimeSeriesCalculator_v3(cashValues, progressB);
+		calc = new TimeSeriesCalculator_v3(cashValues, progressB, resultMap, scenario);
 
 		//Start calculation
+		DTO.setThrowEvents(false);
 		List<Calculable> cashCalc = calc.calculateCashflows(periodsInFuture,
 				periodsInPast, true, 1000, true, null);
+		DTO.setThrowEvents(true);
 		//End calculation
 		
 		//Calculate arithmetic average
@@ -201,7 +205,9 @@ public class TimeSeries implements ITimeSeriesProcess {
 		
 		log.info("Time series analysis finished.");
 		
-		resultMap.setTimeSeries(this, averageCashflows, calculateCompare(3));
+		//TODO
+		resultMap.setTimeSeries(this, averageCashflows, null);
+//		resultMap.setTimeSeries(this, averageCashflows, calculateCompare(4));
 		
 		return resultMap;
 	}
@@ -213,6 +219,10 @@ public class TimeSeries implements ITimeSeriesProcess {
 		result[0] = new TreeMap<Integer, Double>(); // Ist Cashflows
 		result[1] = new TreeMap<Integer, Double>(); // Vergleichs Cashflows
 
+		if(p < 4){
+			return null;
+		}
+		
 		// System.out.println("TimeSeries: call calcultionTest_4_periods_to_history");
 		List<Calculable> cashProg = calc
 				.calcultionTest_4_periods_to_history_v2(p, 1000, false);

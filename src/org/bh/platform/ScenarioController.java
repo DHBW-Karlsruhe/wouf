@@ -818,11 +818,7 @@ public class ScenarioController extends InputController {
 						//Do branch specific calculation
 						TSprocess.updateParameters();
 						try{
-							
-							//TODO
-//							resultBranchSpecificData.setTimeSeries(TSprocess,
-//								TSprocess.calculate(true),
-//								TSprocess.calculateCompare(3));
+							resultBranchSpecificData = TSprocess.calculate();
 						} catch (RuntimeException re){
 							Logger.getLogger(getClass()).fatal("Calculation of matrix in time series failed!", re);
 							b.doClick(); //Simulate interrupt click
@@ -839,10 +835,7 @@ public class ScenarioController extends InputController {
 						TSprocess.setProgressB(progressBar);
 						TSprocess.updateParameters();
 						try{
-//							TODO
-//							result.setTimeSeries(TSprocess,
-//								TSprocess.calculate(false),
-//								TSprocess.calculateCompare(3));
+							result = TSprocess.calculate();
 						} catch (RuntimeException re){
 							Logger.getLogger(getClass()).fatal("Calculation of matrix in time series failed!", re);
 							b.doClick(); //Simulate interrupt click

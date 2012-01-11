@@ -15,19 +15,15 @@ package org.bh.tests.junit;
 
 import static org.junit.Assert.assertTrue;
 
-import java.lang.reflect.InvocationTargetException;
-import java.lang.reflect.Method;
 import java.util.LinkedList;
 import java.util.List;
 
-import javax.swing.JProgressBar;
-
+import org.bh.data.types.Calculable;
+import org.bh.data.types.DoubleValue;
+import org.bh.gui.swing.comp.BHProgressBar;
+import org.bh.plugin.timeSeries.TimeSeriesCalculator_v3;
 import org.junit.Before;
 import org.junit.Test;
-import org.bh.data.types.*;
-import org.bh.gui.swing.comp.BHProgressBar;
-import org.bh.plugin.timeSeries.TimeSeriesCalculator_v2;
-import org.bh.plugin.timeSeries.TimeSeriesCalculator_v3;
 
 /**
  * 
@@ -102,7 +98,6 @@ public class TimeSeriesCalculator_v3UnitTests {
 	
 	@Test
 	public void calculateCashflows_Test(){
-		boolean fehler_gefunden = false;
 		System.out.println("---- TimeSeriesCalculatorUnitTests: calculateCashflows_Test ----");
 		
 		//TimeSeriesCalculator erstellen & berechnen
@@ -168,7 +163,6 @@ public class TimeSeriesCalculator_v3UnitTests {
 		System.out.println("---- TimeSeriesCalculatorUnitTests: Getter_Setter_test ----");
 		
 		TimeSeriesCalculator_v3 calculator = new TimeSeriesCalculator_v3(cashflows);
-		TimeSeriesCalculator_v3 calculator2 = new TimeSeriesCalculator_v3(cashflows, null);
 		calculator.setCashflows(new LinkedList<Calculable>());
 		calculator.setCashflowsByMakingCopy(new LinkedList<Calculable>());
 		calculator.getCashflows();

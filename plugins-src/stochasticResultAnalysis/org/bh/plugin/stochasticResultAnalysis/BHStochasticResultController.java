@@ -94,10 +94,11 @@ public class BHStochasticResultController extends OutputController {
 				.getBHComponent(ChartKeys.RISK_AT_VALUE.toString());
 		slider.addChangeListener(new SliderChangeListener());
 
-		if (result.isTimeSeries()) {
-			setResultTimeSeries(result, scenario);
-
-		}
+//		TODO
+//		if (result.isTimeSeries()) {
+//			setResultTimeSeries(result, scenario);
+//
+//		}
 
 	}
 
