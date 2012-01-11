@@ -32,16 +32,15 @@ import org.bh.data.types.StringValue;
 public class BranchSpecificCalculator implements IBranchSpecificCalculator {
 
 	private double ratingBSR;
-	private DTOBranch selectedBranch = null;
 	private DTOScenario scenario = null;
 	private Color evaluationOfRating = null;
 	private Logger log = Logger.getLogger(BranchSpecificCalculator.class);
 
 	public DTOCompany calculateBSR(DTOBusinessData businessData,
 			DTOScenario scenario) {
-		DTOBranch currBranch = getSelectedBranch(businessData);
-
 		this.scenario = scenario;
+		
+		DTOBranch currBranch = getSelectedBranch(businessData);
 
 		// Do the Branch has Companies?
 		List<DTOCompany> companyList = currBranch.getChildren();
@@ -61,7 +60,7 @@ public class BranchSpecificCalculator implements IBranchSpecificCalculator {
 		dtoBSRaverage = getArithmeticAverage("", currBranch);
 
 		computeRating(dtoBSRaverage, businessData);
-		
+
 		this.scenario.setBsrCalculatorWithRating(this);
 
 		return dtoBSRaverage;
@@ -114,9 +113,10 @@ public class BranchSpecificCalculator implements IBranchSpecificCalculator {
 				currPeriod.put(DTOPeriod.Key.LIABILITIES, new DoubleValue(0.0));
 			}
 
-			//TODO Überlegen, ob wir hier mit einer Periode weniger arbeiten, weil interne Berechnung fehl schlägt!
+			// TODO Überlegen, ob wir hier mit einer Periode weniger arbeiten,
+			// weil interne Berechnung fehl schlägt!
 			// Sollte dies nicht gewählt werden, bitte Rücksprache mit Yannick
-			
+
 			if (firstPeriod) {
 
 				firstFCF = (DoubleValue) currPeriod.get(DTOPeriod.Key.FCF);
@@ -132,7 +132,7 @@ public class BranchSpecificCalculator implements IBranchSpecificCalculator {
 						((helpDouble / firstDouble) * (-1)) + 1);
 				currPeriod.put(DTOPeriod.Key.FCF, normedFCF);
 
-			} else if(firstDouble > 0) {
+			} else if (firstDouble > 0) {
 				normedFCF = new DoubleValue(((helpDouble / firstDouble) - 1));
 				currPeriod.put(DTOPeriod.Key.FCF, normedFCF);
 
@@ -269,15 +269,19 @@ public class BranchSpecificCalculator implements IBranchSpecificCalculator {
 		DoubleValue normedCFforPeriod = null;
 		DoubleValue bsrCF = null;
 		DTOPeriod currPeriod = null;
+		double[][] resultArray = null;
 		DTOBranch currBranch = getSelectedBranch(businessData);
 
 		// Do the Branch has Companies?
 		List<DTOCompany> companyList = currBranch.getChildren();
 		Iterator<DTOCompany> CompanyItr = companyList.iterator();
 
-		double result = 0;
+		int companyCounter = -1;
+		int numbOfPeriods = CompanyItr.next().getChildren().size();
+		resultArray = new double[numbOfPeriods][companyList.size()];
 
 		while (CompanyItr.hasNext()) {
+			companyCounter++;
 			DTOCompany currCompany = CompanyItr.next();
 
 			// echo them
@@ -290,22 +294,43 @@ public class BranchSpecificCalculator implements IBranchSpecificCalculator {
 			// selektierten Branche
 			// zur Güteberechnung des vorher berechneten, branchenspezifischen
 			// Vertreters
-			for (int count = 0; periodItr.hasNext(); count++) {
+			for (int periodCount = 0; periodItr.hasNext(); periodCount++) {
 				currPeriod = periodItr.next();
 
 				normedCFforPeriod = (DoubleValue) currPeriod
 						.get(DTOPeriod.Key.FCF);
 
-				bsrCF = getBSRCFforPeriod(count, branchSpecificRepresentative);
+				bsrCF = getBSRCFforPeriod(periodCount,
+						branchSpecificRepresentative);
 
-				result = result
-						+ ((normedCFforPeriod.getValue() - bsrCF.getValue()) * (normedCFforPeriod
-								.getValue() - bsrCF.getValue()));
-
+				resultArray[periodCount][companyCounter] = ((normedCFforPeriod
+						.getValue() - bsrCF.getValue()) * (normedCFforPeriod
+						.getValue() - bsrCF.getValue()));
+				// result = result
+				// + ((normedCFforPeriod.getValue() - bsrCF.getValue()) *
+				// (normedCFforPeriod
+				// .getValue() - bsrCF.getValue()));
 			}
-
 		}
-		this.ratingBSR = result / (companyList.size());
+
+		double[] resultsPerPeriod = new double[numbOfPeriods];
+		
+		//Wertung der einzelnen Perioden einbeziehen
+		// summe über die Perioden bilden
+		for( int periodCount = 0; periodCount < numbOfPeriods; periodCount++){
+			for( int companyCount = 0; companyCount < companyList.size(); companyCount++){
+			resultsPerPeriod[periodCount] = resultsPerPeriod[periodCount] + resultArray[periodCount][companyCount];
+			}
+		}
+		//mit Wertung multiplizieren
+		double percentage = 0.4;
+		double result = 0;
+		for( int periodCount = (numbOfPeriods-1); percentage > 0; periodCount--){
+		   resultsPerPeriod[periodCount] = resultsPerPeriod[periodCount] * percentage;
+		   result = result + resultsPerPeriod[periodCount];
+		   percentage = percentage - 0.1;
+		}
+		this.ratingBSR =  result / (companyList.size());
 	}
 
 	private DoubleValue getBSRCFforPeriod(int period,
@@ -317,7 +342,7 @@ public class BranchSpecificCalculator implements IBranchSpecificCalculator {
 
 		for (int count = 0; periodItr.hasNext();) {
 			currPeriod = periodItr.next();
-			if(count == period)
+			if (count == period)
 				break;
 		}
 		return ((DoubleValue) currPeriod.get(DTOPeriod.Key.FCF));
@@ -327,7 +352,8 @@ public class BranchSpecificCalculator implements IBranchSpecificCalculator {
 
 		List<DTOBranch> branchList = businessData.getChildren();
 
-		String selectedBranch = DTOScenario.Key.INDUSTRY.toString();
+		//vorrübergehend HART, bis drop down wieder funzt
+		String selectedBranch = "C259";//DTOScenario.Key.REPRESENTATIVE.toString();
 
 		// Iterate Company DTOs
 		Iterator<DTOBranch> itr = branchList.iterator();
@@ -338,9 +364,8 @@ public class BranchSpecificCalculator implements IBranchSpecificCalculator {
 					+ (currBranch.get(DTOBranch.Key.BRANCH_KEY_MID_CATEGORY))
 					+ (currBranch.get(DTOBranch.Key.BRANCH_KEY_SUB_CATEGORY));
 
-			if (currKey == selectedBranch)
-				this.selectedBranch = currBranch;
-			return currBranch;
+			if (currKey.equalsIgnoreCase(selectedBranch))
+				return currBranch;
 		}
 		// selected branch not found
 		// TODO create an exception
@@ -350,12 +375,12 @@ public class BranchSpecificCalculator implements IBranchSpecificCalculator {
 	public double getRating() {
 		return this.ratingBSR;
 	}
-	
-	public Color getEvaluationOfRating(){
-		
-		int evaluation = (int)((Math.random()) * 5 + 1);
-		
-		if((this.ratingBSR != 0) && (evaluation == 2)){
+
+	public Color getEvaluationOfRating() {
+
+		int evaluation = (int) ((Math.random()) * 5 + 1);
+
+		if ((this.ratingBSR != 0) && (evaluation == 2)) {
 			this.evaluationOfRating = Color.YELLOW;
 		} else {
 			this.evaluationOfRating = Color.GREEN;
