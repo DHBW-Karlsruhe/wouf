@@ -446,14 +446,14 @@ public class ScenarioController extends InputController {
 					} else {
 						
 						//For branch specific representative
-						BHComboBox cbindustry = (BHComboBox) view.getBHComponent(DTOScenario.Key.INDUSTRY);
+						//BHComboBox cbindustry = (BHComboBox) view.getBHComponent(DTOScenario.Key.INDUSTRY);
 						BHComboBox cbrepresentative = (BHComboBox) view.getBHComponent(DTOScenario.Key.REPRESENTATIVE);
 						BHDescriptionLabel lrepresentative = (BHDescriptionLabel) view.getBHComponent(DTOScenario.Key.LREPRESENTATIVE);
-						BHDescriptionLabel lindustry = (BHDescriptionLabel) view.getBHComponent(DTOScenario.Key.LINDUSTRY);
-						cbindustry.setVisible(false);
+						//BHDescriptionLabel lindustry = (BHDescriptionLabel) view.getBHComponent(DTOScenario.Key.LINDUSTRY);
+						//cbindustry.setVisible(false);
 						cbrepresentative.setVisible(false);
 						lrepresentative.setVisible(false);
-						lindustry.setVisible(false);
+						//lindustry.setVisible(false);
 						cbBranchSpecificRepresentative.setVisible(false);
 						cbBranchSpecificRepresentative.setSelected(false);
 						
@@ -478,6 +478,40 @@ public class ScenarioController extends InputController {
 			      }
 			    };
 			    cbrepresentative.addItemListener(itemListener);
+		}
+		
+		
+		BHComboBox cmbPeriodType = (BHComboBox) view.getBHComponent(DTOScenario.Key.PERIOD_TYPE);
+		
+		if(cmbPeriodType != null){
+			cmbPeriodType.addActionListener(new ActionListener() {
+				public void actionPerformed(ActionEvent e){
+					BHComboBox from = (BHComboBox) e.getSource();
+					
+					BHCheckBox cbbranchSpecificRepresentative = (BHCheckBox) view
+					.getBHComponent(DTOScenario.Key.BRANCH_SPECIFIC);
+					
+					if(from.getSelectedIndex() != 0){
+						BHComboBox cbrepresentative = (BHComboBox) view.getBHComponent(DTOScenario.Key.REPRESENTATIVE);
+						BHDescriptionLabel lrepresentative = (BHDescriptionLabel) view.getBHComponent(DTOScenario.Key.LREPRESENTATIVE);
+						
+						cbrepresentative.setVisible(false);
+						lrepresentative.setVisible(false);
+						
+						cbbranchSpecificRepresentative.setVisible(false);
+					}
+					BHCheckBox cbTimeSeriesMethod = (BHCheckBox) view
+					.getBHComponent(DTOScenario.Key.TIMESERIES_PROCESS);
+					if(cbTimeSeriesMethod.isSelected()){
+						if(cbbranchSpecificRepresentative != null && (from.getSelectedIndex() == 0)){
+							cbbranchSpecificRepresentative.setVisible(true);
+							cbbranchSpecificRepresentative.setSelected(false);
+						}
+					}
+				}
+				
+				
+			});
 		}
 		
 		// populate the ComboBoxes for branch specific representative
