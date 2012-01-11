@@ -56,7 +56,9 @@ public class BranchSpecificCalculator_v2 implements IBranchSpecificCalculator {
 			DTOCompany currCompany = CompanyItr.next();
 
 			// Norm all FCF-Period-Values
-			getNormedCFValue("", currCompany);
+			if (!currCompany.isNormed) {
+				getNormedCFValue("", currCompany);
+			}
 
 		}
 
@@ -87,7 +89,7 @@ public class BranchSpecificCalculator_v2 implements IBranchSpecificCalculator {
 			dtoBSRaverage.addChild(periods[i]);
 		}
 
-//		computeRating(dtoBSRaverage, businessData);
+		// computeRating(dtoBSRaverage, businessData);
 
 		// this.scenario.setBsrCalculatorWithRating(this);
 
@@ -170,6 +172,7 @@ public class BranchSpecificCalculator_v2 implements IBranchSpecificCalculator {
 		}
 
 		firstPeriod = true;
+		currCompany.setNormed(true);
 	}
 
 	private void computeRating(DTOCompany branchSpecificRepresentative,
@@ -384,7 +387,8 @@ public class BranchSpecificCalculator_v2 implements IBranchSpecificCalculator {
 	@Override
 	public Color getEvaluationOfRating() {
 		// TODO Auto-generated method stub
-		throw new UnsupportedOperationException("This method has not been implemented");
+		throw new UnsupportedOperationException(
+				"This method has not been implemented");
 	}
 
 	/* Specified by interface/super class. */
@@ -392,7 +396,8 @@ public class BranchSpecificCalculator_v2 implements IBranchSpecificCalculator {
 	public DTOCompany getArithmeticAverage(String choice,
 			DTOBranch currNormedBranch) {
 		// TODO Auto-generated method stub
-		throw new UnsupportedOperationException("This method has not been implemented");
+		throw new UnsupportedOperationException(
+				"This method has not been implemented");
 	}
 
 }

@@ -40,6 +40,9 @@ public class DTOCompany extends  DTO<DTOPeriod> {
 	 */
 	private static final long serialVersionUID = 5619460732252658937L;
 	private static final Logger log = Logger.getLogger(DTOPeriod.class);	
+	
+	public boolean isNormed = false;
+
 
 	public enum Key {
 		NAME
@@ -75,4 +78,13 @@ public class DTOCompany extends  DTO<DTOPeriod> {
 		super(Key.class);		
 		log.debug("Company Object created!");
 	}	
+	
+	public boolean isNormed() {
+		return isNormed;
+	}
+
+	public void setNormed(boolean isNormed) {
+		this.isNormed = isNormed;
+	}
+
 }
