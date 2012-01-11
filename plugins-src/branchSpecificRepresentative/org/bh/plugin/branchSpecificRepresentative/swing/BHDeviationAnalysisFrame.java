@@ -98,6 +98,7 @@ public class BHDeviationAnalysisFrame extends BHPopupFrame {
 //		this.add(this.getFurtherAnalysisOptionsPanel(), BorderLayout.EAST);
 //		this.add(chartPanel);
 		this.setVisible(true);
+		this.setMinimumSize(new Dimension(900,550));
 		
 		this.setIconImages(Services.setIcon());
 		
@@ -121,7 +122,6 @@ public class BHDeviationAnalysisFrame extends BHPopupFrame {
 	public JPanel getFurtherAnalysisOptionsPanel(){
 		JPanel panel = new JPanel();
 		panel.setMaximumSize(new Dimension(200,800));
-		
 		String colDef = "4px,p,4px";
 		String rowDef = "4px,p,4px,p,4px,p,4px,p,4px";
 		
