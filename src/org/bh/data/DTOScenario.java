@@ -416,7 +416,7 @@ public class DTOScenario extends DTO<DTOPeriod> {
 		this.branchSpecificRep = branchSpecificRep;
 	}
 	
-	public BranchSpecificCalculator getBsrCalculatorWithRating() {
+	public IBranchSpecificCalculator getBsrCalculatorWithRating() {
 		return bsrCalculatorWithRating;
 	}
 	/**
@@ -424,7 +424,7 @@ public class DTOScenario extends DTO<DTOPeriod> {
 	 * @param bsrCalculatorWithRating
 	 */
 	public void setBsrCalculatorWithRating(
-			BranchSpecificCalculator bsrCalculatorWithRating) {
+			IBranchSpecificCalculator bsrCalculatorWithRating) {
 		this.bsrCalculatorWithRating = bsrCalculatorWithRating;
 	}
 	
