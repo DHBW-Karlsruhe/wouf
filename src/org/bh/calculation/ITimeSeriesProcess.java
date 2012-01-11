@@ -50,6 +50,13 @@ public interface ITimeSeriesProcess extends IStochasticProcess{
 	 * @return A new instance of the same class.
 	 */
 	ITimeSeriesProcess createNewInstance(DTOScenario scenario);
+	
+	/**
+	 * TODO
+	 * @param p
+	 * @return
+	 */
+	TreeMap<Integer, Double>[]  calculateCompare(int p);
 
 	void setProgressB(BHProgressBar bhComponent);
 

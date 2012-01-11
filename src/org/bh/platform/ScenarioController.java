@@ -162,7 +162,7 @@ public class ScenarioController extends InputController {
 						
 						ITimeSeriesProcess timeSeriesProcess = scenario.getTimeSeriesProcess(ITimeSeriesProcess.Key.BRANCH_SPECIFIC_REPRESENTATIVE.toString());
 						
-						JPanel timeSeriesPanel = timeSeriesProcess.calculateParameters();
+						JPanel timeSeriesPanel = timeSeriesProcess.calculateParameters(false);
 						
 						form.setBranchSpecificRepresentativePanel(timeSeriesPanel);
 						
@@ -402,7 +402,7 @@ public class ScenarioController extends InputController {
 						TSprocess = scenario.getTimeSeriesProcess(ScenarioController.TIME_SERIES_ID);
 
 						JPanel parametersPanel = TSprocess
-								.calculateParameters();
+								.calculateParameters(false);
 						form.setTimeSeriesParametersPanel(parametersPanel);
 						if (parametersPanel instanceof Container)
 							Services.setFocus((Container) parametersPanel);
@@ -817,9 +817,10 @@ public class ScenarioController extends InputController {
 						TSprocess.updateParameters();
 						try{
 							
-							resultBranchSpecificData.setTimeSeries(TSprocess,
-								TSprocess.calculate(true),
-								TSprocess.calculateCompare(3));
+							//TODO
+//							resultBranchSpecificData.setTimeSeries(TSprocess,
+//								TSprocess.calculate(true),
+//								TSprocess.calculateCompare(3));
 						} catch (RuntimeException re){
 							Logger.getLogger(getClass()).fatal("Calculation of matrix in time series failed!", re);
 							b.doClick(); //Simulate interrupt click
@@ -836,9 +837,10 @@ public class ScenarioController extends InputController {
 						TSprocess.setProgressB(progressBar);
 						TSprocess.updateParameters();
 						try{
-							result.setTimeSeries(TSprocess,
-								TSprocess.calculate(false),
-								TSprocess.calculateCompare(3));
+//							TODO
+//							result.setTimeSeries(TSprocess,
+//								TSprocess.calculate(false),
+//								TSprocess.calculateCompare(3));
 						} catch (RuntimeException re){
 							Logger.getLogger(getClass()).fatal("Calculation of matrix in time series failed!", re);
 							b.doClick(); //Simulate interrupt click

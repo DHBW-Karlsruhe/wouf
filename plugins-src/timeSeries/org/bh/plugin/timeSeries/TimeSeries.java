@@ -205,7 +205,7 @@ public class TimeSeries implements ITimeSeriesProcess {
 		return null;
 	}
 
-	private TreeMap<Integer, Double>[] calculateCompare(int p) {
+	public TreeMap<Integer, Double>[] calculateCompare(int p) {
 		@SuppressWarnings("unchecked")
 		TreeMap<Integer, Double> result[] = new TreeMap[2];
 		result[0] = new TreeMap<Integer, Double>(); // Ist Cashflows
