@@ -1,5 +1,6 @@
 package org.bh.plugin.branchSpecificRepresentative.calc;
 
+import java.awt.Color;
 import java.util.Arrays;
 import java.util.Calendar;
 import java.util.GregorianCalendar;
@@ -41,10 +42,11 @@ public class BranchSpecificCalculator_v2 implements IBranchSpecificCalculator {
 
 		this.scenario = scenario;
 
-		// Table create
+		// Tabelle erstellen + Durchschnitt der Unternehmen + 3. Wurzel
 		double[][] companiesAndPeriodsNotNormed = createTable(currBranch);
 		double[] averageCompanyNotNormed = getAverage(
 				companiesAndPeriodsNotNormed, "company");
+		double[] cubeRoot = getCubeRoot(averageCompanyNotNormed);
 
 		// Do the Branch has Companies?
 		List<DTOCompany> companyList = currBranch.getChildren();
@@ -58,10 +60,32 @@ public class BranchSpecificCalculator_v2 implements IBranchSpecificCalculator {
 
 		}
 
-		// mit normierter BusinessData die Mittelwerte berechnen
+		// Normierte Tabelle erstellen
+		double[][] companiesAndPeriodsNormed = createTable(currBranch);
+
+		// Stutzung der normierten Tabelle
+		double[][] companyAndPeriodsNormedTrimmed = trimmedAverage(
+				companiesAndPeriodsNormed, 2.5);
+
+		// Spezifizierung der gestutzten normierten Tabelle
+		double[] bsrArray = getSpecificAverage(companyAndPeriodsNormedTrimmed,
+				cubeRoot);
+
+		// Werte dem Ergebnis DTOCompany-Objekt zuweisen
 		DTOCompany dtoBSRaverage = new DTOCompany();
 
-		dtoBSRaverage = getArithmeticAverage("", currBranch);
+		DTOPeriod[] periods = new DTOPeriod[bsrArray.length];
+
+		// ACHTUNG: Hardcoded Jahreszahl --> keine neueren Unternehmensdaten für
+		// die Jahre NACH 2010!!!
+		int year = 2010;
+
+		for (int i = 0; i < periods.length; i++) {
+			periods[i] = new DTOPeriod();
+			periods[i].put(DTOPeriod.Key.NAME, new DoubleValue(year - i));
+			periods[i].put(DTOPeriod.Key.FCF, new DoubleValue(bsrArray[i]));
+			dtoBSRaverage.addChild(periods[i]);
+		}
 
 		computeRating(dtoBSRaverage, businessData);
 
@@ -146,100 +170,6 @@ public class BranchSpecificCalculator_v2 implements IBranchSpecificCalculator {
 		}
 
 		firstPeriod = true;
-	}
-
-	public DTOCompany getArithmeticAverage(String choice,
-			DTOBranch currNormedBranch) {
-
-		DTOCompany arithmeticAverage = new DTOCompany();
-		double rowSum = 0;
-
-		// Table create
-		double[][] companiesAndPeriods = createTable(currNormedBranch);
-
-		double[] avgValues = new double[companiesAndPeriods[0].length];
-
-		// set name of branch
-		String currKey = ""
-				+ (currNormedBranch.get(DTOBranch.Key.BRANCH_KEY_MAIN_CATEGORY))
-				+ (currNormedBranch.get(DTOBranch.Key.BRANCH_KEY_MID_CATEGORY))
-				+ (currNormedBranch.get(DTOBranch.Key.BRANCH_KEY_SUB_CATEGORY));
-		arithmeticAverage.put(DTOCompany.Key.NAME, new StringValue(currKey));
-
-		if (choice == "") {
-
-			for (int j = 0; j < companiesAndPeriods[0].length; j++) {
-
-				for (int i = 0; i < companiesAndPeriods.length; i++) {
-					rowSum = rowSum + companiesAndPeriods[i][j];
-				}
-
-				avgValues[j] = rowSum;
-
-			}
-
-			// Mittelwert berechnen für einzelne Perioden
-
-			for (int i = 0; i < avgValues.length; i++) {
-				avgValues[i] = avgValues[i] / companiesAndPeriods.length;
-			}
-
-		} else {
-
-			double[] helpSort = new double[companiesAndPeriods.length];
-
-			// Werte in Zeile von klein nach groß sortieren
-
-			for (int i = 0; i < companiesAndPeriods[0].length; i++) {
-
-				for (int j = 0; j < companiesAndPeriods.length; j++) {
-					helpSort[j] = companiesAndPeriods[j][i];
-				}
-
-				Arrays.sort(helpSort);
-
-				for (int j = 0; j < companiesAndPeriods.length; j++) {
-					companiesAndPeriods[j][i] = helpSort[j];
-				}
-
-			}
-
-			// Zeilenwerte addieren
-
-			for (int j = 0; j < companiesAndPeriods[0].length; j++) {
-
-				for (int i = 1; i < companiesAndPeriods.length - 1; i++) {
-					rowSum = rowSum + companiesAndPeriods[i][j];
-				}
-
-				avgValues[j] = rowSum;
-
-			}
-
-			// Mittelwert berechnen für einzelne Perioden
-
-			for (int i = 0; i < avgValues.length; i++) {
-				avgValues[i] = avgValues[i] / companiesAndPeriods.length - 2;
-			}
-
-		}
-
-		// Werte der DTOPeriods im DTOCompany setzen
-
-		DTOPeriod[] periods = new DTOPeriod[companiesAndPeriods[0].length];
-
-		Calendar cal = new GregorianCalendar();
-		int year = cal.get(Calendar.YEAR) - 2;
-
-		for (int i = 0; i < periods.length; i++) {
-			periods[i] = new DTOPeriod();
-			periods[i].put(DTOPeriod.Key.NAME, new DoubleValue(year - i));
-			periods[i].put(DTOPeriod.Key.FCF, new DoubleValue(avgValues[i]));
-			arithmeticAverage.addChild(periods[i]);
-		}
-
-		return arithmeticAverage;
-
 	}
 
 	private void computeRating(DTOCompany branchSpecificRepresentative,
@@ -348,7 +278,6 @@ public class BranchSpecificCalculator_v2 implements IBranchSpecificCalculator {
 
 	private double[] getAverage(double[][] table, String choice) {
 		double[] result = null;
-		double rowSum = 0;
 
 		if (choice == "company") {
 			result = new double[table.length];
@@ -362,28 +291,59 @@ public class BranchSpecificCalculator_v2 implements IBranchSpecificCalculator {
 
 		} else if (choice == "year") {
 			result = new double[table[0].length];
-			for(int zeile =0; zeile < table[0].length; zeile++){
-				for (int spalte =0; spalte < table.length; spalte++){
+			for (int zeile = 0; zeile < table[0].length; zeile++) {
+				for (int spalte = 0; spalte < table.length; spalte++) {
 					result[zeile] = result[zeile] + table[zeile][spalte];
 				}
 				result[zeile] = result[zeile] / table.length;
 			}
 
-
 		}
 		return result;
 	}
 
-	private double[] getCubeRoot(double[][] table) {
-		return new double[1];
+	private double[] getCubeRoot(double[] averageCompanyNotNormed) {
+		double[] result = new double[averageCompanyNotNormed.length];
+		for (int i = 0; i < averageCompanyNotNormed.length; i++) {
+			result[i] = Math.pow(Math.abs(averageCompanyNotNormed[i]), (1 / 3));
+		}
+
+		return result;
 	}
 
 	private double[][] trimmedAverage(double[][] table, double factor) {
-		return new double[1][2];
+		double[] avg = getAverage(table, "year");
+
+		for (int zeile = 0; zeile < table[0].length; zeile++) {
+			for (int spalte = 1; spalte < table.length; spalte++) {
+				if ((avg[zeile] * (-1) * factor) > table[spalte][zeile]) {
+					table[spalte][zeile] = Double.MAX_VALUE;
+				} else if ((avg[zeile] * factor) < table[spalte][zeile]) {
+					table[spalte][zeile] = Double.MAX_VALUE;
+				}
+			}
+		}
+		return table;
 	}
 
-	private double[] getSpecificAverage(double[][] table, double[] weights) {
-		return new double[2];
+	private double[] getSpecificAverage(double[][] table, double[] cubeRoot) {
+		double weight = 0;
+		double[] result = new double[cubeRoot.length];
+
+		for (int zeile = 0; zeile < table[0].length; zeile++) {
+			for (int spalte = 0; spalte < table.length; spalte++) {
+				if (table[spalte][zeile] != Double.MAX_VALUE) {
+					result[zeile] = result[zeile] + table[spalte][zeile]
+							* cubeRoot[zeile];
+					weight = weight + cubeRoot[zeile];
+
+				}
+
+			}
+			result[zeile] = result[zeile] / weight;
+			weight = 0;
+		}
+		return result;
 	}
 
 	private double[][] createTable(DTOBranch currBranch) {
@@ -418,6 +378,21 @@ public class BranchSpecificCalculator_v2 implements IBranchSpecificCalculator {
 
 		}
 		return companiesAndPeriods;
+	}
+
+	/* Specified by interface/super class. */
+	@Override
+	public Color getEvaluationOfRating() {
+		// TODO Auto-generated method stub
+		throw new UnsupportedOperationException("This method has not been implemented");
+	}
+
+	/* Specified by interface/super class. */
+	@Override
+	public DTOCompany getArithmeticAverage(String choice,
+			DTOBranch currNormedBranch) {
+		// TODO Auto-generated method stub
+		throw new UnsupportedOperationException("This method has not been implemented");
 	}
 
 }
