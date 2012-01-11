@@ -22,7 +22,6 @@ import java.util.ListIterator;
 
 import org.apache.commons.math.MathException;
 import org.apache.commons.math.distribution.NormalDistributionImpl;
-import org.apache.log4j.Logger;
 import org.bh.data.types.Calculable;
 import org.bh.data.types.DoubleValue;
 import org.bh.gui.swing.comp.BHProgressBar;
@@ -200,49 +199,31 @@ public class TimeSeriesCalculator_v3 {
 			int periods_calc_to_history, boolean weissesRauschenISon,
 			int anzahlWiederholungen, boolean progressBarSetzen,
 			List<Calculable> cashflows) {
+		
 		// System.out.println("TimeSeriesCalculator_v3: called calculateCashflows...");
 		interrupted = false;
-		List<Calculable> cashflows_manipuliert = new LinkedList<Calculable>(); // zu
-																				// manipulierende
-																				// Liste
-																				// initalisieren
-		if (cashflows == null) {// falls keine Cashflowliste übergeben wurde
-			for (Calculable cashflow : this.cashflows) {// original Liste in zu
-														// manipulierende Liste
-														// kopieren
-				cashflows_manipuliert.add(cashflow);
-			}
-		} else {
-			for (Calculable cashflow : cashflows) {// übergebene Liste in zu
-													// manipulierende Liste
-													// kopieren
-				cashflows_manipuliert.add(cashflow);
-			}
-		}
-
-		HashMap<Integer, Double> cashflow_prognos_MW_sammlung = new HashMap<Integer, Double>();// Hashmap
-																								// zum
-																								// sammeln
-																								// der
-																								// prognostizierten
-																								// Cashflows
-																								// mal
-																								// Anzahl
-																								// der
-																								// Wdhn.
-		for (int i = 0; i < periods_calc_to_future; i++) {// vorinitalisieren
+		
+		// zu manipulierende Liste initalisieren
+		List<Calculable> cashflows_manipuliert = getManipulierteCashflows(cashflows);
+		
+		// Hashmap zum sammeln der prognostizierten Cashflows mal Anzahl der Wdhn.
+		HashMap<Integer, Double> cashflow_prognos_MW_sammlung = new HashMap<Integer, Double>();
+		
+		// vorinitalisieren der prognostizierten CashFlows
+		for (int i = 0; i < periods_calc_to_future; i++) {
 			cashflow_prognos_MW_sammlung.put(i, 0.);
 		}
 
+		//Varianz berechnen
 		double varianz = kalkuliereTrendbereinigungVarianz(
 				cashflows_manipuliert, kalkuliereStriche(cashflows_manipuliert));
 		
 		List<Calculable> weisses_Rauschen = null;
 		double nextCashflow = 0;
 
-		if (weissesRauschenISon == false) {// falls weißes rauschen augeschaltet
-											// ist, setze die anzahl der wdhs
-											// auf 1
+		// falls weißes rauschen augeschaltet ist, setze die anzahl der wdhs auf 1,
+		// weil dann offensichtlich ein anderer Prozess wie beispielsweise Random Walk verwendet wird.		
+		if (weissesRauschenISon == false) {
 			anzahlWiederholungen = 1;
 		}
 
@@ -253,8 +234,8 @@ public class TimeSeriesCalculator_v3 {
 				counter = anzahlWiederholungen;
 			}
 			if (progressB != null && progressBarSetzen == true) {
-				progressB
-						.setValue((int) (((progressB.getMaximum() / 1.0) / anzahlWiederholungen) * (counter + 1.0)));
+				int fortschritt = (int) (((progressB.getMaximum() / 1.0) / anzahlWiederholungen) * (counter + 1.0));
+				progressB.setValue(fortschritt);
 			}
 
 			// Variablen leeren
@@ -269,57 +250,65 @@ public class TimeSeriesCalculator_v3 {
 				// weisses_Rauschen.size());
 			}
 
-			// Iteratives Berechnen der Cashflows..
+			// Iteratives Berechnen der Cashflows...
 			for (int i = 0; i < periods_calc_to_future; i++) {
-				nextCashflow = calulateNextCashflow(cashflows_manipuliert,
-						periods_calc_to_history);
+				nextCashflow = calulateNextCashflow(cashflows_manipuliert, periods_calc_to_history);
+				
 				if (weissesRauschenISon) {
-					nextCashflow = nextCashflow
-							+ ((DoubleValue) weisses_Rauschen.get(i))
-									.toNumber().doubleValue();
+					nextCashflow = nextCashflow + ((DoubleValue) weisses_Rauschen.get(i)).toNumber().doubleValue();
 				}
+				
+				//Hier haben wir den nächsten Cashflow gesetzt
 				cashflows_manipuliert.add(new DoubleValue(nextCashflow));
-				// System.out.println("add nextCashflow ");
+				
+				//Cashflow Wert neu und alten Wert addieren
 				cashflow_prognos_MW_sammlung.put(i,
 						(cashflow_prognos_MW_sammlung.get(i) + nextCashflow));
 			}
-			// System.out.println("step "+counter);
 
 			// cashflows_manipuliert zurücksetzen
-			cashflows_manipuliert = new LinkedList<Calculable>(); // zu
-																	// manipulierende
-																	// Liste
-																	// initalisieren
-			if (cashflows == null) {// falls keine Cashflowliste übergeben wurde
-				for (Calculable cashflow : this.cashflows) {// original Liste in
-															// zu manipulierende
-															// Liste kopieren
-					cashflows_manipuliert.add(cashflow);
-				}
-			} else {
-				for (Calculable cashflow : cashflows) {// übergebene Liste in zu
-														// manipulierende Liste
-														// kopieren
-					cashflows_manipuliert.add(cashflow);
-				}
-			}
+			cashflows_manipuliert = getManipulierteCashflows(cashflows);
 		}
 
-		// Durchschnittliche Cashflows berechnen
+		/*
+		 *  Durchschnittliche Cashflows berechnen, indem die Summe der 
+		 *  CF durch die Anzahl der Wiederholungen geteilt wird
+		 */
 		for (int i = 0; i < periods_calc_to_future; i++) {
 			cashflows_manipuliert
 					.add(new DoubleValue(cashflow_prognos_MW_sammlung.get(i)
 							/ anzahlWiederholungen));
 		}
 
-		if (progressB != null && progressBarSetzen == true) {// progressbar wert
-																// auf
-																// abweeichung
-																// prüfen und
-																// korrigieren
+		// Progressbar wert auf Abweichung prüfen und korrigieren
+		if (progressB != null && progressBarSetzen == true) {
 			progressB.setValue(progressB.getMaximum());
 		}
 
+		return cashflows_manipuliert;
+	}
+	
+	/**
+	 * Setze eine interne Liste mit den berechneten Ursprungswerten der Cashflows. 
+	 * Diese werden zur internen Prognose der zukünftigen Cashflows berechnet.
+	 * @param cashflows
+	 * @return
+	 */
+	private LinkedList<Calculable> getManipulierteCashflows(List<Calculable> cashflows){
+		LinkedList<Calculable> cashflows_manipuliert = new LinkedList<Calculable>();
+		
+		if (cashflows == null) {// falls keine Cashflowliste übergeben wurde
+			// original Liste in zu manipulierende Liste kopieren
+			for (Calculable cashflow : this.cashflows) {
+				cashflows_manipuliert.add(cashflow);
+			}
+		} else {
+			// übergebene Liste in zu manipulierende Liste kopieren
+			for (Calculable cashflow : cashflows) {
+				cashflows_manipuliert.add(cashflow);
+			}
+		}
+		
 		return cashflows_manipuliert;
 	}
 
