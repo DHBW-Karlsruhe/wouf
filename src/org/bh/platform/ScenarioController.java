@@ -326,8 +326,7 @@ public class ScenarioController extends InputController {
 	private void addTimeSeriesFunctionality(final View view, final BHButton resetStochasticParameters){
 		//cbrepresentative mit Daten befüllen
 		BHComboBox cbrepresentative = (BHComboBox) view.getBHComponent(DTOScenario.Key.REPRESENTATIVE);
-		INACEImport naceReader = Services.getNACEReader();
-		Map<String, String> branches = naceReader.getBranch();
+		
 		
 		Item item;
 		StringValue value;
@@ -335,6 +334,9 @@ public class ScenarioController extends InputController {
 		if (cbrepresentative == null){
 			return; // If we have no representative checkbox, there is no stochastic scenario, so no time series as well
 		}
+		
+		INACEImport naceReader = Services.getNACEReader();
+		Map<String, String> branches = naceReader.getBranch();
 		
 		cbrepresentative.removeAllItems();
 		for (Map.Entry<String, String> entry : branches.entrySet()) {

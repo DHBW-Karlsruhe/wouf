@@ -144,7 +144,9 @@ public class TimeSeries implements ITimeSeriesProcess {
 	public DistributionMap calculate() {
 		log.info("Start time series analysis");
 		// Berechnung für den Cashflow-Chart Vergangenheit bis in die Zukunft
-		TreeMap<Integer, Double> result = new TreeMap<Integer, Double>();
+		TreeMap<Integer, Double> averageCashflows = new TreeMap<Integer, Double>();
+		
+		DistributionMap resultMap = new DistributionMap(1);
 
 		TreeMap<DTOKeyPair, List<Calculable>> periods = scenario
 				.getPeriodStochasticKeysAndValues(branchSpecific);
@@ -191,7 +193,7 @@ public class TimeSeries implements ITimeSeriesProcess {
 		for (Calculable cashflow : cashCalc) {
 			int key = -(cashCalc.size() - periodsInFuture) + counter;
 			double value = cashflow.toNumber().doubleValue();
-			result.put(key, value);
+			averageCashflows.put(key, value);
 			counter++;
 		}
 		
@@ -199,12 +201,12 @@ public class TimeSeries implements ITimeSeriesProcess {
 		
 		log.info("Time series analysis finished.");
 		
-		//TODO setzen des Durchschnittscashflows
-		//TODO setzen calculateCompare
+		resultMap.setTimeSeries(this, averageCashflows, calculateCompare(3));
 		
-		return null;
+		return resultMap;
 	}
 
+	@Override
 	public TreeMap<Integer, Double>[] calculateCompare(int p) {
 		@SuppressWarnings("unchecked")
 		TreeMap<Integer, Double> result[] = new TreeMap[2];

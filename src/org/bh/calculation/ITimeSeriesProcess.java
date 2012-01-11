@@ -17,11 +17,8 @@ package org.bh.calculation;
 
 import java.util.TreeMap;
 
-import javax.swing.JPanel;
-
 import org.bh.data.DTOScenario;
 import org.bh.gui.swing.comp.BHProgressBar;
-import org.bh.platform.IDisplayablePlugin;
 
 /**
  * This interface is implemented by plugins which can execute timeSeries
@@ -52,7 +49,8 @@ public interface ITimeSeriesProcess extends IStochasticProcess{
 	ITimeSeriesProcess createNewInstance(DTOScenario scenario);
 	
 	/**
-	 * TODO
+	 * This method is used to determine which would be the best p to calculate the periods
+	 * back in the past.
 	 * @param p
 	 * @return
 	 */
