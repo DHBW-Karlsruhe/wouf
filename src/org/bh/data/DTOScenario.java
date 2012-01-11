@@ -30,7 +30,6 @@ import org.bh.data.types.IntegerValue;
 import org.bh.data.types.ObjectValue;
 import org.bh.gui.swing.BHMenuBar;
 import org.bh.platform.Services;
-import org.bh.plugin.branchSpecificRepresentative.calc.BranchSpecificCalculator;
 
 /**
  * Scenario DTO
