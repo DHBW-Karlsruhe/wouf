@@ -334,7 +334,7 @@ public class BranchSpecificCalculator_v2 implements IBranchSpecificCalculator {
 	private double[] getCubeRoot(double[] averageCompanyNotNormed) {
 		double[] result = new double[averageCompanyNotNormed.length];
 		for (int i = 0; i < averageCompanyNotNormed.length; i++) {
-			result[i] = Math.pow(Math.abs(averageCompanyNotNormed[i]), (1 / 3));
+			result[i] = Math.pow(Math.abs(averageCompanyNotNormed[i]), (1 / 3.0));
 		}
 
 		return result;
