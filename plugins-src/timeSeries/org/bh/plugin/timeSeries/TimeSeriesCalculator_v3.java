@@ -27,7 +27,6 @@ import org.apache.commons.math.distribution.NormalDistributionImpl;
 import org.apache.log4j.Logger;
 import org.bh.calculation.IShareholderValueCalculator;
 import org.bh.data.DTO;
-import org.bh.data.DTOKeyPair;
 import org.bh.data.DTOPeriod;
 import org.bh.data.DTOScenario;
 import org.bh.data.IPeriodicalValuesDTO;
@@ -91,6 +90,8 @@ public class TimeSeriesCalculator_v3 {
 	 * @param progressbar
 	 *            Referenz zu einer Progressbar, diese wird falls vorhanden, den
 	 *            Status der Berechnung übermittelt
+	 * @param resultMap Enthält die DistributionMap zur Speicherung des aktuellen Ergebnisses der Berechnungen
+	 * @param scenario Das Szenario, in dem die Daten berechnet werden.
 	 */
 	public TimeSeriesCalculator_v3(List<Calculable> cashflows,
 			BHProgressBar progressbar, DistributionMap resultMap, DTOScenario scenario) {
@@ -177,21 +178,6 @@ public class TimeSeriesCalculator_v3 {
 			}
 			counter++;
 		}
-
-		/*
-		 * for(Calculable cashflow : cashflows_beruecksichtigt){//original Liste
-		 * in cashflow-Liste berücksichtig kopieren
-		 * System.out.println("kopiert: "+cashflow.toNumber().doubleValue()); }
-		 */
-
-		// Für die ProgressBAR:
-		int cashflows_n_beruecks_size = cashflows_beruecksichtigt.size();
-		int progressbar_haelfte = 0;
-		if (progressB != null) {
-			progressbar_haelfte = progressB.getMaximum() / 2;
-		}
-
-		// System.out.println("size berücksichtig= "+cashflows_beruecksichtigt.size()+" size cashflows= "+this.cashflows.size());
 		
 		DTO.setThrowEvents(false);
 		result = calculateCashflows(this.cashflows.size()
@@ -256,7 +242,6 @@ public class TimeSeriesCalculator_v3 {
 		//Um den Unternehmenswert zu berechnen.
 		IShareholderValueCalculator dcfMethod = scenario.getDCFMethod();
 		
-		List<DTOKeyPair> stochasticKeys = scenario.getPeriodStochasticKeys();
 		DTOScenario tempScenario = null;
 		
 		// Wiederholungen durchkalkulieren
@@ -592,6 +577,12 @@ public class TimeSeriesCalculator_v3 {
 		return gammaListe;
 	}
 
+	/**
+	 * Berechnet die CF Liste.
+	 * @param gammaListe
+	 * @param periods_calc_to_history
+	 * @return
+	 */
 	private List<Calculable> kalkuliere_cListe (List<Calculable> gammaListe, int periods_calc_to_history ){
 		/*
 		 * Initalisierung
@@ -738,6 +729,15 @@ public class TimeSeriesCalculator_v3 {
 		return varianz;
 	}
 
+	/**
+	 * Berechnet das weiße Rauschen, das im Prinzip eine Variante zu der 
+	 * Zufallsbewegung und dem Wiener Prozess darstellt. Das weiße Rauschen
+	 * sorgt für eine Beeinflussung der prognostizierten Cashflows.
+	 * @param periods_calc_to_future Anzahl der Perioden in der Zukunft
+	 * @param varianz Die Varianz der Berechnung
+	 * @param anzahl_zufalls_zahlen Die Anzahl der Zufallszahlen
+	 * @return Eine Liste mit Werten, die das weiße Rauschen je Periode darstellt.
+	 */
 	private List<Calculable> kalkuliere_weisses_Rauschen(
 			int periods_calc_to_future, double varianz,
 			int anzahl_zufalls_zahlen) {
