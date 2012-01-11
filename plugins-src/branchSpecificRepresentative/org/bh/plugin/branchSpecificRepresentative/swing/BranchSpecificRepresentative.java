@@ -1,5 +1,6 @@
 package org.bh.plugin.branchSpecificRepresentative.swing;
 
+import java.awt.Color;
 import java.util.ServiceLoader;
 import java.util.TreeMap;
 
@@ -99,7 +100,7 @@ public class BranchSpecificRepresentative implements ITimeSeriesProcess {
 		//TODO integrate goodness calculation here - use all the business data we have and
 		// calculate with all available variations
 		goodness_calculated = false;//to know whether we got a result.
-		double goodness = 9999999999999.99; //we're searching minimum.
+		double goodness = Double.MAX_VALUE; //we're searching minimum.
 		
 		//Load every Calculator Plugin
 		ServiceLoader<IBranchSpecificCalculator> calculators = PluginManager
@@ -113,6 +114,8 @@ public class BranchSpecificRepresentative implements ITimeSeriesProcess {
 				if(tempGoodness < goodness){
 					goodness_calculated = true;
 					goodness = tempGoodness;
+					//Bewerte Güte
+					tfBranchSpecGoodness.setBackground(calculator.getEvaluationOfRating());
 				}
 			} catch (Exception e){
 				Logger.getLogger(BranchSpecificRepresentative.class).error("Error calculating branch specific representative", e);

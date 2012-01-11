@@ -1,5 +1,6 @@
 package org.bh.calculation;
 
+import java.awt.Color;
 import java.util.ArrayList;
 
 import org.bh.data.*;
@@ -41,6 +42,8 @@ public interface IBranchSpecificCalculator {
 	 *
 	 */
 	double getRating();
+	
+	Color getEvaluationOfRating();
 	
 
 }

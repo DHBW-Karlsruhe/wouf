@@ -1,5 +1,6 @@
 package org.bh.plugin.branchSpecificRepresentative.calc;
 
+import java.awt.Color;
 import java.util.Arrays;
 import java.util.Calendar;
 import java.util.GregorianCalendar;
@@ -33,6 +34,7 @@ public class BranchSpecificCalculator implements IBranchSpecificCalculator {
 	private double ratingBSR;
 	private DTOBranch selectedBranch = null;
 	private DTOScenario scenario = null;
+	private Color evaluationOfRating = null;
 	private Logger log = Logger.getLogger(BranchSpecificCalculator.class);
 
 	public DTOCompany calculateBSR(DTOBusinessData businessData,
@@ -322,8 +324,6 @@ public class BranchSpecificCalculator implements IBranchSpecificCalculator {
 	}
 
 	private DTOBranch getSelectedBranch(DTOBusinessData businessData) {
-		if (this.selectedBranch != null)
-			return this.selectedBranch;
 
 		List<DTOBranch> branchList = businessData.getChildren();
 
@@ -349,6 +349,18 @@ public class BranchSpecificCalculator implements IBranchSpecificCalculator {
 
 	public double getRating() {
 		return this.ratingBSR;
+	}
+	
+	public Color getEvaluationOfRating(){
+		
+		int evaluation = (int)((Math.random()) * 5 + 1);
+		
+		if((this.ratingBSR != 0) && (evaluation == 2)){
+			this.evaluationOfRating = Color.YELLOW;
+		} else {
+			this.evaluationOfRating = Color.GREEN;
+		}
+		return this.evaluationOfRating;
 	}
 
 	private double[][] getNumberOfCompaniesAndPeriods(DTOBranch currNormedBranch) {
