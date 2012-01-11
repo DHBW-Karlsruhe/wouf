@@ -30,6 +30,7 @@ import org.bh.data.DTOKeyPair;
 import org.bh.data.DTOPeriod;
 import org.bh.data.DTOScenario;
 import org.bh.data.types.Calculable;
+import org.bh.data.types.DistributionMap;
 import org.bh.gui.swing.comp.BHDescriptionLabel;
 import org.bh.gui.swing.comp.BHProgressBar;
 import org.bh.gui.swing.comp.BHTextField;
@@ -58,12 +59,6 @@ import com.jgoodies.forms.layout.FormLayout;
 public class TimeSeries implements ITimeSeriesProcess {
 	private static final Logger log = Logger.getLogger(TimeSeries.class);
 
-	// new variables
-	// new Code ends at //-------------------------
-	private static final String SLOPE = "slope";
-	private static final String STANDARD_DEVIATION = "standardDeviation";
-	private static final String REPETITIONS = "repetitions";
-	private static final String STEPS_PER_PERIOD = "stepsPerPeriod";
 	private static final String AMOUNT_OF_PERIODS_BACK = "amountOfPeriodsBack";
 	private static final String AMOUNT_OF_PERIODS_FUTURE = "amountOfPeriodsFuture";
 	private JPanel panel;
@@ -77,6 +72,7 @@ public class TimeSeries implements ITimeSeriesProcess {
 	private HashMap<String, Integer> map;
 	private TimeSeriesCalculator_v3 calc;
 	private BHProgressBar progressB;
+	private boolean branchSpecific = false;
 
 	@Override
 	public String getGuiKey() {
@@ -96,7 +92,8 @@ public class TimeSeries implements ITimeSeriesProcess {
 	}
 
 	@Override
-	public JPanel calculateParameters() {
+	public JPanel calculateParameters(boolean branchSpecific) {
+		this.branchSpecific = branchSpecific;
 		internalMap = new HashMap<String, Double>();
 		map = new HashMap<String, Integer>();
 		JPanel result = new JPanel();
@@ -144,7 +141,8 @@ public class TimeSeries implements ITimeSeriesProcess {
 	}
 
 	@Override
-	public TreeMap<Integer, Double> calculate(boolean branchSpecific) {
+	public DistributionMap calculate() {
+		log.info("Start time series analysis");
 		// Berechnung für den Cashflow-Chart Vergangenheit bis in die Zukunft
 		TreeMap<Integer, Double> result = new TreeMap<Integer, Double>();
 
@@ -176,20 +174,19 @@ public class TimeSeries implements ITimeSeriesProcess {
 		
 		int periodsInPast = map.get(AMOUNT_OF_PERIODS_BACK);
 		int periodsInFuture = map.get(AMOUNT_OF_PERIODS_FUTURE);
+		
 		if (periodsInPast > cashValues.size() - 1) {
 			periodsInPast = cashValues.size() - 1;
-			/*
-			 * Changed from periods.size() See #259
-			 * 
-			 * periods.size() contains all values like debt, ... and not only
-			 * the cashflows; For calculation we just need the cashflows
-			 */
 		}
+		
 		calc = new TimeSeriesCalculator_v3(cashValues, progressB);
-		// System.out.println("TimeSeries: call calculate cashflows");
+
+		//Start calculation
 		List<Calculable> cashCalc = calc.calculateCashflows(periodsInFuture,
 				periodsInPast, true, 1000, true, null);
-		// System.out.println("TimeSeries: call calculate cashflows beendet");
+		//End calculation
+		
+		//Calculate arithmetic average
 		int counter = 1;
 		for (Calculable cashflow : cashCalc) {
 			int key = -(cashCalc.size() - periodsInFuture) + counter;
@@ -197,10 +194,19 @@ public class TimeSeries implements ITimeSeriesProcess {
 			result.put(key, value);
 			counter++;
 		}
-		return result;
+		
+		branchSpecific = false;
+		
+		log.info("Time series analysis finished.");
+		
+		//TODO setzen des Durchschnittscashflows
+		//TODO setzen calculateCompare
+		
+		return null;
 	}
 
-	public TreeMap<Integer, Double>[] calculateCompare(int p) {
+	private TreeMap<Integer, Double>[] calculateCompare(int p) {
+		@SuppressWarnings("unchecked")
 		TreeMap<Integer, Double> result[] = new TreeMap[2];
 		result[0] = new TreeMap<Integer, Double>(); // Ist Cashflows
 		result[1] = new TreeMap<Integer, Double>(); // Vergleichs Cashflows

@@ -31,7 +31,7 @@ import org.bh.platform.IDisplayablePlugin;
  * @version 1.0, 22.12.2010
  * @update 23.12.2010 Timo Klein
  */
-public interface ITimeSeriesProcess extends IDisplayablePlugin{
+public interface ITimeSeriesProcess extends IStochasticProcess{
 	
 	public enum Key{
 		TIME_SERIES,
@@ -44,29 +44,12 @@ public interface ITimeSeriesProcess extends IDisplayablePlugin{
 	};
 	
 	/**
-	 * Defines a unique string which identifies this timeSeries process.
-	 * 
-	 * @return The unique ID.
-	 */
-	String getUniqueId();
-	
-	/**
 	 * Creates a new instance of the same class for a specific scenario.
 	 * 
 	 * @param The scenario used in this instance of the time series process.
 	 * @return A new instance of the same class.
 	 */
-	
 	ITimeSeriesProcess createNewInstance(DTOScenario scenario);
-
-	JPanel calculateParameters();
-
-
-	void updateParameters();
-
-	TreeMap<Integer, Double> calculate(boolean branchSpecific);
-	
-	TreeMap<Integer, Double>[]  calculateCompare(int p);
 
 	void setProgressB(BHProgressBar bhComponent);
 
