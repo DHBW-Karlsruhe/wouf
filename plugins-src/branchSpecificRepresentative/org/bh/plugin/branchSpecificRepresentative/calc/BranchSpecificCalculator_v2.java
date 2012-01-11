@@ -32,6 +32,7 @@ import org.bh.data.types.StringValue;
 public class BranchSpecificCalculator_v2 implements IBranchSpecificCalculator {
 
 	private double ratingBSR;
+	private Color evaluationOfRating = null;
 	private DTOBranch selectedBranch = null;
 	private DTOScenario scenario = null;
 	private Logger log = Logger.getLogger(BranchSpecificCalculator_v2.class);
@@ -89,9 +90,9 @@ public class BranchSpecificCalculator_v2 implements IBranchSpecificCalculator {
 			dtoBSRaverage.addChild(periods[i]);
 		}
 
-		// computeRating(dtoBSRaverage, businessData);
+		computeRating(dtoBSRaverage, businessData);
 
-		 this.scenario.setBsrCalculatorWithRating(this);
+		this.scenario.setBsrCalculatorWithRating(this);
 
 		return dtoBSRaverage;
 
@@ -181,15 +182,19 @@ public class BranchSpecificCalculator_v2 implements IBranchSpecificCalculator {
 		DoubleValue normedCFforPeriod = null;
 		DoubleValue bsrCF = null;
 		DTOPeriod currPeriod = null;
+		double[][] resultArray = null;
 		DTOBranch currBranch = getSelectedBranch(businessData);
 
 		// Do the Branch has Companies?
 		List<DTOCompany> companyList = currBranch.getChildren();
 		Iterator<DTOCompany> CompanyItr = companyList.iterator();
 
-		double result = 0;
+		int companyCounter = -1;
+		int numbOfPeriods = CompanyItr.next().getChildren().size();
+		resultArray = new double[numbOfPeriods][companyList.size()];
 
 		while (CompanyItr.hasNext()) {
+			companyCounter++;
 			DTOCompany currCompany = CompanyItr.next();
 
 			// echo them
@@ -202,20 +207,43 @@ public class BranchSpecificCalculator_v2 implements IBranchSpecificCalculator {
 			// selektierten Branche
 			// zur Güteberechnung des vorher berechneten, branchenspezifischen
 			// Vertreters
-			for (int count = 0; periodItr.hasNext(); count++) {
+			for (int periodCount = 0; periodItr.hasNext(); periodCount++) {
 				currPeriod = periodItr.next();
 
 				normedCFforPeriod = (DoubleValue) currPeriod
 						.get(DTOPeriod.Key.FCF);
 
-				bsrCF = getBSRCFforPeriod(count, branchSpecificRepresentative);
+				bsrCF = getBSRCFforPeriod(periodCount,
+						branchSpecificRepresentative);
 
-				result = result
-						+ ((normedCFforPeriod.getValue() - bsrCF.getValue()) * (normedCFforPeriod
-								.getValue() - bsrCF.getValue()));
-
+				resultArray[periodCount][companyCounter] = ((normedCFforPeriod
+						.getValue() - bsrCF.getValue()) * (normedCFforPeriod
+						.getValue() - bsrCF.getValue()));
+				// result = result
+				// + ((normedCFforPeriod.getValue() - bsrCF.getValue()) *
+				// (normedCFforPeriod
+				// .getValue() - bsrCF.getValue()));
 			}
+		}
 
+		double[] resultsPerPeriod = new double[numbOfPeriods];
+
+		// Wertung der einzelnen Perioden einbeziehen
+		// summe über die Perioden bilden
+		for (int periodCount = 0; periodCount < numbOfPeriods; periodCount++) {
+			for (int companyCount = 0; companyCount < companyList.size(); companyCount++) {
+				resultsPerPeriod[periodCount] = resultsPerPeriod[periodCount]
+						+ resultArray[periodCount][companyCount];
+			}
+		}
+		// mit Wertung multiplizieren
+		double percentage = 0.4;
+		double result = 0;
+		for (int periodCount = (numbOfPeriods - 1); percentage > 0; periodCount--) {
+			resultsPerPeriod[periodCount] = resultsPerPeriod[periodCount]
+					* percentage;
+			result = result + resultsPerPeriod[periodCount];
+			percentage = percentage - 0.1;
 		}
 		this.ratingBSR = result / (companyList.size());
 	}
@@ -236,12 +264,11 @@ public class BranchSpecificCalculator_v2 implements IBranchSpecificCalculator {
 	}
 
 	private DTOBranch getSelectedBranch(DTOBusinessData businessData) {
-		if (this.selectedBranch != null)
-			return this.selectedBranch;
 
 		List<DTOBranch> branchList = businessData.getChildren();
 
-		String selectedBranch = DTOScenario.Key.INDUSTRY.toString();
+		// vorrübergehend HART, bis drop down wieder funzt
+		String selectedBranch = "C259";// DTOScenario.Key.REPRESENTATIVE.toString();
 
 		// Iterate Company DTOs
 		Iterator<DTOBranch> itr = branchList.iterator();
@@ -252,9 +279,8 @@ public class BranchSpecificCalculator_v2 implements IBranchSpecificCalculator {
 					+ (currBranch.get(DTOBranch.Key.BRANCH_KEY_MID_CATEGORY))
 					+ (currBranch.get(DTOBranch.Key.BRANCH_KEY_SUB_CATEGORY));
 
-			if (currKey == selectedBranch)
-				this.selectedBranch = currBranch;
-			return currBranch;
+			if (currKey.equalsIgnoreCase(selectedBranch))
+				return currBranch;
 		}
 		// selected branch not found
 		// TODO create an exception
@@ -386,9 +412,15 @@ public class BranchSpecificCalculator_v2 implements IBranchSpecificCalculator {
 	/* Specified by interface/super class. */
 	@Override
 	public Color getEvaluationOfRating() {
-		// TODO Auto-generated method stub
-		throw new UnsupportedOperationException(
-				"This method has not been implemented");
+
+		int evaluation = (int) ((Math.random()) * 5 + 1);
+
+		if ((this.ratingBSR != 0) && (evaluation == 2)) {
+			this.evaluationOfRating = Color.YELLOW;
+		} else {
+			this.evaluationOfRating = Color.GREEN;
+		}
+		return this.evaluationOfRating;
 	}
 
 	/* Specified by interface/super class. */
