@@ -82,6 +82,9 @@ public class BHDeviationAnalysisFrame extends BHPopupFrame {
 		//Chart to display the deviation analysis
 		chartPanel = BHChartFactory.getLineChart(BHDeviationAnalysisFrame.GUI_KEYS.LINE_CHART_DEVIATION_ANALYSIS);
 		fillChartPanel();
+		/**
+		 * Testdaten für das Chart
+		 */
 //		chartPanel.addSeries("BMW", new double[][]{{2005, 100.0}, {2006, 110.2}, {2007, 120}});
 //		chartPanel.addSeries("Mercedes", new double[][]{{2005, 100.0}, {2006, 87.5}, {2007, 120}});
 //		chartPanel.addSeries("VW", new double[][]{{2005, 100.0}, {2006.0, 98.2}, {2007, 120}});
