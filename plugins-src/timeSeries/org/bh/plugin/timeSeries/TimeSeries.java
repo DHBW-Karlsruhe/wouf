@@ -58,12 +58,6 @@ import com.jgoodies.forms.layout.FormLayout;
 public class TimeSeries implements ITimeSeriesProcess {
 	private static final Logger log = Logger.getLogger(TimeSeries.class);
 
-	// new variables
-	// new Code ends at //-------------------------
-	private static final String SLOPE = "slope";
-	private static final String STANDARD_DEVIATION = "standardDeviation";
-	private static final String REPETITIONS = "repetitions";
-	private static final String STEPS_PER_PERIOD = "stepsPerPeriod";
 	private static final String AMOUNT_OF_PERIODS_BACK = "amountOfPeriodsBack";
 	private static final String AMOUNT_OF_PERIODS_FUTURE = "amountOfPeriodsFuture";
 	private JPanel panel;
