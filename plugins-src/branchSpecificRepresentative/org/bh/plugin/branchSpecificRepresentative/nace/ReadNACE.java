@@ -160,7 +160,7 @@ public class ReadNACE implements INACEImport, IPlatformListener{
 							idValue = lastLevelOne + "." + lastLevelTwo;
 							break;
 						case 3:
-							idValue = lastLevelOne + "." + lastLevelTwo + "." + idValue;
+							idValue = lastLevelOne + "." + lastLevelTwo + "." + idValue.substring(3);
 							break;
 						}
 				

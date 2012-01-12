@@ -16,8 +16,8 @@ public interface INACEImport {
 	 * get the translation for a specific branch
 	 * Format: two of the following parameters need to have an empty String
 	 * @param firstCat branch key e.g. "A"
-	 * @param midCat branch key e.g. "AA"
-	 * @param subCat branch key e.g. "01"
+	 * @param midCat branch key e.g. "01"
+	 * @param subCat branch key e.g. "01.1"
 	 * @return translated branch name
 	 */
 	String getName(String firstCat, String midCat, String subCat);
