@@ -25,6 +25,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.Comparator;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import java.util.ServiceLoader;
@@ -43,6 +44,7 @@ import org.bh.companydata.importExport.INACEImport;
 import org.bh.controller.IPeriodController;
 import org.bh.controller.InputController;
 import org.bh.data.DTO;
+import org.bh.data.DTOBranch;
 import org.bh.data.DTOBusinessData;
 import org.bh.data.DTOCompany;
 import org.bh.data.DTOKeyPair;
@@ -330,7 +332,30 @@ public class ScenarioController extends InputController {
 	private void addTimeSeriesFunctionality(final View view, final BHButton resetStochasticParameters){
 		//cbrepresentative mit Daten befüllen
 		BHComboBox cbrepresentative = (BHComboBox) view.getBHComponent(DTOScenario.Key.REPRESENTATIVE);
-		INACEImport naceReader = Services.getNACEReader();
+		
+		DTOBusinessData businessData = (PlatformController.getInstance()).getBusinessDataDTO();
+		
+		List<DTOBranch> branchList = businessData.getChildren();
+		
+		String key;
+		String main;
+		String mid;
+		String sub;
+		Item item;
+		
+		Iterator<DTOBranch> itr = branchList.iterator();
+		while(itr.hasNext()) {
+    		DTOBranch currBranch = itr.next();
+    		main = currBranch.get(DTOBranch.Key.BRANCH_KEY_MAIN_CATEGORY).toString();
+    		mid = currBranch.get(DTOBranch.Key.BRANCH_KEY_MID_CATEGORY).toString();
+    		sub = currBranch.get(DTOBranch.Key.BRANCH_KEY_SUB_CATEGORY).toString();
+    		key = main + "." + mid + "." + sub;
+    		item = new Item(key, null);
+    		cbrepresentative.addItem(item);
+    		cbrepresentative.sortItems();
+		}
+		
+		/*INACEImport naceReader = Services.getNACEReader();
 		Map<String, String> branches = naceReader.getBranch();
 		
 		Item item;
@@ -345,7 +370,7 @@ public class ScenarioController extends InputController {
 			if(entry.getKey().length() == 1){
 				
 				key = entry.getKey();
-				key = key.replace(".", "");
+				//key = key.replace(".", "");
 				value = new StringValue(entry.getKey() + ": " + entry.getValue());
 				item = new Item(key, value);
 				cbrepresentative.addItem(item);
@@ -354,7 +379,7 @@ public class ScenarioController extends InputController {
 					if(entry1.getKey().length() == 4 && entry1.getKey().substring(0, 1).equals(entry.getKey())){
 						
 						key = entry1.getKey();
-						key = key.replace(".", "");
+						//key = key.replace(".", "");
 						value = new StringValue(entry1.getKey() + ": " + entry1.getValue());
 						item = new Item(key, value);
 						cbrepresentative.addItem(item);
@@ -363,7 +388,7 @@ public class ScenarioController extends InputController {
 							if(entry2.getKey().length() > 4 && entry2.getKey().substring(0, 4).equals(entry1.getKey())){
 								
 								key = entry2.getKey();
-								key = key.replace(".", "");
+								//key = key.replace(".", "");
 								value = new StringValue(entry2.getKey() + ": " + entry2.getValue());
 								item = new Item(key, value);
 								cbrepresentative.addItem(item);
@@ -375,7 +400,7 @@ public class ScenarioController extends InputController {
 				}
 			}
 			
-		}
+		}*/
 		
 		
 		// populate the list of TimeSeriesProcess

@@ -25,13 +25,13 @@ public class NaceImport extends TestCase {
 	{	
 		String key;
 		String text;
-		try{
-			FileWriter de_file = new FileWriter("test.properties");
-			FileWriter en_file = new FileWriter("BHGUIKeys_en.properties");
-			BufferedWriter bf = new BufferedWriter(de_file);
+		//try{
+			//FileWriter de_file = new FileWriter("test.properties");
+			//FileWriter en_file = new FileWriter("BHGUIKeys_en.properties");
+			//BufferedWriter bf = new BufferedWriter(de_file);
 	
 		
-		ReadNACE naceobj = new ReadNACE("src/org/bh/companydata/nace/en.xml");
+		ReadNACE naceobj = new ReadNACE("src/org/bh/companydata/nace/de.xml");
 		//naceobj.parseXML();
 		//INACEImport naceReader = Services.getNACEReader();
 		Map<String, String> branches = naceobj.getBranch();
@@ -40,45 +40,45 @@ public class NaceImport extends TestCase {
 			if(entry.getKey().length() == 1){
 				
 				text = entry.getKey();
-				text = text.replace(".", "");
+				//text = text.replace(".", "");
 				key = text + " = " + text +": " +entry.getValue();
 				System.out.println(key);
-				bf.write(key);
-				bf.newLine();
+				//bf.write(key);
+				//bf.newLine();
 				
 				for (Map.Entry<String, String> entry1 : branches.entrySet()) {
 					if(entry1.getKey().length() == 4 && entry1.getKey().substring(0, 1).equals(entry.getKey())){
 						
 						text = entry1.getKey();
-						text = text.replace(".", "");
-						key = text + " = " + "-" + text +": " +entry1.getValue();
+						//text = text.replace(".", "");
+						key = text + " = " + text +": " +entry1.getValue();
 						System.out.println(key);
-						bf.write(key);
-						bf.newLine();
+						//bf.write(key);
+						//bf.newLine();
 						
 						for (Map.Entry<String, String> entry2 : branches.entrySet()) {
 							if(entry2.getKey().length() > 4 && entry2.getKey().substring(0, 4).equals(entry1.getKey())){
 								
 								text = entry2.getKey();
-								text = text.replace(".", "");
-								key = text + " = " + "--" + text +": " +entry1.getValue();
+								//text = text.replace(".", "");
+								key = text + " = " + text +": " +entry1.getValue();
 								System.out.println(key);
-								bf.write(key);
-								bf.newLine();
+								//bf.write(key);
+								//bf.newLine();
 							}
 							
 						}
 					}
 					
 				}
-				de_file.close();
+				//de_file.close();
 			}
 			
 		}
-		}
-		catch(IOException e){
+		//}
+		//catch(IOException e){
 			
-		}
+		//}
 		
 //		two of the following parameters need to have an empty String
 		//System.out.println(naceobj.getName("", "", "05"));
