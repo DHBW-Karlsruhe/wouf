@@ -212,6 +212,7 @@ public class TimeSeriesCalculator_v3 {
 			int anzahlWiederholungen, boolean progressBarSetzen,
 			List<Calculable> cashflows, boolean initialCalculation) {
 		
+		log.info("Starting Cashflow calculation");
 		// System.out.println("TimeSeriesCalculator_v3: called calculateCashflows...");
 		interrupted = false;
 		
@@ -284,7 +285,7 @@ public class TimeSeriesCalculator_v3 {
 				//Hier haben wir den nächsten Cashflow gesetzt
 				cashflows_manipuliert.add(new DoubleValue(nextCashflow));
 				
-				log.info( i + " " + nextCashflow);
+//				log.info("Periode: " + i + " mit Cashflow " + nextCashflow);
 				
 				if(initialCalculation){
 					DTOPeriod period = tempScenario.getChildren().get(i);
@@ -323,6 +324,8 @@ public class TimeSeriesCalculator_v3 {
 			progressB.setValue(progressB.getMaximum());
 		}
 
+		log.info("Cashflow calculation done!");
+		
 		return cashflows_manipuliert;
 	}
 	
@@ -659,24 +662,12 @@ public class TimeSeriesCalculator_v3 {
 				.listIterator(bereinigteZeitreihe.size());
 		double bereinigter_ci_Wert = 0;
 		double bereinigt_ci_summe = 0;
-		while (li_cListe.hasPrevious() && li_bereinigteZeitreihe.hasPrevious()) {// rückwärts
-																					// durchlaufen,
-																					// bis
-																					// komplette
-																					// cListe
-																					// durchlaufen
-																					// wurde,
-																					// die
-																					// bereinigte
-																					// Zeitreihe
-																					// sollte
-																					// dabei
-																					// nich
-																					// ans
-																					// Ende
-																					// der
-																					// Liste
-																					// stoßen
+		
+		/*
+		 *  rückwärts durchlaufen, bis komplette cListe durchlaufen wurde, 
+		 *  die bereinigte Zeitreihe sollte dabei nicht ans Ende der Liste stoßen
+		 */
+		while (li_cListe.hasPrevious() && li_bereinigteZeitreihe.hasPrevious()) {
 			bereinigter_ci_Wert = ((DoubleValue) li_cListe.previous())
 					.toNumber().doubleValue()
 					* ((DoubleValue) li_bereinigteZeitreihe.previous())
