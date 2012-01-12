@@ -27,6 +27,8 @@ import org.bh.gui.swing.comp.BHProgressBar;
  * @author Andreas Wußler, Timo Klein
  * @version 1.0, 22.12.2010
  * @update 23.12.2010 Timo Klein
+ * @version 1.2, 12.01.2012
+ * @update 12.01.2012 Yannick Rödl
  */
 public interface ITimeSeriesProcess extends IStochasticProcess{
 	
@@ -55,9 +57,23 @@ public interface ITimeSeriesProcess extends IStochasticProcess{
 	 * @return
 	 */
 	TreeMap<Integer, Double>[]  calculateCompare(int p);
+	
+	/**
+	 * Set this parameter if we have a branch specific calculation;
+	 * You do not have to unset it!!!
+	 * @param branchSpecific
+	 */
+	void setBranchSpecific(boolean branchSpecific);
 
+	/**
+	 * Provides a Progress Bar for the time series calculation
+	 * @param bhComponent
+	 */
 	void setProgressB(BHProgressBar bhComponent);
 
+	/**
+	 * Call this method, if the calculation of the time series should be interrupted.
+	 */
 	void setInterrupted();
 
 }

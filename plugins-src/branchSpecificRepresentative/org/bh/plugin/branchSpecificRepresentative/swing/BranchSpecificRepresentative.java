@@ -148,32 +148,31 @@ public class BranchSpecificRepresentative implements ITimeSeriesProcess {
 
 	@Override
 	public void updateParameters() {
-		// TODO Auto-generated method stub
 		throw new UnsupportedOperationException("This method has not been implemented");
 	}
 
 	@Override
 	public TreeMap<Integer, Double>[] calculateCompare(int p) {
-		// TODO Auto-generated method stub
 		throw new UnsupportedOperationException("This method has not been implemented");
 	}
 
 	@Override
 	public void setProgressB(BHProgressBar bhComponent) {
-		// TODO Auto-generated method stub
 		throw new UnsupportedOperationException("This method has not been implemented");
 	}
 
 	@Override
 	public void setInterrupted() {
-		// TODO Auto-generated method stub
 		throw new UnsupportedOperationException("This method has not been implemented");
 	}
 
-	/* Specified by interface/super class. */
 	@Override
 	public DistributionMap calculate() {
-		// TODO Auto-generated method stub
+		throw new UnsupportedOperationException("This method has not been implemented");
+	}
+
+	@Override
+	public void setBranchSpecific(boolean branchSpecific) {
 		throw new UnsupportedOperationException("This method has not been implemented");
 	}
 

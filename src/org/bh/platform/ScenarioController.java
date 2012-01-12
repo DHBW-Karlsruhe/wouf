@@ -125,11 +125,11 @@ public class ScenarioController extends InputController {
 		if (cbStochasticMethod != null) {
 			cbStochasticMethod.setSorted(true);
 			cbStochasticMethod.setValueList(STOCHASTIC_METHOD_ITEMS);
+			
+			StochasticProcessListener listener = new StochasticProcessListener(cbStochasticMethod, view);
+			cbStochasticMethod.addItemListener(listener);
+			listener.getSelectedItem();
 		}
-		
-		StochasticProcessListener listener = new StochasticProcessListener(cbStochasticMethod, view);
-		cbStochasticMethod.addItemListener(listener);
-		listener.getSelectedItem();
 		
 		// add ActionListener for calculation button
 		((BHButton) view
@@ -242,9 +242,9 @@ public class ScenarioController extends InputController {
 						
 						ITimeSeriesProcess timeSeriesProcess = scenario.getTimeSeriesProcess(ITimeSeriesProcess.Key.BRANCH_SPECIFIC_REPRESENTATIVE.toString());
 						
-						JPanel timeSeriesPanel = timeSeriesProcess.calculateParameters(false);
+						JPanel branchSpecificRepresentativePanel = timeSeriesProcess.calculateParameters(false);
 						
-						form.setBranchSpecificRepresentativePanel(timeSeriesPanel);
+						form.setBranchSpecificRepresentativePanel(branchSpecificRepresentativePanel);
 						
 						//calculate branch specific representative
 						// get business data for the calculation below (branch specific values)
@@ -341,7 +341,7 @@ public class ScenarioController extends InputController {
 			});
 		}
 		
-		addTimeSeriesFunctionality(view, resetStochasticParameters);
+		addBranchSpecificRepresentativeFunctionality(view, resetStochasticParameters);
 	}
 	
 	/**
@@ -351,7 +351,7 @@ public class ScenarioController extends InputController {
 	 * @param view the view with the stochastic input form
 	 * @param resetStochasticParameters the button to reset the calculation
 	 */
-	private void addTimeSeriesFunctionality(final View view, final BHButton resetStochasticParameters){
+	private void addBranchSpecificRepresentativeFunctionality(final View view, final BHButton resetStochasticParameters){
 		//cbrepresentative mit Daten befüllen
 		BHComboBox cbrepresentative = (BHComboBox) view.getBHComponent(DTOScenario.Key.REPRESENTATIVE);
 		
@@ -360,7 +360,7 @@ public class ScenarioController extends InputController {
 		StringValue value;
 		String key;
 		if (cbrepresentative == null){
-			return; // If we have no representative checkbox, there is no stochastic scenario, so no time series as well
+			return; // If we have no representative comboBox, there is no stochastic scenario
 		}
 		
 		INACEImport naceReader = Services.getNACEReader();
@@ -777,13 +777,24 @@ public class ScenarioController extends InputController {
 					calcImage.setIcon(null);
 				}
 				
-				private Component showStochasticResult(DTOScenario scenario){
-
+				private void startTimeMeasure(){
 					if (log.isInfoEnabled()) {
 						start = System.currentTimeMillis();
 					}
+				}
+				
+				private void endTimeMeasure(){
+					if (log.isInfoEnabled()) {
+						end = System.currentTimeMillis();
+						log.info("Result Analysis View load time: "
+								+ (end - start) + "ms");
+					}
+				}
+				
+				private Component showStochasticResult(DTOScenario scenario){
+
+					startTimeMeasure();
 					
-//					TODO Refacor - The calculation should be called ONCE
 					process.updateParameters();//This one only writes the GUI Keys into internal keys
 					
 					DistributionMap result = null;
@@ -802,16 +813,23 @@ public class ScenarioController extends InputController {
 						b.changeText(BHScenarioForm.Key.ABORT);
 						TSprocess.setProgressB(progressBar);
 						
-						if(TSprocess != null && cbBranchSpecific.isSelected() && notInterrupted){
+						//Standard time series calculation
+						try{
+							result = TSprocess.calculate();
+						} catch (RuntimeException re){
+							Logger.getLogger(getClass()).fatal("Calculation of matrix in time series failed!", re);
+							b.doClick(); //Simulate interrupt click
+							BHOptionPane.showMessageDialog(bhTree, BHTranslator.getInstance().translate("ExTimeSeriesAnalysisSingularMatrix"), "Error", JOptionPane.ERROR_MESSAGE);
+							return new JPanel();
+						}
+						
+						if(cbBranchSpecific.isSelected() && notInterrupted){
 							
 							branchSpecific = true;
 							
-							TSprocess.calculateParameters(true);
+							TSprocess.setBranchSpecific(true);
 							resultBranchSpecificData = TSprocess.calculate();
 							
-							//Check whether this is still necessary
-							//Do branch specific calculation
-							TSprocess.updateParameters();
 							try{
 								resultBranchSpecificData = TSprocess.calculate();
 							} catch (RuntimeException re){
@@ -822,30 +840,14 @@ public class ScenarioController extends InputController {
 							}
 						}
 						
-						//TODO Check if this is still necessary
-						TSprocess.updateParameters();
-						try{
-							result = TSprocess.calculate();
-						} catch (RuntimeException re){
-							Logger.getLogger(getClass()).fatal("Calculation of matrix in time series failed!", re);
-							b.doClick(); //Simulate interrupt click
-							BHOptionPane.showMessageDialog(bhTree, BHTranslator.getInstance().translate("ExTimeSeriesAnalysisSingularMatrix"), "Error", JOptionPane.ERROR_MESSAGE);
-							return new JPanel();
-						}
-						
-						
 					} catch (ClassCastException cce){
-						//We have a "normal" calculation
+						//We have a "normal" calculation (RandomWalk/WienerProzess)
 						result = process.calculate();
 					}
 					
-					// 12.12.2011: checks wether we got a result or not
-					if ( (result.getAmountOfValues()) == 0)
-						return null;
-					
 					
 					Component panel = new JPanel();
-					if(notInterrupted){
+					if(notInterrupted  && result.getAmountOfValues() != 0){
 						for (IStochasticResultAnalyser analyser : PluginManager
 								.getInstance().getServices(
 										IStochasticResultAnalyser.class)) {
@@ -853,14 +855,12 @@ public class ScenarioController extends InputController {
 							//branchSpecificRepresentative is only calculated in time series mode.
 							if(branchSpecific){
 								if(analyser.getUniqueID().equals(IStochasticResultAnalyser.Keys.BRANCH_SPECIFIC.toString())){
-									//panel = analyser.setResult(scenario, result, testResult);
 									panel = analyser.setResult(scenario, result, resultBranchSpecificData);
 									break;
 								}
 							
 							} else {
 								if(analyser.getUniqueID().equals(IStochasticResultAnalyser.Keys.DEFAULT.toString())){
-									//panel = analyser.setResult(scenario, result, testResult);
 									panel = analyser.setResult(scenario, result);
 									break;
 								}
@@ -868,12 +868,7 @@ public class ScenarioController extends InputController {
 						}
 					}
 					
-					
-					if (log.isInfoEnabled()) {
-						end = System.currentTimeMillis();
-						log.info("Result Analysis View load time: "
-								+ (end - start) + "ms");
-					}
+					endTimeMeasure();
 					
 					return panel;
 				}
@@ -884,9 +879,7 @@ public class ScenarioController extends InputController {
 							.getDCFMethod().calculate(scenario, true);
 
 					// FIXME selection of result analyser plugin
-					if (log.isInfoEnabled()) {
-						start = System.currentTimeMillis();
-					}
+					startTimeMeasure();
 					
 					Component panel = new JPanel();
 					
@@ -904,11 +897,7 @@ public class ScenarioController extends InputController {
 					sp.setWheelScrollingEnabled(true);
 					tn.setResultPane(sp);
 
-					if (log.isInfoEnabled()) {
-						end = System.currentTimeMillis();
-						log.info("Result Analysis View load time: "
-								+ (end - start) + "ms");
-					}
+					endTimeMeasure();
 					
 					return panel;
 				}

@@ -94,8 +94,6 @@ public class TimeSeries implements ITimeSeriesProcess {
 
 	@Override
 	public JPanel calculateParameters(boolean branchSpecific) {
-		this.branchSpecific = branchSpecific;
-		
 		internalMap = new HashMap<String, Double>();
 		map = new HashMap<String, Integer>();
 		JPanel result = new JPanel();
@@ -162,7 +160,7 @@ public class TimeSeries implements ITimeSeriesProcess {
 		if(cashfl.getKey().toString().equals(BHTranslator.getInstance().translate("org.bh.plugin.directinput.DTODirectInput$Key.FCF"))){
 			cashValues = cashfl.getValue();
 			log.debug("Default TimeSeries Cashflow: " + cashfl.getValue());
-			
+		
 		} else {
 			// We have to calculate the cashvalues manually
 			int i = 0;
@@ -252,6 +250,11 @@ public class TimeSeries implements ITimeSeriesProcess {
 	@Override
 	public void setInterrupted() {
 		calc.setInterrupted();
+	}
+
+	@Override
+	public void setBranchSpecific(boolean branchSpecific) {
+		this.branchSpecific = branchSpecific;
 	}
 
 }
