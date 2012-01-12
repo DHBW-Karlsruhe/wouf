@@ -171,7 +171,7 @@ public class InputController extends Controller implements IInputController {
 
 			model.put(baseKey, new IntervalValue(min, max));
 		}
-		else if(key.startsWith("org.bh.data.DTOScenario$Key.TIMESERIES_PROCESS") || key.startsWith("org.bh.data.DTOScenario$Key.BRANCH_SPECIFIC")){
+		else if(key.startsWith("org.bh.data.DTOScenario$Key.BRANCH_SPECIFIC")){
 			//Timeseriesperiod and dependent branch specific checkbox sould not be saved!
 		}
 		else {
@@ -223,7 +223,7 @@ public class InputController extends Controller implements IInputController {
 		loadToView(key1, true);
 	}
         /**
-         * map a specific model DTÓ value to a matching ui component can revalidate ui
+         * map a specific model DTO value to a matching ui component can revalidate ui
          * performance critical in case of revalidation.
          * @see loadToView
          * @param key1 key of the DTO component

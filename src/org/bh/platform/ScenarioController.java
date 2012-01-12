@@ -95,11 +95,9 @@ public class ScenarioController extends InputController {
 	protected static final BHComboBox.Item[] PERIOD_TYPE_ITEMS = getPeriodTypeItems();
 	protected static final BHComboBox.Item[] STOCHASTIC_METHOD_ITEMS = getStochasticProcessItems();
 	private IStochasticProcess process = null;
-	private ITimeSeriesProcess TSprocess = null;
+//	private ITimeSeriesProcess TSprocess = null;
 	private final BHMainFrame bhmf;
 	
-	private static final String TIME_SERIES_ID = "timeSeries";
-
 	public ScenarioController(View view, IDTO<?> model, final BHMainFrame bhmf) {
 		super(view, model);
 
@@ -129,13 +127,95 @@ public class ScenarioController extends InputController {
 			cbStochasticMethod.setValueList(STOCHASTIC_METHOD_ITEMS);
 		}
 		
-		final BHCheckBox cbBranchSpecificRepresentative = (BHCheckBox) view.getBHComponent(DTOScenario.Key.BRANCH_SPECIFIC);
-
+		StochasticProcessListener listener = new StochasticProcessListener(cbStochasticMethod, view);
+		cbStochasticMethod.addItemListener(listener);
+		listener.getSelectedItem();
+		
 		// add ActionListener for calculation button
 		((BHButton) view
 				.getBHComponent(BHScenarioForm.Key.CALCSHAREHOLDERVALUE))
 				.addActionListener(new CalculationListener(PlatformController
 						.getInstance().getMainFrame().getBHTree()));
+		
+		addParameterCalculationFunctionality();
+
+		addDeterministicFunctionality();
+
+		setCalcEnabled(getModel().isValid(true));
+		if (!((DTOScenario) model).isDeterministic()) {
+			((Component) view
+					.getBHComponent(BHScenarioForm.Key.CALCSHAREHOLDERVALUE))
+					.setEnabled(false);
+		}
+
+		loadToView(DTOScenario.Key.PERIOD_TYPE, false);
+		updateStochasticFieldsList();
+		loadAllToView();
+	}
+	
+	/**
+	 * This method adds all the functionality which is needed for a 
+	 * deterministic scenario.
+	 */
+	private void addDeterministicFunctionality(){
+		//Here seems to start the deterministic data.
+		// immediately toggle interval arithmetic on and off
+		BHCheckBox chkInterval = (BHCheckBox) getView().getBHComponent(
+				DTOScenario.Key.INTERVAL_ARITHMETIC);
+		if (chkInterval != null) {
+			final View v = view;
+			chkInterval.getValueChangeManager().addCompValueChangeListener(
+					new ICompValueChangeListener() {
+						@Override
+						public void compValueChanged(IBHModelComponent comp) {
+							saveToModel(comp);
+							DTOScenario scenario = (DTOScenario) getModel();
+							if (!scenario.isIntervalArithmetic()) {
+								scenario.convertIntervalToDouble();
+							}
+							// ---- get selected item of the old ComboBox
+							BHComboBox cbPeriodType = (BHComboBox) v
+									.getBHComponent(DTOScenario.Key.PERIOD_TYPE);
+							Object item = cbPeriodType.getSelectedItem();
+							// ----
+							((BHScenarioForm) getViewPanel())
+									.setHeadPanel(scenario
+											.isIntervalArithmetic());
+							try {
+								reloadView();
+							} catch (ViewException e) {
+							}
+							loadAllToView();
+							reloadTopPanel();
+
+							// ---- set selected item in the new ComboBox
+							JPanel shf = ((BHScenarioForm) getViewPanel())
+									.getScenarioHeadForm();
+							if (shf instanceof BHScenarioHeadForm) {
+								((BHScenarioHeadForm) shf).getCmbPeriodType()
+										.setSelectedItem(item);
+							} else if (shf instanceof BHScenarioHeadIntervalForm) {
+								((BHScenarioHeadIntervalForm) shf)
+										.getCmbPeriodType().setSelectedItem(
+												item);
+							}
+							// ----
+
+							setCalcEnabled(getModel().isValid(true));
+						}
+					});
+		}
+	}
+	
+	/**
+	 * This method adds the functionality to calculate all the data
+	 * which is needed to calculate the data as input data for the calculation
+	 * of the shareholder value. It additionally calls the 
+	 * functionality for a time series.
+	 */
+	private void addParameterCalculationFunctionality(){
+		final BHCheckBox cbBranchSpecificRepresentative = (BHCheckBox) view.getBHComponent(DTOScenario.Key.BRANCH_SPECIFIC);
+
 		
 		// add ActionListeners for calculate/reset parameters buttons for
 		// stochastic processes
@@ -260,69 +340,17 @@ public class ScenarioController extends InputController {
 				}
 			});
 		}
-
+		
 		addTimeSeriesFunctionality(view, resetStochasticParameters);
-
-		//Here seems to start the deterministic data.
-		// immediately toggle interval arithmetic on and off
-		BHCheckBox chkInterval = (BHCheckBox) getView().getBHComponent(
-				DTOScenario.Key.INTERVAL_ARITHMETIC);
-		if (chkInterval != null) {
-			final View v = view;
-			chkInterval.getValueChangeManager().addCompValueChangeListener(
-					new ICompValueChangeListener() {
-						@Override
-						public void compValueChanged(IBHModelComponent comp) {
-							saveToModel(comp);
-							DTOScenario scenario = (DTOScenario) getModel();
-							if (!scenario.isIntervalArithmetic()) {
-								scenario.convertIntervalToDouble();
-							}
-							// ---- get selected item of the old ComboBox
-							BHComboBox cbPeriodType = (BHComboBox) v
-									.getBHComponent(DTOScenario.Key.PERIOD_TYPE);
-							Object item = cbPeriodType.getSelectedItem();
-							// ----
-							((BHScenarioForm) getViewPanel())
-									.setHeadPanel(scenario
-											.isIntervalArithmetic());
-							try {
-								reloadView();
-							} catch (ViewException e) {
-							}
-							loadAllToView();
-							reloadTopPanel();
-
-							// ---- set selected item in the new ComboBox
-							JPanel shf = ((BHScenarioForm) getViewPanel())
-									.getScenarioHeadForm();
-							if (shf instanceof BHScenarioHeadForm) {
-								((BHScenarioHeadForm) shf).getCmbPeriodType()
-										.setSelectedItem(item);
-							} else if (shf instanceof BHScenarioHeadIntervalForm) {
-								((BHScenarioHeadIntervalForm) shf)
-										.getCmbPeriodType().setSelectedItem(
-												item);
-							}
-							// ----
-
-							setCalcEnabled(getModel().isValid(true));
-						}
-					});
-		}
-
-		setCalcEnabled(getModel().isValid(true));
-		if (!((DTOScenario) model).isDeterministic()) {
-			((Component) view
-					.getBHComponent(BHScenarioForm.Key.CALCSHAREHOLDERVALUE))
-					.setEnabled(false);
-		}
-
-		loadToView(DTOScenario.Key.PERIOD_TYPE, false);
-		updateStochasticFieldsList();
-		loadAllToView();
 	}
 	
+	/**
+	 * This method is used to make all the time series functionality available.
+	 * It might be necessary to totally redefine this method, because the Time Series
+	 * is loaded in the combo Box.
+	 * @param view the view with the stochastic input form
+	 * @param resetStochasticParameters the button to reset the calculation
+	 */
 	private void addTimeSeriesFunctionality(final View view, final BHButton resetStochasticParameters){
 		//cbrepresentative mit Daten befüllen
 		BHComboBox cbrepresentative = (BHComboBox) view.getBHComponent(DTOScenario.Key.REPRESENTATIVE);
@@ -375,97 +403,6 @@ public class ScenarioController extends InputController {
 			
 		}
 		
-		
-		// populate the list of TimeSeriesProcess
-		BHCheckBox cbTimeSeriesMethod = (BHCheckBox) view
-				.getBHComponent(DTOScenario.Key.TIMESERIES_PROCESS);
-		if (cbTimeSeriesMethod != null && Services.check4TimeSeriesPlugin()) {
-			cbTimeSeriesMethod.setVisible(true);
-			cbTimeSeriesMethod.addActionListener(new ActionListener() {
-				@Override
-				public void actionPerformed(ActionEvent e) {
-
-					BHCheckBox from = (BHCheckBox) e.getSource();
-					BHStochasticInputForm form = (BHStochasticInputForm) ((Component) e
-							.getSource()).getParent();
-					
-					//For branch specific representative
-					BHCheckBox cbBranchSpecificRepresentative = (BHCheckBox) view.getBHComponent(DTOScenario.Key.BRANCH_SPECIFIC);
-					BHComboBox cmbPeriodType = (BHComboBox) view.getBHComponent(DTOScenario.Key.PERIOD_TYPE);
-									
-					if (from.isSelected()){
-						//Branch specific representative
-						if(cbBranchSpecificRepresentative != null && (cmbPeriodType.getSelectedIndex() == 0)){
-							cbBranchSpecificRepresentative.setVisible(true);
-						}
-						
-						//Time series related
-						DTOScenario scenario = (DTOScenario) getModel();
-						TSprocess = scenario.getTimeSeriesProcess(ScenarioController.TIME_SERIES_ID);
-
-						JPanel parametersPanel = TSprocess
-								.calculateParameters(false);
-						form.setTimeSeriesParametersPanel(parametersPanel);
-						if (parametersPanel instanceof Container)
-							Services.setFocus((Container) parametersPanel);
-						try {
-							final View view = new View(parametersPanel,
-									new ValidationMethods());
-							// enable the calculation button depending on the
-							// validation status
-							view.addViewListener(new IViewListener() {
-								@Override
-								public void viewEvent(ViewEvent e) {
-									
-									switch (e.getEventType()) {
-									case VALUE_CHANGED:
-										boolean allValid = !view.revalidate()
-												.hasErrors();
-										if (resetStochasticParameters
-												.isVisible())
-											((Component) getView()
-													.getBHComponent(
-															BHScenarioForm.Key.CALCSHAREHOLDERVALUE))
-													.setEnabled(allValid);
-										break;
-									case VALIDATION_FAILED:
-										((Component) getView()
-												.getBHComponent(
-														BHScenarioForm.Key.CALCSHAREHOLDERVALUE))
-												.setEnabled(false);
-										break;
-									}
-								}
-							});
-							view.revalidate();
-							boolean allValid = !view.revalidate().hasErrors();
-							((Component) getView().getBHComponent(
-									BHScenarioForm.Key.CALCSHAREHOLDERVALUE))
-									.setEnabled(allValid);
-						} catch (ViewException e1) {
-						}
-
-					} else {
-						
-						//For branch specific representative
-						//BHComboBox cbindustry = (BHComboBox) view.getBHComponent(DTOScenario.Key.INDUSTRY);
-						BHComboBox cbrepresentative = (BHComboBox) view.getBHComponent(DTOScenario.Key.REPRESENTATIVE);
-						BHDescriptionLabel lrepresentative = (BHDescriptionLabel) view.getBHComponent(DTOScenario.Key.LREPRESENTATIVE);
-						//BHDescriptionLabel lindustry = (BHDescriptionLabel) view.getBHComponent(DTOScenario.Key.LINDUSTRY);
-						//cbindustry.setVisible(false);
-						cbrepresentative.setVisible(false);
-						lrepresentative.setVisible(false);
-						//lindustry.setVisible(false);
-						cbBranchSpecificRepresentative.setVisible(false);
-						cbBranchSpecificRepresentative.setSelected(false);
-						
-						form.removeTimeSeriesParametersPanel();
-					}
-
-				}
-			});
-		}
-		
 		if(cbrepresentative != null){
 			ItemListener itemListener = new ItemListener() {
 			      public void itemStateChanged(ItemEvent itemEvent) {
@@ -483,38 +420,35 @@ public class ScenarioController extends InputController {
 		}
 		
 		
-		BHComboBox cmbPeriodType = (BHComboBox) view.getBHComponent(DTOScenario.Key.PERIOD_TYPE);
-		
-		if(cmbPeriodType != null){
-			cmbPeriodType.addActionListener(new ActionListener() {
-				public void actionPerformed(ActionEvent e){
-					BHComboBox from = (BHComboBox) e.getSource();
-					
-					BHCheckBox cbbranchSpecificRepresentative = (BHCheckBox) view
-					.getBHComponent(DTOScenario.Key.BRANCH_SPECIFIC);
-					
-					if(from.getSelectedIndex() != 0){
-						BHComboBox cbrepresentative = (BHComboBox) view.getBHComponent(DTOScenario.Key.REPRESENTATIVE);
-						BHDescriptionLabel lrepresentative = (BHDescriptionLabel) view.getBHComponent(DTOScenario.Key.LREPRESENTATIVE);
-						
-						cbrepresentative.setVisible(false);
-						lrepresentative.setVisible(false);
-						
-						cbbranchSpecificRepresentative.setVisible(false);
-					}
-					BHCheckBox cbTimeSeriesMethod = (BHCheckBox) view
-					.getBHComponent(DTOScenario.Key.TIMESERIES_PROCESS);
-					if(cbTimeSeriesMethod.isSelected()){
-						if(cbbranchSpecificRepresentative != null && (from.getSelectedIndex() == 0)){
-							cbbranchSpecificRepresentative.setVisible(true);
-							cbbranchSpecificRepresentative.setSelected(false);
-						}
-					}
-				}
-				
-				
-			});
-		}
+//		BHComboBox cmbPeriodType = (BHComboBox) view.getBHComponent(DTOScenario.Key.PERIOD_TYPE);
+//		
+//		if(cmbPeriodType != null){
+//			cmbPeriodType.addActionListener(new ActionListener() {
+//				public void actionPerformed(ActionEvent e){
+//					BHComboBox periodType = (BHComboBox) e.getSource();
+//					
+//					BHCheckBox cbbranchSpecificRepresentative = (BHCheckBox) view
+//					.getBHComponent(DTOScenario.Key.BRANCH_SPECIFIC);
+//					
+//					if(periodType.getSelectedIndex() != 0){
+//						BHComboBox cbrepresentative = (BHComboBox) view.getBHComponent(DTOScenario.Key.REPRESENTATIVE);
+//						BHDescriptionLabel lrepresentative = (BHDescriptionLabel) view.getBHComponent(DTOScenario.Key.LREPRESENTATIVE);
+//						
+//						cbrepresentative.setVisible(false);
+//						lrepresentative.setVisible(false);
+//						
+//						cbbranchSpecificRepresentative.setVisible(false);
+//					}
+//
+//						if(cbbranchSpecificRepresentative != null && (periodType.getSelectedIndex() == 0)){
+//							cbbranchSpecificRepresentative.setVisible(true);
+//							cbbranchSpecificRepresentative.setSelected(false);
+//						}
+//				}
+//				
+//				
+//			});
+//		}
 		
 		// populate the ComboBoxes for branch specific representative
 		BHCheckBox cbbranchSpecificRepresentative = (BHCheckBox) view
@@ -525,8 +459,6 @@ public class ScenarioController extends InputController {
 				@Override
 				public void actionPerformed(ActionEvent e) {
 					BHCheckBox from = (BHCheckBox) e.getSource();
-//					BHStochasticInputForm form = (BHStochasticInputForm) ((Component) e
-//							.getSource()).getParent();
 					
 					//For branch specific representative
 					BHComboBox cbrepresentative = (BHComboBox) view.getBHComponent(DTOScenario.Key.REPRESENTATIVE);
@@ -564,6 +496,11 @@ public class ScenarioController extends InputController {
 		
 	}
 
+	/**
+	 * This method returns a list of DCF methods which is available for the
+	 * stochastic calculation.
+	 * @return item array of dcf methods applicable for stochastic processes
+	 */
 	private static Item[] getStochasticDcfMethodItems() {
 		Collection<IShareholderValueCalculator> dcfMethods = Services
 				.getDCFMethods().values();
@@ -576,6 +513,10 @@ public class ScenarioController extends InputController {
 		return items.toArray(new BHComboBox.Item[0]);
 	}
 
+	/**
+	 * Reload the top panel. Where the period list is populated and based on
+	 * the seected entry, the list with available entries for the calculation
+	 */
 	protected void reloadTopPanel() {
 		final BHComboBox cbPeriodType = (BHComboBox) view
 				.getBHComponent(DTOScenario.Key.PERIOD_TYPE);
@@ -657,6 +598,11 @@ public class ScenarioController extends InputController {
 		}
 	}
 
+	/**
+	 * This method is used to set the calculation as enabled.
+	 * 
+	 * @param calculationEnabled if true calculation is enabled
+	 */
 	protected void setCalcEnabled(boolean calculationEnabled) {
 		if (((DTOScenario) getModel()).isDeterministic()) {
 			((Component) view
@@ -675,6 +621,11 @@ public class ScenarioController extends InputController {
 		}
 	}
 
+	/**
+	 * This method returns all DCF methods which are determined via the
+	 * plugins.
+	 * @return Array of ComboBox items with DCF-Methods
+	 */
 	protected static BHComboBox.Item[] getDcfMethodItems() {
 		Collection<IShareholderValueCalculator> dcfMethods = Services
 				.getDCFMethods().values();
@@ -686,6 +637,11 @@ public class ScenarioController extends InputController {
 		return items.toArray(new BHComboBox.Item[0]);
 	}
 
+	/**
+	 * This method returns all the items provided in the comboBox for 
+	 * stochastic processes. It searches for the relevant plugin and returns the values.
+	 * @return list of available stochastic processes
+	 */
 	protected static BHComboBox.Item[] getStochasticProcessItems() {
 		Collection<IStochasticProcess> stochasticProcesses = Services
 				.getStochasticProcesses().values();
@@ -698,6 +654,12 @@ public class ScenarioController extends InputController {
 
 	}
 
+	/**
+	 * This method returns all the items provided in the ComboBox for
+	 * period inputs. It is irrelevant whether this are stochastic processes
+	 * or deterministic processes. The list should stay the same here.
+	 * @return array of comboBox items as period types
+	 */
 	protected static BHComboBox.Item[] getPeriodTypeItems() {
 		IPeriodController[] periodTypes = Services.getPeriodControllers()
 				.values().toArray(new IPeriodController[0]);
@@ -715,6 +677,37 @@ public class ScenarioController extends InputController {
 					new StringValue(periodType.getGuiKey())));
 		}
 		return items.toArray(new BHComboBox.Item[0]);
+	}
+	
+	protected class StochasticProcessListener implements ItemListener{
+
+		private BHComboBox comboBox;
+		private View view;
+		
+		public StochasticProcessListener(BHComboBox comboBox, View view){
+			this.comboBox = comboBox;
+			this.view = view;
+		}
+
+		@Override
+		public void itemStateChanged(ItemEvent ie) {
+			getSelectedItem();
+		}
+		
+		public void getSelectedItem(){
+			BHCheckBox cbBranchSpecRep = (BHCheckBox) view.getBHComponent(DTOScenario.Key.BRANCH_SPECIFIC);
+			
+			try{
+				@SuppressWarnings("unused") //We just need to determine whether this is a time series
+				ITimeSeriesProcess process = (ITimeSeriesProcess) Services.getStochasticProcess(comboBox.getValue().toString());
+				
+				cbBranchSpecRep.setVisible(true);
+			} catch (ClassCastException cce){
+				cbBranchSpecRep.setSelected(false);
+				cbBranchSpecRep.setVisible(false);
+			}
+		}
+		
 	}
 
 	/**
@@ -790,49 +783,46 @@ public class ScenarioController extends InputController {
 						start = System.currentTimeMillis();
 					}
 					
+//					TODO Refacor - The calculation should be called ONCE
 					process.updateParameters();//This one only writes the GUI Keys into internal keys
-					DistributionMap result = process.calculate();
-                    
-					// 12.12.2011: checks wether we got a result or not
-					if ( (result.getAmountOfValues()) == 0)
-						return null;
 					
-					BHCheckBox timeSeries = (BHCheckBox) view
-							.getBHComponent(DTOScenario.Key.TIMESERIES_PROCESS);
-					
-					BHCheckBox cbBranchSpecific = (BHCheckBox) view.getBHComponent(DTOScenario.Key.BRANCH_SPECIFIC);
-					
-					
+					DistributionMap result = null;
 					DistributionMap resultBranchSpecificData = null;
+					boolean branchSpecific = false;
 					
-					if(cbBranchSpecific.isSelected() && notInterrupted){
-						//The Panel contains all data necessary such as slope and standard deviation.
-						progressBar.setVisible(true);
-						b.setEnabled(true);
-						b.changeText(BHScenarioForm.Key.ABORT);
-						TSprocess.setProgressB(progressBar);
+					try{
+						ITimeSeriesProcess TSprocess = (ITimeSeriesProcess) process;
 						
-						process.calculateParameters(true);
-						resultBranchSpecificData = process.calculate();
-						
-						//Do branch specific calculation
-						TSprocess.updateParameters();
-						try{
-							resultBranchSpecificData = TSprocess.calculate();
-						} catch (RuntimeException re){
-							Logger.getLogger(getClass()).fatal("Calculation of matrix in time series failed!", re);
-							b.doClick(); //Simulate interrupt click
-							BHOptionPane.showMessageDialog(bhTree, BHTranslator.getInstance().translate("ExTimeSeriesAnalysisSingularMatrix"), "Error", JOptionPane.ERROR_MESSAGE);
-							return new JPanel();
-						}
-					}
+						BHCheckBox cbBranchSpecific = (BHCheckBox) view.getBHComponent(DTOScenario.Key.BRANCH_SPECIFIC);
 					
-					if (timeSeries.isSelected() && notInterrupted) {
 						((BHScenarioForm) getViewPanel()).addProgressBar();
+						
 						progressBar.setVisible(true);
 						b.setEnabled(true);
 						b.changeText(BHScenarioForm.Key.ABORT);
 						TSprocess.setProgressB(progressBar);
+						
+						if(TSprocess != null && cbBranchSpecific.isSelected() && notInterrupted){
+							
+							branchSpecific = true;
+							
+							TSprocess.calculateParameters(true);
+							resultBranchSpecificData = TSprocess.calculate();
+							
+							//Check whether this is still necessary
+							//Do branch specific calculation
+							TSprocess.updateParameters();
+							try{
+								resultBranchSpecificData = TSprocess.calculate();
+							} catch (RuntimeException re){
+								Logger.getLogger(getClass()).fatal("Calculation of matrix in time series failed!", re);
+								b.doClick(); //Simulate interrupt click
+								BHOptionPane.showMessageDialog(bhTree, BHTranslator.getInstance().translate("ExTimeSeriesAnalysisSingularMatrix"), "Error", JOptionPane.ERROR_MESSAGE);
+								return new JPanel();
+							}
+						}
+						
+						//TODO Check if this is still necessary
 						TSprocess.updateParameters();
 						try{
 							result = TSprocess.calculate();
@@ -842,9 +832,18 @@ public class ScenarioController extends InputController {
 							BHOptionPane.showMessageDialog(bhTree, BHTranslator.getInstance().translate("ExTimeSeriesAnalysisSingularMatrix"), "Error", JOptionPane.ERROR_MESSAGE);
 							return new JPanel();
 						}
-
+						
+						
+					} catch (ClassCastException cce){
+						//We have a "normal" calculation
+						result = process.calculate();
 					}
-
+					
+					// 12.12.2011: checks wether we got a result or not
+					if ( (result.getAmountOfValues()) == 0)
+						return null;
+					
+					
 					Component panel = new JPanel();
 					if(notInterrupted){
 						for (IStochasticResultAnalyser analyser : PluginManager
@@ -852,7 +851,7 @@ public class ScenarioController extends InputController {
 										IStochasticResultAnalyser.class)) {
 						
 							//branchSpecificRepresentative is only calculated in time series mode.
-							if(timeSeries.isSelected() && cbBranchSpecific.isSelected()){
+							if(branchSpecific){
 								if(analyser.getUniqueID().equals(IStochasticResultAnalyser.Keys.BRANCH_SPECIFIC.toString())){
 									//panel = analyser.setResult(scenario, result, testResult);
 									panel = analyser.setResult(scenario, result, resultBranchSpecificData);
@@ -922,8 +921,8 @@ public class ScenarioController extends InputController {
 					if (progressBar != null) {
 						progressBar.setVisible(false);
 						try{
-							TSprocess.setInterrupted();
-						} catch (NullPointerException ne){}
+							((ITimeSeriesProcess) process).setInterrupted();
+						} catch (NullPointerException npe){}
 					}
 					b.changeText(BHScenarioForm.Key.CALCSHAREHOLDERVALUE);
 					

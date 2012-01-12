@@ -50,13 +50,11 @@ public final class BHStochasticInputForm extends JPanel {
 
 	private BHDescriptionLabel lstochprocess;
 	private BHDescriptionLabel ldcfMethod;
-	//private BHDescriptionLabel lindustry;
 	private BHDescriptionLabel lrepresentative;
 	
 	private BHComboBox cbstochprocess;
 	private BHComboBox cbdcfMethod;
 	private BHComboBox cbrepresentative;
-	private BHCheckBox cbtimeSeriesProcess;
 	private BHCheckBox cbbranchSpecificRepresentative;
 	
 	private BHDescriptionLabel lStochasticKeys;
@@ -67,7 +65,6 @@ public final class BHStochasticInputForm extends JPanel {
 	private BHButton bResetParameters;
 	
 	private Component pParameters;
-	private Component timeSeriesParameters;
 	private Component branchSpecificRepresentativeParameters;
 	
 	ITranslator translator = Services.getTranslator();
@@ -94,7 +91,7 @@ public final class BHStochasticInputForm extends JPanel {
 	 */
 	private void initialize() {
 
-		String colDef = "4px,p,4px,p,4px,p,4px,p,120px,p,4px,p,0px:grow,4px";
+		String colDef = "4px,p,4px,p,4px,p,4px,p,4px,p,4px,p,0px:grow,4px";
 		String rowDef = "4px,p,4px,p,4px,p,4px,80px,10px,p,4px,p,4px,p,4px,p,4px";
 		
 		FormLayout layout = new FormLayout(colDef, rowDef);
@@ -104,8 +101,7 @@ public final class BHStochasticInputForm extends JPanel {
 		this.add(this.getcbDCFmethod(), cons.xywh(4, 2, 1, 1));
 		this.add(this.getlstochProcess(), cons.xywh(6, 2, 1, 1));
 		this.add(this.getcbstochProcess(), cons.xywh(8, 2, 1, 1));
-		this.add(this.getcbtimeSeriesProcess(), cons.xywh(10, 2, 1, 1));
-		this.add(this.getcbbranchSpecificRepresentative(), cons.xywh(12, 2, 2, 1));
+		this.add(this.getcbbranchSpecificRepresentative(), cons.xywh(10, 2, 1, 1));
 		
 		this.add(this.getlrepresentative(), cons.xywh(2, 4, 1, 1));
 		this.add(this.getcbrepresentative(), cons.xywh(4, 4, 8, 1));
@@ -131,21 +127,6 @@ public final class BHStochasticInputForm extends JPanel {
 			this.ldcfMethod = new BHDescriptionLabel(DTOScenario.Key.DCF_METHOD);
 		return this.ldcfMethod;
 	}
-	
-	/*public BHDescriptionLabel getlindustry() {
-		if (this.lindustry == null)
-			this.lindustry = new BHDescriptionLabel(DTOScenario.Key.LINDUSTRY);
-		
-		//If branchSpecificRepresentative is selected, then we want to show this checkbox as well
-		if(this.getcbbranchSpecificRepresentative().isSelected()){
-			this.lindustry.setVisible(true);
-		} else {
-			this.lindustry.setVisible(false);
-		}
-		
-		return this.lindustry;
-	}
-	*/
 	
 	public BHDescriptionLabel getlrepresentative() {
 		if (this.lrepresentative == null)
@@ -178,22 +159,6 @@ public final class BHStochasticInputForm extends JPanel {
 		return this.cbstochprocess;
 	}
 	
-	/*public BHComboBox getcbindustry() {
-		if (this.cbindustry == null) {
-			this.cbindustry = new BHComboBox(DTOScenario.Key.INDUSTRY);
-		}
-		
-		//If time branchSpecificRepresentative is selected, then we want to show this checkbox as well
-		if(this.getcbbranchSpecificRepresentative().isSelected()){
-			this.cbindustry.setVisible(true);
-		} else {
-			this.cbindustry.setVisible(false);
-		}
-		
-		return this.cbindustry;
-	}*/
-	
-	
 	public BHComboBox getcbrepresentative() {
 		if (this.cbrepresentative == null) {
 			this.cbrepresentative = new BHComboBox(DTOScenario.Key.REPRESENTATIVE);
@@ -211,16 +176,6 @@ public final class BHStochasticInputForm extends JPanel {
 		return this.cbrepresentative;
 	}
 	
-	
-	public BHCheckBox getcbtimeSeriesProcess() {
-		if (this.cbtimeSeriesProcess == null) {
-			this.cbtimeSeriesProcess = new BHCheckBox(DTOScenario.Key.TIMESERIES_PROCESS);
-			this.cbtimeSeriesProcess.setVisible(false);
-			
-		}
-		return this.cbtimeSeriesProcess;
-	}
-	
 	/**
 	 * This method returns a checkbox for a branch specific representative.
 	 * The checkbox is only displayed, when the checkbox {@link cbtimeSeriesProcess }
@@ -234,12 +189,7 @@ public final class BHStochasticInputForm extends JPanel {
 			this.cbbranchSpecificRepresentative = new BHCheckBox(DTOScenario.Key.BRANCH_SPECIFIC);
 		}
 		
-		//If time series analysis is selected, then we want to show this checkbox as well
-		if(this.getcbtimeSeriesProcess().isSelected()){
-			this.cbbranchSpecificRepresentative.setVisible(true);
-		} else {
-			this.cbbranchSpecificRepresentative.setVisible(false);
-		}
+		cbbranchSpecificRepresentative.setVisible(false);
 		
 		return this.cbbranchSpecificRepresentative;
 	}
@@ -331,30 +281,6 @@ public final class BHStochasticInputForm extends JPanel {
 	public void removeBranchSpecificRepresentativePanel(){
 		if(this.branchSpecificRepresentativeParameters != null){
 			remove(this.branchSpecificRepresentativeParameters);
-			revalidate();
-		}
-	}
-	
-	
-	/**
-	 * Wird vom ScenarioController ausgefuehrt, wenn auf die Checkbox fuer die Zeitreihenanalyse geklickt wird.
-	 * Fuegt eine neue Komponte (Panel mit Textfeldern für Parameter) hinzu.
-	 * @param component
-	 */
-	public void setTimeSeriesParametersPanel(Component component){
-		removeTimeSeriesParametersPanel();
-		timeSeriesParameters = component;
-		CellConstraints cons = new CellConstraints();
-		add(timeSeriesParameters, cons.xywh(2, 10, 10, 1));
-		revalidate();
-	}
-	
-	/**
-	 * Entfernt das Panel das von setTimeSeriesParametersPanel() hinzugefügt wurde
-	 */
-	public void removeTimeSeriesParametersPanel(){
-		if(this.timeSeriesParameters != null){
-			remove(this.timeSeriesParameters);
 			revalidate();
 		}
 	}
