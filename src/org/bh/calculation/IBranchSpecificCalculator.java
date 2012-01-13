@@ -29,13 +29,6 @@ public interface IBranchSpecificCalculator {
 	
 	void getNormedCFValue(String choice, DTOCompany currCompany);
 	
-	/**
-	 * This method calculates the arithmetic average.
-	 * 
-	 * @return arithmetic average
-	 */
-	
-	DTOCompany getArithmeticAverage(String choice, DTOBranch currNormedBranch);
 	
 	/**
 	 * This method calculates the rating of the branch.
