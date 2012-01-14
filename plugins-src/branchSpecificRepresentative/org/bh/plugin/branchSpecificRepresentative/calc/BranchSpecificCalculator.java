@@ -19,10 +19,8 @@ import org.bh.data.types.DoubleValue;
 import org.bh.data.types.StringValue;
 
 /**
- * <short_description>
+ * This class gives the possibility to calculate a branch specific representative
  * 
- * <p>
- * <detailed_description>
  * 
  * @author Denis Roster, Tim Herzenstiel, Sebastian Schumacher
  * @update Günter Hesse
@@ -407,8 +405,6 @@ public class BranchSpecificCalculator implements IBranchSpecificCalculator {
 		return companiesAndPeriods;
 	}
 
-	/* Specified by interface/super class. */
-	@Override
 	public Color getEvaluationOfRating() {
 
 		int evaluation = (int) ((Math.random()) * 5 + 1);

@@ -30,6 +30,7 @@ import org.apache.log4j.Logger;
  * the company has a specific name, which we can reuse from the {@link org.bh.data.DTOScenario}.
  *
  * @author Yannick Rödl, Lukas Locner
+ * @update Denis Roster
  * @version 1.0, 21.12.2011
  *
  */
@@ -79,6 +80,10 @@ public class DTOCompany extends  DTO<DTOPeriod> {
 		log.debug("Company Object created!");
 	}	
 	
+	/**
+	 * Get and set, if the Company is normed by calculating a branch specific representative
+	 * 
+	 */
 	public boolean isNormed() {
 		return isNormed;
 	}
