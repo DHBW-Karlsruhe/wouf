@@ -18,18 +18,24 @@ package org.bh.gui.swing.comp;
 import java.awt.Component;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Comparator;
+import java.util.Iterator;
+import java.util.List;
 
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JComboBox;
 import javax.swing.JList;
 import javax.swing.plaf.basic.BasicComboBoxRenderer;
 
+import org.bh.data.DTOBranch;
+import org.bh.data.DTOBusinessData;
 import org.bh.data.types.IValue;
 import org.bh.gui.CompValueChangeManager;
 import org.bh.gui.IBHModelComponent;
 import org.bh.platform.IPlatformListener;
+import org.bh.platform.PlatformController;
 import org.bh.platform.PlatformEvent;
 import org.bh.platform.Services;
 import org.bh.platform.PlatformEvent.Type;
@@ -187,7 +193,30 @@ public class BHComboBox extends JComboBox implements IBHModelComponent,
 
 		@Override
 		public String toString() {
+			DTOBusinessData businessData = (PlatformController.getInstance()).getBusinessDataDTO();
+			
+			List<DTOBranch> branchList = businessData.getChildren();
+			
+			String key1;
+			String main;
+			String mid;
+			String sub;
+			
+			Iterator<DTOBranch> itr = branchList.iterator();
+			while(itr.hasNext()) {
+	    		DTOBranch currBranch = itr.next();
+	    		main = currBranch.get(DTOBranch.Key.BRANCH_KEY_MAIN_CATEGORY).toString();
+	    		mid = currBranch.get(DTOBranch.Key.BRANCH_KEY_MID_CATEGORY).toString();
+	    		sub = currBranch.get(DTOBranch.Key.BRANCH_KEY_SUB_CATEGORY).toString();
+	    		key1 = main + "." + mid + "." + sub;
+	    		if(key1.equals(key)){
+	    			return translator.translate(key) + " (" +currBranch.getChildrenSize() + ")";
+	    		}
+	    		
+			}
+			
 			return translator.translate(key);
+			
 		}
 
 		public String getKey() {
