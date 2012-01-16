@@ -24,6 +24,7 @@ import java.awt.event.ItemListener;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
+import java.util.Collections;
 import java.util.Comparator;
 import java.util.Iterator;
 import java.util.List;
@@ -342,6 +343,7 @@ public class ScenarioController extends InputController {
 		String mid;
 		String sub;
 		Item item;
+		List<String> branch = new ArrayList<String>();
 		
 		Iterator<DTOBranch> itr = branchList.iterator();
 		while(itr.hasNext()) {
@@ -350,9 +352,19 @@ public class ScenarioController extends InputController {
     		mid = currBranch.get(DTOBranch.Key.BRANCH_KEY_MID_CATEGORY).toString();
     		sub = currBranch.get(DTOBranch.Key.BRANCH_KEY_SUB_CATEGORY).toString();
     		key = main + "." + mid + "." + sub;
-    		item = new Item(key, null);
-    		cbrepresentative.addItem(item);
-    		cbrepresentative.sortItems();
+    		branch.add(key);
+    		
+		}
+		
+		Collections.sort(branch);
+		
+		Iterator<String> itr1 = branch.iterator();
+		
+		while(itr1.hasNext()){
+			key = itr1.next();
+			item = new Item(key, null);
+			cbrepresentative.addItem(item);
+			//cbrepresentative.sortItems();
 		}
 		
 		/*INACEImport naceReader = Services.getNACEReader();
