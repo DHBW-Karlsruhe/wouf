@@ -400,69 +400,72 @@ public class ScenarioController extends InputController {
 		
 //		INACEImport naceReader = Services.getNACEReader();
 //		Map<String, String> branches = naceReader.getBranch();
-
-		
-		Item item;
-		StringValue value;
-		String key;
-		
-		INACEImport naceReader = Services.getNACEReader();
-		Map<String, String> branches = naceReader.getBranch();
-		
-		cbrepresentative.removeAllItems();
-		for (Map.Entry<String, String> entry : branches.entrySet()) {
-			if(entry.getKey().length() == 1){
-				
-				key = entry.getKey();
-				//key = key.replace(".", "");
-				value = new StringValue(entry.getKey() + ": " + entry.getValue());
-				item = new Item(key, value);
-				cbrepresentative.addItem(item);
-				
-				for (Map.Entry<String, String> entry1 : branches.entrySet()) {
-					if(entry1.getKey().length() == 4 && entry1.getKey().substring(0, 1).equals(entry.getKey())){
-						
-						key = entry1.getKey();
-						//key = key.replace(".", "");
-						value = new StringValue(entry1.getKey() + ": " + entry1.getValue());
-						item = new Item(key, value);
-						cbrepresentative.addItem(item);
-						
-						for (Map.Entry<String, String> entry2 : branches.entrySet()) {
-							if(entry2.getKey().length() > 4 && entry2.getKey().substring(0, 4).equals(entry1.getKey())){
-								
-								key = entry2.getKey();
-								//key = key.replace(".", "");
-								value = new StringValue(entry2.getKey() + ": " + entry2.getValue());
-								item = new Item(key, value);
-								cbrepresentative.addItem(item);
-							}
-							
-						}
-					}
-					
-				}
-			}
-			
-		}
-		
-		if(cbrepresentative != null){
-			ItemListener itemListener = new ItemListener() {
-			      public void itemStateChanged(ItemEvent itemEvent) {
-			    	//save selected branch
-			    	  if (itemEvent.getStateChange() == ItemEvent.SELECTED) {
-						DTOScenario scenario = (DTOScenario) getModel();
-						StringValue industry;
-						BHComboBox cbrepresentative = (BHComboBox) view.getBHComponent(DTOScenario.Key.REPRESENTATIVE);
-						industry = new StringValue(cbrepresentative.getSelectedItem().toString());
-						scenario.put(DTOScenario.Key.INDUSTRY, industry);
-			    	  }
-			      }
-			    };
-			    cbrepresentative.addItemListener(itemListener);
-		}
-		
-		
+//
+//		
+//		Item item;
+//		StringValue value;
+//		String key;
+//		
+//		INACEImport naceReader = Services.getNACEReader();
+//		Map<String, String> branches = naceReader.getBranch();
+//		
+//		if(cbrepresentative != null && cbrepresentative.getItemCount() > 0){
+//			cbrepresentative.removeAllItems();
+//		}
+//		
+//		for (Map.Entry<String, String> entry : branches.entrySet()) {
+//			if(entry.getKey().length() == 1){
+//				
+//				key = entry.getKey();
+//				//key = key.replace(".", "");
+//				value = new StringValue(entry.getKey() + ": " + entry.getValue());
+//				item = new Item(key, value);
+//				cbrepresentative.addItem(item);
+//				
+//				for (Map.Entry<String, String> entry1 : branches.entrySet()) {
+//					if(entry1.getKey().length() == 4 && entry1.getKey().substring(0, 1).equals(entry.getKey())){
+//						
+//						key = entry1.getKey();
+//						//key = key.replace(".", "");
+//						value = new StringValue(entry1.getKey() + ": " + entry1.getValue());
+//						item = new Item(key, value);
+//						cbrepresentative.addItem(item);
+//						
+//						for (Map.Entry<String, String> entry2 : branches.entrySet()) {
+//							if(entry2.getKey().length() > 4 && entry2.getKey().substring(0, 4).equals(entry1.getKey())){
+//								
+//								key = entry2.getKey();
+//								//key = key.replace(".", "");
+//								value = new StringValue(entry2.getKey() + ": " + entry2.getValue());
+//								item = new Item(key, value);
+//								cbrepresentative.addItem(item);
+//							}
+//							
+//						}
+//					}
+//					
+//				}
+//			}
+//			
+//		}
+//		
+//		if(cbrepresentative != null){
+//			ItemListener itemListener = new ItemListener() {
+//			      public void itemStateChanged(ItemEvent itemEvent) {
+//			    	//save selected branch
+//			    	  if (itemEvent.getStateChange() == ItemEvent.SELECTED) {
+//						DTOScenario scenario = (DTOScenario) getModel();
+//						StringValue industry;
+//						BHComboBox cbrepresentative = (BHComboBox) view.getBHComponent(DTOScenario.Key.REPRESENTATIVE);
+//						industry = new StringValue(cbrepresentative.getSelectedItem().toString());
+//						scenario.put(DTOScenario.Key.INDUSTRY, industry);
+//			    	  }
+//			      }
+//			    };
+//			    cbrepresentative.addItemListener(itemListener);
+//		}
+//		
+//		
 //		BHComboBox cmbPeriodType = (BHComboBox) view.getBHComponent(DTOScenario.Key.PERIOD_TYPE);
 //		
 //		if(cmbPeriodType != null){
