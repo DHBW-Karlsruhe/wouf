@@ -3,16 +3,20 @@ package org.bh.plugin.branchSpecificRepresentative.swing.maintainCompanyData;
 import java.io.IOException;
 import java.util.Map;
 
+import org.bh.controller.Controller;
 import org.bh.data.DTO;
 import org.bh.data.DTOBusinessData;
 import org.bh.platform.IImportExport;
 import org.bh.platform.PlatformController;
+
 import org.bh.platform.PlatformPersistenceManager;
 import org.bh.platform.Services;
 import org.apache.log4j.Logger;
 import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
 import javax.swing.filechooser.FileNameExtensionFilter;
+
+import org.bh.platform.i18n.ITranslator;
 
 /**
  * <short_description> This class implements basic functions to import and
@@ -26,10 +30,28 @@ import javax.swing.filechooser.FileNameExtensionFilter;
  */
 public class BSRManualPersistance {
 
-	private static final String IMPORT_PATH_BRANCHES_DEFAULT = "src/org/bh/companydata/periods.xml";
-	// TODO frage Yannick, ob es ok ist, wenn wir den gleichen String in Services auf public setzen 
-	// oder eine getter Methode einrichten, um Inkonsistenzen zu vermeiden. 
-	
+	// private static final String IMPORT_PATH_BRANCHES_DEFAULT =
+	// "src/org/bh/companydata/periods.xml";
+	// TODO frage Yannick, ob es ok ist, wenn wir den gleichen String in
+	// Services auf public setzen
+	// oder eine getter Methode einrichten, um Inkonsistenzen zu vermeiden.
+
+	public enum GUI_KEYS {
+		// saveBranches() Error:
+		EXPORT_BRANCH_ERROR_TITLE, EXPORT_BRANCH_ERROR_MESSAGE,
+		// saveBranches() Success:
+		EXPORT_BRANCH_SUCCESS_TITLE, EXPORT_BRANCH_SUCCESS_MESSAGE,
+		// loadBranches() ERROR:
+		IMPORT_BRANCH_ERROR_TITLE, IMPORT_BRANCH_ERROR_MESSAGE,
+		// loadBranches() Success:
+		IMPORT_BRANCH_SUCCESS_TITLE, IMPORT_BRANCH_SUCCESS_MESSAGE;
+
+		public String toString() {
+			return getClass().getName() + "." + super.toString();
+		}
+	}
+
+	final ITranslator translator = Controller.getTranslator();
 	private static final Logger log = Logger
 			.getLogger(PlatformPersistenceManager.class);
 
@@ -61,10 +83,32 @@ public class BSRManualPersistance {
 			// Trigger export
 			plugin.setFileAndModel(savePath, dtoBusinessData);
 			plugin.startExport();
+			JOptionPane
+					.showMessageDialog(
+							null,
+							Services.getTranslator()
+									.translate(
+											BSRManualPersistance.GUI_KEYS.EXPORT_BRANCH_SUCCESS_MESSAGE),
+							Services.getTranslator()
+									.translate(
+											BSRManualPersistance.GUI_KEYS.EXPORT_BRANCH_SUCCESS_TITLE),
+							JOptionPane.INFORMATION_MESSAGE);
+			log.info("Branches exported successfully to " + savePath);
 
 		} catch (IOException ioe) {
 			// Wrong filepath?
-			log.error("Failed to write into XML", ioe);
+			log.error("Failed to export Branches into XML", ioe);
+			JOptionPane
+					.showMessageDialog(
+							null,
+							Services.getTranslator()
+									.translate(
+											BSRManualPersistance.GUI_KEYS.EXPORT_BRANCH_ERROR_MESSAGE),
+							Services.getTranslator()
+									.translate(
+											BSRManualPersistance.GUI_KEYS.EXPORT_BRANCH_ERROR_TITLE),
+							JOptionPane.ERROR_MESSAGE);
+
 			return false;
 		}
 
@@ -97,39 +141,63 @@ public class BSRManualPersistance {
 		try {
 			// Load data from default path
 			bd = (DTOBusinessData) plugin.startImport();
+			JOptionPane
+					.showMessageDialog(
+							null,
+							Services.getTranslator()
+									.translate(
+											BSRManualPersistance.GUI_KEYS.IMPORT_BRANCH_SUCCESS_MESSAGE),
+							Services.getTranslator()
+									.translate(
+											BSRManualPersistance.GUI_KEYS.IMPORT_BRANCH_SUCCESS_TITLE),
+							JOptionPane.INFORMATION_MESSAGE);
 
 		} catch (Exception exc) {
-			JOptionPane.showMessageDialog(null, "Fehler beim Einlesen der XML!");
+			JOptionPane
+					.showMessageDialog(
+							null,
+							Services.getTranslator()
+									.translate(
+											BSRManualPersistance.GUI_KEYS.IMPORT_BRANCH_ERROR_MESSAGE),
+							Services.getTranslator()
+									.translate(
+											BSRManualPersistance.GUI_KEYS.IMPORT_BRANCH_ERROR_TITLE),
+							JOptionPane.ERROR_MESSAGE);
 			log.error("Could not load branches from external file.", exc);
 
-			if (xmlBranchesName != null) {
-				// Fallback to data in home directory
-				log.info("Try to load default company data from home directory.");
-				xmlBranchesName = PlatformController.preferences.get(
-						"branches", null);
+			// Deleted 2012-01-17 Nees.Benedikt:
+			// If there is an error loading the external XML, no alternative
+			// action should executed.
 
-				plugin.setFile(xmlBranchesName);
-				try {
-					bd = (DTOBusinessData) plugin.startImport();
-				} catch (Exception exc2) {
-					// Fallback to default data
-					log.error("Could not load branches from home directory.",
-							exc2);
-
-					plugin.setFile(BSRManualPersistance.IMPORT_PATH_BRANCHES_DEFAULT);
-					try {
-						bd = (DTOBusinessData) plugin.startImport();
-					} catch (Exception exc3) {
-						// Create new DTO
-						log.error("Could not load branches at all.", exc3);
-						log.info("Start with no data.");
-						bd = new DTOBusinessData();
-					}
-				}
-			} else {
-				// Create new DTO
-				bd = new DTOBusinessData();
-			}
+			// if (xmlBranchesName != null) {
+			// // Fallback to data in home directory
+			// log.info("Try to load default company data from home directory.");
+			// xmlBranchesName = PlatformController.preferences.get(
+			// "branches", null);
+			//
+			// plugin.setFile(xmlBranchesName);
+			// try {
+			// bd = (DTOBusinessData) plugin.startImport();
+			// } catch (Exception exc2) {
+			// // Fallback to default data
+			// log.error("Could not load branches from home directory.",
+			// exc2);
+			//
+			// plugin.setFile(BSRManualPersistance.IMPORT_PATH_BRANCHES_DEFAULT);
+			// try {
+			// bd = (DTOBusinessData) plugin.startImport();
+			// } catch (Exception exc3) {
+			// // Create new DTO
+			// log.error("Could not load branches at all.", exc3);
+			// log.info("Start with no data.");
+			// bd = new DTOBusinessData();
+			// }
+			// }
+			// } else {
+			// // Create new DTO
+			// bd = new DTOBusinessData();
+			// }
+			
 		} finally {
 			// Get PlatformController to store data
 			PlatformController platformController = PlatformController
