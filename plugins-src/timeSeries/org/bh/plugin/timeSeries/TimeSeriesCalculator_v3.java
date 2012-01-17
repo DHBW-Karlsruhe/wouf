@@ -19,20 +19,33 @@ import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.ListIterator;
+import java.util.Map;
+import java.util.ServiceLoader;
 
 import org.apache.commons.math.MathException;
 import org.apache.commons.math.distribution.NormalDistributionImpl;
+import org.apache.log4j.Logger;
+import org.bh.calculation.IShareholderValueCalculator;
+import org.bh.data.DTO;
+import org.bh.data.DTOPeriod;
+import org.bh.data.DTOScenario;
+import org.bh.data.IPeriodicalValuesDTO;
 import org.bh.data.types.Calculable;
+import org.bh.data.types.DistributionMap;
 import org.bh.data.types.DoubleValue;
 import org.bh.gui.swing.comp.BHProgressBar;
+import org.bh.platform.PluginManager;
+import org.bh.plugin.directinput.DTODirectInput;
 
 import Jama.Matrix;
 
 /**
  * Diese Klasse stellt die Berechnung für die Zeitreihenanalyse bereit.
  * 
+ * Sie unterstützt jetzt auch die Berechnung des Unternehmenswertes auf Basis der errechneten CashFlows der Zeitreihenanalyse.
+ * 
  * @author Andreas Wussler, Timo Klein
- * @version 3.0, 01.02.2011
+ * @version 3.2, 01.02.2011
  * @update Yannick Rödl, 22.12.2011
  */
 public class TimeSeriesCalculator_v3 {
@@ -46,6 +59,9 @@ public class TimeSeriesCalculator_v3 {
 	 */
 	private BHProgressBar progressB = null;
 	private boolean interrupted;
+	private DistributionMap resultMap;
+	private DTOScenario scenario;
+	private Logger log = Logger.getLogger(TimeSeriesCalculator_v3.class);
 
 	/**
 	 * Standardkonstruktor, kopiert die übergebene Cashflowliste in den
@@ -74,9 +90,13 @@ public class TimeSeriesCalculator_v3 {
 	 * @param progressbar
 	 *            Referenz zu einer Progressbar, diese wird falls vorhanden, den
 	 *            Status der Berechnung übermittelt
+	 * @param resultMap Enthält die DistributionMap zur Speicherung des aktuellen Ergebnisses der Berechnungen
+	 * @param scenario Das Szenario, in dem die Daten berechnet werden.
 	 */
 	public TimeSeriesCalculator_v3(List<Calculable> cashflows,
-			BHProgressBar progressbar) {
+			BHProgressBar progressbar, DistributionMap resultMap, DTOScenario scenario) {
+		this.scenario = scenario;
+		this.resultMap = resultMap;
 		this.cashflows = new LinkedList<Calculable>();// initalisiere
 														// this.cashflows
 		for (Calculable cashflow : cashflows) {// kopiere parametisierte Liste
@@ -141,41 +161,31 @@ public class TimeSeriesCalculator_v3 {
 																					// mit
 																					// berücksichtigten
 																					// Cashflows
+		List<Calculable> result = null;
+		
 		int counter = 1;
 		for (Calculable cashflow : this.cashflows) {// original Liste in
 													// cashflow-Liste
 													// berücksichtig kopieren
 			cashflows_beruecksichtigt.add(cashflow);
-			if (counter == periods_to_history + 1 && counter >= 4) {// p+1
+			if (counter == periods_to_history + 1 && counter >= 4 ) {// p+1
 																	// cashflows
 																	// sammeln,
 																	// aber
 																	// mindestens
-																	// 4
+																	// 4, aber maximal einen mehr als in this.cashflows()
 				break;
 			}
 			counter++;
 		}
-
-		/*
-		 * for(Calculable cashflow : cashflows_beruecksichtigt){//original Liste
-		 * in cashflow-Liste berücksichtig kopieren
-		 * System.out.println("kopiert: "+cashflow.toNumber().doubleValue()); }
-		 */
-
-		// Für die ProgressBAR:
-		int cashflows_n_beruecks_size = cashflows_beruecksichtigt.size();
-		int progressbar_haelfte = 0;
-		if (progressB != null) {
-			progressbar_haelfte = progressB.getMaximum() / 2;
-		}
-
-		// System.out.println("size berücksichtig= "+cashflows_beruecksichtigt.size()+" size cashflows= "+this.cashflows.size());
-
-		return calculateCashflows(this.cashflows.size()
+		
+		DTO.setThrowEvents(false);
+		result = calculateCashflows(this.cashflows.size()
 				- cashflows_beruecksichtigt.size(), periods_to_history,
 				weissesRauschenISon, anzahlWiederholungen, false,
-				cashflows_beruecksichtigt);
+				cashflows_beruecksichtigt, false);
+		DTO.setThrowEvents(true);
+		return result;
 	}
 
 	/**
@@ -193,13 +203,16 @@ public class TimeSeriesCalculator_v3 {
 	 * @param cashflows
 	 *            optional cashflow-Liste, falls null wird die vorher im
 	 *            Konstruktor angegebene Cashflowliste genommen..
+	 * @param initialCalculation - Determines whether we have to recalculate the shareholder value
 	 * @return Cashflowliste-Kopie mit hinzugefügten prognostizierten Cashflows
+	 * 
 	 */
 	public List<Calculable> calculateCashflows(int periods_calc_to_future,
 			int periods_calc_to_history, boolean weissesRauschenISon,
 			int anzahlWiederholungen, boolean progressBarSetzen,
-			List<Calculable> cashflows) {
+			List<Calculable> cashflows, boolean initialCalculation) {
 		
+		log.info("Starting Cashflow calculation");
 		// System.out.println("TimeSeriesCalculator_v3: called calculateCashflows...");
 		interrupted = false;
 		
@@ -226,9 +239,20 @@ public class TimeSeriesCalculator_v3 {
 		if (weissesRauschenISon == false) {
 			anzahlWiederholungen = 1;
 		}
-
+		
+		//Um den Unternehmenswert zu berechnen.
+		IShareholderValueCalculator dcfMethod = scenario.getDCFMethod();
+		
+		DTOScenario tempScenario = null;
+		
 		// Wiederholungen durchkalkulieren
 		for (int counter = 0; counter < anzahlWiederholungen; counter++) {
+			
+			if(initialCalculation){
+				//Erzeuge ein temporäres Szenario
+				tempScenario =  getTempScenario(periods_calc_to_future);
+			}
+				
 			// ProgressBar, falls verfügbar und erwünscht, aktualisieren
 			if (interrupted) {
 				counter = anzahlWiederholungen;
@@ -261,11 +285,26 @@ public class TimeSeriesCalculator_v3 {
 				//Hier haben wir den nächsten Cashflow gesetzt
 				cashflows_manipuliert.add(new DoubleValue(nextCashflow));
 				
+//				log.info("Periode: " + i + " mit Cashflow " + nextCashflow);
+				
+				if(initialCalculation){
+					DTOPeriod period = tempScenario.getChildren().get(i);
+					IPeriodicalValuesDTO pvdto = period.getPeriodicalValuesDTO("directinput");
+					pvdto.put(DTODirectInput.Key.FCF, new DoubleValue(nextCashflow));
+					pvdto.put(DTODirectInput.Key.LIABILITIES, new DoubleValue(0));
+				}
 				//Cashflow Wert neu und alten Wert addieren
 				cashflow_prognos_MW_sammlung.put(i,
 						(cashflow_prognos_MW_sammlung.get(i) + nextCashflow));
 			}
+			
+			if(initialCalculation){
+				Map<String, Calculable[]> dcfResult = dcfMethod.calculate( tempScenario, false);
 
+				resultMap.put(((DoubleValue) dcfResult.get(IShareholderValueCalculator.Result.SHAREHOLDER_VALUE.toString())[0]).getValue());
+			
+			}
+			
 			// cashflows_manipuliert zurücksetzen
 			cashflows_manipuliert = getManipulierteCashflows(cashflows);
 		}
@@ -285,7 +324,47 @@ public class TimeSeriesCalculator_v3 {
 			progressB.setValue(progressB.getMaximum());
 		}
 
+		log.info("Cashflow calculation done!");
+		
 		return cashflows_manipuliert;
+	}
+	
+	/**
+	 * Create a temporary scenario for the calculation of the shareholder value
+	 * @param periods_calc_to_future
+	 * @return
+	 */
+	private DTOScenario getTempScenario(int periods_calc_to_future){
+		DTOScenario tempScenario = new DTOScenario(true);
+		
+		/*
+		 * Write Return on equity and all the other scenario data
+		 * like tax in temporary scenario 
+		 */
+		tempScenario.put(DTOScenario.Key.REK, scenario
+				.get(DTOScenario.Key.REK));
+		tempScenario.put(DTOScenario.Key.RFK, scenario
+				.get(DTOScenario.Key.RFK));
+		tempScenario.put(DTOScenario.Key.BTAX, scenario
+				.get(DTOScenario.Key.BTAX));
+		tempScenario.put(DTOScenario.Key.CTAX, scenario
+				.get(DTOScenario.Key.CTAX));
+
+		DTOPeriod dto = new DTOPeriod();
+		ServiceLoader<IPeriodicalValuesDTO> periods = PluginManager.getInstance().getServices(IPeriodicalValuesDTO.class);
+		for (IPeriodicalValuesDTO period : periods) {
+			if(period.getUniqueId().equals("directinput")){
+				dto.addChild((IPeriodicalValuesDTO) period.clone());
+			}
+		}
+		
+		//Write initial number of periods
+		for (int j = 0; j < periods_calc_to_future; j++) {
+			tempScenario.addChild((DTOPeriod) dto.clone());
+		}
+
+		
+		return tempScenario;
 	}
 	
 	/**
@@ -451,12 +530,10 @@ public class TimeSeriesCalculator_v3 {
 		 */
 		List<Calculable> gammaListe = new LinkedList<Calculable>(); // return-Liste
 		double gamma_Wert = 0;
-		ListIterator li_bereinigteZeitreihe_mt = null; // List Iterator
-														// beginnend an der
-														// Stelle
-														// bereinigteZeitreihe -
-														// t
-		ListIterator li_bereinigteZeitreihe = null; // List Iterator beginnend
+		
+		// List Iterator beginnend an der Stelle bereinigteZeitreihe - t
+		ListIterator<Calculable> li_bereinigteZeitreihe_mt = null; 
+		ListIterator<Calculable> li_bereinigteZeitreihe = null; // List Iterator beginnend
 													// mit erstem Element
 		double bereinigteZeitreihe_mt_Wert = 0;
 		double bereinigteZeitreihe_Wert = 0;
@@ -465,14 +542,8 @@ public class TimeSeriesCalculator_v3 {
 		/*
 		 * Berechnung
 		 */
-		for (int counter = 0; counter <= periods_calc_to_history; counter++) {// durchlaufe
-																				// 1..p
-																				// um
-																				// Gamma_1
-																				// bis
-																				// Gamma_p
-																				// zu
-																				// erhalten
+		for (int counter = 0; counter <= periods_calc_to_history; counter++) {
+			// durchlaufe 1..p um Gamma_1 bis Gamma_p zu erhalten
 			li_bereinigteZeitreihe = bereinigteZeitreihe.listIterator();
 			li_bereinigteZeitreihe_mt = bereinigteZeitreihe
 					.listIterator(counter);
@@ -501,6 +572,12 @@ public class TimeSeriesCalculator_v3 {
 		return gammaListe;
 	}
 
+	/**
+	 * Berechnet die CF Liste.
+	 * @param gammaListe
+	 * @param periods_calc_to_history
+	 * @return
+	 */
 	private List<Calculable> kalkuliere_cListe (List<Calculable> gammaListe, int periods_calc_to_history ){
 		/*
 		 * Initalisierung
@@ -572,29 +649,17 @@ public class TimeSeriesCalculator_v3 {
 
 		// cListe minus mal bereinigte Zeitreihe ergibt bereinigter ci wert,
 		// aufsummiert ergibt bereinigt_ci_summe
-		ListIterator li_cListe = cListe.listIterator(cListe.size());
-		ListIterator li_bereinigteZeitreihe = bereinigteZeitreihe
+		ListIterator<Calculable> li_cListe = cListe.listIterator(cListe.size());
+		ListIterator<Calculable> li_bereinigteZeitreihe = bereinigteZeitreihe
 				.listIterator(bereinigteZeitreihe.size());
 		double bereinigter_ci_Wert = 0;
 		double bereinigt_ci_summe = 0;
-		while (li_cListe.hasPrevious() && li_bereinigteZeitreihe.hasPrevious()) {// rückwärts
-																					// durchlaufen,
-																					// bis
-																					// komplette
-																					// cListe
-																					// durchlaufen
-																					// wurde,
-																					// die
-																					// bereinigte
-																					// Zeitreihe
-																					// sollte
-																					// dabei
-																					// nich
-																					// ans
-																					// Ende
-																					// der
-																					// Liste
-																					// stoßen
+		
+		/*
+		 *  rückwärts durchlaufen, bis komplette cListe durchlaufen wurde, 
+		 *  die bereinigte Zeitreihe sollte dabei nicht ans Ende der Liste stoßen
+		 */
+		while (li_cListe.hasPrevious() && li_bereinigteZeitreihe.hasPrevious()) {
 			bereinigter_ci_Wert = ((DoubleValue) li_cListe.previous())
 					.toNumber().doubleValue()
 					* ((DoubleValue) li_bereinigteZeitreihe.previous())
@@ -647,6 +712,15 @@ public class TimeSeriesCalculator_v3 {
 		return varianz;
 	}
 
+	/**
+	 * Berechnet das weiße Rauschen, das im Prinzip eine Variante zu der 
+	 * Zufallsbewegung und dem Wiener Prozess darstellt. Das weiße Rauschen
+	 * sorgt für eine Beeinflussung der prognostizierten Cashflows.
+	 * @param periods_calc_to_future Anzahl der Perioden in der Zukunft
+	 * @param varianz Die Varianz der Berechnung
+	 * @param anzahl_zufalls_zahlen Die Anzahl der Zufallszahlen
+	 * @return Eine Liste mit Werten, die das weiße Rauschen je Periode darstellt.
+	 */
 	private List<Calculable> kalkuliere_weisses_Rauschen(
 			int periods_calc_to_future, double varianz,
 			int anzahl_zufalls_zahlen) {
@@ -656,9 +730,10 @@ public class TimeSeriesCalculator_v3 {
 		List<Calculable> weisses_Rauschen = new LinkedList<Calculable>();
 		final double deltaT_mal_Sigma = varianz / anzahl_zufalls_zahlen;
 		double zufallszahl = 0;
-		NormalDistributionImpl normInv = new NormalDistributionImpl();
-		normInv.setMean(0); // Mittelwert auf 0 setzen
-		normInv.setStandardDeviation(deltaT_mal_Sigma); // Standardabweichung
+		
+		//anstelle des manuellen Setzens der Standardabweichung und des Mittelwertes.
+		NormalDistributionImpl normInv = new NormalDistributionImpl( 0, deltaT_mal_Sigma);
+		
 		double normInv_wert = 0;
 		double weisses_rauschen_vor_wert = 0;
 		double summe = 0;

@@ -17,11 +17,8 @@ package org.bh.calculation;
 
 import java.util.TreeMap;
 
-import javax.swing.JPanel;
-
 import org.bh.data.DTOScenario;
 import org.bh.gui.swing.comp.BHProgressBar;
-import org.bh.platform.IDisplayablePlugin;
 
 /**
  * This interface is implemented by plugins which can execute timeSeries
@@ -30,8 +27,10 @@ import org.bh.platform.IDisplayablePlugin;
  * @author Andreas Wußler, Timo Klein
  * @version 1.0, 22.12.2010
  * @update 23.12.2010 Timo Klein
+ * @version 1.2, 12.01.2012
+ * @update 12.01.2012 Yannick Rödl
  */
-public interface ITimeSeriesProcess extends IDisplayablePlugin{
+public interface ITimeSeriesProcess extends IStochasticProcess{
 	
 	public enum Key{
 		TIME_SERIES,
@@ -44,48 +43,37 @@ public interface ITimeSeriesProcess extends IDisplayablePlugin{
 	};
 	
 	/**
-	 * Defines a unique string which identifies this timeSeries process.
-	 * 
-	 * @return The unique ID.
-	 */
-	String getUniqueId();
-	
-	/**
 	 * Creates a new instance of the same class for a specific scenario.
 	 * 
 	 * @param The scenario used in this instance of the time series process.
 	 * @return A new instance of the same class.
 	 */
 	ITimeSeriesProcess createNewInstance(DTOScenario scenario);
-
-	/**
-	 * Uses the scenario to calculate the parameters needed for the stochastic
-	 * process.
-	 * 
-	 * <p>
-	 * The plugin has to care about storing these parameters internally. If the
-	 * plugin needs to display a GUI for changing these parameters or the like,
-	 * it returns a JPanel.
-	 * 
-	 * @see DTOScenario#getPeriodStochasticKeys()
-	 * @see DTOScenario#getPeriodStochasticKeysAndValues()
-	 * @return The GUI or null.
-	 */
-	JPanel calculateParameters();
-
-	/**
-	 * This function will be called when the user confirmed the parameters,
-	 * right before starting the calculation. The plugin should then write the
-	 * parameters back from the GUI to its internal data structures.
-	 */
-	void updateParameters();
-
-	TreeMap<Integer, Double> calculate(boolean branchSpecific);
 	
+	/**
+	 * This method is used to determine which would be the best p to calculate the periods
+	 * back in the past.
+	 * @param p
+	 * @return
+	 */
 	TreeMap<Integer, Double>[]  calculateCompare(int p);
+	
+	/**
+	 * Set this parameter if we have a branch specific calculation;
+	 * You do not have to unset it!!!
+	 * @param branchSpecific
+	 */
+	void setBranchSpecific(boolean branchSpecific);
 
+	/**
+	 * Provides a Progress Bar for the time series calculation
+	 * @param bhComponent
+	 */
 	void setProgressB(BHProgressBar bhComponent);
 
+	/**
+	 * Call this method, if the calculation of the time series should be interrupted.
+	 */
 	void setInterrupted();
 
 }

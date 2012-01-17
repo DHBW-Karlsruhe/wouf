@@ -10,6 +10,7 @@ import org.apache.log4j.Logger;
 import org.bh.calculation.IBranchSpecificCalculator;
 import org.bh.calculation.ITimeSeriesProcess;
 import org.bh.data.DTOScenario;
+import org.bh.data.types.DistributionMap;
 import org.bh.gui.swing.comp.BHButton;
 import org.bh.gui.swing.comp.BHDescriptionLabel;
 import org.bh.gui.swing.comp.BHProgressBar;
@@ -54,7 +55,7 @@ public class BranchSpecificRepresentative implements ITimeSeriesProcess {
 	private BHTextField tfBranchSpecGoodness;
 	
 	@Override
-	public JPanel calculateParameters() {
+	public JPanel calculateParameters(boolean branchSpecific) {
 		JPanel result = new JPanel();
 		
 		//create layout
@@ -150,31 +151,31 @@ public class BranchSpecificRepresentative implements ITimeSeriesProcess {
 
 	@Override
 	public void updateParameters() {
-		// TODO Auto-generated method stub
-		throw new UnsupportedOperationException("This method has not been implemented");
-	}
-
-	@Override
-	public TreeMap<Integer, Double> calculate(boolean branchSpecific) {
-		// TODO Auto-generated method stub
 		throw new UnsupportedOperationException("This method has not been implemented");
 	}
 
 	@Override
 	public TreeMap<Integer, Double>[] calculateCompare(int p) {
-		// TODO Auto-generated method stub
 		throw new UnsupportedOperationException("This method has not been implemented");
 	}
 
 	@Override
 	public void setProgressB(BHProgressBar bhComponent) {
-		// TODO Auto-generated method stub
 		throw new UnsupportedOperationException("This method has not been implemented");
 	}
 
 	@Override
 	public void setInterrupted() {
-		// TODO Auto-generated method stub
+		throw new UnsupportedOperationException("This method has not been implemented");
+	}
+
+	@Override
+	public DistributionMap calculate() {
+		throw new UnsupportedOperationException("This method has not been implemented");
+	}
+
+	@Override
+	public void setBranchSpecific(boolean branchSpecific) {
 		throw new UnsupportedOperationException("This method has not been implemented");
 	}
 

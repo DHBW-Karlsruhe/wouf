@@ -46,7 +46,6 @@ import org.bh.platform.Services;
 
 public class DTOScenario extends DTO<DTOPeriod> {
 	private static final long serialVersionUID = -2952168332645683235L;
-	@SuppressWarnings("unused")
 	private static final Logger log = Logger.getLogger(DTOScenario.class);
 	private boolean isCalculated = false;
 	private transient DTOCompany branchSpecificRep;
@@ -266,8 +265,7 @@ public class DTOScenario extends DTO<DTOPeriod> {
 	 * @return Reference to the stochastic process.
 	 */
 	public IStochasticProcess getStochasticProcess() {
-		return Services.getStochasticProcess(get(Key.STOCHASTIC_PROCESS).toString()
-				.toString()).createNewInstance(this);
+		return Services.getStochasticProcess(get(Key.STOCHASTIC_PROCESS).toString()).createNewInstance(this);
 	}
 	
 	/**

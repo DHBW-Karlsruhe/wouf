@@ -26,15 +26,18 @@ import javax.swing.JPanel;
 
 import org.apache.log4j.Logger;
 import org.bh.calculation.ITimeSeriesProcess;
+import org.bh.data.DTO;
 import org.bh.data.DTOKeyPair;
 import org.bh.data.DTOPeriod;
 import org.bh.data.DTOScenario;
 import org.bh.data.types.Calculable;
+import org.bh.data.types.DistributionMap;
 import org.bh.gui.swing.comp.BHDescriptionLabel;
 import org.bh.gui.swing.comp.BHProgressBar;
 import org.bh.gui.swing.comp.BHTextField;
 import org.bh.platform.Services;
 import org.bh.platform.i18n.BHTranslator;
+import org.bh.validation.VRIsBetween;
 import org.bh.validation.VRIsGreaterThan;
 import org.bh.validation.VRIsInteger;
 import org.bh.validation.VRIsLowerThan;
@@ -53,6 +56,7 @@ import com.jgoodies.forms.layout.FormLayout;
  * @author Timo Klein, Andreas Wussler, Vito Masiello
  * @version 1.0, 1.2.2011
  * @update Yannick Rödl, 22.12.2011
+ * @update Lukas Lochner, 17.01.2012
  */
 
 public class TimeSeries implements ITimeSeriesProcess {
@@ -60,17 +64,23 @@ public class TimeSeries implements ITimeSeriesProcess {
 
 	private static final String AMOUNT_OF_PERIODS_BACK = "amountOfPeriodsBack";
 	private static final String AMOUNT_OF_PERIODS_FUTURE = "amountOfPeriodsFuture";
+	private static final String AMOUNT_OF_TS_ITERATIONS = "amoutOfTimeSeriesIterations";
 	private JPanel panel;
+	
 	// -------------------------------------------------------
-
 	private static final String UNIQUE_ID = "timeSeries";
 	private static final String GUI_KEY = "timeSeries";
-
+	
+	// -------------------------------------------------------
+	private static final String DEFAULT_ITERATIONS = "1000";
+	
+	// -------------------------------------------------------	
 	private DTOScenario scenario;
 	private HashMap<String, Double> internalMap;
 	private HashMap<String, Integer> map;
 	private TimeSeriesCalculator_v3 calc;
 	private BHProgressBar progressB;
+	private boolean branchSpecific = false;
 
 	@Override
 	public String getGuiKey() {
@@ -90,16 +100,16 @@ public class TimeSeries implements ITimeSeriesProcess {
 	}
 
 	@Override
-	public JPanel calculateParameters() {
+	public JPanel calculateParameters(boolean branchSpecific) {
 		internalMap = new HashMap<String, Double>();
 		map = new HashMap<String, Integer>();
 		JPanel result = new JPanel();
 
-		String rowDef = "4px,p,4px";
+		String rowDef = "4px,p,4px,p,4px";
 		String colDef = "4px,right:pref,4px,60px:grow,8px:grow,right:pref,4px,max(35px;pref):grow,4px:grow";
 		FormLayout layout = new FormLayout(colDef, rowDef);
 		result.setLayout(layout);
-		layout.setColumnGroups(new int[][] { { 4, 8 } });
+		layout.setColumnGroups(new int[][] { { 6, 8 } });
 		CellConstraints cons = new CellConstraints();
 
 		result.add(new BHDescriptionLabel(AMOUNT_OF_PERIODS_BACK),
@@ -118,6 +128,17 @@ public class TimeSeries implements ITimeSeriesProcess {
 		tf2.setValidationRules(rules2);
 		result.add(tf2, cons.xywh(8, 2, 1, 1));
 
+		/* TimeSeries iteration field - update 17.01.2012 */
+		result.add(new BHDescriptionLabel(AMOUNT_OF_TS_ITERATIONS),
+				cons.xywh(2, 4, 1, 1));
+		BHTextField tfTS = new BHTextField(AMOUNT_OF_TS_ITERATIONS);
+		tfTS.setText(DEFAULT_ITERATIONS);
+		ValidationRule[] rulesTS = { VRMandatory.INSTANCE, VRIsInteger.INSTANCE, VRIsBetween.BETWEEN100AND5000};
+		tfTS.setValidationRules(rulesTS);		
+		result.add(tfTS, cons.xywh(4, 4, 1, 1));
+		
+		
+		
 		this.panel = result;
 		return result;
 	}
@@ -138,10 +159,12 @@ public class TimeSeries implements ITimeSeriesProcess {
 	}
 
 	@Override
-	public TreeMap<Integer, Double> calculate(boolean branchSpecific) {
+	public DistributionMap calculate() {
 		log.info("Start time series analysis");
 		// Berechnung für den Cashflow-Chart Vergangenheit bis in die Zukunft
-		TreeMap<Integer, Double> result = new TreeMap<Integer, Double>();
+		TreeMap<Integer, Double> averageCashflows = new TreeMap<Integer, Double>();
+		
+		DistributionMap resultMap = new DistributionMap(1);
 
 		TreeMap<DTOKeyPair, List<Calculable>> periods = scenario
 				.getPeriodStochasticKeysAndValues(branchSpecific);
@@ -155,7 +178,7 @@ public class TimeSeries implements ITimeSeriesProcess {
 		if(cashfl.getKey().toString().equals(BHTranslator.getInstance().translate("org.bh.plugin.directinput.DTODirectInput$Key.FCF"))){
 			cashValues = cashfl.getValue();
 			log.debug("Default TimeSeries Cashflow: " + cashfl.getValue());
-			
+		
 		} else {
 			// We have to calculate the cashvalues manually
 			int i = 0;
@@ -171,16 +194,19 @@ public class TimeSeries implements ITimeSeriesProcess {
 		
 		int periodsInPast = map.get(AMOUNT_OF_PERIODS_BACK);
 		int periodsInFuture = map.get(AMOUNT_OF_PERIODS_FUTURE);
-		
+		int amountOfIterations = map.get(AMOUNT_OF_TS_ITERATIONS);
+				
 		if (periodsInPast > cashValues.size() - 1) {
 			periodsInPast = cashValues.size() - 1;
 		}
 		
-		calc = new TimeSeriesCalculator_v3(cashValues, progressB);
+		calc = new TimeSeriesCalculator_v3(cashValues, progressB, resultMap, scenario);
 
 		//Start calculation
+		DTO.setThrowEvents(false);
 		List<Calculable> cashCalc = calc.calculateCashflows(periodsInFuture,
-				periodsInPast, true, 1000, true, null);
+				periodsInPast, true, amountOfIterations, true, null, true);
+		DTO.setThrowEvents(true);
 		//End calculation
 		
 		//Calculate arithmetic average
@@ -188,20 +214,26 @@ public class TimeSeries implements ITimeSeriesProcess {
 		for (Calculable cashflow : cashCalc) {
 			int key = -(cashCalc.size() - periodsInFuture) + counter;
 			double value = cashflow.toNumber().doubleValue();
-			result.put(key, value);
+			averageCashflows.put(key, value);
 			counter++;
 		}
 		
+		branchSpecific = false;
+		
 		log.info("Time series analysis finished.");
-		return result;
+		
+		resultMap.setTimeSeries(this, averageCashflows, calculateCompare(3));
+		
+		return resultMap;
 	}
 
+	@Override
 	public TreeMap<Integer, Double>[] calculateCompare(int p) {
 		@SuppressWarnings("unchecked")
 		TreeMap<Integer, Double> result[] = new TreeMap[2];
 		result[0] = new TreeMap<Integer, Double>(); // Ist Cashflows
 		result[1] = new TreeMap<Integer, Double>(); // Vergleichs Cashflows
-
+		
 		// System.out.println("TimeSeries: call calcultionTest_4_periods_to_history");
 		List<Calculable> cashProg = calc
 				.calcultionTest_4_periods_to_history_v2(p, 1000, false);
@@ -237,6 +269,11 @@ public class TimeSeries implements ITimeSeriesProcess {
 	@Override
 	public void setInterrupted() {
 		calc.setInterrupted();
+	}
+
+	@Override
+	public void setBranchSpecific(boolean branchSpecific) {
+		this.branchSpecific = branchSpecific;
 	}
 
 }
