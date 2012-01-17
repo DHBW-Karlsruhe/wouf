@@ -333,38 +333,42 @@ public class ScenarioController extends InputController {
 	private void addTimeSeriesFunctionality(final View view, final BHButton resetStochasticParameters){
 		//cbrepresentative mit Daten befüllen
 		BHComboBox cbrepresentative = (BHComboBox) view.getBHComponent(DTOScenario.Key.REPRESENTATIVE);
-		
-		DTOBusinessData businessData = (PlatformController.getInstance()).getBusinessDataDTO();
-		
-		List<DTOBranch> branchList = businessData.getChildren();
-		
-		String key;
-		String main;
-		String mid;
-		String sub;
-		Item item;
-		List<String> branch = new ArrayList<String>();
-		
-		Iterator<DTOBranch> itr = branchList.iterator();
-		while(itr.hasNext()) {
-    		DTOBranch currBranch = itr.next();
-    		main = currBranch.get(DTOBranch.Key.BRANCH_KEY_MAIN_CATEGORY).toString();
-    		mid = currBranch.get(DTOBranch.Key.BRANCH_KEY_MID_CATEGORY).toString();
-    		sub = currBranch.get(DTOBranch.Key.BRANCH_KEY_SUB_CATEGORY).toString();
-    		key = main + "." + mid + "." + sub;
-    		branch.add(key);
-    		
-		}
-		
-		Collections.sort(branch);
-		
-		Iterator<String> itr1 = branch.iterator();
-		
-		while(itr1.hasNext()){
-			key = itr1.next();
-			item = new Item(key, null);
-			cbrepresentative.addItem(item);
-			//cbrepresentative.sortItems();
+		if (cbrepresentative == null){
+			return; // If we have no representative checkbox, there is no stochastic scenario, so no time series as well
+		} else {
+			
+			DTOBusinessData businessData = (PlatformController.getInstance()).getBusinessDataDTO();
+			
+			List<DTOBranch> branchList = businessData.getChildren();
+			
+			String key;
+			String main;
+			String mid;
+			String sub;
+			Item item;
+			List<String> branch = new ArrayList<String>();
+			
+			Iterator<DTOBranch> itr = branchList.iterator();
+			while(itr.hasNext()) {
+	    		DTOBranch currBranch = itr.next();
+	    		main = currBranch.get(DTOBranch.Key.BRANCH_KEY_MAIN_CATEGORY).toString();
+	    		mid = currBranch.get(DTOBranch.Key.BRANCH_KEY_MID_CATEGORY).toString();
+	    		sub = currBranch.get(DTOBranch.Key.BRANCH_KEY_SUB_CATEGORY).toString();
+	    		key = main + "." + mid + "." + sub;
+	    		branch.add(key);
+	    		
+			}
+			
+			Collections.sort(branch);
+			
+			Iterator<String> itr1 = branch.iterator();
+			
+			while(itr1.hasNext()){
+				key = itr1.next();
+				item = new Item(key, null);
+				cbrepresentative.addItem(item);
+				//cbrepresentative.sortItems();
+			}
 		}
 		
 		/*INACEImport naceReader = Services.getNACEReader();
