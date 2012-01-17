@@ -240,7 +240,12 @@ public class TimeSeriesCalculator_v3 {
 		}
 		
 		//Um den Unternehmenswert zu berechnen.
-		IShareholderValueCalculator dcfMethod = scenario.getDCFMethod();
+		IShareholderValueCalculator dcfMethod = null;
+		if(scenario != null){
+			dcfMethod = scenario.getDCFMethod();
+		}
+		
+		
 		
 		DTOScenario tempScenario = null;
 		

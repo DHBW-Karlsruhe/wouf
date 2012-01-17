@@ -18,6 +18,7 @@ import static org.junit.Assert.assertTrue;
 import java.util.LinkedList;
 import java.util.List;
 
+import org.bh.data.DTOScenario;
 import org.bh.data.types.Calculable;
 import org.bh.data.types.DoubleValue;
 import org.bh.gui.swing.comp.BHProgressBar;
@@ -54,6 +55,7 @@ public class TimeSeriesCalculator_v3UnitTests {
 	final Calculable cashfolw_tm1 = new DoubleValue(1950);
 	final Calculable cashfolw_t0 = new DoubleValue(2158); 
 	
+	final public DTOScenario scenario = new DTOScenario();
 	/*
 	 * Cashflow liste 2
 	 */
@@ -102,7 +104,7 @@ public class TimeSeriesCalculator_v3UnitTests {
 		
 		//TimeSeriesCalculator erstellen & berechnen
 		TimeSeriesCalculator_v3 calculator = new TimeSeriesCalculator_v3(cashflows);
-		List<Calculable> cashflows_prognostiziert = calculator.calculateCashflows(10, 3, false, 1, false, null, true);
+		List<Calculable> cashflows_prognostiziert = calculator.calculateCashflows(10, 3, false, 1, false, null, false);
 		
 		//Ausgabe
 		System.out.println("--neue Cashflowliste:");
@@ -182,7 +184,7 @@ public class TimeSeriesCalculator_v3UnitTests {
 		System.out.println("---- TimeSeriesCalculatorUnitTests: weisses_Rauschen ----");
 		
 		TimeSeriesCalculator_v3 calculator = new TimeSeriesCalculator_v3(cashflows);
-		calculator.calculateCashflows(1, 3, true, 10, false, null, true);
+		calculator.calculateCashflows(1, 3, true, 10, false, null, false);
 
 		System.out.println("---- TimeSeriesCalculatorUnitTests: weisses_Rauschen beendet----");
 		assertTrue(keine_fehler);
