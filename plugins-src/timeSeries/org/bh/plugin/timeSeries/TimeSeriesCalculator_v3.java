@@ -530,12 +530,10 @@ public class TimeSeriesCalculator_v3 {
 		 */
 		List<Calculable> gammaListe = new LinkedList<Calculable>(); // return-Liste
 		double gamma_Wert = 0;
-		ListIterator li_bereinigteZeitreihe_mt = null; // List Iterator
-														// beginnend an der
-														// Stelle
-														// bereinigteZeitreihe -
-														// t
-		ListIterator li_bereinigteZeitreihe = null; // List Iterator beginnend
+		
+		// List Iterator beginnend an der Stelle bereinigteZeitreihe - t
+		ListIterator<Calculable> li_bereinigteZeitreihe_mt = null; 
+		ListIterator<Calculable> li_bereinigteZeitreihe = null; // List Iterator beginnend
 													// mit erstem Element
 		double bereinigteZeitreihe_mt_Wert = 0;
 		double bereinigteZeitreihe_Wert = 0;
@@ -544,14 +542,8 @@ public class TimeSeriesCalculator_v3 {
 		/*
 		 * Berechnung
 		 */
-		for (int counter = 0; counter <= periods_calc_to_history; counter++) {// durchlaufe
-																				// 1..p
-																				// um
-																				// Gamma_1
-																				// bis
-																				// Gamma_p
-																				// zu
-																				// erhalten
+		for (int counter = 0; counter <= periods_calc_to_history; counter++) {
+			// durchlaufe 1..p um Gamma_1 bis Gamma_p zu erhalten
 			li_bereinigteZeitreihe = bereinigteZeitreihe.listIterator();
 			li_bereinigteZeitreihe_mt = bereinigteZeitreihe
 					.listIterator(counter);
@@ -657,8 +649,8 @@ public class TimeSeriesCalculator_v3 {
 
 		// cListe minus mal bereinigte Zeitreihe ergibt bereinigter ci wert,
 		// aufsummiert ergibt bereinigt_ci_summe
-		ListIterator li_cListe = cListe.listIterator(cListe.size());
-		ListIterator li_bereinigteZeitreihe = bereinigteZeitreihe
+		ListIterator<Calculable> li_cListe = cListe.listIterator(cListe.size());
+		ListIterator<Calculable> li_bereinigteZeitreihe = bereinigteZeitreihe
 				.listIterator(bereinigteZeitreihe.size());
 		double bereinigter_ci_Wert = 0;
 		double bereinigt_ci_summe = 0;
@@ -738,9 +730,10 @@ public class TimeSeriesCalculator_v3 {
 		List<Calculable> weisses_Rauschen = new LinkedList<Calculable>();
 		final double deltaT_mal_Sigma = varianz / anzahl_zufalls_zahlen;
 		double zufallszahl = 0;
-		NormalDistributionImpl normInv = new NormalDistributionImpl();
-		normInv.setMean(0); // Mittelwert auf 0 setzen
-		normInv.setStandardDeviation(deltaT_mal_Sigma); // Standardabweichung
+		
+		//anstelle des manuellen Setzens der Standardabweichung und des Mittelwertes.
+		NormalDistributionImpl normInv = new NormalDistributionImpl( 0, deltaT_mal_Sigma);
+		
 		double normInv_wert = 0;
 		double weisses_rauschen_vor_wert = 0;
 		double summe = 0;
