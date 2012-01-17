@@ -757,9 +757,22 @@ class PlatformActionListener implements ActionListener {
 
 			// new DTOPeriod object with reference to the clone
 			DTOPeriod newPeriod = (DTOPeriod) duplicatePeriod.clone();
-
-			newPeriod.put(DTOPeriod.Key.NAME, new StringValue(
-					duplicatePeriodName + " (2)"));
+			
+			if(duplicatePeriodName.endsWith(")")){
+				int index = 1;
+				String indexString = String.valueOf(duplicatePeriodName.charAt(duplicatePeriodName.length() -2));
+				index = Integer.parseInt(indexString, 10);
+				index++;
+				duplicatePeriodName = duplicatePeriodName.substring(0, duplicatePeriodName.length()-3);
+				duplicatePeriodName = duplicatePeriodName + "(" + index + ")";
+				
+				newPeriod.put(DTOPeriod.Key.NAME, new StringValue(
+						duplicatePeriodName));
+			} else {
+				newPeriod.put(DTOPeriod.Key.NAME, new StringValue(
+						duplicatePeriodName + " (2)"));
+			}
+			
 			
 			//add Period into Tree...
 			BHTreeNode newNode = bhmf.getBHTree().addPeriodAtCurrentPos(newPeriod);
