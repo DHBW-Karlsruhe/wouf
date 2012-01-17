@@ -35,7 +35,6 @@ import org.bh.data.types.DistributionMap;
 import org.bh.data.types.DoubleValue;
 import org.bh.gui.swing.comp.BHProgressBar;
 import org.bh.platform.PluginManager;
-import org.bh.plugin.directinput.DTODirectInput;
 
 import Jama.Matrix;
 
@@ -290,8 +289,21 @@ public class TimeSeriesCalculator_v3 {
 				if(initialCalculation){
 					DTOPeriod period = tempScenario.getChildren().get(i);
 					IPeriodicalValuesDTO pvdto = period.getPeriodicalValuesDTO("directinput");
-					pvdto.put(DTODirectInput.Key.FCF, new DoubleValue(nextCashflow));
-					pvdto.put(DTODirectInput.Key.LIABILITIES, new DoubleValue(0));
+					
+					@SuppressWarnings("unchecked")
+					List<String> keys = ((List<String>) pvdto.getKeys());
+					
+					int zaehler = 0;
+					
+					for(String key : keys){
+						if( zaehler == 0){
+							pvdto.put(key, new DoubleValue(nextCashflow));
+						}
+						if( zaehler == 1){
+							pvdto.put(key, new DoubleValue(0));
+						}
+						zaehler++;
+					}
 				}
 				//Cashflow Wert neu und alten Wert addieren
 				cashflow_prognos_MW_sammlung.put(i,

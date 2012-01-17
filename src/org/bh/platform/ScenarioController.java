@@ -41,7 +41,6 @@ import org.bh.calculation.IBranchSpecificCalculator;
 import org.bh.calculation.IShareholderValueCalculator;
 import org.bh.calculation.IStochasticProcess;
 import org.bh.calculation.ITimeSeriesProcess;
-import org.bh.companydata.importExport.INACEImport;
 import org.bh.controller.IPeriodController;
 import org.bh.controller.InputController;
 import org.bh.data.DTO;
