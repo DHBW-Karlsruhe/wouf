@@ -176,7 +176,7 @@ public class BHDeviationAnalysisFrame extends BHPopupFrame {
 		double[][] chartData = createPeriodData(periods);
 		chartPanel.addSeries(BHTranslator.getInstance().translate(DTOScenario.Key.REPRESENTATIVE), chartData);
 		
-		DTOBranch branch = scenario.getSelectedBranch();
+		DTOBranch branch = scenario.getNormedBranch();
 		
 		for(DTOCompany company: branch.getChildren()){
 			log.debug(company);

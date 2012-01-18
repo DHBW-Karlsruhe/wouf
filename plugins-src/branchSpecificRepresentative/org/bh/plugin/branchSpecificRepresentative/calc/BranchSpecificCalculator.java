@@ -39,6 +39,9 @@ public class BranchSpecificCalculator implements IBranchSpecificCalculator {
 
 		DTOBranch currBranch = (DTOBranch) oldBranch.clone();
 		
+		//Setze die normierte Branche ins Szenario, für Abweichungsanalyse.
+		scenario.setNormedBranch(currBranch);
+		
 		this.scenario = scenario;
 
  		// FCFs ermitteln

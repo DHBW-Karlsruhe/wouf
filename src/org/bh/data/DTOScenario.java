@@ -51,6 +51,7 @@ public class DTOScenario extends DTO<DTOPeriod> {
 	private static final Logger log = Logger.getLogger(DTOScenario.class);
 	private boolean isCalculated = false;
 	private transient DTOCompany branchSpecificRep;
+	private transient DTOBranch normedBranch;
 	private transient IBranchSpecificCalculator bsrCalculatorWithRating;
 
 	public enum Key {
@@ -489,5 +490,13 @@ public class DTOScenario extends DTO<DTOPeriod> {
 		}
 		
 		return unternehmensCashflow / normedBSRCashflow;
+	}
+
+	public DTOBranch getNormedBranch() {
+		return normedBranch;
+	}
+
+	public void setNormedBranch(DTOBranch normedBranch) {
+		this.normedBranch = normedBranch;
 	}
 }
