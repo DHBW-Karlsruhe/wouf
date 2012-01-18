@@ -876,7 +876,6 @@ public class ScenarioController extends InputController {
 							branchSpecific = true;
 							
 							TSprocess.setBranchSpecific(true);
-							resultBranchSpecificData = TSprocess.calculate();
 							
 							try{
 								resultBranchSpecificData = TSprocess.calculate();
