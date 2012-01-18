@@ -534,6 +534,14 @@ public class Services {
 		DTO.setThrowEvents(true);
 	}
 	
+	/**
+	 * This method is an abstraction from the loading of the data, to make the file import
+	 * of the DTOBusinessData easier to read.
+	 * 
+	 * @param plugin the plugin to load the data with
+	 * @param fileName the name of the file to load
+	 * @return null if no data could be retrieved else the DTOBusinessData with all the data
+	 */
 	private static DTOBusinessData loadBranchesFromXML(IImportExport plugin, String fileName){
 		plugin.setFile(fileName);
 		log.info("Loading branch XML from path: " + fileName);
