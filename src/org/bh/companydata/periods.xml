@@ -854,16 +854,7 @@
          </values>
         </gccprofitlossstatementcostofsales>
        </children>
-      </period>
-     </children>
-    </company>
-    <company class="org.bh.data.DTOCompany">
-     <values>
-      <value key="NAME" type="StringValue">
-       <stringValue>Aurubis AG (ehemals Norddeutsche Affinerie)</stringValue>
-      </value>
-     </values>
-     <children>
+      </period>       
       <period class="org.bh.data.DTOPeriod">
        <values>
         <value key="org.bh.data.DTOPeriod$Key.NAME" type="StringValue">
@@ -1066,7 +1057,7 @@
           </value>
          </values>
         </gccprofitlossstatementcostofsales>
-       </children>
+       </children>       
       </period>
      </children>
     </company>
