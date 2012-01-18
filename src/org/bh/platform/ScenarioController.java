@@ -241,6 +241,11 @@ public class ScenarioController extends InputController {
 					
 					//BranchSpecificRepresentative specific code.
 					if(cbBranchSpecificRepresentative.isSelected() && cbBranchSpecificRepresentative.isVisible()){
+						BHComboBox cbrepresentative = (BHComboBox) view.getBHComponent(DTOScenario.Key.REPRESENTATIVE);
+						cbrepresentative.setEnabled(false);
+						BHComboBox cbDcfMethod = (BHComboBox) view.getBHComponent(DTOScenario.Key.DCF_METHOD);
+						cbDcfMethod.setEnabled(false);
+						cbBranchSpecificRepresentative.setEnabled(false);
 						
 						ITimeSeriesProcess timeSeriesProcess = scenario.getTimeSeriesProcess(ITimeSeriesProcess.Key.BRANCH_SPECIFIC_REPRESENTATIVE.toString());
 						
@@ -324,6 +329,13 @@ public class ScenarioController extends InputController {
 				public void actionPerformed(ActionEvent e) {
 					BHStochasticInputForm form = (BHStochasticInputForm) ((Component) e
 							.getSource()).getParent();
+					
+					BHComboBox cbrepresentative = (BHComboBox) view.getBHComponent(DTOScenario.Key.REPRESENTATIVE);
+					cbrepresentative.setEnabled(true);		
+					BHComboBox cbDcfMethod = (BHComboBox) view.getBHComponent(DTOScenario.Key.DCF_METHOD);
+					cbDcfMethod.setEnabled(true);
+					BHCheckBox cbbranchSpecificRepresentative = (BHCheckBox) view.getBHComponent(DTOScenario.Key.BRANCH_SPECIFIC);
+					cbbranchSpecificRepresentative.setEnabled(true);
 					
 					process = null;
 					
