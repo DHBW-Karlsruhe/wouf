@@ -1,6 +1,8 @@
 package org.bh.tests.junit.branchSpecificRepresentative;
 
+import java.io.File;
 import java.io.IOException;
+import java.io.PrintWriter;
 import java.util.Iterator;
 import java.util.List;
 
@@ -157,6 +159,11 @@ public class XMLImportTest extends TestCase {
 			
 			List<DTOBranch> branches = myDTO.getChildren();
 			
+			File f = new File("BROKEN_DATA.data");
+			System.out.println(f.getAbsolutePath());
+			
+			PrintWriter outputStream = new PrintWriter(f);
+			
 			for(DTOBranch branch: branches){
 				
 				for(DTOCompany company : branch.getChildren()){
@@ -172,8 +179,8 @@ public class XMLImportTest extends TestCase {
 							period.get(DTOPeriod.Key.LIABILITIES);
 						
 						} catch(DTOAccessException ae){
-							System.err.println(ae);
-							System.out.println(branch + " " + company + " " + period);
+							ae.printStackTrace(outputStream);
+							outputStream.println(branch + " " + company + " " + period);
 						}
 							
 						i++;
@@ -182,6 +189,7 @@ public class XMLImportTest extends TestCase {
 				}
 				
 			}
+			outputStream.close();
 			
 		} catch (Exception e){
 			e.printStackTrace();
