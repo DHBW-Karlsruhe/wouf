@@ -436,7 +436,7 @@ public class PlatformController {
 			
 				DTO.setThrowEvents(false);
 				
-				scenario.put(DTOScenario.Key.REPRESENTATIVE, string);
+				scenario.put(DTOScenario.Key.INDUSTRY, string);
 			
 				
 				// berechne Branch Specific Representative und dessen Güte
