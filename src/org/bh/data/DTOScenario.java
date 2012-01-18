@@ -16,6 +16,7 @@
 package org.bh.data;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 import java.util.TreeMap;
 
@@ -29,6 +30,7 @@ import org.bh.data.types.DoubleValue;
 import org.bh.data.types.IntegerValue;
 import org.bh.data.types.ObjectValue;
 import org.bh.gui.swing.BHMenuBar;
+import org.bh.platform.PlatformController;
 import org.bh.platform.Services;
 
 /**
@@ -275,6 +277,34 @@ public class DTOScenario extends DTO<DTOPeriod> {
 	 */
 	public ITimeSeriesProcess getTimeSeriesProcess(String id) {
 		return Services.getTimeSeriesProcess(id).createNewInstance(this);
+	}
+	
+	/**
+	 * This method returns the currently selected branch from the 
+	 * @return null if no branch is selected else the selected Branch.
+	 */
+	public DTOBranch getSelectedBranch(){
+
+		PlatformController pc = PlatformController.getInstance();
+		
+		List<DTOBranch> branchList = pc.getBusinessDataDTO().getChildren();
+
+		String branchKey = this.get(DTOScenario.Key.INDUSTRY).toString();
+
+		// Iterate Company DTOs
+		Iterator<DTOBranch> itr = branchList.iterator();
+		while (itr.hasNext()) {
+			DTOBranch currBranch = itr.next();
+			String currKey = ""
+					+ (currBranch.get(DTOBranch.Key.BRANCH_KEY_MAIN_CATEGORY)) + "."
+					+ (currBranch.get(DTOBranch.Key.BRANCH_KEY_MID_CATEGORY)) + "."
+					+ (currBranch.get(DTOBranch.Key.BRANCH_KEY_SUB_CATEGORY));
+
+			if (currKey.equalsIgnoreCase(branchKey))
+				return currBranch;
+		}
+		// selected branch not found
+		return null;
 	}
 	
 	
