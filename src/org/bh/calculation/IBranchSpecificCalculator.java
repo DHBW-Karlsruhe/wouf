@@ -18,6 +18,12 @@ import org.bh.data.*;
 
 public interface IBranchSpecificCalculator {
 	
+	/**
+	 * This method calculates a branch specific representative
+	 * @param DTOBusinessData businessData
+	 * @param DTOScenario scenario (= selected item of the branch specific representative combo-box)
+	 * @return DTOCompany object incl. periods with the CF-values of the years = BranchSpecificRepresentative
+	 */
 	DTOCompany calculateBSR(DTOBusinessData businessData, DTOScenario scenario);
 	
 	/**

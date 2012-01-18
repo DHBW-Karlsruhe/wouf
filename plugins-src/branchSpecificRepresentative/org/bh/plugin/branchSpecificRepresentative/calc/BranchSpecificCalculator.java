@@ -33,6 +33,8 @@ public class BranchSpecificCalculator implements IBranchSpecificCalculator {
 	private DTOScenario scenario = null;
 	private Logger log = Logger.getLogger(BranchSpecificCalculator.class);
 
+
+	/* Specified by interface/super class. */
 	public DTOCompany calculateBSR(DTOBusinessData businessData,
 			DTOScenario scenario) {
 		DTOBranch oldBranch = scenario.getSelectedBranch();//getSelectedBranch(businessData);
@@ -113,6 +115,7 @@ public class BranchSpecificCalculator implements IBranchSpecificCalculator {
 
 	}
 
+	/* Specified by interface/super class. */
 	public void getNormedCFValue(String choice, DTOCompany currCompany) {
 
 		DoubleValue firstFCF = null;
@@ -287,6 +290,11 @@ public class BranchSpecificCalculator implements IBranchSpecificCalculator {
 		return this.ratingBSR;
 	}
 
+	/**
+	 * This method counts the number of companies and years according to a branch
+	 * @param DTOBranch currNormedBranch
+	 * @return double-array with the size of [companies] and [periods]
+	 */
 	private double[][] getNumberOfCompaniesAndPeriods(DTOBranch currNormedBranch) {
 		int companyCounter = 0, periodCounter = 0;
 
@@ -301,6 +309,12 @@ public class BranchSpecificCalculator implements IBranchSpecificCalculator {
 		return new double[companyCounter][periodCounter];
 	}
 
+	/**
+	 * This method calculates the average depending on the choice (column = "company" OR row = "year")
+	 * @param double[][] table
+	 * @param String choice
+	 * @return double-array of average values
+	 */
 	private double[] getAverage(double[][] table, String choice) {
 		double[] result = null;
 
@@ -328,6 +342,11 @@ public class BranchSpecificCalculator implements IBranchSpecificCalculator {
 		return result;
 	}
 
+	/**
+	 * This method calculates and return the cube root of a given array
+	 * @param double[]
+	 * @return new double[] including the cube root results
+	 */
 	private double[] getCubeRoot(double[] averageCompanyNotNormed) {
 		double[] result = new double[averageCompanyNotNormed.length];
 		for (int i = 0; i < averageCompanyNotNormed.length; i++) {
@@ -338,6 +357,12 @@ public class BranchSpecificCalculator implements IBranchSpecificCalculator {
 		return result;
 	}
 
+	/**
+	 * This method trimms a double[][] table by cutting off outliers according to a given factor
+	 * @param double[][] table
+	 * @param double factor
+	 * @return new double[][] trimmed-table
+	 */
 	private double[][] trimmedAverage(double[][] table, double factor) {
 		double[] avg = getAverage(table, "year");
 
@@ -353,6 +378,12 @@ public class BranchSpecificCalculator implements IBranchSpecificCalculator {
 		return table;
 	}
 
+	/**
+	 * This method calculates the specific average of a table with the weights of a given [][]-Array
+	 * @param double[][] table
+	 * @param double[] cubeRoot
+	 * @return result double[] of the branch specific representative values of the years
+	 */
 	private double[] getSpecificAverage(double[][] table, double[] cubeRoot) {
 		double weight = 0;
 		double[] result = new double[table[0].length];
@@ -373,6 +404,11 @@ public class BranchSpecificCalculator implements IBranchSpecificCalculator {
 		return result;
 	}
 
+	/**
+	 * This method creates a table out of a DTOBranch object
+	 * @param DTOBranch currBranch
+	 * @return the result table is implemented by using a double[][]
+	 */
 	private double[][] createTable(DTOBranch currBranch) {
 
 		double[][] companiesAndPeriods = getNumberOfCompaniesAndPeriods(currBranch);
@@ -449,6 +485,10 @@ public class BranchSpecificCalculator implements IBranchSpecificCalculator {
 
 	// Get all FCFs
 
+	/**
+	 * This method calculates the Free-Cash-Flows out of the basic data (BusinessData-Object)
+	 * @param DTOCompany currCompany
+	 */
 	private void calculateFCFs(DTOCompany currCompany) {
 		// update References in company.
 		currCompany.updateReferences(scenario);
