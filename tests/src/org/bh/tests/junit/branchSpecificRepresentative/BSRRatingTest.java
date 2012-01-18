@@ -73,7 +73,7 @@ public class BSRRatingTest extends TestCase {
 		// Mittelwertsberechnung (normal/gestutzt))
 		bsr = bsc.calculateBSR(myDTO, scenario);
 
-		Assert.assertTrue(bsc.getRating() == 316637.4899836928);
+		Assert.assertTrue(bsc.getRating() == 7.8845442979226445E17);
 
 	}
 
