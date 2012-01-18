@@ -7,12 +7,15 @@ import junit.framework.TestCase;
 import org.bh.data.DTO;
 import org.bh.data.DTOBusinessData;
 import org.bh.data.DTOCompany;
+import org.bh.data.DTOScenario;
+import org.bh.platform.PlatformController;
 import org.bh.platform.Services;
 import org.bh.plugin.branchSpecificRepresentative.calc.BranchSpecificCalculator;
 import org.bh.plugin.xmldataexchange.xmlimport.XMLImport;
 import org.bh.plugin.xmldataexchange.xmlimport.XMLNotValidException;
 import org.junit.After;
 import org.junit.Before;
+import org.bh.data.types.StringValue;
 
 /**
  * This is just a test! DO NOT USE! THIS IS NOT A UNIT TEST!
@@ -44,6 +47,9 @@ public class BranchCalcTest extends TestCase {
 		try {
 			// BusinessData aufbauen
 			DTOBusinessData myDTO = (DTOBusinessData) myImport.startImport();
+			PlatformController.setBusinessDataDTO(myDTO);
+			DTOScenario scenario = new DTOScenario();
+			scenario.put(DTOScenario.Key.INDUSTRY, new StringValue("C.25.9"));
 
 			// Default-Konstruktor aufrufen
 			BranchSpecificCalculator bsc = new BranchSpecificCalculator();
@@ -54,7 +60,7 @@ public class BranchCalcTest extends TestCase {
 
 			// Branchspezifischen Vertreter ermitteln (= normieren der CFs &
 			// Mittelwertsberechnung (normal/gestutzt))
-			result = bsc.calculateBSR(myDTO, null);
+			result = bsc.calculateBSR(myDTO, scenario);
 
 		} catch (XMLNotValidException e) {
 			e.printStackTrace();
