@@ -40,9 +40,6 @@ public class BranchSpecificCalculator implements IBranchSpecificCalculator {
 		DTOBranch currBranch = (DTOBranch) oldBranch.clone();
 		
 		this.scenario = scenario;
-		
-		System.out.println(currBranch.toString());
-
 
  		// FCFs ermitteln
  		List<DTOCompany> compList = currBranch.getChildren();
@@ -60,20 +57,9 @@ public class BranchSpecificCalculator implements IBranchSpecificCalculator {
 		// Durchschnitt der Unternehmen
 		double[] averageCompanyNotNormed = getAverage(
 				companiesAndPeriodsNotNormed, "company");
-		
-		//Testausgabe der Druchschnitte:
-		for(int i =0; i<averageCompanyNotNormed.length;i++){
-			System.out.println("Durchschnitt " + i + " :" + averageCompanyNotNormed[i]);
-		}
 
 		// Wurzeln ermitteln
 		double[] cubeRoot = getCubeRoot(averageCompanyNotNormed);
-		
-		//Testausgabe der Wurzel:
-		for(int i =0; i<cubeRoot.length;i++){
-			System.out.println("Wurzel-Nr " + i + " :" + cubeRoot[i]);
-		}
-
 
 		// Do the Branch has Companies?
 		List<DTOCompany> companyList = currBranch.getChildren();
@@ -95,28 +81,10 @@ public class BranchSpecificCalculator implements IBranchSpecificCalculator {
 		// Stutzung der normierten Tabelle
 		double[][] companyAndPeriodsNormedTrimmed = trimmedAverage(
 				companiesAndPeriodsNormed, 2.5);
-		
-		// Druckausgabe - Test
-		for(int i =0; i<companyAndPeriodsNormedTrimmed[0].length;i++){
-			for (int j =0; j <companyAndPeriodsNormedTrimmed.length; j++){
-				System.out.print("" + companyAndPeriodsNormedTrimmed[j][i] + " -- ");
-			}
-			System.out.println();
-		}
 
 		// Spezifizierung der gestutzten normierten Tabelle
 		double[] bsrArray = getSpecificAverage(companyAndPeriodsNormedTrimmed,
 				cubeRoot);
-		
-		//Testausgabe der Ergebnisse:
-		for(int i =0; i<bsrArray.length;i++){
-			System.out.println("Ergebnis-Nr " + i + " :" + bsrArray[i]);
-		}
-
-		// Testausgabe der Ergebnisse:
-		for (int i = 0; i < bsrArray.length; i++) {
-			System.out.println("Ergebnis-Nr " + i + " :" + bsrArray[i]);
-		}
 
 		// Werte dem Ergebnis DTOCompany-Objekt zuweisen
 		DTOCompany dtoBSRaverage = new DTOCompany();
@@ -222,9 +190,6 @@ public class BranchSpecificCalculator implements IBranchSpecificCalculator {
 			// beim ersten Durchlauf nicht neu zuweisen
 			if (companyCounter > 0)
 				currCompany = CompanyItr.next();
-
-			// echo them
-			System.out.println("----" + currCompany.get(DTOCompany.Key.NAME));
 
 			List<DTOPeriod> periodList = currCompany.getChildren();
 			Iterator<DTOPeriod> periodItr = periodList.iterator();
@@ -416,8 +381,6 @@ public class BranchSpecificCalculator implements IBranchSpecificCalculator {
 
 		while (CompanyItr.hasNext()) {
 			DTOCompany currCompany = CompanyItr.next();
-			
-			System.out.println("" + currCompany.isNormed);
 
 			// Do the Company has any Periods?
 			List<DTOPeriod> periodList = currCompany.getChildren();

@@ -1,12 +1,15 @@
 package org.bh.tests.junit.branchSpecificRepresentative;
 
 import java.io.IOException;
+import java.util.Iterator;
+import java.util.List;
 
 import junit.framework.TestCase;
 
 import org.bh.data.DTO;
 import org.bh.data.DTOBusinessData;
 import org.bh.data.DTOCompany;
+import org.bh.data.DTOPeriod;
 import org.bh.data.DTOScenario;
 import org.bh.platform.PlatformController;
 import org.bh.platform.Services;
@@ -14,7 +17,9 @@ import org.bh.plugin.branchSpecificRepresentative.calc.BranchSpecificCalculator;
 import org.bh.plugin.xmldataexchange.xmlimport.XMLImport;
 import org.bh.plugin.xmldataexchange.xmlimport.XMLNotValidException;
 import org.junit.After;
+import org.junit.Assert;
 import org.junit.Before;
+import org.bh.data.types.DoubleValue;
 import org.bh.data.types.StringValue;
 
 /**
@@ -61,6 +66,29 @@ public class BranchCalcTest extends TestCase {
 			// Branchspezifischen Vertreter ermitteln (= normieren der CFs &
 			// Mittelwertsberechnung (normal/gestutzt))
 			result = bsc.calculateBSR(myDTO, scenario);
+			
+			// Ergebnisse prüfen
+			List<DTOPeriod> periodList = result.getChildren();
+			Iterator<DTOPeriod> PeriodItr = periodList.iterator();
+			while (PeriodItr.hasNext()) {
+				DTOPeriod currPeriod = PeriodItr.next();
+				DoubleValue wert = (DoubleValue) currPeriod.get(DTOPeriod.Key.FCF);
+				double dwert = wert.getValue();
+				String name = "" + currPeriod.get(DTOPeriod.Key.NAME);
+				
+				if(name.equals("2.010")){
+					Assert.assertTrue(dwert == -1.0444681283571562);
+				}else if (name.equals("2.009")){
+					Assert.assertTrue(dwert == -0.08466592699973594);
+				}else if (name.equals("2.008")){
+					Assert.assertTrue(dwert == 0.6606482682053639);
+				}else if (name.equals("2.007")){
+					Assert.assertTrue(dwert == 0.04321855144556013);
+				} else if (name.equals("2.006")){
+					Assert.assertTrue(dwert == 0.0);
+				}
+			}
+			
 
 		} catch (XMLNotValidException e) {
 			e.printStackTrace();
