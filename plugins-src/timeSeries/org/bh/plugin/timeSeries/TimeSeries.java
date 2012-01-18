@@ -27,11 +27,13 @@ import javax.swing.JPanel;
 import org.apache.log4j.Logger;
 import org.bh.calculation.ITimeSeriesProcess;
 import org.bh.data.DTO;
+import org.bh.data.DTOCompany;
 import org.bh.data.DTOKeyPair;
 import org.bh.data.DTOPeriod;
 import org.bh.data.DTOScenario;
 import org.bh.data.types.Calculable;
 import org.bh.data.types.DistributionMap;
+import org.bh.data.types.DoubleValue;
 import org.bh.gui.swing.comp.BHDescriptionLabel;
 import org.bh.gui.swing.comp.BHProgressBar;
 import org.bh.gui.swing.comp.BHTextField;
@@ -181,14 +183,26 @@ public class TimeSeries implements ITimeSeriesProcess {
 		
 		} else {
 			// We have to calculate the cashvalues manually
-			int i = 0;
-			cashValues = new LinkedList<Calculable>();
-			for(DTOPeriod period: scenario.getChildren()){
-				if(i > 0){ //First Period produces DTOAccessExceptions
-					cashValues.add(period.getFCF());
-					log.debug("Manually calculated cashflow: " + period.getFCF());
+			
+			if(branchSpecific){
+				cashValues = new LinkedList<Calculable>();
+				
+				DTOCompany branchSpecRep = scenario.getBranchSpecificRep();
+				for(DTOPeriod period: branchSpecRep.getChildren()){
+					double cashflow = ((DoubleValue) period.get(DTOPeriod.Key.FCF)).getValue();
+					cashValues.add(new DoubleValue(cashflow * scenario.getStreckungsfaktor()));
+				}
+				
+			} else {
+				int i = 0;
+				cashValues = new LinkedList<Calculable>();
+				for(DTOPeriod period: scenario.getChildren()){
+					if(i > 0){ //First Period produces DTOAccessExceptions
+						cashValues.add(period.getFCF());
+						log.debug("Manually calculated cashflow: " + period.getFCF());
 				}
 				i++;
+				}
 			}
 		}
 		

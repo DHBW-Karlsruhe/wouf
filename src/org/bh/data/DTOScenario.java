@@ -453,7 +453,7 @@ public class DTOScenario extends DTO<DTOPeriod> {
 		this.bsrCalculatorWithRating = bsrCalculatorWithRating;
 	}
 	
-	private double getStreckungsfaktor(){
+	public double getStreckungsfaktor(){
 		/*
 		 * Anpassung der Daten an die Daten des Unternehmens
 		 * Streckungsfaktor = Cashflow neueste Unternehmensperiode/Cashflow neueste BSR Periode
