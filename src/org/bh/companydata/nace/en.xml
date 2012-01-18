@@ -20891,5 +20891,1364 @@ If households are also engaged in the production of multiple goods for subsisten
 						</PropertyQualifier>
 					</Property>
 						</Item>
+						<Item id="J" idLevel="1"> <Label qualifier="Usual">
+<LabelText language="DE">INFORMATION UND KOMMUNIKATION</LabelText>
+</Label>
+
+					<Property name="ExplanatoryNote">
+					<PropertyQualifier name="CentralContent" language="DE">
+<PropertyText type="Content">Dieser Abschnitt umfasst die Herstellung und den Vertrieb von Informations- und Kulturangeboten, die Bereitstellung der Mittel zur &#xdc;bertragung und Verteilung dieser Produkte, einschlie&#xdf;lich der Daten&#xfc;bertragung und zur Kommunikation, T&#xe4;tigkeiten im Bereich der Informationstechnologie, die Verarbeitung von Daten und andere Informationsdienstleistungen.
+
+Unter diesen Abschnitt fallen: das Verlagswesen, einschlie&#xdf;lich des Verlegens von Software (Abteilung 58); die Herstellung von Filmen und von Tonaufnahmen sowie das Verlegen von Musik (Abteilung 59); die Herstellung und Ausstrahlung von Fernseh- und H&#xf6;rfunkprogrammen (Abteilung 60); die Telekommunikation (Abteilung 61); Dienstleistungen der Informationstechnologie (Abteilung 62) und sonstige Informationsdienstleistungen (Abteilung 63).
+
+Zum Verlagswesen geh&#xf6;rt auch der Erwerb von Eigentumsrechten an Inhalten (Informationsprodukten), die der &#xd6;ffentlichkeit zur Verf&#xfc;gung gestellt werden, indem auf verschiedene Weise f&#xfc;r ihre Vervielf&#xe4;ltigung und Verteilung gesorgt wird. Dieser Abschnitt umfasst alle m&#xf6;glichen Formen des Verlegens (in gedruckter, elektronischer oder Audioform, im Internet, als Multimediaprodukte wie Nachschlagewerke auf CD-ROM usw.).
+
+Die Herstellung und der Vertrieb von Fernsehprogrammen umfasst die Abteilungen 59, 60 und 61, nach der jeweiligen Stufe in diesem Prozess. Einzelkomponenten wie Filme, Fernsehserien usw. sind in die Abteilung 59 eingegliedert, w&#xe4;hrend die Herstellung ganzer Fernsehprogramme, ob aus Komponenten gem&#xe4;&#xdf; Abteilung 59 oder anderen Bestandteilen bestehend (z. B. Live-Nachrichtenprogramme), unter Abteilung 60 f&#xe4;llt. Ebenfalls unter Abteilung 60 f&#xe4;llt die Ausstrahlung der Programme durch den Produzenten. Die Verbreitung ganzer (d. h. inhaltlich unver&#xe4;nderter) Fernsehprogramme durch Dritte geh&#xf6;rt in die Abteilung 61. Die Verbreitung gem&#xe4;&#xdf; Abteilung 61 kann durch Antennenausstrahlung, per Satellit oder &#xfc;ber Kabel erfolgen.</PropertyText>
+</PropertyQualifier>
+<PropertyQualifier name="CentralContent" language="ALL">
+<PropertyText type="Content">This section includes the production and distribution of information and cultural products, the provision of the means to transmit or distribute these products, as well as data or communications, information technology activities and the processing of data and other information service activities.
+
+The main components of this section are publishing activities (division 58), including software publishing, motion picture and sound recording activities (division 59), radio and TV broadcasting and programming activities (division 60), telecommunications activities (division 61), information technology activities (division 62) and other information service activities (division 63).
+
+Publishing includes the acquisition of copyrights for content (information products) and making this content available to the general public by engaging in (or arranging for) the reproduction and distribution of this content in various forms. All the feasible forms of publishing (in print, electronic or audio form, on the Internet, as multimedia products such as CD-ROM reference books etc.) are included in this section.
+
+Activities related to production and distribution of TV programming span divisions 59, 60 and 61, reflecting different stages in this process. Individual components, such as movies, television series etc. are produced by activities in division 59, while the creation of a complete television channel programme, from components produced in division 59 or other components (such as live news programming) is included in division 60. Division 60 also includes the broadcasting of this programme by the producer. The distribution of the complete television programme by third parties, i.e. without any alteration of the content, is included in division 61. This distribution in division 61 can be done through broadcasting, satellite or cable systems.</PropertyText>
+</PropertyQualifier>
+
+					</Property>
+					
+					<Property name="Generic" genericName="ISIC4_REF">
+						<PropertyQualifier name="Value">
+							<PropertyText type="Content">J</PropertyText>
+						</PropertyQualifier>
+					</Property>
+						</Item><Item id="58" idLevel="2"> <Label qualifier="Usual">
+<LabelText language="DE">Verlagswesen</LabelText>
+</Label>
+
+					<Property name="ExplanatoryNote">
+					<PropertyQualifier name="CentralContent" language="DE">
+<PropertyText type="Content">Diese Abteilung umfasst das Verlegen von B&#xfc;chern, Brosch&#xfc;ren, Faltbl&#xe4;ttern, Prospekten und &#xe4;hnlichen Druckerzeugnissen, W&#xf6;rterb&#xfc;chern und Enzyklop&#xe4;dien, Atlanten und anderen kartografischen Erzeugnissen, Zeitungen und Zeitschriften, Verzeichnissen und Adressenlisten sowie von Software.
+
+Zum Verlagswesen geh&#xf6;rt auch der Erwerb von Eigentumsrechten an Inhalten (Informationsprodukten), die der &#xd6;ffentlichkeit zur Verf&#xfc;gung gestellt werden, indem auf verschiedene Weise f&#xfc;r ihre Vervielf&#xe4;ltigung und Verteilung gesorgt wird. Dieser Abschnitt umfasst alle Formen des Verlegens (in gedruckter, elektronischer oder Audioform, im Internet, als Multimediaprodukte wie Nachschlagewerke auf CD-ROM usw.) au&#xdf;er dem Ver&#xf6;ffentlichen von Filmen.</PropertyText>
+</PropertyQualifier>
+<PropertyQualifier name="Exclusions" language="DE">
+<PropertyText type="Content">Die Abteilung umfasst nicht die Ver&#xf6;ffentlichung von Filmen und Videos auf DVD und &#xe4;hnlichen Datentr&#xe4;gern sowie die Herstellung von Masteraufnahmen f&#xfc;r Schallplatten oder andere Tontr&#xe4;ger (jeweils Abteilung 59). Ausgenommen sind ferner das Drucken (s. 18.11 und 18.12) sowie die Vervielf&#xe4;ltigung von bespielten Ton-, Bild- und Datentr&#xe4;gern (s. 18.20).</PropertyText>
+</PropertyQualifier>
+<PropertyQualifier name="CentralContent" language="ALL">
+<PropertyText type="Content">This division includes the publishing of books, brochures, leaflets, dictionaries, encyclopaedias, atlases, maps and charts; publishing of newspapers, journals and periodicals; directory and mailing list and other publishing, as well as software publishing.
+
+Publishing includes the acquisition of copyrights to content (information products) and making this content available to the general public by engaging in (or arranging for) the reproduction and distribution of this content in various forms. All the feasible forms of publishing (in print, electronic or audio form, on the Internet, as multimedia products such as CD-ROM reference books etc.), except publishing of motion pictures, are included in this division.</PropertyText>
+</PropertyQualifier>
+<PropertyQualifier name="Exclusions" language="ALL">
+<PropertyText type="Content">This division excludes the publishing of motion pictures, video tapes and movies on DVD or similar media (division 59) and the production of master copies for records or audio material (division 59). Also excluded is printing (see 18.11, 18.12) and the mass reproduction of recorded media (see 18.20).</PropertyText>
+</PropertyQualifier>
+
+					</Property>
+					
+					<Property name="Generic" genericName="ISIC4_REF">
+						<PropertyQualifier name="Value">
+							<PropertyText type="Content">58</PropertyText>
+						</PropertyQualifier>
+					</Property>
+						</Item><Item id="58.1" idLevel="3"> <Label qualifier="Usual">
+<LabelText language="DE">Verlegen von B&#xfc;chern und Zeitschriften; sonstiges Verlagswesen (ohne Software)</LabelText>
+</Label>
+
+					<Property name="ExplanatoryNote">
+					<PropertyQualifier name="CentralContent" language="DE">
+<PropertyText type="Content">Diese Gruppe umfasst das Verlegen von B&#xfc;chern, Zeitungen und Zeitschriften, Verzeichnissen und Adressenlisten und anderen Werken wie Fotografien, Stiche, Postkarten, Fahrpl&#xe4;nen, Formularen, Plakaten, Postern und Reproduktionen von Kunstwerken. Diese Werke zeichnen sich dadurch aus, dass ihre Schaffung eine sch&#xf6;pferische Leistung erfordert, und sie meist urheberrechtlich gesch&#xfc;tzt sind.</PropertyText>
+</PropertyQualifier>
+<PropertyQualifier name="CentralContent" language="ALL">
+<PropertyText type="Content">This group includes activities of publishing books, newspapers, magazines and other periodicals, directories and mailing lists, and other works such as photos, engravings, postcards, timetables, forms, posters and reproductions of works of art. These works are characterised by the intellectual creativity required in their development and are usually protected by copyright.</PropertyText>
+</PropertyQualifier>
+
+					</Property>
+					
+					<Property name="Generic" genericName="ISIC4_REF">
+						<PropertyQualifier name="Value">
+							<PropertyText type="Content">581</PropertyText>
+						</PropertyQualifier>
+					</Property>
+						</Item><Item id="58.11" idLevel="4"> <Label qualifier="Usual">
+<LabelText language="DE">Verlegen von B&#xfc;chern</LabelText>
+</Label>
+
+					<Property name="ExplanatoryNote">
+					<PropertyQualifier name="CentralContent" language="DE">
+<PropertyText type="Content">Diese Klasse umfasst das Verlegen von B&#xfc;chern in gedruckter oder elektronischer Form (als CD oder mit elektronischer Anzeigevorrichtung usw.), als H&#xf6;rb&#xfc;cher oder im Internet.
+
+Hierzu z&#xe4;hlen:
+- Verlegen von B&#xfc;chern, Brosch&#xfc;ren, Faltbl&#xe4;ttern und &#xe4;hnlichen Druckerzeugnissen einschlie&#xdf;lich W&#xf6;rterb&#xfc;chern und Enzyklop&#xe4;dien
+- Verlegen von Atlanten und anderen kartografischen Erzeugnissen
+- Verlegen von H&#xf6;rb&#xfc;chern
+- Verlegen von Enzyklop&#xe4;dien usw. auf CD-ROM</PropertyText>
+</PropertyQualifier>
+<PropertyQualifier name="Exclusions" language="DE">
+<PropertyText type="Content">Diese Klasse umfasst nicht:
+- Herstellung von Globen (s. 32.99)
+- Verlegen von Werbematerial (s. 58.19)
+- Musik- und Notenverlage (s. 59.20)
+- selbstst&#xe4;ndige Autoren (s. 90.03)</PropertyText>
+</PropertyQualifier>
+<PropertyQualifier name="CentralContent" language="ALL">
+<PropertyText type="Content">This class includes the activities of publishing of books in print, electronic (CD, electronic displays etc.) or audio form or on the Internet.
+
+Included are:
+- publishing of books, brochures, leaflets and similar publications, including publishing of dictionaries and encyclopaedias
+- publishing of atlases, maps and charts
+- publishing of audio books
+- publishing of encyclopaedias etc. on CD-ROM</PropertyText>
+</PropertyQualifier>
+<PropertyQualifier name="Exclusions" language="ALL">
+<PropertyText type="Content">This class excludes:
+- production of globes, see 32.99
+- publishing of advertising material, see 58.19
+- publishing of music and sheet books, see 59.20
+- activities of independent authors, see 90.03</PropertyText>
+</PropertyQualifier>
+
+					</Property>
+					
+					<Property name="Generic" genericName="ISIC4_REF">
+						<PropertyQualifier name="Value">
+							<PropertyText type="Content">5811</PropertyText>
+						</PropertyQualifier>
+					</Property>
+						</Item><Item id="58.12" idLevel="4"> <Label qualifier="Usual">
+<LabelText language="DE">Verlegen von Adressb&#xfc;chern und Verzeichnissen</LabelText>
+</Label>
+
+					<Property name="ExplanatoryNote">
+					<PropertyQualifier name="CentralContent" language="DE">
+<PropertyText type="Content">Diese Klasse umfasst die Ver&#xf6;ffentlichung von Verzeichnissen mit Fakten/Informationen (Dateien), deren Zusammensetzung, nicht jedoch deren Inhalt gesch&#xfc;tzt sind. Diese Verzeichnisse k&#xf6;nnen in gedruckter oder elektronischer Form ver&#xf6;ffentlicht werden.
+
+Diese Klasse umfasst:
+- Ver&#xf6;ffentlichung von Adressenverzeichnissen
+- Verlegen von Telefonb&#xfc;chern
+- Verlegen sonstiger Verzeichnisse und Zusammenstellungen, wie z. B. Rechtsfallsammlungen, Arzneimittelkompendien usw.</PropertyText>
+</PropertyQualifier>
+<PropertyQualifier name="CentralContent" language="ALL">
+<PropertyText type="Content">This class includes the publishing of lists of facts/information (databases), that are protected in their form, but not in their content. These lists can be published in printed or electronic form.
+
+This class includes:
+- publishing of mailing lists
+- publishing of telephone books
+- publishing of other directories and compilations, such as case law, pharmaceutical compendia etc.</PropertyText>
+</PropertyQualifier>
+
+					</Property>
+					
+					<Property name="Generic" genericName="ISIC4_REF">
+						<PropertyQualifier name="Value">
+							<PropertyText type="Content">5812</PropertyText>
+						</PropertyQualifier>
+					</Property>
+						</Item><Item id="58.13" idLevel="4"> <Label qualifier="Usual">
+<LabelText language="DE">Verlegen von Zeitungen</LabelText>
+</Label>
+
+					<Property name="ExplanatoryNote">
+					<PropertyQualifier name="CentralContent" language="DE">
+<PropertyText type="Content">Diese Klasse umfasst das Verlegen von Zeitungen, einschlie&#xdf;lich Werbezeitungen, die mindestens viermal pro Woche erscheinen. Diese k&#xf6;nnen in gedruckter oder in elektronischer Form (einschlie&#xdf;lich Internet) ver&#xf6;ffentlicht werden.</PropertyText>
+</PropertyQualifier>
+<PropertyQualifier name="Exclusions" language="DE">
+<PropertyText type="Content">Diese Klasse umfasst nicht:
+- T&#xe4;tigkeiten von Korrespondenz- und Nachrichtenb&#xfc;ros (s. 63.91)</PropertyText>
+</PropertyQualifier>
+<PropertyQualifier name="CentralContent" language="ALL">
+<PropertyText type="Content">This class includes the publishing of newspapers, including advertising newspapers, appearing at least four times a week. Publishing can be done in print or electronic form, including on the Internet.</PropertyText>
+</PropertyQualifier>
+<PropertyQualifier name="Exclusions" language="ALL">
+<PropertyText type="Content">This class excludes:
+- news agency activities, see 63.91</PropertyText>
+</PropertyQualifier>
+
+					</Property>
+					
+					<Property name="Generic" genericName="ISIC4_REF">
+						<PropertyQualifier name="Value">
+							<PropertyText type="Content">5813</PropertyText>
+						</PropertyQualifier>
+					</Property>
+						</Item><Item id="58.14" idLevel="4"> <Label qualifier="Usual">
+<LabelText language="DE">Verlegen von Zeitschriften</LabelText>
+</Label>
+
+					<Property name="ExplanatoryNote">
+					<PropertyQualifier name="CentralContent" language="DE">
+<PropertyText type="Content">Diese Klasse umfasst das Verlegen von Zeitschriften und anderen periodischen Druckschriften, die weniger als viermal w&#xf6;chentlich erscheinen. Diese k&#xf6;nnen in gedruckter oder elektronischer Form (einschlie&#xdf;lich Internet) ver&#xf6;ffentlicht werden. Hierzu z&#xe4;hlt auch das Verlegen von Radio- und Fernsehprogrammzeitschriften.</PropertyText>
+</PropertyQualifier>
+<PropertyQualifier name="CentralContent" language="ALL">
+<PropertyText type="Content">This class includes the publishing of periodicals and other journals, appearing less than four times a week. Publishing can be done in print or electronic form, including on the Internet. Publishing of radio and television schedules is included here.</PropertyText>
+</PropertyQualifier>
+
+					</Property>
+					
+					<Property name="Generic" genericName="ISIC4_REF">
+						<PropertyQualifier name="Value">
+							<PropertyText type="Content">5813</PropertyText>
+						</PropertyQualifier>
+					</Property>
+						</Item><Item id="58.19" idLevel="4"> <Label qualifier="Usual">
+<LabelText language="DE">Sonstiges Verlagswesen (ohne Software)</LabelText>
+</Label>
+
+					<Property name="ExplanatoryNote">
+					<PropertyQualifier name="CentralContent" language="DE">
+<PropertyText type="Content">Diese Klasse umfasst:
+- Verlegen (auch online) von:
+  • Katalogen
+  • Fotografien, Stichen und Postkarten
+  • Gru&#xdf;karten
+  • Formularen
+  • Plakaten, Postern und Reproduktionen von Kunstwerken
+  • Werbematerial
+  • sonstigen Druckerzeugnissen
+- Online-Ver&#xf6;ffentlichung von Statistiken und anderen Informationen</PropertyText>
+</PropertyQualifier>
+<PropertyQualifier name="Exclusions" language="DE">
+<PropertyText type="Content">Diese Klasse umfasst nicht:
+- Verlegen von Werbezeitungen (s. 58.13)
+- Online-Bereitstellung von Software (Hosting von Anwendungen und Anwenderdiensten) (s. 63.11)</PropertyText>
+</PropertyQualifier>
+<PropertyQualifier name="CentralContent" language="ALL">
+<PropertyText type="Content">This class includes:
+- publishing (including on-line) of:
+  • catalogues 
+  • photos, engravings and postcards
+  • greeting cards
+  • forms
+  • posters, reproduction of works of art
+  • advertising material
+  • other printed matter
+- on-line publishing of statistics and other information</PropertyText>
+</PropertyQualifier>
+<PropertyQualifier name="Exclusions" language="ALL">
+<PropertyText type="Content">This class excludes:
+- publishing of advertising newspapers, see 58.13
+- on-line provision of software (application hosting and application service provisioning), see 63.11</PropertyText>
+</PropertyQualifier>
+
+					</Property>
+					
+					<Property name="Generic" genericName="ISIC4_REF">
+						<PropertyQualifier name="Value">
+							<PropertyText type="Content">5819</PropertyText>
+						</PropertyQualifier>
+					</Property>
+						</Item><Item id="58.2" idLevel="3"> <Label qualifier="Usual">
+<LabelText language="DE">Verlegen von Software</LabelText>
+</Label>
+
+					<Property name="Generic" genericName="ISIC4_REF">
+						<PropertyQualifier name="Value">
+							<PropertyText type="Content">582</PropertyText>
+						</PropertyQualifier>
+					</Property>
+						</Item><Item id="58.21" idLevel="4"> <Label qualifier="Usual">
+<LabelText language="DE">Verlegen von Computerspielen</LabelText>
+</Label>
+
+					<Property name="ExplanatoryNote">
+					<PropertyQualifier name="CentralContent" language="DE">
+<PropertyText type="Content">Diese Klasse umfasst: 
+- Verlegen von Computerspielen f&#xfc;r s&#xe4;mtliche Plattformen</PropertyText>
+</PropertyQualifier>
+<PropertyQualifier name="CentralContent" language="ALL">
+<PropertyText type="Content">This class includes: 
+- publishing of computer games for all platforms</PropertyText>
+</PropertyQualifier>
+
+					</Property>
+					
+					<Property name="Generic" genericName="ISIC4_REF">
+						<PropertyQualifier name="Value">
+							<PropertyText type="Content">5820</PropertyText>
+						</PropertyQualifier>
+					</Property>
+						</Item><Item id="58.29" idLevel="4"> <Label qualifier="Usual">
+<LabelText language="DE">Verlegen von sonstiger Software</LabelText>
+</Label>
+
+					<Property name="ExplanatoryNote">
+					<PropertyQualifier name="CentralContent" language="DE">
+<PropertyText type="Content">Diese Klasse umfasst:
+- Verlegen von (nichtkundenspezifischer) Standardsoftware einschlie&#xdf;lich &#xdc;bersetzung oder Anpassung solcher Software an einen bestimmten Markt auf eigene Rechnung:
+  • Betriebssysteme
+  • Berufliche und andere Anwendungen</PropertyText>
+</PropertyQualifier>
+<PropertyQualifier name="Exclusions" language="DE">
+<PropertyText type="Content">Diese Klasse umfasst nicht:
+- Vervielf&#xe4;ltigung von Software (s. 18.20)
+- Einzelhandel mit nichtkundenspezifischer Software (s. 47.41)
+- Herstellung von Software ohne Verlegen (einschlie&#xdf;lich &#xdc;bersetzung oder Anpassung der Standardsoftware an einen bestimmten Markt) im Lohnauftrag (s. 62.01)
+- Online-Bereitstellung von Software (Hosting von Anwendungen und Anwenderdiensten) (s. 63.11)</PropertyText>
+</PropertyQualifier>
+<PropertyQualifier name="Rules" language="ALL">
+<PropertyText type="Content">Software (Customising or adaptation of …)
+
+Problem statement: What exactly is the border/difference between customising of software (62.01) and adaptation of non-customised software in 58.29?
+
+Solution: Adaptation work for software as main activity should be classified in NACE Rev. 2 class 62.01. Publishing of software as main activity in NACE Rev. 2 class 58.29. The adaptation of software by publisher on own account is publishers second activity and should be treated according to general classification rules for multiple activities. Usually the main activity remains publishing.
+
+Decision date: 01.07.2007</PropertyText>
+</PropertyQualifier>
+<PropertyQualifier name="CentralContent" language="ALL">
+<PropertyText type="Content">This class includes:
+- publishing of ready-made (non-customised) software, including translation or adaptation of non-customised software for a particular market on own account:
+  • operating systems
+  • business and other applications</PropertyText>
+</PropertyQualifier>
+<PropertyQualifier name="Exclusions" language="ALL">
+<PropertyText type="Content">This class excludes:
+- reproduction of software, see 18.20
+- retail sale of non-customised software, see 47.41
+- production of software not associated with publishing, including translation or adaptation of non-customised software for a particular market on a fee or contract basis, see 62.01
+- on-line provision of software (application hosting and application service provisioning), see 63.11</PropertyText>
+</PropertyQualifier>
+
+					</Property>
+					
+					<Property name="Generic" genericName="ISIC4_REF">
+						<PropertyQualifier name="Value">
+							<PropertyText type="Content">5820</PropertyText>
+						</PropertyQualifier>
+					</Property>
+						</Item><Item id="59" idLevel="2"> <Label qualifier="Usual">
+<LabelText language="DE">Herstellung, Verleih und Vertrieb von Filmen und Fernsehprogrammen; Kinos; Tonstudios und Verlegen von Musik</LabelText>
+</Label>
+
+					<Property name="ExplanatoryNote">
+					<PropertyQualifier name="CentralContent" language="DE">
+<PropertyText type="Content">Diese Abteilung umfasst die Herstellung von Spiel- und anderen Filmen, einschlie&#xdf;lich Video- und DVD-Aufnahmen, zur direkten Vorf&#xfc;hrung in Kinos oder f&#xfc;r Fernsehsendungen; Unterst&#xfc;tzungst&#xe4;tigkeiten wie Filmmontage, -schnitt und Untertitelung usw.; den Verleih und Vertrieb von Filmen an andere Wirtschaftszweige, sowie die Filmvorf&#xfc;hrung. Eingeschlossen ist ebenfalls der Kauf und Verkauf von Filmrechten.</PropertyText>
+</PropertyQualifier>
+<PropertyQualifier name="LimitContent" language="DE">
+<PropertyText type="Content">Diese Abteilung umfasst auch die Durchf&#xfc;hrung von Tonaufnahmen, d. h. Herstellung von Masteraufnahmen und die Ver&#xf6;ffentlichung, Bewerbung und den Vertrieb von Tonaufnahmen, das Verlegen von Musik sowie Dienstleistungen im Zusammenhang mit der Tonaufnahme in oder au&#xdf;erhalb von Studios.</PropertyText>
+</PropertyQualifier>
+<PropertyQualifier name="CentralContent" language="ALL">
+<PropertyText type="Content">This division includes production of theatrical and non-theatrical motion pictures whether on film, video tape or disc for direct projection in theatres or for broadcasting on television; supporting activities such as film editing, cutting, dubbing etc.; distribution of motion pictures and other film productions to other industries; as well as motion picture or other film productions projection. Buying and selling of motion picture or other film productions distribution rights is also included.</PropertyText>
+</PropertyQualifier>
+<PropertyQualifier name="LimitContent" language="ALL">
+<PropertyText type="Content">This division also includes the sound recording activities, i.e. production of original sound master recordings, releasing, promoting and distributing them, publishing of music as well as sound recording service activities in a studio or elsewhere.</PropertyText>
+</PropertyQualifier>
+
+					</Property>
+					
+					<Property name="Generic" genericName="ISIC4_REF">
+						<PropertyQualifier name="Value">
+							<PropertyText type="Content">59</PropertyText>
+						</PropertyQualifier>
+					</Property>
+						</Item><Item id="59.1" idLevel="3"> <Label qualifier="Usual">
+<LabelText language="DE">Herstellung von Filmen und Fernsehprogrammen, deren Verleih und Vertrieb; Kinos</LabelText>
+</Label>
+
+					<Property name="ExplanatoryNote">
+					<PropertyQualifier name="CentralContent" language="DE">
+<PropertyText type="Content">Diese Gruppe umfasst die Herstellung von Spiel- und anderen Filmen, auch auf Videob&#xe4;ndern, DVDs und anderen Medien, einschlie&#xdf;lich digitaler Verbreitung, zur direkten Vorf&#xfc;hrung in Kinos oder f&#xfc;r Fernsehsendungen; Unterst&#xfc;tzungst&#xe4;tigkeiten wie Filmmontage, -schnitt und Untertitelung usw.; den Verleih und Vertrieb von Filmen und anderen Filmprodukten (Videob&#xe4;nder, DVDs) an andere Wirtschaftszweige sowie die Filmvorf&#xfc;hrung.</PropertyText>
+</PropertyQualifier>
+<PropertyQualifier name="LimitContent" language="DE">
+<PropertyText type="Content">Eingeschlossen ist ebenfalls der Kauf und Verkauf von Filmrechten.</PropertyText>
+</PropertyQualifier>
+<PropertyQualifier name="CentralContent" language="ALL">
+<PropertyText type="Content">This group includes production of theatrical and non-theatrical motion pictures whether on film, video tape, DVD or other media, including digital distribution, for direct projection in theatres or for broadcasting on television; supporting activities such as film editing, cutting, dubbing etc.; distribution of motion pictures or other film productions (video tapes, DVDs, etc) to other industries; as well as their projection.</PropertyText>
+</PropertyQualifier>
+<PropertyQualifier name="LimitContent" language="ALL">
+<PropertyText type="Content">Buying and selling of motion picture or any other film production distribution rights is also included.</PropertyText>
+</PropertyQualifier>
+
+					</Property>
+					
+					<Property name="Generic" genericName="ISIC4_REF">
+						<PropertyQualifier name="Value">
+							<PropertyText type="Content">591</PropertyText>
+						</PropertyQualifier>
+					</Property>
+						</Item><Item id="59.11" idLevel="4"> <Label qualifier="Usual">
+<LabelText language="DE">Herstellung von Filmen, Videofilmen und Fernsehprogrammen</LabelText>
+</Label>
+
+					<Property name="ExplanatoryNote">
+					<PropertyQualifier name="CentralContent" language="DE">
+<PropertyText type="Content">Diese Klasse umfasst:
+- Herstellung von Filmen, Videos und Fernsehprogrammen (Fernsehserien, Dokumentarfilme usw.) und Werbespots.</PropertyText>
+</PropertyQualifier>
+<PropertyQualifier name="Exclusions" language="DE">
+<PropertyText type="Content">Diese Klasse umfasst nicht:
+- Vervielf&#xe4;ltigung von Filmen (au&#xdf;er Vervielf&#xe4;ltigung von Kinofilmen zwecks Verleih an Lichtspielh&#xe4;user) sowie von Tonb&#xe4;ndern, Videofilmen, CDs und DVDs anhand von Masterb&#xe4;ndern (s. 18.20)
+- Gro&#xdf;handel mit bespielten Videob&#xe4;ndern, CDs und DVDs (s. 46.43)
+- Gro&#xdf;handel mit unbespielten Videob&#xe4;ndern und unbeschriebenen CDs (s. 46.52)
+- Einzelhandel mit Videob&#xe4;ndern, CDs und DVDs (s. 47.63)
+- Nachbearbeitung (s. 59.12)
+- Ton- und H&#xf6;rbuchaufnahmen (s. 59.20)
+- Ausstrahlung von Fernsehprogrammen (s. 60.2)
+- Herstellung kompletter Programme von Fernsehsendern (s. 60.2)
+- Filmentwicklung au&#xdf;er f&#xfc;r die Filmindustrie (s. 74.20)
+- Vermittlungsagenturen f&#xfc;r Schauspieler und K&#xfc;nstler (s. 74.90)
+- Verleih von Videob&#xe4;ndern und DVDs an die Allgemeinheit (s. 77.22)
+- Echtzeit- (d. h. simultane) Untertitelung von Live-Fernsehaufnahmen von Auftritten, Sitzungen, Konferenzen usw. (s. 82.99)
+- T&#xe4;tigkeiten von selbstst&#xe4;ndigen Schauspielern, Zeichnern, Regisseuren, B&#xfc;hnenbildnern und Filmtechnikern (s. 90.0)</PropertyText>
+</PropertyQualifier>
+<PropertyQualifier name="Rules" language="ALL">
+<PropertyText type="Content">Stuntmen activities
+
+Problem statement: Where are stuntmen activities classified?
+
+Solution: 1) Activities of own account stuntmen are in NACE Rev 2 class 90.01 where activities of individual artists like actors are included. 
+2) Stuntmen employed by producing film companies are in NACE Rev. 2 class 59.11.
+
+Decision date: 01.07.2007</PropertyText>
+</PropertyQualifier>
+<PropertyQualifier name="CentralContent" language="ALL">
+<PropertyText type="Content">This class includes:
+- production of motion pictures, videos, television programmes (televisions series, documentaries etc.), or television advertisements</PropertyText>
+</PropertyQualifier>
+<PropertyQualifier name="Exclusions" language="ALL">
+<PropertyText type="Content">This class excludes:
+- film duplicating (except reproduction of motion picture film for theatrical distribution) as well as audio and video tape, CD or DVD reproduction from master copies, see 18.20
+- wholesale of recorded video tapes, CDs, DVDs, see 46.43
+- wholesale of blank video tapes, CDs, see 46.52
+- retail trade of video tapes, CDs, DVDs, see 47.63
+- post-production activities, see 59.12
+- sound recording and recording of books on tape, see 59.20
+- television broadcasting, see 60.2
+- creating a complete television channel programme, see 60.2
+- film processing other than for the motion picture industry, see 74.20
+- activities of personal theatrical or artistic agents or agencies, see 74.90
+- rental of video tapes, DVDs to the general public, see 77.22
+- real-time (i.e. simultaneous) closed captioning of live television performances, meetings, conferences, etc., see 82.99
+- activities of own account actors, cartoonists, directors, stage designers and technical specialists, see 90.0</PropertyText>
+</PropertyQualifier>
+
+					</Property>
+					
+					<Property name="Generic" genericName="ISIC4_REF">
+						<PropertyQualifier name="Value">
+							<PropertyText type="Content">5911</PropertyText>
+						</PropertyQualifier>
+					</Property>
+						</Item><Item id="59.12" idLevel="4"> <Label qualifier="Usual">
+<LabelText language="DE">Nachbearbeitung und sonstige Filmtechnik</LabelText>
+</Label>
+
+					<Property name="ExplanatoryNote">
+					<PropertyQualifier name="CentralContent" language="DE">
+<PropertyText type="Content">Diese Klasse umfasst T&#xe4;tigkeiten der Nachbearbeitung wie Montage, &#xdc;berspielen von Film auf Band, Be- und Untertitelung, Vor- und Nachspann, Schrifteinblendung, Computergrafik, Animation und Spezialeffekte, Entwicklung und Bearbeitung von Filmen sowie T&#xe4;tigkeiten von Aufnahmestudios und Spezialstudios f&#xfc;r Trickfilme.</PropertyText>
+</PropertyQualifier>
+<PropertyQualifier name="LimitContent" language="DE">
+<PropertyText type="Content">Diese Klasse umfasst ferner:
+- T&#xe4;tigkeiten von Filmsammlungen usw.</PropertyText>
+</PropertyQualifier>
+<PropertyQualifier name="Exclusions" language="DE">
+<PropertyText type="Content">Diese Klasse umfasst nicht:
+- Vervielf&#xe4;ltigung von Filmen (au&#xdf;er Vervielf&#xe4;ltigung von Kinofilmen zwecks Verleih an Lichtspielh&#xe4;user) sowie von Tonb&#xe4;ndern, Videofilmen, CDs und DVDs anhand von Masterb&#xe4;ndern (s. 18.20)
+- Gro&#xdf;handel mit bespielten Videob&#xe4;ndern, CDs und DVDs (s. 46.43)
+- Gro&#xdf;handel mit unbespielten Videob&#xe4;ndern und unbeschriebenen CDs (s. 46.52)
+- Einzelhandel mit Videob&#xe4;ndern, CDs und DVDs (s. 47.63)
+- Filmentwicklung au&#xdf;er f&#xfc;r die Filmindustrie (s. 74.20)
+- Verleih von Videob&#xe4;ndern und DVDs an die Allgemeinheit (s. 77.22)
+- T&#xe4;tigkeiten von selbstst&#xe4;ndigen Schauspielern, Zeichnern, Regisseuren, B&#xfc;hnenbildnern und Filmtechnikern (s. 90.0)</PropertyText>
+</PropertyQualifier>
+<PropertyQualifier name="CentralContent" language="ALL">
+<PropertyText type="Content">This class includes post-production activities such as editing, film/tape transfers, titling, subtitling, credits, closed captioning, computer-produced graphics, animation and special effects, developing and processing motion picture film, as well as activities of motion picture film laboratories and activities of special laboratories for animated films.</PropertyText>
+</PropertyQualifier>
+<PropertyQualifier name="LimitContent" language="ALL">
+<PropertyText type="Content">This class also includes:
+- activities of stock footage film libraries etc.</PropertyText>
+</PropertyQualifier>
+<PropertyQualifier name="Exclusions" language="ALL">
+<PropertyText type="Content">This class excludes:
+- film duplicating (except reproduction of motion picture film for theatrical distribution) as well as audio and video tape, CD or DVD reproduction from master copies, see 18.20
+- wholesale of recorded video tapes, CDs, DVDs, see 46.43
+- wholesale of blank video tapes, CDs, see 46.52
+- retail trade of video tapes, CDs, DVDs, see 47.63
+- film processing other than for the motion picture industry, see 74.20
+- rental of video tapes, DVDs to the general public, see 77.22
+- activities of own account actors, cartoonists, directors, stage designers and technical specialists, see 90.0</PropertyText>
+</PropertyQualifier>
+
+					</Property>
+					
+					<Property name="Generic" genericName="ISIC4_REF">
+						<PropertyQualifier name="Value">
+							<PropertyText type="Content">5912</PropertyText>
+						</PropertyQualifier>
+					</Property>
+						</Item><Item id="59.13" idLevel="4"> <Label qualifier="Usual">
+<LabelText language="DE">Filmverleih und -vertrieb (ohne Videotheken)</LabelText>
+</Label>
+
+					<Property name="ExplanatoryNote">
+					<PropertyQualifier name="CentralContent" language="DE">
+<PropertyText type="Content">Diese Klasse umfasst:
+- Verbreitung von Filmen, Videob&#xe4;ndern, DVDs und &#xe4;hnlichen Produkten an Kinos, Fernsehnetzbetreiber und -sender sowie Vorf&#xfc;hrer</PropertyText>
+</PropertyQualifier>
+<PropertyQualifier name="LimitContent" language="DE">
+<PropertyText type="Content">Diese Klasse umfasst ferner:
+- Erwerb von Film-, Video- und DVD-Rechten</PropertyText>
+</PropertyQualifier>
+<PropertyQualifier name="Exclusions" language="DE">
+<PropertyText type="Content">Diese Klasse umfasst nicht:
+- Vervielf&#xe4;ltigung von Filmen sowie Videob&#xe4;ndern, CDs und DVDs anhand von Masterb&#xe4;ndern (s. 18.20)
+- Gro&#xdf;handel mit bespielten Videob&#xe4;ndern und DVDs (s. 46.43)
+- Einzelhandel mit bespielten Videob&#xe4;ndern und DVDs (s. 47.63)</PropertyText>
+</PropertyQualifier>
+<PropertyQualifier name="CentralContent" language="ALL">
+<PropertyText type="Content">This class includes:
+- distributing film, video tapes, DVDs and similar productions to motion picture theatres, television networks and stations, and exhibitors</PropertyText>
+</PropertyQualifier>
+<PropertyQualifier name="LimitContent" language="ALL">
+<PropertyText type="Content">This class also includes:
+- acquiring film, video tape and DVD distribution rights</PropertyText>
+</PropertyQualifier>
+<PropertyQualifier name="Exclusions" language="ALL">
+<PropertyText type="Content">This class excludes:
+- film duplicating as well as audio and video tape, CD or DVD reproduction from master copies, see 18.20
+- wholesale of recorded video tapes and DVDs, see 46.43
+- retail sale of recorded video tapes and DVDs, see 47.63</PropertyText>
+</PropertyQualifier>
+
+					</Property>
+					
+					<Property name="Generic" genericName="ISIC4_REF">
+						<PropertyQualifier name="Value">
+							<PropertyText type="Content">5913</PropertyText>
+						</PropertyQualifier>
+					</Property>
+						</Item><Item id="59.14" idLevel="4"> <Label qualifier="Usual">
+<LabelText language="DE">Kinos</LabelText>
+</Label>
+
+					<Property name="ExplanatoryNote">
+					<PropertyQualifier name="CentralContent" language="DE">
+<PropertyText type="Content">Diese Klasse umfasst:
+- Vorf&#xfc;hrung von Filmen und Videofilmen in Kinos, sonstigen Vorf&#xfc;hrr&#xe4;umen oder im Freien
+- T&#xe4;tigkeiten von Filmvereinen</PropertyText>
+</PropertyQualifier>
+<PropertyQualifier name="CentralContent" language="ALL">
+<PropertyText type="Content">This class includes:
+- activities of motion picture or video tape projection in cinemas, in the open air or in other projection facilities
+- activities of cine-clubs</PropertyText>
+</PropertyQualifier>
+
+					</Property>
+					
+					<Property name="Generic" genericName="ISIC4_REF">
+						<PropertyQualifier name="Value">
+							<PropertyText type="Content">5914</PropertyText>
+						</PropertyQualifier>
+					</Property>
+						</Item><Item id="59.2" idLevel="3"> <Label qualifier="Usual">
+<LabelText language="DE">Tonstudios; Herstellung von H&#xf6;rfunkbeitr&#xe4;gen; Verlegen von bespielten Tontr&#xe4;gern und Musikalien</LabelText>
+</Label>
+
+					<Property name="Generic" genericName="ISIC4_REF">
+						<PropertyQualifier name="Value">
+							<PropertyText type="Content">592</PropertyText>
+						</PropertyQualifier>
+					</Property>
+						</Item><Item id="59.20" idLevel="4"> <Label qualifier="Usual">
+<LabelText language="DE">Tonstudios; Herstellung von H&#xf6;rfunkbeitr&#xe4;gen; Verlegen von bespielten Tontr&#xe4;gern und Musikalien</LabelText>
+</Label>
+
+					<Property name="ExplanatoryNote">
+					<PropertyQualifier name="CentralContent" language="DE">
+<PropertyText type="Content">Diese Klasse umfasst die Herstellung von Originalen von Tonaufnahmen, z. B. auf B&#xe4;ndern und CDs; au&#xdf;erdem umfasst sie die Ver&#xf6;ffentlichung von Tonaufnahmen, Werbung f&#xfc;r Tonaufnahmen und den Vertrieb von Tonaufnahmen an Gro&#xdf;- und Einzelh&#xe4;ndler oder unmittelbar an den Kunden. Diese T&#xe4;tigkeiten k&#xf6;nnen von derselben Einheit ausgef&#xfc;hrt werden, die auch die Masteraufzeichnungen aufnimmt. Ist dies nicht der Fall, so muss die diese T&#xe4;tigkeiten ausf&#xfc;hrende Einheit die Rechte f&#xfc;r die Vervielf&#xe4;ltigung und Verbreitung der Originalaufnahmen einholen.</PropertyText>
+</PropertyQualifier>
+<PropertyQualifier name="LimitContent" language="DE">
+<PropertyText type="Content">Diese Klasse umfasst ferner Tonaufnahmen im Tonstudio oder anderswo, einschlie&#xdf;lich der Aufzeichnung von H&#xf6;rfunksendungen. 
+
+Diese Klasse umfasst ferner das Verlegen von Musik, d. h. Erwerb und Registrierung von Rechten an musikalischen Kompositionen, die Werbung f&#xfc;r diese und die Erteilung von Nutzungsgenehmigungen sowie die Verwendung solcher Kompositionen f&#xfc;r Aufnahmen, im H&#xf6;rfunk und Fernsehen, in Kinofilmen, bei Liveauftritten sowie in Print- und sonstigen Medien. Bei den diese T&#xe4;tigkeiten ausf&#xfc;hrenden Einheiten kann es sich entweder um die Rechteinhaber selbst handeln oder um von diesen autorisierte Rechteverwalter. Hierzu z&#xe4;hlt auch das Verlegen von Musikalien.</PropertyText>
+</PropertyQualifier>
+<PropertyQualifier name="CentralContent" language="ALL">
+<PropertyText type="Content">This class includes the activities of production of original (sound) master recordings, such as tapes, CDs; releasing, promoting and distributing sound recordings to wholesalers, retailers or directly to the public. These activities might be integrated or not with the production of master recordings in the same unit. If not, the unit exercising these activities has to obtain the reproduction and distribution rights to master recordings.</PropertyText>
+</PropertyQualifier>
+<PropertyQualifier name="LimitContent" language="ALL">
+<PropertyText type="Content">This class also includes sound recording service activities in a studio or elsewhere, including the production of taped ( i.e. non-live) radio programming.
+
+This class also includes the activities of music publishing, i.e. activities of acquiring and registering copyrights for musical compositions, promoting, authorising and using these compositions in recordings, radio, television, motion pictures, live performances, print and other media. Units engaged in these activities may own the copyright or act as administrator of the music copyrights on behalf of the copyright owners. Publishing of music and sheet books is included here.</PropertyText>
+</PropertyQualifier>
+
+					</Property>
+					
+					<Property name="Generic" genericName="ISIC4_REF">
+						<PropertyQualifier name="Value">
+							<PropertyText type="Content">5920</PropertyText>
+						</PropertyQualifier>
+					</Property>
+						</Item><Item id="60" idLevel="2"> <Label qualifier="Usual">
+<LabelText language="DE">Rundfunkveranstalter</LabelText>
+</Label>
+
+					<Property name="ExplanatoryNote">
+					<PropertyQualifier name="CentralContent" language="DE">
+<PropertyText type="Content">Diese Abteilung umfasst die Schaffung von Inhalten und den Erwerb von Rechten zur Verbreitung von Inhalten und deren anschlie&#xdf;ende Ausstrahlung, z. B. als H&#xf6;rfunk-, Fernseh- und Datensendungen aus den Bereichen Unterhaltung, Nachrichten, Talk usw. Eingeschlossen ist auch die Daten&#xfc;bertragung, die typischerweise Teil von H&#xf6;rfunk- und Fernsehausstrahlung ist. Die &#xdc;bertragung kann mittels verschiedener Technologien erfolgen: drahtlos, &#xfc;ber Satellit, Kabel oder das Internet.</PropertyText>
+</PropertyQualifier>
+<PropertyQualifier name="LimitContent" language="DE">
+<PropertyText type="Content">Die Abteilung umfasst auch die Produktion von Spartensendungen (begrenzte Programmstruktur, z. B. Nachrichten, Sport, Erziehung, Sendungen f&#xfc;r Jugendliche) auf Abonnements- oder Geb&#xfc;hrenbasis, die anschlie&#xdf;end von Dritten &#xf6;ffentlich ausgestrahlt werden.</PropertyText>
+</PropertyQualifier>
+<PropertyQualifier name="Exclusions" language="DE">
+<PropertyText type="Content">Nicht eingeschlossen ist die &#xdc;bertragung von Kabel- und anderen Abonnementprogrammen (s. Abteilung 61).</PropertyText>
+</PropertyQualifier>
+<PropertyQualifier name="CentralContent" language="ALL">
+<PropertyText type="Content">This division includes the activities of creating content or acquiring the right to distribute content and subsequently broadcasting that content, such as radio, television and data programs of entertainment, news, talk, and the like. Also included is data broadcasting, typically integrated with radio or TV broadcasting. The broadcasting can be performed using different technologies, over-the-air, via satellite, via a cable network or via Internet.</PropertyText>
+</PropertyQualifier>
+<PropertyQualifier name="LimitContent" language="ALL">
+<PropertyText type="Content">This division also includes the production of programs that are typically narrowcast in nature (limited format, such as news, sports, education, and youth-oriented programming) on a subscription or fee basis, to a third party, for subsequent broadcasting to the public.</PropertyText>
+</PropertyQualifier>
+<PropertyQualifier name="Exclusions" language="ALL">
+<PropertyText type="Content">This division excludes the distribution of cable and other subscription programming (see division 61).</PropertyText>
+</PropertyQualifier>
+
+					</Property>
+					
+					<Property name="Generic" genericName="ISIC4_REF">
+						<PropertyQualifier name="Value">
+							<PropertyText type="Content">60</PropertyText>
+						</PropertyQualifier>
+					</Property>
+						</Item><Item id="60.1" idLevel="3"> <Label qualifier="Usual">
+<LabelText language="DE">H&#xf6;rfunkveranstalter</LabelText>
+</Label>
+
+					<Property name="Generic" genericName="ISIC4_REF">
+						<PropertyQualifier name="Value">
+							<PropertyText type="Content">601</PropertyText>
+						</PropertyQualifier>
+					</Property>
+						</Item><Item id="60.10" idLevel="4"> <Label qualifier="Usual">
+<LabelText language="DE">H&#xf6;rfunkveranstalter</LabelText>
+</Label>
+
+					<Property name="ExplanatoryNote">
+					<PropertyQualifier name="CentralContent" language="DE">
+<PropertyText type="Content">Diese Klasse umfasst:
+- &#xdc;bertragung von Tonsignalen durch Rundfunkstudios und &#xe4;hnliche Einrichtungen f&#xfc;r die &#xdc;bertragung von Audiosendungen f&#xfc;r die &#xd6;ffentlichkeit, Mitglieder oder Abonnenten</PropertyText>
+</PropertyQualifier>
+<PropertyQualifier name="LimitContent" language="DE">
+<PropertyText type="Content">Diese Klasse umfasst ferner:
+- T&#xe4;tigkeiten von Radiosendern, d. h. Zusammenstellung und &#xdc;bertragung (drahtlos, &#xfc;ber Satellit oder Kabel) von Audiosendungen an Mitglieder oder Abonnenten
+- &#xdc;bertragung von H&#xf6;rfunksendungen &#xfc;ber das Internet (Internetradiosender)
+- Daten&#xfc;bertragung als integrierter Teil der H&#xf6;rfunk&#xfc;bertragung</PropertyText>
+</PropertyQualifier>
+<PropertyQualifier name="Exclusions" language="DE">
+<PropertyText type="Content">Diese Klasse umfasst nicht:
+- Aufzeichnung von H&#xf6;rfunksendungen (s. 59.20)</PropertyText>
+</PropertyQualifier>
+<PropertyQualifier name="CentralContent" language="ALL">
+<PropertyText type="Content">This class includes:
+- activities of broadcasting audio signals through radio broadcasting studios and facilities for the transmission of aural programming to the public, to affiliates or to subscribers</PropertyText>
+</PropertyQualifier>
+<PropertyQualifier name="LimitContent" language="ALL">
+<PropertyText type="Content">This class also includes:
+- activities of radio networks, i.e. assembling and transmitting aural programming to the affiliates or subscribers via over-the-air broadcasts, cable or satellite
+- radio broadcasting activities over the Internet (Internet radio stations) 
+- data broadcasting integrated with radio broadcasting</PropertyText>
+</PropertyQualifier>
+<PropertyQualifier name="Exclusions" language="ALL">
+<PropertyText type="Content">This class excludes:
+- the production of taped radio programming, see 59.20</PropertyText>
+</PropertyQualifier>
+
+					</Property>
+					
+					<Property name="Generic" genericName="ISIC4_REF">
+						<PropertyQualifier name="Value">
+							<PropertyText type="Content">6010</PropertyText>
+						</PropertyQualifier>
+					</Property>
+						</Item><Item id="60.2" idLevel="3"> <Label qualifier="Usual">
+<LabelText language="DE">Fernsehveranstalter</LabelText>
+</Label>
+
+					<Property name="Generic" genericName="ISIC4_REF">
+						<PropertyQualifier name="Value">
+							<PropertyText type="Content">602</PropertyText>
+						</PropertyQualifier>
+					</Property>
+						</Item><Item id="60.20" idLevel="4"> <Label qualifier="Usual">
+<LabelText language="DE">Fernsehveranstalter</LabelText>
+</Label>
+
+					<Property name="ExplanatoryNote">
+					<PropertyQualifier name="CentralContent" language="DE">
+<PropertyText type="Content">Diese Klasse umfasst die Herstellung kompletter Fernsehprogramme aus eingekauften Programmkomponenten (wie Spiel- und Dokumentarfilme), selbst produzierten Programmkomponenten (z. B. lokale Nachrichten, Liveberichte) oder aus einer Kombination daraus.
+
+Ein solches Fernsehprogramm kann entweder von den produzierenden Einheiten selbst &#xfc;bertragen werden oder durch Dritte wie Kabelunternehmen oder Satellitenfernsehanbieter. 
+
+Bei den Programmen kann es sich um solche von allgemeinem Interesse oder um Spartenprogramme (begrenzte Programmstruktur wie Nachrichten, Sport, Erziehung, Sendungen f&#xfc;r Jugendliche) handeln. Diese Klasse umfasst sowohl Programme, die f&#xfc;r die Nutzer geb&#xfc;hrenfrei sind, als auch solche, die nur im Rahmen eines Abonnements verf&#xfc;gbar sind. Hierzu z&#xe4;hlen auch Video-on-Demand-Programme.</PropertyText>
+</PropertyQualifier>
+<PropertyQualifier name="LimitContent" language="DE">
+<PropertyText type="Content">Diese Klasse umfasst auch Daten&#xfc;bertragung als integrierter Teil der Fernseh&#xfc;bertragung.</PropertyText>
+</PropertyQualifier>
+<PropertyQualifier name="Exclusions" language="DE">
+<PropertyText type="Content">Diese Klasse umfasst nicht:
+- Herstellung von Fernsehsendungen (Spiel- und Dokumentarfilme, Talkshows, Werbespots usw.) ohne deren &#xdc;bertragung (s. 59.11)
+- Zusammenstellung und Verbreitung von Programmpaketen ohne Programmherstellung (s. Abteilung 61)</PropertyText>
+</PropertyQualifier>
+<PropertyQualifier name="CentralContent" language="ALL">
+<PropertyText type="Content">This class includes the creation of a complete television channel programme, from purchased programme components (e.g. movies, documentaries etc.), self produced programme components (e.g. local news, live reports) or a combination thereof. 
+
+This complete television programme can be either broadcast by the producing unit or produced for transmission by a third party distributor, such as cable companies or satellite television providers.
+
+The programming may be of a general or specialised nature (e.g. limited formats such as news, sports, education or youth oriented programming). This class includes programming that is made freely available to users, as well as programming that is available only on a subscription basis. The programming of video-on-demand channels is also included here.</PropertyText>
+</PropertyQualifier>
+<PropertyQualifier name="LimitContent" language="ALL">
+<PropertyText type="Content">This class also includes data broadcasting integrated with television broadcasting.</PropertyText>
+</PropertyQualifier>
+<PropertyQualifier name="Exclusions" language="ALL">
+<PropertyText type="Content">This class excludes:
+- the production of television programme elements (movies, documentaries, talk shows, commercials etc.) not associated with broadcasting, see 59.11
+- the assembly of a package of channels and distribution of that package, without programming, see division 61</PropertyText>
+</PropertyQualifier>
+
+					</Property>
+					
+					<Property name="Generic" genericName="ISIC4_REF">
+						<PropertyQualifier name="Value">
+							<PropertyText type="Content">6020</PropertyText>
+						</PropertyQualifier>
+					</Property>
+						</Item><Item id="61" idLevel="2"> <Label qualifier="Usual">
+<LabelText language="DE">Telekommunikation</LabelText>
+</Label>
+
+					<Property name="ExplanatoryNote">
+					<PropertyQualifier name="CentralContent" language="DE">
+<PropertyText type="Content">Diese Abteilung umfasst die Erbringung von Telekommunikationsdienstleistungen, d. h. die &#xdc;bertragung von Sprache, Daten, Text, Ton und Bild. Die &#xdc;bertragungseinrichtungen k&#xf6;nnen auf einer einzigen oder auf mehreren Technologien beruhen. Den in dieser Abteilung aufgef&#xfc;hrten T&#xe4;tigkeiten ist gemeinsam, dass zwar Inhalte &#xfc;bertragen, aber keine Inhalte hergestellt werden. Die Aufschl&#xfc;sselung dieser Abteilung richtet sich nach der Art der betriebenen Infrastruktur. 
+
+Im Falle der &#xdc;bertragung von Fernsehsignalen kann es sich auch um die B&#xfc;ndelung ganzer Fernsehprogramme (hergestellt gem&#xe4;&#xdf; Abteilung 60) zu Programmpaketen zum Weiterverkauf handeln.</PropertyText>
+</PropertyQualifier>
+<PropertyQualifier name="CentralContent" language="ALL">
+<PropertyText type="Content">This division includes the activities of providing telecommunications and related service activities, that is transmitting voice, data, text, sound and video. The transmission facilities that carry out these activities may be based on a single technology or a combination of technologies. The commonality of activities classified in this division is the transmission of content, without being involved in its creation. The breakdown in this division is based on the type of infrastructure operated.
+
+In the case of transmission of television signals this may include the bundling of complete programming channels (produced in division 60) in to programme packages for distribution.</PropertyText>
+</PropertyQualifier>
+
+					</Property>
+					
+					<Property name="Generic" genericName="ISIC4_REF">
+						<PropertyQualifier name="Value">
+							<PropertyText type="Content">61</PropertyText>
+						</PropertyQualifier>
+					</Property>
+						</Item><Item id="61.1" idLevel="3"> <Label qualifier="Usual">
+<LabelText language="DE">Leitungsgebundene Telekommunikation</LabelText>
+</Label>
+
+					<Property name="Generic" genericName="ISIC4_REF">
+						<PropertyQualifier name="Value">
+							<PropertyText type="Content">611</PropertyText>
+						</PropertyQualifier>
+					</Property>
+						</Item><Item id="61.10" idLevel="4"> <Label qualifier="Usual">
+<LabelText language="DE">Leitungsgebundene Telekommunikation</LabelText>
+</Label>
+
+					<Property name="ExplanatoryNote">
+					<PropertyQualifier name="CentralContent" language="DE">
+<PropertyText type="Content">Diese Klasse umfasst:
+- Betrieb und Unterhalt von Einrichtungen zur &#xdc;bertragung von Sprache, Daten, Text, Ton und Bild mittels leitungsgebundener Infrastruktur, sowie die Gew&#xe4;hrung des Zugangs zu solchen Einrichtungen:
+  • Betrieb und Wartung von Schalt- und &#xdc;bermittlungseinrichtungen f&#xfc;r Punkt-zu-Punkt-Verbindungen via Leitungen, Mikrowellen oder einer Kombination aus Leitungen und Satellitenverbindungen
+  • Betrieb von Kabel&#xfc;bertragungsnetzen (z. B. f&#xfc;r die &#xdc;bertragung von Daten und Fernsehsignalen)
+  • Telegrafie- und anderen nichtsprachgebundenen Kommunikationsdiensten mit eigenen Einrichtungen
+
+Die &#xdc;bertragungseinrichtungen k&#xf6;nnen auf einer einzigen oder auf einer Kombination mehrerer Technologien beruhen.</PropertyText>
+</PropertyQualifier>
+<PropertyQualifier name="LimitContent" language="DE">
+<PropertyText type="Content">Diese Klasse umfasst ferner:
+- Kauf von Zugangs- und Netzkapazit&#xe4;ten von Besitzern oder Betreibern von Netzen und das Angebot von Telekommunikationsdiensten f&#xfc;r Unternehmen und Privathaushalte auf der Basis dieser Kapazit&#xe4;ten
+- Internetzugangsdienste des Netzbetreibers</PropertyText>
+</PropertyQualifier>
+<PropertyQualifier name="Exclusions" language="DE">
+<PropertyText type="Content">Diese Klasse umfasst nicht:
+- Wiederverkauf von Telekommunikationsleistungen (s. 61.90)</PropertyText>
+</PropertyQualifier>
+<PropertyQualifier name="Rules" language="ALL">
+<PropertyText type="Content">Telephone cards (Sale of...)
+
+Problem statement: Where is the sale of prepaid telephone cards (for mobile phones or for other phones) classified?
+
+Solution: Prepaid telephone cards should are seen as a form of payment for the service provided. Therefore sale of prepaid telephone cards should be classified as a telecommunication activity according to the type of telecommunication service the card is intended for (wired or wireless).
+
+Decision date: 01.07.2007</PropertyText>
+</PropertyQualifier>
+<PropertyQualifier name="CentralContent" language="ALL">
+<PropertyText type="Content">This class includes:
+- operating, maintaining or providing access to facilities for the transmission of voice, data, text, sound and video using a wired telecommunications infrastructure, including:
+  • operating and maintaining switching and transmission facilities to provide point-to-point communications via landlines, microwave or a combination of landlines and satellite linkups
+  • operating of cable distribution systems (e.g. for distribution of data and television signals)
+  • furnishing telegraph and other non-vocal communications using own facilities
+
+The transmission facilities that carry out these activities, may be based on a single technology or a combination of technologies.</PropertyText>
+</PropertyQualifier>
+<PropertyQualifier name="LimitContent" language="ALL">
+<PropertyText type="Content">This class also includes:
+- purchasing access and network capacity from owners and operators of networks and providing telecommunications services using this capacity to businesses and households
+- provision of Internet access by the operator of the wired infrastructure</PropertyText>
+</PropertyQualifier>
+<PropertyQualifier name="Exclusions" language="ALL">
+<PropertyText type="Content">This class excludes:
+- telecommunications resellers, see 61.90</PropertyText>
+</PropertyQualifier>
+
+					</Property>
+					
+					<Property name="Generic" genericName="ISIC4_REF">
+						<PropertyQualifier name="Value">
+							<PropertyText type="Content">6110</PropertyText>
+						</PropertyQualifier>
+					</Property>
+						</Item><Item id="61.2" idLevel="3"> <Label qualifier="Usual">
+<LabelText language="DE">Drahtlose Telekommunikation</LabelText>
+</Label>
+
+					<Property name="Generic" genericName="ISIC4_REF">
+						<PropertyQualifier name="Value">
+							<PropertyText type="Content">612</PropertyText>
+						</PropertyQualifier>
+					</Property>
+						</Item><Item id="61.20" idLevel="4"> <Label qualifier="Usual">
+<LabelText language="DE">Drahtlose Telekommunikation</LabelText>
+</Label>
+
+					<Property name="ExplanatoryNote">
+					<PropertyQualifier name="CentralContent" language="DE">
+<PropertyText type="Content">Diese Klasse umfasst:
+- Betrieb und Wartung von Einrichtungen zur &#xdc;bertragung von Sprache, Daten, Text, Ton und Bild mittels drahtloser Telekommunikationsinfrastrukturen sowie die Gew&#xe4;hrung des Zugangs zu solchen Einrichtungen 
+- Wartung und Betrieb von Mobilfunknetzen und anderen drahtlosen Telekommunikationsnetzen
+
+Diese Einrichtungen &#xfc;bertragen Radiowellen durch Rundstrahlung und k&#xf6;nnen auf einer einzigen oder auf einer Kombination mehrerer Technologien beruhen.</PropertyText>
+</PropertyQualifier>
+<PropertyQualifier name="LimitContent" language="DE">
+<PropertyText type="Content">Diese Klasse umfasst ferner:
+- Kauf von Zugangs- und Netzkapazit&#xe4;ten von Besitzern oder Betreibern von Netzen und das Angebot von drahtlosen Telekommunikationsdiensten (au&#xdf;er via Satellit) f&#xfc;r Unternehmen und Privathaushalte auf der Basis dieser Kapazit&#xe4;ten
+- Internetzugangsdienste von Betreibern drahtloser Netze</PropertyText>
+</PropertyQualifier>
+<PropertyQualifier name="Exclusions" language="DE">
+<PropertyText type="Content">Diese Klasse umfasst nicht:
+- Wiederverkauf von Telekommunikationsleistungen (s. 61.90)</PropertyText>
+</PropertyQualifier>
+<PropertyQualifier name="Rules" language="ALL">
+<PropertyText type="Content">Telephone cards (Sale of...)
+
+Problem statement: Where is the sale of prepaid telephone cards (for mobile phones or for other phones) classified?
+
+Solution: Prepaid telephone cards should are seen as a form of payment for the service provided. Therefore sale of prepaid telephone cards should be classified as a telecommunication activity according to the type of telecommunication service the card is intended for (wired or wireless).
+
+Decision date: 01.07.2007</PropertyText>
+</PropertyQualifier>
+<PropertyQualifier name="CentralContent" language="ALL">
+<PropertyText type="Content">This class includes:
+- operating, maintaining or providing access to facilities for the transmission of voice, data, text, sound, and video using a wireless telecommunications infrastructure
+- maintaining and operating paging as well as cellular and other wireless telecommunications networks
+
+The transmission facilities provide omni-directional transmission via airwaves and may be based on a single technology or a combination of technologies.</PropertyText>
+</PropertyQualifier>
+<PropertyQualifier name="LimitContent" language="ALL">
+<PropertyText type="Content">This class also includes:
+- purchasing access and network capacity from owners and operators of networks and providing wireless telecommunications services (except satellite) using this capacity to businesses and households
+- provision of Internet access by the operator of the wireless infrastructure</PropertyText>
+</PropertyQualifier>
+<PropertyQualifier name="Exclusions" language="ALL">
+<PropertyText type="Content">This class excludes:
+- telecommunications resellers, see 61.90</PropertyText>
+</PropertyQualifier>
+
+					</Property>
+					
+					<Property name="Generic" genericName="ISIC4_REF">
+						<PropertyQualifier name="Value">
+							<PropertyText type="Content">6120</PropertyText>
+						</PropertyQualifier>
+					</Property>
+						</Item><Item id="61.3" idLevel="3"> <Label qualifier="Usual">
+<LabelText language="DE">Satellitentelekommunikation</LabelText>
+</Label>
+
+					<Property name="Generic" genericName="ISIC4_REF">
+						<PropertyQualifier name="Value">
+							<PropertyText type="Content">613</PropertyText>
+						</PropertyQualifier>
+					</Property>
+						</Item><Item id="61.30" idLevel="4"> <Label qualifier="Usual">
+<LabelText language="DE">Satellitentelekommunikation</LabelText>
+</Label>
+
+					<Property name="ExplanatoryNote">
+					<PropertyQualifier name="CentralContent" language="DE">
+<PropertyText type="Content">Diese Klasse umfasst:
+- Betrieb und Wartung von Einrichtungen zur &#xdc;bertragung von Sprache, Daten, Text, Ton und Bild mit satellitengest&#xfc;tzten Telekommunikationsinfrastrukturen sowie die Gew&#xe4;hrung des Zugangs zu solchen Einrichtungen
+- Lieferung von Bild-, Ton- und Textprogrammen von Fernseh- oder H&#xf6;rfunksendern an den Kunden mittels Direktausstrahlung &#xfc;ber Satellit. (Die unter diese Klasse fallenden Einheiten generieren im Allgemeinen Programme nicht selbst.)</PropertyText>
+</PropertyQualifier>
+<PropertyQualifier name="LimitContent" language="DE">
+<PropertyText type="Content">Diese Klasse umfasst ferner:
+- Internetzugangsdienste von Betreibern der Satelliteninfrastruktur</PropertyText>
+</PropertyQualifier>
+<PropertyQualifier name="Exclusions" language="DE">
+<PropertyText type="Content">Diese Klasse umfasst nicht:
+- Wiederverkauf von Telekommunikationsleistungen (s. 61.90)</PropertyText>
+</PropertyQualifier>
+<PropertyQualifier name="CentralContent" language="ALL">
+<PropertyText type="Content">This class includes:
+- operating, maintaining or providing access to facilities for the transmission of voice, data, text, sound and video using a satellite telecommunications infrastructure
+- delivery of visual, aural or textual programming received from cable networks, local television stations or radio networks to consumers via direct-to-home satellite systems. (The units classified here do not generally originate programming material.)</PropertyText>
+</PropertyQualifier>
+<PropertyQualifier name="LimitContent" language="ALL">
+<PropertyText type="Content">This class also includes:
+- provision of Internet access by the operator of the satellite infrastructure</PropertyText>
+</PropertyQualifier>
+<PropertyQualifier name="Exclusions" language="ALL">
+<PropertyText type="Content">This class excludes:
+- telecommunications resellers, see 61.90</PropertyText>
+</PropertyQualifier>
+
+					</Property>
+					
+					<Property name="Generic" genericName="ISIC4_REF">
+						<PropertyQualifier name="Value">
+							<PropertyText type="Content">6130</PropertyText>
+						</PropertyQualifier>
+					</Property>
+						</Item><Item id="61.9" idLevel="3"> <Label qualifier="Usual">
+<LabelText language="DE">Sonstige Telekommunikation</LabelText>
+</Label>
+
+					<Property name="Generic" genericName="ISIC4_REF">
+						<PropertyQualifier name="Value">
+							<PropertyText type="Content">619</PropertyText>
+						</PropertyQualifier>
+					</Property>
+						</Item><Item id="61.90" idLevel="4"> <Label qualifier="Usual">
+<LabelText language="DE">Sonstige Telekommunikation</LabelText>
+</Label>
+
+					<Property name="ExplanatoryNote">
+					<PropertyQualifier name="CentralContent" language="DE">
+<PropertyText type="Content">Diese Klasse umfasst:
+- Bereitstellung spezieller Telekommunikationsanwendungen wie Satellitenortung, Kommunikationstelemetrie sowie Betrieb von Radarstationen
+- Betrieb von Satellitenfunkanlagen und &#xe4;hnlichen Einrichtungen, die operativ mit einem oder mehreren terrestrischen &#xdc;bertragungssystemen verbunden sind und Nachrichten von Satellitensystemen empfangen bzw. an diese senden k&#xf6;nnen
+- Bereitstellung des Internetzugangs &#xfc;ber Verbindungen zwischen dem Kunden und dem Diensteanbieter (Internet Service Provider), die nicht dem Diensteanbieter geh&#xf6;ren oder von ihm gesteuert werden, wie Internetzugang durch Einw&#xe4;hlen usw.
+- Bereitstellung des Telefon- oder Internetzugangs in &#xf6;ffentlich zug&#xe4;nglichen Einrichtungen
+- Telekommunikationsdienstleistungen &#xfc;ber bestehende Fernmeldeverbindungen:
+  • IP-Telefonie (Sprach&#xfc;bermittlung &#xfc;ber das Internet)
+- Wiederverkauf von Telekommunikationsdienstleistungen (d. h. Kauf und Weiterverkauf von Netzkapazit&#xe4;ten ohne Angebot zus&#xe4;tzlicher Dienstleistungen)</PropertyText>
+</PropertyQualifier>
+<PropertyQualifier name="Exclusions" language="DE">
+<PropertyText type="Content">Diese Klasse umfasst nicht:
+- Internetzugangsdienste von Betreibern von Telekommunikationsinfrastrukturen (s. 61.10, 61.20, 61.30)</PropertyText>
+</PropertyQualifier>
+<PropertyQualifier name="CentralContent" language="ALL">
+<PropertyText type="Content">This class includes:
+- provision of specialised telecommunications applications, such as satellite tracking, communications telemetry, and radar station operations
+- operation of satellite terminal stations and associated facilities operationally connected with one or more terrestrial communications systems and capable of transmitting telecommunications to or receiving telecommunications from satellite systems
+- provision of Internet access over networks between the client and the ISP not owned or controlled by the ISP, such as dial-up Internet access etc.
+- provision of telephone and Internet access in facilities open to the public
+- provision of telecommunications services over existing telecom connections:
+  • VOIP (Voice Over Internet Protocol) provision
+- telecommunications resellers (i.e. purchasing and reselling network capacity without providing additional services)</PropertyText>
+</PropertyQualifier>
+<PropertyQualifier name="Exclusions" language="ALL">
+<PropertyText type="Content">This class excludes:
+- provision of Internet access by operators of telecommunications infrastructure, see 61.10, 61.20, 61.30</PropertyText>
+</PropertyQualifier>
+
+					</Property>
+					
+					<Property name="Generic" genericName="ISIC4_REF">
+						<PropertyQualifier name="Value">
+							<PropertyText type="Content">6190</PropertyText>
+						</PropertyQualifier>
+					</Property>
+						</Item><Item id="62" idLevel="2"> <Label qualifier="Usual">
+<LabelText language="DE">Erbringung von Dienstleistungen der Informationstechnologie</LabelText>
+</Label>
+
+					<Property name="ExplanatoryNote">
+					<PropertyQualifier name="CentralContent" language="DE">
+<PropertyText type="Content">Diese Abteilung umfasst die nachfolgend aufgef&#xfc;hrten T&#xe4;tigkeiten im Bereich der Informationstechnologie: Entwicklung, Anpassung, Testen und Pflege von Software, Planung und Entwurf von Computersystemen, die Hardware-, Software- und Kommunikationstechnologie umfassen, Verwaltung und Betrieb der Computersysteme und/oder Datenverarbeitungsanlagen eines Kunden vor Ort und sonstige fachliche und technische mit der Datenverarbeitung verbundene T&#xe4;tigkeiten.</PropertyText>
+</PropertyQualifier>
+<PropertyQualifier name="CentralContent" language="ALL">
+<PropertyText type="Content">This division includes the following activities of providing expertise in the field of information technologies: writing, modifying, testing and supporting software; planning and designing computer systems that integrate computer hardware, software and communication technologies; on-site management and operation of clients&apos; computer systems and/or data processing facilities; and other professional and technical computer-related activities.</PropertyText>
+</PropertyQualifier>
+
+					</Property>
+					
+					<Property name="Generic" genericName="ISIC4_REF">
+						<PropertyQualifier name="Value">
+							<PropertyText type="Content">62</PropertyText>
+						</PropertyQualifier>
+					</Property>
+						</Item><Item id="62.0" idLevel="3"> <Label qualifier="Usual">
+<LabelText language="DE">Erbringung von Dienstleistungen der Informationstechnologie</LabelText>
+</Label>
+
+					<Property name="Generic" genericName="ISIC4_REF">
+						<PropertyQualifier name="Value">
+							<PropertyText type="Content">620</PropertyText>
+						</PropertyQualifier>
+					</Property>
+						</Item><Item id="62.01" idLevel="4"> <Label qualifier="Usual">
+<LabelText language="DE">Programmierungst&#xe4;tigkeiten</LabelText>
+</Label>
+
+					<Property name="ExplanatoryNote">
+					<PropertyQualifier name="CentralContent" language="DE">
+<PropertyText type="Content">Diese Klasse umfasst die Entwicklung, die Anpassung, das Testen und die Pflege von Software sowie das Verfassen der Software-Dokumentation.
+
+Diese Klasse umfasst:
+- Design der Struktur und des Inhalts von und/oder Durchf&#xfc;hrung der notwendigen Programmierarbeiten zur Entwicklung und Implementierung von:
+  • Systemsoftware (einschlie&#xdf;lich Aktualisierung und Patches)
+  • Softwareanwendungen (einschlie&#xdf;lich Aktualisierungen und Patches)
+  • Datenbanken
+  • Web-Seiten
+- Anpassung von Software an Kundenanforderungen, d. h. &#xc4;nderung oder Konfigurierung bestehender Anwendungen, damit sie in der Systemumgebung des Kunden betriebsf&#xe4;hig werden</PropertyText>
+</PropertyQualifier>
+<PropertyQualifier name="Exclusions" language="DE">
+<PropertyText type="Content">Diese Klasse umfasst nicht:
+- Verlegen von Softwarepaketen (s. 58.29)
+- &#xdc;bersetzung oder Anpassung von Standardsoftware an einen bestimmten Markt auf eigene Rechnung (s. 58.29)
+- Planung und Entwurf von Computersystemen, die Hardware-, Software- und Kommunikationstechnologie umfassen, auch wenn die Bereitstellung der Software einen integralen Bestandteil dieser Dienstleistungen bildet (s. 62.02)</PropertyText>
+</PropertyQualifier>
+<PropertyQualifier name="Rules" language="ALL">
+<PropertyText type="Content">Software (Customising or adaptation of …)
+
+Problem statement: What exactly is the border/difference between customising of software (62.01) and adaptation of non-customised software in 58.29?
+
+Solution: Adaptation work for software as main activity should be classified in NACE Rev. 2 class 62.01. Publishing of software as main activity in NACE Rev. 2 class 58.29. The adaptation of software by publisher on own account is publishers second activity and should be treated according to general classification rules for multiple activities. Usually the main activity remains publishing.
+
+Decision date: 01.07.2007</PropertyText>
+</PropertyQualifier>
+<PropertyQualifier name="CentralContent" language="ALL">
+<PropertyText type="Content">This class includes the writing, modifying, testing and supporting of software.
+
+This class includes:
+- designing the structure and content of, and/or writing the computer code necessary to create and implement:
+  • systems software (including updates and patches)
+  • software applications (including updates and patches)
+  • databases
+  • web pages
+- customising of software, i.e. modifying and configuring an existing application so that it is functional within the clients&apos; information system environment</PropertyText>
+</PropertyQualifier>
+<PropertyQualifier name="Exclusions" language="ALL">
+<PropertyText type="Content">This class excludes:
+- publishing packaged software, see 58.29
+- translation or adaptation of non-customised software for a particular market on own account, see 58.29
+- planning and designing computer systems that integrate computer hardware, software and communication technologies, even though providing software might be an integral part, see 62.02</PropertyText>
+</PropertyQualifier>
+
+					</Property>
+					
+					<Property name="Generic" genericName="ISIC4_REF">
+						<PropertyQualifier name="Value">
+							<PropertyText type="Content">6201</PropertyText>
+						</PropertyQualifier>
+					</Property>
+						</Item><Item id="62.02" idLevel="4"> <Label qualifier="Usual">
+<LabelText language="DE">Erbringung von Beratungsleistungen auf dem Gebiet der Informationstechnologie</LabelText>
+</Label>
+
+					<Property name="ExplanatoryNote">
+					<PropertyQualifier name="CentralContent" language="DE">
+<PropertyText type="Content">Diese Klasse umfasst die Planung und den Entwurf von Computersystemen, die Hardware-, Software- und Kommunikationstechnologie umfassen. Zum Leistungsumfang kann auch die Schulung der Nutzer geh&#xf6;ren.</PropertyText>
+</PropertyQualifier>
+<PropertyQualifier name="Exclusions" language="DE">
+<PropertyText type="Content">Diese Klasse umfasst nicht:
+- Verkauf von Computerhardware und –software (s. 46.51, 47.41)
+- Installation von Gro&#xdf;rechnern und &#xe4;hnlichen Computern (s. 33.20)
+- Installieren (Einrichten) von Arbeitsplatzrechnern (s. 62.09)
+- Installation von Software, Datenwiederherstellung nach einem Systemabsturz (s. 62.09)</PropertyText>
+</PropertyQualifier>
+<PropertyQualifier name="CentralContent" language="ALL">
+<PropertyText type="Content">This class includes the planning and designing of computer systems which integrate computer hardware, software and communication technologies. Services may include related users training.</PropertyText>
+</PropertyQualifier>
+<PropertyQualifier name="Exclusions" language="ALL">
+<PropertyText type="Content">This class excludes:
+- sale of computer hardware or software, see 46.51, 47.41
+- installation of mainframe and similar computers, see 33.20
+- installation (setting-up) of personal computers, see 62.09
+- installation of software, computer disaster recovery, see 62.09</PropertyText>
+</PropertyQualifier>
+
+					</Property>
+					
+					<Property name="Generic" genericName="ISIC4_REF">
+						<PropertyQualifier name="Value">
+							<PropertyText type="Content">6202</PropertyText>
+						</PropertyQualifier>
+					</Property>
+						</Item><Item id="62.03" idLevel="4"> <Label qualifier="Usual">
+<LabelText language="DE">Betrieb von Datenverarbeitungseinrichtungen f&#xfc;r Dritte</LabelText>
+</Label>
+
+					<Property name="ExplanatoryNote">
+					<PropertyQualifier name="CentralContent" language="DE">
+<PropertyText type="Content">Diese Klasse umfasst die Verwaltung und den Betrieb von Computersystemen und/oder Datenverarbeitungsanlagen eines Kunden vor Ort und die damit verbundenen Support-Dienstleistungen.</PropertyText>
+</PropertyQualifier>
+<PropertyQualifier name="CentralContent" language="ALL">
+<PropertyText type="Content">This class includes the provision of on-site management and operation of clients&apos; computer systems and/or data processing facilities, as well as related support services.</PropertyText>
+</PropertyQualifier>
+
+					</Property>
+					
+					<Property name="Generic" genericName="ISIC4_REF">
+						<PropertyQualifier name="Value">
+							<PropertyText type="Content">6202</PropertyText>
+						</PropertyQualifier>
+					</Property>
+						</Item><Item id="62.09" idLevel="4"> <Label qualifier="Usual">
+<LabelText language="DE">Erbringung von sonstigen Dienstleistungen der Informationstechnologie</LabelText>
+</Label>
+
+					<Property name="ExplanatoryNote">
+					<PropertyQualifier name="CentralContent" language="DE">
+<PropertyText type="Content">Diese Klasse umfasst sonstige, anderweitig nicht genannte Dienstleistungen im Bereich der Informationstechnologie und Computertechnik, z. B.:
+- Datenwiederherstellung nach einem Systemabsturz
+- Installieren (Einrichten) von Arbeitsplatzrechnern
+- Softwareinstallation.</PropertyText>
+</PropertyQualifier>
+<PropertyQualifier name="Exclusions" language="DE">
+<PropertyText type="Content">Diese Klasse umfasst nicht:
+- Installation von Gro&#xdf;rechnern und &#xe4;hnlichen Computern (s. 33.20)
+- Programmierungst&#xe4;tigkeiten (s. 62.01)
+- Computer-Beratungsdienstleistungen (s. 62.02)
+- Management von EDV-Anlagen (s. 62.03)
+- Datenverarbeitung und Hosting (s. 63.11)</PropertyText>
+</PropertyQualifier>
+<PropertyQualifier name="CentralContent" language="ALL">
+<PropertyText type="Content">This class includes other information technology and computer related activities not elsewhere classified, such as:
+- computer disaster recovery services
+- installation (setting-up) of personal computers
+- software installation services</PropertyText>
+</PropertyQualifier>
+<PropertyQualifier name="Exclusions" language="ALL">
+<PropertyText type="Content">This class excludes:
+- installation of mainframe and similar computers, see 33.20
+- computer programming, see 62.01
+- computer consultancy, see 62.02
+- computer facilities management, see 62.03
+- data processing and hosting, see 63.11</PropertyText>
+</PropertyQualifier>
+
+					</Property>
+					
+					<Property name="Generic" genericName="ISIC4_REF">
+						<PropertyQualifier name="Value">
+							<PropertyText type="Content">6209</PropertyText>
+						</PropertyQualifier>
+					</Property>
+						</Item><Item id="63" idLevel="2"> <Label qualifier="Usual">
+<LabelText language="DE">Informationsdienstleistungen</LabelText>
+</Label>
+
+					<Property name="ExplanatoryNote">
+					<PropertyQualifier name="CentralContent" language="DE">
+<PropertyText type="Content">Diese Abteilung umfasst T&#xe4;tigkeiten von Suchmaschinen-Portalen, Datenverarbeitung und Hosting sowie sonstige T&#xe4;tigkeiten, die der Bereitstellung von Informationen dienen.</PropertyText>
+</PropertyQualifier>
+<PropertyQualifier name="CentralContent" language="ALL">
+<PropertyText type="Content">This division includes the activities of web search portals, data processing and hosting activities, as well as other activities that primarily supply information.</PropertyText>
+</PropertyQualifier>
+
+					</Property>
+					
+					<Property name="Generic" genericName="ISIC4_REF">
+						<PropertyQualifier name="Value">
+							<PropertyText type="Content">63</PropertyText>
+						</PropertyQualifier>
+					</Property>
+						</Item><Item id="63.1" idLevel="3"> <Label qualifier="Usual">
+<LabelText language="DE">Datenverarbeitung, Hosting und damit verbundene T&#xe4;tigkeiten; Webportale</LabelText>
+</Label>
+
+					<Property name="ExplanatoryNote">
+					<PropertyQualifier name="CentralContent" language="DE">
+<PropertyText type="Content">Diese Gruppe umfasst die Bereitstellung von Infrastrukturen f&#xfc;r Hosting, Datenverarbeitungsdienste und die Bereitstellung von Suchfunktionen und anderen Portalen f&#xfc;r das Internet.</PropertyText>
+</PropertyQualifier>
+<PropertyQualifier name="CentralContent" language="ALL">
+<PropertyText type="Content">This group includes the provision of infrastructure for hosting, data processing services and related activities, as well as the provision of search facilities and other portals for the Internet.</PropertyText>
+</PropertyQualifier>
+
+					</Property>
+					
+					<Property name="Generic" genericName="ISIC4_REF">
+						<PropertyQualifier name="Value">
+							<PropertyText type="Content">631</PropertyText>
+						</PropertyQualifier>
+					</Property>
+						</Item><Item id="63.11" idLevel="4"> <Label qualifier="Usual">
+<LabelText language="DE">Datenverarbeitung, Hosting und damit verbundene T&#xe4;tigkeiten</LabelText>
+</Label>
+
+					<Property name="ExplanatoryNote">
+					<PropertyQualifier name="CentralContent" language="DE">
+<PropertyText type="Content">Diese Klasse umfasst:
+- Bereitstellung von Infrastrukturen f&#xfc;r Hosting, Datenverarbeitungsdienste und damit verbundene T&#xe4;tigkeiten
+- spezialisierte Hosting-Dienstleistungen:
+  • Web-Hosting
+  • Streamingdienste
+  • Anwendungshosting
+- Bereitstellung von Anwendungsdiensten
+- Allgemeine Bereitstellung von Rechenzeiten auf Gro&#xdf;rechnern
+- Datenverarbeitungst&#xe4;tigkeiten:
+  • vollst&#xe4;ndige Datenverarbeitung von Kundendaten
+  • Erzeugung spezieller Berichte anhand von Kundendaten
+- Dateneingabe</PropertyText>
+</PropertyQualifier>
+<PropertyQualifier name="Exclusions" language="DE">
+<PropertyText type="Content">Diese Klasse umfasst nicht:
+- T&#xe4;tigkeiten, bei denen Datenverarbeitungsanlagen nur als Hilfsmittel verwendet werden, werden entsprechend der angebotenen Dienstleistung klassifiziert</PropertyText>
+</PropertyQualifier>
+<PropertyQualifier name="CentralContent" language="ALL">
+<PropertyText type="Content">This class includes:
+- provision of infrastructure for hosting, data processing services and related activities
+- specialized hosting activities such as:
+  • Web hosting
+  • streaming services
+  • application hosting
+- application service provisioning
+- general time-share provision of mainframe facilities to clients
+- data processing activities:
+  • complete processing of data supplied by clients
+  • generation of specialized reports from data supplied by clients
+- provision of data entry services</PropertyText>
+</PropertyQualifier>
+<PropertyQualifier name="Exclusions" language="ALL">
+<PropertyText type="Content">This class excludes:
+- activities where the supplier uses the computers only as a tool are classified according to the nature of the services rendered</PropertyText>
+</PropertyQualifier>
+
+					</Property>
+					
+					<Property name="Generic" genericName="ISIC4_REF">
+						<PropertyQualifier name="Value">
+							<PropertyText type="Content">6311</PropertyText>
+						</PropertyQualifier>
+					</Property>
+						</Item><Item id="63.12" idLevel="4"> <Label qualifier="Usual">
+<LabelText language="DE">Webportale</LabelText>
+</Label>
+
+					<Property name="ExplanatoryNote">
+					<PropertyQualifier name="CentralContent" language="DE">
+<PropertyText type="Content">Diese Klasse umfasst
+- Betrieb von Websites, die unter Verwendung einer Suchmaschine umfassende Datenbanken mit Internet-Adressen und -Inhalten in einem benutzerfreundlichen Format generieren und bereitstellen
+- Betrieb sonstiger Websites, die als Internet-Portale fungieren, beispielsweise Medien-Websites mit regelm&#xe4;&#xdf;ig aktualisiertem Inhalt</PropertyText>
+</PropertyQualifier>
+<PropertyQualifier name="Exclusions" language="DE">
+<PropertyText type="Content">Diese Klasse umfasst nicht:
+- Verlegen von B&#xfc;chern, Zeitungen, Zeitschriften usw. im Internet (s. Abteilung 58)
+- &#xdc;bertragung von Rundfunksendungen &#xfc;ber das Internet (s. Abteilung 60)</PropertyText>
+</PropertyQualifier>
+<PropertyQualifier name="CentralContent" language="ALL">
+<PropertyText type="Content">This class includes: 
+- operation of web sites that use a search engine to generate and maintain extensive databases of Internet addresses and content in an easily searchable format
+- operation of other websites that act as portals to the Internet, such as media sites providing periodically updated content</PropertyText>
+</PropertyQualifier>
+<PropertyQualifier name="Exclusions" language="ALL">
+<PropertyText type="Content">This class excludes:
+- publishing of books, newspapers, journals etc. via Internet, see division 58
+- broadcasting via Internet, see division 60</PropertyText>
+</PropertyQualifier>
+
+					</Property>
+					
+					<Property name="Generic" genericName="ISIC4_REF">
+						<PropertyQualifier name="Value">
+							<PropertyText type="Content">6312</PropertyText>
+						</PropertyQualifier>
+					</Property>
+						</Item><Item id="63.9" idLevel="3"> <Label qualifier="Usual">
+<LabelText language="DE">Erbringung von sonstigen Informationsdienstleistungen</LabelText>
+</Label>
+
+					<Property name="ExplanatoryNote">
+					<PropertyQualifier name="CentralContent" language="DE">
+<PropertyText type="Content">Diese Gruppe umfasst T&#xe4;tigkeiten von Nachrichtenagenturen und alle anderweitig nicht genannten Informationsdienstleistungen.</PropertyText>
+</PropertyQualifier>
+<PropertyQualifier name="Exclusions" language="DE">
+<PropertyText type="Content">Diese Gruppe umfasst nicht:
+- T&#xe4;tigkeiten von Bibliotheken und Archiven (s. 91.01)</PropertyText>
+</PropertyQualifier>
+<PropertyQualifier name="CentralContent" language="ALL">
+<PropertyText type="Content">This group includes the activities of news agencies and all other remaining information service activities.</PropertyText>
+</PropertyQualifier>
+<PropertyQualifier name="Exclusions" language="ALL">
+<PropertyText type="Content">This group excludes:
+- activities of libraries and archives, see 91.01</PropertyText>
+</PropertyQualifier>
+
+					</Property>
+					
+					<Property name="Generic" genericName="ISIC4_REF">
+						<PropertyQualifier name="Value">
+							<PropertyText type="Content">639</PropertyText>
+						</PropertyQualifier>
+					</Property>
+						</Item><Item id="63.91" idLevel="4"> <Label qualifier="Usual">
+<LabelText language="DE">Korrespondenz- und Nachrichtenb&#xfc;ros</LabelText>
+</Label>
+
+					<Property name="ExplanatoryNote">
+					<PropertyQualifier name="CentralContent" language="DE">
+<PropertyText type="Content">Diese Klasse umfasst:
+- Lieferung von Nachrichten, Bildmaterial und Beitr&#xe4;gen zu speziellen Themen durch Korrespondenz- und Nachrichtenb&#xfc;ros an die Medien</PropertyText>
+</PropertyQualifier>
+<PropertyQualifier name="Exclusions" language="DE">
+<PropertyText type="Content">Diese Klasse umfasst nicht:
+- T&#xe4;tigkeiten selbstst&#xe4;ndiger Fotojournalisten (s. 74.20)
+- T&#xe4;tigkeiten selbstst&#xe4;ndiger Journalisten (s. 90.03)</PropertyText>
+</PropertyQualifier>
+<PropertyQualifier name="CentralContent" language="ALL">
+<PropertyText type="Content">This class includes:
+- news syndicate and news agency activities furnishing news, pictures and features to the media</PropertyText>
+</PropertyQualifier>
+<PropertyQualifier name="Exclusions" language="ALL">
+<PropertyText type="Content">This class excludes:
+- activities of independent photojournalists, see 74.20
+- activities of independent journalists, see 90.03</PropertyText>
+</PropertyQualifier>
+
+					</Property>
+					
+					<Property name="Generic" genericName="ISIC4_REF">
+						<PropertyQualifier name="Value">
+							<PropertyText type="Content">6391</PropertyText>
+						</PropertyQualifier>
+					</Property>
+						</Item><Item id="63.99" idLevel="4"> <Label qualifier="Usual">
+<LabelText language="DE">Erbringung von sonstigen Informationsdienstleistungen a. n. g.</LabelText>
+</Label>
+
+					<Property name="ExplanatoryNote">
+					<PropertyQualifier name="CentralContent" language="DE">
+<PropertyText type="Content">Diese Klasse umfasst sonstige Informationsdienstleistungen, anderweitig nicht genannt, z. B.:
+- rechnergest&#xfc;tzte Telefonauskunftsdienste
+- Informationsvermittlung gegen Entgelt oder auf sonstiger vertraglicher Grundlage
+- Nachrichten- und Zeitungsausschnittdienste usw.</PropertyText>
+</PropertyQualifier>
+<PropertyQualifier name="Exclusions" language="DE">
+<PropertyText type="Content">Diese Klasse umfasst nicht:
+- Call-Center (s. 82.20)</PropertyText>
+</PropertyQualifier>
+<PropertyQualifier name="CentralContent" language="ALL">
+<PropertyText type="Content">This class includes other information service activities not elsewhere classified such as:
+- computer-based telephone information services
+- information search services on a contract or fee basis
+- news clipping services, press clipping services, etc.</PropertyText>
+</PropertyQualifier>
+<PropertyQualifier name="Exclusions" language="ALL">
+<PropertyText type="Content">This class excludes:
+- activities of call centres, see 82.20</PropertyText>
+</PropertyQualifier>
+
+					</Property>
+					
+					<Property name="Generic" genericName="ISIC4_REF">
+						<PropertyQualifier name="Value">
+							<PropertyText type="Content">6399</PropertyText>
+						</PropertyQualifier>
+					</Property>
+						</Item>
 	</Classification>
 </Claset>
