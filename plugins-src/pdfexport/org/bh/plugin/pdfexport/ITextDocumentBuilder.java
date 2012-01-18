@@ -158,7 +158,7 @@ public class ITextDocumentBuilder implements PdfPageEvent {
 				if (val.length >= 1) {
 					t.addCell(trans.translate(e.getKey()));
 					if (val[0] != null) {
-						if(j == 0 || j == 1 || j == 5) {
+						if(j == 0 || j == 1 || j == 2 || j == 8 || j == 10) {
 							Float value = (Float.parseFloat(val[0].toString().replace(',','.')))*100;
 							t.addCell(value + " %");	
 						}
