@@ -1,13 +1,10 @@
 package org.bh.plugin.branchSpecificRepresentative.swing;
 
-import java.awt.Color;
-import java.util.ServiceLoader;
+import java.text.DecimalFormat;
 import java.util.TreeMap;
 
 import javax.swing.JPanel;
 
-import org.apache.log4j.Logger;
-import org.bh.calculation.IBranchSpecificCalculator;
 import org.bh.calculation.ITimeSeriesProcess;
 import org.bh.data.DTOScenario;
 import org.bh.data.types.DistributionMap;
@@ -15,11 +12,9 @@ import org.bh.gui.swing.comp.BHButton;
 import org.bh.gui.swing.comp.BHDescriptionLabel;
 import org.bh.gui.swing.comp.BHProgressBar;
 import org.bh.gui.swing.comp.BHTextField;
-import org.bh.platform.PluginManager;
 import org.bh.platform.i18n.BHTranslator;
 import org.bh.platform.i18n.ITranslator;
 
-import com.ibm.icu.text.DecimalFormat;
 import com.jgoodies.forms.layout.CellConstraints;
 import com.jgoodies.forms.layout.FormLayout;
 
