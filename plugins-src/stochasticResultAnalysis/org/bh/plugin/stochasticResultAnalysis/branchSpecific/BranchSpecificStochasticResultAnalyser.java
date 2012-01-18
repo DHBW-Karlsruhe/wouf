@@ -48,7 +48,15 @@ public class BranchSpecificStochasticResultAnalyser implements
 	@Override
 	public Component setResult(DTOScenario scenario, DistributionMap result,
 			DistributionMap resultBranchSpecific) {
-		throw new UnsupportedOperationException("This method has not been implemented");
+		try {
+			View view = new ViewBHBSRStochasticResultPanel(scenario, result, resultBranchSpecific);
+			new BHBSRStochasticResultController(view, result, resultBranchSpecific, scenario);
+			Logger.getLogger(BranchSpecificStochasticResultAnalyser.class).info("Loaded branch specific stochastic result analyser.");
+			return view.getViewPanel();
+		} catch (ViewException e) {
+			Logger.getLogger(DefaultStochasticResultAnalyser.class).error("Cannot create view", e);
+			return null;
+		}		
 	}
 
 }

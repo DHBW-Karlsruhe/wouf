@@ -41,6 +41,7 @@ public class BHBSRStochasticResultPanel extends JPanel{
 	static final Logger log = Logger.getLogger(BHBSRStochasticResultPanel.class);
 	private DTOScenario scenario;
 	private DistributionMap result;
+	private DistributionMap resultBSR;
 	private BHButton exportButton;
 	private BHButton printButton;
 	JPanel mainPanel = null;
@@ -52,6 +53,14 @@ public class BHBSRStochasticResultPanel extends JPanel{
 		this.result = result;
 		initialize();
 	}
+	
+	public BHBSRStochasticResultPanel(DTOScenario scenario, DistributionMap result, DistributionMap resultBSR) {
+		this.scenario = scenario;
+		this.result = result;
+		this.resultBSR = resultBSR;
+		initialize();
+	}
+	
 	private void initialize(){
 		this.setLayout(new BorderLayout());
 		exportButton = new BHButton(BHBSRStochasticResultController.PanelKeys.EXPORTSCENARIO);
@@ -78,7 +87,10 @@ public class BHBSRStochasticResultPanel extends JPanel{
 		BSRStochasticPanel mainStochastic = new BSRStochasticPanel();
 		if(result.isTimeSeries()){
 			mainStochastic.addTimeSeries();
-		}
+//			if(this.resultBSR!=null)
+//				mainStochastic.addTimeSeries();
+		}		
+		
 		mainPanel = mainStochastic;
 		this.add(mainPanel, BorderLayout.CENTER);
 		JPanel exportArea = new JPanel(new GridBagLayout());

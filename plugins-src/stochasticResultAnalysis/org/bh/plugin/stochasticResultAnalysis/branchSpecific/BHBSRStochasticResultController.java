@@ -56,6 +56,8 @@ import org.bh.platform.PlatformEvent;
 import org.bh.platform.Services;
 import org.jfree.chart.JFreeChart;
 
+import org.bh.platform.i18n.ITranslator;
+
 /**
  * @author unknown
  * @update 23.12.2010 Timo Klein
@@ -64,7 +66,7 @@ import org.jfree.chart.JFreeChart;
 
 public class BHBSRStochasticResultController extends OutputController {
 	public static enum ChartKeys {
-		DISTRIBUTION_CHART, STANDARD_DEVIATION, AVERAGE, RISK_AT_VALUE, BSR_RATIO, RISK_AT_VALUE_MIN, RISK_AT_VALUE_MAX, CASHFLOW_CHART, CASHFLOW_CHART_COMPARE, CASHFLOW_COMPARE_SLIDER, COMPARE_P_HEAD, CASHFLOW_FORECAST;
+		DISTRIBUTION_CHART, STANDARD_DEVIATION, AVERAGE, RISK_AT_VALUE, BSR_RATIO, RISK_AT_VALUE_MIN, RISK_AT_VALUE_MAX, CASHFLOW_CHART, CASHFLOW_CHART_COMPARE, CASHFLOW_COMPARE_SLIDER, CASHFLOW_BSR, VALUE_BSR, COMPARE_P_HEAD, CASHFLOW_FORECAST;
 
 		@Override
 		public String toString() {
@@ -72,6 +74,8 @@ public class BHBSRStochasticResultController extends OutputController {
 		}
 
 	}
+
+	private DistributionMap bsrResult;
 
 	int pAlt = 0;
 
@@ -88,18 +92,43 @@ public class BHBSRStochasticResultController extends OutputController {
 	public BHBSRStochasticResultController(View view, DistributionMap result,
 			DTOScenario scenario) {
 		super(view, result, scenario);
+		// //
+		// ((BHTextField)(view.getBHModelComponents().get(ChartKeys.RISK_AT_VALUE.toString()))).addCaretListener(new
+		// // RiskAtValueListener());
+		// BHSlider slider = (BHSlider) view
+		// .getBHComponent(ChartKeys.RISK_AT_VALUE.toString());
+		// slider.addChangeListener(new SliderChangeListener());
+		//
+		// // BHSlider sliderRatio = (BHSlider) view
+		// // .getBHComponent(ChartKeys.BSR_RATIO.toString());
+		// // sliderRatio.addChangeListener(new SliderChangeListener());
+		//
+		// if (result.isTimeSeries()) {
+		// setResultTimeSeries(result, scenario);
+		//
+		// }
+
+	}
+
+	public BHBSRStochasticResultController(View view, DistributionMap result,
+			DistributionMap resultBSR, DTOScenario scenario) {
+		super(view, result, scenario);
+
+		setResult(result, resultBSR, scenario);
+
 		// ((BHTextField)(view.getBHModelComponents().get(ChartKeys.RISK_AT_VALUE.toString()))).addCaretListener(new
 		// RiskAtValueListener());
 		BHSlider slider = (BHSlider) view
 				.getBHComponent(ChartKeys.RISK_AT_VALUE.toString());
 		slider.addChangeListener(new SliderChangeListener());
-		
-//		BHSlider sliderRatio = (BHSlider) view
-//				.getBHComponent(ChartKeys.BSR_RATIO.toString());
-//		sliderRatio.addChangeListener(new SliderChangeListener());
-		
+
+		// BHSlider sliderRatio = (BHSlider) view
+		// .getBHComponent(ChartKeys.BSR_RATIO.toString());
+		// sliderRatio.addChangeListener(new SliderChangeListener());
+
 		if (result.isTimeSeries()) {
-			setResultTimeSeries(result, scenario);
+			setResultTimeSeries(result, resultBSR, scenario);
+			// evtl noch TODO
 
 		}
 
@@ -119,7 +148,42 @@ public class BHBSRStochasticResultController extends OutputController {
 
 	@Override
 	public void setResult(DistributionMap result, DTOScenario scenario) {
-		log.info("Distribution Chart "+ ChartKeys.DISTRIBUTION_CHART.toString());
+		// log.info("Distribution Chart "
+		// + ChartKeys.DISTRIBUTION_CHART.toString());
+		// super.setResult(result, scenario);
+		// IBHAddValue comp = super.view.getBHchartComponents().get(
+		// ChartKeys.DISTRIBUTION_CHART.toString());
+		// comp.addSeries(
+		// Services.getTranslator().translate(
+		// ChartKeys.DISTRIBUTION_CHART.toString()),
+		// result.toDoubleArray(), result.getAmountOfValues(),
+		// result.getMaxAmountOfValuesInCluster());
+		// comp.addSeries(
+		// Services.getTranslator()
+		// .translate(PanelKeys.AVERAGE.toString()),
+		// new double[][] { { result.getAverage(),
+		// result.getMaxAmountOfValuesInCluster() } });
+		// // componenten für LineChart (Zeitreihenanalyse)
+		//
+		// for (Map.Entry<String, IBHModelComponent> entry : view
+		// .getBHModelComponents().entrySet()) {
+		// if (entry.getKey().equals(ChartKeys.STANDARD_DEVIATION.toString()))
+		// entry.getValue().setValue(
+		// new DoubleValue(result.getStandardDeviation()));
+		// else if (entry.getKey().equals(ChartKeys.AVERAGE.toString()))
+		// entry.getValue().setValue(new DoubleValue(result.getAverage()));
+		// }
+		// double confidence = ((BHSlider) view
+		// .getBHComponent(ChartKeys.RISK_AT_VALUE.toString())).getValue();
+		// calcRiskAtValue(confidence,
+		// stochasticResult.getMaxAmountOfValuesInCluster());
+		// calcRiskAtValue(confidence);
+	}
+
+	public void setResult(DistributionMap result, DistributionMap resultBSR,
+			DTOScenario scenario) {
+		log.info("Distribution Chart "
+				+ ChartKeys.DISTRIBUTION_CHART.toString());
 		super.setResult(result, scenario);
 		IBHAddValue comp = super.view.getBHchartComponents().get(
 				ChartKeys.DISTRIBUTION_CHART.toString());
@@ -128,6 +192,11 @@ public class BHBSRStochasticResultController extends OutputController {
 						ChartKeys.DISTRIBUTION_CHART.toString()),
 				result.toDoubleArray(), result.getAmountOfValues(),
 				result.getMaxAmountOfValuesInCluster());
+		comp.addSeries(
+				Services.getTranslator().translate(
+						BHBSRStochasticResultController.ChartKeys.VALUE_BSR),
+				resultBSR.toDoubleArray(), resultBSR.getAmountOfValues(),
+				resultBSR.getMaxAmountOfValuesInCluster());
 		comp.addSeries(
 				Services.getTranslator()
 						.translate(PanelKeys.AVERAGE.toString()),
@@ -150,7 +219,50 @@ public class BHBSRStochasticResultController extends OutputController {
 		// calcRiskAtValue(confidence);
 	}
 
-	public void setResultTimeSeries(DistributionMap result, DTOScenario scenario) {
+	// public void setResultTimeSeries(DistributionMap result, DTOScenario
+	// scenario) {
+	//
+	// BHSlider sliderCompare = (BHSlider) view
+	// .getBHComponent(ChartKeys.CASHFLOW_COMPARE_SLIDER.toString());
+	// sliderCompare.addChangeListener(new SliderChangeListener());
+	//
+	// IBHAddValue comp2 = super.view.getBHchartComponents().get(
+	// ChartKeys.CASHFLOW_CHART.toString());
+	// comp2.addSeries(
+	// Services.getTranslator().translate(
+	// PanelKeys.CASHFLOW.toString()),
+	// result.toDoubleArrayTS());
+	//
+	// IBHAddValue comp3 = super.view.getBHchartComponents().get(
+	// ChartKeys.CASHFLOW_CHART_COMPARE.toString());
+	// comp3.addSeries(
+	// Services.getTranslator().translate(
+	// PanelKeys.CASHFLOW_IS.toString()),
+	// result.getIsCashflow());
+	// comp3.addSeries(
+	// Services.getTranslator().translate(
+	// PanelKeys.CASHFLOW_FORECAST.toString()),
+	// result.getCompareCashflow());
+	//
+	// String TableKey = PanelKeys.CASHFLOW_TABLE.toString();
+	// BHTable cashTable = ((BHTable) view.getBHComponent(TableKey));
+	// Object[][] data = result.toObjectArrayTS();
+	// int länge = result.getIsCashflow().length;
+	// sliderCompare.setMaximum(länge - 2);
+	// Dictionary map = new Hashtable();
+	// for (int i = 0; i <= länge; i++) {
+	// if ((i % 2) == 0)
+	// map.put(i, new JLabel("" + i));
+	// }
+	// sliderCompare.setLabelTable(map);
+	// String[] headers = { "t", "Cashflow" };
+	// DefaultTableModel tableModel = new DefaultTableModel(data, headers);
+	// cashTable.setTableModel(tableModel);
+
+	// }
+
+	public void setResultTimeSeries(DistributionMap result,
+			DistributionMap resultBSR, DTOScenario scenario) {
 
 		BHSlider sliderCompare = (BHSlider) view
 				.getBHComponent(ChartKeys.CASHFLOW_COMPARE_SLIDER.toString());
@@ -162,6 +274,17 @@ public class BHBSRStochasticResultController extends OutputController {
 				Services.getTranslator().translate(
 						PanelKeys.CASHFLOW.toString()),
 				result.toDoubleArrayTS());
+		comp2.addSeries(
+				Services.getTranslator().translate(
+						BHBSRStochasticResultController.ChartKeys.CASHFLOW_BSR),
+				resultBSR.toDoubleArrayTS());
+
+		// IBHAddValue compBSR = super.view.getBHchartComponents().get(
+		// ChartKeys.CASHFLOW_CHART.toString());
+		// compBSR.addSeries(
+		// Services.getTranslator().translate(
+		// PanelKeys.CASHFLOW.toString()),
+		// resultBSR.toDoubleArrayTS());
 
 		IBHAddValue comp3 = super.view.getBHchartComponents().get(
 				ChartKeys.CASHFLOW_CHART_COMPARE.toString());
@@ -173,6 +296,17 @@ public class BHBSRStochasticResultController extends OutputController {
 				Services.getTranslator().translate(
 						PanelKeys.CASHFLOW_FORECAST.toString()),
 				result.getCompareCashflow());
+
+		// IBHAddValue compBSR2 = super.view.getBHchartComponents().get(
+		// ChartKeys.CASHFLOW_CHART_COMPARE.toString());
+		// compBSR2.addSeries(
+		// Services.getTranslator().translate(
+		// PanelKeys.CASHFLOW_IS.toString()),
+		// resultBSR.getIsCashflow());
+		// compBSR2.addSeries(
+		// Services.getTranslator().translate(
+		// PanelKeys.CASHFLOW_FORECAST.toString()),
+		// resultBSR.getCompareCashflow());
 
 		String TableKey = PanelKeys.CASHFLOW_TABLE.toString();
 		BHTable cashTable = ((BHTable) view.getBHComponent(TableKey));

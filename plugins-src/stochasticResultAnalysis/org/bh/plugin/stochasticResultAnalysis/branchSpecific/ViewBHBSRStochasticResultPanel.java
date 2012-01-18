@@ -23,4 +23,8 @@ public class ViewBHBSRStochasticResultPanel extends View{
     public ViewBHBSRStochasticResultPanel(DTOScenario scenario, DistributionMap result) throws ViewException{
         super(new BHBSRStochasticResultPanel(scenario, result), new ValidationMethods());
     }
+    
+    public ViewBHBSRStochasticResultPanel(DTOScenario scenario, DistributionMap result, DistributionMap resultBSR) throws ViewException{
+        super(new BHBSRStochasticResultPanel(scenario, result, resultBSR), new ValidationMethods());
+    }
 }
