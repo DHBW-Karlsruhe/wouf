@@ -447,6 +447,8 @@ public class PlatformController {
 				DTO.setThrowEvents(true);
 			}
 		}
+		
+		goodnessBranches = ratings;
 	}
 	
 	public List<Double> getAllBSRRatings(){
