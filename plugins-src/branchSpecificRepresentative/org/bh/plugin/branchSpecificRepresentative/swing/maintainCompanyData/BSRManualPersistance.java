@@ -22,19 +22,14 @@ import org.bh.platform.i18n.ITranslator;
  * <short_description> This class implements basic functions to import and
  * export the BSR Data
  * <p>
- * <detailed_description>
+ * <detailed_description> This class implements a manual Import and Export
+ * Dialog, incl. the Import and Export activities in background.
  * 
  * @author Nees.Benedikt
  * @version 1.0, 07.01.2012
  * 
  */
 public class BSRManualPersistance {
-
-	// private static final String IMPORT_PATH_BRANCHES_DEFAULT =
-	// "src/org/bh/companydata/periods.xml";
-	// TODO frage Yannick, ob es ok ist, wenn wir den gleichen String in
-	// Services auf public setzen
-	// oder eine getter Methode einrichten, um Inkonsistenzen zu vermeiden.
 
 	public enum GUI_KEYS {
 		// saveBranches() Error:
@@ -55,6 +50,10 @@ public class BSRManualPersistance {
 	private static final Logger log = Logger
 			.getLogger(PlatformPersistenceManager.class);
 
+	/**
+	 * This method imports an external XML file with Branch Data into the
+	 * internal XML-Structure so users can port their maintained Branch Data.
+	 */
 	public static boolean saveBranches() {
 
 		JFileChooser fileChooser = new JFileChooser();
@@ -117,6 +116,11 @@ public class BSRManualPersistance {
 
 	}
 
+	/**
+	 * This method exports the internal XML-Structure with Branch Data to an
+	 * external XML-file so users can port their maintained Branch Data.
+	 * The XML-file will be validated.
+	 */
 	public static void loadBranches() {
 		Map<String, IImportExport> plugins = Services
 				.getImportExportPlugins(IImportExport.IMP_PROJECT);
@@ -165,39 +169,6 @@ public class BSRManualPersistance {
 							JOptionPane.ERROR_MESSAGE);
 			log.error("Could not load branches from external file.", exc);
 
-			// Deleted 2012-01-17 Nees.Benedikt:
-			// If there is an error loading the external XML, no alternative
-			// action should executed.
-
-			// if (xmlBranchesName != null) {
-			// // Fallback to data in home directory
-			// log.info("Try to load default company data from home directory.");
-			// xmlBranchesName = PlatformController.preferences.get(
-			// "branches", null);
-			//
-			// plugin.setFile(xmlBranchesName);
-			// try {
-			// bd = (DTOBusinessData) plugin.startImport();
-			// } catch (Exception exc2) {
-			// // Fallback to default data
-			// log.error("Could not load branches from home directory.",
-			// exc2);
-			//
-			// plugin.setFile(BSRManualPersistance.IMPORT_PATH_BRANCHES_DEFAULT);
-			// try {
-			// bd = (DTOBusinessData) plugin.startImport();
-			// } catch (Exception exc3) {
-			// // Create new DTO
-			// log.error("Could not load branches at all.", exc3);
-			// log.info("Start with no data.");
-			// bd = new DTOBusinessData();
-			// }
-			// }
-			// } else {
-			// // Create new DTO
-			// bd = new DTOBusinessData();
-			// }
-			
 		} finally {
 			// Get PlatformController to store data
 			PlatformController platformController = PlatformController
