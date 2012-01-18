@@ -40,9 +40,27 @@ public class BranchSpecificCalculator implements IBranchSpecificCalculator {
 		DTOBranch currBranch = getSelectedBranch(businessData);
 
 		this.scenario = scenario;
+		
+		// ----------------------------------------------------------------------------
+		// !!!!!!!ACHTUNG !!!!!! zu Testzwecken die currBranche auf "M1033"
+		// setzen
+		currBranch.put(DTOBranch.Key.BRANCH_KEY_MAIN_CATEGORY, new StringValue(
+				"C"));
+		currBranch.put(DTOBranch.Key.BRANCH_KEY_MID_CATEGORY, new StringValue(
+				"25"));
+		currBranch.put(DTOBranch.Key.BRANCH_KEY_SUB_CATEGORY, new StringValue(
+				"9"));
+		// ----------------------------------------------------------------------------
+		
+		
 
-		// Tabelle erstellen + Durchschnitt der Unternehmen + 3. Wurzel
+		// Tabelle erstellen
 		double[][] companiesAndPeriodsNotNormed = createTable(currBranch);
+		
+		// Normierte Tabelle erstellen
+		double[][] companiesAndPeriodsNormed = createTable(currBranch);
+		
+		// Durchschnitt der Unternehmen + 3. Wurzel
 		double[] averageCompanyNotNormed = getAverage(
 				companiesAndPeriodsNotNormed, "company");
 		double[] cubeRoot = getCubeRoot(averageCompanyNotNormed);
@@ -60,9 +78,6 @@ public class BranchSpecificCalculator implements IBranchSpecificCalculator {
 			}
 
 		}
-
-		// Normierte Tabelle erstellen
-		double[][] companiesAndPeriodsNormed = createTable(currBranch);
 
 		// Stutzung der normierten Tabelle
 		double[][] companyAndPeriodsNormedTrimmed = trimmedAverage(
@@ -90,7 +105,7 @@ public class BranchSpecificCalculator implements IBranchSpecificCalculator {
 
 		computeRating(dtoBSRaverage, businessData);
 
-		this.scenario.setBsrCalculatorWithRating(this);
+//		this.scenario.setBsrCalculatorWithRating(this);
 
 		return dtoBSRaverage;
 
@@ -305,6 +320,8 @@ public class BranchSpecificCalculator implements IBranchSpecificCalculator {
 		double[] result = null;
 
 		if (choice == "company") {
+			System.out.println("Company - Zeilen: " + table[0].length);
+			System.out.println("Company - Spalten: " + table.length);
 			result = new double[table.length];
 			for (int spalte = 0; spalte < table.length; spalte++) {
 				for (int zeile = 0; zeile < table[0].length; zeile++) {
@@ -315,10 +332,14 @@ public class BranchSpecificCalculator implements IBranchSpecificCalculator {
 			}
 
 		} else if (choice == "year") {
+			result = null;
+			System.out.println("Zeilen: " + table[0].length);
+			System.out.println("Spalten: " + table.length);
 			result = new double[table[0].length];
+			System.out.println("" + result.length);
 			for (int zeile = 0; zeile < table[0].length; zeile++) {
 				for (int spalte = 0; spalte < table.length; spalte++) {
-					result[zeile] = result[zeile] + table[zeile][spalte];
+	 				result[zeile] = result[zeile] + table[spalte][zeile];
 				}
 				result[zeile] = result[zeile] / table.length;
 			}
