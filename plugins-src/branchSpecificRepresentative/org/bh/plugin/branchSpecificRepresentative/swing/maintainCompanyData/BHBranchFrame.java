@@ -4,6 +4,7 @@ import java.awt.BorderLayout;
 
 import javax.swing.JPanel;
 import javax.swing.JSplitPane;
+import javax.swing.JTextField;
 
 import org.bh.data.DTOBranch;
 import org.bh.data.DTOCompany;
@@ -23,13 +24,14 @@ public class BHBranchFrame extends JPanel {
 
 public BHBranchFrame(DTOBranch branch){ 
 		this.setLayout(new BorderLayout());
-		BHTextField main = new BHTextField(branch.get(DTOBranch.Key.BRANCH_KEY_MAIN_CATEGORY));
-		BHTextField mid = new BHTextField(branch.get(DTOBranch.Key.BRANCH_KEY_MID_CATEGORY));
-		BHTextField sub = new BHTextField(branch.get(DTOBranch.Key.BRANCH_KEY_SUB_CATEGORY));
+		System.out.println("Branch Frame Created");
+		JTextField main = new JTextField(branch.get(DTOBranch.Key.BRANCH_KEY_MAIN_CATEGORY).toString());
+		JTextField mid = new JTextField(branch.get(DTOBranch.Key.BRANCH_KEY_MID_CATEGORY).toString());
+		JTextField sub = new JTextField(branch.get(DTOBranch.Key.BRANCH_KEY_SUB_CATEGORY).toString());
 		
-		JSplitPane paneH = new JSplitPane(JSplitPane.HORIZONTAL_SPLIT, main, mid);
+		JSplitPane paneH = new JSplitPane(JSplitPane.HORIZONTAL_SPLIT, main, sub);
 		
-		this.add(paneH);
+		this.add(paneH, BorderLayout.CENTER);
 	}
 	
 

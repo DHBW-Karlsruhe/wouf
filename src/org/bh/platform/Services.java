@@ -218,12 +218,13 @@ public class Services {
 	 */
 	public static boolean doesBranchSpecificRepresentativePluginExist() {
 		boolean isLoaded = false;
-		ServiceLoader<BHPopupFrame> popUpFrames = PluginManager
-				.getInstance().getServices(BHPopupFrame.class);
-		if(popUpFrames.iterator().hasNext()){
-			isLoaded = true;
-		}
-		return isLoaded;
+//		ServiceLoader<BHPopupFrame> popUpFrames = PluginManager
+//				.getInstance().getServices(BHPopupFrame.class);
+//		if(popUpFrames.iterator().hasNext()){
+//			isLoaded = true;
+//		}
+//		return isLoaded;
+		return true;
 	}
 	
 	/**

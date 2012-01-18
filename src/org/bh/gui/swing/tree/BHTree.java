@@ -190,8 +190,7 @@ public class BHTree extends JTree {
      * @author Thiele.Klaus
      * @version 1.0, 2009/12/29
      * 
-     */
-    public class BHTreeCellRenderer implements TreeCellRenderer {
+     */    public class BHTreeCellRenderer implements TreeCellRenderer {
 
 	/**
 	 * provides a <code>Component</code> for each node in the tree. Is
@@ -536,7 +535,6 @@ public class BHTree extends JTree {
 	    TreePath selPath = BHTree.this.getPathForLocation(e.getX(), e.getY());
 	    if (selPath != null && e.isPopupTrigger()) {
 		BHTree.this.setSelectionPath(selPath);
-
 		if (((BHTreeNode) selPath.getLastPathComponent()).getUserObject() instanceof DTOProject) {
 		    showPopup(e, BHTreePopup.Type.PROJECT);
 		} else {

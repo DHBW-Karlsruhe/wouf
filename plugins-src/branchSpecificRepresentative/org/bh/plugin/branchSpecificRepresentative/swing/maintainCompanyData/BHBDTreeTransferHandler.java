@@ -1,0 +1,478 @@
+/*******************************************************************************
+ * Copyright 2011: Matthias Beste, Hannes Bischoff, Lisa Doerner, Victor Guettler, Markus Hattenbach, Tim Herzenstiel, Günter Hesse, Jochen Hülß, Daniel Krauth, Lukas Lochner, Mark Maltring, Sven Mayer, Benedikt Nees, Alexandre Pereira, Patrick Pfaff, Yannick Rödl, Denis Roster, Sebastian Schumacher, Norman Vogel, Simon Weber 
+ *
+ * Copyright 2010: Anna Aichinger, Damian Berle, Patrick Dahl, Lisa Engelmann, Patrick Groß, Irene Ihl, Timo Klein, Alena Lang, Miriam Leuthold, Lukas Maciolek, Patrick Maisel, Vito Masiello, Moritz Olf, Ruben Reichle, Alexander Rupp, Daniel Schäfer, Simon Waldraff, Matthias Wurdig, Andreas Wußler
+ *
+ * Copyright 2009: Manuel Bross, Simon Drees, Marco Hammel, Patrick Heinz, Marcel Hockenberger, Marcus Katzor, Edgar Kauz, Anton Kharitonov, Sarah Kuhn, Michael Löckelt, Heiko Metzger, Jacqueline Missikewitz, Marcel Mrose, Steffen Nees, Alexander Roth, Sebastian Scharfenberger, Carsten Scheunemann, Dave Schikora, Alexander Schmalzhaf, Florian Schultze, Klaus Thiele, Patrick Tietze, Robert Vollmer, Norman Weisenburger, Lars Zuckschwerdt
+ *
+ * Copyright 2008: Camil Bartetzko, Tobias Bierer, Lukas Bretschneider, Johannes Gilbert, Daniel Huser, Christopher Kurschat, Dominik Pfauntsch, Sandra Rath, Daniel Weber
+ *
+ * This program is free software: you can redistribute it and/or modify it un-der the terms of the GNU General Public License as published by the Free Software Foundation, either version 3 of the License, or (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FIT-NESS FOR A PARTICULAR PURPOSE.  See the GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ *******************************************************************************/
+package  org.bh.plugin.branchSpecificRepresentative.swing.maintainCompanyData;
+
+
+import java.awt.AlphaComposite;
+import java.awt.Graphics;
+import java.awt.Graphics2D;
+import java.awt.Point;
+import java.awt.Rectangle;
+import java.awt.datatransfer.Transferable;
+import java.awt.dnd.DnDConstants;
+import java.awt.dnd.DragGestureEvent;
+import java.awt.dnd.DragGestureListener;
+import java.awt.dnd.DragSource;
+import java.awt.dnd.DragSourceDragEvent;
+import java.awt.dnd.DragSourceDropEvent;
+import java.awt.dnd.DragSourceEvent;
+import java.awt.dnd.DragSourceListener;
+import java.awt.dnd.DropTarget;
+import java.awt.dnd.DropTargetDragEvent;
+import java.awt.dnd.DropTargetDropEvent;
+import java.awt.dnd.DropTargetEvent;
+import java.awt.dnd.DropTargetListener;
+import java.awt.image.BufferedImage;
+
+import javax.swing.JComponent;
+import javax.swing.JPanel;
+import javax.swing.JTree;
+import javax.swing.tree.DefaultMutableTreeNode;
+import javax.swing.tree.DefaultTreeModel;
+import javax.swing.tree.TreePath;
+
+import org.bh.data.DTOCompany;
+import org.bh.data.DTOPeriod;
+import org.bh.data.DTOProject;
+import org.bh.data.DTOScenario;
+import org.bh.gui.swing.tree.TransferableNode;
+
+public class BHBDTreeTransferHandler implements DragGestureListener, DragSourceListener, DropTargetListener {
+
+    private DragSource dragSource; 
+    private static DefaultMutableTreeNode draggedNode;
+    private DefaultMutableTreeNode draggedNodeParent;
+    private static BufferedImage image = null;
+    private boolean drawImage;
+    private JTree tree;
+    private JPanel dragLine;
+
+    protected BHBDTreeTransferHandler(JTree tree, int action, boolean drawIcon) {
+	this.tree = tree;
+	drawImage = drawIcon;
+	dragSource = new DragSource();
+	dragSource.createDefaultDragGestureRecognizer(tree, action, this);
+	
+	new DropTarget(tree, action, this);
+
+	// init dragLine
+	@SuppressWarnings("serial")
+	class dragLine extends JPanel {
+	    @Override
+	    public void paint(Graphics g) {
+		// dragLine consists of one bar...
+		super.paint(g);
+		g.fillRoundRect(0, 0, 120, 4, 2, 2);
+
+	    }
+	}
+	dragLine = new dragLine();
+    }
+
+    protected BHBDTreeTransferHandler(JTree tree, int action) {
+	this(tree, action, false);
+    }
+
+    /* Methods for DragSourceListener */
+    public void dragDropEnd(DragSourceDropEvent dsde) {
+	if (dsde.getDropSuccess() && dsde.getDropAction() == DnDConstants.ACTION_MOVE && draggedNodeParent != null) {
+	    ((DefaultTreeModel) tree.getModel()).nodeStructureChanged(draggedNodeParent);
+	}
+	tree.remove(dragLine);
+    }
+
+    public final void dragEnter(DragSourceDragEvent dsde) {
+	int action = dsde.getDropAction();
+	if (action == DnDConstants.ACTION_COPY) {
+	    dsde.getDragSourceContext().setCursor(DragSource.DefaultCopyDrop);
+	} else {
+	    if (action == DnDConstants.ACTION_MOVE) {
+		dsde.getDragSourceContext().setCursor(DragSource.DefaultMoveDrop);
+	    } else {
+		dsde.getDragSourceContext().setCursor(DragSource.DefaultMoveNoDrop);
+	    }
+	}
+    }
+
+    public final void dragOver(DragSourceDragEvent dsde) {
+	int action = dsde.getDropAction();
+	if (action == DnDConstants.ACTION_COPY) {
+	    dsde.getDragSourceContext().setCursor(DragSource.DefaultCopyDrop);
+	} else {
+	    if (action == DnDConstants.ACTION_MOVE) {
+		dsde.getDragSourceContext().setCursor(DragSource.DefaultMoveDrop);
+	    } else {
+		dsde.getDragSourceContext().setCursor(DragSource.DefaultMoveNoDrop);
+	    }
+	}
+    }
+
+    public final void dropActionChanged(DragSourceDragEvent dsde) {
+	int action = dsde.getDropAction();
+	if (action == DnDConstants.ACTION_COPY) {
+	    dsde.getDragSourceContext().setCursor(DragSource.DefaultCopyDrop);
+	} else {
+	    if (action == DnDConstants.ACTION_MOVE) {
+		dsde.getDragSourceContext().setCursor(DragSource.DefaultMoveDrop);
+	    } else {
+		dsde.getDragSourceContext().setCursor(DragSource.DefaultMoveNoDrop);
+	    }
+	}
+    }
+
+    public final void dragExit(DragSourceEvent dse) {
+	dse.getDragSourceContext().setCursor(DragSource.DefaultMoveNoDrop);
+    }
+
+    /* Methods for DragGestureListener */
+    public final void dragGestureRecognized(DragGestureEvent dge) {
+	TreePath path = tree.getSelectionPath();
+	if (path != null) {
+	    draggedNode = (DefaultMutableTreeNode) path.getLastPathComponent();
+	    draggedNodeParent = (DefaultMutableTreeNode) draggedNode.getParent();
+	    if (drawImage) {
+		Rectangle pathBounds = tree.getPathBounds(path);
+		
+		JComponent lbl = (JComponent) tree.getCellRenderer().getTreeCellRendererComponent(tree, draggedNode, false, tree.isExpanded(path),
+			((DefaultTreeModel) tree.getModel()).isLeaf(path.getLastPathComponent()), 0, false);
+		
+		lbl.setBounds(pathBounds);
+		image = new BufferedImage(lbl.getWidth(), lbl.getHeight(), java.awt.image.BufferedImage.TYPE_INT_ARGB_PRE);
+		
+		Graphics2D graphics = image.createGraphics();
+		
+		graphics.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, 0.5f));
+		
+		lbl.setOpaque(false);
+		lbl.paint(graphics); 
+		graphics.dispose();
+	    }
+	    dragSource.startDrag(dge, DragSource.DefaultMoveNoDrop, image, new Point(0, 0), new TransferableNode(draggedNode), this);
+	}
+    }
+
+    /* Methods for DropTargetListener */
+
+    public final void dragEnter(DropTargetDragEvent dtde) {
+	Point pt = dtde.getLocation();
+	int action = dtde.getDropAction();
+
+	if (canPerformAction(tree, draggedNode, action, pt)) {
+	    dtde.acceptDrag(action);
+	} else {
+	    dtde.rejectDrag();
+	}
+    }
+
+    public final void dragExit(DropTargetEvent dte) {
+	tree.remove(dragLine);
+    }
+
+    public final void dragOver(DropTargetDragEvent dtde) {
+	Point pt = dtde.getLocation();
+	int action = dtde.getDropAction();
+
+	if (canPerformAction(tree, draggedNode, action, pt)) {
+
+	    if (dragLine.getParent() == null) {
+		tree.add(dragLine);
+	    }
+
+	    /*
+	     * get Position for dragLine
+	     */
+
+	    int targetRow = 0;
+	    Point targetPos;
+
+	    BHBusinessDataTreeNode targetBHNode = (BHBusinessDataTreeNode) tree.getPathForLocation(dtde.getLocation().x, dtde.getLocation().y).getLastPathComponent();
+	    // Scenario is target
+	    if (targetBHNode.getUserObject() instanceof DTOScenario) {
+		// Scenario is dragged
+		if (((BHBusinessDataTreeNode) draggedNode).getUserObject() instanceof DTOScenario) {
+		    targetRow = tree.getRowForLocation(dtde.getLocation().x, dtde.getLocation().y);
+		    targetPos = tree.getRowBounds(targetRow).getLocation();
+		    if (dtde.getLocation().y < targetPos.y + tree.getRowBounds(targetRow).height / 2) {
+			dragLine.setBounds(targetPos.x, targetPos.y - 3, 120, 4);
+		    } else {
+			dragLine.setBounds(targetPos.x, targetPos.y + tree.getRowBounds(targetRow).height - 1, 120, 4);
+		    }
+
+		    // Period is dragged
+		} else if (((BHBusinessDataTreeNode) draggedNode).getUserObject() instanceof DTOPeriod) {
+		    tree.remove(dragLine);
+		    tree.repaint();
+		}
+
+	    } else
+
+	    // Period is target
+	    if (targetBHNode.getUserObject() instanceof DTOPeriod) {
+		targetRow = tree.getRowForLocation(dtde.getLocation().x, dtde.getLocation().y);
+		targetPos = tree.getRowBounds(targetRow).getLocation();
+		if (dtde.getLocation().y < targetPos.y + tree.getRowBounds(targetRow).height / 2) {
+		    dragLine.setBounds(targetPos.x, targetPos.y - 3, 120, 4);
+		}
+		if (dtde.getLocation().y > targetPos.y + tree.getRowBounds(targetRow).height / 2) {
+		    dragLine.setBounds(targetPos.x, targetPos.y + tree.getRowBounds(targetRow).height - 1, 120, 4);
+		}
+	    } else
+
+	    // Project is target
+	    if (targetBHNode.getUserObject() instanceof DTOProject) {
+		tree.remove(dragLine);
+		tree.repaint();
+	    }
+
+	    dtde.acceptDrag(action);
+
+	} else {
+	    dtde.rejectDrag();
+	    if (dragLine.getParent() != null) {
+		tree.remove(dragLine);
+		tree.repaint();
+	    }
+
+	}
+    }
+
+    public final void dropActionChanged(DropTargetDragEvent dtde) {
+	Point pt = dtde.getLocation();
+	int action = dtde.getDropAction();
+	if (canPerformAction(tree, draggedNode, action, pt)) {
+	    dtde.acceptDrag(action);
+	} else {
+	    dtde.rejectDrag();
+	}
+    }
+
+    public final void drop(DropTargetDropEvent dtde) {
+	if (dragLine.getParent() != null) {
+	    tree.remove(dragLine);
+	    tree.repaint();
+	}
+	try {
+	    int action = dtde.getDropAction();
+	    Transferable transferable = dtde.getTransferable();
+	    Point pt = dtde.getLocation();
+	    if (transferable.isDataFlavorSupported(TransferableNode.NODE_FLAVOR) && canPerformAction(tree, draggedNode, action, pt)) {
+		TreePath pathTarget = tree.getPathForLocation(pt.x, pt.y);
+		DefaultMutableTreeNode node = (DefaultMutableTreeNode) transferable.getTransferData(TransferableNode.NODE_FLAVOR);
+		DefaultMutableTreeNode newParentNode = (DefaultMutableTreeNode) pathTarget.getLastPathComponent();
+		if (executeDrop(tree, node, newParentNode, action, dtde.getLocation())) {
+		    dtde.acceptDrop(action);
+		    dtde.dropComplete(true);
+		    return;
+		}
+	    }
+	    dtde.rejectDrop();
+	    dtde.dropComplete(false);
+	} catch (Exception e) {
+	    // System.out.println(e);
+	    dtde.rejectDrop();
+	    dtde.dropComplete(false);
+	}
+    }
+
+    public boolean canPerformAction(JTree target, DefaultMutableTreeNode draggedNode, int action, Point location) {
+
+	// check if everything's allright with BHBusinessDataTreeNodes...
+	if (draggedNode instanceof BHBusinessDataTreeNode) {
+
+	    // wrap node (to get UserObjects)
+		BHBusinessDataTreeNode draggedBHNode = (BHBusinessDataTreeNode) draggedNode;
+
+	    // get target and set selection if possible
+	    TreePath targetPath = target.getPathForLocation(location.x, location.y);
+	    if (targetPath == null) {
+		return false;
+	    }
+
+	    // check if source and target are equal
+	    if (targetPath.getLastPathComponent().equals(draggedNode)) {
+		return false;
+	    }
+
+	    if (draggedBHNode.getUserObject() instanceof DTOPeriod) {
+
+		/*
+		 * Allow to Move Period to other Scenario
+		 */
+		if (action == DnDConstants.ACTION_MOVE) {
+		    if (((BHBusinessDataTreeNode) targetPath.getLastPathComponent()).getUserObject() instanceof DTOPeriod) {
+			if (((DTOCompany) ((BHBusinessDataTreeNode) ((BHBusinessDataTreeNode) targetPath.getLastPathComponent()).getParent()).getUserObject()).get(DTOScenario.Key.PERIOD_TYPE).toString().equalsIgnoreCase(
+				((DTOScenario) ((BHBusinessDataTreeNode) draggedBHNode.getParent()).getUserObject()).get(DTOScenario.Key.PERIOD_TYPE).toString())) {
+			    target.setSelectionPath(targetPath);
+			    return true;
+			}
+
+		    } else if (((BHBusinessDataTreeNode) targetPath.getLastPathComponent()).getUserObject() instanceof DTOScenario) {
+			if (((DTOScenario) ((BHBusinessDataTreeNode) targetPath.getLastPathComponent()).getUserObject()).get(DTOScenario.Key.PERIOD_TYPE).toString().equalsIgnoreCase(
+				((DTOScenario) ((BHBusinessDataTreeNode) draggedBHNode.getParent()).getUserObject()).get(DTOScenario.Key.PERIOD_TYPE).toString())) {
+			    target.setSelectionPath(targetPath);
+			    return true;
+			}
+		    }
+
+		}
+	    } else if (draggedBHNode.getUserObject() instanceof DTOScenario) {
+
+		/*
+		 * Allow to Move Scenario to other Project
+		 */
+		if (action == DnDConstants.ACTION_MOVE) {
+		    if (((BHBusinessDataTreeNode) targetPath.getLastPathComponent()).getUserObject() instanceof DTOScenario
+			    || ((BHBusinessDataTreeNode) targetPath.getLastPathComponent()).getUserObject() instanceof DTOProject) {
+			target.setSelectionPath(targetPath);
+			return true;
+		    }
+		}
+	    }
+	}
+	// otherwise no DnD is possible
+	return false;
+
+    }
+
+    public boolean executeDrop(JTree target, DefaultMutableTreeNode draggedNode, DefaultMutableTreeNode newParentNode, int action, Point location) {
+
+	// check if everything's allright with BHBusinessDataTreeNodes...
+	if (draggedNode instanceof BHBusinessDataTreeNode) {
+
+	    // wrap node (to get UserObjects)
+		BHBusinessDataTreeNode draggedBHNode = (BHBusinessDataTreeNode) draggedNode;
+
+	    if (draggedBHNode.getUserObject() instanceof DTOPeriod) {
+
+		if (action == DnDConstants.ACTION_MOVE) {
+		    DTOPeriod periodDto = (DTOPeriod) draggedBHNode.getUserObject();
+
+		    if (((BHBusinessDataTreeNode) newParentNode).getUserObject() instanceof DTOScenario) {
+			// remove and add to new UI-Node...
+			draggedBHNode.removeFromParent();
+			((DefaultTreeModel) target.getModel()).insertNodeInto(draggedBHNode, newParentNode, newParentNode.getChildCount());
+			// ...and from and to DTO structure
+			periodDto.getScenario().removeChild(periodDto);
+			((DTOScenario) ((BHBusinessDataTreeNode) newParentNode).getUserObject()).addChild(periodDto);
+		    } else if (((BHBusinessDataTreeNode) newParentNode).getUserObject() instanceof DTOPeriod) {
+			// find out position of new node/DTO
+			try {
+			    int targetRow = target.getRowForLocation(location.x, location.y);
+			    int targetIdx = 0;
+			    int offset = 0;
+
+			    if (targetRow == -1) {
+				// get last position of children
+				targetIdx = ((BHBusinessDataTreeNode) ((BHBusinessDataTreeNode) target.getSelectionPath().getLastPathComponent()).getParent()).getIndex((BHBusinessDataTreeNode) target.getSelectionPath()
+					.getLastPathComponent());
+
+			    } else {
+
+				Point targetPos = tree.getRowBounds(targetRow).getLocation();
+
+				// add over selected node
+				if (location.y < targetPos.y + tree.getRowBounds(targetRow).height / 2) {
+				    if (!((DTOScenario) ((BHBusinessDataTreeNode) ((BHBusinessDataTreeNode) target.getSelectionPath().getLastPathComponent()).getParent()).getUserObject()).isDeterministic()) {
+					offset = 0;
+				    } else {
+					offset = 0;
+				    }
+
+				}
+
+				// add below selected node
+				if (location.y > targetPos.y + tree.getRowBounds(targetRow).height / 2) {
+				    if (!((DTOScenario) ((BHBusinessDataTreeNode) ((BHBusinessDataTreeNode) target.getSelectionPath().getLastPathComponent()).getParent()).getUserObject()).isDeterministic()) {
+					offset = 1;
+				    } else {
+					offset = 1;
+				    }
+				}
+
+				// handle diff of "dragUp" vs. "dragDown"
+				if (target.getRowForPath(target.getSelectionPath()) > target.getRowForPath(new TreePath(draggedNode.getPath()))
+					&& ((BHBusinessDataTreeNode) ((BHBusinessDataTreeNode) target.getSelectionPath().getLastPathComponent()).getParent()) == draggedBHNode.getParent()) {
+				    targetIdx -= 1;
+				}
+
+				targetIdx += ((BHBusinessDataTreeNode) ((BHBusinessDataTreeNode) target.getSelectionPath().getLastPathComponent()).getParent()).getIndex((BHBusinessDataTreeNode) target.getSelectionPath()
+					.getLastPathComponent())
+					+ offset;
+
+			    }
+
+
+			    // ...and to DTO structure
+			    periodDto.getScenario().removeChild(periodDto);
+			    int dtoIdx = ((DTOScenario) ((BHBusinessDataTreeNode) newParentNode.getParent()).getUserObject()).getChildren().indexOf(((BHBusinessDataTreeNode) newParentNode).getUserObject());
+			    if (((DTOScenario) ((BHBusinessDataTreeNode) ((BHBusinessDataTreeNode) target.getSelectionPath().getLastPathComponent()).getParent()).getUserObject()).isDeterministic()) {
+				dtoIdx += offset;
+			    } else {
+				dtoIdx += Math.abs(offset-1) ;
+				
+			    }
+			    
+			    ((DTOScenario) ((BHBusinessDataTreeNode) newParentNode.getParent()).getUserObject()).addChildToPosition(periodDto, dtoIdx);
+			    // add to new UI-Node...
+			    draggedBHNode.removeFromParent();
+			    ((DefaultTreeModel) target.getModel()).insertNodeInto(draggedBHNode, (BHBusinessDataTreeNode) newParentNode.getParent(), targetIdx);
+
+			} catch (Exception e) {
+			    e.printStackTrace();
+			}
+		    }
+
+		    // do selection
+		    TreePath treePath = new TreePath(draggedNode.getPath());
+		    target.scrollPathToVisible(treePath);
+		    target.setSelectionPath(treePath);
+
+		    return true;
+		}
+
+	    } else
+
+	    if (draggedBHNode.getUserObject() instanceof DTOScenario) {
+		// handle move of Period
+		if (action == DnDConstants.ACTION_MOVE) {
+		    DTOScenario scenarioDto = (DTOScenario) draggedBHNode.getUserObject();
+
+		    // Remove from DTO basis...
+		    ((DTOProject) ((BHBusinessDataTreeNode) draggedBHNode.getParent()).getUserObject()).removeChild(scenarioDto);
+		    // ...and from UI
+		    draggedBHNode.removeFromParent();
+
+		    // add to new UI-Node...
+		    if (((BHBusinessDataTreeNode) newParentNode).getUserObject() instanceof DTOProject) {
+			((DefaultTreeModel) target.getModel()).insertNodeInto(draggedBHNode, newParentNode, newParentNode.getChildCount());
+			// ...and to DTO structure
+			((DTOProject) ((BHBusinessDataTreeNode) newParentNode).getUserObject()).addChild(scenarioDto);
+		    } else if (((BHBusinessDataTreeNode) newParentNode).getUserObject() instanceof DTOScenario) {
+			((DefaultTreeModel) target.getModel()).insertNodeInto(draggedBHNode, (BHBusinessDataTreeNode) newParentNode.getParent(), ((BHBusinessDataTreeNode) newParentNode).getParent().getChildCount());
+			// ...and to DTO structure
+			((DTOProject) ((BHBusinessDataTreeNode) newParentNode.getParent()).getUserObject()).addChild(scenarioDto);
+		    }
+
+		}
+	    }
+
+	}
+
+	return false;
+
+    }
+
+}
