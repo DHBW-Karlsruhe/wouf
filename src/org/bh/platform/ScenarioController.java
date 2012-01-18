@@ -447,21 +447,23 @@ public class ScenarioController extends InputController {
 //			
 //		}
 //		
-//		if(cbrepresentative != null){
-//			ItemListener itemListener = new ItemListener() {
-//			      public void itemStateChanged(ItemEvent itemEvent) {
-//			    	//save selected branch
-//			    	  if (itemEvent.getStateChange() == ItemEvent.SELECTED) {
-//						DTOScenario scenario = (DTOScenario) getModel();
-//						StringValue industry;
-//						BHComboBox cbrepresentative = (BHComboBox) view.getBHComponent(DTOScenario.Key.REPRESENTATIVE);
-//						industry = new StringValue(cbrepresentative.getSelectedItem().toString());
-//						scenario.put(DTOScenario.Key.INDUSTRY, industry);
-//			    	  }
-//			      }
-//			    };
-//			    cbrepresentative.addItemListener(itemListener);
-//		}
+		if(cbrepresentative != null){
+			ItemListener itemListener = new ItemListener() {
+			      public void itemStateChanged(ItemEvent itemEvent) {
+			    	//save selected branch
+		    	  if (itemEvent.getStateChange() == ItemEvent.SELECTED) {
+					DTOScenario scenario = (DTOScenario) getModel();
+						String[] selected;
+						StringValue industry;
+						BHComboBox cbrepresentative = (BHComboBox) view.getBHComponent(DTOScenario.Key.REPRESENTATIVE);
+						selected = cbrepresentative.getSelectedItem().toString().split(":");
+						industry = new StringValue(selected[0]);
+						scenario.put(DTOScenario.Key.INDUSTRY, industry);
+			    	  }
+			      }
+			    };
+			    cbrepresentative.addItemListener(itemListener);
+		}
 //		
 //		
 //		BHComboBox cmbPeriodType = (BHComboBox) view.getBHComponent(DTOScenario.Key.PERIOD_TYPE);
@@ -520,8 +522,10 @@ public class ScenarioController extends InputController {
 						
 						//save selected branch
 						DTOScenario scenario = (DTOScenario) getModel();
+						String[] selected;
 						StringValue industry;
-						industry = new StringValue(cbrepresentative.getSelectedItem().toString());
+						selected = cbrepresentative.getSelectedItem().toString().split(":");
+						industry = new StringValue(selected[0]);
 						scenario.put(DTOScenario.Key.INDUSTRY, industry);
 						
 					} else {
