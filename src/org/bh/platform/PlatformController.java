@@ -17,7 +17,9 @@ package org.bh.platform;
 
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.LinkedList;
 import java.util.List;
+import java.util.ServiceLoader;
 import java.util.prefs.Preferences;
 
 import javax.swing.tree.DefaultMutableTreeNode;
@@ -26,8 +28,10 @@ import javax.swing.tree.TreeNode;
 import javax.swing.tree.TreePath;
 
 import org.apache.log4j.Logger;
+import org.bh.calculation.IBranchSpecificCalculator;
 import org.bh.data.DTO;
 import org.bh.data.DTOAccessException;
+import org.bh.data.DTOBranch;
 import org.bh.data.DTOBusinessData;
 import org.bh.data.DTOPeriod;
 import org.bh.data.DTOProject;
@@ -72,6 +76,7 @@ public class PlatformController {
 			.getInstance();
 
 	private DTOBusinessData businessDataDTO;
+	private List<Double> goodnessBranches;
 
 	/**
 	 * Reference to a preference object which allows platform independent
@@ -403,6 +408,49 @@ public class PlatformController {
 	 */
 	public void setBusinessDataDTO(DTOBusinessData businessDataDTO) {
 		this.businessDataDTO = businessDataDTO;
+		
+		calculateRatings();
+	}
+	
+	private void calculateRatings(){
+		List<DTOBranch> branches = this.businessDataDTO.getChildren();
+		
+		DTOScenario scenario = new DTOScenario();
+		
+		//Load Calculator Plugin(s) - should be one
+		ServiceLoader<IBranchSpecificCalculator> calculators = PluginManager
+		.getInstance().getServices(IBranchSpecificCalculator.class);
+		// calculate branch specific values
+		
+		IBranchSpecificCalculator calculator = calculators.iterator().next();
+		
+		LinkedList<Double> ratings = new LinkedList<Double>();
+		
+		if(calculator != null){
+			for(DTOBranch branch: branches){
+				String key = branch.get(DTOBranch.Key.BRANCH_KEY_MAIN_CATEGORY).toString();
+				key += "." + branch.get(DTOBranch.Key.BRANCH_KEY_MID_CATEGORY).toString();
+				key += "." + branch.get(DTOBranch.Key.BRANCH_KEY_SUB_CATEGORY).toString();
+			
+				StringValue string = new StringValue(key);
+			
+				DTO.setThrowEvents(false);
+				
+				scenario.put(DTOScenario.Key.REPRESENTATIVE, string);
+			
+				
+				// berechne Branch Specific Representative und dessen Güte
+				calculator.calculateBSR(this.businessDataDTO, scenario);
+				ratings.add(calculator.getRating());
+				
+//				log.debug(branchSpecificRep);
+				DTO.setThrowEvents(true);
+			}
+		}
+	}
+	
+	public List<Double> getAllBSRRatings(){
+		return goodnessBranches;
 	}
 
 	/**
