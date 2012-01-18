@@ -1,7 +1,6 @@
 package org.bh.plugin.branchSpecificRepresentative.calc;
 
 import java.awt.Color;
-
 import java.util.Iterator;
 import java.util.List;
 
@@ -14,6 +13,7 @@ import org.bh.data.DTOCompany;
 import org.bh.data.DTOPeriod;
 import org.bh.data.DTOScenario;
 import org.bh.data.types.DoubleValue;
+import org.bh.data.types.StringValue;
 import org.bh.platform.PlatformController;
 
 /**
@@ -35,19 +35,23 @@ public class BranchSpecificCalculator implements IBranchSpecificCalculator {
 
 	public DTOCompany calculateBSR(DTOBusinessData businessData,
 			DTOScenario scenario) {
-		DTOBranch currBranch = scenario.getSelectedBranch();//getSelectedBranch(businessData);
+		DTOBranch oldBranch = scenario.getSelectedBranch();//getSelectedBranch(businessData);
 
+		DTOBranch currBranch = (DTOBranch) oldBranch.clone();
+		
 		this.scenario = scenario;
+		
+		System.out.println(currBranch.toString());
 
 
-/*		// FCFs ermitteln
+ 		// FCFs ermitteln
  		List<DTOCompany> compList = currBranch.getChildren();
 		Iterator<DTOCompany> CompItr = compList.iterator();
 
 		while (CompItr.hasNext()) {
 			DTOCompany Company = CompItr.next();
 			calculateFCFs(Company);
-		}  */
+		}   
 
 
 		// Tabelle erstellen
@@ -56,9 +60,20 @@ public class BranchSpecificCalculator implements IBranchSpecificCalculator {
 		// Durchschnitt der Unternehmen
 		double[] averageCompanyNotNormed = getAverage(
 				companiesAndPeriodsNotNormed, "company");
+		
+		//Testausgabe der Druchschnitte:
+		for(int i =0; i<averageCompanyNotNormed.length;i++){
+			System.out.println("Durchschnitt " + i + " :" + averageCompanyNotNormed[i]);
+		}
 
 		// Wurzeln ermitteln
 		double[] cubeRoot = getCubeRoot(averageCompanyNotNormed);
+		
+		//Testausgabe der Wurzel:
+		for(int i =0; i<cubeRoot.length;i++){
+			System.out.println("Wurzel-Nr " + i + " :" + cubeRoot[i]);
+		}
+
 
 		// Do the Branch has Companies?
 		List<DTOCompany> companyList = currBranch.getChildren();
@@ -80,10 +95,23 @@ public class BranchSpecificCalculator implements IBranchSpecificCalculator {
 		// Stutzung der normierten Tabelle
 		double[][] companyAndPeriodsNormedTrimmed = trimmedAverage(
 				companiesAndPeriodsNormed, 2.5);
+		
+		// Druckausgabe - Test
+		for(int i =0; i<companyAndPeriodsNormedTrimmed[0].length;i++){
+			for (int j =0; j <companyAndPeriodsNormedTrimmed.length; j++){
+				System.out.print("" + companyAndPeriodsNormedTrimmed[j][i] + " -- ");
+			}
+			System.out.println();
+		}
 
 		// Spezifizierung der gestutzten normierten Tabelle
 		double[] bsrArray = getSpecificAverage(companyAndPeriodsNormedTrimmed,
 				cubeRoot);
+		
+		//Testausgabe der Ergebnisse:
+		for(int i =0; i<bsrArray.length;i++){
+			System.out.println("Ergebnis-Nr " + i + " :" + bsrArray[i]);
+		}
 
 		// Testausgabe der Ergebnisse:
 		for (int i = 0; i < bsrArray.length; i++) {
@@ -388,6 +416,8 @@ public class BranchSpecificCalculator implements IBranchSpecificCalculator {
 
 		while (CompanyItr.hasNext()) {
 			DTOCompany currCompany = CompanyItr.next();
+			
+			System.out.println("" + currCompany.isNormed);
 
 			// Do the Company has any Periods?
 			List<DTOPeriod> periodList = currCompany.getChildren();
