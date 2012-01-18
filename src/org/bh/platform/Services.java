@@ -507,52 +507,42 @@ public class Services {
 		//Hole den Dateipfad aus den Preferences. Ist gespeichert in der Variable "branches".
 		String xmlBranchesName = PlatformController.preferences.get("branches", null);
 		
-		//Did we get a default location
-		if(xmlBranchesName == null){
-			plugin.setFile(Services.IMPORT_PATH_BRANCHES_DEFAULT);
-		} else {
-			plugin.setFile(xmlBranchesName);
-			log.info("Loading branch XML from path: " + xmlBranchesName);
-		}
-		
 		DTOBusinessData bd = null;
 		DTO.setThrowEvents(false); //Don't throw events.
-		try{
-			//Load data from default path
-			bd = (DTOBusinessData) plugin.startImport();
+		
+		//Did we get a default location
+		if(xmlBranchesName == null){
+			bd = loadBranchesFromXML(plugin, Services.IMPORT_PATH_BRANCHES_DEFAULT);
+		} else {
+			bd = loadBranchesFromXML(plugin, xmlBranchesName);
 			
-		} catch (Exception exc){
-			
-			log.error("Could not load branches.", exc);
-			
-			if(xmlBranchesName != null){
-				//Fallback to default data
-				log.info("Fallback to default data of branch specific representative.");
-				plugin.setFile(Services.IMPORT_PATH_BRANCHES_DEFAULT);
-				try{
-					
-					bd = (DTOBusinessData) plugin.startImport();
-					
-				} catch (Exception exc2){
-					//Fallback to no data
-					log.error("Could not load branches.", exc2);
-					
-					//Create new DTO
-					bd = new DTOBusinessData();
-				}
-				
-			} else {
-				//Create new DTO
-				bd = new DTOBusinessData();
+			if(bd == null){
+				bd = loadBranchesFromXML(plugin, Services.IMPORT_PATH_BRANCHES_DEFAULT);
 			}
-		} finally {
-			//Get PlatformController to store data
-			PlatformController platformController = PlatformController.getInstance();
+		}
+		
+		if(bd == null){
+			bd = new DTOBusinessData();
+		}
+		
+		//Get PlatformController to store data
+		PlatformController platformController = PlatformController.getInstance();
 			
-			//Default BusinessDataDTO
-			platformController.setBusinessDataDTO(bd);
+		//Default BusinessDataDTO
+		platformController.setBusinessDataDTO(bd);
 			
-			DTO.setThrowEvents(true);
+		DTO.setThrowEvents(true);
+	}
+	
+	private static DTOBusinessData loadBranchesFromXML(IImportExport plugin, String fileName){
+		plugin.setFile(fileName);
+		log.info("Loading branch XML from path: " + fileName);
+		
+		try{
+			return (DTOBusinessData) plugin.startImport();
+		} catch (Exception exc){
+			log.error("Could not load branches.", exc);
+			return null;
 		}
 	}
 	
