@@ -75,8 +75,8 @@ public class PlatformController {
 	private ProjectRepositoryManager projectRepoManager = ProjectRepositoryManager
 			.getInstance();
 
-	private DTOBusinessData businessDataDTO;
-	private List<Double> goodnessBranches;
+	private static DTOBusinessData businessDataDTO;
+	private static List<Double> goodnessBranches;
 
 	/**
 	 * Reference to a preference object which allows platform independent
@@ -406,14 +406,14 @@ public class PlatformController {
 	 * is called once while initialisation to store branches for calculation.
 	 * @param businessDataDTO
 	 */
-	public void setBusinessDataDTO(DTOBusinessData businessDataDTO) {
-		this.businessDataDTO = businessDataDTO;
+	public static void setBusinessDataDTO(DTOBusinessData businessDataDTO) {
+		PlatformController.businessDataDTO = businessDataDTO;
 		
 		calculateRatings();
 	}
 	
-	private void calculateRatings(){
-		List<DTOBranch> branches = this.businessDataDTO.getChildren();
+	private static void calculateRatings(){
+		List<DTOBranch> branches = businessDataDTO.getChildren();
 		
 		DTOScenario scenario = new DTOScenario();
 		
@@ -440,7 +440,7 @@ public class PlatformController {
 			
 				
 				// berechne Branch Specific Representative und dessen Güte
-				calculator.calculateBSR(this.businessDataDTO, scenario);
+				calculator.calculateBSR(businessDataDTO, scenario);
 				ratings.add(calculator.getRating());
 				
 //				log.debug(branchSpecificRep);
@@ -451,7 +451,7 @@ public class PlatformController {
 		goodnessBranches = ratings;
 	}
 	
-	public List<Double> getAllBSRRatings(){
+	public static List<Double> getAllBSRRatings(){
 		return goodnessBranches;
 	}
 
@@ -459,7 +459,7 @@ public class PlatformController {
 	 * Get all branches to calculate branch specific representatives.
 	 * @return
 	 */
-	public DTOBusinessData getBusinessDataDTO() {
+	public static DTOBusinessData getBusinessDataDTO() {
 		return businessDataDTO;
 	}
 }

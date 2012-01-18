@@ -524,12 +524,9 @@ public class Services {
 		if(bd == null){
 			bd = new DTOBusinessData();
 		}
-		
-		//Get PlatformController to store data
-		PlatformController platformController = PlatformController.getInstance();
 			
 		//Default BusinessDataDTO
-		platformController.setBusinessDataDTO(bd);
+		PlatformController.setBusinessDataDTO(bd);
 			
 		DTO.setThrowEvents(true);
 	}

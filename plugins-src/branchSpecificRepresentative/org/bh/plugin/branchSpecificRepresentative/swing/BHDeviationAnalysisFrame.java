@@ -10,6 +10,8 @@ import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 
 import org.apache.log4j.Logger;
+import org.bh.data.DTOAccessException;
+import org.bh.data.DTOBranch;
 import org.bh.data.DTOCompany;
 import org.bh.data.DTOPeriod;
 import org.bh.data.DTOScenario;
@@ -82,7 +84,7 @@ public class BHDeviationAnalysisFrame extends BHPopupFrame {
 		//Chart to display the deviation analysis
 		chartPanel = BHChartFactory.getLineChart(BHDeviationAnalysisFrame.GUI_KEYS.LINE_CHART_DEVIATION_ANALYSIS);
 		fillChartPanel();
-		/**
+		/*
 		 * Testdaten für das Chart
 		 */
 //		chartPanel.addSeries("BMW", new double[][]{{2005, 100.0}, {2006, 110.2}, {2007, 120}});
@@ -171,19 +173,42 @@ public class BHDeviationAnalysisFrame extends BHPopupFrame {
 		
 		List<DTOPeriod> periods = branchSpecRep.getChildren();
 		
+		double[][] chartData = createPeriodData(periods);
+		chartPanel.addSeries(BHTranslator.getInstance().translate(DTOScenario.Key.REPRESENTATIVE), chartData);
+		
+		DTOBranch branch = scenario.getSelectedBranch();
+		
+		for(DTOCompany company: branch.getChildren()){
+			log.debug(company);
+			chartData = createPeriodData(company.getChildren());
+			chartPanel.addSeries(company.get(DTOCompany.Key.NAME).toString(), chartData);
+		}
+		
+	}
+	
+	private double[][] createPeriodData(List<DTOPeriod> periods){
 		double[][] chartData = new double[periods.size()][2];
 		
 		int i = periods.size() -1;
 		
 		for(DTOPeriod period: periods){
-			chartData[i][0] = ((DoubleValue) (period.get(DTOPeriod.Key.NAME))).getValue();
-			chartData[i][1] = ((DoubleValue) (period.get(DTOPeriod.Key.FCF))).getValue();
+			try{
+				chartData[i][0] = ((DoubleValue) (period.get(DTOPeriod.Key.NAME))).getValue();
+			} catch (ClassCastException cce){
+				chartData[i][0] = Double.parseDouble(period.get(DTOPeriod.Key.NAME).toString());
+			}
+			try{
+				chartData[i][1] = ((DoubleValue) (period.get(DTOPeriod.Key.FCF))).getValue();
+			} catch (DTOAccessException ae){
+				log.debug("Period not readable: " + period, ae);
+				chartData[i][1] = 0;
+			}
 //			log.debug("" + chartData[i][0]);
 //			log.debug("" + chartData[i][1]);
 			i--;
 		}
 		
-		chartPanel.addSeries(BHTranslator.getInstance().translate(DTOScenario.Key.REPRESENTATIVE), chartData);
+		return chartData;
 	}
 	
 }

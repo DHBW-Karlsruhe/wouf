@@ -4,13 +4,15 @@ import java.io.IOException;
 import java.util.Iterator;
 import java.util.List;
 
+import junit.framework.TestCase;
+
 import org.bh.data.DTO;
+import org.bh.data.DTOAccessException;
 import org.bh.data.DTOBranch;
 import org.bh.data.DTOBusinessData;
 import org.bh.data.DTOCompany;
 import org.bh.data.DTOPeriod;
 import org.bh.data.IPeriodicalValuesDTO;
-import org.bh.data.types.Calculable;
 import org.bh.platform.Services;
 import org.bh.plugin.gcc.data.DTOGCCBalanceSheet;
 import org.bh.plugin.gcc.data.DTOGCCProfitLossStatementCostOfSales;
@@ -19,8 +21,7 @@ import org.bh.plugin.xmldataexchange.xmlimport.XMLImport;
 import org.bh.plugin.xmldataexchange.xmlimport.XMLNotValidException;
 import org.junit.After;
 import org.junit.Before;
-
-import junit.framework.TestCase;
+import org.junit.Test;
 
 
 /**
@@ -144,5 +145,48 @@ public class XMLImportTest extends TestCase {
 		
 		
 	}
+	
+	@Test
+	public void testDataReadable(){
+		// Init Number Serices
+		Services.initNumberFormats();		
 		
+		XMLImport myImport = new XMLImport("src/org/bh/companydata/periods.xml");
+		try {
+			DTOBusinessData myDTO = (DTOBusinessData) myImport.startImport();
+			
+			List<DTOBranch> branches = myDTO.getChildren();
+			
+			for(DTOBranch branch: branches){
+				
+				for(DTOCompany company : branch.getChildren()){
+					
+					int i = 0;
+					
+					for(DTOPeriod period: company.getChildren()){
+						try{
+							if(i != 0){
+								period.get(DTOPeriod.Key.FCF);
+							}
+						
+							period.get(DTOPeriod.Key.LIABILITIES);
+						
+						} catch(DTOAccessException ae){
+							System.err.println(ae);
+							System.out.println(branch + " " + company + " " + period);
+						}
+							
+						i++;
+					}
+					
+				}
+				
+			}
+			
+		} catch (Exception e){
+			e.printStackTrace();
+			fail();
+		}
+	}
+	
 }
