@@ -1,9 +1,6 @@
 package org.bh.plugin.branchSpecificRepresentative.calc;
 
 import java.awt.Color;
-import java.util.Arrays;
-import java.util.Calendar;
-import java.util.GregorianCalendar;
 import java.util.Iterator;
 import java.util.List;
 
@@ -19,7 +16,8 @@ import org.bh.data.types.DoubleValue;
 import org.bh.data.types.StringValue;
 
 /**
- * This class gives the possibility to calculate a branch specific representative
+ * This class gives the possibility to calculate a branch specific
+ * representative
  * 
  * 
  * @author Denis Roster, Tim Herzenstiel, Sebastian Schumacher
@@ -40,7 +38,7 @@ public class BranchSpecificCalculator implements IBranchSpecificCalculator {
 		DTOBranch currBranch = getSelectedBranch(businessData);
 
 		this.scenario = scenario;
-		
+
 		// ----------------------------------------------------------------------------
 		// !!!!!!!ACHTUNG !!!!!! zu Testzwecken die currBranche auf "M1033"
 		// setzen
@@ -51,15 +49,13 @@ public class BranchSpecificCalculator implements IBranchSpecificCalculator {
 		currBranch.put(DTOBranch.Key.BRANCH_KEY_SUB_CATEGORY, new StringValue(
 				"9"));
 		// ----------------------------------------------------------------------------
-		
-		
 
 		// Tabelle erstellen
 		double[][] companiesAndPeriodsNotNormed = createTable(currBranch);
-		
+
 		// Normierte Tabelle erstellen
 		double[][] companiesAndPeriodsNormed = createTable(currBranch);
-		
+
 		// Durchschnitt der Unternehmen + 3. Wurzel
 		double[] averageCompanyNotNormed = getAverage(
 				companiesAndPeriodsNotNormed, "company");
@@ -105,7 +101,7 @@ public class BranchSpecificCalculator implements IBranchSpecificCalculator {
 
 		computeRating(dtoBSRaverage, businessData);
 
-//		this.scenario.setBsrCalculatorWithRating(this);
+		this.scenario.setBsrCalculatorWithRating(this);
 
 		return dtoBSRaverage;
 
@@ -203,12 +199,16 @@ public class BranchSpecificCalculator implements IBranchSpecificCalculator {
 		Iterator<DTOCompany> CompanyItr = companyList.iterator();
 
 		int companyCounter = -1;
-		int numbOfPeriods = CompanyItr.next().getChildren().size();
+		DTOCompany currCompany = CompanyItr.next();
+		int numbOfPeriods = currCompany.getChildren().size();
 		resultArray = new double[numbOfPeriods][companyList.size()];
 
 		while (CompanyItr.hasNext()) {
 			companyCounter++;
-			DTOCompany currCompany = CompanyItr.next();
+
+			//beim ersten Durchlauf nicht neu zuweisen
+			if (companyCounter > 0)
+				currCompany = CompanyItr.next();
 
 			// echo them
 			System.out.println("----" + currCompany.get(DTOCompany.Key.NAME));
@@ -240,23 +240,25 @@ public class BranchSpecificCalculator implements IBranchSpecificCalculator {
 		}
 
 		double[] resultsPerPeriod = new double[numbOfPeriods];
-		
-		//Wertung der einzelnen Perioden einbeziehen
+
+		// Wertung der einzelnen Perioden einbeziehen
 		// summe über die Perioden bilden
-		for( int periodCount = 0; periodCount < numbOfPeriods; periodCount++){
-			for( int companyCount = 0; companyCount < companyList.size(); companyCount++){
-			resultsPerPeriod[periodCount] = resultsPerPeriod[periodCount] + resultArray[periodCount][companyCount];
+		for (int periodCount = 0; periodCount < numbOfPeriods; periodCount++) {
+			for (int companyCount = 0; companyCount < companyList.size(); companyCount++) {
+				resultsPerPeriod[periodCount] = resultsPerPeriod[periodCount]
+						+ resultArray[periodCount][companyCount];
 			}
 		}
-		//mit Wertung multiplizieren
+		// mit Wertung multiplizieren
 		double percentage = 0.4;
 		double result = 0;
-		for( int periodCount = (numbOfPeriods-1); percentage > 0; periodCount--){
-		   resultsPerPeriod[periodCount] = resultsPerPeriod[periodCount] * percentage;
-		   result = result + resultsPerPeriod[periodCount];
-		   percentage = percentage - 0.1;
+		for (int periodCount = (numbOfPeriods - 1); percentage > 0; periodCount--) {
+			resultsPerPeriod[periodCount] = resultsPerPeriod[periodCount]
+					* percentage;
+			result = result + resultsPerPeriod[periodCount];
+			percentage = percentage - 0.1;
 		}
-		this.ratingBSR =  result / (companyList.size());
+		this.ratingBSR = result / (companyList.size());
 	}
 
 	private DoubleValue getBSRCFforPeriod(int period,
@@ -278,8 +280,8 @@ public class BranchSpecificCalculator implements IBranchSpecificCalculator {
 
 		List<DTOBranch> branchList = businessData.getChildren();
 
-		//vorrübergehend HART, bis drop down wieder funzt
-		String selectedBranch = "C259";//DTOScenario.Key.REPRESENTATIVE.toString();
+		// vorrübergehend HART, bis drop down wieder funzt
+		String selectedBranch = "C259";// DTOScenario.Key.REPRESENTATIVE.toString();
 
 		// Iterate Company DTOs
 		Iterator<DTOBranch> itr = branchList.iterator();
@@ -339,7 +341,7 @@ public class BranchSpecificCalculator implements IBranchSpecificCalculator {
 			System.out.println("" + result.length);
 			for (int zeile = 0; zeile < table[0].length; zeile++) {
 				for (int spalte = 0; spalte < table.length; spalte++) {
-	 				result[zeile] = result[zeile] + table[spalte][zeile];
+					result[zeile] = result[zeile] + table[spalte][zeile];
 				}
 				result[zeile] = result[zeile] / table.length;
 			}
@@ -351,7 +353,8 @@ public class BranchSpecificCalculator implements IBranchSpecificCalculator {
 	private double[] getCubeRoot(double[] averageCompanyNotNormed) {
 		double[] result = new double[averageCompanyNotNormed.length];
 		for (int i = 0; i < averageCompanyNotNormed.length; i++) {
-			result[i] = Math.pow(Math.abs(averageCompanyNotNormed[i]), (1 / 3.0));
+			result[i] = Math.pow(Math.abs(averageCompanyNotNormed[i]),
+					(1 / 3.0));
 		}
 
 		return result;
@@ -437,6 +440,5 @@ public class BranchSpecificCalculator implements IBranchSpecificCalculator {
 		}
 		return this.evaluationOfRating;
 	}
-
 
 }

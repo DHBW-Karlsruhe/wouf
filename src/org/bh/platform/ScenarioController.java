@@ -244,11 +244,6 @@ public class ScenarioController extends InputController {
 						
 						ITimeSeriesProcess timeSeriesProcess = scenario.getTimeSeriesProcess(ITimeSeriesProcess.Key.BRANCH_SPECIFIC_REPRESENTATIVE.toString());
 						
-
-						JPanel branchSpecificRepresentativePanel = timeSeriesProcess.calculateParameters(false);
-						
-						form.setBranchSpecificRepresentativePanel(branchSpecificRepresentativePanel);
-						
 						//calculate branch specific representative
 						// get business data for the calculation below (branch specific values)
 						DTOBusinessData businessData = (PlatformController.getInstance()).getBusinessDataDTO();
@@ -266,6 +261,10 @@ public class ScenarioController extends InputController {
 							DTO.setThrowEvents(true);
 						}
 						scenario.setBranchSpecificRep(branchSpecificRep);
+						
+						JPanel branchSpecificRepresentativePanel = timeSeriesProcess.calculateParameters(false);
+						
+						form.setBranchSpecificRepresentativePanel(branchSpecificRepresentativePanel);
 
 					}
 					
