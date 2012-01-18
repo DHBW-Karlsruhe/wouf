@@ -33,28 +33,26 @@ public class BranchSpecificCalculator implements IBranchSpecificCalculator {
 	private DTOScenario scenario = null;
 	private Logger log = Logger.getLogger(BranchSpecificCalculator.class);
 
-
 	/* Specified by interface/super class. */
 	public DTOCompany calculateBSR(DTOBusinessData businessData,
 			DTOScenario scenario) {
-		DTOBranch oldBranch = scenario.getSelectedBranch();//getSelectedBranch(businessData);
+		DTOBranch oldBranch = scenario.getSelectedBranch();
 
 		DTOBranch currBranch = (DTOBranch) oldBranch.clone();
-		
-		//Setze die normierte Branche ins Szenario, für Abweichungsanalyse.
+
+		// Setze die normierte Branche ins Szenario, für Abweichungsanalyse.
 		scenario.setNormedBranch(currBranch);
-		
+
 		this.scenario = scenario;
 
- 		// FCFs ermitteln
- 		List<DTOCompany> compList = currBranch.getChildren();
+		// FCFs ermitteln
+		List<DTOCompany> compList = currBranch.getChildren();
 		Iterator<DTOCompany> CompItr = compList.iterator();
 
 		while (CompItr.hasNext()) {
 			DTOCompany Company = CompItr.next();
 			calculateFCFs(Company);
-		}   
-
+		}
 
 		// Tabelle erstellen
 		double[][] companiesAndPeriodsNotNormed = createTable(currBranch);
@@ -82,7 +80,10 @@ public class BranchSpecificCalculator implements IBranchSpecificCalculator {
 
 		// Normierte Tabelle erstellen
 		double[][] companiesAndPeriodsNormed = createTable(currBranch);
-
+		
+		// Normierte Tabelle für Güteberechnung
+		double[][] companiesAndPeriodsNormedRating = createTable(currBranch);
+		
 		// Stutzung der normierten Tabelle
 		double[][] companyAndPeriodsNormedTrimmed = trimmedAverage(
 				companiesAndPeriodsNormed, 2.5);
@@ -107,7 +108,7 @@ public class BranchSpecificCalculator implements IBranchSpecificCalculator {
 			dtoBSRaverage.addChild(periods[i]);
 		}
 
-		computeRating(dtoBSRaverage, businessData);
+		computeRating(companiesAndPeriodsNormedRating, bsrArray);
 
 		this.scenario.setBsrCalculatorWithRating(this);
 
@@ -172,77 +173,31 @@ public class BranchSpecificCalculator implements IBranchSpecificCalculator {
 		currCompany.setNormed(true);
 	}
 
-	private void computeRating(DTOCompany branchSpecificRepresentative,
-			DTOBusinessData businessData) {
+	private void computeRating(double[][] companiesAndPeriodsNormed,
+			double[] bsrArray) {
 
-		DoubleValue normedCFforPeriod = null;
-		DoubleValue bsrCF = null;
-		DTOPeriod currPeriod = null;
-		double[][] resultArray = null;
-		DTOBranch currBranch = scenario.getSelectedBranch();//getSelectedBranch(businessData);
+		double[] rowSum = new double[(companiesAndPeriodsNormed[0].length)];
 
-		// Do the Branch has Companies?
-		List<DTOCompany> companyList = currBranch.getChildren();
-		Iterator<DTOCompany> CompanyItr = companyList.iterator();
-
-		int companyCounter = -1;
-		DTOCompany currCompany = CompanyItr.next();
-		int numbOfPeriods = currCompany.getChildren().size();
-		resultArray = new double[numbOfPeriods][companyList.size()];
-
-		while (CompanyItr.hasNext()) {
-			companyCounter++;
-
-			// beim ersten Durchlauf nicht neu zuweisen
-			if (companyCounter > 0)
-				currCompany = CompanyItr.next();
-
-			List<DTOPeriod> periodList = currCompany.getChildren();
-			Iterator<DTOPeriod> periodItr = periodList.iterator();
-
-			// iteriert über die einzelnen Perioden der Unternehmen der
-			// selektierten Branche
-			// zur Güteberechnung des vorher berechneten, branchenspezifischen
-			// Vertreters
-			for (int periodCount = 0; periodItr.hasNext(); periodCount++) {
-				currPeriod = periodItr.next();
-
-				normedCFforPeriod = (DoubleValue) currPeriod
-						.get(DTOPeriod.Key.FCF);
-
-				bsrCF = getBSRCFforPeriod(periodCount,
-						branchSpecificRepresentative);
-
-				resultArray[periodCount][companyCounter] = ((normedCFforPeriod
-						.getValue() - bsrCF.getValue()) * (normedCFforPeriod
-						.getValue() - bsrCF.getValue()));
-				// result = result
-				// + ((normedCFforPeriod.getValue() - bsrCF.getValue()) *
-				// (normedCFforPeriod
-				// .getValue() - bsrCF.getValue()));
+		for (int zeile = 0; zeile < companiesAndPeriodsNormed[0].length; zeile++) {
+			for (int spalte = 0; spalte < companiesAndPeriodsNormed.length; spalte++) {
+				rowSum[zeile] = rowSum[zeile]
+						+ (Math.pow(
+								(companiesAndPeriodsNormed[spalte][zeile] - bsrArray[zeile]),
+								2.0));
 			}
 		}
 
-		double[] resultsPerPeriod = new double[numbOfPeriods];
-
-		// Wertung der einzelnen Perioden einbeziehen
-		// summe über die Perioden bilden
-		for (int periodCount = 0; periodCount < numbOfPeriods; periodCount++) {
-			for (int companyCount = 0; companyCount < companyList.size(); companyCount++) {
-				resultsPerPeriod[periodCount] = resultsPerPeriod[periodCount]
-						+ resultArray[periodCount][companyCount];
-			}
-		}
 		// mit Wertung multiplizieren
 		double percentage = 0.4;
 		double result = 0;
-		for (int periodCount = (numbOfPeriods - 1); percentage > 0; periodCount--) {
-			resultsPerPeriod[periodCount] = resultsPerPeriod[periodCount]
-					* percentage;
-			result = result + resultsPerPeriod[periodCount];
+		for (int i = 0; i < rowSum.length; i++) {
+			result = result + rowSum[i] * percentage;
 			percentage = percentage - 0.1;
 		}
-		this.ratingBSR = result / (companyList.size());
+
+		this.ratingBSR = result / (companiesAndPeriodsNormed.length);
+		
+		System.out.println("" + this.ratingBSR);
 	}
 
 	private DoubleValue getBSRCFforPeriod(int period,
@@ -260,39 +215,16 @@ public class BranchSpecificCalculator implements IBranchSpecificCalculator {
 		return ((DoubleValue) currPeriod.get(DTOPeriod.Key.FCF));
 	}
 
-
-	private DTOBranch getSelectedBranch(DTOBusinessData businessData) {
-
-		List<DTOBranch> branchList = businessData.getChildren();
-
-		// vorrübergehend HART, bis drop down wieder funzt
-		String selectedBranch = "C259";// DTOScenario.Key.REPRESENTATIVE.toString();
-
-		// Iterate Company DTOs
-		Iterator<DTOBranch> itr = branchList.iterator();
-		while (itr.hasNext()) {
-			DTOBranch currBranch = itr.next();
-			String currKey = ""
-					+ (currBranch.get(DTOBranch.Key.BRANCH_KEY_MAIN_CATEGORY))
-					+ (currBranch.get(DTOBranch.Key.BRANCH_KEY_MID_CATEGORY))
-					+ (currBranch.get(DTOBranch.Key.BRANCH_KEY_SUB_CATEGORY));
-
-			if (currKey.equalsIgnoreCase(selectedBranch))
-				return currBranch;
-		}
-		// selected branch not found
-		// TODO create an exception
-		return null;
-	}
-
-
 	public double getRating() {
 		return this.ratingBSR;
 	}
 
 	/**
-	 * This method counts the number of companies and years according to a branch
-	 * @param DTOBranch currNormedBranch
+	 * This method counts the number of companies and years according to a
+	 * branch
+	 * 
+	 * @param DTOBranch
+	 *            currNormedBranch
 	 * @return double-array with the size of [companies] and [periods]
 	 */
 	private double[][] getNumberOfCompaniesAndPeriods(DTOBranch currNormedBranch) {
@@ -310,9 +242,12 @@ public class BranchSpecificCalculator implements IBranchSpecificCalculator {
 	}
 
 	/**
-	 * This method calculates the average depending on the choice (column = "company" OR row = "year")
+	 * This method calculates the average depending on the choice (column =
+	 * "company" OR row = "year")
+	 * 
 	 * @param double[][] table
-	 * @param String choice
+	 * @param String
+	 *            choice
 	 * @return double-array of average values
 	 */
 	private double[] getAverage(double[][] table, String choice) {
@@ -344,6 +279,7 @@ public class BranchSpecificCalculator implements IBranchSpecificCalculator {
 
 	/**
 	 * This method calculates and return the cube root of a given array
+	 * 
 	 * @param double[]
 	 * @return new double[] including the cube root results
 	 */
@@ -358,7 +294,9 @@ public class BranchSpecificCalculator implements IBranchSpecificCalculator {
 	}
 
 	/**
-	 * This method trimms a double[][] table by cutting off outliers according to a given factor
+	 * This method trimms a double[][] table by cutting off outliers according
+	 * to a given factor
+	 * 
 	 * @param double[][] table
 	 * @param double factor
 	 * @return new double[][] trimmed-table
@@ -379,10 +317,13 @@ public class BranchSpecificCalculator implements IBranchSpecificCalculator {
 	}
 
 	/**
-	 * This method calculates the specific average of a table with the weights of a given [][]-Array
+	 * This method calculates the specific average of a table with the weights
+	 * of a given [][]-Array
+	 * 
 	 * @param double[][] table
 	 * @param double[] cubeRoot
-	 * @return result double[] of the branch specific representative values of the years
+	 * @return result double[] of the branch specific representative values of
+	 *         the years
 	 */
 	private double[] getSpecificAverage(double[][] table, double[] cubeRoot) {
 		double weight = 0;
@@ -406,7 +347,9 @@ public class BranchSpecificCalculator implements IBranchSpecificCalculator {
 
 	/**
 	 * This method creates a table out of a DTOBranch object
-	 * @param DTOBranch currBranch
+	 * 
+	 * @param DTOBranch
+	 *            currBranch
 	 * @return the result table is implemented by using a double[][]
 	 */
 	private double[][] createTable(DTOBranch currBranch) {
@@ -447,7 +390,7 @@ public class BranchSpecificCalculator implements IBranchSpecificCalculator {
 
 		List<Double> bsrRatings = PlatformController.getInstance()
 				.getAllBSRRatings();
-		
+
 		double highestRating = 0;
 		double lowestRating = 0; // info: low value is better than high value
 		double currentRating = 0;
@@ -466,8 +409,8 @@ public class BranchSpecificCalculator implements IBranchSpecificCalculator {
 					lowestRating = currentRating;
 			}
 		}
- 
-		//Wertebereich in drittel teilen und Farbe entsprechend zuweisen
+
+		// Wertebereich in drittel teilen und Farbe entsprechend zuweisen
 		// grün - gelb - rot
 		double difference = (highestRating - lowestRating) / 3;
 
@@ -482,12 +425,14 @@ public class BranchSpecificCalculator implements IBranchSpecificCalculator {
 		return this.evaluationOfRating;
 	}
 
-
 	// Get all FCFs
 
 	/**
-	 * This method calculates the Free-Cash-Flows out of the basic data (BusinessData-Object)
-	 * @param DTOCompany currCompany
+	 * This method calculates the Free-Cash-Flows out of the basic data
+	 * (BusinessData-Object)
+	 * 
+	 * @param DTOCompany
+	 *            currCompany
 	 */
 	private void calculateFCFs(DTOCompany currCompany) {
 		// update References in company.
@@ -531,6 +476,5 @@ public class BranchSpecificCalculator implements IBranchSpecificCalculator {
 			i++;
 		}
 	}
-
 
 }

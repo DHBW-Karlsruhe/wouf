@@ -19,6 +19,7 @@ import org.bh.platform.PluginManager;
 import org.bh.platform.i18n.BHTranslator;
 import org.bh.platform.i18n.ITranslator;
 
+import com.ibm.icu.text.DecimalFormat;
 import com.jgoodies.forms.layout.CellConstraints;
 import com.jgoodies.forms.layout.FormLayout;
 
@@ -114,8 +115,11 @@ public class BranchSpecificRepresentative implements ITimeSeriesProcess {
 		tfBranchSpecGoodness.setBackground(this.scenario
 				.getBsrCalculatorWithRating().getEvaluationOfRating());
 
+		// mindestens 1 Vorkommastelle, genau 2 Nachkommastellen
+		DecimalFormat format = new DecimalFormat("#0.00");
+		
 		if (goodness_calculated) {
-			tfBranchSpecGoodness.setText("" + goodness + " %");
+			tfBranchSpecGoodness.setText("" + (format.format(goodness)) + " %");
 		} else {
 			tfBranchSpecGoodness.setText("N/A");
 		}
