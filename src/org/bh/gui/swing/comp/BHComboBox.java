@@ -193,7 +193,7 @@ public class BHComboBox extends JComboBox implements IBHModelComponent,
 
 		@Override
 		public String toString() {
-			DTOBusinessData businessData = (PlatformController.getInstance()).getBusinessDataDTO();
+			DTOBusinessData businessData = PlatformController.getBusinessDataDTO();
 			
 			List<DTOBranch> branchList = businessData.getChildren();
 			

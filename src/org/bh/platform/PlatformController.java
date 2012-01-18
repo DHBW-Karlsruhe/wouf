@@ -417,6 +417,7 @@ public class PlatformController {
 		
 		DTOScenario scenario = new DTOScenario();
 		
+		
 		//Load Calculator Plugin(s) - should be one
 		ServiceLoader<IBranchSpecificCalculator> calculators = PluginManager
 		.getInstance().getServices(IBranchSpecificCalculator.class);

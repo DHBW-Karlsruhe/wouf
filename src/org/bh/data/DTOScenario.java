@@ -284,10 +284,7 @@ public class DTOScenario extends DTO<DTOPeriod> {
 	 * @return null if no branch is selected else the selected Branch.
 	 */
 	public DTOBranch getSelectedBranch(){
-
-		PlatformController pc = PlatformController.getInstance();
-		
-		List<DTOBranch> branchList = pc.getBusinessDataDTO().getChildren();
+		List<DTOBranch> branchList = PlatformController.getBusinessDataDTO().getChildren();
 
 		String branchKey = this.get(DTOScenario.Key.INDUSTRY).toString();
 

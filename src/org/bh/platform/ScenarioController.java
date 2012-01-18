@@ -251,7 +251,7 @@ public class ScenarioController extends InputController {
 						
 						//calculate branch specific representative
 						// get business data for the calculation below (branch specific values)
-						DTOBusinessData businessData = (PlatformController.getInstance()).getBusinessDataDTO();
+						DTOBusinessData businessData = PlatformController.getBusinessDataDTO();
 						
 						//Load Calculator Plugin(s) - should be one
 						ServiceLoader<IBranchSpecificCalculator> calculators = PluginManager
@@ -374,7 +374,7 @@ public class ScenarioController extends InputController {
 			return; // If we have no representative checkbox, there is no stochastic scenario, so no time series as well
 		} else {
 			
-			DTOBusinessData businessData = (PlatformController.getInstance()).getBusinessDataDTO();
+			DTOBusinessData businessData = PlatformController.getBusinessDataDTO();
 			
 			List<DTOBranch> branchList = businessData.getChildren();
 			

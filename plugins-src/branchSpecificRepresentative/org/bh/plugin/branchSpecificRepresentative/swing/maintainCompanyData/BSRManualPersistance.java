@@ -74,10 +74,7 @@ public class BSRManualPersistance {
 
 		try {
 			// Get businessDataDTO
-			PlatformController platformController = PlatformController
-					.getInstance();
-			DTOBusinessData dtoBusinessData = platformController
-					.getBusinessDataDTO();
+			DTOBusinessData dtoBusinessData = PlatformController.getBusinessDataDTO();
 
 			// Trigger export
 			plugin.setFileAndModel(savePath, dtoBusinessData);
