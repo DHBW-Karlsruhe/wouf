@@ -172,7 +172,7 @@ public class BHChartPanel extends JPanel implements IBHComponent, IPlatformListe
 
 	public void addSeries(Comparable<String> seriesKey, double[][] data,
 			Integer amountOfValues, Integer average) {
-		this.chartInstance.addSeries(key, data, amountOfValues, average);
+		this.chartInstance.addSeries(seriesKey, data, amountOfValues, average);
 	}
 
 	public void addValue(Number value, Comparable<String> columnKey) {

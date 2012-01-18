@@ -193,9 +193,8 @@ public class BHBSRStochasticResultController extends OutputController {
 				result.toDoubleArray(), result.getAmountOfValues(),
 				result.getMaxAmountOfValuesInCluster());
 		comp.addSeries(
-				Services.getTranslator().translate(
-						BHBSRStochasticResultController.ChartKeys.VALUE_BSR),
-				resultBSR.toDoubleArray(), resultBSR.getAmountOfValues(),
+				BHBSRStochasticResultController.ChartKeys.VALUE_BSR.toString(),
+						resultBSR.toDoubleArray(), resultBSR.getAmountOfValues(),
 				resultBSR.getMaxAmountOfValuesInCluster());
 		comp.addSeries(
 				Services.getTranslator()
