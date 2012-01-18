@@ -37,6 +37,7 @@ import org.bh.data.DTOPeriod;
 import org.bh.data.DTOProject;
 import org.bh.data.DTOScenario;
 import org.bh.data.IPeriodicalValuesDTO;
+import org.bh.data.types.DoubleValue;
 import org.bh.data.types.IValue;
 import org.bh.data.types.StringValue;
 import org.bh.gui.IBHAction;
@@ -417,7 +418,6 @@ public class PlatformController {
 		
 		DTOScenario scenario = new DTOScenario();
 		
-		
 		//Load Calculator Plugin(s) - should be one
 		ServiceLoader<IBranchSpecificCalculator> calculators = PluginManager
 		.getInstance().getServices(IBranchSpecificCalculator.class);
@@ -439,10 +439,13 @@ public class PlatformController {
 				
 				scenario.put(DTOScenario.Key.INDUSTRY, string);
 			
-				
-				// berechne Branch Specific Representative und dessen Güte
-				calculator.calculateBSR(businessDataDTO, scenario);
-				ratings.add(calculator.getRating());
+				try{
+					// berechne Branch Specific Representative und dessen Güte
+					calculator.calculateBSR(businessDataDTO, scenario);
+					ratings.add(calculator.getRating());
+				} catch (Exception e){
+					//Do nothing.
+				}
 				
 //				log.debug(branchSpecificRep);
 				DTO.setThrowEvents(true);
