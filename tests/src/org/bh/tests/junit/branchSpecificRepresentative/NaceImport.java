@@ -31,7 +31,7 @@ public class NaceImport extends TestCase {
 			//BufferedWriter bf = new BufferedWriter(de_file);
 	
 		
-		ReadNACE naceobj = new ReadNACE("src/org/bh/companydata/nace/de.xml");
+		ReadNACE naceobj = new ReadNACE("src/org/bh/companydata/nace/en.xml");
 		//naceobj.parseXML();
 		//INACEImport naceReader = Services.getNACEReader();
 		Map<String, String> branches = naceobj.getBranch();
@@ -61,7 +61,7 @@ public class NaceImport extends TestCase {
 								
 								text = entry2.getKey();
 								//text = text.replace(".", "");
-								key = text + " = " + text +": " +entry1.getValue();
+								key = text + " = " + text +": " +entry2.getValue();
 								System.out.println(key);
 								//bf.write(key);
 								//bf.newLine();
