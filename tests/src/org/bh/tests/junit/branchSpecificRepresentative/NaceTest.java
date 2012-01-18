@@ -17,7 +17,7 @@ public class NaceTest extends TestCase {
 	public void testImport()
 	{	
 		
-		ReadNACE naceobj = new ReadNACE("src/org/bh/companydata/nace/NACE_de.xml");
+		ReadNACE naceobj = new ReadNACE("src/org/bh/companydata/nace/de.xml");
 		naceobj.parseXML();
 //		two of the following parameters need to have an empty String
 		//System.out.println(naceobj.getName("", "", "05"));
