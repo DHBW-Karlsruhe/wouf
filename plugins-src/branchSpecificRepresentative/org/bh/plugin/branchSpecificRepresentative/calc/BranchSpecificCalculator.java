@@ -14,6 +14,7 @@ import org.bh.data.DTOPeriod;
 import org.bh.data.DTOScenario;
 import org.bh.data.types.DoubleValue;
 import org.bh.data.types.StringValue;
+import org.bh.platform.PlatformController;
 
 /**
  * This class gives the possibility to calculate a branch specific
@@ -29,26 +30,14 @@ public class BranchSpecificCalculator implements IBranchSpecificCalculator {
 
 	private double ratingBSR;
 	private Color evaluationOfRating = null;
-	private DTOBranch selectedBranch = null;
 	private DTOScenario scenario = null;
 	private Logger log = Logger.getLogger(BranchSpecificCalculator.class);
 
 	public DTOCompany calculateBSR(DTOBusinessData businessData,
 			DTOScenario scenario) {
-		DTOBranch currBranch = getSelectedBranch(businessData);
+		DTOBranch currBranch = scenario.getSelectedBranch();//getSelectedBranch(businessData);
 
 		this.scenario = scenario;
-
-		// ----------------------------------------------------------------------------
-		// !!!!!!!ACHTUNG !!!!!! zu Testzwecken die currBranche auf "M1033"
-		// setzen
-		currBranch.put(DTOBranch.Key.BRANCH_KEY_MAIN_CATEGORY, new StringValue(
-				"C"));
-		currBranch.put(DTOBranch.Key.BRANCH_KEY_MID_CATEGORY, new StringValue(
-				"25"));
-		currBranch.put(DTOBranch.Key.BRANCH_KEY_SUB_CATEGORY, new StringValue(
-				"9"));
-		// ----------------------------------------------------------------------------
 
 		// Tabelle erstellen
 		double[][] companiesAndPeriodsNotNormed = createTable(currBranch);
@@ -192,7 +181,7 @@ public class BranchSpecificCalculator implements IBranchSpecificCalculator {
 		DoubleValue bsrCF = null;
 		DTOPeriod currPeriod = null;
 		double[][] resultArray = null;
-		DTOBranch currBranch = getSelectedBranch(businessData);
+		DTOBranch currBranch = scenario.getSelectedBranch();//getSelectedBranch(businessData);
 
 		// Do the Branch has Companies?
 		List<DTOCompany> companyList = currBranch.getChildren();
@@ -206,7 +195,7 @@ public class BranchSpecificCalculator implements IBranchSpecificCalculator {
 		while (CompanyItr.hasNext()) {
 			companyCounter++;
 
-			//beim ersten Durchlauf nicht neu zuweisen
+			// beim ersten Durchlauf nicht neu zuweisen
 			if (companyCounter > 0)
 				currCompany = CompanyItr.next();
 
@@ -274,30 +263,6 @@ public class BranchSpecificCalculator implements IBranchSpecificCalculator {
 				break;
 		}
 		return ((DoubleValue) currPeriod.get(DTOPeriod.Key.FCF));
-	}
-
-	private DTOBranch getSelectedBranch(DTOBusinessData businessData) {
-
-		List<DTOBranch> branchList = businessData.getChildren();
-
-		// vorrübergehend HART, bis drop down wieder funzt
-		String selectedBranch = "C259";// DTOScenario.Key.REPRESENTATIVE.toString();
-
-		// Iterate Company DTOs
-		Iterator<DTOBranch> itr = branchList.iterator();
-		while (itr.hasNext()) {
-			DTOBranch currBranch = itr.next();
-			String currKey = ""
-					+ (currBranch.get(DTOBranch.Key.BRANCH_KEY_MAIN_CATEGORY))
-					+ (currBranch.get(DTOBranch.Key.BRANCH_KEY_MID_CATEGORY))
-					+ (currBranch.get(DTOBranch.Key.BRANCH_KEY_SUB_CATEGORY));
-
-			if (currKey.equalsIgnoreCase(selectedBranch))
-				return currBranch;
-		}
-		// selected branch not found
-		// TODO create an exception
-		return null;
 	}
 
 	public double getRating() {
@@ -431,12 +396,39 @@ public class BranchSpecificCalculator implements IBranchSpecificCalculator {
 
 	public Color getEvaluationOfRating() {
 
-		int evaluation = (int) ((Math.random()) * 5 + 1);
+		List<Double> bsrRatings = PlatformController.getInstance()
+				.getAllBSRRatings();
+		
+		double highestRating = 0;
+		double lowestRating = 0; // info: low value is better than high value
+		double currentRating = 0;
 
-		if ((this.ratingBSR != 0) && (evaluation == 2)) {
-			this.evaluationOfRating = Color.YELLOW;
-		} else {
+		Iterator<Double> bsrRatingIterator = bsrRatings.iterator();
+
+		// iteriere über die Rating, um das höchste/tiefste Rating
+		// zu bekommen und auf dieser Grundlage die berechnete Güte
+		// bewerten zu können
+		while (bsrRatingIterator.hasNext()) {
+			currentRating = bsrRatingIterator.next();
+			if (currentRating > highestRating)
+				highestRating = currentRating;
+			else {
+				if ((lowestRating == 0) || (lowestRating > currentRating))
+					lowestRating = currentRating;
+			}
+		}
+ 
+		//Wertebereich in drittel teilen und Farbe entsprechend zuweisen
+		// grün - gelb - rot
+		double difference = (highestRating - lowestRating) / 3;
+
+		if (this.ratingBSR <= (lowestRating + difference)) {
 			this.evaluationOfRating = Color.GREEN;
+		} else {
+			if (this.ratingBSR > (highestRating - difference))
+				this.evaluationOfRating = Color.RED;
+			else
+				this.evaluationOfRating = Color.YELLOW;
 		}
 		return this.evaluationOfRating;
 	}
