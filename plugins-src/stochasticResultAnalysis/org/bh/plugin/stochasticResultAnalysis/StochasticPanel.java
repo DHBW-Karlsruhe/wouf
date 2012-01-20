@@ -136,7 +136,7 @@ public class StochasticPanel extends JPanel{
 //	        ValidationRule[] rules = {VRIsDouble.INSTANCE, VRIsBetween.BETWEEN0AND100};//Validation for value at risk
 //                riskAtField.setValidationRules(rules);
 	        rav.add(slider, "4,2");
-	        rav.add(new JLabel("%"), "6,2");
+	        rav.add(new JLabel("%"), "6,2");	        
 	        rav.add(min, "2,4");
 	        rav.add(minValue, "4,4");
 	        rav.add(new BHDescriptionLabel("currency"), "6,4"); //AWussler replaced: 3.12.2010: Now its translatable
