@@ -122,9 +122,8 @@ public class BHBSRStochasticResultController extends OutputController {
 				.getBHComponent(ChartKeys.RISK_AT_VALUE.toString());
 		slider.addChangeListener(new SliderChangeListener());
 
-		// BHSlider sliderRatio = (BHSlider) view
-		// .getBHComponent(ChartKeys.BSR_RATIO.toString());
-		// sliderRatio.addChangeListener(new SliderChangeListener());
+		 BHSlider sliderRatio = (BHSlider) view.getBHComponent(ChartKeys.BSR_RATIO.toString());
+		 sliderRatio.addChangeListener(new RatioSliderChangeListener());
 
 		if (result.isTimeSeries()) {
 			setResultTimeSeries(result, resultBSR, scenario);
@@ -196,6 +195,7 @@ public class BHBSRStochasticResultController extends OutputController {
 				BHBSRStochasticResultController.ChartKeys.VALUE_BSR.toString(),
 						resultBSR.toDoubleArray(), resultBSR.getAmountOfValues(),
 				resultBSR.getMaxAmountOfValuesInCluster());
+//		result.
 		comp.addSeries(
 				Services.getTranslator()
 						.translate(PanelKeys.AVERAGE.toString()),
@@ -417,7 +417,33 @@ public class BHBSRStochasticResultController extends OutputController {
 		}
 
 	}
+	
+	class RatioSliderChangeListener implements ChangeListener {
+		boolean erstes_mal = true;// siehe F I X M E un
 
+		public void stateChanged(ChangeEvent e) {
+
+			String key = ((BHSlider) e.getSource()).getKey();
+			if (key.equals(ChartKeys.BSR_RATIO.toString())) {
+				double confidence = ((BHSlider) view
+						.getBHComponent(ChartKeys.BSR_RATIO.toString()))
+						.getValue();
+				calcRiskAtValue(confidence,
+						stochasticResult.getMaxAmountOfValuesInCluster());
+			}
+			if (key.equals(ChartKeys.CASHFLOW_COMPARE_SLIDER.toString())) {
+				int p = ((BHSlider) view
+						.getBHComponent(ChartKeys.CASHFLOW_COMPARE_SLIDER
+								.toString())).getValue();
+				if (!(pAlt == p)) {
+					pAlt = p;
+					calcNewComparison(p);
+				}
+			}
+		}
+
+	}
+	
 	/* Specified by interface/super class. */
 	@Override
 	public void actionPerformed(ActionEvent e) {

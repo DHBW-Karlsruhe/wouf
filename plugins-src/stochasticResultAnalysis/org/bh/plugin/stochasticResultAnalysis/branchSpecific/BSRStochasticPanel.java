@@ -13,9 +13,6 @@
  *******************************************************************************/
 package org.bh.plugin.stochasticResultAnalysis.branchSpecific;
 
-
-
-
 import java.awt.BasicStroke;
 import java.awt.BorderLayout;
 import java.awt.Color;
@@ -98,15 +95,10 @@ public class BSRStochasticPanel extends JPanel{
 			target.setPaint(new Color(222, 222, 255, 128));
 			plot.addDomainMarker(target, Layer.BACKGROUND);
 			
-			
-			
 			XYPlot plot2 = cashflowChartCompare.getChart().getXYPlot();
 			plot2.getRenderer().setSeriesPaint(0, Color.red);
 			plot2.getRenderer().setSeriesPaint(1, Color.blue);
 			
-			
-	 
-
 	        BHDescriptionLabel sd = new BHDescriptionLabel("standardDeviation");
 	        BHDescriptionLabel ew = new BHDescriptionLabel((BHBSRStochasticResultController.PanelKeys.AVERAGE));
 	        BHValueLabel sdValue = new BHValueLabel((BHBSRStochasticResultController.ChartKeys.STANDARD_DEVIATION));
@@ -115,7 +107,7 @@ public class BSRStochasticPanel extends JPanel{
 	        BHDescriptionLabel riskAt = new BHDescriptionLabel(BHBSRStochasticResultController.PanelKeys.VALUE);
 	        
 	        BHSlider slider = new BHSlider(BHBSRStochasticResultController.ChartKeys.RISK_AT_VALUE, 0, 100, 95);
-//	        BHSlider sliderRatio = new BHSlider(BHBSRStochasticResultController.ChartKeys.BSR_RATIO, 0, 100, 95); //new BN
+	        BHSlider sliderRatio = new BHSlider(BHBSRStochasticResultController.ChartKeys.BSR_RATIO, 0, 100, 95); //new BN
 	        BHSlider slider_cashflow = new BHSlider(BHBSRStochasticResultController.ChartKeys.CASHFLOW_COMPARE_SLIDER);
 	        slider_cashflow.setMinimum(3);
 	        slider_cashflow.setValue(3);
@@ -125,21 +117,18 @@ public class BSRStochasticPanel extends JPanel{
 	        slider_cashflow.setPaintLabels(true);
 	        //BHTextField riskAtField = new BHTextField(BHStochasticResultController.ChartKeys.RISK_AT_VALUE,"95", true);
 	        
-//	        cashflowChart.add (sliderRatio, BorderLayout.SOUTH);
-	        
 	        BHDescriptionLabel min = new BHDescriptionLabel("min");
 	        BHDescriptionLabel max = new BHDescriptionLabel("max");
 	        BHDescriptionLabel choose_p = new BHDescriptionLabel(BHBSRStochasticResultController.PanelKeys.COMPARE_P);
 	        BHValueLabel minValue = new BHValueLabel(BHBSRStochasticResultController.ChartKeys.RISK_AT_VALUE_MIN);
 	        BHValueLabel maxValue = new BHValueLabel(BHBSRStochasticResultController.ChartKeys.RISK_AT_VALUE_MAX);
 	        
-	        
 	        JPanel rav = new JPanel();
-	        rav.setLayout(new FormLayout ("4px:grow,right:pref,10px,pref,4px,pref,4px:grow","4px,p,4px,p,4px,p,4px,p,4px,p,4px"));
+	        rav.setLayout(new FormLayout ("4px:grow,right:pref,10px,pref,4px,pref,4px:grow","4px,p,4px,p,4px,p,4px,p,4px,p,4px,p,4px"));
 	        rav.add(riskAt, "2,2");
 	        //riskAtField.setPreferredSize(new Dimension(50,riskAtField.getPreferredSize().height));
                 slider.setPreferredSize(new Dimension(200,slider.getPreferredSize().height));
-//                sliderRatio.setPreferredSize(new Dimension(200,sliderRatio.getPreferredSize().height));
+                sliderRatio.setPreferredSize(new Dimension(200,sliderRatio.getPreferredSize().height));
 //	        ValidationRule[] rules = {VRIsDouble.INSTANCE, VRIsBetween.BETWEEN0AND100};//Validation for value at risk
 //                riskAtField.setValidationRules(rules);
 	        rav.add(slider, "4,2");
@@ -151,6 +140,9 @@ public class BSRStochasticPanel extends JPanel{
 	        rav.add(max, "2,6");
 	        rav.add(maxValue, "4,6");
 	        rav.add(new BHDescriptionLabel("currency"), "6,6"); //AWussler replaced: 3.12.2010: Now its translatable
+	        
+	        rav.add(sliderRatio, "4,8");
+	        
 	        rav.setBorder(BHBorderFactory.getInstacnce().createTitledBorder(BHBorderFactory.getInstacnce()
 					.createEtchedBorder(EtchedBorder.LOWERED),
 					BHBSRStochasticResultController.ChartKeys.RISK_AT_VALUE, TitledBorder.LEFT,
@@ -177,8 +169,6 @@ public class BSRStochasticPanel extends JPanel{
 			d.insets = new Insets(30,10,0,0);
 	        this.add(distributionChart, d); 
 	       // this.add(distributionChart, "1,3,5,3");
-	        
-	        
 	        
 	        /**
 	         * AWussler added: 3.12.2010
