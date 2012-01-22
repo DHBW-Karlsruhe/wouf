@@ -8,6 +8,7 @@ import org.bh.data.DTO;
 import org.bh.data.DTOBusinessData;
 import org.bh.data.DTOCompany;
 import org.bh.data.DTOScenario;
+import org.bh.data.types.DoubleValue;
 import org.bh.data.types.StringValue;
 import org.bh.platform.PlatformController;
 import org.bh.platform.Services;
@@ -50,6 +51,10 @@ public class BSRRatingTest extends TestCase {
 		// BusinessData aufbauen
 		DTOBusinessData myDTO = null;
 		DTOScenario scenario = new DTOScenario();
+		scenario.put(DTOScenario.Key.BTAX, new DoubleValue(10.0));
+		scenario.put(DTOScenario.Key.REK, new DoubleValue(10.0));
+		scenario.put(DTOScenario.Key.RFK, new DoubleValue(10.0));
+		scenario.put(DTOScenario.Key.CTAX, new DoubleValue(10.0));
 		
 		try {
 			myDTO = (DTOBusinessData) myImport.startImport();

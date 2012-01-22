@@ -54,6 +54,12 @@ public class BranchCalcTest extends TestCase {
 			DTOBusinessData myDTO = (DTOBusinessData) myImport.startImport();
 			PlatformController.setBusinessDataDTO(myDTO);
 			DTOScenario scenario = new DTOScenario();
+			
+			scenario.put(DTOScenario.Key.BTAX, new DoubleValue(10.0));
+			scenario.put(DTOScenario.Key.REK, new DoubleValue(10.0));
+			scenario.put(DTOScenario.Key.RFK, new DoubleValue(10.0));
+			scenario.put(DTOScenario.Key.CTAX, new DoubleValue(10.0));
+			
 			scenario.put(DTOScenario.Key.INDUSTRY, new StringValue("C.25.9"));
 
 			// Default-Konstruktor aufrufen
