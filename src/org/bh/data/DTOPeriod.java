@@ -17,15 +17,10 @@ package org.bh.data;
 
 import java.util.ServiceLoader;
 
-import javax.help.TryMap;
-
 import org.apache.log4j.Logger;
 import org.bh.calculation.ICalculationPreparer;
 import org.bh.data.types.Calculable;
 import org.bh.platform.PluginManager;
-import org.bh.plugin.gcc.data.DTOGCCBalanceSheet;
-import org.bh.plugin.gcc.data.DTOGCCProfitLossStatementCostOfSales;
-import org.bh.plugin.gcc.data.DTOGCCProfitLossStatementTotalCost;
 
 /**
  * Period DTO
