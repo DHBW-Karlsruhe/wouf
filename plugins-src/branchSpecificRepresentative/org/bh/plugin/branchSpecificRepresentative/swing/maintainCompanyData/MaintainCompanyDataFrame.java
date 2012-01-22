@@ -136,8 +136,8 @@ public class MaintainCompanyDataFrame extends BHPopupFrame implements
 			        	content = new BHContent();
 			        	paneV.setTopComponent(content);
 			        }else if (node.getUserObject() instanceof DTOPeriod){
-			        	BHPeriodFrame p = new BHPeriodFrame((DTOPeriod)node.getUserObject());
-			        	content = p.getFrame();
+//			        	BHPeriodFrame p = new BHPeriodFrame((DTOPeriod)node.getUserObject());
+//			        	content = p.getFrame();
 			        	//content = new GCCCombinedForm(new BHBalanceSheetForm(true), new BHPLSCostOfSalesForm(true));
 			        	paneV.setTopComponent(content);
 
