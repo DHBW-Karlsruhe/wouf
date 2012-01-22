@@ -17,10 +17,15 @@ package org.bh.data;
 
 import java.util.ServiceLoader;
 
+import javax.help.TryMap;
+
 import org.apache.log4j.Logger;
 import org.bh.calculation.ICalculationPreparer;
 import org.bh.data.types.Calculable;
 import org.bh.platform.PluginManager;
+import org.bh.plugin.gcc.data.DTOGCCBalanceSheet;
+import org.bh.plugin.gcc.data.DTOGCCProfitLossStatementCostOfSales;
+import org.bh.plugin.gcc.data.DTOGCCProfitLossStatementTotalCost;
 
 /**
  * Period DTO
@@ -97,10 +102,37 @@ public class DTOPeriod extends DTO<IPeriodicalValuesDTO> {
 	public Calculable getFCF() {
 		Calculable result = null;
 		ServiceLoader<ICalculationPreparer> preparers = PluginManager.getInstance().getServices(ICalculationPreparer.class);
+
+		// 01/22/12
+		// workaround for triggering the right functionality
+		int counter = 0;
 		for (ICalculationPreparer preparer : preparers) {
-			result = preparer.getFCF(this);
-			if (result != null)
+			
+    		// get the ProfitLossStatements
+    		IPeriodicalValuesDTO myProfitStatement = this.getChild(1);	    	
+    		
+			// cost of Sales    		
+			if(counter == 0)
+			{
+				if(myProfitStatement.getUniqueId() == DTOGCCProfitLossStatementCostOfSales.getUniqueIdStatic()) {
+					result = preparer.getFCF(this);
+				}
+			}
+			
+			// total costs			
+			if(counter == 1)
+			{
+				if(myProfitStatement.getUniqueId() == DTOGCCProfitLossStatementTotalCost.getUniqueIdStatic()) {
+					result = preparer.getFCF(this);
+				}				
+			}
+			
+			if (result != null) {
 				break;
+			}
+			
+			counter++;
+
 		}
 		if (result == null) {
 			throw new DTOAccessException("Cannot calculate FCF");
