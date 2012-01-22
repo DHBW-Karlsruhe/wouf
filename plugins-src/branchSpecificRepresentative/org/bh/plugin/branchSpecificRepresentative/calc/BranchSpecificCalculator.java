@@ -50,8 +50,8 @@ public class BranchSpecificCalculator implements IBranchSpecificCalculator {
 		Iterator<DTOCompany> CompItr = compList.iterator();
 
 		while (CompItr.hasNext()) {
-			DTOCompany Company = CompItr.next();
-			calculateFCFs(Company);
+			DTOCompany company = CompItr.next();
+			calculateFCFs(company);
 		}
 
 		// Tabelle erstellen
@@ -231,12 +231,13 @@ public class BranchSpecificCalculator implements IBranchSpecificCalculator {
 		int companyCounter = 0, periodCounter = 0;
 
 		List<DTOCompany> companyList = currNormedBranch.getChildren();
-		Iterator<DTOCompany> CompanyItr = companyList.iterator();
 		companyCounter = companyList.size();
 
-		DTOCompany currCompany = CompanyItr.next();
-		List<DTOPeriod> periodList = currCompany.getChildren();
-		periodCounter = periodList.size();
+		for(DTOCompany company: companyList){
+			if(company.getChildrenSize() > periodCounter){
+				periodCounter = company.getChildrenSize();
+			}
+		}
 
 		return new double[companyCounter][periodCounter];
 	}
@@ -388,7 +389,7 @@ public class BranchSpecificCalculator implements IBranchSpecificCalculator {
 
 	public Color getEvaluationOfRating() {
 
-		List<Double> bsrRatings = PlatformController.getInstance()
+		List<Double> bsrRatings = PlatformController
 				.getAllBSRRatings();
 
 		double highestRating = 0;
@@ -458,8 +459,9 @@ public class BranchSpecificCalculator implements IBranchSpecificCalculator {
 									+ " year: "
 									+ currPeriod.get(DTOPeriod.Key.NAME),
 							dtoaccess);
-					currPeriod.put(DTOPeriod.Key.FCF, new DoubleValue(0.0));
 				}
+				//TODO Find better solution here, which is also used in algorithm. We have problems calculating FCF in first period!!!
+				currPeriod.put(DTOPeriod.Key.FCF, new DoubleValue(0.0));
 			}
 			try {
 				currPeriod.put(DTOPeriod.Key.LIABILITIES,
