@@ -103,35 +103,13 @@ public class DTOPeriod extends DTO<IPeriodicalValuesDTO> {
 		Calculable result = null;
 		ServiceLoader<ICalculationPreparer> preparers = PluginManager.getInstance().getServices(ICalculationPreparer.class);
 
-		// 01/22/12
-		// workaround for triggering the right functionality
-		int counter = 0;
 		for (ICalculationPreparer preparer : preparers) {
 			
-    		// get the ProfitLossStatements
-    		IPeriodicalValuesDTO myProfitStatement = this.getChild(1);	    	
-    		
-			// cost of Sales    		
-			if(counter == 0)
-			{
-				if(myProfitStatement.getUniqueId() == DTOGCCProfitLossStatementCostOfSales.getUniqueIdStatic()) {
-					result = preparer.getFCF(this);
-				}
-			}
-			
-			// total costs			
-			if(counter == 1)
-			{
-				if(myProfitStatement.getUniqueId() == DTOGCCProfitLossStatementTotalCost.getUniqueIdStatic()) {
-					result = preparer.getFCF(this);
-				}				
-			}
+			result = preparer.getFCF(this);
 			
 			if (result != null) {
 				break;
 			}
-			
-			counter++;
 
 		}
 		if (result == null) {
