@@ -464,6 +464,8 @@ public class DTOScenario extends DTO<DTOPeriod> {
 		double normedBSRCashflow = 0.0;
 		int unternehmensCounter = 0;
 		
+		
+		
 		//Ermittle neuesten CF des Unternehmens
 		for(DTOPeriod unternehmensperiode: this.getChildren()){
 			try{
@@ -475,11 +477,6 @@ public class DTOScenario extends DTO<DTOPeriod> {
 			}
 		}
 		
-		//Wir starten die Berechnung bei der zweiten Periode
-		if(unternehmensCounter == 1){
-			//Eventuell müssen wir dies später mal anpassen.
-			unternehmensCounter++;
-		}
 		for(DTOPeriod bsrPeriode: branchSpecificRep.getChildren()){
 			unternehmensCounter--;
 			
