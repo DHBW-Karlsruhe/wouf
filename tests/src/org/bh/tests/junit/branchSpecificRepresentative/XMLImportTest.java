@@ -2,15 +2,12 @@ package org.bh.tests.junit.branchSpecificRepresentative;
 
 import java.io.File;
 import java.io.IOException;
-import java.io.OutputStream;
-import java.io.PrintStream;
 import java.io.PrintWriter;
 import java.util.Iterator;
 import java.util.List;
 
 import junit.framework.TestCase;
 
-import org.apache.log4j.LogManager;
 import org.bh.data.DTO;
 import org.bh.data.DTOAccessException;
 import org.bh.data.DTOBranch;
@@ -19,6 +16,7 @@ import org.bh.data.DTOCompany;
 import org.bh.data.DTOPeriod;
 import org.bh.data.DTOScenario;
 import org.bh.data.IPeriodicalValuesDTO;
+import org.bh.data.types.DoubleValue;
 import org.bh.platform.Services;
 import org.bh.plugin.gcc.data.DTOGCCBalanceSheet;
 import org.bh.plugin.gcc.data.DTOGCCProfitLossStatementCostOfSales;
@@ -172,7 +170,14 @@ public class XMLImportTest extends TestCase {
 				
 				for(DTOCompany company : branch.getChildren()){
 					
-					company.updateReferences(new DTOScenario());
+					DTOScenario scenario = new DTOScenario();
+					scenario.put(DTOScenario.Key.BTAX, new DoubleValue(10.0));
+					scenario.put(DTOScenario.Key.REK, new DoubleValue(10.0));
+					scenario.put(DTOScenario.Key.RFK, new DoubleValue(10.0));
+					scenario.put(DTOScenario.Key.CTAX, new DoubleValue(10.0));
+					
+					
+					company.updateReferences(scenario);
 					
 					int i = 0;
 					
