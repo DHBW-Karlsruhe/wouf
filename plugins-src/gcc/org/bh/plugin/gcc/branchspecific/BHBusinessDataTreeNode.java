@@ -15,7 +15,6 @@ import org.bh.data.DTOProject;
 import org.bh.data.DTOScenario;
 import org.bh.data.types.StringValue;
 import org.bh.platform.i18n.BHTranslator;
-import org.bh.plugin.branchSpecificRepresentative.nace.ReadNACE;
 /**
  * 
  * Special TreeNode for use in Business Horizon.
