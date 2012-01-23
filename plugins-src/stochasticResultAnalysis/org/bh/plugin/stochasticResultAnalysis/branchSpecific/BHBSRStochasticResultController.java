@@ -14,16 +14,20 @@
 package org.bh.plugin.stochasticResultAnalysis.branchSpecific;
 
 import java.awt.Color;
+import java.awt.GridBagConstraints;
+import java.awt.Insets;
 import java.awt.event.ActionEvent;
 
 import java.util.ArrayList;
 import java.util.Dictionary;
 import java.util.Hashtable;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import java.util.TreeMap;
 import java.util.Map.Entry;
 
+import javax.help.MainWindow;
 import javax.swing.JLabel;
 import javax.swing.event.CaretEvent;
 import javax.swing.event.CaretListener;
@@ -41,6 +45,7 @@ import org.bh.data.types.DoubleValue;
 import org.bh.data.types.IntervalValue;
 import org.bh.data.types.StringValue;
 import org.bh.gui.IBHModelComponent;
+import org.bh.gui.chart.BHChartFactory;
 import org.bh.gui.chart.BHChartPanel;
 import org.bh.gui.chart.IBHAddValue;
 import org.bh.gui.swing.comp.BHButton;
@@ -74,7 +79,9 @@ public class BHBSRStochasticResultController extends OutputController {
 		}
 
 	}
-
+	private static boolean differenceIsComputed;
+	private static double differenceCompanyBSR;
+	private static boolean bsrIsHigher;
 	private DistributionMap bsrResult;
 
 	int pAlt = 0;
@@ -122,8 +129,10 @@ public class BHBSRStochasticResultController extends OutputController {
 				.getBHComponent(ChartKeys.RISK_AT_VALUE.toString());
 		slider.addChangeListener(new SliderChangeListener());
 
-		 BHSlider sliderRatio = (BHSlider) view.getBHComponent(ChartKeys.BSR_RATIO.toString());
-		 sliderRatio.addChangeListener(new RatioSliderChangeListener());
+		BHSlider sliderRatio = (BHSlider) view
+				.getBHComponent(ChartKeys.BSR_RATIO.toString());
+		sliderRatio.addChangeListener(new RatioSliderChangeListener(result,
+				resultBSR, scenario));
 
 		if (result.isTimeSeries()) {
 			setResultTimeSeries(result, resultBSR, scenario);
@@ -193,9 +202,9 @@ public class BHBSRStochasticResultController extends OutputController {
 				result.getMaxAmountOfValuesInCluster());
 		comp.addSeries(
 				BHBSRStochasticResultController.ChartKeys.VALUE_BSR.toString(),
-						resultBSR.toDoubleArray(), resultBSR.getAmountOfValues(),
+				resultBSR.toDoubleArray(), resultBSR.getAmountOfValues(),
 				resultBSR.getMaxAmountOfValuesInCluster());
-//		result.
+		// result.
 		comp.addSeries(
 				Services.getTranslator()
 						.translate(PanelKeys.AVERAGE.toString()),
@@ -375,6 +384,87 @@ public class BHBSRStochasticResultController extends OutputController {
 		}
 	}
 
+	public void drawValueWithBSR(double confidence, DistributionMap result,
+			DistributionMap resultBSR, DTOScenario scenario) {
+		// TODO doku
+		IBHAddValue comp = super.view.getBHchartComponents().get(
+				ChartKeys.DISTRIBUTION_CHART.toString());
+
+		// entfernen der alten Graphen in der DistributionChart
+		comp.removeSeries(2);
+		comp.removeSeries(1);
+		comp.removeSeries(0);
+
+		// Bestimmen des Abstandes d der beiden Graphen (BSR + U)
+		int sum = 0;
+		double n = result.getAmountOfValues() / 2;
+		double mitte = 0;
+		double mitteBSR = 0;
+		if (!differenceIsComputed) {
+			for (Entry<Double, Integer> e : result.entrySet()) {
+				sum += e.getValue();
+				if (sum >= n) {
+					mitte = e.getKey();
+					break;
+				}
+			}
+			sum = 0;
+			n = resultBSR.getAmountOfValues() / 2;
+			mitteBSR = 0;
+
+			for (Entry<Double, Integer> e : resultBSR.entrySet()) {
+				sum += e.getValue();
+				if (sum >= n) {
+					mitteBSR = e.getKey();
+					break;
+				}
+			}
+            if(mitteBSR < mitte){
+            	BHBSRStochasticResultController.bsrIsHigher = false;
+            }else{
+            	BHBSRStochasticResultController.bsrIsHigher = true;
+            }
+            	
+			BHBSRStochasticResultController.differenceCompanyBSR = Math.abs(mitte - mitteBSR);
+			BHBSRStochasticResultController.differenceIsComputed = true;
+		}
+		
+		double verschiebung = 0;
+		if (!BHBSRStochasticResultController.bsrIsHigher) {
+			verschiebung = (differenceCompanyBSR / 100) * confidence;
+		} else{
+			verschiebung = (-1) * (differenceCompanyBSR / 100) * confidence;
+		}
+
+		List<Map.Entry<Double, Integer>> liste = new ArrayList<Map.Entry<Double, Integer>>();
+		Iterator<Entry<Double, Integer>> iterMap = result.entrySet().iterator();
+
+		while (iterMap.hasNext()) {
+			liste.add(iterMap.next());
+		}
+		Iterator<Entry<Double, Integer>> iterList = liste.iterator();
+		Entry<Double, Integer> entry;
+
+		DistributionMap resultNew = new DistributionMap(1);
+		while (iterList.hasNext()) {
+			entry = iterList.next();
+			resultNew.put(entry.getKey() + verschiebung);
+		}
+		setResult(resultNew, resultBSR, scenario);
+
+		// BHChartPanel distributionChart;
+		// distributionChart =
+		// BHChartFactory.getXYBarChart(BHBSRStochasticResultController.ChartKeys.DISTRIBUTION_CHART);
+		//
+		// GridBagConstraints d = new GridBagConstraints();
+		// d.fill = GridBagConstraints.HORIZONTAL;
+		// d.gridx = 0;
+		// d.gridy = 0;
+		// d.insets = new Insets(30, 10, 0, 0);
+		// this.add(distributionChart, d);
+
+	}
+
 	class RiskAtValueListener implements CaretListener {
 
 		@Override
@@ -417,9 +507,19 @@ public class BHBSRStochasticResultController extends OutputController {
 		}
 
 	}
-	
+
 	class RatioSliderChangeListener implements ChangeListener {
 		boolean erstes_mal = true;// siehe F I X M E un
+		private DistributionMap result;
+		private DistributionMap resultBSR;
+		private DTOScenario scenario;
+
+		public RatioSliderChangeListener(DistributionMap result,
+				DistributionMap resultBSR, DTOScenario scenario) {
+			this.result = result;
+			this.resultBSR = resultBSR;
+			this.scenario = scenario;
+		}
 
 		public void stateChanged(ChangeEvent e) {
 
@@ -428,8 +528,13 @@ public class BHBSRStochasticResultController extends OutputController {
 				double confidence = ((BHSlider) view
 						.getBHComponent(ChartKeys.BSR_RATIO.toString()))
 						.getValue();
-				calcRiskAtValue(confidence,
-						stochasticResult.getMaxAmountOfValuesInCluster());
+				drawValueWithBSR(confidence, result, resultBSR, scenario);
+
+				// Dieser Slider ist für die Risk at value anzeige und darf,
+				// falls es ein BSR_RATIO-Slider ist, nicht die RiskAtValue
+				// anzeige verändern.
+				// calcRiskAtValue(confidence,
+				// stochasticResult.getMaxAmountOfValuesInCluster());
 			}
 			if (key.equals(ChartKeys.CASHFLOW_COMPARE_SLIDER.toString())) {
 				int p = ((BHSlider) view
@@ -443,7 +548,7 @@ public class BHBSRStochasticResultController extends OutputController {
 		}
 
 	}
-	
+
 	/* Specified by interface/super class. */
 	@Override
 	public void actionPerformed(ActionEvent e) {
