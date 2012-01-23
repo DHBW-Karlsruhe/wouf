@@ -9,6 +9,8 @@ import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 
+import javax.swing.JButton;
+import javax.swing.JComboBox;
 import javax.swing.JMenu;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
@@ -88,12 +90,9 @@ public class MaintainCompanyDataFrame extends BHPopupFrame implements
 		super();
 		
 		 Container desktop = getContentPane();
-		 BHButton savebutton = new BHButton("speichern");
+		 BHButton add = new BHButton("hinzufügen");
 		 content = new BHContent();
-		
 	
-		 
-	//	XMLImport myImport = new XMLImport("src/org/bh/companydata/periods.xml");
 
 			DTOBusinessData myDTO = PlatformController.getBusinessDataDTO();
 			BHBusinessDataTreeNode root1 = new BHBusinessDataTreeNode(myDTO);
@@ -150,12 +149,18 @@ public class MaintainCompanyDataFrame extends BHPopupFrame implements
 			 
 		
 JScrollPane bhTreeScroller = new JScrollPane(tree);
+JPanel panev2 = new JPanel();
+panev2.setLayout(new BorderLayout());
+JComboBox branchbox = new JComboBox();
+panev2.add(branchbox, BorderLayout.NORTH);
+panev2.add(add,BorderLayout.SOUTH);
+JSplitPane panev3 = new JSplitPane(JSplitPane.VERTICAL_SPLIT, panev2, bhTreeScroller);
 paneV = new JSplitPane(JSplitPane.VERTICAL_SPLIT, content, resultForm);
 paneV.setOneTouchExpandable(true);
 	
 	// Create the horizontal split pane and put the treeBar and the content
 	// in it.
-JSplitPane paneH = new JSplitPane(JSplitPane.HORIZONTAL_SPLIT, bhTreeScroller,
+JSplitPane paneH = new JSplitPane(JSplitPane.HORIZONTAL_SPLIT, panev3,
 			paneV);
 
 paneH.setOneTouchExpandable(true);
