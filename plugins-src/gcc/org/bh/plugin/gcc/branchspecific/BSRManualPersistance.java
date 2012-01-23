@@ -1,4 +1,4 @@
-package org.bh.plugin.branchSpecificRepresentative.swing.maintainCompanyData;
+package org.bh.plugin.gcc.branchspecific;
 
 import java.io.IOException;
 import java.util.Map;

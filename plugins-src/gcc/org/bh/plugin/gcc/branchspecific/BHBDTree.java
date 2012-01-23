@@ -1,4 +1,4 @@
-package org.bh.plugin.branchSpecificRepresentative.swing.maintainCompanyData;
+package org.bh.plugin.gcc.branchspecific;
 
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;

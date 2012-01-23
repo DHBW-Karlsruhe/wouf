@@ -1,10 +1,13 @@
-package org.bh.plugin.branchSpecificRepresentative.swing.maintainCompanyData;
+package org.bh.plugin.gcc.branchspecific;
 
 import java.awt.BorderLayout;
 import java.awt.Container;
 import java.awt.Dimension;
+import java.awt.dnd.DnDConstants;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
 
 import javax.swing.JMenu;
 import javax.swing.JPanel;
@@ -14,6 +17,8 @@ import javax.swing.JTree;
 import javax.swing.UIManager;
 import javax.swing.event.TreeSelectionEvent;
 import javax.swing.event.TreeSelectionListener;
+import javax.swing.tree.DefaultMutableTreeNode;
+import javax.swing.tree.TreePath;
 
 import org.apache.log4j.Logger;
 import org.bh.data.DTOBranch;
@@ -26,11 +31,15 @@ import org.bh.gui.swing.BHMenuBar;
 import org.bh.gui.swing.BHMenuItem;
 import org.bh.gui.swing.BHPopupFrame;
 import org.bh.gui.swing.comp.BHButton;
+import org.bh.gui.swing.tree.BHTree;
+import org.bh.gui.swing.tree.BHTreeTransferHandler;
 import org.bh.platform.PlatformController;
 import org.bh.platform.PlatformKey;
 import org.bh.platform.Services;
 import org.bh.platform.i18n.BHTranslator;
 import org.bh.platform.i18n.ITranslator;
+import org.bh.plugin.xmldataexchange.xmlimport.XMLImport;
+import org.jfree.util.Log;
 
 /**
  * Frame to maintain company data to calculate branch specific representative.
@@ -127,15 +136,15 @@ public class MaintainCompanyDataFrame extends BHPopupFrame implements
 			        	content = new BHContent();
 			        	paneV.setTopComponent(content);
 			        }else if (node.getUserObject() instanceof DTOPeriod){
-//			        	BHPeriodFrame p = new BHPeriodFrame((DTOPeriod)node.getUserObject());
-//			        	content = p.getFrame();
+			        	BHPeriodFrame p = new BHPeriodFrame((DTOPeriod)node.getUserObject());
+			        	content = p.getFrame();
 			        	//content = new GCCCombinedForm(new BHBalanceSheetForm(true), new BHPLSCostOfSalesForm(true));
 			        	paneV.setTopComponent(content);
 
 
 			       
 			    }else{
-			    	Logger.getLogger(MaintainCompanyDataFrame.class).debug("no valid class");
+			    	Log.debug("no valid class");
 			    }}
 			});
 			
