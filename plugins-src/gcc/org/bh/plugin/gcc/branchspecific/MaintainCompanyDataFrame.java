@@ -38,7 +38,6 @@ import org.bh.platform.PlatformKey;
 import org.bh.platform.Services;
 import org.bh.platform.i18n.BHTranslator;
 import org.bh.platform.i18n.ITranslator;
-import org.bh.plugin.xmldataexchange.xmlimport.XMLImport;
 import org.jfree.util.Log;
 
 /**
