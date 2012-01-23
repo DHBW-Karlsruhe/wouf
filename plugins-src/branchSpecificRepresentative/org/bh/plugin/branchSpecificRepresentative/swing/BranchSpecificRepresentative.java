@@ -114,7 +114,7 @@ public class BranchSpecificRepresentative implements ITimeSeriesProcess {
 		DecimalFormat format = new DecimalFormat("#0.00");
 		
 		if (goodness_calculated) {
-			tfBranchSpecGoodness.setText("" + (format.format(goodness)) + " %");
+			tfBranchSpecGoodness.setText("" + (format.format(goodness)));
 		} else {
 			tfBranchSpecGoodness.setText("N/A");
 		}

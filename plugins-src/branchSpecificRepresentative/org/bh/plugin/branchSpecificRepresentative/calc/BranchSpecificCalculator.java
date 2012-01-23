@@ -200,21 +200,6 @@ public class BranchSpecificCalculator implements IBranchSpecificCalculator {
 		System.out.println("" + this.ratingBSR);
 	}
 
-	private DoubleValue getBSRCFforPeriod(int period,
-			DTOCompany branchSpecificRepresentative) {
-		DTOPeriod currPeriod = null;
-
-		List<DTOPeriod> periodList = branchSpecificRepresentative.getChildren();
-		Iterator<DTOPeriod> periodItr = periodList.iterator();
-
-		for (int count = 0; periodItr.hasNext();) {
-			currPeriod = periodItr.next();
-			if (count == period)
-				break;
-		}
-		return ((DoubleValue) currPeriod.get(DTOPeriod.Key.FCF));
-	}
-
 	public double getRating() {
 		return this.ratingBSR;
 	}
