@@ -34,15 +34,15 @@ import org.bh.data.types.StringValue;
 public class BranchCalcTest extends TestCase {
 
 	@Before
-	public void setUp(){
-		DTO.setThrowEvents(false); //Damit die Logfiles nicht so groß werden.
+	public void setUp() {
+		DTO.setThrowEvents(false); // Damit die Logfiles nicht so groß werden.
 	}
-	
+
 	@After
-	public void tearDown(){
+	public void tearDown() {
 		DTO.setThrowEvents(true);
 	}
-	
+
 	public void testBranchCalculator() {
 
 		// Init Number Serices
@@ -54,12 +54,12 @@ public class BranchCalcTest extends TestCase {
 			DTOBusinessData myDTO = (DTOBusinessData) myImport.startImport();
 			PlatformController.setBusinessDataDTO(myDTO);
 			DTOScenario scenario = new DTOScenario();
-			
+
 			scenario.put(DTOScenario.Key.BTAX, new DoubleValue(10.0));
 			scenario.put(DTOScenario.Key.REK, new DoubleValue(10.0));
 			scenario.put(DTOScenario.Key.RFK, new DoubleValue(10.0));
 			scenario.put(DTOScenario.Key.CTAX, new DoubleValue(10.0));
-			
+
 			scenario.put(DTOScenario.Key.INDUSTRY, new StringValue("C.25.9"));
 
 			// Default-Konstruktor aufrufen
@@ -72,29 +72,29 @@ public class BranchCalcTest extends TestCase {
 			// Branchspezifischen Vertreter ermitteln (= normieren der CFs &
 			// Mittelwertsberechnung (normal/gestutzt))
 			result = bsc.calculateBSR(myDTO, scenario);
-			
+
 			// Ergebnisse prüfen
 			List<DTOPeriod> periodList = result.getChildren();
 			Iterator<DTOPeriod> PeriodItr = periodList.iterator();
 			while (PeriodItr.hasNext()) {
 				DTOPeriod currPeriod = PeriodItr.next();
-				DoubleValue wert = (DoubleValue) currPeriod.get(DTOPeriod.Key.FCF);
+				DoubleValue wert = (DoubleValue) currPeriod
+						.get(DTOPeriod.Key.FCF);
 				double dwert = wert.getValue();
 				String name = "" + currPeriod.get(DTOPeriod.Key.NAME);
-				
-				if(name.equals("2.010")){
-					Assert.assertTrue(dwert == -1.0444681283571562);
-				}else if (name.equals("2.009")){
-					Assert.assertTrue(dwert == -0.08466592699973594);
-				}else if (name.equals("2.008")){
-					Assert.assertTrue(dwert == 0.6606482682053639);
-				}else if (name.equals("2.007")){
-					Assert.assertTrue(dwert == 0.04321855144556013);
-				} else if (name.equals("2.006")){
+
+				if (name.equals("2.010")) {
+					Assert.assertTrue(dwert == -0.8769029090500094);
+				} else if (name.equals("2.009")) {
+					Assert.assertTrue(dwert == -1.0594604081599177);
+				} else if (name.equals("2.008")) {
+					Assert.assertTrue(dwert == -0.19633971923841537);
+				} else if (name.equals("2.007")) {
+					Assert.assertTrue(dwert == -0.08517577729268362);
+				} else if (name.equals("2.006")) {
 					Assert.assertTrue(dwert == 0.0);
 				}
 			}
-			
 
 		} catch (XMLNotValidException e) {
 			e.printStackTrace();
