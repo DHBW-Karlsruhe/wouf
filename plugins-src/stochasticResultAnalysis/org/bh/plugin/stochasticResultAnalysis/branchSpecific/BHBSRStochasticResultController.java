@@ -79,6 +79,7 @@ public class BHBSRStochasticResultController extends OutputController {
 		}
 
 	}
+
 	private static boolean differenceIsComputed;
 	private static double differenceCompanyBSR;
 	private static boolean bsrIsHigher;
@@ -204,7 +205,6 @@ public class BHBSRStochasticResultController extends OutputController {
 				BHBSRStochasticResultController.ChartKeys.VALUE_BSR.toString(),
 				resultBSR.toDoubleArray(), resultBSR.getAmountOfValues(),
 				resultBSR.getMaxAmountOfValuesInCluster());
-		// result.
 		comp.addSeries(
 				Services.getTranslator()
 						.translate(PanelKeys.AVERAGE.toString()),
@@ -287,13 +287,6 @@ public class BHBSRStochasticResultController extends OutputController {
 						BHBSRStochasticResultController.ChartKeys.CASHFLOW_BSR),
 				resultBSR.toDoubleArrayTS());
 
-		// IBHAddValue compBSR = super.view.getBHchartComponents().get(
-		// ChartKeys.CASHFLOW_CHART.toString());
-		// compBSR.addSeries(
-		// Services.getTranslator().translate(
-		// PanelKeys.CASHFLOW.toString()),
-		// resultBSR.toDoubleArrayTS());
-
 		IBHAddValue comp3 = super.view.getBHchartComponents().get(
 				ChartKeys.CASHFLOW_CHART_COMPARE.toString());
 		comp3.addSeries(
@@ -304,17 +297,6 @@ public class BHBSRStochasticResultController extends OutputController {
 				Services.getTranslator().translate(
 						PanelKeys.CASHFLOW_FORECAST.toString()),
 				result.getCompareCashflow());
-
-		// IBHAddValue compBSR2 = super.view.getBHchartComponents().get(
-		// ChartKeys.CASHFLOW_CHART_COMPARE.toString());
-		// compBSR2.addSeries(
-		// Services.getTranslator().translate(
-		// PanelKeys.CASHFLOW_IS.toString()),
-		// resultBSR.getIsCashflow());
-		// compBSR2.addSeries(
-		// Services.getTranslator().translate(
-		// PanelKeys.CASHFLOW_FORECAST.toString()),
-		// resultBSR.getCompareCashflow());
 
 		String TableKey = PanelKeys.CASHFLOW_TABLE.toString();
 		BHTable cashTable = ((BHTable) view.getBHComponent(TableKey));
@@ -384,23 +366,30 @@ public class BHBSRStochasticResultController extends OutputController {
 		}
 	}
 
+	/*
+	 * This Method will remove the series of DistributionChart, compute moving
+	 * value of Company value and finally draw the new adjusted Company Value.
+	 */
 	public void drawValueWithBSR(double confidence, DistributionMap result,
 			DistributionMap resultBSR, DTOScenario scenario) {
-		// TODO doku
+
+		// Get reference "comp" to the Value Distribution Chart
 		IBHAddValue comp = super.view.getBHchartComponents().get(
 				ChartKeys.DISTRIBUTION_CHART.toString());
 
-		// entfernen der alten Graphen in der DistributionChart
+		// Removing of old graphs in Distribution Chart
 		comp.removeSeries(2);
 		comp.removeSeries(1);
 		comp.removeSeries(0);
 
-		// Bestimmen des Abstandes d der beiden Graphen (BSR + U)
+		// Compute the difference between mid of BSR and Company
 		int sum = 0;
 		double n = result.getAmountOfValues() / 2;
 		double mitte = 0;
 		double mitteBSR = 0;
+		// Just compute difference once.
 		if (!differenceIsComputed) {
+			// First get the mid value of Company Value
 			for (Entry<Double, Integer> e : result.entrySet()) {
 				sum += e.getValue();
 				if (sum >= n) {
@@ -408,6 +397,7 @@ public class BHBSRStochasticResultController extends OutputController {
 					break;
 				}
 			}
+			// Second get the mid value of BSR Value
 			sum = 0;
 			n = resultBSR.getAmountOfValues() / 2;
 			mitteBSR = 0;
@@ -419,50 +409,48 @@ public class BHBSRStochasticResultController extends OutputController {
 					break;
 				}
 			}
-            if(mitteBSR < mitte){
-            	BHBSRStochasticResultController.bsrIsHigher = false;
-            }else{
-            	BHBSRStochasticResultController.bsrIsHigher = true;
-            }
-            	
-			BHBSRStochasticResultController.differenceCompanyBSR = Math.abs(mitte - mitteBSR);
+			// See in which direction (left or right) the Company graph has to
+			// be moved
+			if (mitteBSR < mitte) {
+				BHBSRStochasticResultController.bsrIsHigher = false;
+			} else {
+				BHBSRStochasticResultController.bsrIsHigher = true;
+			}
+
+			// Get the difference between mid of Company and BSR
+			BHBSRStochasticResultController.differenceCompanyBSR = Math
+					.abs(mitte - mitteBSR);
 			BHBSRStochasticResultController.differenceIsComputed = true;
 		}
-		
+
 		double verschiebung = 0;
+		// Compute value to be moved
 		if (!BHBSRStochasticResultController.bsrIsHigher) {
 			verschiebung = (differenceCompanyBSR / 100) * confidence;
-		} else{
+		} else {
 			verschiebung = (-1) * (differenceCompanyBSR / 100) * confidence;
 		}
-
+		// Tis list will be loaded with the map of Company values
 		List<Map.Entry<Double, Integer>> liste = new ArrayList<Map.Entry<Double, Integer>>();
 		Iterator<Entry<Double, Integer>> iterMap = result.entrySet().iterator();
-
+		// Copy resultMap into liste
 		while (iterMap.hasNext()) {
 			liste.add(iterMap.next());
 		}
+		// Create interator for liste
 		Iterator<Entry<Double, Integer>> iterList = liste.iterator();
 		Entry<Double, Integer> entry;
-
+		// New resultMap for manipulated values
 		DistributionMap resultNew = new DistributionMap(1);
+		// 1. get Value of list
+		// 2. value + moving value
+		// 3. add to new resultMap
 		while (iterList.hasNext()) {
 			entry = iterList.next();
 			resultNew.put(entry.getKey() + verschiebung);
 		}
+		// Set Result (will draw the Series into Distribution Chart)
 		setResult(resultNew, resultBSR, scenario);
-
-		// BHChartPanel distributionChart;
-		// distributionChart =
-		// BHChartFactory.getXYBarChart(BHBSRStochasticResultController.ChartKeys.DISTRIBUTION_CHART);
-		//
-		// GridBagConstraints d = new GridBagConstraints();
-		// d.fill = GridBagConstraints.HORIZONTAL;
-		// d.gridx = 0;
-		// d.gridy = 0;
-		// d.insets = new Insets(30, 10, 0, 0);
-		// this.add(distributionChart, d);
-
 	}
 
 	class RiskAtValueListener implements CaretListener {
@@ -528,13 +516,9 @@ public class BHBSRStochasticResultController extends OutputController {
 				double confidence = ((BHSlider) view
 						.getBHComponent(ChartKeys.BSR_RATIO.toString()))
 						.getValue();
+				// If slider is changed calculate the new Company Value with
+				// influence of BSR Value
 				drawValueWithBSR(confidence, result, resultBSR, scenario);
-
-				// Dieser Slider ist für die Risk at value anzeige und darf,
-				// falls es ein BSR_RATIO-Slider ist, nicht die RiskAtValue
-				// anzeige verändern.
-				// calcRiskAtValue(confidence,
-				// stochasticResult.getMaxAmountOfValuesInCluster());
 			}
 			if (key.equals(ChartKeys.CASHFLOW_COMPARE_SLIDER.toString())) {
 				int p = ((BHSlider) view
