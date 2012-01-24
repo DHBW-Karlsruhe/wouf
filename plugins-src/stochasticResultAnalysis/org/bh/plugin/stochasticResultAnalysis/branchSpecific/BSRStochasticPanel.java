@@ -58,209 +58,303 @@ import com.jgoodies.forms.layout.FormLayout;
 // @update 23.12.2010 Timo Klein
 
 @SuppressWarnings("serial")
-public class BSRStochasticPanel extends JPanel{
-	
+public class BSRStochasticPanel extends JPanel {
+
 	final ITranslator translator = Controller.getTranslator();
 	GridBagConstraints d;
 	JLabel space;
 
-	 @SuppressWarnings("unused")
-	private static final Logger log = Logger.getLogger(BSRStochasticPanel.class);
-	    //Chart
-	    private BHChartPanel distributionChart;
-	    private BHChartPanel cashflowChart;
-	    private BHChartPanel cashflowChartCompare;
-	    private BHTable cashTable;
-	    
-	    private JScrollPane tablePane;
-	    private JPanel compare_p;
-	    
-	    public BSRStochasticPanel(){
-	        this.initialize();
-	    }
+	@SuppressWarnings("unused")
+	private static final Logger log = Logger
+			.getLogger(BSRStochasticPanel.class);
+	// Chart
+	private BHChartPanel distributionChart;
+	private BHChartPanel cashflowChart;
+	private BHChartPanel cashflowChartCompare;
+	private BHTable cashTable;
 
-	    public void initialize() {
-	        this.setLayout(new GridBagLayout());
-			d = new GridBagConstraints();
+	private JScrollPane tablePane;
+	private JPanel compare_p;
 
-	        distributionChart = BHChartFactory.getXYBarChart(BHBSRStochasticResultController.ChartKeys.DISTRIBUTION_CHART);
-	        cashflowChart = BHChartFactory.getLineChart(BHBSRStochasticResultController.ChartKeys.CASHFLOW_CHART);
-	        cashflowChartCompare = BHChartFactory.getLineChart(BHBSRStochasticResultController.ChartKeys.CASHFLOW_CHART_COMPARE);
-	        XYPlot plot = cashflowChart.getChart().getXYPlot();
-	        IntervalMarker target = new IntervalMarker(0.0, 500.0);
-			target.setLabel(Services.getTranslator().translate(BHBSRStochasticResultController.ChartKeys.CASHFLOW_FORECAST));
-	        target.setLabelAnchor(RectangleAnchor.BOTTOM);
-	        target.setLabelTextAnchor(TextAnchor.BOTTOM_CENTER);
-	        target.setLabelFont(new Font("SansSerif", Font.ITALIC, 20));
-			target.setPaint(new Color(222, 222, 255, 128));
-			plot.addDomainMarker(target, Layer.BACKGROUND);
-			
-			XYPlot plot2 = cashflowChartCompare.getChart().getXYPlot();
-			plot2.getRenderer().setSeriesPaint(0, Color.red);
-			plot2.getRenderer().setSeriesPaint(1, Color.blue);
-			
-	        BHDescriptionLabel sd = new BHDescriptionLabel("standardDeviation");
-	        BHDescriptionLabel ew = new BHDescriptionLabel((BHBSRStochasticResultController.PanelKeys.AVERAGE));
-	        BHValueLabel sdValue = new BHValueLabel((BHBSRStochasticResultController.ChartKeys.STANDARD_DEVIATION));
-	        BHValueLabel ewValue = new BHValueLabel((BHBSRStochasticResultController.ChartKeys.AVERAGE).toString());
-	        
-	        BHDescriptionLabel riskAt = new BHDescriptionLabel(BHBSRStochasticResultController.PanelKeys.VALUE);
-	        
-	        BHSlider slider = new BHSlider(BHBSRStochasticResultController.ChartKeys.RISK_AT_VALUE, 0, 100, 95);
-	        BHSlider sliderRatio = new BHSlider(BHBSRStochasticResultController.ChartKeys.BSR_RATIO, 0, 100, 95); //new BN
-	        BHSlider slider_cashflow = new BHSlider(BHBSRStochasticResultController.ChartKeys.CASHFLOW_COMPARE_SLIDER);
-	        slider_cashflow.setMinimum(3);
-	        slider_cashflow.setValue(3);
-	        slider_cashflow.setMajorTickSpacing(2);
-	        slider_cashflow.setMinorTickSpacing(1);
-	        slider_cashflow.setPaintTicks( true );
-	        slider_cashflow.setPaintLabels(true);
-	        //BHTextField riskAtField = new BHTextField(BHStochasticResultController.ChartKeys.RISK_AT_VALUE,"95", true);
-	        
-	        BHDescriptionLabel min = new BHDescriptionLabel("min");
-	        BHDescriptionLabel max = new BHDescriptionLabel("max");
-	        BHDescriptionLabel choose_p = new BHDescriptionLabel(BHBSRStochasticResultController.PanelKeys.COMPARE_P);
-	        BHValueLabel minValue = new BHValueLabel(BHBSRStochasticResultController.ChartKeys.RISK_AT_VALUE_MIN);
-	        BHValueLabel maxValue = new BHValueLabel(BHBSRStochasticResultController.ChartKeys.RISK_AT_VALUE_MAX);
-	        
-	        JPanel rav = new JPanel();
-	        rav.setLayout(new FormLayout ("4px:grow,right:pref,10px,pref,4px,pref,4px:grow","4px,p,4px,p,4px,p,4px,p,4px,p,4px,p,4px"));
-	        rav.add(riskAt, "2,2");
-	        //riskAtField.setPreferredSize(new Dimension(50,riskAtField.getPreferredSize().height));
-                slider.setPreferredSize(new Dimension(200,slider.getPreferredSize().height));
-                sliderRatio.setPreferredSize(new Dimension(200,sliderRatio.getPreferredSize().height));
-//	        ValidationRule[] rules = {VRIsDouble.INSTANCE, VRIsBetween.BETWEEN0AND100};//Validation for value at risk
-//                riskAtField.setValidationRules(rules);
-	        rav.add(slider, "4,2");
-	        
-	        rav.add(new JLabel("%"), "6,2");
-	        rav.add(min, "2,4");
-	        rav.add(minValue, "4,4");
-	        rav.add(new BHDescriptionLabel("currency"), "6,4"); //AWussler replaced: 3.12.2010: Now its translatable
-	        rav.add(max, "2,6");
-	        rav.add(maxValue, "4,6");
-	        rav.add(new BHDescriptionLabel("currency"), "6,6"); //AWussler replaced: 3.12.2010: Now its translatable
-	        
-	        rav.add(sliderRatio, "4,8");
-	        
-	        rav.setBorder(BHBorderFactory.getInstacnce().createTitledBorder(BHBorderFactory.getInstacnce()
-					.createEtchedBorder(EtchedBorder.LOWERED),
-					BHBSRStochasticResultController.ChartKeys.RISK_AT_VALUE, TitledBorder.LEFT,
-					TitledBorder.DEFAULT_JUSTIFICATION));
-
-	        compare_p = new JPanel();
-	        compare_p.setLayout(new GridBagLayout());
-	        compare_p.setBorder(BHBorderFactory.getInstacnce().createTitledBorder(BHBorderFactory.getInstacnce()
-					.createEtchedBorder(EtchedBorder.LOWERED),
-					BHBSRStochasticResultController.ChartKeys.COMPARE_P_HEAD, TitledBorder.LEFT,
-					TitledBorder.DEFAULT_JUSTIFICATION));
-	        
-	        d.gridx = 0;
-			d.gridy = 0;
-	        compare_p.add(choose_p); 
-	        d.gridx = 0;
-			d.gridy = 1;
-	        compare_p.add(slider_cashflow);
-	        
-	        
-	        d.fill = GridBagConstraints.HORIZONTAL;
-			d.gridx = 0;
-			d.gridy = 0;
-			d.insets = new Insets(30,10,0,0);
-	        this.add(distributionChart, d); 
-	       // this.add(distributionChart, "1,3,5,3");
-	        
-	        /**
-	         * AWussler added: 3.12.2010
-	         * put sd and ew (standardabweichung, erwartungswert) in a panel box:
-	         */
-	        JPanel p_sd_ew = new JPanel();
-	        p_sd_ew.setLayout(new GridLayout(2, 3)); //Gridlayout: 2 rows, 3 columns
-	        //add first row:
-	        p_sd_ew.add(sd);
-	        p_sd_ew.add(sdValue);
-	        p_sd_ew.add(new BHDescriptionLabel("currency"));
-	        //add second row:
-	        p_sd_ew.add(ew);
-	        p_sd_ew.add(ewValue);
-	        p_sd_ew.add(new BHDescriptionLabel("currency"));
-	        p_sd_ew.setBorder(BHBorderFactory.getInstacnce().createEtchedBorder(EtchedBorder.LOWERED));//set untitled Border
-	        //end: AWussler added: 3.12.2010
-	        
-	        /* AWussler removed and replaced: 3.12.2010: instead of adding each Label add the new panel containing all labels:
-	        this.add(sd, "1,5");
-	        this.add(sdValue, "3,5");
-	        this.add(new JLabel("GE"), "5,5");
-	        
-	        this.add(ew, "1,7");
-	        this.add(ewValue, "3,7");
-	        this.add(new JLabel("GE"), "5,7");*/
-	        d.fill = GridBagConstraints.HORIZONTAL;
-			d.gridx = 0;
-			d.gridy = 1;
-			d.insets = new Insets(10,10,0,0);
-	        this.add(p_sd_ew, d);
-	       // this.add(p_sd_ew, "1,5,3,7");//first and second number: coordinate (x,y) of upper left corner, first and second number: coordinate (x,y) of under right corner
-	        //end: AWussler removed and replaced: 3.12.2010
-	        d.fill = GridBagConstraints.HORIZONTAL;
-			d.gridx = 0;
-			d.gridy = 2;
-			d.insets = new Insets(10,10,0,0);
-	        this.add(rav,d);
-	        
-	        space = new JLabel();
-	        d.fill = GridBagConstraints.HORIZONTAL;
-			d.gridx = 1;
-			d.gridy = 0;
-			d.weightx = 1.0;
-			d.insets = new Insets(0,0,0,0);
-			this.add(space,d);
-	        //this.add(p_sd_ew, "1,5,3,7");
-			
-			
-			
-			
-	        
-	    }
-	    
-	    public void addTimeSeries(){
-	    	
-	    	cashTable = new BHTable(BHBSRStochasticResultController.PanelKeys.CASHFLOW_TABLE){
-		        public boolean isCellEditable(int x, int y) {
-		            return false;
-		        }
-		    };
-		    
-	        tablePane = new JScrollPane(cashTable);
-	        JScrollBar scroll = new JScrollBar();
-	        tablePane.setVerticalScrollBar(scroll);
-	        
-	    	d.fill = GridBagConstraints.HORIZONTAL;
-			d.gridx = 0;
-			d.gridy = 3;
-			d.insets = new Insets(30,10,0,0);
-			d.weightx = 0;
-		    this.add(cashflowChart, d);
-		    
-		    d.fill = GridBagConstraints.HORIZONTAL;
-			d.gridx = 0;
-			d.gridy = 4;
-			d.insets = new Insets(30,10,0,0);
-			tablePane.setPreferredSize(new Dimension(456,250));
-			this.add(tablePane,d);
-		    
-		    d.fill = GridBagConstraints.HORIZONTAL;
-			d.gridx = 0;
-			d.gridy = 5;
-			d.insets = new Insets(30,10,0,0);
-		    this.add(cashflowChartCompare, d);
-		    
-		    d.fill = GridBagConstraints.HORIZONTAL;
-			d.gridx = 0;
-			d.gridy = 6;
-			d.insets = new Insets(30,10,30,0);
-		    this.add(compare_p, d);
-		    
-		   
-	    }
+	public BSRStochasticPanel() {
+		this.initialize();
 	}
+
+	public void initialize() {
+		this.setLayout(new GridBagLayout());
+		d = new GridBagConstraints();
+
+		distributionChart = BHChartFactory
+				.getXYBarChart(BHBSRStochasticResultController.ChartKeys.DISTRIBUTION_CHART);
+		cashflowChart = BHChartFactory
+				.getLineChart(BHBSRStochasticResultController.ChartKeys.CASHFLOW_CHART);
+		cashflowChartCompare = BHChartFactory
+				.getLineChart(BHBSRStochasticResultController.ChartKeys.CASHFLOW_CHART_COMPARE);
+		XYPlot plot = cashflowChart.getChart().getXYPlot();
+		IntervalMarker target = new IntervalMarker(0.0, 500.0);
+		target.setLabel(Services.getTranslator().translate(
+				BHBSRStochasticResultController.ChartKeys.CASHFLOW_FORECAST));
+		target.setLabelAnchor(RectangleAnchor.BOTTOM);
+		target.setLabelTextAnchor(TextAnchor.BOTTOM_CENTER);
+		target.setLabelFont(new Font("SansSerif", Font.ITALIC, 20));
+		target.setPaint(new Color(222, 222, 255, 128));
+		plot.addDomainMarker(target, Layer.BACKGROUND);
+
+		XYPlot plot2 = cashflowChartCompare.getChart().getXYPlot();
+		plot2.getRenderer().setSeriesPaint(0, Color.red);
+		plot2.getRenderer().setSeriesPaint(1, Color.blue);
+
+		BHDescriptionLabel sd = new BHDescriptionLabel("standardDeviation");
+		BHDescriptionLabel ew = new BHDescriptionLabel(
+				(BHBSRStochasticResultController.PanelKeys.AVERAGE));
+		BHValueLabel sdValue = new BHValueLabel(
+				(BHBSRStochasticResultController.ChartKeys.STANDARD_DEVIATION));
+		BHValueLabel ewValue = new BHValueLabel(
+				(BHBSRStochasticResultController.ChartKeys.AVERAGE).toString());
+
+		BHDescriptionLabel riskAt = new BHDescriptionLabel(
+				BHBSRStochasticResultController.ChartKeys.RISK_AT_VALUE);
+
+		BHSlider slider = new BHSlider(
+				BHBSRStochasticResultController.ChartKeys.RISK_AT_VALUE, 0,
+				100, 95);
+		BHSlider sliderRatio = new BHSlider(
+				BHBSRStochasticResultController.ChartKeys.BSR_RATIO, 0, 100, 95); // new
+																					// BN
+		BHSlider slider_cashflow = new BHSlider(
+				BHBSRStochasticResultController.ChartKeys.CASHFLOW_COMPARE_SLIDER);
+		slider_cashflow.setMinimum(3);
+		slider_cashflow.setValue(3);
+		slider_cashflow.setMajorTickSpacing(2);
+		slider_cashflow.setMinorTickSpacing(1);
+		slider_cashflow.setPaintTicks(true);
+		slider_cashflow.setPaintLabels(true);
+		// BHTextField riskAtField = new
+		// BHTextField(BHStochasticResultController.ChartKeys.RISK_AT_VALUE,"95",
+		// true);
+
+		BHDescriptionLabel min = new BHDescriptionLabel("min");
+		BHDescriptionLabel max = new BHDescriptionLabel("max");
+		BHDescriptionLabel choose_p = new BHDescriptionLabel(
+				BHBSRStochasticResultController.PanelKeys.COMPARE_P);
+		BHValueLabel minValue = new BHValueLabel(
+				BHBSRStochasticResultController.ChartKeys.RISK_AT_VALUE_MIN);
+		BHValueLabel maxValue = new BHValueLabel(
+				BHBSRStochasticResultController.ChartKeys.RISK_AT_VALUE_MAX);
+		BHDescriptionLabel RatioDesc = new BHDescriptionLabel(
+				BHBSRStochasticResultController.PanelKeys.RATIO);
+
+		JPanel rav = new JPanel();
+		rav.setLayout(new FormLayout(
+//				"4px:grow,right:pref,10px,pref,4px,pref,4px:grow",
+//				"pref,4px,p,4px,p,4px,p,4px,p,4px,p,4px,p,4px));
+				
+				"right:pref"							//Column 1
+				+ ", 3dlu"								//Column 2
+				+ ", fill:max(100dlu;pref):grow"		//Column 3
+				+ ", 3dlu"								//Column 4
+				+ ", right:pref"						//Column 5
+				+ ", 3dlu"								//Column 6
+				
+//				
+//				+ ", fill:max(100dlu;pref):grow"		//Column 6
+//				+ ", pref"								//Column 7
+//				+ ", 3dlu"								//Column 8
+//				+ ", max(100dlu;pref)"					//Column 9
+//				+ ", 3dlu"								//Column 10
+//				+ ", pref"								//Column 11
+//				+ ", 3dlu"								//Column 12
+//				+ ", 4px:grow"							//Column 13
+//				+ ", 3dlu"								//Column 14
+				,
+				"pref"
+				+ ",4px"
+				+ ",p"
+				+ ",4px"
+				+ ",p"
+				+ ",4px"
+				+ ",p"
+				+ ",4px"
+				+ ",p"
+				+ ",4px"
+				+ ",p"
+				+ ",4px"
+				+ ",p"
+				+ ",4px"));
+		
+		JPanel result = new JPanel();
+		result.setLayout(new FormLayout(
+				"right:pref"							//Column 1
+				+ ", 3dlu"								//Column 2
+				+ ", fill:max(100dlu;pref):grow"		//Column 3
+				+ ", 3dlu"								//Column 4
+				+ ", right:pref"						//Column 5
+				+ ", 3dlu"								//Column 6
+				,
+				"pref"
+				+ ", 3dlu"
+				+ ", p"
+				+ ", 3dlu"
+				+ ", p"
+				+ ", 3dlu"
+		));
+
+		// riskAtField.setPreferredSize(new
+		// Dimension(50,riskAtField.getPreferredSize().height));
+		slider.setPreferredSize(new Dimension(200,
+				slider.getPreferredSize().height));
+		sliderRatio.setPreferredSize(new Dimension(200, sliderRatio
+				.getPreferredSize().height));
+		// ValidationRule[] rules = {VRIsDouble.INSTANCE,
+		// VRIsBetween.BETWEEN0AND100};//Validation for value at risk
+		// riskAtField.setValidationRules(rules);
+
+		rav.add(riskAt, "1,3");
+		rav.add(slider, "3,3");
+		rav.add(new JLabel("%"), "5,3");
+		
+		rav.add(RatioDesc, "1,7");
+		rav.add(sliderRatio, "3,7");
+		rav.add(new JLabel("%"), "5,7");
+
+		result.add(min, "1,3");
+		result.add(minValue, "3,3");
+		result.add(new BHDescriptionLabel("currency"), "5,3"); // AWussler replaced: 3.12.2010: Now its translatable
+		
+		result.add(max, "1,5");
+		result.add(maxValue, "3,5");
+		result.add(new BHDescriptionLabel("currency"), "5,5"); // AWussler replaced: 3.12.2010: Now its translatable
+
+		rav.setBorder(BHBorderFactory.getInstacnce().createTitledBorder(
+				BHBorderFactory.getInstacnce().createEtchedBorder(
+						EtchedBorder.LOWERED),
+				BHBSRStochasticResultController.ChartKeys.SELECTION,
+				TitledBorder.LEFT, TitledBorder.DEFAULT_JUSTIFICATION));
+		result.setBorder(BHBorderFactory.getInstacnce().createTitledBorder(
+				BHBorderFactory.getInstacnce().createEtchedBorder(
+						EtchedBorder.LOWERED),
+				BHBSRStochasticResultController.ChartKeys.SELECTION,
+				TitledBorder.LEFT, TitledBorder.DEFAULT_JUSTIFICATION));
+
+		compare_p = new JPanel();
+		compare_p.setLayout(new GridBagLayout());
+		compare_p.setBorder(BHBorderFactory.getInstacnce().createTitledBorder(
+				BHBorderFactory.getInstacnce().createEtchedBorder(
+						EtchedBorder.LOWERED),
+				BHBSRStochasticResultController.ChartKeys.COMPARE_P_HEAD,
+				TitledBorder.LEFT, TitledBorder.DEFAULT_JUSTIFICATION));
+
+		d.gridx = 0;
+		d.gridy = 0;
+		compare_p.add(choose_p);
+		d.gridx = 0;
+		d.gridy = 1;
+		compare_p.add(slider_cashflow);
+
+		d.fill = GridBagConstraints.HORIZONTAL;
+		d.gridx = 0;
+		d.gridy = 0;
+		d.insets = new Insets(30, 10, 0, 0);
+		this.add(distributionChart, d);
+		// this.add(distributionChart, "1,3,5,3");
+
+		/**
+		 * AWussler added: 3.12.2010 put sd and ew (standardabweichung,
+		 * erwartungswert) in a panel box:
+		 */
+		JPanel p_sd_ew = new JPanel();
+		p_sd_ew.setLayout(new GridLayout(2, 3)); // Gridlayout: 2 rows, 3
+													// columns
+		// add first row:
+		p_sd_ew.add(sd);
+		p_sd_ew.add(sdValue);
+		p_sd_ew.add(new BHDescriptionLabel("currency"));
+		// add second row:
+		p_sd_ew.add(ew);
+		p_sd_ew.add(ewValue);
+		p_sd_ew.add(new BHDescriptionLabel("currency"));
+		p_sd_ew.setBorder(BHBorderFactory.getInstacnce().createEtchedBorder(
+				EtchedBorder.LOWERED));// set untitled Border
+		// end: AWussler added: 3.12.2010
+
+		/*
+		 * AWussler removed and replaced: 3.12.2010: instead of adding each
+		 * Label add the new panel containing all labels: this.add(sd, "1,5");
+		 * this.add(sdValue, "3,5"); this.add(new JLabel("GE"), "5,5");
+		 * 
+		 * this.add(ew, "1,7"); this.add(ewValue, "3,7"); this.add(new
+		 * JLabel("GE"), "5,7");
+		 */
+		d.fill = GridBagConstraints.HORIZONTAL;
+		d.gridx = 0;
+		d.gridy = 1;
+		d.insets = new Insets(10, 10, 0, 0);
+		this.add(p_sd_ew, d);
+		// this.add(p_sd_ew, "1,5,3,7");//first and second number: coordinate
+		// (x,y) of upper left corner, first and second number: coordinate (x,y)
+		// of under right corner
+		// end: AWussler removed and replaced: 3.12.2010
+		d.fill = GridBagConstraints.HORIZONTAL;
+		d.gridx = 0;
+		d.gridy = 2;
+		d.insets = new Insets(10, 10, 0, 0);
+		this.add(rav, d);
+		
+		d.fill = GridBagConstraints.HORIZONTAL;
+		d.gridx = 1;
+		d.gridy = 2;
+		d.insets = new Insets(5, 5, 0, 0);
+		this.add(result, d);		
+
+		space = new JLabel();
+		d.fill = GridBagConstraints.HORIZONTAL;
+		d.gridx = 1;
+		d.gridy = 0;
+		d.weightx = 1.0;
+		d.insets = new Insets(0, 0, 0, 0);
+		this.add(space, d);
+		// this.add(p_sd_ew, "1,5,3,7");
+
+	}
+
+	public void addTimeSeries() {
+
+		cashTable = new BHTable(
+				BHBSRStochasticResultController.PanelKeys.CASHFLOW_TABLE) {
+			public boolean isCellEditable(int x, int y) {
+				return false;
+			}
+		};
+
+		tablePane = new JScrollPane(cashTable);
+		JScrollBar scroll = new JScrollBar();
+		tablePane.setVerticalScrollBar(scroll);
+
+		d.fill = GridBagConstraints.HORIZONTAL;
+		d.gridx = 0;
+		d.gridy = 3;
+		d.insets = new Insets(30, 10, 0, 0);
+		d.weightx = 0;
+		this.add(cashflowChart, d);
+
+		d.fill = GridBagConstraints.HORIZONTAL;
+		d.gridx = 0;
+		d.gridy = 4;
+		d.insets = new Insets(30, 10, 0, 0);
+		tablePane.setPreferredSize(new Dimension(456, 250));
+		this.add(tablePane, d);
+
+		d.fill = GridBagConstraints.HORIZONTAL;
+		d.gridx = 0;
+		d.gridy = 5;
+		d.insets = new Insets(30, 10, 0, 0);
+		this.add(cashflowChartCompare, d);
+
+		d.fill = GridBagConstraints.HORIZONTAL;
+		d.gridx = 0;
+		d.gridy = 6;
+		d.insets = new Insets(30, 10, 30, 0);
+		this.add(compare_p, d);
+
+	}
+}
