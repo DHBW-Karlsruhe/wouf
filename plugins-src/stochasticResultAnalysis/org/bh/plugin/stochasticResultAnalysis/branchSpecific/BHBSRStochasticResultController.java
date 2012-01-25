@@ -360,8 +360,7 @@ public class BHBSRStochasticResultController extends OutputController {
 			}
 
 			// Get the difference between mid of Company and BSR
-			BHBSRStochasticResultController.differenceCompanyBSR = Math
-					.abs(mitte - mitteBSR);
+			BHBSRStochasticResultController.differenceCompanyBSR = mitteBSR - mitte;
 			BHBSRStochasticResultController.differenceIsComputed = true;
 		}
 
