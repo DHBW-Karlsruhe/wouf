@@ -41,8 +41,8 @@ public class ReadNACE implements INACEImport, IPlatformListener{
 	private HashMap<String, String> hirarchicalItems;
 	private Locale locale = null;
 
-	private static String DE_FILE = "src/org/bh/companydata/nace/de.xml";
-	private static String EN_FILE = "src/org/bh/companydata/nace/en.xml";
+	private static String DE_FILE = "org/bh/companydata/nace/de.xml";
+	private static String EN_FILE = "org/bh/companydata/nace/en.xml";
 	
 //	add a platform listener
 	public ReadNACE(){
@@ -66,6 +66,13 @@ public class ReadNACE implements INACEImport, IPlatformListener{
 			} else if(locale == Locale.ENGLISH){
 				importFile = new File(EN_FILE);
 			}
+			if(!importFile.exists()){
+				if(locale == Locale.GERMAN){
+					importFile = new File("src/" + DE_FILE);
+				} else if(locale == Locale.ENGLISH){
+					importFile = new File("src/" + EN_FILE);
+				}
+			}
 		} else {
 			return;
 		}
@@ -75,13 +82,10 @@ public class ReadNACE implements INACEImport, IPlatformListener{
 			doc = builder.build(importFile);
 			claset = doc.getRootElement();
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		} catch (ValidityException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		} catch (ParsingException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		} 
 	}

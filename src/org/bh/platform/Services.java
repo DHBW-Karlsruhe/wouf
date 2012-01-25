@@ -85,7 +85,7 @@ public class Services {
 	private static NumberFormat oldDoubleFormat = null;
 	private static StringWriter logWriter = new StringWriter();
 
-	private static final String IMPORT_PATH_BRANCHES_DEFAULT = "src/org/bh/companydata/periods.xml";
+	private static final String IMPORT_PATH_BRANCHES_DEFAULT = "org/bh/companydata/periods.xml";
 	
 	/*
 	 * --------------------------------------- Platform Event Handling
@@ -519,6 +519,9 @@ public class Services {
 			
 			if(bd == null){
 				bd = loadBranchesFromXML(plugin, Services.IMPORT_PATH_BRANCHES_DEFAULT);
+			}
+			if (bd == null){
+				bd = loadBranchesFromXML(plugin, "src/" + Services.IMPORT_PATH_BRANCHES_DEFAULT);
 			}
 		}
 		
