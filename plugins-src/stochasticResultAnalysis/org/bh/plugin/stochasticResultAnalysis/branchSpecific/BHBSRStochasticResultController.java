@@ -12,20 +12,18 @@
  * You should have received a copy of the GNU General Public License along with this program.  If not, see <http://www.gnu.org/licenses/>.
  *******************************************************************************/
 package org.bh.plugin.stochasticResultAnalysis.branchSpecific;
-import java.awt.GridBagConstraints;
-import java.awt.Insets;
-import java.awt.event.ActionEvent;
 
+
+
+import java.awt.event.ActionEvent;
 import java.util.ArrayList;
 import java.util.Dictionary;
 import java.util.Hashtable;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
-import java.util.TreeMap;
 import java.util.Map.Entry;
 
-import javax.help.MainWindow;
 import javax.swing.JLabel;
 import javax.swing.event.CaretEvent;
 import javax.swing.event.CaretListener;
@@ -33,21 +31,16 @@ import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
 import javax.swing.table.DefaultTableModel;
 
-import org.bh.calculation.ITimeSeriesProcess;
 import org.bh.controller.OutputController;
-import org.bh.data.DTOKeyPair;
 import org.bh.data.DTOScenario;
-import org.bh.data.types.Calculable;
 import org.bh.data.types.DistributionMap;
 import org.bh.data.types.DoubleValue;
 import org.bh.data.types.IntervalValue;
 import org.bh.data.types.StringValue;
 import org.bh.gui.IBHModelComponent;
-import org.bh.gui.chart.BHChartFactory;
 import org.bh.gui.chart.BHChartPanel;
 import org.bh.gui.chart.IBHAddValue;
 import org.bh.gui.swing.comp.BHButton;
-import org.bh.gui.swing.comp.BHCheckBox;
 import org.bh.gui.swing.comp.BHSlider;
 import org.bh.gui.swing.comp.BHTable;
 import org.bh.gui.swing.comp.BHTextField;
@@ -58,8 +51,6 @@ import org.bh.platform.IPrint;
 import org.bh.platform.PlatformEvent;
 import org.bh.platform.Services;
 import org.jfree.chart.JFreeChart;
-
-import org.bh.platform.i18n.ITranslator;
 
 /**
  * @author unknown
@@ -177,9 +168,9 @@ public class BHBSRStochasticResultController extends OutputController {
 	public void setResultTimeSeries(DistributionMap result,
 			DistributionMap resultBSR, DTOScenario scenario) {
 
-		BHSlider sliderCompare = (BHSlider) view
-				.getBHComponent(ChartKeys.CASHFLOW_COMPARE_SLIDER.toString());
-		sliderCompare.addChangeListener(new SliderChangeListener());
+//		BHSlider sliderCompare = (BHSlider) view
+//				.getBHComponent(ChartKeys.CASHFLOW_COMPARE_SLIDER.toString());
+//		sliderCompare.addChangeListener(new SliderChangeListener());
 
 		IBHAddValue comp2 = super.view.getBHchartComponents().get(
 				ChartKeys.CASHFLOW_CHART.toString());
@@ -191,48 +182,50 @@ public class BHBSRStochasticResultController extends OutputController {
 				Services.getTranslator().translate(
 						BHBSRStochasticResultController.ChartKeys.CASHFLOW_BSR),
 				resultBSR.toDoubleArrayTS());
-
-		IBHAddValue comp3 = super.view.getBHchartComponents().get(
-				ChartKeys.CASHFLOW_CHART_COMPARE.toString());
-		comp3.addSeries(
-				Services.getTranslator().translate(
-						PanelKeys.CASHFLOW_IS.toString()),
-				result.getIsCashflow());
-		comp3.addSeries(
-				Services.getTranslator().translate(
-						PanelKeys.CASHFLOW_FORECAST.toString()),
-				result.getCompareCashflow());
+//
+//		IBHAddValue comp3 = super.view.getBHchartComponents().get(
+//				ChartKeys.CASHFLOW_CHART_COMPARE.toString());
+//		comp3.addSeries(
+//				Services.getTranslator().translate(
+//						PanelKeys.CASHFLOW_IS.toString()),
+//				result.getIsCashflow());
+//		comp3.addSeries(
+//				Services.getTranslator().translate(
+//						PanelKeys.CASHFLOW_FORECAST.toString()),
+//				result.getCompareCashflow());
 
 		String TableKey = PanelKeys.CASHFLOW_TABLE.toString();
 		BHTable cashTable = ((BHTable) view.getBHComponent(TableKey));
 		Object[][] data = result.toObjectArrayTS();
 		int länge = result.getIsCashflow().length;
-		sliderCompare.setMaximum(länge - 2);
+//		sliderCompare.setMaximum(länge - 2);
 		Dictionary map = new Hashtable();
 		for (int i = 0; i <= länge; i++) {
 			if ((i % 2) == 0)
 				map.put(i, new JLabel("" + i));
 		}
-		sliderCompare.setLabelTable(map);
+//		sliderCompare.setLabelTable(map);
 		String[] headers = { "t", "Cashflow" };
 		DefaultTableModel tableModel = new DefaultTableModel(data, headers);
 		cashTable.setTableModel(tableModel);
 
 	}
 
-	public void calcNewComparison(int p) {
-		ITimeSeriesProcess TSprocess = stochasticResult.getTimeSeriesProcess();
-		TreeMap<Integer, Double>[] compareResults = TSprocess
-				.calculateCompare(p);
-		stochasticResult.setTimeSeriesCompare(compareResults);
-		IBHAddValue comp3 = super.view.getBHchartComponents().get(
-				ChartKeys.CASHFLOW_CHART_COMPARE.toString());
-		comp3.removeSeries(1);
-		comp3.addSeries(
-				Services.getTranslator().translate(
-						PanelKeys.CASHFLOW_FORECAST.toString()),
-				stochasticResult.getCompareCashflow());
-	}
+
+//	public void calcNewComparison(int p) {
+//		ITimeSeriesProcess TSprocess = stochasticResult.getTimeSeriesProcess();
+//		TreeMap<Integer, Double>[] compareResults = TSprocess
+//				.calculateCompare(p);
+//		stochasticResult.setTimeSeriesCompare(compareResults);
+//		IBHAddValue comp3 = super.view.getBHchartComponents().get(
+//				ChartKeys.CASHFLOW_CHART_COMPARE.toString());
+//		comp3.removeSeries(1);
+//		comp3.addSeries(
+//				Services.getTranslator().translate(
+//						PanelKeys.CASHFLOW_FORECAST.toString()),
+//				stochasticResult.getCompareCashflow());
+//
+//	}
 
 	public void calcRiskAtValue(Double confidence, Integer maxAmountofValues) {
 		if (confidence == null) {
@@ -379,15 +372,15 @@ public class BHBSRStochasticResultController extends OutputController {
 				calcRiskAtValue(confidence,
 						stochasticResult.getMaxAmountOfValuesInCluster());
 			}
-			if (key.equals(ChartKeys.CASHFLOW_COMPARE_SLIDER.toString())) {
-				int p = ((BHSlider) view
-						.getBHComponent(ChartKeys.CASHFLOW_COMPARE_SLIDER
-								.toString())).getValue();
-				if (!(pAlt == p)) {
-					pAlt = p;
-					calcNewComparison(p);
-				}
-			}
+//			if (key.equals(ChartKeys.CASHFLOW_COMPARE_SLIDER.toString())) {
+//				int p = ((BHSlider) view
+//						.getBHComponent(ChartKeys.CASHFLOW_COMPARE_SLIDER
+//								.toString())).getValue();
+//				if (!(pAlt == p)) {
+//					pAlt = p;
+//					calcNewComparison(p);
+//				}
+//			}
 		}
 
 	}
@@ -417,15 +410,15 @@ public class BHBSRStochasticResultController extends OutputController {
 				// influence of BSR Value
 				drawValueWithBSR(confidence, result, resultBSR, scenario);
 			}
-			if (key.equals(ChartKeys.CASHFLOW_COMPARE_SLIDER.toString())) {
-				int p = ((BHSlider) view
-						.getBHComponent(ChartKeys.CASHFLOW_COMPARE_SLIDER
-								.toString())).getValue();
-				if (!(pAlt == p)) {
-					pAlt = p;
-					calcNewComparison(p);
-				}
-			}
+//			if (key.equals(ChartKeys.CASHFLOW_COMPARE_SLIDER.toString())) {
+//				int p = ((BHSlider) view
+//						.getBHComponent(ChartKeys.CASHFLOW_COMPARE_SLIDER
+//								.toString())).getValue();
+//				if (!(pAlt == p)) {
+//					pAlt = p;
+//					calcNewComparison(p);
+//				}
+//			}
 		}
 
 	}

@@ -143,57 +143,76 @@ public class BSRStochasticPanel extends JPanel {
 
 		JPanel rav = new JPanel();
 		rav.setLayout(new FormLayout(
-//				"4px:grow,right:pref,10px,pref,4px,pref,4px:grow",
-//				"pref,4px,p,4px,p,4px,p,4px,p,4px,p,4px,p,4px));
-				
-				"right:pref"							//Column 1
-				+ ", 3dlu"								//Column 2
-				+ ", fill:max(100dlu;pref):grow"		//Column 3
-				+ ", 3dlu"								//Column 4
-				+ ", right:pref"						//Column 5
-				+ ", 3dlu"								//Column 6
-				
-//				
-//				+ ", fill:max(100dlu;pref):grow"		//Column 6
-//				+ ", pref"								//Column 7
-//				+ ", 3dlu"								//Column 8
-//				+ ", max(100dlu;pref)"					//Column 9
-//				+ ", 3dlu"								//Column 10
-//				+ ", pref"								//Column 11
-//				+ ", 3dlu"								//Column 12
-//				+ ", 4px:grow"							//Column 13
-//				+ ", 3dlu"								//Column 14
-				,
-				"pref"
-				+ ",4px"
-				+ ",p"
-				+ ",4px"
-				+ ",p"
-				+ ",4px"
-				+ ",p"
-				+ ",4px"
-				+ ",p"
-				+ ",4px"
-				+ ",p"
-				+ ",4px"
-				+ ",p"
-				+ ",4px"));
+		// "4px:grow,right:pref,10px,pref,4px,pref,4px:grow",
+		// "pref,4px,p,4px,p,4px,p,4px,p,4px,p,4px,p,4px));
+
+				"right:pref" 								// Column 1
+						+ ", 3dlu" 							// Column 2
+						+ ", fill:max(100dlu;pref):grow" 	// Column 3
+						+ ", 3dlu" 							// Column 4
+						+ ", right:pref" 					// Column 5
+						+ ", 3dlu" 							// Column 6
+
+						//
+						// + ", fill:max(100dlu;pref):grow" //Column 6
+						// + ", pref" //Column 7
+						// + ", 3dlu" //Column 8
+						// + ", max(100dlu;pref)" //Column 9
+						// + ", 3dlu" //Column 10
+						// + ", pref" //Column 11
+						// + ", 3dlu" //Column 12
+						// + ", 4px:grow" //Column 13
+						// + ", 3dlu" //Column 14
+				, "pref" 					// Row 1 
+						+ ",4px" 			// Row 2
+						+ ",p" 				// Row 3
+						+ ",4px" 			// Row 4
+						+ ",p" 				// Row 5
+						+ ",4px" 			// Row 6
+						+ ",p"				// Row 7
+						+ ",4px" 			// Row 8
+						+ ",p" 				// Row 9
+						+ ",4px" 			// Row 10
+						+ ",p" 				// Row 11
+						+ ",4px" 			// Row 12
+						+ ",p"				// Row 13
+						+ ",4px"));			// Row 14
 		
+
+		// Panel with Min and Max calculated by Risk at Value
 		JPanel result = new JPanel();
 		result.setLayout(new FormLayout(
-				"right:pref"							//Column 1
-				+ ", 3dlu"								//Column 2
-				+ ", fill:max(100dlu;pref):grow"		//Column 3
-				+ ", 3dlu"								//Column 4
-				+ ", right:pref"						//Column 5
-				+ ", 3dlu"								//Column 6
+				"2dlu"									//Column 1
+				+ ", pref"								//Column 2
+				+ ", 2dlu"								//Column 3
+				+ ", right:max(100dlu;pref):grow"		//Column 4
+				+ ", 2dlu"								//Column 5
+				+ ", right:pref"						//Column 6
+				+ ", 2dlu"								//Column 7
 				,
-				"pref"
-				+ ", 3dlu"
-				+ ", p"
-				+ ", 3dlu"
-				+ ", p"
-				+ ", 3dlu"
+				" 2dlu" 								// Row 1
+				+ ", pref"								// Row 2
+				+ ", 2dlu"								// Row 3
+				+ ", p"									// Row 4
+				+ ", 2dlu"								// Row 5
+
+		));
+		// Panel with expected value and std. deviation
+		JPanel p_sd_ew = new JPanel();
+		p_sd_ew.setLayout(new FormLayout(
+				"2dlu"									//Column 1
+				+ ", pref"								//Column 2
+				+ ", 2dlu"								//Column 3
+				+ ", right:max(100dlu;pref):grow"		//Column 4
+				+ ", 2dlu"								//Column 5
+				+ ", right:pref"						//Column 6
+				+ ", 2dlu"								//Column 7
+				,
+				"2dlu" 									// Row 1
+				+ ", pref"								// Row 2
+				+ ", 2dlu"								// Row 3
+				+ ", p"									// Row 4
+				+ ", 2dlu"								// Row 5
 		));
 
 		// riskAtField.setPreferredSize(new
@@ -214,13 +233,13 @@ public class BSRStochasticPanel extends JPanel {
 		rav.add(sliderRatio, "3,7");
 		rav.add(new JLabel("%"), "5,7");
 
-		result.add(min, "1,3");
-		result.add(minValue, "3,3");
-		result.add(new BHDescriptionLabel("currency"), "5,3"); // AWussler replaced: 3.12.2010: Now its translatable
+		result.add(min, "2,2");
+		result.add(minValue, "4,2");
+		result.add(new BHDescriptionLabel("currency"), "6,2"); // AWussler replaced: 3.12.2010: Now its translatable
 		
-		result.add(max, "1,5");
-		result.add(maxValue, "3,5");
-		result.add(new BHDescriptionLabel("currency"), "5,5"); // AWussler replaced: 3.12.2010: Now its translatable
+		result.add(max, "2,4");
+		result.add(maxValue, "4,4");
+		result.add(new BHDescriptionLabel("currency"), "6,4"); // AWussler replaced: 3.12.2010: Now its translatable
 
 		rav.setBorder(BHBorderFactory.getInstacnce().createTitledBorder(
 				BHBorderFactory.getInstacnce().createEtchedBorder(
@@ -232,7 +251,12 @@ public class BSRStochasticPanel extends JPanel {
 						EtchedBorder.LOWERED),
 				BHBSRStochasticResultController.ChartKeys.SELECTION,
 				TitledBorder.LEFT, TitledBorder.DEFAULT_JUSTIFICATION));
-
+		p_sd_ew.setBorder(BHBorderFactory.getInstacnce().createTitledBorder(
+				BHBorderFactory.getInstacnce().createEtchedBorder(
+						EtchedBorder.LOWERED),
+				BHBSRStochasticResultController.ChartKeys.SELECTION,
+				TitledBorder.LEFT, TitledBorder.DEFAULT_JUSTIFICATION));
+		
 		compare_p = new JPanel();
 		compare_p.setLayout(new GridBagLayout());
 		compare_p.setBorder(BHBorderFactory.getInstacnce().createTitledBorder(
@@ -259,17 +283,17 @@ public class BSRStochasticPanel extends JPanel {
 		 * AWussler added: 3.12.2010 put sd and ew (standardabweichung,
 		 * erwartungswert) in a panel box:
 		 */
-		JPanel p_sd_ew = new JPanel();
-		p_sd_ew.setLayout(new GridLayout(2, 3)); // Gridlayout: 2 rows, 3
-													// columns
+//		JPanel p_sd_ew = new JPanel();
+//		p_sd_ew.setLayout(new GridLayout(2, 3)); // Gridlayout: 2 rows, 3
+//													// columns
 		// add first row:
-		p_sd_ew.add(sd);
-		p_sd_ew.add(sdValue);
-		p_sd_ew.add(new BHDescriptionLabel("currency"));
+		p_sd_ew.add(sd, "2,2");
+		p_sd_ew.add(sdValue, "4,2");
+		p_sd_ew.add(new BHDescriptionLabel("currency"), "6,2");
 		// add second row:
-		p_sd_ew.add(ew);
-		p_sd_ew.add(ewValue);
-		p_sd_ew.add(new BHDescriptionLabel("currency"));
+		p_sd_ew.add(ew, "2,4");
+		p_sd_ew.add(ewValue, "4,4");
+		p_sd_ew.add(new BHDescriptionLabel("currency"), "6,4");
 		p_sd_ew.setBorder(BHBorderFactory.getInstacnce().createEtchedBorder(
 				EtchedBorder.LOWERED));// set untitled Border
 		// end: AWussler added: 3.12.2010
@@ -293,12 +317,12 @@ public class BSRStochasticPanel extends JPanel {
 		// end: AWussler removed and replaced: 3.12.2010
 		d.fill = GridBagConstraints.HORIZONTAL;
 		d.gridx = 0;
-		d.gridy = 2;
+		d.gridy = 3;
 		d.insets = new Insets(10, 10, 0, 0);
 		this.add(rav, d);
 		
 		d.fill = GridBagConstraints.HORIZONTAL;
-		d.gridx = 1;
+		d.gridx = 0;
 		d.gridy = 2;
 		d.insets = new Insets(5, 5, 0, 0);
 		this.add(result, d);		
@@ -329,29 +353,29 @@ public class BSRStochasticPanel extends JPanel {
 
 		d.fill = GridBagConstraints.HORIZONTAL;
 		d.gridx = 0;
-		d.gridy = 3;
+		d.gridy = 4;
 		d.insets = new Insets(30, 10, 0, 0);
 		d.weightx = 0;
 		this.add(cashflowChart, d);
 
 		d.fill = GridBagConstraints.HORIZONTAL;
 		d.gridx = 0;
-		d.gridy = 4;
+		d.gridy = 5;
 		d.insets = new Insets(30, 10, 0, 0);
 		tablePane.setPreferredSize(new Dimension(456, 250));
 		this.add(tablePane, d);
 
 		d.fill = GridBagConstraints.HORIZONTAL;
 		d.gridx = 0;
-		d.gridy = 5;
+		d.gridy = 6;
 		d.insets = new Insets(30, 10, 0, 0);
-		this.add(cashflowChartCompare, d);
+//		this.add(cashflowChartCompare, d);
 
 		d.fill = GridBagConstraints.HORIZONTAL;
 		d.gridx = 0;
-		d.gridy = 6;
+		d.gridy = 7;
 		d.insets = new Insets(30, 10, 30, 0);
-		this.add(compare_p, d);
+//		this.add(compare_p, d);
 
 	}
 }
