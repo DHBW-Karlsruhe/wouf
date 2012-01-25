@@ -196,8 +196,6 @@ public class BranchSpecificCalculator implements IBranchSpecificCalculator {
 		}
 
 		this.ratingBSR = result / (companiesAndPeriodsNormed.length);
-		
-		System.out.println("" + this.ratingBSR);
 	}
 
 	public double getRating() {
