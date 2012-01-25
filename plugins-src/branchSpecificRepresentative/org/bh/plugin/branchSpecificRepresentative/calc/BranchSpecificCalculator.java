@@ -80,10 +80,10 @@ public class BranchSpecificCalculator implements IBranchSpecificCalculator {
 
 		// Normierte Tabelle erstellen
 		double[][] companiesAndPeriodsNormed = createTable(currBranch);
-		
+
 		// Normierte Tabelle für Güteberechnung
 		double[][] companiesAndPeriodsNormedRating = createTable(currBranch);
-		
+
 		// Stutzung der normierten Tabelle
 		double[][] companyAndPeriodsNormedTrimmed = trimmedAverage(
 				companiesAndPeriodsNormed, 2.5);
@@ -216,8 +216,8 @@ public class BranchSpecificCalculator implements IBranchSpecificCalculator {
 		List<DTOCompany> companyList = currNormedBranch.getChildren();
 		companyCounter = companyList.size();
 
-		for(DTOCompany company: companyList){
-			if(company.getChildrenSize() > periodCounter){
+		for (DTOCompany company : companyList) {
+			if (company.getChildrenSize() > periodCounter) {
 				periodCounter = company.getChildrenSize();
 			}
 		}
@@ -372,8 +372,7 @@ public class BranchSpecificCalculator implements IBranchSpecificCalculator {
 
 	public Color getEvaluationOfRating() {
 
-		List<Double> bsrRatings = PlatformController
-				.getAllBSRRatings();
+		List<Double> bsrRatings = PlatformController.getAllBSRRatings();
 
 		double highestRating = 0;
 		double lowestRating = 0; // info: low value is better than high value
@@ -381,15 +380,17 @@ public class BranchSpecificCalculator implements IBranchSpecificCalculator {
 
 		Iterator<Double> bsrRatingIterator = bsrRatings.iterator();
 
-		// iteriere über die Rating, um das höchste/tiefste Rating
+		// iteriere über die Ratings, um das höchste/tiefste Rating
 		// zu bekommen und auf dieser Grundlage die berechnete Güte
 		// bewerten zu können
 		while (bsrRatingIterator.hasNext()) {
 			currentRating = bsrRatingIterator.next();
-			if (currentRating > highestRating)
+			if ((currentRating > highestRating) && (currentRating < 100000))
 				highestRating = currentRating;
 			else {
-				if ((lowestRating == 0) || (lowestRating > currentRating))
+				if (((lowestRating == 0) && (lowestRating != Double.NaN) && (lowestRating >= 0.01))
+						|| ((lowestRating > currentRating)
+								&& (lowestRating != Double.NaN) && (lowestRating >= 0.01)))
 					lowestRating = currentRating;
 			}
 		}
@@ -398,7 +399,9 @@ public class BranchSpecificCalculator implements IBranchSpecificCalculator {
 		// grün - gelb - rot
 		double difference = (highestRating - lowestRating) / 3;
 
-		if (this.ratingBSR <= (lowestRating + difference)) {
+		if ((this.ratingBSR >= 100000) || (this.ratingBSR < 0)) {
+			this.evaluationOfRating = Color.RED;
+		} else if (this.ratingBSR <= (lowestRating + difference)) {
 			this.evaluationOfRating = Color.GREEN;
 		} else {
 			if (this.ratingBSR > (highestRating - difference))
@@ -443,7 +446,9 @@ public class BranchSpecificCalculator implements IBranchSpecificCalculator {
 									+ currPeriod.get(DTOPeriod.Key.NAME),
 							dtoaccess);
 				}
-				//TODO Find better solution here, which is also used in algorithm. We have problems calculating FCF in first period!!!
+				// TODO Find better solution here, which is also used in
+				// algorithm. We have problems calculating FCF in first
+				// period!!!
 				currPeriod.put(DTOPeriod.Key.FCF, new DoubleValue(0.0));
 			}
 			try {
