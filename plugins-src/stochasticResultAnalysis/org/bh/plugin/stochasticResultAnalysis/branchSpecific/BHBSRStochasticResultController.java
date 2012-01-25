@@ -268,13 +268,14 @@ public class BHBSRStochasticResultController extends OutputController {
 	public void drawCFWithBSR(double confidence, DistributionMap result,
 			DistributionMap resultBSR) {
 
-		//sicherstellen, dass die Methode nur einmal bei Sliderverschiebung aufgerufen wird
-		if(confidence == BHBSRStochasticResultController.confidenceLastState){
+		// sicherstellen, dass die Methode nur einmal bei Sliderverschiebung
+		// aufgerufen wird
+		if (confidence == BHBSRStochasticResultController.confidenceLastState) {
 			return;
-		}else{
+		} else {
 			BHBSRStochasticResultController.confidenceLastState = confidence;
 		}
-		
+
 		IBHAddValue comp2 = super.view.getBHchartComponents().get(
 				ChartKeys.CASHFLOW_CHART.toString());
 
@@ -284,14 +285,20 @@ public class BHBSRStochasticResultController extends OutputController {
 
 		// CF-Werte holen
 		double[][] cashFlows = result.toDoubleArrayTS();
+		double cfBSR = 0;
 
-		for (int spalte = 0; spalte < cashFlows.length; spalte++) {
-			if (cashFlows[spalte][0] > 0) {
-				if (cashFlows[spalte][1] < cashFlowsBSR[spalte][1]) {
-					cashFlows[spalte][1] = cashFlows[spalte][1] + ( cashFlowsBSR[spalte][1]*(1-(confidence/100)) );
-				} else {
-					cashFlows[spalte][1] = cashFlows[spalte][1] - ( cashFlowsBSR[spalte][1]*(1-(confidence/100)) );
+		for (int jahr = 0; jahr < cashFlows.length; jahr++) {
+			if (cashFlows[jahr][0] > 0) {
+
+				// differenz berechnen
+				for (int jahrBSR = 0; jahrBSR < cashFlowsBSR.length; jahrBSR++) {
+					if (cashFlowsBSR[jahrBSR][0] == cashFlows[jahr][0]) {
+						cfBSR = cashFlowsBSR[jahrBSR][1];
+					}
 				}
+				
+				cashFlows[jahr][1] = cashFlows[jahr][1]
+						+ ((cfBSR - cashFlows[jahr][1]) * (confidence / 100));
 			}
 		}
 
