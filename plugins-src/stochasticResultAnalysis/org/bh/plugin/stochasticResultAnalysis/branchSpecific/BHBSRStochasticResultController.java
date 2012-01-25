@@ -290,7 +290,7 @@ public class BHBSRStochasticResultController extends OutputController {
 				if (cashFlows[spalte][1] < cashFlowsBSR[spalte][1]) {
 					cashFlows[spalte][1] = cashFlows[spalte][1] + ( cashFlowsBSR[spalte][1]*(1-(confidence/100)) );
 				} else {
-					cashFlows[spalte][1] = cashFlows[spalte][1] + ( cashFlowsBSR[spalte][1]*(1-(confidence/100)) );
+					cashFlows[spalte][1] = cashFlows[spalte][1] - ( cashFlowsBSR[spalte][1]*(1-(confidence/100)) );
 				}
 			}
 		}
