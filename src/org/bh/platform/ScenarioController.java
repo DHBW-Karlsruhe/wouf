@@ -342,6 +342,17 @@ public class ScenarioController extends InputController {
 					form.removeParametersPanel();
 					form.removeBranchSpecificRepresentativePanel();
 					
+					bhmf.removeResultForm();
+					ActionListener[] helpActPrint = bhmf.getBHMenuBar().filePrint.getActionListeners();
+					ActionListener[] helpActExp = bhmf.getBHMenuBar().scenarioExport.getActionListeners();
+					for(int i =0;i<helpActPrint.length;i++){
+						bhmf.getBHMenuBar().filePrint.removeActionListener(helpActPrint[i]);
+					}
+					for(int i =0;i<helpActExp.length;i++){
+						bhmf.getBHMenuBar().scenarioExport.removeActionListener(helpActExp[i]);
+					}
+					
+					
 					calcStochasticParameters.setVisible(true);
 					resetStochasticParameters.setVisible(false);
 					((Component) getView().getBHComponent(

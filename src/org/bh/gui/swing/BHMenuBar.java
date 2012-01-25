@@ -15,6 +15,8 @@
  *******************************************************************************/
 package org.bh.gui.swing;
 
+import java.awt.event.ActionListener;
+
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 
@@ -177,6 +179,8 @@ public final class BHMenuBar extends JMenuBar implements IPlatformListener {
 		
 		Services.addPlatformListener(this);
 	}
+	
+
 	
 	public void disableMenuProjectItems(){
 			projectDuplicate.setEnabled(false);

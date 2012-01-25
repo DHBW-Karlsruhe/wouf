@@ -13,8 +13,6 @@
  *******************************************************************************/
 package org.bh.plugin.resultAnalysis;
 
-
-
 import java.awt.Component;
 import java.awt.Dimension;
 import java.awt.GridBagConstraints;
@@ -53,14 +51,14 @@ import org.bh.platform.i18n.ITranslator;
  * 
  * @author Marco Hammel
  * @version 0.3 11.01.2010
- *
+ * 
  * @version 1.0
  */
 @SuppressWarnings("serial")
 public final class BHResultPanel extends JPanel {
 
 	static final Logger log = Logger.getLogger(BHResultPanel.class);
-	
+
 	// export button
 	private BHButton exportButton;
 	GridBagConstraints d;
@@ -69,24 +67,23 @@ public final class BHResultPanel extends JPanel {
 	JPanel procedurePanel = null;
 	// print Button
 	private BHButton printButton;
-	/// public static BHButton printButton;
+	// / public static BHButton printButton;
 	DTOScenario scenario;
 	Map<String, Calculable[]> result;
 	ITranslator translator = Services.getTranslator();
 
 	BHFormulaPanel formulaArea;
-        Component chartArea;
-	 
-	public enum Keys{
-		EXPORTSCENARIO,
-		PRINTSCENARIO;
-		
+	Component chartArea;
+
+	public enum Keys {
+		EXPORTSCENARIO, PRINTSCENARIO;
+
 		@Override
 		public String toString() {
 			return getClass().getName() + "." + super.toString();
 		}
 	}
-	
+
 	/**
 	 * Constructor
 	 * 
@@ -96,84 +93,99 @@ public final class BHResultPanel extends JPanel {
 
 		setLayout(new GridBagLayout());
 		d = new GridBagConstraints();
-		
+		int listenerCounter = 0;
+
 		JPanel exportArea = new JPanel(new GridBagLayout());
 		exportButton = new BHButton(Keys.EXPORTSCENARIO);
-		
+
 		d.fill = GridBagConstraints.HORIZONTAL;
 		d.gridx = 0;
 		d.gridy = 0;
-		d.insets = new Insets(10,10,10,0); //border top 30
-		//c.weightx = 1.0;
+		d.insets = new Insets(10, 10, 10, 0); // border top 30
+		// c.weightx = 1.0;
 		exportArea.add(exportButton, d);
-		
+
 		printButton = new BHButton(Keys.PRINTSCENARIO);
-		
+
+		ActionListener[] helpActPrint = BHMenuBar.filePrint
+				.getActionListeners();
+		ActionListener[] helpActExp = BHMenuBar.scenarioExport
+				.getActionListeners();
+		if (helpActPrint != null && helpActExp != null) {
+			for (int i = 0; i < helpActPrint.length; i++) {
+				BHMenuBar.filePrint.removeActionListener(helpActPrint[i]);
+			}
+
+			for (int i = 0; i < helpActExp.length; i++) {
+				BHMenuBar.scenarioExport.removeActionListener(helpActExp[i]);
+			}
+		}
+
 		// ActionListener for print-function (menu)
-		BHMenuBar.filePrint.addActionListener(new ActionListener(){
-			public void actionPerformed(ActionEvent e){ 
+		BHMenuBar.filePrint.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
 				printButton.doClick();
-	    	}
-	    });
-		
+			}
+		});
+
 		// ActionListener for scenario-export-function (menu)
-		BHMenuBar.scenarioExport.addActionListener(new ActionListener(){
-			public void actionPerformed(ActionEvent e){ 
+		BHMenuBar.scenarioExport.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
 				exportButton.doClick();
-	    	}
-	    });
-		
+			}
+		});
+
 		// deactivate Print- and Export-Button
 		exportButton.setVisible(false);
 		printButton.setVisible(false);
-		
+
 		d.fill = GridBagConstraints.HORIZONTAL;
 		d.gridx = 1;
 		d.gridy = 0;
-		d.insets = new Insets(10,10,10,10); //border top 30
+		d.insets = new Insets(10, 10, 10, 10); // border top 30
 		exportArea.add(printButton, d);
-		
-		
+
 		space = new JLabel();
 		d.gridx = 2;
 		d.gridy = 0;
 		d.weightx = 1.0;
 		exportArea.add(space, d);
-		
+
 		exportArea.setMaximumSize(new Dimension(200, 40));
 		d.gridx = 1;
 		d.gridy = 1;
 		add(exportArea, d);
-		//add(exportArea, "1,1");
-		//initialize();
+		// add(exportArea, "1,1");
+		// initialize();
 		space = new JLabel();
 		d.gridx = 2;
 		d.gridy = 0;
 		d.weightx = 1.0;
 		add(space, d);
 	}
-	
+
 	void setFormulaArea(BHFormulaPanel c) {
 		formulaArea = c;
-		formulaArea.setBorder(BHBorderFactory.getInstacnce().createTitledBorder(BHBorderFactory.getInstacnce()
-				.createEtchedBorder(),
-				"result_headline"));
+		formulaArea.setBorder(BHBorderFactory.getInstacnce()
+				.createTitledBorder(
+						BHBorderFactory.getInstacnce().createEtchedBorder(),
+						"result_headline"));
 		d.gridx = 1;
 		d.gridy = 3;
 		add(formulaArea, d);
 	}
-	
+
 	void setChartArea(Component c) {
-            if(this.chartArea != null){
-                remove(this.chartArea);
-            }
-            this.chartArea = c;
-            d.gridx = 1;
-    		d.gridy = 5;
-            add(c, d);
+		if (this.chartArea != null) {
+			remove(this.chartArea);
+		}
+		this.chartArea = c;
+		d.gridx = 1;
+		d.gridy = 5;
+		add(c, d);
 	}
-	
+
 	BHFormulaPanel getFormulaArea() {
 		return formulaArea;
-	}	
+	}
 }

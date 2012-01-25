@@ -46,7 +46,7 @@ public class BHStochasticResultPanel extends JPanel{
 	JPanel mainPanel = null;
 	GridBagConstraints d;
 	JLabel space;
-	
+		
 	public BHStochasticResultPanel(DTOScenario scenario, DistributionMap result) {
 		this.scenario = scenario;
 		this.result = result;
@@ -58,11 +58,12 @@ public class BHStochasticResultPanel extends JPanel{
 		printButton = new BHButton(BHStochasticResultController.PanelKeys.PRINTSCENARIO);
 		
 		// ActionListener for print-function (menu)
-		BHMenuBar.filePrint.addActionListener(new ActionListener(){
+	    
+ 		BHMenuBar.filePrint.addActionListener(new ActionListener(){
 			public void actionPerformed(ActionEvent e){ 
 				printButton.doClick();
 	    	}
-	    });
+	    });  
 		
 		// ActionListener for export-function (menu)
 		BHMenuBar.scenarioExport.addActionListener(new ActionListener(){
@@ -73,7 +74,7 @@ public class BHStochasticResultPanel extends JPanel{
 		
 		// deactivate Print- and Export-Button
 		exportButton.setVisible(false);
-		printButton.setVisible(true);
+		printButton.setVisible(false);
 		
 		StochasticPanel mainStochastic = new StochasticPanel();
 		if(result.isTimeSeries()){
