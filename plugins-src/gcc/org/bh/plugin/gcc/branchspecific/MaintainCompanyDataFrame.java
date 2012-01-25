@@ -300,8 +300,11 @@ public class MaintainCompanyDataFrame extends BHPopupFrame implements
 				model.insertNodeInto(new BHBusinessDataTreeNode(myNewBranch), root1, root1.getChildCount());
 				
 				int index = branchbox.getSelectedIndex();
-				
+				try{
 				branchbox.setSelectedIndex(index+1);
+				}catch (Exception exp){
+					branchbox.setSelectedIndex(0);
+				}
 				branchbox.removeItemAt(index);
 
 
