@@ -127,10 +127,10 @@ public class MaintainCompanyDataFrame extends BHPopupFrame implements
 		tree = new BHBDTree(root1);
 		tree.setEditable(true);		
 		BHBDTreeModel treemodel = new BHBDTreeModel(root1);
-		treemodel.reload();		
+		//treemodel.reload();		
 		tree.setModel(treemodel);
 		tree.setRootVisible(false);	
-		tree.repaint();	
+		//tree.repaint();	
 		bhTreeScroller = new JScrollPane(tree);
 		panev3.setTopComponent(bhTreeScroller);
 		
@@ -298,10 +298,10 @@ public class MaintainCompanyDataFrame extends BHPopupFrame implements
 				myDTO.addChild(myNewBranch);
 				
 				// build the new tree
-				clearTree();
-				buildTree();
-				tree.revalidate();
-				tree.repaint();
+				//clearTree();
+				//buildTree();
+				//tree.revalidate();
+				//tree.repaint();
 
 			}
 
