@@ -67,6 +67,7 @@ import org.jfree.util.Log;
  */
 public class MaintainCompanyDataFrame extends BHPopupFrame implements
 		ActionListener {
+	JPanel panev2 = null;
 	JTree tree = null;
 	JSplitPane panev3 = null;
 	JPanel content = null;
@@ -124,15 +125,17 @@ public class MaintainCompanyDataFrame extends BHPopupFrame implements
 			root1.add(j);
 		}
 		tree = null;
-		tree = new BHBDTree(root1);
-		tree.setEditable(true);		
+		tree = new BHBDTree(root1);		
 		BHBDTreeModel treemodel = new BHBDTreeModel(root1);
-		//treemodel.reload();		
+		treemodel.reload();		
 		tree.setModel(treemodel);
 		tree.setRootVisible(false);	
-		//tree.repaint();	
+		tree.repaint();	
 		bhTreeScroller = new JScrollPane(tree);
+		panev3 = new JSplitPane(JSplitPane.VERTICAL_SPLIT, panev2,
+				bhTreeScroller);
 		panev3.setTopComponent(bhTreeScroller);
+		
 		
 	}
 	
@@ -188,7 +191,7 @@ public class MaintainCompanyDataFrame extends BHPopupFrame implements
 		});
 
 		bhTreeScroller = new JScrollPane(tree);
-		JPanel panev2 = new JPanel();
+		panev2 = new JPanel();
 		panev2.setLayout(new BorderLayout());
 		branchbox = new BHComboBox(DTOScenario.Key.REPRESENTATIVE);
 		panev2.add(branchbox, BorderLayout.NORTH);
@@ -299,7 +302,7 @@ public class MaintainCompanyDataFrame extends BHPopupFrame implements
 				
 				// build the new tree
 				//clearTree();
-				//buildTree();
+				buildTree();
 				//tree.revalidate();
 				//tree.repaint();
 
