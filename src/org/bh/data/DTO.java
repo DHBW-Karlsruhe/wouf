@@ -47,6 +47,8 @@ import org.bh.platform.Services;
  * @author Robert Vollmer
  * @author Michael Löckelt
  * 
+ * @update 25.01.2012, Yannick Rödl
+ * 
  * @param <ChildT>
  *            Type of the children.
  */
@@ -407,6 +409,9 @@ public abstract class DTO<ChildT extends IDTO> implements IDTO<ChildT> {
 			result.children = new LinkedList<ChildT>();
 			// Go through each value, copy it and put it into the new instance
 			for (Map.Entry<String, IValue> entry : values.entrySet()) {
+				if(entry.getValue() == null){
+					continue;
+				}
 				result.put(entry.getKey(), entry.getValue().clone());
 				// Copy and add children to the new instance
 			}
