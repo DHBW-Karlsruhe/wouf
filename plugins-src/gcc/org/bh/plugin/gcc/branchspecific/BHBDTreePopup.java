@@ -343,15 +343,15 @@ public class BHBDTreePopup extends JPopupMenu {
 				public void actionPerformed(ActionEvent ae) {
 
 					// REMOVE NODE
-					BHBusinessDataTreeNode bhdfwzgz = (BHBusinessDataTreeNode) BHBDTreePopup.bhbdTree
+					BHBusinessDataTreeNode bhdf = (BHBusinessDataTreeNode) BHBDTreePopup.bhbdTree
 							.getSelectionPath().getLastPathComponent();
-					BHBusinessDataTreeNode parentbranch = (BHBusinessDataTreeNode) bhdfwzgz
+					BHBusinessDataTreeNode parentbranch = (BHBusinessDataTreeNode) bhdf
 							.getParent();
 					DTOCompany mybd = (DTOCompany) parentbranch.getUserObject();
-					mybd.removeChild((DTOPeriod) bhdfwzgz.getUserObject());
+					mybd.removeChild((DTOPeriod) bhdf.getUserObject());
 					DefaultTreeModel model = (DefaultTreeModel) BHBDTreePopup.bhbdTree
 							.getModel();
-					model.removeNodeFromParent(bhdfwzgz);
+					model.removeNodeFromParent(bhdf);
 
 				}
 			});
