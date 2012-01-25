@@ -54,7 +54,7 @@ import org.jfree.ui.Layer;
 public class BHXYBarChart extends BHChart implements IBHAddValue,
 		IPlatformListener {
 	public static enum ChartKeys {
-		DISTRIBUTION_CHART,AVERAGE, RISK_AT_VALUE;
+		DISTRIBUTION_CHART,AVERAGE, RISK_AT_VALUE, VALUE_BSR;
 
 		@Override
 		public String toString() {

@@ -202,14 +202,14 @@ public class BHBSRStochasticResultController extends OutputController {
 				result.toDoubleArray(), result.getAmountOfValues(),
 				result.getMaxAmountOfValuesInCluster());
 		comp.addSeries(
-				BHBSRStochasticResultController.ChartKeys.VALUE_BSR.toString(),
-				resultBSR.toDoubleArray(), resultBSR.getAmountOfValues(),
-				resultBSR.getMaxAmountOfValuesInCluster());
-		comp.addSeries(
 				Services.getTranslator()
 						.translate(PanelKeys.AVERAGE.toString()),
 				new double[][] { { result.getAverage(),
 						result.getMaxAmountOfValuesInCluster() } });
+		comp.addSeries(
+				BHBSRStochasticResultController.ChartKeys.VALUE_BSR.toString(),
+				resultBSR.toDoubleArray(), resultBSR.getAmountOfValues(),
+				resultBSR.getMaxAmountOfValuesInCluster());
 		// componenten für LineChart (Zeitreihenanalyse)
 
 		for (Map.Entry<String, IBHModelComponent> entry : view
@@ -327,7 +327,6 @@ public class BHBSRStochasticResultController extends OutputController {
 				Services.getTranslator().translate(
 						PanelKeys.CASHFLOW_FORECAST.toString()),
 				stochasticResult.getCompareCashflow());
-
 	}
 
 	public void calcRiskAtValue(Double confidence, Integer maxAmountofValues) {
@@ -346,7 +345,7 @@ public class BHBSRStochasticResultController extends OutputController {
 
 			IBHAddValue comp = super.view.getBHchartComponents().get(
 					ChartKeys.DISTRIBUTION_CHART.toString());
-			comp.removeSeries(2);
+			comp.removeSeries(3);
 			comp.addSeries(
 					Services.getTranslator().translate(
 							ChartKeys.RISK_AT_VALUE.toString()),
@@ -512,6 +511,7 @@ public class BHBSRStochasticResultController extends OutputController {
 		public void stateChanged(ChangeEvent e) {
 
 			String key = ((BHSlider) e.getSource()).getKey();
+		
 			if (key.equals(ChartKeys.BSR_RATIO.toString())) {
 				double confidence = ((BHSlider) view
 						.getBHComponent(ChartKeys.BSR_RATIO.toString()))
