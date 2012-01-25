@@ -12,8 +12,6 @@
  * You should have received a copy of the GNU General Public License along with this program.  If not, see <http://www.gnu.org/licenses/>.
  *******************************************************************************/
 package org.bh.plugin.stochasticResultAnalysis.branchSpecific;
-
-import java.awt.Color;
 import java.awt.GridBagConstraints;
 import java.awt.Insets;
 import java.awt.event.ActionEvent;
@@ -82,8 +80,6 @@ public class BHBSRStochasticResultController extends OutputController {
 
 	private static boolean differenceIsComputed;
 	private static double differenceCompanyBSR;
-	private static boolean bsrIsHigher;
-	private DistributionMap bsrResult;
 
 	int pAlt = 0;
 
@@ -100,22 +96,6 @@ public class BHBSRStochasticResultController extends OutputController {
 	public BHBSRStochasticResultController(View view, DistributionMap result,
 			DTOScenario scenario) {
 		super(view, result, scenario);
-		// //
-		// ((BHTextField)(view.getBHModelComponents().get(ChartKeys.RISK_AT_VALUE.toString()))).addCaretListener(new
-		// // RiskAtValueListener());
-		// BHSlider slider = (BHSlider) view
-		// .getBHComponent(ChartKeys.RISK_AT_VALUE.toString());
-		// slider.addChangeListener(new SliderChangeListener());
-		//
-		// // BHSlider sliderRatio = (BHSlider) view
-		// // .getBHComponent(ChartKeys.BSR_RATIO.toString());
-		// // sliderRatio.addChangeListener(new SliderChangeListener());
-		//
-		// if (result.isTimeSeries()) {
-		// setResultTimeSeries(result, scenario);
-		//
-		// }
-
 	}
 
 	public BHBSRStochasticResultController(View view, DistributionMap result,
@@ -124,8 +104,6 @@ public class BHBSRStochasticResultController extends OutputController {
 
 		setResult(result, resultBSR, scenario);
 
-		// ((BHTextField)(view.getBHModelComponents().get(ChartKeys.RISK_AT_VALUE.toString()))).addCaretListener(new
-		// RiskAtValueListener());
 		BHSlider slider = (BHSlider) view
 				.getBHComponent(ChartKeys.RISK_AT_VALUE.toString());
 		slider.addChangeListener(new SliderChangeListener());
@@ -137,7 +115,6 @@ public class BHBSRStochasticResultController extends OutputController {
 
 		if (result.isTimeSeries()) {
 			setResultTimeSeries(result, resultBSR, scenario);
-			// evtl noch TODO
 
 		}
 
@@ -157,36 +134,6 @@ public class BHBSRStochasticResultController extends OutputController {
 
 	@Override
 	public void setResult(DistributionMap result, DTOScenario scenario) {
-		// log.info("Distribution Chart "
-		// + ChartKeys.DISTRIBUTION_CHART.toString());
-		// super.setResult(result, scenario);
-		// IBHAddValue comp = super.view.getBHchartComponents().get(
-		// ChartKeys.DISTRIBUTION_CHART.toString());
-		// comp.addSeries(
-		// Services.getTranslator().translate(
-		// ChartKeys.DISTRIBUTION_CHART.toString()),
-		// result.toDoubleArray(), result.getAmountOfValues(),
-		// result.getMaxAmountOfValuesInCluster());
-		// comp.addSeries(
-		// Services.getTranslator()
-		// .translate(PanelKeys.AVERAGE.toString()),
-		// new double[][] { { result.getAverage(),
-		// result.getMaxAmountOfValuesInCluster() } });
-		// // componenten für LineChart (Zeitreihenanalyse)
-		//
-		// for (Map.Entry<String, IBHModelComponent> entry : view
-		// .getBHModelComponents().entrySet()) {
-		// if (entry.getKey().equals(ChartKeys.STANDARD_DEVIATION.toString()))
-		// entry.getValue().setValue(
-		// new DoubleValue(result.getStandardDeviation()));
-		// else if (entry.getKey().equals(ChartKeys.AVERAGE.toString()))
-		// entry.getValue().setValue(new DoubleValue(result.getAverage()));
-		// }
-		// double confidence = ((BHSlider) view
-		// .getBHComponent(ChartKeys.RISK_AT_VALUE.toString())).getValue();
-		// calcRiskAtValue(confidence,
-		// stochasticResult.getMaxAmountOfValuesInCluster());
-		// calcRiskAtValue(confidence);
 	}
 
 	public void setResult(DistributionMap result, DistributionMap resultBSR,
@@ -226,48 +173,6 @@ public class BHBSRStochasticResultController extends OutputController {
 				stochasticResult.getMaxAmountOfValuesInCluster());
 		// calcRiskAtValue(confidence);
 	}
-
-	// public void setResultTimeSeries(DistributionMap result, DTOScenario
-	// scenario) {
-	//
-	// BHSlider sliderCompare = (BHSlider) view
-	// .getBHComponent(ChartKeys.CASHFLOW_COMPARE_SLIDER.toString());
-	// sliderCompare.addChangeListener(new SliderChangeListener());
-	//
-	// IBHAddValue comp2 = super.view.getBHchartComponents().get(
-	// ChartKeys.CASHFLOW_CHART.toString());
-	// comp2.addSeries(
-	// Services.getTranslator().translate(
-	// PanelKeys.CASHFLOW.toString()),
-	// result.toDoubleArrayTS());
-	//
-	// IBHAddValue comp3 = super.view.getBHchartComponents().get(
-	// ChartKeys.CASHFLOW_CHART_COMPARE.toString());
-	// comp3.addSeries(
-	// Services.getTranslator().translate(
-	// PanelKeys.CASHFLOW_IS.toString()),
-	// result.getIsCashflow());
-	// comp3.addSeries(
-	// Services.getTranslator().translate(
-	// PanelKeys.CASHFLOW_FORECAST.toString()),
-	// result.getCompareCashflow());
-	//
-	// String TableKey = PanelKeys.CASHFLOW_TABLE.toString();
-	// BHTable cashTable = ((BHTable) view.getBHComponent(TableKey));
-	// Object[][] data = result.toObjectArrayTS();
-	// int länge = result.getIsCashflow().length;
-	// sliderCompare.setMaximum(länge - 2);
-	// Dictionary map = new Hashtable();
-	// for (int i = 0; i <= länge; i++) {
-	// if ((i % 2) == 0)
-	// map.put(i, new JLabel("" + i));
-	// }
-	// sliderCompare.setLabelTable(map);
-	// String[] headers = { "t", "Cashflow" };
-	// DefaultTableModel tableModel = new DefaultTableModel(data, headers);
-	// cashTable.setTableModel(tableModel);
-
-	// }
 
 	public void setResultTimeSeries(DistributionMap result,
 			DistributionMap resultBSR, DTOScenario scenario) {
@@ -377,6 +282,7 @@ public class BHBSRStochasticResultController extends OutputController {
 				ChartKeys.DISTRIBUTION_CHART.toString());
 
 		// Removing of old graphs in Distribution Chart
+		comp.removeSeries(3);
 		comp.removeSeries(2);
 		comp.removeSeries(1);
 		comp.removeSeries(0);
@@ -408,13 +314,6 @@ public class BHBSRStochasticResultController extends OutputController {
 					break;
 				}
 			}
-			// See in which direction (left or right) the Company graph has to
-			// be moved
-			if (mitteBSR < mitte) {
-				BHBSRStochasticResultController.bsrIsHigher = false;
-			} else {
-				BHBSRStochasticResultController.bsrIsHigher = true;
-			}
 
 			// Get the difference between mid of Company and BSR
 			BHBSRStochasticResultController.differenceCompanyBSR = Math
@@ -423,12 +322,10 @@ public class BHBSRStochasticResultController extends OutputController {
 		}
 
 		double verschiebung = 0;
+		
 		// Compute value to be moved
-		if (!BHBSRStochasticResultController.bsrIsHigher) {
-			verschiebung = (differenceCompanyBSR / 100) * confidence;
-		} else {
-			verschiebung = (-1) * (differenceCompanyBSR / 100) * confidence;
-		}
+		verschiebung = (differenceCompanyBSR / 100) * confidence;
+		
 		// Tis list will be loaded with the map of Company values
 		List<Map.Entry<Double, Integer>> liste = new ArrayList<Map.Entry<Double, Integer>>();
 		Iterator<Entry<Double, Integer>> iterMap = result.entrySet().iterator();
@@ -511,7 +408,7 @@ public class BHBSRStochasticResultController extends OutputController {
 		public void stateChanged(ChangeEvent e) {
 
 			String key = ((BHSlider) e.getSource()).getKey();
-		
+
 			if (key.equals(ChartKeys.BSR_RATIO.toString())) {
 				double confidence = ((BHSlider) view
 						.getBHComponent(ChartKeys.BSR_RATIO.toString()))

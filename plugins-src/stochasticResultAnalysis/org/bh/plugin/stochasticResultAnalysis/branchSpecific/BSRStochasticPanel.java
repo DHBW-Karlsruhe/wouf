@@ -119,8 +119,8 @@ public class BSRStochasticPanel extends JPanel {
 				BHBSRStochasticResultController.ChartKeys.RISK_AT_VALUE, 0,
 				100, 95);
 		BHSlider sliderRatio = new BHSlider(
-				BHBSRStochasticResultController.ChartKeys.BSR_RATIO, 0, 100, 95); // new
-																					// BN
+				BHBSRStochasticResultController.ChartKeys.BSR_RATIO, 0, 100, 0); 
+																					
 		BHSlider slider_cashflow = new BHSlider(
 				BHBSRStochasticResultController.ChartKeys.CASHFLOW_COMPARE_SLIDER);
 		slider_cashflow.setMinimum(3);
@@ -129,9 +129,6 @@ public class BSRStochasticPanel extends JPanel {
 		slider_cashflow.setMinorTickSpacing(1);
 		slider_cashflow.setPaintTicks(true);
 		slider_cashflow.setPaintLabels(true);
-		// BHTextField riskAtField = new
-		// BHTextField(BHStochasticResultController.ChartKeys.RISK_AT_VALUE,"95",
-		// true);
 
 		BHDescriptionLabel min = new BHDescriptionLabel("min");
 		BHDescriptionLabel max = new BHDescriptionLabel("max");
