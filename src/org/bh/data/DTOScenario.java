@@ -461,28 +461,31 @@ public class DTOScenario extends DTO<DTOPeriod> {
 		 * Je Periode des BSR: CF in Periode * Streckungsfaktor
 		 */
 		double unternehmensCashflow = 0.0;
-		double normedBSRCashflow = 0.0;
-		int unternehmensCounter = 0;
+		double normedBSRCashflow = 0.0;		
 		
 		
+		//This might be wrong if newest period normed CF = 0
 		
 		//Ermittle neuesten CF des Unternehmens
 		for(DTOPeriod unternehmensperiode: this.getChildren()){
 			try{
-				unternehmensCounter++;
+				log.debug("Unternehmen: " + unternehmensperiode);
+				//Get the last period, because this is the newest period
 				unternehmensCashflow = ((DoubleValue) unternehmensperiode.getFCF()).getValue();
-				break;
 			} catch(DTOAccessException dto){
 				continue;
 			}
 		}
 		
+		log.debug("Cashflow newest period of inserted data: " + unternehmensCashflow);
+		
 		for(DTOPeriod bsrPeriode: branchSpecificRep.getChildren()){
-			unternehmensCounter--;
 			
+			log.debug("BSR: " + bsrPeriode);
 			//Gleiche Periode :)
-			if(unternehmensCounter == 0){
-				normedBSRCashflow = ((DoubleValue) bsrPeriode.get(DTOPeriod.Key.FCF)).getValue();
+			normedBSRCashflow = ((DoubleValue) bsrPeriode.get(DTOPeriod.Key.FCF)).getValue();
+			if(normedBSRCashflow != 0){
+				break;
 			}
 		}
 		

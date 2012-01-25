@@ -206,6 +206,26 @@ public class TimeSeries implements ITimeSeriesProcess {
 			}
 		}
 		
+		/*
+		 * If we are branch specific we have to reverse the order of the inserted data,
+		 * because the newest period is first.
+		 */
+		if(branchSpecific){
+			int i = cashValues.size();
+			
+			Calculable[] helper = new Calculable[i];
+			
+			for(Calculable cf: cashValues){
+				i--;
+				helper[i] = cf;
+			}
+			
+			cashValues = new LinkedList<Calculable>();
+			for(Calculable cf: helper){
+				cashValues.add(cf);
+			}
+		}
+		
 		int periodsInPast = map.get(AMOUNT_OF_PERIODS_BACK);
 		int periodsInFuture = map.get(AMOUNT_OF_PERIODS_FUTURE);
 		int amountOfIterations = map.get(AMOUNT_OF_TS_ITERATIONS);
