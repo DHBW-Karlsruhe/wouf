@@ -99,6 +99,7 @@ public class BHBDTreePopup extends JPopupMenu {
 									.translate(BHBDTreePopup.Key.CompanyAddDesc),
 							translator.translate(BHBDTreePopup.Key.CompanyAdd),
 							1);
+					if (inputname.length()>0){
 					BHBusinessDataTreeNode parentbranch = (BHBusinessDataTreeNode) BHBDTreePopup.bhbdTree
 							.getSelectionPath().getLastPathComponent();
 					DTOBranch branch = (DTOBranch) parentbranch.getUserObject();
@@ -112,12 +113,13 @@ public class BHBDTreePopup extends JPopupMenu {
 					model.insertNodeInto(new BHBusinessDataTreeNode(
 							newCompanyDTO), parentbranch, parentbranch
 							.getChildCount());
-
+					}
 				}
 			});
 			this.add(compadd);
 
-		} else if (type == Type.COMPANY) {
+		} 
+		else if (type == Type.COMPANY) {
 
 			JMenuItem compadd = new JMenuItem(
 					translator.translate(BHBDTreePopup.Key.CompanyAdd));
@@ -132,6 +134,7 @@ public class BHBDTreePopup extends JPopupMenu {
 									.translate(BHBDTreePopup.Key.CompanyAddDesc),
 							translator.translate(BHBDTreePopup.Key.CompanyAdd),
 							1);
+					if (inputname.length()>0){
 					BHBusinessDataTreeNode bhdfwzgz = (BHBusinessDataTreeNode) BHBDTreePopup.bhbdTree
 							.getSelectionPath().getLastPathComponent();
 					BHBusinessDataTreeNode parentbranch = (BHBusinessDataTreeNode) bhdfwzgz
@@ -148,7 +151,7 @@ public class BHBDTreePopup extends JPopupMenu {
 							newCompanyDTO), parentbranch, parentbranch
 							.getChildCount());
 
-				}
+				}}
 			});
 
 			JMenuItem comprem = new JMenuItem(

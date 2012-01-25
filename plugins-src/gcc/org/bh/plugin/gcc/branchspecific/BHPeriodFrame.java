@@ -59,9 +59,6 @@ public class BHPeriodFrame {
 			BHBDCostOfSalesController r = new BHBDCostOfSalesController();
 			p = ((JPanel) r.editDTO(period));
 		}
-	
-		
-	
 		return p;
 	}
 }

@@ -84,7 +84,7 @@ public class MaintainCompanyDataFrame extends BHPopupFrame implements
 	}
 
 	public enum GUI_KEYS {
-		TITLE;
+		TITLE,BranchAdd;
 
 		@Override
 		public String toString() {
@@ -148,7 +148,7 @@ public class MaintainCompanyDataFrame extends BHPopupFrame implements
 		super();
 
 		Container desktop = getContentPane();
-		BHButton add = new BHButton("Branche hinzufügen");
+		BHButton add = new BHButton(translator.translate(MaintainCompanyDataFrame.GUI_KEYS.BranchAdd));
 		content = new BHContent();
 		this.setAlwaysOnTop(false);
 		// build the tree

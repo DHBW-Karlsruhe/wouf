@@ -59,6 +59,7 @@ public class BHBusinessDataTreeNode extends DefaultMutableTreeNode{
 				String nace = main+"."+mid+"."+sub;
 				
 				String l = BHTranslator.getInstance().translate(nace);
+				
 				return l;
 			}catch(DTOAccessException e){
 				return "";

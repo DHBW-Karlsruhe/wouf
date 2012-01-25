@@ -36,6 +36,7 @@ public class BHBDTree extends JTree {
     void showPopup(MouseEvent e, BHBDTreePopup.Type nodeType) {
 
     	switch (nodeType) {
+
     	case BRANCH:
     		JPopupMenu branchPopup = new BHBDTreePopup(BHBDTreePopup.Type.BRANCH, this);
     	    branchPopup.show(e.getComponent(), e.getX(), e.getY());
@@ -115,7 +116,7 @@ public class BHBDTree extends JTree {
     	public void mouseReleased(MouseEvent e) {
     	    TreePath selPath = BHBDTree.this.getPathForLocation(e.getX(), e.getY());
     	    if (selPath != null && e.isPopupTrigger()) {
-    		if (((BHBusinessDataTreeNode) selPath.getLastPathComponent()).getUserObject() instanceof DTOProject) {
+    		if (((BHBusinessDataTreeNode) selPath.getLastPathComponent()).getUserObject() instanceof DTOBranch) {
     		    showPopup(e, BHBDTreePopup.Type.BRANCH);
     		}  else if (((BHBusinessDataTreeNode) selPath.getLastPathComponent()).getUserObject() instanceof DTOCompany) {
     		    showPopup(e, BHBDTreePopup.Type.COMPANY);
