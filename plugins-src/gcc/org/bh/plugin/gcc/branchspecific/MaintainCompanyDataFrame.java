@@ -27,6 +27,7 @@ import javax.swing.UIManager;
 import javax.swing.event.TreeSelectionEvent;
 import javax.swing.event.TreeSelectionListener;
 import javax.swing.tree.DefaultMutableTreeNode;
+import javax.swing.tree.DefaultTreeModel;
 import javax.swing.tree.TreePath;
 
 import org.apache.log4j.Logger;
@@ -149,11 +150,9 @@ public class MaintainCompanyDataFrame extends BHPopupFrame implements
 		Container desktop = getContentPane();
 		BHButton add = new BHButton("Branche hinzufügen");
 		content = new BHContent();
-
+		this.setAlwaysOnTop(false);
 		// build the tree
 	    buildTree();
-
-		// new BHBDTreeTransferHandler(tree, DnDConstants.ACTION_COPY_OR_MOVE);
 
 		tree.addTreeSelectionListener(new TreeSelectionListener() {
 			public void valueChanged(TreeSelectionEvent e) {
@@ -179,9 +178,6 @@ public class MaintainCompanyDataFrame extends BHPopupFrame implements
 					BHPeriodFrame p = new BHPeriodFrame((DTOPeriod) node
 							.getUserObject());
 					content = p.getFrame();
-					// content = new GCCCombinedForm(new
-					// BHBalanceSheetForm(true), new
-					// BHPLSCostOfSalesForm(true));
 					paneV.setTopComponent(content);
 
 				} else {
@@ -244,6 +240,7 @@ public class MaintainCompanyDataFrame extends BHPopupFrame implements
 				"P.85.2", "P.85.1", "P.85.5", "P.85.6", "P.85.3", "P.85.4",
 				"S.94.9", "S.94.1", "S.94.2", "S.95.2", "S.95.1", "S.96.0",
 				"R.90.0", "R.93.2", "R.93.1", "R.92.0", "R.91.0" };
+		
 		LinkedList<String> c = new LinkedList<String>();
 
 		// Get current BranchList
@@ -272,8 +269,7 @@ public class MaintainCompanyDataFrame extends BHPopupFrame implements
 			if (addBranch)
 				c.add(currBranchString);
 		}
-
-		// add relevant Branch data to Combo Box
+		// add relevant Branch data to ComboBox
 		for (String currRelBranchString : c) {
 			branchbox.addItem(new Item(currRelBranchString, null));
 		}
@@ -300,11 +296,13 @@ public class MaintainCompanyDataFrame extends BHPopupFrame implements
 				// add Branch to BusinessData DOM
 				myDTO.addChild(myNewBranch);
 				
-				// build the new tree
-				//clearTree();
-				buildTree();
-				//tree.revalidate();
-				//tree.repaint();
+				DefaultTreeModel model = (DefaultTreeModel)tree.getModel();
+				model.insertNodeInto(new BHBusinessDataTreeNode(myNewBranch), root1, root1.getChildCount());
+				
+				int index = branchbox.getSelectedIndex();
+				branchbox.setSelectedIndex(1);
+				branchbox.remove(index);
+
 
 			}
 
@@ -326,7 +324,7 @@ public class MaintainCompanyDataFrame extends BHPopupFrame implements
 
 		Services.initNumberFormats();
 
-		// b.addBusinessData((PlatformController.getInstance()).getBusinessDataDTO());
+
 		bhTreeScroller.setMinimumSize(new Dimension(250 + UIManager
 				.getInt("JTree.minimumWidth"),
 				bhTreeScroller.getMinimumSize().height));
@@ -334,7 +332,6 @@ public class MaintainCompanyDataFrame extends BHPopupFrame implements
 		desktop.add(panev2, BorderLayout.NORTH);
 		desktop.add(paneH, BorderLayout.CENTER);
 		this.setSize(1120, 720);
-		// desktop.add(savebutton, BorderLayout.SOUTH);
 	}
 
 	@Override

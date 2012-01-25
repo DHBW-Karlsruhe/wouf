@@ -11,6 +11,8 @@ import javax.swing.tree.TreeModel;
 import javax.swing.tree.TreeNode;
 import javax.swing.tree.TreePath;
 
+import org.bh.data.DTOBranch;
+import org.bh.data.DTOCompany;
 import org.bh.data.DTOProject;
 
 import org.bh.gui.swing.tree.BHTreePopup;
@@ -27,25 +29,26 @@ import org.bh.gui.swing.tree.BHTreePopup;
  */
 public class BHBDTree extends JTree {
 
-    private JPopupMenu projectPopup = new BHBDTreePopup(BHBDTreePopup.Type.PROJECT);
+    
 
-    private JPopupMenu defaultPopup = new BHBDTreePopup(BHBDTreePopup.Type.PERIOD);
-	/**
-	 * 
-	 */
     
     
     void showPopup(MouseEvent e, BHBDTreePopup.Type nodeType) {
 
     	switch (nodeType) {
-    	case PROJECT:
-    	    projectPopup.show(e.getComponent(), e.getX(), e.getY());
+    	case BRANCH:
+    		JPopupMenu branchPopup = new BHBDTreePopup(BHBDTreePopup.Type.BRANCH, this);
+    	    branchPopup.show(e.getComponent(), e.getX(), e.getY());
     	    break;
 
-    	case SCENARIO:
-
+    	case COMPANY:
+    		JPopupMenu companyPopup = new BHBDTreePopup(BHBDTreePopup.Type.COMPANY, this);
+    		companyPopup.show(e.getComponent(), e.getX(), e.getY());
+    	    break;
+    	    
     	case PERIOD:
-    	    defaultPopup.show(e.getComponent(), e.getX(), e.getY());
+    		JPopupMenu periodPopup = new BHBDTreePopup(BHBDTreePopup.Type.PERIOD, this);
+    	    periodPopup.show(e.getComponent(), e.getX(), e.getY());
     	    break;
     	}
         }
@@ -113,8 +116,10 @@ public class BHBDTree extends JTree {
     	    TreePath selPath = BHBDTree.this.getPathForLocation(e.getX(), e.getY());
     	    if (selPath != null && e.isPopupTrigger()) {
     		if (((BHBusinessDataTreeNode) selPath.getLastPathComponent()).getUserObject() instanceof DTOProject) {
-    		    showPopup(e, BHBDTreePopup.Type.PROJECT);
-    		} else {
+    		    showPopup(e, BHBDTreePopup.Type.BRANCH);
+    		}  else if (((BHBusinessDataTreeNode) selPath.getLastPathComponent()).getUserObject() instanceof DTOCompany) {
+    		    showPopup(e, BHBDTreePopup.Type.COMPANY);
+    		} else{
     		    showPopup(e, BHBDTreePopup.Type.PERIOD);
     		}
     	    }
@@ -125,9 +130,12 @@ public class BHBDTree extends JTree {
     	    TreePath selPath = BHBDTree.this.getPathForLocation(e.getX(), e.getY());
     	    if (selPath != null && e.isPopupTrigger()) {
     		BHBDTree.this.setSelectionPath(selPath);
-    		if (((BHBusinessDataTreeNode) selPath.getLastPathComponent()).getUserObject() instanceof DTOProject) {
-    		    showPopup(e, BHBDTreePopup.Type.PROJECT);
-    		} else {
+    		if (((BHBusinessDataTreeNode) selPath.getLastPathComponent()).getUserObject() instanceof DTOBranch) {
+    		    showPopup(e, BHBDTreePopup.Type.BRANCH);
+    		    	
+    		} else if (((BHBusinessDataTreeNode) selPath.getLastPathComponent()).getUserObject() instanceof DTOCompany) {
+    		    showPopup(e, BHBDTreePopup.Type.COMPANY);
+    		} else{
     		    showPopup(e, BHBDTreePopup.Type.PERIOD);
     		}
     	    }

@@ -37,16 +37,13 @@ public final class MaintainCompanyBar extends JMenuBar implements IPlatformListe
 	public MaintainCompanyBar(){
 		
 		menuBSRData = new JMenu(translator.translate("MBSRData"));
-//		menuBSRData.setMnemonic(UNDEFINED_CONDITION);
 		add(menuBSRData);
 		
 		exportBSRData = new BHMenuItem(PlatformKey.EXPORT_COMPANY_DATA);
 		menuBSRData.add(exportBSRData);
-//		exportBSRData.addActionListener(this);
 		
 		importBSRData = new BHMenuItem(PlatformKey.IMPORT_COMPANY_DATA);
 		menuBSRData.add(importBSRData);
-//		importCompanyData.addActionListener(this);
 		
 	}
 
