@@ -12,7 +12,7 @@
  * You should have received a copy of the GNU General Public License along with this program.  If not, see <http://www.gnu.org/licenses/>.
  *******************************************************************************/
 package org.bh.plugin.branchSpecificRepresentative.excelImport;
-
+/*
 import java.io.File;
 import java.io.IOException;
 import java.util.HashSet;
@@ -38,7 +38,7 @@ import org.bh.platform.Services;
 import org.bh.plugin.gcc.data.DTOGCCBalanceSheet;
 import org.bh.plugin.gcc.data.DTOGCCProfitLossStatementCostOfSales;
 import org.bh.plugin.gcc.data.DTOGCCProfitLossStatementTotalCost;
-
+*/
 
 /**
  * Class for importing company data (branch and period data) from given Excel files
@@ -53,7 +53,7 @@ import org.bh.plugin.gcc.data.DTOGCCProfitLossStatementTotalCost;
  */
 
 
-
+/*
 public class ExcelImport {
 
 	private static final Logger log = Logger.getLogger(ExcelImport.class);
@@ -445,3 +445,4 @@ public class ExcelImport {
 	}	
 	
 }
+*/
