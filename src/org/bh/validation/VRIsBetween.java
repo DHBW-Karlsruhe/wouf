@@ -32,7 +32,7 @@ import com.jgoodies.validation.ValidationResult;
 public class VRIsBetween extends ValidationRule {
 	public static final VRIsBetween BETWEEN0AND100 = new VRIsBetween(0, 100);
 	public static final VRIsBetween BETWEEN1900AND2100 = new VRIsBetween(1900, 2100);
-	public static final VRIsBetween BETWEEN100AND5000 = new VRIsBetween(100, 5000);
+	public static final VRIsBetween BETWEEN100AND10000 = new VRIsBetween(100, 10000);
 	public static final VRIsBetween BETWEEN1970AND2030 = new VRIsBetween(1970, 2030);		
 	
 	private VRIsGreaterThan vrIsGreaterThan;

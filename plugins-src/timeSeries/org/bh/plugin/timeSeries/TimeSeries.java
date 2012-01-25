@@ -126,7 +126,7 @@ public class TimeSeries implements ITimeSeriesProcess {
 				cons.xywh(6, 2, 1, 1));
 		BHTextField tf2 = new BHTextField(AMOUNT_OF_PERIODS_FUTURE);
 		ValidationRule[] rules2 = { VRMandatory.INSTANCE, VRIsInteger.INSTANCE,
-				VRIsGreaterThan.GTZERO, VRIsLowerThan.LTEHUNDRED };
+				VRIsGreaterThan.GTZERO, VRIsLowerThan.LTEHUNDRED, VRIsGreaterThan.GTETWO };
 		tf2.setValidationRules(rules2);
 		result.add(tf2, cons.xywh(8, 2, 1, 1));
 
@@ -135,7 +135,7 @@ public class TimeSeries implements ITimeSeriesProcess {
 				cons.xywh(2, 4, 1, 1));
 		BHTextField tfTS = new BHTextField(AMOUNT_OF_TS_ITERATIONS);
 		tfTS.setText(DEFAULT_ITERATIONS);
-		ValidationRule[] rulesTS = { VRMandatory.INSTANCE, VRIsInteger.INSTANCE, VRIsBetween.BETWEEN100AND5000};
+		ValidationRule[] rulesTS = { VRMandatory.INSTANCE, VRIsInteger.INSTANCE, VRIsBetween.BETWEEN100AND10000};
 		tfTS.setValidationRules(rulesTS);		
 		result.add(tfTS, cons.xywh(4, 4, 1, 1));
 		
