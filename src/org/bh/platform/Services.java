@@ -20,7 +20,10 @@ import java.awt.Component;
 import java.awt.Container;
 import java.awt.Image;
 import java.io.File;
+import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.InputStream;
+import java.io.OutputStream;
 import java.io.StringWriter;
 import java.lang.reflect.Field;
 import java.net.URL;
@@ -544,6 +547,41 @@ public class Services {
 	 * @return null if no data could be retrieved else the DTOBusinessData with all the data
 	 */
 	private static DTOBusinessData loadBranchesFromXML(IImportExport plugin, String fileName){
+		File f = new File(fileName);
+		
+		if(!f.exists()){
+			InputStream resource = null;
+			OutputStream out = null;
+	        try {  
+	        	URL url = Thread.currentThread().getContextClassLoader().getResource(fileName);
+	        	if(url != null){
+	        		resource = url.openStream();
+	        		File file = File.createTempFile("temporaryBH", ".xml");  
+	        		file.deleteOnExit();  
+	        		out = new FileOutputStream(file);  
+
+	        		int i = 0;
+	        		while((i = resource.read()) != -1){
+	        			out.write(i);
+	        		}
+	        		fileName = file.getAbsolutePath();
+	        	}
+	        } catch(IOException ioe){
+	        	log.debug(ioe);
+	        
+	        } finally {  
+	        
+	            try {
+	            	if(out != null)
+	            		out.close();
+	            	if(resource != null)
+	            		resource.close();
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+	        }
+		}
+		
 		plugin.setFile(fileName);
 		log.info("Loading branch XML from path: " + fileName);
 		
