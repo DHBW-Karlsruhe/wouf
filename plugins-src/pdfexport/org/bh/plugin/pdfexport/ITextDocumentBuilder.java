@@ -158,11 +158,11 @@ public class ITextDocumentBuilder implements PdfPageEvent {
 				if (val.length >= 1) {
 					t.addCell(trans.translate(e.getKey()));
 					if (val[0] != null) {
-						if(j == 0 || j == 1 || j == 2 || j == 8 || j == 10) {
-							Float value = (Float.parseFloat(val[0].toString().replace(',','.')))*100;
-							t.addCell(value + " %");	
-						}
-						else
+						if (j == 0 || j == 1 || j == 2 || j == 8 || j == 10) {
+							Float value = (Float.parseFloat(val[0].toString()
+									.replace(',', '.'))) * 100;
+							t.addCell(value + " %");
+						} else
 							t.addCell(val[0].toString());
 					} else {
 						t.addCell(" ");
@@ -236,13 +236,14 @@ public class ITextDocumentBuilder implements PdfPageEvent {
 		distMapSection = results.addSection(title, 2);
 		distMapSection.add(new Paragraph("\n"));
 		t = new PdfPTable(2);
-		t.addCell(trans.translate(Keys.SHAREHOLDER_VALUE)+" (in "+ trans.translate(Keys.MONEY_UNIT)+")");
+		t.addCell(trans.translate(Keys.SHAREHOLDER_VALUE) + " (in "
+				+ trans.translate(Keys.MONEY_UNIT) + ")");
 		t.addCell(trans.translate(Keys.DISTRIBUTION_CHART));
 		for (Iterator<Entry<Double, Integer>> i = distMap.iterator(); i
 				.hasNext();) {
 			Entry<Double, Integer> val = i.next();
 			Float value = Float.parseFloat(val.getValue().toString());
-			t.addCell(""+value.intValue());
+			t.addCell("" + value.intValue());
 			t.addCell(val.getKey().toString());
 		}
 		distMapSection.add(t);
@@ -291,67 +292,77 @@ public class ITextDocumentBuilder implements PdfPageEvent {
 					SECTION1_FONT);
 			data = report.addSection(title, 1);
 
-			
-			//Scenario input data Export
+			// Scenario input data Export
 			data.add(new Paragraph("\n"));
 			t = new PdfPTable(2);
 			int j = 0;
 			for (Iterator<Entry<String, IValue>> i = scenario.iterator(); i
 					.hasNext(); j++) {
 				Map.Entry<String, IValue> val = i.next();
-				
-				//Adjustments for DCF_METHOD
-				if(val.getKey().equals("org.bh.data.DTOScenario$Key.DCF_METHOD")) {
+
+				// Adjustments for DCF_METHOD
+				if (val.getKey().equals(
+						"org.bh.data.DTOScenario$Key.DCF_METHOD")) {
 					t.addCell(trans.translate(val.getKey()));
-					if(val.getValue().toString().equals("all")) {
-						t.addCell(trans.translate(Keys.ALL));		
-					}
-					else {
+					if (val.getValue().toString().equals("all")) {
+						t.addCell(trans.translate(Keys.ALL));
+					} else {
 						t.addCell(val.getValue().toString().toUpperCase());
 					}
 				}
-				//Adjustment for percentage values RFK CTAX BTAX REK
-				else if(val.getKey().equals("org.bh.data.DTOScenario$Key.RFK") || val.getKey().equals("org.bh.data.DTOScenario$Key.CTAX") || val.getKey().equals("org.bh.data.DTOScenario$Key.BTAX") || val.getKey().equals("org.bh.data.DTOScenario$Key.REK")) {
+				// Adjustment for percentage values RFK CTAX BTAX REK
+				else if (val.getKey().equals("org.bh.data.DTOScenario$Key.RFK")
+						|| val.getKey().equals(
+								"org.bh.data.DTOScenario$Key.CTAX")
+						|| val.getKey().equals(
+								"org.bh.data.DTOScenario$Key.BTAX")
+						|| val.getKey().equals(
+								"org.bh.data.DTOScenario$Key.REK")) {
 					t.addCell(trans.translate(val.getKey()));
-					Float value = (Float.parseFloat(val.getValue().toString().replace(',','.')))*100;
-					//int value2 = value.intValue();
-					t.addCell(value + " %");	
+					Float value = (Float.parseFloat(val.getValue().toString()
+							.replace(',', '.'))) * 100;
+					// int value2 = value.intValue();
+					t.addCell(value + " %");
 				}
-				//Adjustment for PERIOD_TYPE
-				else if (val.getKey().equals("org.bh.data.DTOScenario$Key.PERIOD_TYPE")) {
+				// Adjustment for PERIOD_TYPE
+				else if (val.getKey().equals(
+						"org.bh.data.DTOScenario$Key.PERIOD_TYPE")) {
 					t.addCell(trans.translate(val.getKey()));
-					if(val.getValue().toString().equals("Direct_Input")) {
-						t.addCell(trans.translate(Keys.DIRECT_INPUT));		
-					}
-					else if (val.getValue().toString().equals("gcc_input_costofsales"))  {
+					if (val.getValue().toString().equals("Direct_Input")) {
+						t.addCell(trans.translate(Keys.DIRECT_INPUT));
+					} else if (val.getValue().toString()
+							.equals("gcc_input_costofsales")) {
 						t.addCell(trans.translate(Keys.COSTOFSALES));
-					}
-					else if (val.getValue().toString().equals("gcc_input_totalcost"))  {
+					} else if (val.getValue().toString()
+							.equals("gcc_input_totalcost")) {
 						t.addCell(trans.translate(Keys.TOTALCOST));
 					}
 				}
-				//Adjustment for STOCHASTIC_KEYS
-				else if (val.getKey().equals("org.bh.data.DTOScenario$Key.STOCHASTIC_KEYS")) {
+				// Adjustment for STOCHASTIC_KEYS
+				else if (val.getKey().equals(
+						"org.bh.data.DTOScenario$Key.STOCHASTIC_KEYS")) {
 					t.addCell(trans.translate(val.getKey()));
 					String stochasticKeys = val.getValue().toString();
-					stochasticKeys = stochasticKeys.substring(1, stochasticKeys.length()-1);
-					t.addCell(stochasticKeys);										
+					stochasticKeys = stochasticKeys.substring(1,
+							stochasticKeys.length() - 1);
+					t.addCell(stochasticKeys);
 				}
-				//Adjustment for STOCHASTIC_PROCESS
-				else if (val.getKey().equals("org.bh.data.DTOScenario$Key.STOCHASTIC_PROCESS")) {
+				// Adjustment for STOCHASTIC_PROCESS
+				else if (val.getKey().equals(
+						"org.bh.data.DTOScenario$Key.STOCHASTIC_PROCESS")) {
 					t.addCell(trans.translate(val.getKey()));
-					if(val.getValue().toString().equals("wienerProcess")) {
-						t.addCell(trans.translate(Keys.WIENERPROCESS));		
-					}
-					else if (val.getValue().toString().equals("randomWalk"))  {
+					if (val.getValue().toString().equals("wienerProcess")) {
+						t.addCell(trans.translate(Keys.WIENERPROCESS));
+					} else if (val.getValue().toString().equals("randomWalk")) {
 						t.addCell(trans.translate(Keys.RANDOMWALK));
 					}
+				} else {
+					if (val != null && val.getValue() != null) {
+						t.addCell(trans.translate(val.getKey()));
+						t.addCell(val.getValue().toString());
+					}
 				}
-				else {
-					t.addCell(trans.translate(val.getKey()));
-					t.addCell(val.getValue().toString());
-				}
-			}	
+			}
 			data.add(t);
 			data.add(new Paragraph("\n\n"));
 		} catch (BadElementException e) {
@@ -366,7 +377,7 @@ public class ITextDocumentBuilder implements PdfPageEvent {
 	}
 
 	/**
-	 * builds the pdf section with scenario information 
+	 * builds the pdf section with scenario information
 	 * 
 	 * @param scenario
 	 */
@@ -381,8 +392,7 @@ public class ITextDocumentBuilder implements PdfPageEvent {
 		title = new Paragraph(trans.translate(Keys.PERIODDATA), SECTION1_FONT);
 		input = report.addSection(title, 1);
 
-		
-		//Period Data Export
+		// Period Data Export
 		for (DTOPeriod d : scenario.getChildren()) {
 			title = new Paragraph(d.get(DTOPeriod.Key.NAME).toString(),
 					SECTION2_FONT);
@@ -394,7 +404,8 @@ public class ITextDocumentBuilder implements PdfPageEvent {
 						.hasNext();) {
 					Map.Entry<String, IValue> val = i.next();
 					t.addCell(trans.translate(val.getKey()));
-					t.addCell(val.getValue().toString() + " " + trans.translate(Keys.MONEY_UNIT));
+					t.addCell(val.getValue().toString() + " "
+							+ trans.translate(Keys.MONEY_UNIT));
 				}
 				period.add(t);
 				period.add(new Paragraph("\n\n"));
@@ -423,8 +434,8 @@ public class ITextDocumentBuilder implements PdfPageEvent {
 			PdfPTable footTable = getFooterSignatures();
 			footTable.setTotalWidth(page.getWidth() - document.leftMargin()
 					- document.rightMargin());
-			footTable.writeSelectedRows(0, -1, document.leftMargin(), document
-					.bottomMargin() + 20, writer.getDirectContent());
+			footTable.writeSelectedRows(0, -1, document.leftMargin(),
+					document.bottomMargin() + 20, writer.getDirectContent());
 		} catch (DocumentException ex) {
 			ex.printStackTrace();
 		}
