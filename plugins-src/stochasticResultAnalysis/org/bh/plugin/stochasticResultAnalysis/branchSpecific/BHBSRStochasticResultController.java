@@ -14,6 +14,7 @@
 package org.bh.plugin.stochasticResultAnalysis.branchSpecific;
 
 import java.awt.event.ActionEvent;
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.Dictionary;
 import java.util.Hashtable;
@@ -285,7 +286,10 @@ public class BHBSRStochasticResultController extends OutputController {
 
 		// CF-Werte holen
 		double[][] cashFlows = result.toDoubleArrayTS();
+		Object[][] cfObject = result.toObjectArrayTS();
 		double cfBSR = 0;
+		// mindestens 1 Vorkommastelle, genau 2 Nachkommastellen
+		DecimalFormat format = new DecimalFormat("#.00");
 
 		for (int jahr = 0; jahr < cashFlows.length; jahr++) {
 			if (cashFlows[jahr][0] > 0) {
@@ -299,11 +303,12 @@ public class BHBSRStochasticResultController extends OutputController {
 				
 				cashFlows[jahr][1] = cashFlows[jahr][1]
 						+ ((cfBSR - cashFlows[jahr][1]) * (confidence / 100));
+				cfObject[jahr][1] = format.format(cashFlows[jahr][1]);
 			}
 		}
 
 		comp2.removeSeries(0);
-
+		
 		comp2.addSeries(
 				Services.getTranslator().translate(
 						BHBSRStochasticResultController.PanelKeys.CASHFLOW),
@@ -312,6 +317,13 @@ public class BHBSRStochasticResultController extends OutputController {
 				Services.getTranslator().translate(
 						ChartKeys.CASHFLOW_BSR.toString()),
 				resultBSR.toDoubleArrayTS());
+		
+		String TableKey = PanelKeys.CASHFLOW_TABLE.toString();
+		BHTable cashTable = ((BHTable) view.getBHComponent(TableKey));
+		
+		String[] headers = { "t", "Cashflow" };
+		DefaultTableModel tableModel = new DefaultTableModel(cfObject, headers);
+		cashTable.setTableModel(tableModel);
 	}
 
 	/*
