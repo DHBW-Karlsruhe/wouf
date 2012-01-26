@@ -24,7 +24,6 @@ public class BHBranchFrame extends JPanel {
 
 public BHBranchFrame(DTOBranch branch){ 
 		this.setLayout(new BorderLayout());
-		System.out.println("Branch Frame Created");
 		JTextField main = new JTextField(branch.get(DTOBranch.Key.BRANCH_KEY_MAIN_CATEGORY).toString());
 		JTextField mid = new JTextField(branch.get(DTOBranch.Key.BRANCH_KEY_MID_CATEGORY).toString());
 		JTextField sub = new JTextField(branch.get(DTOBranch.Key.BRANCH_KEY_SUB_CATEGORY).toString());

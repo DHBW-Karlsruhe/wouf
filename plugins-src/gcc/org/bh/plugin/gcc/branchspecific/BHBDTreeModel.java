@@ -30,7 +30,6 @@ public class BHBDTreeModel extends DefaultTreeModel {
 
 	@Override
 	public void valueForPathChanged(TreePath path, Object newValue) {
-		System.out.println("neue Methode");
 		BHBusinessDataTreeNode activeNode = (BHBusinessDataTreeNode) path.getLastPathComponent();
 		DTO<?> tempDTO = (DTO<?>) activeNode.getUserObject();
 		

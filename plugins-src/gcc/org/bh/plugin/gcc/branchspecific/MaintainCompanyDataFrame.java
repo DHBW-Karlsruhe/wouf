@@ -45,8 +45,6 @@ import org.bh.gui.swing.BHPopupFrame;
 import org.bh.gui.swing.comp.BHButton;
 import org.bh.gui.swing.comp.BHComboBox;
 import org.bh.gui.swing.comp.BHComboBox.Item;
-import org.bh.gui.swing.tree.BHTree;
-import org.bh.gui.swing.tree.BHTreeTransferHandler;
 import org.bh.platform.PlatformController;
 import org.bh.platform.PlatformKey;
 import org.bh.platform.Services;
