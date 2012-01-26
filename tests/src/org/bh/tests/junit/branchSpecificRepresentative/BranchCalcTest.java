@@ -84,13 +84,13 @@ public class BranchCalcTest extends TestCase {
 				String name = "" + currPeriod.get(DTOPeriod.Key.NAME);
 
 				if (name.equals("2.010")) {
-					Assert.assertTrue(dwert == -0.8769029090500094);
+					Assert.assertTrue(dwert == -0.5933214351725945);
 				} else if (name.equals("2.009")) {
-					Assert.assertTrue(dwert == -1.0594604081599177);
+					Assert.assertTrue(dwert == 0.36120221418009907);
 				} else if (name.equals("2.008")) {
-					Assert.assertTrue(dwert == -0.19633971923841537);
+					Assert.assertTrue(dwert == -0.23317116427142456);
 				} else if (name.equals("2.007")) {
-					Assert.assertTrue(dwert == -0.08517577729268362);
+					Assert.assertTrue(dwert == 0.3034672306493887);
 				} else if (name.equals("2.006")) {
 					Assert.assertTrue(dwert == 0.0);
 				}
