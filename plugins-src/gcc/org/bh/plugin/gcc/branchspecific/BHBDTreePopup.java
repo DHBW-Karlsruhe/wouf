@@ -1,6 +1,5 @@
 package org.bh.plugin.gcc.branchspecific;
 
-
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import javax.swing.JMenuItem;
@@ -35,7 +34,7 @@ public class BHBDTreePopup extends JPopupMenu {
 	static BHBDTree bhbdTree;
 
 	public enum Key {
-		BranchAdd, BranchRemove, CompanyAdd, PeriodRename, CompanyRemove,CompanyRename, NameInsert, PeriodAdd, CompanyAddDesc, PeriodRemove, YearError, YearInsert, TypeChoose, CostOfSales, TotalCosts, TypeChooseTop;
+		BranchAdd, BranchRemove, CompanyAdd, PeriodRename, CompanyRemove, CompanyRename, NameInsert, PeriodAdd, CompanyAddDesc, PeriodRemove, YearError, YearInsert, TypeChoose, CostOfSales, TotalCosts, TypeChooseTop;
 
 		@Override
 		public String toString() {
@@ -99,27 +98,27 @@ public class BHBDTreePopup extends JPopupMenu {
 									.translate(BHBDTreePopup.Key.CompanyAddDesc),
 							translator.translate(BHBDTreePopup.Key.CompanyAdd),
 							1);
-					if (inputname.length()>0){
-					BHBusinessDataTreeNode parentbranch = (BHBusinessDataTreeNode) BHBDTreePopup.bhbdTree
-							.getSelectionPath().getLastPathComponent();
-					DTOBranch branch = (DTOBranch) parentbranch.getUserObject();
+					if (inputname.length() > 0) {
+						BHBusinessDataTreeNode parentbranch = (BHBusinessDataTreeNode) BHBDTreePopup.bhbdTree
+								.getSelectionPath().getLastPathComponent();
+						DTOBranch branch = (DTOBranch) parentbranch
+								.getUserObject();
 
-					DTOCompany newCompanyDTO = new DTOCompany();
-					newCompanyDTO.put(DTOCompany.Key.NAME, new StringValue(
-							inputname));
-					branch.addChild(newCompanyDTO);
-					DefaultTreeModel model = (DefaultTreeModel) BHBDTreePopup.bhbdTree
-							.getModel();
-					model.insertNodeInto(new BHBusinessDataTreeNode(
-							newCompanyDTO), parentbranch, parentbranch
-							.getChildCount());
+						DTOCompany newCompanyDTO = new DTOCompany();
+						newCompanyDTO.put(DTOCompany.Key.NAME, new StringValue(
+								inputname));
+						branch.addChild(newCompanyDTO);
+						DefaultTreeModel model = (DefaultTreeModel) BHBDTreePopup.bhbdTree
+								.getModel();
+						model.insertNodeInto(new BHBusinessDataTreeNode(
+								newCompanyDTO), parentbranch, parentbranch
+								.getChildCount());
 					}
 				}
 			});
 			this.add(compadd);
 
-		} 
-		else if (type == Type.COMPANY) {
+		} else if (type == Type.COMPANY) {
 
 			JMenuItem compadd = new JMenuItem(
 					translator.translate(BHBDTreePopup.Key.CompanyAdd));
@@ -134,24 +133,26 @@ public class BHBDTreePopup extends JPopupMenu {
 									.translate(BHBDTreePopup.Key.CompanyAddDesc),
 							translator.translate(BHBDTreePopup.Key.CompanyAdd),
 							1);
-					if (inputname.length()>0){
-					BHBusinessDataTreeNode bhdfwzgz = (BHBusinessDataTreeNode) BHBDTreePopup.bhbdTree
-							.getSelectionPath().getLastPathComponent();
-					BHBusinessDataTreeNode parentbranch = (BHBusinessDataTreeNode) bhdfwzgz
-							.getParent();
-					DTOBranch branch = (DTOBranch) parentbranch.getUserObject();
+					if (inputname.length() > 0) {
+						BHBusinessDataTreeNode bhdfwzgz = (BHBusinessDataTreeNode) BHBDTreePopup.bhbdTree
+								.getSelectionPath().getLastPathComponent();
+						BHBusinessDataTreeNode parentbranch = (BHBusinessDataTreeNode) bhdfwzgz
+								.getParent();
+						DTOBranch branch = (DTOBranch) parentbranch
+								.getUserObject();
 
-					DTOCompany newCompanyDTO = new DTOCompany();
-					newCompanyDTO.put(DTOCompany.Key.NAME, new StringValue(
-							inputname));
-					branch.addChild(newCompanyDTO);
-					DefaultTreeModel model = (DefaultTreeModel) BHBDTreePopup.bhbdTree
-							.getModel();
-					model.insertNodeInto(new BHBusinessDataTreeNode(
-							newCompanyDTO), parentbranch, parentbranch
-							.getChildCount());
+						DTOCompany newCompanyDTO = new DTOCompany();
+						newCompanyDTO.put(DTOCompany.Key.NAME, new StringValue(
+								inputname));
+						branch.addChild(newCompanyDTO);
+						DefaultTreeModel model = (DefaultTreeModel) BHBDTreePopup.bhbdTree
+								.getModel();
+						model.insertNodeInto(new BHBusinessDataTreeNode(
+								newCompanyDTO), parentbranch, parentbranch
+								.getChildCount());
 
-				}}
+					}
+				}
 			});
 
 			JMenuItem comprem = new JMenuItem(
@@ -175,9 +176,7 @@ public class BHBDTreePopup extends JPopupMenu {
 			});
 
 			this.add(compadd);
-			
-			
-			
+
 			JMenuItem compren = new JMenuItem(
 					translator.translate(BHBDTreePopup.Key.CompanyRename));
 
@@ -185,42 +184,40 @@ public class BHBDTreePopup extends JPopupMenu {
 				public void actionPerformed(ActionEvent ae) {
 
 					// REN NODE
-					BHBusinessDataTreeNode bhdfwzgz = (BHBusinessDataTreeNode) BHBDTreePopup.bhbdTree.getSelectionPath().getLastPathComponent();
-					BHBusinessDataTreeNode parentbranch = (BHBusinessDataTreeNode) bhdfwzgz.getParent();
+					BHBusinessDataTreeNode bhdfwzgz = (BHBusinessDataTreeNode) BHBDTreePopup.bhbdTree
+							.getSelectionPath().getLastPathComponent();
+					BHBusinessDataTreeNode parentbranch = (BHBusinessDataTreeNode) bhdfwzgz
+							.getParent();
 					String inputname = JOptionPane.showInputDialog(null,
 							translator.translate(BHBDTreePopup.Key.NameInsert),
 							translator.translate(BHBDTreePopup.Key.NameInsert),
 							1);
 					try {
-					DTOCompany thiscomp = (DTOCompany)bhdfwzgz.getUserObject();
-					thiscomp.put(DTOCompany.Key.NAME, new StringValue(inputname));
-					
-					DefaultTreeModel model = (DefaultTreeModel) BHBDTreePopup.bhbdTree
-							.getModel();
-					int index = parentbranch.getIndex(bhdfwzgz);
-					bhdfwzgz.setUserObject(thiscomp);
-					model.nodesChanged(parentbranch, new int[]{index});
-					/**model.removeNodeFromParent(bhdfwzgz);
-					model.insertNodeInto(new BHBusinessDataTreeNode(thiscomp), parentbranch, index);
-					model.
-					**/
-					}catch(Exception e){
-						
+						DTOCompany thiscomp = (DTOCompany) bhdfwzgz
+								.getUserObject();
+						thiscomp.put(DTOCompany.Key.NAME, new StringValue(
+								inputname));
+
+						DefaultTreeModel model = (DefaultTreeModel) BHBDTreePopup.bhbdTree
+								.getModel();
+						int index = parentbranch.getIndex(bhdfwzgz);
+						bhdfwzgz.setUserObject(thiscomp);
+						model.nodesChanged(parentbranch, new int[] { index });
+						/**
+						 * model.removeNodeFromParent(bhdfwzgz);
+						 * model.insertNodeInto(new
+						 * BHBusinessDataTreeNode(thiscomp), parentbranch,
+						 * index); model.
+						 **/
+					} catch (Exception e) {
+
 					}
 
 				}
 			});
-			
-			
-			
-			
-			
-			
-			
-			
+
 			this.add(compren);
-			
-			
+
 			this.add(comprem);
 			this.addSeparator();
 
@@ -236,19 +233,14 @@ public class BHBDTreePopup extends JPopupMenu {
 							1);
 					try {
 						Integer.parseInt(inputyear);
-						
-					
-						
+
 						p.put(DTOPeriod.Key.NAME, new StringValue(inputyear));
 						p.addChild(new DTOGCCBalanceSheet());
 						BHBusinessDataTreeNode parentcomp = (BHBusinessDataTreeNode) BHBDTreePopup.bhbdTree
 								.getSelectionPath().getLastPathComponent();
 						DTOCompany mybd = (DTOCompany) parentcomp
 								.getUserObject();
-						
-						
-						
-						
+
 						if (mybd.getChildrenSize() == 0) {
 							String s = (String) JOptionPane.showInputDialog(
 									null,
@@ -281,15 +273,14 @@ public class BHBDTreePopup extends JPopupMenu {
 									parentcomp, parentcomp.getChildCount());
 
 						} else {
-							
-							
-							for(DTOPeriod i: ((DTOCompany)parentcomp.getUserObject()).getChildren()){
-								if((""+i.get(DTOPeriod.Key.NAME)).equals(inputyear)){ 
-									throw new Exception(); 
+
+							for (DTOPeriod i : ((DTOCompany) parentcomp
+									.getUserObject()).getChildren()) {
+								if (("" + i.get(DTOPeriod.Key.NAME))
+										.equals(inputyear)) {
+									throw new Exception();
 								}
 							}
-							
-							
 
 							// WAS IST ES???
 							IPeriodicalValuesDTO myProfitStatement = mybd
@@ -319,7 +310,6 @@ public class BHBDTreePopup extends JPopupMenu {
 									parentcomp, parentcomp.getChildCount());
 
 						}
-		
 
 						// If you're here, the return value was null/empty.
 
@@ -390,17 +380,11 @@ public class BHBDTreePopup extends JPopupMenu {
 								.translate(BHBDTreePopup.Key.YearError));
 					}
 
-				
-
 				}
 			});
 
 			this.add(padd);
-			
-			
-			
-			
-			
+
 			JMenuItem pren = new JMenuItem(
 					translator.translate(BHBDTreePopup.Key.PeriodRename));
 
@@ -408,57 +392,46 @@ public class BHBDTreePopup extends JPopupMenu {
 				public void actionPerformed(ActionEvent ae) {
 
 					// REN NODE
-					BHBusinessDataTreeNode bhdfwzgz = (BHBusinessDataTreeNode) BHBDTreePopup.bhbdTree.getSelectionPath().getLastPathComponent();
-					BHBusinessDataTreeNode parentbranch = (BHBusinessDataTreeNode) bhdfwzgz.getParent();
+					BHBusinessDataTreeNode bhdfwzgz = (BHBusinessDataTreeNode) BHBDTreePopup.bhbdTree
+							.getSelectionPath().getLastPathComponent();
+					BHBusinessDataTreeNode parentbranch = (BHBusinessDataTreeNode) bhdfwzgz
+							.getParent();
 					String inputname = JOptionPane.showInputDialog(null,
 							translator.translate(BHBDTreePopup.Key.YearInsert),
 							translator.translate(BHBDTreePopup.Key.YearInsert),
 							1);
-					
+
 					try {
-					Integer.parseInt(inputname);
-					DTOPeriod thiscomp = (DTOPeriod)bhdfwzgz.getUserObject();
-					
-					for(DTOPeriod i: ((DTOCompany)parentbranch.getUserObject()).getChildren()){
-						if((""+i.get(DTOPeriod.Key.NAME)).equals(inputname)){ 
-							throw new Exception(); 
+						Integer.parseInt(inputname);
+						DTOPeriod thiscomp = (DTOPeriod) bhdfwzgz
+								.getUserObject();
+
+						for (DTOPeriod i : ((DTOCompany) parentbranch
+								.getUserObject()).getChildren()) {
+							if (("" + i.get(DTOPeriod.Key.NAME))
+									.equals(inputname)) {
+								throw new Exception();
+							}
 						}
-					}
-					
-					thiscomp.put(DTOPeriod.Key.NAME, new StringValue(inputname));
-					
-					DefaultTreeModel model = (DefaultTreeModel) BHBDTreePopup.bhbdTree
-							.getModel();
-					int index = parentbranch.getIndex(bhdfwzgz);
-					bhdfwzgz.setUserObject(thiscomp);
-					model.nodesChanged(parentbranch, new int[]{index});
-				
-					
-					}catch(Exception e){
+
+						thiscomp.put(DTOPeriod.Key.NAME, new StringValue(
+								inputname));
+
+						DefaultTreeModel model = (DefaultTreeModel) BHBDTreePopup.bhbdTree
+								.getModel();
+						int index = parentbranch.getIndex(bhdfwzgz);
+						bhdfwzgz.setUserObject(thiscomp);
+						model.nodesChanged(parentbranch, new int[] { index });
+
+					} catch (Exception e) {
 						JOptionPane.showMessageDialog(null, translator
 								.translate(BHBDTreePopup.Key.YearError));
 					}
 
 				}
 			});
-			
-			
-			
-			
-			
-			
-			
-			
+
 			this.add(pren);
-			
-			
-			
-			
-			
-			
-			
-			
-			
 
 			JMenuItem prem = new JMenuItem(
 					translator.translate(BHBDTreePopup.Key.PeriodRemove));
