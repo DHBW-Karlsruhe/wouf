@@ -20,6 +20,9 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Iterator;
+import java.util.List;
+
 import javax.swing.JFileChooser;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
@@ -740,9 +743,16 @@ class PlatformActionListener implements ActionListener {
 	}
 
 	private void duplicatePeriod() {
-		
+		DTOScenario scenario = ((DTOScenario) ((BHTreeNode) bhmf
+				.getBHTree().getSelectionPath().getPathComponent(2))
+				.getUserObject());
 		TreePath currentDuplicatePeriodSelection = bhmf.getBHTree()
 				.getSelectionPath();
+		
+		List<DTOPeriod> periods = new ArrayList<DTOPeriod>();
+		periods = scenario.getChildren();
+		Iterator<DTOPeriod> iterator = periods.iterator();
+		
 		if (currentDuplicatePeriodSelection != null) {
 			// Access to selected period
 			BHTreeNode duplicatePeriodNode = (BHTreeNode) bhmf.getBHTree()
@@ -754,11 +764,35 @@ class PlatformActionListener implements ActionListener {
 
 			String duplicatePeriodName = bhmf.getBHTree().getSelectionPath()
 					.getPathComponent(3).toString();
-
+			
 			// new DTOPeriod object with reference to the clone
 			DTOPeriod newPeriod = (DTOPeriod) duplicatePeriod.clone();
 			
-			if(duplicatePeriodName.endsWith(")")){
+			int index = 0;
+			
+			while(iterator.hasNext()){
+				DTOPeriod currPeriod = iterator.next();
+				StringValue name = (StringValue)currPeriod.get(DTOPeriod.Key.NAME);
+				String currPeriodName = name.getString();
+				if(duplicatePeriodName.endsWith(")")){
+					duplicatePeriodName = duplicatePeriodName.substring(0, duplicatePeriodName.length()-3);
+				}
+				
+				if(currPeriodName.endsWith(")")){
+					if(currPeriodName.substring(0, currPeriodName.length()-3).trim().equals(duplicatePeriodName.trim())){
+						int currIndex = Integer.parseInt(String.valueOf(currPeriodName.charAt(currPeriodName.length() -2)),10);
+						if(currIndex > index){
+							index = currIndex;
+						}
+					}
+				}
+			}
+			
+			index++;
+			newPeriod.put(DTOPeriod.Key.NAME, new StringValue(
+					duplicatePeriodName.trim() + " (" + index +")"));
+			
+			/*if(duplicatePeriodName.endsWith(")")){
 				int index = 1;
 				String indexString = String.valueOf(duplicatePeriodName.charAt(duplicatePeriodName.length() -2));
 				index = Integer.parseInt(indexString, 10);
@@ -771,7 +805,7 @@ class PlatformActionListener implements ActionListener {
 			} else {
 				newPeriod.put(DTOPeriod.Key.NAME, new StringValue(
 						duplicatePeriodName + " (2)"));
-			}
+			}*/
 			
 			
 			//add Period into Tree...
