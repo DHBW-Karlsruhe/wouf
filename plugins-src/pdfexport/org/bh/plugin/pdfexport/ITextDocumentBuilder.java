@@ -159,9 +159,19 @@ public class ITextDocumentBuilder implements PdfPageEvent {
 					t.addCell(trans.translate(e.getKey()));
 					if (val[0] != null) {
 						if (j == 0 || j == 1 || j == 2 || j == 8 || j == 10) {
-							Float value = (Float.parseFloat(val[0].toString()
-									.replace(',', '.'))) * 100;
-							t.addCell(value + " %");
+			/*				Float value = (Float.parseFloat(val[0].toString()
+									.replace(',', '.'))) * 100; */
+							String help = val[0].toString();
+							if(help.contains(".")){
+								char leer = ' ';
+								help = help.replace('.', leer);
+							}
+							help = help.replace(',', '.');
+							if(help.contains(" ")){
+								help = help.replaceAll(" ", "");
+							}
+							Double value = (Double.parseDouble(help) * 100);
+							t.addCell(value.toString() + " %");
 						} else
 							t.addCell(val[0].toString());
 					} else {
