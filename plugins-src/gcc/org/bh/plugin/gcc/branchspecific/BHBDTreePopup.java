@@ -203,12 +203,7 @@ public class BHBDTreePopup extends JPopupMenu {
 						int index = parentbranch.getIndex(bhdfwzgz);
 						bhdfwzgz.setUserObject(thiscomp);
 						model.nodesChanged(parentbranch, new int[] { index });
-						/**
-						 * model.removeNodeFromParent(bhdfwzgz);
-						 * model.insertNodeInto(new
-						 * BHBusinessDataTreeNode(thiscomp), parentbranch,
-						 * index); model.
-						 **/
+		
 					} catch (Exception e) {
 
 					}

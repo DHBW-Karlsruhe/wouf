@@ -146,7 +146,7 @@ public class MaintainCompanyDataFrame extends BHPopupFrame implements
 		super();
 
 		Container desktop = getContentPane();
-		BHButton add = new BHButton(translator.translate(MaintainCompanyDataFrame.GUI_KEYS.BranchAdd));
+		BHButton add = new BHButton(MaintainCompanyDataFrame.GUI_KEYS.BranchAdd);
 		content = new BHContent();
 		this.setAlwaysOnTop(false);
 		// build the tree
