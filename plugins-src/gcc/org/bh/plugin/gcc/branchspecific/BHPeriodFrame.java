@@ -37,6 +37,11 @@ public class BHPeriodFrame {
 	}
 	DTOPeriod period;
 
+	/**
+	 * 
+	 * creates a Frame to show period data
+	 *            
+	 **/
 	public BHPeriodFrame(DTOPeriod period) {
 		this.period = period;
 	}

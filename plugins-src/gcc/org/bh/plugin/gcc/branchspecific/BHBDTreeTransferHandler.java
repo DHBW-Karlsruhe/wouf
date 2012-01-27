@@ -49,7 +49,11 @@ import org.bh.data.DTOPeriod;
 import org.bh.data.DTOProject;
 import org.bh.data.DTOScenario;
 import org.bh.gui.swing.tree.TransferableNode;
-
+/**
+ * 
+ *COPY OF BHTREE
+ *            
+ **/
 public class BHBDTreeTransferHandler implements DragGestureListener, DragSourceListener, DropTargetListener {
 
     private DragSource dragSource; 

@@ -13,7 +13,7 @@ import org.bh.data.types.StringValue;
 /**
  * <short_description>
  *
- * <p>
+ * model for the tree to show branch specific representatives
  * <detailed_description>
  *
  * @author simon

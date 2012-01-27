@@ -20,7 +20,7 @@ import org.bh.gui.swing.tree.BHTreePopup;
 /**
  * <short_description>
  *
- * <p>
+ *Business Data Tree to maintain branch specific representatives
  * <detailed_description>
  *
  * @author simon
@@ -32,7 +32,12 @@ public class BHBDTree extends JTree {
     
 
     
-    
+	/**
+     * Controls Popup in the tree
+     * 
+     * @param nodeType
+     * @return Type of the Node Object
+     */
     void showPopup(MouseEvent e, BHBDTreePopup.Type nodeType) {
 
     	switch (nodeType) {
@@ -78,6 +83,7 @@ public class BHBDTree extends JTree {
 
 	/**
 	 * @param value
+	 * constructor
 	 */
 	public BHBDTree(Hashtable<?, ?> value) {
 		super(value);
@@ -86,6 +92,7 @@ public class BHBDTree extends JTree {
 
 	/**
 	 * @param root
+	 * the root node
 	 */
 	public BHBDTree(TreeNode root) {
 		super(root);
@@ -103,7 +110,9 @@ public class BHBDTree extends JTree {
 
 	/**
 	 * @param root
+	 * the root node
 	 * @param asksAllowsChildren
+	 * default true
 	 */
 	public BHBDTree(TreeNode root, boolean asksAllowsChildren) {
 		super(root, asksAllowsChildren);

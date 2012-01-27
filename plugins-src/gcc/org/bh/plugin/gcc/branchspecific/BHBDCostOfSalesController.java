@@ -35,7 +35,12 @@ public class BHBDCostOfSalesController extends PLSCostOfSalesController {
 
 	}
 	
-	
+	 /**
+     * Controls the COS View
+     * 
+     * @param period
+     * @return Period for COS
+     */
 	public Component editDTO(DTOPeriod period) {
 		IPeriodicalValuesDTO bs = period.getPeriodicalValuesDTO(DTOGCCBalanceSheet.getUniqueIdStatic());
 		IPeriodicalValuesDTO pls = period.getPeriodicalValuesDTO(DTOGCCProfitLossStatementCostOfSales.getUniqueIdStatic());

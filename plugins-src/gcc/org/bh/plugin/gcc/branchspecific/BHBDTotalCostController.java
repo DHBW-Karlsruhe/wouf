@@ -47,6 +47,12 @@ public class BHBDTotalCostController extends PLSTotalCostController {
 	}
 
 	
+	/**
+     * Controls the TC View
+     * 
+     * @param period
+     * 
+     */
 	public Component editDTO(DTOPeriod period) {
 		IPeriodicalValuesDTO bs = period.getPeriodicalValuesDTO(DTOGCCBalanceSheet.getUniqueIdStatic());
 		IPeriodicalValuesDTO pls = period.getPeriodicalValuesDTO(DTOGCCProfitLossStatementTotalCost.getUniqueIdStatic());

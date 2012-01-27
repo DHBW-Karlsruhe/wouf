@@ -22,7 +22,7 @@ import org.bh.plugin.gcc.data.DTOGCCProfitLossStatementTotalCost;
 /**
  * <short_description>
  * 
- * <p>
+ * Popup in the branch specific tree view component
  * <detailed_description>
  * 
  * @author simon
@@ -45,7 +45,11 @@ public class BHBDTreePopup extends JPopupMenu {
 	public enum Type {
 		BRANCH, COMPANY, PERIOD;
 	}
-
+	/**
+	 * 
+	 * Constructor
+	 *            
+	 **/
 	public BHBDTreePopup(Type type, BHBDTree bhbdTree) {
 		this.bhbdTree = bhbdTree;
 		translator = BHTranslator.getInstance();
