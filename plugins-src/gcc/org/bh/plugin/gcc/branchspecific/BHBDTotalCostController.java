@@ -40,7 +40,7 @@ import org.bh.validation.ValidationMethods;
 public class BHBDTotalCostController extends PLSTotalCostController {
 
 	/**
-	 * 
+	 * empty constructor - leave it empty
 	 */
 	public BHBDTotalCostController() {
 		// TODO Auto-generated constructor stub
@@ -51,7 +51,7 @@ public class BHBDTotalCostController extends PLSTotalCostController {
      * Controls the TC View
      * 
      * @param period
-     * 
+     * period for TC method
      */
 	public Component editDTO(DTOPeriod period) {
 		IPeriodicalValuesDTO bs = period.getPeriodicalValuesDTO(DTOGCCBalanceSheet.getUniqueIdStatic());
