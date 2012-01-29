@@ -42,6 +42,10 @@ public interface IBranchSpecificCalculator {
 	 */
 	double getRating();
 	
+	/**
+	 * This method calculates the rating of the branch rating.
+	 *
+	 */
 	Color getEvaluationOfRating();
 	
 
