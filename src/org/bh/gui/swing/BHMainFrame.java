@@ -36,7 +36,7 @@ import org.bh.platform.PlatformController;
 import org.bh.platform.PlatformEvent;
 import org.bh.platform.ProjectRepositoryManager;
 import org.bh.platform.Services;
-import org.bh.platform.PlatformEvent.Type;
+import org.bh.platform.PlatformEvent;
 import org.jdesktop.animation.timing.Animator;
 import org.jdesktop.animation.timing.TimingTarget;
 
@@ -358,21 +358,21 @@ public final class BHMainFrame extends JFrame implements IPlatformListener, Timi
 	public void platformEvent(PlatformEvent e) {
 
 		// Platform loading completed. show.
-		if (e.getEventType() == Type.PLATFORM_LOADING_COMPLETED) {
+		if (e.getEventType() == PlatformEvent.Type.PLATFORM_LOADING_COMPLETED) {
 			this.setVisible(true);
 			this.toFront();
 			this.requestFocus();
 		}
 		
 		// Data changed. Add changed suffix to title.
-		if (e.getEventType() == Type.DATA_CHANGED) {
+		if (e.getEventType() == PlatformEvent.Type.DATA_CHANGED) {
 			String changedSuffix = " (" + Services.getTranslator().translate("changed") + ")";
 			if (! this.getTitle().endsWith(changedSuffix) && ProjectRepositoryManager.isChanged()) 
 				this.setTitle(this.getTitle() + changedSuffix);
 		}
 		
 		// Locale changed
-		if (e.getEventType() == Type.LOCALE_CHANGED) {
+		if (e.getEventType() == PlatformEvent.Type.LOCALE_CHANGED) {
 			this.resetTitle();
 			this.chooser = new BHFileChooser();
 			this.repaint(); // enforce repaint to everybody.
