@@ -91,7 +91,7 @@
 			</fileset>
 		</copy>
 
-		<javac destdir="${build.dir}" srcdir="${source.dir}" debug="${debug}" debuglevel="lines,vars,source">
+		<javac destdir="${build.dir}" srcdir="${source.dir}" debug="${debug}" debuglevel="lines,vars,source" includeantruntime="false">
 			<exclude name="**/.svn/" />
 			<classpath refid="BH.core.classpath" />
 		</javac>
@@ -108,7 +108,7 @@
 				<exclude name="${plugin}.xml" />
 			</fileset>
 		</copy>
-		<javac destdir="${plugins.build.dir}/${plugin}" srcdir="${plugins.source.dir}/${plugin}" debug="${debug}" debuglevel="lines,vars,source">
+		<javac destdir="${plugins.build.dir}/${plugin}" srcdir="${plugins.source.dir}/${plugin}" debug="${debug}" debuglevel="lines,vars,source" includeantruntime="false">
 			<exclude name="**/.svn/" />
 			<classpath refid="BH.plugin.classpath" />
 		</javac>
@@ -251,7 +251,7 @@
 
 <target name="compileunittests">
 <mkdir dir="${unittests.build.dir}" />
-<javac destdir="${unittests.build.dir}" srcdir="${unittests.source.dir}" debug="${debug}" debuglevel="lines,vars,source">
+<javac destdir="${unittests.build.dir}" srcdir="${unittests.source.dir}" debug="${debug}" debuglevel="lines,vars,source" includeantruntime="false">
 	<include name="${unittests.includes}" />
 	<exclude name="**/.svn/" />
 	<classpath refid="junit.classpath" />
