@@ -49,6 +49,7 @@ import Jama.Matrix;
  */
 public class TimeSeriesCalculator_v3 {
 	/**
+	 * Test test Kai 123 Github Branch
 	 * Liste mit den Cashflows, sortiert nach Perioden
 	 */
 	private List<Calculable> cashflows = null;
