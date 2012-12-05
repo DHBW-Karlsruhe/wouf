@@ -32,7 +32,7 @@ VVSBA = VK + AVK + SBA2
 # Equations
 
 # Keys for calculation
-#VK = is.netIncome.regular.operatingCOGS.salesCost
+VK = is.netIncome.regular.operatingCOGS.salesCost
 #AVK = is.netIncome.regular.operatingCOGS.adminCost
 #SBA2 = is.netIncome.regular.operatingCOGS.otherCost
 
