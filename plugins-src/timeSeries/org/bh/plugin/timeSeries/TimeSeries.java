@@ -78,11 +78,17 @@ public class TimeSeries implements ITimeSeriesProcess {
 	
 	// -------------------------------------------------------	
 	private DTOScenario scenario;
-	private HashMap<String, Double> internalMap;
-	private HashMap<String, Integer> map;
 	private TimeSeriesCalculator_v3 calc;
 	private BHProgressBar progressB;
 	private boolean branchSpecific = false;
+
+	private Parameters parameters;
+
+	private BHTextField textPeriodenVergangenheit;
+
+	private BHTextField textPeriodenZukunft;
+
+	private BHTextField textAnzahlIterationen;
 
 	@Override
 	public String getGuiKey() {
@@ -101,10 +107,13 @@ public class TimeSeries implements ITimeSeriesProcess {
 		return instance;
 	}
 
+	/**
+	 * In dieser Methode wird das Panel erstellt, dass nach auswahl des Zeitreihenverfahrens unten zu sehen ist.
+	 * Insbesondere werden die Textfelder fuer Anzahl Perioden Vergangenheit und Anzahl Perioden Zukunft sowie
+	 * die Anzahl der durchzufuehrenden Iterationen erstellt. Ausgelesen werden sie in der methode updateParameters().
+	 */
 	@Override
 	public JPanel calculateParameters(boolean branchSpecific) {
-		internalMap = new HashMap<String, Double>();
-		map = new HashMap<String, Integer>();
 		JPanel result = new JPanel();
 
 		String rowDef = "4px,p,4px,p,4px";
@@ -116,58 +125,40 @@ public class TimeSeries implements ITimeSeriesProcess {
 
 		result.add(new BHDescriptionLabel(AMOUNT_OF_PERIODS_BACK),
 				cons.xywh(2, 2, 1, 1));
-		BHTextField tf3 = new BHTextField(AMOUNT_OF_PERIODS_BACK);
+		textPeriodenVergangenheit = new BHTextField(AMOUNT_OF_PERIODS_BACK);
 		ValidationRule[] rules3 = { VRMandatory.INSTANCE, VRIsInteger.INSTANCE,
 				VRIsGreaterThan.GTETWO, VRIsLowerThan.LTEHUNDRED };
-		tf3.setValidationRules(rules3);
-		result.add(tf3, cons.xywh(4, 2, 1, 1));
+		textPeriodenVergangenheit.setValidationRules(rules3);
+		result.add(textPeriodenVergangenheit, cons.xywh(4, 2, 1, 1));
 
 		result.add(new BHDescriptionLabel(AMOUNT_OF_PERIODS_FUTURE),
 				cons.xywh(6, 2, 1, 1));
-		BHTextField tf2 = new BHTextField(AMOUNT_OF_PERIODS_FUTURE);
+		textPeriodenZukunft = new BHTextField(AMOUNT_OF_PERIODS_FUTURE);
 		ValidationRule[] rules2 = { VRMandatory.INSTANCE, VRIsInteger.INSTANCE,
 				VRIsGreaterThan.GTZERO, VRIsLowerThan.LTEHUNDRED, VRIsGreaterThan.GTETWO };
-		tf2.setValidationRules(rules2);
-		result.add(tf2, cons.xywh(8, 2, 1, 1));
+		textPeriodenZukunft.setValidationRules(rules2);
+		result.add(textPeriodenZukunft, cons.xywh(8, 2, 1, 1));
 
 		/* TimeSeries iteration field - update 17.01.2012 */
 		result.add(new BHDescriptionLabel(AMOUNT_OF_TS_ITERATIONS),
 				cons.xywh(2, 4, 1, 1));
-		BHTextField tfTS = new BHTextField(AMOUNT_OF_TS_ITERATIONS);
-		tfTS.setText(DEFAULT_ITERATIONS);
+		textAnzahlIterationen = new BHTextField(AMOUNT_OF_TS_ITERATIONS);
+		textAnzahlIterationen.setText(DEFAULT_ITERATIONS);
 		ValidationRule[] rulesTS = { VRMandatory.INSTANCE, VRIsInteger.INSTANCE, VRIsBetween.BETWEEN100AND10000};
-		tfTS.setValidationRules(rulesTS);		
-		result.add(tfTS, cons.xywh(4, 4, 1, 1));
-		
-		
+		textAnzahlIterationen.setValidationRules(rulesTS);		
+		result.add(textAnzahlIterationen, cons.xywh(4, 4, 1, 1));
 		
 		this.panel = result;
 		return result;
 	}
 
 	public void updateParameters() {
-		Component[] components = panel.getComponents();
-		for (int i = 0; i < components.length; i++) {
-			if (components[i] instanceof BHTextField) {
-				BHTextField c = (BHTextField) components[i];
-				String key = c.getKey();
-				String text = c.getText();
-				if (internalMap.containsKey(key))
-					internalMap.put(key, Services.stringToDouble(text));
-				else
-					map.put(key, Services.stringToInt(text));
-			}
-		}
 	}
 
 	@Override
 	public DistributionMap calculate() {
 		log.info("Start time series analysis");
-		// Berechnung für den Cashflow-Chart Vergangenheit bis in die Zukunft
-		TreeMap<Integer, Double> averageCashflows = new TreeMap<Integer, Double>();
 		
-		DistributionMap resultMap = new DistributionMap(1);
-
 		TreeMap<DTOKeyPair, List<Calculable>> periods = scenario
 				.getPeriodStochasticKeysAndValues(branchSpecific);
 		Entry<DTOKeyPair, List<Calculable>> cashfl = periods.firstEntry();
@@ -226,39 +217,38 @@ public class TimeSeries implements ITimeSeriesProcess {
 			}
 		}
 		
-		int periodsInPast = map.get(AMOUNT_OF_PERIODS_BACK);
-		int periodsInFuture = map.get(AMOUNT_OF_PERIODS_FUTURE);
-		int amountOfIterations = map.get(AMOUNT_OF_TS_ITERATIONS);
-				
-		if (periodsInPast > cashValues.size() - 1) {
-			periodsInPast = cashValues.size() - 1;
-		}
+
+		parameters = new Parameters();
+		parameters.setPeriodenVergangenheit(Integer.valueOf(textPeriodenVergangenheit.getText()));
+		parameters.setPeriodenZukunft(Integer.valueOf(textPeriodenZukunft.getText()));
+		parameters.setAnzahlIterationen(Integer.valueOf(textAnzahlIterationen.getText()));
+		parameters.setNutzeWeissesRauschen(true);
+		parameters.setScenario(scenario);
+		parameters.setWerte(cashValues);
+		parameters.setStatusCallback(new TimeSeriesCalculator_v3.StatusCallback() {
+			@Override
+			public void updateStatus(int status) {
+				progressB.setValue(status);
+			}
+		});
 		
-		calc = new TimeSeriesCalculator_v3(cashValues, progressB, resultMap, scenario);
+		calc = new TimeSeriesCalculator_v3();
 
 		//Start calculation
 		DTO.setThrowEvents(false);
-		List<Calculable> cashCalc = calc.calculateCashflows(periodsInFuture,
-				periodsInPast, true, amountOfIterations, true, null, true);
+		Result result = calc.calculateCashflows(parameters, true);
 		DTO.setThrowEvents(true);
 		//End calculation
 		
-		//Calculate arithmetic average
-		int counter = 1;
-		for (Calculable cashflow : cashCalc) {
-			int key = -(cashCalc.size() - periodsInFuture) + counter;
-			double value = cashflow.toNumber().doubleValue();
-			averageCashflows.put(key, value);
-			counter++;
-		}
 		
 		branchSpecific = false;
 		
 		log.info("Time series analysis finished.");
 		
-		resultMap.setTimeSeries(this, averageCashflows, calculateCompare(3));
 		
-		return resultMap;
+		result.getResultMap().setTimeSeries(this, result.getAverageCashflows(), calculateCompare(3));
+		
+		return result.getResultMap();
 	}
 
 	@Override
