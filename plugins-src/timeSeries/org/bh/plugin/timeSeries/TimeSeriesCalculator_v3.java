@@ -21,6 +21,7 @@ import java.util.List;
 import java.util.ListIterator;
 import java.util.Map;
 import java.util.ServiceLoader;
+import java.util.TreeMap;
 
 import org.apache.commons.math.MathException;
 import org.apache.commons.math.distribution.NormalDistributionImpl;
@@ -52,93 +53,96 @@ public class TimeSeriesCalculator_v3 {
 	 * Liste mit den Cashflows, sortiert nach Perioden
 	 */
 	private List<Calculable> cashflows = null;
+	
+	public static interface StatusCallback {
+		public void updateStatus(int status);
+	}
+	
 	/**
 	 * Referenz zu einer Progressbar, diese wird falls vorhanden, den Status der
 	 * Berechnung übermittelt
 	 */
-	private BHProgressBar progressB = null;
 	private boolean interrupted;
-	private DistributionMap resultMap;
 	private DTOScenario scenario;
 	private Logger log = Logger.getLogger(TimeSeriesCalculator_v3.class);
 
-	/**
-	 * Standardkonstruktor, kopiert die übergebene Cashflowliste in den
-	 * Objektspeicher
-	 * 
-	 * @param cashflows
-	 *            Liste mit den Cashflows, sortiert nach Perioden (Vergangenheit
-	 *            nach Zukunft)
-	 */
-	public TimeSeriesCalculator_v3(List<Calculable> cashflows) {
-		this.cashflows = new LinkedList<Calculable>();// initalisiere
-														// this.cashflows
-		for (Calculable cashflow : cashflows) {// kopiere parametisierte Liste
-												// in Objektspeicher
-			this.cashflows.add(cashflow);
-		}
-	}
+//	/**
+//	 * Standardkonstruktor, kopiert die übergebene Cashflowliste in den
+//	 * Objektspeicher
+//	 * 
+//	 * @param cashflows
+//	 *            Liste mit den Cashflows, sortiert nach Perioden (Vergangenheit
+//	 *            nach Zukunft)
+//	 */
+//	public TimeSeriesCalculator_v3(List<Calculable> cashflows) {
+//		this.cashflows = new LinkedList<Calculable>();// initalisiere
+//														// this.cashflows
+//		for (Calculable cashflow : cashflows) {// kopiere parametisierte Liste
+//												// in Objektspeicher
+//			this.cashflows.add(cashflow);
+//		}
+//	}
+//
+//	/**
+//	 * Standardkonstruktor, kopiert die übergebene Cashflowliste in den
+//	 * Objektspeicher, setzt eine Referenz auf eine JProgressBar
+//	 * 
+//	 * @param cashflows
+//	 *            Liste mit den Cashflows, sortiert nach Perioden (Vergangenheit
+//	 *            nach Zukunft)
+//	 * @param progressbar
+//	 *            Referenz zu einer Progressbar, diese wird falls vorhanden, den
+//	 *            Status der Berechnung übermittelt
+//	 * @param resultMap Enthält die DistributionMap zur Speicherung des aktuellen Ergebnisses der Berechnungen
+//	 * @param scenario Das Szenario, in dem die Daten berechnet werden.
+//	 */
+//	public TimeSeriesCalculator_v3(List<Calculable> cashflows,
+//			BHProgressBar progressbar, DistributionMap resultMap, DTOScenario scenario) {
+//		this.scenario = scenario;
+//		this.resultMap = resultMap;
+//		this.cashflows = new LinkedList<Calculable>();// initalisiere
+//														// this.cashflows
+//		for (Calculable cashflow : cashflows) {// kopiere parametisierte Liste
+//												// in Objektspeicher
+//			this.cashflows.add(cashflow);
+//		}
+//		this.progressB = progressbar;
+//	}
 
-	/**
-	 * Standardkonstruktor, kopiert die übergebene Cashflowliste in den
-	 * Objektspeicher, setzt eine Referenz auf eine JProgressBar
-	 * 
-	 * @param cashflows
-	 *            Liste mit den Cashflows, sortiert nach Perioden (Vergangenheit
-	 *            nach Zukunft)
-	 * @param progressbar
-	 *            Referenz zu einer Progressbar, diese wird falls vorhanden, den
-	 *            Status der Berechnung übermittelt
-	 * @param resultMap Enthält die DistributionMap zur Speicherung des aktuellen Ergebnisses der Berechnungen
-	 * @param scenario Das Szenario, in dem die Daten berechnet werden.
-	 */
-	public TimeSeriesCalculator_v3(List<Calculable> cashflows,
-			BHProgressBar progressbar, DistributionMap resultMap, DTOScenario scenario) {
-		this.scenario = scenario;
-		this.resultMap = resultMap;
-		this.cashflows = new LinkedList<Calculable>();// initalisiere
-														// this.cashflows
-		for (Calculable cashflow : cashflows) {// kopiere parametisierte Liste
-												// in Objektspeicher
-			this.cashflows.add(cashflow);
-		}
-		this.progressB = progressbar;
-	}
-
-	/**
-	 * Liefert eine Liste mit gefaketen Cashflows
-	 * 
-	 * @param anzahl_der_zu_prognostizierenden_cashflows
-	 *            anzahl der gefakten cashflows
-	 * @return List mit Calculable
-	 */
-	public List<Calculable> getDummyNextCashflows(
-			int anzahl_der_zu_prognostizierenden_cashflows) {
-		// List<Calculable> cashflows_manipuliert;
-		List<Calculable> cashflow_mit_prognostizierung = new LinkedList<Calculable>();
-		double summe = 0;
-		for (Calculable cashflow : this.cashflows) {// Liste kopieren
-			cashflow_mit_prognostizierung.add(cashflow);
-			summe = summe + cashflow.toNumber().doubleValue();
-		}
-		double mittelwert = summe / (cashflow_mit_prognostizierung.size());
-		// System.out.println("Mittelwert= "+mittelwert);
-		double zufallsabweichung;
-		for (int i = 1; i <= anzahl_der_zu_prognostizierenden_cashflows; i++) {
-			zufallsabweichung = ((Math.random() * (2 - 1)) + 1) / 10;
-			if (Math.random() > 0.5) {
-				zufallsabweichung = zufallsabweichung + 1;
-			} else {
-				zufallsabweichung = 1 - zufallsabweichung;
-			}
-			// System.out.println(zufallsabweichung);
-			// System.out.println("Dummywert= " +
-			// (mittelwert*zufallsabweichung));
-			cashflow_mit_prognostizierung.add(new DoubleValue(mittelwert
-					* zufallsabweichung));
-		}
-		return cashflow_mit_prognostizierung;
-	}
+//	/**
+//	 * Liefert eine Liste mit gefaketen Cashflows
+//	 * 
+//	 * @param anzahl_der_zu_prognostizierenden_cashflows
+//	 *            anzahl der gefakten cashflows
+//	 * @return List mit Calculable
+//	 */
+//	public List<Calculable> getDummyNextCashflows(
+//			int anzahl_der_zu_prognostizierenden_cashflows) {
+//		// List<Calculable> cashflows_manipuliert;
+//		List<Calculable> cashflow_mit_prognostizierung = new LinkedList<Calculable>();
+//		double summe = 0;
+//		for (Calculable cashflow : this.cashflows) {// Liste kopieren
+//			cashflow_mit_prognostizierung.add(cashflow);
+//			summe = summe + cashflow.toNumber().doubleValue();
+//		}
+//		double mittelwert = summe / (cashflow_mit_prognostizierung.size());
+//		// System.out.println("Mittelwert= "+mittelwert);
+//		double zufallsabweichung;
+//		for (int i = 1; i <= anzahl_der_zu_prognostizierenden_cashflows; i++) {
+//			zufallsabweichung = ((Math.random() * (2 - 1)) + 1) / 10;
+//			if (Math.random() > 0.5) {
+//				zufallsabweichung = zufallsabweichung + 1;
+//			} else {
+//				zufallsabweichung = 1 - zufallsabweichung;
+//			}
+//			// System.out.println(zufallsabweichung);
+//			// System.out.println("Dummywert= " +
+//			// (mittelwert*zufallsabweichung));
+//			cashflow_mit_prognostizierung.add(new DoubleValue(mittelwert
+//					* zufallsabweichung));
+//		}
+//		return cashflow_mit_prognostizierung;
+//	}
 
 	/**
 	 * Kalkulierungstest für p (Berücksichtigung der Perioden der Vergangenheit)<br>
@@ -160,8 +164,6 @@ public class TimeSeriesCalculator_v3 {
 																					// mit
 																					// berücksichtigten
 																					// Cashflows
-		List<Calculable> result = null;
-		
 		int counter = 1;
 		for (Calculable cashflow : this.cashflows) {// original Liste in
 													// cashflow-Liste
@@ -178,13 +180,17 @@ public class TimeSeriesCalculator_v3 {
 			counter++;
 		}
 		
+		Parameters parameters = new Parameters();
+		parameters.setPeriodenZukunft(this.cashflows.size() - cashflows_beruecksichtigt.size());
+		parameters.setPeriodenVergangenheit(periods_to_history);
+		parameters.setNutzeWeissesRauschen(weissesRauschenISon);
+		parameters.setAnzahlIterationen(anzahlWiederholungen);
+		parameters.setWerte(cashflows_beruecksichtigt);
+		
 		DTO.setThrowEvents(false);
-		result = calculateCashflows(this.cashflows.size()
-				- cashflows_beruecksichtigt.size(), periods_to_history,
-				weissesRauschenISon, anzahlWiederholungen, false,
-				cashflows_beruecksichtigt, false);
+		Result result = calculateCashflows(parameters, false);
 		DTO.setThrowEvents(true);
-		return result;
+		return result.getCashFlowManipuliert();
 	}
 
 	/**
@@ -206,23 +212,23 @@ public class TimeSeriesCalculator_v3 {
 	 * @return Cashflowliste-Kopie mit hinzugefügten prognostizierten Cashflows
 	 * 
 	 */
-	public List<Calculable> calculateCashflows(int periods_calc_to_future,
-			int periods_calc_to_history, boolean weissesRauschenISon,
-			int anzahlWiederholungen, boolean progressBarSetzen,
-			List<Calculable> cashflows, boolean initialCalculation) {
+	public Result calculateCashflows(Parameters parameters, boolean initialCalculation) {
 		
 		log.info("Starting Cashflow calculation");
 		// System.out.println("TimeSeriesCalculator_v3: called calculateCashflows...");
 		interrupted = false;
 		
 		// zu manipulierende Liste initalisieren
+		List<Calculable> cashflows = null;
+		this.cashflows = parameters.getWerte();
+		this.scenario = parameters.getScenario();
 		List<Calculable> cashflows_manipuliert = getManipulierteCashflows(cashflows);
 		
 		// Hashmap zum sammeln der prognostizierten Cashflows mal Anzahl der Wdhn.
 		HashMap<Integer, Double> cashflow_prognos_MW_sammlung = new HashMap<Integer, Double>();
 		
 		// vorinitalisieren der prognostizierten CashFlows
-		for (int i = 0; i < periods_calc_to_future; i++) {
+		for (int i = 0; i < parameters.getPeriodenZukunft(); i++) {
 			cashflow_prognos_MW_sammlung.put(i, 0.);
 		}
 
@@ -233,56 +239,50 @@ public class TimeSeriesCalculator_v3 {
 		List<Calculable> weisses_Rauschen = null;
 		double nextCashflow = 0;
 
-		// falls weißes rauschen augeschaltet ist, setze die anzahl der wdhs auf 1,
-		// weil dann offensichtlich ein anderer Prozess wie beispielsweise Random Walk verwendet wird.		
-		if (weissesRauschenISon == false) {
-			anzahlWiederholungen = 1;
-		}
-		
 		//Um den Unternehmenswert zu berechnen.
 		IShareholderValueCalculator dcfMethod = null;
-		if(scenario != null){
+		if(parameters.getScenario() != null){
 			dcfMethod = scenario.getDCFMethod();
 		}
 		
 		
 		
 		DTOScenario tempScenario = null;
-		
+
+		DistributionMap resultMap = new DistributionMap(1);
 		// Wiederholungen durchkalkulieren
-		for (int counter = 0; counter < anzahlWiederholungen; counter++) {
+		for (int counter = 0; counter < parameters.getAnzahlIterationen(); counter++) {
 			
 			if(initialCalculation){
 				//Erzeuge ein temporäres Szenario
-				tempScenario =  getTempScenario(periods_calc_to_future);
+				tempScenario =  getTempScenario(parameters.getPeriodenZukunft());
 			}
 				
 			// ProgressBar, falls verfügbar und erwünscht, aktualisieren
 			if (interrupted) {
-				counter = anzahlWiederholungen;
+				counter = parameters.getAnzahlIterationen();
 			}
-			if (progressB != null && progressBarSetzen == true) {
-				int fortschritt = (int) (((progressB.getMaximum() / 1.0) / anzahlWiederholungen) * (counter + 1.0));
-				progressB.setValue(fortschritt);
-			}
+			
+			int fortschritt = (int) (((100 / 1.0) / parameters.getAnzahlIterationen()) * (counter + 1.0));
+			parameters.getStatusCallback().updateStatus(fortschritt);
 
 			// Variablen leeren
 			weisses_Rauschen = null;
 			nextCashflow = 0;
 
 			// Berechnung weißes Rauschen
-			if (weissesRauschenISon) {
+			if (parameters.isNutzeWeissesRauschen()) {
 				weisses_Rauschen = kalkuliere_weisses_Rauschen(
-						periods_calc_to_future, varianz, 12);
+						parameters.periodenZukunft, varianz, 12);
 				// System.out.println("weißes rauschen size "+
 				// weisses_Rauschen.size());
 			}
 
 			// Iteratives Berechnen der Cashflows...
-			for (int i = 0; i < periods_calc_to_future; i++) {
-				nextCashflow = calulateNextCashflow(cashflows_manipuliert, periods_calc_to_history);
+			for (int i = 0; i < parameters.getPeriodenZukunft(); i++) {
+				nextCashflow = calulateNextCashflow(cashflows_manipuliert, parameters.getPeriodenVergangenheit());
 				
-				if (weissesRauschenISon) {
+				if (parameters.isNutzeWeissesRauschen()) {
 					nextCashflow = nextCashflow + ((DoubleValue) weisses_Rauschen.get(i)).toNumber().doubleValue();
 				}
 				
@@ -330,20 +330,30 @@ public class TimeSeriesCalculator_v3 {
 		 *  Durchschnittliche Cashflows berechnen, indem die Summe der 
 		 *  CF durch die Anzahl der Wiederholungen geteilt wird
 		 */
-		for (int i = 0; i < periods_calc_to_future; i++) {
+		for (int i = 0; i < parameters.getPeriodenZukunft(); i++) {
 			cashflows_manipuliert
 					.add(new DoubleValue(cashflow_prognos_MW_sammlung.get(i)
-							/ anzahlWiederholungen));
+							/ parameters.getAnzahlIterationen()));
 		}
 
-		// Progressbar wert auf Abweichung prüfen und korrigieren
-		if (progressB != null && progressBarSetzen == true) {
-			progressB.setValue(progressB.getMaximum());
-		}
+		parameters.getStatusCallback().updateStatus(100);
 
 		log.info("Cashflow calculation done!");
 		
-		return cashflows_manipuliert;
+
+		
+		//Calculate arithmetic average
+		int counter = 1;
+		// Berechnung für den Cashflow-Chart Vergangenheit bis in die Zukunft
+		TreeMap<Integer, Double> averageCashflows = new TreeMap<Integer, Double>();
+		for (Calculable cf : cashflows_manipuliert) {
+			int key = -(cashflows_manipuliert.size() - parameters.getPeriodenZukunft()) + counter;
+			double value = cf.toNumber().doubleValue();
+			averageCashflows.put(key, value);
+			counter++;
+		}
+		
+		return new Result(resultMap, averageCashflows, cashflows_manipuliert);
 	}
 	
 	/**
@@ -829,15 +839,6 @@ public class TimeSeriesCalculator_v3 {
 												// in Objektspeicher
 			this.cashflows.add(cashflow);
 		}
-	}
-
-	/**
-	 * Setter-Methode für eine Referenz auf eine ProgressBar
-	 * 
-	 * @param progressB
-	 */
-	public void setProgressBar(BHProgressBar progressB) {
-		this.progressB = progressB;
 	}
 
 	public void setInterrupted() {
