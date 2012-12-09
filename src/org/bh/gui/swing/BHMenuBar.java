@@ -180,6 +180,19 @@ public final class BHMenuBar extends JMenuBar implements IPlatformListener {
 		Services.addPlatformListener(this);
 	}
 	
+	public JMenu add(JMenu component) {
+		if(menuHelp != null) {
+			remove(menuHelp);
+		}
+		
+		super.add(component);
+		
+		if(menuHelp != null) {
+			super.add(menuHelp);
+		}
+		
+		return component;
+	}
 
 	
 	public void disableMenuProjectItems(){
