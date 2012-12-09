@@ -22,6 +22,8 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Iterator;
 import java.util.List;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import javax.swing.JFileChooser;
 import javax.swing.JFrame;
@@ -726,8 +728,17 @@ class PlatformActionListener implements ActionListener {
 			// new name after duplication
 			String duplicateScenarioName = bhmf.getBHTree().getSelectionPath()
 					.getPathComponent(2).toString();
-			newScenario.put(DTOScenario.Key.NAME, new StringValue(
-					duplicateScenarioName + " (2)"));
+			Pattern pattern = Pattern.compile("\\(([1-9]+)\\)$");
+			Matcher matcher = pattern.matcher(duplicateScenarioName);
+			
+			if(matcher.find()) {
+				newScenario.put(DTOScenario.Key.NAME, new StringValue(
+						matcher.replaceFirst("(" + String.valueOf(Integer.parseInt(matcher.group(1)) + 1) + ")")));
+			}
+			else {
+				newScenario.put(DTOScenario.Key.NAME, new StringValue(
+						duplicateScenarioName + " (2)"));
+			}
 			
 			//add new Scenario into Tree...
 			BHTreeNode node = bhmf.getBHTree().addScenarioAtCurrentPos(newScenario);
