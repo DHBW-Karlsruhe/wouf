@@ -15,7 +15,10 @@
  *******************************************************************************/
 package org.bh.gui.swing;
 
+import java.awt.Component;
 import java.awt.event.ActionListener;
+import java.util.Arrays;
+import java.util.List;
 
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
@@ -181,13 +184,12 @@ public final class BHMenuBar extends JMenuBar implements IPlatformListener {
 	}
 	
 	public JMenu add(JMenu component) {
-		if(menuHelp != null) {
-			remove(menuHelp);
-		}
-		
 		super.add(component);
 		
-		if(menuHelp != null) {
+		List<Component> menuEntries = Arrays.asList(super.getComponents());
+		
+		if(menuHelp != null && menuEntries.contains(menuHelp)) {
+			remove(menuHelp);
 			super.add(menuHelp);
 		}
 		
