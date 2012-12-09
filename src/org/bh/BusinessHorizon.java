@@ -127,19 +127,14 @@ public class BusinessHorizon implements IPlatformListener{
 		Services.loadBranches();
 		log.info("Finished loading branches");
 		
-
-		// Invoke start of BHMainFrame
-		SwingUtilities.invokeLater(new Runnable() {
-			@Override
-			public void run() {
-				PlatformController.getInstance();
-			}
-		});
+		log.info("Start initializing PlatformController");
+		updateSplash("Initializing platform controller");
+		// Initialize PlatformController to save resources later
+		PlatformController.getInstance();
+		log.info("Finished initializing PlatformController");
 
 		Services.addPlatformListener(new BusinessHorizon());
 		
-//		Thread.sleep(100); // The other Thread is loading in this time anyway.
-		                   //Create the impression of something dynamic.
 		updateSplash("Loading Plattform...");
 	}
 	
